@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AbortionPlex</title>
+
+    <!-- Latest compiled and minified CSS and JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</head>
+
+  <body>
+
+    <header>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="navbar-brand">AbortionPlex</span>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              
+            
+              
+            
+              
+              <li><a class="page-link" href="/">1. Dashboard</a></li>
+              
+            
+              
+              <li><a class="page-link" href="/calling-now">2. Calling Now</a></li>
+              
+            
+              
+              <li><a class="page-link" href="/patient-info">3. Patient Info</a></li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+    <main role="main">
+        <div class="container">
+<br><br>
+<div class="col-md-12">
+
+  <form action="" method="POST" class="form-horizontal" role="form">
+
+    <div class="row" id="top_dashboard">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patient_name" class="col-sm-4 control-label">Patient Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_name" placeholder="Patient Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_phone" class="col-sm-4 control-label">Patient Phone</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_phone" placeholder="Patient Phone" value="202-345-6677">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="patient_lmp" class="col-sm-4 control-label">LMP</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_lmp" placeholder="Last Menstrual Period">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_appointment" class="col-sm-4 control-label">Date of Appointment</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_appointment" placeholder="Date of Appointment">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br><br> <!-- lazy spacing -->
+
+    <div class="row">
+      <div class="col-md-3" id="left_column">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Case Info</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Patient Info</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Call Log / Notes</li>
+          <li class="list-group-item"><button type="button" class="btn btn-primary">SUBMIT PLEDGE</button></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4" id="center_column">
+        <!-- some stuff I couldn't read, but relates to the left column -->
+        <div class="form-group">
+          <label for="patient_clinic" class="col-sm-4 control-label">Clinic</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_clinic" placeholder="Clinic">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_city" class="col-sm-4 control-label">City</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_city" placeholder="City">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_state" class="col-sm-4 control-label">State</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_state" placeholder="State">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5" id="right_column">
+        <div class="form-group">
+          <label for="patient_abortion_cost" class="col-sm-4 control-label">Abortion Cost</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_abortion_cost" placeholder="Abortion cost">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_contribution" class="col-sm-4 control-label">Pt. Contribution</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_contribution" placeholder="Patient Contribution">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_naf" class="col-sm-4 control-label">NAF Contribution</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_naf" placeholder="NAF Contribution">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_soft_pledge" class="col-sm-4 control-label">DCAF Soft Pledge</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_soft_pledge" placeholder="DCAF Soft Pledge">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patient_other_1" class="col-sm-4 control-label">Other Contribution 1</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="patient_other_1" placeholder="Other Contributions">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+</div>
+    </main>
+
+    <footer>
+
+</footer>
+
+
+  </body>
+
+</html>
