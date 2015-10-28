@@ -7,7 +7,7 @@
 
 # Site settings
 title: AbortionPlex
-baseurl: ""
+baseurl: "/abortionplex"
 
 # Build settings
 markdown: kramdown
