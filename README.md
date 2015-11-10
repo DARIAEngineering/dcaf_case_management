@@ -11,6 +11,6 @@ We're partnering with the [DC Abortion Fund](http://dcabortionfund.org/), an all
 Something here.
 
 ## For designers
-Current wireframe assets are available here: 
-[DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)
-[DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
+Current wireframe assets are available here:   
+[DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
+[DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)  
