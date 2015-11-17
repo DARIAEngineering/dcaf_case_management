@@ -16,8 +16,8 @@ Current wireframe assets are available here:
 [DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
 
 ##  Version Control
-To contribute, visit the main project page and fork from the Master Branch.
-> In your terminal, create a directory and use 'Git Clone' to store the files locally on your computer.
-> When you have made changes and you want to upload them onto Github, add and commit your changes by using the following commands: "git add" and "git commit"
-> Push to origin master by inputting `git push -u origin master`
-> Once you have pushed your changes, make a pull request.
+* To contribute, visit the main project page and fork from the Master Branch.
+* In your terminal, create a directory and use 'Git Clone' to store the files locally on your computer.
+* When you have made changes and you want to upload them onto Github, add and commit your changes by using the following commands: "git add" and "git commit"
+* Push to origin master by inputting `git push -u origin master`
+* Once you have pushed your changes, make a pull request.
