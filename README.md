@@ -2,6 +2,7 @@
 
 [http://colinxfleming.github.io/dcaf_case_management/](http://colinxfleming.github.io/dcaf_case_management/)
 
+<<<<<<< HEAD
 ## Project description
 This project is a case management system. 
 
@@ -16,3 +17,13 @@ Current wireframe assets are available here:
 [DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
 
 ## I am contributing - DD  
+
+## Working With Jekyll 
+
+This repo has a `gh-pages` branch, currently used for displaying live pages. To contribute to those pages (this assumes you have ruby installed): 
+
+* clone it -- `$ git clone git@github.com:colinxfleming/dcaf_case_management.git`
+* Install the jekyll gem -- `$ gem install jekyll`
+* Start the web server -- `$ jekyll serve --baseurl ''`
+* Navigate to `http://localhost:4000`
+* Make changes to the pages in the root directory or the assets in `_sass` and hack awawy!
