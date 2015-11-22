@@ -5,15 +5,22 @@
 ## Project description
 This project is a case management system. 
 
-We're partnering with the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that makes grants to women and girls in DC, Maryland, and Virginia who cannot afford the full cost of an abortion.
+We're working with the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that makes grants to women and girls in DC, Maryland, and Virginia who cannot afford the full cost of an abortion. `Case Managers` receive a high volume of calls from patients seeking help accessing abortion care every night, and store that information in an Excel doc which only one person at a time can access. This makes 
+
+The goals of this project are to build a system that will:
+* Let case managers store and retrieve access to patient information
+* Store all patient data safely and securely
+* Ensure multiple case managers can access and use the system at once
+* Track money spent in a given period of a week
+* Simplify administrative tasks such as paying clinics and monthly expenses reporting 
 
 ## Contributing
 This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to github, check out (this guide on github.com)[https://guides.github.com/activities/hello-world/]. 
 * To contribute, visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
 * In your terminal, create a directory and use `git clone` to store the files locally on your computer. (for example: `$ git clone git@github.com:billy_everyteen/dcaf_case_management.git`)
 * When you have made changes and you want to upload them onto Github, add and commit your changes by using the following commands: `git add` and `git commit -m "description of changes"`. 
-* Push to origin master by inputting `git push -u origin master`
-* Once you have pushed your changes, make a pull request.
+* Push to origin master by inputting `git push -u origin master` (or another branch)
+* Once you have pushed your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button. Someone else on the project will review and merge your changes, then you're good to go!
 
 ## For designers
 Current wireframe assets are available here:   
@@ -28,4 +35,4 @@ This repo has a `gh-pages` branch, currently used for displaying live pages. To 
 * Install the jekyll gem -- `$ gem install jekyll`
 * Start the web server -- `$ jekyll serve --baseurl ''`
 * Navigate to `http://localhost:4000`
-* Make changes to the pages in the root directory or the assets in `_sass` and hack awawy!
+* Make changes to the pages in the root directory or the assets in `_sass` and hack away!
