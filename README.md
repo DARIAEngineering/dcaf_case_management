@@ -5,9 +5,11 @@
 ## Project description
 This project is a case management system. 
 
-We're working with the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that makes grants to women and girls in DC, Maryland, and Virginia who cannot afford the full cost of an abortion. `Case Managers` receive a high volume of calls from patients seeking help accessing abortion care every night, and store that information in an Excel doc which only one person at a time can access. This makes 
+We're working with the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that makes grants to women and girls in DC, Maryland, and Virginia who cannot afford the full cost of an abortion. `Case Managers` receive a high volume of calls from patients seeking help accessing abortion care every night, and store that information in an Excel doc which only one person at a time can access. 
 
-The goals of this project are to build a system that will:
+As DCAF's call volume (and volunteer corps) has increased, the shortcomings of having a spreadsheet-based system have become more pronounced. Case managers have trouble making changes to the spreadsheet, occasionally overwrite changes, and are limited by the number of case managers who can access the system at a given time. This, in turn, is slowing the organization down and frustrating volunteers on the intake hotline.
+
+To solve this organizational challenge, the goals of this project are to build an accessible web-based system that will:
 * Let case managers store and retrieve access to patient information
 * Store all patient data safely and securely
 * Ensure multiple case managers can access and use the system at once
