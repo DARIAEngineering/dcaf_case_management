@@ -8,9 +8,10 @@ This project is a case management system.
 We're partnering with the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that makes grants to women and girls in DC, Maryland, and Virginia who cannot afford the full cost of an abortion.
 
 ## Contributing
-* To contribute, visit the main project page and fork from the Master Branch.
-* In your terminal, create a directory and use `git clone` to store the files locally on your computer.
-* When you have made changes and you want to upload them onto Github, add and commit your changes by using the following commands: `git add` and `git commit`
+This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to github, check out (this guide on github.com)[https://guides.github.com/activities/hello-world/]. 
+* To contribute, visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
+* In your terminal, create a directory and use `git clone` to store the files locally on your computer. (for example: `$ git clone git@github.com:billy_everyteen/dcaf_case_management.git`)
+* When you have made changes and you want to upload them onto Github, add and commit your changes by using the following commands: `git add` and `git commit -m "description of changes"`. 
 * Push to origin master by inputting `git push -u origin master`
 * Once you have pushed your changes, make a pull request.
 
