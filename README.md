@@ -15,7 +15,8 @@ We're partnering with the [DC Abortion Fund](http://dcabortionfund.org/), an all
 * Once you have pushed your changes, make a pull request.
 
 ## For designers
-Current wireframe assets are available here:   
+Current wireframe assets are available here: 
+[DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
 [DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
 [DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
 
