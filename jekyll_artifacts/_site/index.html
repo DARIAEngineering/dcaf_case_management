@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCAF Case Management System</title>
+
+    <!-- include styles in _sass/*.scss -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS and JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</head>
+
+  <body>
+
+    <header>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="navbar-brand">DCAF Case Management</span>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              
+            
+              
+            
+              
+              <li><a class="page-link" href="/">1. Dashboard</a></li>
+              
+            
+              
+              <li><a class="page-link" href="/calling-now">2. Calling Now</a></li>
+              
+            
+              
+              <li><a class="page-link" href="/patient-info">3. Patient Info</a></li>
+              
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+    <main role="main">
+        <div class="container">
+  <div class="col-md-12">
+
+    <div id="overview">
+      <h4>Week of August 24 - 31</h4>
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" style="width: 35%">
+          <span class="sr-only">35% Complete (success)</span>
+        </div>
+        <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+          <span class="sr-only">20% Complete (warning)</span>
+        </div>
+        <div class="progress-bar progress-bar-danger" style="width: 10%">
+          <span class="sr-only">10% Complete (danger)</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="call_list_builder">
+      <h4>Build your call list <small>today's voicemails below</small></h4>
+
+      <form action="" id="call_list_builder_form" method="POST" class="form-horizontal" role="form">
+        <div class="form-group">
+          <div class="col-sm-10">
+            <input type="text" name="" id="input" class="form-control col-sm-9" value="" required="required" pattern="" title="" placeholder="name or phone">
+          </div>
+          <div class="col-sm-2">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div id="call_list">
+      <h4>Your Call List</h4>
+      <table class="table table-bordered">
+        <tr>
+          <th>Phone</th>
+          <th>Name</th>
+          <th>LMP</th> <!-- last menstrual period -->
+          <th>Case Notes</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>202-345-6677</td>
+          <td>Milly G</td>
+          <td>17 weeks</td>
+          <td>(sample case notes. something or other. detail)</td>
+          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+        </tr>
+        <tr>
+          <td>202-345-6677</td>
+          <td>Susan B</td>
+          <td>12 weeks</td>
+          <td>(sample case notes. something or other. detail)</td>
+          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+        </tr>
+        <tr>
+          <td>202-345-6677</td>
+          <td>Patty W</td>
+          <td>9 weeks</td>
+          <td>(sample case notes. something or other. detail)</td>
+          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="urgent_cases">
+      <h4>Urgent Cases</h4>
+      <table class="table table-bordered">
+        <tr>
+          <th>Phone</th>
+          <th>Name</th>
+          <th>LMP</th> <!-- last menstrual period -->
+          <th>Case Notes</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>202-345-6677</td>
+          <td>Sue F</td>
+          <td>15 weeks</td>
+          <td>(sample case notes. something or other. detail)</td>
+          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+        </tr>
+        <tr>
+          <td>202-345-6677</td>
+          <td>Sue F</td>
+          <td>15 weeks</td>
+          <td>(sample case notes. something or other. detail)</td>
+          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+    </main>
+
+    <footer>
+
+</footer>
+
+
+  </body>
+
+</html>
