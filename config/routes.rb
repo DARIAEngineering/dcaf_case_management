@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :case
+  resources :cases
   root 'case#index'
 
   # Example of regular route:
