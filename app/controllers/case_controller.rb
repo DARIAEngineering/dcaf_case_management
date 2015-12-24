@@ -8,7 +8,16 @@ class CaseController < ApplicationController
   def create
   end
 
+  def show
+  end
+
+  def sample
+  end
+
   def edit
+  end
+
+  def update
   end
 
   def destroy

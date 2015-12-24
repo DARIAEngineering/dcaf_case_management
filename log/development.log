@@ -1054,3 +1054,1484 @@ Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bd
 
 
 Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-21 20:34:32 -0500
+
+
+Started GET "/case/" for ::1 at 2015-12-23 11:24:42 -0700
+Processing by CaseController#index as HTML
+  Rendered case/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 700ms (Views: 674.0ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 11:25:53 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 56ms (Views: 54.2ms)
+
+
+Started GET "/" for ::1 at 2015-12-23 11:30:44 -0700
+Processing by CaseController#index as HTML
+  Rendered case/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 138ms (Views: 122.7ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 11:30:46 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.2ms)
+Completed 200 OK in 36ms (Views: 34.8ms)
+
+
+Started GET "/assets/application.self-70df7b934ccbfc9674c6b6aa670b058d08a47ff9785ba67a1a8462bf9975491c.css?body=1" for ::1 at 2015-12-23 11:30:46 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 11:30:47 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 11:30:47 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 11:30:47 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 11:30:47 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 11:30:47 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 11:30:47 -0700
+
+
+Started GET "/" for ::1 at 2015-12-23 11:57:36 -0700
+Processing by CaseController#index as HTML
+  Rendered case/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 264ms (Views: 236.1ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 11:57:40 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 36ms (Views: 34.7ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 11:59:56 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 500 Internal Server Error in 68ms
+
+ActionView::Template::Error (Invalid CSS after "@charset "utf-8"": expected "{", was ";"):
+    2: <html>
+    3: <head>
+    4:   <title>DcafCaseManagement</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <%= csrf_meta_tags %>
+    8: </head>
+  app/assets/stylesheets/application.css.scss:7
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb__845633573671986394_70305747198920'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (9.7ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.2ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.8ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (35.7ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (25.6ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.6ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (82.6ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:00:35 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 500 Internal Server Error in 1220ms
+
+ActionView::Template::Error (Undefined variable: "$base-font-weight".):
+    2: <html>
+    3: <head>
+    4:   <title>DcafCaseManagement</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <%= csrf_meta_tags %>
+    8: </head>
+  app/assets/stylesheets/application.css.scss:20
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb__845633573671986394_70305747198920'
+
+
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (15.6ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (6.6ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (44.3ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (18.1ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Library/Ruby/Gems/2.0.0/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (39.3ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:00:46 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 3425ms (Views: 3423.5ms)
+
+
+Started GET "/assets/application.self-70df7b934ccbfc9674c6b6aa670b058d08a47ff9785ba67a1a8462bf9975491c.css?body=1" for ::1 at 2015-12-23 12:00:49 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:00:49 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:00:49 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:00:49 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:00:49 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:00:49 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:00:49 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:01:17 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 35ms (Views: 34.2ms)
+
+
+Started GET "/assets/application.self-70df7b934ccbfc9674c6b6aa670b058d08a47ff9785ba67a1a8462bf9975491c.css?body=1" for ::1 at 2015-12-23 12:01:17 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:01:18 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:01:18 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:01:18 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:01:18 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:01:18 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:01:18 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:01:48 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 30ms (Views: 29.7ms)
+
+
+Started GET "/assets/application.self-70df7b934ccbfc9674c6b6aa670b058d08a47ff9785ba67a1a8462bf9975491c.css?body=1" for ::1 at 2015-12-23 12:01:48 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:01:48 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:01:48 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:01:48 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:01:48 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:01:48 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:01:48 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:02:14 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 3468ms (Views: 3466.9ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:02:18 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:02:18 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:02:18 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:02:18 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:02:18 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:02:18 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:02:18 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:02:19 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 28ms (Views: 26.4ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:02:19 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:02:19 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:02:19 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:02:19 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:02:19 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:02:19 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:02:20 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:04:49 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 117ms (Views: 101.3ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:04:49 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:04:49 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:04:50 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:04:50 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:04:50 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:04:50 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:04:50 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:05:16 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 28ms (Views: 27.4ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:05:17 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:05:17 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:05:17 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:05:17 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:05:17 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:05:17 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:05:17 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:05:59 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 81ms (Views: 75.3ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:06:00 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:06:00 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:06:00 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:06:00 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:06:00 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:06:00 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:06:00 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:06:09 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 25ms (Views: 23.8ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:06:09 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:06:09 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:06:09 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:06:09 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:06:09 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:06:09 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:06:09 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:06:24 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 76ms (Views: 70.0ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:06:24 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:06:24 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:06:25 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:06:25 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:06:25 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:06:25 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:06:25 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:08:22 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 35ms (Views: 33.6ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:08:22 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:08:22 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:08:22 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:08:22 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:08:22 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:08:22 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:08:22 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:08:36 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 25ms (Views: 23.8ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:08:37 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:08:37 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:08:37 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:08:37 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:08:37 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:08:37 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:08:37 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:08:39 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 34ms (Views: 32.8ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:08:39 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:08:39 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:08:39 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:08:39 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:08:39 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:08:39 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:08:39 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:08:42 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 22ms (Views: 21.3ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:08:42 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:08:42 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:08:42 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:08:42 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:08:42 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:08:42 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:08:43 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:08:50 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 22ms (Views: 20.4ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:08:51 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:08:51 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:08:51 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:08:51 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:08:51 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:08:51 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:08:51 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:09:17 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 31ms (Views: 29.8ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:09:17 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:09:17 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:09:17 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:09:17 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:09:17 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:09:17 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:09:17 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:14:36 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (3.7ms)
+Completed 200 OK in 85ms (Views: 77.2ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:14:36 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:14:36 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:14:36 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:14:36 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:14:36 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:14:36 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:14:36 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:14:42 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 32ms (Views: 30.8ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:14:42 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:14:42 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:14:42 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:14:42 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:14:42 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:14:42 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:14:42 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:15:07 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 24ms (Views: 23.5ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:15:07 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:15:07 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:15:07 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:15:07 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:15:07 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:15:07 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:15:07 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:16:20 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 37ms (Views: 36.2ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:16:21 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:16:21 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:16:21 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:16:21 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:16:21 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:16:21 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:16:21 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:17:36 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (5.6ms)
+Completed 200 OK in 108ms (Views: 97.8ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:17:36 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:17:36 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:17:36 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:17:36 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:17:36 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:17:36 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:17:36 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:18:24 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 42ms (Views: 40.8ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:18:25 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:18:25 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:18:25 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:18:25 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:18:25 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:18:25 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:18:25 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 12:18:42 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 22ms (Views: 20.8ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 12:18:42 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 12:18:42 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 12:18:42 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 12:18:42 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 12:18:42 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 12:18:42 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 12:18:42 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 14:54:03 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 92ms (Views: 85.3ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 14:54:04 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 14:54:04 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 14:54:04 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 14:54:04 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 14:54:04 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 14:54:04 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 14:54:04 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 14:54:23 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 45ms (Views: 43.3ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 14:54:23 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 14:54:23 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 14:54:23 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 14:54:23 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 14:54:23 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 14:54:23 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 14:54:23 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 14:55:32 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 309ms (Views: 307.9ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 14:55:32 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 14:55:33 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 14:55:33 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 14:55:33 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 14:55:33 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 14:55:33 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 14:55:33 -0700
+
+
+Started GET "/" for ::1 at 2015-12-23 18:43:39 -0700
+Processing by CaseController#index as HTML
+  Rendered case/index.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 137ms (Views: 127.0ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:43:44 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 60ms (Views: 59.2ms)
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:44:23 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (7.0ms)
+Completed 200 OK in 47ms (Views: 43.8ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:44:24 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:44:24 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:44:24 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:44:24 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:44:24 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:44:24 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:44:24 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:44:37 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 40ms (Views: 39.0ms)
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:44:37 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:44:37 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:44:37 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:44:37 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:44:37 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:44:37 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:44:37 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:44:47 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 41ms (Views: 39.5ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:44:47 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:44:47 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:44:47 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:44:47 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:44:47 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:44:47 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:44:48 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:44:59 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 20ms (Views: 19.3ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:44:59 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:44:59 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:44:59 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:44:59 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:44:59 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:44:59 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:44:59 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:45:41 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 34ms (Views: 32.7ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:45:41 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:45:41 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:45:41 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:45:41 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:45:41 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:45:41 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:45:41 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:46:01 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 34ms (Views: 30.8ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:46:01 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:46:01 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:46:01 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:46:01 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:46:01 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:46:01 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:46:01 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:46:21 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 22ms (Views: 21.4ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:46:22 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:46:22 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:46:22 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:46:22 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:46:22 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:46:22 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:46:22 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:47:09 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 35ms (Views: 34.5ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:47:10 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:47:10 -0700
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:47:10 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:47:10 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:47:10 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:47:10 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:47:10 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:48:10 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 47ms (Views: 45.5ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:48:10 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:48:10 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:48:10 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:48:10 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:48:10 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:48:10 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:48:10 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:48:23 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 38ms (Views: 37.0ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:48:24 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:48:24 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:48:24 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:48:24 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:48:24 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:48:24 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:48:24 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:49:19 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 189ms (Views: 187.7ms)
+
+
+Started GET "/assets/application.self-2e6b60eae44deeb0fef641e7fa77efda916acc07b99172f5cf530a4400c88fd4.css?body=1" for ::1 at 2015-12-23 18:49:20 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:49:20 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:49:20 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:49:20 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:49:20 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:49:20 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:49:20 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:50:39 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 3368ms (Views: 3367.5ms)
+
+
+Started GET "/assets/application.self-17488f504a72105c60c680a7621cb4029c1855f7402351e2805691e189a14aac.css?body=1" for ::1 at 2015-12-23 18:50:42 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:50:42 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:50:42 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:50:42 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:50:42 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:50:42 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:50:42 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 18:51:12 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 3180ms (Views: 3178.3ms)
+
+
+Started GET "/assets/application.self-7823fdfe62e048d31ef5f2d6a7de39c1f78567f62afef957bb62c9d6712cb182.css?body=1" for ::1 at 2015-12-23 18:51:15 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 18:51:15 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 18:51:15 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 18:51:15 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 18:51:15 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 18:51:15 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 18:51:15 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:30:50 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 84ms (Views: 75.4ms)
+
+
+Started GET "/assets/application.self-7823fdfe62e048d31ef5f2d6a7de39c1f78567f62afef957bb62c9d6712cb182.css?body=1" for ::1 at 2015-12-23 20:30:50 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:30:50 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:30:50 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:30:50 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:30:50 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:30:50 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:30:50 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:31:18 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 43ms (Views: 41.6ms)
+
+
+Started GET "/assets/application.self-7823fdfe62e048d31ef5f2d6a7de39c1f78567f62afef957bb62c9d6712cb182.css?body=1" for ::1 at 2015-12-23 20:31:18 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:31:18 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:31:18 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:31:18 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:31:18 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:31:18 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:31:19 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:34:04 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 3131ms (Views: 3129.9ms)
+
+
+Started GET "/assets/application.self-586b2d8f05ede0db795e0a4fac4c7671e6d2880481638249db505538c43aed39.css?body=1" for ::1 at 2015-12-23 20:34:07 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:34:07 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:34:07 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:34:07 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:34:07 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:34:07 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:34:08 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:34:13 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 28ms (Views: 27.5ms)
+
+
+Started GET "/assets/application.self-586b2d8f05ede0db795e0a4fac4c7671e6d2880481638249db505538c43aed39.css?body=1" for ::1 at 2015-12-23 20:34:14 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:34:14 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:34:14 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:34:14 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:34:14 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:34:14 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:34:14 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:34:26 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 3266ms (Views: 3265.2ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:34:30 -0700
+
+
+Started GET "/assets/application.self-96d24f3de340bdb29f2f73fbd5ca46fe04258a815789735d04a9441b67e895a9.css?body=1" for ::1 at 2015-12-23 20:34:30 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:34:30 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:34:30 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:34:30 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:34:30 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:34:30 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:34:44 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 3198ms (Views: 3196.7ms)
+
+
+Started GET "/assets/application.self-4e38a64a33c4d5918770c6e70a17d8defbba37d2a4c769abad7b217cf289f393.css?body=1" for ::1 at 2015-12-23 20:34:47 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:34:47 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:34:47 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:34:47 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:34:47 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:34:47 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:34:47 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:36:48 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 3367ms (Views: 3359.1ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:36:51 -0700
+
+
+Started GET "/assets/application.self-82c3b603ac380162bf85c134d019127b1b3c199a9b212e00f151523f02b13155.css?body=1" for ::1 at 2015-12-23 20:36:51 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:36:51 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:36:51 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:36:51 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:36:51 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:36:52 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:37:01 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 2673ms (Views: 2672.6ms)
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:37:04 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:37:04 -0700
+
+
+Started GET "/assets/application.self-1a80b52ddc00a5c003ccc47d8793050128cecaa851eaefddd1861953f2ab0275.css?body=1" for ::1 at 2015-12-23 20:37:04 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:37:04 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:37:04 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:37:04 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:37:04 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:37:26 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 2904ms (Views: 2902.5ms)
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:37:29 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:37:29 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:37:29 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:37:29 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:37:29 -0700
+
+
+Started GET "/assets/application.self-7255d880ae567fe905d170528be30f3a55c0440d4f686c3bd30f9b34d98cfbfc.css?body=1" for ::1 at 2015-12-23 20:37:29 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:37:29 -0700
