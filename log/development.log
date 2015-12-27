@@ -2535,3 +2535,59 @@ Started GET "/assets/application.self-7255d880ae567fe905d170528be30f3a55c0440d4f
 
 
 Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:37:29 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:39:08 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 2914ms (Views: 2912.2ms)
+
+
+Started GET "/assets/application.self-15457512605e26c08c7ac93444e9f664e4efea9bf69884319a1e45f76558ab6a.css?body=1" for ::1 at 2015-12-23 20:39:11 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:39:11 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:39:11 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:39:11 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:39:11 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:39:11 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:39:11 -0700
+
+
+Started GET "/case/sample" for ::1 at 2015-12-23 20:39:18 -0700
+Processing by CaseController#show as HTML
+  Parameters: {"id"=>"sample"}
+  Rendered case/show.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 2665ms (Views: 2664.3ms)
+
+
+Started GET "/assets/application.self-04cefd1c2fbcbadd4782d0d4b35b48265717ea40efae2747117686c00bf14990.css?body=1" for ::1 at 2015-12-23 20:39:21 -0700
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-23 20:39:21 -0700
+
+
+Started GET "/assets/case.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2015-12-23 20:39:21 -0700
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-23 20:39:21 -0700
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-23 20:39:21 -0700
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-23 20:39:21 -0700
+
+
+Started GET "/assets/bootstrap/glyphicons-halflings-regular-fe185d11a49676890d47bb783312a0cda5a44c4039214094e7957b4c040ef11c.woff2" for ::1 at 2015-12-23 20:39:21 -0700
