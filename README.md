@@ -29,8 +29,8 @@ First things first: Make a copy of your own to wrench on! Go to `https://github.
 If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB: 
 
     Sign into `https://c9.io/` and create a new workspace
-    Clone from `git@github.com:{your_github_username}/dcaf_case_management.git`
-    `$ bundle install` from the terminal
+    Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
+    Once created, `$ bundle install` from the terminal
     `$ mongod` to start MongoDB
     Hit the `Run Project` button up top
 
