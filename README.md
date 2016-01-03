@@ -13,22 +13,33 @@ We're generally looking for people comfortable or interested in the following:
 * NoSQL / flat data modeling
 * Nonprofit data issues 
 
-Get started by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](TK), and looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ). Hit up @colinxfleming and Mollie with any questions. 
-
-To solve this organizational challenge, the goals of this project are to build an accessible web-based system that will:
-* Let case managers store and retrieve access to patient information
-* Store all patient data safely and securely
-* Ensure multiple case managers can access and use the system at once
-* Track money spent in a given period of a week
-* Simplify administrative tasks such as paying clinics and monthly expenses reporting 
+Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](TK), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and the `#dcaf_case_management` channel on Slack. Hit up @colinxfleming and Mollie with any questions. 
 
 ## How Do I Contribute? 
 This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to github, check out (this guide on github.com)[https://guides.github.com/activities/hello-world/]. 
 * To contribute, visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
-* In your terminal, create a directory and use `git clone` to store the files locally on your computer. (for example: `$ git clone git@github.com:YOUR_GITHUB_USERNAME/dcaf_case_management.git`)
-* When you have made changes and you want to upload them onto Github, add and commit your changes by using the following commands: `git add` and `git commit -m "description of changes"`. 
-* Push to origin master by inputting `git push -u origin master` (or another branch)
-* Once you have pushed your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button. Someone else on the project will review and merge your changes, then you're good to go!
+* Do any work in your local environment and commit it to your fork in github.
+* Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button. Someone else on the project will review and merge your changes, then you're good to go!
+
+## Setting Things Up Locally 
+
+First things first: Make a copy of your own to wrench on! Go to `https://github.com/colinxfleming/dcaf_case_management` and hit `fork`.
+
+If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB: 
+
+    Sign into https://c9.io/ and create a new workspace
+    Clone from `git@github.com:{your_github_username}/dcaf_case_management.git`
+    `$ bundle install` from the terminal
+    `$ mongod` to start MongoDB
+    Hit the `Run Project` button up top
+
+If you do prefer a local environment, do the following: 
+
+    # Install Ruby, Rails and MongoDB
+    `$ git clone git@github.com:{your_github_username}/dcaf_case_management.git && cd dcaf_case_management`
+    `$ bundle install`
+    `$ rails server`
+    # navigate your browser to `http://localhost:3000`
 
 ## For designers
 The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ).
@@ -40,7 +51,7 @@ Current wireframe assets are available here:
 
 ## Setting up MongoDB
 
-* Install MongoDB locally if you haven't (`$ brew install mongodb`, for example)
+* Install MongoDB locally if you haven't (`$ brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
 * `$ bundle install` to install necessary gems
 * Create a folder in the root directory for the MongoDB database. `$ sudo mkdir -p /data/db`
 * Allow for MongoDB read/write permissions `$ sudo chmod 777 data/db`
