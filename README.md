@@ -16,10 +16,10 @@ To solve this organizational challenge, the goals of this project are to build a
 * Track money spent in a given period of a week
 * Simplify administrative tasks such as paying clinics and monthly expenses reporting 
 
-## Contributing
+## How Do I Contribute? 
 This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to github, check out (this guide on github.com)[https://guides.github.com/activities/hello-world/]. 
 * To contribute, visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
-* In your terminal, create a directory and use `git clone` to store the files locally on your computer. (for example: `$ git clone git@github.com:billy_everyteen/dcaf_case_management.git`)
+* In your terminal, create a directory and use `git clone` to store the files locally on your computer. (for example: `$ git clone git@github.com:YOUR_GITHUB_USERNAME/dcaf_case_management.git`)
 * When you have made changes and you want to upload them onto Github, add and commit your changes by using the following commands: `git add` and `git commit -m "description of changes"`. 
 * Push to origin master by inputting `git push -u origin master` (or another branch)
 * Once you have pushed your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button. Someone else on the project will review and merge your changes, then you're good to go!
