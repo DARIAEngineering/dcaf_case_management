@@ -23,6 +23,7 @@ Current wireframe assets are available here:
 ## Setting up MongoDB
 
 * Install MongoDB locally if you haven't (`$ brew install mongodb`, for example)
+* `$ bundle install` to install necessary gems
 * Create a folder in the root directory for the MongoDB database. `$ sudo mkdir -p /data/db`
 * Allow for MongoDB read/write permissions `$ sudo chmod 777 data/db`
 * Start 'er up with `$ mongod`
