@@ -20,6 +20,13 @@ Current wireframe assets are available here:
 * [DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
 * [DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
 
+## Setting up MongoDB
+
+* Link to Mongo DB drivers for Rails (https://docs.mongodb.org/ecosystem/drivers/ruby/)
+* Install the Ruby Gem 'Mongoid 5.0.0', bundle install
+* Create a folder in the root directory for the MongoDB database. `--mkdir /data/db`
+* Allow for MongoDB read/write permissions `--chmod 777 data/db `, `--chown -R id -u /data/db`
+
 ## Working With Jekyll 
 
 This repo has a `gh-pages` branch, currently used for displaying live pages. To contribute to those pages (this assumes you have ruby installed): 
