@@ -22,10 +22,11 @@ Current wireframe assets are available here:
 
 ## Setting up MongoDB
 
-* Link to Mongo DB drivers for Rails (https://docs.mongodb.org/ecosystem/drivers/ruby/)
-* Install the Ruby Gem 'Mongoid 5.0.0', bundle install
-* Create a folder in the root directory for the MongoDB database. `--mkdir /data/db`
-* Allow for MongoDB read/write permissions `--chmod 777 data/db `, `--chown -R id -u /data/db`
+* Install MongoDB locally if you haven't (`$ brew install mongodb`, for example)
+* `$ bundle install` to install necessary gems
+* Create a folder in the root directory for the MongoDB database. `$ sudo mkdir -p /data/db`
+* Allow for MongoDB read/write permissions `$ sudo chmod 777 data/db`
+* Start 'er up with `$ mongod`
 
 ## Working With Jekyll 
 
