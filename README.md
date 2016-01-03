@@ -19,7 +19,8 @@ Get started with the how-and-why of the project by [checking out DCAF](http://dc
 This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to github, check out (this guide on github.com)[https://guides.github.com/activities/hello-world/]. 
 * To contribute, visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
 * Do any work in your local environment and commit it to your fork in github.
-* Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button. Someone else on the project will review and merge your changes, then you're good to go!
+* Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button.
+* At least one other person (probably @colinxfleming) will review and comment on code changes, and work with you to resolve issues, and merge the pull request when it's ready.
 
 ## Setting Things Up Locally 
 
@@ -27,7 +28,7 @@ First things first: Make a copy of your own to wrench on! Go to `https://github.
 
 If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB: 
 
-    Sign into https://c9.io/ and create a new workspace
+    Sign into `https://c9.io/` and create a new workspace
     Clone from `git@github.com:{your_github_username}/dcaf_case_management.git`
     `$ bundle install` from the terminal
     `$ mongod` to start MongoDB
