@@ -6,7 +6,7 @@ class User
          :recoverable, :rememberable, :trackable, :validatable
 
   # Non-devise generated
-  field :name, type: String, default: ""
+  field :name, type: String
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -38,4 +38,7 @@ class User
   # field :locked_at,       type: Time
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  # Validations
+  validates_presence_of :email, :name
 end
