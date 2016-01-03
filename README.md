@@ -20,6 +20,13 @@ Current wireframe assets are available here:
 * [DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
 * [DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
 
+## Dockerizing
+
+To manage the dependencies and save us all some headache, we've Dockered this app. If you have `boot2docker` and `docker` installed, you can run the following: 
+* `$ boot2docker up`
+* `$ docker-compose build && docker-compose up`
+* Navigate your browser to `http://localhost:3000`
+
 ## Setting up MongoDB
 
 * Install MongoDB locally if you haven't (`$ brew install mongodb`, for example)
