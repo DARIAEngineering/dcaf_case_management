@@ -3,11 +3,17 @@
 [http://colinxfleming.github.io/dcaf_case_management/](http://colinxfleming.github.io/dcaf_case_management/)
 
 ## Project description
-This project is a case management system. 
+This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets. 
 
-We're working with the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that makes grants to women and girls in DC, Maryland, and Virginia who cannot afford the full cost of an abortion. `Case Managers` receive a high volume of calls from patients seeking help accessing abortion care every night, and store that information in an Excel doc which only one person at a time can access. 
+If you're interested: This is a great opportunity to learn about common nonprofit data problems, try out Rails, or just contribute to a project that will have a great positive impact on reproductive justice for people in the DC area. Come say hi, we're friendly! 
 
-As DCAF's call volume (and volunteer corps) has increased, the shortcomings of having a spreadsheet-based system have become more pronounced. Case managers have trouble making changes to the spreadsheet, occasionally overwrite changes, and are limited by the number of case managers who can access the system at a given time. This, in turn, is slowing the organization down and frustrating volunteers on the intake hotline.
+We're generally looking for people comfortable or interested in the following:
+* Ruby on Rails (a good starter kit: [CodeAcademy's course](http://www.codecademy.com/learn/learn-rails))
+* JQuery / HTML / CSS
+* NoSQL / flat data modeling
+* Nonprofit data issues 
+
+Get started by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](TK), and looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ). Hit up @colinxfleming and Mollie with any questions. 
 
 To solve this organizational challenge, the goals of this project are to build an accessible web-based system that will:
 * Let case managers store and retrieve access to patient information
@@ -25,6 +31,8 @@ This project runs on Github forks and pull requests, so we can be sure to make c
 * Once you have pushed your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button. Someone else on the project will review and merge your changes, then you're good to go!
 
 ## For designers
+The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ).
+
 Current wireframe assets are available here: 
 * [DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
 * [DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
@@ -37,6 +45,8 @@ Current wireframe assets are available here:
 * Create a folder in the root directory for the MongoDB database. `$ sudo mkdir -p /data/db`
 * Allow for MongoDB read/write permissions `$ sudo chmod 777 data/db`
 * Start 'er up with `$ mongod`
+
+# Depreciated Readme stuff
 
 ## Working With Jekyll 
 
