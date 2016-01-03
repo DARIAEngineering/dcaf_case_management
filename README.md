@@ -22,10 +22,8 @@ Current wireframe assets are available here:
 
 ## Dockerizing
 
-To manage the dependencies and save us all some headache, we've Dockered this app. If you have `boot2docker` and `docker` installed, you can run the following: 
-* `$ boot2docker up`
+To manage the dependencies and save us all some headache, we've Dockered this app. If you're docker-savvy, you can run the following to fire up mongo and the rails server: 
 * `$ docker-compose build && docker-compose up`
-* Navigate your browser to `http://localhost:3000`
 
 ## Setting up MongoDB
 
