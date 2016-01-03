@@ -25,9 +25,18 @@ This project runs on Github forks and pull requests, so we can be sure to make c
 * Once you have pushed your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button. Someone else on the project will review and merge your changes, then you're good to go!
 
 ## For designers
-Current wireframe assets are available here:   
-[DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
-[DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
+Current wireframe assets are available here: 
+* [DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
+* [DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
+* [DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
+
+## Setting up MongoDB
+
+* Install MongoDB locally if you haven't (`$ brew install mongodb`, for example)
+* `$ bundle install` to install necessary gems
+* Create a folder in the root directory for the MongoDB database. `$ sudo mkdir -p /data/db`
+* Allow for MongoDB read/write permissions `$ sudo chmod 777 data/db`
+* Start 'er up with `$ mongod`
 
 ## Working With Jekyll 
 
