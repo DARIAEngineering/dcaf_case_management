@@ -21,5 +21,10 @@ group :development, :test do
 end
 
 group :test do 
+  gem 'minitest-reporters'
+  gem 'mini_backtrace'
+  gem 'minitest-spec-rails'
   gem 'factory_girl_rails'
+  gem 'faker'
 end
+
