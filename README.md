@@ -1,5 +1,7 @@
 # Case management system
 
+![CircleCI](https://circleci.com/gh/colinxfleming/dcaf_case_management.svg?style=shield)
+
 [http://colinxfleming.github.io/dcaf_case_management/](http://colinxfleming.github.io/dcaf_case_management/)
 
 ## Project description
