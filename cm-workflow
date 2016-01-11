@@ -1,0 +1,93 @@
+Introduction to Case Manager Workflow:
+Create rough explanation of case manager workflow, needs from patients and case managers, and data needed at each step.
+PT = patient; CM = DCAF case manager; DCAF = DCAF Staff; APPT = appointment for abortion procedure; DCMS = DCAFCase Management System; Status = current status of PT within the DCAF workflow
+
+1. PT Initial Contact
+  PT: Calls DAF; Leaves voicemail
+  CM: 
+  Data:
+  Status: 
+
+2. Create call list
+  PT: 
+  CM: Listens to voicemail inbox; Creates call list via DCMS (Step2a/b)
+  Data: PT phone numbers
+  Status: 
+
+2a. Call list - New PT
+  PT: 
+  CM: Search of DCMS; Number not found; New PT file created with phone number and name; Number placed into call list
+  Data: PT phone numbers; PT names
+  Status: New
+
+2b. Call list - Existing PT 
+  PT: 
+  CM: Search DCMS; Number found; Number placed into call list
+  Data: PT phone number; PT file
+  Status: Reached/Not Reached
+
+3. Call list triage
+  PT: 
+  CM: Triage of call list by preset factors (APPT <2 days away; >15wk gestation; complex cases, etc.)
+  Data: PT file; APPT date; Other notes
+  Status: Reached/Not Reached
+
+4a. Call PT - Reach PT - New/Incomplete PT
+  PT: PT gives information on her case
+  CM: CM fills out information; if new PT, gives PT references to possible clinics if needed and other funding sources; tells PT to call back and leave another message (Go to Step1)
+  Data: All; Case update notes
+  Status: Reached
+
+4b. Call PT - Did Not Reach PT - VM OK
+  PT:
+  CM: Leaves VM (Go to Step1)
+  Data: Record of call; if VM was left (yes)
+  Status: Not Reached
+
+4c. Call PT - Did Not Reach PT - VM NOT OK or No VM Setup/Full
+  PT: 
+  CM: CM does not leave VM; Abortoplex records call attempt (Go to Step1)
+  Data: Record of call; if VM was left (no)
+  Status: Not Reached
+
+4d. Call PT - Reach PT - Complete PT
+  PT: Gives information on case; Confirms fundraising is complete
+  CM: Confirms pledge will be sent with PT (Go to Step 5)
+  Data: Case update notes; Final pledge numbers
+  Status: Pledged
+
+5a. Confirm Pledge
+  PT: Confirm name, information, APPT date/clinic/amount pledged
+  CM: Confirm name, information, APPT date/clinic/amount pledged; Sends pledge
+  Data: All
+  Status: Pledged
+
+5b: Pledge Form Created
+  PT: 
+  CM: Abortoplex autocreates pledge form in pdf
+  Data: All; Pledge pdf
+  Status: Pledged
+  
+5c: Pledge Sent
+  PT: 
+  CM: Send pledge through external online fax system
+  Data: Pledge pdf
+  Status: Pledged
+  
+6: Appointment
+  PT: Goes to APPT; has procedure
+  DCAF: Receives pledge form from clinic
+  Data: Pledge pdf; APPT date; Amount pledged
+  Status: Pledged
+  
+7a: Payment Confirmation
+  PT:
+  DCAF: Confirms PT pledge data in DCMS; Switches status to PAID
+  Data: Pledge pdf; APPT date; Amount pledged
+  Status: Paid
+  
+7b: Payment Sent
+  PT:
+  DCAF: Payment sent to clinic
+  Data: Pledge pdf; APPT date; Amount pledged
+  Status: Paid
