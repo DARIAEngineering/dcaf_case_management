@@ -6,7 +6,10 @@ class User
          :recoverable, :rememberable, :trackable, :validatable
 
   # Non-devise generated
-  field :name, type: String
+  field :first_name, type: String
+  field :last_name, type: String
+  field :line, type: String
+  field :role, type: String
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -25,6 +28,7 @@ class User
   field :last_sign_in_at,    type: Time
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
+
 
   ## Confirmable
   # field :confirmation_token,   type: String
