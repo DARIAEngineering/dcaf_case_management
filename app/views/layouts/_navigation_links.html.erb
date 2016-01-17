@@ -2,10 +2,6 @@
   <% if !user_signed_in? %>
     <li><%= link_to 'Sign in', new_user_session_path %></li>
   <% else %>
-    <% if current_user.admin? %>
-      <li><%= link_to 'Admin', '/admin' %></li>
-      <li><%= link_to 'Users', users_path %></li>
-    <% end %>
     <p class="navbar-text"><%= link_to current_user.email, edit_user_registration_path, class: 'navbar-link' %></p>
     <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
   <% end %>
