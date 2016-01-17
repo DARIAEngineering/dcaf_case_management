@@ -36,7 +36,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 If you do prefer a local environment, do the following: 
 
-    # Install Ruby, Rails and MongoDB
+    # Install Ruby, Rails and MongoDB (An easy rails installer is [here](http://railsinstaller.org/en); MongoDB setup instructions are below)
     `$ git clone git@github.com:{your_github_username}/dcaf_case_management.git && cd dcaf_case_management`
     `$ bundle install`
     `$ rails server`
@@ -55,7 +55,7 @@ Current wireframe assets are available here:
 * Install MongoDB locally if you haven't (`$ brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
 * `$ bundle install` to install necessary gems
 * Create a folder in the root directory for the MongoDB database. `$ sudo mkdir -p /data/db`
-* Allow for MongoDB read/write permissions `$ sudo chmod 777 data/db`
+* Allow for MongoDB read/write permissions `$ sudo chmod 777 /data/db`
 * Start 'er up with `$ mongod`
 
 # Depreciated Readme stuff
