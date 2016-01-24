@@ -27,7 +27,8 @@ class Case
 	field :urgent_flag, type: Boolean
 
 	belongs_to :patient
-	embeds_many :pledges, :notes
+	embeds_many :pledges
+	embeds_many :notes
 	has_one :clinic
 
 	# Mongoid history for users
