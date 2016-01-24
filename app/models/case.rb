@@ -1,6 +1,6 @@
 class Case
 	include Mongoid::Document
-	include Mongoid::TimeStamps
+	include Mongoid::Timestamps
 
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
