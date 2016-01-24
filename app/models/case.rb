@@ -5,7 +5,7 @@ class Case
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
 	field :case_id, type: String
-	field :initial_call_date, type: Datetime 
+	field :initial_call_date, type: DateTime 
 	field :case_status, type: String #enumeration
 	field :last_menstrual_period_lmp_type, type: Integer 
 	field :last_menstrual_period_time, type: DateTime
