@@ -9,6 +9,6 @@ class Pledge
 	field :paid, type: Boolean #validate presence when type is final
 	field :paid_date, type: DateTime #validate presence when type is final
 
-	embeded_in :cases
+	embedded_in :cases
 
 end
