@@ -1,11 +1,11 @@
 class Case
 	include Mongoid::Document
-	include Mongoid::TimeStamps
+	include Mongoid::Timestamps
 
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
 	field :case_id, type: String
-	field :initial_call_date, type: Datetime 
+	field :initial_call_date, type: DateTime 
 	field :case_status, type: String #enumeration
 	field :last_menstrual_period_lmp_type, type: Integer 
 	field :last_menstrual_period_time, type: DateTime
@@ -27,7 +27,8 @@ class Case
 	field :urgent_flag, type: Boolean
 
 	belongs_to :patient
-	embeds_many :pledges, :notes
+	embeds_many :pledges
+	embeds_many :notes
 	has_one :clinic
 
 	# Mongoid history for users
