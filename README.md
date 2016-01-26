@@ -45,12 +45,12 @@ If you do prefer a local environment, do the following:
     # navigate your browser to `http://localhost:3000`
 
 ## For designers
-The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ).
+The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app. 
 
-Current wireframe assets are available here: 
+Current UX and wireframe assets are available here: 
 * [DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
-* [DCAFwireframe110915.ai](https://drive.google.com/open?id=0B2HlOoxw2oq1a0hDYmt0ZE55VGs)  
-* [DCAFwireframe110915.pdf](https://drive.google.com/open?id=0B2HlOoxw2oq1UmhxVVJ1SlJOLTA)
+* [DCAFwireframe120715.ai](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.ai)
+* [DCAFwireframe120715.pdf](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.pdf)
 
 ## Setting up MongoDB
 
