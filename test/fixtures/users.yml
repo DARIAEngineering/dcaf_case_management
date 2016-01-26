@@ -1,0 +1,1 @@
+# Mongoid and fixtures don't get along. Use factories instead.
