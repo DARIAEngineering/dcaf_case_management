@@ -15,7 +15,7 @@ We're generally looking for people comfortable or interested in the following:
 * NoSQL / flat data modeling
 * Nonprofit data issues 
 
-Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), reading our wiki page [DCAF 101](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` channel on Slack. Hit up @colinxfleming and Mollie with any questions. 
+Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` channel on Slack. Hit up @colinxfleming and Mollie with any questions. 
 
 ## How Do I Contribute? 
 This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to github, check out (this guide on github.com)[https://guides.github.com/activities/hello-world/]. 
