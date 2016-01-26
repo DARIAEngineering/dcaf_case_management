@@ -6,8 +6,7 @@ class User
          :recoverable, :rememberable, :trackable, :validatable
 
   # Non-devise generated
-  field :first_name, type: String
-  field :last_name, type: String
+  field :name, type: String
   field :line, type: String
   field :role, type: String
 
