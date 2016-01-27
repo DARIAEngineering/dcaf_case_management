@@ -52,6 +52,11 @@ Current UX and wireframe assets are available here:
 * [DCAFwireframe120715.ai](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.ai)
 * [DCAFwireframe120715.pdf](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.pdf)
 
+## Dockerizing
+
+To manage the dependencies and save us all some headache, we've Dockered this app. If you're docker-savvy, you can run the following to fire up mongo and the rails server: 
+* `$ docker-compose build && docker-compose up`
+
 ## Setting up MongoDB
 
 * Install MongoDB locally if you haven't (`$ brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
