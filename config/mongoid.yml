@@ -125,7 +125,7 @@ development:
 
     # Ensure all times are UTC in the app side. (default: false)
     # use_utc: false
-    
+
 test:
   clients:
     default:
@@ -140,9 +140,9 @@ test:
 production: 
   clients:
     default:
-      database: dcaf_case_management_development
+      database: '<%= ENV['mongodb'] %>'
       hosts:
-        - <%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>
+        - '<%= ENV['mongohost'] %>:<%= ENV['mongoport'] %>'
       options:
         # write:
         #   w: 1
