@@ -14,5 +14,5 @@ production:
   mongohost: MONGODB_HOST_URL
   mongouser: MONGO_USERNAME
   mongopass: MONGO_PASSWORD
-  mongoport: MONGO_PORT
+  mongoport: 'MONGO_PORT'
   mongodb: MONGO_DB_URL
