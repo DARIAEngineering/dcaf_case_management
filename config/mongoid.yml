@@ -152,5 +152,5 @@ production:
         #     - use: web
         user: '<%= ENV['mongouser'] %>'
         password: '<%= ENV['mongopass'] %>'
-        roles:
-          - 'dbOwner'
+        # roles:
+          # - 'dbOwner'
