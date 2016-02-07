@@ -34,7 +34,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
     Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
     Once created, `$ bundle install` from the terminal
     `$ mongod` to start MongoDB
-    Hit the `Run Project` button up top
+    Hit the `Run Project` button up top. (If the button is unresponsive, you may need select **Run -> Run With -> Rails Default** from the dropdown.)
 
 If you do prefer a local environment, do the following: 
 
