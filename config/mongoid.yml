@@ -9,7 +9,7 @@ development:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - <%= ENV['mongohost'] || 'localhost' %>:27017
+        - <%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>
       options:
         # Change the default write concern. (default = { w: 1 })
         # write:
@@ -24,14 +24,14 @@ development:
         #     - use: web
 
         # The name of the user for authentication.
-        # user: 'user'
+        # user: '<%= ENV['mongouser'] %>'
 
         # The password of the user for authentication.
-        # password: 'password'
+        # password: '<%= ENV['mongopass'] %>'
 
         # The user's database roles.
         # roles:
-        #   - 'dbOwner'
+          # - 'dbOwner'
 
         # Change the default authentication mechanism. Valid options are: :scram,
         # :mongodb_cr, :mongodb_x509, and :plain. (default on 3.0 is :scram, default
@@ -125,6 +125,7 @@ development:
 
     # Ensure all times are UTC in the app side. (default: false)
     # use_utc: false
+
 test:
   clients:
     default:
@@ -135,3 +136,21 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+
+production: 
+  clients:
+    default:
+      database: '<%= ENV['mongodb'] %>'
+      hosts:
+        - '<%= ENV['mongohost'] %>:<%= ENV['mongoport'] %>'
+      options:
+        # write:
+        #   w: 1
+        # read:
+        #   mode: :secondary_preferred
+        #   tag_sets:
+        #     - use: web
+        user: '<%= ENV['mongouser'] %>'
+        password: '<%= ENV['mongopass'] %>'
+        # roles:
+          # - 'dbOwner'
