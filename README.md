@@ -1,6 +1,6 @@
 # Case management system
 
-![CircleCI](https://circleci.com/gh/colinxfleming/dcaf_case_management.svg?style=shield)
+[![CircleCI](https://circleci.com/gh/colinxfleming/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/colinxfleming/dcaf_case_management)
 
 [A deployed demo version is at: http://casemanagerdemo.herokuapp.com/](http://casemanagerdemo.herokuapp.com/)
 
