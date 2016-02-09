@@ -15,6 +15,7 @@ gem 'mongoid', '~> 5.0.0'
 gem 'mongoid-history', '~> 0.5.0'
 gem 'bson_ext'
 gem 'figaro'
+gem 'bootstrap_form'
 
 group :development, :test do
   gem 'byebug'
