@@ -1,0 +1,14 @@
+<%= form_for @patient do |f| %>
+
+	<%= f.label :name, "Name" %>
+	<%= f.text_field :name, label: "Name" %>
+
+	<%= f.label :primary_phone, "Primary Phone Number" %>
+	<%= f.text_field :primary_phone, label: "Primary Phone Number" %>
+
+	<%= f.label :secondary_phone, "Secondary Phone Number" %>
+	<%= f.text_field :secondary_phone, label: "Secondary Phone Number" %>
+
+	<%= f.submit %>
+
+<% end %>
