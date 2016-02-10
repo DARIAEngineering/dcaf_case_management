@@ -17,7 +17,13 @@
 //= require_tree .
 
 $(document).ready(function(){
+
   $(".glyphicon-chevron-right").on("click", function(){
     $(".call").css("display", "block");
   });
+
+  $(".close").on("click", function(){
+    $(".call").css("display", "none");
+  });
+  
 });
