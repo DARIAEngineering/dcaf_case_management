@@ -5,5 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Patient.destroy_all
 
-Patient.create({name: "Molly", primary_phone: "123-123-1234"})
+10.times do |i|
+  Patient.create({name: "Patient #{i}", primary_phone: "123-123-1234"})
+end

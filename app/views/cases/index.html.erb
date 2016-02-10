@@ -42,15 +42,6 @@
           <th>Case Notes</th>
           <th></th>
         </tr>
-        <% @patients.each do |patient| %>
-        <tr>
-          <td><%= patient.primary_phone %></td>
-          <td><%= patient.name %></td>
-          <td>17 weeks</td>
-          <td>(sample case notes. something or other. detail)</td>
-          <td><%= link_to 'Call', new_call_path(patient), {remote: true, 'data-toggle' =>  "modal", 'data-target' => '.call'} %></td>
-        </tr>
-        <% end %>
         <tr>
           <td>202-345-6677</td>
           <td>Milly G</td>
@@ -85,20 +76,15 @@
           <th>Case Notes</th>
           <th></th>
         </tr>
+        <% @patients.each do |patient| %>
         <tr>
-          <td>202-345-6677</td>
-          <td>Sue F</td>
-          <td>15 weeks</td>
+          <td><%= patient.primary_phone %></td>
+          <td><%= patient.name %></td>
+          <td>17 weeks</td>
           <td>(sample case notes. something or other. detail)</td>
-          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+          <td><%= link_to 'Call', new_call_path(patient), {remote: true, 'data-toggle' =>  "modal", 'data-target' => '.call'} %></td>
         </tr>
-        <tr>
-          <td>202-345-6677</td>
-          <td>Sue F</td>
-          <td>15 weeks</td>
-          <td>(sample case notes. something or other. detail)</td>
-          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
-        </tr>
+        <% end %>
       </table>
     </div>
 
