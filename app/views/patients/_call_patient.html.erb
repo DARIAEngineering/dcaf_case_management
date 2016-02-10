@@ -1,0 +1,15 @@
+<div class="call modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close close-terms" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Call <b><%= @patient.name %></b> now</h4>
+        <h4><%= @patient.primary_phone %></h4>
+        <%= button_to "I reached the patient" %>
+        <%= link_to "I left a voicemail for the patient" %>
+        </br>
+        <%= link_to "I couldn't reach the patient" %>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
