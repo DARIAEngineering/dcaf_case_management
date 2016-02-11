@@ -76,7 +76,7 @@
           <th>Case Notes</th>
           <th></th>
         </tr>
-        <% @cases.each do |c| %>
+        <% @urgent_cases.each do |c| %>
         <tr>
           <td><%= c.patient.primary_phone %></td>
           <td><%= c.patient.name %></td>
