@@ -6,9 +6,9 @@ class Case
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
 	field :case_id, type: String
-	field :initial_call_date, type: DateTime 
+	field :initial_call_date, type: DateTime
 	field :case_status, type: String #enumeration
-	field :last_menstrual_period_lmp_type, type: Integer 
+	field :last_menstrual_period_lmp_type, type: Integer
 	field :last_menstrual_period_time, type: DateTime
 	field :city, type: String
 	field :state, type: String #ennumeration?
@@ -30,6 +30,7 @@ class Case
 	belongs_to :patient
 	embeds_many :pledges
 	embeds_many :notes
+	embeds_many :calls
 	has_one :clinic
 
 	# Mongoid history for users

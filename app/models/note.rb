@@ -5,5 +5,5 @@ class Note
 
 	field :notes, type: String
 	embedded_in :case
-	
+
 end
