@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   end
   root :to => redirect('/users/sign_in')
   devise_for :users
+  patch 'users/:user_id/cases/:id', to: 'users#add_case'
 end
