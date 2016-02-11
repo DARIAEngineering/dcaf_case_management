@@ -26,7 +26,10 @@
             <input type="text" name="" id="input" class="form-control col-sm-9" value="" required="required" pattern="" title="" placeholder="name or phone">
           </div>
           <div class="col-sm-2">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <%= link_to search_path, class: "btn btn-default" do %>
+                <i class="glyphicon glyphicon-search"></i>
+            <% end %>
+            <!-- <span class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
           </div>
         </div>
       </form>
@@ -40,6 +43,7 @@
           <th>Name</th>
           <th>LMP</th> <!-- last menstrual period -->
           <th>Case Notes</th>
+          <th></th>
           <th></th>
         </tr>
         <% current_user.cases.each do |c| %>
@@ -56,6 +60,7 @@
           <th>Name</th>
           <th>LMP</th> <!-- last menstrual period -->
           <th>Case Notes</th>
+          <th></th>
           <th></th>
         </tr>
         <% @urgent_cases.each do |c| %>
