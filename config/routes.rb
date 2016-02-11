@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   devise_for :users
   patch 'users/:user_id/add_case/:id', to: 'users#add_case'
   patch 'users/:user_id/remove_case/:id', to: 'users#remove_case'
-  get 'search', to: 'users#search'
+  get 'search', to: 'cases#search'
 end

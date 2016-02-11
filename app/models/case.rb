@@ -36,4 +36,8 @@ class Case
 
 	# Mongoid history for users
 
+	def self.most_recent
+    order('created_at DESC').limit(1).first
+  end
+
 end
