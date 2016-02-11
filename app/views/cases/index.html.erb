@@ -82,12 +82,12 @@
           <td><%= patient.name %></td>
           <td>17 weeks</td>
           <td>(sample case notes. something or other. detail)</td>
-          <td><%= link_to 'Call', new_call_path(patient), {remote: true, 'data-toggle' =>  "modal", 'data-target' => '.call'} %></td>
+          <td><%= link_to "Call", "#new_call", data: {toggle: "modal"} %></td>
+          <%= render partial: 'calls/new_call', locals: {patient: patient} %>
         </tr>
         <% end %>
       </table>
     </div>
-
   </div>
 </div>
 

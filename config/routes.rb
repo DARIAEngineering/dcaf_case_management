@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :cases
     resources :patients, only: [ :create ] do
       member do
-        resources :call, only: [ :new, :create ]
+        resources :calls, only: [ :create ]
       end
     end
   end
