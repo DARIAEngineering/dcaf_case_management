@@ -1,8 +1,8 @@
 class CallsController < ApplicationController
 
   def create
-    patient = Patient.find(params[:id])
-    @call = patient.calls.new(params[:status])
+    c = Case.find(params[:id])
+    @call = c.calls.new(status: params[:status])
 		if @call.save
 			redirect_to root_path
 		end

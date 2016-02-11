@@ -83,7 +83,7 @@
           <td><%= "#{(DateTime.now - c.last_menstrual_period_time).to_i} days" %></td>
           <td>(sample case notes. something or other. detail)</td>
           <td><%= link_to "Call", "#new_call", data: {toggle: "modal"} %></td>
-          <%= render partial: 'calls/new_call', locals: {patient: c.patient} %>
+          <%= render partial: 'calls/new_call', locals: {c: c} %>
         </tr>
         <% end %>
       </table>
