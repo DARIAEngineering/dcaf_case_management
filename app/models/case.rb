@@ -28,6 +28,7 @@ class Case
 	field :urgent_flag, type: Boolean
 
 	belongs_to :patient
+	belongs_to :user
 	embeds_many :pledges
 	embeds_many :notes
 	embeds_many :calls
