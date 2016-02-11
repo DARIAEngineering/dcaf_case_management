@@ -42,27 +42,9 @@
           <th>Case Notes</th>
           <th></th>
         </tr>
-        <tr>
-          <td>202-345-6677</td>
-          <td>Milly G</td>
-          <td>17 weeks</td>
-          <td>(sample case notes. something or other. detail)</td>
-          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
-        </tr>
-        <tr>
-          <td>202-345-6677</td>
-          <td>Susan B</td>
-          <td>12 weeks</td>
-          <td>(sample case notes. something or other. detail)</td>
-          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
-        </tr>
-        <tr>
-          <td>202-345-6677</td>
-          <td>Patty W</td>
-          <td>9 weeks</td>
-          <td>(sample case notes. something or other. detail)</td>
-          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
-        </tr>
+        <% current_user.cases.each do |c| %>
+          <%= render partial: 'table_row', locals: {c: c} %>
+        <% end %>
       </table>
     </div>
 
@@ -77,14 +59,7 @@
           <th></th>
         </tr>
         <% @urgent_cases.each do |c| %>
-        <tr>
-          <td><%= c.patient.primary_phone %></td>
-          <td><%= c.patient.name %></td>
-          <td><%= "#{(DateTime.now - c.last_menstrual_period_time).to_i/7} weeks" %></td>
-          <td>(sample case notes. something or other. detail)</td>
-          <td><%= link_to "Call", "#new_call", data: {toggle: "modal"} %></td>
-          <%= render partial: 'calls/new_call', locals: {c: c} %>
-        </tr>
+          <%= render partial: 'table_row', locals: {c: c} %>
         <% end %>
       </table>
     </div>
