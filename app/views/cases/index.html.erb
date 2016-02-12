@@ -30,26 +30,28 @@
           </div>
         </div>
       </form>
+      <% if(@results.length>0) then %>
+      <div id="search_results">
+        <h4>Search Results</h4>
+        <table class="table table-bordered">
+          <tr>
+            <th>Phone</th>
+            <th>Name</th>
+            <th>LMP</th> <!-- last menstrual period -->
+            <th>Case Notes</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% @results.each do |c| %>
+          <%= render partial: 'table_row', locals: {c: c} %>
+          <% end %>
+        </table>
+      </div>
+      <% elsif(@results) %>
+      <h4>Your search produced no results, so add a new patient:</h4>
+      <% end %>
     </div>
 
-    <% if(@results) then %>
-    <div id="search_results">
-      <h4>Search Results</h4>
-      <table class="table table-bordered">
-        <tr>
-          <th>Phone</th>
-          <th>Name</th>
-          <th>LMP</th> <!-- last menstrual period -->
-          <th>Case Notes</th>
-          <th></th>
-          <th></th>
-        </tr>
-        <% @results.each do |c| %>
-          <%= render partial: 'table_row', locals: {c: c} %>
-        <% end %>
-      </table>
-    </div>
-    <% end %>
 
     <div id="call_list">
       <h4>Your Call List</h4>
