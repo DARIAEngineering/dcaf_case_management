@@ -1,9 +1,11 @@
 class CasesController < ApplicationController
   def index
+    @patient = Patient.new
     @urgent_cases = Case.where(urgent_flag: true)
   end
 
   def search
+    @patient = Patient.new
     @urgent_cases = Case.where(urgent_flag: true)
     last_match = Patient.where(last_name: params[:keyword])
     first_match = Patient.where(first_name: params[:keyword])
