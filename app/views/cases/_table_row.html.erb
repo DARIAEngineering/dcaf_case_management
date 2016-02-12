@@ -1,6 +1,6 @@
 <tr>
   <td><%= c.patient.primary_phone %></td>
-  <td><%= c.patient.name %></td>
+  <td><%= c.patient.full_name %></td>
   <td><%= "#{(DateTime.now - c.last_menstrual_period_time).to_i/7} weeks" %></td>
   <td>(sample case notes. something or other. detail)</td>
   <% if(current_user.cases.include?(c)) then %>
