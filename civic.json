@@ -1,0 +1,51 @@
+{
+    "name": "DCAF Case Manager", 
+    "description": "A Rails-based case management system for ", 
+    "license": "project license", 
+    "status": "Ideation", 
+    "homepage": "http://casemanagerdemo.herokuapp.com", 
+    "repository": "https://github.com/colinxfleming/dcaf_case_manager", 
+    "type": "Web App", 
+    // "thumbnail": "project thumbnail image URL", 
+    "geography": [
+        "DC", "District of Columbia",
+        "MD," "Maryland", 
+        "VA", "Virginia"
+    ], 
+    "contact": {
+        "name": "DC Abortion Fund", 
+        "email": "info@dcabortionfund.org",
+        "url": "http://www.dcabortionfund.org"
+    }, 
+    "partners": [
+        {
+            "name": "Colin Fleming", 
+            "email": "c3flemin@gmail.com"
+            // "url": "partner URL"
+        },
+        {
+            "name": "Mollie"
+            // "email": "partner email", 
+            // "url": "partner URL"
+        },
+        {
+            "name": "Andrea"
+            // "email": "partner email", 
+            // "url": "partner URL"
+        }
+    ], 
+    // "data": [
+    //     {
+    //         "name": "[required if have dataset] dataset name", 
+    //         "url": "[required if have dataset] dataset URL", 
+    //         "metadata": "dataset metadata URL"
+    //     }
+    // ], 
+    // "tags": [
+    //     "array of project tags"
+    // ], 
+    // "links": [
+    //     "array of project links"
+    // ], 
+    "id": "https://raw.githubusercontent.com/DCgov/civic.json/master/schemas/schema-v1.json"
+}
