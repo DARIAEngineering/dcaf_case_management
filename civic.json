@@ -13,9 +13,9 @@
         "VA", "Virginia"
     ], 
     "contact": {
-        "name": "Colin", 
-        "email": "c3flemin@gmail.com",
-        "url": ""
+        "name": "DC Abortion Fund", 
+        "email": "info@dcabortionfund.org",
+        "url": "http://dcabortionfund.org"
     }, 
     "partners": [
         {
@@ -24,9 +24,9 @@
             "url": "http://codefordc.org"
         },
         {
-            "name": "DC Abortion Fund",
-            "email": "info@dcabortionfund.org", 
-            "url": "http://dcabortionfund.org"
+            "name": "Colin Fleming",
+            "email": "c3flemin@gmail.com", 
+            "url": "http://twitter.com/ridethecatbus"
         }
     ], 
     "data": [], 
