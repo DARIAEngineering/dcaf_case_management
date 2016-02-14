@@ -1,6 +1,7 @@
 <div class="authform">
+  <h3>Sign in</h3>
+  
   <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
-    <h3>Sign in</h3>
     <%= devise_error_messages! %>
 
     <%- if devise_mapping.registerable? %>
