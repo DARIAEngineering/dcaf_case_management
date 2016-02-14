@@ -1,6 +1,6 @@
 <div class="authform">
   <%= bootstrap_form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post } do |f| %>
-    <h2>Password Reset</h2>
+    <h3>Password Reset</h3>
     <%= devise_error_messages! %>
 
     <%= f.email_field :email %>
