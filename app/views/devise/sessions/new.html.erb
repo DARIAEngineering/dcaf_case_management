@@ -1,26 +1,24 @@
 <div class="authform">
-  <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name), control_col: 'col-sm-6' do |f| %>
+  <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
     <h3>Sign in</h3>
     <%= devise_error_messages! %>
 
-    <div class="form-group">
-      <%- if devise_mapping.registerable? %>
-        <%= link_to 'Sign up', new_registration_path(resource_name), class: 'right' %>
-      <% end -%>
-      <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%- if devise_mapping.recoverable? %>
-        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
-      <% end -%>
-      <%= f.password_field :password %>
-    </div>
-    <% if devise_mapping.rememberable? -%>
-      <div class="checkbox" style="width:150px">
-        <%= f.check_box :remember_me %>
-      </div>
+    <%- if devise_mapping.registerable? %>
+      <%= link_to 'Sign up', new_registration_path(resource_name), class: 'right' %>
     <% end -%>
+    <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', class: 'form-control' %>
+
+    <%- if devise_mapping.recoverable? %>
+      <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
+    <% end -%>
+    <%= f.password_field :password %>
+
+    <% if devise_mapping.rememberable? -%>
+      <%= f.check_box :remember_me %>
+    <% end -%>
+
     <%= f.submit 'Sign in', :class => 'btn btn-primary' %>
   <% end %>
+
   <%= render "devise/shared/links" %>
 </div>
