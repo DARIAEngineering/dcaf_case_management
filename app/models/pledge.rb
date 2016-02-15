@@ -10,5 +10,5 @@ class Pledge
 	field :paid_date, type: DateTime #validate presence when type is final
 
 	embedded_in :cases
-
+	
 end

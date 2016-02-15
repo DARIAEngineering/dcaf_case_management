@@ -76,23 +76,18 @@
           <th>Case Notes</th>
           <th></th>
         </tr>
+        <% @urgent_cases.each do |c| %>
         <tr>
-          <td>202-345-6677</td>
-          <td>Sue F</td>
-          <td>15 weeks</td>
+          <td><%= c.patient.primary_phone %></td>
+          <td><%= c.patient.name %></td>
+          <td><%= "#{(DateTime.now - c.last_menstrual_period_time).to_i/7} weeks" %></td>
           <td>(sample case notes. something or other. detail)</td>
-          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
+          <td><%= link_to "Call", "#call-#{c.patient.primary_phone}", data: {toggle: "modal"} %></td>
+          <%= render partial: 'calls/new_call', locals: {c: c} %>
         </tr>
-        <tr>
-          <td>202-345-6677</td>
-          <td>Sue F</td>
-          <td>15 weeks</td>
-          <td>(sample case notes. something or other. detail)</td>
-          <td><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></td>
-        </tr>
+        <% end %>
       </table>
     </div>
-
   </div>
 </div>
 
