@@ -7,7 +7,7 @@ class CallsControllerTest < ActionController::TestCase
     @user = build :user
     puts @user
     sign_in @user
-    @case = build :case
+    @case = create :case
     @call = build :call
     puts @case
   end
@@ -15,8 +15,10 @@ class CallsControllerTest < ActionController::TestCase
   describe 'create method' do
     it 'should create and save a new call' do
       call = attributes_for :call
-      puts call
-      post :create, call: call
+      assert_difference 'Call.count', 1 do
+        post :create, call: call, id: @case
+      end
+      assert_response :redirect
     end
 
     it 'should associate the new call with a case' do
