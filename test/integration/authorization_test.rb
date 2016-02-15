@@ -1,22 +1,48 @@
 require 'test_helper'
 
 class AuthorizationTest < ActionDispatch::IntegrationTest
-  describe 'sign in page' do 
-    it 'should root to the sign in page if not authenticated' do 
-      # visit '/'
-      # assert redirect?
+  describe 'logging in successfully' do 
+    it 'should root to the sign in page' do 
+    end
+
+    it 'should display a success message afterwards' do 
     end
   end
 
+  describe 'the page navbar' do 
+    it 'should have a name in the top corner' do 
+    end
+
+    it 'should have a sign out link' do 
+    end
+  end
+
+
+  describe 'logging in unsuccessfully' do
     # visit '/'
-
-  describe 'logging in successfully' do 
+    # create garbage user
+    # log in 
   end
 
-  describe 'logging in unsuccessfully' do 
+  describe 'alter user info' do 
+    before do 
+      # visit thing
+      # sign in 
+    end
+
+    it 'should let you change name and email' do 
+    end
+
+    it 'should let you change email' do 
+    end 
+
+    it 'should let you change your password' do 
+    end
+
+    it 'should veto changes without current password' do 
+    end
   end
 
-  # test "the truth" do
-  #   assert true
-  # end
+  describe 'signing out' do 
+  end
 end
