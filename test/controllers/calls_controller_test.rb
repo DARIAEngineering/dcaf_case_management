@@ -13,10 +13,13 @@ class CallsControllerTest < ActionController::TestCase
   end
 
   describe 'create method' do
+    before do
+      @call = attributes_for :call
+    end
+
     it 'should create and save a new call' do
-      call = attributes_for :call
       assert_difference 'Case.find(@case).calls.count', 1 do
-        post :create, call: call, id: @case
+        post :create, call: @call, id: @case
       end
       assert_response :redirect
     end
