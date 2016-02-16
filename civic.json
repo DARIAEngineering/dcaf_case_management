@@ -1,21 +1,21 @@
 {
     "name": "DCAF Case Manager", 
     "description": "A Rails-based case management system for ", 
-    "license": "TBD", 
-    "status": "Ideation", 
+    "license": "", 
+    "status": "Alpha", 
     "homepage": "http://casemanagerdemo.herokuapp.com", 
     "repository": "https://github.com/colinxfleming/dcaf_case_manager", 
     "type": "Web App", 
     "thumbnail": "", 
     "geography": [
         "DC", "District of Columbia",
-        "MD," "Maryland", 
+        "MD", "Maryland", 
         "VA", "Virginia"
     ], 
     "contact": {
-        "name": "DC Abortion Fund", 
-        "email": "info@dcabortionfund.org",
-        "url": "http://dcabortionfund.org"
+        "name": "Colin Fleming", 
+        "email": "c3flemin@gmail.com",
+        "url": "http://twitter.com/ridethecatbus"
     }, 
     "partners": [
         {
@@ -24,9 +24,19 @@
             "url": "http://codefordc.org"
         },
         {
-            "name": "Colin Fleming",
-            "email": "c3flemin@gmail.com", 
-            "url": "http://twitter.com/ridethecatbus"
+            "name": "Code for DC", 
+            "email": "",
+            "url": "http://codefordc.org"
+        },
+        {
+            "name": "Mollie Bates", 
+            "email": "mollie.bates@gmail.com",
+            "url": ""
+        },
+        {
+            "name": "Andrea Dineen",
+            "email": "andrea.dineen@gmail.com", 
+            "url": ""
         }
     ], 
     "data": [], 
