@@ -28,6 +28,8 @@ class CallsControllerTest < ActionController::TestCase
     end
 
     it 'should redirect to the root path afterwards' do
+      post :create, call: @call, id: @case
+      assert_redirected_to root_path
     end
 
     it 'should not save if status is blank for some reason' do
