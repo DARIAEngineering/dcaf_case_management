@@ -27,6 +27,7 @@ class CallsControllerTest < ActionController::TestCase
     # it 'should associate the new call with a case' do
     #   post :create, status: @call.status, id: @case
     #   assert_equal Case.find(@case).calls.last.case, @case
+    #   assert_includes Case.find(@case).calls, Case.find(@case).calls.last
     # end
 
     it 'should redirect to the root path afterwards' do
