@@ -5,11 +5,9 @@ class CallsControllerTest < ActionController::TestCase
 
   def setup
     @user = build :user
-    puts @user
     sign_in @user
     @case = create :case
     @call = build :call
-    puts @case
   end
 
   describe 'create method' do
@@ -19,20 +17,27 @@ class CallsControllerTest < ActionController::TestCase
 
     it 'should create and save a new call' do
       assert_difference 'Case.find(@case).calls.count', 1 do
-        post :create, call: @call, id: @case
+        post :create, status: @call.status, id: @case
       end
       assert_response :redirect
     end
 
-    it 'should associate the new call with a case' do
-    end
+    # If we have to look up the call through a case this test seems redundant
+    # I.e. I think the previous test also confirms the association
+    # it 'should associate the new call with a case' do
+    #   post :create, status: @call.status, id: @case
+    #   assert_equal Case.find(@case).calls.last.case, @case
+    # end
 
     it 'should redirect to the root path afterwards' do
-      post :create, call: @call, id: @case
+      post :create, status: @call.status, id: @case
       assert_redirected_to root_path
     end
 
     it 'should not save if status is blank for some reason' do
+      assert_difference 'Case.find(@case).calls.count', 0 do
+        post :create, status: nil, id: @case
+      end
     end
 
     it 'should reject other attributes besides status' do
