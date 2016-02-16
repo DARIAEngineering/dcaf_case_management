@@ -42,6 +42,8 @@ class CallsControllerTest < ActionController::TestCase
     end
 
     it 'should reject other attributes besides status' do
+      post :create, status: @call.status, other: "extraneous attribute", id: @case
+      assert_not_respond_to Case.find(@case).calls.last, :other
     end
 
   end
