@@ -3,6 +3,8 @@ require 'test_helper'
 class AuthorizationTest < ActionDispatch::IntegrationTest
   describe 'logging in successfully' do 
     it 'should root to the sign in page' do 
+      get root_url
+      assert_redirected_to new_user_session_url
     end
 
     it 'should display a success message afterwards' do 
@@ -19,17 +21,17 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
 
 
   describe 'logging in unsuccessfully' do
-    # visit '/'
-    # create garbage user
-    # log in 
+    it 'should bump you back to root' do 
+    end
+
+    it 'should not display your name' do 
+    end
+
+    it 'should display a status message' do 
+    end
   end
 
   describe 'alter user info' do 
-    before do 
-      # visit thing
-      # sign in 
-    end
-
     it 'should let you change name and email' do 
     end
 
@@ -44,5 +46,13 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
   end
 
   describe 'signing out' do 
+    it 'should send you back to the root directory' do 
+    end
+
+    it 'should display a sign out message' do 
+    end
+
+    it 'should prevent you from being able to get to the cases index afterwards' do 
+    end
   end
 end
