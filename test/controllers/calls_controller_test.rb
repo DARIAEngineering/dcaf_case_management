@@ -36,7 +36,7 @@ class CallsControllerTest < ActionController::TestCase
     end
 
     it 'should not save if status is blank for some reason' do
-      assert_difference 'Case.find(@case).calls.count', 0 do
+      assert_no_difference 'Case.find(@case).calls.count' do
         post :create, status: nil, id: @case
       end
     end
