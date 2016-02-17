@@ -7,7 +7,6 @@ class CallsControllerTest < ActionController::TestCase
     @user = build :user
     sign_in @user
     @case = create :case
-    @call = build :call
   end
 
   describe 'create method' do
@@ -17,7 +16,7 @@ class CallsControllerTest < ActionController::TestCase
 
     it 'should create and save a new call' do
       assert_difference 'Case.find(@case).calls.count', 1 do
-        post :create, status: @call.status, id: @case
+        post :create, call: @call, id: @case
       end
       assert_response :redirect
     end
@@ -31,18 +30,20 @@ class CallsControllerTest < ActionController::TestCase
     # end
 
     it 'should redirect to the root path afterwards' do
-      post :create, status: @call.status, id: @case
+      post :create, call: @call, id: @case
       assert_redirected_to root_path
     end
 
     it 'should not save if status is blank for some reason' do
+      @call[:status] = nil
       assert_no_difference 'Case.find(@case).calls.count' do
-        post :create, status: nil, id: @case
+        post :create, call: @call, id: @case
       end
     end
 
     it 'should reject other attributes besides status' do
-      post :create, status: @call.status, other: "extraneous attribute", id: @case
+      @call[:other] = "extraneous attribute"
+      post :create, call: @call, id: @case
       assert_not_respond_to Case.find(@case).calls.last, :other
     end
 
