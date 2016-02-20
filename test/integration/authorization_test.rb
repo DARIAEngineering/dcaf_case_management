@@ -33,19 +33,47 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # describe 'alter user info' do 
-    # it 'should let you change name and email' do 
-    # end
+  describe 'alter user info' do 
+    it 'should let you change name and email' do 
+      visit edit_user_registration_path
+      fill_in 'Name', with: 'Thorny'
+      fill_in 'Current password', with: @user.password
+      click_button 'Update info' 
+      assert has_link? 'Thorny', href: edit_user_registration_path
+    end
 
-  #   it 'should let you change email' do 
-  #   end 
+    it 'should let you change email' do 
+      visit edit_user_registration_path
+      fill_in 'Email', with: 'different@email.com'
+      fill_in 'Current password', with: @user.password
+      click_button 'Update info' 
+      visit edit_user_registration_path
+      assert_text 'different@email.com'      
+    end 
 
-  #   it 'should let you change your password' do 
-  #   end
+    it 'should let you change your password' do 
+      visit edit_user_registration_path
+      fill_in 'Password', with: 'another_password'
+      fill_in 'Password confirmation', with: 'another_password'
+      fill_in 'Current password', with: @user.password
+      click_button 'Update info' 
+      sign_out
+      @user.password = 'another_password'
+      log_in_as @user
+      assert_text 'Signed in successfully.'
+    end
 
-  #   it 'should veto changes without current password' do 
-  #   end
-  # end
+    it 'should veto changes without current password' do 
+      visit edit_user_registration_path
+      fill_in 'Name', with: 'Bad Name'
+      click_button 'Update info'
+      assert_text "Current password can't be blank" 
+      fill_in 'Current password', with: 'not_a_real_password' 
+      click_button 'Update info' 
+      assert_text 'Current password is invalid' 
+      assert_no_text 'Bad Name'
+    end
+  end
 
   describe 'signing out' do 
     it 'should send you back to the sign in path' do 
