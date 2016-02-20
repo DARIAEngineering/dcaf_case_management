@@ -32,13 +32,5 @@ class CallsControllerTest < ActionController::TestCase
         post :create, call: @call, id: @case
       end
     end
-
-    # TODO set up strong parameters for calls controller
-    it 'should reject other attributes besides status' do
-      assert_no_difference 'Case.find(@case).calls.count' do 
-        @call[:other] = "extraneous attribute"
-        post :create, call: @call, id: @case
-      end
-    end
   end
 end
