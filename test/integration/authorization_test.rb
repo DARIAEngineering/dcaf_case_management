@@ -23,19 +23,28 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
   end
 
   # describe 'logging in unsuccessfully' do
+  #   before do 
+  #     sign_out 
+
+  #   end
+
   #   it 'should bump you back to root' do 
+  #     assert_equal current_path, root_path
   #   end
 
   #   it 'should not display your name' do 
+  #     assert_no_text @user.name
+
+
   #   end
 
-  #   it 'should display a status message' do 
-  #   end
+  #   # it 'should display a status message' do 
+  #   # end
   # end
 
   # describe 'alter user info' do 
-  #   it 'should let you change name and email' do 
-  #   end
+    # it 'should let you change name and email' do 
+    # end
 
   #   it 'should let you change email' do 
   #   end 
@@ -47,14 +56,18 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
   #   end
   # end
 
-  # describe 'signing out' do 
-  #   it 'should send you back to the root directory' do 
-  #   end
+  describe 'signing out' do 
+    it 'should send you back to the sign in path' do 
+      sign_out 
+      assert_equal current_path, new_user_session_path
+      assert_text 'You need to sign in or sign up before continuing.'
+    end
 
-  #   it 'should display a sign out message' do 
-  #   end
-
-  #   it 'should prevent you from being able to get to the cases index afterwards' do 
-  #   end
-  # end
+    it 'should prevent you from being able to get to data afterwards' do 
+      sign_out
+      visit cases_path
+      assert_equal current_path, new_user_session_path
+      assert_text 'You need to sign in or sign up before continuing.'
+    end
+  end
 end
