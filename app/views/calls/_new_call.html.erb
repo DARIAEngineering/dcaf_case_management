@@ -5,7 +5,7 @@
         <button type="button" class="close close-terms" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Call <b><%= c.patient.name %></b> now</h4>
         <h4><%= c.patient.primary_phone %></h4>
-        <%= button_to "I reached the patient", calls_path(c, call: { status: 'Reached Patient'} ), method: :post %>
+        <%= button_to "I reached the patient", calls_path(c, call: { status: 'Reached Patient'} ), method: :post, class: 'btn btn-primary' %>
         </br>
         <%= link_to "I left a voicemail for the patient", calls_path(c, call: { status: "Left voicemail" } ), method: :post %>
         </br>
