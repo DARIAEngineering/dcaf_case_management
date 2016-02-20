@@ -1,5 +1,4 @@
 class CallsController < ApplicationController
-
   def create
     c = Case.find(params[:id])
     @call = c.calls.new(call_params)
@@ -12,8 +11,8 @@ class CallsController < ApplicationController
   end
 
   private
+
 	def call_params
 		params.require(:call).permit(:status)
 	end
-
 end

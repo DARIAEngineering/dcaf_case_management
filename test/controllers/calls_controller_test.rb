@@ -21,14 +21,6 @@ class CallsControllerTest < ActionController::TestCase
       assert_response :redirect
     end
 
-    # If we have to look up the call through a case this test seems redundant
-    # I.e. I think the previous test also confirms the association
-    # it 'should associate the new call with a case' do
-    #   post :create, status: @call.status, id: @case
-    #   assert_equal Case.find(@case).calls.last.case, @case
-    #   assert_includes Case.find(@case).calls, Case.find(@case).calls.last
-    # end
-
     it 'should redirect to the root path afterwards' do
       post :create, call: @call, id: @case
       assert_redirected_to root_path
@@ -40,13 +32,5 @@ class CallsControllerTest < ActionController::TestCase
         post :create, call: @call, id: @case
       end
     end
-
-    it 'should reject other attributes besides status' do
-      @call[:other] = "extraneous attribute"
-      post :create, call: @call, id: @case
-      assert_not_respond_to Case.find(@case).calls.last, :other
-    end
-
   end
-
 end
