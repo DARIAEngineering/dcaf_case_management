@@ -1,8 +1,7 @@
 class CallsController < ApplicationController
-
   def create
     c = Case.find(params[:id])
-    @call = c.calls.new(call_params)
+    @call = c.calls.new(call_params) # TODO strong params
 		if @call.save
 			redirect_to root_path
     else
@@ -12,8 +11,8 @@ class CallsController < ApplicationController
   end
 
   private
+
 	def call_params
 		params.require(:call).permit(:status)
 	end
-
 end
