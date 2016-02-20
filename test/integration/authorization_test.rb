@@ -22,25 +22,16 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # describe 'logging in unsuccessfully' do
-  #   before do 
-  #     sign_out 
-
-  #   end
-
-  #   it 'should bump you back to root' do 
-  #     assert_equal current_path, root_path
-  #   end
-
-  #   it 'should not display your name' do 
-  #     assert_no_text @user.name
-
-
-  #   end
-
-  #   # it 'should display a status message' do 
-  #   # end
-  # end
+  describe 'logging in unsuccessfully' do
+    it 'should bump you back to root' do 
+      sign_out
+      @user.password = 'not_valid'
+      log_in_as @user
+      assert_equal current_path, new_user_session_path
+      assert_text 'Invalid email or password.'
+      assert_no_text @user.name
+    end
+  end
 
   # describe 'alter user info' do 
     # it 'should let you change name and email' do 
