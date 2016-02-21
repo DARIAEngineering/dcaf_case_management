@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class CallsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
-
   def setup
     @user = build :user
     sign_in @user

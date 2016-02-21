@@ -12,3 +12,7 @@ class ActiveSupport::TestCase
   before { DatabaseCleaner.start }
   after  { DatabaseCleaner.clean }
 end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+end
