@@ -28,3 +28,7 @@ class ActionDispatch::IntegrationTest
     click_link 'Sign out'
   end
 end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+end
