@@ -4,7 +4,8 @@ class PatientsController < ApplicationController
 		if @patient.save
 			redirect_to root_path
 		else
-			render 'New'
+			# TODO flash validations in view. Danger alert message is fine for now
+			redirect_to root_path
 		end
 	end
 
