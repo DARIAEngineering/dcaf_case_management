@@ -76,3 +76,7 @@ This repo has a `gh-pages` branch, currently used for displaying live pages. To 
 * Start the web server -- `$ jekyll serve --baseurl ''`
 * Navigate to `http://localhost:4000`
 * Make changes to the pages in the root directory or the assets in `_sass` and hack away!
+
+# License
+
+Made available under an MIT license. See `LICENSE.txt` for more info.
