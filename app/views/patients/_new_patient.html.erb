@@ -1,6 +1,5 @@
 <%= bootstrap_form_for(@patient) do |f| %>
-	<%= f.text_field :first_name, label: "First Name" %>
-	<%= f.text_field :last_name, label: "Last Name" %>
+	<%= f.text_field :name, label: "Name" %>
 	<%= f.text_field :primary_phone, label: "Primary Phone Number" %>
 	<%= f.text_field :secondary_phone, label: "Secondary Phone Number" %>
 	<%= f.submit "Create Patient", class: "btn btn-primary" %>

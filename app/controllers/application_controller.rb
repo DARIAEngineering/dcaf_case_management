@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # whitelists first_name, last_name attributes in devise
+  # whitelists name attributes in devise
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push :first_name, :last_name
+    devise_parameter_sanitizer.for(:sign_up).push :name
   end
 end

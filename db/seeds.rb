@@ -10,13 +10,13 @@ Case.destroy_all
 Patient.destroy_all
 
 10.times do |i|
-  Patient.create({first_name: "Patient", last_name: i.to_s, primary_phone: "123-123-1234"})
+  Patient.create({name: "Patient #{i}", primary_phone: "123-123-1234"})
 end
 
 patients = Patient.all
 
 patients.each do |patient|
-  if(patient.last_name.to_i.even?) then
+  if(patient[-1].even?) then
     flag = true
   else
     flag = false
