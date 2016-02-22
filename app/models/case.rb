@@ -3,6 +3,8 @@ class Case
 	include Mongoid::Timestamps
 	include Mongoid::History
 
+	field :voicemail_ok, type: Boolean
+
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
 	field :case_id, type: String

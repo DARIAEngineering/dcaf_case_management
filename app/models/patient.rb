@@ -7,4 +7,5 @@ class Patient
 
 	has_many :cases
 
+  validates_presence_of :name, :primary_phone
 end

@@ -23,15 +23,17 @@ group :development, :test do
   gem 'spring'
 end
 
-group :test do 
+group :test do
   gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'database_cleaner'
+  gem 'capybara'
 end
 
-group :production do 
+group :production do
   gem 'unicorn'
   gem 'rails_12factor'
 end

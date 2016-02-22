@@ -10,7 +10,7 @@ Case.destroy_all
 Patient.destroy_all
 
 10.times do |i|
-  Patient.create({name: "Patient #{i}", primary_phone: "123-123-1234"})
+  Patient.create({name: "Patient #{i}", primary_phone: "123-123-123#{i}"})
 end
 
 patients = Patient.all
