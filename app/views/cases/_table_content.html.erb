@@ -1,5 +1,5 @@
 <% cases.each do |c| %>
-  <tr>
+  <tr class="case-data">
     <td><%= c.patient.primary_phone %></td>
     <td><%= c.patient.name %></td>
     <td><%= "#{(DateTime.now - c.last_menstrual_period_time).to_i/7} weeks" %></td>
