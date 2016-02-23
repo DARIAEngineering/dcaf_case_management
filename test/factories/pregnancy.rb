@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :case do
+  factory :pregnancy do
     patient
     line "DC"
     language "English"

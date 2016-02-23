@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Call.destroy_all
-Case.destroy_all
+Pregnancy.destroy_all
 Patient.destroy_all
 
 10.times do |i|
