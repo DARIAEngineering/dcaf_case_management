@@ -24,25 +24,7 @@
         <%= text_field_tag :search, params[:search], class: 'form-control col-sm-9' %>
         <%= submit_tag 'Search', class: 'btn btn-primary', :name => nil %>
       <% end %>
-      <%# if(@results && @results.length>0) then %>
-        <div id="search_results">
-          <h4>Search Results</h4>
-          <table class="table table-bordered">
-            <tr>
-              <th>Phone</th>
-              <th>Name</th>
-              <th>LMP</th> <!-- last menstrual period -->
-              <th>Case Notes</th>
-              <th></th>
-              <th></th>
-            </tr>
-            <%#= render partial: 'table_row', locals: {cases: @results} %>
-          </table>
-        </div>
-      <%# elsif(@results) %>
-        <!-- <h4>Your search produced no results, so add a new patient:</h4> -->
-        <%#= render 'patients/new_patient' %>
-      <%# end %>
+      <div id="search_results"></div>
     </div>
 
 
