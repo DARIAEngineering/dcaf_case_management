@@ -7,6 +7,7 @@ class CasesController < ApplicationController
 
   def search
     @patient = Patient.new
+    @p_case = @patient.cases.build
     @urgent_cases = Case.where(urgent_flag: true)
     name_match = Patient.where(name: params[:keyword])
     primary_match = Patient.where(primary_phone: params[:keyword])
