@@ -42,9 +42,7 @@
               <th></th>
               <th></th>
             </tr>
-            <% @results.each do |c| %>
-            <%= render partial: 'table_row', locals: {c: c} %>
-            <% end %>
+            <%= render partial: 'table_row', locals: {cases: @results} %>
           </table>
         </div>
       <% elsif(@results) %>
@@ -65,9 +63,7 @@
           <th></th>
           <th></th>
         </tr>
-        <% current_user.cases.each do |c| %>
-          <%= render partial: 'table_row', locals: {c: c} %>
-        <% end %>
+        <%= render partial: 'table_row', locals: {cases: current_user.cases} %>
       </table>
     </div>
 
@@ -82,9 +78,7 @@
           <th></th>
           <th></th>
         </tr>
-        <% @urgent_cases.each do |c| %>
-          <%= render partial: 'table_row', locals: {c: c} %>
-        <% end %>
+        <%= render partial: 'table_row', locals: {cases: @urgent_cases} %>
       </table>
     </div>
   </div>
