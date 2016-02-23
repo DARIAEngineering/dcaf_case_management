@@ -1,4 +1,4 @@
-class CasePolicy < ApplicationPolicy
+class PregnancyPolicy < ApplicationPolicy
     def update?
         user.admin? or not record.published?
     end

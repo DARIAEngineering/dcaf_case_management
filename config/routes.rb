@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   authenticate :user do
-    root to: 'cases#index', as: :authenticated_root
-    resources :cases do
+    root to: 'pregnancies#index', as: :authenticated_root
+    resources :pregnancies do
       member do
         resources :calls, only: [ :create ]
       end

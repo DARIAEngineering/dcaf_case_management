@@ -4,7 +4,7 @@ class Call
 	include Mongoid::History
 
 	field :status, type: String
-	embedded_in :case
+	embedded_in :pregnancy
 
 	validates_presence_of :status
 
