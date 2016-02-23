@@ -20,11 +20,4 @@ class CasesController < ApplicationController
     end
   end
 
-  private
-
-  def case_params
-    params.require(:patient).permit(:primary_phone)
-  end
-
-
 end
