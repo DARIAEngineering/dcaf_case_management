@@ -20,17 +20,11 @@
     <div id="call_list_builder">
       <h4>Build your call list <small>today's voicemails below</small></h4>
 
-      <form action=search id="call_list_builder_form" method="get" class="form-horizontal" role="form">
-        <div class="form-group">
-          <div class="col-sm-10">
-            <input type="text" name="keyword" id="input" class="form-control col-sm-9" value="" required="required" title="" placeholder="First or last name">
-          </div>
-          <div class="col-sm-2">
-            <%= button_tag "", type: 'submit', class: "btn btn-default glyphicon glyphicon-search" %>
-          </div>
-        </div>
-      </form>
-      <% if(@results && @results.length>0) then %>
+      <%= form_tag('/search', remote: true, html: {class: 'form-horizontal'}) do %>
+        <%= text_field_tag :search, params[:search], class: 'form-control col-sm-9' %>
+        <%= submit_tag 'Search', class: 'btn btn-primary', :name => nil %>
+      <% end %>
+      <%# if(@results && @results.length>0) then %>
         <div id="search_results">
           <h4>Search Results</h4>
           <table class="table table-bordered">
@@ -42,13 +36,13 @@
               <th></th>
               <th></th>
             </tr>
-            <%= render partial: 'table_row', locals: {cases: @results} %>
+            <%#= render partial: 'table_row', locals: {cases: @results} %>
           </table>
         </div>
-      <% elsif(@results) %>
-        <h4>Your search produced no results, so add a new patient:</h4>
-        <%= render 'patients/new_patient' %>
-      <% end %>
+      <%# elsif(@results) %>
+        <!-- <h4>Your search produced no results, so add a new patient:</h4> -->
+        <%#= render 'patients/new_patient' %>
+      <%# end %>
     </div>
 
 

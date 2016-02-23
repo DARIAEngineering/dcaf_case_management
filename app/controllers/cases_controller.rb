@@ -6,18 +6,25 @@ class CasesController < ApplicationController
   end
 
   def search
-    @patient = Patient.new
-    @p_case = @patient.cases.build
-    @urgent_cases = Case.where(urgent_flag: true)
-    name_match = Patient.where(name: params[:keyword])
-    primary_match = Patient.where(primary_phone: params[:keyword])
-    secondary_match = Patient.where(secondary_phone: params[:keyword])
-    patients = name_match + primary_match + secondary_match
+    name_match = Patient.where(name: params[:search])
+    primary_match = Patient.where(primary_phone: params[:search])
+    secondary_match = Patient.where(secondary_phone: params[:search])
+    patients = name_match | primary_match | secondary_match
     @results = []
     patients.each do |patient|
       @results << patient.cases.most_recent
     end
-    render :index
+
+    respond_to do |format|
+        format.js
+    end
   end
+
+  private
+
+  def case_params
+    params.require(:patient).permit(:primary_phone)
+  end
+
 
 end
