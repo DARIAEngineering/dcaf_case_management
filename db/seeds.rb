@@ -16,7 +16,7 @@ end
 patients = Patient.all
 
 patients.each do |patient|
-  if(patient[-1].even?) then
+  if(patient.name[-1, 1].to_i.even?) then
     flag = true
   else
     flag = false
