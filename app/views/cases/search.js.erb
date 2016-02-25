@@ -1,0 +1,3 @@
+$("#search_results").append("<%= escape_javascript(render partial: 'search_results', locals: { cases: @results } ) %>");
+$("#search_results tr.case-data").remove();
+$("#search_results table tbody").append("<%= escape_javascript(render partial: 'table_content', locals: { cases: @results } ) %>");

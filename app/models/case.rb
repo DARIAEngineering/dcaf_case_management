@@ -30,11 +30,16 @@ class Case
 	field :urgent_flag, type: Boolean
 
 	belongs_to :patient
+	belongs_to :user
 	embeds_many :pledges
 	embeds_many :notes
 	embeds_many :calls
 	has_one :clinic
 
 	# Mongoid history for users
+
+	def self.most_recent
+    order('created_at DESC').limit(1).first
+  end
 
 end

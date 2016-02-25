@@ -7,7 +7,10 @@ Rails.application.routes.draw do
       end
     end
     resources :patients, only: [ :create ]
+    patch 'users/:user_id/add_case/:id', to: 'users#add_case'
+    patch 'users/:user_id/remove_case/:id', to: 'users#remove_case'
   end
   root :to => redirect('/users/sign_in')
   devise_for :users
+  post 'search', to: 'cases#search'
 end

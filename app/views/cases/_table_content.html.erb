@@ -1,0 +1,15 @@
+<% cases.each do |c| %>
+  <tr class="case-data">
+    <td><%= c.patient.primary_phone %></td>
+    <td><%= c.patient.name %></td>
+    <td><%= "#{(DateTime.now - c.last_menstrual_period_time).to_i/7} weeks" %></td>
+    <td>(sample case notes. something or other. detail)</td>
+    <% if(current_user.cases.include?(c)) then %>
+      <td><%= link_to "Remove", "/users/#{current_user.id}/remove_case/#{c.id}", method: :patch %></td>
+    <% else %>
+      <td><%= link_to "Add", "/users/#{current_user.id}/add_case/#{c.id}", method: :patch %></td>
+    <% end %>
+    <td><%= link_to "Call", "#new_call", data: {toggle: "modal"} %></td>
+    <%= render partial: 'calls/new_call', locals: {c: c} %>
+  </tr>
+<% end %>
