@@ -1,7 +1,7 @@
 {
     "name": "DCAF Case Manager", 
     "description": "A Rails-based case management system for ", 
-    "license": "", 
+    "license": "MIT", 
     "status": "Alpha", 
     "homepage": "http://casemanagerdemo.herokuapp.com", 
     "repository": "https://github.com/colinxfleming/dcaf_case_manager", 
