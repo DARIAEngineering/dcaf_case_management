@@ -20,4 +20,12 @@ class CasesController < ApplicationController
     end
   end
 
+  def edit
+    @case = Case.find(:id).includes(:patient)
+    # @patient = @case.patient
+  end
+
+  def update
+  end
+
 end

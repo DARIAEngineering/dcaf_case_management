@@ -20,6 +20,8 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+
+  # better error handling
 end
 
 group :test do
@@ -36,4 +38,3 @@ group :production do
   gem 'unicorn'
   gem 'rails_12factor'
 end
-
