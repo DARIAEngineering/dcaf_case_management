@@ -7,9 +7,9 @@ class Pregnancy
 
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
-	field :p_case_id, type: String
+	field :pregnancy_id, type: String
 	field :initial_call_date, type: DateTime
-	field :p_case_status, type: String #enumeration
+	field :pregnancy_status, type: String #enumeration
 	field :last_menstrual_period_lmp_type, type: Integer
 	field :last_menstrual_period_time, type: DateTime
 	field :city, type: String
