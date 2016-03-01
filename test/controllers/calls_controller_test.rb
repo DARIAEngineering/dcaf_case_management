@@ -4,7 +4,7 @@ class CallsControllerTest < ActionController::TestCase
   def setup
     @user = build :user
     sign_in @user
-    @prengancy = create :pregnancy
+    @pregnancy = create :pregnancy
   end
 
   describe 'create method' do
