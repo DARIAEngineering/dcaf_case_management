@@ -1,21 +1,22 @@
-<%= render 'navigation' %>
-
 <!-- Patient Info -->
 <div class="patient-info">
   <%= bootstrap_form_for @case do |c| %>
     <div class="col-md-4">
-      <%= c.text_field :name, c.patient.name, label: "Name" %>
-      <%= c.text_field :primary_phone, c.patient.primary_phone, label: "Phone Number" %>
+      <%= c.fields_for :patient do |p| %>
+        <%= p.text_field :name, label: 'Name' %>
+        <%= p.text_field :primary_phone, label: 'Phone Number' %>
+      <% end %>
     </div>
     <div class="col-md-4">
       <!-- need a date picker -->
-      <%= c.text_field :last_menstrual_period_lmp_time, c.last_menstrual_period_time, label: "Last Menstrual Period:" %>
+      <%= c.text_field :last_menstrual_period_time, label: "Last Menstrual Period:" %>
       <!-- select number of weeks -->
-      <%= c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
+      <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
     </div>
     <div class="col-md-4">
       <!-- case status should be c.select -->
-      <%= c.text_field :case_status, c.case_status, label: "Status:" %>
+      <%= c.text_field :case_status, label: "Status:" %>
       <!-- Appointment Date (not in Case model) -->
     </div>
+  <% end %>
 </div>

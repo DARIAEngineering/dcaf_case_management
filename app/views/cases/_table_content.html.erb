@@ -1,7 +1,7 @@
 <% cases.each do |c| %>
   <tr class="case-data">
-    <td><%= c.patient.primary_phone %></td>
-    <td><%= c.patient.name %></td>
+    <td><%= c.id %></td>
+    <td><%= link_to c.patient.name, edit_case_path(c) %></td>
     <td><%= "#{(DateTime.now - c.last_menstrual_period_time).to_i/7} weeks" %></td>
     <td>(sample case notes. something or other. detail)</td>
     <% if(current_user.cases.include?(c)) then %>

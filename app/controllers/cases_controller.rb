@@ -21,7 +21,7 @@ class CasesController < ApplicationController
   end
 
   def edit
-    @case = Case.find(:id).includes(:patient)
+    @case = Case.find(params[:id]) #.includes(:patient)
     # @patient = @case.patient
   end
 

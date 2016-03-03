@@ -22,6 +22,8 @@ group :development, :test do
   gem 'spring'
 
   # better error handling
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
