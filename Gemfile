@@ -16,9 +16,12 @@ gem 'bson_ext'
 gem 'figaro'
 gem 'bootstrap_form'
 
+group :development do
+  gem 'web-console', '~> 2.0'
+end
+
 group :development, :test do
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
   gem 'spring'
 end
 
