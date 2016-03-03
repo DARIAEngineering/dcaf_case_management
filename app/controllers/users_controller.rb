@@ -1,16 +1,16 @@
 class UsersController < ApplicationController
 
-  def add_case
-    c = Case.find(params[:id])
+  def add_pregnancy_case
+    c = PregnancyCase.find(params[:id])
     user = User.find(params[:user_id])
-    user.cases << c
+    user.pregnancy_cases << pc
     redirect_to root_path
   end
 
-  def remove_case
-    c = Case.find(params[:id])
+  def remove_pregnancy_case
+    c = PregnancyCase.find(params[:id])
     user = User.find(params[:user_id])
-    user.cases.delete(c)
+    user.pregnancy_cases.delete(pc)
     redirect_to root_path
   end
 

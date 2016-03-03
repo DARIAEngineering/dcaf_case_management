@@ -8,6 +8,6 @@ class Clinic
 	field :state, type: String #ennnnnnummmmerrrrattttttioonnn???????
 	field :zip, type: String
 
-	belongs_to :pregnancy
+	belongs_to :pregnancy_case
 
 end

@@ -4,6 +4,6 @@ class Note
 	include Mongoid::History
 
 	field :notes, type: String
-	embedded_in :pregnancy
+	embedded_in :pregnancy_case
 
 end
