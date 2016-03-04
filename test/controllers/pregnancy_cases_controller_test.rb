@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CasesControllerTest < ActionController::TestCase
+class PregnancyCasesControllerTest < ActionController::TestCase
   def setup
     @user = create :user
     sign_in @user

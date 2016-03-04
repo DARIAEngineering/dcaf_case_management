@@ -1,7 +1,7 @@
 class CallsController < ApplicationController
   def create
-    c = Case.find(params[:id])
-    @call = c.calls.new(call_params)
+    pc = PregnancyCase.find(params[:id])
+    @call = pc.calls.new(call_params)
 		if @call.save
 			redirect_to root_path
     else
