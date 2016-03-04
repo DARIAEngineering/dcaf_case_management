@@ -1,4 +1,4 @@
-class PregnancyCase
+class Pregnancy
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::History
@@ -7,9 +7,9 @@ class PregnancyCase
 
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
-	field :pregnancy_case_id, type: String
+	# field :pregnancy_case_id, type: String # not sure why this is necessary?
 	field :initial_call_date, type: DateTime
-	field :pregnancy_case_status, type: String #enumeration
+	field :status, type: String #enumeration
 	field :last_menstrual_period_lmp_type, type: Integer
 	field :last_menstrual_period_time, type: DateTime
 	field :city, type: String
