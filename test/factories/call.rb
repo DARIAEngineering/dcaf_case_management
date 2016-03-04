@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :call do
-    pregnancy_case
+    pregnancy
     status "Reached patient"
   end
 end

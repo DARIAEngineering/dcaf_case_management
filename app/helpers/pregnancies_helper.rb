@@ -1,2 +1,2 @@
-module PregnancyHelper
+module PregnanciesHelper
 end
