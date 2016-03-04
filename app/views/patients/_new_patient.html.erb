@@ -7,14 +7,14 @@
     <%= f.text_field :name, label: "Name" %>
   </div>
 
-  <%= f.fields_for @pregnancy_case do |pc| %>
+  <%= f.fields_for @pregnancy do |p| %>
     <div class="col-md-2">
-      <%= pc.text_field :last_menstrual_period_lmp_type, label: "LMP" %>
+      <%= p.text_field :last_menstrual_period_lmp_type, label: "LMP" %>
     </div>
 
     <div class="col-md-2">
       <%= f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
-        <%= pc.check_box :voicemail_ok, label: 'Yes' %> <!-- TODO add bootstrap toggle -->
+        <%= p.check_box :voicemail_ok, label: 'Yes' %> <!-- TODO add bootstrap toggle -->
       <% end %>
     </div>
   <% end %>

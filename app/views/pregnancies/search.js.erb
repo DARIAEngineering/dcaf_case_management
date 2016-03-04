@@ -1,3 +1,3 @@
-$("#search_results").append("<%= escape_javascript(render partial: 'search_results', locals: { pregnancy_cases: @results } ) %>");
-$("#search_results tr.case-data").remove();
-$("#search_results table tbody").append("<%= escape_javascript(render partial: 'table_content', locals: { pregnancy_cases: @results } ) %>");
+$("#search_results").append("<%= escape_javascript(render partial: 'search_results', locals: { pregnancies: @results } ) %>");
+$("#search_results tr.pregnancy-data").remove();
+$("#search_results table tbody").append("<%= escape_javascript(render partial: 'table_content', locals: { pregnancies: @results } ) %>");

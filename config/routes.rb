@@ -7,8 +7,8 @@ Rails.application.routes.draw do
       end
     end
     resources :patients, only: [ :create ]
-    patch 'users/:user_id/add_case/:id', to: 'users#add_pregnancy'
-    patch 'users/:user_id/remove_case/:id', to: 'users#remove_pregnancy'
+    patch 'users/:user_id/add_pregnancy/:id', to: 'users#add_pregnancy'
+    patch 'users/:user_id/remove_pregnancy/:id', to: 'users#remove_pregnancy'
     post 'search', to: 'pregnancies#search'
   end
   root :to => redirect('/users/sign_in')

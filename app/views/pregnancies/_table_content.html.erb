@@ -1,15 +1,15 @@
-<% pregnancies.each do |pc| %>
-  <tr class="case-data">
-    <td><%= pc.patient.primary_phone %></td>
-    <td><%= pc.patient.name %></td>
-    <td><%= "#{(DateTime.now - pc.last_menstrual_period_time).to_i/7} weeks" %></td>
+<% pregnancies.each do |p| %>
+  <tr class="pregnancy-data">
+    <td><%= p.patient.primary_phone %></td>
+    <td><%= p.patient.name %></td>
+    <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" %></td>
     <td>(sample case notes. something or other. detail)</td>
-    <% if(current_user.pregnancies.include?(pc)) then %>
-      <td><%= link_to "Remove", "/users/#{current_user.id}/remove_case/#{pc.id}", method: :patch %></td>
+    <% if(current_user.pregnancies.include?(p)) then %>
+      <td><%= link_to "Remove", "/users/#{current_user.id}/remove_case/#{p.id}", method: :patch %></td>
     <% else %>
-      <td><%= link_to "Add", "/users/#{current_user.id}/add_case/#{pc.id}", method: :patch %></td>
+      <td><%= link_to "Add", "/users/#{current_user.id}/add_case/#{p.id}", method: :patch %></td>
     <% end %>
     <td><%= link_to "Call", "#new_call", data: {toggle: "modal"} %></td>
-    <%= render partial: 'calls/new_call', locals: {pc: pc} %>
+    <%= render partial: 'calls/new_call', locals: {p: p} %>
   </tr>
 <% end %>
