@@ -1,2 +1,2 @@
-module PregnancyCaseHelper
+module PregnancyHelper
 end
