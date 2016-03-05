@@ -1,4 +1,4 @@
-class Case
+class Pregnancy
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::History
@@ -7,9 +7,9 @@ class Case
 
 	field :line, type: String #DC, MD, VA
 	field :language, type: String
-	field :case_id, type: String
+	# field :pregnancy_case_id, type: String # not sure why this is necessary?
 	field :initial_call_date, type: DateTime
-	field :case_status, type: String #enumeration
+	field :status, type: String #enumeration
 	field :last_menstrual_period_lmp_type, type: Integer
 	field :last_menstrual_period_time, type: DateTime
 	field :city, type: String
@@ -30,11 +30,16 @@ class Case
 	field :urgent_flag, type: Boolean
 
 	belongs_to :patient
+	belongs_to :user
 	embeds_many :pledges
 	embeds_many :notes
 	embeds_many :calls
 	has_one :clinic
 
 	# Mongoid history for users
+
+	def self.most_recent
+    order('created_at DESC').limit(1).first
+  end
 
 end
