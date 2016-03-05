@@ -39,7 +39,9 @@
           <th></th>
           <th></th>
         </tr>
-        <%= render partial: 'table_content', locals: {pregnancies: current_user.pregnancies} %>
+        <% current_user.pregnancies.each do |pregnancy| %>
+          <%= render partial: 'table_content', locals: { p: pregnancy } %>
+        <% end %>
       </table>
     </div>
 
@@ -54,7 +56,9 @@
           <th></th>
           <th></th>
         </tr>
-        <%= render partial: 'table_content', locals: {pregnancies: @urgent_pregnancies} %>
+        <% @urgent_pregnancies.each do |pregnancy| %>
+          <%= render partial: 'table_content', locals: { p: pregnancy } %>
+        <% end %>
       </table>
     </div>
   </div>
