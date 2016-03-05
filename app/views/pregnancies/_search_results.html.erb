@@ -1,11 +1,18 @@
 <h4>Search Results</h4>
 <table class="table table-bordered">
-  <tr>
-    <th>Phone</th>
-    <th>Name</th>
-    <th>LMP</th> <!-- last menstrual period -->
-    <th>Pregnancy Notes</th>
-    <th></th>
-    <th></th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Phone</th>
+      <th>Name</th>
+      <th>LMP</th> <!-- last menstrual period -->
+      <th>Pregnancy Notes</th>
+      <th></th>
+      <th></th>
+    </tr>    
+  </thead>
+  <tbody>
+    <% pregnancies.each do |pregnancy| %>
+      <%= render partial: 'pregnancies/table_content', locals: { p: pregnancy } %>
+    <% end %>
+  </tbody>
 </table>

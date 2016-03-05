@@ -1,3 +1,2 @@
+$('#search_results').empty(); 
 $("#search_results").append("<%= escape_javascript(render partial: 'search_results', locals: { pregnancies: @results } ) %>");
-$("#search_results tr.pregnancy-data").remove();
-$("#search_results table tbody").append("<%= escape_javascript(render partial: 'table_content', locals: { pregnancies: @results } ) %>");

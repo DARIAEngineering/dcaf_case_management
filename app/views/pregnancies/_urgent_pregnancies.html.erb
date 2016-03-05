@@ -1,0 +1,20 @@
+<div id="urgent_pregnancies">
+  <h4>Urgent Cases</h4>
+  <table class="table table-bordered">
+    <tr>
+      <th>Phone</th>
+      <th>Name</th>
+      <th>LMP</th> <!-- last menstrual period -->
+      <th>Case Notes</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tbody>
+      <div id="urgent_pregnancies_content">
+        <% pregnancies.each do |pregnancy| %>
+          <%= render partial: 'table_content', locals: { p: pregnancy } %>
+        <% end %>
+      </div>
+    </tbody>
+  </table>
+</div>
