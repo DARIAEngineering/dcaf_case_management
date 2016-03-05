@@ -41,10 +41,12 @@
           <th></th>
           <th></th>
         </tr>
-        <tbody id="urgent_pregnancies_content">
-          <% @urgent_pregnancies.each do |pregnancy| %>
-            <%= render partial: 'table_content', locals: { p: pregnancy } %>
-          <% end %>
+        <tbody>
+          <div id="urgent_pregnancies_content">
+            <% @urgent_pregnancies.each do |pregnancy| %>
+              <%= render partial: 'table_content', locals: { p: pregnancy } %>
+            <% end %>
+          </div>
         </tbody>
       </table>
     </div>
