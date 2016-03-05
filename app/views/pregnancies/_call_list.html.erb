@@ -1,0 +1,18 @@
+<h4>Your Call List</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Phone</th>
+      <th>Name</th>
+      <th>LMP</th> <!-- last menstrual period -->
+      <th>Case Notes</th>
+      <th></th>
+      <th></th>
+    </tr>        
+  </thead>
+  <tbody id="call_list_content">
+    <% pregnancies.each do |pregnancy| %>
+      <%= render partial: 'pregnancies/table_content', locals: { p: pregnancy } %>
+    <% end %>          
+  </tbody>
+</table>

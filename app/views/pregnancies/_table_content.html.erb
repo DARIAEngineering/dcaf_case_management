@@ -4,9 +4,9 @@
   <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" %></td>
   <td>(sample case notes. something or other. detail)</td>
   <% if(current_user.pregnancies.include?(p)) then %>
-    <td><%= link_to "Remove", "/users/#{current_user.id}/remove_pregnancy/#{p.id}", method: :patch %></td>
+    <td><%= link_to "Remove", "/users/#{current_user.id}/remove_pregnancy/#{p.id}", method: :patch, remote: true %></td>
   <% else %>
-    <td><%= link_to "Add", "/users/#{current_user.id}/add_pregnancy/#{p.id}", method: :patch %></td>
+    <td><%= link_to "Add", "/users/#{current_user.id}/add_pregnancy/#{p.id}", method: :patch, remote: true %></td>
   <% end %>
   <td><%= link_to "Call", "#new_call", data: {toggle: "modal"} %></td>
   <%= render partial: 'calls/new_call', locals: {p: p} %>

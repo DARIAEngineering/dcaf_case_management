@@ -16,7 +16,6 @@
       </div>
     </div>
 
-
     <div id="call_list_builder">
       <h4>Build your call list <small>today's voicemails below</small></h4>
 
@@ -27,22 +26,8 @@
       <div id="search_results"></div>
     </div>
 
-
     <div id="call_list">
-      <h4>Your Call List</h4>
-      <table class="table table-bordered">
-        <tr>
-          <th>Phone</th>
-          <th>Name</th>
-          <th>LMP</th> <!-- last menstrual period -->
-          <th>Case Notes</th>
-          <th></th>
-          <th></th>
-        </tr>
-        <% current_user.pregnancies.each do |pregnancy| %>
-          <%= render partial: 'table_content', locals: { p: pregnancy } %>
-        <% end %>
-      </table>
+      <%= render partial: 'pregnancies/call_list', locals: { pregnancies: current_user.pregnancies } %>
     </div>
 
     <div id="urgent_pregnancies">
@@ -56,9 +41,11 @@
           <th></th>
           <th></th>
         </tr>
-        <% @urgent_pregnancies.each do |pregnancy| %>
-          <%= render partial: 'table_content', locals: { p: pregnancy } %>
-        <% end %>
+        <tbody id="urgent_pregnancies_content">
+          <% @urgent_pregnancies.each do |pregnancy| %>
+            <%= render partial: 'table_content', locals: { p: pregnancy } %>
+          <% end %>
+        </tbody>
       </table>
     </div>
   </div>
