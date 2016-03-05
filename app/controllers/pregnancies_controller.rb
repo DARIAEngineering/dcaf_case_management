@@ -1,8 +1,8 @@
-class CasesController < ApplicationController
+class PregnanciesController < ApplicationController
   def index
   	@patient = Patient.new
-    @p_case = @patient.cases.build
-    @urgent_cases = Case.where(urgent_flag: true)
+    @pregnancies = @patient.pregnancies.build
+    @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
   end
 
   def search
@@ -12,15 +12,16 @@ class CasesController < ApplicationController
     patients = name_match | primary_match | secondary_match
     @results = []
     patients.each do |patient|
-      @results << patient.cases.most_recent
+      @results << patient.pregnancies.most_recent
     end
 
     respond_to do |format|
-        format.js
+      format.js
     end
   end
 
   def edit
+    # change to pregnancy
     @case = Case.find(params[:id]) #.includes(:patient)
     # @patient = @case.patient
   end

@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Call.destroy_all
-Case.destroy_all
+Pregnancy.destroy_all
 Patient.destroy_all
 
 10.times do |i|
@@ -21,5 +21,5 @@ patients.each do |patient|
   else
     flag = false
   end
-  patient.cases.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
+  patient.pregnancies.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
 end

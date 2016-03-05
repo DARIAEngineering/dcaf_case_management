@@ -1,4 +1,4 @@
-class Case
+class Pregnancy
 	include Mongoid::Document
 	include Mongoid::Timestamps
 	include Mongoid::History
@@ -11,10 +11,8 @@ class Case
 	embeds_many :calls
 	has_one :clinic
 
-	# case info
-	field :case_id, type: String
 	field :initial_call_date, type: DateTime
-	field :case_status, type: String #enumeration
+	field :status, type: String #enumeration
 	field :last_menstrual_period_lmp_type, type: Integer
 	field :last_menstrual_period_weeks, type: Integer
 	field :last_menstrual_period_time, type: DateTime

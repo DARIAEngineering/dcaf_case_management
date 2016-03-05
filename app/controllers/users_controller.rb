@@ -1,17 +1,20 @@
 class UsersController < ApplicationController
+  before_action :get_user_and_pregnancy
 
-  def add_case
-    c = Case.find(params[:id])
-    user = User.find(params[:user_id])
-    user.cases << c
-    redirect_to root_path
+  def add_pregnancy
+    @user.pregnancies << @pregnancy
+    respond_to { |format| format.js }
   end
 
-  def remove_case
-    c = Case.find(params[:id])
-    user = User.find(params[:user_id])
-    user.cases.delete(c)
-    redirect_to root_path
+  def remove_pregnancy
+    @user.pregnancies.delete @pregnancy
+    respond_to { |format| format.js }
   end
 
+  private 
+
+  def get_user_and_pregnancy
+    @pregnancy = Pregnancy.find(params[:id])
+    @user = User.find(params[:user_id])
+  end
 end
