@@ -21,8 +21,9 @@ class PregnanciesController < ApplicationController
   end
 
   def edit
-    # change to pregnancy
-    @case = Case.find(params[:id]) #.includes(:patient)
+    # TODO change to pregnancy
+    # @case = Case.find(params[:id]) #.includes(:patient)
+    @pregnancy = Pregnancy.find(params[:id])
     # @patient = @case.patient
   end
 

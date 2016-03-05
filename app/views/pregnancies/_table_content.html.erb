@@ -1,6 +1,6 @@
 <tr class="pregnancy-data">
   <td><%= p.patient.primary_phone %></td>
-  <td><%= p.patient.name %></td>
+  <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
   <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" %></td>
   <td>(sample case notes. something or other. detail)</td>
   <% if(current_user.pregnancies.include?(p)) then %>

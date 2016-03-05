@@ -1,22 +1,22 @@
 <!-- Patient Info -->
 <!-- TODO change case to pregnancy -->
 <div class="patient-info">
-  <%= bootstrap_form_for @case do |c| %>
+  <%= bootstrap_form_for @pregnancy do |pr| %>
     <div class="col-md-4">
-      <%= c.fields_for :patient do |p| %>
+      <%= pr.fields_for :patient do |p| %>
         <%= p.text_field :name, label: 'Name' %>
         <%= p.text_field :primary_phone, label: 'Phone Number' %>
       <% end %>
     </div>
     <div class="col-md-4">
       <!-- need a date picker -->
-      <%= c.text_field :last_menstrual_period_time, label: "Last Menstrual Period:" %>
+      <%= pr.text_field :last_menstrual_period_time, label: "Last Menstrual Period:" %>
       <!-- select number of weeks -->
       <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
     </div>
     <div class="col-md-4">
       <!-- case status should be c.select -->
-      <%= c.text_field :case_status, label: "Status:" %>
+      <%= pr.text_field :status, label: "Status:" %>
       <!-- Appointment Date (not in Case model) -->
     </div>
   <% end %>
