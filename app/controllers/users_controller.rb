@@ -3,14 +3,12 @@ class UsersController < ApplicationController
 
   def add_pregnancy
     @user.pregnancies << @pregnancy
-    # @all_pregnancies = @user.pregnancies
-    # redirect_to root_path
     respond_to { |format| format.js }
   end
 
   def remove_pregnancy
-    @user.pregnancies.delete(@pregnancy)
-    redirect_to root_path
+    @user.pregnancies.delete @pregnancy
+    respond_to { |format| format.js }
   end
 
   private 
