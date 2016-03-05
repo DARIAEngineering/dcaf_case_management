@@ -1,0 +1,2 @@
+$('#call_list_content').empty(); 
+$('#call_list_content').append('<%= escape_javascript(render partial: "pregnancies/call_list", locals: { pregnancies: @user.pregnancies }) %>')
