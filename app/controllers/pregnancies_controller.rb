@@ -12,7 +12,7 @@ class PregnanciesController < ApplicationController
     patients = name_match | primary_match | secondary_match
     @results = []
     patients.each do |patient|
-      @results << patient.cases.most_recent
+      @results << patient.pregnancies.most_recent
     end
 
     respond_to do |format|
