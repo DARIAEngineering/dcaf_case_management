@@ -8,7 +8,7 @@ class PregnanciesControllerTest < ActionController::TestCase
                       name: 'Susie Everyteen', 
                       primary_phone: '123-456-7890', 
                       secondary_phone: '333-444-5555'
-    @pregnancy = create :pregnancy, patient: @patient
+    @pregnancy = @patient.pregnancies.create(attributes_for :pregnancy)
   end
 
   it "should get index" do
