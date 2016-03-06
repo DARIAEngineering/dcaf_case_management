@@ -1,4 +1,4 @@
-<tr class="pregnancy-data">
+<tr class="pregnancy-data" id="<%= p.patient.id %>">
   <td><%= p.patient.primary_phone %></td>
   <td><%= p.patient.name %></td>
   <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" if p.last_menstrual_period_time %></td>
