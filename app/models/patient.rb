@@ -10,9 +10,13 @@ class Patient
   validates_presence_of :name, :primary_phone
 
   def self.search(name_or_phone_str) # TODO optimize
-    name_match = Patient.where name: name_or_phone_str
-    primary_match = Patient.where primary_phone: name_or_phone_str
-    secondary_match = Patient.where secondary_phone: name_or_phone_str
-    name_match | primary_match | secondary_match
+    name_matches = Patient.where name: name_or_phone_str
+    primary_matches = Patient.where primary_phone: name_or_phone_str
+    secondary_matches = Patient.where secondary_phone: name_or_phone_str
+    results = []
+    [name_matches | primary_matches | secondary_matches].each do |match|
+      results << match
+    end
+    results
   end
 end
