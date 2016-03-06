@@ -6,10 +6,7 @@ class PregnanciesController < ApplicationController
   end
 
   def search
-    name_match = Patient.where(name: params[:search])
-    primary_match = Patient.where(primary_phone: params[:search])
-    secondary_match = Patient.where(secondary_phone: params[:search])
-    patients = name_match | primary_match | secondary_match
+    patients = Patient.search params[:search]
     @results = []
     patients.each do |patient|
       @results << patient.pregnancies.most_recent

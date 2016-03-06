@@ -22,6 +22,5 @@ class PregnancyTest < ActiveSupport::TestCase
     it 'should find multiple patients if there are multiple' do 
       assert_equal Patient.search('123-456-6789').count, 2
     end
-    
   end
 end
