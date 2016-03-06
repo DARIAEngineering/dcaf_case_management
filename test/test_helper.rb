@@ -17,8 +17,8 @@ end
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  def log_in_as(user) 
-    visit root_url 
+  def log_in_as(user)
+    visit root_url
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Sign in'

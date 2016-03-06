@@ -16,3 +16,6 @@ production:
   mongopass: MONGO_PASSWORD
   mongoport: 'MONGO_PORT'
   mongodb: MONGO_DB_URL
+
+sendgrid_password: SENDGRID_KEY
+sendgrid_username: SENDGRID_USER

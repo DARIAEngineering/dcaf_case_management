@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="col-md-12">
+    <%= render partial: 'pregnancies/overview' %>
+    <%= render partial: 'pregnancies/search_form' %>
+    <%= render partial: 'pregnancies/call_list', locals: { pregnancies: current_user.pregnancies } %>
+    <%= render partial: 'pregnancies/urgent_pregnancies', locals: { pregnancies: @urgent_pregnancies } %>
+  </div>
+</div>
+
+<%#= render 'patients/new_patient' %>
