@@ -43,8 +43,7 @@ class PasswordResetTest < ActionDispatch::IntegrationTest
 
       # confirm email got sent
       assert_equal Devise.mailer.deliveries.count, 1
-      
-
+      assert_match /reset_password_token/, Devise.mailer.deliveries.first.to_s
     end
   end
 end
