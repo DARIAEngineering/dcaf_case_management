@@ -8,4 +8,11 @@ class Patient
 	has_many :pregnancies
 
   validates_presence_of :name, :primary_phone
+
+  def search(name_or_phone_str)
+    name_match = Patient.where(name: params[:search])
+    primary_match = Patient.where(primary_phone: params[:search])
+    secondary_match = Patient.where(secondary_phone: params[:search])
+    name_match | primary_match | secondary_match
+  end
 end
