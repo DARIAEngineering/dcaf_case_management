@@ -19,4 +19,13 @@ class PregnanciesController < ApplicationController
       format.js
     end
   end
+
+  def edit
+    @pregnancy = Pregnancy.find(params[:id])
+
+  end
+
+  def update
+  end
+
 end

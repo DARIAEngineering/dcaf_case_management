@@ -23,6 +23,10 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'spring'
+
+  # better error handling
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
@@ -39,4 +43,3 @@ group :production do
   gem 'unicorn'
   gem 'rails_12factor'
 end
-
