@@ -1,8 +1,8 @@
 module PregnanciesHelper
   def weeks_options
-    weeks = [[ 1, "1 Week" ]]
+    weeks = [[ "1 Week", 1 ]]
     (2..24).each do |i|
-      weeks << [ i, "#{i} Weeks" ]
+      weeks << [ "#{i} Weeks", i ]
     end
     weeks
   end

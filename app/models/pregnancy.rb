@@ -19,7 +19,6 @@ class Pregnancy
 	field :referred_by, type: String
 	field :special_circumstances, type: String #ennumeration
 
-	# TODO categorize and organize
 	field :voicemail_ok, type: Boolean
 
 	field :line, type: String #DC, MD, VA
@@ -36,6 +35,7 @@ class Pregnancy
 	field :insurance, type: String
 	field :income, type: Integer
 
+	field :appointment_date, type: DateTime
 	# procedure info
 	field :fax_received, type: Boolean
 	field :procedure_cost, type: Integer
