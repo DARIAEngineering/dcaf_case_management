@@ -25,10 +25,23 @@
 
   <section class="abortion-info">
     <section class="abortion-left-menu col-md-4">
-
+      <!-- links to hook into forms on right side -->
+      <a href="#">Abortion Information</a>
+      <br/>
+      <br/>
+      <a href="#">Patient Information</a>
+      <br/>
+      <br/>
+      <a href="#">Notes</a>
+      <br/>
+      <br/>
+      <a href="#">Call log</a>
+      <br/>
+      <br/>
+      <button class="btn btn-primary">Submit Pledge</button>
     </section>
     <section class="abortion-main-info col-md-8">
-      <div class="abortion-info">
+      <div class="abortion-info col-md-8">
         <h2>Abortion Information</h2>
 
         <div class="info-form-left col-md-6">
@@ -49,6 +62,29 @@
             funding sources
           </p>
         </div>
+      </div>
+      <div class="patient-info col-md-8">
+        <h2>Patient information</h2>
+          <div class="info-form-left col-md-6">
+            <%= preg.fields_for :patient, @pregnancy.patient do |pati| %>
+              <%= pati.text_field :name, label: 'Name' %>
+              <%= pati.text_field :primary_phone, label: 'Phone' %>
+              <%= pati.text_field :secondary_phone, label: 'Secondary Phone' %>
+            <% end %>
+            <!-- Age -->
+            <!-- Race/Ethnicity -->
+            <!-- city -->
+            <!-- state -->
+            <!-- zip -->
+          </div>
+          <div class="info-form-right col-md-6">
+            <!-- employment_status -->
+            <!-- income -->
+            <!-- people in household -->
+            <!-- patient insurance -->
+            <!-- referred_by -->
+            <!-- special_circumstances -->
+          </div>
       </div>
     </section>
   </section>
