@@ -71,25 +71,40 @@
               <%= pati.text_field :primary_phone, label: 'Phone' %>
               <%= pati.text_field :secondary_phone, label: 'Secondary Phone' %>
             <% end %>
-            <!-- Age -->
-            <!-- Race/Ethnicity -->
-            <!-- city -->
-            <!-- state -->
-            <!-- zip -->
+
+            <%= preg.text_field :age, label: 'Age' %>
+            <%= preg.select :race_ethnicity, options_for_select(
+                  ['Caucasian', 'African American',
+                  'Asian/Pacific Islander', 'Hispanic'],
+                  @pregnancy.race_ethnicity), label: 'Race / Ethnicity' %>
+            <%= preg.text_field :city, label: 'City' %>
+            <%= preg.text_field :state, label: 'State' %>
+            <%= preg.text_field :zip, label: 'Zip' %>
           </div>
           <div class="info-form-right col-md-6">
-            <!-- employment_status -->
-            <!-- income -->
-            <!-- people in household -->
-            <!-- patient insurance -->
-            <!-- referred_by -->
-            <!-- special_circumstances -->
+            <%= preg.select :employment_status, options_for_select(
+                  ['Full-time', 'Part-time', 'Unemployed'],
+                  @pregnancy.employment_status), label: 'Employment status' %>
+            <%= preg.select :income, options_for_select(
+                  { 'Range 1' => 1, 'Range 2' => 2 }, @pregnancy.income),
+                  label: 'Income' %>
+            <%= preg.select :household_size, options_for_select(
+                  { 'Size 1' => 1, 'Size 2' => 2 }, @pregnancy.household_size),
+                  label: 'People in household' %>
+            <%= preg.select :insurance, options_for_select(
+                  ['option 1', 'option 2'], @pregnancy.insurance),
+                  label: 'Patient insurance' %>
+            <%= preg.text_field :referred_by, label: 'Referred by' %>
+            <!-- special_circumstances checkbox-->
+            <p>
+              Special circumstances
+            </p>
           </div>
       </div>
     </section>
   </section>
 
-  <% console %>
+  <%# console %>
 
 
 <% end %>
