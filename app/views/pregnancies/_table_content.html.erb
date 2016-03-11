@@ -8,6 +8,6 @@
   <% else %>
     <td><%= link_to "Add", "/users/#{current_user.id}/add_pregnancy/#{p.id}", method: :patch, remote: true %></td>
   <% end %>
-  <td><%= link_to "Call", "#new_call", data: {toggle: "modal"} %></td>
+  <td><%= link_to "Call", "#call-#{p.patient.primary_phone}", data: {toggle: "modal"} %></td>
   <%= render partial: 'calls/new_call', locals: {p: p} %>
 </tr>
