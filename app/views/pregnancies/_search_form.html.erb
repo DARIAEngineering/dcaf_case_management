@@ -1,9 +1,12 @@
-<div id="search_form">
-  <h4>Build your call list <small>today's voicemails below</small></h4>
+<div id="search_form" class="margin-bottom">
+  <h1 class="border-bottom title">Build your call list</h1>
 
   <%= form_tag('/search', remote: true, html: {class: 'form-horizontal'}) do %>
-    <%= text_field_tag :search, params[:search], class: 'form-control col-sm-9' %>
-    <%= submit_tag 'Search', class: 'btn btn-primary', :name => nil %>
+    <%= text_field_tag :search, params[:search], class: 'form-control col-sm-8 search', placeholder: 'Name (Susan Smith) or Phone (555-555-5555)' %>
+    <%= button_tag type: 'submit' do %>
+      <span class="glyphicon glyphicon-search"></span>
+    <%#= submit_tag 'Search', class: 'glyphicon glyphicon-search' %>
+    <% end %>
   <% end %>
 
   <div id="search_results"></div>  
