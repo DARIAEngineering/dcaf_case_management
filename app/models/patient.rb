@@ -13,10 +13,6 @@ class Patient
     name_matches = Patient.where name: name_or_phone_str
     primary_matches = Patient.where primary_phone: name_or_phone_str
     secondary_matches = Patient.where secondary_phone: name_or_phone_str
-    results = []
-    (name_matches | primary_matches | secondary_matches).each do |match|
-      results << match
-    end
-    results
+    (name_matches | primary_matches | secondary_matches)
   end
 end
