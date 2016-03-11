@@ -25,10 +25,23 @@
 
   <section class="abortion-info">
     <section class="abortion-left-menu col-md-4">
-
+      <!-- links to hook into forms on right side -->
+      <a href="#">Abortion Information</a>
+      <br/>
+      <br/>
+      <a href="#">Patient Information</a>
+      <br/>
+      <br/>
+      <a href="#">Notes</a>
+      <br/>
+      <br/>
+      <a href="#">Call log</a>
+      <br/>
+      <br/>
+      <button class="btn btn-primary">Submit Pledge</button>
     </section>
     <section class="abortion-main-info col-md-8">
-      <div class="abortion-info">
+      <div class="abortion-info col-md-8">
         <h2>Abortion Information</h2>
 
         <div class="info-form-left col-md-6">
@@ -49,6 +62,44 @@
             funding sources
           </p>
         </div>
+      </div>
+      <div class="patient-info col-md-8">
+        <h2>Patient information</h2>
+          <div class="info-form-left col-md-6">
+            <%= preg.fields_for :patient, @pregnancy.patient do |pati| %>
+              <%= pati.text_field :name, label: 'Name' %>
+              <%= pati.text_field :primary_phone, label: 'Phone' %>
+              <%= pati.text_field :secondary_phone, label: 'Secondary Phone' %>
+            <% end %>
+
+            <%= preg.text_field :age, label: 'Age' %>
+            <%= preg.select :race_ethnicity, options_for_select(
+                  ['Caucasian', 'African American',
+                  'Asian/Pacific Islander', 'Hispanic'],
+                  @pregnancy.race_ethnicity), label: 'Race / Ethnicity' %>
+            <%= preg.text_field :city, label: 'City' %>
+            <%= preg.text_field :state, label: 'State' %>
+            <%= preg.text_field :zip, label: 'Zip' %>
+          </div>
+          <div class="info-form-right col-md-6">
+            <%= preg.select :employment_status, options_for_select(
+                  ['Full-time', 'Part-time', 'Unemployed'],
+                  @pregnancy.employment_status), label: 'Employment status' %>
+            <%= preg.select :income, options_for_select(
+                  { 'Range 1' => 1, 'Range 2' => 2 }, @pregnancy.income),
+                  label: 'Income' %>
+            <%= preg.select :household_size, options_for_select(
+                  { 'Size 1' => 1, 'Size 2' => 2 }, @pregnancy.household_size),
+                  label: 'People in household' %>
+            <%= preg.select :insurance, options_for_select(
+                  ['option 1', 'option 2'], @pregnancy.insurance),
+                  label: 'Patient insurance' %>
+            <%= preg.text_field :referred_by, label: 'Referred by' %>
+            <!-- special_circumstances checkbox-->
+            <p>
+              Special circumstances
+            </p>
+          </div>
       </div>
     </section>
   </section>

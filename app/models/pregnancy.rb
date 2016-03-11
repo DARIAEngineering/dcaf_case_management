@@ -28,6 +28,7 @@ class Pregnancy
 	field :age, type: Integer
 	field :city, type: String
 	field :state, type: String #ennumeration?
+	field :zip, type: String
 	field :county, type: String
 	field :race_ethnicity, type: String
 	field :employment_status, type: String
