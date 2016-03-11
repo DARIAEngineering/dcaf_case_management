@@ -1,0 +1,59 @@
+<!-- Patient Info -->
+<%= bootstrap_form_for @pregnancy do |preg| %>
+  <div class="patient-info">
+      <div class="col-md-4">
+        <%= preg.fields_for :patient, @pregnancy.patient do |pat| %>
+          <%= pat.text_field :name, label: 'Name' %>
+          <%= pat.text_field :primary_phone, label: 'Phone Number' %>
+        <% end %>
+      </div>
+      <div class="col-md-4">
+        <!-- need a date picker -->
+        <%= preg.text_field :last_menstrual_period_time, label: 'Last Menstrual Period:' %>
+        <!-- select number of weeks -->
+        <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
+        <%= preg.select :last_menstrual_period_weeks, options_for_select(weeks_options, @pregnancy.last_menstrual_period_weeks ) %>
+        <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
+      </div>
+      <div class="col-md-4">
+        <!-- case status should be c.select -->
+        <%= preg.text_field :status, label: 'Status:' %>
+        <!-- Appointment Date (not in Case model) -->
+        <%= preg.date_select :appointment_date, label: 'Appointment date:' %>
+      </div>
+  </div>
+
+  <section class="abortion-info">
+    <section class="abortion-left-menu col-md-4">
+
+    </section>
+    <section class="abortion-main-info col-md-8">
+      <div class="abortion-info">
+        <h2>Abortion Information</h2>
+
+        <div class="info-form-left col-md-6">
+          <%= preg.fields_for :clinic, @pregnancy.clinic do |cl| %>
+            <h4>Clinic details</h4>
+            <%= cl.text_field :name, label: 'Clinic name:' %>
+            <%= cl.text_field :street_address_1, label: 'Street address 1:' %>
+            <%= cl.text_field :street_address_2, label: 'Street address 2:' %>
+            <%= cl.text_field :city, label: 'City:' %>
+            <%= cl.text_field :state, label: 'State:' %>
+            <%= cl.text_field :zip, label: 'Zip:' %>
+          <% end %>
+        </div>
+        <div class="info-form-right col-md-6">
+          <h4>Cost details</h4>
+          <%= preg.text_field :procedure_cost, label: 'Abortion Cost:' %>
+          <p>
+            funding sources
+          </p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <%# console %>
+
+
+<% end %>

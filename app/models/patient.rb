@@ -1,13 +1,13 @@
 class Patient
 	include Mongoid::Document
 
-	field :name, type: String #strip
-	field :primary_phone, type: String #validate
-	field :secondary_phone, type: String #validate
-
 	has_many :pregnancies
 
-  validates_presence_of :name, :primary_phone
+	validates_presence_of :name, :primary_phone
+
+	field :name, type: String #strip
+	field :primary_phone, type: String #validate
+	field :secondary_phone, type: String
 
   def self.search(name_or_phone_str) # TODO optimize
     name_matches = Patient.where name: name_or_phone_str
