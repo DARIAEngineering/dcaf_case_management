@@ -1,7 +1,7 @@
-<tr class="pregnancy-data">
+<tr class="pregnancy-data" id="<%= p.patient.id %>">
   <td><%= p.patient.primary_phone %></td>
   <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
-  <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" %></td>
+  <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" if p.last_menstrual_period_time %></td>
   <td>(sample case notes. something or other. detail)</td>
   <% if(current_user.pregnancies.include?(p)) then %>
     <td><%= link_to "Remove", "/users/#{current_user.id}/remove_pregnancy/#{p.id}", method: :patch, remote: true %></td>

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :patients, only: [ :create ]
     patch 'users/:user_id/add_pregnancy/:id', to: 'users#add_pregnancy'
     patch 'users/:user_id/remove_pregnancy/:id', to: 'users#remove_pregnancy'
-    post 'search', to: 'pregnancies#search'
+    post 'search', to: 'pregnancies#search', defaults: { format: :js }
   end
   root :to => redirect('/users/sign_in')
   devise_for :users
