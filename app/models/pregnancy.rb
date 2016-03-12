@@ -11,6 +11,10 @@ class Pregnancy
 	embeds_many :calls
 	has_one :clinic
 
+	# for mass posting
+	accepts_nested_attributes_for :patient
+	accepts_nested_attributes_for :clinic
+
 	field :initial_call_date, type: DateTime
 	field :status, type: String #enumeration
 	field :last_menstrual_period_lmp_type, type: Integer
@@ -36,7 +40,7 @@ class Pregnancy
 	field :insurance, type: String
 	field :income, type: Integer
 
-	field :appointment_date, type: DateTime
+	field :appointment_date, type: Date
 	# procedure info
 	field :fax_received, type: Boolean
 	field :procedure_cost, type: Integer

@@ -15,6 +15,7 @@ gem 'mongoid-history', '~> 0.5.0'
 gem 'bson_ext'
 gem 'figaro'
 gem 'bootstrap_form'
+gem 'bootstrap_form-datetimepicker'
 
 group :development do
   gem 'web-console', '~> 2.0'

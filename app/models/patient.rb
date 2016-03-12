@@ -7,6 +7,7 @@ class Patient
 
 	field :name, type: String #strip
 	field :primary_phone, type: String #validate
+  field :secondary_person, type: String
 	field :secondary_phone, type: String
 
   def self.search(name_or_phone_str) # TODO optimize
