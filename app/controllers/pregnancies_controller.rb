@@ -19,10 +19,26 @@ class PregnanciesController < ApplicationController
 
   def edit
     @pregnancy = Pregnancy.find(params[:id])
-
   end
 
   def update
+  end
+
+  private
+
+  def pregnancy_params
+    params.require(:patient).permit(:name, :primary_phone, :secondary_phone)
+    params.require(:pregnancy).permit(
+      # fields in dashboard
+      :status, :last_menstrual_period_time, :last_menstrual_period_weeks, :appointment_date,
+
+      # fields in abortion information
+      :procedure_cost, 
+
+      # fields in patient information
+      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size, :insurance, :referred_by
+    )
+    params.require(:clinic).permit! # (fields for clinic) TODO: Implement strong clinic params
   end
 
 end
