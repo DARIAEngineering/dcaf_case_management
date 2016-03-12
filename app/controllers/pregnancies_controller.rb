@@ -1,4 +1,7 @@
 class PregnanciesController < ApplicationController
+  before_action :find_pregnancy, only: [ :edit, :update ]
+  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { redirect_to root_path }
+
   def index
   	@patient = Patient.new
     @pregnancies = @patient.pregnancies.build
@@ -18,13 +21,16 @@ class PregnanciesController < ApplicationController
   end
 
   def edit
-    @pregnancy = Pregnancy.find(params[:id])
   end
 
   def update
   end
 
   private
+
+  def find_pregnancy
+    @pregnancy = Pregnancy.find params[:id]
+  end
 
   def pregnancy_params
     params.require(:patient).permit(:name, :primary_phone, :secondary_phone)
