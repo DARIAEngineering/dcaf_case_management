@@ -36,7 +36,7 @@ class Pregnancy
 	field :insurance, type: String
 	field :income, type: Integer
 
-	field :appointment_date, type: DateTime
+	field :appointment_date, type: Date
 	# procedure info
 	field :fax_received, type: Boolean
 	field :procedure_cost, type: Integer
