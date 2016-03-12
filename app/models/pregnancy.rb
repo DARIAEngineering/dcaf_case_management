@@ -3,7 +3,6 @@ class Pregnancy
 	include Mongoid::Timestamps
 	include Mongoid::History
 
-
 	# relationships
 	belongs_to :patient
 	belongs_to :user
