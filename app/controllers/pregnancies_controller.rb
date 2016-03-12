@@ -50,9 +50,7 @@ class PregnanciesController < ApplicationController
       # associated
       clinic_attributes: [ :name, :street_address_1, :street_address_2, :city, :state, :zip ],
       patient_attributes: [:name, :primary_phone, :secondary_phone]
-
     )
-    # params.require(:clinic).permit! # (fields for clinic) TODO: Implement strong clinic params
   end
 
 end
