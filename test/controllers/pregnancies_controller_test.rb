@@ -17,10 +17,20 @@ class PregnanciesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  it 'should get edit' do
-    get :edit, id: @pregnancy
-    assert_response :success
-  end 
+  describe 'edit method' do 
+    before do 
+      get :edit, id: @pregnancy
+    end
+
+    it 'should get edit' do
+      assert_response :success
+    end 
+
+    it 'should redirect to root on a bad id' do 
+      get :edit, id: 'notanid'
+      assert_redirected_to root_path
+    end
+  end
 
   describe 'search method' do
     it 'should return on name, primary phone, and secondary phone' do
@@ -34,9 +44,9 @@ class PregnanciesControllerTest < ActionController::TestCase
   describe 'update method' do 
     before do 
       @payload = {
-        "patient"=>{"name"=>"Susie Everyteen 2", "id"=>@patient.id}, 
-        "appointment_date"=>"2016-01-04", 
-        "clinic"=>{"name"=>"", "id"=>@clinic.id}
+        patient: { name: 'Susie Everyteen 2', id: @patient.id }, 
+        appointment_date: '2016-01-04', 
+        clinic: { name: 'Clinic A', id: @clinic.id}
       }
 
       patch :update, id: @pregnancy, pregnancy: @payload 
@@ -44,8 +54,8 @@ class PregnanciesControllerTest < ActionController::TestCase
     end
 
 
-    it 'should return a redirect' do # for now
-      assert_response :redirect
+    it 'should redirect on completion' do # for now
+      assert_redirected_to edit_pregnancy_path(@pregnancy)
     end
 
     it 'should update pregnancy fields' do
@@ -53,22 +63,16 @@ class PregnanciesControllerTest < ActionController::TestCase
     end
 
     it 'should update clinic fields' do 
+      assert_equal @pregnancy.clinic.name, 'Clinic A'
+    end
+
+    it 'should update patient fields' do
       assert_equal @pregnancy.patient.name, 'Susie Everyteen 2'
     end
 
-    it 'should update patient fields' do 
-    end
-
-    it 'should reject bad fields' do 
-    end
-
-    it 'should die if there are not dependent object ids' do 
-    end
-
     it 'should redirect if record does not exist' do 
-    end
-
-    it 'should flash a confirmation that things worked' do 
+      patch :update, id: 'notanactualid', pregnancy: @payload
+      assert_redirected_to root_path
     end
   end
 end

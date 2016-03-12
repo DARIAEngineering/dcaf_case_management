@@ -25,7 +25,8 @@ class PregnanciesController < ApplicationController
     if @pregnancy.update_attributes pregnancy_params
       redirect_to edit_pregnancy_path(@pregnancy), flash: { notice: "Saved info for #{@pregnancy.patient.name}!" }
     else
-      redirect_to edit_pregnancy_path(@pregnancy), flash: { alert: "Error saving info for #{@pregnancy.patient.name}!" }
+      head :bad_request
+      # redirect_to edit_pregnancy_path(@pregnancy), flash: { alert: "Error saving info for #{@pregnancy.patient.name}!" }
     end
 
     # TODO respond_to format.js eventually
