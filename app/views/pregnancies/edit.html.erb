@@ -8,7 +8,7 @@
     <div id="menu" class="col-sm-4">
       <%= render partial: 'pregnancies/menu', locals: { f: f, pregnancy: @pregnancy } %>  
     </div>
-    <div id="sections" class="col-sm-8">
+    <div id="sections" class="col-sm-8 tab-content">
       <%= render partial: 'pregnancies/abortion_information', locals: { f: f, pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/patient_information', locals: { f: f, pregnancy: @pregnancy } %>
     </div>
