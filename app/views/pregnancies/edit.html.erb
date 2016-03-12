@@ -1,14 +1,14 @@
 <!-- Patient Info -->
 <%= bootstrap_form_for @pregnancy do |f| %>
-  <div id="patient_dashboard">
+  <div id="patient_dashboard" class="row">
     <%= render partial: 'pregnancies/patient_dashboard', locals: { f: f, pregnancy: @pregnancy } %>
   </div>
 
-  <div id="patient_detail">
-    <div id="menu">
+  <div id="patient_detail" class="row">
+    <div id="menu" class="col-sm-4">
       <%= render partial: 'pregnancies/menu', locals: { f: f, pregnancy: @pregnancy } %>  
     </div>
-    <div id="sections">
+    <div id="sections" class="col-sm-8">
       <%= render partial: 'pregnancies/abortion_information', locals: { f: f, pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/patient_information', locals: { f: f, pregnancy: @pregnancy } %>
     </div>
