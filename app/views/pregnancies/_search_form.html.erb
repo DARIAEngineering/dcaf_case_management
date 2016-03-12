@@ -1,11 +1,10 @@
 <div id="search_form" class="margin-bottom">
   <h1 class="border-bottom title">Build your call list</h1>
 
-  <!-- TODO refactor to use an object -->
   <!-- TODO change submit tag to a search glyphicon -->
-  <%= form_tag('/search', remote: true, html: {class: 'form-horizontal'}) do %>
-    <%= text_field_tag :search, params[:search], class: 'form-control col-sm-9 search', placeholder: 'Name (Susan Smith) or Phone (555-555-5555)' %>
-    <%= submit_tag 'Search', class: 'btn btn-primary' %>
+  <%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |p| %>
+    <%= p.text_field :search, placeholder: 'Name (Susan Smith) or Phone (555-555-5555)', hide_label: true %>
+    <%= p.submit 'Search', class: 'btn btn-primary' %>
   <% end %>
 
   <div id="search_results"></div>  
