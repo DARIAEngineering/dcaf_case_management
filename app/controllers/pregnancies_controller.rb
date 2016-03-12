@@ -15,9 +15,7 @@ class PregnanciesController < ApplicationController
       @results << patient.pregnancies.most_recent
     end
 
-    respond_to do |format|
-      format.js
-    end
+    respond_to { |format| format.js }
   end
 
   def edit
@@ -43,7 +41,6 @@ class PregnanciesController < ApplicationController
     # params.
     params.require(:pregnancy).permit(
       # fields in dashboard
-
       :status, :last_menstrual_period_time, :last_menstrual_period_weeks, :appointment_date,
       # fields in abortion info
       :procedure_cost, 
