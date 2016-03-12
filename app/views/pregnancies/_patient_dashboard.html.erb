@@ -16,5 +16,5 @@
   <!-- case status should be c.select -->
   <%= f.text_field :status, label: 'Status:' %>
   <!-- Appointment Date (not in Case model) -->
-  <%= f.date_select :appointment_date, label: 'Appointment date:' %>
+  <%= f.datetime_picker :appointment_date, label: 'Appointment date:', format: '%Y-%m-%d' %>
 </div>
