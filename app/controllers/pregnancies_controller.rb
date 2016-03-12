@@ -46,7 +46,7 @@ class PregnanciesController < ApplicationController
       # fields in patient info
       :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size, :insurance, :referred_by,
       # associated
-      clinic_attributes: [ :id, :name, :street_address_1, :street_address_2, :city, :state, :zip ],
+      clinic: [ :id, :name, :street_address_1, :street_address_2, :city, :state, :zip ],
       patient: [ :id, :name, :primary_phone, :secondary_person, :secondary_phone ]
     )
   end
