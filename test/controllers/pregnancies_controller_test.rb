@@ -8,13 +8,19 @@ class PregnanciesControllerTest < ActionController::TestCase
                       name: 'Susie Everyteen', 
                       primary_phone: '123-456-7890', 
                       secondary_phone: '333-444-5555'
-    @pregnancy = @patient.pregnancies.create(attributes_for :pregnancy)
+    @pregnancy = create :pregnancy, patient: @patient
+    @clinic = create :clinic, pregnancy: @pregnancy
   end
 
   it "should get index" do
     get :index
     assert_response :success
   end
+
+  it 'should get edit' do
+    get :edit, id: @pregnancy
+    assert_response :success
+  end 
 
   describe 'search method' do
     it 'should return on name, primary phone, and secondary phone' do
