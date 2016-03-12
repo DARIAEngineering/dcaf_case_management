@@ -1,110 +1,17 @@
 <!-- Patient Info -->
-<%= bootstrap_form_for @pregnancy do |preg| %>
-  <div class="patient-info">
-      <div class="col-md-4">
-        <%= preg.fields_for :patient, @pregnancy.patient do |pat| %>
-          <%= pat.text_field :name, label: 'Name' %>
-          <%= pat.text_field :primary_phone, label: 'Phone Number' %>
-        <% end %>
-      </div>
-      <div class="col-md-4">
-        <!-- need a date picker -->
-        <%= preg.text_field :last_menstrual_period_time, label: 'Last Menstrual Period:' %>
-        <!-- select number of weeks -->
-        <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
-        <%= preg.select :last_menstrual_period_weeks, options_for_select(weeks_options, @pregnancy.last_menstrual_period_weeks ) %>
-        <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
-      </div>
-      <div class="col-md-4">
-        <!-- case status should be c.select -->
-        <%= preg.text_field :status, label: 'Status:' %>
-        <!-- Appointment Date (not in Case model) -->
-        <%= preg.date_select :appointment_date, label: 'Appointment date:' %>
-      </div>
+<%= bootstrap_form_for @pregnancy do |f| %>
+  <div id="patient_dashboard" class="row">
+    <%= render partial: 'pregnancies/patient_dashboard', locals: { f: f, pregnancy: @pregnancy } %>
   </div>
-
-  <section class="abortion-info">
-    <section class="abortion-left-menu col-md-4">
-      <!-- links to hook into forms on right side -->
-      <a href="#">Abortion Information</a>
-      <br/>
-      <br/>
-      <a href="#">Patient Information</a>
-      <br/>
-      <br/>
-      <a href="#">Notes</a>
-      <br/>
-      <br/>
-      <a href="#">Call log</a>
-      <br/>
-      <br/>
-      <button class="btn btn-primary">Submit Pledge</button>
-    </section>
-    <section class="abortion-main-info col-md-8">
-      <div class="abortion-info col-md-8">
-        <h2>Abortion Information</h2>
-
-        <div class="info-form-left col-md-6">
-          <%= preg.fields_for :clinic, @pregnancy.clinic do |cl| %>
-            <h4>Clinic details</h4>
-            <%= cl.text_field :name, label: 'Clinic name:' %>
-            <%= cl.text_field :street_address_1, label: 'Street address 1:' %>
-            <%= cl.text_field :street_address_2, label: 'Street address 2:' %>
-            <%= cl.text_field :city, label: 'City:' %>
-            <%= cl.text_field :state, label: 'State:' %>
-            <%= cl.text_field :zip, label: 'Zip:' %>
-          <% end %>
-        </div>
-        <div class="info-form-right col-md-6">
-          <h4>Cost details</h4>
-          <%= preg.text_field :procedure_cost, label: 'Abortion Cost:' %>
-          <p>
-            funding sources
-          </p>
-        </div>
-      </div>
-      <div class="patient-info col-md-8">
-        <h2>Patient information</h2>
-          <div class="info-form-left col-md-6">
-            <%= preg.fields_for :patient, @pregnancy.patient do |pati| %>
-              <%= pati.text_field :name, label: 'Name' %>
-              <%= pati.text_field :primary_phone, label: 'Phone' %>
-              <%= pati.text_field :secondary_phone, label: 'Secondary Phone' %>
-            <% end %>
-
-            <%= preg.text_field :age, label: 'Age' %>
-            <%= preg.select :race_ethnicity, options_for_select(
-                  ['Caucasian', 'African American',
-                  'Asian/Pacific Islander', 'Hispanic'],
-                  @pregnancy.race_ethnicity), label: 'Race / Ethnicity' %>
-            <%= preg.text_field :city, label: 'City' %>
-            <%= preg.text_field :state, label: 'State' %>
-            <%= preg.text_field :zip, label: 'Zip' %>
-          </div>
-          <div class="info-form-right col-md-6">
-            <%= preg.select :employment_status, options_for_select(
-                  ['Full-time', 'Part-time', 'Unemployed'],
-                  @pregnancy.employment_status), label: 'Employment status' %>
-            <%= preg.select :income, options_for_select(
-                  { 'Range 1' => 1, 'Range 2' => 2 }, @pregnancy.income),
-                  label: 'Income' %>
-            <%= preg.select :household_size, options_for_select(
-                  { 'Size 1' => 1, 'Size 2' => 2 }, @pregnancy.household_size),
-                  label: 'People in household' %>
-            <%= preg.select :insurance, options_for_select(
-                  ['option 1', 'option 2'], @pregnancy.insurance),
-                  label: 'Patient insurance' %>
-            <%= preg.text_field :referred_by, label: 'Referred by' %>
-            <!-- special_circumstances checkbox-->
-            <p>
-              Special circumstances
-            </p>
-          </div>
-      </div>
-    </section>
-  </section>
-
-  <%# console %>
-  <%#= preg.submit 'SUBMIT' %>
-
+  
+  <div id="patient_detail" class="row">
+    <div id="menu" class="col-sm-4">
+      <%= render partial: 'pregnancies/menu', locals: { f: f, pregnancy: @pregnancy } %>  
+    </div>
+    <div id="sections" class="col-sm-7 col-sm-offset-1 tab-content">
+      <%= render partial: 'pregnancies/abortion_information', locals: { f: f, pregnancy: @pregnancy } %>
+      <%= render partial: 'pregnancies/patient_information', locals: { f: f, pregnancy: @pregnancy } %>
+    </div>
+  </div>
+  <%#= f.submit 'SUBMIT' %>
 <% end %>

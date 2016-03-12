@@ -1,0 +1,20 @@
+<div class="col-md-4">
+  <%= f.fields_for :patient, pregnancy.patient do |p| %>
+    <%= p.text_field :name, label: 'Name' %>
+    <%= p.text_field :primary_phone, label: 'Phone Number' %>
+  <% end %>
+</div>
+<div class="col-md-4">
+  <!-- need a date picker -->
+  <%= f.text_field :last_menstrual_period_time, label: 'Last Menstrual Period:' %>
+  <!-- select number of weeks -->
+  <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
+  <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ) %>
+  <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
+</div>
+<div class="col-md-4">
+  <!-- case status should be c.select -->
+  <%= f.text_field :status, label: 'Status:' %>
+  <!-- Appointment Date (not in Case model) -->
+  <%= f.date_select :appointment_date, label: 'Appointment date:' %>
+</div>
