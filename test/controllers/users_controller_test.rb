@@ -11,9 +11,25 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   describe 'add_pregnancy method' do
-    it 'should do a thing' do 
+    it 'should respond successfully' do 
       patch :add_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+      assert_response :success
     end
+
+    it 'should add a patient to a users call list' do 
+      patch :add_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+      assert_equal @user.pregnancies.count, 1
+      assert_difference '@user.pregnancies.count', 1 do
+        patch :add_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
+      end
+      assert_equal @user.pregnancies.count, 2
+    end
+
+    it 'should should return bad request on sketch ids' do 
+      patch :add_pregnancy, id: '12345678', user_id: @user, format: :js
+      assert_response :bad_request
+    end
+
   end
 
   describe 'remove_pregnancy method' do 
