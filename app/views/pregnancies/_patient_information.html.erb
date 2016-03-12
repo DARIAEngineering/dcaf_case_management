@@ -1,21 +1,27 @@
-<section id="patient_section" class="abortion-info col-md-8 tab-pane">
+<section id="patient_section" class="abortion-info tab-pane">
   <h2>Patient information</h2>
   <div class="info-form-left col-md-6">
-    <%= f.fields_for :patient, pregnancy.patient do |pati| %>
-      <%= pati.text_field :name, label: 'Name' %>
-      <%= pati.text_field :primary_phone, label: 'Phone' %>
-      <%= pati.text_field :secondary_phone, label: 'Secondary Phone' %>
+    <%= f.fields_for :patient, pregnancy.patient do |p| %>
+      <%= p.text_field :name, label: 'Name' %>
+      <%= p.text_field :primary_phone, label: 'Phone' %>
+      <%= p.text_field :secondary_phone, label: 'Secondary Phone' %>
     <% end %>
-
     <%= f.text_field :age, label: 'Age' %>
     <%= f.select :race_ethnicity, options_for_select(
-          ['Caucasian', 'African American',
+          ['', 'Caucasian', 'African American',
           'Asian/Pacific Islander', 'Hispanic'],
           pregnancy.race_ethnicity), label: 'Race / Ethnicity' %>
-    <%= f.text_field :city, label: 'City' %>
-    <%= f.text_field :state, label: 'State' %>
-    <%= f.text_field :zip, label: 'Zip' %>
+    <div class="row">
+      <div class="col-md-8">
+        <%= f.text_field :city, label: 'City' %>
+      </div>
+      <div class="col-md-4">
+        <%= f.text_field :state, label: 'State' %>
+      </div>
+    </div>
+    <%= f.text_field :zip, label: 'ZIP' %>
   </div>
+
   <div class="info-form-right col-md-6">
     <%= f.select :employment_status, options_for_select(
           ['Full-time', 'Part-time', 'Unemployed'],
