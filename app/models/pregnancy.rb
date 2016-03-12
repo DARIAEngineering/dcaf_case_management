@@ -3,6 +3,7 @@ class Pregnancy
 	include Mongoid::Timestamps
 	include Mongoid::History
 
+
 	# relationships
 	belongs_to :patient
 	belongs_to :user
@@ -10,6 +11,10 @@ class Pregnancy
 	embeds_many :notes
 	embeds_many :calls
 	has_one :clinic
+
+	# for mass posting
+	accepts_nested_attributes_for :patient
+	accepts_nested_attributes_for :clinic
 
 	field :initial_call_date, type: DateTime
 	field :status, type: String #enumeration
