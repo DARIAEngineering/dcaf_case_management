@@ -1,0 +1,38 @@
+<section id="patient_section" class="abortion-info col-md-8">
+  <h2>Patient information</h2>
+  <div class="info-form-left col-md-6">
+    <%= f.fields_for :patient, pregnancy.patient do |pati| %>
+      <%= pati.text_field :name, label: 'Name' %>
+      <%= pati.text_field :primary_phone, label: 'Phone' %>
+      <%= pati.text_field :secondary_phone, label: 'Secondary Phone' %>
+    <% end %>
+
+    <%= f.text_field :age, label: 'Age' %>
+    <%= f.select :race_ethnicity, options_for_select(
+          ['Caucasian', 'African American',
+          'Asian/Pacific Islander', 'Hispanic'],
+          pregnancy.race_ethnicity), label: 'Race / Ethnicity' %>
+    <%= f.text_field :city, label: 'City' %>
+    <%= f.text_field :state, label: 'State' %>
+    <%= f.text_field :zip, label: 'Zip' %>
+  </div>
+  <div class="info-form-right col-md-6">
+    <%= f.select :employment_status, options_for_select(
+          ['Full-time', 'Part-time', 'Unemployed'],
+          pregnancy.employment_status), label: 'Employment status' %>
+    <%= f.select :income, options_for_select(
+          { 'Range 1' => 1, 'Range 2' => 2 }, pregnancy.income),
+          label: 'Income' %>
+    <%= f.select :household_size, options_for_select(
+          { 'Size 1' => 1, 'Size 2' => 2 }, pregnancy.household_size),
+          label: 'People in household' %>
+    <%= f.select :insurance, options_for_select(
+          ['option 1', 'option 2'], pregnancy.insurance),
+          label: 'Patient insurance' %>
+    <%= f.text_field :referred_by, label: 'Referred by' %>
+    <!-- special_circumstances checkbox-->
+    <p>
+      Special circumstances
+    </p>
+  </div>  
+</section>
