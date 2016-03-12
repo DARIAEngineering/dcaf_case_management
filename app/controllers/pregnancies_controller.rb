@@ -24,6 +24,13 @@ class PregnanciesController < ApplicationController
   end
 
   def update
+    if @pregnancy.update_attributes pregnancy_params
+      redirect_to edit_pregnancy_path(@pregnancy), flash: { success: "Saved info for #{@pregnancy.patient.name}!" }
+    else
+      redirect_to edit_pregnancy_path(@pregnancy), flash: { alert: "Error saving info for #{@pregnancy.patient.name}!" }
+    end
+
+    # TODO respond_to format.js eventually
   end
 
   private
