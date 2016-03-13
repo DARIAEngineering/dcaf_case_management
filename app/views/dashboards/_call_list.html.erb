@@ -14,7 +14,7 @@
     <tbody>
       <div id="call_list_content">
         <% pregnancies.each do |pregnancy| %>
-          <%= render partial: 'pregnancies/table_content', locals: { p: pregnancy } %>
+          <%= render partial: 'dashboards/table_content', locals: { p: pregnancy } %>
         <% end %>          
       </div>
     </tbody>
