@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'dashboards/index'
+
+  get 'dashboard/index'
+
   authenticate :user do
     root to: 'pregnancies#index', as: :authenticated_root
     resources :pregnancies do
