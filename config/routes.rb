@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
-    resources :pregnancies do
+    resources :pregnancies, only: [ :edit, :update ] do
       member do
         resources :calls, only: [ :create ]
       end
