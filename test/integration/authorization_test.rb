@@ -84,7 +84,7 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
 
     it 'should prevent you from being able to get to data afterwards' do
       sign_out
-      visit pregnancies_path
+      visit dashboard_path
       assert_equal current_path, new_user_session_path
       assert_text 'You need to sign in or sign up before continuing.'
     end

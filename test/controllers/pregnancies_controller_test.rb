@@ -12,11 +12,6 @@ class PregnanciesControllerTest < ActionController::TestCase
     @clinic = create :clinic, pregnancy: @pregnancy
   end
 
-  it "should get index" do
-    get :index
-    assert_response :success
-  end
-
   describe 'edit method' do 
     before do 
       get :edit, id: @pregnancy
