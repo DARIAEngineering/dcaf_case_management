@@ -2,7 +2,7 @@
   <h2>Abortion Information</h2>
 
   <div class="info-form-left col-md-6">
-    <%= f.fields_for pregnancy.clinic do |cl| %>
+    <%= f.fields_for :clinic do |cl| %> <!-- was pregnancy.clinic, but that eats muds if clinic is nil  --> 
       <h4>Clinic details</h4>
       <%= cl.text_field :name, label: 'Clinic name:' %>
       <%= cl.text_field :street_address_1, label: 'Street address 1:' %>
