@@ -1,2 +1,2 @@
 $('#search_results').empty(); 
-$("#search_results").append("<%= escape_javascript(render partial: 'search_results', locals: { pregnancies: @results } ) %>");
+$("#search_results").append("<%= escape_javascript(render partial: 'dashboards/search_results', locals: { pregnancies: @results } ) %>");
