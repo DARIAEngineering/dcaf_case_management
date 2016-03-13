@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
-  get 'dashboards/index'
-
-  get 'dashboard/index'
-
   authenticate :user do
-    root to: 'pregnancies#index', as: :authenticated_root
+    root to: 'dashboards#index', as: :authenticated_root
+    get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     resources :pregnancies do
       member do
         resources :calls, only: [ :create ]
