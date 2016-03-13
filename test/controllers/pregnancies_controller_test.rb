@@ -12,11 +12,6 @@ class PregnanciesControllerTest < ActionController::TestCase
     @clinic = create :clinic, pregnancy: @pregnancy
   end
 
-  it "should get index" do
-    get :index
-    assert_response :success
-  end
-
   describe 'edit method' do 
     before do 
       get :edit, id: @pregnancy
@@ -29,15 +24,6 @@ class PregnanciesControllerTest < ActionController::TestCase
     it 'should redirect to root on a bad id' do 
       get :edit, id: 'notanid'
       assert_redirected_to root_path
-    end
-  end
-
-  describe 'search method' do
-    it 'should return on name, primary phone, and secondary phone' do
-      ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
-        post :search, search: searcher, format: :js
-        assert_response :success
-      end
     end
   end
 

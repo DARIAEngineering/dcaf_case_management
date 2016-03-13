@@ -2,22 +2,6 @@ class PregnanciesController < ApplicationController
   before_action :find_pregnancy, only: [ :edit, :update ]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { redirect_to root_path }
 
-  def index
-  	@patient = Patient.new
-    @pregnancies = @patient.pregnancies.build
-    @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
-  end
-
-  def search
-    patients = Patient.search params[:search]
-    @results = []
-    patients.each do |patient|
-      @results << patient.pregnancies.most_recent
-    end
-
-    respond_to { |format| format.js }
-  end
-
   def edit
   end
 
