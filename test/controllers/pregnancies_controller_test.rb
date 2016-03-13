@@ -27,15 +27,6 @@ class PregnanciesControllerTest < ActionController::TestCase
     end
   end
 
-  describe 'search method' do
-    it 'should return on name, primary phone, and secondary phone' do
-      ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
-        post :search, search: searcher, format: :js
-        assert_response :success
-      end
-    end
-  end
-
   describe 'update method' do 
     before do 
       @payload = {
