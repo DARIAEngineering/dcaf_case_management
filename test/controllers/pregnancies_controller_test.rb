@@ -25,6 +25,11 @@ class PregnanciesControllerTest < ActionController::TestCase
       get :edit, id: 'notanid'
       assert_redirected_to root_path
     end
+
+    it 'should contain the current record' do 
+      assert_match /Susie Everyteen/, response.body
+      assert_match /123-456-7890/, response.body
+    end
   end
 
   describe 'update method' do 
