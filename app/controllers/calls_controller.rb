@@ -5,7 +5,6 @@ class CallsController < ApplicationController
 		if @call.save && params[:status] == "Reached Patient"
       redirect_to edit_pregnancy_path(p)
     elsif @call.save
-      puts "hello"
       respond_to { |format| format.js }
     else
       flash[:alert] = "Call failed to save! Please submit the call again."
