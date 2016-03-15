@@ -19,9 +19,15 @@ class CallsControllerTest < ActionController::TestCase
       assert_response :redirect
     end
 
-    it 'should redirect to the root path afterwards' do
+    it 'should respond success if patient is not reached' do
+      call  = attributes_for :call, status: "Left voicemail"
+      post :create, call: call, id: @pregnancy, format: :js
+      assert_response :success
+    end
+
+    it 'should redirect to the edit pregnancy path if patient is reached' do
       post :create, call: @call, id: @pregnancy
-      assert_redirected_to root_path
+      assert_redirected_to edit_pregnancy_path(@pregnancy)
     end
 
     it 'should not save if status is blank for some reason' do

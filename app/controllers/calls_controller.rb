@@ -2,7 +2,7 @@ class CallsController < ApplicationController
   def create
     p = Pregnancy.find(params[:id])
     @call = p.calls.new(call_params)
-		if @call.save && params[:call][:status] == "Reached Patient"
+		if @call.save && params[:call][:status] == "Reached patient"
       redirect_to edit_pregnancy_path(p)
     elsif @call.save
       respond_to { |format| format.js }
