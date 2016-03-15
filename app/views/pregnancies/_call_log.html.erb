@@ -3,14 +3,20 @@
 		<h1 class="border-bottom title"> Call Log</h1>
 		<table class="table border-side">
 		<tr>
-			<th>Time Stamp</th>
+			<th>Date</th>
+			<th>Time</th>
 			<th>Result</th>
 			<th>user</th>
 		</tr>
 		<tbody>
-			<td><%= pregnancy.initial_call_date %></td>
-			<td><%= pregnancy.status %></td>
-			<td><%= pregnancy.user %></td>
+			<% @pregnancy.calls.order("created_at DESC").take(10).each do |call| %>
+				<tr>
+					<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
+					<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
+					<td><%= call.status %></td>
+					<td><%= "user" %></td>
+				</tr>
+			<% end %>
 		</tbody>
 	</div>
 </section>
