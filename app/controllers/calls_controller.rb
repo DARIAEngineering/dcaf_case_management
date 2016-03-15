@@ -2,8 +2,11 @@ class CallsController < ApplicationController
   def create
     p = Pregnancy.find(params[:id])
     @call = p.calls.new(call_params)
-		if @call.save
-			redirect_to root_path
+		if @call.save && params[:status] == "Reached Patient"
+      redirect_to edit_pregnancy_path(p)
+    elsif @call.save
+      puts "hello"
+      respond_to { |format| format.js }
     else
       flash[:alert] = "Call failed to save! Please submit the call again."
       redirect_to root_path
