@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     respond_to { |format| format.js }
   end
 
-  private 
+  private
 
   def get_user_and_pregnancy
     @pregnancy = Pregnancy.find params[:id]
