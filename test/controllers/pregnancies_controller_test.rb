@@ -9,7 +9,7 @@ class PregnanciesControllerTest < ActionController::TestCase
                       primary_phone: '123-456-7890',
                       secondary_phone: '333-444-5555'
     @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
-    @clinic = create :clinic, pregnancy: @pregnancy
+    @clinic = create :clinic, name: 'Standard Clinic', pregnancy: @pregnancy
   end
 
   describe 'edit method' do
@@ -24,6 +24,20 @@ class PregnanciesControllerTest < ActionController::TestCase
     it 'should redirect to root on a bad id' do
       get :edit, id: 'notanid'
       assert_redirected_to root_path
+    end
+
+    it 'should contain the current record' do 
+      assert_match /Susie Everyteen/, response.body
+      assert_match /123-456-7890/, response.body
+      assert_match /Standard Clinic/, response.body
+    end
+
+    it 'should not die if clinic is nil' do 
+      @clinic.destroy
+      get :edit, id: @pregnancy
+      assert_response :success
+      assert_match /Susie Everyteen/, response.body
+      refute_match /Standard Clinic/, response.body
     end
   end
 
