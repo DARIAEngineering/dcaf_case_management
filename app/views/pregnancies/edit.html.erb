@@ -11,6 +11,7 @@
     <div id="sections" class="col-sm-7 col-sm-offset-1 tab-content">
       <%= render partial: 'pregnancies/abortion_information', locals: { f: f, pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/patient_information', locals: { f: f, pregnancy: @pregnancy } %>
+      <%= render partial: 'pregnancies/change_log', locals: { f: f, pregnancy: @pregnancy } %>
     </div>
   </div>
 <% end %>
