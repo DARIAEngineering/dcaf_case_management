@@ -10,7 +10,7 @@ class Call
   field :creating_user_id, type: String
 	embedded_in :pregnancy
 
-	validates_presence_of :status
   validates :status,  presence: true, 
                       inclusion: { in: allowed_statuses }
+  validates :creating_user_id, presence: true
 end
