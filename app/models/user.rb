@@ -47,5 +47,4 @@ class User
   validates_presence_of :email, :name
 
   has_many :pregnancies
-
 end
