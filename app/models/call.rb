@@ -13,4 +13,8 @@ class Call
   validates :status,  presence: true, 
                       inclusion: { in: allowed_statuses }
   validates :creating_user_id, presence: true
+
+  def user
+    User.find creating_user_id
+  end
 end
