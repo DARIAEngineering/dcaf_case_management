@@ -8,7 +8,6 @@
   <% else %>
     <td><%= link_to "Add", "/users/#{current_user.id}/add_pregnancy/#{p.id}", method: :patch, remote: true %></td>
   <% end %>
-  <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone}", data: {toggle: "modal"} %></td>
-  <td><%= link_to "Call", "#call-#{p.patient.primary_phone}", data: {toggle: "modal"} %></td>
+  <td><%= link_to "<span class='glyphicon glyphicon-earphone call-icon' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone}", data: {toggle: "modal"}, id: p.patient.primary_phone %></td>
   <%= render partial: 'calls/new_call', locals: {p: p} %>
 </tr>
