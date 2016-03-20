@@ -1,12 +1,11 @@
 require 'test_helper'
 
-class AuditTrailTest < ActionDispatch::IntegrationTest
+class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
   def setup
     @user = create :user, email: "first_user@email.com"
     @user2 = create :user, email: "second_user@email.com"
     log_in_as @user
-    # making stuff happen in the backend for now
-    @patient = Patient.create!(name: "tester", primary_phone: "1231231234")
+    @patient = create :patient, name: "tester", primary_phone: "1231231234"
     @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
     visit edit_pregnancy_path(@pregnancy)
   end
@@ -15,7 +14,7 @@ class AuditTrailTest < ActionDispatch::IntegrationTest
     it 'posts changes and verifies audit trail in db' do
       assert_equal @patient.history_tracks.count , 1
       assert_equal @patient.created_by, @user
-      assert_equal page.find(:xpath, '//*[@id="pregnancy_patient_name"]').value , "tester"
+      assert_equal page.find(:id, 'pregnancy_patient_name').value, "tester"
       fill_in "Name", with: "changed"
       click_button "TEMP: SAVE INFORMATION"
       @patient.reload
@@ -25,7 +24,7 @@ class AuditTrailTest < ActionDispatch::IntegrationTest
       sign_out
       log_in_as @user2
       visit edit_pregnancy_path(@pregnancy)
-      assert_equal page.find(:xpath, '//*[@id="pregnancy_patient_name"]').value , "changed"
+      assert_equal page.find(:id, 'pregnancy_patient_name').value, "changed"
       fill_in "Name", with: "more change"
       click_button "TEMP: SAVE INFORMATION"
       @patient.reload
