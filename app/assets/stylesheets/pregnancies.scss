@@ -47,7 +47,11 @@ $on-laptop:        800px;
     }
 }
 
+<!-- Style -->
 
+.edit-list {
+	margin-bottom: 10px !important;
+}
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
