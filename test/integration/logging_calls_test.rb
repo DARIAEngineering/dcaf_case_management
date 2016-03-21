@@ -5,20 +5,28 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     @patient = create :patient, name: 'Susan Everyteen'
     @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
+    log_in_as @user
   end
 
   describe 'logging a reached patient', js: true do 
     before do 
-      log_in_as @user
       fill_in 'search', with: 'Susan Everyteen'
       click_button 'Search'
+      # page.execute_script
     end
 
     it 'should' do 
-      p page.find('tr', text: 'Susan Everyteen').find('a', text: 'Call')
+      # modal = window_opened_by { page.find('tr', text: 'Susan Everyteen').find('span', text: 'Call').click }
+      # p 
+      # within_window(modal) do 
+        # assert has_text 'Call Susan Everyteen'
+      # end
 
-      assert has_text? 'Susan Everyteen'
       save_and_open_page
+
+      # page.find('tr', text: 'Susan Everyteen').find('span', text: 'Call').click.accept_modal
+
+      # assert has_text? 'Susan Everyteen'
       # page.find("#{@patient.id.to_s}")
       # page.find('.call-icon')
 
