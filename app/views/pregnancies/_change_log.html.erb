@@ -24,7 +24,7 @@
             <td><%= revision.updated_at.getlocal.strftime("%Y-%m-%d") %></td>
             <td>
               <% revision.modified.each_key do |k| %>
-                <%= k %><br>
+                <%= k.humanize %><br>
               <% end %>
             </td>
             <td>
