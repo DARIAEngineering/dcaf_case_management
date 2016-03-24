@@ -1,8 +1,39 @@
-<section id="change_section" class="abortion-info tab-pane">
-  <h2>Changes</h2>
-  <div class="info-form-left col-md-12">
-    <%= f.fields_for pregnancy.patient do |p| %>
-      <%= p.text_area :changes, label: 'Changes', size: '60x8' %>
-    <% end %>
+<section id="change_log" class="abortion-info tab-pane">
+  <div class="col-md-12">
+    <h1 class="border-bottom title">Patient History</h1>
+    <table class="table border-side">
+      <thead>
+        <tr>
+          <th>Modified Date</th>
+          <th>Changed From</th>
+          <th>Changed To</th>
+          <th>CM</th>
+        </tr>        
+      </thead>
+      <tbody>
+        <tr>
+          <td><%#= pregnancy.patient.created_at.getlocal.strftime("%Y-%m-%d") %>(Created At Timestamp)</td>
+          <td></td>
+          <td>Patient Created</td>
+          <td><%= 'user' %></td>
+        </tr>
+        <% pregnancy.patient.history_tracks.drop(1).each do |revision| %>
+          <tr>
+            <td><%= revision.updated_at.getlocal.strftime("%Y-%m-%d") %></td>
+            <td>
+              <% revision.original.each_pair do |k, v| %>
+                <%= k %>: <%= v %><br>
+              <% end %>
+            </td>
+            <td>
+              <% revision.modified.each_pair do |k, v| %>
+                <%= k %>: <%= v %><br>
+              <% end %>
+            </td>
+            <td><%= 'user' %></td>        
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>  
 </section>
