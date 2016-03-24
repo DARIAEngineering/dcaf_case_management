@@ -5,6 +5,7 @@
       <thead>
         <tr>
           <th>Modified Date</th>
+          <th>Field</th>
           <th>Changed From</th>
           <th>Changed To</th>
           <th>CM</th>
@@ -14,20 +15,26 @@
         <tr>
           <td><%#= pregnancy.patient.created_at.getlocal.strftime("%Y-%m-%d") %>(Created At Timestamp)</td>
           <td></td>
+          <td></td>
           <td>Patient Created</td>
           <td><%= 'user' %></td>
         </tr>
-        <% pregnancy.patient.history_tracks.drop(1).each do |revision| %>
+        <% pregnancy.patient.history_tracks.drop(1).each do |revision| # ugly :( %>
           <tr>
             <td><%= revision.updated_at.getlocal.strftime("%Y-%m-%d") %></td>
             <td>
-              <% revision.original.each_pair do |k, v| %>
-                <%= k %>: <%= v %><br>
+              <% revision.modified.each_key do |k| %>
+                <%= k %><br>
               <% end %>
             </td>
             <td>
-              <% revision.modified.each_pair do |k, v| %>
-                <%= k %>: <%= v %><br>
+              <% revision.original.each_value do |v| %>
+                <%= v %><br>
+              <% end %>
+            </td>
+            <td>
+              <% revision.modified.each_value do |v| %>
+                <%= v %><br>
               <% end %>
             </td>
             <td><%= 'user' %></td>        
