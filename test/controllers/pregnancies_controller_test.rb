@@ -5,37 +5,51 @@ class PregnanciesControllerTest < ActionController::TestCase
     @user = create :user
     sign_in @user
     @patient = create :patient,
-                      name: 'Susie Everyteen', 
-                      primary_phone: '123-456-7890', 
+                      name: 'Susie Everyteen',
+                      primary_phone: '123-456-7890',
                       secondary_phone: '333-444-5555'
     @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
-    @clinic = create :clinic, pregnancy: @pregnancy
+    @clinic = create :clinic, name: 'Standard Clinic', pregnancy: @pregnancy
   end
 
-  describe 'edit method' do 
-    before do 
+  describe 'edit method' do
+    before do
       get :edit, id: @pregnancy
     end
 
     it 'should get edit' do
       assert_response :success
-    end 
+    end
 
-    it 'should redirect to root on a bad id' do 
+    it 'should redirect to root on a bad id' do
       get :edit, id: 'notanid'
       assert_redirected_to root_path
     end
+
+    it 'should contain the current record' do 
+      assert_match /Susie Everyteen/, response.body
+      assert_match /123-456-7890/, response.body
+      assert_match /Standard Clinic/, response.body
+    end
+
+    it 'should not die if clinic is nil' do 
+      @clinic.destroy
+      get :edit, id: @pregnancy
+      assert_response :success
+      assert_match /Susie Everyteen/, response.body
+      refute_match /Standard Clinic/, response.body
+    end
   end
 
-  describe 'update method' do 
-    before do 
+  describe 'update method' do
+    before do
       @payload = {
-        patient: { name: 'Susie Everyteen 2', id: @patient.id }, 
-        appointment_date: '2016-01-04', 
+        patient: { name: 'Susie Everyteen 2', id: @patient.id },
+        appointment_date: '2016-01-04',
         clinic: { name: 'Clinic A', id: @clinic.id}
       }
 
-      patch :update, id: @pregnancy, pregnancy: @payload 
+      patch :update, id: @pregnancy, pregnancy: @payload
       @pregnancy.reload
     end
 
@@ -48,7 +62,7 @@ class PregnanciesControllerTest < ActionController::TestCase
       assert_equal @pregnancy.appointment_date, '2016-01-04'.to_date
     end
 
-    it 'should update clinic fields' do 
+    it 'should update clinic fields' do
       assert_equal @pregnancy.clinic.name, 'Clinic A'
     end
 
@@ -56,7 +70,7 @@ class PregnanciesControllerTest < ActionController::TestCase
       assert_equal @pregnancy.patient.name, 'Susie Everyteen 2'
     end
 
-    it 'should redirect if record does not exist' do 
+    it 'should redirect if record does not exist' do
       patch :update, id: 'notanactualid', pregnancy: @payload
       assert_redirected_to root_path
     end
