@@ -59,7 +59,7 @@ class Pregnancy
 	end
 
 	def old_calls
-		calls.order("created_at DESC") - calls.order("created_at DESC").limit(10)
+		calls.order("created_at DESC").offset(10)
 	end
 
 end
