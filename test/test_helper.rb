@@ -4,6 +4,8 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'capybara/rails'
 Minitest::Reporters.use!
+require 'simplecov'
+SimpleCov.start
 
 DatabaseCleaner.clean_with :truncation
 
