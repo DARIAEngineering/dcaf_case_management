@@ -20,7 +20,7 @@ html {
   border: 2px solid black;
 }
 
-.btn-primary:hover { 
+.btn-primary:hover {
   @extend .btn-primary:hover;
   background-color: lighten($dcaf-color,15%);
 }
@@ -51,7 +51,7 @@ img {
   @extend .btn-primary;
   @extend .btn-lg;
   }
-  
+
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -137,10 +137,14 @@ section {
     letter-spacing: 1.5px;
     background: #f1f1f1;
   }
-  tr { 
+  tr {
     td {
       font-size: 16px;
       padding: 10px 0 !important;
       }
   }
+}
+
+.hidden {
+  display: none;
 }
