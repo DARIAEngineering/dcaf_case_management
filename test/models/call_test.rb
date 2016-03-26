@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class CallTest < ActiveSupport::TestCase
-  before do 
+  before do
     @user = create :user
     @pregnancy = create :pregnancy
     @call = create :call, pregnancy: @pregnancy, creating_user_id: @user.id
   end
 
-  it 'SHOULD SOUND THIS ALARM AS LONG AS EVERYTHING IS OKAY' do 
+  it 'SHOULD SOUND THIS ALARM AS LONG AS EVERYTHING IS OKAY' do
     assert @call.valid?
   end
 
@@ -15,7 +15,7 @@ class CallTest < ActiveSupport::TestCase
     it 'should only allow certain statuses' do
       [nil, 'not a status'].each do |bad_status|
         @call.status = bad_status
-        refute @call.valid? 
+        refute @call.valid?
       end
       ['Left voicemail', "Couldn't reach patient"].each do |status|
         @call.status = status
@@ -30,11 +30,11 @@ class CallTest < ActiveSupport::TestCase
   end
 
   describe 'relationships' do
-    it 'should be linkable to a pregnancy' do 
+    it 'should be linkable to a pregnancy' do
       assert_equal @call.pregnancy, @pregnancy
     end
 
-    it 'should be linkable to a user' do 
+    it 'should be linkable to a user' do
       assert_equal @call.user, @user
     end
   end

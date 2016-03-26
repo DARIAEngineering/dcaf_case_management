@@ -20,6 +20,7 @@ gem 'bootstrap_form-datetimepicker'
 
 group :development do
   gem 'web-console', '~> 2.0'
+  gem 'rubocop', require: false
 end
 
 group :development, :test do
@@ -39,6 +40,7 @@ group :test do
   gem 'faker'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'simplecov', require: false
 end
 
 group :production do

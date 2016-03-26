@@ -10,7 +10,7 @@ class CallsControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @call = attributes_for :call
-      post :create, call: @call, id: @pregnancy, format: :js
+      post :create, id: @pregnancy, call: @call, format: :js
     end
 
     it 'should create and save a new call' do
@@ -20,13 +20,12 @@ class CallsControllerTest < ActionController::TestCase
     end
 
     it 'should respond success if patient is not reached' do
-      call = attributes_for :call, status: "Left voicemail"
+      call = attributes_for :call, status: 'Left voicemail'
       post :create, call: call, id: @pregnancy, format: :js
       assert_response :success
     end
 
     it 'should redirect to the edit pregnancy path if patient is reached' do
-      post :create, call: @call, id: @pregnancy, format: :js
       assert_redirected_to edit_pregnancy_path(@pregnancy)
     end
 

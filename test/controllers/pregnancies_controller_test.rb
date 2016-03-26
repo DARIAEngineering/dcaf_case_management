@@ -26,13 +26,13 @@ class PregnanciesControllerTest < ActionController::TestCase
       assert_redirected_to root_path
     end
 
-    it 'should contain the current record' do 
+    it 'should contain the current record' do
       assert_match /Susie Everyteen/, response.body
       assert_match /123-456-7890/, response.body
       assert_match /Standard Clinic/, response.body
     end
 
-    it 'should not die if clinic is nil' do 
+    it 'should not die if clinic is nil' do
       @clinic.destroy
       get :edit, id: @pregnancy
       assert_response :success
@@ -46,13 +46,12 @@ class PregnanciesControllerTest < ActionController::TestCase
       @payload = {
         patient: { name: 'Susie Everyteen 2', id: @patient.id },
         appointment_date: '2016-01-04',
-        clinic: { name: 'Clinic A', id: @clinic.id}
+        clinic: { name: 'Clinic A', id: @clinic.id }
       }
 
       patch :update, id: @pregnancy, pregnancy: @payload
       @pregnancy.reload
     end
-
 
     it 'should redirect on completion' do # for now
       assert_redirected_to edit_pregnancy_path(@pregnancy)
