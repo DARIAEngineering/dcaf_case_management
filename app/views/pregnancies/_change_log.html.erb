@@ -12,32 +12,13 @@
         </tr>        
       </thead>
       <tbody>
-        <tr>
-          <td><%#= pregnancy.patient.created_at.getlocal.strftime("%Y-%m-%d") %>(Created At Timestamp)</td>
-          <td></td>
-          <td></td>
-          <td>Patient Created</td>
-          <td><%= 'user' %></td>
-        </tr>
-        <% pregnancy.patient.history_tracks.drop(1).each do |revision| # ugly :( %>
+        <% pregnancy.patient.history_tracks.each do |revision| %>
           <tr>
-            <td><%= revision.updated_at.getlocal.strftime("%Y-%m-%d") %></td>
-            <td>
-              <% revision.modified.each_key do |k| %>
-                <%= k.humanize %><br>
-              <% end %>
-            </td>
-            <td>
-              <% revision.original.each_value do |v| %>
-                <%= v %><br>
-              <% end %>
-            </td>
-            <td>
-              <% revision.modified.each_value do |v| %>
-                <%= v %><br>
-              <% end %>
-            </td>
-            <td><%= 'user' %></td>        
+            <td><%= revision.date_of_edit %></td>
+            <td><%= revision.tracked_changes_fields %></td>
+            <td><%= revision.tracked_changes_from %></td>
+            <td><%= revision.tracked_changes_to %></td>
+            <td><% 'user' %></td>        
           </tr>
         <% end %>
       </tbody>
