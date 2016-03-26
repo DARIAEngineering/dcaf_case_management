@@ -1,5 +1,5 @@
 Metrics/LineLength:
-  Max: 150
+  Max: 100
 
 Style/ClassAndModuleChildren:
   Enabled: false
@@ -10,8 +10,10 @@ Metrics/AbcSize:
 Documentation: 
   Enabled: false
 
+Rails:
+  Enabled: true
+
 AllCops:
-  RunRailsCops: true
   Exclude: 
     - db/**/*
     - bin/**/*
@@ -21,5 +23,6 @@ AllCops:
     - public/**/*
     - tmp/**/*
     - vendor/**/*
+    - config/**/*
     - bin/**/*
 
