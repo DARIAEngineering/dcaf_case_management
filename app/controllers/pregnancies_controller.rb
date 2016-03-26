@@ -7,7 +7,8 @@ class PregnanciesController < ApplicationController
 
   def update
     if @pregnancy.update_attributes pregnancy_params
-      redirect_to edit_pregnancy_path(@pregnancy), flash: { notice: "Saved info for #{@pregnancy.patient.name}!" }
+      redirect_to edit_pregnancy_path(@pregnancy),
+                  flash: { notice: "Saved info for #{@pregnancy.patient.name}!" }
     else
       head :bad_request
       # redirect_to edit_pregnancy_path(@pregnancy), flash: { alert: "Error saving info for #{@pregnancy.patient.name}!" }
