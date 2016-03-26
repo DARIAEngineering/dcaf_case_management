@@ -20,7 +20,7 @@ class CallsControllerTest < ActionController::TestCase
     end
 
     it 'should respond success if patient is not reached' do
-      call = attributes_for :call, status: "Left voicemail"
+      call = attributes_for :call, status: 'Left voicemail'
       post :create, call: call, id: @pregnancy, format: :js
       assert_response :success
     end

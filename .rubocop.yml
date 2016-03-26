@@ -4,9 +4,6 @@ Metrics/LineLength:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-Metrics/AbcSize:
-  Enabled: false
-
 Documentation: 
   Enabled: false
 
@@ -25,4 +22,3 @@ AllCops:
     - vendor/**/*
     - config/**/*
     - bin/**/*
-

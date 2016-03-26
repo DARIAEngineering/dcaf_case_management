@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
     @pregnancies = @patient.pregnancies.build
     @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
   end
-  
+
   def search
     patients = Patient.search params[:search]
     @results = []
