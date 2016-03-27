@@ -11,8 +11,8 @@ class PasswordResetTest < ActionDispatch::IntegrationTest
     end
 
     it 'should have a link to the password reset page' do
-      assert has_link? 'Forgot password?'
-      click_link 'Forgot password?'
+      assert has_link? 'Forgot your password?'
+      click_link 'Forgot your password?'
       assert_routing new_user_password_path, controller: 'devise/passwords', action: 'new'
       assert_text 'Password Reset'
     end
