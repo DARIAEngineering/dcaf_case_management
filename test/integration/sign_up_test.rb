@@ -22,7 +22,24 @@ class SignUpTest < ActionDispatch::IntegrationTest
 
     it 'should save that user name' do 
       click_button 'Sign up' 
-      assert_link 'A Real Person'
+      assert has_link? 'A Real Person'
+    end
+  end
+
+  describe 'failure conditions' do
+    before do 
+      @user = create :user
+    end
+
+    it 'should not let you create a user twice' do 
+      assert_no_difference 'User.count' do 
+        fill_in 'Email', with: @user.email
+        fill_in 'Name', with: 'A Real Person'
+        fill_in 'Password', with: 'password', match: :prefer_exact
+        fill_in 'Password confirmation', with: 'password', match: :prefer_exact
+        click_button 'Sign up'
+        assert_text 'Email is already taken'
+      end
     end
   end
 end
