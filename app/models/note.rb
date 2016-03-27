@@ -3,6 +3,7 @@ class Note
   include Mongoid::Timestamps
   include Mongoid::History
 
-  field :notes, type: String
   embedded_in :pregnancy
+
+  field :notes, type: String
 end

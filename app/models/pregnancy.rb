@@ -14,18 +14,17 @@ class Pregnancy
   accepts_nested_attributes_for :patient
   accepts_nested_attributes_for :clinic
 
-  field :initial_call_date, type: DateTime
+  # general common intake information
+  field :initial_call_date, type: DateTime # TODO: can we infer this?
   field :status, type: String # enumeration
   field :last_menstrual_period_lmp_type, type: Integer
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_time, type: DateTime
-  field :referred_by, type: String
-  field :special_circumstances, type: String # ennumeration
-
   field :voicemail_ok, type: Boolean
-
   field :line, type: String # DC, MD, VA
   field :language, type: String
+  field :appointment_date, type: Date
+  field :urgent_flag, type: Boolean
 
   # patient general info
   field :age, type: Integer
@@ -38,16 +37,16 @@ class Pregnancy
   field :household_size, type: Integer
   field :insurance, type: String
   field :income, type: Integer
+  field :referred_by, type: String
+  field :special_circumstances, type: String # ennumeration
 
-  field :appointment_date, type: Date
-  # procedure info
+  # procedure info - generally for administrative use
   field :fax_received, type: Boolean
   field :procedure_cost, type: Integer
   field :procedure_date, type: DateTime
   field :procedure_completed_date, type: DateTime
-  field :urgent_flag, type: Boolean
 
-  # Mongoid history for users
+  # TODO add some sort of Mongoid history
 
   def self.most_recent
     order('created_at DESC').limit(1).first
