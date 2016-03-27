@@ -72,4 +72,8 @@ class UsersControllerTest < ActionController::TestCase
       assert_response :bad_request
     end
   end
+
+  it 'should be the devise controller' do 
+    assert :devise_controller?
+  end
 end
