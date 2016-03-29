@@ -8,7 +8,9 @@
 			<th>Result</th>
 			<th>CM</th>
 		</tr>
-		<div class="btn btn-primary" id="toggle-call-log">View all calls</div>
+		<% if pregnancy.recent_calls.count > 10 %>
+                <div class="btn btn-primary" id="toggle-call-log">View all calls</div>
+                <% end %>
 		<tbody>
 			<% pregnancy.recent_calls.each do |call| %>
 				<tr>
