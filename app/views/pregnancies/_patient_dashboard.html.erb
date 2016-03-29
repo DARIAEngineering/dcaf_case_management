@@ -1,12 +1,12 @@
 <div class="col-md-4">
   <%= f.fields_for pregnancy.patient do |p| %>
     <%= p.text_field :name, label: 'Name' %>
-    <%= p.text_field :primary_phone, label: 'Phone Number' %>
+    <%= p.text_field :primary_phone, label: 'Phone number' %>
   <% end %>
 </div>
 <div class="col-md-4">
   <!-- need a date picker -->
-  <%= f.text_field :last_menstrual_period_time, label: 'Last Menstrual Period:' %>
+  <%= f.text_field :last_menstrual_period_time, label: 'Last menstrual period:' %>
   <!-- select number of weeks -->
   <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
   <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ) %>

@@ -1,12 +1,13 @@
 <section class="abortion-left-menu">
   <!-- links to hook into forms on right side -->
-  <h2>Edit Patient Detail</h2>
   <ul class="nav nav-pills nav-stacked">
-    <li class='active'><%= link_to 'Abortion Information', '#abortion_section', data: { toggle: 'tab' } %></li>
-    <li><%= link_to 'Patient Information', '#patient_section', data: { toggle: 'tab' } %></li>
-    <li><%= link_to 'Change Log', '#change_log', data: { toggle: 'tab' } %></li>
-    <li><%= link_to 'Call Log', '#call_log', data: { toggle: 'tab' } %></li>
+    <li class='active'><%= link_to 'Abortion information', '#abortion_section', data: { toggle: 'tab' } %></li>
+    <li><%= link_to 'Patient information', '#patient_section', data: { toggle: 'tab' } %></li>
+    <li><%= link_to 'Change log', '#change_log', data: { toggle: 'tab' } %></li>
+    <li><%= link_to 'Call log', '#call_log', data: { toggle: 'tab' } %></li>
   </ul>
-  <button class="btn btn-primary">Submit Pledge</button>
+  <button class="btn btn-primary">Submit pledge</button>
   <%= f.submit 'TEMP: SAVE INFORMATION', class: 'btn btn-primary' %>
 </section>
+
+<!-- Need to add glyphicon-chevron-right before li.active -->
