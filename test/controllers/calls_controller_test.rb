@@ -48,7 +48,7 @@ class CallsControllerTest < ActionController::TestCase
     end
 
     it 'should log the creating user' do
-      assert_equal Pregnancy.find(@pregnancy).calls.last.creating_user_id, @user.id.to_s
+      assert_equal Pregnancy.find(@pregnancy).calls.last.created_by, @user
     end
   end
 end
