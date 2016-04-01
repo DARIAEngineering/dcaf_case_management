@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :find_pregnancy only: [:create]
+  before_action :find_pregnancy, only: [:create]
 
   def create
     @note = @pregnancy.notes.new(note_params)
