@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :pregnancies, only: [ :edit, :update ] do
       member do
         resources :calls, only: [ :create ]
+        resources :notes, only: [ :create, :update ]
       end
     end
     resources :patients, only: [ :create ]
