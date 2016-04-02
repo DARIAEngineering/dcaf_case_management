@@ -7,7 +7,7 @@
 <div class="col-md-4">
   <div class="row">
     <div class="col-md-6">
-      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP: Weeks' %>    
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP on intake' %>    
     </div>
     <div class="col-md-6">
       <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_weeks ), label: 'Days' %>
@@ -17,8 +17,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form_group">
-        <label for="pregnancy_last_menstrual_period_weeks_current" class="control-label">LMP at present time</label>
-        <input type="text" value="<%#= pregnancy.last_menstrual_period_current %>" class="form-control" id="pregnancy_last_menstrual_period_weeks_current" readonly>
+        <label for="pregnancy_last_menstrual_period_weeks_current" class="control-label">LMP on <%= Date.today %></label>
+        <input type="text" value="<%= pregnancy.last_menstrual_period_at_current_time %>" class="form-control" id="pregnancy_last_menstrual_period_weeks_current" readonly>
       </div>
     </div>
   </div>
