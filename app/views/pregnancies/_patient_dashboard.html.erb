@@ -5,16 +5,27 @@
   <% end %>
 </div>
 <div class="col-md-4">
-  <!-- need a date picker -->
-  <%= f.text_field :last_menstrual_period_time, label: 'Last menstrual period:' %>
-  <!-- select number of weeks -->
-  <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
-  <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ) %>
-  <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP: Weeks' %>    
+    </div>
+    <div class="col-md-6">
+      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_weeks ), label: 'Days' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form_group">
+        <label for="pregnancy_last_menstrual_period_weeks_current" class="control-label">LMP at present time</label>
+        <input type="text" value="<%#= pregnancy.last_menstrual_period_current %>" class="form-control" id="pregnancy_last_menstrual_period_weeks_current" readonly>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="col-md-4">
   <!-- case status should be c.select -->
-  <%= f.text_field :status, label: 'Status:' %>
+  <%= f.text_field :status, label: 'Status' %>
   <!-- Appointment Date (not in Case model) -->
-  <%= f.datetime_picker :appointment_date, label: 'Appointment date:', format: '%Y-%m-%d' %>
+  <%= f.datetime_picker :appointment_date, label: 'Appointment date', format: '%Y-%m-%d' %>
 </div>
