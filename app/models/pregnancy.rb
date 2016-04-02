@@ -69,4 +69,15 @@ class Pregnancy
 
   field :last_menstrual_period_time, type: DateTime
   # field :last_menstrual_period_lmp_type, type: Integer
+
+  def last_menstrual_period_at_current_time
+    "#{(last_menstrual_period_since_intake / 7).round} weeks, " \
+    "#{(last_menstrual_period_since_intake % 7).to_i} days"
+  end
+
+  private
+
+  def last_menstrual_period_since_intake
+    (created_at.to_date + (7 * last_menstrual_period_weeks) + last_menstrual_period_days) - Date.today
+  end
 end
