@@ -19,9 +19,8 @@ class Pregnancy
   # general common intake information
   field :initial_call_date, type: DateTime # TODO: can we infer this?
   field :status, type: String # enumeration
-  field :last_menstrual_period_lmp_type, type: Integer
   field :last_menstrual_period_weeks, type: Integer
-  field :last_menstrual_period_time, type: DateTime
+  field :last_menstrual_period_days, type: Integer
   field :voicemail_ok, type: Boolean
   field :line, type: String # DC, MD, VA
   field :language, type: String
@@ -67,4 +66,7 @@ class Pregnancy
   def old_calls
     calls.order('created_at DESC').offset(10)
   end
+
+  field :last_menstrual_period_time, type: DateTime
+  # field :last_menstrual_period_lmp_type, type: Integer
 end
