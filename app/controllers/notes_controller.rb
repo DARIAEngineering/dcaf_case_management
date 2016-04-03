@@ -16,7 +16,7 @@ class NotesController < ApplicationController
   end
 
   def update
-    if @note.update_attributes! note_params
+    if @note.update_attributes note_params
       respond_to { |format| format.js }
     else
       head :bad_request

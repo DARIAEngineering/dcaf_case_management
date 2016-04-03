@@ -43,9 +43,10 @@ class NotesControllerTest < ActionController::TestCase
 
   describe 'update method' do 
     before do 
-      @note = create :note, pregnancy: @pregnancy
+      @note = create :note, pregnancy: @pregnancy, full_text: 'Original text'
       @note_edits = attributes_for :note, full_text: 'This is edited text'
       patch :update, pregnancy_id: @pregnancy, id: @note, note: @note_edits, format: :js
+      @note.reload
     end
 
     it 'should render the correct template' do 
@@ -57,15 +58,26 @@ class NotesControllerTest < ActionController::TestCase
     end
 
     it 'should update the full_text field' do
-      @note.reload
       assert_equal @note.full_text, 'This is edited text'
     end
 
-    it 'should' do 
+    it 'should have an audit trail' do
+      assert_equal @note.history_tracks.count, 2
+      @changes = @note.history_tracks.last
+      assert_equal @changes.modified[:updated_by_id], @user.id
+      assert_equal @changes.modified[:full_text], 'This is edited text'
     end
 
-  #   # should have an audit trail
-  #   # should fail gracefully on setting note content to blank 
-  #   # should fail gracefully on no pregnancy
+    it 'should refuse to save note content to blank' do 
+      [nil, ''].each do |bad_text|
+        assert_no_difference 'Pregnancy.find(@pregnancy).notes.find(@note).history_tracks.count' do 
+          @note_edits[:full_text] = bad_text
+          patch :update, pregnancy_id: @pregnancy, id: @note, note: @note_edits, format: :js
+          assert_response :bad_request
+          @note.reload
+          assert_equal @note.full_text, 'This is edited text'
+        end
+      end
+    end
   end
 end
