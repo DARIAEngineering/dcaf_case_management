@@ -6,7 +6,7 @@ class Note
 
   embedded_in :pregnancy
 
-  field :notes, type: String
+  field :full_text, type: String
 
   validates :created_by, presence: true
 
