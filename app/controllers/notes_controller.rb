@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :find_pregnancy, only: [:create]
+  before_action :find_pregnancy, only: [ :create, :update ]
 
   def create
     @note = @pregnancy.notes.new(note_params)
@@ -15,8 +15,9 @@ class NotesController < ApplicationController
   end
 
   def update
-    @note = Note.find params[:id]
-    if @note.update_attributes note_params
+    @note = @pregnancy.notes.find params[:id]
+    # @note = @pregnancy.notes.where() { |x| x.id == params[:id] }.first
+    if @note.update_attributes! note_params
       respond_to { |format| format.js }
     else
       head :bad_request
@@ -30,6 +31,6 @@ class NotesController < ApplicationController
   end
 
   def find_pregnancy
-    @pregnancy = Pregnancy.find params[:id]
+    @pregnancy = Pregnancy.find params[:pregnancy_id]
   end
 end
