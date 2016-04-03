@@ -38,7 +38,6 @@ class NotesControllerTest < ActionController::TestCase
       end
       assert_redirected_to root_path
     end
-
   end
 
   describe 'update method' do 
