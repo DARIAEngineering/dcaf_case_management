@@ -30,8 +30,17 @@ class NotesControllerTest < ActionController::TestCase
     it 'should log the creating user' do 
       assert_equal Pregnancy.find(@pregnancy).notes.last.created_by, @user
     end
+
+    # should fail gracefully if no full text
+    # should fail gracefully if no pregnancy
   end
 
   describe 'update method' do 
+    # should render template
+    # should respond success
+    # should actually update field
+    # should have an audit trail
+    # should fail gracefully on setting note content to blank 
+    # should fail gracefully on no pregnancy
   end
 end
