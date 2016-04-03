@@ -31,8 +31,14 @@ class NotesControllerTest < ActionController::TestCase
       assert_equal Pregnancy.find(@pregnancy).notes.last.created_by, @user
     end
 
-    # should fail gracefully if no full text
-    # should fail gracefully if no pregnancy
+    it 'should alert failure if there is not text or an associated pregnancy' do 
+      @note[:full_text] = nil
+      assert_no_difference 'Pregnancy.find(@pregnancy).notes.count' do 
+        post :create, id: @pregnancy, note: @note, format: :js
+      end
+      assert_redirected_to root_path
+    end
+
   end
 
   describe 'update method' do 
