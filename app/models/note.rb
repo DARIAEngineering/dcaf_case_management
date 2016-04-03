@@ -8,7 +8,7 @@ class Note
 
   field :full_text, type: String
 
-  validates :created_by, presence: true
+  validates :created_by, :full_text, presence: true
 
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
