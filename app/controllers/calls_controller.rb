@@ -21,6 +21,6 @@ class CallsController < ApplicationController
   end
 
   def find_pregnancy
-    @pregnancy = Pregnancy.find params[:id]
+    @pregnancy = Pregnancy.find params[:pregnancy_id]
   end
 end
