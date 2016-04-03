@@ -10,18 +10,18 @@ class CallsControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @call = attributes_for :call
-      post :create, id: @pregnancy, call: @call, format: :js
+      post :create, pregnancy_id: @pregnancy.id, call: @call, format: :js
     end
 
     it 'should create and save a new call' do
       assert_difference 'Pregnancy.find(@pregnancy).calls.count', 1 do
-        post :create, call: @call, id: @pregnancy, format: :js
+        post :create, call: @call, pregnancy_id: @pregnancy.id, format: :js
       end
     end
 
     it 'should respond success if patient is not reached' do
       call = attributes_for :call, status: 'Left voicemail'
-      post :create, call: call, id: @pregnancy, format: :js
+      post :create, call: call, pregnancy_id: @pregnancy.id, format: :js
       assert_response :success
     end
 
@@ -32,7 +32,7 @@ class CallsControllerTest < ActionController::TestCase
     it 'should render create.js.erb if patient is not reached or if could not reach' do
       ['Left voicemail', "Couldn't reach patient"].each do |status|
         @call[:status] = status
-        post :create, call: @call, id: @pregnancy, format: :js
+        post :create, call: @call, pregnancy_id: @pregnancy.id, format: :js
         assert_template 'calls/create'
       end
     end
@@ -41,7 +41,7 @@ class CallsControllerTest < ActionController::TestCase
       [nil, 'not a real status'].each do |bad_status|
         @call[:status] = bad_status
         assert_no_difference 'Pregnancy.find(@pregnancy).calls.count' do
-          post :create, call: @call, id: @pregnancy, format: :js
+          post :create, call: @call, pregnancy_id: @pregnancy.id, format: :js
         end
         assert_redirected_to root_path
       end
