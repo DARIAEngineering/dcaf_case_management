@@ -15,9 +15,12 @@ class NotesController < ApplicationController
   end
 
   def update
-    # @note = Note.find params[:id]
-    # @note.update_attributes note_params
-    # respond_to { |format| format.js }
+    @note = Note.find params[:id]
+    if @note.update_attributes note_params
+      respond_to { |format| format.js }
+    else
+      head :bad_request
+    end
   end
 
   private
