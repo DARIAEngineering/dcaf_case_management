@@ -13,15 +13,18 @@ class NotesController < ApplicationController
   end
 
   def update
+    @note = Note.find params[:id]
+    @note.update_attributes note_params
+    respond_to { |format| format.js }
   end
 
   private
 
-    def note_params
-      params.require(:note).permit(:notes)
-    end
+  def note_params
+    params.require(:note).permit(:notes)
+  end
 
-    def find_pregnancy
-      @pregnancy = Pregnancy.find params[:id]
-    end
+  def find_pregnancy
+    @pregnancy = Pregnancy.find params[:id]
+  end
 end
