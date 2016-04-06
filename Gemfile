@@ -12,6 +12,7 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'devise', '~> 3.5', '>= 3.5.2'
 gem 'mongoid', '~> 5.0.0'
 gem 'mongoid-history', '~> 0.5.0'
+gem 'mongoid_userstamp'
 gem 'bson_ext'
 gem 'figaro'
 gem 'bootstrap_form'
@@ -19,6 +20,7 @@ gem 'bootstrap_form-datetimepicker'
 
 group :development do
   gem 'web-console', '~> 2.0'
+  gem 'rubocop', require: false
 end
 
 group :development, :test do
@@ -38,6 +40,7 @@ group :test do
   gem 'faker'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'simplecov', require: false
 end
 
 group :production do

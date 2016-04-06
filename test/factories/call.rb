@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :call do
-    pregnancy
-    status "Reached patient"
+    association :pregnancy
+    status 'Reached patient'
+    created_by { FactoryGirl.create(:user) }
   end
 end

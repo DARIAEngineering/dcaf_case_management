@@ -7,7 +7,9 @@ class ApplicationController < ActionController::Base
 
   # whitelists name attribute in devise
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :name
-    devise_parameter_sanitizer.for(:account_update) << :name
+    [:name].each do |sym|
+      devise_parameter_sanitizer.for(:sign_up) << sym
+      devise_parameter_sanitizer.for(:account_update) << sym
+    end
   end
 end

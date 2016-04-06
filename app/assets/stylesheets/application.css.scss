@@ -9,18 +9,20 @@ $dcaf-color: #5D3E8D;
 
 // DCAF color scheme button
 
-html {
+.container {
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 17px;
 }
-
 
 .btn-primary {
   @extend .btn-primary;
   background-color: $dcaf-color;
-  border: 2px solid black;
+  border: none;
+  margin-bottom: 2px;
+  font-size: 17px;
 }
 
-.btn-primary:hover { 
+.btn-primary:hover {
   @extend .btn-primary:hover;
   background-color: lighten($dcaf-color,15%);
 }
@@ -51,7 +53,7 @@ img {
   @extend .btn-primary;
   @extend .btn-lg;
   }
-  
+
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -125,12 +127,14 @@ section {
   max-width: 35%;
 }
 
-.margin-bottom {
-  margin-bottom: 100px;
+#search_form {
+  .search_form_input {
+    width: 350px;
+  }
 }
 
-.edit-list {
-  margin-bottom: 20px;
+.margin-bottom {
+  margin-bottom: 100px;
 }
 
 .border-side {
@@ -141,10 +145,50 @@ section {
     letter-spacing: 1.5px;
     background: #f1f1f1;
   }
-  tr { 
+  tr {
     td {
-      font-size: 16px;
+      font-size: 17px;
       padding: 10px 0 !important;
-      }
+    }
+  }
+}
+
+.glyphicon-earphone {
+  color: white;
+  background-color: #337ab7;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 12px;
+  vertical-align: top;
+}
+
+.form-control {
+  font-size: 17px;
+}
+
+.hidden {
+  display: none;
+}
+
+.abortion-left-menu {
+  li {
+    // padding-left: 10px;
+    background-color: white;
+
+    a:hover {
+      color: #337ab7;
+      background-color: white;
+    }
+  }
+
+  li.active {
+    // padding-left: 0;
+
+    a, a:hover {
+      color: #5D3E8D;
+      background-color: white;
+
+
+    }
   }
 }
