@@ -56,6 +56,9 @@ Current UX and wireframe assets are available here:
 
 To manage the dependencies and save us all some headache, we've Dockered this app. If you're docker-savvy, you can run the following to fire up mongo and the rails server: 
 * `docker-compose build && docker-compose up`
+ 
+Load the sample database the first time you start the container: 
+* `docker-compose run web rake db:seed`
 
 ## Setting up MongoDB
 
