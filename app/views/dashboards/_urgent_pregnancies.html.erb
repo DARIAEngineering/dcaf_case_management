@@ -10,11 +10,11 @@
       <th></th>
     </tr>
     <tbody>
-      <td>
+      <div id="urgent_pregnancies_content">
         <% pregnancies.each do |pregnancy| %>
           <%= render partial: 'dashboards/table_content', locals: { p: pregnancy } %>
         <% end %>
-      </td
+      </div>
     </tbody>
   </table>
 </div>
