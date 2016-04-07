@@ -24,5 +24,13 @@ patients.each do |patient|
   else
     flag = false
   end
-  patient.pregnancies.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
+  pregnancy = patient.pregnancies.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
+  8.times do
+    pregnancy.calls.create({status: 'Left voicemail', creating_user_id: user.id})
+  end
+  if(patient.name[-1, 1].to_i == 0) then
+    5.times do
+      pregnancy.calls.create({status: 'Reached patient', creating_user_id: user.id})
+    end
+  end
 end
