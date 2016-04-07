@@ -60,6 +60,10 @@ To manage the dependencies and save us all some headache, we've Dockered this ap
 Load the sample database the first time you start the container: 
 * `docker-compose run web rake db:seed`
 
+The sample user credentials are:
+`test@test.com`
+`password`
+
 ## Setting up MongoDB
 
 * Install MongoDB locally if you haven't (`brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
