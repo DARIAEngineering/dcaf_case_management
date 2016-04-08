@@ -113,6 +113,10 @@ section {
   padding-bottom: 10px;
 }
 
+.border-none {
+  border: 0 none !important;
+}
+
 .title {
   font-weight: 100;
   margin-bottom: 20px;
@@ -121,6 +125,10 @@ section {
   span {
     letter-spacing: .25px;
   }
+}
+
+.bold {
+  font-weight: 800;
 }
 
 .search_bar {

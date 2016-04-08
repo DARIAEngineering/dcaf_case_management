@@ -3,6 +3,8 @@ class PregnanciesController < ApplicationController
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { redirect_to root_path }
 
   def edit
+    @notes = @pregnancy.notes
+    @note = Note.new
   end
 
   def update

@@ -1,8 +1,33 @@
 <section id="notes" class="notes tab-pane">
 	<div class="margin-bottom col-md-12">
 		<h1 class="border-bottom title">Notes</h1>
-    <div class="info-form-left col-md-6" id="notes_content">
-      Something here.
-    </div> 
+        <div class="info-form-left col-md-6">
+					<%= bootstrap_form_for [@pregnancy, note] do |f| %>
+				    <%= f.text_area :full_text, placeholder: 'Enter notes here', hide_label: true %>
+				    <%= f.submit class: "btn btn-primary"  %>
+				  <% end %>
+        </div>
 	</div>
+
+	<table class="table border-side">
+		<tbody>
+		<% notes.order('created_at DESC').each do |note| %>
+		<tr>
+				<td class="col-md-2 bold">
+					<%= note.created_at.getlocal.strftime("%-m/%-d") %>
+				</td>
+				<td class="col-md-2 bold">
+					<%= note.created_at.getlocal.strftime("%l:%M %P") %>
+				</td>
+			<td class="col-md-8 bold">
+				<%= note.created_by.name %>
+			</td>
+		</tr>
+		<tr>
+			<td class="border-none"><%= note.full_text %></td>
+		</tr>
+		<% end %>
+		<tbody>
+	</table>
+
 </section>

@@ -7,11 +7,10 @@ class NotesController < ApplicationController
     @note.created_by = current_user
     @note.save
     if @note.save
-      # redirect_to edit_pregnancy_path(@pregnancy)
-      respond_to { |format| format.js }
+      redirect_to edit_pregnancy_path(@pregnancy), flash: { notice: "Saved new note for #{@pregnancy.patient.name}!" }
     else
       flash[:alert] = 'Note failed to save! Please submit the note again.'
-      redirect_to root_path
+      redirect_to edit_pregnancy_path(@pregnancy)
     end
   end
 

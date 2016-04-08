@@ -6,14 +6,14 @@
 
   <div id="patient_detail" class="row">
     <div id="menu" class="col-sm-3">
-      <%= render partial: 'pregnancies/menu', locals: { f: f, pregnancy: @pregnancy } %>  
+      <%= render partial: 'pregnancies/menu', locals: { f: f, pregnancy: @pregnancy } %>
     </div>
     <div id="sections" class="col-sm-8 col-sm-offset-1 tab-content">
       <%= render partial: 'pregnancies/abortion_information', locals: { f: f, pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/patient_information', locals: { f: f, pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/change_log', locals: { f: f, pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/call_log', locals: { pregnancy: @pregnancy } %>
-      <%= render partial: 'pregnancies/notes', locals: { pregnancy: @pregnancy } %>
+      <% end %>
+      <%= render partial: 'pregnancies/notes', locals: { note: @note, notes: @notes } %>
     </div>
   </div>
-<% end %>
