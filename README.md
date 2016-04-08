@@ -26,7 +26,7 @@ This project runs on Github forks and pull requests, so we can be sure to make c
 
 ## Setting Things Up Locally 
 
-First things first: Make a copy of your own to wrench on! Go to `https://github.com/colinxfleming/dcaf_case_management` and hit `fork`.
+First things first: Make a copy of your own to wrench on! Go to https://github.com/colinxfleming/dcaf_case_management and hit `fork`.
 
 If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB: 
 
