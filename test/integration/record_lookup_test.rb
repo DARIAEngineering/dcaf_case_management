@@ -22,7 +22,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       fill_in 'search', with: 'Susan Everyteen'
       click_button 'Search'
 
-      assert has_text? 'Search Results'
+      assert has_text? 'Search results'
       assert has_text? 'Susan Everyteen'
       assert_text @patient.primary_phone
     end
@@ -34,7 +34,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       # TODO: improve by figuring out capybara CSS selectors and scoping
-      assert has_text? 'Search Results'
+      assert has_text? 'Search results'
       assert has_no_text? 'Nobody Real Here'
     end
   end

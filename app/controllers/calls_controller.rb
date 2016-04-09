@@ -3,7 +3,7 @@ class CallsController < ApplicationController
 
   def create
     @call = @pregnancy.calls.new(call_params)
-    @call.creating_user_id = current_user.id
+    @call.created_by = current_user
     if @call.save && params[:call][:status] == 'Reached patient'
       redirect_to edit_pregnancy_path(@pregnancy)
     elsif @call.save
@@ -21,6 +21,6 @@ class CallsController < ApplicationController
   end
 
   def find_pregnancy
-    @pregnancy = Pregnancy.find params[:id]    
+    @pregnancy = Pregnancy.find params[:pregnancy_id]
   end
 end

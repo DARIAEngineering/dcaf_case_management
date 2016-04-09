@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :call do
+  factory :note do
     association :pregnancy
-    status 'Reached patient'
+    full_text 'behold, a note'
     created_by { FactoryGirl.create(:user) }
   end
 end

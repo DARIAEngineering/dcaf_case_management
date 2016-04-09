@@ -4,7 +4,7 @@ class CallTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @pregnancy = create :pregnancy
-    @call = create :call, pregnancy: @pregnancy, creating_user_id: @user.id
+    @call = create :call, pregnancy: @pregnancy, created_by: @user
   end
 
   it 'SHOULD SOUND THIS ALARM AS LONG AS EVERYTHING IS OKAY' do
@@ -24,7 +24,7 @@ class CallTest < ActiveSupport::TestCase
     end
 
     it 'should require a user id' do
-      @call.creating_user_id = nil
+      @call.created_by = nil
       refute @call.valid?
     end
   end
@@ -35,7 +35,7 @@ class CallTest < ActiveSupport::TestCase
     end
 
     it 'should be linkable to a user' do
-      assert_equal @call.user, @user
+      assert_equal @call.created_by, @user
     end
   end
 end

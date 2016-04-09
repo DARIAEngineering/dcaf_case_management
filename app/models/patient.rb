@@ -1,5 +1,6 @@
 class Patient
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
@@ -12,7 +13,7 @@ class Patient
   field :secondary_person, type: String
   field :secondary_phone, type: String
 
-  track_history on: [:name, :primary_phone, :secondary_person, :secondary_phone, :updated_by_id],
+  track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
                 track_create: true,
                 track_update: true,
