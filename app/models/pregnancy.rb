@@ -78,6 +78,6 @@ class Pregnancy
   private
 
   def last_menstrual_period_since_intake
-    (created_at.to_date + (7 * last_menstrual_period_weeks) + last_menstrual_period_days) - Date.today
+    (created_at.to_date + (7 * (last_menstrual_period_weeks || 0)) + (last_menstrual_period_days || 0)) - Date.today 
   end
 end
