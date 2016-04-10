@@ -38,4 +38,23 @@ class CallTest < ActiveSupport::TestCase
       assert_equal @call.created_by, @user
     end
   end
+
+  describe 'mongoid attachments' do
+    it 'should have timestamps from Mongoid::Timestamps' do
+      [:created_at, :updated_at].each do |field|
+        assert @call.respond_to? field
+        assert @call[field]
+      end
+    end
+
+    it 'should respond to history methods' do
+      assert @call.respond_to? :history_tracks
+      assert @call.history_tracks.count > 0 
+    end
+
+    it 'should have accessible userstamp methods' do 
+      assert @call.respond_to? :created_by
+      assert @call.created_by
+    end
+  end    
 end
