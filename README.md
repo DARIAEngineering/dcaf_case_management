@@ -16,7 +16,7 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 
 We run two week sprints where we try to complete 2-3 small features. Generally, we meet at Code for DC once to begin the sprint, and spend the off-week completing what we didn't finish the previous week.
 
-When we begin a sprint, the project leads create a Project Milestone and create Github issues for the feature itself. When we meet, we divide up the issues in the sprint, to not duplicate work.
+When we begin a sprint, the project manager identifies the features to complete from the list of things to do before hitting Minimum Viable Product. The project leads create a Project Milestone and create Github issues for the feature itself. When we meet, we divide up the issues in the sprint, to not duplicate work.
 
 ### Pull Requests Please!
 This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). Contribution instructions are as follows: 
