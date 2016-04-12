@@ -11,29 +11,24 @@ Get started with the how-and-why of the project by [checking out DCAF](http://dc
 
 The three co-leads on this project are @colinxfleming (rails and technical lead), @mebates (design and UI lead), and @adinneen (project manager and UX lead). We also have a large presence from DCAF actively consulting on this project, led by @lwaldsc and @nerdygirl537. Feel free to hit any of us up with questions about the project, we're nice!
 
+## Contributing to this Project
+### Our structure
 
-## How do I help? 
-We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB. So hopefully you can hop right in!
+We run two week sprints where we try to complete 2-3 small features. Generally, we meet at Code for DC once to begin the sprint, and spend the off-week completing what we didn't finish the previous week.
 
-We're generally looking for people comfortable or interested in the following:
-* Ruby on Rails (a good starter kit: [CodeAcademy's course](http://www.codecademy.com/learn/learn-rails))
-* JQuery / HTML / CSS
-* NoSQL / flat data modeling
-* Nonprofit data issues
-* Rails sherpas who can help other people make changes to the Rails stack!
+When we begin a sprint, the project leads create a Project Milestone and create Github issues for the feature itself. When we meet, we divide up the issues in the sprint, to not duplicate work.
 
-This is a great opportunity to learn about common nonprofit data problems, try out Rails, or just contribute to a project that will have a great positive impact on reproductive justice for people in the DC area. Come say hi, we're friendly and would love to have you join us!
+### Pull Requests Please!
+This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). Contribution instructions are as follows: 
 
-
-## Guide to Contributing
-This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). 
-
-* To contribute, visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
+* Visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
 * Do any work in your local environment and commit it to your fork in github.
 * Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button.
 * At least one other person (probably @colinxfleming) will review and comment on code changes, and work with you to resolve issues, and merge the pull request when it's ready.
 
-(TK: Contributing Guidelines)
+We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB. So hopefully you can hop right in!
+
+(TK: Formal Contributing Guidelines)
 
 
 ## Setting Stuff Up 
@@ -87,6 +82,16 @@ Current UX and wireframe assets are available here:
 * [DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
 * [DCAFwireframe120715.ai](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.ai)
 * [DCAFwireframe120715.pdf](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.pdf)
+
+
+## Project Wall of Appreciation
+
+Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are: 
+
+* @ajohnson051 (lots of hard work on controllers and views)
+* @Kevin-Wei (constructed data model)
+* @charleshuang80 (crucial work on forms)
+* @drownedout (constructed data model, excellent rails guide)
 
 
 ## License
