@@ -26,11 +26,11 @@ patients.each do |patient|
   end
   pregnancy = patient.pregnancies.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
   5.times do
-    pregnancy.calls.create({status: 'Left voicemail', creating_user_id: user.id})
+    pregnancy.calls.create({status: 'Left voicemail', created_by: user.id})
   end
   if patient.name == 'Patient 0'
     10.times do
-      pregnancy.calls.create({status: 'Reached patient', creating_user_id: user.id})
+      pregnancy.calls.create({status: 'Reached patient', created_by: user.id})
     end
   end
 end
