@@ -64,6 +64,9 @@ The sample user credentials are:
 `test@test.com`
 `password`
 
+If the server won't start, it may not have cleanly shut down. Try this:
+`sudo rm tmp/pids/server.pid`
+
 ## Setting up MongoDB
 
 * Install MongoDB locally if you haven't (`brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
