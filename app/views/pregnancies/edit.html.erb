@@ -14,6 +14,6 @@
       <%= render partial: 'pregnancies/change_log', locals: { f: f, pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/call_log', locals: { pregnancy: @pregnancy } %>
       <% end %>
-      <%= render partial: 'pregnancies/notes', locals: { note: @note, notes: @notes } %>
+      <%= render partial: 'pregnancies/notes', locals: { note: @note, pregnancy: @pregnancy } %>
     </div>
   </div>
