@@ -55,6 +55,8 @@ We've dockerized this app, to manage the dependencies and save us all the headah
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
+If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again. 
+
 ### Local environment
 
 If you prefer a local environment, do the following: 

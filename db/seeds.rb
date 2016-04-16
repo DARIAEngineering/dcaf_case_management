@@ -17,7 +17,15 @@ patients.each do |patient|
   else
     flag = false
   end
-  patient.pregnancies.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
+  pregnancy = patient.pregnancies.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
+  5.times do
+    pregnancy.calls.create({status: 'Left voicemail', created_by: user.id})
+  end
+  if patient.name == 'Patient 0'
+    10.times do
+      pregnancy.calls.create({status: 'Reached patient', created_by: user.id})
+    end
+  end
 end
 
 puts "Seed completed! Inserted #{Patient.count} patient objects and #{Pregnancy.count} associated pregnancy objects."
