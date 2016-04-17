@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 Call.destroy_all
 Pregnancy.destroy_all
 Patient.destroy_all
@@ -34,3 +27,6 @@ patients.each do |patient|
     end
   end
 end
+
+puts "Seed completed! Inserted #{Patient.count} patient objects and #{Pregnancy.count} associated pregnancy objects."
+puts "User created! Credentials are as follows: EMAIL: #{user.email} PASSWORD: password"
