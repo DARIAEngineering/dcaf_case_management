@@ -28,9 +28,12 @@ This project runs on Github forks and pull requests, so we can be sure to make c
 
 We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB. So hopefully you can hop right in!
 
-### Our Issue Structure
+### How We Categorize Our To Do List / Issues
+
+As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We categorize things as follows:
 
 Our major categories of software development related issues are as follows:
+* [Beginner Friendly](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
 * [Frontend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Afrontend) (Rails view work, CSS/JS work)
 * [Backend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abackend) (Rails controller and model work)
 * [Minitest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aminitest) (Feature and unit test work)
