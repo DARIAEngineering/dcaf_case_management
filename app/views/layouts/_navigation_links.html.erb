@@ -1,7 +1,11 @@
-<ul class="nav navbar-nav navbar-right"> 
+
+<ul class="nav navbar-nav navbar-right">
   <% if !user_signed_in? %>
     <li><%= link_to 'Sign in', new_user_session_path %></li>
   <% else %>
+    <% unless current_page?(authenticated_root_url) %>
+      <p class="navbar-text"><%= link_to 'Dashboard', authenticated_root_url %></p>
+    <% end %>
     <p class="navbar-text"><%= link_to current_user.name, edit_user_registration_path, class: 'navbar-link' %></p>
     <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
   <% end %>
