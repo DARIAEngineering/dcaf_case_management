@@ -3,6 +3,7 @@
     <%= render partial: 'dashboards/overview' %>
     <%= render partial: 'dashboards/search_form' %>
     <%= render partial: 'dashboards/call_list', locals: { pregnancies: current_user.pregnancies } %>
+    <%= render partial: 'dashboards/completed_calls_list', locals: { pregnancies: current_user.pregnancies } %>
     <%= render partial: 'dashboards/urgent_pregnancies', locals: { pregnancies: @urgent_pregnancies } %>
   </div>
 </div>
