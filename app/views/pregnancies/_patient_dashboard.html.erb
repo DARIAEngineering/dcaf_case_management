@@ -14,7 +14,8 @@
 </div>
 <div class="col-md-4">
   <!-- case status should be c.select -->
-  <%= f.text_field :status, label: 'Status:' %>
   <!-- Appointment Date (not in Case model) -->
   <%= f.datetime_picker :appointment_date, label: 'Appointment date:', format: '%Y-%m-%d' %>
+  <label class="control-label" for="pregnancy_status">Status:</label>
+  <p><%= pregnancy.status %></p>
 </div>
