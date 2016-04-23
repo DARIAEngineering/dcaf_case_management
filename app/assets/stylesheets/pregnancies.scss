@@ -43,3 +43,19 @@
     }
   }
 }
+
+.border-side {
+  th {
+    font-size: 14px;
+    color: #323a45;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: #f1f1f1;
+  }
+  tr {
+    td {
+      font-size: 17px;
+      padding: 10px 0 !important;
+    }
+  }
+}
