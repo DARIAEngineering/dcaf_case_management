@@ -1,5 +1,6 @@
 /*
  *= require rails_bootstrap_forms
+ *= require_tree .
 */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -245,11 +246,6 @@ $on-laptop:        800px;
     @media screen and (max-width: $device) {
         @content;
     }
-}
-
-#patient_dashboard {
-  border-bottom: 1px solid black;
-  padding: 15px 0;
 }
 
 #menu {
