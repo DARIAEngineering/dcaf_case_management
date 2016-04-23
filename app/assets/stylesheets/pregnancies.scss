@@ -6,3 +6,40 @@
   border-bottom: 1px solid black;
   padding: 15px 0;
 }
+
+#menu {
+  border-right: 1px solid black;
+  height: 70vh;
+  ul{
+    li{
+      a{
+      &:hover{
+        color: lighten(#337ab7, 20%)
+        }
+      }
+    }
+  }
+}
+
+.abortion-left-menu {
+  li {
+    // padding-left: 10px;
+    background-color: white;
+
+    a:hover {
+      color: #337ab7;
+      background-color: white;
+    }
+  }
+
+  li.active {
+    // padding-left: 0;
+
+    a, a:hover {
+      color: #5D3E8D;
+      background-color: white;
+
+
+    }
+  }
+}
