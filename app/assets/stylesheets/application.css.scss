@@ -9,6 +9,17 @@ $dcaf-color: #5D3E8D;
 
 // DCAF color scheme button
 
+.navbar-inverse{
+  background-color: #f5f5f5;
+  border: none;
+  .navbar-header > a, .navbar-nav > li > a, .navbar-link{
+    color: #000000;
+    &:hover{
+      color: lighten(#000000, 50%)
+    }
+  }
+}
+
 .container {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 17px;
@@ -192,3 +203,5 @@ section {
     }
   }
 }
+
+@import 'patients';
