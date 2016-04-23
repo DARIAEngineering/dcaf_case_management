@@ -8,6 +8,7 @@
 @charset "utf-8";
 
 $dcaf-color: #5D3E8D;
+$font-size: 17px;
 
 /* NAVBAR */
 .navbar-inverse{
@@ -22,9 +23,10 @@ $dcaf-color: #5D3E8D;
 }
 
 
+/* GENERAL GLOBAL STYLING */
 .container {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 17px;
+  font-size: $font-size;
 }
 
 .btn-primary {
@@ -32,7 +34,7 @@ $dcaf-color: #5D3E8D;
   background-color: $dcaf-color;
   border: none;
   margin-bottom: 2px;
-  font-size: 17px;
+  font-size: $font-size;
 }
 
 .btn-primary:hover {
@@ -40,6 +42,38 @@ $dcaf-color: #5D3E8D;
   background-color: lighten($dcaf-color,15%);
 }
 
+.border-bottom {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.title {
+  font-weight: 100;
+  margin-bottom: 20px;
+  letter-spacing: 1.5px;
+  font-size: 48px;
+  span {
+    letter-spacing: .25px;
+  }
+}
+
+// add spacing
+.margin-bottom {
+  margin-bottom: 100px;
+}
+
+// increase size of text in form fields
+.form-control {
+  font-size: $font-size;
+}
+
+.btn-lg {
+  margin: 15px 0;
+  padding: 15px 30px;
+}
+
+
+// General styling artifacts
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -120,36 +154,3 @@ section {
   @extend .btn-primary;
   @extend .btn-xs;
 }
-
-.border-bottom {
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
-}
-
-.title {
-  font-weight: 100;
-  margin-bottom: 20px;
-  letter-spacing: 1.5px;
-  font-size: 48px;
-  span {
-    letter-spacing: .25px;
-  }
-}
-
-
-// convenience class to add spacing
-.margin-bottom {
-  margin-bottom: 100px;
-}
-
-
-// increase size of text in form fields
-.form-control {
-  font-size: 17px;
-}
-
-.btn-lg {
-  margin: 15px 0;
-  padding: 15px 30px;
-}
-
