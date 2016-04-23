@@ -6,14 +6,22 @@
 </div>
 <div class="col-md-4">
   <!-- need a date picker -->
-  <%= f.text_field :last_menstrual_period_time, label: 'Last menstrual period:' %>
+  <div class="col-md-6">
+  <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ) %>
+  </div>
   <!-- select number of weeks -->
   <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
-  <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ) %>
+  <div class="col-md-6">
+  <%= f.text_field :last_menstrual_period_time, label: 'Last menstrual period:' %>
+  </div>
   <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
+  <label class="control-label" for="pregnancy_status">Approx Pregnancy Gestation Date:</label>
+  <p></p>
+  <label class="control-label" for="pregnancy_status">Approx Pregnancy Start Date:</label>
+  <p></p>
+
 </div>
 <div class="col-md-4">
-  <!-- case status should be c.select -->
   <!-- Appointment Date (not in Case model) -->
   <%= f.datetime_picker :appointment_date, label: 'Appointment date:', format: '%Y-%m-%d' %>
   <label class="control-label" for="pregnancy_status">Status:</label>
