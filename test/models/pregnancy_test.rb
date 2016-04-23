@@ -40,12 +40,44 @@ class PregnancyTest < ActiveSupport::TestCase
 
     it 'should respond to history methods' do
       assert @pregnancy.respond_to? :history_tracks
-      assert @pregnancy.history_tracks.count > 0 
+      assert @pregnancy.history_tracks.count > 0
     end
 
-    it 'should have accessible userstamp methods' do 
+    it 'should have accessible userstamp methods' do
       assert @pregnancy.respond_to? :created_by
       assert @pregnancy.created_by
     end
-  end  
+  end
+
+  describe 'status method' do
+    it 'should default to "No Contact Made" when a pregnancy has no calls' do
+      assert_equal 'No Contact Made', @pregnancy.status
+    end
+    it 'should default to "No Contact Made" when a pregnancy has an unsuccessful call' do
+      create :call, pregnancy: @pregnancy, status: 'Left voicemail'
+      assert_equal 'No Contact Made', @pregnancy.status
+    end
+    it 'should update to "Needs Appointment" once patient has been reached' do
+      create :call, pregnancy: @pregnancy, status: 'Reached patient'
+      assert_equal 'Needs Appointment', @pregnancy.status
+    end
+    it 'should update to "Fundraising" once an appointment has been made' do
+      @pregnancy.appointment_date = '01/01/2017'
+      assert_equal 'Fundraising', @pregnancy.status
+    end
+  end
+
+  describe 'contact_made? method' do
+    it 'should return false if no calls have been made' do
+      refute @pregnancy.contact_made?
+    end
+    it 'should return false if an unsuccessful call has been made' do
+      create :call, pregnancy: @pregnancy, status: 'Left voicemail'
+      refute @pregnancy.contact_made?
+    end
+    it 'should return true if a successful call has been made' do
+      create :call, pregnancy: @pregnancy, status: 'Reached patient'
+      assert @pregnancy.contact_made?
+    end
+  end
 end

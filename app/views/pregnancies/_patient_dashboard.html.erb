@@ -15,13 +15,15 @@
   <%= f.text_field :last_menstrual_period_time, label: 'Last menstrual period:' %>
   </div>
   <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
-  <!-- case status should be c.select -->
-  <p>Approx Preganancy Start Date:</p>
-  <p>Status:<%= @pregnancy.status %></p>
+  <label class="control-label" for="pregnancy_status">Approx Pregnancy Gestation Date:</label>
+  <p></p>
+  <label class="control-label" for="pregnancy_status">Approx Pregnancy Start Date:</label>
+  <p></p>
 
 </div>
 <div class="col-md-4">
   <!-- Appointment Date (not in Case model) -->
   <%= f.datetime_picker :appointment_date, label: 'Appointment date:', format: '%Y-%m-%d' %>
-  Approx Preganancy Gestation Date:
+  <label class="control-label" for="pregnancy_status">Status:</label>
+  <p><%= pregnancy.status %></p>
 </div>
