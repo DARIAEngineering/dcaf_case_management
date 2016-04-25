@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ClinicTest < ActiveSupport::TestCase
-  before do 
+  before do
     @user = create :user
     @clinic = create :clinic, created_by: @user
   end
@@ -16,10 +16,10 @@ class ClinicTest < ActiveSupport::TestCase
 
     it 'should respond to history methods' do
       assert @clinic.respond_to? :history_tracks
-      assert @clinic.history_tracks.count > 0 
+      assert @clinic.history_tracks.count > 0
     end
 
-    it 'should have accessible userstamp methods' do 
+    it 'should have accessible userstamp methods' do
       assert @clinic.respond_to? :created_by
       assert @clinic.created_by
     end

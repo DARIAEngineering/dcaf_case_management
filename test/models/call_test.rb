@@ -49,12 +49,12 @@ class CallTest < ActiveSupport::TestCase
 
     it 'should respond to history methods' do
       assert @call.respond_to? :history_tracks
-      assert @call.history_tracks.count > 0 
+      assert @call.history_tracks.count > 0
     end
 
-    it 'should have accessible userstamp methods' do 
+    it 'should have accessible userstamp methods' do
       assert @call.respond_to? :created_by
       assert @call.created_by
     end
-  end    
+  end
 end

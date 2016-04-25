@@ -70,7 +70,7 @@ class Pregnancy
 
   def contact_made?
     calls.each do |call|
-      return true if call.status == "Reached patient"
+      return true if call.status == 'Reached patient'
     end
     false
   end
@@ -90,11 +90,11 @@ class Pregnancy
     # elsif pledge_status?(:sent)
     #   status = "Sent Pledge"
     if appointment_date
-      "Fundraising"
+      'Fundraising'
     elsif contact_made?
-      "Needs Appointment"
+      'Needs Appointment'
     else
-      "No Contact Made"
+      'No Contact Made'
     end
   end
 end
