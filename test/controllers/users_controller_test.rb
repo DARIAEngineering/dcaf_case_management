@@ -73,7 +73,7 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
 
-  it 'should be the devise controller' do 
+  it 'should be the devise controller' do
     assert :devise_controller?
   end
 end
