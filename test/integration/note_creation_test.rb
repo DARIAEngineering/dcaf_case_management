@@ -12,9 +12,6 @@ class NoteCreationTest < ActionDispatch::IntegrationTest
   describe 'add patient pregnancy notes' do
     it 'should display a case notes form and current notes' do
         click_link 'Notes'
-        
-        visit current_path 
-        
         within('#notes')do
             assert_text 'Notes' #confirm notes header is visible 
             page.has_field? "note[full_text]"
@@ -24,10 +21,7 @@ class NoteCreationTest < ActionDispatch::IntegrationTest
     
     it 'should let you add a new case note' do
         fill_in 'note[full_text]', with: 'Sample new note creation body'
-        click_button "Create Note"
-
-        visit current_path 
-                
+        click_button "Create Note"                
         assert_text 'Sample new note creation body'
     end 
   end 
