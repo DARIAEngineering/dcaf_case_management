@@ -5,51 +5,24 @@
   <% end %>
 </div>
 <div class="col-md-4">
-<<<<<<< HEAD
-  <div class="row">
-    <div class="col-md-6">
-      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP on intake' %>    
-    </div>
-    <div class="col-md-6">
-      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_weeks ), label: 'Days' %>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-md-12">
-      <div class="form_group">
-        <label for="pregnancy_last_menstrual_period_weeks_current" class="control-label">LMP on <%= Date.today %></label>
-        <input type="text" value="<%= pregnancy.last_menstrual_period_at_current_time %>" class="form-control" id="pregnancy_last_menstrual_period_weeks_current" readonly>
+      <div class="col-md-6">
+        <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP on intake', help: 'Some shit' %>
+        <!-- <p class="help-block">Example block-level help text here.</p>  -->
       </div>
+      <div class="col-md-6">
+        <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_weeks ), label: 'Days' %>
+      </div>
+      
+
     </div>
   </div>
 </div>
 <div class="col-md-4">
   <!-- case status should be c.select -->
-  <%= f.text_field :status, label: 'Status' %>
+  <%#= f.text_field :status, label: 'Status' %>
   <!-- Appointment Date (not in Case model) -->
   <%= f.datetime_picker :appointment_date, label: 'Appointment date', format: '%Y-%m-%d' %>
-=======
-  <!-- need a date picker -->
-  <div class="col-md-6">
-  <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ) %>
-  </div>
-  <!-- select number of weeks -->
-  <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
-  <div class="col-md-6">
-  <%= f.text_field :last_menstrual_period_time, label: 'Last menstrual period:' %>
-  </div>
-  <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
-  <label class="control-label" for="pregnancy_status">Approx Pregnancy Gestation Date:</label>
-  <p></p>
-  <label class="control-label" for="pregnancy_status">Approx Pregnancy Start Date:</label>
-  <p></p>
 
-</div>
-<div class="col-md-4">
-  <!-- Appointment Date (not in Case model) -->
-  <%= f.datetime_picker :appointment_date, label: 'Appointment date:', format: '%Y-%m-%d' %>
-  <label class="control-label" for="pregnancy_status">Status:</label>
-  <p><%= pregnancy.status %></p>
->>>>>>> 1488952bb94b545611a344cdd374c2fd6a40fa83
 </div>
