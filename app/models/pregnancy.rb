@@ -68,7 +68,6 @@ class Pregnancy
     calls.order('created_at DESC').offset(10)
   end
 
-<<<<<<< HEAD
   field :last_menstrual_period_time, type: DateTime
   # field :last_menstrual_period_lmp_type, type: Integer
 
@@ -81,7 +80,8 @@ class Pregnancy
 
   def last_menstrual_period_since_intake
     (created_at.to_date + (7 * (last_menstrual_period_weeks || 0)) + (last_menstrual_period_days || 0)) - Date.today 
-=======
+  end
+
   def contact_made?
     calls.each do |call|
       return true if call.status == 'Reached patient'
@@ -110,6 +110,5 @@ class Pregnancy
     else
       'No Contact Made'
     end
->>>>>>> 1488952bb94b545611a344cdd374c2fd6a40fa83
   end
 end
