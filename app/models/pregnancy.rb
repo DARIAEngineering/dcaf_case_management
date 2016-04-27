@@ -92,10 +92,10 @@ class Pregnancy
     end
   end
 
-  private
-
   def last_menstrual_period_since_intake
-    (created_at.to_date + (7 * (last_menstrual_period_weeks || 0)) + (last_menstrual_period_days || 0)) - Date.today 
+    weeks = 7 * (last_menstrual_period_weeks || 0)
+    days = (last_menstrual_period_days || 0)
+    (initial_call_date.to_date + weeks + days) - Date.today
   end
 
   def contact_made?
