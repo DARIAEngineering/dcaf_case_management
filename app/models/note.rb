@@ -6,9 +6,9 @@ class Note
 
   embedded_in :pregnancy
 
-  field :notes, type: String
+  field :full_text, type: String
 
-  validates :created_by, presence: true
+  validates :created_by, :full_text, presence: true
 
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -17,6 +17,4 @@ class Note
                 track_destroy: true
 
   mongoid_userstamp user_model: 'User'
-
-
 end

@@ -4,10 +4,8 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :pregnancies, only: [ :edit, :update ] do
-      member do
-        resources :calls, only: [ :create ]
-        resources :notes, only: [ :create, :update ]
-      end
+      resources :calls, only: [ :create ]
+      resources :notes, only: [ :create, :update ]
     end
     resources :patients, only: [ :create ]
     patch 'users/:user_id/add_pregnancy/:id', to: 'users#add_pregnancy', as: 'add_pregnancy', defaults: { format: :js }

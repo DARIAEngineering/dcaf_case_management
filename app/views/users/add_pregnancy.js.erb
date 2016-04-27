@@ -1,2 +1,3 @@
-$('#call_list').empty(); 
-$('#call_list').append('<%= escape_javascript(render partial: "dashboards/call_list", locals: { pregnancies: @user.pregnancies }) %>')
+$('#call_list').empty();
+$('#call_list').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your call list', table_type: 'call_list', pregnancies: @user.pregnancies }) %>')
+// if this table is on the dashboards#index page then title should be edited and @user change to current_user
