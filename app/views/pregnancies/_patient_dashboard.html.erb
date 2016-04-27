@@ -6,16 +6,17 @@
 </div>
 <div class="col-md-4">
   <div class="row">
+    <div class="col-md-6">
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP on intake', help: 'Some shit' %>
+      <!-- <p class="help-block">Example block-level help text here.</p>  -->
+    </div>
+    <div class="col-md-6">
+      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_weeks ), label: 'Days' %>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-12">
-      <div class="col-md-6">
-        <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP on intake', help: 'Some shit' %>
-        <!-- <p class="help-block">Example block-level help text here.</p>  -->
-      </div>
-      <div class="col-md-6">
-        <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_weeks ), label: 'Days' %>
-      </div>
-      
-
+      <p><strong>Status:</strong> <%= pregnancy.status %></p>
     </div>
   </div>
 </div>

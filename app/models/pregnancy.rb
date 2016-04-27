@@ -76,6 +76,22 @@ class Pregnancy
     "#{(last_menstrual_period_since_intake % 7).to_i} days"
   end
 
+  def status
+    # if resolved_without_dcaf
+    #   status = "Resolved Without DCAF"
+    # elsif pledge_status?(:paid)
+    #   status = "Pledge Paid"
+    # elsif pledge_status?(:sent)
+    #   status = "Sent Pledge"
+    if appointment_date
+      'Fundraising'
+    elsif contact_made?
+      'Needs Appointment'
+    else
+      'No Contact Made'
+    end
+  end
+
   private
 
   def last_menstrual_period_since_intake
@@ -95,20 +111,4 @@ class Pregnancy
   #   end
   #   false
   # end
-
-  def status
-    # if resolved_without_dcaf
-    #   status = "Resolved Without DCAF"
-    # elsif pledge_status?(:paid)
-    #   status = "Pledge Paid"
-    # elsif pledge_status?(:sent)
-    #   status = "Sent Pledge"
-    if appointment_date
-      'Fundraising'
-    elsif contact_made?
-      'Needs Appointment'
-    else
-      'No Contact Made'
-    end
-  end
 end
