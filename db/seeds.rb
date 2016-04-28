@@ -17,7 +17,7 @@ Patient.all.each do |patient|
   else
     flag = false
   end
-  pregnancy = patient.pregnancies.create initial_call_date: 2.months.ago, 
+  pregnancy = patient.pregnancies.create initial_call_date: Date.today, 
                                          urgent_flag: flag, 
                                          last_menstrual_period_weeks: lmp_weeks,
                                          last_menstrual_period_days: lmp_days
