@@ -80,4 +80,7 @@ class PregnancyTest < ActiveSupport::TestCase
       assert @pregnancy.send :contact_made?
     end
   end
+
+  describe 'last menstrual period calculator methods' do 
+  end
 end
