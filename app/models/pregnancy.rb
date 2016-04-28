@@ -26,7 +26,7 @@ class Pregnancy
   mongoid_userstamp user_model: 'User'
 
   # general common intake information
-  field :initial_call_date, type: DateTime # TODO: can we infer this?
+  field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
 
