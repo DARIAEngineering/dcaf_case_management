@@ -69,15 +69,15 @@ class PregnancyTest < ActiveSupport::TestCase
 
   describe 'contact_made? method' do
     it 'should return false if no calls have been made' do
-      refute @pregnancy.contact_made?
+      refute @pregnancy.send :contact_made?
     end
     it 'should return false if an unsuccessful call has been made' do
       create :call, pregnancy: @pregnancy, status: 'Left voicemail'
-      refute @pregnancy.contact_made?
+      refute @pregnancy.send :contact_made?
     end
     it 'should return true if a successful call has been made' do
       create :call, pregnancy: @pregnancy, status: 'Reached patient'
-      assert @pregnancy.contact_made?
+      assert @pregnancy.send :contact_made?
     end
   end
 end
