@@ -90,6 +90,8 @@ class Pregnancy
     end
   end
 
+  private
+
   def last_menstrual_period_since_intake
     return nil unless initial_call_date
     weeks = 7 * (last_menstrual_period_weeks || 0)

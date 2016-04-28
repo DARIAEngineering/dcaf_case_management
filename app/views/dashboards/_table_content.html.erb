@@ -19,7 +19,7 @@
           <tr class="pregnancy-data" id="<%= p.patient.id %>">
             <td><%= p.patient.primary_phone %></td>
             <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
-            <td><%= "#{p.last_menstrual_period_now}" if p.last_menstrual_period_time %></td>
+            <td><%= p.last_menstrual_period_now %></td>
             <td>(sample case notes. something or other. detail)</td>
 
             <% if(current_user.pregnancies.include?(p)) then %>
