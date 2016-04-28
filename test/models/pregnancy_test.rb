@@ -82,5 +82,6 @@ class PregnancyTest < ActiveSupport::TestCase
   end
 
   describe 'last menstrual period helper methods' do
+    # tests to write: lmp now, lmp now short, lmp intake, lmp on date
   end
 end
