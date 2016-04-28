@@ -2,8 +2,8 @@ module LastMenstrualPeriodHelper
   # last menstrual period calculator methods
   def last_menstrual_period_now
     return nil unless last_menstrual_period_at_intake
-    "#{(last_menstrual_period_since_intake / 7).round} weeks, " \
-    "#{(last_menstrual_period_since_intake % 7).to_i} days"
+    "#{(last_menstrual_period_at_intake / 7).round} weeks, " \
+    "#{(last_menstrual_period_at_intake % 7).to_i} days"
   end
 
   def last_menstrual_period_now_short

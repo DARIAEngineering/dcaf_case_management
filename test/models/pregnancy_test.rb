@@ -81,6 +81,6 @@ class PregnancyTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'last menstrual period calculator methods' do 
+  describe 'last menstrual period helper methods' do
   end
 end
