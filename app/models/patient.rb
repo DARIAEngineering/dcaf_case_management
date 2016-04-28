@@ -9,7 +9,7 @@ class Patient
   validates_presence_of :name, :primary_phone
 
   field :name, type: String # strip
-  field :primary_phone, type: String , :maximum => 12 # validate
+  field :primary_phone, type: String , length{ :maximum => 12}# validate
   field :secondary_person, type: String
   field :secondary_phone, type: String ,:maximum => 12
 
