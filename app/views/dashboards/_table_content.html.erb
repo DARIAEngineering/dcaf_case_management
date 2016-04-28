@@ -7,7 +7,7 @@
       <tr>
         <th>Phone</th>
         <th>Name</th>
-        <th>LMP</th> <!-- last menstrual period -->
+        <th>LMP</th>
         <th>Case Notes</th>
         <th></th>
         <th></th>
@@ -16,11 +16,10 @@
     <tbody>
       <div id="<%= table_type %>_content">
         <% pregnancies.each do |p| %>
-          <!-- <%# render partial: 'dashboards/table_content', locals: { p: pregnancy } %> -->
           <tr class="pregnancy-data" id="<%= p.patient.id %>">
             <td><%= p.patient.primary_phone %></td>
             <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
-            <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" if p.last_menstrual_period_time %></td>
+            <td><%= "#{p.last_menstrual_period_now}" if p.last_menstrual_period_time %></td>
             <td>(sample case notes. something or other. detail)</td>
 
             <% if(current_user.pregnancies.include?(p)) then %>

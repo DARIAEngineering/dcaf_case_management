@@ -16,11 +16,19 @@ class Pregnancy
   accepts_nested_attributes_for :patient
   accepts_nested_attributes_for :clinic
 
+  # for history and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
+
   # general common intake information
   field :initial_call_date, type: DateTime # TODO: can we infer this?
-  field :last_menstrual_period_lmp_type, type: Integer
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
+
   field :voicemail_ok, type: Boolean
   field :line, type: String # DC, MD, VA
   field :language, type: String
@@ -48,14 +56,6 @@ class Pregnancy
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
 
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-
-  mongoid_userstamp user_model: 'User'
-
   def self.most_recent
     order('created_at DESC').limit(1).first
   end
@@ -68,10 +68,8 @@ class Pregnancy
     calls.order('created_at DESC').offset(10)
   end
 
-  field :last_menstrual_period_time, type: DateTime
-  # field :last_menstrual_period_lmp_type, type: Integer
-
-  def last_menstrual_period_at_current_time
+  def last_menstrual_period_now
+    return nil unless last_menstrual_period_since_intake
     "#{(last_menstrual_period_since_intake / 7).round} weeks, " \
     "#{(last_menstrual_period_since_intake % 7).to_i} days"
   end
@@ -93,6 +91,7 @@ class Pregnancy
   end
 
   def last_menstrual_period_since_intake
+    return nil unless initial_call_date
     weeks = 7 * (last_menstrual_period_weeks || 0)
     days = (last_menstrual_period_days || 0)
     (initial_call_date.to_date + weeks + days) - Date.today
