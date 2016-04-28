@@ -3,6 +3,7 @@ class Pregnancy
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include LastMenstrualPeriodHelper
 
   # relationships
   belongs_to :patient
@@ -68,24 +69,6 @@ class Pregnancy
     calls.order('created_at DESC').offset(10)
   end
 
-  # last menstrual period calculator methods
-  def last_menstrual_period_now
-    return nil unless last_menstrual_period_since_intake
-    "#{(last_menstrual_period_since_intake / 7).round} weeks, " \
-    "#{(last_menstrual_period_since_intake % 7).to_i} days"
-  end
-
-  def last_menstrual_period_now_short
-    last_menstrual_period_now.to_s.gsub(' weeks,', 'w').gsub(' days', 'd')
-  end
-
-  def last_menstrual_period_on_date(date)
-    return nil unless initial_call_date
-    weeks = 7 * (last_menstrual_period_weeks || 0)
-    days = (last_menstrual_period_days || 0)
-
-  end
-
   def status
     # if resolved_without_dcaf
     #   status = "Resolved Without DCAF"
@@ -103,13 +86,6 @@ class Pregnancy
   end
 
   private
-
-  def last_menstrual_period_since_intake
-    return nil unless initial_call_date && last_menstrual_period_weeks
-    weeks = 7 * (last_menstrual_period_weeks || 0)
-    days = (last_menstrual_period_days || 0)
-    (initial_call_date.to_date + weeks + days) - Date.today
-  end
 
   def contact_made?
     calls.each do |call|
