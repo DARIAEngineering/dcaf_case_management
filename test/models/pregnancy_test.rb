@@ -106,8 +106,8 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 80
     end
 
-    # it 'LMP on date - ' do
-    # end
+    it 'LMP on intake - ' do
+    end
 
     # tests to write: lmp now, lmp now short, lmp intake, lmp on date
   end
