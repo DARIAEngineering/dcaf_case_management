@@ -82,6 +82,33 @@ class PregnancyTest < ActiveSupport::TestCase
   end
 
   describe 'last menstrual period helper methods' do
+    before do
+      @pregnancy = create :pregnancy, last_menstrual_period_weeks: 9, last_menstrual_period_days: 2, initial_call_date: 2.days.ago
+    end
+
+    # LMP on date
+    it 'LMP on date - should nil out if LMP weeks is not set' do
+      @pregnancy.last_menstrual_period_weeks = nil
+      assert_nil @pregnancy.send(:last_menstrual_period_on_date, Date.today)
+    end
+
+    it 'LMP on date - should accurately calculate LMP on a given date' do
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 67
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, 5.days.from_now.to_date), 72
+
+      @pregnancy.initial_call_date = 4.days.ago
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 69
+
+      @pregnancy.last_menstrual_period_weeks = 10
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 76
+
+      @pregnancy.last_menstrual_period_days = 6
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 80
+    end
+
+    # it 'LMP on date - ' do
+    # end
+
     # tests to write: lmp now, lmp now short, lmp intake, lmp on date
   end
 end

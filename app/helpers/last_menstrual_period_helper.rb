@@ -20,6 +20,6 @@ module LastMenstrualPeriodHelper
     return nil unless initial_call_date && last_menstrual_period_weeks
     weeks = 7 * (last_menstrual_period_weeks || 0)
     days = (last_menstrual_period_days || 0)
-    (initial_call_date.to_date + weeks + days) - date
+    (date - initial_call_date) + weeks + days
   end
 end
