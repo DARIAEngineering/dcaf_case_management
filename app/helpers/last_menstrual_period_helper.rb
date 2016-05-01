@@ -11,6 +11,8 @@ module LastMenstrualPeriodHelper
     last_menstrual_period_display.to_s.gsub(' weeks,', 'w').gsub(' days', 'd')
   end
 
+  private
+
   def last_menstrual_period_now
     last_menstrual_period_on_date Date.today
   end
