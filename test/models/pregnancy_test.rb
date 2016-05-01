@@ -106,7 +106,31 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 80
     end
 
-    it 'LMP on intake - ' do
+    it 'LMP now - should return nil if LMP weeks is not set' do 
+      @pregnancy.last_menstrual_period_weeks = nil
+      assert_nil @pregnancy.send(:last_menstrual_period_now)
+    end
+
+    it 'LMP now - should be equivalent to LMP on date - date.today' do
+      assert_equal @pregnancy.send(:last_menstrual_period_now), @pregnancy.send(:last_menstrual_period_on_date, Date.today)
+    end
+
+    it 'LMP display - should return nil if LMP weeks is not set' do
+      @pregnancy.last_menstrual_period_weeks = nil
+      assert_nil @pregnancy.last_menstrual_period_display
+    end
+
+    it 'LMP display - should return LMP in weeks and days' do
+      assert_equal @pregnancy.last_menstrual_period_display, '9 weeks, 4 days'
+    end
+
+    it 'LMP display short - should return nil if LMP weeks is not set' do
+      @pregnancy.last_menstrual_period_weeks = nil
+      assert_nil @pregnancy.last_menstrual_period_display_short
+    end
+
+    it 'LMP display short - should return shorter LMP in weeks and days' do
+      assert_equal @pregnancy.last_menstrual_period_display_short, '9w 4d'
     end
 
     # tests to write: lmp now, lmp now short, lmp intake, lmp on date
