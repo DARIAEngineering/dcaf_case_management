@@ -53,28 +53,42 @@ class PregnancyTest < ActiveSupport::TestCase
     it 'should default to "No Contact Made" when a pregnancy has no calls' do
       assert_equal 'No Contact Made', @pregnancy.status
     end
+
     it 'should default to "No Contact Made" when a pregnancy has an unsuccessful call' do
       create :call, pregnancy: @pregnancy, status: 'Left voicemail'
       assert_equal 'No Contact Made', @pregnancy.status
     end
+
     it 'should update to "Needs Appointment" once patient has been reached' do
       create :call, pregnancy: @pregnancy, status: 'Reached patient'
       assert_equal 'Needs Appointment', @pregnancy.status
     end
+
     it 'should update to "Fundraising" once an appointment has been made' do
       @pregnancy.appointment_date = '01/01/2017'
       assert_equal 'Fundraising', @pregnancy.status
     end
+
+    # it 'should update to "Sent Pledge" after a pledge has been sent' do
+    # end
+
+    # it 'should update to "Pledge Paid" after a pledge has been paid' do
+    # end
+
+    # it 'should update to "Resolved Without DCAF" if a pregnancy is marked resolved' do
+    # end
   end
 
   describe 'contact_made? method' do
     it 'should return false if no calls have been made' do
       refute @pregnancy.send :contact_made?
     end
+
     it 'should return false if an unsuccessful call has been made' do
       create :call, pregnancy: @pregnancy, status: 'Left voicemail'
       refute @pregnancy.send :contact_made?
     end
+    
     it 'should return true if a successful call has been made' do
       create :call, pregnancy: @pregnancy, status: 'Reached patient'
       assert @pregnancy.send :contact_made?
@@ -86,7 +100,6 @@ class PregnancyTest < ActiveSupport::TestCase
       @pregnancy = create :pregnancy, last_menstrual_period_weeks: 9, last_menstrual_period_days: 2, initial_call_date: 2.days.ago
     end
 
-    # LMP on date
     it 'LMP on date - should nil out if LMP weeks is not set' do
       @pregnancy.last_menstrual_period_weeks = nil
       assert_nil @pregnancy.send(:last_menstrual_period_on_date, Date.today)
@@ -132,7 +145,5 @@ class PregnancyTest < ActiveSupport::TestCase
     it 'LMP display short - should return shorter LMP in weeks and days' do
       assert_equal @pregnancy.last_menstrual_period_display_short, '9w 4d'
     end
-
-    # tests to write: lmp now, lmp now short, lmp intake, lmp on date
   end
 end
