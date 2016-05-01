@@ -7,10 +7,10 @@
 <div class="col-md-4">
   <div class="row">
     <div class="col-md-6">
-      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP on intake', help: "PSD: #{pregnancy.initial_call_date}" %>
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP at intake', help: "Currently: #{pregnancy.last_menstrual_period_display_short}" %>
     </div>
     <div class="col-md-6">
-      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: true %>
+      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: '.', help: "Called on: #{pregnancy.initial_call_date}" %>
     </div>
   </div>
   <div class="row">
@@ -20,5 +20,5 @@
   </div>
 </div>
 <div class="col-md-4">
-  <%= f.datetime_picker :appointment_date, label: 'Appointment date', format: '%Y-%m-%d', help: 'Approx gestation at appt: ' %>
+  <%= f.datetime_picker :appointment_date, label: 'Appointment date', format: '%Y-%m-%d', help: "Approx gestation at appt: STUB" %>
 </div>
