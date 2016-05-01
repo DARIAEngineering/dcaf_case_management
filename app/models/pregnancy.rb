@@ -3,6 +3,7 @@ class Pregnancy
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include LastMenstrualPeriodHelper
 
   # relationships
   belongs_to :patient
@@ -16,11 +17,19 @@ class Pregnancy
   accepts_nested_attributes_for :patient
   accepts_nested_attributes_for :clinic
 
+  # for history and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
+
   # general common intake information
-  field :initial_call_date, type: DateTime # TODO: can we infer this?
-  field :last_menstrual_period_lmp_type, type: Integer
+  field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
-  field :last_menstrual_period_time, type: DateTime
+  field :last_menstrual_period_days, type: Integer
+
   field :voicemail_ok, type: Boolean
   field :line, type: String # DC, MD, VA
   field :language, type: String
@@ -48,14 +57,6 @@ class Pregnancy
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
 
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-
-  mongoid_userstamp user_model: 'User'
-
   def self.most_recent
     order('created_at DESC').limit(1).first
   end
@@ -67,20 +68,6 @@ class Pregnancy
   def old_calls
     calls.order('created_at DESC').offset(10)
   end
-
-  def contact_made?
-    calls.each do |call|
-      return true if call.status == 'Reached patient'
-    end
-    false
-  end
-
-  # def pledge_status?(status)
-  #   pledges.each do |pledge|
-  #     return true if pledge[status]
-  #   end
-  #   false
-  # end
 
   def status
     # if resolved_without_dcaf
@@ -97,4 +84,20 @@ class Pregnancy
       'No Contact Made'
     end
   end
+
+  private
+
+  def contact_made?
+    calls.each do |call|
+      return true if call.status == 'Reached patient'
+    end
+    false
+  end
+
+  # def pledge_status?(status)
+  #   pledges.each do |pledge|
+  #     return true if pledge[status]
+  #   end
+  #   false
+  # end
 end
