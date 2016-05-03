@@ -3,23 +3,23 @@
     <h2>Patient information</h2>
     <div class="info-form-left col-md-6">
       <%= f.fields_for pregnancy.patient do |p| %>
-        <%= p.text_field :secondary_person %>
-        <%= p.text_field :secondary_phone, label: 'Secondary Phone' %>
+        <%= p.text_field :secondary_person, autocomplete: 'off' %>
+        <%= p.text_field :secondary_phone, label: 'Secondary Phone', autocomplete: 'off' %>
       <% end %>
-      <%= f.text_field :age, label: 'Age' %>
+      <%= f.text_field :age, label: 'Age', autocomplete: 'off' %>
       <%= f.select :race_ethnicity, options_for_select(
             ['', 'Caucasian', 'African American',
             'Asian/Pacific Islander', 'Hispanic'],
-            pregnancy.race_ethnicity), label: 'Race / Ethnicity' %>
+            pregnancy.race_ethnicity), label: 'Race / Ethnicity', autocomplete: 'off' %>
       <div class="row">
         <div class="col-md-8">
-          <%= f.text_field :city, label: 'City' %>
+          <%= f.text_field :city, label: 'City', autocomplete: 'off' %>
         </div>
         <div class="col-md-4">
-          <%= f.text_field :state, label: 'State' %>
+          <%= f.text_field :state, label: 'State', autocomplete: 'off' %>
         </div>
       </div>
-      <%= f.text_field :zip, label: 'ZIP' %>
+      <%= f.text_field :zip, label: 'ZIP', autocomplete: 'off' %>
     </div>
 
     <div class="info-form-right col-md-6">
@@ -35,9 +35,9 @@
       <%= f.select :insurance, options_for_select(
             ['option 1', 'option 2'], pregnancy.insurance),
             label: 'Patient insurance' %>
-      <%= f.text_field :referred_by, label: 'Referred by' %>
+      <%= f.text_field :referred_by, label: 'Referred by', autocomplete: 'off' %>
       <!-- special_circumstances checkbox-->
       <h5>PLACEHOLDER: Special Circumstances</h5>
     </div>
-  </div>  
+  </div>
 </section>
