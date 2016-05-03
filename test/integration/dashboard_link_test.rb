@@ -8,7 +8,7 @@ class DashboardLinkTest < ActionDispatch::IntegrationTest
   
   describe 'visiting the dashboard' do
     it 'should not display the dashboard link' do
-      visit authenticated_root_url
+      visit authenticated_root_path
       refute has_link? 'Dashboard', href: authenticated_root_url   
     end
   end
