@@ -6,7 +6,9 @@ class Patient
 
   has_many :pregnancies
 
-  validates_presence_of :name, :primary_phone
+  validates :name,
+            :primary_phone,
+            presence: true
 
   field :name, type: String # strip
   field :primary_phone, type: String # validate

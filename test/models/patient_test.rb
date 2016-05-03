@@ -6,6 +6,35 @@ class PatientTest < ActiveSupport::TestCase
     @patient = create :patient, created_by: @user
   end
 
+  describe 'validations' do
+    it 'can be valid' do
+      assert @patient.valid?
+    end
+
+    it 'requires a name' do
+      @patient.name = nil
+      refute @patient.valid?
+    end
+
+    it 'requires a primary phone' do
+      @patient.primary_phone = nil
+      refute @patient.valid?
+    end
+
+    # it 'requires a logged creating user' do
+      # @patient.created_by = nil
+      # refute @patient.valid?
+    # end
+  end
+
+  describe 'relationships' do
+    it 'should have at least one associated pregnancy' do
+    end
+
+    it 'should have only one active pregnancy' do
+    end
+  end
+
   describe 'mongoid attachments' do
     it 'should have timestamps from Mongoid::Timestamps' do
       [:created_at, :updated_at].each do |field|
