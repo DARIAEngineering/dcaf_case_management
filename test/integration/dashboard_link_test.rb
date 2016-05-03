@@ -1,16 +1,14 @@
 require 'test_helper'
 
 class DashboardLinkTest < ActionDispatch::IntegrationTest
-  before do
+  setup do
     @user = create :user
     log_in_as @user
   end
   
   describe 'visiting the dashboard' do
-    before do
-      visit authenticated_root_url
-    end
     it 'should not display the dashboard link' do
+      visit authenticated_root_url
       refute has_link? 'Dashboard', href: authenticated_root_url   
     end
   end
