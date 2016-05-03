@@ -6,6 +6,8 @@
     <li><%= link_to 'Change Log', '#change_log', data: { toggle: 'tab' } %></li>
     <li><%= link_to 'Call Log', '#call_log', data: { toggle: 'tab' } %></li>
     <li><%= link_to 'Notes', '#notes', data: { toggle: 'tab' } %></li>
+
+    <%= render partial: "pledge" %>
   </ul>
   <button class="btn btn-primary btn-lg">Submit pledge</button>
   <%= f.submit 'TEMP: SAVE INFORMATION', class: 'btn btn-primary' %>
