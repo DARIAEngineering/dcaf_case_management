@@ -30,25 +30,6 @@ class PregnancyTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @pregnancy.respond_to? field
-        assert @pregnancy[field]
-      end
-    end
-
-    it 'should respond to history methods' do
-      assert @pregnancy.respond_to? :history_tracks
-      assert @pregnancy.history_tracks.count > 0
-    end
-
-    it 'should have accessible userstamp methods' do
-      assert @pregnancy.respond_to? :created_by
-      assert @pregnancy.created_by
-    end
-  end
-
   describe 'status method' do
     it 'should default to "No Contact Made" when a pregnancy has no calls' do
       assert_equal 'No Contact Made', @pregnancy.status
@@ -144,6 +125,26 @@ class PregnancyTest < ActiveSupport::TestCase
 
     it 'LMP display short - should return shorter LMP in weeks and days' do
       assert_equal @pregnancy.last_menstrual_period_display_short, '9w 4d'
+    end
+  end
+
+
+  describe 'mongoid attachments' do
+    it 'should have timestamps from Mongoid::Timestamps' do
+      [:created_at, :updated_at].each do |field|
+        assert @pregnancy.respond_to? field
+        assert @pregnancy[field]
+      end
+    end
+
+    it 'should respond to history methods' do
+      assert @pregnancy.respond_to? :history_tracks
+      assert @pregnancy.history_tracks.count > 0
+    end
+
+    it 'should have accessible userstamp methods' do
+      assert @pregnancy.respond_to? :created_by
+      assert @pregnancy.created_by
     end
   end
 end
