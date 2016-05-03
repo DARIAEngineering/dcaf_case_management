@@ -27,7 +27,7 @@ class PregnanciesController < ApplicationController
   def pregnancy_params
     params.require(:pregnancy).permit(
       # fields in dashboard
-      :status, :last_menstrual_period_time, :last_menstrual_period_weeks, :appointment_date,
+      :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date,
       # fields in abortion info
       :procedure_cost,
       # fields in patient info
