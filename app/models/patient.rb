@@ -8,6 +8,7 @@ class Patient
 
   validates :name,
             :primary_phone,
+            :created_by,
             presence: true
 
   field :name, type: String # strip
