@@ -15,7 +15,6 @@ class Patient
   field :secondary_phone, type: String 
   validates :secondary_phone, length:{maximum:12}
 
-
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
                 track_create: true,
