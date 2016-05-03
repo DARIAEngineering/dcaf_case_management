@@ -1,18 +1,18 @@
 <div class="authform">
   <h3>Sign in</h3>
-
+  
   <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
     <%= devise_error_messages! %>
 
     <%- if devise_mapping.registerable? %>
       <%#= link_to 'Sign up', new_registration_path(resource_name), class: 'right' %>
     <% end -%>
-    <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', class: 'form-control', autocomplete: 'off' %>
+    <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', class: 'form-control' %>
 
     <%- if devise_mapping.recoverable? %>
       <%#= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
     <% end -%>
-    <%= f.password_field :password, autocomplete: 'off' %>
+    <%= f.password_field :password %>
 
     <% if devise_mapping.rememberable? -%>
       <%= f.check_box :remember_me %>
