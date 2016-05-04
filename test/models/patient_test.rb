@@ -21,11 +21,23 @@ class PatientTest < ActiveSupport::TestCase
       refute @patient.valid?
     end
 
-    # it 'requires a logged creating user' do
-      # @patient.created_by = nil
-      # refute @patient.valid?
-    # end
+    it 'requires a logged creating user' do
+      @patient.created_by_id = nil
+      refute @patient.valid?
+    end
   end
+
+  # describe 'callbacks' do
+  #   %w(name secondary_person).each do |field|
+  #     it 'should strip whitespace from before and after name' do
+  #     end
+  #   end
+
+  #   %w(primary_phone secondary_phone).each do |field|
+  #     it 'should enforce phone length' do
+  #     end
+  #   end
+  # end
 
   describe 'relationships' do
     it 'should have at least one associated pregnancy' do

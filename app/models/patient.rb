@@ -11,7 +11,12 @@ class Patient
             :created_by,
             presence: true
 
-  field :name, type: String # strip
+  # some validation of presence of at least one pregnancy
+  # some validation of only one active pregnancy at a time
+
+  # strip whitespace from name before saving
+
+  field :name, type: String
   field :primary_phone, type: String # validate
   field :secondary_person, type: String
   field :secondary_phone, type: String
