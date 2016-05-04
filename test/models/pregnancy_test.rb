@@ -78,35 +78,36 @@ class PregnancyTest < ActiveSupport::TestCase
 
   describe 'last menstrual period helper methods' do
     before do
-      @pregnancy = create :pregnancy, last_menstrual_period_weeks: 9, last_menstrual_period_days: 2, initial_call_date: 2.days.ago
+      @patient = create :patient, created_by: @user
+      @pregnancy = create :pregnancy, last_menstrual_period_weeks: 9, last_menstrual_period_days: 2, initial_call_date: 2.days.ago, created_by: @user
     end
 
     it 'LMP on date - should nil out if LMP weeks is not set' do
       @pregnancy.last_menstrual_period_weeks = nil
-      assert_nil @pregnancy.send(:last_menstrual_period_on_date, Date.today)
+      assert_nil @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today)
     end
 
     it 'LMP on date - should accurately calculate LMP on a given date' do
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 67
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 67
       assert_equal @pregnancy.send(:last_menstrual_period_on_date, 5.days.from_now.to_date), 72
 
       @pregnancy.initial_call_date = 4.days.ago
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 69
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 69
 
       @pregnancy.last_menstrual_period_weeks = 10
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 76
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 76
 
       @pregnancy.last_menstrual_period_days = 6
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Date.today), 80
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 80
     end
 
-    it 'LMP now - should return nil if LMP weeks is not set' do 
+    it 'LMP now - should return nil if LMP weeks is not set' do
       @pregnancy.last_menstrual_period_weeks = nil
       assert_nil @pregnancy.send(:last_menstrual_period_now)
     end
 
-    it 'LMP now - should be equivalent to LMP on date - date.today' do
-      assert_equal @pregnancy.send(:last_menstrual_period_now), @pregnancy.send(:last_menstrual_period_on_date, Date.today)
+    it 'LMP now - should be equivalent to LMP on date - Time.zone.today' do
+      assert_equal @pregnancy.send(:last_menstrual_period_now), @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today)
     end
 
     it 'LMP display - should return nil if LMP weeks is not set' do
@@ -127,7 +128,6 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal @pregnancy.last_menstrual_period_display_short, '9w 4d'
     end
   end
-
 
   describe 'mongoid attachments' do
     it 'should have timestamps from Mongoid::Timestamps' do
