@@ -17,6 +17,7 @@ class Patient
             :primary_phone,
             :created_by,
             presence: true
+  validates :primary_phone, length: { maximum: 12 }
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
 
