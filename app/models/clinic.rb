@@ -4,6 +4,7 @@ class Clinic
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
+  # Relationships
   belongs_to :pregnancy
 
   field :name, type: String
@@ -13,11 +14,11 @@ class Clinic
   field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
   field :zip, type: String
 
+  # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
                 track_create: true,
                 track_update: true,
                 track_destroy: true
-
   mongoid_userstamp user_model: 'User'
 end

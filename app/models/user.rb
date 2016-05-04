@@ -3,15 +3,18 @@ class User
   include Mongoid::Userstamp::User
 
   # Devise modules
-  devise :database_authenticatable,
-         :registerable,
-         :recoverable,
-         :rememberable,
-         :trackable,
-         :validatable
-         # :confirmable
-         # :lockable
-         # :timeoutable
+  devise  :database_authenticatable,
+          :registerable,
+          :recoverable,
+          :rememberable,
+          :trackable,
+          :validatable
+          # :confirmable
+          # :lockable
+          # :timeoutable
+
+  # Relationships
+  has_many :pregnancies
 
   # Non-devise generated
   field :name, type: String
@@ -48,7 +51,5 @@ class User
   # field :locked_at,       type: Time
 
   # Validations
-  validates_presence_of :email, :name
-
-  has_many :pregnancies
+  validates :email, :name, presence: true
 end

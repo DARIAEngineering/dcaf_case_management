@@ -4,7 +4,7 @@ class Pledge
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
-  # relationships
+  # Relationships
   embedded_in :pregnancy
 
   field :pledge_type, type: String # soft/patient/naf/other/final_dcaf
@@ -15,13 +15,14 @@ class Pledge
   field :paid, type: Boolean # validate presence when type is final
   field :paid_date, type: DateTime # validate presence when type is final
 
+  # Validations
   validates :created_by, presence: true
 
+  # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
                 track_create: true,
                 track_update: true,
                 track_destroy: true
-
   mongoid_userstamp user_model: 'User'
 end
