@@ -69,7 +69,7 @@ class PregnancyTest < ActiveSupport::TestCase
       create :call, pregnancy: @pregnancy, status: 'Left voicemail'
       refute @pregnancy.send :contact_made?
     end
-    
+
     it 'should return true if a successful call has been made' do
       create :call, pregnancy: @pregnancy, status: 'Reached patient'
       assert @pregnancy.send :contact_made?

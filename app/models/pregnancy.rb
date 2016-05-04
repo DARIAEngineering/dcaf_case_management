@@ -23,6 +23,7 @@ class Pregnancy
                 track_create: true,
                 track_update: true,
                 track_destroy: true
+
   mongoid_userstamp user_model: 'User'
 
   # general common intake information
