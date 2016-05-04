@@ -12,6 +12,15 @@ class PregnancyTest < ActiveSupport::TestCase
     @pregnancy = @pt_1.pregnancies.first
   end
 
+  describe 'validations' do
+    %w(initial_call_date).each do |field|
+      it "should enforce presence of #{field}" do
+        @pregnancy[field.to_sym] = nil
+        refute @pregnancy.valid?
+      end
+    end
+  end
+
   describe 'search method' do
     it 'should respond to search' do
       assert Patient.respond_to? :search

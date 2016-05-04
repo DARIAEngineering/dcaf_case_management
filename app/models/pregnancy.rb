@@ -58,6 +58,10 @@ class Pregnancy
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
 
+  # Validations
+  validates :initial_call_date,
+            presence: true
+
   def self.most_recent
     order('created_at DESC').limit(1).first
   end
