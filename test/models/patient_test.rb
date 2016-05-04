@@ -39,13 +39,13 @@ class PatientTest < ActiveSupport::TestCase
   #   end
   # end
 
-  describe 'relationships' do
-    it 'should have at least one associated pregnancy' do
-    end
+  # describe 'relationships' do
+  #   it 'should have at least one associated pregnancy' do
+  #   end
 
-    it 'should have only one active pregnancy' do
-    end
-  end
+  #   it 'should have only one active pregnancy' do
+  #   end
+  # end
 
   describe 'mongoid attachments' do
     it 'should have timestamps from Mongoid::Timestamps' do
