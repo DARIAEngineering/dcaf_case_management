@@ -15,3 +15,27 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).ready(function(){
+
+	$('.pledge_submit').click(function () {
+		$('.pledge_modal_screen1').hide();
+		$('.pledge_modal_screen2').show();
+	})
+
+	$('.pledge_back_submit').click(function () {
+		$('.pledge_modal_screen2').hide();
+		$('.pledge_modal_screen1').show();		
+	})
+
+	$('.pledge_continue').click(function () {
+		$('.pledge_modal_screen2').hide();
+		$('.pledge_modal_screen3').show();	
+	})
+
+	$('.pledge_back_review').click(function () {
+		$('.pledge_modal_screen3').hide();
+		$('.pledge_modal_screen2').show();		
+	})
+
+})

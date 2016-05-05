@@ -1,14 +1,32 @@
-<div class="pledge_modal">
-	<div class="pledge_modal_header">Create Pledge</div>
+<div class="modal pledge_modal">
+	<div class="pledge_modal_header">
+		<span class="pledge_header_text">Create Pledge</span>
+		<span class="pledge_close glyphicon glyphicon-remove close" data-dismiss="modal" aria-label="Close"></span>
+	</div>
 
-	<div class="pledge_form">
-		<div class="pledge_confirm_info">Confirm the following information is correct:</div>
-		<div><span class="pledge_modal_category">Name:</span> <%= @pregnancy.patient.name %></span></div>
-		<div><span class="pledge_modal_category">ID:</span> <%= @pregnancy.patient.primary_phone %></span></div>
-		<div><span class="pledge_modal_category">Pledge amount:</span> $100</span></div>
-		<div><span class="pledge_modal_category">Appointment Date:</span> <%= @pregnancy.appointment_date %></span></div>
-		<div><span class="pledge_modal_category">Clinic Name:</span> <%= @pregnancy.clinic.name %></span></div>
-		<div><span class="pledge_modal_category">Clinic Location:</span> <%= @pregnancy.clinic.city %>, <%= @pregnancy.clinic.city %></span></div>
+	<div class="pledge_modal_screen1">
+		<div class="pledge_intro">Confirm the following information is correct:</div>
+		<div class="pledge_form">
+			<div><span class="pledge_modal_category">Patient name:</span> <%= @pregnancy.patient.name %></div>
+			<div><span class="pledge_modal_category">Patient ID:</span> <%= @pregnancy.patient.primary_phone %></div>
+			<div><span class="pledge_modal_category">Pledge amount:</span> $100</div>
+			<div><span class="pledge_modal_category">Appointment date:</span> <%= @pregnancy.appointment_date %></div>
+			<div><span class="pledge_modal_category">Clinic name:</span>Name</div>
+			<div><span class="pledge_modal_category">Clinic location:</span> City, State</div>
+		</div>
+		 <a class="btn btn-primary btn-sm pledge_process_btn pledge_submit">Submit pledge</a>
+	</div>
+
+	<div class="pledge_modal_screen2">
+		<div class="pledge_intro">Review this preview of your pledge:</div>
+		<a class="btn btn-primary btn-sm pledge_process_btn pledge_back_submit">Go back</a>
+		<a class="btn btn-primary btn-sm pledge_process_btn pledge_continue">Download and continue</a>
+	</div>
+
+	<div class="pledge_modal_screen3">
+		<div class="pledge_intro">text</div>
+		<a class="btn btn-primary btn-sm pledge_process_btn pledge_back_review">Go back</a>
+		<a class="btn btn-primary btn-sm pledge_process_btn pledge_finish" data-dismiss="modal">Finish</a>
 	</div>
 
 </div>
