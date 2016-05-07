@@ -29,13 +29,14 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
   end
 
   describe 'looking for someone who does not exist' do
-    it 'should display nothing' do
+    it 'should display new pregnancy partial' do
       fill_in 'search', with: 'Nobody Real Here'
       click_button 'Search'
 
       # TODO: improve by figuring out capybara CSS selectors and scoping
-      assert has_text? 'Search results'
+      assert has_text? 'Your search produced no results, so add a new patient'
       assert has_no_text? 'Nobody Real Here'
+      assert has_no_text? 'Search results'
     end
   end
 end
