@@ -5,7 +5,7 @@
     <%= devise_error_messages! %>
 
     <h3>Change your account details</h3>
-    <%= f.email_field :email %>
+    <%= f.email_field :email, autofocus: true %>
     <%= f.text_field :name %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
