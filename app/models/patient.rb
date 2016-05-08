@@ -9,9 +9,11 @@ class Patient
   validates_presence_of :name, :primary_phone
 
   field :name, type: String # strip
-  field :primary_phone, type: String # validate
+  field :primary_phone, type: String 
+  validates :primary_phone, length:{maximum:12}
   field :secondary_person, type: String
-  field :secondary_phone, type: String
+  field :secondary_phone, type: String 
+  validates :secondary_phone, length:{maximum:12}
 
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
