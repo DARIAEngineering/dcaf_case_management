@@ -5,7 +5,7 @@ class Pregnancy
   include Mongoid::Userstamp
   include LastMenstrualPeriodHelper
 
-  # relationships
+  # Relationships
   belongs_to :patient
   belongs_to :user
   embeds_many :pledges
@@ -13,30 +13,22 @@ class Pregnancy
   embeds_many :calls
   has_one :clinic
 
-  # for mass posting
+  # Enable mass posting in forms
   accepts_nested_attributes_for :patient
   accepts_nested_attributes_for :clinic
 
-  # for history and auditing
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-  mongoid_userstamp user_model: 'User'
-
-  # general common intake information
+  # Fields
+  # Intake information
   field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
-
   field :voicemail_ok, type: Boolean
   field :line, type: String # DC, MD, VA
   field :language, type: String
   field :appointment_date, type: Date
   field :urgent_flag, type: Boolean
 
-  # patient general info
+  # General patient information
   field :age, type: Integer
   field :city, type: String
   field :state, type: String # ennumeration?
@@ -50,13 +42,27 @@ class Pregnancy
   field :referred_by, type: String
   field :special_circumstances, type: String # ennumeration
 
-  # procedure info - generally for administrative use
+  # Procedure result - generally for administrative use
   field :fax_received, type: Boolean
   field :procedure_cost, type: Integer
   field :procedure_date, type: DateTime
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
 
+  # Validations
+  validates :initial_call_date,
+            :created_by,
+            presence: true
+
+  # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
+
+  # Methods - see also the helpers
   def self.most_recent
     order('created_at DESC').limit(1).first
   end

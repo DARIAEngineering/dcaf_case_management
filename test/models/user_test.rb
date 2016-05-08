@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  # Since this is a devise install, devise is handling
+  # general stuff like creation timestamps etc.
   def setup
     @user = create :user
   end
-
-  # devise handles most of this
 
   describe 'basic validations' do
     it 'should be able to build an object' do
@@ -20,4 +20,6 @@ class UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  # TODO test call list population
 end
