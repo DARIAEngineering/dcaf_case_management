@@ -7,7 +7,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'validations' do
-    it 'can be valid' do
+    it 'should build' do
       assert @patient.valid?
     end
 
@@ -25,6 +25,13 @@ class PatientTest < ActiveSupport::TestCase
       @patient.created_by_id = nil
       refute @patient.valid?
     end
+
+    %w(primary_phone secondary_phone).each do |phone|
+      it "should enforce a max length of 12 for #{phone}" do
+        @patient[phone] = '123-456-789022'
+        refute @patient.valid?
+      end
+    end
   end
 
   # describe 'callbacks' do
@@ -32,14 +39,12 @@ class PatientTest < ActiveSupport::TestCase
   #     it 'should strip whitespace from before and after name' do
   #     end
   #   end
-
-  #   %w(primary_phone secondary_phone).each do |field|
-  #     it 'should enforce phone length' do
-  #     end
-  #   end
   # end
 
   # describe 'relationships' do
+  #   it 'should have many pregnancies' do
+  #   end
+
   #   it 'should have at least one associated pregnancy' do
   #   end
 

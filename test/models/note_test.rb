@@ -8,7 +8,7 @@ class NoteTest < ActiveSupport::TestCase
   end
 
   describe 'validation' do
-    it 'is valid' do
+    it 'should build' do
       assert @note.valid?
     end
 

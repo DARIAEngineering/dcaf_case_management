@@ -3,7 +3,6 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   # Since this is a devise install, devise is handling
   # general stuff like creation timestamps etc.
-
   def setup
     @user = create :user
   end
@@ -21,4 +20,6 @@ class UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  # TODO test call list population
 end

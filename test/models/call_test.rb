@@ -8,6 +8,10 @@ class CallTest < ActiveSupport::TestCase
   end
 
   describe 'basic validations' do
+    it 'should build' do
+      assert @call.valid?
+    end
+
     it 'should only allow certain statuses' do
       [nil, 'not a status'].each do |bad_status|
         @call.status = bad_status

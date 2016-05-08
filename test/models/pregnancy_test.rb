@@ -13,6 +13,10 @@ class PregnancyTest < ActiveSupport::TestCase
   end
 
   describe 'validations' do
+    it 'should be able to build an object' do
+      assert @pregnancy.valid?
+    end
+
     %w(initial_call_date created_by).each do |field|
       it "should enforce presence of #{field}" do
         @pregnancy[field.to_sym] = nil
