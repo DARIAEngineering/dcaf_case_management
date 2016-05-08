@@ -7,8 +7,8 @@ class Patient
   # Relationships
   has_many :pregnancies
 
-  field :name, type: String
-  field :primary_phone, type: String # validate
+  field :name, type: String # strip
+  field :primary_phone, type: String
   field :secondary_person, type: String
   field :secondary_phone, type: String
 
@@ -17,6 +17,7 @@ class Patient
             :primary_phone,
             :created_by,
             presence: true
+  validates :primary_phone, :secondary_phone, length: { maximum: 12 }
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
