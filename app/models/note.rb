@@ -7,6 +7,7 @@ class Note
   # Relationships
   embedded_in :pregnancy
 
+  # Fields
   field :full_text, type: String
 
   # Validations

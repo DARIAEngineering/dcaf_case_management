@@ -7,6 +7,7 @@ class Pledge
   # Relationships
   embedded_in :pregnancy
 
+  # Fields
   field :pledge_type, type: String # soft/patient/naf/other/final_dcaf
   field :amount, type: Integer
   field :other_pledge_identifier, type: String

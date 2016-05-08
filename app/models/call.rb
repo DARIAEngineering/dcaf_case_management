@@ -7,6 +7,7 @@ class Call
   # Relationships
   embedded_in :pregnancy
 
+  # Fields
   field :status, type: String
 
   # Validations

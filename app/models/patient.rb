@@ -7,6 +7,7 @@ class Patient
   # Relationships
   has_many :pregnancies
 
+  # Fields
   field :name, type: String # strip
   field :primary_phone, type: String
   field :secondary_person, type: String

@@ -16,6 +16,7 @@ class User
   # Relationships
   has_many :pregnancies
 
+  # Fields
   # Non-devise generated
   field :name, type: String
   field :line, type: String

@@ -17,6 +17,7 @@ class Pregnancy
   accepts_nested_attributes_for :patient
   accepts_nested_attributes_for :clinic
 
+  # Fields
   # Intake information
   field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
@@ -50,6 +51,7 @@ class Pregnancy
 
   # Validations
   validates :initial_call_date,
+            :created_by,
             presence: true
 
   # History and auditing

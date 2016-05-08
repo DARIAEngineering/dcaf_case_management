@@ -7,6 +7,7 @@ class Clinic
   # Relationships
   belongs_to :pregnancy
 
+  # Fields
   field :name, type: String
   field :street_address_1, type: String
   field :street_address_2, type: String
