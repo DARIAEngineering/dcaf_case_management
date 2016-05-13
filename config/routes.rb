@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :pregnancies, only: [ :edit, :update ] do
       resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
+      resources :pledges, only: [ :create, :update ]
     end
     resources :patients, only: [ :create ]
     patch 'users/:user_id/add_pregnancy/:id', to: 'users#add_pregnancy', as: 'add_pregnancy', defaults: { format: :js }

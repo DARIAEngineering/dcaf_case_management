@@ -1,11 +1,10 @@
-class PledgeController < ApplicationController
+class PledgesController < ApplicationController
   before_action :find_pregnancy, only: [:create]
   before_action :find_pledge, only: [:update]
 
   def create
     @pledge = @pregnancy.pledges.new(pledge_params)
     @pledge.created_by = current_user
-    @pledge.save
     if @pledge.save
       redirect_to edit_pregnancy_path(@pregnancy), flash: { notice: "Saved new pledge for #{@pregnancy.patient.name}!" }
     else
