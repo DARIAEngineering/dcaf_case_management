@@ -1,5 +1,4 @@
-class Pregnancy < Active Record ::Base
-  include 
+class Pregnancy
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
