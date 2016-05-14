@@ -1,7 +1,7 @@
-# Concerns for Models
+# Concern Audiable for Models
 Module Auditable.rb
  extend ActiveSupport :: Concern
- 
+  
  track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
                 track_create: true,
