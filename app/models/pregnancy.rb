@@ -1,9 +1,10 @@
-class Pregnancy
+class Pregnancy < Active Record ::Base
+  include 
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
-
+ 
   # relationships
   belongs_to :patient
   belongs_to :user
