@@ -1,4 +1,5 @@
-class Patient
+class Patient < Active Record ::Base
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
@@ -14,14 +15,6 @@ class Patient
   field :secondary_person, type: String
   field :secondary_phone, type: String 
   validates :secondary_phone, length:{maximum:12}
-
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-
-  mongoid_userstamp user_model: 'User'
 
   def self.search(name_or_phone_str) # TODO: optimize
     name_matches = Patient.where name: name_or_phone_str
