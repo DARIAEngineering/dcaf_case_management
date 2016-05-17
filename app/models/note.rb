@@ -1,4 +1,4 @@
-class note < Active Record ::Base
+class Note < Active Record ::Base
   include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
