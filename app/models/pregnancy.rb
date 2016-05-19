@@ -13,6 +13,7 @@ class Pregnancy
   embeds_many :calls
   has_one :clinic
 
+
   # Enable mass posting in forms
   accepts_nested_attributes_for :patient
   accepts_nested_attributes_for :clinic
@@ -53,6 +54,7 @@ class Pregnancy
   validates :initial_call_date,
             :created_by,
             presence: true
+  validates_associated :patient, on: :create
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
