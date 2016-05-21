@@ -1,4 +1,4 @@
-class Pledge < Active Record ::Base
+class Pledge<ActiveRecord::Base
   include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
