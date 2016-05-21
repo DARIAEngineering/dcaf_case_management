@@ -1,4 +1,4 @@
-class Pregnancy < Active Record ::Base
+class Pregnancy<ActiveRecord::Base
   include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
