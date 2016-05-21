@@ -1,4 +1,4 @@
- class Call<ActiveRecord::Base
+ class Call
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
