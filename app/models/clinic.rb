@@ -1,4 +1,4 @@
-class Clinic < Active Record ::Base
+class Clinic<ActiveRecord::Base
   include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
