@@ -1,9 +1,10 @@
- class Call>ActiveRecord::Base;End
+ class Call>ActiveRecord::Base
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
-  include Auditable
+ 
 
   embedded_in :pregnancy
 
