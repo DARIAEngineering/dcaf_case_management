@@ -1,12 +1,9 @@
- class Call
+ class Call<Auditable::Base
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
- end;
- class Call<Auditable::Base
- include Auditable
-end;
 
   embedded_in :pregnancy
 
