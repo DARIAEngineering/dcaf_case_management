@@ -1,5 +1,5 @@
 # Concern Auditable for Models
-module auditable
+module Auditable
  extend ActiveSupport::Concern
   
  track_history on: fields.keys + [:updated_by_id],
@@ -8,3 +8,4 @@ module auditable
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+end
