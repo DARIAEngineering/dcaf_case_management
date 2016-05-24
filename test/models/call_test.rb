@@ -7,17 +7,17 @@ class CallTest < ActiveSupport::TestCase
     @call = create :call, pregnancy: @pregnancy, created_by: @user
   end
 
-  it 'SHOULD SOUND THIS ALARM AS LONG AS EVERYTHING IS OKAY' do
-    assert @call.valid?
-  end
-
   describe 'basic validations' do
+    it 'should build' do
+      assert @call.valid?
+    end
+
     it 'should only allow certain statuses' do
       [nil, 'not a status'].each do |bad_status|
         @call.status = bad_status
         refute @call.valid?
       end
-      ['Left voicemail', "Couldn't reach patient"].each do |status|
+      ['Left voicemail', "Couldn't reach patient", 'Reached patient'].each do |status|
         @call.status = status
         assert @call.valid?
       end

@@ -67,8 +67,13 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 ### Docker
 
+<<<<<<< HEAD
 We've dockerized this app, to manage the dependencies and save us all the headahce. If you've got Docker installed already, you can be up and running with three commands:
 * `docker-compose build # to install the dependencies`
+=======
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already] (https://docs.docker.com/engine/installation/), you can be up and running with three commands:
+* `docker-compose build # to install the dependencies` 
+>>>>>>> 4b709c27cd9c0eb5e93c8dcad27c91c4c4aed1c8
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 

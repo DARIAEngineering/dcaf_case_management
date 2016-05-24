@@ -14,7 +14,7 @@ module LastMenstrualPeriodHelper
   private
 
   def last_menstrual_period_now
-    last_menstrual_period_on_date Date.today
+    last_menstrual_period_on_date Time.zone.today
   end
 
   def last_menstrual_period_on_date(date)
