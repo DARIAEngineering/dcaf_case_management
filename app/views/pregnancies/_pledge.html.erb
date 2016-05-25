@@ -12,20 +12,26 @@
 			<div><span class="pledge_modal_category">Pledge amount:</span> $100</div>
 			<div><span class="pledge_modal_category">Appointment date:</span> <%= @pregnancy.appointment_date %></div>
 			<div><span class="pledge_modal_category">Clinic name:</span>Name</div>
-			<div><span class="pledge_modal_category">Clinic location:</span> City, State</div>
+			<div><span class="pledge_modal_category">Clinic location:</span>City, State</div>
 		</div>
-		 <a class="btn btn-primary btn-sm pledge_process_btn pledge_submit">Submit pledge</a>
+		<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
+	 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit">Continue</a>
 	</div>
 
 	<div class="pledge_modal_screen2">
 		<div class="pledge_intro">Review this preview of your pledge:</div>
-		<a class="btn btn-primary btn-sm pledge_process_btn pledge_back_submit">Go back</a>
-		<a class="btn btn-primary btn-sm pledge_process_btn pledge_continue">Download and continue</a>
+			<a class="pledge_process_btn pledge_back_submit"><span class="glyphicon glyphicon-chevron-left"></span>Go back</a>
+			<a class="btn btn-primary btn-sm pledge_process_btn pledge_continue">Download and continue</a>		
 	</div>
 
 	<div class="pledge_modal_screen3">
-		<div class="pledge_intro">text</div>
-		<a class="btn btn-primary btn-sm pledge_process_btn pledge_back_review">Go back</a>
+		<div class="pledge_intro">
+			<p>Awesome, you generated a DCAF Pledge! Thanks!</p>
+			<p>Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com">onlinefaxes.com</a> to submit the pledge for your client.</p>
+			<p>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</p>
+			<p class="check_input"><input type="checkbox" aria-label="Pledge sent" class="pledge_sent_check">I sent my pledge</p>
+		</div>
+		<a class="pledge_process_btn pledge_back_review">Go back</a>
 		<a class="btn btn-primary btn-sm pledge_process_btn pledge_finish" data-dismiss="modal">Finish</a>
 	</div>
 
