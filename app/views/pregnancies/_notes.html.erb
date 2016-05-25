@@ -1,7 +1,7 @@
 <section id="notes" class="notes tab-pane">
-	<div class="margin-bottom col-md-12">
+	<div class="margin-bottom col-sm-12">
 		<h1 class="border-bottom title">Notes</h1>
-    <div class="info-form-left col-md-6">
+    <div class="info-form-left col-sm-6">
 			<%= bootstrap_form_for [pregnancy, note] do |f| %>
 		    <%= f.text_area :full_text, placeholder: 'Enter notes here', hide_label: true %>
 		    <%= f.submit class: "btn btn-primary"  %>
