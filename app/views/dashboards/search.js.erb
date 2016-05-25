@@ -1,2 +1,6 @@
 $('#search_results').empty();
-$("#search_results").append("<%= escape_javascript(render partial: 'dashboards/table_content', locals: { title: 'Search results', table_type: 'search_results', pregnancies: @results } ) %>");
+<% if(@results.length == 0) %>
+  $("#search_results").append("<%= escape_javascript(render partial: 'pregnancies/new_pregnancy', locals: { patient: @patient, pregnancy: @pregnancy }) %>");
+<% else %>
+  $("#search_results").append("<%= escape_javascript(render partial: 'dashboards/table_content', locals: { title: 'Search results', table_type: 'search_results', pregnancies: @results } ) %>");
+<% end %>
