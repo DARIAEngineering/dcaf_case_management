@@ -2,28 +2,28 @@
 <%= bootstrap_form_for pregnancy do |f| %>
 
   <%= f.fields_for patient do |p| %>
-    <div class="col-md-2">
+    <div class="col-sm-2">
       <%= p.text_field :primary_phone, label: "Phone Number" %>
     </div>
-    <div class="col-md-2">
+    <div class="col-sm-2">
       <%= p.text_field :name, label: "Name" %>
     </div>
   <% end %>
 
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <%= f.text_field :last_menstrual_period_weeks, label: "LMP" %>
   </div>
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <%= f.date_field :initial_call_date, label: "Initial Call Date" %>
   </div>
 
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <%= f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
     <%= f.check_box :voicemail_ok, label: 'Yes' %> <!-- TODO add bootstrap toggle -->
     <% end %>
   </div>
 
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <br>
     <%= button_tag class: 'btn btn-primary' do %>
        <span class='glyphicon glyphicon-plus-sign'></span> Create new patient
