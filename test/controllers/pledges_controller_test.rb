@@ -1,31 +1,35 @@
 require 'test_helper'
+require 'pry-rails'
 
 class PledgesControllerTest < ActionController::TestCase
   
-#   before do
-#     @user = create :user
-#     sign_in @user
-#     @patient = create :patient
-#     @pregnancy = create :pregnancy, patient: @patient
-#   end
-  
-#   describe 'create method' do
-#     before do
-#       @pledge = create :pledge,
-#                 pledge_type: "Sample Pledge", 
-#                 amount: 5, 
-#                 other_pledge_identifier: "none", 
-#                 sent: DateTime.current, 
-#                 sent_by: @user, 
-#                 paid: false,
-#                 paid_date: DateTime.current
-#       post :create, pregnancy_id: @pregnancy.id, pledge: @pledge
-#     end
+	before do
+		@user = create :user
+		sign_in @user
+		@patient = create :patient
+		@pregnancy = create :pregnancy, patient: @patient
+	end
 
-#     it 'should create and save a new pledge' do
-#       assert_difference 'Pregnancy.find(@pregnancy).pledges.count', 1 do
-#         post :create, pregnancy_id: @pregnancy.id, pledge: @pledge
-#     end
+	describe 'create method' do
+		before do
+				@pledge = attributes_for :pledge
+# 			@pledge = create :pledge,
+# 								pledge_type: "Sample Pledge", 
+# 								amount: 5, 
+# 								other_pledge_identifier: "none", 
+# 								sent: DateTime.current, 
+# 								sent_by: @user, 
+# 								paid: false,
+# 								paid_date: DateTime.current
+	
+			#binding.pry
+			post :create, pregnancy_id: @pregnancy.id, pledge: @pledge
+		end
+
+    it 'should create and save a new pledge' do
+      assert_difference 'Pregnancy.find(@pregnancy).pledges.count', 1 do
+        post :create, pregnancy_id: @pregnancy.id, pledge: @pledge
+    end
 
 #     # it 'should respond success if the pledge submits' do
 #     #   assert_response :success
@@ -43,7 +47,7 @@ class PledgesControllerTest < ActionController::TestCase
 #       assert_equal Pregnancy.find(@pregnancy).pledges.last.created_by, @user
 #     end
 
-#   end
+	end
 
 #   describe 'update method' do
 #     before do
@@ -83,7 +87,8 @@ class PledgesControllerTest < ActionController::TestCase
 #         end
 #       end
 #     end
-#   end
 
-# end
+#	end
+
+ end
 end

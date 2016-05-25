@@ -1,3 +1,5 @@
+require 'pry-rails'
+
 class PledgesController < ApplicationController
   before_action :find_pregnancy, only: [:create]
   before_action :find_pledge, only: [:update]
