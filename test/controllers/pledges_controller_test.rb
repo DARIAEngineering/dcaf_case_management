@@ -13,6 +13,8 @@ class PledgesControllerTest < ActionController::TestCase
 	describe 'create method' do
 		before do
 				@pledge = attributes_for :pledge
+			
+#	this is causing :pledge to pass in as a string			
 # 			@pledge = create :pledge,
 # 								pledge_type: "Sample Pledge", 
 # 								amount: 5, 
@@ -29,25 +31,27 @@ class PledgesControllerTest < ActionController::TestCase
     it 'should create and save a new pledge' do
       assert_difference 'Pregnancy.find(@pregnancy).pledges.count', 1 do
         post :create, pregnancy_id: @pregnancy.id, pledge: @pledge
+    	end
+		end
+
+#	it's redirecting so status code 302 (consistent with the controller action)		
+#     it 'should respond success if the pledge submits' do
+#       assert_response :success
+#     end
+
+#	template does not exist yet		
+#     it 'should render create.js.erb if it successfully saves' do
+#       assert_template 'pledges/create'
+#     end
+
+    it 'should redirect to edit pregnancy path if it saves' do
+      assert_redirected_to edit_pregnancy_path(@pregnancy)
     end
 
-#     # it 'should respond success if the pledge submits' do
-#     #   assert_response :success
-#     # end
+    it 'should log the creating user' do
+       assert_equal Pregnancy.find(@pregnancy).pledges.last.created_by, @user
+     end
 
-#     # it 'should render create.js.erb if it successfully saves' do
-#     #   assert_template 'pledges/create'
-#     # end
-
-#     it 'should redirect to edit pregnancy path if it saves' do
-#       assert_redirected_to edit_pregnancy_path(@pregnancy)
-#     end
-
-#     it 'should log the creating user' do
-#       assert_equal Pregnancy.find(@pregnancy).pledges.last.created_by, @user
-#     end
-
-	end
 
 #   describe 'update method' do
 #     before do
