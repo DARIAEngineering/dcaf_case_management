@@ -1,5 +1,5 @@
 <section id="change_log" class="abortion-info tab-pane">
-  <div class="col-md-12">
+  <div class="col-sm-12">
     <h2>Patient history</h2>
     <table class="table border-side">
       <thead>
@@ -9,7 +9,7 @@
           <th>Changed From</th>
           <th>Changed To</th>
           <th>CM</th>
-        </tr>        
+        </tr>
       </thead>
       <tbody>
         <% pregnancy.patient.history_tracks.each do |revision| %>
@@ -18,10 +18,10 @@
             <td><%= revision.tracked_changes_fields %></td>
             <td><%= revision.tracked_changes_from %></td>
             <td><%= revision.tracked_changes_to %></td>
-            <td><% 'user' %></td>        
+            <td><% 'user' %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-  </div>  
+  </div>
 </section>
