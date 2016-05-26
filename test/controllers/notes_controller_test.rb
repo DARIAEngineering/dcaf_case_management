@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pry-rails'
 
 class NotesControllerTest < ActionController::TestCase
   before do
@@ -12,7 +11,6 @@ class NotesControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @note = attributes_for :note, full_text: 'This is a note'
-			binding.pry
       post :create, pregnancy_id: @pregnancy.id, note: @note, format: :js
     end
 

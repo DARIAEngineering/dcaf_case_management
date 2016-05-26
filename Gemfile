@@ -21,7 +21,6 @@ gem 'bootstrap_form-datetimepicker'
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'rubocop', require: false
-	gem 'pry-rails'
 end
 
 group :development, :test do
