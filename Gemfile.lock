@@ -113,7 +113,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -155,12 +154,6 @@ GEM
     parser (2.3.1.0)
       ast (~> 2.2)
     powerpack (0.1.1)
-    pry (0.10.3)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-    pry-rails (0.3.4)
-      pry (>= 0.9.10)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -222,7 +215,6 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    slop (3.6.0)
     spring (1.7.1)
     sprockets (3.6.0)
       concurrent-ruby (~> 1.0)
@@ -280,7 +272,6 @@ DEPENDENCIES
   mongoid (~> 5.0.0)
   mongoid-history (~> 0.5.0)
   mongoid_userstamp
-  pry-rails
   rails (= 4.2.5)
   rails_12factor
   rubocop
