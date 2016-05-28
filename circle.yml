@@ -8,3 +8,6 @@ deployment:
     heroku:
       appname: casemanagerdemo
 
+test:
+  post:
+    - brakeman --exit-on-warning
