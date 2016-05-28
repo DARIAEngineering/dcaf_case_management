@@ -10,4 +10,4 @@ deployment:
 
 test:
   post:
-    - brakeman --exit-on-warning
+    - bundle exec brakeman --exit-on-warning
