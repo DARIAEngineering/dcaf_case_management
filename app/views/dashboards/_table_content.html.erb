@@ -17,7 +17,6 @@
     <tbody>
       <div id="<%= table_type %>_content">
         <% pregnancies.each do |p| %>
-        <% current_user.reload %>
           <tr class="pregnancy-data" id="<%= p.patient.id %>">
             <td><%= p.patient.primary_phone %></td>
             <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
