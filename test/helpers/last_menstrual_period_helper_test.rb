@@ -2,6 +2,7 @@ require 'test_helper'
 
 class LastMenstrualPeriodHelperTest < ActionView::TestCase
   before do
+    @user = create :user
     @patient = create :patient, created_by: @user
     @pregnancy = create :pregnancy,
                         last_menstrual_period_weeks: 9,
