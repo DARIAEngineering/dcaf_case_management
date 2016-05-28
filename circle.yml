@@ -10,4 +10,4 @@ deployment:
 
 test:
   post:
-    - bundle exec brakeman --exit-on-warning
+    - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
