@@ -19,6 +19,7 @@ end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+  # Capybara.javascript_driver = :selenium
 
   def log_in_as(user)
     visit root_path
