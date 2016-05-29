@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-<tr class="pregnancy-data" id="<%= p.patient.id %>">
-  <td><%= p.patient.primary_phone %></td>
-  <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
-  <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" if p.last_menstrual_period_time %></td>
-  <td>(sample case notes. something or other. detail)</td>
-  <% if(current_user.pregnancies.include?(p)) then %>
-    <td><%= link_to "Remove", "/users/#{current_user.id}/remove_pregnancy/#{p.id}", method: :patch, remote: true %></td>
-  <% else %>
-    <td><%= link_to "Add", "/users/#{current_user.id}/add_pregnancy/#{p.id}", method: :patch, remote: true %></td>
-  <% end %>
-  <td><%= link_to "<span class='glyphicon glyphicon-earphone call-icon' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone}", data: {toggle: "modal"}, id: p.patient.primary_phone %></td>
-  <%= render partial: 'calls/new_call', locals: {p: p} %>
-</tr>
-=======
 <!-- locals: title, table_type (for div id and tbody div id), pregnancies -->
 
 <div id="<%= table_type %>" class="margin-bottom">
@@ -54,4 +39,3 @@
     </tbody>
   </table>
 </div>
->>>>>>> 3d45e63e1771f14409fdfd9fe3263a707e7d7af1
