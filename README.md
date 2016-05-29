@@ -107,10 +107,11 @@ Current UX and wireframe assets are available here:
 
 Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are: 
 
-* @ajohnson051 (lots of hard work on controllers and views)
-* @Kevin-Wei (constructed data model)
-* @charleshuang80 (crucial work on forms)
-* @drownedout (constructed data model, excellent rails guide)
+* @ajohnson051
+* @Kevin-Wei
+* @charleshuang80
+* @drownedout
+* @rebeccaestes
 
 
 ## License

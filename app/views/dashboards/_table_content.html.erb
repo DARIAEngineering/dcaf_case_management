@@ -31,7 +31,7 @@
             <% end %>
 
             <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone}", data: {toggle: "modal"} %></td>
-            
+
             <%= render partial: 'calls/new_call', locals: {p: p} %>
           </tr>
         <% end %>
