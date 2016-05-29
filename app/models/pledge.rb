@@ -17,7 +17,7 @@ class Pledge
   field :paid_date, type: DateTime # validate presence when type is final
 
   # Validations
-  validates :created_by, presence: true
+  validates :created_by, :pledge_type, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
