@@ -12,17 +12,6 @@ class PledgesControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @pledge = attributes_for :pledge
-
-#	NOTE: :pledge is getting passed in as a string			
-# 			@pledge = create :pledge,
-# 								pledge_type: "Sample Pledge", 
-# 								amount: 5, 
-# 								other_pledge_identifier: "none", 
-# 								sent: DateTime.current, 
-# 								sent_by: @user, 
-# 								paid: false,
-# 								paid_date: DateTime.current
-
       post :create, pregnancy_id: @pregnancy.id, pledge: @pledge
     end
 
@@ -59,7 +48,6 @@ class PledgesControllerTest < ActionController::TestCase
       @pledge.reload
     end
 
-#	NOTE: I created a blank template for this test	
     it 'should render the correct template' do
       assert_template 'pledges/update'
     end
