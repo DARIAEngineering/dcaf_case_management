@@ -7,7 +7,7 @@ require 'minitest/reporters'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 Minitest::Reporters.use!
-Capybara.javascript_driver = :selenium
+# Capybara.javascript_driver = :poltergeist
 
 DatabaseCleaner.clean_with :truncation
 
@@ -20,11 +20,6 @@ end
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
-  
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app)
-  end
-  Capybara.javascript_driver = :poltergeist
 
   def log_in_as(user)
     visit root_path

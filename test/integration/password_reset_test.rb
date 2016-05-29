@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class PasswordResetTest < ActionDispatch::IntegrationTest
-  def setup
+  before do
     @user = create :user
   end
 
   describe 'password reset page accessibility' do
     before do
-      visit root_url
+      visit root_path
     end
 
     it 'should have a link to the password reset page' do
