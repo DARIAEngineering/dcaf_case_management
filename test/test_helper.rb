@@ -6,6 +6,7 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'capybara/rails'
 Minitest::Reporters.use!
+Capybara.javascript_driver = :selenium
 
 DatabaseCleaner.clean_with :truncation
 
@@ -20,7 +21,7 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   def log_in_as(user)
-    visit root_url
+    visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Sign in'
