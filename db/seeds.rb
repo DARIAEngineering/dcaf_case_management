@@ -1,25 +1,37 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 Call.destroy_all
 Pregnancy.destroy_all
 Patient.destroy_all
+User.destroy_all
+
+user = User.create name: 'testuser', email: 'test@test.com', password: 'password', password_confirmation: 'password'
 
 10.times do |i|
-  Patient.create({name: "Patient #{i}", primary_phone: "123-123-123#{i}"})
+  Patient.create name: "Patient #{i}", primary_phone: "123-123-123#{i}", created_by: user
 end
 
-patients = Patient.all
-
-patients.each do |patient|
-  if(patient.name[-1, 1].to_i.even?) then
+Patient.all.each do |patient|
+  if patient.name[-1, 1].to_i.even?
     flag = true
+    lmp_weeks = (patient.name[-1, 1].to_i + 1) * 2
+    lmp_days = 3
   else
     flag = false
   end
-  patient.pregnancies.create({last_menstrual_period_time: DateTime.new(2016,1,1), urgent_flag: flag})
+  pregnancy = patient.pregnancies.create initial_call_date: Time.zone.today, 
+                                         urgent_flag: flag, 
+                                         last_menstrual_period_weeks: lmp_weeks,
+                                         last_menstrual_period_days: lmp_days,
+                                         created_by: user.id
+
+  5.times do
+    pregnancy.calls.create status: 'Left voicemail', created_by: user
+  end
+  if patient.name == 'Patient 0'
+    10.times do
+      pregnancy.calls.create status: 'Reached patient', created_by: user
+    end
+  end
 end
+
+puts "Seed completed! Inserted #{Patient.count} patient objects and #{Pregnancy.count} associated pregnancy objects."
+puts "User created! Credentials are as follows: EMAIL: #{user.email} PASSWORD: password"

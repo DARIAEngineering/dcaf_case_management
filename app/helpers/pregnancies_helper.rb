@@ -1,9 +1,9 @@
 module PregnanciesHelper
   def weeks_options
-    weeks = [[ "1 Week", 1 ]]
-    (2..24).each do |i|
-      weeks << [ "#{i} Weeks", i ]
-    end
-    weeks
+    (1..30).map { |i| [pluralize(i, 'week'), i] }
+  end
+
+  def days_options
+    (0..6).map { |i| [pluralize(i, 'day'), i] }
   end
 end

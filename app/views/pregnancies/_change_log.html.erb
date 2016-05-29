@@ -1,8 +1,27 @@
-<section id="change_section" class="abortion-info tab-pane">
-  <h2>Changes</h2>
-  <div class="info-form-left col-md-12">
-    <%= f.fields_for pregnancy.patient do |p| %>
-      <%= p.text_area :changes, label: 'Changes', size: '60x8' %>
-    <% end %>
+<section id="change_log" class="abortion-info tab-pane">
+  <div class="col-md-12">
+    <h2>Patient history</h2>
+    <table class="table border-side">
+      <thead>
+        <tr>
+          <th>Modified Date</th>
+          <th>Field</th>
+          <th>Changed From</th>
+          <th>Changed To</th>
+          <th>CM</th>
+        </tr>        
+      </thead>
+      <tbody>
+        <% pregnancy.patient.history_tracks.each do |revision| %>
+          <tr>
+            <td><%= revision.date_of_edit %></td>
+            <td><%= revision.tracked_changes_fields %></td>
+            <td><%= revision.tracked_changes_from %></td>
+            <td><%= revision.tracked_changes_to %></td>
+            <td><% 'user' %></td>        
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>  
 </section>

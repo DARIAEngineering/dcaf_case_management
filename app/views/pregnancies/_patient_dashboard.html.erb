@@ -1,20 +1,24 @@
-<div class="col-md-4">
+<div class="col-md-4" >
   <%= f.fields_for pregnancy.patient do |p| %>
-    <%= p.text_field :name, label: 'Name' %>
-    <%= p.text_field :primary_phone, label: 'Phone Number' %>
+    <%= p.text_field :name, label: 'Name', autocomplete: 'off' %>
+    <%= p.text_field :primary_phone, label: 'Phone number', autocomplete: 'off' %>
   <% end %>
 </div>
 <div class="col-md-4">
-  <!-- need a date picker -->
-  <%= f.text_field :last_menstrual_period_time, label: 'Last Menstrual Period:' %>
-  <!-- select number of weeks -->
-  <!-- TODO want to add placeholder: 'Select Number of Weeks' -->
-  <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ) %>
-  <%# c.select :last_menstrual_period_weeks, options_for_select(weeks_options, c.last_menstrual_period_weeks), placeholder: "Select number of weeks" %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP at intake', autocomplete: 'off', help: "Currently: #{pregnancy.last_menstrual_period_display_short}" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: "Called on: #{pregnancy.initial_call_date}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p><strong>Status:</strong> <%= pregnancy.status %></p>
+    </div>
+  </div>
 </div>
 <div class="col-md-4">
-  <!-- case status should be c.select -->
-  <%= f.text_field :status, label: 'Status:' %>
-  <!-- Appointment Date (not in Case model) -->
-  <%= f.datetime_picker :appointment_date, label: 'Appointment date:', format: '%Y-%m-%d' %>
+  <%= f.datetime_picker :appointment_date, label: 'Appointment date', autocomplete: 'off', format: '%Y-%m-%d', help: "Approx gestation at appt: STUB" %>
 </div>

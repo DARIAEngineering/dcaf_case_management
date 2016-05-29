@@ -1,20 +1,26 @@
 class Call
-	include Mongoid::Document
-	include Mongoid::Timestamps
-	include Mongoid::History
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::History::Trackable
+  include Mongoid::Userstamp
 
+  # Relationships
+  embedded_in :pregnancy
+
+  # Fields
+  field :status, type: String
+
+  # Validations
   allowed_statuses = ['Reached patient', 'Left voicemail', "Couldn't reach patient"]
-
-	field :status, type: String
-  # necessary because embedding things blows up belongs_to relationships
-  field :creating_user_id, type: String
-	embedded_in :pregnancy
-
-  validates :status,  presence: true, 
+  validates :status,  presence: true,
                       inclusion: { in: allowed_statuses }
-  validates :creating_user_id, presence: true
+  validates :created_by, presence: true
 
-  def user
-    User.find creating_user_id
-  end
+  # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
 end
