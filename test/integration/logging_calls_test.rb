@@ -9,6 +9,10 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     log_in_as @user
   end
 
+  after do
+    Capybara.use_default_driver
+  end
+
   describe 'logging a reached patient', js: true do
     before do
       fill_in 'search', with: 'Susan Everyteen'
