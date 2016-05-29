@@ -79,18 +79,16 @@ class PledgesControllerTest < ActionController::TestCase
       assert_equal @changes.modified[:pledge_type], 'Edited Pledge'
     end
 
-  # NOTE: there is no model validatation (presence) for pledge type so having nil pledge type does not cause save to fail, 
-  # in contrast there is a model validation for note :full_text		
-  #     it 'should refuse to save pledge type to blank' do
-  #       [nil, ''].each do |bad_text|
-  #       assert_no_difference 'Pregnancy.find(@pregnancy).pledges.find(@pledge).history_tracks.count' do
-  #       @pledge_edits[:pledge_type] = bad_text
-  #       patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
-  #       assert_response :bad_request
-  #       @pledge.reload
-  #       assert_equal @pledge.pledge_type, 'Edited Pledge'
-  #     end
-  #   end		
-  # end  
+    it 'should refuse to save pledge type to blank' do
+      [nil, ''].each do |bad_text|
+      assert_no_difference 'Pregnancy.find(@pregnancy).pledges.find(@pledge).history_tracks.count' do
+        @pledge_edits[:pledge_type] = bad_text
+        patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
+        assert_response :bad_request
+        @pledge.reload
+        assert_equal @pledge.pledge_type, 'Edited Pledge'
+        end
+      end		
+    end  
   end
 end
