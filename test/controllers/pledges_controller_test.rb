@@ -54,7 +54,7 @@ class PledgesControllerTest < ActionController::TestCase
   describe 'update method' do		
     before do
       @pledge = create :pledge, pregnancy: @pregnancy, pledge_type: 'Original Pledge'
-      @pledge_edits = {pledge: {pledge_type: 'Edited Pledge'}}
+      @pledge_edits = {pledge_type: 'Edited Pledge'}
       patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
       @pledge.reload
     end
@@ -68,19 +68,16 @@ class PledgesControllerTest < ActionController::TestCase
       assert_response :success
     end
 
-  # NOTE: should work, but the call to reload is causing the factory attribute to reload, 
-  # not the edited attribute, not sure why		
-  #     it 'should update the pledge_type field' do
-  #       assert_equal @pledge.pledge_type, 'Edited Pledge'
-  #     end
-
-  # NOTE: same as above (factory is reloading)		
-  #     it 'should have an audit trail' do
-  #       assert_equal @pledge.history_tracks.count, 2
-  #       @changes = @pledge.history_tracks.last
-  #       assert_equal @changes.modified[:updated_by_id], @user.id
-  #       assert_equal @changes.modified[:pledge_type], 'Edited Pledge'
-  #     end
+    it 'should update the pledge_type field' do
+      assert_equal @pledge.pledge_type, 'Edited Pledge'
+    end
+	
+    it 'should have an audit trail' do
+      assert_equal @pledge.history_tracks.count, 2
+      @changes = @pledge.history_tracks.last
+      assert_equal @changes.modified[:updated_by_id], @user.id
+      assert_equal @changes.modified[:pledge_type], 'Edited Pledge'
+    end
 
   # NOTE: there is no model validatation (presence) for pledge type so having nil pledge type does not cause save to fail, 
   # in contrast there is a model validation for note :full_text		
