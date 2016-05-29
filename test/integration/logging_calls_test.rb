@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LoggingCallsTest < ActionDispatch::IntegrationTest
   before do
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
     @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
