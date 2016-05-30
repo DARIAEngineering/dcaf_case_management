@@ -1,0 +1,34 @@
+<section id="call_log" class="call-info tab-pane">
+	<div class="margin-bottom col-md-12">
+		<h1 class="border-bottom title">Call Log</h1>
+		<table class="table border-side">
+		<tr>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Result</th>
+			<th>CM</th>
+		</tr>
+		<tbody>
+			<% pregnancy.recent_calls.each do |call| %>
+				<tr>
+					<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
+					<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
+					<td><%= call.status %></td>
+					<td><%= "user" %></td>
+				</tr>
+			<% end %>
+			<% pregnancy.old_calls.each do |call| %>
+				<tr class="old-calls hidden">
+					<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
+					<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
+					<td><%= call.status %></td>
+					<td><%= "user" %></td>
+				</tr>
+			<% end %>
+		</tbody>
+  </table>
+		<% if pregnancy.old_calls.count > 0 %>
+      <div id="toggle-call-log">View all calls</div>
+    <% end %>
+  </div>
+</section>

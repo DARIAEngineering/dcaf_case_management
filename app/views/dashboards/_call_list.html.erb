@@ -1,0 +1,22 @@
+<div id="call_list" class="margin-bottom">
+  <h1 class="border-bottom title">Your call list</h1>
+  <table class="table border-side">
+    <thead>
+      <tr>
+        <th>Phone</th>
+        <th>Name</th>
+        <th>LMP</th> <!-- last menstrual period -->
+        <th>Case Notes</th>
+        <th></th>
+        <th></th>
+      </tr>        
+    </thead>
+    <tbody>
+      <div id="call_list_content">
+        <% pregnancies.each do |pregnancy| %>
+          <%= render partial: 'dashboards/table_content', locals: { p: pregnancy } %>
+        <% end %>          
+      </div>
+    </tbody>
+  </table>  
+</div>

@@ -1,0 +1,10 @@
+machine:
+  ruby:
+    version: 2.2.0
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: casemanagerdemo
+

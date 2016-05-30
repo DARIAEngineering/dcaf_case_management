@@ -1,0 +1,18 @@
+<h1 class="border-bottom title">Search results</h1>
+<table class="table border-side">
+  <thead>
+    <tr>
+      <th>Phone</th>
+      <th>Name</th>
+      <th>LMP</th> <!-- last menstrual period -->
+      <th>Pregnancy Notes</th>
+      <th></th>
+      <th></th>
+    </tr>    
+  </thead>
+  <tbody>
+    <% pregnancies.each do |pregnancy| %>
+      <%= render partial: 'dashboards/table_content', locals: { p: pregnancy } %>
+    <% end %>
+  </tbody>
+</table>

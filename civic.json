@@ -1,0 +1,53 @@
+{
+    "name": "DCAF Case Manager", 
+    "description": "A Rails-based case management system for ", 
+    "license": "MIT", 
+    "status": "Alpha", 
+    "homepage": "http://casemanagerdemo.herokuapp.com", 
+    "repository": "https://github.com/colinxfleming/dcaf_case_manager", 
+    "type": "Web App", 
+    "thumbnail": "", 
+    "geography": [
+        "DC", "District of Columbia",
+        "MD", "Maryland", 
+        "VA", "Virginia"
+    ], 
+    "contact": {
+        "name": "Colin Fleming", 
+        "email": "c3flemin@gmail.com",
+        "url": "http://twitter.com/ridethecatbus"
+    }, 
+    "partners": [
+        {
+            "name": "Code for DC", 
+            "email": "",
+            "url": "http://codefordc.org"
+        },
+        {
+            "name": "Code for DC", 
+            "email": "",
+            "url": "http://codefordc.org"
+        },
+        {
+            "name": "Mollie Bates", 
+            "email": "mollie.bates@gmail.com",
+            "url": ""
+        },
+        {
+            "name": "Andrea Dineen",
+            "email": "andrea.dineen@gmail.com", 
+            "url": ""
+        }
+    ], 
+    "data": [], 
+    "tags": [
+        "Case Management",
+        "Nonprofit",
+        "Direct Service",
+        "Reproductive Rights",
+        "Abortion",
+        "Healthcare"
+    ], 
+    "links": [],
+    "id": "https://raw.githubusercontent.com/DCgov/civic.json/master/schemas/schema-v1.json"
+}

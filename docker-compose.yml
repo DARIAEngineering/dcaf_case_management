@@ -1,0 +1,15 @@
+web:
+  build: .
+  command: rails s -p 3000 -b 0.0.0.0
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  environment:
+    mongohost: dcafcasemanagement_db_1
+db:
+  image: mongo
+  ports:
+    - "27017:27017"
