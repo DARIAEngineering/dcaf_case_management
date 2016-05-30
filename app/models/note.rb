@@ -1,4 +1,5 @@
-class Note
+class Note<ActiveRecord::Base
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
@@ -12,6 +13,9 @@ class Note
 
   # Validations
   validates :created_by, :full_text, presence: true
+<<<<<<< HEAD
+  
+=======
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -20,4 +24,5 @@ class Note
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+>>>>>>> upstream/master
 end

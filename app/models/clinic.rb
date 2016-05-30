@@ -1,8 +1,10 @@
-class Clinic
+class Clinic<ActiveRecord::Base
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  
 
   # Relationships
   belongs_to :pregnancy
@@ -15,6 +17,8 @@ class Clinic
   field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
   field :zip, type: String
 
+<<<<<<< HEAD
+=======
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -22,4 +26,5 @@ class Clinic
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+>>>>>>> upstream/master
 end

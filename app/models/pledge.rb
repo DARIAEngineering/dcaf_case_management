@@ -1,4 +1,5 @@
-class Pledge
+class Pledge<ActiveRecord::Base
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
@@ -19,6 +20,8 @@ class Pledge
   # Validations
   validates :created_by, :pledge_type, presence: true
 
+<<<<<<< HEAD
+=======
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -26,4 +29,5 @@ class Pledge
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+>>>>>>> upstream/master
 end

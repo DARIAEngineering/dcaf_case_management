@@ -1,11 +1,17 @@
-class Pregnancy
+class Pregnancy<ActiveRecord::Base
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+<<<<<<< HEAD
+ 
+  # relationships
+=======
   include LastMenstrualPeriodHelper
 
   # Relationships
+>>>>>>> upstream/master
   belongs_to :patient
   has_and_belongs_to_many :users, inverse_of: :pregnancies
   embeds_many :pledges
@@ -56,6 +62,8 @@ class Pregnancy
             presence: true
   validates_associated :patient, on: :create
 
+<<<<<<< HEAD
+=======
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -65,6 +73,7 @@ class Pregnancy
   mongoid_userstamp user_model: 'User'
 
   # Methods - see also the helpers
+>>>>>>> upstream/master
   def self.most_recent
     order('created_at DESC').limit(1).first
   end
