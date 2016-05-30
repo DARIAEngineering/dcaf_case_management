@@ -24,7 +24,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       click_button 'Search'
     end
 
-    it 'should make that patient retrievable' do
+    it 'should make that patient retrievable via search' do
       within :css, '#search_results' do
         assert has_text? 'Susan Everyteen 2'
         assert has_text? '555-666-7777'
