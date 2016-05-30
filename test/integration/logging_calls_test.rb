@@ -61,18 +61,47 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  [].each do |call_status|
-    describe "logging #{call_status}" do
+  ['Left voicemail', "Couldn't reach patient"].each do |call_status|
+    describe "logging #{call_status}", js: true do
       before do
+        if call_status == 'Left voicemail'
+          @link_text = 'I left a voicemail for the patient'
+        elsif call_status == "Couldn't reach patient"
+          @link_text = "I couldn't reach the patient"
+        else
+          raise 'Not a recognized call status'
+        end
       end
 
-      it 'should close the modal' do
+      it "should close the modal when clicking #{call_status}" do
+        click_link @link_text
+        assert_equal current_path, authenticated_root_path
+        assert has_no_text? 'Call Susan Everyteen now'
+        assert has_no_link? @link_text
       end
 
-      it 'should add a call to the pregnancy history' do
+      it "should add a call to the pregnancy history when clicking #{call_status}" do
+        @pregnancy.reload
+        assert_difference '@pregnancy.calls.count', 1 do
+          click_link @link_text
+          @pregnancy.reload
+          sleep 1 # Yes, I know EXACTLY how annoying this is
+        end
+        assert_equal call_status, @pregnancy.calls.last.status
       end
 
-      it 'should be vieable on the call log' do
+      it "should be visible on the call log after clicking #{call_status}" do
+        click_link @link_text
+        click_link 'Susan Everyteen'
+        click_link 'Call Log'
+        last_call = @pregnancy.reload.calls.last
+
+        within :css, '#call_log' do
+          assert has_text? last_call.created_at.localtime.strftime('%-m/%d')
+          assert has_text? last_call.created_at.localtime.strftime('%-l:%M %P')
+          assert has_text? call_status
+          assert has_text? last_call.created_by.name
+        end
       end
     end
   end
