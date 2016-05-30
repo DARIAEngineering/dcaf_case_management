@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AuthorizationTest < ActionDispatch::IntegrationTest
-  def setup
+  before do
     @user = create :user
     log_in_as @user
   end

@@ -1,7 +1,5 @@
 class DashboardsController < ApplicationController
   def index
-    @patient = Patient.new
-    @pregnancies = @patient.pregnancies.build
     @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
   end
 
@@ -11,6 +9,8 @@ class DashboardsController < ApplicationController
     patients.each do |patient|
       @results << patient.pregnancies.most_recent
     end
+    @patient = Patient.new
+    @pregnancy = @patient.pregnancies.new
 
     respond_to { |format| format.js }
   end

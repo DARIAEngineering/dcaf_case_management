@@ -8,7 +8,7 @@ web:
   links:
     - db
   environment:
-    mongohost: dcafcasemanagement_db_1
+    mongohost: db
 db:
   image: mongo
   ports:

@@ -12,6 +12,44 @@ class PregnanciesControllerTest < ActionController::TestCase
     @clinic = create :clinic, name: 'Standard Clinic', pregnancy: @pregnancy
   end
 
+  describe 'create method' do
+    before do
+      @new_pregnancy = attributes_for :pregnancy
+      @new_pregnancy[:patient] = attributes_for :patient
+    end
+
+    it 'should create and save a new patient' do
+      assert_difference 'Patient.count', 1 do
+        post :create, pregnancy: @new_pregnancy
+      end
+    end
+
+    it 'should redirect to the root path afterwards' do
+      post :create, pregnancy: @new_pregnancy
+      assert_redirected_to root_path
+    end
+
+    it 'should fail to save if name is blank' do
+      @new_pregnancy[:patient][:name] = ''
+      assert_no_difference 'Patient.count' do
+        post :create, pregnancy: @new_pregnancy
+      end
+      assert_no_difference 'Pregnancy.count' do
+        post :create, pregnancy: @new_pregnancy
+      end
+    end
+
+    it 'should fail to save if primary phone is blank' do
+      @new_pregnancy[:patient][:primary_phone] = ''
+      assert_no_difference 'Patient.count' do
+        post :create, pregnancy: @new_pregnancy
+      end
+      assert_no_difference 'Pregnancy.count' do
+        post :create, pregnancy: @new_pregnancy
+      end
+    end
+  end
+
   describe 'edit method' do
     before do
       get :edit, id: @pregnancy

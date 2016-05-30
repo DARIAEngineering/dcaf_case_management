@@ -5,6 +5,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "DCAF Case Management System" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DCAF" %>">
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= favicon_link_tag %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
