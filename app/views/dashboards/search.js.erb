@@ -1,4 +1,4 @@
-$('#search_results').empty();
+$('#search_results_shell').empty();
 <% if(@results.length == 0) %>
   $("#search_results_shell").append("<%= escape_javascript(render partial: 'pregnancies/new_pregnancy', locals: { patient: @patient, pregnancy: @pregnancy }) %>");
 <% else %>
