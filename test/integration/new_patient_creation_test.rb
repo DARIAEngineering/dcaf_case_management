@@ -18,6 +18,8 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       fill_in 'Phone Number', with: '555-666-7777'
       fill_in 'Name', with: 'Susan Everyteen 2'
       fill_in 'Initial Call Date', with: '03/04/2016'
+
+      page.save_screenshot '~/Desktop/capybara.png'
       click_button 'Create new patient'
     end
 
