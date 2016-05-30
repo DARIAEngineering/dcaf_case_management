@@ -69,7 +69,6 @@ $font-size: 17px;
   width: 500px;
   position: fixed;
   margin: 0 auto;
-  left: calc(50% - 250px);
   top: auto;
   bottom: auto;
   background-color: white;
@@ -136,7 +135,7 @@ $font-size: 17px;
     bottom: 14px;
   }
 
-  .pledge_back_submit, pledge_back_review {
+  .pledge_back_submit, .pledge_back_review {
     left: 0;
     bottom: 14px;
   }

@@ -1,4 +1,7 @@
 <!-- Patient Info -->
+
+<%= render partial: "pledge", locals: { pregnancy: @pregnancy } %>
+
 <%= bootstrap_form_for @pregnancy do |f| %>
   <div id="patient_dashboard" class="row">
     <%= render partial: 'pregnancies/patient_dashboard', locals: { f: f, pregnancy: @pregnancy } %>
@@ -15,5 +18,6 @@
       <%= render partial: 'pregnancies/call_log', locals: { pregnancy: @pregnancy } %>
       <% end %>
       <%= render partial: 'pregnancies/notes', locals: { note: @note, pregnancy: @pregnancy } %>
+
     </div>
   </div>
