@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class RoutingTest < ActionDispatch::IntegrationTest
-  def setup
-    visit root_url
+  before do
+    visit root_path
   end
 
   it 'should have a root with a login form' do
