@@ -81,10 +81,10 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       end
 
       it "should add a call to the pregnancy history when clicking #{call_status}" do
+        # occasionally, these tests will randomly fail due to a threading issue
         @pregnancy.reload
-        assert_difference '@pregnancy.calls.count', 1 do
+        assert_difference '@pregnancy.reload.calls.count', 1 do
           click_link @link_text
-          @pregnancy.reload
           sleep 1 # Yes, I know EXACTLY how annoying this is
         end
         assert_equal call_status, @pregnancy.calls.last.status
