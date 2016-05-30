@@ -17,6 +17,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       # fill_in 'Appointment date', with: '12/20/2016' PUNT
       fill_in 'Phone number', with: '123-666-8888'
       click_button 'TEMP: SAVE INFORMATION'
+      visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
 
@@ -38,6 +39,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Abortion Cost:', with: '300'
       # TODO and this, once we have funding sources
       click_button 'TEMP: SAVE INFORMATION'
+      visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
 
@@ -69,6 +71,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       # TK Special circumstances
 
       click_button 'TEMP: SAVE INFORMATION'
+      visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
 
