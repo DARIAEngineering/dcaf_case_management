@@ -91,8 +91,4 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       end
     end
   end
-
-  describe 'viewing the audit trail' do
-    # actually, do this in the audit trail integration test
-  end
 end
