@@ -131,7 +131,7 @@ test:
     default:
       database: dcaf_case_management_test
       hosts:
-        - '<%= ENV['mongohost'] %>:<%= ENV['mongoport'] %>'
+        - <%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>
       options:
         read:
           mode: :primary
