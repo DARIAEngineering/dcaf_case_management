@@ -14,7 +14,11 @@ class User
           # :timeoutable
 
   # Relationships
+<<<<<<< HEAD
+  has_many :pregnancies
+=======
   has_and_belongs_to_many :pregnancies, inverse_of: :users
+>>>>>>> upstream/master
 
   # Fields
   # Non-devise generated
