@@ -29,34 +29,33 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
   describe 'logging reached patient', js: true do
     before do
       click_link 'I reached the patient'
-      @pregnancy.reload
     end
 
     it 'should redirect to the edit view when a patient has been reached' do
       assert_equal current_path, edit_pregnancy_path(@pregnancy)
     end
 
-    it 'should add a call when the patient has been reached' do
-      click_link 'Dashboard'
-      fill_in 'search', with: 'Susan Everyteen'
-      click_button 'Search'
-      find("a[href='#call-123-123-1234']").click
-      assert_difference '@pregnancy.calls.count', 1 do
-        click_link 'I reached the patient'
-        @pregnancy.reload
-      end
-      assert_equal 'Reached patient', @pregnancy.calls.last.status
-    end
-
     it 'should be viewable on the call log' do
       click_link 'Call Log'
-      last_call = @pregnancy.calls.last
+      last_call = @pregnancy.reload.calls.last
 
       within :css, '#call_log' do
         assert has_text? last_call.created_at.localtime.strftime('%-m/%d')
         assert has_text? last_call.created_at.localtime.strftime('%-l:%M %P')
         assert has_text? 'Reached patient'
         assert has_text? last_call.created_by.name
+      end
+    end
+
+    it 'should be able to save more than one reached patient call' do
+      click_link 'Dashboard'
+      fill_in 'search', with: 'Susan Everyteen'
+      click_button 'Search'
+      find("a[href='#call-123-123-1234']").click
+      click_link 'I reached the patient'
+      click_link 'Call Log'
+      within :css, '#call_log' do
+        assert has_content? 'Reached patient', count: 2
       end
     end
   end
@@ -78,16 +77,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         assert_equal current_path, authenticated_root_path
         assert has_no_text? 'Call Susan Everyteen now'
         assert has_no_link? @link_text
-      end
-
-      it "should add a call to the pregnancy history when clicking #{call_status}" do
-        # occasionally, these tests will randomly fail due to a threading issue
-        @pregnancy.reload
-        assert_difference '@pregnancy.reload.calls.count', 1 do
-          click_link @link_text
-          sleep 1 # Yes, I know EXACTLY how annoying this is
-        end
-        assert_equal call_status, @pregnancy.calls.last.status
       end
 
       it "should be visible on the call log after clicking #{call_status}" do
