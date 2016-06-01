@@ -1,18 +1,18 @@
-<section id="abortion_information" class="abortion-info tab-pane active">
-  <div class="col-md-12">
+<section id="abortion_section" class="abortion-info tab-pane active">
+  <div class="col-sm-12">
     <h2>Abortion information</h2>
 
-    <div class="info-form-left col-md-6">
+    <div class="info-form-left col-sm-6">
       <%= f.fields_for (pregnancy.clinic || pregnancy.build_clinic) do |cl| %> <!-- was pregnancy.clinic, but that eats muds if clinic is nil  -->
         <h4>Clinic details</h4>
         <%= cl.text_field :name, label: 'Clinic name:', autocomplete: 'off' %>
         <%= cl.text_field :street_address_1, label: 'Street address 1:', autocomplete: 'off' %>
         <%= cl.text_field :street_address_2, label: 'Street address 2:', autocomplete: 'off' %>
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-sm-8">
             <%= cl.text_field :city, label: 'City:', autocomplete: 'off' %>
           </div>
-          <div class="col-md-4">
+          <div class="col-sm-4">
             <%= cl.text_field :state, label: 'State:', autocomplete: 'off' %>
           </div>
         </div>
@@ -20,7 +20,7 @@
       <% end %>
     </div>
 
-    <div class="info-form-right col-md-6">
+    <div class="info-form-right col-sm-6">
       <h4>Cost details</h4>
       <%= f.text_field :procedure_cost, label: 'Abortion Cost:', autocomplete: 'off' %>
       <h5>PLACEHOLDER: Funding Sources</h5>
