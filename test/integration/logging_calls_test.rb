@@ -14,7 +14,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
   after do
     Capybara.use_default_driver
-    @pregnancy.calls.destroy_all
   end
 
   describe 'verifying modal behavior and content', js: true do
@@ -41,6 +40,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
       within :css, '#call_log' do
         assert has_text? 'Reached patient'
+        assert has_text? @user.name
       end
     end
 
@@ -83,6 +83,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
         within :css, '#call_log' do
           assert has_text? call_status
+          assert has_text? @user.name
         end
       end
     end
