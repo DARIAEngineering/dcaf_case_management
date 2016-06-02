@@ -2,32 +2,32 @@
 	<div class="margin-bottom col-sm-12">
 		<h2 class="border-bottom title">Call Log</h2>
 		<table class="table border-side">
-		<tr>
-			<th>Date</th>
-			<th>Time</th>
-			<th>Result</th>
-			<th>CM</th>
-		</tr>
-		<tbody>
-			<% pregnancy.recent_calls.each do |call| %>
-				<tr>
-					<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
-					<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
-					<td><%= call.status %></td>
-					<td><%= "user" %></td>
-				</tr>
-			<% end %>
-			<% pregnancy.old_calls.each do |call| %>
-				<tr class="old-calls hidden">
-					<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
-					<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
-					<td><%= call.status %></td>
-					<td><%= "user" %></td>
-				</tr>
-			<% end %>
+			<tr>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Result</th>
+				<th>CM</th>
+			</tr>
+			<tbody>
+				<% pregnancy.recent_calls.each do |call| %>
+					<tr>
+						<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
+						<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
+						<td><%= call.status %></td>
+						<td><%= call.created_by.name %></td>
+					</tr>
+				<% end %>
+				<% pregnancy.old_calls.each do |call| %>
+					<tr class="old-calls hidden">
+						<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
+						<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
+						<td><%= call.status %></td>
+						<td><%= call.created_by.name %></td>
+					</tr>
+				<% end %>
+			</tbody>
+	  </table>
 
-		</tbody>
-  </table>
 		<% if pregnancy.old_calls.count > 0 %>
       <div id="toggle-call-log">View all calls</div>
     <% end %>
