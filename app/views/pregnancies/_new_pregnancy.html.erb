@@ -11,11 +11,13 @@
   <% end %>
 
   <div class="col-md-2">
-    <%= f.text_field :last_menstrual_period_weeks, label: "LMP" %>
+    <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP at intake', autocomplete: 'off' %>
   </div>
-   <div class="col-md-2 hide-label">
-    <%= f.text_field :last_menstrual_period_days, label: "." %>
+
+  <div class="col-md-2 hide-label">
+    <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: '.', autocomplete: 'off' %>
   </div>
+
   <div class="col-md-2">
     <%= f.date_field :initial_call_date, label: "Initial Call Date" %>
   </div>
