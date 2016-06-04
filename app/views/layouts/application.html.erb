@@ -10,7 +10,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <% if current_page?(authenticated_root_url) %>
+    <% if current_user.present? %>
     <header>
       <%= render 'layouts/navigation' %>
     </header>
