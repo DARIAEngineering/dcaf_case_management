@@ -12,4 +12,13 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert has_field? 'Password'
     assert has_button? 'Sign in'
   end
+
+  it 'should not display navigation partial on sign in' do
+    refute has_text? "DCAF Case Manager"
+    visit root_path
+    @user = create :user
+    log_in_as @user
+    visit authenticated_root_path
+    assert has_text? "DCAF Case Manager"
+  end
 end
