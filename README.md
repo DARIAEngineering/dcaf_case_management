@@ -33,6 +33,7 @@ We've tried to structure the project in such a way that minimal specialized know
 As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We categorize things as follows:
 
 Our major categories of software development related issues are as follows:
+* [Deploy](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Adeploy) (Priority issues that require resolution before the next release)
 * [Beginner Friendly](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
 * [Frontend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Afrontend) (Rails view work, CSS/JS work)
 * [Backend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abackend) (Rails controller and model work)
@@ -67,13 +68,8 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 ### Docker
 
-<<<<<<< HEAD
-We've dockerized this app, to manage the dependencies and save us all the headahce. If you've got Docker installed already, you can be up and running with three commands:
-* `docker-compose build # to install the dependencies`
-=======
 We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already] (https://docs.docker.com/engine/installation/), you can be up and running with three commands:
-* `docker-compose build # to install the dependencies` 
->>>>>>> 4b709c27cd9c0eb5e93c8dcad27c91c4c4aed1c8
+* `docker-compose build # to install the dependencies`
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
@@ -85,6 +81,7 @@ If you prefer a local environment, do the following:
 
 * Install Ruby, Rails and MongoDB (An easy rails installer is [here](http://railsinstaller.org/en); MongoDB setup instructions are below)
 * Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down
+* Install PhantomJS, which our test suite depends on (`brew install phantomjs` or the [linux instructions](http://phantomjs.org/download.html))
 * Run the command `bundle install` to install dependences
 
 If you don't have MongoDB installed, also do:
@@ -112,10 +109,11 @@ Current UX and wireframe assets are available here:
 
 Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are:
 
-* @ajohnson051 (lots of hard work on controllers and views)
-* @Kevin-Wei (constructed data model)
-* @charleshuang80 (crucial work on forms)
-* @drownedout (constructed data model, excellent rails guide)
+* @ajohnson051
+* @Kevin-Wei
+* @charleshuang80
+* @drownedout
+* @rebeccaestes
 
 
 ## License

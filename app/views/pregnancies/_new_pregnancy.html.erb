@@ -6,12 +6,15 @@
       <%= p.text_field :primary_phone, label: "Phone Number" %>
     </div>
     <div class="col-md-2">
-      <%= p.text_field :name, label: "Name" %>
+      <%= p.text_field :name, label: "First and Last Name" %>
     </div>
   <% end %>
 
   <div class="col-md-2">
     <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP at intake', autocomplete: 'off' %>
+  </div>
+   <div class="col-md-2 hide-label">
+    <%= f.text_field :last_menstrual_period_days, label: "." %>
   </div>
   <div class="col-md-2">
     <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: '.', autocomplete: 'off' %>
@@ -25,7 +28,7 @@
 
   <div class="col-md-2">
     <br>
-    <%= button_tag class: 'btn btn-primary' do %>
+    <%= button_tag class: 'btn btn-primary', id: 'create_new_patient_button' do %>
        <span class='glyphicon glyphicon-plus-sign'></span> Create new patient
     <% end %>
   </div>

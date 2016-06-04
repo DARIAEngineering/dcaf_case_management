@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
-  def setup
+  before do
     @user = create :user, email: 'first_user@email.com'
     @user2 = create :user, email: 'second_user@email.com'
     log_in_as @user
