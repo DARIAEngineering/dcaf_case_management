@@ -4,6 +4,6 @@ module PregnanciesHelper
   end
 
   def days_options
-    (0..6).map { |i| ["#{i} days", i] }
+    (0..6).map { |i| [pluralize(i, 'day'), i] }
   end
 end
