@@ -22,6 +22,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
+  gem 'ruby_audit', require: false
 end
 
 group :development, :test do
