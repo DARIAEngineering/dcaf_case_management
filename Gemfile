@@ -25,7 +25,6 @@ group :development do
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
-
 end
 
 group :development, :test do
