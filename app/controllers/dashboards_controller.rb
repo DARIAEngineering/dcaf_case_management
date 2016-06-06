@@ -11,6 +11,7 @@ class DashboardsController < ApplicationController
     end
     @patient = Patient.new
     @pregnancy = @patient.pregnancies.new
+    @date=Time.now.to_date
 
     respond_to { |format| format.js }
   end
