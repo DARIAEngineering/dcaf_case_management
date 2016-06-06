@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.2.4'
 
 gem 'rails', '~> 4.2.6'
 gem 'sass-rails', '~> 5.0'
@@ -23,6 +24,8 @@ group :development do
   gem 'rubocop', require: false
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
+  gem 'bundler-audit', require: false
+
 end
 
 group :development, :test do
