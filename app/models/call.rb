@@ -23,4 +23,8 @@ class Call
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+
+  def recent?
+    updated_at > 8.hours.ago ? true : false
+  end
 end
