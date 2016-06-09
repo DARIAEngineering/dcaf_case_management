@@ -8,3 +8,6 @@ deployment:
     heroku:
       appname: casemanagerdemo
 
+test:
+  post:
+    - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .

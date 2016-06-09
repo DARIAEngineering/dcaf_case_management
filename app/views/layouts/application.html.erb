@@ -10,13 +10,15 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <% if current_user.present? %>
     <header>
       <%= render 'layouts/navigation' %>
     </header>
+    <% end %>
     <main role="main">
       <div class="container">
         <%= render 'layouts/messages' %>
-        
+
         <br>
         <%= yield %>
       </div>
