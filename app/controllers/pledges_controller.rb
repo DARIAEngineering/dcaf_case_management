@@ -7,7 +7,8 @@ class PledgesController < ApplicationController
     @pledge.created_by = current_user
     if @pledge.save
       redirect_to edit_pregnancy_path(@pregnancy),
-                  flash: { notice: "Saved new pledge for #{@pregnancy.patient.name}!" }
+                  flash: { notice: 'Saved new pledge for ' \
+                                   "#{@pregnancy.patient.name}!" }
     else
       flash[:alert] = 'pledge failed to save! Please submit the pledge again.'
       redirect_to edit_pregnancy_path(@pregnancy)
