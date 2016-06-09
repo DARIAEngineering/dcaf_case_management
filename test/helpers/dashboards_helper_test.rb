@@ -2,8 +2,8 @@ require 'test_helper'
 
 class DashboardsHelperTest < ActionView::TestCase
   before do
-    @date_1 = DateTime.new.in_time_zone(2016, 5, 21)
-    @date_2 = DateTime.new.in_time_zone(2016, 5, 31)
+    @date_1 = DateTime.new(2016, 5, 21).in_time_zone
+    @date_2 = DateTime.new(2016, 5, 31).in_time_zone
     @monday_start = :monday
   end
 
