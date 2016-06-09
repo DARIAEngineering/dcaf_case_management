@@ -25,13 +25,13 @@
     <%= f.date_field :initial_call_date, label: "Initial Call Date", value: @today,  required: "required" %>
   </div>
 
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <%= f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
     <%= f.check_box :voicemail_ok, label: 'Yes' %> <!-- TODO add bootstrap toggle -->
     <% end %>
   </div>
 
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <br>
     <%= button_tag class: 'btn btn-primary', id: 'create_new_patient_button' do %>
        <span class='glyphicon glyphicon-plus-sign'></span> Create new patient
