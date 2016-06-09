@@ -72,7 +72,7 @@ class PledgesControllerTest < ActionController::TestCase
       [nil, ''].each do |bad_text|
         assert_no_difference 'Pregnancy.find(@pregnancy).pledges.find(@pledge).history_tracks.count' do
           @pledge_edits[:pledge_type] = bad_text
-          patch :update, pregnancy_id: @pregnancy, id: @pledge, 
+          patch :update, pregnancy_id: @pregnancy, id: @pledge,
                          pledge: @pledge_edits, format: :js
           assert_response :bad_request
           @pledge.reload
