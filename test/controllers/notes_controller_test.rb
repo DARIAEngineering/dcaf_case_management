@@ -49,7 +49,10 @@ class NotesControllerTest < ActionController::TestCase
     before do
       @note = create :note, pregnancy: @pregnancy, full_text: 'Original text'
       @note_edits = attributes_for :note, full_text: 'This is edited text'
-      patch :update, pregnancy_id: @pregnancy, id: @note, note: @note_edits, format: :js
+      patch :update, pregnancy_id: @pregnancy,
+                     id: @note,
+                     note: @note_edits,
+                     format: :js
       @note.reload
     end
 
@@ -76,7 +79,8 @@ class NotesControllerTest < ActionController::TestCase
       [nil, ''].each do |bad_text|
         assert_no_difference 'Pregnancy.find(@pregnancy).notes.find(@note).history_tracks.count' do
           @note_edits[:full_text] = bad_text
-          patch :update, pregnancy_id: @pregnancy, id: @note, note: @note_edits, format: :js
+          patch :update, pregnancy_id: @pregnancy, id: @note,
+                         note: @note_edits, format: :js
           assert_response :bad_request
           @note.reload
           assert_equal @note.full_text, 'This is edited text'
