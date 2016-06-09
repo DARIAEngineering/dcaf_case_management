@@ -52,13 +52,13 @@ We also keep track of our administrative issues and discussion in Github under t
 ## Setting Stuff Up
 **First things first**: Make a copy of your own to wrench on! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
 **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
-**Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`
+**Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
 
 For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem. The directions below get you to a point where you can run the app with a test-seeded database.
 
 ### Docker
 
-We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with fourcommands:
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with four commands:
 * `docker-compose build # to install the dependencies`
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
