@@ -13,7 +13,6 @@ class Pregnancy
   embeds_many :calls
   has_one :clinic
 
-
   # Enable mass posting in forms
   accepts_nested_attributes_for :patient
   accepts_nested_attributes_for :clinic

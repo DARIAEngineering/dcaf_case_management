@@ -31,6 +31,7 @@ group :development, :test do
   # better error handling
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'quality', require: false
 end
 
 group :test do

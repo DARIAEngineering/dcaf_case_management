@@ -35,9 +35,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing abortion information' do
     before do
       fill_in 'Clinic name', with: 'Stub Clinic'
-      # TODO finish this after implementing clinic logic
+      # TODO: finish this after implementing clinic logic
       fill_in 'Abortion Cost:', with: '300'
-      # TODO and this, once we have funding sources
+      # TODO: and this, once we have funding sources
       click_button 'TEMP: SAVE INFORMATION'
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy

@@ -3,9 +3,9 @@ require 'test_helper'
 class PregnancyTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @pt_1 = create :patient, name: 'Susan Everywoman', primary_phone: '123-456-6789'
-    @pt_2 = create :patient, name: 'Susan Everyteen', primary_phone: '123-456-6789'
-    @pt_3 = create :patient, name: 'Susan Everygirl', secondary_phone: '999-999-9999'
+    @pt_1 = create :patient, name: 'Susan Smith', primary_phone: '123-456-6789'
+    @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789'
+    @pt_3 = create :patient, name: 'Susan All', secondary_phone: '999-999-9999'
     [@pt_1, @pt_2, @pt_3].each do |pt|
       create :pregnancy, patient: pt, created_by: @user
     end
@@ -31,7 +31,7 @@ class PregnancyTest < ActiveSupport::TestCase
     end
 
     it 'should find a patient' do
-      assert_equal Patient.search('Susan Everywoman').count, 1
+      assert_equal Patient.search('Susan Smith').count, 1
     end
 
     it 'should find multiple patients if there are multiple' do
@@ -48,7 +48,7 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal 'No Contact Made', @pregnancy.status
     end
 
-    it 'should default to "No Contact Made" when a pregnancy has an unsuccessful call' do
+    it 'should default to "No Contact Made" on a pregnancy left voicemail' do
       create :call, pregnancy: @pregnancy, status: 'Left voicemail'
       assert_equal 'No Contact Made', @pregnancy.status
     end
@@ -69,7 +69,7 @@ class PregnancyTest < ActiveSupport::TestCase
     # it 'should update to "Pledge Paid" after a pledge has been paid' do
     # end
 
-    # it 'should update to "Resolved Without DCAF" if a pregnancy is marked resolved' do
+    # it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
     # end
   end
 

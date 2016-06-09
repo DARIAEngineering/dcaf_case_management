@@ -6,7 +6,8 @@ class PledgesController < ApplicationController
     @pledge = @pregnancy.pledges.new(pledge_params)
     @pledge.created_by = current_user
     if @pledge.save
-      redirect_to edit_pregnancy_path(@pregnancy), flash: { notice: "Saved new pledge for #{@pregnancy.patient.name}!" }
+      redirect_to edit_pregnancy_path(@pregnancy),
+                  flash: { notice: "Saved new pledge for #{@pregnancy.patient.name}!" }
     else
       flash[:alert] = 'pledge failed to save! Please submit the pledge again.'
       redirect_to edit_pregnancy_path(@pregnancy)
@@ -24,8 +25,9 @@ class PledgesController < ApplicationController
   private
 
   def pledge_params
-    params.require(:pledge).permit(:pledge_type, :amount, :other_pledge_identifier, 
-                                    :sent, :sent_by, :paid, :paid_date)
+    params.require(:pledge).permit(:pledge_type, :amount,
+                                   :other_pledge_identifier,
+                                   :sent, :sent_by, :paid, :paid_date)
   end
 
   def find_pregnancy
