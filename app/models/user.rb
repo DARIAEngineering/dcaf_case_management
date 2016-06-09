@@ -9,9 +9,9 @@ class User
           :rememberable,
           :trackable,
           :validatable
-          # :confirmable
-          # :lockable
-          # :timeoutable
+  # :confirmable
+  # :lockable
+  # :timeoutable
 
   # Relationships
   has_and_belongs_to_many :pregnancies, inverse_of: :users

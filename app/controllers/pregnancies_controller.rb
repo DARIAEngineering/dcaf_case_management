@@ -6,9 +6,9 @@ class PregnanciesController < ApplicationController
     @pregnancy = Pregnancy.new pregnancy_params
     @pregnancy.created_by = @pregnancy.patient.created_by = current_user
     if @pregnancy.save
-      flash[:notice] = "A new patient has been successfully saved"
+      flash[:notice] = 'A new patient has been successfully saved'
     else
-      flash[:alert] = "An error prevented this patient from being saved"
+      flash[:alert] = 'An error prevented this patient from being saved'
     end
     redirect_to root_path
   end
@@ -37,7 +37,7 @@ class PregnanciesController < ApplicationController
 
   def pregnancy_params
     params.require(:pregnancy).permit(
-      #fields in create
+      # fields in create
       :voicemail_ok, :initial_call_date,
       # fields in dashboard
       :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date,

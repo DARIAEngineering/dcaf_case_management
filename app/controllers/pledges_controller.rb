@@ -24,8 +24,8 @@ class PledgesController < ApplicationController
   private
 
   def pledge_params
-    params.require(:pledge).permit(:pledge_type, :amount, :other_pledge_identifier, 
-                                    :sent, :sent_by, :paid, :paid_date)
+    params.require(:pledge).permit(:pledge_type, :amount, :other_pledge_identifier,
+                                   :sent, :sent_by, :paid, :paid_date)
   end
 
   def find_pregnancy
