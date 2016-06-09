@@ -17,6 +17,7 @@ gem 'bson_ext'
 gem 'figaro'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
+gem 'quality', require: false
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -31,7 +32,6 @@ group :development, :test do
   # better error handling
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'quality', require: false
 end
 
 group :test do
