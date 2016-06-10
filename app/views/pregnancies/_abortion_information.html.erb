@@ -1,6 +1,6 @@
 <section id="abortion_information" class="abortion-info tab-pane active">
   <div class="col-sm-12">
-    <h2>Abortion information</h2>
+    <h2 id="abortion_information">Abortion information</h2>
 
     <div class="info-form-left col-sm-6">
       <%= f.fields_for (pregnancy.clinic || pregnancy.build_clinic) do |cl| %> <!-- was pregnancy.clinic, but that eats muds if clinic is nil  -->
