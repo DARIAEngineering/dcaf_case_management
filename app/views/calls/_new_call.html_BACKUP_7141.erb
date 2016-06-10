@@ -1,0 +1,31 @@
+  <div class="modal fade new-call" tabindex="-1" role="dialog" id="call-<%= p.patient.primary_phone %>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+      <div class="calls-layout">
+        <button type="button" class="close close-terms" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<<<<<<< HEAD
+       <h4 class="modal-title calls-request">Call <b><%= p.patient.name %></b> now:</h4>
+        <br>
+        <h4 class="calls-phone"><%= p.patient.primary_phone %></h4>
+        <br>
+        <%= button_to "I reached the patient", pregnancy_calls_path(p, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %>
+       <br><br>
+        <%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %>
+        <br><br>
+        <%= link_to "I couldn't reach the patient", pregnancy_calls_path(p, call: { status: "Couldn't reach patient" } ), method: :post, remote: true, class: 'calls-response' %>
+      </div><!-- calls-layout -->
+      </div><!-- /.modal-content -->
+=======
+        <h4 class="modal-title">Call <b><%= p.patient.name %></b> now</h4>
+        <h4><%= p.patient.primary_phone %></h4>
+        <%= link_to "I reached the patient", pregnancy_calls_path(p, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary' %>
+        </br>
+        <%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true %>
+        </br>
+        <%= link_to "I couldn't reach the patient", pregnancy_calls_path(p, call: { status: "Couldn't reach patient" } ), method: :post, remote: true %>
+      </div>
+>>>>>>> 6e69e8f3c0841d414258ddbbdfb9f08c77caf084
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

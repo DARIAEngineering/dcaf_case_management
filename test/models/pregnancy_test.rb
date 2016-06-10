@@ -3,9 +3,9 @@ require 'test_helper'
 class PregnancyTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @pt_1 = create :patient, name: 'Susan Everywoman', primary_phone: '123-456-6789'
-    @pt_2 = create :patient, name: 'Susan Everyteen', primary_phone: '123-456-6789'
-    @pt_3 = create :patient, name: 'Susan Everygirl', secondary_phone: '999-999-9999'
+    @pt_1 = create :patient, name: 'Susan Smith', primary_phone: '123-456-6789'
+    @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789'
+    @pt_3 = create :patient, name: 'Susan All', secondary_phone: '999-999-9999'
     [@pt_1, @pt_2, @pt_3].each do |pt|
       create :pregnancy, patient: pt, created_by: @user
     end
@@ -31,7 +31,7 @@ class PregnancyTest < ActiveSupport::TestCase
     end
 
     it 'should find a patient' do
-      assert_equal Patient.search('Susan Everywoman').count, 1
+      assert_equal Patient.search('Susan Smith').count, 1
     end
 
     it 'should find multiple patients if there are multiple' do
@@ -48,7 +48,7 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal 'No Contact Made', @pregnancy.status
     end
 
-    it 'should default to "No Contact Made" when a pregnancy has an unsuccessful call' do
+    it 'should default to "No Contact Made" on a pregnancy left voicemail' do
       create :call, pregnancy: @pregnancy, status: 'Left voicemail'
       assert_equal 'No Contact Made', @pregnancy.status
     end
@@ -69,7 +69,7 @@ class PregnancyTest < ActiveSupport::TestCase
     # it 'should update to "Pledge Paid" after a pledge has been paid' do
     # end
 
-    # it 'should update to "Resolved Without DCAF" if a pregnancy is marked resolved' do
+    # it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
     # end
   end
 
@@ -86,59 +86,6 @@ class PregnancyTest < ActiveSupport::TestCase
     it 'should return true if a successful call has been made' do
       create :call, pregnancy: @pregnancy, status: 'Reached patient'
       assert @pregnancy.send :contact_made?
-    end
-  end
-
-  describe 'last menstrual period helper methods' do
-    before do
-      @patient = create :patient, created_by: @user
-      @pregnancy = create :pregnancy, last_menstrual_period_weeks: 9, last_menstrual_period_days: 2, initial_call_date: 2.days.ago, created_by: @user
-    end
-
-    it 'LMP on date - should nil out if LMP weeks is not set' do
-      @pregnancy.last_menstrual_period_weeks = nil
-      assert_nil @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today)
-    end
-
-    it 'LMP on date - should accurately calculate LMP on a given date' do
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 67
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, 5.days.from_now.to_date), 72
-
-      @pregnancy.initial_call_date = 4.days.ago
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 69
-
-      @pregnancy.last_menstrual_period_weeks = 10
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 76
-
-      @pregnancy.last_menstrual_period_days = 6
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 80
-    end
-
-    it 'LMP now - should return nil if LMP weeks is not set' do
-      @pregnancy.last_menstrual_period_weeks = nil
-      assert_nil @pregnancy.send(:last_menstrual_period_now)
-    end
-
-    it 'LMP now - should be equivalent to LMP on date - Time.zone.today' do
-      assert_equal @pregnancy.send(:last_menstrual_period_now), @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today)
-    end
-
-    it 'LMP display - should return nil if LMP weeks is not set' do
-      @pregnancy.last_menstrual_period_weeks = nil
-      assert_nil @pregnancy.last_menstrual_period_display
-    end
-
-    it 'LMP display - should return LMP in weeks and days' do
-      assert_equal @pregnancy.last_menstrual_period_display, '9 weeks, 4 days'
-    end
-
-    it 'LMP display short - should return nil if LMP weeks is not set' do
-      @pregnancy.last_menstrual_period_weeks = nil
-      assert_nil @pregnancy.last_menstrual_period_display_short
-    end
-
-    it 'LMP display short - should return shorter LMP in weeks and days' do
-      assert_equal @pregnancy.last_menstrual_period_display_short, '9w 4d'
     end
   end
 

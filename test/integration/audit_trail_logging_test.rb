@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
-  def setup
+  before do
     @user = create :user, email: 'first_user@email.com'
     @user2 = create :user, email: 'second_user@email.com'
     log_in_as @user
@@ -15,7 +15,7 @@ class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
       assert_equal @patient.history_tracks.count, 1
       assert_equal @patient.created_by, @user
       assert_equal page.find(:id, 'pregnancy_patient_name').value, 'tester'
-      fill_in 'Name', with: 'changed'
+      fill_in 'First and last name', with: 'changed'
       click_button 'TEMP: SAVE INFORMATION'
       @patient.reload
       assert_equal @patient.name, 'changed'
@@ -25,7 +25,7 @@ class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
       log_in_as @user2
       visit edit_pregnancy_path(@pregnancy)
       assert_equal page.find(:id, 'pregnancy_patient_name').value, 'changed'
-      fill_in 'Name', with: 'more change'
+      fill_in 'First and last name', with: 'more change'
       click_button 'TEMP: SAVE INFORMATION'
       @patient.reload
       assert_equal @patient.name, 'more change'

@@ -154,3 +154,12 @@ section {
   @extend .btn-primary;
   @extend .btn-xs;
 }
+
+// Search result 
+// shell styling
+.form-group input {
+  &[type="date"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+}

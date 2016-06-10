@@ -1,7 +1,7 @@
-<section id="patient_section" class="abortion-info tab-pane">
-  <div class="col-md-12">
+<section id="patient_information" class="abortion-info tab-pane">
+  <div class="col-sm-12">
     <h2>Patient information</h2>
-    <div class="info-form-left col-md-6">
+    <div class="info-form-left col-sm-6">
       <%= f.fields_for pregnancy.patient do |p| %>
         <%= p.text_field :secondary_person, autocomplete: 'off' %>
         <%= p.text_field :secondary_phone, label: 'Secondary Phone', autocomplete: 'off' %>
@@ -12,17 +12,17 @@
             'Asian/Pacific Islander', 'Hispanic'],
             pregnancy.race_ethnicity), label: 'Race / Ethnicity', autocomplete: 'off' %>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-sm-8">
           <%= f.text_field :city, label: 'City', autocomplete: 'off' %>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <%= f.text_field :state, label: 'State', autocomplete: 'off' %>
         </div>
       </div>
       <%= f.text_field :zip, label: 'ZIP', autocomplete: 'off' %>
     </div>
 
-    <div class="info-form-right col-md-6">
+    <div class="info-form-right col-sm-6">
       <%= f.select :employment_status, options_for_select(
             ['Full-time', 'Part-time', 'Unemployed'],
             pregnancy.employment_status), label: 'Employment status' %>
@@ -41,3 +41,5 @@
     </div>
   </div>
 </section>
+
+
