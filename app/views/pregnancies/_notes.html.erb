@@ -1,28 +1,29 @@
 <section id="notes" class="notes tab-pane">
-	<div class="margin-bottom">
-		<div class="row">
-			<div class="info-form-left col-sm-6">
-				<h2>Notes</h2>
-				<%= bootstrap_form_for [pregnancy, note] do |f| %>
-				<%= f.text_area :full_text, size: '20x10', placeholder: 'Enter notes here', hide_label: true %>
-				<%= f.submit class: "btn btn-primary"  %>
-				<% end %>
+	<div class="container-fluid">
+		<div class="margin-bottom">
+			<div class="row">
+				<div class="info-form-left col-sm-12">
+					<h2>Notes</h2>
+					<%= bootstrap_form_for [pregnancy, note] do |f| %>
+					<%= f.text_area :full_text, size: '20x10', placeholder: 'Enter notes here', hide_label: true %>
+					<%= f.submit class: "btn btn-primary"  %>
+					<% end %>
+				</div>
 			</div>
 		</div>
+		<table class="table border-side">
+			<tbody>
+				<% pregnancy.notes.order('created_at DESC').each do |note| %>
+				<tr>
+					<th><%= note.created_at.getlocal.strftime("%-m/%-d") %></th>
+					<th><%= note.created_at.getlocal.strftime("%l:%M %P") %></th>
+					<th><%= note.created_by.name %></td>
+				</tr>
+				<tr>
+					<td><%= note.full_text %></td>
+				</tr>
+				<% end %>
+			<tbody>
+		</table>
 	</div>
-
-	<table class="table border-side">
-		<tbody>
-			<% pregnancy.notes.order('created_at DESC').each do |note| %>
-			<tr>
-				<th><%= note.created_at.getlocal.strftime("%-m/%-d") %></th>
-				<th><%= note.created_at.getlocal.strftime("%l:%M %P") %></th>
-				<th><%= note.created_by.name %></td>
-			</tr>
-			<tr>
-				<td><%= note.full_text %></td>
-			</tr>
-			<% end %>
-		<tbody>
-	</table>
 </section>
