@@ -8,7 +8,7 @@
         <br>
         <h4 class="calls-phone"><%= p.patient.primary_phone %></h4>
         <br>
-        <%= button_to "I reached the patient", pregnancy_calls_path(p, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %>
+        <%= link_to "I reached the patient", pregnancy_calls_path(p, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %>
        <br><br>
         <%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %>
         <br><br>
