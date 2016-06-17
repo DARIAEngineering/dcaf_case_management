@@ -41,9 +41,11 @@ class PledgesControllerTest < ActionController::TestCase
 
   describe 'update method' do
     before do
-      @pledge = create :pledge, pregnancy: @pregnancy, pledge_type: 'Original Pledge'
+      @pledge = create :pledge, pregnancy: @pregnancy,
+                                pledge_type: 'Original Pledge'
       @pledge_edits = { pledge_type: 'Edited Pledge' }
-      patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
+      patch :update, pregnancy_id: @pregnancy, id: @pledge,
+                     pledge: @pledge_edits, format: :js
       @pledge.reload
     end
 
@@ -70,7 +72,8 @@ class PledgesControllerTest < ActionController::TestCase
       [nil, ''].each do |bad_text|
         assert_no_difference 'Pregnancy.find(@pregnancy).pledges.find(@pledge).history_tracks.count' do
           @pledge_edits[:pledge_type] = bad_text
-          patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
+          patch :update, pregnancy_id: @pregnancy, id: @pledge,
+                         pledge: @pledge_edits, format: :js
           assert_response :bad_request
           @pledge.reload
           assert_equal @pledge.pledge_type, 'Edited Pledge'

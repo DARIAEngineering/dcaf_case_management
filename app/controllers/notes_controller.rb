@@ -5,10 +5,10 @@ class NotesController < ApplicationController
   def create
     @note = @pregnancy.notes.new note_params
     @note.created_by = current_user
-    @note.save
     if @note.save
       redirect_to edit_pregnancy_path(@pregnancy),
-                  flash: { notice: "Saved new note for #{@pregnancy.patient.name}!" }
+                  flash: { notice: 'Saved new note for ' \
+                                   "#{@pregnancy.patient.name}!" }
     else
       flash[:alert] = 'Note failed to save! Please submit the note again.'
       redirect_to edit_pregnancy_path @pregnancy

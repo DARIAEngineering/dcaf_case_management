@@ -20,8 +20,10 @@ class AuditTrailTest < ActiveSupport::TestCase
 
     it 'should track proper info' do
       # TODO: add pregnancy and clinic info
-      tracked_fields = %w(name primary_phone secondary_person secondary_phone updated_by_id)
-      assert_equal Patient.tracked_fields, tracked_fields
+      tracked_fields =
+        %w(name primary_phone secondary_person secondary_phone updated_by_id)
+      assert_equal Patient.tracked_fields,
+                   tracked_fields
     end
   end
 
@@ -32,15 +34,18 @@ class AuditTrailTest < ActiveSupport::TestCase
     end
 
     it 'should conveniently render changed fields' do
-      assert_equal @track.tracked_changes_fields, 'Name<br>Primary phone'
+      assert_equal @track.tracked_changes_fields,
+                   'Name<br>Primary phone'
     end
 
     it 'should conveniently render what they were before' do
-      assert_equal @track.tracked_changes_from, 'Susie Everyteen<br>111-222-3333'
+      assert_equal @track.tracked_changes_from,
+                   'Susie Everyteen<br>111-222-3333'
     end
 
     it 'should conveniently render what they are now' do
-      assert_equal @track.tracked_changes_to, 'Yolo<br>123-456-9999'
+      assert_equal @track.tracked_changes_to,
+                   'Yolo<br>123-456-9999'
     end
   end
 end
