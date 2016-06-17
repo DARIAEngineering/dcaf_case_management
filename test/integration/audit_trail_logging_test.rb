@@ -1,12 +1,12 @@
 require 'test_helper'
 
 class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
-  def setup
+  before do
     @user = create :user, email: 'first_user@email.com'
     @user2 = create :user, email: 'second_user@email.com'
     log_in_as @user
-    @patient = create :patient, name: 'tester', primary_phone: '1231231234'
-    @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
+    @patient = create :patient, name: 'tester', primary_phone: '1231231234', created_by: @user
+    @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient, created_by: @user
     visit edit_pregnancy_path(@pregnancy)
   end
 

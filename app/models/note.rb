@@ -5,10 +5,24 @@ class Note<ActiveRecord::Base
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
+  # Relationships
   embedded_in :pregnancy
 
+  # Fields
   field :full_text, type: String
 
+  # Validations
   validates :created_by, :full_text, presence: true
+<<<<<<< HEAD
   
+=======
+
+  # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
+>>>>>>> ce3740fe1fe19d967de9c29a7e14c558f049bd61
 end

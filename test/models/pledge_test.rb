@@ -17,12 +17,12 @@ class PledgeTest < ActiveSupport::TestCase
 
     it 'should respond to history methods' do
       assert @pledge.respond_to? :history_tracks
-      assert @pledge.history_tracks.count > 0 
+      assert @pledge.history_tracks.count > 0
     end
 
-    it 'should have accessible userstamp methods' do 
+    it 'should have accessible userstamp methods' do
       assert @pledge.respond_to? :created_by
       assert @pledge.created_by
     end
-  end  
+  end
 end

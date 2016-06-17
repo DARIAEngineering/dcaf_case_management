@@ -20,9 +20,11 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     it 'should add a patient to a users call list' do
+      @user.reload
       assert_equal @user.pregnancies.count, 1
       assert_difference '@user.pregnancies.count', 1 do
         patch :add_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
+        @user.reload
       end
       assert_equal @user.pregnancies.count, 2
     end
@@ -46,6 +48,7 @@ class UsersControllerTest < ActionController::TestCase
       patch :add_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
       patch :add_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
       patch :remove_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+      @user.reload
     end
 
     it 'should respond successfully' do
@@ -55,6 +58,7 @@ class UsersControllerTest < ActionController::TestCase
     it 'should remove a pregnancy' do
       assert_difference '@user.pregnancies.count', -1 do
         patch :remove_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
+        @user.reload
       end
     end
 
@@ -73,7 +77,7 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
 
-  it 'should be the devise controller' do 
+  it 'should be the devise controller' do
     assert :devise_controller?
   end
 end

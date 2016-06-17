@@ -6,8 +6,10 @@ class Clinic<ActiveRecord::Base
   include Mongoid::Userstamp
   
 
+  # Relationships
   belongs_to :pregnancy
 
+  # Fields
   field :name, type: String
   field :street_address_1, type: String
   field :street_address_2, type: String
@@ -15,4 +17,14 @@ class Clinic<ActiveRecord::Base
   field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
   field :zip, type: String
 
+<<<<<<< HEAD
+=======
+  # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
+>>>>>>> ce3740fe1fe19d967de9c29a7e14c558f049bd61
 end

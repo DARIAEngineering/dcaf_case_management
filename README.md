@@ -67,7 +67,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 ### Docker
 
-We've dockerized this app, to manage the dependencies and save us all the headahce. If you've got Docker installed already, you can be up and running with three commands:
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already] (https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 * `docker-compose build # to install the dependencies` 
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
@@ -80,6 +80,7 @@ If you prefer a local environment, do the following:
 
 * Install Ruby, Rails and MongoDB (An easy rails installer is [here](http://railsinstaller.org/en); MongoDB setup instructions are below)
 * Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down 
+* Install PhantomJS, which our test suite depends on (`brew install phantomjs` or the [linux instructions](http://phantomjs.org/download.html))
 * Run the command `bundle install` to install dependences
 
 If you don't have MongoDB installed, also do: 
@@ -107,10 +108,11 @@ Current UX and wireframe assets are available here:
 
 Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are: 
 
-* @ajohnson051 (lots of hard work on controllers and views)
-* @Kevin-Wei (constructed data model)
-* @charleshuang80 (crucial work on forms)
-* @drownedout (constructed data model, excellent rails guide)
+* @ajohnson051
+* @Kevin-Wei
+* @charleshuang80
+* @drownedout
+* @rebeccaestes
 
 
 ## License

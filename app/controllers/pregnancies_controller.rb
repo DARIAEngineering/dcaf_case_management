@@ -2,6 +2,17 @@ class PregnanciesController < ApplicationController
   before_action :find_pregnancy, only: [:edit, :update]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { redirect_to root_path }
 
+  def create
+    @pregnancy = Pregnancy.new pregnancy_params
+    @pregnancy.created_by = @pregnancy.patient.created_by = current_user
+    if @pregnancy.save
+      flash[:notice] = "A new patient has been successfully saved"
+    else
+      flash[:alert] = "An error prevented this patient from being saved"
+    end
+    redirect_to root_path
+  end
+
   def edit
     @note = Note.new
   end
@@ -26,8 +37,10 @@ class PregnanciesController < ApplicationController
 
   def pregnancy_params
     params.require(:pregnancy).permit(
+      #fields in create
+      :voicemail_ok, :initial_call_date,
       # fields in dashboard
-      :status, :last_menstrual_period_time, :last_menstrual_period_weeks, :appointment_date,
+      :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date,
       # fields in abortion info
       :procedure_cost,
       # fields in patient info
