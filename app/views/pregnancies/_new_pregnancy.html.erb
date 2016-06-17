@@ -27,8 +27,16 @@
 
   <div class="col-sm-2">
     <%= f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
-    <%= f.check_box :voicemail_ok, label: 'Yes' %> <!-- TODO add bootstrap toggle -->
+      <%= f.check_box :voicemail_ok, label: 'Yes' %> 
     <% end %>
+    <!-- This is one attempt at the bootstrap toggle -->
+    <%# f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' }, data: {toggle: 'toggle', on: 'Yes', off: 'No' } do %>
+      <%# f.check_box :voicemail_ok, label: 'Yes' %>
+    <%# end %>
+    <!-- Here is another attempt, toggle not displaying at all -->
+    <%# f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
+      <%# f.check_box :voicemail_ok, data: { toggle: 'toggle', on: 'Yes', off: 'No' }, label: 'Yes' %> 
+    <%# end %>
   </div>
 
   <div class="col-sm-2">
