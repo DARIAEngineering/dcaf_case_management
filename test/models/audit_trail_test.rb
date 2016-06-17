@@ -3,7 +3,9 @@ require 'test_helper'
 class AuditTrailTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @patient = create :patient, name: 'Susie Everyteen', primary_phone: '111-222-3333', created_by: @user
+    @patient = create :patient, name: 'Susie Everyteen',
+                                primary_phone: '111-222-3333',
+                                created_by: @user
   end
 
   describe 'natural initializing - everything okay alarm' do
@@ -18,7 +20,8 @@ class AuditTrailTest < ActiveSupport::TestCase
 
     it 'should track proper info' do
       # TODO: add pregnancy and clinic info
-      assert_equal Patient.tracked_fields, %w(name primary_phone secondary_person secondary_phone updated_by_id)
+      tracked_fields = %w(name primary_phone secondary_person secondary_phone updated_by_id)
+      assert_equal Patient.tracked_fields, tracked_fields
     end
   end
 

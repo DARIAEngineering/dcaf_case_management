@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class PledgesControllerTest < ActionController::TestCase
-
   before do
     @user = create :user
     sign_in @user
@@ -21,15 +20,15 @@ class PledgesControllerTest < ActionController::TestCase
       end
     end
 
-  # NOTE: it's redirecting so status code 302 (controller redirects to edit_pregnancy_path)		
-  #   it 'should respond success if the pledge submits' do
-  #     assert_response :success
-  #   end
+    # NOTE: it's redirecting so status code 302 (controller redirects to edit_pregnancy_path)
+    #   it 'should respond success if the pledge submits' do
+    #     assert_response :success
+    #   end
 
-  # NOTE: template does not exist yet	and controller redirects to edit_pregnancy_path
-  #   it 'should render create.js.erb if it successfully saves' do
-  #     assert_template 'pledges/create'
-  #   end
+    # NOTE: template does not exist yet	and controller redirects to edit_pregnancy_path
+    #   it 'should render create.js.erb if it successfully saves' do
+    #     assert_template 'pledges/create'
+    #   end
 
     it 'should redirect to edit pregnancy path if it saves' do
       assert_redirected_to edit_pregnancy_path(@pregnancy)
@@ -38,12 +37,12 @@ class PledgesControllerTest < ActionController::TestCase
     it 'should log the creating user' do
       assert_equal Pregnancy.find(@pregnancy).pledges.last.created_by, @user
     end
-  end		
+  end
 
-  describe 'update method' do		
+  describe 'update method' do
     before do
       @pledge = create :pledge, pregnancy: @pregnancy, pledge_type: 'Original Pledge'
-      @pledge_edits = {pledge_type: 'Edited Pledge'}
+      @pledge_edits = { pledge_type: 'Edited Pledge' }
       patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
       @pledge.reload
     end
@@ -59,7 +58,7 @@ class PledgesControllerTest < ActionController::TestCase
     it 'should update the pledge_type field' do
       assert_equal @pledge.pledge_type, 'Edited Pledge'
     end
-	
+
     it 'should have an audit trail' do
       assert_equal @pledge.history_tracks.count, 2
       @changes = @pledge.history_tracks.last
@@ -69,14 +68,14 @@ class PledgesControllerTest < ActionController::TestCase
 
     it 'should refuse to save pledge type to blank' do
       [nil, ''].each do |bad_text|
-      assert_no_difference 'Pregnancy.find(@pregnancy).pledges.find(@pledge).history_tracks.count' do
-        @pledge_edits[:pledge_type] = bad_text
-        patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
-        assert_response :bad_request
-        @pledge.reload
-        assert_equal @pledge.pledge_type, 'Edited Pledge'
+        assert_no_difference 'Pregnancy.find(@pregnancy).pledges.find(@pledge).history_tracks.count' do
+          @pledge_edits[:pledge_type] = bad_text
+          patch :update, pregnancy_id: @pregnancy, id: @pledge, pledge: @pledge_edits, format: :js
+          assert_response :bad_request
+          @pledge.reload
+          assert_equal @pledge.pledge_type, 'Edited Pledge'
         end
-      end		
-    end  
+      end
+    end
   end
 end
