@@ -9,8 +9,12 @@
     <li><%= link_to 'Notes', '#notes', data: { toggle: 'tab' } %></li>
 
   </ul>
-  <%= f.submit 'TEMP: SAVE INFORMATION', class: 'btn btn-primary' %>
-  <a class="btn btn-primary btn-lg submit-btn" data-toggle="modal"  data-target=".pledge_modal">Submit pledge</a>
+  <div class="row">
+    <div class="col-sm-10">
+      <%= f.submit 'TEMP: SAVE INFORMATION', class: 'btn btn-primary btn-block' %>
+      <a class="btn btn-primary btn-lg submit-btn btn-block" data-toggle="modal"  data-target=".pledge_modal">Submit pledge</a>
+    </div>
+  </div>
 </section>
 
 <!-- Need to add glyphicon-chevron-right before li.active -->

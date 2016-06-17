@@ -11,7 +11,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   describe 'changing patient dashboard information' do
     before do
-      fill_in 'Name', with: 'Susie Everyteen 2'
+      fill_in 'First and last name', with: 'Susie Everyteen 2'
       find('#pregnancy_last_menstrual_period_weeks').select '5 weeks'
       find('#pregnancy_last_menstrual_period_days').select '2 days'
       # fill_in 'Appointment date', with: '12/20/2016' PUNT
@@ -23,7 +23,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
     it 'should alter the information' do
       within :css, '#patient_dashboard' do
-        assert has_field?('Name', with: 'Susie Everyteen 2')
+        assert has_field?('First and last name', with: 'Susie Everyteen 2')
         assert_equal find('#pregnancy_last_menstrual_period_weeks').value, '5'
         assert_equal find('#pregnancy_last_menstrual_period_days').value, '2'
         # assert has_field?('Appointment date', with: '12/20/2016') PUNT
@@ -35,9 +35,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing abortion information' do
     before do
       fill_in 'Clinic name', with: 'Stub Clinic'
-      # TODO finish this after implementing clinic logic
+      # TODO: finish this after implementing clinic logic
       fill_in 'Abortion Cost:', with: '300'
-      # TODO and this, once we have funding sources
+      # TODO: and this, once we have funding sources
       click_button 'TEMP: SAVE INFORMATION'
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy

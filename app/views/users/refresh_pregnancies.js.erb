@@ -1,0 +1,4 @@
+$('#call_list, #completed_calls, #urgent_pregnancies').empty();
+$('#call_list').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your call list', table_type: 'call_list', pregnancies: current_user.call_list_pregnancies }) %>');
+$('#completed_calls').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your completed calls', table_type: 'completed_calls', pregnancies: current_user.recently_called_pregnancies }) %>');
+$('#urgent_pregnancies').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Urgent cases', table_type: 'urgent_pregnancies', pregnancies: @urgent_pregnancies }) %>');

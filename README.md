@@ -51,24 +51,14 @@ We also keep track of our administrative issues and discussion in Github under t
 
 ## Setting Stuff Up
 **First things first**: Make a copy of your own to wrench on! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
+**Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
+**Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
 
-For the rest of the setup, you have three options: Cloud9, Docker, or installing everything locally. We recommend Cloud9 if you're new to Rails or don't want to waste a lot of time installing dependencies, or Docker if you're comfortable with its ecosystem. The directions below get you to a point where you can run the app with a test-seeded database.
-
-### Cloud9
-
-If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB:
-
-* Sign into `https://c9.io/` and create a new workspace
-* Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
-* Once created, run `bundle install` from the terminal
-* Open another terminal tab, and run `mongod` to start MongoDB
-* Pop back to the previous tab and run `rake db:seed` to populate your database with test data
-* Hit the `Run Project` button up top. (If the button is unresponsive, you may need select **Run -> Run With -> Rails Default** from the dropdown.)
-* Check out the URL it's running on! You're all set!
+For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem. The directions below get you to a point where you can run the app with a test-seeded database.
 
 ### Docker
 
-We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already] (https://docs.docker.com/engine/installation/), you can be up and running with three commands:
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with four commands:
 * `docker-compose build # to install the dependencies`
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
@@ -81,7 +71,7 @@ If you prefer a local environment, do the following:
 
 * Install Ruby, Rails and MongoDB (An easy rails installer is [here](http://railsinstaller.org/en); MongoDB setup instructions are below)
 * Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down
-* Install PhantomJS, which our test suite depends on (`brew install phantomjs`, `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))
+* Install PhantomJS, which our test suite depends on (`brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))
 * Run the command `bundle install` to install dependences
 
 If you don't have MongoDB installed, also do:
@@ -95,14 +85,37 @@ After that:
 * Run the command `rails server` to start the rails server
 * All set! Navigate your browser to `http://localhost:3000`
 
+### Cloud9
+
+If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB.
+
+* Sign into `https://c9.io/` and create a new workspace
+* Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
+* Once created, run `bundle install` from the terminal
+* Open another terminal tab, and run `mongod` to start MongoDB
+* Pop back to the previous tab and run `rake db:seed` to populate your database with test data
+* Hit the `Run Project` button up top. (If the button is unresponsive, you may need select **Run -> Run With -> Rails Default** from the dropdown.)
+* Check out the URL it's running on! You're all set!
+
 
 ## For designers
 The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app.
 
-Current UX and wireframe assets are available here:
-* [DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
-* [DCAFwireframe120715.ai](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.ai)
-* [DCAFwireframe120715.pdf](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.pdf)
+Current UX and wireframe assets are available [here](https://github.com/colinxfleming/dcaf_case_management/tree/master/_design).
+
+
+## For developers
+The stack we use is Rails 4, MongoDB, PhantomJS for integration tests and basically everything else is out of the box. 
+
+The project leads prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
+
+We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. 
+
+
+## For nontechnical contributors
+### TK case managers
+### TK user testers
+### TK copywriters
 
 
 ## Project Wall of Appreciation

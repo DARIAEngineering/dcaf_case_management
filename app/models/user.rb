@@ -9,9 +9,9 @@ class User
           :rememberable,
           :trackable,
           :validatable
-          # :confirmable
-          # :lockable
-          # :timeoutable
+  # :confirmable
+  # :lockable
+  # :timeoutable
 
   # Relationships
   has_and_belongs_to_many :pregnancies, inverse_of: :users
@@ -53,4 +53,21 @@ class User
 
   # Validations
   validates :email, :name, presence: true
+
+  # ticket 241 recently called criteria:
+  # someone has a call from the current_user
+  # that is less than 8 hours old,
+  # AND they would otherwise be in the call list
+
+  def recently_called_pregnancies
+    pregnancies.select { |p| recently_called?(p) }
+  end
+
+  def call_list_pregnancies
+    pregnancies.reject { |p| recently_called?(p) }
+  end
+
+  def recently_called?(preg)
+    preg.calls.any? { |call| call.created_by_id == id && call.recent? }
+  end
 end

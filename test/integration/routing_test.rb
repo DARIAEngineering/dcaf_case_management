@@ -14,11 +14,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   it 'should not display navigation partial on sign in' do
-    refute has_text? "DCAF Case Manager"
+    refute has_text? 'DCAF Case Manager'
     visit root_path
     @user = create :user
     log_in_as @user
     visit authenticated_root_path
-    assert has_text? "DCAF Case Manager"
+    assert has_text? 'DCAF Case Manager'
   end
 end
