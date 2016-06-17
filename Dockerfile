@@ -1,4 +1,4 @@
-FROM rails:4.2.5
+FROM rails:4.2.6
 MAINTAINER Colin Fleming <c3flemin@gmail.com> 
 
 # install packages
