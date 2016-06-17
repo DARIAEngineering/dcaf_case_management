@@ -19,6 +19,7 @@ gem 'figaro'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
 # gem 'quality', require: false
+gem 'nokogiri', '>= 1.6.8'
 
 group :development do
   gem 'web-console', '~> 2.0'
