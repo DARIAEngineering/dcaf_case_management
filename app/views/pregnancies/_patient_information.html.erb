@@ -9,7 +9,7 @@
       <div class="info-form-left col-sm-6">
         <%= f.fields_for pregnancy.patient do |p| %>
         <%= p.text_field :secondary_person, autocomplete: 'off' %>
-        <%= p.text_field :secondary_phone, label: 'Secondary Phone', autocomplete: 'off' %>
+        <%= p.text_field :secondary_phone, autocomplete: 'off' %>
         <% end %>
         <%= f.text_field :age, label: 'Age', autocomplete: 'off' %>
         <%= f.select :race_ethnicity, options_for_select(
