@@ -101,10 +101,21 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 ## For designers
 The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app.
 
-Current UX and wireframe assets are available here:
-* [DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
-* [DCAFwireframe120715.ai](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.ai)
-* [DCAFwireframe120715.pdf](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.pdf)
+Current UX and wireframe assets are available [here](https://github.com/colinxfleming/dcaf_case_management/tree/master/_design).
+
+
+## For developers
+The stack we use is Rails 4, MongoDB, PhantomJS for integration tests and basically everything else is out of the box. 
+
+The project leads prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
+
+We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. 
+
+
+## For nontechnical contributors
+### TK case managers
+### TK user testers
+### TK copywriters
 
 
 ## Project Wall of Appreciation
