@@ -176,5 +176,8 @@
     $checkbox.bootstrapToggle('toggle')
     e.preventDefault()
   })
+<<<<<<< HEAD:vendor/assets/javascripts/bootstrap_toggle.js
 
+=======
+>>>>>>> 6045a981c613e162218b1e9c1a57b4d70eddc528:vendor/assets/javascripts/bootstrap_toggle.js
 }(jQuery);

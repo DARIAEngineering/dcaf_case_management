@@ -12,7 +12,9 @@
   field :status, type: String
 
   # Validations
-  allowed_statuses = ['Reached patient', 'Left voicemail', "Couldn't reach patient"]
+  allowed_statuses = ['Reached patient',
+                      'Left voicemail',
+                      "Couldn't reach patient"]
   validates :status,  presence: true,
                       inclusion: { in: allowed_statuses }
   validates :created_by, presence: true
@@ -27,5 +29,12 @@
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+<<<<<<< HEAD
 >>>>>>> ce3740fe1fe19d967de9c29a7e14c558f049bd61
+=======
+
+  def recent?
+    updated_at > 8.hours.ago ? true : false
+  end
+>>>>>>> 6045a981c613e162218b1e9c1a57b4d70eddc528
 end

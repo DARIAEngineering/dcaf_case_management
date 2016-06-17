@@ -4,19 +4,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "DCAF Case Management System" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DCAF" %>">
+    <meta name='ROBOTS' content='NOINDEX, NOFOLLOW'>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= favicon_link_tag %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
+    <% if current_user.present? %>
     <header>
       <%= render 'layouts/navigation' %>
     </header>
+    <% end %>
     <main role="main">
       <div class="container">
         <%= render 'layouts/messages' %>
-        
+
         <br>
         <%= yield %>
       </div>

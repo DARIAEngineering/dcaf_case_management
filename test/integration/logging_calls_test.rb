@@ -28,6 +28,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
   describe 'logging reached patient', js: true do
     before do
+      @timestamp = Time.now
       click_link 'I reached the patient'
     end
 
@@ -37,13 +38,12 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
     it 'should be viewable on the call log' do
       click_link 'Call Log'
-      last_call = @pregnancy.reload.calls.last
 
       within :css, '#call_log' do
-        assert has_text? last_call.created_at.localtime.strftime('%-m/%d')
-        assert has_text? last_call.created_at.localtime.strftime('%-l:%M %P')
+        assert has_text? @timestamp.localtime.strftime('%-m/%-d')
+        assert has_text? @timestamp.localtime.strftime('%-l:%M %P')
         assert has_text? 'Reached patient'
-        assert has_text? last_call.created_by.name
+        assert has_text? @user.name
       end
     end
 
@@ -70,6 +70,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         else
           raise 'Not a recognized call status'
         end
+        @timestamp = Time.now
       end
 
       it "should close the modal when clicking #{call_status}" do
@@ -83,13 +84,12 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         click_link @link_text
         click_link 'Susan Everyteen'
         click_link 'Call Log'
-        last_call = @pregnancy.reload.calls.last
 
         within :css, '#call_log' do
-          assert has_text? last_call.created_at.localtime.strftime('%-m/%d')
-          assert has_text? last_call.created_at.localtime.strftime('%-l:%M %P')
+          assert has_text? @timestamp.localtime.strftime('%-m/%-d')
+          assert has_text? @timestamp.localtime.strftime('%-l:%M %P')
           assert has_text? call_status
-          assert has_text? last_call.created_by.name
+          assert has_text? @user.name
         end
       end
     end
