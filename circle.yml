@@ -6,7 +6,7 @@ deployment:
   staging:
     branch: master
     heroku:
-      appname: casemanagerdemo
+      appname: dcaf-cmapp-staging
 
 test:
   post:
