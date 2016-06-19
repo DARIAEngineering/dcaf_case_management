@@ -3,6 +3,7 @@ class Patient
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include Mongoid::Search
 
   # Relationships
   has_many :pregnancies
@@ -33,9 +34,6 @@ class Patient
 
   # Methods
   def self.search(name_or_phone_str) # TODO: optimize
-    name_matches = Patient.where name: name_or_phone_str
-    primary_matches = Patient.where primary_phone: name_or_phone_str
-    secondary_matches = Patient.where secondary_phone: name_or_phone_str
-    (name_matches | primary_matches | secondary_matches)
+    search_in :name, :primary_phone, :secondary_phone 
   end
 end
