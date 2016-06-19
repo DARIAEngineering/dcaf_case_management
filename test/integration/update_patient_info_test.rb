@@ -56,7 +56,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing patient information' do
     before do
       fill_in 'Secondary person', with: 'Susie Everyteen Sr'
-      fill_in 'Secondary Phone', with: '123-666-7777'
+      fill_in 'Secondary phone', with: '123-666-7777'
       fill_in 'Age', with: '24'
       find('#pregnancy_race_ethnicity').select 'Caucasian'
       fill_in 'City', with: 'Washington'
@@ -78,7 +78,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     it 'should alter the information' do
       within :css, '#patient_information' do
         assert has_field? 'Secondary person', with: 'Susie Everyteen Sr'
-        assert has_field? 'Secondary Phone', with: '123-666-7777'
+        assert has_field? 'Secondary phone', with: '123-666-7777'
         assert has_field? 'Age', with: '24'
         assert_equal find('#pregnancy_race_ethnicity').value, 'Caucasian'
         assert has_field? 'City', with: 'Washington'

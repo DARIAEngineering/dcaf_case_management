@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/colinxfleming/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/colinxfleming/dcaf_case_management)
 
-[A deployed demo version of what's in the master branch is at: http://casemanagerdemo.herokuapp.com/](http://casemanagerdemo.herokuapp.com/)
+[A deployed demo version of what's in the master branch is at: http://dcaf-cmapp-staging.herokuapp.com/](http://dcaf-cmapp-staging.herokuapp.com/)
 
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
@@ -69,10 +69,12 @@ If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/s
 
 If you prefer a local environment, do the following:
 
-* Install Ruby, Rails and MongoDB (An easy rails installer is [here](http://railsinstaller.org/en); MongoDB setup instructions are below)
-* Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down
+* Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down and pop into the repo
+* Install Ruby! We use version `2.2.4`. (Usually `rbenv install 2.2.4` or `rvm install 2.2.4`)
+* Set that version of ruby as your default within the directory (`rbenv local 2.2.4` / `rvm use 2.2.4`)
+* Run the command `bundle install` to install dependences, including `rails`!
+* Install MongoDB! (MongoDB setup instructions are below)
 * Install PhantomJS, which our test suite depends on (`brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))
-* Run the command `bundle install` to install dependences
 
 If you don't have MongoDB installed, also do:
 * Install MongoDB locally (`brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))

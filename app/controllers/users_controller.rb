@@ -5,14 +5,14 @@ class UsersController < ApplicationController
   def add_pregnancy
     @user.pregnancies << @pregnancy
     respond_to do |format|
-      format.js { render template: 'users/refresh_pregnancies.js.erb', layout: false }
+      format.js { render template: 'users/refresh_pregnancies', layout: false }
     end
   end
 
   def remove_pregnancy
     @user.pregnancies.delete @pregnancy
     respond_to do |format|
-      format.js { render template: 'users/refresh_pregnancies.js.erb', layout: false }
+      format.js { render template: 'users/refresh_pregnancies', layout: false }
     end
   end
 
