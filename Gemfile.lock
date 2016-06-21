@@ -92,6 +92,10 @@ GEM
       sexp_processor
     codeclimate-engine-rb (0.3.1)
       virtus (~> 1.0)
+    codecov (0.1.5)
+      json
+      simplecov
+      url
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -338,6 +342,7 @@ GEM
     unicorn (5.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    url (0.3.2)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -370,6 +375,7 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara
+  codecov
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise (~> 3.5, >= 3.5.10)

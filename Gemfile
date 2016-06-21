@@ -49,6 +49,7 @@ group :test do
   gem 'poltergeist'
   gem 'simplecov', require: false
   gem 'launchy'
+  gem 'codecov', require: false
 end
 
 group :production do
