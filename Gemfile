@@ -10,7 +10,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
-gem 'devise', '~> 3.5', '>= 3.5.2'
+gem 'devise', '~> 3.5', '>= 3.5.10'
 gem 'mongoid', '~> 5.0.0'
 gem 'mongoid-history', '~> 0.5.0'
 gem 'mongoid_userstamp'
@@ -49,6 +49,7 @@ group :test do
   gem 'poltergeist'
   gem 'simplecov', require: false
   gem 'launchy'
+  gem 'codecov', require: false
 end
 
 group :production do
