@@ -1,5 +1,4 @@
- class Call<Auditable::Base
-  include Auditable
+ class Call
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
@@ -19,22 +18,6 @@
                       inclusion: { in: allowed_statuses }
   validates :created_by, presence: true
 
-<<<<<<< HEAD
- 
-=======
-  # History and auditing
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-  mongoid_userstamp user_model: 'User'
-<<<<<<< HEAD
->>>>>>> ce3740fe1fe19d967de9c29a7e14c558f049bd61
-=======
-
   def recent?
     updated_at > 8.hours.ago ? true : false
   end
->>>>>>> 6045a981c613e162218b1e9c1a57b4d70eddc528
-end
