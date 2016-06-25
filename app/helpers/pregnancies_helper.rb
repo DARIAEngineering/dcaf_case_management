@@ -1,10 +1,10 @@
 module PregnanciesHelper
   def weeks_options
-    (1..30).map { |i| [pluralize(i, 'week'), i] }.unshift nil
+    (1..30).map { |i| [pluralize(i, 'week'), i] }.unshift [nil, nil]
   end
 
   def days_options
-    (0..6).map { |i| [pluralize(i, 'day'), i] }.unshift nil
+    (0..6).map { |i| [pluralize(i, 'day'), i] }.unshift [nil, nil]
   end
 
   def race_ethnicity_options
@@ -49,6 +49,6 @@ module PregnanciesHelper
   end
 
   def household_size_options
-    (1..10).map { |i| i }.unshift nil
+    (1..10).map { |i| i }.unshift [nil, nil]
   end
 end
