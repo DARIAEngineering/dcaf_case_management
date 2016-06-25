@@ -1,0 +1,12 @@
+## How to be an awesome contributor to this project
+
+### Are you submitting a pull request?
+
+* Try to fix one thing per pull request! Many people bang on this code, so the more focused your changes are, the less of a headache other people will have when they merge their work in. 
+* If you're stuck, ask the slack channel! There are a number of experienced programmers who are happy to help with learning and troubleshooting.
+
+### Are you new and looking to dive in?
+
+* Check the `beginner friendly` tag for issues that don't require deep familiarity with the codebase.
+* Check out the README! We do a pretty good job of documenting our processes. 
+* Come hang out with us at a Code for DC meeting!
