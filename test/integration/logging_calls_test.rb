@@ -28,16 +28,17 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
   describe 'logging reached patient', js: true do
     before do
-      @timestamp = Time.now
-      click_link 'I reached the patient'
+      @timestamp = Time.zone.now
+      find('a', text: 'I reached the patient').click
     end
 
     it 'should redirect to the edit view when a patient has been reached' do
+      has_text? 'Submit pledge' # wait for the page to load
       assert_equal current_path, edit_pregnancy_path(@pregnancy)
     end
 
     it 'should be viewable on the call log' do
-      click_link 'Call Log'
+      find('a', text: 'Call Log').click
 
       within :css, '#call_log' do
         assert has_text? @timestamp.localtime.strftime('%-m/%-d')
@@ -53,7 +54,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       click_button 'Search'
       find("a[href='#call-123-123-1234']").click
       click_link 'I reached the patient'
-      click_link 'Call Log'
+      find('a', text: 'Call Log').click
       within :css, '#call_log' do
         assert has_content? 'Reached patient', count: 2
       end
@@ -81,6 +82,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       end
 
       it "should be visible on the call log after clicking #{call_status}" do
+        assert_equal current_path, authenticated_root_path
         visit edit_pregnancy_path(@pregnancy)
         find('a', text: 'Call Log').click
 
