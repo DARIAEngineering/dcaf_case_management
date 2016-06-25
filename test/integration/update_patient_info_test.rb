@@ -7,6 +7,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @pregnancy = create :pregnancy, patient: @patient
     log_in_as @user
     visit edit_pregnancy_path @pregnancy
+    has_text? 'First and last name' # wait until page loads
   end
 
   describe 'changing patient dashboard information' do
