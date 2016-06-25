@@ -38,7 +38,7 @@ class Pregnancy
   field :employment_status, type: String
   field :household_size, type: Integer
   field :insurance, type: String
-  field :income, type: Integer
+  field :income, type: String
   field :referred_by, type: String
   field :special_circumstances, type: String # ennumeration
 
