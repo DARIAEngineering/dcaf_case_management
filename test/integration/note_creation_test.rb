@@ -21,7 +21,9 @@ class NoteCreationTest < ActionDispatch::IntegrationTest
     it 'should let you add a new case note' do
       fill_in 'note[full_text]', with: 'Sample new note creation body'
       click_button 'Create Note'
-      assert has_text? 'Sample new note creation body'
+      within('#notes_log') do
+        assert has_text? 'Sample new note creation body'
+      end
     end
   end
 end
