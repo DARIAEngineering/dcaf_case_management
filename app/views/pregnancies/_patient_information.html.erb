@@ -36,11 +36,11 @@
         <%= f.select :employment_status, 
                      options_for_select(employment_status_options,
                                         pregnancy.employment_status),
-                                        label: 'Employment status' %>
+                                        autocomplete: 'off' %>
         <%= f.select :income, 
                      options_for_select(income_options,
                                         pregnancy.income),
-                                        label: 'Income' %>
+                                        autocomplete: 'off' %>
         <%= f.select :household_size, 
                       options_for_select(household_size_options,
                                          pregnancy.household_size),
@@ -49,9 +49,14 @@
                      options_for_select(insurance_options,
                                         pregnancy.insurance),
                                         label: 'Patient insurance' %>
-        <%= f.text_field :referred_by, label: 'Referred by', autocomplete: 'off' %>
-        <!-- special_circumstances checkbox-->
-        <h5>PLACEHOLDER: Special Circumstances</h5>
+        <%= f.select :referred_by,
+                     options_for_select(referred_by_options,
+                                        pregnancy.referred_by),
+                                        autocomplete: 'off' %>
+        <%= f.select :special_circumstances,
+                     options_for_select(special_circumstances_options,
+                                        pregnancy.special_circumstances),
+                                        autocomplete: 'off' %>
       </div>
     </div>
   </div>
