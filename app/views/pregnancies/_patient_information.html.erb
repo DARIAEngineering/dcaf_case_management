@@ -5,17 +5,21 @@
         <h2>Patient information</h2>
       </div>
     </div>
+
     <div class="row">
       <div class="info-form-left col-sm-6">
         <%= f.fields_for pregnancy.patient do |p| %>
-        <%= p.text_field :secondary_person, autocomplete: 'off' %>
-        <%= p.text_field :secondary_phone, autocomplete: 'off' %>
+          <%= p.text_field :secondary_person, autocomplete: 'off' %>
+          <%= p.text_field :secondary_phone, autocomplete: 'off' %>
         <% end %>
+  
         <%= f.text_field :age, label: 'Age', autocomplete: 'off' %>
-        <%= f.select :race_ethnicity, options_for_select(
-        ['', 'Caucasian', 'African American',
-          'Asian/Pacific Islander', 'Hispanic'],
-          pregnancy.race_ethnicity), label: 'Race / Ethnicity', autocomplete: 'off' %>
+        <%= f.select :race_ethnicity, 
+                     options_for_select(race_ethnicity_options,
+                                        pregnancy.race_ethnicity),
+                                        label: 'Race / Ethnicity', 
+                                        autocomplete: 'off' %>
+
         <div class="row">
           <div class="col-sm-8">
             <%= f.text_field :city, label: 'City', autocomplete: 'off' %>
@@ -24,22 +28,27 @@
             <%= f.text_field :state, label: 'State', autocomplete: 'off' %>
           </div>
         </div>
+
         <%= f.text_field :zip, label: 'ZIP', autocomplete: 'off' %>
       </div>
 
       <div class="info-form-right col-sm-6">
-        <%= f.select :employment_status, options_for_select(
-        ['Full-time', 'Part-time', 'Unemployed'],
-        pregnancy.employment_status), label: 'Employment status' %>
-        <%= f.select :income, options_for_select(
-        { 'Range 1' => 1, 'Range 2' => 2 }, pregnancy.income),
-        label: 'Income' %>
-        <%= f.select :household_size, options_for_select(
-        { 'Size 1' => 1, 'Size 2' => 2 }, pregnancy.household_size),
-        label: 'People in household' %>
-        <%= f.select :insurance, options_for_select(
-        ['option 1', 'option 2'], pregnancy.insurance),
-        label: 'Patient insurance' %>
+        <%= f.select :employment_status, 
+                     options_for_select(employment_status_options,
+                                        pregnancy.employment_status),
+                                        label: 'Employment status' %>
+        <%= f.select :income, 
+                     options_for_select(income_options,
+                                        pregnancy.income),
+                                        label: 'Income' %>
+        <%= f.select :household_size, 
+                      options_for_select(household_size_options,
+                                         pregnancy.household_size),
+                                         label: 'People in household' %>
+        <%= f.select :insurance, 
+                     options_for_select(insurance_options,
+                                        pregnancy.insurance),
+                                        label: 'Patient insurance' %>
         <%= f.text_field :referred_by, label: 'Referred by', autocomplete: 'off' %>
         <!-- special_circumstances checkbox-->
         <h5>PLACEHOLDER: Special Circumstances</h5>

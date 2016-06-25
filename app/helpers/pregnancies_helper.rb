@@ -46,4 +46,8 @@ module PregnanciesHelper
     ['Domestic Violence', 'Fetal Anomaly', 'Homeless', 'Immigrant', 'Incest',
      'Maternal Health', 'Other', 'Rape', 'Undocumented/Non-Citizen']
   end
+
+  def household_size_options
+    (0..10).map { |i| i }
+  end
 end
