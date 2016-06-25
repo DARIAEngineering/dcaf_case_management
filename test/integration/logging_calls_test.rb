@@ -41,8 +41,8 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       find('a', text: 'Call Log').click
 
       within :css, '#call_log' do
-        assert has_text? @timestamp.localtime.strftime('%-m/%-d')
-        assert has_text? @timestamp.localtime.strftime('%-l:%M %P')
+        assert has_text? @timestamp.display_date
+        assert has_text? @timestamp.display_time
         assert has_text? 'Reached patient'
         assert has_text? @user.name
       end
@@ -87,8 +87,8 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         find('a', text: 'Call Log').click
 
         within :css, '#call_log' do
-          assert has_text? @timestamp.localtime.strftime('%-m/%-d')
-          assert has_text? @timestamp.localtime.strftime('%-l:%M %P')
+          assert has_text? @timestamp.display_date
+          assert has_text? @timestamp.display_time
           assert has_text? call_status
           assert has_text? @user.name
         end
