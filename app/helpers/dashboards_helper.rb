@@ -10,4 +10,9 @@ module DashboardsHelper
                       end
     "#{week_start_string} - #{week_end_string}"
   end
+
+  def plus_sign_glyphicon(text)
+    return nil unless text.length > 41
+    "<span class='glyphicon glyphicon-plus-sign' aria-hidden='true' data-toggle='popover' data-placement='bottom' title='Most recent note' data-content='#{text}'></span><span class='sr-only'>Full note</span>".html_safe
+  end
 end
