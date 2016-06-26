@@ -81,6 +81,10 @@ class CallListTest < ActionDispatch::IntegrationTest
         within :css, '#completed_calls_content' do
           assert has_no_text? @patient.name
         end
+        
+        within :css, '#call_list_content' do
+          assert has_no_text? @patient.name
+        end
       end
     end
   end
