@@ -75,8 +75,11 @@ class CallListTest < ActionDispatch::IntegrationTest
       end
     end
 
-    # it 'should time a call out after 8 hours' do
-    #   Timecop.freeze.travel(8.hours.from_now) do
+    it 'should time a call out after 8 hours' do
+      puts Time.now
+      Timecop.freeze.travel(8.hours.from_now) do
+        puts Time.now
+      end
     #     within :css, '#completed_calls_content' do
     #       assert has_no_text? @patient.name
     #     end
