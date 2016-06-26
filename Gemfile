@@ -50,6 +50,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'launchy'
   gem 'codecov', require: false
+  gem 'timecop'
 end
 
 group :production do
