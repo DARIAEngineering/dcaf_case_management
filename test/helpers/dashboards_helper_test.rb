@@ -18,4 +18,10 @@ class DashboardsHelperTest < ActionView::TestCase
       assert_equal expected, week_range(date: @date_2, start_day: @monday_start)
     end
   end
+
+  describe 'plus sign glyphicon method' do
+    it 'should fail until i write actual tests' do
+      assert false
+    end
+  end
 end
