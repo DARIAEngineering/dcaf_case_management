@@ -20,8 +20,14 @@ class DashboardsHelperTest < ActionView::TestCase
   end
 
   describe 'plus sign glyphicon method' do
-    it 'should fail until i write actual tests' do
-      assert false
+    it 'should return nil if the text is under 40 char' do
+      under_40_char = 'yolo goat'
+      assert_nil plus_sign_glyphicon under_40_char
+    end
+
+    it 'should return a glyphicon if the text is over 40 char' do
+      over_40_char = 'this is 40 character or so cats are great so fluffy'
+      refute_nil plus_sign_glyphicon over_40_char
     end
   end
 end
