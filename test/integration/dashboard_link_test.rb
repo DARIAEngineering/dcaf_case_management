@@ -25,7 +25,7 @@ class DashboardLinkTest < ActionDispatch::IntegrationTest
     end
 
     it 'should direct the user to the dashboard' do
-      click_link 'Dashboard'
+      find('a', text: 'Dashboard').click
       assert_equal current_path, authenticated_root_path
       refute has_link? 'Dashboard', href: authenticated_root_path
     end

@@ -7,6 +7,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @pregnancy = create :pregnancy, patient: @patient
     log_in_as @user
     visit edit_pregnancy_path @pregnancy
+    has_text? 'First and last name' # wait until page loads
   end
 
   describe 'changing patient dashboard information' do
@@ -58,17 +59,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Secondary person', with: 'Susie Everyteen Sr'
       fill_in 'Secondary phone', with: '123-666-7777'
       fill_in 'Age', with: '24'
-      find('#pregnancy_race_ethnicity').select 'Caucasian'
+      find('#pregnancy_race_ethnicity').select 'White/Caucasian'
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'ZIP', with: '90210'
 
       find('#pregnancy_employment_status').select 'Part-time'
-      # find('#pregnancy_income').select 'Full-time'
-      # find('#pregnancy_people_in_household').select 'Full-time'
-      # find('#pregnancy_patient_insurance').select 'Full-time'
-      fill_in 'Referred by', with: 'Friend'
-      # TK Special circumstances
+      find('#pregnancy_income').select '$30,000-34,999 ($577-672/week)'
+      find('#pregnancy_household_size').select '1'
+      find('#pregnancy_insurance').select 'Other state Medicaid'
+      find('#pregnancy_referred_by').select 'Other abortion fund'
+      find('#pregnancy_special_circumstances').select 'Other'
 
       click_button 'TEMP: SAVE INFORMATION'
       visit authenticated_root_path
@@ -80,17 +81,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'Secondary person', with: 'Susie Everyteen Sr'
         assert has_field? 'Secondary phone', with: '123-666-7777'
         assert has_field? 'Age', with: '24'
-        assert_equal find('#pregnancy_race_ethnicity').value, 'Caucasian'
+        assert_equal 'White/Caucasian', find('#pregnancy_race_ethnicity').value
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
 
-        assert_equal find('#pregnancy_employment_status').value, 'Part-time'
-        # assert_equal find('#pregnancy_income').value, 'Full-time'
-        # assert_equal find('#pregnancy_people_in_household').value, 'Full-time'
-        # assert_equal find('#pregnancy_patient_insurance').value, 'Full-time'
-        assert has_field? 'Referred by', with: 'Friend'
-        # TK Special circumstances
+        assert_equal 'Part-time', find('#pregnancy_employment_status').value
+        assert_equal '$30,000-34,999 ($577-672/week)', find('#pregnancy_income').value
+        assert_equal '1', find('#pregnancy_household_size').value
+        assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
+        assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
+        assert_equal 'Other', find('#pregnancy_special_circumstances').value
       end
     end
   end
