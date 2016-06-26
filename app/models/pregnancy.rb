@@ -76,6 +76,13 @@ class Pregnancy
     calls.order('created_at DESC').offset(10)
   end
 
+  def most_recent_note_display_text
+    most_recent_note = notes.order('created_at DESC').limit(1).first.try :full_text
+    display_note = most_recent_note.to_s[0..40]
+    display_note << '...' if most_recent_note.to_s.length > 40
+    display_note
+  end
+
   def status
     # if resolved_without_dcaf
     #   status = "Resolved Without DCAF"
