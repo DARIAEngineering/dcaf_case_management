@@ -28,6 +28,7 @@ class UserTest < ActiveSupport::TestCase
       @pregnancy_2 = create :pregnancy
       @user.pregnancies << @pregnancy
       @user.pregnancies << @pregnancy_2
+      @user_2 = create :user
     end
 
     it 'should return recently_called_pregnancies accurately' do
@@ -39,6 +40,8 @@ class UserTest < ActiveSupport::TestCase
     it 'should return call_list_pregnancies accurately' do
       assert_equal 2, @user.call_list_pregnancies.count
       @call = create :call, pregnancy: @pregnancy, created_by: @user
+      assert_equal 1, @user.call_list_pregnancies.count
+      @call_2 = create :call, pregnancy: @pregnancy_2, created_by: @user_2
       assert_equal 1, @user.call_list_pregnancies.count
     end
 
