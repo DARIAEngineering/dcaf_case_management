@@ -21,7 +21,9 @@
           <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
           <td><%= p.last_menstrual_period_display_short %></td>
           <td><%= p.status %></td>
-          <td><%= p.most_recent_note_display_text %></td>
+          <td><%= p.most_recent_note_display_text %> <%= plus_sign_glyphicon(p.most_recent_note) %>
+  
+          </td>
 
           <% if current_user.pregnancies.include?(p) %>
             <td><%= link_to "Remove", remove_pregnancy_path(current_user, p), method: :patch, remote: true %></td>
