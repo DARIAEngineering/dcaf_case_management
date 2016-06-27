@@ -10,6 +10,10 @@ class ShowPregnancyInformationTest < ActionDispatch::IntegrationTest
     visit edit_pregnancy_path(@pregnancy)
   end
 
+  after do
+    Capybara.use_default_driver
+  end
+
   describe 'clicking between sections to see information' do
     it 'should show the patient dashboard on open' do
       within :css, '#patient_dashboard' do

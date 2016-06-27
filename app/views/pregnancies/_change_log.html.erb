@@ -14,7 +14,7 @@
       <tbody>
         <% pregnancy.patient.history_tracks.each do |revision| %>
           <tr>
-            <td><%= revision.date_of_edit %></td>
+            <td><%= revision.created_at.display_date %></td>
             <td><%= revision.tracked_changes_fields %></td>
             <td><%= revision.tracked_changes_from %></td>
             <td><%= revision.tracked_changes_to %></td>

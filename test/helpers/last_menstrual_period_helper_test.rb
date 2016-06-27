@@ -41,28 +41,35 @@ class LastMenstrualPeriodHelperTest < ActionView::TestCase
 
     it 'should be equivalent to LMP on date - Time.zone.today' do
       assert_equal  @pregnancy.send(:last_menstrual_period_now),
-                    @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today)
+                    @pregnancy.send(:last_menstrual_period_on_date,
+                                    Time.zone.today)
     end
   end
 
   describe 'last_menstrual_period_on_date' do
     it 'should nil out if LMP weeks is not set' do
       @pregnancy.last_menstrual_period_weeks = nil
-      assert_nil @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today)
+      assert_nil @pregnancy.send(:last_menstrual_period_on_date,
+                                 Time.zone.today)
     end
 
     it 'should accurately calculate LMP on a given date' do
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 67
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, 5.days.from_now.to_date), 72
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date,
+                                   Time.zone.today), 67
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date,
+                                   5.days.from_now.to_date), 72
 
       @pregnancy.initial_call_date = 4.days.ago
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 69
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date,
+                                   Time.zone.today), 69
 
       @pregnancy.last_menstrual_period_weeks = 10
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 76
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date,
+                                   Time.zone.today), 76
 
       @pregnancy.last_menstrual_period_days = 6
-      assert_equal @pregnancy.send(:last_menstrual_period_on_date, Time.zone.today), 80
+      assert_equal @pregnancy.send(:last_menstrual_period_on_date,
+                                   Time.zone.today), 80
     end
   end
 end

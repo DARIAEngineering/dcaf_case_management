@@ -38,8 +38,6 @@ class UsersControllerTest < ActionController::TestCase
     it 'should should return bad request on sketch ids' do
       patch :add_pregnancy, id: '12345678', user_id: @user, format: :js
       assert_response :bad_request
-      patch :add_pregnancy, id: @pregnancy_1, user_id: 'bronsonmissouri', format: :js
-      assert_response :bad_request
     end
   end
 
@@ -71,8 +69,6 @@ class UsersControllerTest < ActionController::TestCase
 
     it 'should should return bad request on sketch ids' do
       patch :remove_pregnancy, id: '12345678', user_id: @user, format: :js
-      assert_response :bad_request
-      patch :remove_pregnancy, id: @pregnancy_1, user_id: 'bronsonmissouri', format: :js
       assert_response :bad_request
     end
   end
