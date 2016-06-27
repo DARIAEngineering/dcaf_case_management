@@ -11,7 +11,11 @@ RUN apt-get install -y libxml2-dev libxslt1-dev
 RUN apt-get install -y libqt4-webkit libqt4-dev xvfb
 
 # for a JS runtime
-RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs && ln -s `which nodejs` /usr/bin/node
+RUN apt-get install -y npm
+
+# for phantomjs
+RUN npm install -g phantomjs-prebuilt
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
