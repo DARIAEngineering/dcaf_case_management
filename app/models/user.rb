@@ -8,9 +8,9 @@ class User
           :recoverable,
           :rememberable,
           :trackable,
-          :validatable
+          :validatable,
+          :lockable
   # :confirmable
-  # :lockable
   # :timeoutable
 
   # Relationships
