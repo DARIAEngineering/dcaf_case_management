@@ -8,7 +8,7 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
 
   describe 'logging in successfully' do
     it 'should display a success message after successful login' do
-      assert_text 'Signed in successfully.'
+      refute has_text? 'Signed in successfully.'
     end
   end
 
@@ -37,14 +37,14 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
     it 'should send you back to the sign in path' do
       sign_out
       assert_equal current_path, new_user_session_path
-      assert_text 'You need to sign in or sign up before continuing.'
+      refute has_text? 'You need to sign in or sign up before continuing.'
     end
 
     it 'should prevent you from being able to get to data afterwards' do
       sign_out
       visit dashboard_path
       assert_equal current_path, new_user_session_path
-      assert_text 'You need to sign in or sign up before continuing.'
+      refute has_text? 'You need to sign in or sign up before continuing.'
     end
   end
 end

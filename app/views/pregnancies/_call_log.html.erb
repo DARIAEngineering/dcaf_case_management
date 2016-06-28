@@ -1,5 +1,5 @@
 <section id="call_log" class="call-info tab-pane">
-	<div class="margin-bottom col-md-12">
+	<div class="margin-bottom col-sm-12">
 		<h2>Call Log</h2>
 		<table class="table border-side">
 			<tr>
@@ -11,16 +11,16 @@
 			<tbody>
 				<% pregnancy.recent_calls.each do |call| %>
 					<tr>
-						<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
-						<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
+						<td><%= call.created_at.display_date %></td>
+						<td><%= call.created_at.display_time %></td>
 						<td><%= call.status %></td>
 						<td><%= call.created_by.name %></td>
 					</tr>
 				<% end %>
 				<% pregnancy.old_calls.each do |call| %>
 					<tr class="old-calls hidden">
-						<td><%= call.created_at.getlocal.strftime("%-m/%-d") %></td>
-						<td><%= call.created_at.getlocal.strftime("%l:%M %P") %></td>
+						<td><%= call.created_at.display_date %></td>
+						<td><%= call.created_at.display_time %></td>
 						<td><%= call.status %></td>
 						<td><%= call.created_by.name %></td>
 					</tr>

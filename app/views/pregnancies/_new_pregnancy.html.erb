@@ -1,29 +1,37 @@
 <h3><small>Your search produced no results, so add a new patient:</small></h3>
-<%= bootstrap_form_for pregnancy do |f| %>
 
+<%= bootstrap_form_for pregnancy do |f| %>
   <%= f.fields_for patient do |p| %>
-    <div class="col-md-2">
-      <%= p.text_field :primary_phone, label: "Phone Number" %>
-    </div>
-    <div class="col-md-2">
-      <%= p.text_field :name, label: "First and Last Name" %>
+    <div class="col-md-3">
+      <div class="col-md-6">
+        <%= p.text_field :primary_phone, label: "Phone" %>
+      </div>
+      <div class="col-md-6">
+        <%= p.text_field :name, label: "Name" %>
+      </div>
     </div>
   <% end %>
 
-  <div class="col-md-2">
-    <%= f.text_field :last_menstrual_period_weeks, label: "LMP" %>
-  </div>
-  <div class="col-md-2">
-    <%= f.date_field :initial_call_date, label: "Initial Call Date" %>
+  <div class="col-md-3">
+    <div class="col-md-6">
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP', autocomplete: 'off' %>
+    </div>
+    <div class="col-md-6 hide-label">
+      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: 'LMP', autocomplete: 'off' %>
+    </div>
   </div>
 
   <div class="col-md-2">
+    <%= f.date_field :initial_call_date, label: "Initial Call Date", value: @today,  required: "required" %>
+  </div>
+
+  <div class="col-sm-2">
     <%= f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
     <%= f.check_box :voicemail_ok, label: 'Yes' %> <!-- TODO add bootstrap toggle -->
     <% end %>
   </div>
 
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <br>
     <%= button_tag class: 'btn btn-primary', id: 'create_new_patient_button' do %>
        <span class='glyphicon glyphicon-plus-sign'></span> Create new patient

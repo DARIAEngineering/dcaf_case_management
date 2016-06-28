@@ -10,6 +10,12 @@ $font-size: 17px;
   padding: 15px 0;
 }
 
+.hide-label{
+  label{
+    visibility: hidden;
+  }
+}
+
 #menu {
   border-right: 1px solid black;
   height: 70vh;

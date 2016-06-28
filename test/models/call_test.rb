@@ -17,7 +17,9 @@ class CallTest < ActiveSupport::TestCase
         @call.status = bad_status
         refute @call.valid?
       end
-      ['Left voicemail', "Couldn't reach patient", 'Reached patient'].each do |status|
+      valid_call_statuses =
+        ['Left voicemail', "Couldn't reach patient", 'Reached patient']
+      valid_call_statuses.each do |status|
         @call.status = status
         assert @call.valid?
       end

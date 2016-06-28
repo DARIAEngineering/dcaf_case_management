@@ -24,7 +24,7 @@ Patient.all.each do |patient|
                                          created_by: user.id
 
   5.times do
-    pregnancy.calls.create status: 'Left voicemail', created_by: user
+    pregnancy.calls.create status: 'Left voicemail', created_by: user unless patient.name == 'Patient 9'
   end
   if patient.name == 'Patient 0'
     10.times do

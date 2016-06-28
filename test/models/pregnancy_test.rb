@@ -3,9 +3,9 @@ require 'test_helper'
 class PregnancyTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @pt_1 = create :patient, name: 'Susan Everywoman', primary_phone: '123-456-6789'
-    @pt_2 = create :patient, name: 'Susan Everyteen', primary_phone: '123-456-6789'
-    @pt_3 = create :patient, name: 'Susan Everygirl', secondary_phone: '999-999-9999'
+    @pt_1 = create :patient, name: 'Susan Smith', primary_phone: '123-456-6789'
+    @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789'
+    @pt_3 = create :patient, name: 'Susan All', secondary_phone: '999-999-9999'
     [@pt_1, @pt_2, @pt_3].each do |pt|
       create :pregnancy, patient: pt, created_by: @user
     end
@@ -31,7 +31,7 @@ class PregnancyTest < ActiveSupport::TestCase
     end
 
     it 'should find a patient' do
-      assert_equal Patient.search('Susan Everywoman').count, 1
+      assert_equal Patient.search('Susan Smith').count, 1
     end
 
     it 'should find multiple patients if there are multiple' do
@@ -43,12 +43,23 @@ class PregnancyTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'most_recent_note_display_text method' do
+    before do
+      @note = create :note, pregnancy: @pregnancy, full_text: (1..100).map(&:to_s).join('')
+    end
+
+    it 'returns 44 characters of the notes text' do
+      assert_equal 44, @pregnancy.most_recent_note_display_text.length
+      assert_match /^1234/, @pregnancy.most_recent_note_display_text
+    end
+  end
+
   describe 'status method' do
     it 'should default to "No Contact Made" when a pregnancy has no calls' do
       assert_equal 'No Contact Made', @pregnancy.status
     end
 
-    it 'should default to "No Contact Made" when a pregnancy has an unsuccessful call' do
+    it 'should default to "No Contact Made" on a pregnancy left voicemail' do
       create :call, pregnancy: @pregnancy, status: 'Left voicemail'
       assert_equal 'No Contact Made', @pregnancy.status
     end
@@ -69,7 +80,7 @@ class PregnancyTest < ActiveSupport::TestCase
     # it 'should update to "Pledge Paid" after a pledge has been paid' do
     # end
 
-    # it 'should update to "Resolved Without DCAF" if a pregnancy is marked resolved' do
+    # it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
     # end
   end
 

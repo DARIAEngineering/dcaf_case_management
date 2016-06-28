@@ -11,7 +11,9 @@ class Call
   field :status, type: String
 
   # Validations
-  allowed_statuses = ['Reached patient', 'Left voicemail', "Couldn't reach patient"]
+  allowed_statuses = ['Reached patient',
+                      'Left voicemail',
+                      "Couldn't reach patient"]
   validates :status,  presence: true,
                       inclusion: { in: allowed_statuses }
   validates :created_by, presence: true
@@ -23,4 +25,8 @@ class Call
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+
+  def recent?
+    updated_at > 8.hours.ago ? true : false
+  end
 end

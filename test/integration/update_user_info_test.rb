@@ -31,7 +31,7 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
       sign_out
       @user.password = 'another_password'
       log_in_as @user
-      assert_text 'Signed in successfully.'
+      refute has_text? 'Signed in successfully.'
     end
 
     it 'should veto changes without current password' do
