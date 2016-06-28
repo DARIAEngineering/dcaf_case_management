@@ -20,6 +20,13 @@ class UserTest < ActiveSupport::TestCase
                      @user.errors.messages[attribute.to_sym].first
       end
     end
+
+      it "should require content in #{attribute}" do
+        @user[attribute.to_sym] = nil
+        assert_not @user.valid?
+        assert_equal "can't be blank",
+                     @user.errors.messages[attribute.to_sym].first
+    end
   end
 
   # TODO: test call list population
