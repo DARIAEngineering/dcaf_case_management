@@ -3,7 +3,6 @@ class Patient
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
-  include Mongoid::Search
 
   # Relationships
   has_many :pregnancies
@@ -33,7 +32,16 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
+
+
   def self.search(name_or_phone_str) # TODO: optimize
-    search_in :name, :primary_phone, :secondary_phone 
+    clean_phone = name_or_phone_str.gsub(/\D/, '')
+    phone = clean_phone[0..2] + '-' + clean_phone[3..5] + '-' + clean_phone[6..10]
+    begin
+      name_matches = Patient.where ({name: /^#{Regexp.escape(name_or_phone_str)}$/i})
+      primary_matches = Patient.where primary_phone: phone
+      secondary_matches = Patient.where secondary_phone: phone
+      (name_matches | primary_matches | secondary_matches)
+    end
   end
 end
