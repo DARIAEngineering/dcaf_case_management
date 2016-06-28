@@ -16,6 +16,7 @@
 //= require bootstrap-sprockets
 //= require google_analytics
 //= require_tree .
+//= require_tree ../../../vendor/assets/javascripts/.
 
 $(document).ready(function(){
 
@@ -45,4 +46,7 @@ $(document).ready(function(){
 		$('.pledge_modal_screen3').hide();		
 	})
 
+  $('[data-toggle="toggle"]').bootstrapToggle();
 })
+
+

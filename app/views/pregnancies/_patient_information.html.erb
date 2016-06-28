@@ -20,6 +20,13 @@
                                         label: 'Race / Ethnicity', 
                                         autocomplete: 'off' %>
 
+        <%= f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
+          <!-- <div class='bootstrap_toggle_spacing'> -->
+            <%= f.check_box :voicemail_ok, label: '' %>
+            <%#= f.check_box :voicemail_ok, data: { toggle: 'toggle', yes: 'Yes', no: 'No' },label: '' %>
+          <!-- </div> -->
+        <% end %>
+
         <div class="row">
           <div class="col-sm-8">
             <%= f.text_field :city, label: 'City', autocomplete: 'off' %>
@@ -61,5 +68,4 @@
     </div>
   </div>
 </section>
-
 
