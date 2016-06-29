@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.4'
+ruby '2.3.1'
 
 gem 'rails', '~> 4.2.6'
 gem 'sass-rails', '~> 5.0'
@@ -55,6 +55,6 @@ group :test do
 end
 
 group :production do
-  gem 'puma'
+  gem 'unicorn'
   gem 'rails_12factor'
 end
