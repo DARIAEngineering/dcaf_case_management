@@ -24,4 +24,5 @@ class UsersController < ApplicationController
     @pregnancy = Pregnancy.find params[:id]
     @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
   end
+
 end
