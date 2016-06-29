@@ -60,10 +60,7 @@
                      options_for_select(referred_by_options,
                                         pregnancy.referred_by),
                                         autocomplete: 'off' %>
-        <%= f.select :special_circumstances,
-                     options_for_select(special_circumstances_options,
-                                        pregnancy.special_circumstances),
-                                        autocomplete: 'off' %>
+        <%= f.text_field :special_circumstances, autocomplete: 'Off' %>
       </div>
     </div>
   </div>
