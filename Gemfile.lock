@@ -202,10 +202,6 @@ GEM
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
-<<<<<<< HEAD
-    puma (3.4.0)
-=======
->>>>>>> 314305801fb0f43525fe25d5d1a80fbddc70d161
     punchlist (1.2.0)
       source_finder (>= 2)
     quality (20.1.0)
@@ -323,14 +319,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
-<<<<<<< HEAD
-    unicode-display_width (1.1.0)
-=======
-    unicode-display_width (1.0.3)
-    unicorn (5.1.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
->>>>>>> 314305801fb0f43525fe25d5d1a80fbddc70d161
     url (0.3.2)
     virtus (1.0.5)
       axiom-types (~> 0.1)
