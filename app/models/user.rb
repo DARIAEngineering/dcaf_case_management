@@ -6,10 +6,10 @@ class User
   devise  :database_authenticatable,
           :registerable,
           :recoverable,
-          :rememberable,
           :trackable,
           :validatable,
           :lockable
+  # :rememberable
   # :confirmable
   # :timeoutable
 
@@ -31,7 +31,7 @@ class User
   field :reset_password_sent_at, type: Time
 
   ## Rememberable
-  field :remember_created_at, type: Time
+  # field :remember_created_at, type: Time
 
   ## Trackable
   field :sign_in_count,      type: Integer, default: 0
