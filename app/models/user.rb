@@ -8,10 +8,11 @@ class User
           :recoverable,
           :trackable,
           :validatable,
-          :lockable
+          :lockable, 
+          :timeoutable
   # :rememberable
   # :confirmable
-  # :timeoutable
+
 
   # Relationships
   has_and_belongs_to_many :pregnancies, inverse_of: :users
