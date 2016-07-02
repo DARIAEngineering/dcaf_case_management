@@ -22,8 +22,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_last_menstrual_period_days').select '2 days'
       # fill_in 'Appointment date', with: '12/20/2016' PUNT
       fill_in 'Phone number', with: '123-666-8888'
+
       click_away_from_field
-      # click_button 'TEMP: SAVE INFORMATION'
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
@@ -46,10 +46,10 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       # TODO: finish this after implementing clinic logic
       fill_in 'Abortion Cost:', with: '300'
       # TODO: and this, once we have funding sources
-      # click_button 'TEMP: SAVE INFORMATION'
       click_away_from_field
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
+      click_link 'Abortion Information'
     end
 
     it 'should alter the information' do
@@ -79,10 +79,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_insurance').select 'Other state Medicaid'
       find('#pregnancy_referred_by').select 'Other abortion fund'
       fill_in 'Special circumstances', with: 'Stuff'
-      # send_keys :tab
 
       click_away_from_field
-      # click_button 'TEMP: SAVE INFORMATION'
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
