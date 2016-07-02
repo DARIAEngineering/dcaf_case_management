@@ -5,10 +5,13 @@ class NotesController < ApplicationController
   def create
     @note = @pregnancy.notes.new note_params
     @note.created_by = current_user
-    @note.save!
-    @notes = @pregnancy.reload.notes.order_by 'created_at desc'
-    respond_to do |format|
-      format.js
+    if @note.save
+      @notes = @pregnancy.reload.notes.order_by 'created_at desc'
+      respond_to do |format|
+        format.js
+      end
+    else
+      head :bad_request
     end
   end
 

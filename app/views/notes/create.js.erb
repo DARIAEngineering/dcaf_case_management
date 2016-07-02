@@ -1,1 +1,2 @@
+$('#note_full_text').val('');
 $('#notes_log').empty().append('<%= escape_javascript(render partial: "notes/notes_table", locals: { notes: @notes } ) %>');
