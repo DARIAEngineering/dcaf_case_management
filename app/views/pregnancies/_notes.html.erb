@@ -11,20 +11,5 @@
 		</div>
 	<% end %>
 
-	<table class="table border-side" id='notes_log'>
-		<tbody>
-      <%= pregnancy.notes.order('created_at DESC').each do |n| %>
-      	<% unless n.new_record? %>
-	        <tr>
-	          <th><%= n.created_at %></th>
-	          <th><%= n.created_at %></th>
-	          <th><%= n.created_by.name %></td>
-	        </tr>
-	        <tr>
-	          <td><%= n.full_text %></td>
-	        </tr>
-	      <% end %>
-      <% end %>
-		<tbody>
-	</table>
+	<%= render partial: 'notes/notes_table', locals: { notes: pregnancy.notes.order_by('created_at desc') } %>
 </section>

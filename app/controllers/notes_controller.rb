@@ -6,6 +6,7 @@ class NotesController < ApplicationController
     @note = @pregnancy.notes.new note_params
     @note.created_by = current_user
     @note.save!
+    @notes = @pregnancy.reload.notes.order_by 'created_at desc'
     respond_to do |format|
       format.js
     end

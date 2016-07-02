@@ -1,1 +1,1 @@
-$('#notes_log').prepend('Placeholder for now');
+$('#notes_log').empty().append('<%= escape_javascript(render partial: "notes/notes_table", locals: { notes: @notes } ) %>');
