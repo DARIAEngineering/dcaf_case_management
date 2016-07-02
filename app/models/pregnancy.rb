@@ -53,7 +53,7 @@ class Pregnancy
   validates :initial_call_date,
             :created_by,
             presence: true
-  validates_associated :patient, on: :create
+  validates_associated :patient
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
