@@ -2,12 +2,17 @@ require 'test_helper'
 
 class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   before do
+    Capybara.current_driver = :poltergeist
     @user = create :user
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
     log_in_as @user
     visit edit_pregnancy_path @pregnancy
     has_text? 'First and last name' # wait until page loads
+  end
+
+  after do
+    Capybara.use_default_driver
   end
 
   describe 'changing patient dashboard information' do
@@ -17,7 +22,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_last_menstrual_period_days').select '2 days'
       # fill_in 'Appointment date', with: '12/20/2016' PUNT
       fill_in 'Phone number', with: '123-666-8888'
-      click_button 'TEMP: SAVE INFORMATION'
+      click_away_from_field
+      # click_button 'TEMP: SAVE INFORMATION'
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
@@ -35,11 +41,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   describe 'changing abortion information' do
     before do
+      click_link 'Abortion Information'
       fill_in 'Clinic name', with: 'Stub Clinic'
       # TODO: finish this after implementing clinic logic
       fill_in 'Abortion Cost:', with: '300'
       # TODO: and this, once we have funding sources
-      click_button 'TEMP: SAVE INFORMATION'
+      # click_button 'TEMP: SAVE INFORMATION'
+      click_away_from_field
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
@@ -56,6 +64,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   describe 'changing patient information' do
     before do
+      click_link 'Patient Information'
       fill_in 'Secondary person', with: 'Susie Everyteen Sr'
       fill_in 'Secondary phone', with: '123-666-7777'
       fill_in 'Age', with: '24'
@@ -70,13 +79,16 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_insurance').select 'Other state Medicaid'
       find('#pregnancy_referred_by').select 'Other abortion fund'
       fill_in 'Special circumstances', with: 'Stuff'
+      # send_keys :tab
 
-      click_button 'TEMP: SAVE INFORMATION'
+      click_away_from_field
+      # click_button 'TEMP: SAVE INFORMATION'
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
 
     it 'should alter the information' do
+      click_link 'Patient Information'
       within :css, '#patient_information' do
         assert has_field? 'Secondary person', with: 'Susie Everyteen Sr'
         assert has_field? 'Secondary phone', with: '123-666-7777'
@@ -94,5 +106,11 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
       end
     end
+  end
+
+  private
+
+  def click_away_from_field
+    fill_in 'First and last name', with: nil
   end
 end
