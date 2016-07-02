@@ -6,12 +6,13 @@ class User
   devise  :database_authenticatable,
           :registerable,
           :recoverable,
-          :rememberable,
           :trackable,
           :validatable,
-          :lockable
+          :lockable, 
+          :timeoutable
+  # :rememberable
   # :confirmable
-  # :timeoutable
+
 
   # Relationships
   has_and_belongs_to_many :pregnancies, inverse_of: :users
@@ -31,7 +32,7 @@ class User
   field :reset_password_sent_at, type: Time
 
   ## Rememberable
-  field :remember_created_at, type: Time
+  # field :remember_created_at, type: Time
 
   ## Trackable
   field :sign_in_count,      type: Integer, default: 0
