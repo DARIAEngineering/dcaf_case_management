@@ -20,7 +20,7 @@ class PregnanciesController < ApplicationController
 
   def update
     if @pregnancy.update_attributes pregnancy_params
-      head :success
+      head :ok
     else
       head :bad_request
     end

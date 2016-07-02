@@ -19,7 +19,7 @@
       <%= render partial: 'pregnancies/patient_information', locals: { pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/change_log', locals: { pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/call_log', locals: { pregnancy: @pregnancy } %>
-      <%#= render partial: 'pregnancies/notes', locals: { note: @note } %>
+      <%= render partial: 'pregnancies/notes', locals: { pregnancy: @pregnancy, note: @note } %>
     </div>
   </div>
 <%# end %>

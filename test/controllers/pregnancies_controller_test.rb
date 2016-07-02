@@ -91,8 +91,14 @@ class PregnanciesControllerTest < ActionController::TestCase
       @pregnancy.reload
     end
 
-    it 'should redirect on completion' do # for now
-      assert_redirected_to edit_pregnancy_path(@pregnancy)
+    it 'should respond success on completion' do
+      assert_response :success
+    end
+
+    it 'should respond bad request on failure' do
+      @payload[:patient][:primary_phone] = nil
+      patch :update, id: @pregnancy, pregnancy: @payload
+      assert_response :bad_request
     end
 
     it 'should update pregnancy fields' do
