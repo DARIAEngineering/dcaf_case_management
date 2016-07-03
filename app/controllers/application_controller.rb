@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers, unless: :devise_controller?
+  before_action :authenticate_user!, unless: :devise_controller?
 
   # whitelists name attribute in devise
   def configure_permitted_parameters
