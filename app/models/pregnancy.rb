@@ -1,5 +1,4 @@
  class Pregnancy 
-  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
