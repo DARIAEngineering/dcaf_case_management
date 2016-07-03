@@ -1,0 +1,16 @@
+<table class="table border-side" id='notes_log'>
+  <tbody>    
+    <% notes.each do |note| %>
+      <% unless note.new_record? %>
+        <tr>
+          <th><%= note.created_at.display_date %></th>
+          <th><%= note.created_at.display_time %></th>
+          <th><%= note.created_by.name %></td>
+        </tr>
+        <tr>
+          <td><%= note.full_text %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  <tbody>
+</table>

@@ -1,27 +1,15 @@
 <section id="notes" class="notes tab-pane">
-	<div class="col-sm-12 margin-bottom">
-		<div class="row">
-			<div class="info-form-left col-sm-12">
-				<h2>Notes</h2>
-				<%= bootstrap_form_for [pregnancy, note] do |f| %>
-					<%= f.text_area :full_text, size: '20x10', placeholder: 'Enter notes here', hide_label: true %>
-					<%= f.submit class: "btn btn-primary"  %>
-				<% end %>
+	<%= bootstrap_form_for [pregnancy, note], html: { id: 'notes-form' }, remote: true do |f| %>  
+		<div class="col-sm-12 margin-bottom">
+			<div class="row">
+				<div class="info-form-left col-sm-12">
+					<h2>Notes</h2>
+          <%= f.text_area :full_text, size: '20x10', placeholder: 'Enter notes here', hide_label: true %>
+          <%= f.submit class: "btn btn-primary"  %>
+				</div>
 			</div>
 		</div>
-	</div>
-	<table class="table border-side" id='notes_log'>
-		<tbody>
-			<% pregnancy.notes.order('created_at DESC').each do |note| %>
-				<tr>
-					<th><%= note.created_at.display_date %></th>
-					<th><%= note.created_at.display_time %></th>
-					<th><%= note.created_by.name %></td>
-				</tr>
-				<tr>
-					<td><%= note.full_text %></td>
-				</tr>
-			<% end %>
-		<tbody>
-	</table>
+	<% end %>
+
+	<%= render partial: 'notes/notes_table', locals: { notes: pregnancy.notes.order_by('created_at desc') } %>
 </section>

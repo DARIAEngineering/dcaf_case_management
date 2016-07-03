@@ -2,12 +2,17 @@ require 'test_helper'
 
 class NoteCreationTest < ActionDispatch::IntegrationTest
   before do
+    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
     visit edit_pregnancy_path(@pregnancy)
-    find('a', text: 'Notes').click
+    click_link 'Notes'
+  end
+
+  after do
+    Capybara.use_default_driver
   end
 
   describe 'add patient pregnancy notes' do
