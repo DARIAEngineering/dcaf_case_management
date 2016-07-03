@@ -43,6 +43,17 @@ class PregnancyTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'most_recent_note_display_text method' do
+    before do
+      @note = create :note, pregnancy: @pregnancy, full_text: (1..100).map(&:to_s).join('')
+    end
+
+    it 'returns 44 characters of the notes text' do
+      assert_equal 44, @pregnancy.most_recent_note_display_text.length
+      assert_match /^1234/, @pregnancy.most_recent_note_display_text
+    end
+  end
+
   describe 'status method' do
     it 'should default to "No Contact Made" when a pregnancy has no calls' do
       assert_equal 'No Contact Made', @pregnancy.status

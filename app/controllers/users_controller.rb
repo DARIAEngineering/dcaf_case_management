@@ -1,16 +1,18 @@
 class UsersController < ApplicationController
-  before_action :retrieve_user_and_pregnancies
+  before_action :retrieve_pregnancies
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def add_pregnancy
-    @user.pregnancies << @pregnancy
+    current_user.pregnancies << @pregnancy
+    current_user.reload
     respond_to do |format|
       format.js { render template: 'users/refresh_pregnancies', layout: false }
     end
   end
 
   def remove_pregnancy
-    @user.pregnancies.delete @pregnancy
+    current_user.pregnancies.delete @pregnancy
+    current_user.reload
     respond_to do |format|
       format.js { render template: 'users/refresh_pregnancies', layout: false }
     end
@@ -18,9 +20,9 @@ class UsersController < ApplicationController
 
   private
 
-  def retrieve_user_and_pregnancies
+  def retrieve_pregnancies
     @pregnancy = Pregnancy.find params[:id]
-    @user = User.find params[:user_id]
     @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
   end
+
 end

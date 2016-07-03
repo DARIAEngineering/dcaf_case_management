@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.4'
+ruby '2.3.1'
 
 gem 'rails', '~> 4.2.6'
 gem 'sass-rails', '~> 5.0'
@@ -20,6 +20,7 @@ gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
 gem 'quality', require: false
 gem 'nokogiri', '>= 1.6.8'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -50,6 +51,7 @@ group :test do
   gem 'simplecov', require: false
   gem 'launchy'
   gem 'codecov', require: false
+  gem 'timecop'
 end
 
 group :production do
