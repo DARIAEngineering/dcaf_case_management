@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :prevent_caching_via_headers
+  before_action :prevent_caching_via_headers, unless: :devise_controller?
 
   # whitelists name attribute in devise
   def configure_permitted_parameters
