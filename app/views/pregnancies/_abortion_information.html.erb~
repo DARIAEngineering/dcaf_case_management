@@ -1,4 +1,4 @@
-<section id="abortion_information" class="abortion-info tab-pane">
+<section id="abortion_information" class="abortion-info tab-pane active">
   <%= bootstrap_form_for @pregnancy, html: { id: 'abortion-information-form' }, remote: true do |f| %>
     <div class="col-sm-12">
       <div class="row">
