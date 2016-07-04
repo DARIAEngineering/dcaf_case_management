@@ -22,6 +22,7 @@ gem 'quality', require: false
 gem 'nokogiri', '>= 1.6.8'
 gem 'newrelic_rpm'
 gem 'mongo_session_store-rails4'
+gem 'haml-rails', '~> 0.9'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -30,6 +31,7 @@ group :development do
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
   gem 'dawnscanner', require: false
+
 end
 
 group :development, :test do
