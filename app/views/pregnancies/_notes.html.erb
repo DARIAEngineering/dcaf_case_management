@@ -15,7 +15,7 @@
       </div>
 
       <div class="info-form-right col-sm-6">
-        <%= bootstrap_form_for pregnancy, html: { id: 'urgents-form' }, html: { class: 'text-right text-danger edit_pregnancy' }, remote: true do |u| %>
+        <%= bootstrap_form_for pregnancy, html: { id: 'urgents-form', class: 'text-right text-danger edit_pregnancy' }, remote: true do |u| %>
           <%= u.check_box :urgent_flag, label: 'Flag this patient as urgent' %>
         <% end %>
       </div>        
