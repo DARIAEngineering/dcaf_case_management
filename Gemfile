@@ -31,7 +31,10 @@ group :development do
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
   gem 'dawnscanner', require: false
+<<<<<<< HEAD
 
+=======
+>>>>>>> c55105e...  On branch master
 end
 
 group :development, :test do
@@ -61,4 +64,10 @@ end
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
+<<<<<<< HEAD
+=======
+
+ 
+end
+>>>>>>> c55105e...  On branch master
 end
