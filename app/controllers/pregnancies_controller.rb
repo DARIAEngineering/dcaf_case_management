@@ -42,6 +42,8 @@ class PregnanciesController < ApplicationController
       :procedure_cost,
       # fields in patient info
       :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size, :insurance, :referred_by, :special_circumstances,
+      # fields in notes
+      :urgent_flag,
       # associated
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
       patient: [:id, :name, :primary_phone, :secondary_person, :secondary_phone]
