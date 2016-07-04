@@ -67,7 +67,7 @@ class PregnanciesControllerTest < ActionController::TestCase
     it 'should contain the current record' do
       assert_match /Susie Everyteen/, response.body
       assert_match /123-456-7890/, response.body
-      assert_match /Standard Clinic/, response.body
+      assert_match /Sample Clinic 1/, response.body
     end
 
     it 'should not die if clinic is nil' do
@@ -75,7 +75,7 @@ class PregnanciesControllerTest < ActionController::TestCase
       get :edit, id: @pregnancy
       assert_response :success
       assert_match /Susie Everyteen/, response.body
-      refute_match /Standard Clinic/, response.body
+      refute_match /Sample Clinic 1/, response.body
     end
   end
 
