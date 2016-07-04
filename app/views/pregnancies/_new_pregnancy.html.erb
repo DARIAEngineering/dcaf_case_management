@@ -1,13 +1,13 @@
-<h3><small>Your search produced no results, so add a new patient:</small></h3>
+<h3><small>Add a new patient:</small></h3>
 
 <%= bootstrap_form_for pregnancy do |f| %>
-  <%= f.fields_for patient do |p| %>
+  <%= f.fields_for pregnancy.patient do |p| %>
     <div class="col-md-3">
       <div class="col-md-6">
-        <%= p.text_field :primary_phone, label: "Phone" %>
+        <%= p.text_field :primary_phone, label: 'Phone', value: phone %>
       </div>
       <div class="col-md-6">
-        <%= p.text_field :name, label: "Name" %>
+        <%= p.text_field :name, label: 'Name', value: name %>
       </div>
     </div>
   <% end %>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="col-md-2">
-    <%= f.date_field :initial_call_date, label: "Initial Call Date", value: @today,  required: "required" %>
+    <%= f.date_field :initial_call_date, label: "Initial Call Date", value: today,  required: "required" %>
   </div>
 
   <div class="col-sm-2">
