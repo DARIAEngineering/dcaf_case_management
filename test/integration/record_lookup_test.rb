@@ -1,9 +1,14 @@
 require 'test_helper'
 
 class RecordLookupTest < ActionDispatch::IntegrationTest
-  def setup
+  before do
+    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user
+  end
+
+  after do
+    Capybara.use_default_driver
   end
 
   describe 'looking up someone who exists', js: true do
@@ -33,10 +38,19 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       fill_in 'search', with: 'Nobody Real Here'
       click_button 'Search'
 
-      # TODO: improve by figuring out capybara CSS selectors and scoping
-      assert has_text? 'Your search produced no results, so add a new patient'
-      assert has_no_text? 'Nobody Real Here'
-      assert has_no_text? 'Search results'
+      within :css, '#search_results_shell' do
+        assert has_text? 'Your search produced no results, so add a new patient'
+        assert_equal 'Nobody Real Here', find_field('Name').value
+        assert has_no_text? 'Search results'
+      end
+
+      fill_in 'search', with: '111-111-1112'
+      click_button 'Search'
+
+      within :css, '#search_results_shell' do
+        assert has_text? 'Your search produced no results, so add a new patient'
+        assert_equal '111-111-1112', find_field('Phone').value
+      end
     end
   end
 end
