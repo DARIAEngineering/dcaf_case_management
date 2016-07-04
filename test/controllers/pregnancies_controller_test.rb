@@ -9,7 +9,7 @@ class PregnanciesControllerTest < ActionController::TestCase
                       primary_phone: '123-456-7890',
                       secondary_phone: '333-444-5555'
     @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
-    @clinic = create :clinic, name: 'Standard Clinic', pregnancy: @pregnancy
+    @clinic = create :clinic, name: 'Sample Clinic 1', pregnancy: @pregnancy
   end
 
   describe 'create method' do
@@ -74,8 +74,6 @@ class PregnanciesControllerTest < ActionController::TestCase
       @clinic.destroy
       get :edit, id: @pregnancy
       assert_response :success
-      assert_match /Susie Everyteen/, response.body
-      refute_match /Sample Clinic 1/, response.body
     end
   end
 
