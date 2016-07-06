@@ -35,19 +35,20 @@ class ShowPregnancyInformationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    it 'should show abortion information on open' do
+    it 'should show patient information on open' do
+      within :css, '#sections' do
+        assert has_text? 'Patient information'
+        assert has_text? 'Secondary phone'
+        assert has_text? 'Employment status'
+      end
+    end
+
+    it 'should let you click to abortion information' do
+      click_link 'Abortion Information'
       within :css, '#sections' do
         assert has_text? 'Abortion information'
         assert has_text? 'Clinic details'
         assert has_text? 'Cost details'
-      end
-    end
-
-    it 'should let you click to patient information' do
-      click_link 'Patient Information'
-      within :css, '#sections' do
-        refute has_text? 'Abortion information'
-        assert has_text? 'Patient information'
       end
     end
 

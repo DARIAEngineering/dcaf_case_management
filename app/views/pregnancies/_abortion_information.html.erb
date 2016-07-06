@@ -1,4 +1,4 @@
-<section id="abortion_information" class="abortion-info tab-pane active">
+<section id="abortion_information" class="abortion-info tab-pane">
   <%= bootstrap_form_for @pregnancy, html: { id: 'abortion-information-form' }, remote: true do |f| %>
     <div class="col-sm-12">
       <div class="row">
@@ -11,18 +11,19 @@
           <div class="info-form-left">
             <%= f.fields_for (pregnancy.clinic || pregnancy.build_clinic) do |cl| %>
               <h4>Clinic details</h4>
-              <%= cl.text_field :name, label: 'Clinic name:', autocomplete: 'off' %>
-              <%= cl.text_field :street_address_1, label: 'Street address 1:', autocomplete: 'off' %>
-              <%= cl.text_field :street_address_2, label: 'Street address 2:', autocomplete: 'off' %>
+              <%= cl.select :name, options_for_select(clinic_options, pregnancy.clinic.name), label: 'Clinic name', autocmomplete: 'off' %>
+              <%#= cl.text_field :name, label: 'Clinic name:', autocomplete: 'off' %>
+              <%#= cl.text_field :street_address_1, label: 'Street address 1:', autocomplete: 'off' %>
+              <%#= cl.text_field :street_address_2, label: 'Street address 2:', autocomplete: 'off' %>
               <div class="row">
                 <div class="col-sm-8">
-                  <%= cl.text_field :city, label: 'City:', autocomplete: 'off' %>
+                  <%#= cl.text_field :city, label: 'City:', autocomplete: 'off' %>
                 </div>
                 <div class="col-sm-4">
-                  <%= cl.text_field :state, label: 'State:', autocomplete: 'off' %>
+                  <%#= cl.text_field :state, label: 'State:', autocomplete: 'off' %>
                 </div>
               </div>
-              <%= cl.text_field :zip, label: 'ZIP:', autocomplete: 'off' %>
+              <%#= cl.text_field :zip, label: 'ZIP:', autocomplete: 'off' %>
             <% end %>
           </div>
         </div>
