@@ -1,0 +1,4 @@
+Name,primary_phone,initial_call_date,urgent_flag,last_menstrual_period_weeks,last_menstrual_period_days,left_voicemail_num,reached_patient_num
+Patient McPatient,202-363-1226,"Sat, 27 Oct 2012",TRUE,2,1,1,0
+Jane Doe,202-385-3902,"Sat, 27 Oct 2012",FALSE,3,2,0,2
+Dough Jain,202-135-3859,"Sat, 27 Oct 2012",TRUE,4,3,3,1
