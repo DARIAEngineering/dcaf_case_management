@@ -20,16 +20,12 @@ class NotesControllerTest < ActionController::TestCase
       end
     end
 
-    # it 'should respond success if the note submits' do
-    #   assert_response :success
-    # end
+    it 'should respond success if the note submits' do
+      assert_response :success
+    end
 
-    # it 'should render create.js.erb if it successfully saves' do
-    #   assert_template 'notes/create'
-    # end
-
-    it 'should redirect to edit pregnancy path if it saves' do
-      assert_redirected_to edit_pregnancy_path(@pregnancy)
+    it 'should render create.js.erb if it successfully saves' do
+      assert_template 'notes/create'
     end
 
     it 'should log the creating user' do
@@ -41,7 +37,7 @@ class NotesControllerTest < ActionController::TestCase
       assert_no_difference 'Pregnancy.find(@pregnancy).notes.count' do
         post :create, pregnancy_id: @pregnancy.id, note: @note, format: :js
       end
-      assert_redirected_to edit_pregnancy_path(@pregnancy)
+      assert_response :bad_request
     end
   end
 
@@ -49,7 +45,10 @@ class NotesControllerTest < ActionController::TestCase
     before do
       @note = create :note, pregnancy: @pregnancy, full_text: 'Original text'
       @note_edits = attributes_for :note, full_text: 'This is edited text'
-      patch :update, pregnancy_id: @pregnancy, id: @note, note: @note_edits, format: :js
+      patch :update, pregnancy_id: @pregnancy,
+                     id: @note,
+                     note: @note_edits,
+                     format: :js
       @note.reload
     end
 
@@ -76,7 +75,8 @@ class NotesControllerTest < ActionController::TestCase
       [nil, ''].each do |bad_text|
         assert_no_difference 'Pregnancy.find(@pregnancy).notes.find(@note).history_tracks.count' do
           @note_edits[:full_text] = bad_text
-          patch :update, pregnancy_id: @pregnancy, id: @note, note: @note_edits, format: :js
+          patch :update, pregnancy_id: @pregnancy, id: @note,
+                         note: @note_edits, format: :js
           assert_response :bad_request
           @note.reload
           assert_equal @note.full_text, 'This is edited text'

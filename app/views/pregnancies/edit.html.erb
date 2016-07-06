@@ -1,19 +1,25 @@
 <!-- Patient Info -->
-<%= bootstrap_form_for @pregnancy do |f| %>
+
+<%= render partial: "pledge", locals: { pregnancy: @pregnancy } %>
+
+<%#= bootstrap_form_for @pregnancy, remote: true do |f| %>
   <div id="patient_dashboard" class="row">
-    <%= render partial: 'pregnancies/patient_dashboard', locals: { f: f, pregnancy: @pregnancy } %>
+    <%= render partial: 'pregnancies/patient_dashboard', locals: { pregnancy: @pregnancy } %>
   </div>
 
   <div id="patient_detail" class="row">
-    <div id="menu" class="col-sm-3">
-      <%= render partial: 'pregnancies/menu', locals: { f: f, pregnancy: @pregnancy } %>
+    <div class="col-sm-4">
+      <div id="menu" class="col-sm-9">
+        <%= render partial: 'pregnancies/menu', locals: { pregnancy: @pregnancy } %>
+      </div>
     </div>
-    <div id="sections" class="col-sm-8 col-sm-offset-1 tab-content">
-      <%= render partial: 'pregnancies/abortion_information', locals: { f: f, pregnancy: @pregnancy } %>
-      <%= render partial: 'pregnancies/patient_information', locals: { f: f, pregnancy: @pregnancy } %>
-      <%= render partial: 'pregnancies/change_log', locals: { f: f, pregnancy: @pregnancy } %>
+
+    <div id="sections" class="col-sm-8 tab-content">
+      <%= render partial: 'pregnancies/abortion_information', locals: { pregnancy: @pregnancy } %>
+      <%= render partial: 'pregnancies/patient_information', locals: { pregnancy: @pregnancy } %>
+      <%= render partial: 'pregnancies/change_log', locals: { pregnancy: @pregnancy } %>
       <%= render partial: 'pregnancies/call_log', locals: { pregnancy: @pregnancy } %>
-      <% end %>
-      <%= render partial: 'pregnancies/notes', locals: { note: @note, pregnancy: @pregnancy } %>
+      <%= render partial: 'pregnancies/notes', locals: { pregnancy: @pregnancy, note: @note } %>
     </div>
   </div>
+<%# end %>

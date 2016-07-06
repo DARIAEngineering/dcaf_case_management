@@ -1,30 +1,49 @@
 class Patient
+  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
+  # Relationships
   has_many :pregnancies
 
-  validates_presence_of :name, :primary_phone
-
+  # Fields
   field :name, type: String # strip
-  field :primary_phone, type: String # validate
+  field :primary_phone, type: String
   field :secondary_person, type: String
   field :secondary_phone, type: String
 
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
+  # Validations
+  validates :name,
+            :primary_phone,
+            :created_by,
+            presence: true
+  validates :primary_phone, :secondary_phone, length: { maximum: 12 }
 
-  mongoid_userstamp user_model: 'User'
+
+  # some validation of presence of at least one pregnancy
+  # some validation of only one active pregnancy at a time
+
+
+  # Methods
+
 
   def self.search(name_or_phone_str) # TODO: optimize
     name_matches = Patient.where name: name_or_phone_str
     primary_matches = Patient.where primary_phone: name_or_phone_str
     secondary_matches = Patient.where secondary_phone: name_or_phone_str
     (name_matches | primary_matches | secondary_matches)
+
+  def self.search(name_or_phone_str) # Optimized Search the is case insensitive and phone number formatting agnostic
+    clean_phone = name_or_phone_str.gsub(/\D/, '')
+    formatted_phone = "#{clean_phone[0..2]}-#{clean_phone[3..5]}-#{clean_phone[6..10]}"
+    begin
+      name_matches = Patient.where name: /^#{Regexp.escape(name_or_phone_str)}$/i
+      primary_matches = Patient.where primary_phone: formatted_phone
+      secondary_matches = Patient.where secondary_phone: formatted_phone
+      (name_matches | primary_matches | secondary_matches)
+    end
+
   end
 end

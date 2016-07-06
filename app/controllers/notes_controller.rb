@@ -1,16 +1,17 @@
 class NotesController < ApplicationController
-  before_action :find_pregnancy, only: [ :create ]
-  before_action :find_note, only: [ :update ]
+  before_action :find_pregnancy, only: [:create]
+  before_action :find_note, only: [:update]
 
   def create
-    @note = @pregnancy.notes.new(note_params)
+    @note = @pregnancy.notes.new note_params
     @note.created_by = current_user
-    @note.save
     if @note.save
-      redirect_to edit_pregnancy_path(@pregnancy), flash: { notice: "Saved new note for #{@pregnancy.patient.name}!" }
+      @notes = @pregnancy.reload.notes.order_by 'created_at desc'
+      respond_to do |format|
+        format.js
+      end
     else
-      flash[:alert] = 'Note failed to save! Please submit the note again.'
-      redirect_to edit_pregnancy_path(@pregnancy)
+      head :bad_request
     end
   end
 

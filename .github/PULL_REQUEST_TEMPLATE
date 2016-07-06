@@ -1,10 +1,12 @@
 I rule and have completed some work on Case Manager that's ready for review!
 
+(brief, plain english overview of your changes here)
+
 This pull request makes the following changes:
 * (your change here)
 * (another change here)
 * (etc)
 
 It relates to the following issue #s: 
-* Issue #X
-* Issue #Y
+* Fixes #X
+* Bumps #Y

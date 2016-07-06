@@ -1,17 +1,33 @@
 /*
  *= require rails_bootstrap_forms
+ *= require_tree ../../../vendor/assets/stylesheets/.
+ *= require_tree .
 */
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600);
+@charset "utf-8";
 
 $dcaf-color: #5D3E8D;
+$font-size: 17px;
 
-// DCAF color scheme button
+/* NAVBAR */
+.navbar-inverse{
+  background-color: #f5f5f5;
+  border: none;
+  .navbar-header > a, .navbar-nav > li > a, .navbar-link{
+    color: $dcaf-color;
+    &:hover{
+      color: lighten($dcaf-color, 20%)
+    }
+  }
+}
 
+
+/* GENERAL GLOBAL STYLING */
 .container {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 17px;
+  font-size: $font-size;
 }
 
 .btn-primary {
@@ -19,7 +35,7 @@ $dcaf-color: #5D3E8D;
   background-color: $dcaf-color;
   border: none;
   margin-bottom: 2px;
-  font-size: 17px;
+  font-size: $font-size;
 }
 
 .btn-primary:hover {
@@ -27,6 +43,38 @@ $dcaf-color: #5D3E8D;
   background-color: lighten($dcaf-color,15%);
 }
 
+.border-bottom {
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.title {
+  font-weight: 100;
+  margin-bottom: 20px;
+  letter-spacing: 1.5px;
+  font-size: 48px;
+  span {
+    letter-spacing: .25px;
+  }
+}
+
+// add spacing
+.margin-bottom {
+  margin-bottom: 100px;
+}
+
+// increase size of text in form fields
+.form-control {
+  font-size: $font-size;
+}
+
+.btn-lg {
+  margin: 15px 0;
+  padding: 15px 30px;
+}
+
+
+// General styling artifacts
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -108,87 +156,11 @@ section {
   @extend .btn-xs;
 }
 
-.border-bottom {
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
-}
-
-.title {
-  font-weight: 100;
-  margin-bottom: 20px;
-  letter-spacing: 1.5px;
-  font-size: 48px;
-  span {
-    letter-spacing: .25px;
-  }
-}
-
-.search_bar {
-  max-width: 35%;
-}
-
-#search_form {
-  .search_form_input {
-    width: 350px;
-  }
-}
-
-.margin-bottom {
-  margin-bottom: 100px;
-}
-
-.border-side {
-  th {
-    font-size: 14px;
-    color: #323a45;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    background: #f1f1f1;
-  }
-  tr {
-    td {
-      font-size: 17px;
-      padding: 10px 0 !important;
-    }
-  }
-}
-
-.glyphicon-earphone {
-  color: white;
-  background-color: #337ab7;
-  padding: 5px;
-  border-radius: 50%;
-  font-size: 12px;
-  vertical-align: top;
-}
-
-.form-control {
-  font-size: 17px;
-}
-
-.hidden {
-  display: none;
-}
-
-.abortion-left-menu {
-  li {
-    // padding-left: 10px;
-    background-color: white;
-
-    a:hover {
-      color: #337ab7;
-      background-color: white;
-    }
-  }
-
-  li.active {
-    // padding-left: 0;
-
-    a, a:hover {
-      color: #5D3E8D;
-      background-color: white;
-
-
-    }
+// Search result 
+// shell styling
+.form-group input {
+  &[type="date"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
   }
 }

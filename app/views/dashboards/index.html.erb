@@ -1,9 +1,16 @@
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })  
+</script>
+
 <div class="container">
-  <div class="col-md-12">
+  <div class="col-sm-12">
     <%= render partial: 'dashboards/overview' %>
     <%= render partial: 'dashboards/search_form' %>
-    <%= render partial: 'dashboards/call_list', locals: { pregnancies: current_user.pregnancies } %>
-    <%= render partial: 'dashboards/urgent_pregnancies', locals: { pregnancies: @urgent_pregnancies } %>
+    <%= render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', pregnancies: current_user.call_list_pregnancies } %>
+    <%= render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', pregnancies: current_user.recently_called_pregnancies } %>
+    <%= render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_pregnancies', pregnancies: @urgent_pregnancies } %>
   </div>
 </div>
 

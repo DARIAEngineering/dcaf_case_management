@@ -1,11 +1,12 @@
 # DCAF Case Manager
 
 [![CircleCI](https://circleci.com/gh/colinxfleming/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/colinxfleming/dcaf_case_management)
+[![codecov](https://codecov.io/gh/colinxfleming/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/colinxfleming/dcaf_case_management)
 
-[A deployed demo version of what's in the master branch is at: http://casemanagerdemo.herokuapp.com/](http://casemanagerdemo.herokuapp.com/)
+[A deployed demo version of what's in the master branch is at: http://dcaf-cmapp-staging.herokuapp.com/](http://dcaf-cmapp-staging.herokuapp.com/)
 
 ## Project description
-This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets. 
+This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
 
 Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/).
 
@@ -19,7 +20,7 @@ We run two week sprints where we try to complete 2-3 small features. Generally, 
 When we begin a sprint, the project manager identifies the features to complete from the list of things to do before hitting Minimum Viable Product. The project leads create a Project Milestone and create Github issues for the feature itself. When we meet, we divide up the issues in the sprint, to not duplicate work.
 
 ### Pull Requests Please!
-This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). Contribution instructions are as follows: 
+This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). Contribution instructions are as follows:
 
 * Visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
 * Do any work in your local environment and commit it to your fork in github.
@@ -28,44 +29,55 @@ This project runs on Github forks and pull requests, so we can be sure to make c
 
 We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB. So hopefully you can hop right in!
 
-(TK: Formal Contributing Guidelines)
+### How We Categorize Our To Do List / Issues
+
+As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We categorize things as follows:
+
+Our major categories of software development related issues are as follows:
+* [Deploy](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Adeploy) (Priority issues that require resolution before the next release)
+* [Beginner Friendly](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
+* [Frontend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Afrontend) (Rails view work, CSS/JS work)
+* [Backend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abackend) (Rails controller and model work)
+* [Minitest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aminitest) (Feature and unit test work)
+* [Bug](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abug) (Something deployed that isn't working as intended!)
+* [UX/Design](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3AUX%2Fdesign) (Design todos)
+
+We also keep track of our administrative issues and discussion in Github under the following issue labels:
+* [Admin](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
+* [Question](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before they're completed)
+* [Backlog](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that can wait until after the MVP)
+
+### (TK: Formal Contributing Guidelines)
 
 
-## Setting Stuff Up 
+## Setting Stuff Up
 **First things first**: Make a copy of your own to wrench on! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
+**Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
+**Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
 
-For the rest of the setup, you have three options: Cloud9, Docker, or installing everything locally. We recommend Cloud9 if you're new to Rails or don't want to waste a lot of time installing dependencies, or Docker if you're comfortable with its ecosystem. The directions below get you to a point where you can run the app with a test-seeded database.
-
-### Cloud9
-
-If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB: 
-
-* Sign into `https://c9.io/` and create a new workspace
-* Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
-* Once created, run `bundle install` from the terminal
-* Open another terminal tab, and run `mongod` to start MongoDB
-* Pop back to the previous tab and run `rake db:seed` to populate your database with test data
-* Hit the `Run Project` button up top. (If the button is unresponsive, you may need select **Run -> Run With -> Rails Default** from the dropdown.)
-* Check out the URL it's running on! You're all set!
+For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem. The directions below get you to a point where you can run the app with a test-seeded database.
 
 ### Docker
 
-We've dockerized this app, to manage the dependencies and save us all the headahce. If you've got Docker installed already, you can be up and running with three commands:
-* `docker-compose build # to install the dependencies` 
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with four commands:
+* `docker-compose build # to install the dependencies`
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
-If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again. 
+If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
 
 ### Local environment
 
-If you prefer a local environment, do the following: 
+If you prefer a local environment, do the following:
 
-* Install Ruby, Rails and MongoDB (An easy rails installer is [here](http://railsinstaller.org/en); MongoDB setup instructions are below)
-* Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down 
-* Run the command `bundle install` to install dependences
+* Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down and pop into the repo
+* Install Ruby! We use version `2.2.4`. (Usually `rbenv install 2.2.4` or `rvm install 2.2.4`)
+* Set that version of ruby as your default within the directory (`rbenv local 2.2.4` / `rvm use 2.2.4`)
+* Run the command `bundle install` to install dependences, including `rails`!
+* Install MongoDB! (MongoDB setup instructions are below)
+* Install PhantomJS, which our test suite depends on (`brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))
 
-If you don't have MongoDB installed, also do: 
+If you don't have MongoDB installed, also do:
 * Install MongoDB locally (`brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
 * Create a folder in the root directory for the MongoDB database. `sudo mkdir -p /data/db`
 * Allow for MongoDB read/write permissions `sudo chmod 777 /data/db`
@@ -76,24 +88,48 @@ After that:
 * Run the command `rails server` to start the rails server
 * All set! Navigate your browser to `http://localhost:3000`
 
+### Cloud9
+
+If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB.
+
+* Sign into `https://c9.io/` and create a new workspace
+* Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
+* Once created, run `bundle install` from the terminal
+* Open another terminal tab, and run `mongod` to start MongoDB
+* Pop back to the previous tab and run `rake db:seed` to populate your database with test data
+* Hit the `Run Project` button up top. (If the button is unresponsive, you may need select **Run -> Run With -> Rails Default** from the dropdown.)
+* Check out the URL it's running on! You're all set!
+
 
 ## For designers
-The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app. 
+The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app.
 
-Current UX and wireframe assets are available here: 
-* [DCAFtaskflow.pdf](https://drive.google.com/file/d/0B2HIORWZ94L-NVJNN0VEeEdEa28/view?usp=sharing)
-* [DCAFwireframe120715.ai](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.ai)
-* [DCAFwireframe120715.pdf](https://github.com/colinxfleming/dcaf_case_management/blob/master/_design/DCAFwireframe120715.pdf)
+Current UX and wireframe assets are available [here](https://github.com/colinxfleming/dcaf_case_management/tree/master/_design).
+
+
+## For developers
+The stack we use is Rails 4, MongoDB, PhantomJS for integration tests and basically everything else is out of the box. 
+
+The project leads prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
+
+We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. 
+
+
+## For nontechnical contributors
+### TK case managers
+### TK user testers
+### TK copywriters
 
 
 ## Project Wall of Appreciation
 
-Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are: 
+Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are:
 
-* @ajohnson051 (lots of hard work on controllers and views)
-* @Kevin-Wei (constructed data model)
-* @charleshuang80 (crucial work on forms)
-* @drownedout (constructed data model, excellent rails guide)
+* @ajohnson051
+* @Kevin-Wei
+* @charleshuang80
+* @drownedout
+* @rebeccaestes
 
 
 ## License
