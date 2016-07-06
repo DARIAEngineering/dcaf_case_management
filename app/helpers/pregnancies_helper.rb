@@ -51,4 +51,8 @@ module PregnanciesHelper
   def household_size_options
     (1..10).map { |i| i }.unshift [nil, nil]
   end
+
+  def clinic_options
+    (ENV['CLINICS'] || ['Sample Clinic 1', 'Sample Clinic 2']).unshift nil
+  end
 end

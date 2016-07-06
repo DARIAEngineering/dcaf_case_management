@@ -46,7 +46,6 @@ class ShowPregnancyInformationTest < ActionDispatch::IntegrationTest
     it 'should let you click to abortion information' do
       click_link 'Abortion Information'
       within :css, '#sections' do
-        refute has_text? 'Abortion information'
         assert has_text? 'Abortion information'
         assert has_text? 'Clinic details'
         assert has_text? 'Cost details'
