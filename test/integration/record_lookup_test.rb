@@ -33,8 +33,8 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'looking for someone who does not exist' do
-    it 'should display new pregnancy partial' do
+  describe 'looking for someone who does not exist', js: true do
+    it 'should display new pregnancy partial with name' do
       fill_in 'search', with: 'Nobody Real Here'
       click_button 'Search'
 
@@ -43,7 +43,9 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
         assert_equal 'Nobody Real Here', find_field('Name').value
         assert has_no_text? 'Search results'
       end
+    end
 
+    it 'should display new pregnancy partial with phone' do
       fill_in 'search', with: '111-111-1112'
       click_button 'Search'
 
