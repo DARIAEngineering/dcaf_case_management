@@ -10,8 +10,8 @@ class SignUpTest < ActionDispatch::IntegrationTest
     before do
       fill_in 'Email', with: Faker::Internet.email
       fill_in 'Name', with: 'A Real Person'
-      fill_in 'Password', with: 'password', match: :prefer_exact
-      fill_in 'Password confirmation', with: 'password', match: :prefer_exact
+      fill_in 'Password', with: 'FCZCidQP4C8GTz', match: :prefer_exact
+      fill_in 'Password confirmation', with: 'FCZCidQP4C8GTz', match: :prefer_exact
     end
 
     it 'should create a user' do
@@ -35,8 +35,8 @@ class SignUpTest < ActionDispatch::IntegrationTest
       assert_no_difference 'User.count' do
         fill_in 'Email', with: @user.email
         fill_in 'Name', with: 'A Real Person'
-        fill_in 'Password', with: 'password', match: :prefer_exact
-        fill_in 'Password confirmation', with: 'password', match: :prefer_exact
+        fill_in 'Password', with: 'FCZCidQP4C8GTz', match: :prefer_exact
+        fill_in 'Password confirmation', with: 'FCZCidQP4C8GTz', match: :prefer_exact
         click_button 'Sign up'
         assert_text 'Email is already taken'
       end
