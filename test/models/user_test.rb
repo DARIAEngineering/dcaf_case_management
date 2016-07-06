@@ -21,11 +21,11 @@ class UserTest < ActiveSupport::TestCase
       end
     end
 
-      it "should require content in #{attribute}" do
-        @user[attribute.to_sym] = nil
+      it "passwords should be complex" do
+        @user[:password] = 'password'
         assert_not @user.valid?
-        assert_equal "can't be blank",
-                     @user.errors.messages[attribute.to_sym].first
+        assert_equal "Password must include at least one lowercase letter, one uppercase letter, and one digit. Forbidden words include DCAF and password.",
+                     @user.errors.messages[:password].first
     end
   end
 
