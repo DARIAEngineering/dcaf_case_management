@@ -58,7 +58,7 @@ class User
    def secure_password
      pc = password_complexity
      if pc == false
-       errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit. Forbidden words include app name, random stuffs, and password."
+       errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit. Forbidden words include DCAF and password."
      end
    end
 
@@ -70,7 +70,7 @@ class User
      # We want at least one digit
      return false if (password =~ /[0-9]/).nil?
      # Make sure the word password isn't in there
-     return false if !(password.downcase[/(password|dcaf|otherstuff)/]).nil?
+     return false if !(password.downcase[/(password|dcaf)/]).nil?
    end
 
   # ticket 241 recently called criteria:
