@@ -13,7 +13,6 @@ class User
   # :rememberable
   # :confirmable
 
-
   # Relationships
   has_and_belongs_to_many :pregnancies, inverse_of: :users
 
@@ -70,5 +69,15 @@ class User
 
   def recently_called?(preg)
     preg.calls.any? { |call| call.created_by_id == id && call.recent? }
+  end
+
+  def add_pregnancy(pregnancy)
+    pregnancies << pregnancy
+    reload
+  end
+
+  def remove_pregnancy(pregnancy)
+    pregnancies.delete pregnancy
+    reload
   end
 end

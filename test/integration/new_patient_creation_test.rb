@@ -20,20 +20,33 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       fill_in 'Initial Call Date', with: '03/04/2016'
       find('button', text: /Create new patient/).trigger('click')
       sleep 1
-      fill_in 'search', with: 'Susan Everyteen 2'
-      click_button 'Search'
     end
 
     it 'should make that patient retrievable via search' do
-      within :css, '#search_results' do
+      fill_in 'search', with: 'Susan Everyteen 2'
+      click_button 'Search'
+
+      within :css, '#search_results_shell' do
         assert has_text? 'Susan Everyteen 2'
         assert has_text? '555-666-7777'
       end
     end
 
     it 'should make them viewable from the pregnancy edit page' do
+      fill_in 'search', with: 'Susan Everyteen 2'
+      click_button 'Search'
       click_link 'Susan Everyteen 2'
       assert current_path, edit_pregnancy_path(Pregnancy.last)
+    end
+
+    it 'should redirect to the root path' do
+      assert_equal current_path, authenticated_root_path
+    end
+
+    it 'should autopopulate the call list' do
+      within :css, '#call_list' do
+        assert has_link? 'Susan Everyteen 2'
+      end
     end
   end
 end
