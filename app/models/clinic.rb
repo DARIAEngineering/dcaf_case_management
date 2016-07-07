@@ -17,4 +17,18 @@ class Clinic
   field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
   field :zip, type: String
 
+<<<<<<< HEAD
 end
+=======
+  # Validations
+  # TODO: Validate clinic options based on ENV['CLINICS']
+
+  # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
+end
+>>>>>>> upstream/master

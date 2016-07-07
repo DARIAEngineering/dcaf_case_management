@@ -11,6 +11,7 @@ class PregnanciesController < ApplicationController
     else
       flash[:alert] = 'An error prevented this patient from being saved'
     end
+    current_user.add_pregnancy @pregnancy
     redirect_to root_path
   end
 
