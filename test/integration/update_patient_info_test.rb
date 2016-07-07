@@ -19,7 +19,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     before do
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       find('#pregnancy_last_menstrual_period_weeks').select '5 weeks'
-      find('#pregnancy_last_menstrual_period_days').select '2 days'
+      find('#pregnancy_last_menstrual_period_days').select '2'
       # fill_in 'Appointment date', with: '12/20/2016' PUNT
       fill_in 'Phone number', with: '123-666-8888'
 
@@ -96,13 +96,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
+	      assert has_field? 'Special circumstances', with: 'Stuff'
 
         assert_equal 'Part-time', find('#pregnancy_employment_status').value
         assert_equal '$30,000-34,999 ($577-672/week)', find('#pregnancy_income').value
         assert_equal '1', find('#pregnancy_household_size').value
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
-        assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
       end
     end
   end
