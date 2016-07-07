@@ -57,20 +57,12 @@
   validates :initial_call_date,
             :created_by,
             presence: true
-<<<<<<< HEAD
+
   validates_associated :patient, on: :create
-  
-=======
+
   validates_associated :patient
 
-  # History and auditing
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-  mongoid_userstamp user_model: 'User'
->>>>>>> 191e1573ff5e8ccd3c8ee3817c00229b406c1037
+  
 
   # Methods - see also the helpers
 
