@@ -39,7 +39,7 @@
       <tbody>
         <% pregnancy.history_tracks.each do |revision| %>
           <tr>
-            <td><%= revision.date_of_edit %></td>
+            <td><%= revision.created_at.display_date %></td>
             <td><%= revision.tracked_changes_fields %></td>
             <td><%= revision.tracked_changes_from %></td>
             <td><%= revision.tracked_changes_to %></td>
@@ -50,7 +50,7 @@
     </table>
   </div>
   <div class="col-sm-12">
-    <h2> history</h2>
+    <h2>Clinic history</h2>
     <table class="table border-side">
       <thead>
         <tr>
@@ -64,7 +64,7 @@
       <tbody>
         <% pregnancy.clinic.history_tracks.each do |revision| %>
           <tr>
-            <td><%= revision.date_of_edit %></td>
+            <td><%= revision.created_at.display_date %></td>
             <td><%= revision.tracked_changes_fields %></td>
             <td><%= revision.tracked_changes_from %></td>
             <td><%= revision.tracked_changes_to %></td>
@@ -74,4 +74,5 @@
       </tbody>
     </table>
   </div>
+
 </section>

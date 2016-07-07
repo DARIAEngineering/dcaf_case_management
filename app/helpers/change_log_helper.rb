@@ -9,6 +9,10 @@ module ChangeLogHelper
   end
 
   def user_guid_to_email(guid)
-    User.where(id: guid).first.email
+    if User.where(id: guid).first.present?
+      User.where(id: guid).first.email
+    else
+      "System"
+    end
   end
 end
