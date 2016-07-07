@@ -79,7 +79,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_household_size').select '1'
       find('#pregnancy_insurance').select 'Other state Medicaid'
       find('#pregnancy_referred_by').select 'Other abortion fund'
-      fill_in 'Special circumstances', with: 'Stuff'
+      find('#pregnancy_special_circumstances').select 'Other'
 
       click_away_from_field
       visit authenticated_root_path
@@ -102,7 +102,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal '1', find('#pregnancy_household_size').value
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
-        assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
+        assert_equal 'Other', find('#pregnancy_special_circumstances').value
       end
     end
   end
