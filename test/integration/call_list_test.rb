@@ -84,6 +84,13 @@ class CallListTest < ActionDispatch::IntegrationTest
         end
       end
     end
+
+    it 'should not let you remove from completed calls' do 
+      within :css, '#completed_calls_content' do
+        assert has_text? @patient.name
+        refute has_link? 'Remove'
+      end
+    end
   end
 
   private
