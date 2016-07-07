@@ -49,8 +49,14 @@ $font-size: 17px;
     a, a:hover {
       color: #5D3E8D;
       background-color: white;
+    }
 
-
+    a:before {
+      font-family: 'Glyphicons Halflings';
+      content: "\e080";
+      margin-left: -2em;
+      padding-right: 1em;
+      color:black;
     }
   }
 }
