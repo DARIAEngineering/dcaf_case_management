@@ -7,11 +7,10 @@ class User
           :registerable,
           :recoverable,
           :trackable,
-          :validatable,
-          :lockable, 
-          :timeoutable
-  # :rememberable
+          :validatable
   # :confirmable
+  # :lockable
+  # :timeoutable
 
   # Relationships
   has_and_belongs_to_many :pregnancies, inverse_of: :users
@@ -47,9 +46,9 @@ class User
   # field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   ## Lockable
-  field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
+  # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
-  field :locked_at,       type: Time
+  # field :locked_at,       type: Time
 
   # Validations
   validates :email, :name, presence: true
