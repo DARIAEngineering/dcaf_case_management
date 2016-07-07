@@ -20,16 +20,12 @@ class NotesControllerTest < ActionController::TestCase
       end
     end
 
-    # it 'should respond success if the note submits' do
-    #   assert_response :success
-    # end
+    it 'should respond success if the note submits' do
+      assert_response :success
+    end
 
-    # it 'should render create.js.erb if it successfully saves' do
-    #   assert_template 'notes/create'
-    # end
-
-    it 'should redirect to edit pregnancy path if it saves' do
-      assert_redirected_to edit_pregnancy_path(@pregnancy)
+    it 'should render create.js.erb if it successfully saves' do
+      assert_template 'notes/create'
     end
 
     it 'should log the creating user' do
@@ -41,7 +37,7 @@ class NotesControllerTest < ActionController::TestCase
       assert_no_difference 'Pregnancy.find(@pregnancy).notes.count' do
         post :create, pregnancy_id: @pregnancy.id, note: @note, format: :js
       end
-      assert_redirected_to edit_pregnancy_path(@pregnancy)
+      assert_response :bad_request
     end
   end
 

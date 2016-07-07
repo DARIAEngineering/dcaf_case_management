@@ -15,6 +15,9 @@ class Clinic
   field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
   field :zip, type: String
 
+  # Validations
+  # TODO: Validate clinic options based on ENV['CLINICS']
+
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
