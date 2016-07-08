@@ -11,24 +11,20 @@ class PregnanciesController < ApplicationController
     else
       flash[:alert] = 'An error prevented this patient from being saved'
     end
+    current_user.add_pregnancy @pregnancy
     redirect_to root_path
   end
 
   def edit
-    @note = Note.new
+    @note = @pregnancy.notes.new
   end
 
   def update
     if @pregnancy.update_attributes pregnancy_params
-      redirect_to edit_pregnancy_path(@pregnancy),
-                  flash: { notice: 'Saved patient info!' }
+      head :ok
     else
       head :bad_request
-      # redirect_to edit_pregnancy_path(@pregnancy),
-      #             flash: { alert: 'Error saving info!' }
     end
-
-    # TODO: respond_to format.js eventually
   end
 
   private
@@ -47,6 +43,8 @@ class PregnanciesController < ApplicationController
       :procedure_cost,
       # fields in patient info
       :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size, :insurance, :referred_by, :special_circumstances,
+      # fields in notes
+      :urgent_flag,
       # associated
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
       patient: [:id, :name, :primary_phone, :secondary_person, :secondary_phone]

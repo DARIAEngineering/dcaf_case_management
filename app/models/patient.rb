@@ -32,10 +32,16 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.search(name_or_phone_str) # TODO: optimize
-    name_matches = Patient.where name: name_or_phone_str
-    primary_matches = Patient.where primary_phone: name_or_phone_str
-    secondary_matches = Patient.where secondary_phone: name_or_phone_str
-    (name_matches | primary_matches | secondary_matches)
+
+
+  def self.search(name_or_phone_str) # Optimized Search the is case insensitive and phone number formatting agnostic
+    clean_phone = name_or_phone_str.gsub(/\D/, '')
+    formatted_phone = "#{clean_phone[0..2]}-#{clean_phone[3..5]}-#{clean_phone[6..10]}"
+    begin
+      name_matches = Patient.where name: /^#{Regexp.escape(name_or_phone_str)}$/i
+      primary_matches = Patient.where primary_phone: formatted_phone
+      secondary_matches = Patient.where secondary_phone: formatted_phone
+      (name_matches | primary_matches | secondary_matches)
+    end
   end
 end

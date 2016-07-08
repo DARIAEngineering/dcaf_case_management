@@ -9,7 +9,7 @@ class PregnanciesControllerTest < ActionController::TestCase
                       primary_phone: '123-456-7890',
                       secondary_phone: '333-444-5555'
     @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
-    @clinic = create :clinic, name: 'Standard Clinic', pregnancy: @pregnancy
+    @clinic = create :clinic, name: 'Sample Clinic 1', pregnancy: @pregnancy
   end
 
   describe 'create method' do
@@ -67,15 +67,13 @@ class PregnanciesControllerTest < ActionController::TestCase
     it 'should contain the current record' do
       assert_match /Susie Everyteen/, response.body
       assert_match /123-456-7890/, response.body
-      assert_match /Standard Clinic/, response.body
+      assert_match /Sample Clinic 1/, response.body
     end
 
     it 'should not die if clinic is nil' do
       @clinic.destroy
       get :edit, id: @pregnancy
       assert_response :success
-      assert_match /Susie Everyteen/, response.body
-      refute_match /Standard Clinic/, response.body
     end
   end
 
@@ -91,8 +89,14 @@ class PregnanciesControllerTest < ActionController::TestCase
       @pregnancy.reload
     end
 
-    it 'should redirect on completion' do # for now
-      assert_redirected_to edit_pregnancy_path(@pregnancy)
+    it 'should respond success on completion' do
+      assert_response :success
+    end
+
+    it 'should respond bad request on failure' do
+      @payload[:patient][:primary_phone] = nil
+      patch :update, id: @pregnancy, pregnancy: @payload
+      assert_response :bad_request
     end
 
     it 'should update pregnancy fields' do

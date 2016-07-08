@@ -51,4 +51,23 @@ class UserTest < ActiveSupport::TestCase
       assert @user.recently_called? @pregnancy
     end
   end
+
+  describe 'pregnancy methods' do
+    before do
+      @pregnancy = create :pregnancy
+    end
+
+    it 'add pregnancy - should add a pregnancy to a set' do
+      assert_difference '@user.pregnancies.count', 1 do
+        @user.add_pregnancy @pregnancy
+      end
+    end
+
+    it 'remove pregnancy - should remove a pregnancy from a set' do
+      @user.add_pregnancy @pregnancy
+      assert_difference '@user.pregnancies.count', -1 do
+        @user.remove_pregnancy @pregnancy
+      end
+    end
+  end
 end
