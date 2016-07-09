@@ -4,12 +4,14 @@ class User
 
   # Devise modules
   devise  :database_authenticatable,
-          :registerable,
+          # :registerable,
           :recoverable,
           :trackable,
           :validatable,
-          :lockable, 
-          :timeoutable
+          :lockable,
+          :timeoutable,
+          :invitable
+
   # :rememberable
   # :confirmable
 
