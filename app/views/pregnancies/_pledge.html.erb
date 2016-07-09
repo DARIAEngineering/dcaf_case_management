@@ -11,8 +11,8 @@
 			<div><span class="pledge_modal_category">Patient ID:</span> <%= pregnancy.patient.primary_phone %></div>
 			<div><span class="pledge_modal_category">Pledge amount:</span> $100</div>
 			<div><span class="pledge_modal_category">Appointment date:</span> <%= pregnancy.appointment_date %></div>
-			<div><span class="pledge_modal_category">Clinic name:</span>Name</div>
-			<div><span class="pledge_modal_category">Clinic location:</span>City, State</div>
+			<div><span class="pledge_modal_category">Clinic name:</span>Name</div> <!-- pregnancy.clinic.name -->
+			<div><span class="pledge_modal_category">Clinic location:</span>City, State</div> <!-- pregnancy.clinic.city, pregnancy.clinic.state -->
 		</div>
 		<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
 	 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit">Continue</a>
