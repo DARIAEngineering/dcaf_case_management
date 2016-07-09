@@ -6,7 +6,6 @@ class Pregnancy
   include LastMenstrualPeriodHelper
 
   # Relationships
-
   belongs_to :patient
   has_and_belongs_to_many :users, inverse_of: :pregnancies
   embeds_many :pledges

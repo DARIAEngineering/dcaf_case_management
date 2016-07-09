@@ -2,7 +2,7 @@ class Clinic
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
-  include Mongoid::Userstamp 
+  include Mongoid::Userstamp
 
   # Relationships
   belongs_to :pregnancy

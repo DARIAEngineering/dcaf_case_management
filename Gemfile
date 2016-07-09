@@ -22,7 +22,6 @@ gem 'quality', require: false
 gem 'nokogiri', '>= 1.6.8'
 gem 'newrelic_rpm'
 gem 'mongo_session_store-rails4'
-gem 'haml-rails', '~> 0.9'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -31,10 +30,6 @@ group :development do
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
   gem 'dawnscanner', require: false
-<<<<<<< HEAD
-
-=======
->>>>>>> c55105e...  On branch master
 end
 
 group :development, :test do
@@ -64,10 +59,4 @@ end
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
-<<<<<<< HEAD
-=======
-
- 
-end
->>>>>>> c55105e...  On branch master
 end
