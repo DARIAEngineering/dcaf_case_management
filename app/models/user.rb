@@ -9,8 +9,7 @@ class User
           :trackable,
           :validatable,
           :lockable,
-          :timeoutable,
-          :invitable
+          :timeoutable
 
   # :rememberable
   # :confirmable
