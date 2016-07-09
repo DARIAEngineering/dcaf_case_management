@@ -18,7 +18,7 @@
 //= require_tree .
 //= require_tree ../../../vendor/assets/javascripts/.
 
-// $(document).ready(function(){
+$(document).ready(function(){
 //
 // 	$('.pledge_submit').click(function () {
 // 		$('.pledge_modal_screen1').hide();
@@ -46,5 +46,5 @@
 // 		$('.pledge_modal_screen3').hide();
 // 	});
 //
-//   $('[data-toggle="toggle"]').bootstrapToggle();
-// })
+  $('[data-toggle="toggle"]').bootstrapToggle();
+})

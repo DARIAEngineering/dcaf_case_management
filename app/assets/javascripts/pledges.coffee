@@ -9,6 +9,11 @@ $(document).ready ->
   $ps2 = $('.pledge_modal_screen2')
   $ps3 = $('.pledge_modal_screen3')
 
+  resetScreens = ->
+    $ps1.show()
+    $ps2.hide()
+    $ps3.hide()
+
   $('.pledge_submit').on 'click', ->
     $ps1.hide()
     $ps2.show()
@@ -22,3 +27,10 @@ $(document).ready ->
   $('.pledge_finish').on 'click', ->
     $ps3.hide()
     console.log 'pledge finish'
+
+  # TODO
+  # hook up go back button
+  # do resetScreens on ready/load?
+  # on close, reset the screens so if modal opens again, will show screen 1 properly
+    # how to do on data-dismiss modal
+  # hook up submit/Finish?
