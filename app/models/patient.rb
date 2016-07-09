@@ -12,6 +12,7 @@ class Patient
   field :primary_phone, type: String
   field :secondary_person, type: String
   field :secondary_phone, type: String
+  field :secondary_relationship, type: String
 
   # Validations
   validates :name,

@@ -10,7 +10,7 @@
         <div class="col-sm-6">
           <div class="info-form-left">
             <%= f.fields_for (pregnancy.clinic || pregnancy.build_clinic) do |cl| %>
-              <h4>Clinic details</h4>
+              <h3>Clinic details</h3>
               <%= cl.select :name, options_for_select(clinic_options, pregnancy.clinic.name), label: 'Clinic name', autocmomplete: 'off' %>
               <%#= cl.text_field :name, label: 'Clinic name:', autocomplete: 'off' %>
               <%#= cl.text_field :street_address_1, label: 'Street address 1:', autocomplete: 'off' %>
@@ -29,9 +29,11 @@
         </div>
         <div class="col-sm-6">
           <div class="info-form-right">
-            <h4>Cost details</h4>
-            <%= f.text_field :procedure_cost, label: 'Abortion Cost:', autocomplete: 'off' %>
-            <h5>PLACEHOLDER: Funding Sources</h5>
+            <h3>Cost details</h3>
+            <%= f.text_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', placeholder: '$' %>
+            <%= f.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', placeholder: '$' %>
+             <%= f.text_field :naf_pledge, label: 'National Abortion Fund pledge', autocomplete: 'off', placeholder: '$' %>
+               <%= f.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', placeholder: '$' %>
           </div>
         </div>
       </div>
