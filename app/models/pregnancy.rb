@@ -45,12 +45,14 @@ class Pregnancy
   # Procedure result - generally for administrative use
   field :fax_received, type: Boolean
   field :procedure_cost, type: Integer
-  field :patient_contribution, type: Integer
-  field :naf_pledge, type: Integer
-  field :dcaf_soft_pledge, type: Integer
   field :procedure_date, type: DateTime
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
+
+  # Temp fields associated with pledges: TEMPORARY
+  field :patient_contribution, type: Integer
+  field :naf_pledge, type: Integer
+  field :dcaf_soft_pledge, type: Integer
 
   # Validations
   validates :initial_call_date,
