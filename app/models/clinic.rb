@@ -1,10 +1,8 @@
 class Clinic
-  include Auditable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
-  include Mongoid::Userstamp
-  
+  include Mongoid::Userstamp 
 
   # Relationships
   belongs_to :pregnancy
@@ -17,9 +15,6 @@ class Clinic
   field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
   field :zip, type: String
 
-<<<<<<< HEAD
-end
-=======
   # Validations
   # TODO: Validate clinic options based on ENV['CLINICS']
 
@@ -31,4 +26,3 @@ end
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
 end
->>>>>>> upstream/master
