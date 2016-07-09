@@ -22,7 +22,7 @@ class Pregnancy
   field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
-  field :voicemail_ok, type: Boolean
+  field :voicemail_ok, type: Boolean, default: false
   field :line, type: String # DC, MD, VA
   field :language, type: String
   field :appointment_date, type: Date
