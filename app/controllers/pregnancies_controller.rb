@@ -47,7 +47,7 @@ class PregnanciesController < ApplicationController
       :urgent_flag,
       # associated
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
-      patient: [:id, :name, :primary_phone, :secondary_person, :secondary_phone]
+      patient: [:id, :name, :primary_phone, :secondary_person, :secondary_phone, :secondary_relationship]
     )
   end
 end
