@@ -13,5 +13,5 @@ test:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
     - gem install --no-rdoc ruby_audit; bundle exec ruby-audit check
     - gem install --no-rdoc bundler-audit; bundle-audit update; bundle-audit check
-    - gem install --no-rdoc dawnscanner; rake dawn:run
+    - gem install --no-rdoc dawnscanner; bundle exec rake dawn:run
     # - rake quality
