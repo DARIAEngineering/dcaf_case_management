@@ -23,6 +23,14 @@ class PregnancyTest < ActiveSupport::TestCase
         refute @pregnancy.valid?
       end
     end
+
+    # TODO
+    # it 'should reject non-dates in appointment date' do
+    #   %w(yeah).each do |bad_value|
+    #     @pregnancy.appointment_date = bad_value
+    #     refute @pregnancy.valid?
+    #   end
+    # end
   end
 
   describe 'most_recent_note_display_text method' do
