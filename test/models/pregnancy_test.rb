@@ -25,24 +25,6 @@ class PregnancyTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'search method' do
-    it 'should respond to search' do
-      assert Patient.respond_to? :search
-    end
-
-    it 'should find a patient' do
-      assert_equal Patient.search('Susan Smith').count, 1
-    end
-
-    it 'should find multiple patients if there are multiple' do
-      assert_equal Patient.search('123-456-6789').count, 2
-    end
-
-    it 'should be able to find based on secondary phones too' do
-      assert_equal Patient.search('999-999-9999').count, 1
-    end
-  end
-
   describe 'most_recent_note_display_text method' do
     before do
       @note = create :note, pregnancy: @pregnancy, full_text: (1..100).map(&:to_s).join('')

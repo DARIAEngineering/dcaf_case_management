@@ -22,7 +22,7 @@ class Pregnancy
   field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
-  field :voicemail_ok, type: Boolean
+  field :voicemail_ok, type: Boolean, default: false
   field :line, type: String # DC, MD, VA
   field :language, type: String
   field :appointment_date, type: Date
@@ -48,6 +48,11 @@ class Pregnancy
   field :procedure_date, type: DateTime
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
+
+  # Temp fields associated with pledges: TEMPORARY
+  field :patient_contribution, type: Integer
+  field :naf_pledge, type: Integer
+  field :dcaf_soft_pledge, type: Integer
 
   # Validations
   validates :initial_call_date,
