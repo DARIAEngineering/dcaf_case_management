@@ -11,8 +11,8 @@
 			<div><span class="pledge_modal_category">Patient ID:</span> <%= pregnancy.patient.primary_phone %></div>
 			<div><span class="pledge_modal_category">Pledge amount:</span> $<%= pregnancy.dcaf_soft_pledge %> </div>
 			<div><span class="pledge_modal_category">Appointment date:</span> <%= pregnancy.appointment_date %></div>
-			<div><span class="pledge_modal_category">Clinic name:</span>Name</div>
-			<div><span class="pledge_modal_category">Clinic location:</span>City, State</div>
+			<div><span class="pledge_modal_category">Clinic name:</span>Name</div> <!-- pregnancy.clinic.name -->
+			<div><span class="pledge_modal_category">Clinic location:</span>City, State</div> <!-- pregnancy.clinic.city, pregnancy.clinic.state -->
 		</div>
 		<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
 	 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit">Continue</a>
@@ -29,10 +29,20 @@
 			<p>Awesome, you generated a DCAF Pledge! Thanks!</p>
 			<p>Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
 			<p>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</p>
-			<p class="check_input"><input type="checkbox" aria-label="Pledge sent" class="pledge_sent_check">I sent my pledge</p>
+
+			<%= form_tag pregnancy_pledges_path(@pregnancy), method: :post, class: "pledge-create-modal-form" do %>
+				<p class="check_input">
+					<!-- <input type="checkbox" aria-label="Pledge sent" class="pledge_sent_check">I sent my pledge -->
+					<%= check_box_tag('pledge_sent', true) %>
+					<%= label_tag('pledge_sent', 'I sent my pledge') %>
+				</p>
+
+				<a class="pledge_process_btn pledge_back_review">Go back</a>
+				<!-- <%# submit_tag 'Finish', data: { dismiss: "modal" },
+						class: "btn btn-primary btn-sm pledge_process_btn pledge_finish" %> -->
+				<a class="btn btn-primary btn-sm pledge_process_btn pledge_finish" data-dismiss="modal">Finish</a>
+			<% end %>
 		</div>
-		<a class="pledge_process_btn pledge_back_review">Go back</a>
-		<a class="btn btn-primary btn-sm pledge_process_btn pledge_finish" data-dismiss="modal">Finish</a>
 	</div>
 
 </div>
