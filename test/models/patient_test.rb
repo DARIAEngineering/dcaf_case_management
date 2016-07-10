@@ -3,8 +3,8 @@ require 'test_helper'
 class PatientTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @patient = create :patient, secondary_phone: '111-222-3333',
-                                secondary_person: 'Yolo'
+    @patient = create :patient, other_phone: '111-222-3333',
+                                other_contact: 'Yolo'
   end
 
   describe 'validations' do
@@ -27,7 +27,7 @@ class PatientTest < ActiveSupport::TestCase
       refute @patient.valid?
     end
 
-    %w(primary_phone secondary_phone).each do |phone|
+    %w(primary_phone other_phone).each do |phone|
       it "should enforce a max length of 12 for #{phone}" do
         @patient[phone] = '123-456-789022'
         refute @patient.valid?
@@ -56,14 +56,14 @@ class PatientTest < ActiveSupport::TestCase
   describe 'search method' do
     before do
       @pt_1 = create :patient, name: 'Susan Sher', primary_phone: '123-456-6789'
-      @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789', secondary_person: 'Friend Ship'
-      @pt_3 = create :patient, name: 'Susan A', secondary_phone: '999-999-9999'
+      @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789', other_contact: 'Friend Ship'
+      @pt_3 = create :patient, name: 'Susan A', other_phone: '999-999-9999'
       [@pt_1, @pt_2, @pt_3].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
       end
     end
 
-    it 'should find a patient on name or secondary name' do
+    it 'should find a patient on name or other name' do
       assert_equal Patient.search('Susan Sher').count, 1
       assert_equal Patient.search('Friend Ship').count, 1
     end

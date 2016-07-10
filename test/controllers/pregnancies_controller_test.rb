@@ -7,7 +7,7 @@ class PregnanciesControllerTest < ActionController::TestCase
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
-                      secondary_phone: '333-444-5555'
+                      other_phone: '333-444-5555'
     @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
     @clinic = create :clinic, name: 'Sample Clinic 1', pregnancy: @pregnancy
   end

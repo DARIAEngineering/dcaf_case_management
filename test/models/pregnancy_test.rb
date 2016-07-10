@@ -5,7 +5,7 @@ class PregnancyTest < ActiveSupport::TestCase
     @user = create :user
     @pt_1 = create :patient, name: 'Susan Smith', primary_phone: '123-456-6789'
     @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789'
-    @pt_3 = create :patient, name: 'Susan All', secondary_phone: '999-999-9999'
+    @pt_3 = create :patient, name: 'Susan All', other_phone: '999-999-9999'
     [@pt_1, @pt_2, @pt_3].each do |pt|
       create :pregnancy, patient: pt, created_by: @user
     end
