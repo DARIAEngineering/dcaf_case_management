@@ -15,8 +15,8 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
     before do
       @patient = create :patient, name: 'Susan Everyteen',
                                   primary_phone: '111-222-3333',
-                                  secondary_person: 'Yolo Goat',
-                                  secondary_phone: '222-333-4455'
+                                  other_contact: 'Yolo Goat',
+                                  other_phone: '222-333-4455'
       @pregnancy = create :pregnancy, patient: @patient
     end
 
@@ -35,7 +35,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       assert_text @patient.primary_phone
     end
 
-    it 'should be able to retrieve a record based on secondary name' do
+    it 'should be able to retrieve a record based on other name' do
       fill_in 'search', with: 'Yolo Goat'
       click_button 'Search'
 
@@ -43,7 +43,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       assert has_text? 'Susan Everyteen'
     end
 
-    it 'should be able to retrieve a record based on secondary phone' do
+    it 'should be able to retrieve a record based on other phone' do
       fill_in 'search', with: '222-333-4455'
       click_button 'Search'
 

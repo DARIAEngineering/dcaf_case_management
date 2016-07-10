@@ -20,7 +20,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       find('#pregnancy_last_menstrual_period_weeks').select '5 weeks'
       find('#pregnancy_last_menstrual_period_days').select '2 days'
-      # fill_in 'Appointment date', with: '12/20/2016' PUNT
+      fill_in 'Appointment date', with: '2016-06-01'
       fill_in 'Phone number', with: '123-666-8888'
 
       click_away_from_field
@@ -33,7 +33,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field?('First and last name', with: 'Susie Everyteen 2')
         assert_equal find('#pregnancy_last_menstrual_period_weeks').value, '5'
         assert_equal find('#pregnancy_last_menstrual_period_days').value, '2'
-        # assert has_field?('Appointment date', with: '12/20/2016') PUNT
+        assert has_field?('Appointment date', with: '2016-06-01')
         assert has_field? 'Phone number', with: '123-666-8888'
       end
     end
@@ -71,9 +71,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing patient information' do
     before do
       click_link 'Patient Information'
-      fill_in 'Secondary contact name', with: 'Susie Everyteen Sr'
-      fill_in 'Secondary contact phone', with: '123-666-7777'
-      fill_in 'Secondary contact relationship', with: 'Friend'
+      fill_in 'Other contact name', with: 'Susie Everyteen Sr'
+      fill_in 'Other phone', with: '123-666-7777'
+      fill_in 'Relationship to other contact', with: 'Friend'
       fill_in 'Age', with: '24'
       find('#pregnancy_race_ethnicity').select 'White/Caucasian'
       fill_in 'City', with: 'Washington'
@@ -95,9 +95,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     it 'should alter the information' do
       click_link 'Patient Information'
       within :css, '#patient_information' do
-        assert has_field? 'Secondary contact name', with: 'Susie Everyteen Sr'
-        assert has_field? 'Secondary contact phone', with: '123-666-7777'
-        assert has_field? 'Secondary contact relationship', with: 'Friend'
+        assert has_field? 'Other contact name', with: 'Susie Everyteen Sr'
+        assert has_field? 'Other phone', with: '123-666-7777'
+        assert has_field? 'Relationship to other contact', with: 'Friend'
         assert has_field? 'Age', with: '24'
         assert_equal 'White/Caucasian', find('#pregnancy_race_ethnicity').value
         assert has_field? 'City', with: 'Washington'
