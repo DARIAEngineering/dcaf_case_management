@@ -56,7 +56,7 @@ class PatientTest < ActiveSupport::TestCase
   describe 'search method' do
     before do
       @pt_1 = create :patient, name: 'Susan Sher', primary_phone: '123-456-6789'
-      @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789', secondary_person: 'Yolo'
+      @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789', secondary_person: 'Friend Ship'
       @pt_3 = create :patient, name: 'Susan A', secondary_phone: '999-999-9999'
       [@pt_1, @pt_2, @pt_3].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
@@ -65,7 +65,7 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should find a patient on name or secondary name' do
       assert_equal Patient.search('Susan Sher').count, 1
-      assert_equal Patient.search('Yolo').count, 1
+      assert_equal Patient.search('Friend Ship').count, 1
     end
 
     it 'should find multiple patients if there are multiple' do
