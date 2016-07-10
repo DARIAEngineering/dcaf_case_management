@@ -11,6 +11,11 @@ module LastMenstrualPeriodHelper
     last_menstrual_period_display.to_s.gsub(' weeks,', 'w').gsub(' days', 'd')
   end
 
+  def last_menstrual_period_at_appt
+    return nil unless last_menstrual_period_now
+    (appointment_date.to_date - last_menstrual_period_now).to_date
+  end
+
   private
 
   def last_menstrual_period_now
