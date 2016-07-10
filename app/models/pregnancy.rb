@@ -53,6 +53,7 @@ class Pregnancy
   field :patient_contribution, type: Integer
   field :naf_pledge, type: Integer
   field :dcaf_soft_pledge, type: Integer
+  field :pledge_sent, type: Boolean
 
   # Validations
   validates :initial_call_date,

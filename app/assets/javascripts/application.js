@@ -19,32 +19,31 @@
 //= require_tree ../../../vendor/assets/javascripts/.
 
 $(document).ready(function(){
-//
-// 	$('.pledge_submit').click(function () {
-// 		$('.pledge_modal_screen1').hide();
-// 		$('.pledge_modal_screen2').show();
-// 	});
-//
-// 	$('.pledge_back_submit').click(function () {
-// 		$('.pledge_modal_screen2').hide();
-// 		$('.pledge_modal_screen1').show();
-// 	});
-//
-// 	$('.pledge_continue').click(function () {
-// 		$('.pledge_modal_screen2').hide();
-// 		$('.pledge_modal_screen3').show();
-// 				console.log('click');
-//
-// 	});
-//
-// 	$('.pledge_back_review').click(function () {
-// 		$('.pledge_modal_screen3').hide();
-// 		$('.pledge_modal_screen2').show();
-// 	});
-//
-// 	$('.pledge_finish').click(function () {
-// 		$('.pledge_modal_screen3').hide();
-// 	});
-//
+  // TODO migrate to pledges.coffee
+	$('.pledge_submit').click(function () {
+		$('.pledge_modal_screen1').hide();
+		$('.pledge_modal_screen2').show();
+	});
+
+	$('.pledge_back_submit').click(function () {
+		$('.pledge_modal_screen2').hide();
+		$('.pledge_modal_screen1').show();
+	});
+
+	$('.pledge_continue').click(function () {
+		$('.pledge_modal_screen2').hide();
+		$('.pledge_modal_screen3').show();
+				console.log('click');
+	});
+
+	$('.pledge_back_review').click(function () {
+		$('.pledge_modal_screen3').hide();
+		$('.pledge_modal_screen2').show();
+	});
+
+	$('.pledge_finish').click(function () {
+		$('.pledge_modal_screen3').hide();
+	});
+
   $('[data-toggle="toggle"]').bootstrapToggle();
 })
