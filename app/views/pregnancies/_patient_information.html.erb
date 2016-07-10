@@ -35,8 +35,8 @@
           <%= f.text_field :zip, label: 'ZIP', autocomplete: 'off' %>
           
           <h3> Secondary Contact</h3>
-           <%= f.fields_for pregnancy.patient do |p| %>
-            <%= p.text_field :secondary_person, autocomplete: 'off', label: 'Secondary contact first and last name' %>
+          <%= f.fields_for pregnancy.patient do |p| %>
+            <%= p.text_field :secondary_person, autocomplete: 'off', label: 'Secondary contact name' %>
             <%= p.text_field :secondary_phone, autocomplete: 'off', label: 'Secondary contact phone' %>
             <%= p.text_field :secondary_relationship, autocomplete: 'off', label: 'Secondary contact relationship' %>
           <% end %>

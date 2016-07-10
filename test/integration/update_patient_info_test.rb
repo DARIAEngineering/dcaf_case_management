@@ -66,8 +66,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing patient information' do
     before do
       click_link 'Patient Information'
-      fill_in 'Secondary person', with: 'Susie Everyteen Sr'
-      fill_in 'Secondary phone', with: '123-666-7777'
+      fill_in 'Secondary contact name', with: 'Susie Everyteen Sr'
+      fill_in 'Secondary contact phone', with: '123-666-7777'
+      fill_in 'Secondary contact relationship', with: 'Friend'
       fill_in 'Age', with: '24'
       find('#pregnancy_race_ethnicity').select 'White/Caucasian'
       fill_in 'City', with: 'Washington'
@@ -89,8 +90,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     it 'should alter the information' do
       click_link 'Patient Information'
       within :css, '#patient_information' do
-        assert has_field? 'Secondary person', with: 'Susie Everyteen Sr'
-        assert has_field? 'Secondary phone', with: '123-666-7777'
+        assert has_field? 'Secondary contact name', with: 'Susie Everyteen Sr'
+        assert has_field? 'Secondary contact phone', with: '123-666-7777'
+        assert has_field? 'Secondary contact relationship', with: 'Friend'
         assert has_field? 'Age', with: '24'
         assert_equal 'White/Caucasian', find('#pregnancy_race_ethnicity').value
         assert has_field? 'City', with: 'Washington'
