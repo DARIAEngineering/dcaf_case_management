@@ -49,6 +49,11 @@ class Pregnancy
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
 
+  # Temp fields associated with pledges: TEMPORARY
+  field :patient_contribution, type: Integer
+  field :naf_pledge, type: Integer
+  field :dcaf_soft_pledge, type: Integer
+
   # Validations
   validates :initial_call_date,
             :created_by,
