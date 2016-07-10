@@ -99,9 +99,9 @@ class Pregnancy
     #   status = "Resolved Without DCAF"
     # elsif pledge_status?(:paid)
     #   status = "Pledge Paid"
-    # elsif pledge_status?(:sent)
-    #   status = "Sent Pledge"
-    if appointment_date
+    if pledge_sent?
+      'Pledge sent'
+    elsif appointment_date
       'Fundraising'
     elsif contact_made?
       'Needs Appointment'

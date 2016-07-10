@@ -5,7 +5,7 @@ class PledgesController < ApplicationController
   def create
     @pledge = @pregnancy.pledges.new(pledge_params)
     @pledge.created_by = current_user
-    fail
+    # fail
     if @pledge.save
       redirect_to edit_pregnancy_path(@pregnancy),
                   flash: { notice: 'Saved new pledge for ' \
