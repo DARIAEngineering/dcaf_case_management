@@ -49,7 +49,7 @@ class PregnanciesController < ApplicationController
       :patient_contribution, :naf_pledge, :dcaf_soft_pledge,
       # associated
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
-      patient: [:id, :name, :primary_phone, :secondary_person, :secondary_phone, :secondary_relationship]
+      patient: [:id, :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship]
     )
   end
 end
