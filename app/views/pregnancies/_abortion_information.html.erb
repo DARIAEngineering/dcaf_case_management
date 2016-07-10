@@ -30,10 +30,10 @@
         <div class="col-sm-6">
           <div class="info-form-right">
             <h3>Cost details</h3>
-            <%= f.text_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', placeholder: '$' %>
-            <%= f.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', placeholder: '$' %>
-             <%= f.text_field :naf_pledge, label: 'National Abortion Fund pledge', autocomplete: 'off', placeholder: '$' %>
-               <%= f.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', placeholder: '$' %>
+            <%= f.text_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
+            <%= f.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+             <%= f.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+               <%= f.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', prepend: '$' %>
           </div>
         </div>
       </div>

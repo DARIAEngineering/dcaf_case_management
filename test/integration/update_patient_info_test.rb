@@ -42,10 +42,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing abortion information' do
     before do
       click_link 'Abortion Information'
-      fill_in 'Clinic name', with: 'Stub Clinic'
+      find('#pregnancy_clinic_name').select 'Sample Clinic 1'
       # TODO: finish this after implementing clinic logic
-      fill_in 'Abortion Cost:', with: '300'
-      # TODO: and this, once we have funding sources
+      fill_in 'Abortion cost', with: '300'
+      fill_in 'Patient contribution', with: '200'
+      fill_in 'National Abortion Federation pledge', with: '50'
+      fill_in 'DCAF soft pledge', with: '25'
+
       click_away_from_field
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
@@ -53,14 +56,16 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     end
 
     # problematic test
-    # it 'should alter the information' do
-    #   within :css, '#abortion_information' do
-    #     assert has_field?('Clinic name', with: 'Stub Clinic')
-    #     # TK after clinic logic
-    #     assert has_field? 'Abortion Cost:', with: '300'
-    #     # TK after funding sources
-    #   end
-    # end
+    it 'should alter the information' do
+      within :css, '#abortion_information' do
+        assert_equal 'Sample Clinic 1', find('#pregnancy_clinic_name').value
+        # TK after clinic logic
+        assert has_field? 'Abortion cost', with: '300'
+        assert has_field? 'Patient contribution', with: '200'
+        assert has_field? 'National Abortion Federation pledge', with: '50'
+        assert has_field? 'DCAF soft pledge', with: '25'
+      end
+    end
   end
 
   describe 'changing patient information' do
