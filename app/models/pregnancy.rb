@@ -53,6 +53,7 @@ class Pregnancy
   field :patient_contribution, type: Integer
   field :naf_pledge, type: Integer
   field :dcaf_soft_pledge, type: Integer
+  field :pledge_sent, type: Boolean
 
   # Validations
   validates :initial_call_date,
@@ -98,9 +99,9 @@ class Pregnancy
     #   status = "Resolved Without DCAF"
     # elsif pledge_status?(:paid)
     #   status = "Pledge Paid"
-    # elsif pledge_status?(:sent)
-    #   status = "Sent Pledge"
-    if appointment_date
+    if pledge_sent?
+      'Pledge sent'
+    elsif appointment_date
       'Fundraising'
     elsif contact_made?
       'Needs Appointment'
