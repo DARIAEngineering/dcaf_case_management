@@ -24,13 +24,34 @@ $(document).ready ->
     $ps3.show()
     console.log 'pledge continue'
 
-  $('.pledge_finish').on 'click', ->
+  $('.pledge_back_submit').on 'click', ->
+    $ps2.hide()
+    $ps1.show()
+    console.log 'pledge go back s1'
+
+  $('.pledge_back_review').on 'click', ->
     $ps3.hide()
+    $ps2.show()
+    console.log 'plege go back s2'
+
+  $('.pledge_modal').on 'hide.bs.modal', ->
+    # can use hidden.bs.modal but that event fires when hiding is done
+    resetScreens()
+    console.log 'pledge closed'
+
+  $('.pledge_finish').on 'click', ->
+    # e.preventDefault()
+    # console.log e
+    # $ps3.hide()
+    resetScreens()
     console.log 'pledge finish'
+    $('.pledge-create-modal-form').submit()
+
+
+  # tried to add this so it would run on document ready, but the modal seems to
+  # not respond with it here
+  # resetScreens()
 
   # TODO
-  # hook up go back button
-  # do resetScreens on ready/load?
-  # on close, reset the screens so if modal opens again, will show screen 1 properly
-    # how to do on data-dismiss modal
-  # hook up submit/Finish?
+  # _ do resetScreens on ready/load?
+  # _ hook up submit/Finish
