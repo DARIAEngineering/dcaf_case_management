@@ -58,6 +58,7 @@ class Pregnancy
   validates :initial_call_date,
             :created_by,
             presence: true
+  validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/
   validates_associated :patient
 
   # History and auditing
