@@ -21,5 +21,6 @@ class ApplicationController < ActionController::Base
     response.headers["Cache-Control"] = "no-cache, no-store"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    response.headers['Access-Control-Allow-Origin'] = (ENV['SITE_URL'] || 'localhost')
   end
 end
