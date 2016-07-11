@@ -37,11 +37,11 @@ class Patient
     name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
     phone_regexp = create_phone_regexp name_or_phone_str
     begin
-      name_matches = Patient.where name: name_regexp
-      secondary_name_matches = Patient.where other_contact: name_regexp
-      primary_matches = Patient.where primary_phone: phone_regexp
-      secondary_matches = Patient.where other_phone: phone_regexp
-      (name_matches | secondary_name_matches | primary_matches | secondary_matches)
+      name_match = Patient.where name: name_regexp
+      secondary_name_match = Patient.where other_contact: name_regexp
+      primary_match = Patient.where primary_phone: phone_regexp
+      secondary_match = Patient.where other_phone: phone_regexp
+      (name_match | secondary_name_match | primary_match | secondary_match)
     end
   end
 
