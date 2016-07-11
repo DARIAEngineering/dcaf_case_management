@@ -5,7 +5,7 @@ class PregnancyTest < ActiveSupport::TestCase
     @user = create :user
     @pt_1 = create :patient, name: 'Susan Smith', primary_phone: '123-456-6789'
     @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789'
-    @pt_3 = create :patient, name: 'Susan All', secondary_phone: '999-999-9999'
+    @pt_3 = create :patient, name: 'Susan All', other_phone: '999-999-9999'
     [@pt_1, @pt_2, @pt_3].each do |pt|
       create :pregnancy, patient: pt, created_by: @user
     end
@@ -23,24 +23,14 @@ class PregnancyTest < ActiveSupport::TestCase
         refute @pregnancy.valid?
       end
     end
-  end
 
-  describe 'search method' do
-    it 'should respond to search' do
-      assert Patient.respond_to? :search
-    end
-
-    it 'should find a patient' do
-      assert_equal Patient.search('Susan Smith').count, 1
-    end
-
-    it 'should find multiple patients if there are multiple' do
-      assert_equal Patient.search('123-456-6789').count, 2
-    end
-
-    it 'should be able to find based on secondary phones too' do
-      assert_equal Patient.search('999-999-9999').count, 1
-    end
+    # TODO
+    # it 'should reject non-dates in appointment date' do
+    #   %w(yeah).each do |bad_value|
+    #     @pregnancy.appointment_date = bad_value
+    #     refute @pregnancy.valid?
+    #   end
+    # end
   end
 
   describe 'most_recent_note_display_text method' do

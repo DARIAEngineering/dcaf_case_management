@@ -21,7 +21,7 @@ class AuditTrailTest < ActiveSupport::TestCase
     it 'should track proper info' do
       # TODO: add pregnancy and clinic info
       tracked_fields =
-        %w(name primary_phone secondary_person secondary_phone updated_by_id)
+        %w(name primary_phone other_contact other_phone other_contact_relationship updated_by_id)
       assert_equal Patient.tracked_fields,
                    tracked_fields
     end

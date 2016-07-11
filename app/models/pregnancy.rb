@@ -26,7 +26,7 @@
   field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
-  field :voicemail_ok, type: Boolean
+  field :voicemail_ok, type: Boolean, default: false
   field :line, type: String # DC, MD, VA
   field :language, type: String
   field :appointment_date, type: Date
@@ -53,13 +53,24 @@
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
 
+  # Temp fields associated with pledges: TEMPORARY
+  field :patient_contribution, type: Integer
+  field :naf_pledge, type: Integer
+  field :dcaf_soft_pledge, type: Integer
+  field :pledge_sent, type: Boolean
+
   # Validations
   validates :initial_call_date,
             :created_by,
             presence: true
+<<<<<<< HEAD
 
   validates_associated :patient, on: :create
 
+=======
+  validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
+                               allow_blank: true
+>>>>>>> 8c7a42b6378613a3d494de52ad5667eff2ea1246
   validates_associated :patient
 
   
@@ -93,9 +104,9 @@
     #   status = "Resolved Without DCAF"
     # elsif pledge_status?(:paid)
     #   status = "Pledge Paid"
-    # elsif pledge_status?(:sent)
-    #   status = "Sent Pledge"
-    if appointment_date
+    if pledge_sent?
+      'Pledge sent'
+    elsif appointment_date
       'Fundraising'
     elsif contact_made?
       'Needs Appointment'

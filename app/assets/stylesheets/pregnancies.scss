@@ -31,6 +31,8 @@ $font-size: 17px;
 }
 
 .abortion-left-menu {
+  font-size: 22px;
+
   li {
     // padding-left: 10px;
     background-color: white;
@@ -44,13 +46,25 @@ $font-size: 17px;
   li.active {
     // padding-left: 0;
 
+
     a, a:hover {
+      color: #5D3E8D !important;
+      background-color: white !important;
+    }
+
+    a:before {
+      font-family: 'Glyphicons Halflings';
+      content: "\e080";
+      margin-left: -1.5em;
+      padding-right: .5em;
       color: #5D3E8D;
-      background-color: white;
-
-
+      
     }
   }
+  a.submit-btn {
+    font-size: 22px;
+  }
+
 }
 
 .border-side {

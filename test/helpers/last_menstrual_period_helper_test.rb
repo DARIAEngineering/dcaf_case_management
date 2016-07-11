@@ -8,6 +8,7 @@ class LastMenstrualPeriodHelperTest < ActionView::TestCase
                         last_menstrual_period_weeks: 9,
                         last_menstrual_period_days: 2,
                         initial_call_date: 2.days.ago,
+                        appointment_date: 2.days.from_now,
                         created_by: @user
   end
 
@@ -30,6 +31,17 @@ class LastMenstrualPeriodHelperTest < ActionView::TestCase
 
     it 'should return shorter LMP in weeks and days' do
       assert_equal @pregnancy.last_menstrual_period_display_short, '9w 4d'
+    end
+  end
+
+  describe 'last_menstrual_period_at_appt' do
+    it 'should return nil unless appt date is set' do
+      @pregnancy.appointment_date = nil
+      assert_nil @pregnancy.last_menstrual_period_at_appt
+    end
+
+    it 'should return a calculated LMP on date of appointment' do
+      assert_equal '9 weeks, 6 days', @pregnancy.last_menstrual_period_at_appt
     end
   end
 
@@ -70,6 +82,12 @@ class LastMenstrualPeriodHelperTest < ActionView::TestCase
       @pregnancy.last_menstrual_period_days = 6
       assert_equal @pregnancy.send(:last_menstrual_period_on_date,
                                    Time.zone.today), 80
+    end
+  end
+
+  describe 'display_as_weeks' do
+    it 'should return a value of weeks and days' do
+      assert_equal '3 weeks, 3 days', display_as_weeks(24)
     end
   end
 end
