@@ -34,14 +34,21 @@ class Patient
 
   # Methods
   def self.search(name_or_phone_str) # Optimized Search the is case insensitive and phone number formatting agnostic
-    clean_phone = name_or_phone_str.gsub(/\D/, '')
-    formatted_phone = "#{clean_phone[0..2]}-#{clean_phone[3..5]}-#{clean_phone[6..10]}"
+    name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
+    phone_regexp = create_phone_regexp name_or_phone_str
     begin
-      name_matches = Patient.where name: /#{Regexp.escape(name_or_phone_str)}/i
-      secondary_name_matches = Patient.where other_contact: /#{Regexp.escape(name_or_phone_str)}/i
-      primary_matches = Patient.where primary_phone: formatted_phone
-      secondary_matches = Patient.where other_phone: formatted_phone
+      name_matches = Patient.where name: name_regexp
+      secondary_name_matches = Patient.where other_contact: name_regexp
+      primary_matches = Patient.where primary_phone: phone_regexp
+      secondary_matches = Patient.where other_phone: phone_regexp
       (name_matches | secondary_name_matches | primary_matches | secondary_matches)
     end
+  end
+
+  private
+
+  def create_phone_regexp(name_or_phone_str)
+    clean_phone = name_or_phone_str.gsub(/\D/, '')
+    /#{clean_phone[0..2]}-#{clean_phone[3..5]}-#{clean_phone[6..10]}/i
   end
 end
