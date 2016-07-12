@@ -1,11 +1,15 @@
-class Pregnancy
+ class Pregnancy 
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+
+  # relationships
+
   include LastMenstrualPeriodHelper
 
   # Relationships
+
   belongs_to :patient
   has_and_belongs_to_many :users, inverse_of: :pregnancies
   embeds_many :pledges
@@ -59,19 +63,20 @@ class Pregnancy
   validates :initial_call_date,
             :created_by,
             presence: true
+<<<<<<< HEAD
+
+  validates_associated :patient, on: :create
+
+=======
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
+>>>>>>> 8c7a42b6378613a3d494de52ad5667eff2ea1246
   validates_associated :patient
 
-  # History and auditing
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-  mongoid_userstamp user_model: 'User'
+  
 
   # Methods - see also the helpers
+
   def self.most_recent
     order('created_at DESC').limit(1).first
   end
@@ -124,5 +129,4 @@ class Pregnancy
   #     return true if pledge[status]
   #   end
   #   false
-  # end
 end
