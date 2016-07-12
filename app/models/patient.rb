@@ -35,20 +35,24 @@ class Patient
   # Methods
   def self.search(name_or_phone_str) # Optimized Search the is case insensitive and phone number formatting agnostic
     name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
-    phone_regexp = create_phone_regexp name_or_phone_str
-    begin
-      name_match = Patient.where name: name_regexp
-      secondary_name_match = Patient.where other_contact: name_regexp
-      primary_match = Patient.where primary_phone: phone_regexp
-      secondary_match = Patient.where other_phone: phone_regexp
-      (name_match | secondary_name_match | primary_match | secondary_match)
-    end
-  end
 
-  private
-
-  def create_phone_regexp(name_or_phone_str)
+    # this small crime against programming does the following:
+    # takes a phone number and inserts hyphens based on how long it is.
     clean_phone = name_or_phone_str.gsub(/\D/, '')
-    /#{clean_phone[0..2]}-#{clean_phone[3..5]}-#{clean_phone[6..10]}/i
+    formatted_phone = if clean_phone.length > 6
+                        "#{clean_phone[0..2]}-#{clean_phone[3..5]}-#{clean_phone[6..10]}"
+                      elsif clean_phone.length > 3
+                        "#{clean_phone[0..2]}-#{clean_phone[3..5]}"
+                      else
+                        "#{clean_phone[0..2]}"
+                      end
+
+    phone_regexp = /#{Regexp.escape(formatted_phone)}/
+
+    name_match = Patient.where name: name_regexp
+    secondary_name_match = Patient.where other_contact: name_regexp
+    primary_match = Patient.where primary_phone: phone_regexp
+    secondary_match = Patient.where other_phone: phone_regexp
+    (name_match | secondary_name_match | primary_match | secondary_match)
   end
 end

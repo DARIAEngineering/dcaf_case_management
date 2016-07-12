@@ -75,6 +75,10 @@ class PatientTest < ActiveSupport::TestCase
     it 'should be able to find based on secondary phones too' do
       assert_equal Patient.search('999-999-9999').count, 1
     end
+
+    it 'should be able to find based on phone patterns' do
+      assert_equal Patient.search('123').count, 2
+    end
   end
 
   describe 'mongoid attachments' do
