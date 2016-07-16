@@ -4,6 +4,8 @@ class Patient
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
+  before_save :clean_phones
+
   # Relationships
   has_many :pregnancies
 
@@ -19,7 +21,7 @@ class Patient
             :primary_phone,
             :created_by,
             presence: true
-  validates :primary_phone, :other_phone, length: { maximum: 12 }
+  validates :primary_phone, :other_phone, length: { maximum: 10 }
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
@@ -54,5 +56,10 @@ class Patient
     primary_match = Patient.where primary_phone: phone_regexp
     secondary_match = Patient.where other_phone: phone_regexp
     (name_match | secondary_name_match | primary_match | secondary_match)
+  end
+
+  def clean_phones
+    primary_phone.gsub!(/\D/,'')
+    other_phone.gsub!(/\D/,'')
   end
 end

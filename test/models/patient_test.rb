@@ -7,6 +7,19 @@ class PatientTest < ActiveSupport::TestCase
                                 other_contact: 'Yolo'
   end
 
+  describe 'callbacks' do
+    before do
+      @new_patient = build :patient, primary_phone: '111-222-3333',
+                                     other_phone: '999-888-7777'
+    end
+
+    it 'should clean phones before save' do
+      assert_equal @new_patient.primary_phone, '111-222-3333'
+      assert_equal @new_patient.other_phone, '999-888-7777'
+      @new_patient.save
+    end
+  end
+
   describe 'validations' do
     it 'should build' do
       assert @patient.valid?
@@ -28,7 +41,7 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     %w(primary_phone other_phone).each do |phone|
-      it "should enforce a max length of 12 for #{phone}" do
+      it "should enforce a max length of 10 for #{phone}" do
         @patient[phone] = '123-456-789022'
         refute @patient.valid?
       end
