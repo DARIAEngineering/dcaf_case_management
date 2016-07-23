@@ -64,8 +64,10 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal 'Fundraising', @pregnancy.status
     end
 
-    # it 'should update to "Sent Pledge" after a pledge has been sent' do
-    # end
+    it 'should update to "Sent Pledge" after a pledge has been sent' do
+      @pregnancy.pledge_sent = true
+      assert_equal 'Pledge sent', @pregnancy.status
+    end
 
     # it 'should update to "Pledge Paid" after a pledge has been paid' do
     # end
