@@ -55,6 +55,8 @@ class UserTest < ActiveSupport::TestCase
   describe 'pregnancy methods' do
     before do
       @pregnancy = create :pregnancy
+      @pregnancy_2 = create :pregnancy
+      @pregnancy_3 = create :pregnancy
     end
 
     it 'add pregnancy - should add a pregnancy to a set' do
@@ -68,6 +70,17 @@ class UserTest < ActiveSupport::TestCase
       assert_difference '@user.pregnancies.count', -1 do
         @user.remove_pregnancy @pregnancy
       end
+    end
+
+    it 'retrieve pregnancies - should let you reorder a pregnancy' do
+      set_of_pregnancies = [@pregnancy, @pregnancy_2, @pregnancy_3]
+      set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
+      assert_equal @user.pregnancies.first, @pregnancy
+
+      new_order = [@pregnancy_3, @pregnancy, @pregnancy_2]
+      @user.reorder_pregnancies new_order
+
+      assert_equal @user.pregnancies.first, @pregnancy_3
     end
   end
 end

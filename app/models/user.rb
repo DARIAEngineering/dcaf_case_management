@@ -82,8 +82,8 @@ class User
   end
 
   def reorder_pregnancies(order)
-    pregnancies = order.map { |id| pregnancies[id] }
-    pregnancies.save
+    pregnancies = order
+    save
     reload
   end
 end
