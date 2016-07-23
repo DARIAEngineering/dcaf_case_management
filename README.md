@@ -131,7 +131,9 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @charleshuang80
 * @drownedout
 * @rebeccaestes
-
+* @eheintzelman
+* @ashlynnpai
+* @camlatimer
 
 ## License
 
