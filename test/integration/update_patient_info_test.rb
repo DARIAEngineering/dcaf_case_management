@@ -20,7 +20,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       find('#pregnancy_last_menstrual_period_weeks').select '5 weeks'
       find('#pregnancy_last_menstrual_period_days').select '2 days'
-      fill_in 'Appointment date', with: '2016-06-01'
+      fill_in 'Appointment date', with: '2016-09-01'
       fill_in 'Phone number', with: '123-666-8888'
 
       click_away_from_field
@@ -33,7 +33,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field?('First and last name', with: 'Susie Everyteen 2')
         assert_equal find('#pregnancy_last_menstrual_period_weeks').value, '5'
         assert_equal find('#pregnancy_last_menstrual_period_days').value, '2'
-        assert has_field?('Appointment date', with: '2016-06-01')
+        assert has_field?('Appointment date', with: '2016-09-01')
         assert has_field? 'Phone number', with: '123-666-8888'
       end
     end
