@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :retrieve_pregnancies
+  before_action :retrieve_pregnancies, only: [:add_pregnancy, :remove_pregnancy]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def add_pregnancy
@@ -14,6 +14,12 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js { render template: 'users/refresh_pregnancies', layout: false }
     end
+  end
+
+  def reorder_pregnancies
+    # TODO: fail if anything is not a BSON id
+    current_user.reorder_pregnancies params[:order] # TODO: adjust to payload
+    respond_to { |format| format.js }
   end
 
   private

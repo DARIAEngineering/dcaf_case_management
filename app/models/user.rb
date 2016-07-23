@@ -80,4 +80,10 @@ class User
     pregnancies.delete pregnancy
     reload
   end
+
+  def reorder_pregnancies(order)
+    pregnancies = order.map { |id| pregnancies[id] }
+    pregnancies.save
+    reload
+  end
 end
