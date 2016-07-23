@@ -95,11 +95,11 @@ class Pregnancy
   end
 
   def status
-    # if resolved_without_dcaf
-    #   status = "Resolved Without DCAF"
+    if resolved_without_dcaf?
+      'Resolved Without DCAF'
     # elsif pledge_status?(:paid)
     #   status = "Pledge Paid"
-    if pledge_sent?
+    elsif pledge_sent?
       'Pledge sent'
     elsif appointment_date
       'Fundraising'

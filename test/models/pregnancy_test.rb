@@ -70,8 +70,10 @@ class PregnancyTest < ActiveSupport::TestCase
     # it 'should update to "Pledge Paid" after a pledge has been paid' do
     # end
 
-    # it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
-    # end
+    it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
+      @pregnancy.resolved_without_dcaf = true
+      assert_equal 'Resolved Without DCAF', @pregnancy.status
+    end
   end
 
   describe 'contact_made? method' do

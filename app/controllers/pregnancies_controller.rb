@@ -38,7 +38,7 @@ class PregnanciesController < ApplicationController
       # fields in create
       :voicemail_ok, :initial_call_date,
       # fields in dashboard
-      :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date,
+      :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date, :resolved_without_dcaf,
       # fields in abortion info
       :procedure_cost,
       # fields in patient info
