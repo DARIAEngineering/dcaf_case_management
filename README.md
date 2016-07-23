@@ -7,6 +7,8 @@
 
 ## Next major project milestone: September 1: Roll out to DC line
 
+## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
+
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
 
@@ -102,29 +104,33 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 * Check out the URL it's running on! You're all set!
 
 
-## For designers
+## For designers (Team lead: @mebates)
 The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app.
 
 Current UX and wireframe assets are available [here](https://github.com/colinxfleming/dcaf_case_management/tree/master/_design).
 
 
-## For developers
-The stack we use is Rails 4, MongoDB, PhantomJS for integration tests and basically everything else is out of the box. 
+## For developers (Team lead: @colinxfleming)
+The stack we use is Rails 4, MongoDB, PhantomJS for integration tests. Nearly everything else is out of the box. 
 
-The project leads prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
+We prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
 
-We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. 
+We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. If you're looking for an issue to tackle, hit up [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management)!
 
 
-## For nontechnical contributors
-### TK case managers
+## For case managers or abortion fund volunteers (Team leads: @lwaldsc and @nerdygirl537)
+DCAF's case management corps has a steady presence on this project -- we have users and stakeholders from DCAF who consult with other teams to ensure the success of the project. If you are an abortion fund volunteer interested in the work we're doing, please reach out!
+
+@nerdygirl537 serves as the primary liaison to other funds interested in adopting the system. If you are interested in putting this software to work for your organization, reach out to her in [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management). 
+
 ### TK user testers
+
 ### TK copywriters
 
 
 ## Project Wall of Appreciation
 
-Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are:
+Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) include:
 
 * @ajohnson051
 * @Kevin-Wei
