@@ -5,12 +5,17 @@
 
 [A deployed demo version of what's in the master branch is at: http://dcaf-cmapp-staging.herokuapp.com/](http://dcaf-cmapp-staging.herokuapp.com/)
 
+## Next major project milestone: September 1: Roll out to DC line
+
+## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
+
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
 
 Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/).
 
 The three co-leads on this project are @colinxfleming (rails and technical lead), @mebates (design and UI lead), and @adinneen (project manager and UX lead). We also have a large presence from DCAF actively consulting on this project, led by @lwaldsc and @nerdygirl537. Feel free to hit any of us up with questions about the project, we're nice!
+
 
 ## Contributing to this Project
 ### Our structure
@@ -46,8 +51,6 @@ We also keep track of our administrative issues and discussion in Github under t
 * [Admin](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
 * [Question](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before they're completed)
 * [Backlog](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that can wait until after the MVP)
-
-### (TK: Formal Contributing Guidelines)
 
 
 ## Setting Stuff Up
@@ -101,36 +104,51 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 * Check out the URL it's running on! You're all set!
 
 
-## For designers
-The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app.
+## For designers (Team lead: @mebates)
+The design team primarily drafts out the application layouts and works with user testers and case managers on specing out how features should work.
+
+The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as resolving questions raised by user testing.
 
 Current UX and wireframe assets are available [here](https://github.com/colinxfleming/dcaf_case_management/tree/master/_design).
 
 
-## For developers
-The stack we use is Rails 4, MongoDB, PhantomJS for integration tests and basically everything else is out of the box. 
+## For developers (Team lead: @colinxfleming)
+By and large, we are executing on the fantastic work of the design team.
 
-The project leads prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
+The stack we use is Rails 4, MongoDB, PhantomJS for integration tests. Nearly everything else is out of the box.
 
-We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. 
+We prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
+
+We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. If you're looking for an issue to tackle, hit up [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management)!
 
 
-## For nontechnical contributors
-### TK case managers
-### TK user testers
-### TK copywriters
+## For user testers (Team lead: @eheintzelman)
+With the core in place, we're regularly user testing new features and getting feedback on existing features, and working with the design team to resolve questions that these tests open up. Hit
+
+
+## For case managers or abortion fund volunteers (Team leads: @lwaldsc and @nerdygirl537)
+DCAF's case management corps has a steady presence on this project -- we have users and stakeholders from DCAF who consult with other teams to ensure the success of the project. We regularly pair case managers with devs or designers to work on specific features.
+
+If you are an abortion fund volunteer interested in the work we're doing, please reach out!
+
+@nerdygirl537 serves as the primary liaison to other funds interested in adopting the system. If you are interested in putting this software to work for your organization, reach out to her in [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management).
+
+
+## I'm not really any of these
+Don't let that stop you! Hit us up, we'll find something for you to do.
 
 
 ## Project Wall of Appreciation
 
-Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) are:
+Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) include:
 
 * @ajohnson051
 * @Kevin-Wei
 * @charleshuang80
 * @drownedout
 * @rebeccaestes
-
+* @ashlynnpai
+* @camlatimer
 
 ## License
 
