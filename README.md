@@ -105,27 +105,37 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 
 ## For designers (Team lead: @mebates)
-The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as designing a usability testing plan for the app.
+The design team primarily drafts out the application layouts and works with user testers and case managers on specing out how features should work.
+
+The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as resolving questions raised by user testing.
 
 Current UX and wireframe assets are available [here](https://github.com/colinxfleming/dcaf_case_management/tree/master/_design).
 
 
 ## For developers (Team lead: @colinxfleming)
-The stack we use is Rails 4, MongoDB, PhantomJS for integration tests. Nearly everything else is out of the box. 
+By and large, we are executing on the fantastic work of the design team.
+
+The stack we use is Rails 4, MongoDB, PhantomJS for integration tests. Nearly everything else is out of the box.
 
 We prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
 
 We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. If you're looking for an issue to tackle, hit up [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management)!
 
 
+## For user testers (Team lead: @eheintzelman)
+With the core in place, we're regularly user testing new features and getting feedback on existing features, and working with the design team to resolve questions that these tests open up. Hit
+
+
 ## For case managers or abortion fund volunteers (Team leads: @lwaldsc and @nerdygirl537)
-DCAF's case management corps has a steady presence on this project -- we have users and stakeholders from DCAF who consult with other teams to ensure the success of the project. If you are an abortion fund volunteer interested in the work we're doing, please reach out!
+DCAF's case management corps has a steady presence on this project -- we have users and stakeholders from DCAF who consult with other teams to ensure the success of the project. We regularly pair case managers with devs or designers to work on specific features.
 
-@nerdygirl537 serves as the primary liaison to other funds interested in adopting the system. If you are interested in putting this software to work for your organization, reach out to her in [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management). 
+If you are an abortion fund volunteer interested in the work we're doing, please reach out!
 
-### TK user testers
+@nerdygirl537 serves as the primary liaison to other funds interested in adopting the system. If you are interested in putting this software to work for your organization, reach out to her in [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management).
 
-### TK copywriters
+
+## I'm not really any of these
+Don't let that stop you! Hit us up, we'll find something for you to do.
 
 
 ## Project Wall of Appreciation
@@ -137,7 +147,6 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @charleshuang80
 * @drownedout
 * @rebeccaestes
-* @eheintzelman
 * @ashlynnpai
 * @camlatimer
 
