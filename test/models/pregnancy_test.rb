@@ -24,13 +24,15 @@ class PregnancyTest < ActiveSupport::TestCase
       end
     end
 
-    # TODO
-    # it 'should reject non-dates in appointment date' do
-    #   %w(yeah).each do |bad_value|
-    #     @pregnancy.appointment_date = bad_value
-    #     refute @pregnancy.valid?
-    #   end
-    # end
+    it 'should require appointment_date to be after initial_call_date' do
+      @pregnancy.initial_call_date = '2016-06-01'
+      @pregnancy.appointment_date = '2016-05-01'
+      refute @pregnancy.valid?
+      @pregnancy.appointment_date = nil
+      assert @pregnancy.valid?
+      @pregnancy.appointment_date = '2016-07-01'
+      assert @pregnancy.valid?
+    end
   end
 
   describe 'most_recent_note_display_text method' do

@@ -61,6 +61,7 @@ class Pregnancy
             presence: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
+  validate :confirm_appointment_after_initial_call
   validates_associated :patient
 
   # History and auditing
@@ -110,6 +111,12 @@ class Pregnancy
     end
   end
 
+  def confirm_appointment_after_initial_call
+    if appointment_date.present? && initial_call_date > appointment_date
+      errors.add(:appointment_date, 'must be after date of initial call')
+    end
+  end
+
   private
 
   def contact_made?
@@ -118,6 +125,7 @@ class Pregnancy
     end
     false
   end
+
 
   # def pledge_status?(status)
   #   pledges.each do |pledge|
