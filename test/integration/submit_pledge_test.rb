@@ -17,7 +17,6 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
   describe 'submitting a pledge' do
     it 'should let you mark a pledge submitted' do
       find('#submit-pledge-button').click
-      # click_link 'Submit pledge'
       assert has_text? 'Confirm the following information is correct'
       find('#submit-pledge-to-p2').click
 
@@ -33,11 +32,4 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       assert has_text? 'Pledge sent'
     end
   end
-
-  # describe 'unsubmitting a pledge' do
-
-  # end
-  # test "the truth" do
-  #   assert true
-  # end
 end
