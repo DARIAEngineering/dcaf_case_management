@@ -72,15 +72,17 @@ class UserTest < ActiveSupport::TestCase
       end
     end
 
-    it 'retrieve pregnancies - should let you reorder a pregnancy' do
+    it 'reorder call list - should let you reorder a call list' do
       set_of_pregnancies = [@pregnancy, @pregnancy_2, @pregnancy_3]
       set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
       assert_equal @user.pregnancies.first, @pregnancy
 
-      new_order = [@pregnancy_3, @pregnancy, @pregnancy_2]
-      @user.reorder_pregnancies new_order
+      new_order = [@pregnancy_3._id, @pregnancy._id, @pregnancy_2._id]
+      @user.reorder_call_list new_order
 
-      assert_equal @user.pregnancies.first, @pregnancy_3
+      assert_equal @pregnancy_3, @user.ordered_pregnancies.first
+      assert_equal @pregnancy, @user.ordered_pregnancies[1]
+      assert_equal @pregnancy_2, @user.ordered_pregnancies[2]
     end
   end
 end
