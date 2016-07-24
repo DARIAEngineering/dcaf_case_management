@@ -42,6 +42,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       visit edit_pregnancy_path @pregnancy
       wait_for_page_to_load
       find('a', text: 'Call Log').click
+      wait_for_section_to_load 'call_log'
 
       within :css, '#call_log' do
         assert has_text? @timestamp.display_date
@@ -66,6 +67,8 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       visit edit_pregnancy_path @pregnancy
       wait_for_page_to_load
       find('a', text: 'Call Log').click
+      wait_for_section_to_load 'call_log'
+
       within :css, '#call_log' do
         assert has_content? 'Reached patient', count: 3
       end
@@ -99,6 +102,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         visit edit_pregnancy_path @pregnancy
         wait_for_page_to_load
         find('a', text: 'Call Log').click
+        wait_for_section_to_load 'call_log'
 
         within :css, '#call_log' do
           assert has_text? @timestamp.display_date
@@ -114,5 +118,9 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
   def wait_for_page_to_load
     has_text? 'Submit pledge'
+  end
+
+  def wait_for_section_to_load(section)
+    find("##{section}")
   end
 end
