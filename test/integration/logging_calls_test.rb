@@ -16,7 +16,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
-  describe 'verifying modal behavior and content', js: true do
+  describe 'verifying modal behavior and content' do
     it 'should open a modal when clicking the call glyphicon' do
       assert has_text? 'Call Susan Everyteen now'
       assert has_text? '123-123-1234'
@@ -26,19 +26,20 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'logging reached patient', js: true do
+  describe 'logging reached patient' do
     before do
       @timestamp = Time.zone.now
       find('a', text: 'I reached the patient').click
+      wait_for_page_to_load
     end
 
     # problematic test
-    # it 'should redirect to the edit view when a patient has been reached' do
-    #   has_text? 'Submit pledge' # wait for the page to load
-    #   assert_equal current_path, edit_pregnancy_path(@pregnancy)
-    # end
+    it 'should redirect to the edit view when a patient has been reached' do
+      assert_equal current_path, edit_pregnancy_path(@pregnancy)
+    end
 
     it 'should be viewable on the call log' do
+      visit edit_pregnancy_path(@pregnancy)
       find('a', text: 'Call Log').click
 
       within :css, '#call_log' do
@@ -48,19 +49,26 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         assert has_text? @user.name
       end
     end
+  end
 
+  describe 'logging multiple calls' do
     # problematic test
-    # it 'should be able to save more than one reached patient call' do
-    #   visit authenticated_root_path
-    #   fill_in 'search', with: 'Susan Everyteen'
-    #   click_button 'Search'
-    #   find("a[href='#call-123-123-1234']").click
-    #   click_link 'I reached the patient'
-    #   find('a', text: 'Call Log').click
-    #   within :css, '#call_log' do
-    #     assert has_content? 'Reached patient', count: 2
-    #   end
-    # end
+    it 'should let you save more than one reached patient call' do
+      3.times do
+        visit authenticated_root_path
+        fill_in 'search', with: 'Susan Everyteen'
+        click_button 'Search'
+        find("a[href='#call-123-123-1234']").click
+        click_link 'I reached the patient'
+      end
+
+      visit edit_pregnancy_path @pregnancy
+      wait_for_page_to_load
+      find('a', text: 'Call Log').click
+      within :css, '#call_log' do
+        assert has_content? 'Reached patient', count: 3
+      end
+    end
   end
 
   ['Left voicemail', "Couldn't reach patient"].each do |call_status|
@@ -98,5 +106,11 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       #   end
       # end
     end
+  end
+
+  private
+
+  def wait_for_page_to_load
+    has_text? 'Submit pledge'
   end
 end
