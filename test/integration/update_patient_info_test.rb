@@ -20,7 +20,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       find('#pregnancy_last_menstrual_period_weeks').select '5 weeks'
       find('#pregnancy_last_menstrual_period_days').select '2 days'
-      fill_in 'Appointment date', with: '2016-06-01'
+      fill_in 'Appointment date', with: '2016-09-01'
       fill_in 'Phone number', with: '123-666-8888'
 
       click_away_from_field
@@ -33,7 +33,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field?('First and last name', with: 'Susie Everyteen 2')
         assert_equal find('#pregnancy_last_menstrual_period_weeks').value, '5'
         assert_equal find('#pregnancy_last_menstrual_period_days').value, '2'
-        assert has_field?('Appointment date', with: '2016-06-01')
+        assert has_field?('Appointment date', with: '2016-09-01')
         assert has_field? 'Phone number', with: '123-666-8888'
       end
     end
@@ -48,6 +48,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
       fill_in 'DCAF soft pledge', with: '25'
+      check 'Resolved without assistance from DCAF'
 
       click_away_from_field
       visit authenticated_root_path
@@ -64,6 +65,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
         assert has_field? 'DCAF soft pledge', with: '25'
+        assert_equal '1', find('#pregnancy_resolved_without_dcaf').value
       end
     end
   end
@@ -79,6 +81,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'ZIP', with: '90210'
+      check 'Voicemail OK?'
 
       find('#pregnancy_employment_status').select 'Part-time'
       find('#pregnancy_income').select '$30,000-34,999 ($577-672/week)'
@@ -92,6 +95,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       visit edit_pregnancy_path @pregnancy
     end
 
+    # problematic test
     it 'should alter the information' do
       click_link 'Patient Information'
       within :css, '#patient_information' do
@@ -110,6 +114,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
         assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
+        assert_equal '1', find('#pregnancy_voicemail_ok').value
       end
     end
   end

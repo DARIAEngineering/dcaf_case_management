@@ -81,7 +81,7 @@ class PregnanciesControllerTest < ActionController::TestCase
     before do
       @payload = {
         patient: { name: 'Susie Everyteen 2', id: @patient.id },
-        appointment_date: '2016-01-04',
+        appointment_date: '2016-09-04',
         clinic: { name: 'Clinic A', id: @clinic.id }
       }
 
@@ -100,7 +100,7 @@ class PregnanciesControllerTest < ActionController::TestCase
     end
 
     it 'should update pregnancy fields' do
-      assert_equal @pregnancy.appointment_date, '2016-01-04'.to_date
+      assert_equal @pregnancy.appointment_date, '2016-09-04'.to_date
     end
 
     it 'should update clinic fields' do

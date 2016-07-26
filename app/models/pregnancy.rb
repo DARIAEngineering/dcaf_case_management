@@ -61,6 +61,7 @@ class Pregnancy
             presence: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
+  validate :confirm_appointment_after_initial_call
   validates_associated :patient
 
   # History and auditing
@@ -95,11 +96,11 @@ class Pregnancy
   end
 
   def status
-    # if resolved_without_dcaf
-    #   status = "Resolved Without DCAF"
+    if resolved_without_dcaf?
+      'Resolved Without DCAF'
     # elsif pledge_status?(:paid)
     #   status = "Pledge Paid"
-    if pledge_sent?
+    elsif pledge_sent?
       'Pledge sent'
     elsif appointment_date
       'Fundraising'
@@ -107,6 +108,12 @@ class Pregnancy
       'Needs Appointment'
     else
       'No Contact Made'
+    end
+  end
+
+  def confirm_appointment_after_initial_call
+    if appointment_date.present? && initial_call_date > appointment_date
+      errors.add(:appointment_date, 'must be after date of initial call')
     end
   end
 
@@ -118,6 +125,7 @@ class Pregnancy
     end
     false
   end
+
 
   # def pledge_status?(status)
   #   pledges.each do |pledge|

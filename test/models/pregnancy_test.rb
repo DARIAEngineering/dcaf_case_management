@@ -24,13 +24,15 @@ class PregnancyTest < ActiveSupport::TestCase
       end
     end
 
-    # TODO
-    # it 'should reject non-dates in appointment date' do
-    #   %w(yeah).each do |bad_value|
-    #     @pregnancy.appointment_date = bad_value
-    #     refute @pregnancy.valid?
-    #   end
-    # end
+    it 'should require appointment_date to be after initial_call_date' do
+      @pregnancy.initial_call_date = '2016-06-01'
+      @pregnancy.appointment_date = '2016-05-01'
+      refute @pregnancy.valid?
+      @pregnancy.appointment_date = nil
+      assert @pregnancy.valid?
+      @pregnancy.appointment_date = '2016-07-01'
+      assert @pregnancy.valid?
+    end
   end
 
   describe 'most_recent_note_display_text method' do
@@ -64,14 +66,18 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal 'Fundraising', @pregnancy.status
     end
 
-    # it 'should update to "Sent Pledge" after a pledge has been sent' do
-    # end
+    it 'should update to "Sent Pledge" after a pledge has been sent' do
+      @pregnancy.pledge_sent = true
+      assert_equal 'Pledge sent', @pregnancy.status
+    end
 
     # it 'should update to "Pledge Paid" after a pledge has been paid' do
     # end
 
-    # it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
-    # end
+    it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
+      @pregnancy.resolved_without_dcaf = true
+      assert_equal 'Resolved Without DCAF', @pregnancy.status
+    end
   end
 
   describe 'contact_made? method' do

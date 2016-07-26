@@ -25,8 +25,13 @@
               </div>
               <%#= cl.text_field :zip, label: 'ZIP:', autocomplete: 'off' %>
             <% end %>
+
+            <%= f.form_group :resolved_without_dcaf, label: { text: 'Resolved without assistance from DCAF' } do %>
+              <%= f.check_box :resolved_without_dcaf, label: '' %>
+            <% end %>
           </div>
         </div>
+
         <div class="col-sm-6">
           <div class="info-form-right">
             <h3>Cost details</h3>
