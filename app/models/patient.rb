@@ -37,22 +37,13 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.search(name_or_phone_str) # Optimized Search the is case insensitive and phone number formatting agnostic
+  # Case insensitive and phone number format agnostic!
+  def self.search(name_or_phone_str)
     name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
-
-    # this small crime against programming does the following:
-    # takes a phone number and inserts hyphens based on how long it is.
     clean_phone = name_or_phone_str.gsub(/\D/, '')
-    formatted_phone = if clean_phone.length > 6
-                        "#{clean_phone[0..2]}-#{clean_phone[3..5]}-#{clean_phone[6..10]}"
-                      elsif clean_phone.length > 3
-                        "#{clean_phone[0..2]}-#{clean_phone[3..5]}"
-                      else
-                        "#{clean_phone[0..2]}"
-                      end
+    phone_regexp = /#{Regexp.escape(clean_phone)}/i
 
-    phone_regexp = /#{Regexp.escape(formatted_phone)}/
-
+    # this doesn't work yet
     name_match = Patient.where name: name_regexp
     secondary_name_match = Patient.where other_contact: name_regexp
     primary_match = Patient.where primary_phone: phone_regexp

@@ -14,8 +14,8 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should clean phones before save' do
-      assert_equal @new_patient.primary_phone, '111-222-3333'
-      assert_equal @new_patient.other_phone, '999-888-7777'
+      assert_equal '111-222-3333', @new_patient.primary_phone
+      assert_equal '999-888-7777', @new_patient.other_phone
       @new_patient.save
     end
   end
@@ -75,7 +75,9 @@ class PatientTest < ActiveSupport::TestCase
   describe 'search method' do
     before do
       @pt_1 = create :patient, name: 'Susan Sher', primary_phone: '123-456-6789'
-      @pt_2 = create :patient, name: 'Susan E', primary_phone: '123-456-6789', other_contact: 'Friend Ship'
+      @pt_2 = create :patient, name: 'Susan E',
+                               primary_phone: '123-456-6789',
+                               other_contact: 'Friend Ship'
       @pt_3 = create :patient, name: 'Susan A', other_phone: '999-999-9999'
       [@pt_1, @pt_2, @pt_3].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
@@ -83,20 +85,21 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should find a patient on name or other name' do
-      assert_equal Patient.search('Susan Sher').count, 1
-      assert_equal Patient.search('Friend Ship').count, 1
+      puts Patient.search('Susan Sher').inspect
+      assert_equal 1, Patient.search('Susan Sher').count
+      assert_equal 1, Patient.search('Friend Ship').count
     end
 
     it 'should find multiple patients if there are multiple' do
-      assert_equal Patient.search('123-456-6789').count, 2
+      assert_equal 2, Patient.search('123-456-6789').count
     end
 
     it 'should be able to find based on secondary phones too' do
-      assert_equal Patient.search('999-999-9999').count, 1
+      assert_equal 1, Patient.search('999-999-9999').count
     end
 
     it 'should be able to find based on phone patterns' do
-      assert_equal Patient.search('123').count, 2
+      assert_equal 2, Patient.search('123').count
     end
   end
 
