@@ -45,6 +45,12 @@ class PatientTest < ActiveSupport::TestCase
         @patient[phone] = '123-456-789022'
         refute @patient.valid?
       end
+
+      it "should clean before validation for #{phone}" do
+        @patient[phone] = '111-222-3333'
+        @patient.save
+        assert_equal '1112223333', @patient[phone]
+      end
     end
   end
 
