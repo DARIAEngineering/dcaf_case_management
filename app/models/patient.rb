@@ -41,13 +41,19 @@ class Patient
   def self.search(name_or_phone_str)
     name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
     clean_phone = name_or_phone_str.gsub(/\D/, '')
-    phone_regexp = /#{Regexp.escape(clean_phone)}/i
+    phone_regexp = /#{Regexp.escape(clean_phone)}/
 
     # this doesn't work yet
     name_match = Patient.where name: name_regexp
     secondary_name_match = Patient.where other_contact: name_regexp
     primary_match = Patient.where primary_phone: phone_regexp
     secondary_match = Patient.where other_phone: phone_regexp
+
+    # name_match # Susan Sher
+    # secondary_name_match # 0 
+    # primary_match # 4
+    # secondary_match # 2
+
     (name_match | secondary_name_match | primary_match | secondary_match)
   end
 
