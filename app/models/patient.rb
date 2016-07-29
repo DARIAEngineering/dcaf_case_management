@@ -4,7 +4,7 @@ class Patient
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
-  before_validation :clean_phones
+  before_validation :clean_phones, :clean_names
 
   # Relationships
   has_many :pregnancies
@@ -23,7 +23,7 @@ class Patient
             presence: true
   # validates :primary_phone, :other_phone, length: { maximum: 10 }
   validates :primary_phone, format: /\d{10}/, length: { is: 10 }
-  validates :other_phone, format: /\d{10}/, length: { is: 10 }, if: 'other_phone.present?'
+  validates :other_phone, format: /\d{10}/, length: { is: 10 }, allow_blank: true
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
@@ -54,5 +54,10 @@ class Patient
   def clean_phones
     primary_phone.gsub!(/\D/, '') if primary_phone
     other_phone.gsub!(/\D/, '') if other_phone
+  end
+
+  def clean_names
+    name.strip! if name
+    other_contact.strip! if other_contact
   end
 end
