@@ -51,6 +51,8 @@ class Patient
     (name_match | secondary_name_match | primary_match | secondary_match)
   end
 
+  private
+
   def clean_phones
     primary_phone.gsub!(/\D/, '') if primary_phone
     other_phone.gsub!(/\D/, '') if other_phone
