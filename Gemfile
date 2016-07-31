@@ -29,7 +29,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
-  gem 'dawnscanner', require: false
+  gem 'dawnscanner'
 end
 
 group :development, :test do
