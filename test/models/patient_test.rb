@@ -96,8 +96,6 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should find a patient on name or other name' do
-      # these two tests are failing because the search function is stripping to an empty string on phone, and then in effect performing a wildcard search
-
       assert_equal 1, Patient.search('Susan Sher').count
       assert_equal 1, Patient.search('Friend Ship').count
     end
