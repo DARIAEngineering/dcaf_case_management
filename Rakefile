@@ -1,5 +1,4 @@
 require File.expand_path('../config/application', __FILE__)
-# require 'dawnscanner'
-# require 'dawn/tasks'
+# require 'dawn/tasks' # Comment this out until dawnscanner gets better
 
 Rails.application.load_tasks
