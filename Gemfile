@@ -34,7 +34,6 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'spring'
-  # gem 'dawnscanner'
 
   # better error handling
   gem 'better_errors'
