@@ -4,7 +4,7 @@ class Patient
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
-  before_validation :clean_phones, :clean_names
+  before_validation :clean_fields
 
   # Relationships
   has_many :pregnancies
@@ -37,6 +37,16 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
+  def primary_phone_display
+    return nil unless primary_phone.present?
+    "#{primary_phone[0..2]}-#{primary_phone[3..5]}-#{primary_phone[6..9]}"
+  end
+
+  def other_phone_display
+    return nil unless other_phone.present?
+    "#{other_phone[0..2]}-#{other_phone[3..5]}-#{other_phone[6..9]}"
+  end
+
   # Search-related stuff
   class << self
     # Case insensitive and phone number format agnostic!
@@ -81,13 +91,11 @@ class Patient
 
   private
 
-  def clean_phones
+  def clean_fields
     primary_phone.gsub!(/\D/, '') if primary_phone
     other_phone.gsub!(/\D/, '') if other_phone
-  end
-
-  def clean_names
     name.strip! if name
     other_contact.strip! if other_contact
+    other_contact_relationship.strip! if other_contact
   end
 end
