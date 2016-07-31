@@ -37,24 +37,49 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  # Case insensitive and phone number format agnostic!
-  def self.search(name_or_phone_str)
-    name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
-    clean_phone = name_or_phone_str.gsub(/\D/, '')
-    phone_regexp = /#{Regexp.escape(clean_phone)}/
+  # Search-related stuff
+  class << self
+    # Case insensitive and phone number format agnostic!
+    def search(name_or_phone_str)
+      name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
+      clean_phone = name_or_phone_str.gsub(/\D/, '')
+      phone_regexp = /#{Regexp.escape(clean_phone)}/
 
-    # this doesn't work yet
-    name_match = Patient.where name: name_regexp
-    secondary_name_match = Patient.where other_contact: name_regexp
-    primary_match = Patient.where primary_phone: phone_regexp
-    secondary_match = Patient.where other_phone: phone_regexp
+      puts name_regexp
+      puts phone_regexp
+      puts name_regexp.present?
+      puts phone_regexp.present?
 
-    # name_match # Susan Sher
-    # secondary_name_match # 0 
-    # primary_match # 4
-    # secondary_match # 2
+      all_matching_names = find_name_matches name_regexp
+      all_matching_phones = find_phone_matches phone_regexp
 
-    (name_match | secondary_name_match | primary_match | secondary_match)
+      (all_matching_names | all_matching_phones)
+
+      # # name_match # Susan Sher
+      # # secondary_name_match # 0
+      # # primary_match # 4
+      # # secondary_match # 2
+    end
+
+    private
+
+    def find_name_matches(name_regexp)
+      if name_regexp.present?
+        primary_names = Patient.where name: name_regexp
+        other_names = Patient.where other_contact: name_regexp
+        return (primary_names | other_names)
+      end
+      []
+    end
+
+    def find_phone_matches(phone_regexp)
+      if phone_regexp.present?
+        primary_phones = Patient.where primary_phone: phone_regexp
+        other_phones = Patient.where other_phone: phone_regexp
+        return (primary_phones | other_phones)
+      end
+      []
+    end
   end
 
   private
