@@ -96,6 +96,6 @@ class Patient
     other_phone.gsub!(/\D/, '') if other_phone
     name.strip! if name
     other_contact.strip! if other_contact
-    other_contact_relationship.strip! if other_contact
+    other_contact_relationship.strip! if other_contact_relationship
   end
 end
