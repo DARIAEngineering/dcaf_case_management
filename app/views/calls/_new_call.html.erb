@@ -1,4 +1,4 @@
-<div class="modal fade new-call" tabindex="-1" role="dialog" id="call-<%= p.patient.primary_phone %>">
+<div class="modal fade new-call" tabindex="-1" role="dialog" id="call-<%= p.patient.primary_phone_display %>">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
@@ -6,7 +6,7 @@
           <button type="button" class="close close-terms" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title calls-request">Call <b><%= p.patient.name %></b> now:</h4>
           <br>
-          <h4 class="calls-phone"><%= p.patient.primary_phone %></h4>
+          <h4 class="calls-phone"><%= p.patient.primary_phone_display %></h4>
           <br>
 
           <p><%= link_to "I reached the patient", pregnancy_calls_path(p, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %></p>

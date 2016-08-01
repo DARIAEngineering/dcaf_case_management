@@ -8,7 +8,7 @@
 		<div class="pledge_intro">Confirm the following information is correct:</div>
 		<div class="pledge_form">
 			<div><span class="pledge_modal_category">Patient name:</span> <%= pregnancy.patient.name %></div>
-			<div><span class="pledge_modal_category">Patient ID:</span> <%= pregnancy.patient.primary_phone %></div>
+			<div><span class="pledge_modal_category">Patient ID:</span> <%= pregnancy.patient.primary_phone_display %></div>
 			<div><span class="pledge_modal_category">Pledge amount:</span> $<%= pregnancy.dcaf_soft_pledge %> </div>
 			<div><span class="pledge_modal_category">Appointment date:</span> <%= pregnancy.appointment_date %></div>
 			<div><span class="pledge_modal_category">Clinic name:</span> <%= pregnancy.clinic.name if pregnancy.clinic %></div>
