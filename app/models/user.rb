@@ -21,6 +21,7 @@ class User
   field :name, type: String
   field :line, type: String
   field :role, type: String
+  field :call_order, type: String
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -81,9 +82,20 @@ class User
     reload
   end
 
-  def reorder_pregnancies(order)
-    pregnancies = order
+  def reorder_call_list(order)
+    update call_order: order.join(',')
     save
     reload
+  end
+
+  def ordered_pregnancies
+    return call_list_pregnancies unless call_order
+    split_order = call_order.split(',')
+    # TODO reject pregnancies not in call list?
+
+    # create a mapping
+    ids_of_pregnancies = Hash[call_list_pregnancies.map { |u| [u._id.to_s, u] }]
+    ordered_pregnancies = split_order.map { |id| ids_of_pregnancies[id] }
+    ordered_pregnancies
   end
 end
