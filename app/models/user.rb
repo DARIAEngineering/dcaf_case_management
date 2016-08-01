@@ -89,10 +89,11 @@ class User
   end
 
   def ordered_pregnancies
+    return call_list_pregnancies unless call_order
     split_order = call_order.split(',')
 
     # create a mapping
-    ids_of_pregnancies = Hash[pregnancies.map { |u| [u._id.to_s, u] }]
+    ids_of_pregnancies = Hash[call_list_pregnancies.map { |u| [u._id.to_s, u] }]
     ordered_pregnancies = split_order.map { |id| ids_of_pregnancies[id] }
     ordered_pregnancies
   end
