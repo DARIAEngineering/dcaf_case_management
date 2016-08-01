@@ -37,7 +37,7 @@
           <h3>Other Contact</h3>
           <%= f.fields_for pregnancy.patient do |p| %>
             <%= p.text_field :other_contact, autocomplete: 'off', label: 'Other contact name' %>
-            <%= p.text_field :other_phone, autocomplete: 'off', label: 'Other phone' %>
+            <%= p.text_field :other_phone, value: @pregnancy.patient.other_phone_display, autocomplete: 'off', label: 'Other phone' %>
             <%= p.text_field :other_contact_relationship, autocomplete: 'off', label: 'Relationship to other contact' %>
           <% end %>
         </div>
