@@ -23,17 +23,17 @@ jQuery ->
         item_id = ui.item[0].id
         parent = $('#'+item_id).parent()
         children = parent.children()
-        result = []
+        order = []
         for child, value of children
-          if value.id? then result.push(value.id)
-        console.log(result)
+          if value.id? then order.push(value.id)
+        console.log(order)
 
-#        $.ajax(
-#          type: 'POST'
-#          url: '/things/update_row_order'
-#          dataType: 'json'
-#          data: { thing: {thing_id: item_id, row_order_position: position } }
-#        )
+        $.ajax(
+          type: 'POST'
+          url: '/something/reorder_pregnancies'
+          dataType: 'json'
+          data: { order }
+        )
     )
 
 
