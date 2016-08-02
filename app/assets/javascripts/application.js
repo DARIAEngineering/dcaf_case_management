@@ -47,4 +47,37 @@ $(document).ready(function(){
 	});
 
   $('[data-toggle="toggle"]').bootstrapToggle();
+
+
+  // TODO migrate to calls.coffee
+
+    $('#call_list').sortable({
+      placeholder: "ui-state-highlight",
+      axis: 'y',
+      items: '.pregnancy-data',
+      handle: '.handle',
+      helper: fixHelper,
+    });
+
+
+var fixHelper = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index)
+    {
+      $(this).width($originals.eq(index).width())
+    });
+    console.log("halp");
+    return $helper;
+};
+
+
+
+//#    $( "#call_list_content" ).disableSelection();
+
+//    fixHelper = (e, ui) -> bar * baz
+
+
+
+
 })
