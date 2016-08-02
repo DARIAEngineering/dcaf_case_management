@@ -12,5 +12,10 @@ jQuery ->
       axis: 'y'
       items: '.pregnancy-data'
       handle: '.handle'
+      sort: (e, ui) ->
+        ui.item.addClass('active-item-shadow')
+      stop: (e, ui) ->
+        ui.item.removeClass('active-item-shadow')
+        # highlight the row on drop to indicate an update
+        ui.item.children('td').effect('highlight', {}, 500)
     );
-
