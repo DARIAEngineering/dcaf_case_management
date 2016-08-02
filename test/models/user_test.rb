@@ -85,4 +85,22 @@ class UserTest < ActiveSupport::TestCase
       assert_equal @pregnancy_2, @user.ordered_pregnancies[2]
     end
   end
+
+  describe 'relationships' do
+    before do
+      @pregnancy = create :pregnancy
+      @pregnancy_2 = create :pregnancy
+      @user.pregnancies << @pregnancy
+      @user.pregnancies << @pregnancy_2
+      @user_2 = create :user
+    end
+
+    it 'should have any belong to many pregnancies' do
+      [@pregnancy, @pregnancy_2].each do |preg|
+        [@user, @user_2].each { |user| user.add_pregnancy preg }
+      end
+
+      assert_equal @user.pregnancies, @user_2.pregnancies
+    end
+  end
 end

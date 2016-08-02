@@ -14,13 +14,13 @@
 			<div><span class="pledge_modal_category">Clinic name:</span> <%= pregnancy.clinic.name if pregnancy.clinic %></div>
 		</div>
 		<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
-	 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit">Continue</a>
+	 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit" id='submit-pledge-to-p2'>Continue</a>
 	</div>
 
 	<div class="pledge_modal_screen2">
 		<div class="pledge_intro">Review this preview of your pledge: (Not working yet)</div>
 			<a class="pledge_process_btn pledge_back_submit"><span class="glyphicon glyphicon-chevron-left"></span>Go back</a>
-			<a class="btn btn-primary btn-sm pledge_process_btn pledge_continue">Download and continue</a>
+			<a class="btn btn-primary btn-sm pledge_process_btn pledge_continue" id='submit-pledge-to-p3'>Download and continue</a>
 	</div>
 
 	<div class="pledge_modal_screen3">
@@ -36,7 +36,7 @@
 			<a class="pledge_process_btn pledge_back_review">Go back</a>
 			<!-- <%# submit_tag 'Finish', data: { dismiss: "modal" },
 					class: "btn btn-primary btn-sm pledge_process_btn pledge_finish" %> -->
-			<a class="btn btn-primary btn-sm pledge_process_btn pledge_finish" data-dismiss="modal">Finish</a>
+			<a class="btn btn-primary btn-sm pledge_process_btn pledge_finish" data-dismiss="modal" id='submit-pledge-finish'>Finish</a>
 		</div>
 	</div>
 

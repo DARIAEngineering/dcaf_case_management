@@ -1,10 +1,10 @@
 <section id="notes" class="notes tab-pane">
-  <div class="col-sm-12 margin-bottom">
-    <%= bootstrap_form_for [pregnancy, note], html: { id: 'notes-form' }, remote: true do |f| %>  
+  <div class="col-sm-12 margin-bottom-sm">
+    <%= bootstrap_form_for [pregnancy, note], html: { id: 'notes-form' }, remote: true do |f| %>
     <div class="row">
       <div class="info-form-left col-sm-12">
         <h2>Notes</h2>
-        <%= f.text_area :full_text, size: '20x10', placeholder: 'Enter notes here', hide_label: true %>
+        <%= f.text_area :full_text, size: '20x5', placeholder: 'Enter notes here', hide_label: true %>
       </div>
     </div>
 
@@ -18,7 +18,7 @@
         <%= bootstrap_form_for pregnancy, html: { id: 'urgents-form', class: 'text-right text-danger edit_pregnancy' }, remote: true do |u| %>
           <%= u.check_box :urgent_flag, label: 'Flag this patient as urgent' %>
         <% end %>
-      </div>        
+      </div>
     </div>
   </div>
 
