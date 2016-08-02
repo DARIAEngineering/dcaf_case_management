@@ -4,6 +4,9 @@
 
 jQuery -> 
 
+    $('#call_list td').each (index, element) ->
+      $(element).css('width', $(element).width())
+
     $('#call_list').sortable(
       placeholder: "ui-state-highlight"
       axis: 'y'
