@@ -12,6 +12,7 @@ jQuery ->
       axis: 'y'
       items: '.pregnancy-data'
       handle: '.handle'
+      cursor: 'move'
       sort: (e, ui) ->
         ui.item.addClass('active-item-shadow')
       stop: (e, ui) ->
