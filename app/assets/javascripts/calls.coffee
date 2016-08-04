@@ -2,10 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-jQuery -> 
+# http://stackoverflow.com/questions/1307705/jquery-ui-sortable-with-table-and-tr-width/1372954#1372954
+# http://benw.me/posts/sortable-bootstrap-tables/
 
-    $('#call_list td').each (index, element) ->
-      $(element).css('width', $(element).width())
+jQuery -> 
 
     $('#call_list').sortable(
       placeholder: "ui-state-highlight"
@@ -27,13 +27,19 @@ jQuery ->
         for child, value of children
           if value.id? then order.push(value.id)
         console.log(order)
+      helper: (e, tr) ->
+        originals = tr.children()
+        helper = tr.clone() 
+        helper.children().each (index, element) ->
+          $(element).css('width', originals.eq(index).width())
+        return helper
 
-        $.ajax(
-          type: 'POST'
-          url: '/something/reorder_pregnancies'
-          dataType: 'json'
-          data: { order }
-        )
+#      $.ajax(
+#        type: 'POST'
+#        url: '/something/reorder_pregnancies'
+#        dataType: 'json'
+#         data: { order }
+#      )
     )
 
 
