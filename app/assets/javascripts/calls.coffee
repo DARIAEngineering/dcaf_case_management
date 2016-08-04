@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# http://stackoverflow.com/questions/1307705/jquery-ui-sortable-with-table-and-tr-width/1372954#1372954
+# http://benw.me/posts/sortable-bootstrap-tables/
+
 jQuery -> 
 
     $('#call_list td').each (index, element) ->
