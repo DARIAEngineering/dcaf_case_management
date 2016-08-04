@@ -6,7 +6,7 @@
 
     <h3>Change your account details</h3>
     <%= f.email_field :email, autofocus: true %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, label: 'First and last name' %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
