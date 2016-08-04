@@ -96,6 +96,7 @@ class Pregnancy
   end
 
   def pledge_identifier # unique ID made up by DCAF to easier identify patients
+    return nil unless line
     "#{line[0]}#{patient.primary_phone[-5]}-#{patient.primary_phone[-4..-1]}"
   end
 
