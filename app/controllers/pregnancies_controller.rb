@@ -38,7 +38,7 @@ class PregnanciesController < ApplicationController
       # fields in create
       :voicemail_ok, :initial_call_date,
       # fields in dashboard
-      :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date,
+      :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date, :resolved_without_dcaf,
       # fields in abortion info
       :procedure_cost,
       # fields in patient info
@@ -46,10 +46,10 @@ class PregnanciesController < ApplicationController
       # fields in notes
       :urgent_flag,
       # temp fields for $
-      :patient_contribution, :naf_pledge, :dcaf_soft_pledge,
+      :patient_contribution, :naf_pledge, :dcaf_soft_pledge, :pledge_sent,
       # associated
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
-      patient: [:id, :name, :primary_phone, :secondary_person, :secondary_phone, :secondary_relationship]
+      patient: [:id, :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship]
     )
   end
 end

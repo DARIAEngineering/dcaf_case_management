@@ -1,6 +1,7 @@
 /*
  *= require rails_bootstrap_forms
  *= require_tree ../../../vendor/assets/stylesheets/.
+ *= require_self
  *= require_tree .
 */
 
@@ -62,6 +63,9 @@ $font-size: 17px;
 .margin-bottom {
   margin-bottom: 100px;
 }
+.margin-bottom-sm {
+  margin-bottom: 50px;
+}
 
 // increase size of text in form fields
 .form-control {
@@ -122,7 +126,6 @@ section {
 .authform {
   @extend .well;
   @extend .well-lg;
-  @extend .col-sm-6;
   @extend .center-block;
   padding-top: 20px;
   /*max-width: 320px;*/
@@ -156,7 +159,7 @@ section {
   @extend .btn-xs;
 }
 
-// Search result 
+// Search result
 // shell styling
 .form-group input {
   &[type="date"]::-webkit-inner-spin-button {

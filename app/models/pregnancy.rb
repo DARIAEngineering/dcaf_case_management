@@ -53,11 +53,15 @@ class Pregnancy
   field :patient_contribution, type: Integer
   field :naf_pledge, type: Integer
   field :dcaf_soft_pledge, type: Integer
+  field :pledge_sent, type: Boolean
 
   # Validations
   validates :initial_call_date,
             :created_by,
             presence: true
+  validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
+                               allow_blank: true
+  validate :confirm_appointment_after_initial_call
   validates_associated :patient
 
   # History and auditing
@@ -91,19 +95,30 @@ class Pregnancy
     notes.order('created_at DESC').limit(1).first.try(:full_text).to_s
   end
 
+  def pledge_identifier # unique ID made up by DCAF to easier identify patients
+    return nil unless line
+    "#{line[0]}#{patient.primary_phone[-5]}-#{patient.primary_phone[-4..-1]}"
+  end
+
   def status
-    # if resolved_without_dcaf
-    #   status = "Resolved Without DCAF"
+    if resolved_without_dcaf?
+      'Resolved Without DCAF'
     # elsif pledge_status?(:paid)
     #   status = "Pledge Paid"
-    # elsif pledge_status?(:sent)
-    #   status = "Sent Pledge"
-    if appointment_date
+    elsif pledge_sent?
+      'Pledge sent'
+    elsif appointment_date
       'Fundraising'
     elsif contact_made?
       'Needs Appointment'
     else
       'No Contact Made'
+    end
+  end
+
+  def confirm_appointment_after_initial_call
+    if appointment_date.present? && initial_call_date > appointment_date
+      errors.add(:appointment_date, 'must be after date of initial call')
     end
   end
 

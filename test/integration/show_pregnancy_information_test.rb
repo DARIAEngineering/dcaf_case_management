@@ -39,7 +39,7 @@ class ShowPregnancyInformationTest < ActionDispatch::IntegrationTest
       within :css, '#sections' do
         assert has_text? 'Patient information'
         assert has_text? 'Age'
-        assert has_text? 'Secondary contact phone'
+        assert has_text? 'Other phone'
         assert has_text? 'Employment status'
       end
     end
