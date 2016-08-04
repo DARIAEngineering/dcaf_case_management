@@ -60,12 +60,15 @@ Patient.find_by(name: 'Patient 2')
        .notes.create full_text: note_text,
                      created_by: user2
 
-# Add Patient 0 and Patient 1 to regular call list
+# Adds Patients 0 thru 4 to regular call list
 user.add_pregnancy Patient.find_by(name: 'Patient 0').pregnancies.first
 user.add_pregnancy Patient.find_by(name: 'Patient 1').pregnancies.first
+user.add_pregnancy Patient.find_by(name: 'Patient 2').pregnancies.first
+user.add_pregnancy Patient.find_by(name: 'Patient 3').pregnancies.first
+user.add_pregnancy Patient.find_by(name: 'Patient 4').pregnancies.first
 
-# Add Patient 2 to completed calls list
-patient_in_completed_calls = Patient.find_by(name: 'Patient 2')
+# Add Patient 5 to completed calls list
+patient_in_completed_calls = Patient.find_by(name: 'Patient 5')
                                     .pregnancies.first
 user.add_pregnancy patient_in_completed_calls
 patient_in_completed_calls.calls.create status: 'Left voicemail',
