@@ -24,7 +24,7 @@ class Pregnancy
   field :last_menstrual_period_days, type: Integer
   field :voicemail_ok, type: Boolean, default: false
   field :line, type: String # DC, MD, VA
-  field :language, type: String
+  field :spanish, type: Boolean
   field :appointment_date, type: Date
   field :urgent_flag, type: Boolean
 
