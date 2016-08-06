@@ -117,6 +117,10 @@ class PatientTest < ActiveSupport::TestCase
     it 'should be able to find based on phone patterns' do
       assert_equal 2, Patient.search('124').count
     end
+
+    it 'should not choke if it does not find anything' do
+      assert_equal 0, Patient.search('no entries with this').count
+    end
   end
 
   describe 'other methods' do
