@@ -1,9 +1,12 @@
 class Pregnancy
   include Mongoid::Document
+  include Mongoid::Enum
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
   include LastMenstrualPeriodHelper
+
+  enum :voicemail_preference, [:default, :no, :yes]
 
   # Relationships
   belongs_to :patient
@@ -22,7 +25,7 @@ class Pregnancy
   field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
-  field :voicemail_ok, type: Boolean, default: false
+  field :voicemail_preference, type: Integer, default: 0
   field :line, type: String # DC, MD, VA
   field :spanish, type: Boolean
   field :appointment_date, type: Date
