@@ -40,12 +40,12 @@ class AuditTrailTest < ActiveSupport::TestCase
 
     it 'should conveniently render what they were before' do
       assert_equal @track.tracked_changes_from,
-                   'Susie Everyteen<br>111-222-3333'
+                   'Susie Everyteen<br>1112223333'
     end
 
     it 'should conveniently render what they are now' do
       assert_equal @track.tracked_changes_to,
-                   'Yolo<br>123-456-9999'
+                   'Yolo<br>1234569999'
     end
   end
 end
