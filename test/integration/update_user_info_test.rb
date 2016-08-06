@@ -9,7 +9,7 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
 
   describe 'alter user info' do
     it 'should let you change name and email' do
-      fill_in 'Name', with: 'Thorny'
+      fill_in 'First and last name', with: 'Thorny'
       fill_in 'Current password', with: @user.password
       click_button 'Update info'
       assert has_link? 'Thorny', href: edit_user_registration_path
@@ -35,7 +35,7 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
     end
 
     it 'should veto changes without current password' do
-      fill_in 'Name', with: 'Bad Name'
+      fill_in 'First and last name', with: 'Bad Name'
       click_button 'Update info'
       assert_text "Current password can't be blank"
       fill_in 'Current password', with: 'not_a_real_password'

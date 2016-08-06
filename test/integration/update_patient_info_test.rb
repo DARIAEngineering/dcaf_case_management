@@ -82,6 +82,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'State', with: 'DC'
       fill_in 'ZIP', with: '90210'
       check 'Voicemail OK?'
+      check 'Spanish Only'
 
       find('#pregnancy_employment_status').select 'Part-time'
       find('#pregnancy_income').select '$30,000-34,999 ($577-672/week)'
@@ -107,6 +108,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
+        assert has_field? 'Special circumstances', with: 'Stuff'
+        assert has_checked_field? 'Voicemail OK?'
+        assert has_checked_field? 'Spanish Only'
 
         assert_equal 'Part-time', find('#pregnancy_employment_status').value
         assert_equal '$30,000-34,999 ($577-672/week)', find('#pregnancy_income').value

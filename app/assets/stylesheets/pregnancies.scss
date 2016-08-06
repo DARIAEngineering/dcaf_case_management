@@ -93,7 +93,9 @@ $font-size: 17px;
   font-weight: bold;
   font-size: 14px;
   box-sizing: border-box;
-
+  .modal-cover {
+    height: 100%;
+  }
 	.pledge_modal_header {
 	  width: 100%;
 	  height: 50px;

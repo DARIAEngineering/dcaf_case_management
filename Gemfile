@@ -29,7 +29,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
-  gem 'dawnscanner', require: false
+  # gem 'dawnscanner', require: false # keep this off until dawnscanner fixes their CD problem
 end
 
 group :development, :test do
