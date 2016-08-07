@@ -5,6 +5,15 @@ class Pregnancy
   include Mongoid::Userstamp
   include LastMenstrualPeriodHelper
 
+  STATUSES = {
+    no_contact: 'No Contact Made',
+    needs_appt: 'Needs Appointment',
+    fundraising: 'Fundraising',
+    pledge_sent: 'Pledge Sent',
+    pledge_paid: 'Pledge Paid',
+    resolved: 'Resolved Without DCAF'
+  }
+
   # Relationships
   belongs_to :patient
   has_and_belongs_to_many :users, inverse_of: :pregnancies
@@ -102,17 +111,17 @@ class Pregnancy
 
   def status
     if resolved_without_dcaf?
-      'Resolved Without DCAF'
+      STATUSES[:resolved]
     # elsif pledge_status?(:paid)
-    #   status = "Pledge Paid"
+    #   STATUSES[:pledge_paid]
     elsif pledge_sent?
-      'Pledge sent'
+      STATUSES[:pledge_sent]
     elsif appointment_date
-      'Fundraising'
+      STATUSES[:fundraising]
     elsif contact_made?
-      'Needs Appointment'
+      STATUSES[:needs_appt]
     else
-      'No Contact Made'
+      STATUSES[:no_contact]
     end
   end
 
