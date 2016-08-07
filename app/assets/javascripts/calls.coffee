@@ -14,14 +14,13 @@ jQuery ->
       placeholder: "ui-state-highlight"
       axis: 'y'
       items: '.pregnancy-data'
-      handle: '.handle'
       cursor: 'move'
       sort: (e, ui) ->
         ui.item.addClass('active-item-shadow')
       stop: (e, ui) ->
         ui.item.removeClass('active-item-shadow')
         # highlight the row on drop to indicate an update
-        ui.item.children('td').effect('highlight', {}, 500)
+        ui.item.children('td').effect('highlight', {color:'#ece0ff'}, 500)
       update: (e, ui) ->
         item_id = ui.item[0].id
         parent = $('#'+item_id).parent()
