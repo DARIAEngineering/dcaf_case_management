@@ -17,7 +17,7 @@ module DashboardsHelper
   end
 
   def voicemail_options
-    enum_text = { default: 'No instructions; no ID VM',
+    enum_text = { not_specified: 'No instructions; no ID VM',
                   no: 'Do not leave a voicemail',
                   yes: 'Voicemail OK' }
     vm_options = Pregnancy::VOICEMAIL_PREFERENCE
