@@ -80,4 +80,10 @@ class User
     pregnancies.delete pregnancy
     reload
   end
+
+  def clear_call_list
+    pregnancies.each do |p|
+      pregnancies.delete(p) unless p.status == Pregnancy::STATUSES[:no_contact]
+    end
+  end
 end
