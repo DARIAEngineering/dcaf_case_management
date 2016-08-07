@@ -72,15 +72,11 @@ class User
   # AND they would otherwise be in the call list
 
   def recently_called_pregnancies
-    pregnancies.select { |p| recently_called?(p) }
+    pregnancies.select { |p| recently_called_by_user?(p) }
   end
 
   def call_list_pregnancies
-    pregnancies.reject { |p| recently_called?(p) }
-  end
-
-  def recently_called?(preg)
-    preg.calls.any? { |call| call.created_by_id == id && call.recent? }
+    pregnancies.reject { |p| recently_called_by_user?(p) }
   end
 
   def add_pregnancy(pregnancy)
@@ -107,6 +103,12 @@ class User
     ordered_pregnancies
   end
 
+  def clear_call_list
+    pregnancies.each do |p|
+      pregnancies.delete(p) if recently_reached_by_user?(p)
+    end
+  end
+
   private
 
   def verify_password_complexity
@@ -120,5 +122,13 @@ class User
     return false if (password =~ /[0-9]/).nil?
     # Make sure the word password isn't in there
     return false if !(password.downcase[/(password|dcaf)/]).nil?
+  end
+
+  def recently_reached_by_user?(preg)
+    preg.calls.any? { |call| call.created_by_id == id && call.recent? && call.reached? }
+  end
+
+  def recently_called_by_user?(preg)
+    preg.calls.any? { |call| call.created_by_id == id && call.recent? }
   end
 end

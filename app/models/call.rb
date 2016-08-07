@@ -29,4 +29,8 @@ class Call
   def recent?
     updated_at > 8.hours.ago ? true : false
   end
+
+  def reached?
+    status == 'Reached patient'
+  end
 end
