@@ -11,11 +11,15 @@
 
           <p><%= link_to "I reached the patient", pregnancy_calls_path(p, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %></p>
 
-          <% unless p.voicemail_ok? %>
+          <% if p.voicemail_preference == :no %>
             <p class='text-danger'><strong>Do not leave this patient a voicemail</strong></p>
+          <% elsif p.voicemail_preference == :yes %>
+            <p class='text-success'>Voicemail OK; Okay to identify as DCAF</p>
+            <p><%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %></p>
+          <% else %>
+            <p class='text-warning'><strong>Voicemail OK; Do not identify as DCAF</strong></p>
+            <p><%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %></p>
           <% end %>
-
-          <p><%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %></p>
 
           <p><%= link_to "I couldn't reach the patient", pregnancy_calls_path(p, call: { status: "Couldn't reach patient" } ), method: :post, remote: true, class: 'calls-response' %></p>
         </div><!-- calls-layout -->
