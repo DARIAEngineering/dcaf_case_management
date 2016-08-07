@@ -109,7 +109,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
         assert has_field? 'Special circumstances', with: 'Stuff'
-        assert_equal 'Voicemail OK', find('#pregnancy_voicemail_preference').value
+        assert_equal 'yes', find('#pregnancy_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
 
         assert_equal 'Part-time', find('#pregnancy_employment_status').value
@@ -118,7 +118,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
         assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
-        assert_equal '1', find('#pregnancy_voicemail_ok').value
       end
     end
   end

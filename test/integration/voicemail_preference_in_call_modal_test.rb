@@ -14,7 +14,7 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
   describe 'different voicemail preferences and links' do
     describe 'no voicemail' do
       before do
-        @pregnancy.voicemail_preference = 'no'
+        @pregnancy.voicemail_preference = :no
         @pregnancy.save
         open_call_modal_for @pregnancy
       end
@@ -27,8 +27,6 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
 
     describe 'voicemail ok but no id' do
       before do
-        @pregnancy.voicemail_preference = 'default'
-        @pregnancy.save
         open_call_modal_for @pregnancy
       end
 
@@ -40,7 +38,7 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
 
     describe 'voicemail ok' do
       before do
-        @pregnancy.voicemail_preference = 'yes'
+        @pregnancy.voicemail_preference = :yes
         @pregnancy.save
         open_call_modal_for @pregnancy
       end

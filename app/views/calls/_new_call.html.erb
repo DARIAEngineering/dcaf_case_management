@@ -16,7 +16,7 @@
           <% elsif p.voicemail_preference == :yes %>
             <p class='text-success'>Voicemail OK; Okay to identify as DCAF</p>
             <p><%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %></p>
-          <% else %>
+          <% elsif p.voicemail_preference == :not_specified %>
             <p class='text-warning'><strong>Voicemail OK; Do not identify as DCAF</strong></p>
             <p><%= link_to "I left a voicemail for the patient", pregnancy_calls_path(p, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %></p>
           <% end %>
