@@ -17,14 +17,12 @@
                                           autocomplete: 'off' %>
 
           <%= f.form_group :spanish do %>
-            <!-- <div class='bootstrap_toggle_spacing'> -->
-          <%= f.check_box :spanish, label: 'Spanish Only' %>
-            <%#= f.check_box :spanish, data: { toggle: 'toggle', yes: 'Yes', no: 'No' },label: '' %>
-            <!-- </div> -->
+            <%= f.check_box :spanish, label: 'Spanish Only' %>
           <% end %>
 
           <%= f.select :voicemail_preference, 
-                       options_for_select(voicemail_options) %>
+                       options_for_select(voicemail_options,
+                                          pregnancy.voicemail_preference) %>
 
           <div class="row">
             <div class="col-sm-8">
