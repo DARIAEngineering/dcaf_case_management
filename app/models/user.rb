@@ -103,6 +103,12 @@ class User
     # create a mapping
     ids_of_pregnancies = Hash[call_list_pregnancies.map { |u| [u._id.to_s, u] }]
     ordered_pregnancies = call_order_in_call_list.map { |id| ids_of_pregnancies[id] }
-    ordered_pregnancies
+    ordered_pregnancies << calls_not_in_call_order
+  end
+
+  private
+
+  def calls_not_in_call_order
+    call_list_pregnancies.reject { |preg| call_order.include? preg.id.to_s }
   end
 end
