@@ -103,7 +103,7 @@ class User
     # create a mapping
     ids_of_pregnancies = Hash[call_list_pregnancies.map { |u| [u._id.to_s, u] }]
     ordered_pregnancies = call_order_in_call_list.map { |id| ids_of_pregnancies[id] }
-    ordered_pregnancies << calls_not_in_call_order
+    ordered_pregnancies# << calls_not_in_call_order
   end
 
   private
