@@ -1,10 +1,13 @@
-<!-- locals: title, table_type (for div id and tbody div id), pregnancies -->
+<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable -->
 
 <div id="<%= table_type %>" class="margin-bottom">
   <h1 class="border-bottom title"><%= title %></h1>
   <table class="table border-side">
     <thead>
       <tr>
+        <% if local_assigns[:sortable] %>
+        <th></th>
+        <% end %>
         <th>Phone</th>
         <th>Name</th>
         <th>LMP</th>
@@ -17,6 +20,9 @@
     <tbody id="<%= table_type %>_content">
       <% pregnancies.each do |p| %>
         <tr class="pregnancy-data" id="<%= p.patient.id %>">
+          <% if local_assigns[:sortable] %>
+            <td class="handle"><span class="glyphicon glyphicon-move"></span></td>
+          <% end %>
           <td><%= p.patient.primary_phone_display %></td>
           <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
           <td><%= p.last_menstrual_period_display_short %></td>
