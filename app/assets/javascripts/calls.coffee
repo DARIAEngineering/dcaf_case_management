@@ -31,8 +31,8 @@ jQuery ->
         console.log(order)
 
         $.ajax(
-          type: 'POST'
-          url: '/something/reorder_pregnancies'
+          type: 'PATCH'
+          url: '/users/57a7ea78b6305e4579183eaf/reorder_call_list'
           dataType: 'json'
           data: { order }
         )

@@ -16,9 +16,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def reorder_pregnancies
+  def reorder_call_list
     # TODO: fail if anything is not a BSON id
-    current_user.reorder_pregnancies params[:order] # TODO: adjust to payload
+    current_user.reorder_call_list params[:order] # TODO: adjust to payload
     respond_to { |format| format.js }
   end
 
