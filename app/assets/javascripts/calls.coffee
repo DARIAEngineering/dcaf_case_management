@@ -32,7 +32,7 @@ jQuery ->
 
         $.ajax(
           type: 'PATCH'
-          url: '/users/57a7ea78b6305e4579183eaf/reorder_call_list'
+          url: '/users/reorder_call_list'
           dataType: 'json'
           data: { order }
         )
