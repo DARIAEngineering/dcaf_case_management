@@ -83,7 +83,7 @@ class User
   end
 
   def reorder_call_list(order)
-    update call_order: order.join(',')
+    update call_order: order
     save
     reload
   end
