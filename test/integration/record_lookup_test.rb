@@ -32,7 +32,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
 
       assert has_text? 'Search results'
       assert has_text? 'Susan Everyteen'
-      assert_text @patient.primary_phone
+      assert_text @patient.primary_phone_display
     end
 
     it 'should be able to retrieve a record based on other name' do

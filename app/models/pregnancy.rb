@@ -24,7 +24,7 @@ class Pregnancy
   field :last_menstrual_period_days, type: Integer
   field :voicemail_ok, type: Boolean, default: false
   field :line, type: String # DC, MD, VA
-  field :language, type: String
+  field :spanish, type: Boolean
   field :appointment_date, type: Date
   field :urgent_flag, type: Boolean
 
@@ -95,6 +95,11 @@ class Pregnancy
     notes.order('created_at DESC').limit(1).first.try(:full_text).to_s
   end
 
+  def pledge_identifier # unique ID made up by DCAF to easier identify patients
+    return nil unless line
+    "#{line[0]}#{patient.primary_phone[-5]}-#{patient.primary_phone[-4..-1]}"
+  end
+
   def status
     if resolved_without_dcaf?
       'Resolved Without DCAF'
@@ -125,7 +130,6 @@ class Pregnancy
     end
     false
   end
-
 
   # def pledge_status?(status)
   #   pledges.each do |pledge|

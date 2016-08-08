@@ -17,7 +17,7 @@
     <tbody id="<%= table_type %>_content">
       <% pregnancies.each do |p| %>
         <tr class="pregnancy-data" id="<%= p.patient.id %>">
-          <td><%= p.patient.primary_phone %></td>
+          <td><%= p.patient.primary_phone_display %></td>
           <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
           <td><%= p.last_menstrual_period_display_short %></td>
           <td><%= p.status %></td>
@@ -35,7 +35,7 @@
             <% end %>
           <% end %>
 
-          <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone}", data: {toggle: "modal"} %></td>
+          <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone_display}", data: {toggle: "modal"} %></td>
 
           <%= render partial: 'calls/new_call', locals: {p: p} %>
         </tr>
