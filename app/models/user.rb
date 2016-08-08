@@ -93,13 +93,16 @@ class User
     # split_order = call_order
     # TODO reject pregnancies not in call list?
 
+    call_list_ids = call_list_pregnancies.map { |pregnancy| pregnancy.id.to_s }
+    call_order_in_call_list = call_order.reject { |entry| call_list_ids.exclude? entry }
+
     # call
 
     # call_list_pregnancies.sort_by { |pregnancy| call_order[pregnancy] }
 
     # create a mapping
     ids_of_pregnancies = Hash[call_list_pregnancies.map { |u| [u._id.to_s, u] }]
-    ordered_pregnancies = call_order.map { |id| ids_of_pregnancies[id] }
+    ordered_pregnancies = call_order_in_call_list.map { |id| ids_of_pregnancies[id] }
     ordered_pregnancies
   end
 end
