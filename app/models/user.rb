@@ -90,12 +90,16 @@ class User
 
   def ordered_pregnancies
     return call_list_pregnancies unless call_order
-    split_order = call_order.split(',')
+    # split_order = call_order
     # TODO reject pregnancies not in call list?
+
+    # call
+
+    # call_list_pregnancies.sort_by { |pregnancy| call_order[pregnancy] }
 
     # create a mapping
     ids_of_pregnancies = Hash[call_list_pregnancies.map { |u| [u._id.to_s, u] }]
-    ordered_pregnancies = split_order.map { |id| ids_of_pregnancies[id] }
+    ordered_pregnancies = call_order.map { |id| ids_of_pregnancies[id] }
     ordered_pregnancies
   end
 end
