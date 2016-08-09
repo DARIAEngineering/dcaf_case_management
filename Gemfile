@@ -29,6 +29,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
+  gem "letter_opener", :git => 'git://github.com/cavi21/letter_opener.git'
   # gem 'dawnscanner', require: false # keep this off until dawnscanner fixes their CD problem
 end
 

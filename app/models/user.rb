@@ -1,4 +1,5 @@
 class User
+
   include Mongoid::Document
   include Mongoid::Userstamp::User
 
@@ -79,5 +80,15 @@ class User
   def remove_pregnancy(pregnancy)
     pregnancies.delete pregnancy
     reload
+  end
+  
+  private 
+  
+  def needs_password_change_email?
+    encrypted_password_changed? && persisted?
+  end
+
+  def send_password_change_email
+    UserMailer.password_changed(id).deliver
   end
 end
