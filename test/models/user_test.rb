@@ -72,17 +72,27 @@ class UserTest < ActiveSupport::TestCase
       end
     end
 
-    it 'reorder call list - should let you reorder a call list' do
-      set_of_pregnancies = [@pregnancy, @pregnancy_2, @pregnancy_3]
-      set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
-      assert_equal @user.pregnancies.first, @pregnancy
+    describe 'reorder call list' do
+      before do
+        set_of_pregnancies = [@pregnancy, @pregnancy_2, @pregnancy_3]
+        set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
+        @new_order = [@pregnancy_3._id.to_s, @pregnancy._id.to_s, @pregnancy_2._id.to_s]
+        @user.reorder_call_list @new_order
+      end
 
-      new_order = [@pregnancy_3._id.to_s, @pregnancy._id.to_s, @pregnancy_2._id.to_s]
-      @user.reorder_call_list new_order
+      it 'should let you reorder a call list' do
+        assert_equal @pregnancy_3, @user.ordered_pregnancies.first
+        assert_equal @pregnancy, @user.ordered_pregnancies[1]
+        assert_equal @pregnancy_2, @user.ordered_pregnancies[2]
+      end
 
-      assert_equal @pregnancy_3, @user.ordered_pregnancies.first
-      assert_equal @pregnancy, @user.ordered_pregnancies[1]
-      assert_equal @pregnancy_2, @user.ordered_pregnancies[2]
+      it 'should not choke if another preg is on call list but not call order' do
+        @pregnancy_4 = create :pregnancy
+        @user.add_pregnancy @pregnancy_4
+
+        assert @user.ordered_pregnancies.include? @pregnancy_4
+        refute @user.call_order.include? @pregnancy_4._id.to_s
+      end
     end
   end
 
