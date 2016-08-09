@@ -77,7 +77,7 @@ class UserTest < ActiveSupport::TestCase
       set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
       assert_equal @user.pregnancies.first, @pregnancy
 
-      new_order = [@pregnancy_3._id, @pregnancy._id, @pregnancy_2._id]
+      new_order = [@pregnancy_3._id.to_s, @pregnancy._id.to_s, @pregnancy_2._id.to_s]
       @user.reorder_call_list new_order
 
       assert_equal @pregnancy_3, @user.ordered_pregnancies.first
