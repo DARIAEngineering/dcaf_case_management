@@ -95,10 +95,4 @@ class User
     end
     ordered_pregnancies
   end
-
-  private
-
-  def calls_not_in_call_order
-    call_list_pregnancies.reject { |preg| call_order.include? preg.id.to_s }
-  end
 end
