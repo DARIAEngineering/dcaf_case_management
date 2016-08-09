@@ -27,9 +27,7 @@
           <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
           <td><%= p.last_menstrual_period_display_short %></td>
           <td><%= p.status %></td>
-          <td><%= p.most_recent_note_display_text %> <%= plus_sign_glyphicon(p.most_recent_note) %>
-  
-          </td>
+          <td><%= p.most_recent_note_display_text %> <%= plus_sign_glyphicon(p.most_recent_note) %></td>
   
           <% if table_type == 'completed_calls' || table_type == 'urgent_pregnancies' %>
             <td class="blank-td"></td>
