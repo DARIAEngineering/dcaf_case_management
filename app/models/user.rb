@@ -56,6 +56,7 @@ class User
   validate :secure_password
 
   def secure_password
+    return true if password.nil?
     pc = verify_password_complexity
     if pc == false
       errors.add :password, 'Password must include at least one lowercase ' \
