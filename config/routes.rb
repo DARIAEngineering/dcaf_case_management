@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
     patch 'users/:user_id/add_pregnancy/:id', to: 'users#add_pregnancy', as: 'add_pregnancy', defaults: { format: :js }
     patch 'users/:user_id/remove_pregnancy/:id', to: 'users#remove_pregnancy', as: 'remove_pregnancy', defaults: { format: :js }
-    patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', default: { format: :js }
+    patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
   end
   root :to => redirect('/users/sign_in')
   devise_for :users, skip: [:registrations]
