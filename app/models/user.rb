@@ -55,23 +55,14 @@ class User
   validates :email, :name, presence: true
   validate :secure_password
 
-   def secure_password
-     pc = password_complexity
-     if pc == false
-       errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit. Forbidden words include DCAF and password."
-     end
-   end
-
-   def password_complexity
-     # we want at least one lower case
-     return false if (password =~ /[a-z]/).nil?
-     # We want at least one uppercase
-     return false if (password =~ /[A-Z]/).nil?
-     # We want at least one digit
-     return false if (password =~ /[0-9]/).nil?
-     # Make sure the word password isn't in there
-     return false if !(password.downcase[/(password|dcaf)/]).nil?
-   end
+  def secure_password
+    pc = verify_password_complexity
+    if pc == false
+      errors.add :password, 'Password must include at least one lowercase ' \
+                            'letter, one uppercase letter, and one digit. ' \
+                            'Forbidden words include DCAF and password.'
+    end
+  end
 
   # ticket 241 recently called criteria:
   # someone has a call from the current_user
@@ -98,5 +89,18 @@ class User
   def remove_pregnancy(pregnancy)
     pregnancies.delete pregnancy
     reload
+  end
+
+  private
+
+  def verify_password_complexity
+    # we want at least one lower case
+    return false if (password =~ /[a-z]/).nil?
+    # We want at least one uppercase
+    return false if (password =~ /[A-Z]/).nil?
+    # We want at least one digit
+    return false if (password =~ /[0-9]/).nil?
+    # Make sure the word password isn't in there
+    return false if !(password.downcase[/(password|dcaf)/]).nil?
   end
 end
