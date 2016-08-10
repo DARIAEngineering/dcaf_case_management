@@ -5,5 +5,6 @@ FactoryGirl.define do
       "billy#{n}@everyteen.com"
     end
     password 'FCZCidQP4C8GTz'
+    password_confirmation 'FCZCidQP4C8GTz'
   end
 end
