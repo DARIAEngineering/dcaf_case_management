@@ -30,4 +30,12 @@ class DashboardsHelperTest < ActionView::TestCase
       refute_nil plus_sign_glyphicon over_40_char
     end
   end
+
+  describe 'voicemail_options' do
+    it 'should return an array based on pregnancy.voicemail_options' do
+      Pregnancy::VOICEMAIL_PREFERENCE.each do |pref|
+        refute_empty voicemail_options.select { |opt| opt[1] == pref }
+      end
+    end
+  end
 end
