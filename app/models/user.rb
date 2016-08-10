@@ -95,6 +95,8 @@ class User
   private
 
   def verify_password_complexity
+    # Enforce length of at least ten
+    return false unless password.length >= 8
     # we want at least one lower case
     return false if (password =~ /[a-z]/).nil?
     # We want at least one uppercase
