@@ -37,7 +37,8 @@ class Pregnancy
   field :county, type: String
   field :race_ethnicity, type: String
   field :employment_status, type: String
-  field :household_size, type: Integer
+  field :household_size_children, type: Integer
+  field :household_size_adults, type: Integer
   field :insurance, type: String
   field :income, type: String
   field :referred_by, type: String

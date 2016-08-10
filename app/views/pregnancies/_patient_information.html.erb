@@ -52,10 +52,23 @@
                        options_for_select(income_options,
                                           pregnancy.income),
                                           autocomplete: 'off' %>
-          <%= f.select :household_size,
-                        options_for_select(household_size_options,
-                                           pregnancy.household_size),
-                                           label: 'People in household' %>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <%= f.select :household_size_adults,
+                            options_for_select(household_size_options,
+                                               pregnancy.household_size_adults),
+                                               label: 'Adults in household',
+                                               help: '(including patient)' %>
+            </div>
+            <div class="col-sm-6">
+              <%= f.select :household_size_children,
+                            options_for_select(household_size_options,
+                                               pregnancy.household_size_children),
+                                               label: 'Minors in household' %>              
+            </div>
+          </div>
+
           <%= f.select :insurance,
                        options_for_select(insurance_options,
                                           pregnancy.insurance),

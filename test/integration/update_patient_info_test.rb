@@ -86,7 +86,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
       find('#pregnancy_employment_status').select 'Part-time'
       find('#pregnancy_income').select '$30,000-34,999 ($577-672/week)'
-      find('#pregnancy_household_size').select '1'
+      find('#pregnancy_household_size_adults').select '1'
+      find('#pregnancy_household_size_children').select '3'
       find('#pregnancy_insurance').select 'Other state Medicaid'
       find('#pregnancy_referred_by').select 'Other abortion fund'
       fill_in 'Special circumstances', with: 'Stuff'
@@ -114,7 +115,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
         assert_equal 'Part-time', find('#pregnancy_employment_status').value
         assert_equal '$30,000-34,999 ($577-672/week)', find('#pregnancy_income').value
-        assert_equal '1', find('#pregnancy_household_size').value
+        assert_equal '1', find('#pregnancy_household_size_adults').value
+        assert_equal '3', find('#pregnancy_household_size_children').value
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
         assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
