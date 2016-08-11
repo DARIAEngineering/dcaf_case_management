@@ -26,11 +26,8 @@
   </div>
 
   <div class="col-sm-2">
-    <%= f.form_group :voicemail_ok, label: { text: 'Voicemail OK?' } do %>
-      <div class='bootstrap_toggle_spacing'>
-        <%= f.check_box :voicemail_ok, data: { toggle: 'toggle', on: 'Yes', off: 'No' }, label: '' %>
-      </div>
-    <% end %>
+    <%= f.select :voicemail_preference, 
+                 options_for_select(voicemail_options) %>
   </div>
 
   <div class="col-sm-2">

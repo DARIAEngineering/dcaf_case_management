@@ -17,17 +17,12 @@
                                           autocomplete: 'off' %>
 
           <%= f.form_group :spanish do %>
-            <!-- <div class='bootstrap_toggle_spacing'> -->
-          <%= f.check_box :spanish, label: 'Spanish Only' %>
-            <%#= f.check_box :spanish, data: { toggle: 'toggle', yes: 'Yes', no: 'No' },label: '' %>
-            <!-- </div> -->
+            <%= f.check_box :spanish, label: 'Spanish Only' %>
           <% end %>
-          <%= f.form_group :voicemail_ok do %>
-            <!-- <div class='bootstrap_toggle_spacing'> -->
-              <%= f.check_box :voicemail_ok, label: 'Voicemail OK?' %>
-              <%#= f.check_box :voicemail_ok, data: { toggle: 'toggle', yes: 'Yes', no: 'No' },label: '' %>
-            <!-- </div> -->
-          <% end %>
+
+          <%= f.select :voicemail_preference, 
+                       options_for_select(voicemail_options,
+                                          pregnancy.voicemail_preference) %>
 
           <div class="row">
             <div class="col-sm-8">
@@ -57,10 +52,23 @@
                        options_for_select(income_options,
                                           pregnancy.income),
                                           autocomplete: 'off' %>
-          <%= f.select :household_size,
-                        options_for_select(household_size_options,
-                                           pregnancy.household_size),
-                                           label: 'People in household' %>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <%= f.select :household_size_adults,
+                            options_for_select(household_size_options,
+                                               pregnancy.household_size_adults),
+                                               label: 'Adults in household',
+                                               help: '(including patient)' %>
+            </div>
+            <div class="col-sm-6">
+              <%= f.select :household_size_children,
+                            options_for_select(household_size_options,
+                                               pregnancy.household_size_children),
+                                               label: 'Minors in household' %>              
+            </div>
+          </div>
+
           <%= f.select :insurance,
                        options_for_select(insurance_options,
                                           pregnancy.insurance),

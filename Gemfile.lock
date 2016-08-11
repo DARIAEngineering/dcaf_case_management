@@ -181,6 +181,8 @@ GEM
     mongoid-compatibility (0.4.0)
       activesupport
       mongoid (>= 2.0)
+    mongoid-enum (0.4.0)
+      mongoid (~> 5.0)
     mongoid-history (0.5.0)
       activesupport
       easy_diff
@@ -376,6 +378,7 @@ DEPENDENCIES
   minitest-spec-rails
   mongo_session_store-rails4
   mongoid (~> 5.0.0)
+  mongoid-enum
   mongoid-history (~> 0.5.0)
   mongoid_userstamp
   newrelic_rpm

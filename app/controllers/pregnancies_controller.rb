@@ -36,13 +36,13 @@ class PregnanciesController < ApplicationController
   def pregnancy_params
     params.require(:pregnancy).permit(
       # fields in create
-      :voicemail_ok, :initial_call_date, :spanish,
+      :voicemail_preference, :initial_call_date, :spanish,
       # fields in dashboard
       :status, :last_menstrual_period_days, :last_menstrual_period_weeks, :appointment_date, :resolved_without_dcaf,
       # fields in abortion info
       :procedure_cost,
       # fields in patient info
-      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size, :insurance, :referred_by, :special_circumstances,
+      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size_adults, :household_size_children, :insurance, :referred_by, :special_circumstances,
       # fields in notes
       :urgent_flag,
       # temp fields for $
