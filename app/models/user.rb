@@ -21,6 +21,7 @@ class User
   field :name, type: String
   field :line, type: String
   field :role, type: String
+  field :call_order, type: Array
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -90,6 +91,20 @@ class User
   def remove_pregnancy(pregnancy)
     pregnancies.delete pregnancy
     reload
+  end
+
+  def reorder_call_list(order)
+    update call_order: order
+    save
+    reload
+  end
+
+  def ordered_pregnancies
+    return call_list_pregnancies unless call_order
+    ordered_pregnancies = call_list_pregnancies.sort_by do |pregnancy|
+      call_order.index(pregnancy.id.to_s) || 0
+    end
+    ordered_pregnancies
   end
 
   private

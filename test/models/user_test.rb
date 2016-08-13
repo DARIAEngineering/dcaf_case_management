@@ -65,6 +65,8 @@ class UserTest < ActiveSupport::TestCase
   describe 'pregnancy methods' do
     before do
       @pregnancy = create :pregnancy
+      @pregnancy_2 = create :pregnancy
+      @pregnancy_3 = create :pregnancy
     end
 
     it 'add pregnancy - should add a pregnancy to a set' do
@@ -77,6 +79,29 @@ class UserTest < ActiveSupport::TestCase
       @user.add_pregnancy @pregnancy
       assert_difference '@user.pregnancies.count', -1 do
         @user.remove_pregnancy @pregnancy
+      end
+    end
+
+    describe 'reorder call list' do
+      before do
+        set_of_pregnancies = [@pregnancy, @pregnancy_2, @pregnancy_3]
+        set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
+        @new_order = [@pregnancy_3._id.to_s, @pregnancy._id.to_s, @pregnancy_2._id.to_s]
+        @user.reorder_call_list @new_order
+      end
+
+      it 'should let you reorder a call list' do
+        assert_equal @pregnancy_3, @user.ordered_pregnancies.first
+        assert_equal @pregnancy, @user.ordered_pregnancies[1]
+        assert_equal @pregnancy_2, @user.ordered_pregnancies[2]
+      end
+
+      it 'should not choke if another preg is on call list but not call order' do
+        @pregnancy_4 = create :pregnancy
+        @user.add_pregnancy @pregnancy_4
+
+        assert @user.ordered_pregnancies.include? @pregnancy_4
+        refute @user.call_order.include? @pregnancy_4._id.to_s
       end
     end
   end
