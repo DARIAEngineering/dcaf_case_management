@@ -128,5 +128,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   def click_away_from_field
     fill_in 'First and last name', with: nil
+    wait_for_ajax
   end
 end
