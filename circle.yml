@@ -5,8 +5,11 @@ machine:
 deployment:
   staging:
     branch: master
-    heroku:
-      appname: dcaf-cmapp-staging
+    commands:
+      - bundle exec rake assets:clobber assets:precompile
+      - git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
+    # heroku:
+      # appname: dcaf-cmapp-staging
 
 test:
   post:
