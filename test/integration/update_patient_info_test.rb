@@ -92,7 +92,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_referred_by').select 'Other abortion fund'
       fill_in 'Special circumstances', with: 'Stuff'
 
-      click_away_from_field
+      wait_for_ajax
       visit authenticated_root_path
       visit edit_pregnancy_path @pregnancy
     end
@@ -128,5 +128,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   def click_away_from_field
     fill_in 'First and last name', with: nil
+    wait_for_ajax
   end
 end
