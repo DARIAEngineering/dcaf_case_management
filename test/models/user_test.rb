@@ -55,10 +55,20 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 1, @user.call_list_pregnancies.count
     end
 
-    it 'should accurately flag a pregnancy as recently called or not' do
-      refute @user.recently_called? @pregnancy
-      @call = create :call, pregnancy: @pregnancy, created_by: @user
-      assert @user.recently_called? @pregnancy
+    it 'should clear calls when patient has been reached' do
+      assert_equal 0, @user.recently_called_pregnancies.count
+      @call = create :call, pregnancy: @pregnancy, created_by: @user, status: 'Reached patient'
+      assert_equal 1, @user.recently_called_pregnancies.count
+      @user.clear_call_list
+      assert_equal 0, @user.recently_called_pregnancies.count
+    end
+
+    it 'should not clear calls when patient has not been reached' do
+      assert_equal 0, @user.recently_called_pregnancies.count
+      @call = create :call, pregnancy: @pregnancy, created_by: @user, status: 'Left voicemail'
+      assert_equal 1, @user.recently_called_pregnancies.count
+      @user.clear_call_list
+      assert_equal 1, @user.recently_called_pregnancies.count
     end
   end
 
