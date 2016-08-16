@@ -2,10 +2,6 @@ class AuditTrail
   include Mongoid::History::Tracker
 
   # convenience methods for clean view display
-  def date_of_edit
-    created_at.getlocal.strftime('%Y-%m-%d')
-  end
-
   def tracked_changes_fields
     modified.keys.map(&:humanize).join('<br>').html_safe
   end

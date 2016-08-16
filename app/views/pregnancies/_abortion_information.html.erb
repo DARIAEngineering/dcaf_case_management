@@ -1,29 +1,47 @@
-<section id="abortion_section" class="abortion-info tab-pane active">
-  <div class="col-md-12">
-    <h2>Abortion information</h2>
+<section id="abortion_information" class="abortion-info tab-pane">
+  <%= bootstrap_form_for @pregnancy, html: { id: 'abortion-information-form' }, remote: true do |f| %>
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2>Abortion information</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="info-form-left">
+            <%= f.fields_for (pregnancy.clinic || pregnancy.build_clinic) do |cl| %>
+              <h3>Clinic details</h3>
+              <%= cl.select :name, options_for_select(clinic_options, pregnancy.clinic.name), label: 'Clinic name', autocmomplete: 'off' %>
+              <%#= cl.text_field :name, label: 'Clinic name:', autocomplete: 'off' %>
+              <%#= cl.text_field :street_address_1, label: 'Street address 1:', autocomplete: 'off' %>
+              <%#= cl.text_field :street_address_2, label: 'Street address 2:', autocomplete: 'off' %>
+              <div class="row">
+                <div class="col-sm-8">
+                  <%#= cl.text_field :city, label: 'City:', autocomplete: 'off' %>
+                </div>
+                <div class="col-sm-4">
+                  <%#= cl.text_field :state, label: 'State:', autocomplete: 'off' %>
+                </div>
+              </div>
+              <%#= cl.text_field :zip, label: 'ZIP:', autocomplete: 'off' %>
+            <% end %>
 
-    <div class="info-form-left col-md-6">
-      <%= f.fields_for (pregnancy.clinic || pregnancy.build_clinic) do |cl| %> <!-- was pregnancy.clinic, but that eats muds if clinic is nil  --> 
-        <h4>Clinic details</h4>
-        <%= cl.text_field :name, label: 'Clinic name:' %>
-        <%= cl.text_field :street_address_1, label: 'Street address 1:' %>
-        <%= cl.text_field :street_address_2, label: 'Street address 2:' %>
-        <div class="row">
-          <div class="col-md-8">
-            <%= cl.text_field :city, label: 'City:' %>
-          </div>
-          <div class="col-md-4">
-            <%= cl.text_field :state, label: 'State:' %>
+            <%= f.form_group :resolved_without_dcaf, label: { text: 'Resolved without assistance from DCAF' } do %>
+              <%= f.check_box :resolved_without_dcaf, label: '' %>
+            <% end %>
           </div>
         </div>
-        <%= cl.text_field :zip, label: 'ZIP:' %>
-      <% end %>
-    </div>
 
-    <div class="info-form-right col-md-6">
-      <h4>Cost details</h4>
-      <%= f.text_field :procedure_cost, label: 'Abortion Cost:' %>
-      <h5>PLACEHOLDER: Funding Sources</h5>
-    </div>  
-  </div>
+        <div class="col-sm-6">
+          <div class="info-form-right">
+            <h3>Cost details</h3>
+            <%= f.text_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
+            <%= f.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+             <%= f.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+               <%= f.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', prepend: '$' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </section>

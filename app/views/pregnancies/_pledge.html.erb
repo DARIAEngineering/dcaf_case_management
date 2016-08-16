@@ -1,0 +1,44 @@
+<div class="modal pledge_modal">
+	<div class="modal-cover">
+		<div class="pledge_modal_header">
+			<span class="pledge_header_text">Create Pledge</span>
+			<span class="pledge_close glyphicon glyphicon-remove close" data-dismiss="modal" aria-label="Close"></span>
+		</div>
+
+		<div class="pledge_modal_screen1">
+			<div class="pledge_intro">Confirm the following information is correct:</div>
+			<div class="pledge_form">
+				<div><span class="pledge_modal_category">Patient name:</span> <%= pregnancy.patient.name %></div>
+				<div><span class="pledge_modal_category">Patient ID:</span> <%= pregnancy.pledge_identifier %></div>
+				<div><span class="pledge_modal_category">Pledge amount:</span> $<%= pregnancy.dcaf_soft_pledge %> </div>
+				<div><span class="pledge_modal_category">Appointment date:</span> <%= pregnancy.appointment_date %></div>
+				<div><span class="pledge_modal_category">Clinic name:</span> <%= pregnancy.clinic.name if pregnancy.clinic %></div>
+			</div>
+			<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
+		 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit" id='submit-pledge-to-p2'>Continue</a>
+		</div>
+
+		<div class="pledge_modal_screen2">
+			<div class="pledge_intro">Review this preview of your pledge: (Not working yet)</div>
+				<a class="pledge_process_btn pledge_back_submit"><span class="glyphicon glyphicon-chevron-left"></span>Go back</a>
+				<a class="btn btn-primary btn-sm pledge_process_btn pledge_continue" id='submit-pledge-to-p3'>Download and continue</a>
+		</div>
+
+		<div class="pledge_modal_screen3">
+			<div class="pledge_intro">
+				<p>Awesome, you generated a DCAF Pledge! Thanks!</p>
+				<p>Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
+				<p>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</p>
+
+				<%= bootstrap_form_for pregnancy, id: 'pledge-create-modal-form', remote: true do |f| %>
+					<%= f.check_box :pledge_sent, label: 'I sent the pledge' %>
+				<% end %>
+
+				<a class="pledge_process_btn pledge_back_review">Go back</a>
+				<!-- <%# submit_tag 'Finish', data: { dismiss: "modal" },
+						class: "btn btn-primary btn-sm pledge_process_btn pledge_finish" %> -->
+				<a class="btn btn-primary btn-sm pledge_process_btn pledge_finish" data-dismiss="modal" id='submit-pledge-finish'>Finish</a>
+			</div>
+		</div>
+	</div>
+</div>

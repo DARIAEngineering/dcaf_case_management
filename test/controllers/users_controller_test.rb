@@ -20,9 +20,11 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     it 'should add a patient to a users call list' do
+      @user.reload
       assert_equal @user.pregnancies.count, 1
       assert_difference '@user.pregnancies.count', 1 do
         patch :add_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
+        @user.reload
       end
       assert_equal @user.pregnancies.count, 2
     end
@@ -36,8 +38,6 @@ class UsersControllerTest < ActionController::TestCase
     it 'should should return bad request on sketch ids' do
       patch :add_pregnancy, id: '12345678', user_id: @user, format: :js
       assert_response :bad_request
-      patch :add_pregnancy, id: @pregnancy_1, user_id: 'bronsonmissouri', format: :js
-      assert_response :bad_request
     end
   end
 
@@ -46,6 +46,7 @@ class UsersControllerTest < ActionController::TestCase
       patch :add_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
       patch :add_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
       patch :remove_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+      @user.reload
     end
 
     it 'should respond successfully' do
@@ -55,6 +56,7 @@ class UsersControllerTest < ActionController::TestCase
     it 'should remove a pregnancy' do
       assert_difference '@user.pregnancies.count', -1 do
         patch :remove_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
+        @user.reload
       end
     end
 
@@ -68,12 +70,30 @@ class UsersControllerTest < ActionController::TestCase
     it 'should should return bad request on sketch ids' do
       patch :remove_pregnancy, id: '12345678', user_id: @user, format: :js
       assert_response :bad_request
-      patch :remove_pregnancy, id: @pregnancy_1, user_id: 'bronsonmissouri', format: :js
-      assert_response :bad_request
     end
   end
 
-  it 'should be the devise controller' do 
+  describe 'reorder call list' do
+    before do
+      @ids = []
+      4.times { @ids << create(:pregnancy)._id.to_s }
+      @ids.shuffle!
+
+      patch :reorder_call_list, order: @ids, format: :js
+      @user.reload
+    end
+
+    it 'should respond success' do
+      assert_response :success
+    end
+
+    it 'should populate the user call order field' do
+      assert_not_nil @user.call_order
+      assert_equal @ids, @user.call_order
+    end
+  end
+
+  it 'should be the devise controller' do
     assert :devise_controller?
   end
 end

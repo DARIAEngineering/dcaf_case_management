@@ -1,26 +1,26 @@
 <div class="authform">
   <h2>Edit <%= current_user.email %> (<%= current_user.name %>)</h2>
 
-  <%= bootstrap_form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f| %>
+  <%= bootstrap_form_for resource, as: resource_name, url: '/users', html: { method: :put } do |f| %>
     <%= devise_error_messages! %>
 
     <h3>Change your account details</h3>
     <%= f.email_field :email, autofocus: true %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, label: 'First and last name' %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
 
     <h3>Change your password</h3>
-    <%= f.password_field :password, autocomplete: "off" %>
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: 'off' %>
+    <%= f.password_field :password_confirmation, autocomplete: 'off' %>
 
     <h3>Enter your current password to save any changes</h3>
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: 'off' %>
     <%= f.submit "Update info", class: 'btn btn-primary' %>
   <% end %>
   <br>
 
-  <%= link_to "Back", :back %>  
+  <%= link_to "Back", :back %>
 </div>

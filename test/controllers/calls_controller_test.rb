@@ -29,7 +29,7 @@ class CallsControllerTest < ActionController::TestCase
       assert_redirected_to edit_pregnancy_path(@pregnancy)
     end
 
-    it 'should render create.js.erb if patient is not reached or if could not reach' do
+    it 'should render create.js.erb if patient is not reached' do
       ['Left voicemail', "Couldn't reach patient"].each do |status|
         @call[:status] = status
         post :create, call: @call, pregnancy_id: @pregnancy.id, format: :js
@@ -37,7 +37,7 @@ class CallsControllerTest < ActionController::TestCase
       end
     end
 
-    it 'should not save and flash an error if status is blank or bad for some reason' do
+    it 'should not save and flash an error if status is blank or bad' do
       [nil, 'not a real status'].each do |bad_status|
         @call[:status] = bad_status
         assert_no_difference 'Pregnancy.find(@pregnancy).calls.count' do

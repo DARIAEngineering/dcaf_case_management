@@ -1,3 +1,46 @@
 // Place all the styles related to the calls controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.calls-layout {
+  padding: 30px 15px 30px 60px;
+}
+
+h4.calls-request {
+  font-size: 26px;
+}
+
+h4.calls-phone {
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.calls-response {
+  font-size: 17px;
+  text-decoration: underline;
+}
+
+#calls-btn {
+  font-size: 17px;
+  padding: 10px 40px;
+}
+
+.handle > span {
+  color: #ddd;
+  margin-left: 5px;
+  font-size: 1.25em;
+}
+
+#call_list tr {
+  background-color: white;
+}
+
+.ui-state-highlight {
+  background-color: #ece0ff !important;
+}
+
+.active-item-shadow {
+  -webkit-box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
+  -moz-box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
+  box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
+}

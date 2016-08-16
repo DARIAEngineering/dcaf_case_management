@@ -7,7 +7,7 @@ class DashboardsControllerTest < ActionController::TestCase
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
-                      secondary_phone: '333-444-5555'
+                      other_phone: '333-444-5555'
     @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
     @clinic = create :clinic, pregnancy: @pregnancy
   end
@@ -23,7 +23,7 @@ class DashboardsControllerTest < ActionController::TestCase
   end
 
   describe 'search method' do
-    it 'should return on name, primary phone, and secondary phone' do
+    it 'should return on name, primary phone, and other phone' do
       ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
         post :search, search: searcher, format: :js
         assert_response :success

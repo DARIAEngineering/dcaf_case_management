@@ -1,14 +1,22 @@
 require 'test_helper'
 
 class RecordLookupTest < ActionDispatch::IntegrationTest
-  def setup
+  before do
+    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user
   end
 
+  after do
+    Capybara.use_default_driver
+  end
+
   describe 'looking up someone who exists', js: true do
     before do
-      @patient = create :patient, name: 'Susan Everyteen'
+      @patient = create :patient, name: 'Susan Everyteen',
+                                  primary_phone: '111-222-3333',
+                                  other_contact: 'Yolo Goat',
+                                  other_phone: '222-333-4455'
       @pregnancy = create :pregnancy, patient: @patient
     end
 
@@ -19,23 +27,59 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
     end
 
     it 'should retrieve and display a record' do
-      fill_in 'search', with: 'Susan Everyteen'
+      fill_in 'search', with: 'susan everyteen'
       click_button 'Search'
 
       assert has_text? 'Search results'
       assert has_text? 'Susan Everyteen'
-      assert_text @patient.primary_phone
+      assert_text @patient.primary_phone_display
+    end
+
+    it 'should be able to retrieve a record based on other name' do
+      fill_in 'search', with: 'Yolo Goat'
+      click_button 'Search'
+
+      assert has_text? 'Search results'
+      assert has_text? 'Susan Everyteen'
+    end
+
+    it 'should be able to retrieve a record based on other phone' do
+      fill_in 'search', with: '222-333-4455'
+      click_button 'Search'
+
+      assert has_text? 'Search results'
+      assert has_text? 'Susan Everyteen'
+    end
+
+    it 'should be able to retrieve a record regardless of phone formatting' do
+      fill_in 'search', with: '(111)2223333'
+      click_button 'Search'
+
+      assert has_text? 'Search results'
+      assert has_text? 'Susan Everyteen'
     end
   end
 
-  describe 'looking for someone who does not exist' do
-    it 'should display nothing' do
+  describe 'looking for someone who does not exist', js: true do
+    it 'should display new pregnancy partial with name' do
       fill_in 'search', with: 'Nobody Real Here'
       click_button 'Search'
 
-      # TODO: improve by figuring out capybara CSS selectors and scoping
-      assert has_text? 'Search results'
-      assert has_no_text? 'Nobody Real Here'
+      within :css, '#search_results_shell' do
+        assert has_text? 'Your search produced no results, so add a new patient'
+        assert_equal 'Nobody Real Here', find_field('Name').value
+        assert has_no_text? 'Search results'
+      end
+    end
+
+    it 'should display new pregnancy partial with phone' do
+      fill_in 'search', with: '111-111-1112'
+      click_button 'Search'
+
+      within :css, '#search_results_shell' do
+        assert has_text? 'Your search produced no results, so add a new patient'
+        assert_equal '111-111-1112', find_field('Phone').value
+      end
     end
   end
 end

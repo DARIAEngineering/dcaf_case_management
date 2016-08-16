@@ -7,17 +7,19 @@ class CallTest < ActiveSupport::TestCase
     @call = create :call, pregnancy: @pregnancy, created_by: @user
   end
 
-  it 'SHOULD SOUND THIS ALARM AS LONG AS EVERYTHING IS OKAY' do
-    assert @call.valid?
-  end
-
   describe 'basic validations' do
+    it 'should build' do
+      assert @call.valid?
+    end
+
     it 'should only allow certain statuses' do
       [nil, 'not a status'].each do |bad_status|
         @call.status = bad_status
         refute @call.valid?
       end
-      ['Left voicemail', "Couldn't reach patient"].each do |status|
+      valid_call_statuses =
+        ['Left voicemail', "Couldn't reach patient", 'Reached patient']
+      valid_call_statuses.each do |status|
         @call.status = status
         assert @call.valid?
       end
@@ -49,12 +51,12 @@ class CallTest < ActiveSupport::TestCase
 
     it 'should respond to history methods' do
       assert @call.respond_to? :history_tracks
-      assert @call.history_tracks.count > 0 
+      assert @call.history_tracks.count > 0
     end
 
-    it 'should have accessible userstamp methods' do 
+    it 'should have accessible userstamp methods' do
       assert @call.respond_to? :created_by
       assert @call.created_by
     end
-  end    
+  end
 end

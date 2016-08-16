@@ -1,55 +1,172 @@
 // Place all the styles related to the pregnancies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-=======
----
-# Only the main Sass file needs front matter (the dashes are enough)
----
-@charset "utf-8";
 
+$dcaf-color: #5D3E8D;
+$font-size: 17px;
 
-
-// Our variables
-$base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
-$base-font-weight: 400;
-$small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
-
-$spacing-unit:     30px;
-
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #2a7ae2;
-
-$grey-color:       #828282;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
-
-// Width of the content area
-$content-width:    800px;
-
-$on-palm:          600px;
-$on-laptop:        800px;
-
-
-
-// Use media queries like this:
-// @include media-query($on-palm) {
-//     .wrapper {
-//         padding-right: $spacing-unit / 2;
-//         padding-left: $spacing-unit / 2;
-//     }
-// }
-@mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
+#patient_dashboard {
+  border-bottom: 1px solid black;
+  padding: 15px 0;
 }
 
-// Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "base",
-        "layout",
-        "syntax-highlighting"
-;
+.hide-label{
+  label{
+    visibility: hidden;
+  }
+}
+
+#menu {
+  border-right: 1px solid black;
+  height: 70vh;
+  ul{
+    li{
+      a{
+      &:hover{
+        color: lighten(#337ab7, 20%)
+        }
+      }
+    }
+  }
+}
+
+.abortion-left-menu {
+  font-size: 22px;
+
+  li {
+    // padding-left: 10px;
+    background-color: white;
+
+    a:hover {
+      color: #337ab7;
+      background-color: white;
+    }
+  }
+
+  li.active {
+
+    a, a:hover, a:active, a:focus {
+      color: #5D3E8D;
+      background-color: white;
+    }
+
+    a:before {
+      font-family: 'Glyphicons Halflings';
+      content: "\e080";
+      margin-left: -1.5em;
+      padding-right: .5em;
+      color: #5D3E8D;
+      
+    }
+  }
+  a.submit-btn {
+    font-size: 22px;
+  }
+
+}
+
+.border-side {
+  th {
+    font-size: 14px;
+    color: #323a45;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: #f1f1f1;
+  }
+  tr {
+    td {
+      font-size: 17px;
+      padding: 10px 0 !important;
+    }
+  }
+}
+
+.modal.pledge_modal {
+	display: none;
+  height: 475px;
+  width: 500px;
+  position: fixed;
+  margin: 0 auto;
+  top: auto;
+  bottom: auto;
+  background-color: white;
+  font-weight: bold;
+  font-size: 14px;
+  box-sizing: border-box;
+  .modal-cover {
+    height: 100%;
+  }
+	.pledge_modal_header {
+	  width: 100%;
+	  height: 50px;
+	  background-color: $dcaf-color;
+	  font-size: 20px;
+	  padding: 10px;
+	  color: white;
+	  font-weight: normal;
+	}
+
+  .pledge_header_text {
+    float: left;
+  }
+
+  .pledge_close {
+    font-size: 24px;
+    color: white;
+    padding: 0 10px;
+    float: right;
+  }
+
+  .pledge_modal_screen2, .pledge_modal_screen3 {
+    display: none;
+  }
+
+	.pledge_intro {
+		padding: 25px;
+	  font-size: 20px;
+	  font-weight: normal;
+	}
+
+	.pledge_form {
+    padding: 0 25px;
+	  line-height: 3;
+	}
+
+	.pledge_modal_category {
+	  font-weight: normal;
+	  display: inline-block;
+	  width: 150px;
+	}
+
+  .pledge_process_btn {
+    bottom: 10px;
+    margin: 25px;
+    cursor: pointer;
+    right: 0;
+    font-size: 14px;
+    position: absolute;
+  }
+
+  .pledge_cancel {
+    color: red;
+    position: absolute;
+    right: 100px;
+    padding-top: 6px;
+    bottom: 14px;
+  }
+
+  .pledge_back_submit, .pledge_back_review {
+    left: 0;
+    bottom: 14px;
+  }
+
+  .check_input {
+    font-weight: bold;
+  }
+
+  .pledge_sent_check {
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+  }
+}

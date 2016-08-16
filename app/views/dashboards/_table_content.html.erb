@@ -1,13 +1,49 @@
-<tr class="pregnancy-data" id="<%= p.patient.id %>">
-  <td><%= p.patient.primary_phone %></td>
-  <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
-  <td><%= "#{(DateTime.now - p.last_menstrual_period_time).to_i/7} weeks" if p.last_menstrual_period_time %></td>
-  <td>(sample case notes. something or other. detail)</td>
-  <% if(current_user.pregnancies.include?(p)) then %>
-    <td><%= link_to "Remove", "/users/#{current_user.id}/remove_pregnancy/#{p.id}", method: :patch, remote: true %></td>
-  <% else %>
-    <td><%= link_to "Add", "/users/#{current_user.id}/add_pregnancy/#{p.id}", method: :patch, remote: true %></td>
-  <% end %>
-  <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone}", data: {toggle: "modal"} %></td>
-  <%= render partial: 'calls/new_call', locals: {p: p} %>
-</tr>
+<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable -->
+
+<div id="<%= table_type %>" class="margin-bottom">
+  <h1 class="border-bottom title"><%= title %></h1>
+  <table class="table border-side">
+    <thead>
+      <tr>
+        <% if local_assigns[:sortable] %>
+          <th><!-- handle --></th>
+        <% end %>
+        <th>Phone</th>
+        <th>Name</th>
+        <th>LMP</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="<%= table_type %>_content">
+      <% pregnancies.each do |p| %>
+        <tr class="pregnancy-data" id="<%= p.id %>">
+          <% if local_assigns[:sortable] %>
+            <td class="handle"><span class="glyphicon glyphicon-move"></span></td>
+          <% end %>
+          <td><%= p.patient.primary_phone_display %></td>
+          <td><%= link_to p.patient.name, edit_pregnancy_path(p) %></td>
+          <td><%= p.last_menstrual_period_display_short %></td>
+          <td><%= p.status %></td>
+          <td><%= p.most_recent_note_display_text %> <%= plus_sign_glyphicon(p.most_recent_note) %></td>
+  
+          <% if table_type == 'completed_calls' || table_type == 'urgent_pregnancies' %>
+            <td class="blank-td"></td>
+          <% else %>
+            <% if current_user.pregnancies.include?(p) %>
+              <td><%= link_to "Remove", remove_pregnancy_path(current_user, p), method: :patch, remote: true %></td>
+            <% else %>
+              <td><%= link_to "Add", add_pregnancy_path(current_user, p), method: :patch, remote: true %></td>
+            <% end %>
+          <% end %>
+
+          <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{p.patient.primary_phone_display}", data: {toggle: "modal"} %></td>
+
+          <%= render partial: 'calls/new_call', locals: {p: p} %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

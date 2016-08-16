@@ -1,6 +1,8 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
-
 require File.expand_path('../config/application', __FILE__)
+# require 'dawn/tasks' # Comment this out until dawnscanner gets better
 
 Rails.application.load_tasks
+
+task :clear_call_lists => :environment do
+  User.all.each{ |u| u.clear_call_list }
+end
