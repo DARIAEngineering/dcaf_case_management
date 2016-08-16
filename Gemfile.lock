@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/cavi21/letter_opener.git
-  revision: 3be81cb10e4c71f79278db22aa5e10aca64418f0
-  specs:
-    letter_opener (1.0.0)
-      launchy (>= 2.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -380,7 +373,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   launchy
-  letter_opener!
   mini_backtrace
   minitest-reporters
   minitest-spec-rails

@@ -10,8 +10,6 @@ require 'rails/test_unit/railtie'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 
-require 'letter_opener' if Rails.env.development?
-
 Bundler.require(*Rails.groups)
 
 module DcafCaseManagement

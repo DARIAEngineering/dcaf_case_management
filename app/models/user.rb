@@ -1,5 +1,5 @@
 class User
-
+  
   include Mongoid::Document
   include Mongoid::Userstamp::User
 
@@ -13,6 +13,8 @@ class User
           :timeoutable
   # :rememberable
   # :confirmable
+
+  after_update :send_password_change_email, if: :needs_password_change_email?
 
   # Relationships
   has_and_belongs_to_many :pregnancies, inverse_of: :users
