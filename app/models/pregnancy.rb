@@ -41,7 +41,7 @@ class Pregnancy
   # General patient information
   field :age, type: Integer
   field :city, type: String
-  field :state, type: String # ennumeration?
+  field :state, type: String
   field :zip, type: String
   field :county, type: String
   field :race_ethnicity, type: String
@@ -51,7 +51,7 @@ class Pregnancy
   field :insurance, type: String
   field :income, type: String
   field :referred_by, type: String
-  field :special_circumstances, type: String # ennumeration
+  field :special_circumstances, type: String # TODO change to a has_many through
 
   # Procedure result - generally for administrative use
   field :fax_received, type: Boolean
