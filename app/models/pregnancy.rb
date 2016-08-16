@@ -33,7 +33,7 @@ class Pregnancy
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
   enum :voicemail_preference, [:not_specified, :no, :yes]
-  field :line, type: String # DC, MD, VA
+  enum :line, [:DC, :MD, :VA]
   field :spanish, type: Boolean
   field :appointment_date, type: Date
   field :urgent_flag, type: Boolean
