@@ -29,7 +29,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
       click_link 'Dashboard'
       visit edit_pregnancy_path @pregnancy
-      assert has_text? 'Pledge sent'
+      assert has_text? Pregnancy::STATUSES[:pledge_sent]
     end
   end
 end

@@ -5,9 +5,9 @@ User.destroy_all
 
 # Create two test users
 user = User.create name: 'testuser', email: 'test@test.com',
-                   password: 'password', password_confirmation: 'password'
+                   password: 'P4ssword', password_confirmation: 'P4ssword'
 user2 = User.create name: 'testuser2', email: 'test2@test.com',
-                    password: 'password', password_confirmation: 'password'
+                    password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Create ten patients
 10.times do |i|
@@ -78,4 +78,4 @@ patient_in_completed_calls.calls.create status: 'Left voicemail',
 puts "Seed completed! Inserted #{Patient.count} patient objects" \
      "and #{Pregnancy.count} associated pregnancy objects.\n" \
      "User created! Credentials are as follows: " \
-     "EMAIL: #{user.email} PASSWORD: password"
+     "EMAIL: #{user.email} PASSWORD: P4ssword"

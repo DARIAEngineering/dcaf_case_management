@@ -73,6 +73,26 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
 
+  describe 'reorder call list' do
+    before do
+      @ids = []
+      4.times { @ids << create(:pregnancy)._id.to_s }
+      @ids.shuffle!
+
+      patch :reorder_call_list, order: @ids, format: :js
+      @user.reload
+    end
+
+    it 'should respond success' do
+      assert_response :success
+    end
+
+    it 'should populate the user call order field' do
+      assert_not_nil @user.call_order
+      assert_equal @ids, @user.call_order
+    end
+  end
+
   it 'should be the devise controller' do
     assert :devise_controller?
   end

@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence :email do |n|
       "billy#{n}@everyteen.com"
     end
-    password 'password'
+    password 'FCZCidQP4C8GTz'
+    password_confirmation 'FCZCidQP4C8GTz'
   end
 end

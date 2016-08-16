@@ -1,9 +1,19 @@
 class Pregnancy
   include Mongoid::Document
+  include Mongoid::Enum
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
   include LastMenstrualPeriodHelper
+
+  STATUSES = {
+    no_contact: 'No Contact Made',
+    needs_appt: 'Needs Appointment',
+    fundraising: 'Fundraising',
+    pledge_sent: 'Pledge Sent',
+    pledge_paid: 'Pledge Paid',
+    resolved: 'Resolved Without DCAF'
+  }
 
   # Relationships
   belongs_to :patient
@@ -22,25 +32,26 @@ class Pregnancy
   field :initial_call_date, type: Date
   field :last_menstrual_period_weeks, type: Integer
   field :last_menstrual_period_days, type: Integer
-  field :voicemail_ok, type: Boolean, default: false
-  field :line, type: String # DC, MD, VA
-  field :language, type: String
+  enum :voicemail_preference, [:not_specified, :no, :yes]
+  enum :line, [:DC, :MD, :VA]
+  field :spanish, type: Boolean
   field :appointment_date, type: Date
   field :urgent_flag, type: Boolean
 
   # General patient information
   field :age, type: Integer
   field :city, type: String
-  field :state, type: String # ennumeration?
+  field :state, type: String
   field :zip, type: String
   field :county, type: String
   field :race_ethnicity, type: String
   field :employment_status, type: String
-  field :household_size, type: Integer
+  field :household_size_children, type: Integer
+  field :household_size_adults, type: Integer
   field :insurance, type: String
   field :income, type: String
   field :referred_by, type: String
-  field :special_circumstances, type: String # ennumeration
+  field :special_circumstances, type: String # TODO change to a has_many through
 
   # Procedure result - generally for administrative use
   field :fax_received, type: Boolean
@@ -102,17 +113,17 @@ class Pregnancy
 
   def status
     if resolved_without_dcaf?
-      'Resolved Without DCAF'
+      STATUSES[:resolved]
     # elsif pledge_status?(:paid)
-    #   status = "Pledge Paid"
+    #   STATUSES[:pledge_paid]
     elsif pledge_sent?
-      'Pledge sent'
+      STATUSES[:pledge_sent]
     elsif appointment_date
-      'Fundraising'
+      STATUSES[:fundraising]
     elsif contact_made?
-      'Needs Appointment'
+      STATUSES[:needs_appt]
     else
-      'No Contact Made'
+      STATUSES[:no_contact]
     end
   end
 

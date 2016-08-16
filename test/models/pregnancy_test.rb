@@ -40,7 +40,7 @@ class PregnancyTest < ActiveSupport::TestCase
       it 'should return a pledge_identifier' do
         @pregnancy.line = 'DC'
         @pregnancy.patient.update primary_phone: '111-333-5555'
-        # assert_equal 'D3-5555', @pregnancy.pledge_identifier # make it live after merging that one PR
+        assert_equal 'D3-5555', @pregnancy.pledge_identifier # make it live after merging that one PR
       end
     end
 
@@ -57,27 +57,27 @@ class PregnancyTest < ActiveSupport::TestCase
 
     describe 'status method' do
       it 'should default to "No Contact Made" when a pregnancy has no calls' do
-        assert_equal 'No Contact Made', @pregnancy.status
+        assert_equal Pregnancy::STATUSES[:no_contact], @pregnancy.status
       end
 
       it 'should default to "No Contact Made" on a pregnancy left voicemail' do
         create :call, pregnancy: @pregnancy, status: 'Left voicemail'
-        assert_equal 'No Contact Made', @pregnancy.status
+        assert_equal Pregnancy::STATUSES[:no_contact], @pregnancy.status
       end
 
       it 'should update to "Needs Appointment" once patient has been reached' do
         create :call, pregnancy: @pregnancy, status: 'Reached patient'
-        assert_equal 'Needs Appointment', @pregnancy.status
+        assert_equal Pregnancy::STATUSES[:needs_appt], @pregnancy.status
       end
 
       it 'should update to "Fundraising" once an appointment has been made' do
         @pregnancy.appointment_date = '01/01/2017'
-        assert_equal 'Fundraising', @pregnancy.status
+        assert_equal Pregnancy::STATUSES[:fundraising], @pregnancy.status
       end
 
       it 'should update to "Sent Pledge" after a pledge has been sent' do
         @pregnancy.pledge_sent = true
-        assert_equal 'Pledge sent', @pregnancy.status
+        assert_equal Pregnancy::STATUSES[:pledge_sent], @pregnancy.status
       end
 
       # it 'should update to "Pledge Paid" after a pledge has been paid' do
@@ -85,7 +85,7 @@ class PregnancyTest < ActiveSupport::TestCase
 
       it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
         @pregnancy.resolved_without_dcaf = true
-        assert_equal 'Resolved Without DCAF', @pregnancy.status
+        assert_equal Pregnancy::STATUSES[:resolved], @pregnancy.status
       end
     end
 
