@@ -1,25 +1,22 @@
 <section id="notes" class="notes tab-pane">
   <div class="col-sm-12 margin-bottom-sm">
-    <%= bootstrap_form_for [pregnancy, note], html: { id: 'notes-form' }, remote: true do |f| %>
     <div class="row">
+			<%= bootstrap_form_for [pregnancy, note], html: { id: 'notes-form' }, remote: true do |f| %>
       <div class="info-form-left col-sm-12">
         <h2>Notes</h2>
         <%= f.text_area :full_text, size: '20x5', placeholder: 'Enter notes here', hide_label: true %>
       </div>
-    </div>
+			<div class="info-form-left col-sm-6">
+				<%= f.submit class: "btn btn-primary"  %>
+			</div>
+			<% end %>
 
-    <div class="row">
-      <div class="info-form-left col-sm-6">
-        <%= f.submit class: "btn btn-primary"  %>
-        <% end %>
-      </div>
-
-      <div class="info-form-right col-sm-6">
-        <%= bootstrap_form_for pregnancy, html: { id: 'urgents-form', class: 'text-right text-danger edit_pregnancy' }, remote: true do |u| %>
-          <%= u.check_box :urgent_flag, label: 'Flag this patient as urgent' %>
-        <% end %>
-      </div>
-    </div>
+	    <div class="info-form-right col-sm-6">
+	      <%= bootstrap_form_for pregnancy, html: { id: 'urgents-form', class: 'text-right text-danger edit_pregnancy' }, remote: true do |u| %>
+	        <%= u.check_box :urgent_flag, label: 'Flag this patient as urgent' %>
+	      <% end %>
+	    </div>
+		</div>
   </div>
 
   <%= render partial: 'notes/notes_table', locals: { notes: pregnancy.notes.order_by('created_at desc') } %>

@@ -20,6 +20,16 @@ class UserTest < ActiveSupport::TestCase
                      @user.errors.messages[attribute.to_sym].first
       end
     end
+
+    it 'should require a complex password' do
+      @user.password = 'password'
+      @user.password_confirmation = 'password'
+      assert_not @user.valid?
+      assert_equal 'Password must include at least one lowercase letter, ' \
+                   'one uppercase letter, and one digit. Forbidden words ' \
+                   'include DCAF and password.',
+                   @user.errors.messages[:password].first
+    end
   end
 
   describe 'call list methods' do
@@ -45,16 +55,28 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 1, @user.call_list_pregnancies.count
     end
 
-    it 'should accurately flag a pregnancy as recently called or not' do
-      refute @user.recently_called? @pregnancy
-      @call = create :call, pregnancy: @pregnancy, created_by: @user
-      assert @user.recently_called? @pregnancy
+    it 'should clear calls when patient has been reached' do
+      assert_equal 0, @user.recently_called_pregnancies.count
+      @call = create :call, pregnancy: @pregnancy, created_by: @user, status: 'Reached patient'
+      assert_equal 1, @user.recently_called_pregnancies.count
+      @user.clear_call_list
+      assert_equal 0, @user.recently_called_pregnancies.count
+    end
+
+    it 'should not clear calls when patient has not been reached' do
+      assert_equal 0, @user.recently_called_pregnancies.count
+      @call = create :call, pregnancy: @pregnancy, created_by: @user, status: 'Left voicemail'
+      assert_equal 1, @user.recently_called_pregnancies.count
+      @user.clear_call_list
+      assert_equal 1, @user.recently_called_pregnancies.count
     end
   end
 
   describe 'pregnancy methods' do
     before do
       @pregnancy = create :pregnancy
+      @pregnancy_2 = create :pregnancy
+      @pregnancy_3 = create :pregnancy
     end
 
     it 'add pregnancy - should add a pregnancy to a set' do
@@ -67,6 +89,29 @@ class UserTest < ActiveSupport::TestCase
       @user.add_pregnancy @pregnancy
       assert_difference '@user.pregnancies.count', -1 do
         @user.remove_pregnancy @pregnancy
+      end
+    end
+
+    describe 'reorder call list' do
+      before do
+        set_of_pregnancies = [@pregnancy, @pregnancy_2, @pregnancy_3]
+        set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
+        @new_order = [@pregnancy_3._id.to_s, @pregnancy._id.to_s, @pregnancy_2._id.to_s]
+        @user.reorder_call_list @new_order
+      end
+
+      it 'should let you reorder a call list' do
+        assert_equal @pregnancy_3, @user.ordered_pregnancies.first
+        assert_equal @pregnancy, @user.ordered_pregnancies[1]
+        assert_equal @pregnancy_2, @user.ordered_pregnancies[2]
+      end
+
+      it 'should not choke if another preg is on call list but not call order' do
+        @pregnancy_4 = create :pregnancy
+        @user.add_pregnancy @pregnancy_4
+
+        assert @user.ordered_pregnancies.include? @pregnancy_4
+        refute @user.call_order.include? @pregnancy_4._id.to_s
       end
     end
   end

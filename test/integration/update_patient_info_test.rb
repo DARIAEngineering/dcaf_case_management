@@ -81,11 +81,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'ZIP', with: '90210'
-      check 'Voicemail OK?'
+      find('#pregnancy_voicemail_preference').select 'Voicemail OK'
+      check 'Spanish Only'
 
       find('#pregnancy_employment_status').select 'Part-time'
       find('#pregnancy_income').select '$30,000-34,999 ($577-672/week)'
-      find('#pregnancy_household_size').select '1'
+      find('#pregnancy_household_size_adults').select '1'
+      find('#pregnancy_household_size_children').select '3'
       find('#pregnancy_insurance').select 'Other state Medicaid'
       find('#pregnancy_referred_by').select 'Other abortion fund'
       fill_in 'Special circumstances', with: 'Stuff'
@@ -107,15 +109,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
-	      assert has_field? 'Special circumstances', with: 'Stuff'
+        assert has_field? 'Special circumstances', with: 'Stuff'
+        assert_equal 'yes', find('#pregnancy_voicemail_preference').value
+        assert has_checked_field? 'Spanish Only'
 
         assert_equal 'Part-time', find('#pregnancy_employment_status').value
         assert_equal '$30,000-34,999 ($577-672/week)', find('#pregnancy_income').value
-        assert_equal '1', find('#pregnancy_household_size').value
+        assert_equal '1', find('#pregnancy_household_size_adults').value
+        assert_equal '3', find('#pregnancy_household_size_children').value
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
         assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
-        assert_equal '1', find('#pregnancy_voicemail_ok').value
       end
     end
   end
@@ -124,5 +128,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   def click_away_from_field
     fill_in 'First and last name', with: nil
+    wait_for_ajax
   end
 end
