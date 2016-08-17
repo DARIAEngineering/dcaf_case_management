@@ -42,14 +42,15 @@ class PregnanciesController < ApplicationController
       # fields in abortion info
       :procedure_cost,
       # fields in patient info
-      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size_adults, :household_size_children, :insurance, :referred_by, :special_circumstances,
+      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size_adults, :household_size_children, :insurance, :referred_by, 
       # fields in notes
       :urgent_flag,
       # temp fields for $
       :patient_contribution, :naf_pledge, :dcaf_soft_pledge, :pledge_sent,
       # associated
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
-      patient: [:id, :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship]
+      patient: [:id, :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship],
+      :special_circumstances => ['Fetal anomaly', 'Rape', 'Homelessness', 'Incest']
     )
   end
 end

@@ -77,7 +77,10 @@
                        options_for_select(referred_by_options,
                                           pregnancy.referred_by),
                                           autocomplete: 'off' %>
-          <%= f.text_field :special_circumstances, autocomplete: 'Off' %>
+          <div>       
+            <%= f.label :special_circumstances, "special circumstances" %>    
+            <%= check_box_tag('pregnancy[special_circumstances][]', "Fetal anomaly", false, class: "checkbox") %>
+          </div>
         </div>
       </div>
     </div>

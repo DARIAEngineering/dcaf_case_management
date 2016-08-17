@@ -51,7 +51,7 @@ class Pregnancy
   field :insurance, type: String
   field :income, type: String
   field :referred_by, type: String
-  field :special_circumstances, type: String # TODO change to a has_many through
+  field :special_circumstances, type: Array, default: []
 
   # Procedure result - generally for administrative use
   field :fax_received, type: Boolean
