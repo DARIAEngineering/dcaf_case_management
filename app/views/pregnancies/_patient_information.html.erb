@@ -78,8 +78,11 @@
                                           pregnancy.referred_by),
                                           autocomplete: 'off' %>
           <div>       
-            <%= f.label :special_circumstances, "special circumstances" %>    
-            <%= check_box_tag('pregnancy[special_circumstances][]', "Fetal anomaly", false, class: "checkbox") %>
+            <%= f.label :special_circumstances, 'Special circumstances' %>    
+            <%= check_box_tag('pregnancy[special_circumstances][]', 'Fetal anomaly', false, class: 'checkbox') %>
+            <%= check_box_tag('pregnancy[special_circumstances][]', 'Rape', false, class: 'checkbox') %>
+            <%= check_box_tag('pregnancy[special_circumstances][]', 'Homelessness', false, class: 'checkbox') %>
+            <%= check_box_tag('pregnancy[special_circumstances][]', 'Incest', false, class: 'checkbox') %>
           </div>
         </div>
       </div>

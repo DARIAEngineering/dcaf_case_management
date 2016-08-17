@@ -50,7 +50,7 @@ class PregnanciesController < ApplicationController
       # associated
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
       patient: [:id, :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship],
-      :special_circumstances => ['Fetal anomaly', 'Rape', 'Homelessness', 'Incest']
+      :special_circumstances => []
     )
   end
 end
