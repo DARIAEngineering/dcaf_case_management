@@ -1,6 +1,11 @@
 <section id="call_log" class="call-info tab-pane">
 	<div class="margin-bottom col-sm-12">
-		<h2>Call Log</h2>
+		<h2>Call Log
+			<%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{pregnancy.patient.primary_phone_display}", data: {toggle: "modal"} %>
+		</h2>
+
+		<%= render partial: 'calls/new_call', locals: {p: pregnancy} %>
+
 		<table class="table border-side">
 			<tr>
 				<th>Date</th>
@@ -10,26 +15,26 @@
 			</tr>
 			<tbody>
 				<% pregnancy.recent_calls.each do |call| %>
-					<tr>
-						<td><%= call.created_at.display_date %></td>
-						<td><%= call.created_at.display_time %></td>
-						<td><%= call.status %></td>
-						<td><%= call.created_by.name %></td>
-					</tr>
+				<tr>
+					<td><%= call.created_at.display_date %></td>
+					<td><%= call.created_at.display_time %></td>
+					<td><%= call.status %></td>
+					<td><%= call.created_by.name %></td>
+				</tr>
 				<% end %>
 				<% pregnancy.old_calls.each do |call| %>
-					<tr class="old-calls hidden">
-						<td><%= call.created_at.display_date %></td>
-						<td><%= call.created_at.display_time %></td>
-						<td><%= call.status %></td>
-						<td><%= call.created_by.name %></td>
-					</tr>
+				<tr class="old-calls hidden">
+					<td><%= call.created_at.display_date %></td>
+					<td><%= call.created_at.display_time %></td>
+					<td><%= call.status %></td>
+					<td><%= call.created_by.name %></td>
+				</tr>
 				<% end %>
 			</tbody>
-	  </table>
+		</table>
 
 		<% if pregnancy.old_calls.count > 0 %>
-      <div id="toggle-call-log">View all calls</div>
-    <% end %>
-  </div>
+		<div id="toggle-call-log">View all calls</div>
+		<% end %>
+	</div>
 </section>
