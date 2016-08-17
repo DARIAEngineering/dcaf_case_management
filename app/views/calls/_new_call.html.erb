@@ -7,6 +7,7 @@
           <h4 class="modal-title calls-request">Call <b><%= p.patient.name %></b> now:</h4>
           <br>
           <h4 class="calls-phone"><%= p.patient.primary_phone_display %></h4>
+          <p>Note: <%= p.most_recent_note_display_text %><%= plus_sign_glyphicon(p.most_recent_note) %></p>
           <br>
 
           <p><%= link_to "I reached the patient", pregnancy_calls_path(p, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %></p>
