@@ -88,6 +88,53 @@ class Pregnancy
     order('created_at DESC').limit(1).first
   end
 
+  def self.urgent_pregnancies
+    where(urgent_flag: true)
+  end
+
+  def self.trim_urgent_pregnancies
+    self.urgent_pregnancies.each do |p|
+      # p.urgent_flag = false unless p.still_urgent?
+      unless p.still_urgent?
+        p.urgent_flag = false
+        p.save
+      end
+    end
+  end
+
+  def recent_history_tracks
+    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
+  end
+
+  def still_urgent?
+    return false if recent_history_tracks.count == 0
+    recent_history_tracks.sort.reverse.each do |history|
+      return true if history.modified.include?('urgent_flag') && history.modified['urgent_flag'] == true
+    end
+    false
+  end
+  # checks:
+  # grab all pregnancies where urgent_flag == true (ignore if false)
+  # if there is no audit trail that is greater than 6.days.ago, change to false
+  # if there are audit trails greater than 6.days.ago,
+    # going from back to front
+    # if find an audit trail where modified.include?('urgent_flag') && modified['urgent_flag'] == true  then it is fine
+    # need to worry about edge case? if find a modified.include('urgent_flag') to true, but also one to false after? doesn't seem likely
+
+  # if prenancy has been urgent for more than 6 days, need to set urgent_flag to false
+  # if urgent_flag == true for longer than 6 days
+  # to see if pregnancy is still urgent, need to go through history tracks
+  # history_tracks or self.history_tracks
+  # any modified within 6 days
+  #
+  # audit trail ordered from first to last
+  # h = pregnancy.history_tracks
+  # h[-1].updated_at > h[-2].updated_at
+  # h1 = history_tracks.last
+  # audit trail instances: updated_at == created_at
+  # h1.modified.include?('urgent_flag')
+  # h1.modified['urgent_flag'] (== true or == false)
+
   def recent_calls
     calls.order('created_at DESC').limit(10)
   end
