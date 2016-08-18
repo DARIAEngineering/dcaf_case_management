@@ -78,11 +78,51 @@
                                           pregnancy.referred_by),
                                           autocomplete: 'off' %>
           <div>       
-            <%= f.label :special_circumstances, 'Special circumstances' %>    
-            <%= check_box_tag('pregnancy[special_circumstances][]', 'Fetal anomaly', false, class: 'checkbox') %>
-            <%= check_box_tag('pregnancy[special_circumstances][]', 'Rape', false, class: 'checkbox') %>
-            <%= check_box_tag('pregnancy[special_circumstances][]', 'Homelessness', false, class: 'checkbox') %>
-            <%= check_box_tag('pregnancy[special_circumstances][]', 'Incest', false, class: 'checkbox') %>
+            <%= f.label :special_circumstances, 'Special circumstances' %>   
+            <br />
+            <div>
+              <div class="col-sm-6">
+                <div>
+                  <%= check_box_tag('pregnancy[special_circumstances][]', 'Fetal anomaly', 
+                            @pregnancy.special_circumstances.include?('Fetal anomaly')) %>
+                  <%= label_tag('Fetal anomaly') %>
+                </div>
+                <div>
+                <%= check_box_tag('pregnancy[special_circumstances][]', 'Homelessness', 
+                          @pregnancy.special_circumstances.include?('Homelessness')) %>
+                <%= label_tag('Homelessness') %>
+                </div>
+                <div>
+                  <%= check_box_tag('pregnancy[special_circumstances][]', 'Domestic Violence', 
+                            @pregnancy.special_circumstances.include?('Domestic Violence')) %>  
+                  <%= label_tag('Domestic Violence') %>
+                </div>
+                <div>
+                  <%= check_box_tag('pregnancy[special_circumstances][]', 'Other', 
+                            @pregnancy.special_circumstances.include?('Other')) %>
+                  <%= label_tag('Other') %>
+                </div>  
+                <%= text_field_tag 'pregnancy[special_circumstances][]', @pregnancy.special_circumstances.include?('Other'), 
+                          :placeholder => 'Details' %>            
+              </div>
+              <div class="col-sm-6">
+                <div>
+                    <%= check_box_tag('pregnancy[special_circumstances][]', 'Rape', 
+                              @pregnancy.special_circumstances.include?('Rape')) %>
+                    <%= label_tag('Rape') %>
+                </div>  
+                <div>
+                    <%= check_box_tag('pregnancy[special_circumstances][]', 'Incest', 
+                              @pregnancy.special_circumstances.include?('Incest')) %>
+                    <%= label_tag('Incest') %>
+                </div>
+                <div>
+                    <%= check_box_tag('pregnancy[special_circumstances][]', 'Prison', 
+                              @pregnancy.special_circumstances.include?('Prison')) %>
+                    <%= label_tag('Prison') %>
+                </div>  
+              </div>  
+            </div>  
           </div>
         </div>
       </div>
