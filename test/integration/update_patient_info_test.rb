@@ -90,7 +90,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_household_size_children').select '3'
       find('#pregnancy_insurance').select 'Other state Medicaid'
       find('#pregnancy_referred_by').select 'Other abortion fund'
-      fill_in 'Special circumstances', with: 'Stuff'
+      #fill_in 'Special circumstances', with: 'Stuff'
+      check 'Homelessness'
+      check 'Prison'
 
       click_away_from_field
       visit authenticated_root_path
@@ -119,7 +121,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal '3', find('#pregnancy_household_size_children').value
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
-        assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
+        #assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
+        assert has_checked_field? 'Homelessness'
+        assert has_checked_field? 'Prison'
       end
     end
   end

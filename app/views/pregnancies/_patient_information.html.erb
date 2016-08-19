@@ -77,47 +77,28 @@
                        options_for_select(referred_by_options,
                                           pregnancy.referred_by),
                                           autocomplete: 'off' %>
-          <div>       
-            <%= f.label :special_circumstances, 'Special circumstances' %>   
-            <br />
-            <div>
-              <div class="col-sm-6">
-                <div>
-                  <%= check_box_tag('pregnancy[special_circumstances][]', 'Fetal anomaly', 
-                            @pregnancy.special_circumstances.include?('Fetal anomaly')) %>
-                  <%= label_tag('Fetal anomaly') %>
-                </div>
-                <div>
-                <%= check_box_tag('pregnancy[special_circumstances][]', 'Homelessness', 
-                          @pregnancy.special_circumstances.include?('Homelessness')) %>
-                <%= label_tag('Homelessness') %>
-                </div>
-                <div>
-                  <%= check_box_tag('pregnancy[special_circumstances][]', 'Domestic Violence', 
-                            @pregnancy.special_circumstances.include?('Domestic Violence')) %>  
-                  <%= label_tag('Domestic Violence') %>
-                </div>    
-              </div>
-              <div class="col-sm-6">
-                <div>
-                    <%= check_box_tag('pregnancy[special_circumstances][]', 'Rape', 
-                              @pregnancy.special_circumstances.include?('Rape')) %>
-                    <%= label_tag('Rape') %>
-                </div>  
-                <div>
-                    <%= check_box_tag('pregnancy[special_circumstances][]', 'Incest', 
-                              @pregnancy.special_circumstances.include?('Incest')) %>
-                    <%= label_tag('Incest') %>
-                </div>
-                <div>
-                    <%= check_box_tag('pregnancy[special_circumstances][]', 'Prison', 
-                              @pregnancy.special_circumstances.include?('Prison')) %>
-                    <%= label_tag('Prison') %>
-                </div>  
-              </div>  
+         
+          
+          <%= f.label :special_circumstances, 'Special circumstances' %> 
+          <%= f.form_group :special_circumstances do %>
+            <div class="col-sm-6">
+              <%= f.check_box :special_circumstances, { label: 'Fetal anomaly', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Fetal anomaly') }, 'Fetal anomaly', '' %>
+              <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Homelessness') }, 'Homelessness', '' %>
+              <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Domestic violence') }, 'Domestic violence', '' %>
             </div>  
-          </div>
-        </div>
+            <div class="col-sm-6">
+            <%= f.check_box :special_circumstances, { label: 'Rape', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Rape') }, 'Rape', '' %>
+            <%= f.check_box :special_circumstances, { label: 'Incest', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Incest') }, 'Incest', '' %>
+            <%= f.check_box :special_circumstances, { label: 'Prison', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Prison') }, 'Prison', '' %>      
+            </div>  
+          <% end %>
+        </div>  
       </div>
     </div>
   <% end %>
