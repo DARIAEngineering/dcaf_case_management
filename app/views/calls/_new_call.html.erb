@@ -6,10 +6,10 @@
           <button type="button" class="close close-terms" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title calls-request">Call <b><%= p.patient.name %></b> now:</h4>
           <br>
-          <% if !p.patient.other_contact.blank? && !p.patient.other_phone.blank? %>
+          <% if p.patient.other_contact.present? && p.patient.other_phone.present? %>
           <h4 class="modal-title calls-request calls-other-contact">
             <%= p.patient.other_contact %>
-            <% if !p.patient.other_contact_relationship.blank? %> (<%= p.patient.other_contact_relationship %>) <% end %>
+            <% if p.patient.other_contact_relationship.present? %> (<%= p.patient.other_contact_relationship %>) <% end %>
             is the primary contact for this patient:
           </h4>          
           <h4 class="calls-phone"><%= p.patient.other_phone_display %></h4>
