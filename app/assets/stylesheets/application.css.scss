@@ -159,6 +159,10 @@ section {
   @extend .btn-xs;
 }
 
+.btn-space {
+    margin-left: 5px;
+}
+
 // Search result
 // shell styling
 .form-group input {
@@ -166,4 +170,5 @@ section {
     -webkit-appearance: none;
     display: none;
   }
+
 }
