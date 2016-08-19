@@ -140,6 +140,7 @@ class User
   end
 
   def send_password_change_email
-    UserMailer.password_changed(id).deliver
+    #@user = User.find(id)
+    UserMailer.password_changed(id).deliver_now
   end
 end
