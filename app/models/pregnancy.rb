@@ -151,7 +151,7 @@ class Pregnancy
     # Verify that a pregnancy has not been marked urgent in the past six days
     return false if recent_history_tracks.count == 0
     recent_history_tracks.sort.reverse.each do |history|
-      return true if history.modified.include?('urgent_flag') && history.modified['urgent_flag'] == true
+      return true if history.marked_urgent?
     end
     false
   end
@@ -166,7 +166,7 @@ class Pregnancy
   end
 
   def recent_history_tracks
-    history_tracks.select { |ht| ht.updated_at > 1.days.ago }
+    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
   end
 
   # def pledge_status?(status)
