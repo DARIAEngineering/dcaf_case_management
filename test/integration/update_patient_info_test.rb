@@ -90,7 +90,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#patient_household_size_children').select '3'
       find('#patient_insurance').select 'Other state Medicaid'
       find('#patient_referred_by').select 'Other abortion fund'
-      fill_in 'Special circumstances', with: 'Stuff'
+      check 'Homelessness'
+      check 'Prison'
 
       click_away_from_field
       visit authenticated_root_path
@@ -109,7 +110,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
-        assert has_field? 'Special circumstances', with: 'Stuff'
         assert_equal 'yes', find('#patient_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
 
@@ -119,7 +119,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal '3', find('#patient_household_size_children').value
         assert_equal 'Other state Medicaid', find('#patient_insurance').value
         assert_equal 'Other abortion fund', find('#patient_referred_by').value
-        assert_equal 'Stuff', find('#patient_pregnancy_special_circumstances').value
+        assert_equal 'yes', find('#patient_voicemail_preference').value
+        assert has_checked_field? 'Spanish Only'
+
+        assert_equal 'Part-time', find('#pregnancy_employment_status').value
+        assert_equal '$30,000-34,999 ($577-672/week)', find('#pregnancy_income').value
+        assert_equal '1', find('#pregnancy_household_size_adults').value
+        assert_equal '3', find('#pregnancy_household_size_children').value
+        assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
+        assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
+        assert has_checked_field? 'Homelessness'
+        assert has_checked_field? 'Prison'
       end
     end
   end

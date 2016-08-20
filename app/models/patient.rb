@@ -55,6 +55,7 @@ class Patient
   field :initial_call_date, type: Date
 
   field :urgent_flag, type: Boolean
+  field :special_circumstances, type: Array, default: []
 
   # Validations
   validates :name,
