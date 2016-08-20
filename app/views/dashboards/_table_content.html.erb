@@ -25,7 +25,7 @@
           <% end %>
           <td><%= patient.primary_phone_display %></td>
           <td><%= link_to patient.name, edit_patient_path(patient) %></td>
-          <td><%= patient.pregnancy.last_menstrual_period_display_short %></td>
+          <td><%= patient.pregnancy.try :last_menstrual_period_display_short %></td>
           <td><%= patient.status %></td>
           <td><%= patient.most_recent_note_display_text %> <%= plus_sign_glyphicon(patient.most_recent_note) %></td>
   
