@@ -99,7 +99,7 @@ class Patient
     end
   end
 
-  def self.urgent_pregnancies
+  def self.urgent_patients
     where(urgent_flag: true)
   end
 

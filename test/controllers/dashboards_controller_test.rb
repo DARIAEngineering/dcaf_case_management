@@ -8,8 +8,7 @@ class DashboardsControllerTest < ActionController::TestCase
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
-    @pregnancy = create :pregnancy, appointment_date: nil, patient: @patient
-    @clinic = create :clinic, pregnancy: @pregnancy
+    @pregnancy = create :pregnancy, patient: @patient
   end
 
   describe 'index method' do

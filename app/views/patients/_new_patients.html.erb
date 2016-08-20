@@ -1,25 +1,25 @@
 <h3><small>Your search produced no results, so add a new patient:</small></h3>
 
-<%= bootstrap_form_for pregnancy do |f| %>
-  <%= f.fields_for pregnancy.patient do |p| %>
+<%= bootstrap_form_for patient do |f| %>
+  <div class="col-md-3">
+    <div class="col-md-6">
+      <%= patient.text_field :primary_phone, label: 'Phone', value: phone %>
+    </div>
+    <div class="col-md-6">
+      <%= patient.text_field :name, label: 'Name', value: name %>
+    </div>
+  </div>
+
+  <%= f.fields_for patient.pregnancy do |p| %>
     <div class="col-md-3">
       <div class="col-md-6">
-        <%= p.text_field :primary_phone, label: 'Phone', value: phone %>
+        <%= p.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), label: 'LMP', autocomplete: 'off' %>
       </div>
-      <div class="col-md-6">
-        <%= p.text_field :name, label: 'Name', value: name %>
+      <div class="col-md-6 hide-label">
+        <%= p.select :last_menstrual_period_days, options_for_select(days_options, patient.pregnancy.last_menstrual_period_days ), label: 'LMP', autocomplete: 'off' %>
       </div>
     </div>
   <% end %>
-
-  <div class="col-md-3">
-    <div class="col-md-6">
-      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP', autocomplete: 'off' %>
-    </div>
-    <div class="col-md-6 hide-label">
-      <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: 'LMP', autocomplete: 'off' %>
-    </div>
-  </div>
 
   <div class="col-md-2">
     <%= f.date_field :initial_call_date, label: "Initial Call Date", value: today,  required: "required" %>
