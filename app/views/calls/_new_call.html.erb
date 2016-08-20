@@ -6,6 +6,16 @@
           <button type="button" class="close close-terms" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title calls-request">Call <b><%= patient.name %></b> now:</h4>
           <br>
+
+          <% if patient.other_contact.present? && patient.other_phone.present? %>
+            <h4 class="modal-title calls-request calls-other-contact">
+              <%= patient.other_contact %>
+              <% if patient.other_contact_relationship.present? %> (<%= patient.other_contact_relationship %>) <% end %>
+              is the primary contact for this patient:
+            </h4>          
+            <h4 class="calls-phone"><%= patient.other_phone_display %></h4>
+            <h4 class="modal-title calls-request"><%= patient.name %>'s number:</h4>
+          <% end %>
           <h4 class="calls-phone"><%= patient.primary_phone_display %></h4>
           <br>
 
