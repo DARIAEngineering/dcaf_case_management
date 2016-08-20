@@ -54,12 +54,15 @@ class Patient
   # Validations
   validates :name,
             :primary_phone,
+            :initial_call_date,
             :created_by,
             presence: true
   validates :primary_phone, format: /\d{10}/, length: { is: 10 }
   validates :other_phone, format: /\d{10}/, length: { is: 10 }, allow_blank: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
+
+  validate :confirm_appointment_after_initial_call
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time

@@ -35,10 +35,8 @@ class Pregnancy
   field :pledge_sent, type: Boolean
 
   # Validations
-  validates :initial_call_date,
-            :created_by,
+  validates :created_by,
             presence: true
-  validate :confirm_appointment_after_initial_call
   validates_associated :patient
 
   # History and auditing
