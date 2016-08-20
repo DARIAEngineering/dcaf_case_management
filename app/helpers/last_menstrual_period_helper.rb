@@ -11,8 +11,8 @@ module LastMenstrualPeriodHelper
   end
 
   def last_menstrual_period_at_appt
-    return nil unless last_menstrual_period_now && appointment_date
-    lmp = last_menstrual_period_on_date appointment_date
+    return nil unless last_menstrual_period_now && patient.appointment_date
+    lmp = last_menstrual_period_on_date patient.appointment_date
     display_as_weeks lmp
   end
 

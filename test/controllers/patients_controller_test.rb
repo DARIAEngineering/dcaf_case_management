@@ -70,10 +70,9 @@ class PatientsControllerTest < ActionController::TestCase
     end
 
     it 'should contain the current record' do
-      # TODO restore
-      # assert_match /Susie Everyteen/, response.body
-      # assert_match /123-456-7890/, response.body
-      # assert_match /Sample Clinic 1/, response.body
+      assert_match /Susie Everyteen/, response.body
+      assert_match /123-456-7890/, response.body
+      assert_match /Sample Clinic 1/, response.body
     end
 
     it 'should not die if clinic is nil' do
