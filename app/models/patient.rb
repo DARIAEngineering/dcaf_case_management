@@ -19,9 +19,14 @@ class Patient
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   embeds_one :pregnancy
+  embeds_one :clinic
   embeds_many :calls
   embeds_many :pledges
   embeds_many :notes
+
+  # Enable mass posting in forms
+  accepts_nested_attributes_for :pregnancy
+  accepts_nested_attributes_for :clinic
 
   # Fields
   field :name, type: String # strip

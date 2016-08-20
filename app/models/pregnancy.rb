@@ -9,10 +9,6 @@ class Pregnancy
   embedded_in :patient
   has_one :clinic
 
-  # Enable mass posting in forms
-  accepts_nested_attributes_for :patient
-  accepts_nested_attributes_for :clinic
-
   # Fields
   # Intake information
   field :last_menstrual_period_weeks, type: Integer
