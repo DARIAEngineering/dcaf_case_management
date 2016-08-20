@@ -105,6 +105,20 @@ class PregnancyTest < ActiveSupport::TestCase
       end
     end
 
+    describe 'history check methods' do
+      it 'should say whether a pregnancy is still urgent' do
+        # TODO TIMECOP
+        @pregnancy.urgent_flag = true
+        @pregnancy.save
+
+        assert @pregnancy.still_urgent?
+      end
+
+      it 'should trim pregnancies after they have been urgent for five days' do
+        # TODO TEST Pregnancy#trim_urgent_pregnancies
+      end
+    end
+
     describe 'mongoid attachments' do
       it 'should have timestamps from Mongoid::Timestamps' do
         [:created_at, :updated_at].each do |field|
