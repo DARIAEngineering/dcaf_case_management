@@ -94,7 +94,6 @@ class Pregnancy
 
   def self.trim_urgent_pregnancies
     urgent_pregnancies.each do |pregnancy|
-      # p.urgent_flag = false unless p.still_urgent?
       unless pregnancy.still_urgent?
         pregnancy.urgent_flag = false
         pregnancy.save
