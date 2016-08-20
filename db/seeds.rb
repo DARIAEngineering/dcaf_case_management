@@ -1,5 +1,3 @@
-Call.destroy_all
-Pregnancy.destroy_all
 Patient.destroy_all
 User.destroy_all
 
@@ -11,8 +9,11 @@ user2 = User.create name: 'testuser2', email: 'test2@test.com',
 
 # Create ten patients
 10.times do |i|
+  flag = i.even? ? true : false
   Patient.create name: "Patient #{i}",
                  primary_phone: "123-123-123#{i}",
+                 initial_call_date: 3.days.ago,
+                 urgent_flag: flag,
                  created_by: user2
 end
 
@@ -20,17 +21,12 @@ end
 Patient.all.each do |patient|
   # If the patient number is even, flag as urgent
   if patient.name[-1, 1].to_i.even?
-    flag = true
     lmp_weeks = (patient.name[-1, 1].to_i + 1) * 2
     lmp_days = 3
-  else
-    flag = false
   end
 
   # Create pregnancy
-  creation_hash = { initial_call_date: 3.days.ago,
-                    urgent_flag: flag,
-                    last_menstrual_period_weeks: lmp_weeks,
+  creation_hash = { last_menstrual_period_weeks: lmp_weeks,
                     last_menstrual_period_days: lmp_days,
                     created_by: user2
                   }
@@ -40,16 +36,16 @@ Patient.all.each do |patient|
 
   # Create calls for pregnancy
   5.times do
-    pregnancy.calls.create status: 'Left voicemail',
-                           created_at: 3.days.ago,
-                           created_by: user2 unless patient.name == 'Patient 9'
+    patient.calls.create status: 'Left voicemail',
+                         created_at: 3.days.ago,
+                         created_by: user2 unless patient.name == 'Patient 9'
   end
 
   if patient.name == 'Patient 0'
     10.times do
-      pregnancy.calls.create status: 'Reached patient',
-                             created_at: 3.days.ago,
-                             created_by: user2
+      patient.calls.create status: 'Reached patient',
+                           created_at: 3.days.ago,
+                           created_by: user2
     end
   end
 end
@@ -57,21 +53,19 @@ end
 # Add a note to Patient 2
 note_text = 'This is a note ' * 10
 Patient.find_by(name: 'Patient 2')
-       .pregnancy
        .notes.create full_text: note_text,
                      created_by: user2
 
 # Adds Patients 0 thru 4 to regular call list
-user.add_pregnancy Patient.find_by(name: 'Patient 0').pregnancy
-user.add_pregnancy Patient.find_by(name: 'Patient 1').pregnancy
-user.add_pregnancy Patient.find_by(name: 'Patient 2').pregnancy
-user.add_pregnancy Patient.find_by(name: 'Patient 3').pregnancy
-user.add_pregnancy Patient.find_by(name: 'Patient 4').pregnancy
+user.add_patient Patient.find_by(name: 'Patient 0')
+user.add_patient Patient.find_by(name: 'Patient 1')
+user.add_patient Patient.find_by(name: 'Patient 2')
+user.add_patient Patient.find_by(name: 'Patient 3')
+user.add_patient Patient.find_by(name: 'Patient 4')
 
 # Add Patient 5 to completed calls list
 patient_in_completed_calls = Patient.find_by(name: 'Patient 5')
-                                    .pregnancy
-user.add_pregnancy patient_in_completed_calls
+user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create status: 'Left voicemail',
                                         created_by: user
 
