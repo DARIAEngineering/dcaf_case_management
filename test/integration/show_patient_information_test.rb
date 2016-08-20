@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class ShowPregnancyInformationTest < ActionDispatch::IntegrationTest
+class ShowPatientInformationTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
     @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
     log_in_as @user
-    visit edit_pregnancy_path(@pregnancy)
+    visit edit_patient_path(@patient)
   end
 
   after do

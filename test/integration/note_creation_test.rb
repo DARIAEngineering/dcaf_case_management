@@ -7,7 +7,7 @@ class NoteCreationTest < ActionDispatch::IntegrationTest
     log_in_as @user
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
-    visit edit_pregnancy_path(@pregnancy)
+    visit edit_patient_path(@patient)
     click_link 'Notes'
   end
 
@@ -15,7 +15,7 @@ class NoteCreationTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
-  describe 'add patient pregnancy notes' do
+  describe 'add patient notes' do
     it 'should display a case notes form and current notes' do
       within('#notes') do
         assert has_text? 'Notes' # confirm notes header is visible

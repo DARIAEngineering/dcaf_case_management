@@ -3,8 +3,8 @@ require 'test_helper'
 class CallTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @pregnancy = create :pregnancy
-    @call = create :call, pregnancy: @pregnancy, created_by: @user
+    @patient = create :patient
+    @call = create :call, patient: @patient, created_by: @user
   end
 
   describe 'basic validations' do
@@ -32,8 +32,8 @@ class CallTest < ActiveSupport::TestCase
   end
 
   describe 'relationships' do
-    it 'should be linkable to a pregnancy' do
-      assert_equal @call.pregnancy, @pregnancy
+    it 'should be linkable to a patient' do
+      assert_equal @call.patient, @patient
     end
 
     it 'should be linkable to a user' do

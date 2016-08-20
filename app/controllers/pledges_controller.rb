@@ -1,18 +1,18 @@
 class PledgesController < ApplicationController
-  before_action :find_pregnancy, only: [:create]
+  before_action :find_patient, only: [:create]
   before_action :find_pledge, only: [:update]
 
   def create
-    @pledge = @pregnancy.pledges.new(pledge_params)
+    @pledge = @patient.pledges.new(pledge_params)
     @pledge.created_by = current_user
     # fail
     if @pledge.save
-      redirect_to edit_pregnancy_path(@pregnancy),
+      redirect_to edit_patient_path(@patient),
                   flash: { notice: 'Saved new pledge for ' \
-                                   "#{@pregnancy.patient.name}!" }
+                                   "#{@patient.name}!" }
     else
       flash[:alert] = 'pledge failed to save! Please submit the pledge again.'
-      redirect_to edit_pregnancy_path(@pregnancy)
+      redirect_to edit_patient_path(@patient)
     end
   end
 
@@ -32,12 +32,12 @@ class PledgesController < ApplicationController
                                    :sent, :sent_by, :paid, :paid_date)
   end
 
-  def find_pregnancy
-    @pregnancy = Pregnancy.find params[:pregnancy_id]
+  def find_patient
+    @patient = Patient.find params[:patient_id]
   end
 
   def find_pledge
-    find_pregnancy
-    @pledge = @pregnancy.pledges.find params[:id]
+    find_patient
+    @pledge = @patient.pledges.find params[:id]
   end
 end

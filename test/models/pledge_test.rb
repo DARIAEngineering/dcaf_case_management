@@ -3,8 +3,8 @@ require 'test_helper'
 class PledgeTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @pregnancy = create :pregnancy
-    @pledge = create :pledge, pregnancy: @pregnancy, created_by: @user
+    @patient = create :patient
+    @pledge = create :pledge, patient: @patient, created_by: @user
   end
 
   describe 'mongoid attachments' do

@@ -5,14 +5,14 @@ class UsersControllerTest < ActionController::TestCase
     @user = create :user
     sign_in @user
     @patient_1 = create :patient, name: 'Susan Everyteen'
-    @pregnancy_1 = create :pregnancy, patient: @patient_1
+    create :pregnancy, patient: @patient_1
     @patient_2 = create :patient, name: 'Yolo Goat'
-    @pregnancy_2 = create :pregnancy, patient: @patient_2
+    create :pregnancy, patient: @patient_2
   end
 
-  describe 'add_pregnancy method' do
+  describe 'add_patient method' do
     before do
-      patch :add_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+      patch :add_patient, id: @patient_1, user_id: @user, format: :js
     end
 
     it 'should respond successfully' do
@@ -21,31 +21,31 @@ class UsersControllerTest < ActionController::TestCase
 
     it 'should add a patient to a users call list' do
       @user.reload
-      assert_equal @user.pregnancies.count, 1
-      assert_difference '@user.pregnancies.count', 1 do
-        patch :add_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
+      assert_equal @user.patients.count, 1
+      assert_difference '@user.patients.count', 1 do
+        patch :add_patient, id: @patient_2, user_id: @user, format: :js
         @user.reload
       end
-      assert_equal @user.pregnancies.count, 2
+      assert_equal @user.patients.count, 2
     end
 
-    it 'should not adjust the count if a pregnancy is already in the list' do
-      assert_no_difference '@user.pregnancies.count' do
-        patch :add_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+    it 'should not adjust the count if a patient is already in the list' do
+      assert_no_difference '@user.patients.count' do
+        patch :add_patient, id: @patient_1, user_id: @user, format: :js
       end
     end
 
     it 'should should return bad request on sketch ids' do
-      patch :add_pregnancy, id: '12345678', user_id: @user, format: :js
+      patch :add_patient, id: '12345678', user_id: @user, format: :js
       assert_response :bad_request
     end
   end
 
-  describe 'remove_pregnancy method' do
+  describe 'remove_patient method' do
     before do
-      patch :add_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
-      patch :add_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
-      patch :remove_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+      patch :add_patient, id: @patient_1, user_id: @user, format: :js
+      patch :add_patient, id: @patient_2, user_id: @user, format: :js
+      patch :remove_patient, id: @patient_1, user_id: @user, format: :js
       @user.reload
     end
 
@@ -53,22 +53,22 @@ class UsersControllerTest < ActionController::TestCase
       assert_response :success
     end
 
-    it 'should remove a pregnancy' do
-      assert_difference '@user.pregnancies.count', -1 do
-        patch :remove_pregnancy, id: @pregnancy_2, user_id: @user, format: :js
+    it 'should remove a patient' do
+      assert_difference '@user.patients.count', -1 do
+        patch :remove_patient, id: @patient_2, user_id: @user, format: :js
         @user.reload
       end
     end
 
-    it 'should do nothing if the pregnancy is not currently in the call list' do
-      assert_no_difference '@user.pregnancies.count' do
-        patch :remove_pregnancy, id: @pregnancy_1, user_id: @user, format: :js
+    it 'should do nothing if the patient is not currently in the call list' do
+      assert_no_difference '@user.patients.count' do
+        patch :remove_patient, id: @patient_1, user_id: @user, format: :js
       end
       assert_response :success
     end
 
     it 'should should return bad request on sketch ids' do
-      patch :remove_pregnancy, id: '12345678', user_id: @user, format: :js
+      patch :remove_patient, id: '12345678', user_id: @user, format: :js
       assert_response :bad_request
     end
   end
@@ -76,7 +76,7 @@ class UsersControllerTest < ActionController::TestCase
   describe 'reorder call list' do
     before do
       @ids = []
-      4.times { @ids << create(:pregnancy)._id.to_s }
+      4.times { @ids << create(:patient)._id.to_s }
       @ids.shuffle!
 
       patch :reorder_call_list, order: @ids, format: :js

@@ -20,7 +20,7 @@ module DashboardsHelper
     enum_text = { not_specified: 'No instructions; no ID VM',
                   no: 'Do not leave a voicemail',
                   yes: 'Voicemail OK' }
-    vm_options = Pregnancy::VOICEMAIL_PREFERENCE
+    vm_options = Patient::VOICEMAIL_PREFERENCE
 
     vm_options.map { |option| [enum_text[option], option] }
   end

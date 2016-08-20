@@ -12,7 +12,7 @@ class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
     @pregnancy = create :pregnancy, appointment_date: nil,
                                     patient: @patient,
                                     created_by: @user
-    visit edit_pregnancy_path(@pregnancy)
+    visit edit_patient_path(@patient)
   end
 
   after do

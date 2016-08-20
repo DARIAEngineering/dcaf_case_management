@@ -5,7 +5,7 @@ class Pledge
   include Mongoid::Userstamp
 
   # Relationships
-  embedded_in :pregnancy
+  embedded_in :patient
 
   # Fields
   field :pledge_type, type: String # soft/patient/naf/other/final_dcaf

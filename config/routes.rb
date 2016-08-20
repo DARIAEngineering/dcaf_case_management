@@ -3,13 +3,13 @@ Rails.application.routes.draw do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
-    resources :pregnancies, only: [ :create, :edit, :update ] do
+    resources :patients, only: [ :create, :edit, :update ] do
       resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
       resources :pledges, only: [ :create, :update ]
     end
-    patch 'users/:user_id/add_pregnancy/:id', to: 'users#add_pregnancy', as: 'add_pregnancy', defaults: { format: :js }
-    patch 'users/:user_id/remove_pregnancy/:id', to: 'users#remove_pregnancy', as: 'remove_pregnancy', defaults: { format: :js }
+    patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
+    patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
   end
   root :to => redirect('/users/sign_in')

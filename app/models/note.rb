@@ -5,7 +5,7 @@ class Note
   include Mongoid::Userstamp
 
   # Relationships
-  embedded_in :pregnancy
+  embedded_in :patient
 
   # Fields
   field :full_text, type: String
