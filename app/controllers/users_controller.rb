@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :retrieve_pregnancies, only: [:add_patient, :remove_patient]
+  before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def add_patient
@@ -25,8 +25,8 @@ class UsersController < ApplicationController
 
   private
 
-  def retrieve_pregnancies
+  def retrieve_patients
     @patient = Patient.find params[:id]
-    @urgent_prpatient = Patient.where(urgent_flag: true)
+    @urgent_patient = Patient.where(urgent_flag: true)
   end
 end
