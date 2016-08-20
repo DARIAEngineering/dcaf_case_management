@@ -5,6 +5,7 @@ class PatientTest < ActiveSupport::TestCase
     @user = create :user
     @patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
+    @pregnancy = create :pregnancy, patient: @patient
   end
 
   describe 'callbacks' do
@@ -61,19 +62,19 @@ class PatientTest < ActiveSupport::TestCase
 
     %w(initial_call_date name primary_phone created_by).each do |field|
       it "should enforce presence of #{field}" do
-        @pregnancy[field.to_sym] = nil
-        refute @pregnancy.valid?
+        @patient[field.to_sym] = nil
+        refute @patient.valid?
       end
     end
 
     it 'should require appointment_date to be after initial_call_date' do
-      @pregnancy.initial_call_date = '2016-06-01'
-      @pregnancy.appointment_date = '2016-05-01'
-      refute @pregnancy.valid?
-      @pregnancy.appointment_date = nil
-      assert @pregnancy.valid?
-      @pregnancy.appointment_date = '2016-07-01'
-      assert @pregnancy.valid?
+      @patient.initial_call_date = '2016-06-01'
+      @patient.appointment_date = '2016-05-01'
+      refute @patient.valid?
+      @patient.appointment_date = nil
+      assert @patient.valid?
+      @patient.appointment_date = '2016-07-01'
+      assert @patient.valid?
     end
   end
 
@@ -99,10 +100,10 @@ class PatientTest < ActiveSupport::TestCase
   #   it 'should have many pregnancies' do
   #   end
 
-  #   it 'should have at least one associated pregnancy' do
+  #   it 'should have at least one associated patient' do
   #   end
 
-  #   it 'should have only one active pregnancy' do
+  #   it 'should have only one active patient' do
   #   end
   # end
 
@@ -180,75 +181,74 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'contact_made? method' do
       it 'should return false if no calls have been made' do
-        refute @pregnancy.send :contact_made?
+        refute @patient.send :contact_made?
       end
 
       it 'should return false if an unsuccessful call has been made' do
-        create :call, pregnancy: @pregnancy, status: 'Left voicemail'
-        refute @pregnancy.send :contact_made?
+        create :call, patient: @patient, status: 'Left voicemail'
+        refute @patient.send :contact_made?
       end
 
       it 'should return true if a successful call has been made' do
-        create :call, pregnancy: @pregnancy, status: 'Reached patient'
-        assert @pregnancy.send :contact_made?
+        create :call, patient: @patient, status: 'Reached patient'
+        assert @patient.send :contact_made?
       end
     end
-    
-    describe 'pledge_identifier method' do
-      it 'should return a pledge_identifier' do
-        @oatient.line = 'DC'
-        @oatient.update primary_phone: '111-333-5555'
-        assert_equal 'D3-5555', @pregnancy.pledge_identifier # make it live after merging that one PR
+
+    describe 'identifier method' do
+      it 'should return a identifier' do
+        @patient.update primary_phone: '111-333-5555'
+        assert_equal 'D3-5555', @patient.identifier # make it live after merging that one PR
       end
     end
 
     describe 'most_recent_note_display_text method' do
       before do
-        @note = create :note, pregnancy: @pregnancy, full_text: (1..100).map(&:to_s).join('')
+        @note = create :note, patient: @patient, full_text: (1..100).map(&:to_s).join('')
       end
 
       it 'returns 44 characters of the notes text' do
-        assert_equal 44, @pregnancy.most_recent_note_display_text.length
-        assert_match /^1234/, @pregnancy.most_recent_note_display_text
+        assert_equal 44, @patient.most_recent_note_display_text.length
+        assert_match /^1234/, @patient.most_recent_note_display_text
       end
     end
 
     describe 'status method' do
-      it 'should default to "No Contact Made" when a pregnancy has no calls' do
-        assert_equal Pregnancy::STATUSES[:no_contact], @pregnancy.status
+      it 'should default to "No Contact Made" when a patient has no calls' do
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
       end
 
-      it 'should default to "No Contact Made" on a pregnancy left voicemail' do
-        create :call, pregnancy: @pregnancy, status: 'Left voicemail'
-        assert_equal Pregnancy::STATUSES[:no_contact], @pregnancy.status
+      it 'should default to "No Contact Made" on a patient left voicemail' do
+        create :call, patient: @patient, status: 'Left voicemail'
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
       end
 
       it 'should update to "Needs Appointment" once patient has been reached' do
-        create :call, pregnancy: @pregnancy, status: 'Reached patient'
-        assert_equal Pregnancy::STATUSES[:needs_appt], @pregnancy.status
+        create :call, patient: @patient, status: 'Reached patient'
+        assert_equal Patient::STATUSES[:needs_appt], @patient.status
       end
 
       it 'should update to "Fundraising" once an appointment has been made' do
-        @pregnancy.appointment_date = '01/01/2017'
-        assert_equal Pregnancy::STATUSES[:fundraising], @pregnancy.status
+        @patient.appointment_date = '01/01/2017'
+        assert_equal Patient::STATUSES[:fundraising], @patient.status
       end
 
       it 'should update to "Sent Pledge" after a pledge has been sent' do
-        @pregnancy.pledge_sent = true
-        assert_equal Pregnancy::STATUSES[:pledge_sent], @pregnancy.status
+        @patient.pregnancy.pledge_sent = true
+        assert_equal Patient::STATUSES[:pledge_sent], @patient.status
       end
 
       # it 'should update to "Pledge Paid" after a pledge has been paid' do
       # end
 
-      it 'should update to "Resolved Without DCAF" if pregnancy is resolved' do
-        @pregnancy.resolved_without_dcaf = true
-        assert_equal Pregnancy::STATUSES[:resolved], @pregnancy.status
+      it 'should update to "Resolved Without DCAF" if patient is resolved' do
+        @patient.pregnancy.resolved_without_dcaf = true
+        assert_equal Patient::STATUSES[:resolved], @patient.status
       end
     end
 
     describe 'history check methods' do
-      it 'should say whether a pregnancy is still urgent' do
+      it 'should say whether a patient is still urgent' do
         # TODO TIMECOP
         @patient.urgent_flag = true
         @patient.save
@@ -257,7 +257,7 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should trim pregnancies after they have been urgent for five days' do
-        # TODO TEST Pregnancy#trim_urgent_pregnancies
+        # TODO TEST patient#trim_urgent_pregnancies
       end
     end
   end

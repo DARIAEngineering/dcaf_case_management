@@ -77,11 +77,11 @@ class Patient
 
   # Methods
   def status
-    if resolved_without_dcaf?
+    if pregnancy.resolved_without_dcaf?
       STATUSES[:resolved]
     # elsif pledge_status?(:paid)
     #   STATUSES[:pledge_paid]
-    elsif pledge_sent?
+    elsif pregnancy.pledge_sent?
       STATUSES[:pledge_sent]
     elsif appointment_date
       STATUSES[:fundraising]
@@ -135,7 +135,7 @@ class Patient
 
   def identifier # unique ID made up by DCAF to easier identify patients
     return nil unless line
-    "#{line[0]}#{patient.primary_phone[-5]}-#{patient.primary_phone[-4..-1]}"
+    "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
   def still_urgent?
