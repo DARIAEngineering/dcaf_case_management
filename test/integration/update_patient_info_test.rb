@@ -90,7 +90,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#pregnancy_household_size_children').select '3'
       find('#pregnancy_insurance').select 'Other state Medicaid'
       find('#pregnancy_referred_by').select 'Other abortion fund'
-      #fill_in 'Special circumstances', with: 'Stuff'
       check 'Homelessness'
       check 'Prison'
 
@@ -111,7 +110,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
-        #assert has_field? 'Special circumstances', with: 'Stuff'
         assert_equal 'yes', find('#pregnancy_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
 
@@ -121,7 +119,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal '3', find('#pregnancy_household_size_children').value
         assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
         assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
-        #assert_equal 'Stuff', find('#pregnancy_special_circumstances').value
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
       end
