@@ -111,7 +111,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'ZIP', with: '90210'
-        assert has_field? 'Special circumstances', with: 'Stuff'
+        #assert has_field? 'Special circumstances', with: 'Stuff'
         assert_equal 'yes', find('#pregnancy_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
 

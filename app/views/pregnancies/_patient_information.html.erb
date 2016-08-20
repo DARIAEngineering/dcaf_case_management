@@ -83,19 +83,19 @@
           <%= f.form_group :special_circumstances do %>
             <div class="col-sm-6">
               <%= f.check_box :special_circumstances, { label: 'Fetal anomaly', name: 'pregnancy[special_circumstances][]', 
-                              checked: pregnancy.special_circumstances.include?('Fetal anomaly') }, 'Fetal anomaly', '' %>
+                              checked: pregnancy.special_circumstances.include?('Fetal anomaly'), namespace: 'Fetal' }, 'Fetal anomaly', '' %>
               <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'pregnancy[special_circumstances][]', 
-                              checked: pregnancy.special_circumstances.include?('Homelessness') }, 'Homelessness', '' %>
+                              checked: pregnancy.special_circumstances.include?('Homelessness'), namespace: 'Home' }, 'Homelessness', '' %>
               <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'pregnancy[special_circumstances][]', 
-                              checked: pregnancy.special_circumstances.include?('Domestic violence') }, 'Domestic violence', '' %>
+                              checked: pregnancy.special_circumstances.include?('Domestic violence'), namespace: 'Domestic' }, 'Domestic violence', '' %>
             </div>  
             <div class="col-sm-6">
             <%= f.check_box :special_circumstances, { label: 'Rape', name: 'pregnancy[special_circumstances][]', 
-                              checked: pregnancy.special_circumstances.include?('Rape') }, 'Rape', '' %>
+                              checked: pregnancy.special_circumstances.include?('Rape'), namespace: 'Rape' }, 'Rape', '' %>
             <%= f.check_box :special_circumstances, { label: 'Incest', name: 'pregnancy[special_circumstances][]', 
-                              checked: pregnancy.special_circumstances.include?('Incest') }, 'Incest', '' %>
+                              checked: pregnancy.special_circumstances.include?('Incest'), namespace: 'Incest' }, 'Incest', '' %>
             <%= f.check_box :special_circumstances, { label: 'Prison', name: 'pregnancy[special_circumstances][]', 
-                              checked: pregnancy.special_circumstances.include?('Prison') }, 'Prison', '' %>      
+                              checked: pregnancy.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>      
             </div>  
           <% end %>
         </div>  
