@@ -23,10 +23,10 @@ module LastMenstrualPeriodHelper
   end
 
   def last_menstrual_period_on_date(date)
-    return nil unless initial_call_date && last_menstrual_period_weeks
+    return nil unless patient.initial_call_date && last_menstrual_period_weeks
     weeks = 7 * (last_menstrual_period_weeks || 0)
     days = (last_menstrual_period_days || 0)
-    (date - initial_call_date) + weeks + days
+    (date - patient.initial_call_date) + weeks + days
   end
 
   def display_as_weeks(num)
