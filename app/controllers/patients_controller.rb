@@ -45,7 +45,8 @@ class PatientsController < ApplicationController
       :initial_call_date,
       :urgent_flag,
       clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
-      pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks, :resolved_without_dcaf, :procedure_cost, :special_circumstances, :patient_contribution, :naf_pledge, :dcaf_soft_pledge, :pledge_sent] 
+      pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks, :resolved_without_dcaf, :procedure_cost, :patient_contribution, :naf_pledge, :dcaf_soft_pledge, :pledge_sent],
+      special_circumstances: []
     )
   end
 end
