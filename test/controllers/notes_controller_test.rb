@@ -14,7 +14,7 @@ class NotesControllerTest < ActionController::TestCase
     end
 
     it 'should create and save a new note' do
-      assert_difference '@patient.notes.count', 1 do
+      assert_difference 'Patient.find(@patient).notes.count', 1 do
         post :create, patient_id: @patient.id, note: @note, format: :js
       end
     end
@@ -28,12 +28,12 @@ class NotesControllerTest < ActionController::TestCase
     end
 
     it 'should log the creating user' do
-      assert_equal @patient.notes.first.created_by, @user
+      assert_equal Patient.find(@patient).notes.first.created_by, @user
     end
 
     it 'should alert failure if there is not text or an associated patient' do
       @note[:full_text] = nil
-      assert_no_difference '@patient.notes.count' do
+      assert_no_difference 'Patient.find(@patient).notes.count' do
         post :create, patient_id: @patient, note: @note, format: :js
       end
       assert_response :bad_request
