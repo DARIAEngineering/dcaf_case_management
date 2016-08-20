@@ -1,6 +1,6 @@
 class DashboardsController < ApplicationController
   def index
-    @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
+    @urgent_pregnancies = Pregnancy.urgent_pregnancies
   end
 
   def search
