@@ -3,7 +3,7 @@ class NotesController < ApplicationController
   before_action :find_note, only: [:update]
 
   def create
-    @note = @patient.notes.build note_params
+    @note = @patient.notes.new note_params
     @note.created_by = current_user
     if @note.save
       @notes = @patient.reload.notes.order_by 'created_at desc'

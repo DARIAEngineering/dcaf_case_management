@@ -36,16 +36,16 @@ Patient.all.each do |patient|
 
   # Create calls for pregnancy
   5.times do
-    patient.calls.create status: 'Left voicemail',
-                         created_at: 3.days.ago,
-                         created_by: user2 unless patient.name == 'Patient 9'
+    patient.calls.create! status: 'Left voicemail',
+                          created_at: 3.days.ago,
+                          created_by: user2 unless patient.name == 'Patient 9'
   end
 
   if patient.name == 'Patient 0'
     10.times do
-      patient.calls.create status: 'Reached patient',
-                           created_at: 3.days.ago,
-                           created_by: user2
+      patient.calls.create! status: 'Reached patient',
+                            created_at: 3.days.ago,
+                            created_by: user2
     end
   end
 end
@@ -53,8 +53,8 @@ end
 # Add a note to Patient 2
 note_text = 'This is a note ' * 10
 Patient.find_by(name: 'Patient 2')
-       .notes.create full_text: note_text,
-                     created_by: user2
+       .notes.create! full_text: note_text,
+                      created_by: user2
 
 # Adds Patients 0 thru 4 to regular call list
 user.add_patient Patient.find_by(name: 'Patient 0')
