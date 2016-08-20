@@ -69,6 +69,8 @@ class Patient
 
   validate :confirm_appointment_after_initial_call
 
+  validates_associated :pregnancy
+
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
 

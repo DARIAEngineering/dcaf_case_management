@@ -14,7 +14,7 @@ class PatientsControllerTest < ActionController::TestCase
 
   describe 'create method' do
     before do
-      @new_patient = attributes_for :patient
+      @new_patient = attributes_for :patient, name: 'Test Patient'
       @new_patient[:pregnancy] = attributes_for :pregnancy
     end
 
@@ -47,6 +47,11 @@ class PatientsControllerTest < ActionController::TestCase
       assert_no_difference 'Pregnancy.count' do
         post :create, patient: @new_patient
       end
+    end
+
+    it 'should create an associated pregnancy object' do
+      post :create, patient: @new_patient
+      assert_not_nil Patient.find_by(name: 'Test Patient').pregnancy
     end
   end
 

@@ -5,8 +5,9 @@ class PatientsController < ApplicationController
 
   def create
     @patient = Patient.new patient_params
-    
-    @patient.created_by = @patient.pregnancy.new.created_by = current_user
+
+    @patient.created_by = current_user
+    (@patient.pregnancy || @patient.build_pregnancy).created_by = current_user
     if @patient.save
       flash[:notice] = 'A new patient has been successfully saved'
     else

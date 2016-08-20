@@ -7,7 +7,6 @@ class Pregnancy
 
   # Relationships
   embedded_in :patient
-  has_one :clinic
 
   # Fields
   # Intake information
@@ -33,7 +32,6 @@ class Pregnancy
   # Validations
   validates :created_by,
             presence: true
-  validates_associated :patient
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
