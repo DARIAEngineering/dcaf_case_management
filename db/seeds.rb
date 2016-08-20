@@ -35,7 +35,7 @@ Patient.all.each do |patient|
                     created_by: user2
                   }
 
-  pregnancy = patient.pregnancies.create creation_hash
+  pregnancy = patient.pregnancy.create creation_hash
 
   # Create calls for pregnancy
   5.times do
@@ -61,11 +61,11 @@ Patient.find_by(name: 'Patient 2')
                      created_by: user2
 
 # Adds Patients 0 thru 4 to regular call list
-user.add_pregnancy Patient.find_by(name: 'Patient 0').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 1').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 2').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 3').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 4').pregnancies.first
+user.add_pregnancy Patient.find_by(name: 'Patient 0').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 1').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 2').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 3').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 4').pregnancy
 
 # Add Patient 5 to completed calls list
 patient_in_completed_calls = Patient.find_by(name: 'Patient 5')
