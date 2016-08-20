@@ -21,7 +21,7 @@
             <p><%= link_to "I left a voicemail for the patient", patient_calls_path(patient, call: { status: "Left voicemail" } ), method: :post, remote: true, class: 'calls-response' %></p>
           <% end %>
 
-          <p><%= link_to "I couldn't reach the patient", patient_calls_path(p, call: { status: "Couldn't reach patient" } ), method: :post, remote: true, class: 'calls-response' %></p>
+          <p><%= link_to "I couldn't reach the patient", patient_calls_path(patient, call: { status: "Couldn't reach patient" } ), method: :post, remote: true, class: 'calls-response' %></p>
         </div><!-- calls-layout -->
       </div><!-- /.modal-body -->
     </div><!-- /.modal-content -->
