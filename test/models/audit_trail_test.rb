@@ -48,4 +48,14 @@ class AuditTrailTest < ActiveSupport::TestCase
                    'Yolo<br>1234569999'
     end
   end
+
+  describe 'marked urgent' do
+    it 'should return true if urgent flag was changed to true' do
+      @pregnancy = create :pregnancy, patient: @patient
+      @pregnancy.urgent_flag = true
+      @pregnancy.save
+
+      assert @pregnancy.history_tracks.second.marked_urgent?
+    end
+  end
 end

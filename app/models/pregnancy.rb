@@ -88,6 +88,19 @@ class Pregnancy
     order('created_at DESC').limit(1).first
   end
 
+  def self.urgent_pregnancies
+    where(urgent_flag: true)
+  end
+
+  def self.trim_urgent_pregnancies
+    urgent_pregnancies.each do |pregnancy|
+      unless pregnancy.still_urgent?
+        pregnancy.urgent_flag = false
+        pregnancy.save
+      end
+    end
+  end
+
   def recent_calls
     calls.order('created_at DESC').limit(10)
   end
@@ -133,6 +146,15 @@ class Pregnancy
     end
   end
 
+  def still_urgent?
+    # Verify that a pregnancy has not been marked urgent in the past six days
+    return false if recent_history_tracks.count == 0
+    recent_history_tracks.sort.reverse.each do |history|
+      return true if history.marked_urgent?
+    end
+    false
+  end
+
   private
 
   def contact_made?
@@ -140,6 +162,10 @@ class Pregnancy
       return true if call.status == 'Reached patient'
     end
     false
+  end
+
+  def recent_history_tracks
+    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
   end
 
   # def pledge_status?(status)
