@@ -9,7 +9,7 @@ class PregnancyTest < ActiveSupport::TestCase
     [@pt_1, @pt_2, @pt_3].each do |pt|
       create :pregnancy, patient: pt, created_by: @user
     end
-    @pregnancy = @pt_1.pregnancies.first
+    @pregnancy = @pt_1.pregnancy
   end
 
   describe 'validations' do

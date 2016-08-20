@@ -6,10 +6,10 @@ class DashboardsController < ApplicationController
   def search
     patients = Patient.search params[:search]
     @results = []
-    patients.each { |patient| @results << patient.pregnancies.most_recent }
+    patients.each { |patient| @results << patient.pregnancy }
 
     patient = Patient.new
-    @pregnancy = patient.pregnancies.new
+    @pregnancy = patient.build_pregnancy
     @today = Time.zone.today.to_date
     @phone = searched_for_phone?(params[:search]) ? params[:search] : ''
     @name = searched_for_name?(params[:search]) ? params[:search] : ''

@@ -35,7 +35,8 @@ Patient.all.each do |patient|
                     created_by: user2
                   }
 
-  pregnancy = patient.pregnancies.create creation_hash
+  pregnancy = patient.build_pregnancy(creation_hash)
+  pregnancy.save
 
   # Create calls for pregnancy
   5.times do
@@ -56,20 +57,20 @@ end
 # Add a note to Patient 2
 note_text = 'This is a note ' * 10
 Patient.find_by(name: 'Patient 2')
-       .pregnancies.first
+       .pregnancy
        .notes.create full_text: note_text,
                      created_by: user2
 
 # Adds Patients 0 thru 4 to regular call list
-user.add_pregnancy Patient.find_by(name: 'Patient 0').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 1').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 2').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 3').pregnancies.first
-user.add_pregnancy Patient.find_by(name: 'Patient 4').pregnancies.first
+user.add_pregnancy Patient.find_by(name: 'Patient 0').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 1').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 2').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 3').pregnancy
+user.add_pregnancy Patient.find_by(name: 'Patient 4').pregnancy
 
 # Add Patient 5 to completed calls list
 patient_in_completed_calls = Patient.find_by(name: 'Patient 5')
-                                    .pregnancies.first
+                                    .pregnancy
 user.add_pregnancy patient_in_completed_calls
 patient_in_completed_calls.calls.create status: 'Left voicemail',
                                         created_by: user
