@@ -7,7 +7,11 @@ class Patient
   before_validation :clean_fields
 
   # Relationships
+  has_and_belongs_to_many :users, inverse_of: :patients
   embeds_one :pregnancy
+  embeds_many :calls
+  embeds_many :pledges
+  embeds_many :notes
 
   # Fields
   field :name, type: String # strip

@@ -17,10 +17,6 @@ class Pregnancy
 
   # Relationships
   embedded_in :patient
-  has_and_belongs_to_many :users, inverse_of: :patients
-  embeds_many :pledges
-  embeds_many :notes
-  embeds_many :calls
   has_one :clinic
 
   # Enable mass posting in forms

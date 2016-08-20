@@ -34,103 +34,103 @@ class UserTest < ActiveSupport::TestCase
 
   describe 'call list methods' do
     before do
-      @pregnancy = create :pregnancy
-      @pregnancy_2 = create :pregnancy
-      @user.pregnancies << @pregnancy
-      @user.pregnancies << @pregnancy_2
+      @patient = create :patient
+      @patient_2 = create :patient
+      @user.patients << @patient
+      @user.patients << @patient_2
       @user_2 = create :user
     end
 
-    it 'should return recently_called_pregnancies accurately' do
-      assert_equal 0, @user.recently_called_pregnancies.count
-      @call = create :call, pregnancy: @pregnancy, created_by: @user
-      assert_equal 1, @user.recently_called_pregnancies.count
+    it 'should return recently_called_patients accurately' do
+      assert_equal 0, @user.recently_called_patients.count
+      @call = create :call, patient: @patient, created_by: @user
+      assert_equal 1, @user.recently_called_patients.count
     end
 
-    it 'should return call_list_pregnancies accurately' do
-      assert_equal 2, @user.call_list_pregnancies.count
-      @call = create :call, pregnancy: @pregnancy, created_by: @user
-      assert_equal 1, @user.call_list_pregnancies.count
-      @call_2 = create :call, pregnancy: @pregnancy_2, created_by: @user_2
-      assert_equal 1, @user.call_list_pregnancies.count
+    it 'should return call_list_patients accurately' do
+      assert_equal 2, @user.call_list_patients.count
+      @call = create :call, patient: @patient, created_by: @user
+      assert_equal 1, @user.call_list_patients.count
+      @call_2 = create :call, patient: @patient_2, created_by: @user_2
+      assert_equal 1, @user.call_list_patients.count
     end
 
     it 'should clear calls when patient has been reached' do
-      assert_equal 0, @user.recently_called_pregnancies.count
-      @call = create :call, pregnancy: @pregnancy, created_by: @user, status: 'Reached patient'
-      assert_equal 1, @user.recently_called_pregnancies.count
+      assert_equal 0, @user.recently_called_patients.count
+      @call = create :call, patient: @patient, created_by: @user, status: 'Reached patient'
+      assert_equal 1, @user.recently_called_patients.count
       @user.clear_call_list
-      assert_equal 0, @user.recently_called_pregnancies.count
+      assert_equal 0, @user.recently_called_patients.count
     end
 
     it 'should not clear calls when patient has not been reached' do
-      assert_equal 0, @user.recently_called_pregnancies.count
-      @call = create :call, pregnancy: @pregnancy, created_by: @user, status: 'Left voicemail'
-      assert_equal 1, @user.recently_called_pregnancies.count
+      assert_equal 0, @user.recently_called_patients.count
+      @call = create :call, patient: @patient, created_by: @user, status: 'Left voicemail'
+      assert_equal 1, @user.recently_called_patients.count
       @user.clear_call_list
-      assert_equal 1, @user.recently_called_pregnancies.count
+      assert_equal 1, @user.recently_called_patients.count
     end
   end
 
-  describe 'pregnancy methods' do
+  describe 'patient methods' do
     before do
-      @pregnancy = create :pregnancy
-      @pregnancy_2 = create :pregnancy
-      @pregnancy_3 = create :pregnancy
+      @patient = create :patient
+      @patient_2 = create :patient
+      @patient_3 = create :patient
     end
 
-    it 'add pregnancy - should add a pregnancy to a set' do
-      assert_difference '@user.pregnancies.count', 1 do
-        @user.add_pregnancy @pregnancy
+    it 'add patient - should add a patient to a set' do
+      assert_difference '@user.patients.count', 1 do
+        @user.add_patient @patient
       end
     end
 
-    it 'remove pregnancy - should remove a pregnancy from a set' do
-      @user.add_pregnancy @pregnancy
-      assert_difference '@user.pregnancies.count', -1 do
-        @user.remove_pregnancy @pregnancy
+    it 'remove patient - should remove a patient from a set' do
+      @user.add_patient @patient
+      assert_difference '@user.patients.count', -1 do
+        @user.remove_patient @patient
       end
     end
 
     describe 'reorder call list' do
       before do
-        set_of_pregnancies = [@pregnancy, @pregnancy_2, @pregnancy_3]
-        set_of_pregnancies.each { |preg| @user.add_pregnancy preg }
-        @new_order = [@pregnancy_3._id.to_s, @pregnancy._id.to_s, @pregnancy_2._id.to_s]
+        set_of_patients = [@patient, @patient_2, @patient_3]
+        set_of_patients.each { |preg| @user.add_patient preg }
+        @new_order = [@patient_3._id.to_s, @patient._id.to_s, @patient_2._id.to_s]
         @user.reorder_call_list @new_order
       end
 
       it 'should let you reorder a call list' do
-        assert_equal @pregnancy_3, @user.ordered_pregnancies.first
-        assert_equal @pregnancy, @user.ordered_pregnancies[1]
-        assert_equal @pregnancy_2, @user.ordered_pregnancies[2]
+        assert_equal @patient_3, @user.ordered_patients.first
+        assert_equal @patient, @user.ordered_patients[1]
+        assert_equal @patient_2, @user.ordered_patients[2]
       end
 
       it 'should not choke if another preg is on call list but not call order' do
-        @pregnancy_4 = create :pregnancy
-        @user.add_pregnancy @pregnancy_4
+        @patient_4 = create :patient
+        @user.add_patient @patient_4
 
-        assert @user.ordered_pregnancies.include? @pregnancy_4
-        refute @user.call_order.include? @pregnancy_4._id.to_s
+        assert @user.ordered_patients.include? @patient_4
+        refute @user.call_order.include? @patient_4._id.to_s
       end
     end
   end
 
   describe 'relationships' do
     before do
-      @pregnancy = create :pregnancy
-      @pregnancy_2 = create :pregnancy
-      @user.pregnancies << @pregnancy
-      @user.pregnancies << @pregnancy_2
+      @patient = create :patient
+      @patient_2 = create :patient
+      @user.patients << @patient
+      @user.patients << @patient_2
       @user_2 = create :user
     end
 
-    it 'should have any belong to many pregnancies' do
-      [@pregnancy, @pregnancy_2].each do |preg|
-        [@user, @user_2].each { |user| user.add_pregnancy preg }
+    it 'should have any belong to many patients' do
+      [@patient, @patient_2].each do |preg|
+        [@user, @user_2].each { |user| user.add_patient preg }
       end
 
-      assert_equal @user.pregnancies, @user_2.pregnancies
+      assert_equal @user.patients, @user_2.patients
     end
   end
 end
