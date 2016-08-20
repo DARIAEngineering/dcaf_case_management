@@ -105,6 +105,7 @@ class User
 
   def clear_call_list
     patients.each do |p|
+      # TODO reexamine this behavior in awhile
       patients.delete(p) if recently_reached_by_user?(p)
     end
   end
