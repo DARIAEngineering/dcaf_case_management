@@ -77,8 +77,28 @@
                        options_for_select(referred_by_options,
                                           pregnancy.referred_by),
                                           autocomplete: 'off' %>
-          <%= f.text_field :special_circumstances, autocomplete: 'Off' %>
-        </div>
+         
+          
+          <p style="font-weight:bold">Special circumstances</p> 
+          <%= f.form_group :special_circumstances do %>
+            <div class="col-sm-6">
+              <%= f.check_box :special_circumstances, { label: 'Fetal anomaly', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Fetal anomaly'), namespace: 'Fetal' }, 'Fetal anomaly', '' %>
+              <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Homelessness'), namespace: 'Home' }, 'Homelessness', '' %>
+              <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Domestic violence'), namespace: 'Domestic' }, 'Domestic violence', '' %>
+            </div>  
+            <div class="col-sm-6">
+            <%= f.check_box :special_circumstances, { label: 'Rape', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Rape'), namespace: 'Rape' }, 'Rape', '' %>
+            <%= f.check_box :special_circumstances, { label: 'Incest', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Incest'), namespace: 'Incest' }, 'Incest', '' %>
+            <%= f.check_box :special_circumstances, { label: 'Prison', name: 'pregnancy[special_circumstances][]', 
+                              checked: pregnancy.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>      
+            </div>  
+          <% end %>
+        </div>  
       </div>
     </div>
   <% end %>
