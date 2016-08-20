@@ -34,6 +34,7 @@ class Patient
   field :other_contact, type: String
   field :other_phone, type: String
   field :other_contact_relationship, type: String
+  field :clinic_name, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
   enum :line, [:DC, :MD, :VA]

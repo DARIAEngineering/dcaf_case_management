@@ -40,6 +40,7 @@ class PatientsController < ApplicationController
       :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship,
       :line, :voicemail_preference, :spanish,
       # fields in dashboard
+      :clinic_name,
       :appointment_date,
       :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size_adults, :household_size_children, :insurance, :referred_by,
       :initial_call_date,
