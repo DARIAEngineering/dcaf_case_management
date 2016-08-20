@@ -122,12 +122,12 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'yes', find('#patient_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
 
-        assert_equal 'Part-time', find('#pregnancy_employment_status').value
-        assert_equal '$30,000-34,999 ($577-672/week)', find('#pregnancy_income').value
-        assert_equal '1', find('#pregnancy_household_size_adults').value
-        assert_equal '3', find('#pregnancy_household_size_children').value
-        assert_equal 'Other state Medicaid', find('#pregnancy_insurance').value
-        assert_equal 'Other abortion fund', find('#pregnancy_referred_by').value
+        assert_equal 'Part-time', find('#patient_employment_status').value
+        assert_equal '$30,000-34,999 ($577-672/week)', find('#patient_income').value
+        assert_equal '1', find('#patient_household_size_adults').value
+        assert_equal '3', find('#patient_household_size_children').value
+        assert_equal 'Other state Medicaid', find('#patient_insurance').value
+        assert_equal 'Other abortion fund', find('#patient_referred_by').value
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
       end
