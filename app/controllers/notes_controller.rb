@@ -1,12 +1,12 @@
 class NotesController < ApplicationController
-  before_action :find_pregnancy, only: [:create]
+  before_action :find_patient, only: [:create]
   before_action :find_note, only: [:update]
 
   def create
-    @note = @pregnancy.notes.new note_params
+    @note = @patient.notes.build note_params
     @note.created_by = current_user
     if @note.save
-      @notes = @pregnancy.reload.notes.order_by 'created_at desc'
+      @notes = @patient.reload.notes.order_by 'created_at desc'
       respond_to do |format|
         format.js
       end
@@ -29,12 +29,12 @@ class NotesController < ApplicationController
     params.require(:note).permit(:full_text)
   end
 
-  def find_pregnancy
-    @pregnancy = Pregnancy.find params[:pregnancy_id]
+  def find_patient
+    @patient = Patient.find params[:patient_id]
   end
 
   def find_note
-    find_pregnancy
-    @note = @pregnancy.notes.find params[:id]
+    find_patient
+    @note = @patient.notes.find params[:id]
   end
 end

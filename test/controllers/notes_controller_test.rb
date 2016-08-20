@@ -5,18 +5,17 @@ class NotesControllerTest < ActionController::TestCase
     @user = create :user
     sign_in @user
     @patient = create :patient
-    @pregnancy = create :pregnancy, patient: @patient
   end
 
   describe 'create method' do
     before do
       @note = attributes_for :note, full_text: 'This is a note'
-      post :create, pregnancy_id: @pregnancy.id, note: @note, format: :js
+      post :create, patient_id: @patient, note: @note, format: :js
     end
 
     it 'should create and save a new note' do
-      assert_difference 'Pregnancy.find(@pregnancy).notes.count', 1 do
-        post :create, pregnancy_id: @pregnancy.id, note: @note, format: :js
+      assert_difference '@patient.notes.count', 1 do
+        post :create, patient_id: @patient, note: @note, format: :js
       end
     end
 
@@ -29,13 +28,13 @@ class NotesControllerTest < ActionController::TestCase
     end
 
     it 'should log the creating user' do
-      assert_equal Pregnancy.find(@pregnancy).notes.last.created_by, @user
+      assert_equal @patient.notes.last.created_by, @user
     end
 
-    it 'should alert failure if there is not text or an associated pregnancy' do
+    it 'should alert failure if there is not text or an associated patient' do
       @note[:full_text] = nil
-      assert_no_difference 'Pregnancy.find(@pregnancy).notes.count' do
-        post :create, pregnancy_id: @pregnancy.id, note: @note, format: :js
+      assert_no_difference '@patient.notes.count' do
+        post :create, patient_id: @patient, note: @note, format: :js
       end
       assert_response :bad_request
     end
@@ -43,9 +42,9 @@ class NotesControllerTest < ActionController::TestCase
 
   describe 'update method' do
     before do
-      @note = create :note, pregnancy: @pregnancy, full_text: 'Original text'
+      @note = create :note, patient: @patient, full_text: 'Original text'
       @note_edits = attributes_for :note, full_text: 'This is edited text'
-      patch :update, pregnancy_id: @pregnancy,
+      patch :update, patient_id: @patient,
                      id: @note,
                      note: @note_edits,
                      format: :js
@@ -73,9 +72,9 @@ class NotesControllerTest < ActionController::TestCase
 
     it 'should refuse to save note content to blank' do
       [nil, ''].each do |bad_text|
-        assert_no_difference 'Pregnancy.find(@pregnancy).notes.find(@note).history_tracks.count' do
+        assert_no_difference '@patient.notes.find(@note).history_tracks.count' do
           @note_edits[:full_text] = bad_text
-          patch :update, pregnancy_id: @pregnancy, id: @note,
+          patch :update, patient_id: @patient, id: @note,
                          note: @note_edits, format: :js
           assert_response :bad_request
           @note.reload
