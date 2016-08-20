@@ -1,6 +1,7 @@
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Enum
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
@@ -55,7 +56,6 @@ class Patient
             :primary_phone,
             :created_by,
             presence: true
-  # validates :primary_phone, :other_phone, length: { maximum: 10 }
   validates :primary_phone, format: /\d{10}/, length: { is: 10 }
   validates :other_phone, format: /\d{10}/, length: { is: 10 }, allow_blank: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
@@ -89,7 +89,6 @@ class Patient
     end
   end
 
-
   def self.urgent_pregnancies
     where(urgent_flag: true)
   end
@@ -120,7 +119,6 @@ class Patient
   def most_recent_note
     notes.order('created_at DESC').limit(1).first.try(:full_text).to_s
   end
-
 
   def primary_phone_display
     return nil unless primary_phone.present?

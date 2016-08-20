@@ -1,6 +1,5 @@
 class Pregnancy
   include Mongoid::Document
-  include Mongoid::Enum
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp

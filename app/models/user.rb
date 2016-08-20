@@ -125,10 +125,10 @@ class User
   end
 
   def recently_reached_by_user?(patient)
-    patient.pregnancy.calls.any? { |call| call.created_by_id == id && call.recent? && call.reached? }
+    patient.calls.any? { |call| call.created_by_id == id && call.recent? && call.reached? }
   end
 
   def recently_called_by_user?(patient)
-    patient.pregnancy.calls.any? { |call| call.created_by_id == id && call.recent? }
+    patient.calls.any? { |call| call.created_by_id == id && call.recent? }
   end
 end
