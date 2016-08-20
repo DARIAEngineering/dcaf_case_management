@@ -3,14 +3,14 @@
 <%= bootstrap_form_for patient do |f| %>
   <div class="col-md-3">
     <div class="col-md-6">
-      <%= patient.text_field :primary_phone, label: 'Phone', value: phone %>
+      <%= f.text_field :primary_phone, label: 'Phone', value: phone %>
     </div>
     <div class="col-md-6">
-      <%= patient.text_field :name, label: 'Name', value: name %>
+      <%= f.text_field :name, label: 'Name', value: name %>
     </div>
   </div>
 
-  <%= f.fields_for patient.pregnancy do |p| %>
+  <%= f.fields_for patient.build_pregnancy do |p| %>
     <div class="col-md-3">
       <div class="col-md-6">
         <%= p.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), label: 'LMP', autocomplete: 'off' %>

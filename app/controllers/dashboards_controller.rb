@@ -8,7 +8,7 @@ class DashboardsController < ApplicationController
     @results = []
     patients.each { |patient| @results << patient }
 
-    patient = Patient.new
+    @patient = Patient.new
     @today = Time.zone.today.to_date
     @phone = searched_for_phone?(params[:search]) ? params[:search] : ''
     @name = searched_for_name?(params[:search]) ? params[:search] : ''
