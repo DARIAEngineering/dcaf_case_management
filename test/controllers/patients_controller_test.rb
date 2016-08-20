@@ -55,32 +55,33 @@ class PatientsControllerTest < ActionController::TestCase
     end
   end
 
-  # describe 'edit method' do
-  #   before do
-  #     get :edit, id: @pregnancy
-  #   end
+  describe 'edit method' do
+    before do
+      get :edit, id: @patient
+    end
 
-  #   it 'should get edit' do
-  #     assert_response :success
-  #   end
+    it 'should get edit' do
+      assert_response :success
+    end
 
-  #   it 'should redirect to root on a bad id' do
-  #     get :edit, id: 'notanid'
-  #     assert_redirected_to root_path
-  #   end
+    it 'should redirect to root on a bad id' do
+      get :edit, id: 'notanid'
+      assert_redirected_to root_path
+    end
 
-  #   it 'should contain the current record' do
-  #     assert_match /Susie Everyteen/, response.body
-  #     assert_match /123-456-7890/, response.body
-  #     assert_match /Sample Clinic 1/, response.body
-  #   end
+    it 'should contain the current record' do
+      assert_match /Susie Everyteen/, response.body
+      assert_match /123-456-7890/, response.body
+      assert_match /Sample Clinic 1/, response.body
+    end
 
-  #   it 'should not die if clinic is nil' do
-  #     @clinic.destroy
-  #     get :edit, id: @pregnancy
-  #     assert_response :success
-  #   end
-  # end
+    it 'should not die if clinic is nil' do
+      @clinic.destroy
+
+      get :edit, id: @patient
+      assert_response :success
+    end
+  end
 
   # describe 'update method' do
   #   before do
