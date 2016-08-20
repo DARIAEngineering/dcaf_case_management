@@ -7,7 +7,7 @@ class Patient
   before_validation :clean_fields
 
   # Relationships
-  has_one :pregnancy
+  embeds_one :pregnancy
 
   # Fields
   field :name, type: String # strip

@@ -16,8 +16,8 @@ class Pregnancy
   }
 
   # Relationships
-  belongs_to :patient
-  has_and_belongs_to_many :users, inverse_of: :pregnancies
+  embedded_in :patient
+  has_and_belongs_to_many :users, inverse_of: :patients
   embeds_many :pledges
   embeds_many :notes
   embeds_many :calls
