@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <% pregnancy.patient.history_tracks.order('created_at DESC').each do |revision| %>
+        <% patient.history_tracks.order('created_at DESC').each do |revision| %>
           <tr>
             <td><%= revision.created_at.display_date %></td>
             <td><%= revision.tracked_changes_fields %></td>
