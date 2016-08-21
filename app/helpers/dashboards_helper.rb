@@ -21,7 +21,7 @@ module DashboardsHelper
 
     "<p><strong>Most recent note from #{h note.created_by.name} " \
     "at #{note.created_at.display_timestamp}:</strong></p>" \
-    "<p>#{h note.full_text}</p>".html_safe
+    "<p>#{h note.full_text[0..400]}</p>".html_safe
   end
 
   def voicemail_options
