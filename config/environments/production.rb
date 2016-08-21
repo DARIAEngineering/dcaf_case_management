@@ -61,7 +61,7 @@ Rails.application.configure do
   config.action_controller.default_url_options = { host: ENV['SITE_URL'] }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV['SITE_URL']
+  # config.action_controller.asset_host = ENV['SITE_URL']
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
