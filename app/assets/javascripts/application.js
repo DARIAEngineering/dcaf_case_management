@@ -21,28 +21,28 @@
 
 $(document).ready(function(){
 	// TODO migrate to pledges.coffee
-	$('.pledge_submit').click(function () {
+	$(document).on('click','.pledge_submit',function () {
 		$('.pledge_modal_screen1').hide();
 		$('.pledge_modal_screen2').show();
 	});
 
-	$('.pledge_back_submit').click(function () {
+	$(document).on('click','.pledge_back_submit',function () {
 		$('.pledge_modal_screen2').hide();
 		$('.pledge_modal_screen1').show();
 	});
 
-	$('.pledge_continue').click(function () {
+	$(document).on('click','.pledge_continue',function () {
 		$('.pledge_modal_screen2').hide();
 		$('.pledge_modal_screen3').show();
 		console.log('click');
 	});
 
-	$('.pledge_back_review').click(function () {
+	$(document).on('click','.pledge_back_review',function () {
 		$('.pledge_modal_screen3').hide();
 		$('.pledge_modal_screen2').show();
 	});
 
-	$('.pledge_finish').click(function () {
+	$(document).on('click','.pledge_finish',function () {
 		$('.pledge_modal_screen3').hide();
 	});
 
@@ -58,4 +58,5 @@ $(document).ready(function(){
 			}
 		});
 	});
+
 });
