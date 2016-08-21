@@ -123,13 +123,14 @@ class Patient
   end
 
   def most_recent_note_display_text
-    display_note = most_recent_note[0..40]
-    display_note << '...' if most_recent_note.length > 41
+    note_text = most_recent_note.try(:full_text).to_s
+    display_note = note_text
+    display_note << '...' if note_text.length > 41
     display_note
   end
 
   def most_recent_note
-    notes.order('created_at DESC').limit(1).first.try(:full_text).to_s
+    notes.order('created_at DESC').limit(1).first
   end
 
   def primary_phone_display

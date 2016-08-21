@@ -18,9 +18,6 @@
           <% end %>
           <h4 class="calls-phone"><%= patient.primary_phone_display %></h4>
 
-          <p><%= patient.most_recent_note_display_text %><%= plus_sign_glyphicon(patient.most_recent_note) %></p>
-          <br>
-
           <p><%= link_to "I reached the patient", patient_calls_path(patient, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %></p>
 
           <% if patient.voicemail_preference == :no %>
@@ -34,6 +31,11 @@
           <% end %>
 
           <p><%= link_to "I couldn't reach the patient", patient_calls_path(patient, call: { status: "Couldn't reach patient" } ), method: :post, remote: true, class: 'calls-response' %></p>
+
+          <% if patient.most_recent_note %>
+            <p><strong>Most recent note from <%= patient.most_recent_note.updated_by %> on <%= patient.most_recent_note.created_at.display_timestamp %>:</strong></p>
+            <p><%= h patient.most_recent_note.full_text %></p>
+          <% end %>
         </div><!-- calls-layout -->
       </div><!-- /.modal-body -->
     </div><!-- /.modal-content -->
