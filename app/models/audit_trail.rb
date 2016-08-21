@@ -13,4 +13,8 @@ class AuditTrail
   def tracked_changes_to
     modified.values.join('<br>').html_safe
   end
+
+  def marked_urgent?
+    modified.include?('urgent_flag') && modified['urgent_flag'] == true
+  end
 end

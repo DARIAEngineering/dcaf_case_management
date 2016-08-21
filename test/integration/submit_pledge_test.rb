@@ -4,9 +4,10 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
-    @pregnancy = create :pregnancy
+    @patient = create :patient
+    @pregnancy = create :pregnancy, patient: @patient
     log_in_as @user
-    visit edit_pregnancy_path @pregnancy
+    visit edit_patient_path @patient
     has_text? 'First and last name'
   end
 
@@ -28,8 +29,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       find('#submit-pledge-finish').click
 
       click_link 'Dashboard'
-      visit edit_pregnancy_path @pregnancy
-      assert has_text? Pregnancy::STATUSES[:pledge_sent]
+      visit edit_patient_path @patient
+      assert has_text? Patient::STATUSES[:pledge_sent]
     end
   end
 end

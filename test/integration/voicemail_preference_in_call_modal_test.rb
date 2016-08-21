@@ -14,9 +14,9 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
   describe 'different voicemail preferences and links' do
     describe 'no voicemail' do
       before do
-        @pregnancy.voicemail_preference = :no
-        @pregnancy.save
-        open_call_modal_for @pregnancy
+        @patient.voicemail_preference = :no
+        @patient.save
+        open_call_modal_for @patient
       end
 
       it 'should have warning text and no link' do
@@ -27,7 +27,7 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
 
     describe 'voicemail ok but no id' do
       before do
-        open_call_modal_for @pregnancy
+        open_call_modal_for @patient
       end
 
       it 'should have warning text and a link' do
@@ -38,9 +38,9 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
 
     describe 'voicemail ok' do
       before do
-        @pregnancy.voicemail_preference = :yes
-        @pregnancy.save
-        open_call_modal_for @pregnancy
+        @patient.voicemail_preference = :yes
+        @patient.save
+        open_call_modal_for @patient
       end
 
       it 'should have goahead text and a link' do
@@ -52,9 +52,9 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
 
   private
 
-  def open_call_modal_for(pregnancy)
-    fill_in 'search', with: pregnancy.patient.name
+  def open_call_modal_for(patient)
+    fill_in 'search', with: patient.name
     click_button 'Search'
-    find("a[href='#call-#{pregnancy.patient.primary_phone_display}']").click
+    find("a[href='#call-#{patient.primary_phone_display}']").click
   end
 end

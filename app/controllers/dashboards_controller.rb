@@ -1,15 +1,14 @@
 class DashboardsController < ApplicationController
   def index
-    @urgent_pregnancies = Pregnancy.where(urgent_flag: true)
+    @urgent_patients = Patient.urgent_patients
   end
 
   def search
     patients = Patient.search params[:search]
     @results = []
-    patients.each { |patient| @results << patient.pregnancies.most_recent }
+    patients.each { |patient| @results << patient }
 
-    patient = Patient.new
-    @pregnancy = patient.pregnancies.new
+    @patient = Patient.new
     @today = Time.zone.today.to_date
     @phone = searched_for_phone?(params[:search]) ? params[:search] : ''
     @name = searched_for_name?(params[:search]) ? params[:search] : ''

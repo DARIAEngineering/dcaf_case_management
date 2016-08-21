@@ -3,8 +3,8 @@ require 'test_helper'
 class NoteTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    @pregnancy = create :pregnancy
-    @note = create :note, pregnancy: @pregnancy, created_by: @user
+    @patient = create :patient
+    @note = create :note, patient: @patient, created_by: @user
   end
 
   describe 'validation' do
@@ -29,8 +29,8 @@ class NoteTest < ActiveSupport::TestCase
 
   describe 'relationships' do
     it 'should have an associated pregnancy' do
-      assert @note.respond_to? :pregnancy
-      assert @note.pregnancy
+      assert @note.respond_to? :patient
+      assert @note.patient
     end
   end
 

@@ -14,7 +14,7 @@ class User
   # :confirmable
 
   # Relationships
-  has_and_belongs_to_many :pregnancies, inverse_of: :users
+  has_and_belongs_to_many :patients, inverse_of: :users
 
   # Fields
   # Non-devise generated
@@ -71,21 +71,21 @@ class User
   # that is less than 8 hours old,
   # AND they would otherwise be in the call list
 
-  def recently_called_pregnancies
-    pregnancies.select { |p| recently_called_by_user?(p) }
+  def recently_called_patients
+    patients.select { |p| recently_called_by_user?(p) }
   end
 
-  def call_list_pregnancies
-    pregnancies.reject { |p| recently_called_by_user?(p) }
+  def call_list_patients
+    patients.reject { |p| recently_called_by_user?(p) }
   end
 
-  def add_pregnancy(pregnancy)
-    pregnancies << pregnancy
+  def add_patient(patient)
+    patients << patient
     reload
   end
 
-  def remove_pregnancy(pregnancy)
-    pregnancies.delete pregnancy
+  def remove_patient(patient)
+    patients.delete patient
     reload
   end
 
@@ -95,17 +95,18 @@ class User
     reload
   end
 
-  def ordered_pregnancies
-    return call_list_pregnancies unless call_order
-    ordered_pregnancies = call_list_pregnancies.sort_by do |pregnancy|
-      call_order.index(pregnancy.id.to_s) || 0
+  def ordered_patients
+    return call_list_patients unless call_order
+    ordered_patients = call_list_patients.sort_by do |patient|
+      call_order.index(patient.id.to_s) || 0
     end
-    ordered_pregnancies
+    ordered_patients
   end
 
   def clear_call_list
-    pregnancies.each do |p|
-      pregnancies.delete(p) if recently_reached_by_user?(p)
+    patients.each do |p|
+      # TODO reexamine this behavior in awhile
+      patients.delete(p) if recently_reached_by_user?(p)
     end
   end
 
@@ -124,11 +125,11 @@ class User
     return false if !(password.downcase[/(password|dcaf)/]).nil?
   end
 
-  def recently_reached_by_user?(preg)
-    preg.calls.any? { |call| call.created_by_id == id && call.recent? && call.reached? }
+  def recently_reached_by_user?(patient)
+    patient.calls.any? { |call| call.created_by_id == id && call.recent? && call.reached? }
   end
 
-  def recently_called_by_user?(preg)
-    preg.calls.any? { |call| call.created_by_id == id && call.recent? }
+  def recently_called_by_user?(patient)
+    patient.calls.any? { |call| call.created_by_id == id && call.recent? }
   end
 end

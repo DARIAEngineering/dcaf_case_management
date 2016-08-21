@@ -17,7 +17,7 @@ class DashboardLinkTest < ActionDispatch::IntegrationTest
     before do
       @patient = create :patient
       @pregnancy = create :pregnancy, patient: @patient
-      visit edit_pregnancy_path(@pregnancy)
+      visit edit_patient_path(@patient)
     end
 
     it 'should display the dashboard link' do

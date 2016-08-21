@@ -1,0 +1,52 @@
+<section id="abortion_information" class="abortion-info tab-pane">
+  <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2>Abortion information</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="info-form-left">
+            <%#= f.fields_for (patient.clinic || patient.build_clinic) do |cl| %>
+              <h3>Clinic details</h3>
+                <%= f.select :clinic_name, options_for_select(clinic_options, patient.clinic_name) %>
+                <%#= cl.select :name, options_for_select(clinic_options, patient.clinic.name), label: 'Clinic name', autocmomplete: 'off' %>
+                <%#= cl.text_field :name, label: 'Clinic name:', autocomplete: 'off' %>
+                <%#= cl.text_field :street_address_1, label: 'Street address 1:', autocomplete: 'off' %>
+                <%#= cl.text_field :street_address_2, label: 'Street address 2:', autocomplete: 'off' %>
+              <div class="row">
+                <div class="col-sm-8">
+                  <%#= cl.text_field :city, label: 'City:', autocomplete: 'off' %>
+                </div>
+                <div class="col-sm-4">
+                  <%#= cl.text_field :state, label: 'State:', autocomplete: 'off' %>
+                </div>
+              </div>
+              <%#= cl.text_field :zip, label: 'ZIP:', autocomplete: 'off' %>
+            <%# end %>
+
+            <%= f.fields_for patient.pregnancy do |pt| %>
+              <%= pt.form_group :resolved_without_dcaf, label: { text: 'Resolved without assistance from DCAF' } do %>
+                <%= pt.check_box :resolved_without_dcaf, label: '' %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="info-form-right">
+            <h3>Cost details</h3>
+            <%= f.fields_for patient.pregnancy do |pt| %>
+              <%= pt.text_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
+              <%= pt.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+               <%= pt.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+                 <%= pt.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', prepend: '$' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>

@@ -36,7 +36,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       fill_in 'search', with: 'Susan Everyteen 2'
       click_button 'Search'
       click_link 'Susan Everyteen 2'
-      assert current_path, edit_pregnancy_path(Pregnancy.last)
+      assert current_path, edit_patient_path(Patient.last)
     end
 
     it 'should redirect to the root path' do

@@ -5,7 +5,7 @@ class Call
   include Mongoid::Userstamp
 
   # Relationships
-  embedded_in :pregnancy
+  embedded_in :patient
 
   # Fields
   field :status, type: String

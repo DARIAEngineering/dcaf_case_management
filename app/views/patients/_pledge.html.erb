@@ -8,11 +8,11 @@
 		<div class="pledge_modal_screen1">
 			<div class="pledge_intro">Confirm the following information is correct:</div>
 			<div class="pledge_form">
-				<div><span class="pledge_modal_category">Patient name:</span> <%= pregnancy.patient.name %></div>
-				<div><span class="pledge_modal_category">Patient ID:</span> <%= pregnancy.pledge_identifier %></div>
-				<div><span class="pledge_modal_category">Pledge amount:</span> $<%= pregnancy.dcaf_soft_pledge %> </div>
-				<div><span class="pledge_modal_category">Appointment date:</span> <%= pregnancy.appointment_date %></div>
-				<div><span class="pledge_modal_category">Clinic name:</span> <%= pregnancy.clinic.name if pregnancy.clinic %></div>
+				<div><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
+				<div><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
+				<div><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.pregnancy.dcaf_soft_pledge %> </div>
+				<div><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
+				<div><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
 			</div>
 			<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
 		 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit" id='submit-pledge-to-p2'>Continue</a>
@@ -30,8 +30,10 @@
 				<p>Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
 				<p>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</p>
 
-				<%= bootstrap_form_for pregnancy, id: 'pledge-create-modal-form', remote: true do |f| %>
-					<%= f.check_box :pledge_sent, label: 'I sent the pledge' %>
+				<%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
+					<%= f.fields_for patient.pregnancy do |p| %>
+						<%= p.check_box :pledge_sent, label: 'I sent the pledge' %>
+					<% end %>
 				<% end %>
 
 				<a class="pledge_process_btn pledge_back_review">Go back</a>

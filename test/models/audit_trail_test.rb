@@ -21,8 +21,8 @@ class AuditTrailTest < ActiveSupport::TestCase
     it 'should track proper info' do
       # TODO: add pregnancy and clinic info
       tracked_fields =
-        %w(name primary_phone other_contact other_phone other_contact_relationship updated_by_id)
-      assert_equal Patient.tracked_fields,
+        %w(last_menstrual_period_weeks last_menstrual_period_days special_circumstances fax_received procedure_cost procedure_date procedure_completed_date resolved_without_dcaf patient_contribution naf_pledge dcaf_soft_pledge pledge_sent updated_by_id)
+      assert_equal Pregnancy.tracked_fields,
                    tracked_fields
     end
   end
@@ -46,6 +46,16 @@ class AuditTrailTest < ActiveSupport::TestCase
     it 'should conveniently render what they are now' do
       assert_equal @track.tracked_changes_to,
                    'Yolo<br>1234569999'
+    end
+  end
+
+  describe 'marked urgent' do
+    it 'should return true if urgent flag was changed to true' do
+      @patient = create :patient
+      @patient.urgent_flag = true
+      @patient.save
+
+      assert @patient.history_tracks.second.marked_urgent?
     end
   end
 end

@@ -9,7 +9,7 @@
 				<th>CM</th>
 			</tr>
 			<tbody>
-				<% pregnancy.recent_calls.each do |call| %>
+				<% patient.recent_calls.each do |call| %>
 					<tr>
 						<td><%= call.created_at.display_date %></td>
 						<td><%= call.created_at.display_time %></td>
@@ -17,7 +17,7 @@
 						<td><%= call.created_by.name %></td>
 					</tr>
 				<% end %>
-				<% pregnancy.old_calls.each do |call| %>
+				<% patient.old_calls.each do |call| %>
 					<tr class="old-calls hidden">
 						<td><%= call.created_at.display_date %></td>
 						<td><%= call.created_at.display_time %></td>
@@ -28,7 +28,7 @@
 			</tbody>
 	  </table>
 
-		<% if pregnancy.old_calls.count > 0 %>
+		<% if patient.old_calls.count > 0 %>
       <div id="toggle-call-log">View all calls</div>
     <% end %>
   </div>

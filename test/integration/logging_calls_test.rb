@@ -35,11 +35,11 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
     # problematic test
     it 'should redirect to the edit view when a patient has been reached' do
-      assert_equal current_path, edit_pregnancy_path(@pregnancy)
+      assert_equal current_path, edit_patient_path(@patient)
     end
 
     it 'should be viewable on the call log' do
-      visit edit_pregnancy_path @pregnancy
+      visit edit_patient_path @patient
       wait_for_page_to_load
       find('a', text: 'Call Log').click
       wait_for_ajax
@@ -64,7 +64,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         click_link 'I reached the patient'
       end
 
-      visit edit_pregnancy_path @pregnancy
+      visit edit_patient_path @patient
       wait_for_page_to_load
       find('a', text: 'Call Log').click
       wait_for_ajax
@@ -99,7 +99,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       # problematic test
       it "should be visible on the call log after clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
-        visit edit_pregnancy_path @pregnancy
+        visit edit_patient_path @patient
         wait_for_page_to_load
         find('a', text: 'Call Log').click
         wait_for_ajax
