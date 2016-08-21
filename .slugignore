@@ -1,0 +1,4 @@
+/test/*
+/_design/*
+/metrics/*
+/coverage/*
