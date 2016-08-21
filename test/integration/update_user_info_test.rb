@@ -24,15 +24,28 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
       assert_text 'different@email.com'
     end
 
-    it 'should let you change your password' do
-      fill_in 'Password', with: 'Different_P4ss'
-      fill_in 'Password confirmation', with: 'Different_P4ss'
-      fill_in 'Current password', with: @user.password
-      click_button 'Update info'
-      sign_out
-      @user.password = 'Different_P4ss'
-      log_in_as @user
-      refute has_text? 'Signed in successfully.'
+    describe 'changing your password' do
+      before do
+        fill_in 'Password', with: 'Different_P4ss'
+        fill_in 'Password confirmation', with: 'Different_P4ss'
+        fill_in 'Current password', with: @user.password
+        click_button 'Update info'
+        sign_out
+      end
+
+      after { Devise.mailer.deliveries.clear }
+
+      it 'should let you change your password' do
+        @user.password = 'Different_P4ss'
+        log_in_as @user
+        refute has_text? 'Signed in successfully.'
+      end
+
+      it 'should send an email notifying' do
+        email_content = ActionMailer::Base.deliveries.last.to_s
+        assert_match /Your password has changed/, email_content
+        assert_match @user.email, email_content
+      end
     end
 
     it 'should veto changes without current password' do
