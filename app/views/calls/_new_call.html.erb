@@ -33,7 +33,7 @@
           <p><%= link_to "I couldn't reach the patient", patient_calls_path(patient, call: { status: "Couldn't reach patient" } ), method: :post, remote: true, class: 'calls-response' %></p>
 
           <% if patient.most_recent_note %>
-            <p><strong>Most recent note from <%= patient.most_recent_note.updated_by %> on <%= patient.most_recent_note.created_at.display_timestamp %>:</strong></p>
+            <p><strong>Most recent note from <%= patient.most_recent_note.created_by.name %> on <%= patient.most_recent_note.created_at.display_timestamp %>:</strong></p>
             <p><%= h patient.most_recent_note.full_text %></p>
           <% end %>
         </div><!-- calls-layout -->
