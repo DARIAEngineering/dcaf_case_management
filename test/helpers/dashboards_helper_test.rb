@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class DashboardsHelperTest < ActionView::TestCase
+  include ERB::Util
+
   before do
     @date_1 = DateTime.new(2016, 5, 21).in_time_zone
     @date_2 = DateTime.new(2016, 5, 31).in_time_zone
