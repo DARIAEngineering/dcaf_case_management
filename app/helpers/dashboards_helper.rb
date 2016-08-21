@@ -16,6 +16,14 @@ module DashboardsHelper
     "<span class='glyphicon glyphicon-plus-sign' aria-hidden='true' data-toggle='popover' data-placement='bottom' title='Most recent note' data-content='#{h note.full_text}'></span><span class='sr-only'>Full note</span>".html_safe
   end
 
+  def display_note_text_for(note)
+    return nil unless note.try(:full_text)
+
+    "<p><strong>Most recent note from #{h note.created_by.name} " \
+    "at #{note.created_at.display_timestamp}:</strong></p>" \
+    "<p>#{h note.full_text}</p>".html_safe
+  end
+
   def voicemail_options
     enum_text = { not_specified: 'No instructions; no ID VM',
                   no: 'Do not leave a voicemail',
