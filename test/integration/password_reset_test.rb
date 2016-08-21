@@ -38,13 +38,12 @@ class PasswordResetTest < ActionDispatch::IntegrationTest
 
     it 'should send a password reset if email does exist' do
       assert_difference 'Devise.mailer.deliveries.count', 1 do
-        Devise.mailer.deliveries.count
         fill_in 'Email', with: @user.email
         click_button 'Send me password reset instructions'
       end
       assert_text 'If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes'
       assert_routing new_user_session_path, controller: 'devise/sessions', action: 'new'
-      assert_match /reset_password_token/, Devise.mailer.deliveries.first.to_s
+      assert_match /reset_password_token/, Devise.mailer.deliveries.last.to_s
     end
   end
 end

@@ -33,6 +33,8 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
         sign_out
       end
 
+      after { Devise.mailer.deliveries.clear }
+
       it 'should let you change your password' do
         @user.password = 'Different_P4ss'
         log_in_as @user
