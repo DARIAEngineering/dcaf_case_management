@@ -17,7 +17,7 @@ module DashboardsHelper
   end
 
   def display_note_text_for(note)
-    return nil unless note.try(:full_text)
+    return nil unless note.try(:full_text).present?
 
     "<p><strong>Most recent note from #{h note.created_by.name} " \
     "at #{note.created_at.display_timestamp}:</strong></p>" \
