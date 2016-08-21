@@ -1,5 +1,4 @@
-class User
-  
+class User  
   include Mongoid::Document
   include Mongoid::Userstamp::User
 
@@ -14,6 +13,7 @@ class User
   # :rememberable
   # :confirmable
 
+  # Callbacks
   after_update :send_password_change_email, if: :needs_password_change_email?
 
   # Relationships
