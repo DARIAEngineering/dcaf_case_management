@@ -1,4 +1,5 @@
 class User
+  
   include Mongoid::Document
   include Mongoid::Userstamp::User
 
@@ -12,6 +13,8 @@ class User
           :timeoutable
   # :rememberable
   # :confirmable
+
+  after_update :send_password_change_email, if: :needs_password_change_email?
 
   # Relationships
   has_and_belongs_to_many :patients, inverse_of: :users
@@ -88,7 +91,7 @@ class User
     patients.delete patient
     reload
   end
-
+  
   def reorder_call_list(order)
     update call_order: order
     save
@@ -131,5 +134,14 @@ class User
 
   def recently_called_by_user?(patient)
     patient.calls.any? { |call| call.created_by_id == id && call.recent? }
+  end
+
+  def needs_password_change_email?
+    encrypted_password_changed? && persisted?
+  end
+
+  def send_password_change_email
+    #@user = User.find(id)
+    UserMailer.password_changed(id).deliver_now
   end
 end

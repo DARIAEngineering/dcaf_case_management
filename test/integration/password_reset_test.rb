@@ -27,7 +27,7 @@ class PasswordResetTest < ActionDispatch::IntegrationTest
       Devise.mailer.deliveries.clear
     end
 
-    it 'should errror if email does not exist' do
+    it 'should error if email does not exist' do
       fill_in 'Email', with: 'not_a_real_email@gmail.com'
       click_button 'Send me password reset instructions'
       assert_text 'If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes'
