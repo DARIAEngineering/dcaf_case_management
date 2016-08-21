@@ -8,5 +8,4 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [@user.email], mail.to
     assert_equal ["no-reply@dcaf.org"], mail.from
   end
-
 end
