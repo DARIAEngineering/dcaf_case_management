@@ -17,7 +17,6 @@
             <h4 class="modal-title calls-request"><%= patient.name %>'s number:</h4>
           <% end %>
           <h4 class="calls-phone"><%= patient.primary_phone_display %></h4>
-          <br>
 
           <p><%= link_to "I reached the patient", patient_calls_path(patient, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %></p>
 
@@ -32,6 +31,8 @@
           <% end %>
 
           <p><%= link_to "I couldn't reach the patient", patient_calls_path(patient, call: { status: "Couldn't reach patient" } ), method: :post, remote: true, class: 'calls-response' %></p>
+
+          <%= display_note_text_for patient.most_recent_note %>
         </div><!-- calls-layout -->
       </div><!-- /.modal-body -->
     </div><!-- /.modal-content -->
