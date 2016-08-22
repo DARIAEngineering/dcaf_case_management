@@ -1,41 +1,32 @@
 <h3><small>Your search produced no results, so add a new patient:</small></h3>
-<div class="container">
+
 <%= bootstrap_form_for pregnancy do |f| %>
   <%= f.fields_for pregnancy.patient do |p| %>
-    <div class="col-md-4">
-      <div class="col-md-6">
+    <div class="col-sm-4">
+      <div class="col-sm-6">
         <%= p.text_field :primary_phone, label: 'Phone', value: phone %>
       </div>
-      <div class="col-md-6">
+      <div class="col-sm-6">
         <%= p.text_field :name, label: 'Name', value: name %>
       </div>
     </div>
   <% end %>
-
-  <div class="col-md-3">
-    <div class="col-md-6">
+  <div class="col-sm-4">
+    <div class="col-sm-6">
       <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, pregnancy.last_menstrual_period_weeks ), label: 'LMP', autocomplete: 'off' %>
     </div>
-    <div class="col-md-6 hide-label">
+    <div class="col-sm-6 hide-label">
       <%= f.select :last_menstrual_period_days, options_for_select(days_options, pregnancy.last_menstrual_period_days ), label: 'LMP', autocomplete: 'off' %>
     </div>
   </div>
-
-  <div class="col-md-2">
-    <%= f.date_field :initial_call_date, label: "Initial Call Date", value: today,  required: "required" %>
-  </div>
-
   <div class="col-sm-3">
     <%= f.select :voicemail_preference, 
                  options_for_select(voicemail_options) %>
   </div>
-
-  <div class="col-sm-2">
-    <%= button_tag class: 'btn btn-primary btn-space', id: 'create_new_patient_button' do %>
+  <div class="col-sm-1 btn-space">
+    <%= button_tag class: 'btn btn-primary', id: 'create_new_patient_button' do %>
        <span class='glyphicon glyphicon-plus-sign'></span> Create new patient
     <% end %>
   </div>
 <% end %>
-</div>
-
 <script>$('[data-toggle="toggle"]').bootstrapToggle();</script>
