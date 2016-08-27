@@ -21,7 +21,10 @@ class AuditTrailTest < ActiveSupport::TestCase
     it 'should track proper info' do
       # TODO: add pregnancy and clinic info
       tracked_fields =
-        %w(last_menstrual_period_weeks last_menstrual_period_days special_circumstances fax_received procedure_cost procedure_date procedure_completed_date resolved_without_dcaf patient_contribution naf_pledge dcaf_soft_pledge pledge_sent updated_by_id)
+        %w(last_menstrual_period_weeks last_menstrual_period_days
+           special_circumstances fax_received procedure_cost procedure_date
+           procedure_completed_date resolved_without_dcaf patient_contribution
+           naf_pledge dcaf_soft_pledge pledge_sent updated_by_id)
       assert_equal Pregnancy.tracked_fields,
                    tracked_fields
     end

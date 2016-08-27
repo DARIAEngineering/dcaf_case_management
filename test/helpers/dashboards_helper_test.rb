@@ -28,7 +28,8 @@ class DashboardsHelperTest < ActionView::TestCase
     end
 
     it 'should return a glyphicon if the text is over 40 char' do
-      over_40_char = create :note, full_text: 'this is 40 character or so cats are great so fluffy'
+      over_40_char = create :note, full_text: 'this is 40 character or ' \
+                                              'so cats are great so fluffy'
       refute_nil plus_sign_glyphicon over_40_char
     end
   end

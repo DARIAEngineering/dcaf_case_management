@@ -3,7 +3,9 @@ require 'test_helper'
 class LastMenstrualPeriodHelperTest < ActionView::TestCase
   before do
     @user = create :user
-    @patient = create :patient, created_by: @user, initial_call_date: 2.days.ago, appointment_date: 2.days.from_now
+    @patient = create :patient, created_by: @user,
+                                initial_call_date: 2.days.ago,
+                                appointment_date: 2.days.from_now
 
     @pregnancy = create :pregnancy,
                         last_menstrual_period_weeks: 9,
@@ -18,7 +20,8 @@ class LastMenstrualPeriodHelperTest < ActionView::TestCase
     #   end
 
     #   it 'should return LMP in weeks and days' do
-    #     assert_equal @pregnancy.last_menstrual_period_display, '9 weeks, 4 days'
+    #     assert_equal '9 weeks, 4 days',
+    #                   @pregnancy.last_menstrual_period_display
     #   end
     # end
 
@@ -40,7 +43,8 @@ class LastMenstrualPeriodHelperTest < ActionView::TestCase
     #   end
 
     #   it 'should return a calculated LMP on date of appointment' do
-    #     assert_equal '9 weeks, 6 days', @pregnancy.last_menstrual_period_at_appt
+    #     assert_equal '9 weeks, 6 days',
+    #                  @pregnancy.last_menstrual_period_at_appt
     #   end
     # end
 

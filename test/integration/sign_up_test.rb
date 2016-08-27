@@ -42,7 +42,8 @@ class SignUpTest < ActionDispatch::IntegrationTest
   #       fill_in 'Email', with: @user.email
   #       fill_in 'Name', with: 'A Real Person'
   #       fill_in 'Password', with: 'password', match: :prefer_exact
-  #       fill_in 'Password confirmation', with: 'password', match: :prefer_exact
+  #       fill_in 'Password confirmation', with: 'password',
+  #                                        match: :prefer_exact
   #       click_button 'Sign up'
   #       assert_text 'Email is already taken'
   #     end

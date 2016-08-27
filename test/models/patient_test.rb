@@ -197,13 +197,14 @@ class PatientTest < ActiveSupport::TestCase
     describe 'identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
-        assert_equal 'D3-5555', @patient.identifier # make it live after merging that one PR
+        assert_equal 'D3-5555', @patient.identifier
       end
     end
 
     describe 'most_recent_note_display_text method' do
       before do
-        @note = create :note, patient: @patient, full_text: (1..100).map(&:to_s).join('')
+        @note = create :note, patient: @patient,
+                              full_text: (1..100).map(&:to_s).join('')
       end
 
       it 'returns 44 characters of the notes text' do
