@@ -5,7 +5,7 @@
     <% unless current_page?(authenticated_root_url) %>
       <li><%= link_to 'Dashboard', authenticated_root_path %></li>
     <% end %>
-    <li><%= link_to current_user.name, edit_user_registration_path %></li>    
+    <li><%= link_to current_user.name, edit_user_registration_path %></li>
     <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
   <% end %>
 </ul>

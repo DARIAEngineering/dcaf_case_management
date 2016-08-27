@@ -1,7 +1,7 @@
 <div class="col-sm-6">
   <div class="authform">
     <h3>Sign in</h3>
-    
+
     <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
       <%= devise_error_messages! %>
 
@@ -23,7 +23,7 @@
     <% end %>
 
     <%= render "devise/shared/links" %>
-  </div>  
+  </div>
 </div>
 
 <div class="col-sm-6">

@@ -1,7 +1,7 @@
 <script>
   $(function () {
     $('[data-toggle="popover"]').popover()
-  })  
+  })
 </script>
 
 <div class="container">
@@ -13,5 +13,3 @@
     <%= render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: @urgent_patients } %>
   </div>
 </div>
-
-<%#= render 'patients/new_patient' %>

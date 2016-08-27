@@ -27,7 +27,7 @@ class PregnanciesHelperTest < ActionView::TestCase
   end
 
   %w(race_ethnicity employment_status insurance income referred_by
-     special_circumstances household_size).each do |array|
+     household_size).each do |array|
     describe "#{array}_options" do
       it "should be a usable array - #{array}_options" do
         options_array = send("#{array}_options".to_sym)

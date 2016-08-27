@@ -43,11 +43,6 @@ module PregnanciesHelper
      'Sexual assault crisis org', 'Youth outreach']
   end
 
-  def special_circumstances_options
-    [nil, 'Domestic violence', 'Fetal anomaly', 'Homeless', 'Immigrant',
-     'Incest', 'Maternal health', 'Other', 'Rape', 'Undocumented/Non-Citizen']
-  end
-
   def household_size_options
     (1..10).map { |i| i }.unshift [nil, nil]
   end

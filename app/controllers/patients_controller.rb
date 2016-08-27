@@ -4,16 +4,16 @@ class PatientsController < ApplicationController
               with: -> { redirect_to root_path }
 
   def create
-    @patient = Patient.new patient_params
+    patient = Patient.new patient_params
 
-    @patient.created_by = current_user
-    (@patient.pregnancy || @patient.build_pregnancy).created_by = current_user
-    if @patient.save
+    patient.created_by = current_user
+    (patient.pregnancy || patient.build_pregnancy).created_by = current_user
+    if patient.save
       flash[:notice] = 'A new patient has been successfully saved'
     else
       flash[:alert] = 'An error prevented this patient from being saved'
     end
-    current_user.add_patient @patient
+    current_user.add_patient patient
     redirect_to root_path
   end
 
