@@ -37,16 +37,19 @@ class PatientsController < ApplicationController
 
   def patient_params
     params.require(:patient).permit(
-      :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship,
-      :line, :voicemail_preference, :spanish,
+      :name, :primary_phone, :other_contact, :other_phone,
+      :other_contact_relationship, :line, :voicemail_preference, :spanish,
       # fields in dashboard
       :clinic_name,
       :appointment_date,
-      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income, :household_size_adults, :household_size_children, :insurance, :referred_by,
-      :initial_call_date,
-      :urgent_flag,
-      clinic: [:id, :name, :street_address_1, :street_address_2, :city, :state, :zip],
-      pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks, :resolved_without_dcaf, :procedure_cost, :patient_contribution, :naf_pledge, :dcaf_soft_pledge, :pledge_sent],
+      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income,
+      :household_size_adults, :household_size_children, :insurance,
+      :referred_by, :initial_call_date, :urgent_flag,
+      clinic: [:id, :name, :street_address_1, :street_address_2,
+               :city, :state, :zip],
+      pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
+                  :resolved_without_dcaf, :procedure_cost, :pledge_sent,
+                  :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
       special_circumstances: []
     )
   end
