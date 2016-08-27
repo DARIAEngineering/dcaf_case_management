@@ -23,10 +23,4 @@ class DashboardsController < ApplicationController
   def searched_for_name?(query)
     /[a-z]/i.match query
   end
-
-  def execute_patient_search
-    Patient.search
-
-    results
-  end
 end
