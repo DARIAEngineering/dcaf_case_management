@@ -3,15 +3,15 @@ class AuditTrail
 
   # convenience methods for clean view display
   def tracked_changes_fields
-    modified.keys.map(&:humanize).join('<br>').html_safe
+    modified.keys.map(&:humanize)
   end
 
   def tracked_changes_from
-    original.values.join('<br>').html_safe
+    original.values
   end
 
   def tracked_changes_to
-    modified.values.join('<br>').html_safe
+    modified.values
   end
 
   def marked_urgent?

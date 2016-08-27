@@ -65,7 +65,9 @@ class Patient
             :created_by,
             presence: true
   validates :primary_phone, format: /\d{10}/, length: { is: 10 }
-  validates :other_phone, format: /\d{10}/, length: { is: 10 }, allow_blank: true
+  validates :other_phone, format: /\d{10}/,
+                          length: { is: 10 },
+                          allow_blank: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
 
@@ -86,19 +88,11 @@ class Patient
 
   # Methods
   def status
-    if pregnancy.resolved_without_dcaf?
-      STATUSES[:resolved]
-    # elsif pledge_status?(:paid)
-    #   STATUSES[:pledge_paid]
-    elsif pregnancy.pledge_sent?
-      STATUSES[:pledge_sent]
-    elsif appointment_date
-      STATUSES[:fundraising]
-    elsif contact_made?
-      STATUSES[:needs_appt]
-    else
-      STATUSES[:no_contact]
-    end
+    return STATUSES[:resolved] if pregnancy.resolved_without_dcaf?
+    return STATUSES[:pledge_sent] if pregnancy.pledge_sent?
+    return STATUSES[:fundraising] if appointment_date
+    return STATUSES[:needs_appt] if contact_made?
+    STATUSES[:no_contact]
   end
 
   def self.urgent_patients
@@ -157,25 +151,6 @@ class Patient
     false
   end
 
-  private
-
-  def contact_made?
-    calls.each do |call|
-      return true if call.status == 'Reached patient'
-    end
-    false
-  end
-
-  def recent_history_tracks
-    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
-  end
-
-  def confirm_appointment_after_initial_call
-    if appointment_date.present? && initial_call_date > appointment_date
-      errors.add(:appointment_date, 'must be after date of initial call')
-    end
-  end
-
   # Search-related stuff
   class << self
     # Case insensitive and phone number format agnostic!
@@ -219,6 +194,23 @@ class Patient
   end
 
   private
+
+  def contact_made?
+    calls.each do |call|
+      return true if call.status == 'Reached patient'
+    end
+    false
+  end
+
+  def recent_history_tracks
+    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
+  end
+
+  def confirm_appointment_after_initial_call
+    if appointment_date.present? && initial_call_date > appointment_date
+      errors.add(:appointment_date, 'must be after date of initial call')
+    end
+  end
 
   def clean_fields
     primary_phone.gsub!(/\D/, '') if primary_phone

@@ -51,8 +51,8 @@ class User
   # field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   ## Lockable
-  field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
+  field :failed_attempts, type: Integer, default: 0
+  # field :unlock_token,    type: String # Requires unlock strategy
   field :locked_at,       type: Time
 
   # Validations
@@ -116,20 +116,19 @@ class User
   private
 
   def verify_password_complexity
-    # Enforce length of at least ten
-    return false unless password.length >= 8
-    # we want at least one lower case
-    return false if (password =~ /[a-z]/).nil?
-    # We want at least one uppercase
-    return false if (password =~ /[A-Z]/).nil?
-    # We want at least one digit
-    return false if (password =~ /[0-9]/).nil?
-    # Make sure the word password isn't in there
+    return false unless password.length >= 8 # length at least 8
+    return false if (password =~ /[a-z]/).nil? # at least one lowercase
+    return false if (password =~ /[A-Z]/).nil? # at least one uppercase
+    return false if (password =~ /[0-9]/).nil? # at least one digit
+    # Make sure no bad words are in there
     return false unless password.downcase[/(password|dcaf)/].nil?
+    true
   end
 
   def recently_reached_by_user?(patient)
-    patient.calls.any? { |call| call.created_by_id == id && call.recent? && call.reached? }
+    patient.calls.any? do |call|
+      call.created_by_id == id && call.recent? && call.reached?
+    end
   end
 
   def recently_called_by_user?(patient)
