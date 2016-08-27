@@ -178,7 +178,6 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'methods' do
-
     describe 'contact_made? method' do
       it 'should return false if no calls have been made' do
         refute @patient.send :contact_made?
@@ -249,7 +248,7 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'history check methods' do
       it 'should say whether a patient is still urgent' do
-        # TODO TIMECOP
+        # TODO: TIMECOP
         @patient.urgent_flag = true
         @patient.save
 
@@ -257,7 +256,7 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should trim pregnancies after they have been urgent for five days' do
-        # TODO TEST patient#trim_urgent_pregnancies
+        # TODO: TEST patient#trim_urgent_pregnancies
       end
     end
   end

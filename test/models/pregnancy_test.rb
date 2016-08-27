@@ -25,8 +25,6 @@ class PregnancyTest < ActiveSupport::TestCase
     end
   end
 
-
-
   describe 'mongoid attachments' do
     it 'should have timestamps from Mongoid::Timestamps' do
       [:created_at, :updated_at].each do |field|

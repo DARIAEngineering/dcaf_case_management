@@ -106,7 +106,7 @@ class Patient
   end
 
   def self.trim_urgent_patients
-    Patient.all.each do |patient|
+    Patient.all.find_each do |patient|
       unless patient.still_urgent?
         patient.urgent_flag = false
         patient.save
@@ -175,7 +175,6 @@ class Patient
       errors.add(:appointment_date, 'must be after date of initial call')
     end
   end
-
 
   # Search-related stuff
   class << self

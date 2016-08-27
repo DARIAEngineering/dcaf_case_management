@@ -53,6 +53,6 @@ module PregnanciesHelper
   end
 
   def clinic_options
-    (ENV['CLINICS'].try(:split,',') || ['Sample Clinic 1', 'Sample Clinic 2']).unshift nil
+    (ENV['CLINICS'].try(:split, ',') || ['Sample Clinic 1', 'Sample Clinic 2']).unshift nil
   end
 end

@@ -1,4 +1,4 @@
-class User  
+class User
   include Mongoid::Document
   include Mongoid::Userstamp::User
 
@@ -91,7 +91,7 @@ class User
     patients.delete patient
     reload
   end
-  
+
   def reorder_call_list(order)
     update call_order: order
     save
@@ -108,7 +108,7 @@ class User
 
   def clear_call_list
     patients.each do |p|
-      # TODO reexamine this behavior in awhile
+      # TODO: reexamine this behavior in awhile
       patients.delete(p) if recently_reached_by_user?(p)
     end
   end
@@ -125,7 +125,7 @@ class User
     # We want at least one digit
     return false if (password =~ /[0-9]/).nil?
     # Make sure the word password isn't in there
-    return false if !(password.downcase[/(password|dcaf)/]).nil?
+    return false unless password.downcase[/(password|dcaf)/].nil?
   end
 
   def recently_reached_by_user?(patient)
@@ -141,7 +141,7 @@ class User
   end
 
   def send_password_change_email
-    #@user = User.find(id)
+    # @user = User.find(id)
     UserMailer.password_changed(id).deliver_now
   end
 end

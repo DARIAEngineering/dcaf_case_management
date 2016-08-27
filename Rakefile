@@ -3,6 +3,6 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
-task :clear_call_lists => :environment do
-  User.all.each{ |u| u.clear_call_list }
+task clear_call_lists: :environment do
+  User.all.each(&:clear_call_list)
 end
