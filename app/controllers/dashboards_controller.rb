@@ -4,9 +4,7 @@ class DashboardsController < ApplicationController
   end
 
   def search
-    patients = Patient.search params[:search]
-    @results = []
-    patients.each { |patient| @results << patient }
+    @results = Patient.search params[:search]
 
     @patient = Patient.new
     @today = Time.zone.today.to_date

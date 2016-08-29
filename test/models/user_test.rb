@@ -57,7 +57,9 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should clear calls when patient has been reached' do
       assert_equal 0, @user.recently_called_patients.count
-      @call = create :call, patient: @patient, created_by: @user, status: 'Reached patient'
+      @call = create :call, patient: @patient,
+                            created_by: @user,
+                            status: 'Reached patient'
       assert_equal 1, @user.recently_called_patients.count
       @user.clear_call_list
       assert_equal 0, @user.recently_called_patients.count
@@ -65,7 +67,9 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should not clear calls when patient has not been reached' do
       assert_equal 0, @user.recently_called_patients.count
-      @call = create :call, patient: @patient, created_by: @user, status: 'Left voicemail'
+      @call = create :call, patient: @patient,
+                            created_by: @user,
+                            status: 'Left voicemail'
       assert_equal 1, @user.recently_called_patients.count
       @user.clear_call_list
       assert_equal 1, @user.recently_called_patients.count
@@ -96,7 +100,7 @@ class UserTest < ActiveSupport::TestCase
       before do
         set_of_patients = [@patient, @patient_2, @patient_3]
         set_of_patients.each { |preg| @user.add_patient preg }
-        @new_order = [@patient_3._id.to_s, @patient._id.to_s, @patient_2._id.to_s]
+        @new_order = [@patient_3.id.to_s, @patient.id.to_s, @patient_2.id.to_s]
         @user.reorder_call_list @new_order
       end
 
@@ -106,12 +110,12 @@ class UserTest < ActiveSupport::TestCase
         assert_equal @patient_2, @user.ordered_patients[2]
       end
 
-      it 'should not choke if another preg is on call list but not call order' do
+      it 'should not die if another preg is on call list but not call order' do
         @patient_4 = create :patient
         @user.add_patient @patient_4
 
         assert @user.ordered_patients.include? @patient_4
-        refute @user.call_order.include? @patient_4._id.to_s
+        refute @user.call_order.include? @patient_4.id.to_s
       end
     end
   end

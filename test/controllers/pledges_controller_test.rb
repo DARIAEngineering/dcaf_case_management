@@ -19,12 +19,12 @@ class PledgesControllerTest < ActionController::TestCase
       end
     end
 
-    # NOTE: it's redirecting so status code 302 (controller redirects to edit_patient_path)
+    # NOTE: it's redirecting so status code 302
     #   it 'should respond success if the pledge submits' do
     #     assert_response :success
     #   end
 
-    # NOTE: template does not exist yet	and controller redirects to edit_patient_path
+    # NOTE: template does not exist yet	and controller redirects
     #   it 'should render create.js.erb if it successfully saves' do
     #     assert_template 'pledges/create'
     #   end
@@ -69,7 +69,9 @@ class PledgesControllerTest < ActionController::TestCase
 
     it 'should refuse to save pledge type to blank' do
       [nil, ''].each do |bad_text|
-        assert_no_difference 'Patient.find(@patient).pledges.find(@pledge).history_tracks.count' do
+        assert_no_difference 'Patient.find(@patient)
+                                     .pledges.find(@pledge)
+                                     .history_tracks.count' do
           @pledge_edits[:pledge_type] = bad_text
           patch :update, patient_id: @patient, id: @pledge,
                          pledge: @pledge_edits, format: :js

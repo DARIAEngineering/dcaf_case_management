@@ -30,9 +30,11 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
     it 'should alter the information' do
       within :css, '#patient_dashboard' do
+        lmp_weeks = find('#patient_pregnancy_last_menstrual_period_weeks')
+        lmp_days = find('#patient_pregnancy_last_menstrual_period_days')
         assert has_field?('First and last name', with: 'Susie Everyteen 2')
-        assert_equal find('#patient_pregnancy_last_menstrual_period_weeks').value, '5'
-        assert_equal find('#patient_pregnancy_last_menstrual_period_days').value, '2'
+        assert_equal '5', lmp_weeks.value
+        assert_equal '2', lmp_days.value
         assert has_field?('Appointment date', with: '2016-09-01')
         assert has_field? 'Phone number', with: '123-666-8888'
       end
@@ -114,20 +116,14 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_checked_field? 'Spanish Only'
 
         assert_equal 'Part-time', find('#patient_employment_status').value
-        assert_equal '$30,000-34,999 ($577-672/week)', find('#patient_income').value
+        assert_equal '$30,000-34,999 ($577-672/week)',
+                     find('#patient_income').value
         assert_equal '1', find('#patient_household_size_adults').value
         assert_equal '3', find('#patient_household_size_children').value
         assert_equal 'Other state Medicaid', find('#patient_insurance').value
         assert_equal 'Other abortion fund', find('#patient_referred_by').value
         assert_equal 'yes', find('#patient_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
-
-        assert_equal 'Part-time', find('#patient_employment_status').value
-        assert_equal '$30,000-34,999 ($577-672/week)', find('#patient_income').value
-        assert_equal '1', find('#patient_household_size_adults').value
-        assert_equal '3', find('#patient_household_size_children').value
-        assert_equal 'Other state Medicaid', find('#patient_insurance').value
-        assert_equal 'Other abortion fund', find('#patient_referred_by').value
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
       end

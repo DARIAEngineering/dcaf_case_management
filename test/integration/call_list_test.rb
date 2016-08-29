@@ -13,8 +13,8 @@ class CallListTest < ActionDispatch::IntegrationTest
   end
 
   after do
-    #use reset_sessions! if enabling Timecop
-    #Capybara.reset_sessions!
+    # use reset_sessions! if enabling Timecop
+    # Capybara.reset_sessions!
     Capybara.use_default_driver
   end
 
@@ -28,9 +28,9 @@ class CallListTest < ActionDispatch::IntegrationTest
       # problematic test
       # add_to_call_list @patient_2.name
       # within :css, '#call_list_content' do
-        # assert has_text? @patient.name
-        # assert has_text? @patient_2.name
-        # assert has_link? 'Remove', count: 2
+      # assert has_text? @patient.name
+      # assert has_text? @patient_2.name
+      # assert has_link? 'Remove', count: 2
       # end
     end
 
@@ -71,7 +71,7 @@ class CallListTest < ActionDispatch::IntegrationTest
       find('a', text: 'I left a voicemail for the patient').click
       visit authenticated_root_path
     end
-    
+
     # problematic test
     # it 'should add a call to completed when a call was made within 8 hrs' do
     #   within :css, '#completed_calls_content' do

@@ -20,7 +20,7 @@
             <%= f.check_box :spanish, label: 'Spanish Only' %>
           <% end %>
 
-          <%= f.select :voicemail_preference, 
+          <%= f.select :voicemail_preference,
                        options_for_select(voicemail_options,
                                           patient.voicemail_preference) %>
 
@@ -63,7 +63,7 @@
               <%= f.select :household_size_children,
                             options_for_select(household_size_options,
                                                patient.household_size_children),
-                                               label: 'Minors in household' %>              
+                                               label: 'Minors in household' %>
             </div>
           </div>
 
@@ -75,27 +75,27 @@
                        options_for_select(referred_by_options,
                                           patient.referred_by),
                                           autocomplete: 'off' %>
-          
-          <p style="font-weight:bold">Special circumstances</p> 
+
+          <p style="font-weight:bold">Special circumstances</p>
           <%= f.form_group :special_circumstances do %>
             <div class="col-sm-6">
-              <%= f.check_box :special_circumstances, { label: 'Fetal anomaly', name: 'patient[special_circumstances][]', 
+              <%= f.check_box :special_circumstances, { label: 'Fetal anomaly', name: 'patient[special_circumstances][]',
                               checked: patient.special_circumstances.include?('Fetal anomaly'), namespace: 'Fetal' }, 'Fetal anomaly', '' %>
-              <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'patient[special_circumstances][]', 
+              <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'patient[special_circumstances][]',
                               checked: patient.special_circumstances.include?('Homelessness'), namespace: 'Home' }, 'Homelessness', '' %>
-              <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'patient[special_circumstances][]', 
+              <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'patient[special_circumstances][]',
                               checked: patient.special_circumstances.include?('Domestic violence'), namespace: 'Domestic' }, 'Domestic violence', '' %>
-            </div>  
+            </div>
             <div class="col-sm-6">
-            <%= f.check_box :special_circumstances, { label: 'Rape', name: 'patient[special_circumstances][]', 
+            <%= f.check_box :special_circumstances, { label: 'Rape', name: 'patient[special_circumstances][]',
                               checked: patient.special_circumstances.include?('Rape'), namespace: 'Rape' }, 'Rape', '' %>
-            <%= f.check_box :special_circumstances, { label: 'Incest', name: 'patient[special_circumstances][]', 
+            <%= f.check_box :special_circumstances, { label: 'Incest', name: 'patient[special_circumstances][]',
                               checked: patient.special_circumstances.include?('Incest'), namespace: 'Incest' }, 'Incest', '' %>
-            <%= f.check_box :special_circumstances, { label: 'Prison', name: 'patient[special_circumstances][]', 
-                              checked: patient.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>      
-            </div>  
+            <%= f.check_box :special_circumstances, { label: 'Prison', name: 'patient[special_circumstances][]',
+                              checked: patient.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>
+            </div>
           <% end %>
-        </div>  
+        </div>
       </div>
     </div>
   <% end %>

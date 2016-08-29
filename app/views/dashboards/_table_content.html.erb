@@ -28,7 +28,7 @@
           <td><%= patient.pregnancy.last_menstrual_period_display_short %></td>
           <td><%= patient.status %></td>
           <td><%= patient.most_recent_note_display_text %> <%= plus_sign_glyphicon(patient.most_recent_note) %></td>
-  
+
           <% if table_type == 'completed_calls' || table_type == 'urgent_patients' %>
             <td class="blank-td"></td>
           <% else %>

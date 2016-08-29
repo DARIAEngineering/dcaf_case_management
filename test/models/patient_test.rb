@@ -178,7 +178,6 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'methods' do
-
     describe 'contact_made? method' do
       it 'should return false if no calls have been made' do
         refute @patient.send :contact_made?
@@ -198,13 +197,14 @@ class PatientTest < ActiveSupport::TestCase
     describe 'identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
-        assert_equal 'D3-5555', @patient.identifier # make it live after merging that one PR
+        assert_equal 'D3-5555', @patient.identifier
       end
     end
 
     describe 'most_recent_note_display_text method' do
       before do
-        @note = create :note, patient: @patient, full_text: (1..100).map(&:to_s).join('')
+        @note = create :note, patient: @patient,
+                              full_text: (1..100).map(&:to_s).join('')
       end
 
       it 'returns 44 characters of the notes text' do
@@ -249,7 +249,7 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'history check methods' do
       it 'should say whether a patient is still urgent' do
-        # TODO TIMECOP
+        # TODO: TIMECOP
         @patient.urgent_flag = true
         @patient.save
 
@@ -257,7 +257,7 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should trim pregnancies after they have been urgent for five days' do
-        # TODO TEST patient#trim_urgent_pregnancies
+        # TODO: TEST patient#trim_urgent_pregnancies
       end
     end
   end

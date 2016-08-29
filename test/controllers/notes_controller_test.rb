@@ -72,7 +72,9 @@ class NotesControllerTest < ActionController::TestCase
 
     it 'should refuse to save note content to blank' do
       [nil, ''].each do |bad_text|
-        assert_no_difference '@patient.notes.find(@note).history_tracks.count' do
+        assert_no_difference '@patient.notes
+                                      .find(@note)
+                                      .history_tracks.count' do
           @note_edits[:full_text] = bad_text
           patch :update, patient_id: @patient, id: @note,
                          note: @note_edits, format: :js

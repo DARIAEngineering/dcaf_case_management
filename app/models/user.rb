@@ -1,4 +1,4 @@
-class User  
+class User
   include Mongoid::Document
   include Mongoid::Userstamp::User
 
@@ -51,8 +51,8 @@ class User
   # field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   ## Lockable
-  field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
+  field :failed_attempts, type: Integer, default: 0
+  # field :unlock_token,    type: String # Requires unlock strategy
   field :locked_at,       type: Time
 
   # Validations
@@ -75,11 +75,11 @@ class User
   # AND they would otherwise be in the call list
 
   def recently_called_patients
-    patients.select { |p| recently_called_by_user?(p) }
+    patients.select { |patient| recently_called_by_user? patient }
   end
 
   def call_list_patients
-    patients.reject { |p| recently_called_by_user?(p) }
+    patients.reject { |patient| recently_called_by_user? patient }
   end
 
   def add_patient(patient)
@@ -91,7 +91,7 @@ class User
     patients.delete patient
     reload
   end
-  
+
   def reorder_call_list(order)
     update call_order: order
     save
@@ -108,7 +108,7 @@ class User
 
   def clear_call_list
     patients.each do |p|
-      # TODO reexamine this behavior in awhile
+      # TODO: reexamine this behavior in awhile
       patients.delete(p) if recently_reached_by_user?(p)
     end
   end
@@ -116,20 +116,19 @@ class User
   private
 
   def verify_password_complexity
-    # Enforce length of at least ten
-    return false unless password.length >= 8
-    # we want at least one lower case
-    return false if (password =~ /[a-z]/).nil?
-    # We want at least one uppercase
-    return false if (password =~ /[A-Z]/).nil?
-    # We want at least one digit
-    return false if (password =~ /[0-9]/).nil?
-    # Make sure the word password isn't in there
-    return false if !(password.downcase[/(password|dcaf)/]).nil?
+    return false unless password.length >= 8 # length at least 8
+    return false if (password =~ /[a-z]/).nil? # at least one lowercase
+    return false if (password =~ /[A-Z]/).nil? # at least one uppercase
+    return false if (password =~ /[0-9]/).nil? # at least one digit
+    # Make sure no bad words are in there
+    return false unless password.downcase[/(password|dcaf)/].nil?
+    true
   end
 
   def recently_reached_by_user?(patient)
-    patient.calls.any? { |call| call.created_by_id == id && call.recent? && call.reached? }
+    patient.calls.any? do |call|
+      call.created_by_id == id && call.recent? && call.reached?
+    end
   end
 
   def recently_called_by_user?(patient)
@@ -141,7 +140,7 @@ class User
   end
 
   def send_password_change_email
-    #@user = User.find(id)
+    # @user = User.find(id)
     UserMailer.password_changed(id).deliver_now
   end
 end
