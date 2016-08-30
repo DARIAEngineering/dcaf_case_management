@@ -1,4 +1,4 @@
-# Object representing core patient information and demographic data
+# Object representing core patient information and demographic data.
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps

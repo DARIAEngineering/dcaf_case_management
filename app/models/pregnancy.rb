@@ -1,4 +1,4 @@
-# Object representing pregnancy outcomes and status of a patient
+# Object representing pregnancy outcomes and status of a patient.
 class Pregnancy
   include Mongoid::Document
   include Mongoid::Timestamps
