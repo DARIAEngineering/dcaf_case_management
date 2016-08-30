@@ -1,3 +1,4 @@
+# Keeps track of the history of objects (mostly patients and pregnancies).
 class AuditTrail
   include Mongoid::History::Tracker
 

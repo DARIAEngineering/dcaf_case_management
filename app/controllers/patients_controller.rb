@@ -1,3 +1,4 @@
+# Create and update patients, plus the main patient view in edit
 class PatientsController < ApplicationController
   before_action :find_patient, only: [:edit, :update]
   rescue_from Mongoid::Errors::DocumentNotFound,

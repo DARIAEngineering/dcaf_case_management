@@ -22,8 +22,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       find('#patient_pregnancy_last_menstrual_period_days').select '2 days'
       fill_in 'Appointment date', with: '2016-09-01'
       fill_in 'Phone number', with: '123-666-8888'
+      fill_in 'First and last name', with: 'Susie Everyteen 2'
+      wait_for_ajax
 
-      click_away_from_field
       visit authenticated_root_path
       visit edit_patient_path @patient
     end

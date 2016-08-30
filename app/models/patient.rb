@@ -1,20 +1,13 @@
+# Object representing core patient information and demographic data.
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Enum
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include StatusHelper
 
   before_validation :clean_fields
-
-  STATUSES = {
-    no_contact: 'No Contact Made',
-    needs_appt: 'Needs Appointment',
-    fundraising: 'Fundraising',
-    pledge_sent: 'Pledge Sent',
-    pledge_paid: 'Pledge Paid',
-    resolved: 'Resolved Without DCAF'
-  }.freeze
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
@@ -87,14 +80,6 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def status
-    return STATUSES[:resolved] if pregnancy.resolved_without_dcaf?
-    return STATUSES[:pledge_sent] if pregnancy.pledge_sent?
-    return STATUSES[:fundraising] if appointment_date
-    return STATUSES[:needs_appt] if contact_made?
-    STATUSES[:no_contact]
-  end
-
   def self.urgent_patients
     where(urgent_flag: true)
   end
@@ -194,13 +179,6 @@ class Patient
   end
 
   private
-
-  def contact_made?
-    calls.each do |call|
-      return true if call.status == 'Reached patient'
-    end
-    false
-  end
 
   def recent_history_tracks
     history_tracks.select { |ht| ht.updated_at > 6.days.ago }

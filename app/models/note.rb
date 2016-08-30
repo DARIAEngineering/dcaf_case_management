@@ -1,3 +1,4 @@
+# Object representing a case manager's log of their interactions with a patient.
 class Note
   include Mongoid::Document
   include Mongoid::Timestamps

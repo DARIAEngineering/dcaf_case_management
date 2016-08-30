@@ -1,3 +1,4 @@
+# Object representing money from organizations associated with a patient.
 class Pledge
   include Mongoid::Document
   include Mongoid::Timestamps

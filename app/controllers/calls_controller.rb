@@ -1,3 +1,4 @@
+# Create method for calls, plus triggers for modal behavior
 class CallsController < ApplicationController
   before_action :find_patient, only: [:create]
 

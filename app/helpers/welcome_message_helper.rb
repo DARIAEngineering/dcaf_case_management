@@ -1,3 +1,4 @@
+# Renders nice message on the login screen!
 module WelcomeMessageHelper
   def random_welcome_message
     welcome_messages.sample

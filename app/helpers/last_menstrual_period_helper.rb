@@ -1,5 +1,5 @@
+# last menstrual period calculator methods
 module LastMenstrualPeriodHelper
-  # last menstrual period calculator methods
   def last_menstrual_period_display
     return nil unless last_menstrual_period_now
     display_as_weeks last_menstrual_period_now

@@ -1,3 +1,4 @@
+# Convenience methods consumed in the dashboards controller index view
 module DashboardsHelper
   def week_range(date: DateTime.now.in_time_zone, start_day: :monday)
     week_start = date.beginning_of_week start_day
