@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PregnanciesHelperTest < ActionView::TestCase
+class PatientsHelperTest < ActionView::TestCase
   describe 'weeks_options' do
     it 'should pluralize properly' do
       assert_equal '1 week', weeks_options.second[0]

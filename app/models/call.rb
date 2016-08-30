@@ -1,3 +1,4 @@
+# Object representing a case manager dialing a patient
 class Call
   include Mongoid::Document
   include Mongoid::Timestamps

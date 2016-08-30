@@ -1,3 +1,4 @@
+# Object representing a case managemern. Devise configs plus a little extra
 class User
   include Mongoid::Document
   include Mongoid::Userstamp::User

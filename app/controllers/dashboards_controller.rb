@@ -1,3 +1,4 @@
+# Basically just search and the home view
 class DashboardsController < ApplicationController
   def index
     @urgent_patients = Patient.urgent_patients

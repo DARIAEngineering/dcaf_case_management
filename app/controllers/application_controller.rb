@@ -1,3 +1,4 @@
+# Sets a few devise configs and security measures
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -7,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :prevent_caching_via_headers, unless: :devise_controller?
   before_action :authenticate_user!
 
-  # whitelists name attribute in devise
+  # whitelists attributes in devise
   def configure_permitted_parameters
     [:name].each do |sym|
       devise_parameter_sanitizer.for(:sign_up) << sym
@@ -17,6 +18,7 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Prevents app from caching pages as a security measure
   def prevent_caching_via_headers
     response.headers['Cache-Control'] = 'no-cache, no-store'
     response.headers['Pragma'] = 'no-cache'

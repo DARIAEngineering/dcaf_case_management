@@ -1,3 +1,4 @@
+# Create notes. Update notes not currently turned on to users
 class NotesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_note, only: [:update]

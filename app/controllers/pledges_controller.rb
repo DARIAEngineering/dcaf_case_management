@@ -1,3 +1,4 @@
+# Create a pledge. Not currently utilized
 class PledgesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_pledge, only: [:update]
