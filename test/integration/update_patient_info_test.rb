@@ -18,9 +18,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing patient dashboard information' do
     before do
       fill_in 'First and last name', with: 'Susie Everyteen 2'
-      find('#patient_pregnancy_last_menstrual_period_weeks').select '5 weeks'
-      find('#patient_pregnancy_last_menstrual_period_days').select '2 days'
-      fill_in 'Appointment date', with: '2016-09-01'
+      select '5 weeks', from: 'patient_pregnancy_last_menstrual_period_weeks'
+      select '2 days', from: 'patient_pregnancy_last_menstrual_period_days'
+      fill_in 'Appointment date', with: '2016-09-05'
       fill_in 'Phone number', with: '123-666-8888'
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       wait_for_ajax
@@ -36,7 +36,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field?('First and last name', with: 'Susie Everyteen 2')
         assert_equal '5', lmp_weeks.value
         assert_equal '2', lmp_days.value
-        assert has_field?('Appointment date', with: '2016-09-01')
+        assert has_field?('Appointment date', with: '2016-09-05')
         assert has_field? 'Phone number', with: '123-666-8888'
       end
     end
@@ -45,7 +45,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing abortion information' do
     before do
       click_link 'Abortion Information'
-      find('#patient_clinic_name').select 'Sample Clinic 1'
+      select 'Sample Clinic 1', from: 'patient_clinic_name'
       # TODO: finish this after implementing clinic logic
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
@@ -80,19 +80,19 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Other phone', with: '123-666-7777'
       fill_in 'Relationship to other contact', with: 'Friend'
       fill_in 'Age', with: '24'
-      find('#patient_race_ethnicity').select 'White/Caucasian'
+      select 'White/Caucasian', from: 'patient_race_ethnicity'
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'ZIP', with: '90210'
-      find('#patient_voicemail_preference').select 'Voicemail OK'
+      select 'Voicemail OK', from: 'patient_voicemail_preference'
       check 'Spanish Only'
 
-      find('#patient_employment_status').select 'Part-time'
-      find('#patient_income').select '$30,000-34,999 ($577-672/week)'
-      find('#patient_household_size_adults').select '1'
-      find('#patient_household_size_children').select '3'
-      find('#patient_insurance').select 'Other state Medicaid'
-      find('#patient_referred_by').select 'Other abortion fund'
+      select 'Part-time', from: 'patient_employment_status'
+      select '$30,000-34,999 ($577-672/week)', from: 'patient_income'
+      select '1', from: 'patient_household_size_adults'
+      select '3', from: 'patient_household_size_children'
+      select 'Other state Medicaid', from: 'patient_insurance'
+      select 'Other abortion fund', from: 'patient_referred_by'
       check 'Homelessness'
       check 'Prison'
 
