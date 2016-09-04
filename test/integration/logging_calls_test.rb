@@ -3,7 +3,7 @@ require 'test_helper'
 class LoggingCallsTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
-    @patient = create :patient, name: 'Susan Everyteen'
+    @patient = create :patient, name: 'Susan Everyteen', primary_phone: '123-123-1234'
     @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
     log_in_as @user
