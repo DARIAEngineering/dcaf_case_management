@@ -59,6 +59,11 @@ $font-size: 17px;
   }
 }
 // Styling for #app_footer
+#app_footer .glyphicon-earphone {
+  color: inherit;
+  background-color: inherit;
+  vertical-align: top;
+}
 .hr_gradient {
   border: 0;
   height: 1px;
