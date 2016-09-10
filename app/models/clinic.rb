@@ -6,7 +6,7 @@ class Clinic
   include Mongoid::Userstamp
 
   # Relationships
-  belongs_to :pregnancy
+  embedded_in :patient
 
   # Fields
   field :name, type: String
