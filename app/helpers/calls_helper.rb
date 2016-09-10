@@ -10,14 +10,22 @@ module CallsHelper
   end
 
   def display_other_contact_and_phone_if_exists(patient)
-    if patient.other_contact? || patient.other_phone?
-      content_tag :h4,
-                  other_contact_name_display(patient),
-                  class: 'modal-title calls-request calls-other-contact'
+    section = []
+    if patient.other_contact? && patient.other_phone?
+      section.push name_display_h4(patient)
+      section.push other_phone_h4(patient)
+      section.push patient_name_h4(patient)
     end
+    safe_join section, ''
   end
 
   private
+
+  def name_display_h4(patient)
+    content_tag :h4,
+                other_contact_name_display(patient),
+                class: 'modal-title calls-request calls-other-contact'
+  end
 
   def leave_a_voicemail_link(patient)
     link_to 'I left a voicemail for the patient',
@@ -50,11 +58,19 @@ module CallsHelper
       ' is the primary contact for this patient:'
   end
 
+  def other_phone_h4(patient)
+    content_tag(:h4, patient.other_phone_display, class: 'calls-phone')
+  end
+
+  def patient_name_h4(patient)
+    content_tag(:h4, "#{patient.name}'s number:", class: 'modal-title calls-request')
+  end
+
   def other_contact_relationship_display(patient)
     if patient.other_contact_relationship?
       " (#{patient.other_contact_relationship})"
     else
-      ""
+      ''
     end
   end
 end

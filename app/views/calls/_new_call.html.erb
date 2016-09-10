@@ -9,11 +9,6 @@
 
           <%= display_other_contact_and_phone_if_exists(patient) %>
 
-          <% if patient.other_contact? || patient.other_phone? %>
-            <h4 class="calls-phone"><%= patient.other_phone_display %></h4>
-            <h4 class="modal-title calls-request"><%= patient.name %>'s number:</h4>
-          <% end %>
-
           <h4 class="calls-phone"><%= patient.primary_phone_display %></h4>
 
           <p><%= link_to "I reached the patient", patient_calls_path(patient, call: { status: 'Reached patient'} ), method: :post, class: 'btn btn-primary', id: 'calls-btn' %></p>
