@@ -19,6 +19,26 @@ module CallsHelper
     safe_join section, ''
   end
 
+  def display_reached_patient_link(patient)
+    content_tag :p do
+      link_to 'I reached the patient',
+              patient_calls_path(patient,
+                                 call: { status: 'Reached patient' }),
+              method: :post,
+              class: 'btn btn-primary', id: 'calls-btn'
+    end
+  end
+
+  def display_couldnt_reach_patient_link(patient)
+    content_tag :p do
+      link_to "I couldn't reach the patient",
+              patient_calls_path(patient,
+                                 call: { status: "Couldn't reach patient" }),
+              method: :post, remote: true,
+              class: 'calls-response'
+    end
+  end
+
   private
 
   def name_display_h4(patient)
@@ -37,19 +57,21 @@ module CallsHelper
   end
 
   def no_voicemail_notifier
-    "<p class='text-danger'>" \
-    '<strong>Do not leave this patient a voicemail</strong>' \
-    '</p>'.html_safe
+    content_tag :p, class: 'text-danger' do
+      content_tag :strong, 'Do not leave this patient a voicemail'
+    end
   end
 
   def voicemail_ok_notifier
-    "<p class='text-success'>Voicemail OK; " \
-    'Okay to identify as DCAF</p>'.html_safe
+    content_tag :p, class: 'text-success' do
+      content_tag :strong, 'Voicemail OK; Okay to identify as DCAF'
+    end
   end
 
   def voicemail_not_specified_notifier
-    "<p class='text-warning'><strong>Voicemail OK; " \
-    'Do not identify as DCAF</strong></p>'.html_safe
+    content_tag :p, class: 'text-warning' do
+      content_tag :strong, 'Voicemail OK; Do not identify as DCAF'
+    end
   end
 
   def other_contact_name_display(patient)
@@ -59,11 +81,13 @@ module CallsHelper
   end
 
   def other_phone_h4(patient)
-    content_tag(:h4, patient.other_phone_display, class: 'calls-phone')
+    content_tag :h4, patient.other_phone_display, class: 'calls-phone'
   end
 
   def patient_name_h4(patient)
-    content_tag(:h4, "#{patient.name}'s number:", class: 'modal-title calls-request')
+    content_tag :h4,
+                "#{patient.name}'s number:",
+                class: 'modal-title calls-request'
   end
 
   def other_contact_relationship_display(patient)
