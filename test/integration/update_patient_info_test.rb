@@ -17,10 +17,11 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   describe 'changing patient dashboard information' do
     before do
+      @date = 5.days.from_now.strftime('%Y-%m-%d')
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       select '5 weeks', from: 'patient_pregnancy_last_menstrual_period_weeks'
       select '2 days', from: 'patient_pregnancy_last_menstrual_period_days'
-      fill_in 'Appointment date', with: '2016-09-05'
+      fill_in 'Appointment date', with: @date
       fill_in 'Phone number', with: '123-666-8888'
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       wait_for_ajax
@@ -36,7 +37,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field?('First and last name', with: 'Susie Everyteen 2')
         assert_equal '5', lmp_weeks.value
         assert_equal '2', lmp_days.value
-        assert has_field?('Appointment date', with: '2016-09-05')
+        assert has_field?('Appointment date', with: @date)
         assert has_field? 'Phone number', with: '123-666-8888'
       end
     end
