@@ -17,6 +17,14 @@ user2 = User.create name: 'testuser2', email: 'test2@test.com',
                  created_by: user2
 end
 
+# Add example of patient with other contact info
+  patient1 = Patient.find(1)
+  patient1.other_contact = "Jane Doe"
+  patient1.other_phone = "234-456-6789"
+  patient1.other_contact_relationship = "Sister"
+
+
+
 # Create active pregnancies for every patient
 Patient.all.each do |patient|
   # If the patient number is even, flag as urgent
