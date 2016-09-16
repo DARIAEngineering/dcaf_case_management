@@ -1,5 +1,6 @@
 Patient.destroy_all
 User.destroy_all
+Clinic.destroy_all
 
 # Create two test users
 user = User.create name: 'testuser', email: 'test@test.com',
@@ -18,11 +19,14 @@ user2 = User.create name: 'testuser2', email: 'test2@test.com',
 end
 
 # Add example of patient with other contact info
-  patient1 = Patient.find(1)
-  patient1.other_contact = "Jane Doe"
-  patient1.other_phone = "234-456-6789"
-  patient1.other_contact_relationship = "Sister"
+  patient1 = Patient.find_by(name: "Patient 1")
+  patient1.update_attributes( other_contact: "Jane Doe", other_phone: "234-456-6789", other_contact_relationship: "Sister" )
+  patient1.save!
 
+# Add example of patient with appointment one week from today && clinic selected
+  patient2 = Patient.find_by(name: "Patient 2")
+  patient2.update_attributes( clinic_name: "Sample Clinic 1", appointment_date: Time.now + (7*24*60*60) )
+  patient2.save!
 
 
 # Create active pregnancies for every patient
