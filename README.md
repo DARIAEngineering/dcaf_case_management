@@ -120,9 +120,11 @@ By and large, we are executing on the fantastic work of the design team.
 
 The stack we use is Rails 4, MongoDB, PhantomJS for integration tests. Nearly everything else is out of the box.
 
-We prioritize inclusivity of all skill levels on this project -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
+**We prioritize inclusivity of all skill levels on this project** -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
 
 We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. If you're looking for an issue to tackle, hit up [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management)!
+
+There's a picture of the data model [here](_design/DataModel.png).
 
 
 ## For user testers (Team lead: @eheintzelman)
