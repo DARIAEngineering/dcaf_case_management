@@ -128,7 +128,7 @@ There's a picture of the data model [here](_design/DataModel.png).
 
 
 ## For user testers (Team lead: @eheintzelman)
-With the core in place, we're regularly user testing new features and getting feedback on existing features, and working with the design team to resolve questions that these tests open up. Hit
+With the core in place and in use, we're regularly user testing new features and getting feedback on existing features, and working with the design team to resolve questions that these tests open up. If you're interested in this, hit us up!
 
 
 ## For case managers or abortion fund volunteers (Team leads: @lwaldsc and @nerdygirl537)
