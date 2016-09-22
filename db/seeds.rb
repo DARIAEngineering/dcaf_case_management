@@ -18,15 +18,35 @@ user2 = User.create name: 'testuser2', email: 'test2@test.com',
                  created_by: user2
 end
 
+# Patients should have names that reflect what we're looking for (e.g. 'Patient With Other Contact' rather than 'Patient 2')
 # Add example of patient with other contact info
-  patient1 = Patient.find_by(name: "Patient 1")
-  patient1.update_attributes( other_contact: "Jane Doe", other_phone: "234-456-6789", other_contact_relationship: "Sister" )
+  patient1 = Patient.find_by( name: "Patient 1")
+  patient1.update_attributes( name: "Patient 1 with Other Contact info", other_contact: "Jane Doe", other_phone: "234-456-6789", other_contact_relationship: "Sister" )
   patient1.save!
 
 # Add example of patient with appointment one week from today && clinic selected
-  patient2 = Patient.find_by(name: "Patient 2")
-  patient2.update_attributes( clinic_name: "Sample Clinic 1", appointment_date: Time.now + (7*24*60*60) )
+  patient2 = Patient.find_by( name: "Patient 2")
+  patient2.update_attributes( name: "Patient 2 with clinic and appointment(1wk)",clinic_name: "Sample Clinic 1", appointment_date: Time.now + (7*24*60*60) )
   patient2.save!
+
+# # Add example of patient with a pledge submitted
+#   patient3 = Patient.find_by( name: "Patient 3")
+#   patient3.update_attributes( name: "Patient 2 with a pledge submitted",clinic_name: "Sample Clinic 1", appointment_date: Time.now + (7*24*60*60) )
+#   patient3.save!  
+
+
+# # Add example of patient should be marked resolved without DCAF
+#   patient4 = Patient.find_by( name: "Patient 4")
+#   patient4.update_attributes( name: "Patient 4 resolved without DCAF", clinic_name: "Sample Clinic 1", appointment_date: Time.now + (7*24*60*60) )
+#   patient4.save!  
+
+
+# # Add example of patient should have special circumstances
+#   patient4 = Patient.find_by( name: "Patient 4")
+#   patient4.update_attributes( name: "Patient 4 resolved without DCAF", clinic_name: "Sample Clinic 1", appointment_date: Time.now + (7*24*60*60) )
+#   patient4.save!  
+
+# All patients except one or two should have notes
 
 
 # Create active pregnancies for every patient
