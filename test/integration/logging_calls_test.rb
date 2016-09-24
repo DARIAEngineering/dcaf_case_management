@@ -10,6 +10,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     fill_in 'search', with: 'Susan Everyteen'
     click_button 'Search'
     find("a[href='#call-123-123-1234']").click
+    wait_for_ajax
   end
 
   after do
