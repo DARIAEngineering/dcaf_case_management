@@ -85,7 +85,7 @@ class Patient
   end
 
   def self.trim_urgent_patients
-    Patient.all.find_each do |patient|
+    Patient.all do |patient|
       unless patient.still_urgent?
         patient.urgent_flag = false
         patient.save
