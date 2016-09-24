@@ -170,6 +170,10 @@ section {
   @extend .btn-xs;
 }
 
+.btn-space {
+   margin-top:25px;
+}
+
 // Search result
 // shell styling
 .form-group input {
@@ -177,4 +181,5 @@ section {
     -webkit-appearance: none;
     display: none;
   }
+
 }
