@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+ 
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
+    get  'report', to: 'reports#index', as: 'report'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :patients, only: [ :create, :edit, :update ] do
       resources :calls, only: [ :create ]
