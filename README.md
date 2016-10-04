@@ -18,6 +18,13 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 
 
 ## Contributing to this Project
+
+### Hello friends from Hacktoberfest!
+
+Welcome strangers from the internet! Our small scrappy team would love to have your insights and talents on some stuff -- this is a great opportunity to lend your engineering skills to the cause of reproductive justice. Check out the [Hacktoberfest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) tag for some straightforward issues that might require some technology expertise, or that are just some low-hanging fruit we've left as we sprint toward our next major feature release. 
+
+The core team actively manages this project and we are happy to provide any guidance or context that would be helpful!
+
 ### Our structure
 
 We run two week sprints where we try to complete 2-3 small features. Generally, we meet at Code for DC once to begin the sprint, and spend the off-week completing what we didn't finish the previous week.
@@ -154,6 +161,17 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @rebeccaestes
 * @ashlynnpai
 * @camlatimer
+* @mchelen
+* @ewiggins
+* @katsdc
+* @eheintzelman
+
+## Special thanks
+
+The following are people who have been uniquely generous with their time, resources, and expertise:
+
+* [Team Brakeman, a group of security specialists who have been very kind to us](https://brakemanpro.com/)
+* Mike from OWASP DC, who provided critical guidance and insights when we were really bolting this down for production use
 
 ## License
 
