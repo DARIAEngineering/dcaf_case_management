@@ -49,6 +49,12 @@ Patient.all.each do |patient|
                             created_by: user2
     end
   end
+
+  if patient.name == 'Patient 1'
+    patient.calls.create! status: 'Reached patient',
+                          created_at: 14.hours.ago,
+                          created_by: user
+  end
 end
 
 # Patients should have names that reflect what we're looking for (e.g. 'Patient With Other Contact' rather than 'Patient 2')
@@ -72,13 +78,11 @@ end
   patient3.update_attributes( name: "Patient with a pledge submitted - 3", clinic_name: "Sample Clinic 1", appointment_date: Time.now + (10*24*60*60) )
   patient3.save!  
 
-
 # # Add example of patient should be marked resolved without DCAF
   patient5 = Patient.find_by( name: "Patient 5")
   patient5.pregnancy.resolved_without_dcaf = true
   patient5.update_attributes( name: "Patient resolved without DCAF - 5")
   patient5.save!  
-
 
 # Add example of patient should have special circumstances
   patient4 = Patient.find_by( name: "Patient 4")
@@ -99,14 +103,14 @@ Patient.all.each do |patient|
   end
 end
 
-# Adds Patients 0 thru 4 to regular call list
+# Adds 5 Patients to regular call list
 user.add_patient Patient.find_by(name: 'Patient 0')
 user.add_patient Patient.find_by(name: 'Patient with Other Contact info - 1')
 user.add_patient Patient.find_by(name: 'Patient with clinic and appointment(1wk) - 2')
 user.add_patient Patient.find_by(name: 'Patient with a pledge submitted - 3')
 user.add_patient Patient.find_by(name: 'Patient resolved without DCAF - 5')
 
-# Add Patient 5 to completed calls list
+# Add Patient to completed calls list
 patient_in_completed_calls = Patient.find_by(name: 'Patient with Special Circumstances - 4')
 user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create status: 'Left voicemail',

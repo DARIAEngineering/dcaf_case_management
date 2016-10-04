@@ -57,7 +57,7 @@ class Patient
             :initial_call_date,
             :created_by,
             presence: true
-  validates :primary_phone, format: /\d{10}/, length: { is: 10 }
+  validates :primary_phone, format: /\d{10}/, length: { is: 10 }, uniqueness: true
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -85,7 +85,7 @@ class Patient
   end
 
   def self.trim_urgent_patients
-    Patient.all.find_each do |patient|
+    Patient.all do |patient|
       unless patient.still_urgent?
         patient.urgent_flag = false
         patient.save

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :clinic do
-    pregnancy
+    patient
     name 'Friendly Clinic'
     city 'Washington'
     state 'DC'

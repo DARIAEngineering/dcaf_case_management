@@ -12,9 +12,9 @@
   </head>
   <body>
     <% if current_user.present? %>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
+      <header>
+        <%= render 'layouts/navigation' %>
+      </header>
     <% end %>
     <main role="main">
       <div class="container">
@@ -24,5 +24,10 @@
         <%= yield %>
       </div>
     </main>
+    <% if current_user.present? %>
+      <footer>
+        <%= render 'layouts/footer' %>
+      </footer>
+    <% end %>
   </body>
 </html>
