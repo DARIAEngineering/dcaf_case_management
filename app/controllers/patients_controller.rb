@@ -12,7 +12,7 @@ class PatientsController < ApplicationController
     if patient.save
       flash[:notice] = 'A new patient has been successfully saved'
     else
-      flash[:alert] = 'An error prevented this patient from being saved'
+      flash[:alert] = "Errors prevented this patient from being saved: #{patient.errors.full_messages.to_sentence}"
     end
     current_user.add_patient patient
     redirect_to root_path

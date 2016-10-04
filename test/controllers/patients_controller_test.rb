@@ -9,7 +9,7 @@ class PatientsControllerTest < ActionController::TestCase
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
     @pregnancy = create :pregnancy, patient: @patient
-    @clinic = create :clinic, name: 'Sample Clinic 1', pregnancy: @pregnancy
+    @clinic = create :clinic, name: 'Sample Clinic 1', patient: @patient
   end
 
   describe 'create method' do
@@ -85,10 +85,11 @@ class PatientsControllerTest < ActionController::TestCase
 
   describe 'update method' do
     before do
+      @date = 5.days.from_now.to_date
       @payload = {
-        appointment_date: '2016-09-04', name: 'Susie Everyteen 2',
+        appointment_date: @date.strftime('%Y-%m-%d'), name: 'Susie Everyteen 2',
         pregnancy: { resolved_without_dcaf: true },
-        clinic: { name: 'Clinic A', id: @clinic.id }
+        clinic: { name: 'Sample Clinic 2', id: @clinic.id }
       }
 
       patch :update, id: @patient, patient: @payload
@@ -106,15 +107,15 @@ class PatientsControllerTest < ActionController::TestCase
     end
 
     it 'should update pregnancy fields' do
-      assert_equal @patient.appointment_date, '2016-09-04'.to_date
+      assert_equal @date, @patient.appointment_date
     end
 
     it 'should update clinic fields' do
-      assert_equal @patient.clinic.name, 'Clinic A'
+      assert_equal 'Sample Clinic 2', @patient.clinic.name
     end
 
     it 'should update patient fields' do
-      assert_equal @patient.name, 'Susie Everyteen 2'
+      assert_equal 'Susie Everyteen 2', @patient.name
     end
 
     it 'should redirect if record does not exist' do

@@ -6,6 +6,6 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.password_changed(@user.id)
     assert_equal 'Your password has changed', mail.subject
     assert_equal [@user.email], mail.to
-    assert_equal ['no-reply@dcaf.org'], mail.from
+    assert_equal ['no-reply@dcabortionfund.org'], mail.from
   end
 end

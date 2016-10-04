@@ -56,6 +56,12 @@ Patient.all.each do |patient|
                             created_by: user2
     end
   end
+
+  if patient.name == 'Patient 1'
+    patient.calls.create! status: 'Reached patient',
+                          created_at: 14.hours.ago,
+                          created_by: user
+  end
 end
 
 # Add a note to Patient 2

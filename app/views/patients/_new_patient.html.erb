@@ -1,23 +1,19 @@
 <h3><small>Your search produced no results, so add a new patient:</small></h3>
 
 <%= bootstrap_form_for patient do |f| %>
-  <div class="col-md-3">
-    <div class="col-md-6">
-      <%= f.text_field :primary_phone, label: 'Phone', value: phone %>
-    </div>
-    <div class="col-md-6">
-      <%= f.text_field :name, label: 'Name', value: name %>
-    </div>
+  <div class="col-sm-2">
+    <%= f.text_field :primary_phone, label: 'Phone', value: phone %>
+  </div>
+  <div class="col-md-2">
+    <%= f.text_field :name, label: 'Name', value: name %>
   </div>
 
   <%= f.fields_for patient.build_pregnancy do |p| %>
-    <div class="col-md-3">
-      <div class="col-md-6">
-        <%= p.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), label: 'LMP', autocomplete: 'off' %>
-      </div>
-      <div class="col-md-6 hide-label">
-        <%= p.select :last_menstrual_period_days, options_for_select(days_options, patient.pregnancy.last_menstrual_period_days ), label: 'LMP', autocomplete: 'off' %>
-      </div>
+    <div class="col-sm-1">
+      <%= p.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), label: 'LMP', autocomplete: 'off' %>
+    </div>
+    <div class="col-sm-1 hide-label">
+      <%= p.select :last_menstrual_period_days, options_for_select(days_options, patient.pregnancy.last_menstrual_period_days ), label: 'LMP', autocomplete: 'off' %>
     </div>
   <% end %>
 
@@ -30,12 +26,9 @@
                  options_for_select(voicemail_options) %>
   </div>
 
-  <div class="col-sm-2">
-    <br>
+  <div class="col-sm-2 btn-space">
     <%= button_tag class: 'btn btn-primary', id: 'create_new_patient_button' do %>
        <span class='glyphicon glyphicon-plus-sign'></span> Create new patient
     <% end %>
-  </div>
 <% end %>
-
-<script>$('[data-toggle="toggle"]').bootstrapToggle();</script>
+<!-- <script>$('[data-toggle="toggle"]').bootstrapToggle();</script> -->
