@@ -84,14 +84,14 @@ end
 
 # Add a note to Patient 2
 note_text = 'This is a note ' * 10
-Patient.find_by(name: 'Patient 2')
+Patient.find_by(name: 'Patient 2 with clinic and appointment(1wk)')
        .notes.create! full_text: note_text,
                       created_by: user2
 
 # Adds Patients 0 thru 4 to regular call list
 user.add_patient Patient.find_by(name: 'Patient 0')
-user.add_patient Patient.find_by(name: 'Patient 1')
-user.add_patient Patient.find_by(name: 'Patient 2')
+user.add_patient Patient.find_by(name: 'Patient 1 with Other Contact info')
+user.add_patient Patient.find_by(name: 'Patient 2 with clinic and appointment(1wk)')
 user.add_patient Patient.find_by(name: 'Patient 3')
 user.add_patient Patient.find_by(name: 'Patient 4')
 
