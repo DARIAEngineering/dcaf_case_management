@@ -7,31 +7,10 @@ class DragAndDropTest < ActionDispatch::IntegrationTest
     log_in_as @user
 
     4.times do |i|
-      Patient.create name: "Patient #{i}",
-                     primary_phone: "123-123-123#{i}",
-                     initial_call_date: 3.days.ago,
-                     urgent_flag: true,
-                     created_by: @user
-    end
-
-    Patient.all.each do |patient|
-
-      if patient.name[-1, 1].to_i.even?
-        lmp_weeks = (patient.name[-1, 1].to_i + 1) * 2
-        lmp_days = 3
-      end
-
-      creation_hash = { last_menstrual_period_weeks: lmp_weeks,
-                        last_menstrual_period_days: lmp_days,
-                        created_by: @user
-                      }
-
-      pregnancy = patient.build_pregnancy(creation_hash)
-      pregnancy.save
-
-      patient.calls.create! status: 'Left voicemail',
-                            created_at: 3.days.ago,
-                            created_by: @user
+      pt = create :patient, name: "Patient #{i}",
+                       primary_phone: "123-123-123#{i}",
+                       created_by: @user
+      create :pregnancy, patient: pt
     end
 
     @user.add_patient Patient.find_by(name: 'Patient 0')
@@ -45,9 +24,15 @@ class DragAndDropTest < ActionDispatch::IntegrationTest
     Patient.destroy_all
   end
 
-  describe 'creating and recalling a new patient' do
-    it 'should be able to drag and drop bruh' do
-      byebug
-    end
+  it 'should drag the first row into the second row' do
+    visit '/'
+    first_row = page.find('#call_list_content tr:nth-child(1)')
+    second_row = page.find('#call_list_content tr:nth-child(2)')
+
+    within(first_row){ assert_text "Patient 0"}
+    within(second_row){ assert_text "Patient 1"}
+    first_row.drag_to(second_row)
+    within(first_row){ assert_text "Patient 1"}
+    within(second_row){ assert_text "Patient 0"}
   end
 end
