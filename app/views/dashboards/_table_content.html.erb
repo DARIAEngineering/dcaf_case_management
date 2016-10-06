@@ -33,7 +33,7 @@
             <td class="blank-td"></td>
           <% else %>
             <% if current_user.patients.include?(patient) %>
-              <td><%= link_to "Remove", remove_patient_path(current_user, patient), method: :patch, remote: true %></td>
+              <td><%= link_to "Remove", remove_patient_path(current_user, patient), method: :patch, data: {confirm: "Are you sure you want to remove the patient: #{patient.name}"},  remote: true %></td>
             <% else %>
               <td><%= link_to "Add", add_patient_path(current_user, patient), method: :patch, remote: true %></td>
             <% end %>
