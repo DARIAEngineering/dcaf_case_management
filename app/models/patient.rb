@@ -130,6 +130,7 @@ class Patient
   def still_urgent?
     # Verify that a pregnancy has not been marked urgent in the past six days
     return false if recent_history_tracks.count == 0
+    return false if pregnancy.pledge_sent || pregnancy.resolved_without_dcaf
     recent_history_tracks.sort.reverse.each do |history|
       return true if history.marked_urgent?
     end
