@@ -210,5 +210,32 @@ class PatientTest < ActiveSupport::TestCase
         # TODO: TEST patient#trim_urgent_pregnancies
       end
     end
+
+    describe 'still urgent method' do
+      it 'should return true if marked urgent in last 6 days' do
+        @patient.update urgent_flag: true
+        assert @patient.still_urgent?
+      end
+
+      it 'should return false if pledge sent' do
+        @patient.update urgent_flag: true
+        @pregnancy.update pledge_sent: true
+        assert_not @patient.still_urgent?
+      end
+
+      it 'should return false if resolved without dcaf' do
+        @patient.update urgent_flag: true
+        @pregnancy.update resolved_without_dcaf: true
+        assert_not @patient.still_urgent?
+      end
+
+      it 'should return false if not updated for more than 6 days' do
+        Timecop.freeze(Time.zone.now - 7.days) do
+          @patient.update urgent_flag: true
+        end
+
+        assert_not @patient.still_urgent?
+      end
+    end
   end
 end
