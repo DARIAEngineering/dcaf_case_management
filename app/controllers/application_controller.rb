@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers, unless: :devise_controller?
   before_action :authenticate_user!
+  before_action :security_headers
 
   # whitelists attributes in devise
   def configure_permitted_parameters
@@ -23,5 +24,10 @@ class ApplicationController < ActionController::Base
     response.headers['Cache-Control'] = 'no-cache, no-store'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
+  end
+
+  # Add CSP
+  def security_headers
+    response.headers['Content-Security-Policy-Report-Only'] = "default-src 'self' www.google-analytics.com; font-src 'self' fonts.gstatic.com; style-src 'self' sha256-wkY2X5hecQzbhnFCqvTpwrUJ1f4X8LH5WFjYUzv1wmU=; object-src;"
   end
 end
