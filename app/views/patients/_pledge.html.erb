@@ -4,7 +4,6 @@
 
       <div class="modal-header">
         <span class="pledge_header_text">Create Pledge</span>
-        <span class="pledge_close glyphicon glyphicon-remove close" data-dismiss="modal" aria-label="Close"></span>
       </div>
 
       <div class="modal-body">
@@ -21,8 +20,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default plen" data-dismiss="modal" aria-label="Cancel">Cancel</button>
-        <button type="button" class="btn btn-primary pledge_process_btn pledge_submit" id='submit-pledge-to-p2'>Continue</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+        <button type="button" class="btn btn-primary submit-pledge-step" data-target="pledge-2" data-dismiss="modal">Continue</button>
       </div>
 
     </div>
@@ -37,7 +36,6 @@
 
       <div class="modal-header">
         <span class="pledge_header_text">Create Pledge</span>
-        <span class="pledge_close glyphicon glyphicon-remove close" data-dismiss="modal" aria-label="Close"></span>
       </div>
 
       <div class="modal-body">
@@ -46,8 +44,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default pledge_process_btn pledge_back_submit" id='submit-pledge-back-to-p1'><span class="glyphicon glyphicon-chevron-left"></span>Go back</button>
-        <button type="button" class="btn btn-primary pledge_process_btn pledge_continue" id='submit-pledge-to-p3'>Download and continue</button>
+        <button type="button" class="btn btn-default submit-pledge-step" data-target="pledge-1" data-dismiss="modal">Go back</button>
+        <button type="button" class="btn btn-primary submit-pledge-step" data-target="pledge-3" data-dismiss="modal">Download and continue</button>
       </div>
 
     </div>
@@ -61,7 +59,6 @@
 
       <div class="modal-header">
         <span class="pledge_header_text">Create Pledge</span>
-        <span class="pledge_close glyphicon glyphicon-remove close" data-dismiss="modal" aria-label="Close"></span>
       </div>
 
       <div class="modal-body">
@@ -81,10 +78,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default pledge_back_review" data-dismiss="modal" id='submit-pledge-back-to-p2'>Go back</button>
+        <button type="button" class="btn btn-default submit-pledge-step" data-target="pledge-2" data-dismiss="modal">Go back</button>
             <!-- <%# submit_tag 'Finish', data: { dismiss: "modal" },
               class: "btn btn-primary btn-sm pledge_process_btn pledge_finish" %> -->
-        <button type="button" class="btn btn-primary pledge_process_btn pledge_finish" data-dismiss="modal" id='submit-pledge-finish'>Finish</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Finish</button>
       </div>
 
     </div>
