@@ -87,7 +87,9 @@ class User
   def add_patient(patient)
     patients << patient
     if call_order
-      reorder_call_list(call_order.unshift(patient))
+      reorder_call_list(call_order.unshift(patient.id.to_s))
+    else
+      reorder_call_list([patient.id.to_s])
     end
     reload
   end
