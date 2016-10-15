@@ -1,0 +1,28 @@
+<div class='authform'>
+  <h3>Create User</h3>
+    <%= form_for @user do |f| %>
+      <div class='form-group'>
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control', autofocus: true %>
+        <%= error_message(@user, 'email') %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+        <%= error_message(@user, 'name') %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: 'off', label: "Password (#{@minimum_password_length || 8} characters minimum)", class: 'form-control' %>
+        <%= error_message(@user, 'password') %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control' %>
+        <%= error_message(@user, 'password_confirmation') %>
+      </div>
+      <div class='form-group'>
+        <%= f.submit "Add", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+</div>

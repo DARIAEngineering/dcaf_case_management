@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
   end
   root :to => redirect('/users/sign_in')
+  resources :users, only: [:new, :create]
   devise_for :users, skip: [:registrations]
   as :user do
     get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
