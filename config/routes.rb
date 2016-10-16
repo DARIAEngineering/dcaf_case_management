@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get  'report', to: 'reports#index', as: 'report'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
+    resources :users, only: [:new, :create]
     resources :patients, only: [ :create, :edit, :update ] do
       resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
@@ -15,7 +16,6 @@ Rails.application.routes.draw do
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
   end
   root :to => redirect('/users/sign_in')
-  resources :users, only: [:new, :create]
   devise_for :users, skip: [:registrations]
   as :user do
     get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
