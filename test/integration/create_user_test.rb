@@ -27,7 +27,7 @@ class CreateUserTest < ActionDispatch::IntegrationTest
         fill_in 'Name', with: 'Test User'
 
         assert has_field? 'Password'
-        fill_in 'Password', with: 'FCZCidQP4C8GTz'
+        fill_in 'Password', with: 'FCZCidQP4C8GTz', match: :prefer_exact
 
         assert has_field? 'Password confirmation'
         fill_in 'Password confirmation', with: 'FCZCidQP4C8GTz'
@@ -44,18 +44,16 @@ class CreateUserTest < ActionDispatch::IntegrationTest
       visit new_user_path
       click_button 'Add'
 
-      assert_text "Email can't be blank"
-      assert_text "Name can't be blank"
-      assert_text "Password can't be blank"
+      assert_text "can't be blank"
 
       fill_in 'Email', with: 'test@test'
-      fill_in 'Password', with: 'asdfasdf'
+      fill_in 'Password', with: 'asdfasdf', match: :prefer_exact
       click_button 'Add'
 
-      assert_text 'Email is invalid'
+      assert_text 'is invalid'
       assert_text 'must include at least one lowercase letter, one uppercase '\
                   'letter, and one digit.'
-      assert_text "Password confirmation doesn't match Password"
+      assert_text "doesn't match Password"
     end
   end
 
@@ -69,10 +67,10 @@ class CreateUserTest < ActionDispatch::IntegrationTest
       assert_no_text 'Create User'
     end
 
-    it 'should raise if navigate to form' do
+    it 'should redirect to root path if navigate to form' do
       assert_not @user.admin?
       visit new_user_path
-      assert_equal 'Permission Denied', page.text
+      assert_equal current_path, root_path
     end
   end
 
