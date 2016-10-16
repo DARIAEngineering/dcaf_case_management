@@ -28,6 +28,6 @@ class ApplicationController < ActionController::Base
 
   # Add CSP
   def security_headers
-    response.headers['Content-Security-Policy-Report-Only'] = "default-src 'self'; script-src 'self' www.google-analytics.com 'sha256-1kYydMhZjhS1eCkHYjBthAOfULylJjbss3YE6S2CGLc='; font-src 'self' fonts.gstatic.com; style-src 'self' 'sha256-wkY2X5hecQzbhnFCqvTpwrUJ1f4X8LH5WFjYUzv1wmU='; object-src;"
+    response.headers['Content-Security-Policy-Report-Only'] = "default-src 'self'; script-src 'self' www.google-analytics.com 'sha256-1kYydMhZjhS1eCkHYjBthAOfULylJjbss3YE6S2CGLc=' 'unsafe-eval'; font-src 'self' fonts.gstatic.com; style-src 'self' 'unsafe-inline'; object-src; report-uri https://fdb0d6ba398e6ae4b6f8d2f82e773464.report-uri.io/r/default/csp/reportOnly"
   end
 end
