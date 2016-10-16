@@ -59,6 +59,7 @@ class User
   field :locked_at,       type: Time
 
   # Validations
+  # email presence validated through Devise
   validates :name, presence: true
   validate :secure_password
 

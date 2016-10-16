@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def new
     unless current_user.admin?
-      render text: 'Permission Denied', status: :unauthorized
+      redirect_to root_path
       return
     end
     @user = User.new
