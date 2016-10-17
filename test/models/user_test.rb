@@ -74,6 +74,23 @@ class UserTest < ActiveSupport::TestCase
       @user.clear_call_list
       assert_equal 1, @user.recently_called_patients.count
     end
+
+    it 'should clear patient list when user has not logged in' do
+      assert_not @user.patients.empty?
+      last_sign_in = Time.zone.now - User::TIME_BEFORE_INACTIVE - 1.day
+      @user.last_sign_in_at = last_sign_in
+      @user.clear_call_list
+
+      assert @user.patients.empty?
+    end
+
+    it 'should not clear patient list if signed in before time' do
+      assert_not @user.patients.empty?
+      @user.last_sign_in_at = Time.zone.now
+      @user.clear_call_list
+
+      assert_not @user.patients.empty?
+    end
   end
 
   describe 'patient methods' do
