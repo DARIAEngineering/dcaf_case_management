@@ -61,6 +61,8 @@ class User
   validates :email, :name, presence: true
   validate :secure_password
 
+  TIME_BEFORE_INACTIVE = 2.weeks
+
   def secure_password
     return true if password.nil?
     pc = verify_password_complexity
@@ -109,9 +111,14 @@ class User
   end
 
   def clear_call_list
-    patients.each do |p|
-      # TODO: reexamine this behavior in awhile
-      patients.delete(p) if recently_reached_by_user?(p)
+    if last_sign_in_at.present? &&
+       last_sign_in_at < Time.zone.now - TIME_BEFORE_INACTIVE
+      patients.clear
+    else
+      patients.each do |p|
+        # TODO: reexamine this behavior in awhile
+        patients.delete(p) if recently_reached_by_user?(p)
+      end
     end
   end
 
