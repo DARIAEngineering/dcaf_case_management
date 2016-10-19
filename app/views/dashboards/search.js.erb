@@ -1,6 +1,6 @@
 $('#search_results_shell').empty();
-<% if @results.blank? %>
-  $("#search_results_shell").append("<%= escape_javascript(render partial: 'patients/new_patient', locals: { patient: @patient, name: @name, phone: @phone, today: @today }) %>");
-<% else %>
+$("#search_results_shell").append("<%= escape_javascript(render partial: 'patients/new_patient', locals: { patient: @patient, name: @name, phone: @phone, today: @today }) %>");
+<% if @results.any? %>
+  $("#search_results_shell").append("<div class='row m-t'></div>");
   $("#search_results_shell").append("<%= escape_javascript(render partial: 'dashboards/table_content', locals: { title: 'Search results', table_type: 'search_results', patients: @results } ) %>");
 <% end %>
