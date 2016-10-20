@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       resources :notes, only: [ :create, :update ]
       resources :pledges, only: [ :create, :update ]
     end
+    resources :accountants, only: [:index]
+    post 'search', to: 'accountants#search', defaults: { format: :js }
     patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
