@@ -20,6 +20,22 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
 
+  describe 'index method' do
+    it 'should redirect if user is not admin' do
+      @user.role = :cm
+      @user.save!
+      get :index
+      assert_response :redirect
+    end
+
+    it 'should let admin access the route' do
+      @user.role = :admin 
+      @user.save!
+      get :index
+      assert_response :success
+    end
+  end
+
   describe 'add_patient method' do
     before do
       patch :add_patient, id: @patient_1, user_id: @user, format: :js
