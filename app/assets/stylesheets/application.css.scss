@@ -54,15 +54,6 @@ $font-size: 17px;
   padding-bottom: 10px;
 }
 
-.title {
-  font-weight: 100;
-  margin-bottom: 20px;
-  letter-spacing: 1.5px;
-  font-size: 48px;
-  span {
-    letter-spacing: .25px;
-  }
-}
 // Styling for #app_footer
 #app_footer .glyphicon-earphone {
   color: inherit;
@@ -124,17 +115,42 @@ img {
 
 // apply styles to HTML elements
 // to make views framework-neutral
+
 main {
   @extend .container;
   background-color: #ffffff;
   padding-bottom: 80px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
-  }
+}
+
 section {
   @extend .row;
   margin-top: 20px;
+}
+
+h1.title {
+  font-weight: 100;
+  margin-bottom: 20px;
+  letter-spacing: 1.5px;
+  font-size: 48px;
+  span {
+    letter-spacing: .25px;
   }
+}
+h2 {
+  font-size: 34px;
+}
+h3 {
+  font-size: 26px;
+}
+h4 {
+  font-size: 22px;
+}
+h5 {
+  font-size: 18px;
+}
+
 
 // Styles for form views
 // using Bootstrap
