@@ -110,14 +110,16 @@ Patient.all.each do |patient|
 end
 
 # Adds 5 Patients to regular call list
-user.add_patient Patient.find_by(name: 'Patient 0')
-user.add_patient Patient.find_by(name: 'Patient with Other Contact info - 1')
-user.add_patient Patient.find_by(name: 'Patient with clinic and appointment(1wk) - 2')
-user.add_patient Patient.find_by(name: 'Patient with a pledge submitted - 3')
-user.add_patient Patient.find_by(name: 'Patient resolved without DCAF - 5')
+['Patient 0', 'Patient with Other Contact info - 1', 
+ 'Patient with clinic and appointment(1wk) - 2', 
+ 'Patient with a pledge submitted - 3',
+ 'Patient resolved without DCAF - 5'].each do |patient_name|
+  user.add_patient Patient.find_by name: patient_name
+end
 
 # Add Patient to completed calls list
-patient_in_completed_calls = Patient.find_by(name: 'Patient with Special Circumstances - 4')
+patient_in_completed_calls = 
+  Patient.find_by name: 'Patient with Special Circumstances - 4'
 user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create status: 'Left voicemail',
                                         created_by: user
