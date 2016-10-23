@@ -8,8 +8,8 @@ class DragAndDropTest < ActionDispatch::IntegrationTest
 
     4.times do |i|
       pt = create :patient, name: "Patient #{i}",
-                       primary_phone: "123-123-123#{i}",
-                       created_by: @user
+                            primary_phone: "123-123-123#{i}",
+                            created_by: @user
       create :pregnancy, patient: pt
     end
 
