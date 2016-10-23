@@ -1,0 +1,9 @@
+<div class='authform'>
+  <h3>Create User</h3>
+    <%= bootstrap_form_for @user do |f| %>
+        <%= f.email_field :email %>
+        <%= f.text_field :name %>
+        <%= f.submit "Add", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+</div>

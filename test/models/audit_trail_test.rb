@@ -48,7 +48,7 @@ class AuditTrailTest < ActiveSupport::TestCase
 
     it 'should conveniently render what they are now' do
       assert_equal @track.tracked_changes_to,
-                   ['Yolo', '1234569999']
+                   %w(Yolo 1234569999)
     end
   end
 
