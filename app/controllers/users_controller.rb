@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   def create
     raise 'Permission Denied' unless current_user.admin?
     @user = User.new(user_params)
+    hex = SecureRandom.urlsafe_base64
+    @user.password, @user.password_confirmation = hex
     if @user.save
       flash[:success] = 'User created!'
       redirect_to session.delete(:return_to)
@@ -48,7 +50,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email)
   end
 
   def retrieve_patients
