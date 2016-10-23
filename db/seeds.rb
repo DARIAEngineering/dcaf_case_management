@@ -1,6 +1,5 @@
 Patient.destroy_all
 User.destroy_all
-Clinic.destroy_all
 
 # Create two test users
 user = User.create name: 'testuser', email: 'test@test.com',
@@ -50,56 +49,63 @@ Patient.all.each do |patient|
     end
   end
 
+  # Add example of patient with other contact info
   if patient.name == 'Patient 1'
+    patient.update name: "Patient with Other Contact info - 1", other_contact: "Jane Doe",
+                   other_phone: "234-456-6789", other_contact_relationship: "Sister"
     patient.calls.create! status: 'Reached patient',
                           created_at: 14.hours.ago,
                           created_by: user
   end
+
+  # Add example of patient with appointment one week from today && clinic selected
+  if patient.name == 'Patient 2'
+    patient.update name: "Patient with clinic and appointment(1wk) - 2",
+                    clinic_name: "Sample Clinic 1",
+                    appointment_date: 1.week.from_now
+  end
+
+  # Add example of patient with a pledge submitted
+  if patient.name == 'Patient 3'
+    patient.pregnancy.update naf_pledge: 2000,
+                             procedure_cost: 4000,
+                             procedure_date: 1.week.from_now,
+                             dcaf_soft_pledge: 1000,
+                             pledge_sent: true,
+                             patient_contribution: 1000,
+                             created_by: user2
+    patient.update name: "Patient with a pledge submitted - 3",
+                   clinic_name: "Sample Clinic 1", 
+                   appointment_date: 10.days.from_now
+  end
+
+  # Add example of patient should have special circumstances
+  if patient.name == 'Patient 4'
+    patient.update name: "Patient with Special Circumstances - 4",
+                   special_circumstances: ["Prison", "Fetal anomaly"]
+  end
+
+  # Add example of patient should be marked resolved without DCAF
+  if patient.name == 'Patient 5'
+    patient.pregnancy.update resolved_without_dcaf: true
+    patient.update name: "Patient resolved without DCAF - 5"
+  end
+
+
+  patient.save
 end
 
-# Patients should have names that reflect what we're looking for (e.g. 'Patient With Other Contact' rather than 'Patient 2')
-# Add example of patient with other contact info
-  patient1 = Patient.find_by( name: "Patient 1")
-  patient1.update_attributes( name: "Patient with Other Contact info - 1", other_contact: "Jane Doe", other_phone: "234-456-6789", other_contact_relationship: "Sister" )
-  patient1.save!
-
-# Add example of patient with appointment one week from today && clinic selected
-  patient2 = Patient.find_by( name: "Patient 2")
-  patient2.update_attributes( name: "Patient with clinic and appointment(1wk) - 2",clinic_name: "Sample Clinic 1", appointment_date: Time.now + (7*24*60*60) )
-  patient2.save!
-
-# # Add example of patient with a pledge submitted
-  patient3 = Patient.find_by( name: "Patient 3")
-  pledge = patient3.pledges.new()
-    pledge.created_by = user2
-    pledge.pledge_type = "naf"
-    pledge.amount = "3000"
-    pledge.save!
-  patient3.update_attributes( name: "Patient with a pledge submitted - 3", clinic_name: "Sample Clinic 1", appointment_date: Time.now + (10*24*60*60) )
-  patient3.save!  
-
-# # Add example of patient should be marked resolved without DCAF
-  patient5 = Patient.find_by( name: "Patient 5")
-  patient5.pregnancy.resolved_without_dcaf = true
-  patient5.update_attributes( name: "Patient resolved without DCAF - 5")
-  patient5.save!  
-
-# Add example of patient should have special circumstances
-  patient4 = Patient.find_by( name: "Patient 4")
-  patient4.update_attributes( name: "Patient with Special Circumstances - 4", special_circumstances: ["Prison", "Fetal anomaly"] )
-  patient4.save!  
-
-# All patients except one or two should have notes
+# All patients except one or two should have notes, even numbered patients have two notes
 note_text = 'This is a note ' * 10
 additional_note_text = 'Additional note ' * 10
 Patient.all.each do |patient|
-  unless patient.name == "Patient 0" || patient.name == "Patient 1 with Other Contact info"
+  unless patient.name == "Patient 0" || patient.name == "Patient with Other Contact info - 1"
     patient.notes.create! full_text: note_text,
-                  created_by: user2
+                          created_by: user2
   end
   if patient.name[-1, 1].to_i.even?
     patient.notes.create! full_text: additional_note_text,
-                  created_by: user2
+                          created_by: user2
   end
 end
 
@@ -117,7 +123,6 @@ patient_in_completed_calls.calls.create status: 'Left voicemail',
                                         created_by: user
 
 # Log results
-puts "Seed completed! Inserted #{Patient.count} patient objects" \
-     "and #{Pregnancy.count} associated pregnancy objects.\n" \
+puts "Seed completed! Inserted #{Patient.count} patient objects.\n" \
      "User created! Credentials are as follows: " \
      "EMAIL: #{user.email} PASSWORD: P4ssword"
