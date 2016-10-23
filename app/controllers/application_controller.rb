@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       "script-src 'self' www.google-analytics.com 'sha256-1kYydMhZjhS1eCkHYjBthAOfULylJjbss3YE6S2CGLc=' 'unsafe-eval'; " \
       "font-src 'self' fonts.gstatic.com; " \
       "style-src 'self' 'unsafe-inline'; " \
-      "object-src; " \
+      'object-src; ' \
       "report-uri https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
   end
 end
