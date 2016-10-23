@@ -51,7 +51,7 @@ Patient.all.each do |patient|
 
   # Add example of patient with other contact info
   if patient.name == 'Patient 1'
-    patient.update name: "Patient with Other Contact info - 1", other_contact: "Jane Doe",
+    patient.update name: "Other Contact info - 1", other_contact: "Jane Doe",
                    other_phone: "234-456-6789", other_contact_relationship: "Sister"
     patient.calls.create! status: 'Reached patient',
                           created_at: 14.hours.ago,
@@ -60,7 +60,7 @@ Patient.all.each do |patient|
 
   # Add example of patient with appointment one week from today && clinic selected
   if patient.name == 'Patient 2'
-    patient.update name: "Patient with clinic and appointment(1wk) - 2",
+    patient.update name: "Clinic and Appt - 2",
                     clinic_name: "Sample Clinic 1",
                     appointment_date: 1.week.from_now
   end
@@ -74,21 +74,21 @@ Patient.all.each do |patient|
                              pledge_sent: true,
                              patient_contribution: 1000,
                              created_by: user2
-    patient.update name: "Patient with a pledge submitted - 3",
+    patient.update name: "Pledge submitted - 3",
                    clinic_name: "Sample Clinic 1", 
                    appointment_date: 10.days.from_now
   end
 
   # Add example of patient should have special circumstances
   if patient.name == 'Patient 4'
-    patient.update name: "Patient with Special Circumstances - 4",
+    patient.update name: "Special Circumstances - 4",
                    special_circumstances: ["Prison", "Fetal anomaly"]
   end
 
   # Add example of patient should be marked resolved without DCAF
   if patient.name == 'Patient 5'
     patient.pregnancy.update resolved_without_dcaf: true
-    patient.update name: "Patient resolved without DCAF - 5"
+    patient.update name: "Resolved without DCAF - 5"
   end
 
 
@@ -99,7 +99,7 @@ end
 note_text = 'This is a note ' * 10
 additional_note_text = 'Additional note ' * 10
 Patient.all.each do |patient|
-  unless patient.name == "Patient 0" || patient.name == "Patient with Other Contact info - 1"
+  unless patient.name == "Patient 0" || patient.name == "Other Contact info - 1"
     patient.notes.create! full_text: note_text,
                           created_by: user2
   end
@@ -110,16 +110,16 @@ Patient.all.each do |patient|
 end
 
 # Adds 5 Patients to regular call list
-['Patient 0', 'Patient with Other Contact info - 1', 
- 'Patient with clinic and appointment(1wk) - 2', 
- 'Patient with a pledge submitted - 3',
- 'Patient resolved without DCAF - 5'].each do |patient_name|
+['Patient 0', 'Other Contact info - 1', 
+ 'Clinic and Appt - 2', 
+ 'Pledge submitted - 3',
+ 'Resolved without DCAF - 5'].each do |patient_name|
   user.add_patient Patient.find_by name: patient_name
 end
 
 # Add Patient to completed calls list
 patient_in_completed_calls = 
-  Patient.find_by name: 'Patient with Special Circumstances - 4'
+  Patient.find_by name: 'Special Circumstances - 4'
 user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create status: 'Left voicemail',
                                         created_by: user
