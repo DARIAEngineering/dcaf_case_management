@@ -5,6 +5,8 @@ class User
   include Mongoid::Enum
   include Mongoid::Userstamp::User
 
+  after_create :send_account_created_email, if: :persisted?
+
   # Devise modules
   devise  :database_authenticatable,
           :registerable,
@@ -157,5 +159,9 @@ class User
   def send_password_change_email
     # @user = User.find(id)
     UserMailer.password_changed(id).deliver_now
+  end
+
+  def send_account_created_email
+    UserMailer.account_created(id).deliver_now
   end
 end
