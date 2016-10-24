@@ -15,7 +15,7 @@ module DashboardsHelper
   def voicemail_options
     enum_text = { not_specified: 'No instructions; no ID VM',
                   no: 'Do not leave a voicemail',
-                  yes: 'Voicemail OK' }
+                  yes: 'Voicemail OK, ID OK' }
     vm_options = Patient::VOICEMAIL_PREFERENCE
 
     vm_options.map { |option| [enum_text[option], option] }
