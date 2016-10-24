@@ -92,6 +92,11 @@ class User
 
   def add_patient(patient)
     patients << patient
+    if call_order
+      reorder_call_list(call_order.unshift(patient.id.to_s))
+    else
+      reorder_call_list([patient.id.to_s])
+    end
     reload
   end
 
@@ -109,7 +114,7 @@ class User
   def ordered_patients
     return call_list_patients unless call_order
     ordered_patients = call_list_patients.sort_by do |patient|
-      call_order.index(patient.id.to_s) || 0
+      call_order.index(patient.id.to_s) || call_order.length
     end
     ordered_patients
   end
