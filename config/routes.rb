@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get  'report', to: 'reports#index', as: 'report'
+    get 'lineselect', to: 'dashboards#lineselect', as: 'lineselect'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create]
     resources :patients, only: [ :create, :edit, :update ] do

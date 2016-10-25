@@ -15,6 +15,9 @@ class DashboardsController < ApplicationController
     respond_to { |format| format.js }
   end
 
+  def lineselect
+  end
+
   private
 
   def searched_for_phone?(query)
