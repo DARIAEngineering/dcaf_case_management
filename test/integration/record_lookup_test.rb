@@ -58,6 +58,15 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       assert has_text? 'Search results'
       assert has_text? 'Susan Everyteen'
     end
+
+    it 'should display new pregnancy partial even for the search results' do
+      fill_in 'search', with: 'susan everyteen'
+      click_button 'Search'
+
+      assert has_text? 'Add a new patient'
+      assert has_text? 'Search results'
+      assert has_text? 'Susan Everyteen'
+    end
   end
 
   describe 'looking for someone who does not exist', js: true do
