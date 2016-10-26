@@ -18,7 +18,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       fill_in 'Phone', with: '555-666-7777'
       fill_in 'Name', with: 'Susan Everyteen 2'
       fill_in 'Initial Call Date', with: '03/04/2016'
-      find('button', text: /Create new patient/).trigger('click')
+      find('button', text: /Add new patient/).trigger('click')
       sleep 1
     end
 
