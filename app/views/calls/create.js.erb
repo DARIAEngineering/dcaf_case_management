@@ -1,1 +1,16 @@
-$(".new-call").modal('hide');
+
+
+// Fires on call complete POST
+
+// TODO: write if statement for url ending in /edit/
+    $("#call_log").html("<%= escape_javascript(render partial: 'patients/call_log') %>")
+      .promise().done(function() {
+        $(".new-call").modal('hide')
+        $('body').removeClass('modal-open')
+        $('.modal-backdrop').remove()
+      });
+if (location.pathname == "/") {
+  $("#call_list").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients, sortable: true }) %>")
+  $("#completed_calls").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients }) %>")
+  $("#urgent_patients").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: Patient.urgent_patients }) %>")
+}
