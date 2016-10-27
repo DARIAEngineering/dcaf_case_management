@@ -46,7 +46,6 @@ $(document).ready(function(){
 		$('.pledge_modal_screen3').hide();
 	});
 
-
 	$('[data-toggle="toggle"]').bootstrapToggle();
 
 // dismisses popovers when you click any non-popover space on the body
