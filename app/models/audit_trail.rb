@@ -1,6 +1,8 @@
 # Keeps track of the history of objects (mostly patients and pregnancies).
 class AuditTrail
   include Mongoid::History::Tracker
+  include Mongoid::Userstamp
+  mongoid_userstamp user_model: 'User'
 
   # convenience methods for clean view display
   def tracked_changes_fields
@@ -17,5 +19,14 @@ class AuditTrail
 
   def marked_urgent?
     modified.include?('urgent_flag') && modified['urgent_flag'] == true
+  end
+
+  def tracked_changes_user
+    nil # until I figure it out
+    # User.find(created_by).name
+  end
+
+  def irrelevant_fields
+    [:whatever]
   end
 end

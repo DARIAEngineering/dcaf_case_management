@@ -15,25 +15,35 @@
         <% patient.history_tracks.order('created_at DESC').each do |revision| %>
           <tr>
             <td><%= revision.created_at.display_date %></td>
-
-            <td>
-              <% revision.tracked_changes_fields.each do |field| %>
-                <%= field %><br>
-              <% end %>
-            </td>
-
-            <td>
-              <% revision.tracked_changes_from.each do |field| %>
-                <%= field %><br>
-              <% end %>
-            </td>
-
-            <td>
-              <% revision.tracked_changes_to.each do |field| %>
-                <%= field %><br>
-              <% end %>
-            </td>
-            <td><% 'user' %></td>
+            <td><%= revision.tracked_changes_fields %></td>
+            <td><%= revision.tracked_changes_from %></td>
+            <td><%= revision.tracked_changes_to %></td>
+            <td><%= updated_by_user(revision) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-12">
+    <h2>Patient history</h2>
+    <table class="table border-side">
+      <thead>
+        <tr>
+          <th>Modified Date</th>
+          <th>Field</th>
+          <th>Changed From</th>
+          <th>Changed To</th>
+          <th>CM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% patient.pregnancy.history_tracks.each do |revision| %>
+          <tr>
+            <td><%= revision.created_at.display_date %></td>
+            <td><%= revision.tracked_changes_fields %></td>
+            <td><%= revision.tracked_changes_from %></td>
+            <td><%= revision.tracked_changes_to %></td>
+            <td><%= updated_by_user(revision) %></td>
           </tr>
         <% end %>
       </tbody>
