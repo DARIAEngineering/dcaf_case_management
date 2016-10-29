@@ -39,7 +39,7 @@ class AuditTrail
   end
 
   def irrelevant_fields
-    [:user_ids, :updated_by]
+    ['user_ids', 'updated_by']
   end
 
   def marked_urgent?
