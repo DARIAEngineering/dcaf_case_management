@@ -144,6 +144,11 @@ class Patient
     false
   end
 
+  def assemble_audit_trails
+    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
+                                               .reverse
+  end
+
   # Search-related stuff
   class << self
     # Case insensitive and phone number format agnostic!
