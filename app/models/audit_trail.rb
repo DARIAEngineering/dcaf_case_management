@@ -5,28 +5,32 @@ class AuditTrail
   mongoid_userstamp user_model: 'User'
 
   # convenience methods for clean view display
-  def tracked_changes_fields
+  def date_of_change
+    created_at.display_date
+  end
+
+  def changed_fields
     modified.keys.map(&:humanize)
   end
 
-  def tracked_changes_from
+  def changed_from
     original.values
   end
 
-  def tracked_changes_to
+  def changed_to
     modified.values
   end
 
-  def marked_urgent?
-    modified.include?('urgent_flag') && modified['urgent_flag'] == true
-  end
-
-  def tracked_changes_user
+  def changed_by_user
     nil # until I figure it out
     # User.find(created_by).name
   end
 
   def irrelevant_fields
     [:whatever]
+  end
+
+  def marked_urgent?
+    modified.include?('urgent_flag') && modified['urgent_flag'] == true
   end
 end
