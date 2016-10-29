@@ -15,9 +15,9 @@
         <% patient.assemble_audit_trails.each do |revision| %>
           <tr>
             <td><%= revision.date_of_change %></td>
-            <td><%= revision.changed_fields %></td>
-            <td><%= revision.changed_from %></td>
-            <td><%= revision.changed_to %></td>
+            <td><%= safe_join_fields(revision.changed_fields) %></td>
+            <td><%= safe_join_fields(revision.changed_from) %></td>
+            <td><%= safe_join_fields(revision.changed_to) %></td>
             <td><%= revision.changed_by_user %></td>
           </tr>
         <% end %>

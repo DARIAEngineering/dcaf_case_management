@@ -10,15 +10,27 @@ class AuditTrail
   end
 
   def changed_fields
-    modified.keys.map(&:humanize)
+    relevant_fields = modified.map do |key, value|
+      key unless irrelevant_fields.include? key
+    end
+
+    relevant_fields.compact.map(&:humanize)
   end
 
   def changed_from
-    original.values
+    relevant_fields = original.map do |key, value|
+      value unless irrelevant_fields.include? key
+    end
+
+    relevant_fields.compact
   end
 
   def changed_to
-    modified.values
+    relevant_fields = modified.map do |key, value|
+      value unless irrelevant_fields.include? key
+    end
+
+    relevant_fields.compact
   end
 
   def changed_by_user
@@ -27,7 +39,7 @@ class AuditTrail
   end
 
   def irrelevant_fields
-    [:whatever]
+    [:user_ids, :updated_by]
   end
 
   def marked_urgent?
