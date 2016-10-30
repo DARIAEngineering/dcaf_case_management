@@ -1,5 +1,4 @@
 if (location.pathname.includes("edit")) {
-  console.log("on call record")
   $("#call_log").html("<%= escape_javascript(render partial: 'patients/call_log') %>")
     .promise().done(function() {
       $(".new-call").modal('hide')
