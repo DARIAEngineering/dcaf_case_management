@@ -1,5 +1,5 @@
 module ChangeLogHelper
   def safe_join_fields(fields)
-    fields.join tag('br')
+    safe_join fields, tag('br')
   end
 end
