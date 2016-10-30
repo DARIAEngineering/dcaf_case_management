@@ -34,12 +34,11 @@ class AuditTrail
   end
 
   def changed_by_user
-    nil # until I figure it out
-    # User.find(created_by).name
+    created_by ? created_by.name : 'System'
   end
 
   def irrelevant_fields
-    ['user_ids', 'updated_by']
+    %w(user_ids updated_by)
   end
 
   def marked_urgent?
