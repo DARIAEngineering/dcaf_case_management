@@ -10,27 +10,24 @@ class AuditTrail
   end
 
   def changed_fields
-    relevant_fields = modified.map do |key, value|
+    relevant_fields = modified.map do |key, _value|
       key unless irrelevant_fields.include? key
     end
 
     relevant_fields.compact.map(&:humanize)
   end
 
+  # TODO: properly render null values like in special circumstances
   def changed_from
-    relevant_fields = original.map do |key, value|
+    original.map do |key, value|
       value unless irrelevant_fields.include? key
     end
-
-    relevant_fields.compact
   end
 
   def changed_to
-    relevant_fields = modified.map do |key, value|
+    modified.map do |key, value|
       value unless irrelevant_fields.include? key
     end
-
-    relevant_fields.compact
   end
 
   def changed_by_user
