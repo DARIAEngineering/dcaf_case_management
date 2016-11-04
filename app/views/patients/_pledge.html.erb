@@ -1,90 +1,34 @@
-<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-1">
+
+<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-modal">
   <div class="modal-dialog">
+
     <div class="modal-content">
 
       <div class="modal-header">
-        <span class="pledge_header_text">Create Pledge</span>
+        <h4 class="js-title-step"></h4>
       </div>
 
       <div class="modal-body">
-        <div class="pledge_modal_screen1">
-          <div class="pledge_intro">Confirm the following information is correct:</div>
-          <div class="pledge_form">
-            <div><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
-            <div><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
-            <div><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.pregnancy.dcaf_soft_pledge %> </div>
-            <div><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
-            <div><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
+
+          <div class="row hide" data-step="1" data-title="This is the first step!">
+              <div class="jumbotron">As you can see, this is the first step!</div>
           </div>
-        </div>
-      </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Cancel">Cancel</button>
-        <button type="button" class="btn btn-primary submit-pledge-step" data-target="pledge-2" data-dismiss="modal">Continue</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-
-<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-2">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <span class="pledge_header_text">Create Pledge</span>
-      </div>
-
-      <div class="modal-body">
-        <div class="pledge_modal_screen2">
-          <div class="pledge_intro">Review this preview of your pledge: (Not working yet)</div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default submit-pledge-step" data-target="pledge-1" data-dismiss="modal">Go back</button>
-        <button type="button" class="btn btn-primary submit-pledge-step" data-target="pledge-3" data-dismiss="modal">Download and continue</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-3">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <span class="pledge_header_text">Create Pledge</span>
-      </div>
-
-      <div class="modal-body">
-        <div class="pledge_modal_screen3">
-          <div class="pledge_intro">
-            <p>Awesome, you generated a DCAF Pledge! Thanks!</p>
-            <p>Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
-            <p>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</p>
-
-            <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
-            <%= f.fields_for patient.pregnancy do |p| %>
-            <%= p.check_box :pledge_sent, label: 'I sent the pledge' %>
-            <% end %>
-            <% end %>
-
+          <div class="row hide" data-step="2" data-title="This is the second and last step!">
+              <div class="jumbotron">As you can see, this is the second and last step!</div>
           </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default submit-pledge-step" data-target="pledge-2" data-dismiss="modal">Go back</button>
-            <!-- <%# submit_tag 'Finish', data: { dismiss: "modal" },
-              class: "btn btn-primary btn-sm pledge_process_btn pledge_finish" %> -->
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Finish</button>
+
       </div>
 
+  <div class="modal-footer">
+      <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
+      <button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button>
+      <button type="button" class="btn btn-success js-btn-step" data-orientation="next"></button>
+  </div>
+
     </div>
+
+
   </div>
 </div>
 

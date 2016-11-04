@@ -3,7 +3,5 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  $('.submit-pledge-step').on 'click', ->
-    button = $(this)
-    $('#' + button.data('target')).modal('show')
-
+  $('[id$=modal]').modalSteps()
+  # selects all elements with id ending with "modal"
