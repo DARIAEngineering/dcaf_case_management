@@ -144,6 +144,10 @@ class Patient
     false
   end
 
+  def contacted_since(datetime)
+    
+  end
+
   # Search-related stuff
   class << self
     # Case insensitive and phone number format agnostic!
