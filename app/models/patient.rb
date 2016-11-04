@@ -145,7 +145,16 @@ class Patient
   end
 
   def contacted_since(datetime)
-    
+    # 1) filters to all patients with a call logged as Reached patient >= the date and counts them
+    # 2) identifies how many of those patients have been marked pledge_sent this week
+
+    # returns hash
+    # {
+    #   since: datetime,
+    #   contacts: (count of patients reached)
+    #   first_contacts: (count of first time reached patients),
+    #   pledges_sent: (count of pledges sent)
+    # }
   end
 
   # Search-related stuff
