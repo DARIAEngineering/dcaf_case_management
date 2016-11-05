@@ -1,6 +1,6 @@
 module BudgetBarHelper
   def budget_bar(expenditures)
-    expenditures = { pledged: 500, sent: 1250 }
+    expenditures = { pledged: 500, sent: 250 }
 
     content_tag :div, id: 'budget_bar' do
       content_tag :div, class: 'progress' do
@@ -9,12 +9,16 @@ module BudgetBarHelper
     end
   end
 
+  # TODO account for overflow
+  # TODO set min width
+  # TODO some simple explanatory text like in https://github.com/colinxfleming/dcaf_case_management/issues/710
+
   private
 
   def progress_bar(type, value)
     content_tag :div, class: progress_bar_class(type),
                       style: width(value) do
-      value.to_s
+      "$#{value.to_s}"
     end
   end
 
@@ -40,5 +44,3 @@ module BudgetBarHelper
     pct.round.to_s
   end
 end
-
-# <div class="progress_bar progress-bar-warning progress-bar-striped" style="width: 30%">100</div>
