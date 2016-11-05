@@ -6,6 +6,7 @@
 
 <div class="container">
   <div class="col-sm-12">
+    <%= budget_bar({ pledged: 500, sent: 250}) # placeholder until the method is in %>
     <%= render partial: 'dashboards/overview' %>
     <%= render partial: 'dashboards/search_form' %>
     <%= render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients, sortable: true } %>
