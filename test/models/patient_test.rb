@@ -5,6 +5,9 @@ class PatientTest < ActiveSupport::TestCase
     @user = create :user
     @patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
+
+    @patient2 = create :patient, other_phone: '333-222-3333',
+                                other_contact: 'Foobar'
     @pregnancy = create :pregnancy, patient: @patient
   end
 
@@ -75,7 +78,32 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.valid?
       @patient.appointment_date = '2016-07-01'
       assert @patient.valid?
+      @patient.appointment_date = ( Date.today + 4 )
+      @patient.save
+      assert @patient.valid?
+      @patient2.appointment_date = ( Date.today + 8 )
+      assert @patient2.valid?
+      @patient2.save
     end
+  end
+
+  describe 'pledge_summary' do
+      it "should return sent and remaining pledge for the next 7 days" do
+          summary = Patient.pledged_status_summary
+          assert_equal '{:pledged=>0, :sent=>0}', summary.to_s
+          [@patient, @patient2].each do |pt|
+            create :pregnancy, patient: pt, created_by: @user
+          end
+          @patient.pregnancy.dcaf_soft_pledge = 300
+          @patient.save
+          @patient2.pregnancy.dcaf_soft_pledge = 500
+          @patient2.pregnancy.pledge_sent = true
+          @patient2.save
+          summary = Patient.pledged_status_summary
+          assert_equal '{:pledged=>300, :sent=>0}', summary.to_s
+          summary = Patient.pledged_status_summary(10)
+          assert_equal '{:pledged=>300, :sent=>500}', summary.to_s
+      end
   end
 
   describe 'callbacks' do
