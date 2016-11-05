@@ -5,6 +5,8 @@ class User
   include Mongoid::Enum
   include Mongoid::Userstamp::User
 
+  after_create :send_account_created_email, if: :persisted?
+
   # Devise modules
   devise  :database_authenticatable,
           :registerable,
@@ -90,6 +92,11 @@ class User
 
   def add_patient(patient)
     patients << patient
+    if call_order
+      reorder_call_list(call_order.unshift(patient.id.to_s))
+    else
+      reorder_call_list([patient.id.to_s])
+    end
     reload
   end
 
@@ -107,7 +114,7 @@ class User
   def ordered_patients
     return call_list_patients unless call_order
     ordered_patients = call_list_patients.sort_by do |patient|
-      call_order.index(patient.id.to_s) || 0
+      call_order.index(patient.id.to_s) || call_order.length
     end
     ordered_patients
   end
@@ -157,5 +164,9 @@ class User
   def send_password_change_email
     # @user = User.find(id)
     UserMailer.password_changed(id).deliver_now
+  end
+
+  def send_account_created_email
+    UserMailer.account_created(id).deliver_now
   end
 end

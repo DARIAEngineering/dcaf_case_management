@@ -127,12 +127,12 @@ class UserTest < ActiveSupport::TestCase
         assert_equal @patient_2, @user.ordered_patients[2]
       end
 
-      it 'should not die if another preg is on call list but not call order' do
+      it 'should always add new patients to the front of the call order' do
         @patient_4 = create :patient
         @user.add_patient @patient_4
 
         assert @user.ordered_patients.include? @patient_4
-        refute @user.call_order.include? @patient_4.id.to_s
+        assert @user.call_order.index(@patient_4.id.to_s) == 0
       end
     end
   end

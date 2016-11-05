@@ -51,12 +51,12 @@ class Patient
   field :urgent_flag, type: Boolean
   field :special_circumstances, type: Array, default: []
 
-  #Indices
-  index({ primary_phone: 1 }, { unique: true })
-  index({ other_contact_phone: 1 })
-  index({ name: 1 })
-  index({ other_contact: 1 })
-  index({ urgent_flag: 1 })
+  # Indices
+  index({ primary_phone: 1 }, unique: true)
+  index(other_contact_phone: 1)
+  index(name: 1)
+  index(other_contact: 1)
+  index(urgent_flag: 1)
 
   # Validations
   validates :name,

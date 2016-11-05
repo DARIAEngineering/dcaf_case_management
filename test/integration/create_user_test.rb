@@ -17,22 +17,18 @@ class CreateUserTest < ActionDispatch::IntegrationTest
 
     it 'should be able to create user' do
       assert_difference('User.count', 1) do
-        assert_text 'Create User'
-        click_link 'Create User'
+        assert_difference 'Devise.mailer.deliveries.count', 1 do
+          assert_text 'Create User'
+          click_link 'Create User'
 
-        assert has_field? 'Email'
-        fill_in 'Email', with: 'test@test.com'
+          assert has_field? 'Email'
+          fill_in 'Email', with: 'test@test.com'
 
-        assert has_field? 'Name'
-        fill_in 'Name', with: 'Test User'
+          assert has_field? 'Name'
+          fill_in 'Name', with: 'Test User'
 
-        assert has_field? 'Password'
-        fill_in 'Password', with: 'FCZCidQP4C8GTz', match: :prefer_exact
-
-        assert has_field? 'Password confirmation'
-        fill_in 'Password confirmation', with: 'FCZCidQP4C8GTz'
-
-        click_button 'Add'
+          click_button 'Add'
+        end
       end
 
       user = User.find_by(email: 'test@test.com')
@@ -47,13 +43,12 @@ class CreateUserTest < ActionDispatch::IntegrationTest
       assert_text "can't be blank"
 
       fill_in 'Email', with: 'test@test'
-      fill_in 'Password', with: 'asdfasdf', match: :prefer_exact
-      click_button 'Add'
+
+      assert_no_difference 'Devise.mailer.deliveries.count' do
+        click_button 'Add'
+      end
 
       assert_text 'is invalid'
-      assert_text 'must include at least one lowercase letter, one uppercase '\
-                  'letter, and one digit.'
-      assert_text "doesn't match Password"
     end
   end
 
