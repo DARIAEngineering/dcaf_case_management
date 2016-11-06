@@ -6,9 +6,9 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
     @user = create :user
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
-    @patient.clinic_name = 'Nice Clinic'
-    @patient.appointment_date = DateTime.now + 14
-    @pregnancy.dcaf_soft_pledge = 500
+#     @patient.clinic_name = 'Nice Clinic'
+#     @patient.appointment_date = DateTime.now + 14
+#     @pregnancy.dcaf_soft_pledge = 500
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name'
