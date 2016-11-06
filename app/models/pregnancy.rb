@@ -33,6 +33,17 @@ class Pregnancy
   # Validations
   validates :created_by,
             presence: true
+  validate :pledge_sent, :check_other_validations?, if: :updating_pledge_sent?
+
+  def updating_pledge_sent?
+    pledge_sent == true
+  end
+
+  def check_other_validations?
+    if dcaf_soft_pledge.blank?
+      errors.add(:pledge_sent, 'DCAF soft pledge field cannot be blank')
+    end
+  end
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

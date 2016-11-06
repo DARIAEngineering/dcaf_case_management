@@ -43,4 +43,18 @@ class PregnancyTest < ActiveSupport::TestCase
       assert @pregnancy.created_by
     end
   end
+
+  describe 'pledge_sent validation' do
+    it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
+      @pregnancy.dcaf_soft_pledge = nil
+      @pregnancy.pledge_sent = true
+      refute @pregnancy.valid?
+    end
+    
+    it 'should validate pledge_sent' do
+      @pregnancy.dcaf_soft_pledge = 500
+      @pregnancy.pledge_sent = true
+      assert @pregnancy.valid?
+    end
+  end
 end
