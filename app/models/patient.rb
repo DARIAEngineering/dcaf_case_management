@@ -109,7 +109,7 @@ class Patient
       if patient.pregnancy.pledge_sent
         sent_total += patient.pregnancy.dcaf_soft_pledge
       else
-        outstanding_pledges =  patient.pregnancy.dcaf_soft_pledge
+        outstanding_pledges +=  patient.pregnancy.dcaf_soft_pledge
       end
     end
     return { pledged: outstanding_pledges, sent: sent_total }
