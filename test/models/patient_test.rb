@@ -78,32 +78,32 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.valid?
       @patient.appointment_date = '2016-07-01'
       assert @patient.valid?
-      @patient.appointment_date = ( Date.today + 4 )
-      @patient.save
-      assert @patient.valid?
-      @patient2.appointment_date = ( Date.today + 8 )
-      assert @patient2.valid?
-      @patient2.save
     end
   end
 
   describe 'pledge_summary' do
-      it "should return sent and remaining pledge for the next 7 days" do
-          summary = Patient.pledged_status_summary
-          assert_equal '{:pledged=>0, :sent=>0}', summary.to_s
-          [@patient, @patient2].each do |pt|
-            create :pregnancy, patient: pt, created_by: @user
-          end
-          @patient.pregnancy.dcaf_soft_pledge = 300
-          @patient.save
-          @patient2.pregnancy.dcaf_soft_pledge = 500
-          @patient2.pregnancy.pledge_sent = true
-          @patient2.save
-          summary = Patient.pledged_status_summary
-          assert_equal '{:pledged=>300, :sent=>0}', summary.to_s
-          summary = Patient.pledged_status_summary(10)
-          assert_equal '{:pledged=>300, :sent=>500}', summary.to_s
+    it "should return sent and remaining pledge for the next 7 days" do
+      # Doesn't error when there are no pregnancies
+      summary = Patient.pledged_status_summary
+      assert_equal '{:pledged=>0, :sent=>0}', summary.to_s
+      [@patient, @patient2].each do |pt|
+        create :pregnancy, patient: pt, created_by: @user
       end
+      @patient.update appointment_date: ( Date.today + 4 )
+      @patient.pregnancy.update dcaf_soft_pledge: 300
+      @patient2.update appointment_date: ( Date.today + 8 )
+      @patient2.pregnancy.update dcaf_soft_pledge: 500
+      @patient2.pregnancy.update pledge_sent: true
+      # Returns 0 when there are no scope'd pregnancies
+      summary = Patient.pledged_status_summary(1)
+      assert_equal '{:pledged=>0, :sent=>0}', summary.to_s
+      # Returns correctly with default args.
+      summary = Patient.pledged_status_summary
+      assert_equal '{:pledged=>300, :sent=>0}', summary.to_s
+      # Returns correctly with multiple pregnancies
+      summary = Patient.pledged_status_summary(10)
+      assert_equal '{:pledged=>300, :sent=>500}', summary.to_s
+    end
   end
 
   describe 'callbacks' do
