@@ -1,4 +1,3 @@
-0 info it worked if it ends with ok
 1 verbose cli [ '/usr/local/bin/node',
 1 verbose cli   '/usr/local/bin/npm',
 1 verbose cli   'install',
