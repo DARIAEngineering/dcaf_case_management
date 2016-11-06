@@ -50,9 +50,23 @@ class PregnancyTest < ActiveSupport::TestCase
       @pregnancy.pledge_sent = true
       refute @pregnancy.valid?
     end
-    
-    it 'should validate pledge_sent' do
+
+    it 'should not validate pledge_sent if the clinic name is blank' do
+      @pt_1.clinic_name = nil
+      @pregnancy.pledge_sent = true
+      refute @pregnancy.valid?
+    end
+
+    it 'should not validate pledge_sent if the appointment date is blank' do
+      @pt_1.appointment_date = nil
+      @pregnancy.pledge_sent = true
+      refute @pregnancy.valid?
+    end
+
+    it 'should validate pledge_sent when all items in #check_other_validations? are present' do
       @pregnancy.dcaf_soft_pledge = 500
+      @pt_1.clinic_name = 'Nice Clinic'
+      @pt_1.appointment_date = DateTime.now + 14
       @pregnancy.pledge_sent = true
       assert @pregnancy.valid?
     end
