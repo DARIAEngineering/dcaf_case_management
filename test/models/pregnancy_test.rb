@@ -43,6 +43,12 @@ class PregnancyTest < ActiveSupport::TestCase
       assert @pregnancy.created_by
     end
   end
+  
+  before do
+    @pregnancy.dcaf_soft_pledge = 500
+    @pt_1.clinic_name = 'Nice Clinic'
+    @pt_1.appointment_date = DateTime.now + 14    
+  end
 
   describe 'pledge_sent validation' do
     it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
@@ -64,9 +70,6 @@ class PregnancyTest < ActiveSupport::TestCase
     end
 
     it 'should validate pledge_sent when all items in #check_other_validations? are present' do
-      @pregnancy.dcaf_soft_pledge = 500
-      @pt_1.clinic_name = 'Nice Clinic'
-      @pt_1.appointment_date = DateTime.now + 14
       @pregnancy.pledge_sent = true
       assert @pregnancy.valid?
     end
