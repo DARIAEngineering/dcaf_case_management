@@ -12,7 +12,6 @@ RUN apt-get update -qq && apt-get install -y \
     libxslt1-dev \
     nodejs \
     npm \
-    && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # symlink which nodejs to node
