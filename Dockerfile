@@ -24,7 +24,9 @@ RUN npm install -g phantomjs-prebuilt
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-RUN mkdir -p ${DCAF_DIR}
+RUN groupadd -r dcaf && useradd -r -g dcaf dcaf
+RUN mkdir -p ${DCAF_DIR} && chown -R dcaf ${DCAF_DIR} && chgrp -R dcaf ${DCAF_DIR}
+USER dcaf
 WORKDIR ${DCAF_DIR}
 COPY Gemfile ${DCAF_DIR}
 COPY Gemfile.lock ${DCAF_DIR}
