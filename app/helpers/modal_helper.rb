@@ -11,7 +11,7 @@ module ModalHelper
 
       <div class="modal-body">'
 
-  yield
+  + capture(&block) + 
 
       '</div>
 
@@ -26,4 +26,4 @@ module ModalHelper
 
 
   end
-  
+end  
