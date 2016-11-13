@@ -1,28 +1,19 @@
-<%= modal do-%>
+# creates modal dialog
+module ModalHelper
+  def modal(&block)
 
-hello world
-
-<% end -%>
-
-
-
-<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-modal">
+'<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="js-title-step"></h4>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body">'
 
-        <div class="row hide" data-step="1" data-title="This is the first step!">
-            <div class="jumbotron">As you can see, this is the first step!</div>
-        </div>
-        <div class="row hide" data-step="2" data-title="This is the second and last step!">
-            <div class="jumbotron">As you can see, this is the second and last step!</div>
-        </div>
+  + capture(&block) + 
 
-      </div>
+      '</div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
@@ -31,5 +22,8 @@ hello world
       </div>
     </div>
   </div>
-</div>
+</div>'
 
+
+  end
+end  
