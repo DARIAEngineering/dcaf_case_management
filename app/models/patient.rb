@@ -134,6 +134,15 @@ class Patient
     notes.order('created_at DESC').limit(1).first
   end
 
+  def most_recent_pledge_display_date
+    display_date = most_recent_pledge.try(:sent).to_s
+    display_date
+  end
+
+  def most_recent_pledge
+    pledges.order('created_at DESC').limit(1).first
+  end
+
   def primary_phone_display
     return nil unless primary_phone.present?
     "#{primary_phone[0..2]}-#{primary_phone[3..5]}-#{primary_phone[6..9]}"

@@ -1,0 +1,33 @@
+<!-- locals: -->
+
+<div id="<%= table_type %>" class="margin-bottom">
+  <h1 class="border-bottom title"><%= title %></h1>
+  <table class="table border-side">
+    <thead>
+      <tr>
+        <% if local_assigns[:sortable] %>
+          <th><!-- handle --></th>
+        <% end %>
+        <th>Patient ID</th>
+        <th>Name</th>
+        <th>Pledge Sent Date</th>
+        <th>Clinic Name</th>
+        <th>Clinic Location</th>
+      </tr>
+    </thead>
+    <tbody id="<%= table_type %>_content">
+      <% patients.each do |patient| %>
+        <tr class="pregnancy-data" id="<%= patient.id %>">
+          <% if local_assigns[:sortable] %>
+            <td class="handle"><span class="glyphicon glyphicon-move"></span></td>
+          <% end %>
+          <td><!-- fill in with patient ID when it's around --></td>
+          <td><%= link_to patient.name, edit_patient_path(patient) %></td>
+          <td><%= patient.most_recent_pledge_display_date %></td>
+          <td><%= patient.clinic_name %></td>
+          <td><!-- no worky for some reason  patient.clinic.return_location  --></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

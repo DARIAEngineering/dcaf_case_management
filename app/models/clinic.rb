@@ -4,6 +4,7 @@ class Clinic
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include ClinicsHelper
 
   # Relationships
   embedded_in :patient
@@ -26,4 +27,5 @@ class Clinic
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+
 end
