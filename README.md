@@ -93,6 +93,10 @@ After that:
 * Run the command `rails server` to start the rails server
 * All set! Navigate your browser to `http://localhost:3000`
 
+To Run the Tests:
+* Run `rake test` to test the entire suite
+* Run `rake test [fullpath-to-test]` to run a specific test file
+
 ### Cloud9
 
 If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB.
