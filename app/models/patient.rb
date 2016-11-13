@@ -100,6 +100,21 @@ class Patient
     end
   end
 
+  def self.pledged_status_summary (num_days=7)
+    # return pledge totals for patients with appts in the next num_days
+    # TODO move to Pledge class, when implemented?
+    outstanding_pledges = 0
+    sent_total = 0
+    Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
+      if patient.pregnancy.pledge_sent
+        sent_total += patient.pregnancy.dcaf_soft_pledge
+      else
+        outstanding_pledges +=  patient.pregnancy.dcaf_soft_pledge
+      end
+    end
+    return { pledged: outstanding_pledges, sent: sent_total }
+  end
+
   def recent_calls
     calls.order('created_at DESC').limit(10)
   end
@@ -143,6 +158,8 @@ class Patient
     end
     false
   end
+
+
 
   # Search-related stuff
   class << self
