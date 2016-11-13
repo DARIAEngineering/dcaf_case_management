@@ -24,6 +24,7 @@ gem 'nokogiri', '>= 1.6.8'
 gem 'newrelic_rpm'
 gem 'mongo_session_store-rails4'
 gem 'mongoid-enum'
+gem 'tzinfo-data', require: false
 gem 'js-routes'
 
 group :development do
