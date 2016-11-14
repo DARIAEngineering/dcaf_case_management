@@ -33,6 +33,7 @@ class Pregnancy
   # Validations
   validates :created_by,
             presence: true
+  validate :pledge_sent, :check_other_validations, if: :updating_pledge_sent?
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -50,4 +51,17 @@ class Pregnancy
   #   end
   #   false
   # end
+
+  private
+
+  def updating_pledge_sent?
+    pledge_sent == true
+  end
+
+  def check_other_validations
+    errors.add(:pledge_sent, 'DCAF soft pledge field cannot be blank') if dcaf_soft_pledge.blank?
+    errors.add(:pledge_sent, 'Patient name cannot be blank') if patient.name.blank?
+    errors.add(:pledge_sent, 'Clinic name cannot be blank') if patient.clinic_name.blank?
+    errors.add(:pledge_sent, 'Appointment date cannot be blank') if patient.appointment_date.blank?
+  end
 end

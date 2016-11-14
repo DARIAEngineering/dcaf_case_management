@@ -43,4 +43,48 @@ class PregnancyTest < ActiveSupport::TestCase
       assert @pregnancy.created_by
     end
   end
+
+  before do
+    @pregnancy.dcaf_soft_pledge = 500
+    @pt_1.clinic_name = 'Nice Clinic'
+    @pt_1.appointment_date = DateTime.now + 14
+  end
+
+  describe 'pledge_sent validation' do
+    it 'should validate pledge_sent when all items in #check_other_validations? are present' do
+      @pregnancy.pledge_sent = true
+      assert @pregnancy.valid?
+    end
+
+    it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
+      @pregnancy.dcaf_soft_pledge = nil
+      @pregnancy.pledge_sent = true
+      refute @pregnancy.valid?
+      assert_equal ['DCAF soft pledge field cannot be blank'], @pregnancy.errors.messages[:pledge_sent]
+    end
+
+    it 'should not validate pledge_sent if the clinic name is blank' do
+      @pt_1.clinic_name = nil
+      @pregnancy.pledge_sent = true
+      refute @pregnancy.valid?
+      assert_equal ['Clinic name cannot be blank'], @pregnancy.errors.messages[:pledge_sent]
+    end
+
+    it 'should not validate pledge_sent if the appointment date is blank' do
+      @pt_1.appointment_date = nil
+      @pregnancy.pledge_sent = true
+      refute @pregnancy.valid?
+      assert_equal ['Appointment date cannot be blank'], @pregnancy.errors.messages[:pledge_sent]
+    end
+
+    it 'should produce three error messages if three required fields are blank' do
+      @pregnancy.dcaf_soft_pledge = nil
+      @pt_1.clinic_name = nil
+      @pt_1.appointment_date = nil
+      @pregnancy.pledge_sent = true
+      refute @pregnancy.valid?
+      assert_equal ['DCAF soft pledge field cannot be blank', 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
+      @pregnancy.errors.messages[:pledge_sent]
+    end
+  end
 end
