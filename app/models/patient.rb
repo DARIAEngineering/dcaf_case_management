@@ -107,12 +107,12 @@ class Patient
     sent_total = 0
     Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
       if patient.pregnancy.pledge_sent
-        sent_total += patient.pregnancy.dcaf_soft_pledge
+        sent_total += (patient.pregnancy.dcaf_soft_pledge || 0)
       else
-        outstanding_pledges +=  patient.pregnancy.dcaf_soft_pledge
+        outstanding_pledges += (patient.pregnancy.dcaf_soft_pledge || 0)
       end
     end
-    return { pledged: outstanding_pledges, sent: sent_total }
+    { pledged: outstanding_pledges, sent: sent_total }
   end
 
   def recent_calls
