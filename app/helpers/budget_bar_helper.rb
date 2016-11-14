@@ -11,7 +11,8 @@ module BudgetBarHelper
   private
 
   def to_pct(value)
-    pct = (value.to_f / 1_350.to_f) * 100
+    budget_total = ENV['weekly_budget'] || 1_350
+    pct = (value.to_f / budget_total.to_f) * 100
     pct.round.to_s
   end
 end
