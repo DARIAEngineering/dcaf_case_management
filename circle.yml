@@ -1,6 +1,8 @@
 machine:
   ruby:
     version: 2.3.1
+  services:
+    - docker
 
 deployment:
   staging:
@@ -8,8 +10,7 @@ deployment:
     commands:
       - bundle exec rake assets:clobber assets:precompile
       - git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
-    # heroku:
-      # appname: dcaf-cmapp-staging
+      - docker build -t colinxfleming/dcaf_case_management . && docker login -u "$DOCKERUSER" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
 
 test:
   post:
