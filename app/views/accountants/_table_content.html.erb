@@ -15,7 +15,7 @@
     <tbody id="<%= table_type %>_content">
       <% patients.each do |patient| %>
         <tr class="pregnancy-data" id="<%= patient.id %>">
-          <td><!-- fill in with patient ID when it's around --></td>
+          <td><<%= patient.identifier %></td>
           <td><%= link_to patient.name, edit_patient_path(patient) %></td>
           <td><%= patient.most_recent_pledge_display_date %></td>
           <td><%= patient.clinic_name %></td>
