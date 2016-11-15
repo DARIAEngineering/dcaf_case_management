@@ -112,19 +112,17 @@ class Patient
     #   pledges_sent: (count of pledges sent)
     # }
 
-    patient_reached = 0
-    patient_pledges_sent = 0
-
 
     Patient.each do |patient|
-      patient.calls.each do |call|
-        if call.reached? && call.updated_at >= datetime
-          reached_patient += 1
-        end
+      calls = patient.calls.select { |call| call.status == "Reached patient" && call.updated_at >= datetime }
+      unless calls.nil?
+        patients_reached << patient
       end
     end
 
-    return { :since => datetime, :contacts => reached_patient, :first_contacts => 20, :pledges_sent => 20 } #hard coding in first_contacts and pledges_sent for now
+    first_contact = patients_reached.select { |patient| patient.initial_call_date >= datetime }
+
+    return { :since => datetime, :contacts => patients_reached.length, :first_contacts => first_contact.length, :pledges_sent => 20 } #hard coding in first_contacts and pledges_sent for now
   end
 
   def recent_calls
