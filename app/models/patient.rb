@@ -100,7 +100,7 @@ class Patient
     end
   end
 
-  def self.pledged_status_summary (num_days=7)
+  def self.pledged_status_summary(num_days = 7)
     # return pledge totals for patients with appts in the next num_days
     # TODO move to Pledge class, when implemented?
     outstanding_pledges = 0
@@ -159,7 +159,10 @@ class Patient
     false
   end
 
-
+  def assemble_audit_trails
+    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
+                                               .reverse
+  end
 
   # Search-related stuff
   class << self
