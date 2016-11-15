@@ -1,26 +1,39 @@
-FROM rails:4.2.6
+FROM ruby:2.3.1-alpine
 MAINTAINER Colin Fleming <c3flemin@gmail.com> 
 
+# configure environment variable
+ENV DCAF_DIR=/usr/src/app \
+    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers" \
+    APP_DEPENDENCIES="nodejs"
+
+# get our gem house in order
+RUN mkdir -p ${DCAF_DIR}
+WORKDIR ${DCAF_DIR}
+COPY Gemfile ${DCAF_DIR}
+COPY Gemfile.lock ${DCAF_DIR}
+
 # install packages
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev 
+RUN apk --no-cache add \
+    ${BUILD_DEPENDENCIES} \
+    ${APP_DEPENDENCIES} && \
+    gem install bundler --no-ri --no-rdoc && \
+    cd ${DCAF_DIR} ; bundle install --without development test && \
+    apk del ${BUILD_DEPENDENCIES} 
 
-# for nokogiri
-RUN apt-get install -y libxml2-dev libxslt1-dev
+# symlink which nodejs to node
+RUN ln -s `which nodejs` /usr/bin/node
 
-# for a JS runtime
-RUN apt-get install -y nodejs && ln -s `which nodejs` /usr/bin/node
-RUN apt-get install -y npm
-
-# for phantomjs
+# install phantomjs
 RUN npm install -g phantomjs-prebuilt
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY Gemfile /usr/src/app/
-COPY Gemfile.lock /usr/src/app/
-RUN bundle install
+RUN addgroup dcaf && adduser -s /bin/bash -D -G dcaf dcaf
+RUN chown -R dcaf:dcaf ${DCAF_DIR}
+USER dcaf
+WORKDIR ${DCAF_DIR}
 
-COPY . /usr/src/app
+COPY . ${DCAF_DIR}
+
+EXPOSE 3000
