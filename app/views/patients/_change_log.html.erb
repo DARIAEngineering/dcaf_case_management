@@ -13,15 +13,7 @@
       </thead>
       <tbody>
         <% patient.assemble_audit_trails.each do |revision| %>
-          <% if revision.changed_fields.present? %>
-            <tr>
-              <td><%= revision.date_of_change %></td>
-              <td><%= safe_join_fields(revision.changed_fields) %></td>
-              <td><%= safe_join_fields(revision.changed_from) %></td>
-              <td><%= safe_join_fields(revision.changed_to) %></td>
-              <td><%= revision.changed_by_user %></td>
-            </tr>
-          <% end %>
+          <%= render 'patients/change_log_entry', revision: revision %>
         <% end %>
       </tbody>
     </table>
