@@ -12,29 +12,8 @@
         </tr>
       </thead>
       <tbody>
-        <% patient.history_tracks.order('created_at DESC').each do |revision| %>
-          <tr>
-            <td><%= revision.created_at.display_date %></td>
-
-            <td>
-              <% revision.tracked_changes_fields.each do |field| %>
-                <%= field %><br>
-              <% end %>
-            </td>
-
-            <td>
-              <% revision.tracked_changes_from.each do |field| %>
-                <%= field %><br>
-              <% end %>
-            </td>
-
-            <td>
-              <% revision.tracked_changes_to.each do |field| %>
-                <%= field %><br>
-              <% end %>
-            </td>
-            <td><% 'user' %></td>
-          </tr>
+        <% patient.assemble_audit_trails.each do |revision| %>
+          <%= render 'patients/change_log_entry', revision: revision %>
         <% end %>
       </tbody>
     </table>
