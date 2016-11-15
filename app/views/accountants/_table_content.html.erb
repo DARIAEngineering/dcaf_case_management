@@ -5,9 +5,6 @@
   <table class="table border-side">
     <thead>
       <tr>
-        <% if local_assigns[:sortable] %>
-          <th><!-- handle --></th>
-        <% end %>
         <th>Patient ID</th>
         <th>Name</th>
         <th>Pledge Sent Date</th>
@@ -18,9 +15,6 @@
     <tbody id="<%= table_type %>_content">
       <% patients.each do |patient| %>
         <tr class="pregnancy-data" id="<%= patient.id %>">
-          <% if local_assigns[:sortable] %>
-            <td class="handle"><span class="glyphicon glyphicon-move"></span></td>
-          <% end %>
           <td><!-- fill in with patient ID when it's around --></td>
           <td><%= link_to patient.name, edit_patient_path(patient) %></td>
           <td><%= patient.most_recent_pledge_display_date %></td>
