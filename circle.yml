@@ -10,7 +10,7 @@ deployment:
     commands:
       - bundle exec rake assets:clobber assets:precompile
       - git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
-      - cd dcaf_case_management && docker build -t colinxfleming/dcaf_case_management . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
+      - ls && docker build -t colinxfleming/dcaf_case_management . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
 
 test:
   post:
