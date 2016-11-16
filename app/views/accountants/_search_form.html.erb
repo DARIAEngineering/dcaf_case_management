@@ -3,7 +3,7 @@
 
   <!-- TODO change submit tag to a search glyphicon -->
   <%= bootstrap_form_tag url: 'accountant/search', remote: true, layout: :inline do |p| %>
-    <%= p.text_field :search, placeholder: 'Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)', hide_label: true, class: 'accountants' %>
+    <%= p.text_field :search, placeholder: 'Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)', hide_label: true, class: 'search_form_input accountant' %>
     <%= p.submit 'Search', class: 'btn btn-primary' %>
   <% end %>
 
