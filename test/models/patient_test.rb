@@ -82,6 +82,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'pledge_summary' do
+    # TODO: needs timecopping
     it "should not error when there are no pregnancies" do
       Patient.destroy_all
       assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary.to_s
@@ -90,9 +91,9 @@ class PatientTest < ActiveSupport::TestCase
       [@patient, @patient2].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
       end
-      @patient.update appointment_date: ( Date.today + 4 )
+      @patient.update appointment_date: (Date.today + 4)
       @patient.pregnancy.update dcaf_soft_pledge: 300
-      @patient2.update appointment_date: ( Date.today + 8 )
+      @patient2.update appointment_date: (Date.today + 8)
       @patient2.pregnancy.update dcaf_soft_pledge: 500, pledge_sent: true
       assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary(1).to_s
       assert_equal '{:pledged=>300, :sent=>0}', Patient.pledged_status_summary.to_s

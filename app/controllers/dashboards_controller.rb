@@ -2,6 +2,7 @@
 class DashboardsController < ApplicationController
   def index
     @urgent_patients = Patient.urgent_patients
+    @expenditures = Patient.pledged_status_summary
   end
 
   def search
