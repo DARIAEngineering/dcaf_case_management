@@ -33,10 +33,11 @@ class RecordCallTest < ActionDispatch::IntegrationTest
     end
 
     it 'should update Call Lists' do
-      find("a[href='#call-123-123-1231']").click
+      # save_and_open_screenshot
+      find("a[href='#call-123-123-1233']").click
       wait_for_ajax
 
-      within :css, '#call-123-123-1231' do
+      within :css, '#call-123-123-1233' do
         click_link "I left a voicemail for the patient"
       end
       wait_for_ajax
