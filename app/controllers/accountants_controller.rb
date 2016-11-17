@@ -1,9 +1,11 @@
 class AccountantsController < ApplicationController
   def index
-    head :ok
   end
 
   def search
-    head :ok
+    @results = Patient.search params[:search]
+
+    respond_to { |format| format.js }
   end
+
 end

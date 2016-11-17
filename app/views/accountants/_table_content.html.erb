@@ -1,0 +1,27 @@
+<!-- locals: -->
+
+<div id="<%= table_type %>" class="margin-bottom">
+  <h1 class="border-bottom title"><%= title %></h1>
+  <table class="table border-side">
+    <thead>
+      <tr>
+        <th>Patient ID</th>
+        <th>Name</th>
+        <th>Pledge Sent Date</th>
+        <th>Clinic Name</th>
+        <th>Clinic Location</th>
+      </tr>
+    </thead>
+    <tbody id="<%= table_type %>_content">
+      <% patients.each do |patient| %>
+        <tr class="pregnancy-data" id="<%= patient.id %>">
+          <td><%= patient.identifier %></td>
+          <td><%= link_to patient.name, edit_patient_path(patient) %></td>
+          <td><!-- patient.most_recent_pledge_display_date --></td>
+          <td><%= patient.clinic_name %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
