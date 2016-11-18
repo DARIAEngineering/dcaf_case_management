@@ -1,9 +1,29 @@
 <%= render '/shared/modal',
   :captured => capture { %>
-  <div class="row hide" data-step="1" data-title="This is the first step!">
-      <div class="jumbotron">As you can see, this is the first step!</div>
+
+  <div class="row hide" data-step="1" data-title="Confirm the following information is correct:">
+      <div><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
+      <div><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
+      <div><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.pregnancy.dcaf_soft_pledge %> </div>
+      <div><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
+      <div><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
   </div>
-  <div class="row hide" data-step="2" data-title="This is the second and last step!">
-      <div class="jumbotron">As you can see, this is the second and last step!</div>
+
+  <div class="row hide" data-step="2" data-title="Review this preview of your pledge: (Not working yet)">
+    This space intentionally left blank.
   </div>
+
+  <div class="row hide" data-step="3" data-title="Confirm the following information is correct:">
+    <p>Awesome, you generated a DCAF Pledge! Thanks!</p>
+    <p>Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
+    <p>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</p>
+
+    <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
+      <%= f.fields_for patient.pregnancy do |p| %>
+        <%= p.check_box :pledge_sent, label: 'I sent the pledge' %>
+      <% end %>
+    <% end %>
+
+  </div>
+
 <% } %>
