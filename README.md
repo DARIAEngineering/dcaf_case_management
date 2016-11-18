@@ -5,25 +5,19 @@
 
 [A deployed demo version of what's in the master branch is at: http://dcaf-cmapp-staging.herokuapp.com/](http://dcaf-cmapp-staging.herokuapp.com/)
 
-## Next major project milestone: September 1: Roll out to DC line
+## Next major project milestone: December 1: Launch to full organization!
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
 
-Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/).
+Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/). You can also check out a [blog post about how we're using agile-ish](http://codefordc.org/blog/2016/09/12/code-for-dcaf.html).
 
 The three co-leads on this project are @colinxfleming (rails and technical lead), @mebates (design and UI lead), and @adinneen (project manager and UX lead). We also have a large presence from DCAF actively consulting on this project, led by @lwaldsc and @nerdygirl537. Feel free to hit any of us up with questions about the project, we're nice!
 
 
 ## Contributing to this Project
-
-### Hello friends from Hacktoberfest!
-
-Welcome strangers from the internet! Our small scrappy team would love to have your insights and talents on some stuff -- this is a great opportunity to lend your engineering skills to the cause of reproductive justice. Check out the [Hacktoberfest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) tag for some straightforward issues that might require some technology expertise, or that are just some low-hanging fruit we've left as we sprint toward our next major feature release. 
-
-The core team actively manages this project and we are happy to provide any guidance or context that would be helpful!
 
 ### Our structure
 
@@ -57,7 +51,7 @@ Our major categories of software development related issues are as follows:
 We also keep track of our administrative issues and discussion in Github under the following issue labels:
 * [Admin](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
 * [Question](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before they're completed)
-* [Backlog](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that can wait until after the MVP)
+* [Backlog](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that we'll get around to someday)
 
 
 ## Setting Stuff Up
@@ -80,9 +74,10 @@ If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/s
 
 If you prefer a local environment, do the following:
 
+* Fork the repo to your own github!
 * Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down and pop into the repo
-* Install Ruby! We use version `2.2.4`. (Usually `rbenv install 2.2.4` or `rvm install 2.2.4`)
-* Set that version of ruby as your default within the directory (`rbenv local 2.2.4` / `rvm use 2.2.4`)
+* Install Ruby! We use version `2.3.1`. (Usually `rbenv install 2.3.1` or `rvm install 2.3.1`)
+* Set that version of ruby as your default within the directory (`rbenv local 2.3.1` / `rvm use 2.3.1`)
 * Run the command `bundle install` to install dependences, including `rails`!
 * Install MongoDB! (MongoDB setup instructions are below)
 * Install PhantomJS, which our test suite depends on (`brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))

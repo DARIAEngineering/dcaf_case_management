@@ -5,6 +5,9 @@ class PatientTest < ActiveSupport::TestCase
     @user = create :user
     @patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
+
+    @patient2 = create :patient, other_phone: '333-222-3333',
+                                other_contact: 'Foobar'
     @pregnancy = create :pregnancy, patient: @patient
   end
 
@@ -75,6 +78,25 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.valid?
       @patient.appointment_date = '2016-07-01'
       assert @patient.valid?
+    end
+  end
+
+  describe 'pledge_summary' do
+    it "should not error when there are no pregnancies" do
+      Patient.destroy_all
+      assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary.to_s
+    end
+    it "should return proper pledge summaries for various timespans" do
+      [@patient, @patient2].each do |pt|
+        create :pregnancy, patient: pt, created_by: @user
+      end
+      @patient.update appointment_date: ( Date.today + 4 )
+      @patient.pregnancy.update dcaf_soft_pledge: 300
+      @patient2.update appointment_date: ( Date.today + 8 )
+      @patient2.pregnancy.update dcaf_soft_pledge: 500, pledge_sent: true
+      assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary(1).to_s
+      assert_equal '{:pledged=>300, :sent=>0}', Patient.pledged_status_summary.to_s
+      assert_equal '{:pledged=>300, :sent=>500}', Patient.pledged_status_summary(10).to_s
     end
   end
 
@@ -208,6 +230,33 @@ class PatientTest < ActiveSupport::TestCase
 
       it 'should trim pregnancies after they have been urgent for five days' do
         # TODO: TEST patient#trim_urgent_pregnancies
+      end
+    end
+
+    describe 'still urgent method' do
+      it 'should return true if marked urgent in last 6 days' do
+        @patient.update urgent_flag: true
+        assert @patient.still_urgent?
+      end
+
+      it 'should return false if pledge sent' do
+        @patient.update urgent_flag: true
+        @pregnancy.update pledge_sent: true
+        assert_not @patient.still_urgent?
+      end
+
+      it 'should return false if resolved without dcaf' do
+        @patient.update urgent_flag: true
+        @pregnancy.update resolved_without_dcaf: true
+        assert_not @patient.still_urgent?
+      end
+
+      it 'should return false if not updated for more than 6 days' do
+        Timecop.freeze(Time.zone.now - 7.days) do
+          @patient.update urgent_flag: true
+        end
+
+        assert_not @patient.still_urgent?
       end
     end
   end

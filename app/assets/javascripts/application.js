@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require turbolinks
+//= require js-routes
 //= require bootstrap-sprockets
 //= require google_analytics
 //= require_tree .

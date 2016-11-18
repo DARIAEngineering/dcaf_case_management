@@ -74,6 +74,23 @@ class UserTest < ActiveSupport::TestCase
       @user.clear_call_list
       assert_equal 1, @user.recently_called_patients.count
     end
+
+    it 'should clear patient list when user has not logged in' do
+      assert_not @user.patients.empty?
+      last_sign_in = Time.zone.now - User::TIME_BEFORE_INACTIVE - 1.day
+      @user.last_sign_in_at = last_sign_in
+      @user.clear_call_list
+
+      assert @user.patients.empty?
+    end
+
+    it 'should not clear patient list if user signed in recently' do
+      assert_not @user.patients.empty?
+      @user.last_sign_in_at = Time.zone.now
+      @user.clear_call_list
+
+      assert_not @user.patients.empty?
+    end
   end
 
   describe 'patient methods' do
@@ -110,12 +127,12 @@ class UserTest < ActiveSupport::TestCase
         assert_equal @patient_2, @user.ordered_patients[2]
       end
 
-      it 'should not die if another preg is on call list but not call order' do
+      it 'should always add new patients to the front of the call order' do
         @patient_4 = create :patient
         @user.add_patient @patient_4
 
         assert @user.ordered_patients.include? @patient_4
-        refute @user.call_order.include? @patient_4.id.to_s
+        assert @user.call_order.index(@patient_4.id.to_s) == 0
       end
     end
   end

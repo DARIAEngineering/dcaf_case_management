@@ -12,6 +12,7 @@
         <th>Name</th>
         <th>LMP</th>
         <th>Status</th>
+        <th>Appointment date</th>
         <th>Notes</th>
         <th></th>
         <th></th>
@@ -27,13 +28,14 @@
           <td><%= link_to patient.name, edit_patient_path(patient) %></td>
           <td><%= patient.pregnancy.last_menstrual_period_display_short %></td>
           <td><%= patient.status %></td>
+          <td><%= patient.appointment_date %></td>
           <td><%= patient.most_recent_note_display_text %> <%= plus_sign_glyphicon(patient.most_recent_note) %></td>
 
           <% if table_type == 'completed_calls' || table_type == 'urgent_patients' %>
             <td class="blank-td"></td>
           <% else %>
             <% if current_user.patients.include?(patient) %>
-              <td><%= link_to "Remove", remove_patient_path(current_user, patient), method: :patch, remote: true %></td>
+              <td><%= link_to "Remove", remove_patient_path(current_user, patient), method: :patch, data: { confirm: "Are you sure you want to remove #{patient.name} from your call list?" },  remote: true %></td>
             <% else %>
               <td><%= link_to "Add", add_patient_path(current_user, patient), method: :patch, remote: true %></td>
             <% end %>

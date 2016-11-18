@@ -51,6 +51,13 @@ class Patient
   field :urgent_flag, type: Boolean
   field :special_circumstances, type: Array, default: []
 
+  # Indices
+  index({ primary_phone: 1 }, unique: true)
+  index(other_contact_phone: 1)
+  index(name: 1)
+  index(other_contact: 1)
+  index(urgent_flag: 1)
+
   # Validations
   validates :name,
             :primary_phone,
@@ -93,6 +100,21 @@ class Patient
     end
   end
 
+  def self.pledged_status_summary (num_days=7)
+    # return pledge totals for patients with appts in the next num_days
+    # TODO move to Pledge class, when implemented?
+    outstanding_pledges = 0
+    sent_total = 0
+    Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
+      if patient.pregnancy.pledge_sent
+        sent_total += patient.pregnancy.dcaf_soft_pledge
+      else
+        outstanding_pledges +=  patient.pregnancy.dcaf_soft_pledge
+      end
+    end
+    return { pledged: outstanding_pledges, sent: sent_total }
+  end
+
   def recent_calls
     calls.order('created_at DESC').limit(10)
   end
@@ -130,11 +152,14 @@ class Patient
   def still_urgent?
     # Verify that a pregnancy has not been marked urgent in the past six days
     return false if recent_history_tracks.count == 0
+    return false if pregnancy.pledge_sent || pregnancy.resolved_without_dcaf
     recent_history_tracks.sort.reverse.each do |history|
       return true if history.marked_urgent?
     end
     false
   end
+
+
 
   # Search-related stuff
   class << self

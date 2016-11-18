@@ -14,13 +14,13 @@ class MarkUrgentCasesTest < ActionDispatch::IntegrationTest
   after do
     Capybara.use_default_driver
   end
-  
+
   it 'should initially show an empty checkbox' do
     refute page.has_checked_field?('patient_urgent_flag')
   end
 
   it 'should move the case to urgent after checking the checkbox' do
-    check 'patient_urgent_flag' 
+    check 'patient_urgent_flag'
     visit dashboard_path
     within :css, '#urgent_patients' do
       assert has_text? @patient.name
