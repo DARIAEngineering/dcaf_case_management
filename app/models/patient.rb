@@ -51,12 +51,12 @@ class Patient
   field :urgent_flag, type: Boolean
   field :special_circumstances, type: Array, default: []
 
-  #Indices
-  index({ primary_phone: 1 }, { unique: true })
-  index({ other_contact_phone: 1 })
-  index({ name: 1 })
-  index({ other_contact: 1 })
-  index({ urgent_flag: 1 })
+  # Indices
+  index({ primary_phone: 1 }, unique: true)
+  index(other_contact_phone: 1)
+  index(name: 1)
+  index(other_contact: 1)
+  index(urgent_flag: 1)
 
   # Validations
   validates :name,
@@ -100,6 +100,21 @@ class Patient
     end
   end
 
+  def self.pledged_status_summary(num_days = 7)
+    # return pledge totals for patients with appts in the next num_days
+    # TODO move to Pledge class, when implemented?
+    outstanding_pledges = 0
+    sent_total = 0
+    Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
+      if patient.pregnancy.pledge_sent
+        sent_total += (patient.pregnancy.dcaf_soft_pledge || 0)
+      else
+        outstanding_pledges += (patient.pregnancy.dcaf_soft_pledge || 0)
+      end
+    end
+    { pledged: outstanding_pledges, sent: sent_total }
+  end
+
   def recent_calls
     calls.order('created_at DESC').limit(10)
   end
@@ -118,6 +133,17 @@ class Patient
   def most_recent_note
     notes.order('created_at DESC').limit(1).first
   end
+
+  # TODO: reimplement once pledge is available
+  #def most_recent_pledge_display_date
+  #  display_date = most_recent_pledge.try(:sent).to_s
+  #  display_date
+  #end
+
+  # TODO: reimplement once pledge is available
+  #def most_recent_pledge
+  #  pledges.order('created_at DESC').limit(1).first
+  #end
 
   def primary_phone_display
     return nil unless primary_phone.present?
@@ -142,6 +168,11 @@ class Patient
       return true if history.marked_urgent?
     end
     false
+  end
+
+  def assemble_audit_trails
+    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
+                                               .reverse
   end
 
   # Search-related stuff

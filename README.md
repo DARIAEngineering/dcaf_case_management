@@ -19,12 +19,15 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 
 ## Contributing to this Project
 
+<<<<<<< HEAD
 ### Hello friends from Hacktoberfest!
 
 Welcome strangers from the internet! Our small scrappy team would love to have your insights and talents on some stuff -- this is a great opportunity to lend your engineering skills to the cause of reproductive justice. Check out the [Hacktoberfest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) tag for some straightforward issues that might require some technology expertise, or that are just some low-hanging fruit we've left as we sprint toward our next major feature release.
 
 The core team actively manages this project and we are happy to provide any guidance or context that would be helpful!
 
+=======
+>>>>>>> 32a08a7a85968c148ac21d904cbf0d0b734818bf
 ### Our structure
 
 We run two week sprints where we try to complete 2-3 small features. Generally, we meet at Code for DC once to begin the sprint, and spend the off-week completing what we didn't finish the previous week.
@@ -69,8 +72,7 @@ For the rest of the setup, you have three options: Docker, installing everything
 
 ### Docker
 
-We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with four commands:
-* `docker-compose build # to install the dependencies`
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with two commands:
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
@@ -80,9 +82,10 @@ If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/s
 
 If you prefer a local environment, do the following:
 
+* Fork the repo to your own github!
 * Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down and pop into the repo
-* Install Ruby! We use version `2.2.4`. (Usually `rbenv install 2.2.4` or `rvm install 2.2.4`)
-* Set that version of ruby as your default within the directory (`rbenv local 2.2.4` / `rvm use 2.2.4`)
+* Install Ruby! We use version `2.3.1`. (Usually `rbenv install 2.3.1` or `rvm install 2.3.1`)
+* Set that version of ruby as your default within the directory (`rbenv local 2.3.1` / `rvm use 2.3.1`)
 * Run the command `bundle install` to install dependences, including `rails`!
 * Install MongoDB! (MongoDB setup instructions are below)
 * Install PhantomJS, which our test suite depends on (`brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))
@@ -97,6 +100,10 @@ After that:
 * Run `rake db:seed` to populate your database with test data
 * Run the command `rails server` to start the rails server
 * All set! Navigate your browser to `http://localhost:3000`
+
+To Run the Tests:
+* Run `rake test` to test the entire suite
+* Run `rake test [fullpath-to-test]` to run a specific test file
 
 ## Troubleshooting
 

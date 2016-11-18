@@ -2,6 +2,7 @@
 class DashboardsController < ApplicationController
   def index
     @urgent_patients = Patient.urgent_patients
+    @expenditures = Patient.pledged_status_summary
   end
 
   def search
@@ -13,6 +14,9 @@ class DashboardsController < ApplicationController
     @name = searched_for_name?(params[:search]) ? params[:search] : ''
 
     respond_to { |format| format.js }
+  end
+
+  def lineselect
   end
 
   private

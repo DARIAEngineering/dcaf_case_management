@@ -1,0 +1,36 @@
+<h1>User Account Management</h1>
+<div class="row" style="padding-top: 10px; padding-bottom: 20px;">
+  <div class="col-md-8">
+    <%= link_to "Add New User", new_user_path, class: "btn btn-primary" %>
+  </div>
+  <div class="col-md-4">
+    <div style="float: right;">
+      <%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |p| %>
+        <%= p.text_field :search, placeholder: 'search', hide_label: true, class: 'search_form_input' %>
+        <%= p.submit 'Search', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<table class="table border-side">
+  <thead>
+    <tr>
+      <th>FULL NAME</th>
+      <th>ROLE</th>
+      <th>LAST LOGIN</th>
+      <th>STATUS</th>
+      <th> RESET PASSWORD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, "#" %></td>
+        <td><%= user.role %>
+        <td><%= user.last_sign_in_at %>
+        <td> STATUS </td>
+        <td><button type="button" class="btn btn-primary">Reset Password</button></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
