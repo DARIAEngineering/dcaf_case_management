@@ -12,6 +12,7 @@ class Patient
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   embeds_one :pregnancy
+  embeds_one :fulfillment
   embeds_one :clinic
   embeds_many :calls
   embeds_many :pledges
@@ -19,6 +20,7 @@ class Patient
 
   # Enable mass posting in forms
   accepts_nested_attributes_for :pregnancy
+  accepts_nested_attributes_for :fulfillment
   accepts_nested_attributes_for :clinic
 
   # Fields
@@ -74,6 +76,7 @@ class Patient
   validate :confirm_appointment_after_initial_call
 
   validates_associated :pregnancy
+  validates_associated :fulfillment
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
