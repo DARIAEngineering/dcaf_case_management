@@ -8,13 +8,11 @@ class Fulfillment
   embedded_in :patient
 
   field :pledge_fulfilled, type: Boolean
-  field :procedure_date, type: Time
+  field :procedure_date, type: Date
   field :weeks_along, type: String
   field :abortion_care_cost, type: Integer
   field :check_number, type: Integer
-  field :date_of_check, type: Time
-  field :check_issued_to, type: String
-  field :date_check_cleared, type: Time
+  field :date_of_check, type: Date
 
   # Validations
   validates :created_by,
