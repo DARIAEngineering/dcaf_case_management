@@ -20,6 +20,7 @@ class PatientsController < ApplicationController
 
   def edit
     @note = @patient.notes.new
+    @pledge = Pledge.new(amount: @patient.pregnancy.dcaf_soft_pledge, patient: @patient, created_by: current_user, pledge_type: 'soft')
   end
 
   def update
