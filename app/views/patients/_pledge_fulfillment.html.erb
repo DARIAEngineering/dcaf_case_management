@@ -8,14 +8,26 @@
       </div>
 
       <div class="row">
+        <div class="col-sm-12">
+          <%= f.fields_for patient.pregnancy do |pt| %>
+            <%= pt.form_group :resolved_without_dcaf do %>
+              <%= pt.check_box :resolved_without_dcaf, label: 'Pledge Fulfilled' %>
+            <% end %>
+          <% end %>
+        </div>  
         <div class="info-form-left col-sm-6">
-          <%=# f.form_group :pledge_fulfilled do %>
-            <%=# f.check_box :pledge_fulfilled, label: 'Pledge Fulfilled' %>
-          <%# end %>
+          <%= f.fields_for patient.pregnancy do |pt| %>
+            <%= pt.date_field :procedure_date, label: 'Procedure Date' %>
+            <%= pt.text_field :procedure_cost, label: 'Weeks Along at Procedure' %>
+            <%= pt.text_field :procedure_cost, label: 'Abortion Care $', autocomplete: 'off' %>
+          <% end %>
         </div>
         <div class="info-form-right col-sm-6">
-          <%=# f.text_field :check_number, label: 'Check #', autocomplete: 'off' %>
-  
+          <%= f.fields_for patient.pregnancy do |pt| %>
+            <%= pt.text_field :procedure_cost, label: 'Check #', autocomplete: 'off'%>
+            <%= pt.date_field :procedure_date, label: 'Date of Check' %>
+          <% end %>
+        </div>  
       </div>
     </div>
   <% end %>
