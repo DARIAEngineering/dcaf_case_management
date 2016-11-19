@@ -1,24 +1,22 @@
-# Object representing a clinic that a fund works with.
-class Clinic
+class Fulfillment
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
-  include ClinicsHelper
 
   # Relationships
   embedded_in :patient
 
-  # Fields
-  field :name, type: String
-  field :street_address_1, type: String
-  field :street_address_2, type: String
-  field :city, type: String
-  field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
-  field :zip, type: String
+  field :pledge_fulfilled, type: Boolean
+  field :procedure_date, type: Date
+  field :weeks_along, type: String
+  field :abortion_care_cost, type: Integer
+  field :check_number, type: Integer
+  field :date_of_check, type: Date
 
   # Validations
-  # TODO: Validate clinic options based on ENV['CLINICS']
+  validates :created_by,
+            presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -28,4 +26,6 @@ class Clinic
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
 
+
 end
+

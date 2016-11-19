@@ -12,6 +12,7 @@ class Patient
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   embeds_one :pregnancy
+  embeds_one :fulfillment
   embeds_one :clinic
   embeds_many :calls
   embeds_many :pledges
@@ -19,6 +20,7 @@ class Patient
 
   # Enable mass posting in forms
   accepts_nested_attributes_for :pregnancy
+  accepts_nested_attributes_for :fulfillment
   accepts_nested_attributes_for :clinic
 
   # Fields
@@ -74,6 +76,7 @@ class Patient
   validate :confirm_appointment_after_initial_call
 
   validates_associated :pregnancy
+  validates_associated :fulfillment
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
@@ -100,19 +103,19 @@ class Patient
     end
   end
 
-  def self.pledged_status_summary (num_days=7)
+  def self.pledged_status_summary(num_days = 7)
     # return pledge totals for patients with appts in the next num_days
     # TODO move to Pledge class, when implemented?
     outstanding_pledges = 0
     sent_total = 0
     Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
       if patient.pregnancy.pledge_sent
-        sent_total += patient.pregnancy.dcaf_soft_pledge
+        sent_total += (patient.pregnancy.dcaf_soft_pledge || 0)
       else
-        outstanding_pledges +=  patient.pregnancy.dcaf_soft_pledge
+        outstanding_pledges += (patient.pregnancy.dcaf_soft_pledge || 0)
       end
     end
-    return { pledged: outstanding_pledges, sent: sent_total }
+    { pledged: outstanding_pledges, sent: sent_total }
   end
 
   def recent_calls
@@ -133,6 +136,17 @@ class Patient
   def most_recent_note
     notes.order('created_at DESC').limit(1).first
   end
+
+  # TODO: reimplement once pledge is available
+  #def most_recent_pledge_display_date
+  #  display_date = most_recent_pledge.try(:sent).to_s
+  #  display_date
+  #end
+
+  # TODO: reimplement once pledge is available
+  #def most_recent_pledge
+  #  pledges.order('created_at DESC').limit(1).first
+  #end
 
   def primary_phone_display
     return nil unless primary_phone.present?
@@ -159,7 +173,10 @@ class Patient
     false
   end
 
-
+  def assemble_audit_trails
+    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
+                                               .reverse
+  end
 
   # Search-related stuff
   class << self

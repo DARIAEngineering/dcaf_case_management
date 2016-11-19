@@ -17,38 +17,37 @@ class AuditTrailTest < ActiveSupport::TestCase
     it 'should record the creating user' do
       assert_equal @patient.created_by, @user
     end
-
-    it 'should track proper info' do
-      # TODO: add pregnancy and clinic info
-      tracked_fields =
-        %w(last_menstrual_period_weeks last_menstrual_period_days
-           special_circumstances fax_received procedure_cost procedure_date
-           procedure_completed_date resolved_without_dcaf patient_contribution
-           naf_pledge dcaf_soft_pledge pledge_sent updated_by_id)
-      assert_equal Pregnancy.tracked_fields,
-                   tracked_fields
-    end
   end
 
   describe 'methods' do
     before do
-      @patient.update_attributes name: 'Yolo', primary_phone: '123-456-9999'
+      @patient.update_attributes name: 'Yolo',
+                                 primary_phone: '123-456-9999'
       @track = @patient.history_tracks.second
     end
 
+    it 'should conveniently render the date' do
+      assert_equal Time.zone.now.display_date,
+                   @track.date_of_change
+    end
+
     it 'should conveniently render changed fields' do
-      assert_equal @track.tracked_changes_fields,
+      assert_equal @track.changed_fields,
                    ['Name', 'Primary phone']
     end
 
     it 'should conveniently render what they were before' do
-      assert_equal @track.tracked_changes_from,
+      assert_equal @track.changed_from,
                    ['Susie Everyteen', '1112223333']
     end
 
     it 'should conveniently render what they are now' do
-      assert_equal @track.tracked_changes_to,
+      assert_equal @track.changed_to,
                    %w(Yolo 1234569999)
+    end
+
+    it 'should default to System if it cannot find a user' do
+      assert_equal @track.changed_by_user, 'System'
     end
   end
 

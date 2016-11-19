@@ -63,8 +63,7 @@ For the rest of the setup, you have three options: Docker, installing everything
 
 ### Docker
 
-We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with four commands:
-* `docker-compose build # to install the dependencies`
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with two commands:
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
@@ -92,6 +91,10 @@ After that:
 * Run `rake db:seed` to populate your database with test data
 * Run the command `rails server` to start the rails server
 * All set! Navigate your browser to `http://localhost:3000`
+
+To Run the Tests:
+* Run `rake test` to test the entire suite
+* Run `rake test [fullpath-to-test]` to run a specific test file
 
 ### Cloud9
 
