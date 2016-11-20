@@ -7,8 +7,10 @@
     <li><%= link_to 'Notes', '#notes', data: { toggle: 'tab' } %></li>
     <li><%= link_to 'Change Log', '#change_log', data: { toggle: 'tab' } %></li>
     <li><%= link_to 'Call Log', '#call_log', data: { toggle: 'tab' } %></li>
-    <li><%= link_to_if(patient.pregnancy.pledge_sent == true, 'Pledge Fulfillment', '#pledge_fulfillment', 
-            data: { toggle: 'tab' }) %></li>
+    <% if current_user.admin? %>
+      <li><%= link_to_if(patient.pregnancy.pledge_sent == true, 'Pledge Fulfillment', '#pledge_fulfillment', 
+              data: { toggle: 'tab' }) %></li>
+    <% end %>        
 
   </ul>
   <div class="row">
