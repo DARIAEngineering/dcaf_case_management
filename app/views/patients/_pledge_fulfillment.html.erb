@@ -16,7 +16,7 @@
         </div>  
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.build_fulfillment do |pt| %>
-            <%= pt.date_field :procedure_date, label: 'Procedure Date', format: '%Y-%m-%d' %>
+            <%= pt.date_field :procedure_date, label: 'Procedure Date' %>
             <%= pt.select :weeks_along, 
                 options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), 
                 label: 'Weeks Along at Procedure', 
@@ -27,7 +27,7 @@
         <div class="info-form-right col-sm-6">
           <%= f.fields_for patient.build_fulfillment do |pt| %>
             <%= pt.text_field :check_number, label: 'Check #', autocomplete: 'off'%>
-            <%= pt.date_field :date_of_check, label: 'Date of Check', format: '%Y-%m-%d' %>
+            <%= pt.date_field :date_of_check, label: 'Date of Check' %>
           <% end %>
         </div>  
       </div>
