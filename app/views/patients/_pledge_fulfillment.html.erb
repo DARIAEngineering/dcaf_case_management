@@ -17,15 +17,18 @@
         </div>  
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.pregnancy do |pt| %>
-            <%= pt.date_field :procedure_date, label: 'Procedure Date' %>
-            <%= pt.text_field :procedure_cost, label: 'Weeks Along at Procedure' %>
-            <%= pt.text_field :procedure_cost, label: 'Abortion Care $', autocomplete: 'off' %>
+            <%= pt.date_field :procedure_date, label: 'Procedure Date', format: '%Y-%m-%d' %>
+            <%= pt.select :procedure_cost, 
+                options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), 
+                label: 'Weeks Along at Procedure', 
+                autocomplete: 'off' %>
+            <%= pt.text_field :procedure_cost, label: 'Abortion Care $', autocomplete: 'off', prepend: '$' %>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">
           <%= f.fields_for patient.pregnancy do |pt| %>
             <%= pt.text_field :procedure_cost, label: 'Check #', autocomplete: 'off'%>
-            <%= pt.date_field :procedure_date, label: 'Date of Check' %>
+            <%= pt.date_field :procedure_date, label: 'Date of Check', format: '%Y-%m-%d' %>
           <% end %>
         </div>  
       </div>
