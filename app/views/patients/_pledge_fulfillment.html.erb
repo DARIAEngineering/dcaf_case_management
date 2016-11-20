@@ -9,26 +9,26 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <%= f.fields_for patient.pregnancy do |pt| %>
-            <%= pt.form_group :resolved_without_dcaf do %>
-              <%= pt.check_box :resolved_without_dcaf, label: 'Pledge Fulfilled' %>
+          <%= f.fields_for patient.build_fulfillment do |pt| %>
+            <%= pt.form_group :pledge_fulfilled do %>
+              <%= pt.check_box :pledge_fulfilled, label: 'Pledge Fulfilled' %>
             <% end %>
           <% end %>
         </div>  
         <div class="info-form-left col-sm-6">
-          <%= f.fields_for patient.pregnancy do |pt| %>
+          <%= f.fields_for patient.build_fulfillment do |pt| %>
             <%= pt.date_field :procedure_date, label: 'Procedure Date', format: '%Y-%m-%d' %>
-            <%= pt.select :procedure_cost, 
+            <%= pt.select :weeks_along, 
                 options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), 
                 label: 'Weeks Along at Procedure', 
                 autocomplete: 'off' %>
-            <%= pt.text_field :procedure_cost, label: 'Abortion Care $', autocomplete: 'off', prepend: '$' %>
+            <%= pt.text_field :abortion_care_cost, label: 'Abortion Care $', autocomplete: 'off'%>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">
-          <%= f.fields_for patient.pregnancy do |pt| %>
-            <%= pt.text_field :procedure_cost, label: 'Check #', autocomplete: 'off'%>
-            <%= pt.date_field :procedure_date, label: 'Date of Check', format: '%Y-%m-%d' %>
+          <%= f.fields_for patient.build_fulfillment do |pt| %>
+            <%= pt.text_field :check_number, label: 'Check #', autocomplete: 'off'%>
+            <%= pt.date_field :date_of_check, label: 'Date of Check', format: '%Y-%m-%d' %>
           <% end %>
         </div>  
       </div>
