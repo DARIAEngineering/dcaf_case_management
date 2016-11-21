@@ -52,4 +52,8 @@ module PatientsHelper
     (ENV['CLINICS'].try(:split, ',') || ['Sample Clinic 1', 'Sample Clinic 2'])
       .unshift nil
   end
+
+  def disable_continue?(patient)
+    patient.pregnancy.pledge_info_present? ? 'disabled' : ''
+  end
 end

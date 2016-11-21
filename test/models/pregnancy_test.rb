@@ -86,5 +86,12 @@ class PregnancyTest < ActiveSupport::TestCase
       assert_equal ['DCAF soft pledge field cannot be blank', 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
       @pregnancy.errors.messages[:pledge_sent]
     end
+
+    it 'should have convenience methods to render in view, just in case' do
+      refute @pregnancy.pledge_info_present?
+      @pregnancy.dcaf_soft_pledge = nil
+      assert @pregnancy.pledge_info_present?
+      assert_equal ['DCAF soft pledge field cannot be blank'], @pregnancy.pledge_info_errors
+    end
   end
 end

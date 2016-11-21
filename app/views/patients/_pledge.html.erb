@@ -8,6 +8,12 @@
 		<div class="pledge_modal_screen1">
 			<div class="pledge_intro">Confirm the following information is correct:</div>
 			<div class="pledge_form">
+				<% if patient.pregnancy.pledge_info_present? %>
+					<% patient.pregnancy.pledge_info_errors.each do |error| %>
+						<div class="form-error">Data required: <%= error %></div>
+					<% end %>
+				<% end %>
+
 				<div><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
 				<div><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
 				<div><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.pregnancy.dcaf_soft_pledge %> </div>
@@ -15,7 +21,7 @@
 				<div><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
 			</div>
 			<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
-		 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit" id='submit-pledge-to-p2'>Continue</a>
+		 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit <%= disable_continue?(patient) %>" id='submit-pledge-to-p2'>Continue</a>
 		</div>
 
 		<div class="pledge_modal_screen2">
