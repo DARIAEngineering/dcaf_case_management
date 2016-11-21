@@ -10,6 +10,7 @@
 			<div class="pledge_form">
 				<% if patient.pregnancy.pledge_info_present? %>
 					<% patient.pregnancy.pledge_info_presence.uniq.each do |error| %>
+					<!-- TODO make this not choke and render all the errors actually -->
 						<div class="form-error">Data required: <%= error %></div>
 					<% end %>
 				<% end %>
