@@ -57,6 +57,10 @@ class Pregnancy
     errors.messages.present?
   end
 
+  def pledge_info_errors
+    errors.messages.values.flatten.uniq
+  end
+
   private
 
   def updating_pledge_sent?
