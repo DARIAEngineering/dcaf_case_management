@@ -2,18 +2,13 @@
   <div class="col-sm-12">
     <h1 class="border-bottom title">Welcome to DCAF Case Manager!</h1>
     <h4>What line are you working tonight?</h4>
-      <%= bootstrap_form_tag url: '/set_line' do |f| %>
-        <% lines.each do |line| %>
-          <%= f.radio_button :line, line, label: line %>
-        <% end %>
-        <%= f.submit 'Select your line for this session', class: 'btn-lg btn-primary' %>
-      <% end %>
-        <!-- <form>
-          <input type="radio" name="call_line" value="dc_line"> DC Line </input><br/>
-          <input type="radio" name="call_line" value="va_line"> VA Line </input><br/>
-          <input type="radio" name="call_line" value="md_line"> MD Line </input><br/><br/>
 
-          <input class="btn-lg btn-primary" type="submit" value="Start">
-        </form> -->
+    <%= bootstrap_form_tag url: '/set_line' do |f| %>
+      <% lines.each do |line| %>
+        <%= f.radio_button :line, line, label: line %>
+      <% end %>
+      <%= f.submit 'Select your line for this session', class: 'btn-lg btn-primary' %>
+    <% end %>
+
   </div>
 </div>
