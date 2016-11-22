@@ -1,5 +1,7 @@
 # Basically just search and the home view
 class DashboardsController < ApplicationController
+  before_action :pick_line_if_not_set, only: [:index, :search]
+
   def index
     @urgent_patients = Patient.urgent_patients
     @expenditures = Patient.pledged_status_summary
@@ -19,6 +21,11 @@ class DashboardsController < ApplicationController
   def lineselect
   end
 
+  def set_line
+    session[:line] = params[:line]
+    redirect_to authenticated_root_path
+  end
+
   private
 
   def searched_for_phone?(query)
@@ -27,5 +34,9 @@ class DashboardsController < ApplicationController
 
   def searched_for_name?(query)
     /[a-z]/i.match query
+  end
+
+  def pick_line_if_not_set
+    redirect_to lineselect_path unless session[:line].present?
   end
 end
