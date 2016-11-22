@@ -1,5 +1,5 @@
 module ApplicationHelper
   def lines
-    ENV['AVAILABLE_LINES'] || %w(DC MD VA)
+    %w(DC MD VA) # TODO: Env var this
   end
 end

@@ -26,10 +26,20 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   def log_in_as(user)
+    log_in user
+    select_line
+  end
+
+  def log_in(user)
     visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Sign in'
+  end
+
+  def select_line
+    choose 'DC'
+    click_button 'Select your line for this session'
   end
 
   def sign_out
