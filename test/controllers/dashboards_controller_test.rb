@@ -4,6 +4,7 @@ class DashboardsControllerTest < ActionController::TestCase
   before do
     @user = create :user
     sign_in @user
+    session[:line] = 'dc'
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
