@@ -18,13 +18,13 @@ class DashboardsController < ApplicationController
     respond_to { |format| format.js }
   end
 
-  def lineselect
-  end
+  # def lineselect
+  # end
 
-  def set_line
-    session[:line] = params[:line]
-    redirect_to authenticated_root_path
-  end
+  # def set_line
+  #   session[:line] = params[:line]
+  #   redirect_to authenticated_root_path
+  # end
 
   private
 
@@ -37,6 +37,6 @@ class DashboardsController < ApplicationController
   end
 
   def pick_line_if_not_set
-    redirect_to lineselect_path unless session[:line].present?
+    redirect_to new_line_path unless session[:line].present?
   end
 end
