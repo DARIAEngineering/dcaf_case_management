@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ApplicationHelperTest < ActionView::TestCase
+class LineSelectHelperTest < ActionView::TestCase
   include ERB::Util
 
   describe 'convenience methods' do
