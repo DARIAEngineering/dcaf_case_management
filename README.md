@@ -20,38 +20,51 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 
 ## Contributing to this Project
 
+### tl;dr
+* We run on forks and pull requests
+* Look in milestones for stuff in active development
+* Post in an issue when you're starting work on something
+* We <3 new people and beginners
+
 ### Our structure
 
-We run two week sprints where we try to complete 2-3 small features. Generally, we meet at Code for DC once to begin the sprint, and spend the off-week completing what we didn't finish the previous week.
+We run two week sprints where we try to complete 2-3 small features. These sync up with [Code for DC meetups](https://www.meetup.com/code-for-dc/).
 
-When we begin a sprint, the project manager identifies the features to complete from the list of things to do before hitting Minimum Viable Product. The project leads create a Project Milestone and create Github issues for the feature itself. When we meet, we divide up the issues in the sprint, to not duplicate work.
+At any given time, we have a list of active features or pieces of features we're working on (marked `Active development`) in a [github milestone](https://github.com/colinxfleming/dcaf_case_management/milestones). We also have a list of major features on deck for a release. If you're looking for a place to dive in, check out the `Active development` milestone!
+
+We also have a milestone for major features in a release. @colinxfleming breaks off pieces of these and puts them in the active development milestone, and closes them when they're implemented, confirmed working, and tested.
+
+### We <3 new people and beginners!
+
+We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
+
+We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB and a couple gems.
 
 ### Pull Requests Please!
-This project runs on Github forks and pull requests, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). Contribution instructions are as follows:
+This project runs on *Github forks and pull requests*, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). 
+
+Here's how you do it:
 
 * Visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
 * Do any work in your local environment and commit it to your fork in github.
 * Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button.
-* At least one other person (probably @colinxfleming) will review and comment on code changes, and work with you to resolve issues, and merge the pull request when it's ready.
-
-We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB. So hopefully you can hop right in!
+* At least one other person (probably @colinxfleming) will review and comment on code changes, work with you to resolve issues, and merge the pull request when it's ready.
 
 ### How We Categorize Our To Do List / Issues
 
 As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We categorize things as follows:
 
 Our major categories of software development related issues are as follows:
-* [Deploy](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Adeploy) (Priority issues that require resolution before the next release)
-* [Beginner Friendly](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
 * [Frontend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Afrontend) (Rails view work, CSS/JS work)
 * [Backend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abackend) (Rails controller and model work)
 * [Minitest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aminitest) (Feature and unit test work)
 * [Bug](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abug) (Something deployed that isn't working as intended!)
 * [UX/Design](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3AUX%2Fdesign) (Design todos)
+* [Beginner Friendly](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
 
 We also keep track of our administrative issues and discussion in Github under the following issue labels:
 * [Admin](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
-* [Question](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before they're completed)
+* [Question](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before we settle on a plan of attack)
 * [Backlog](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that we'll get around to someday)
 
 
@@ -124,7 +137,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 * Check out the URL it's running on! You're all set!
 
 
-## For designers (Team lead: @mebates)
+## For designers (Team lead: @mebates, user testing lead: @eheintzelman)
 The design team primarily drafts out the application layouts and works with user testers and case managers on specing out how features should work.
 
 The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as resolving questions raised by user testing.
@@ -139,13 +152,9 @@ The stack we use is Rails 4, MongoDB, PhantomJS for integration tests. Nearly ev
 
 **We prioritize inclusivity of all skill levels on this project** -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
 
-We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture. If you're looking for an issue to tackle, hit up [our slack channel](https://codefordc.slack.com/messages/dcaf_case_management)!
+We generally work on tackling issues tagged `frontend`, `backend`, and `minitest`. We also occasionally serve as code guides for the designers and help them navigate rails' architecture.
 
 There's a picture of the data model [here](_design/DataModel.png).
-
-
-## For user testers (Team lead: @eheintzelman)
-With the core in place and in use, we're regularly user testing new features and getting feedback on existing features, and working with the design team to resolve questions that these tests open up. If you're interested in this, hit us up!
 
 
 ## For case managers or abortion fund volunteers (Team leads: @lwaldsc and @nerdygirl537)
