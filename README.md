@@ -184,6 +184,8 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @ewiggins
 * @katsdc
 * @eheintzelman
+* @DarthHater
+* @lomky
 
 ## Special thanks
 
