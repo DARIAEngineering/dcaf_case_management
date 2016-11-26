@@ -31,8 +31,8 @@ class LinesControllerTest < ActionController::TestCase
       assert_equal 'MD', session[:line]
     end
 
-    # TODO Enforce line values
-    it 'should reject anything not set in lines' do
-    end
+    # TODO: Enforce line values
+    # it 'should reject anything not set in lines' do
+    # end
   end
 end

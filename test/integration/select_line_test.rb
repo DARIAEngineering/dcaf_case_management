@@ -26,7 +26,7 @@ class SelectLineTest < ActionDispatch::IntegrationTest
   describe 'redirection conditions' do
     it 'should redirect from dashboard if no line is set' do
       visit authenticated_root_path
-      assert_equal current_path, lineselect_path
+      assert_equal current_path, new_line_path
     end
 
     it 'should let you change your line once line is set' do
@@ -36,7 +36,7 @@ class SelectLineTest < ActionDispatch::IntegrationTest
 
       click_link 'Line: DC'
       assert has_content? 'MD'
-      assert_equal current_path, lineselect_path
+      assert_equal current_path, new_line_path
       choose 'MD'
       click_button 'Select your line for this session'
       assert has_content? 'Line: MD'

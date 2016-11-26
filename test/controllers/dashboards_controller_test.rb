@@ -30,15 +30,4 @@ class DashboardsControllerTest < ActionController::TestCase
       end
     end
   end
-
-  describe 'lineselect method' do
-    before do
-      get :lineselect
-    end
-
-    it 'should return success' do
-      assert_response :success
-    end
-  end
-
 end
