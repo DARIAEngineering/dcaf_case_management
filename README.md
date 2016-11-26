@@ -5,9 +5,10 @@
 
 [A deployed demo version of what's in the master branch is at: http://dcaf-cmapp-staging.herokuapp.com/](http://dcaf-cmapp-staging.herokuapp.com/)
 
-## Next major project milestone: December 1: Launch to full organization!
+## Next major project milestone: December 5: Launch to full organization!
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
+Join via the [Code for DC website](http://codefordc.org/).
 
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Currently, a team of around 75 case managers are taking about 3,500 calls a year and entering them all into shared Excel sheets. We're replacing that with a nice, clean, usable and scalable rails application! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
@@ -63,7 +64,8 @@ For the rest of the setup, you have three options: Docker, installing everything
 
 ### Docker
 
-We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with two commands:
+We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
+* `docker-compose build`
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
@@ -100,9 +102,9 @@ To Run the Tests:
 
 If you've never run MongoDB on a Rails server before...
 In the Terminal command line:
-1.) Rake your database by running 'rake db:seed'.
-2.) Start your rails server by running 'rails server' or 'rails s'.
-3.) In the address bar, go to 'localhost:3000'. The app should render.
+1.) Once you have `mongod` running, seed your database by running `rake db:seed`.
+2.) Start your rails server by running `rails server`.
+3.) In the address bar, go to `localhost:3000`. The app should render.
 
 Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.   
 
