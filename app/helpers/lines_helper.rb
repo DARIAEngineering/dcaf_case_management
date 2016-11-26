@@ -3,8 +3,12 @@ module LinesHelper
     ENV['LINES'].present? ? split_and_strip(ENV['LINES']) : %w(DC MD VA)
   end
 
-  def current_line
+  def current_line_display
     "Line: #{session[:line]}" if session[:line]
+  end
+
+  def current_line
+    session[:line]
   end
 
   private
