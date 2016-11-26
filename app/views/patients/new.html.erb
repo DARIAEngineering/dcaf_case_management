@@ -3,9 +3,12 @@
 <h1>PATIENT ENTRY</h1>
 
 <%= bootstrap_form_for @patient, html: { class: 'mass_entry_form' } do |f| %>
-  <%= f.select :line, options_for_select(lines) %>
+  <%= f.select :line, options_for_select(lines, current_line) %>
+
   <%= f.date_field :initial_call_date, format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
+
   <%= f.text_field :name %>
+
   <%= f.text_field :primary_phone %>
 
   <div class="row">
@@ -69,8 +72,7 @@
     <%= pr.text_field :procedure_cost, label: 'Full cost / abortion cost' %>
     <%= pr.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
     <%= pr.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
-    <%= pr.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', prepend: '$' %>
   <% end %>
 
-
+  <p>PLACEHOLDER FOR OTHER FUNDING</p>
 <% end %>
