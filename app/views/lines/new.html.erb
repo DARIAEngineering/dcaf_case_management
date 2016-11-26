@@ -3,7 +3,7 @@
     <h1 class="border-bottom title">Welcome to DCAF Case Manager!</h1>
     <h4>What line are you working tonight?</h4>
 
-    <%= bootstrap_form_tag url: '/set_line' do |f| %>
+    <%= bootstrap_form_tag url: lines_path do |f| %>
       <% lines.each do |line| %>
         <%= f.radio_button :line, line, label: line %>
       <% end %>

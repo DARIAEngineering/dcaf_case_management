@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DashboardsControllerTest < ActionController::TestCase
+class LinesControllerTest < ActionController::TestCase
   before do
     @user = create :user
     sign_in @user
@@ -12,9 +12,9 @@ class DashboardsControllerTest < ActionController::TestCase
     @pregnancy = create :pregnancy, patient: @patient
   end
 
-  describe 'index method' do
+  describe 'new' do
     before do
-      get :index
+      get :new
     end
 
     it 'should return success' do
@@ -22,12 +22,17 @@ class DashboardsControllerTest < ActionController::TestCase
     end
   end
 
-  describe 'search method' do
-    it 'should return on name, primary phone, and other phone' do
-      ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
-        post :search, search: searcher, format: :js
-        assert_response :success
-      end
+  describe 'create' do
+    before do
+      post :create, line: 'MD'
     end
+
+    it 'should set a session variable' do
+      assert_equal 'MD', session[:line]
+    end
+
+    # TODO: Enforce line values
+    # it 'should reject anything not set in lines' do
+    # end
   end
 end
