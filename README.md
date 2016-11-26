@@ -19,6 +19,15 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 
 ## Contributing to this Project
 
+<<<<<<< HEAD
+### Hello friends from Hacktoberfest!
+
+Welcome strangers from the internet! Our small scrappy team would love to have your insights and talents on some stuff -- this is a great opportunity to lend your engineering skills to the cause of reproductive justice. Check out the [Hacktoberfest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) tag for some straightforward issues that might require some technology expertise, or that are just some low-hanging fruit we've left as we sprint toward our next major feature release.
+
+The core team actively manages this project and we are happy to provide any guidance or context that would be helpful!
+
+=======
+>>>>>>> 32a08a7a85968c148ac21d904cbf0d0b734818bf
 ### Our structure
 
 We run two week sprints where we try to complete 2-3 small features. Generally, we meet at Code for DC once to begin the sprint, and spend the off-week completing what we didn't finish the previous week.
@@ -95,6 +104,16 @@ After that:
 To Run the Tests:
 * Run `rake test` to test the entire suite
 * Run `rake test [fullpath-to-test]` to run a specific test file
+
+## Troubleshooting
+
+If you've never run MongoDB on a Rails server before...
+In the Terminal command line:
+1.) Rake your database by running 'rake db:seed'.
+2.) Start your rails server by running 'rails server' or 'rails s'.
+3.) In the address bar, go to 'localhost:3000'. The app should render.
+
+Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.   
 
 ### Cloud9
 
