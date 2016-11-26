@@ -1,0 +1,76 @@
+<!-- DATA ENTRY ONLY. DO NOT USE EXCEPT FOR DATA ENTRY. -->
+
+<h1>PATIENT ENTRY</h1>
+
+<%= bootstrap_form_for @patient, html: { class: 'mass_entry_form' } do |f| %>
+  <%= f.select :line, options_for_select(lines) %>
+  <%= f.date_field :initial_call_date, format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
+  <%= f.text_field :name %>
+  <%= f.text_field :primary_phone %>
+
+  <div class="row">
+    <%= f.fields_for @pregnancy do |pr| %>
+      <div class="col-sm-6">
+        <%= pr.select :last_menstrual_period_weeks, options_for_select(weeks_options), label: 'LMP at intake', autocomplete: 'off' %>
+      </div>
+      <div class="col-sm-6 hide-label">
+        <%= pr.select :last_menstrual_period_days, options_for_select(days_options), label: '.', autocomplete: 'off' %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.text_field :city %>
+  <%= f.text_field :state %>
+
+  <%= f.fields_for @note do |note| %>
+    <%= note.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
+  <% end %>
+
+  <%= f.fields_for @pregnancy do |pr| %>
+    <%= pr.text_field :dcaf_soft_pledge %>
+  <% end %>
+
+  <%= f.text_field :age %>
+  <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>
+  <%= f.select :clinic_name, options_for_select(clinic_options) %>
+
+  <%= f.datetime_picker :appointment_date, label: 'Appointment date', autocomplete: 'off', format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
+
+  <%= f.select :insurance,
+               options_for_select(insurance_options),
+                                  label: 'Patient insurance' %>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <%= f.select :household_size_adults,
+                    options_for_select(household_size_options),
+                                       label: 'Adults in household',
+                                       help: '(including patient)' %>
+    </div>
+    <div class="col-sm-6">
+      <%= f.select :household_size_children,
+                    options_for_select(household_size_options),
+                                       label: 'Minors in household' %>
+    </div>
+  </div>
+
+  <%= f.select :employment_status,
+               options_for_select(employment_status_options),
+                                  autocomplete: 'off' %>
+  <%= f.select :income,
+               options_for_select(income_options),
+                                  autocomplete: 'off' %>
+
+  <%= f.select :referred_by,
+               options_for_select(referred_by_options),
+                                  autocomplete: 'off' %>
+
+  <%= f.fields_for @pregnancy do |pr| %>
+    <%= pr.text_field :procedure_cost, label: 'Full cost / abortion cost' %>
+    <%= pr.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+    <%= pr.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+    <%= pr.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', prepend: '$' %>
+  <% end %>
+
+
+<% end %>

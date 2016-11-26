@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get 'report', to: 'reports#index', as: 'report'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
-    resources :patients, only: [ :create, :edit, :update ] do
+    resources :patients, only: [ :create, :edit, :update, :new ] do
       resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
       resources :pledges, only: [ :create, :update ]

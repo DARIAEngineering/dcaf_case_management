@@ -30,6 +30,13 @@ class PatientsController < ApplicationController
     end
   end
 
+  # temp
+  def new
+    @patient = Patient.new
+    @pregnancy = @patient.build_pregnancy
+    @note = @patient.notes.new
+  end
+
   private
 
   def find_patient
