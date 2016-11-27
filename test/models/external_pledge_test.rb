@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class PledgeTest < ActiveSupport::TestCase
+class ExternalPledgeTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @patient = create :patient
-    @pledge = create :pledge, patient: @patient, created_by: @user
+    @pledge = create :external_pledge, patient: @patient, created_by: @user
   end
 
   describe 'mongoid attachments' do

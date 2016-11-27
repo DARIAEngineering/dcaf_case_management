@@ -1,5 +1,5 @@
 # Object representing money from outside organizations.
-class Pledge
+class ExternalPledge
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
