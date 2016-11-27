@@ -65,6 +65,7 @@ class Patient
             :primary_phone,
             :initial_call_date,
             :created_by,
+            :line,
             presence: true
   validates :primary_phone, format: /\d{10}/, length: { is: 10 }, uniqueness: true
   validates :other_phone, format: /\d{10}/,
