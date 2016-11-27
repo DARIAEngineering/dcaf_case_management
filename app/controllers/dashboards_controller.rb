@@ -1,5 +1,7 @@
 # Basically just search and the home view
 class DashboardsController < ApplicationController
+  include LinesHelper
+
   before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
@@ -8,7 +10,7 @@ class DashboardsController < ApplicationController
   end
 
   def search
-    @results = Patient.search params[:search]
+    @results = Patient.search params[:search], [current_line.to_sym]
 
     @patient = Patient.new
     @today = Time.zone.today.to_date

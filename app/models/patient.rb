@@ -187,7 +187,7 @@ class Patient
   class << self
     # Case insensitive and phone number format agnostic!
     def search(name_or_phone_str, lines = LINES)
-      lines = [lines.map(&:to_sym)].flatten
+      # lines should be an array of symbols
       name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
       clean_phone = name_or_phone_str.gsub(/\D/, '')
       phone_regexp = /#{Regexp.escape(clean_phone)}/
