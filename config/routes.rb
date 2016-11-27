@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :patients, only: [ :create, :edit, :update ] do
       resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
-      resources :pledges, only: [ :create, :update ]
+      resources :external_pledges, only: [ :create, :update, :destroy ]
     end
     resources :accountants, only: [:index]
     get 'accountant', to: 'accountants#index', as: 'accountant'

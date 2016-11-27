@@ -2,6 +2,8 @@
 class ExternalPledgesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_pledge, only: [:update]
+  rescue_from Mongoid::Errors::DocumentNotFound,
+              with: -> { head :bad_request }
 
   def create
     @pledge = @patient.pledges.new(pledge_params)
@@ -23,6 +25,11 @@ class ExternalPledgesController < ApplicationController
     else
       head :bad_request
     end
+  end
+
+  def destroy
+    @pledge.update active: false
+    respond_to { |format| format.js }
   end
 
   private

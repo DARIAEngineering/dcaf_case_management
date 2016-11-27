@@ -25,4 +25,13 @@ class ExternalPledgeTest < ActiveSupport::TestCase
       assert @pledge.created_by
     end
   end
+
+  describe 'validations' do
+    [:created_by, :source].each do |field|
+      it "should enforce presence of #{field}" do
+        @pledge[field.to_sym] = nil
+        refute @pledge.valid?
+      end
+    end
+  end
 end

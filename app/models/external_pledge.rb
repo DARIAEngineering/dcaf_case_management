@@ -1,4 +1,5 @@
 # Object representing money from outside organizations.
+# For DCAF pledges or NNAF pledges, see the pregnancy model.
 class ExternalPledge
   include Mongoid::Document
   include Mongoid::Timestamps

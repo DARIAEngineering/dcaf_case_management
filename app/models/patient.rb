@@ -15,7 +15,7 @@ class Patient
   embeds_one :fulfillment
   embeds_one :clinic
   embeds_many :calls
-  embeds_many :pledges
+  embeds_many :external_pledges
   embeds_many :notes
 
   # Enable mass posting in forms
