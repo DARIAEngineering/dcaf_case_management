@@ -18,14 +18,6 @@ class DashboardsController < ApplicationController
     respond_to { |format| format.js }
   end
 
-  # def lineselect
-  # end
-
-  # def set_line
-  #   session[:line] = params[:line]
-  #   redirect_to authenticated_root_path
-  # end
-
   private
 
   def searched_for_phone?(query)
