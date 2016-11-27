@@ -1,4 +1,4 @@
-# Object representing money from organizations associated with a patient.
+# Object representing money from outside organizations.
 class Pledge
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -8,17 +8,15 @@ class Pledge
   # Relationships
   embedded_in :patient
 
+  default_scope :active, -> { where active: true }
+
   # Fields
-  field :pledge_type, type: String # soft/patient/naf/other/final_dcaf
+  field :source, type: String # Name of outside organization or fund
   field :amount, type: Integer
-  field :other_pledge_identifier, type: String
-  field :sent, type: DateTime # validate presence when type is final
-  field :sent_by, type: String # validate presence when type is final
-  field :paid, type: Boolean # validate presence when type is final
-  field :paid_date, type: DateTime # validate presence when type is final
+  field :active, type: Boolean, default: true
 
   # Validations
-  validates :created_by, :pledge_type, presence: true
+  validates :created_by, :source, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
