@@ -10,7 +10,9 @@ class DashboardsController < ApplicationController
   end
 
   def search
-    @results = Patient.search params[:search], [current_line.to_sym]
+    # if all lines selected, search from all lines instead of current line?
+    @results = Patient.search params[:search],
+                              [current_line.try(:to_sym) || lines]
 
     @patient = Patient.new
     @today = Time.zone.today.to_date
