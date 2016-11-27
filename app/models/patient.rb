@@ -7,6 +7,10 @@ class Patient
   include Mongoid::Userstamp
   include StatusHelper
 
+  LINES.each do |line|
+    scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
+  end
+
   before_validation :clean_fields
 
   # Relationships
@@ -32,7 +36,7 @@ class Patient
   field :clinic_name, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
-  enum :line, [:DC, :MD, :VA]
+  enum :line, LINES # Default to :DC, :MD, :VA. See config/initializers/lines.rb
   field :spanish, type: Boolean
 
   field :age, type: Integer
@@ -182,32 +186,33 @@ class Patient
   # Search-related stuff
   class << self
     # Case insensitive and phone number format agnostic!
-    def search(name_or_phone_str)
+    def search(name_or_phone_str, lines = LINES)
+      lines = [lines.map(&:to_sym)].flatten
       name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
       clean_phone = name_or_phone_str.gsub(/\D/, '')
       phone_regexp = /#{Regexp.escape(clean_phone)}/
 
-      all_matching_names = find_name_matches name_regexp
-      all_matching_phones = find_phone_matches phone_regexp
+      all_matching_names = find_name_matches name_regexp, lines
+      all_matching_phones = find_phone_matches phone_regexp, lines
 
       (all_matching_names | all_matching_phones)
     end
 
     private
 
-    def find_name_matches(name_regexp)
+    def find_name_matches(name_regexp, lines = LINES)
       if nonempty_regexp? name_regexp
-        primary_names = Patient.where name: name_regexp
-        other_names = Patient.where other_contact: name_regexp
+        primary_names = Patient.in(_line: lines).where name: name_regexp
+        other_names = Patient.in(_line: lines).where other_contact: name_regexp
         return (primary_names | other_names)
       end
       []
     end
 
-    def find_phone_matches(phone_regexp)
+    def find_phone_matches(phone_regexp, lines = LINES)
       if nonempty_regexp? phone_regexp
-        primary_phones = Patient.where primary_phone: phone_regexp
-        other_phones = Patient.where other_phone: phone_regexp
+        primary_phones = Patient.in(_line: lines).where(primary_phone: phone_regexp)
+        other_phones = Patient.in(_line: lines).where(other_phone: phone_regexp)
         return (primary_phones | other_phones)
       end
       []
