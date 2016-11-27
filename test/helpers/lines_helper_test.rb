@@ -5,7 +5,7 @@ class LinesHelperTest < ActionView::TestCase
 
   describe 'convenience methods' do
     it 'should spit out an array of available lines' do
-      assert_equal lines, %w(DC MD VA)
+      assert_equal lines, %w(DC MD VA).map(&:to_sym)
     end
 
     it 'should return current line' do
@@ -13,7 +13,8 @@ class LinesHelperTest < ActionView::TestCase
 
       %w(DC MD VA).each do |state|
         session[:line] = state
-        assert_equal current_line, "Line: #{state}"
+        assert_equal current_line_display, "Line: #{state}"
+        assert_equal current_line, state.to_s
       end
     end
 
