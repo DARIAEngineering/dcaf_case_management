@@ -25,9 +25,10 @@
   <%= f.text_field :city %>
   <%= f.text_field :state %>
 
-  <%= f.fields_for @note do |note| %>
-    <%= note.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
-  <% end %>
+  <!-- Notes doesn't work because strong params :( -->
+  <%#= f.fields_for @note do |note| %>
+    <%#= note.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
+  <%# end %>
 
   <%= f.fields_for @pregnancy do |pr| %>
     <%= pr.text_field :dcaf_soft_pledge %>
@@ -72,8 +73,26 @@
     <%= pr.text_field :procedure_cost, label: 'Full cost / abortion cost' %>
     <%= pr.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
     <%= pr.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+
+    <%= pr.check_box :pledge_sent, label: 'Pledge sent' %>
   <% end %>
 
+
   <p>PLACEHOLDER FOR OTHER FUNDING</p>
-  <p>PLACEHOLDER FOR SPECIAL CIRCUMSTANCES</p>
+
+  <p style="font-weight:bold">Special circumstances</p>
+  <%= f.form_group :special_circumstances do %>
+    <div class="col-sm-6">
+      <%= f.check_box :special_circumstances, { label: 'Fetal anomaly', name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal anomaly', '' %>
+      <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'patient[special_circumstances][]', namespace: 'Home' }, 'Homelessness', '' %>
+      <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'patient[special_circumstances][]', namespace: 'Domestic' }, 'Domestic violence', '' %>
+    </div>
+    <div class="col-sm-6">
+    <%= f.check_box :special_circumstances, { label: 'Rape', name: 'patient[special_circumstances][]', namespace: 'Rape' }, 'Rape', '' %>
+    <%= f.check_box :special_circumstances, { label: 'Incest', name: 'patient[special_circumstances][]', namespace: 'Incest' }, 'Incest', '' %>
+    <%= f.check_box :special_circumstances, { label: 'Prison', name: 'patient[special_circumstances][]', namespace: 'Prison' }, 'Prison', '' %>
+    </div>
+  <% end %>
+
+  <%= f.submit class: 'btn-lg btn-primary' %>
 <% end %>
