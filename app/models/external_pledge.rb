@@ -18,6 +18,7 @@ class ExternalPledge
 
   # Validations
   validates :created_by, :source, :amount, presence: true
+  validates :source, uniqueness: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

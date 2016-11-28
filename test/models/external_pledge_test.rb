@@ -33,5 +33,22 @@ class ExternalPledgeTest < ActiveSupport::TestCase
         refute @pledge.valid?
       end
     end
+
+    it 'should scope source uniqueness to a particular document' do
+      patient = create :patient
+      other_patient = create :patient
+      patients = [patient, other_patient]
+
+      pledge = attributes_for :external_pledge, source: 'Same Fund'
+      other_pledge = attributes_for :external_pledge, source: 'Same Fund', amount: 123
+
+      patients.each { |pt| pt.external_pledges.create pledge }
+      patients.each { |pt| assert_equal 1, pt.external_pledges.count }
+
+      invalid_pledge = patient.external_pledges.create other_pledge
+      patient.reload
+      refute patient.external_pledges.include? invalid_pledge
+      assert_equal 1, patient.external_pledges.count
+    end
   end
 end
