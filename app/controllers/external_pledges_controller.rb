@@ -1,7 +1,7 @@
 # Create a pledge. Not currently utilized
 class ExternalPledgesController < ApplicationController
   before_action :find_patient, only: [:create]
-  before_action :find_pledge, only: [:update]
+  before_action :find_pledge, only: [:update, :destroy]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { head :bad_request }
 

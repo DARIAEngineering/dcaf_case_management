@@ -75,4 +75,14 @@ class ExternalPledgesControllerTest < ActionController::TestCase
       end
     end
   end
+
+  describe 'destroy' do
+    before { @pledge = create :external_pledge, patient: @patient }
+
+    it 'should set a pledge to inactive' do
+      delete :destroy, patient_id: @patient, id: @pledge, format: :js
+      @pledge.reload
+      refute @pledge.active?
+    end
+  end
 end
