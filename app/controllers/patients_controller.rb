@@ -31,12 +31,29 @@ class PatientsController < ApplicationController
     end
   end
 
-  # temp
-  def new
+  # TEMPORARY
+  # for data entry - form arranged according to spreadsheet
+  def data_entry # temporary
     @patient = Patient.new
     @pregnancy = @patient.build_pregnancy
-    @note = @patient.notes.new
+    # @note = @patient.notes.new
   end
+
+  def data_entry_create # temporary
+    patient = Patient.new patient_params
+    patient.created_by = current_user
+    (patient.pregnancy || patient.build_pregnancy).created_by = current_user
+
+    if patient.save
+      flash[:notice] = "#{patient.name} has been successfully saved! Add the note and you're set."
+    else
+      flash[:alert] = "Errors prevented this patient from being saved: #{patient.errors.full_messages.to_sentence}"
+    end
+
+    current_user.add_patient patient
+    redirect_to edit_patient_path patient
+  end
+  # END TEMPORARY
 
   private
 

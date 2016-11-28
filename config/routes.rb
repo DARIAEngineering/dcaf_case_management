@@ -5,11 +5,13 @@ Rails.application.routes.draw do
     get 'report', to: 'reports#index', as: 'report'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
-    resources :patients, only: [ :create, :edit, :update, :new ] do
+    resources :patients, only: [ :create, :edit, :update ] do
       resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
       resources :pledges, only: [ :create, :update ]
     end
+    get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
+    post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]
     get 'accountant', to: 'accountants#index', as: 'accountant'
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }

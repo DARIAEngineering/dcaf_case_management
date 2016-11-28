@@ -2,7 +2,7 @@
 
 <h1>PATIENT ENTRY</h1>
 
-<%= bootstrap_form_for @patient, html: { class: 'mass_entry_form' } do |f| %>
+<%= bootstrap_form_for @patient, url: data_entry_create_path, html: { class: 'mass_entry_form' } do |f| %>
   <%= f.select :line, options_for_select(lines, current_line) %>
 
   <%= f.date_field :initial_call_date, format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
@@ -26,8 +26,8 @@
   <%= f.text_field :state %>
 
   <!-- Notes doesn't work because strong params :( -->
-  <%#= f.fields_for @note do |note| %>
-    <%#= note.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
+  <%#= f.fields_for @patient.notes.new do |notes| %>
+    <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
   <%# end %>
 
   <%= f.fields_for @pregnancy do |pr| %>
