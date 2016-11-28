@@ -6,21 +6,18 @@ class ExternalPledgesController < ApplicationController
               with: -> { head :bad_request }
 
   def create
-    @pledge = @patient.pledges.new(pledge_params)
-    @pledge.created_by = current_user
-    # fail
-    if @pledge.save
-      redirect_to edit_patient_path(@patient),
-                  flash: { notice: 'Saved new pledge for ' \
-                                   "#{@patient.name}!" }
+    pledge = @patient.external_pledges.new external_pledge_params
+    pledge.created_by = current_user
+
+    if pledge.save
+      respond_to { |format| format.js }
     else
-      flash[:alert] = 'pledge failed to save! Please submit the pledge again.'
-      redirect_to edit_patient_path(@patient)
+      head :bad_request
     end
   end
 
   def update
-    if @pledge.update_attributes pledge_params
+    if @pledge.update_attributes external_pledge_params
       respond_to { |format| format.js }
     else
       head :bad_request
@@ -34,10 +31,8 @@ class ExternalPledgesController < ApplicationController
 
   private
 
-  def pledge_params
-    params.require(:pledge).permit(:pledge_type, :amount,
-                                   :other_pledge_identifier,
-                                   :sent, :sent_by, :paid, :paid_date)
+  def external_pledge_params
+    params.require(:external_pledge).permit(:source, :amount)
   end
 
   def find_patient
@@ -46,6 +41,6 @@ class ExternalPledgesController < ApplicationController
 
   def find_pledge
     find_patient
-    @pledge = @patient.pledges.find params[:id]
+    @pledge = @patient.external_pledges.find params[:id]
   end
 end
