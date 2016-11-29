@@ -3,5 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  $('[id$=modal]').modalSteps()
-  # selects all elements with id ending with "modal"
+  # use event that works with rails turbolinks
+  $(document).on 'ready page:load', ->
+    # select all elements with id ending with "modal"
+    $('[id$=modal]').modalSteps()
