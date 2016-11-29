@@ -24,22 +24,12 @@ class SelectLineTest < ActionDispatch::IntegrationTest
   end
 
   describe 'redirection conditions' do
+    before { @patient = create :patient }
     it 'should redirect from dashboard if no line is set' do
-      visit authenticated_root_path
+      visit edit_patient_path(@patient) # no redirect
+      assert_equal current_path, edit_patient_path(@patient)
+      visit authenticated_root_path # back to dashboard
       assert_equal current_path, new_line_path
-    end
-
-    it 'should let you change your line once line is set' do
-      choose 'DC'
-      click_button 'Select your line for this session'
-      assert has_content? 'Line: DC'
-
-      click_link 'Line: DC'
-      assert has_content? 'MD'
-      assert_equal current_path, new_line_path
-      choose 'MD'
-      click_button 'Select your line for this session'
-      assert has_content? 'Line: MD'
     end
   end
 end
