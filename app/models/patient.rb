@@ -95,8 +95,8 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.urgent_patients
-    where(urgent_flag: true)
+  def self.urgent_patients(lines = LINES)
+    Patient.in(_line: lines).where(urgent_flag: true)
   end
 
   def self.trim_urgent_patients

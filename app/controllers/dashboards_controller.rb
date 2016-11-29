@@ -5,7 +5,7 @@ class DashboardsController < ApplicationController
   before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
-    @urgent_patients = Patient.urgent_patients
+    @urgent_patients = Patient.urgent_patients(current_line)
     @expenditures = Patient.pledged_status_summary
   end
 
