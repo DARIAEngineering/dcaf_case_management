@@ -51,4 +51,19 @@ class ExternalPledgeTest < ActiveSupport::TestCase
       assert_equal 1, patient.external_pledges.count
     end
   end
+
+  describe 'scopes' do
+    before do
+      @inactive_pledge = create :external_pledge,
+                                source: 'something or other',
+                                active: false,
+                                patient: @patient
+    end
+
+    it 'should leave inactive pledges out unless specified queries' do
+      @patient.reload
+      assert_equal 1, @patient.external_pledges.count
+      assert_equal 2, @patient.external_pledges.unscoped.count
+    end
+  end
 end
