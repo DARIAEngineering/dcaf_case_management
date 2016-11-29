@@ -10,6 +10,7 @@ class ExternalPledge
   embedded_in :patient
 
   default_scope -> { where(active: true) }
+  scope :active, -> { where(active: true) }
 
   # Fields
   field :source, type: String # Name of outside organization or fund
@@ -18,7 +19,7 @@ class ExternalPledge
 
   # Validations
   validates :created_by, :source, :amount, presence: true
-  validates :source, uniqueness: true
+  validates :source, uniqueness: { scope: :active }
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

@@ -63,6 +63,7 @@ class ExternalPledgeTest < ActiveSupport::TestCase
     it 'should leave inactive pledges out unless specified queries' do
       @patient.reload
       assert_equal 1, @patient.external_pledges.count
+      assert_equal 1, @patient.external_pledges.active.count
       assert_equal 2, @patient.external_pledges.unscoped.count
     end
   end
