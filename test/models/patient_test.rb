@@ -201,6 +201,20 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'scopes' do
+    before do
+      # DC patients created in initial before block
+      create :patient, line: 'MD'
+      create :patient, line: 'VA'
+    end
+
+    it 'should allow scoping for each line' do
+      assert_equal 2, Patient.dc.count
+      assert_equal 1, Patient.va.count
+      assert_equal 1, Patient.md.count
+    end
+  end
+
   describe 'methods' do
     describe 'urgent patients class method' do
       before do
