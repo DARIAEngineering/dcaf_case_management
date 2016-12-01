@@ -83,11 +83,13 @@ class User
   # AND they would otherwise be in the call list
 
   def recently_called_patients(lines = LINES)
-    patients.select { |patient| recently_called_by_user? patient }
+    patients.in(_line: lines)
+            .select { |patient| recently_called_by_user? patient }
   end
 
   def call_list_patients(lines = LINES)
-    patients.reject { |patient| recently_called_by_user? patient }
+    patients.in(_line: lines)
+            .reject { |patient| recently_called_by_user? patient }
   end
 
   def add_patient(patient)
