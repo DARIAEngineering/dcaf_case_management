@@ -202,6 +202,23 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'methods' do
+    describe 'urgent patients class method' do
+      before do
+        create :patient
+        2.times { create :patient, urgent_flag: true }
+        create :patient, urgent_flag: true, line: 'MD'
+      end
+
+      it 'should return urgent patients' do
+        assert_equal 3, Patient.urgent_patients.count
+      end
+
+      it 'should scope to a line if asked' do
+        assert_equal 2, Patient.urgent_patients('DC').count
+        assert_equal 1, Patient.urgent_patients('MD').count
+      end
+    end
+
     describe 'identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
