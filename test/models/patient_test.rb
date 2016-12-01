@@ -138,6 +138,9 @@ class PatientTest < ActiveSupport::TestCase
                                primary_phone: '124-567-7890',
                                other_contact: 'Friend Ship'
       @pt_3 = create :patient, name: 'Susan A', other_phone: '999-999-9999'
+      @pt_4 = create :patient, name: 'Susan A in MD',
+                               other_phone: '999-111-9888',
+                               line: 'MD'
       [@pt_1, @pt_2, @pt_3].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
       end
@@ -158,6 +161,11 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should be able to find based on phone patterns' do
       assert_equal 2, Patient.search('124').count
+    end
+
+    it 'should be able to narrow on line' do
+      assert_equal 2, Patient.search('Susan A').count
+      assert_equal 1, Patient.search('Susan A', 'MD').count
     end
 
     it 'should not choke if it does not find anything' do
