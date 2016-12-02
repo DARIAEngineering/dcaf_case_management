@@ -45,6 +45,20 @@ class CallsHelperTest < ActionView::TestCase
                       other_contact_relationship: nil
       assert_equal '', display_other_contact_and_phone_if_exists(@patient)
     end
+
+    it 'returns other phone if other phone is set but other contact is not' do
+      @patient.update other_contact: nil,
+                      other_phone: '1231231234',
+                      other_contact_relationship: nil
+      assert_match(/123-123-1234/, display_other_contact_and_phone_if_exists(@patient))
+    end
+
+    it 'returns other contact if other contact is set but other phone is not' do
+      @patient.update other_contact: 'Foo Bar',
+                      other_phone: nil,
+                      other_contact_relationship: nil
+      assert_match(/Foo Bar/, display_other_contact_and_phone_if_exists(@patient))
+    end
   end
 
   describe 'display_reached_patient_link' do
