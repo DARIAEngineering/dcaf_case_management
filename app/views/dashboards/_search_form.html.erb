@@ -5,7 +5,6 @@
   <%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |p| %>
     <%= p.text_field :search, placeholder: 'Name (Susan Smith) or Phone (555-555-5555)', hide_label: true, class: 'search_form_input' %>
     <%= p.submit 'Search', class: 'btn btn-primary' %>
-    <%#= p.check_box :all_lines, label: "Search all lines instead of just #{current_line}" %>
   <% end %>
 
   <div id="search_results_shell"></div>

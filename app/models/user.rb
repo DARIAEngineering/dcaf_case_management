@@ -81,6 +81,7 @@ class User
   # someone has a call from the current_user
   # that is less than 8 hours old,
   # AND they would otherwise be in the call list
+  # (e.g. assigned to current line and in user.patients)
 
   def recently_called_patients(lines = LINES)
     patients.in(_line: lines)

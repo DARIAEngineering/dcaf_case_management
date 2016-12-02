@@ -48,7 +48,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       assert has_text? 'Search results'
-      assert has_text? 'Susan Everyteen'
+      assert has_text? 'Susan Everyteen DC'
       refute has_text? 'Susan Everyteen MD'
     end
 
@@ -57,7 +57,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       assert has_text? 'Search results'
-      assert has_text? 'Susan Everyteen'
+      assert has_text? 'Susan Everyteen DC'
       refute has_text? 'Susan Everyteen MD'
     end
 
@@ -66,7 +66,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       assert has_text? 'Search results'
-      assert has_text? 'Susan Everyteen'
+      assert has_text? 'Susan Everyteen DC'
     end
 
     it 'should not pick up patients on other lines' do

@@ -10,6 +10,7 @@ class LinesHelperTest < ActionView::TestCase
 
     it 'should return current line' do
       assert_nil current_line
+      assert_nil current_line_display
 
       %w(DC MD VA).each do |state|
         session[:line] = state
