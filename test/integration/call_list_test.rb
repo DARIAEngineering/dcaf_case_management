@@ -76,7 +76,6 @@ class CallListTest < ActionDispatch::IntegrationTest
       wait_for_element 'Your completed calls'
     end
 
-    # problematic test
     it 'should add a call to completed when a call was made within 8 hrs' do
       within :css, '#completed_calls_content' do
         assert has_text? @patient.name
@@ -84,14 +83,16 @@ class CallListTest < ActionDispatch::IntegrationTest
     end
 
     # problematic test
-    # it 'should time a call out after 8 hours' do
-    #   Timecop.freeze(9.hours.from_now) do
-    #     visit authenticated_root_path
-    #     within :css, '#completed_calls_content' do
-    #       assert has_no_text? @patient.name
-    #     end
-    #   end
-    # end
+    it 'should time a call out after 8 hours' do
+      Timecop.freeze(9.hours.from_now) do
+        log_in_as @user
+        wait_for_element 'Your completed calls'
+
+        within :css, '#completed_calls_content' do
+          assert has_no_text? @patient.name
+        end
+      end
+    end
   end
 
   private
