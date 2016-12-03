@@ -1,21 +1,21 @@
 <section id="abortion_information" class="abortion-info tab-pane">
-  <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
-    <div class="col-sm-12">
-      <div class="row">
-        <div class="col-sm-12">
-          <h2>Abortion information</h2>
-        </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Abortion information</h2>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-sm-12">
-          <h3> Clinic details </h3>
-        </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h3> Clinic details </h3>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="info-form-left">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="info-form-left">
+          <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
             <%#= f.fields_for (patient.clinic || patient.build_clinic) do |cl| %>
                 <%= f.select :clinic_name, options_for_select(clinic_options, patient.clinic_name) %>
                 <%#= cl.select :name, options_for_select(clinic_options, patient.clinic.name), label: 'Clinic name', autocomplete: 'off' %>
@@ -68,8 +68,8 @@
             <% end %>
           </div>
 
-  <%# end of main form %>
-  <% end %>
+        <%# end of main form %>
+        <% end %>
 
           <div id="existing-external-pledges">
             <%# slight hack - individual edit forms for each pledge %>
