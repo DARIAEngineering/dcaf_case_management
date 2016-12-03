@@ -28,6 +28,7 @@ class CallListTest < ActionDispatch::IntegrationTest
       # problematic test
       add_to_call_list @patient_2.name
       within :css, '#call_list_content' do
+        wait_for_element @patient_2.name
         assert has_text? @patient.name
         assert has_text? @patient_2.name
         assert has_link? 'Remove', count: 2
