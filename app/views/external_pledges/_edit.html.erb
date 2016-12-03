@@ -1,0 +1,3 @@
+<%= bootstrap_form_for pledge, url: patient_external_pledge_path(patient, pledge), remote: true do |f| %>
+  <%= f.text_field :amount, prepend: '$', label: "#{pledge.source} pledge" %>
+<% end %>

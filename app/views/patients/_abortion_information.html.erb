@@ -64,18 +64,32 @@
             <%= f.fields_for patient.pregnancy do |pt| %>
               <%= pt.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
               <%= pt.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
-              <%= pt.text_field :dcaf_soft_pledge, label: 'DCAF soft pledge', autocomplete: 'off', prepend: '$' %>
+              <%= pt.text_field :dcaf_soft_pledge, label: 'DCAF pledge', autocomplete: 'off', prepend: '$' %>
             <% end %>
           </div>
-          <div class="form-group">
+
+  <%# end of main form  %>
+  <% end %>
+
+          <div id="external_pledges">
+            <%# slight hack - individual edit forms for each pledge %>
+            <% patient.external_pledges.each do |pledge| %>
+              <%= render 'external_pledges/edit', patient: patient, pledge: pledge %>
+            <% end %>
+          </div>
+
+
+<!--           <div class="form-group">
+
+
             <label>Select Other</label>
-            <%= select_tag :pledges, options_for_select(pledges_options), class: "pledges-select form-control"  %>
+            <%#= select_tag :pledges, options_for_select(pledges_options), class: "pledges-select form-control"  %>
           </div>
           <button class="button btn-success add-button">
             <span class="glyphicon glyphicon-plus-sign"></span>Add Other
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
-  <% end %>
+  <%# end %>
 </section>
