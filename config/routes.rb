@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :patients, only: [ :create, :edit, :update ] do
       resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
-      resources :pledges, only: [ :create, :update ]
+      resources :external_pledges, only: [ :create, :update, :destroy ]
     end
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
