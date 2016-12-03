@@ -45,6 +45,10 @@ class ActionDispatch::IntegrationTest
     click_button 'Select your line for this session'
   end
 
+  def wait_for_element(text)
+    has_content? text
+  end
+
   def sign_out
     click_link 'Sign out'
   end

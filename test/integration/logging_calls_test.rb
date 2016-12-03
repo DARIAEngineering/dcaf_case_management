@@ -32,19 +32,20 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     before do
       @timestamp = Time.zone.now
       find('a', text: 'I reached the patient').click
-      wait_for_page_to_load
+      wait_for_element 'Patient information'
     end
 
-    # problematic test
+    # potentially problematic test
     it 'should redirect to the edit view when a patient has been reached' do
       assert_equal current_path, edit_patient_path(@patient)
     end
 
     it 'should be viewable on the call log' do
-      visit edit_patient_path @patient
-      wait_for_page_to_load
+      # visit edit_patient_path @patient
+      # wait_for_page_to_load
+      wait_for_element 'Call Log'
       find('a', text: 'Call Log').click
-      wait_for_ajax
+      wait_for_element 'Record new call'
 
       within :css, '#call_log' do
         assert has_text? @timestamp.display_date
@@ -60,6 +61,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     it 'should let you save more than one call' do
       3.times do
         visit authenticated_root_path
+        has_content? 'Build your call list'
         fill_in 'search', with: 'Susan Everyteen'
         click_button 'Search'
         find("a[href='#call-123-123-1234']").click
@@ -67,9 +69,9 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       end
 
       visit edit_patient_path @patient
-      wait_for_page_to_load
+      wait_for_element 'Call Log'
       find('a', text: 'Call Log').click
-      wait_for_ajax
+      wait_for_element 'Record new call'
 
       within :css, '#call_log' do
         assert has_content? 'Reached patient', count: 3
@@ -102,9 +104,9 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       it "should be visible on the call log after clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
         visit edit_patient_path @patient
-        wait_for_page_to_load
+        wait_for_element 'Call Log'
         find('a', text: 'Call Log').click
-        wait_for_ajax
+        wait_for_element 'Record new call'
 
         within :css, '#call_log' do
           assert has_text? @timestamp.display_date
