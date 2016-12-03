@@ -66,6 +66,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         click_button 'Search'
         find("a[href='#call-123-123-1234']").click
         click_link 'I reached the patient'
+        wait_for_element 'Patient information'
       end
 
       visit edit_patient_path @patient
