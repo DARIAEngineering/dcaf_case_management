@@ -25,9 +25,9 @@ end
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  def log_in_as(user)
+  def log_in_as(user, line = 'DC')
     log_in user
-    select_line
+    select_line line
   end
 
   def log_in(user)
@@ -37,8 +37,8 @@ class ActionDispatch::IntegrationTest
     click_button 'Sign in'
   end
 
-  def select_line
-    choose 'DC'
+  def select_line(line = 'DC')
+    choose line
     click_button 'Select your line for this session'
   end
 
