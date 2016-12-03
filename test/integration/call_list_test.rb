@@ -26,12 +26,12 @@ class CallListTest < ActionDispatch::IntegrationTest
       end
 
       # problematic test
-      # add_to_call_list @patient_2.name
-      # within :css, '#call_list_content' do
-      # assert has_text? @patient.name
-      # assert has_text? @patient_2.name
-      # assert has_link? 'Remove', count: 2
-      # end
+      add_to_call_list @patient_2.name
+      within :css, '#call_list_content' do
+        assert has_text? @patient.name
+        assert has_text? @patient_2.name
+        assert has_link? 'Remove', count: 2
+      end
 
       # TODO
       # assert that call lists are scoped to particular line
@@ -80,6 +80,10 @@ class CallListTest < ActionDispatch::IntegrationTest
       within :css, '#completed_calls_content' do
         assert has_text? @patient.name
       end
+
+      within :css, '#call_list_content' do
+        assert has_no_text? @patient.name
+      end
     end
 
     # problematic test
@@ -90,6 +94,10 @@ class CallListTest < ActionDispatch::IntegrationTest
 
         within :css, '#completed_calls_content' do
           assert has_no_text? @patient.name
+        end
+
+        within :css, '#call_list_content' do
+          assert has_text? @patient.name
         end
       end
     end
