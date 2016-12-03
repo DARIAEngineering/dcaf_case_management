@@ -9,6 +9,7 @@ class SelectLineTest < ActionDispatch::IntegrationTest
 
   describe 'line selection process' do
     it 'should redirect to line selection page on login' do
+      assert_equal current_path, new_line_path
       assert has_content? 'DC'
       assert has_content? 'MD'
       assert has_content? 'VA'
