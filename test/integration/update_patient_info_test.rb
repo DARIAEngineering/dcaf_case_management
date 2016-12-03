@@ -74,6 +74,10 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
+
+        screenshot_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}/screnshot.png"
+        page.save_screenshot(screenshot_path)
+
         assert has_field? 'DCAF pledge', with: '25'
         assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
       end
