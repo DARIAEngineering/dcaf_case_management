@@ -58,6 +58,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'National Abortion Federation pledge', with: '50'
       fill_in 'DCAF pledge', with: '25'
       fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
+      fill_in 'Abortion cost', with: '300' # hack
 
       click_away_from_field
       visit authenticated_root_path
