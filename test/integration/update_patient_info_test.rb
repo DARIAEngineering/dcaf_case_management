@@ -6,6 +6,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @user = create :user
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
+    @ext_pledge = create :external_pledge, patient: @patient, source: 'Baltimore Abortion Fund'
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
@@ -51,7 +52,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
-      fill_in 'DCAF soft pledge', with: '25'
+      fill_in 'DCAF pledge', with: '25'
+      # fill_in 'Baltimore Abortion Fund pledge', with: '25'# # failing due to ambiguous match?
       check 'Resolved without assistance from DCAF'
 
       click_away_from_field
@@ -68,7 +70,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
-        assert has_field? 'DCAF soft pledge', with: '25'
+        assert has_field? 'DCAF pledge', with: '25'
+        # assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
         assert_equal '1', find('#patient_pregnancy_resolved_without_dcaf').value
       end
     end
