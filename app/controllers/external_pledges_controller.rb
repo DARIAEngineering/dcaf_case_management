@@ -10,8 +10,9 @@ class ExternalPledgesController < ApplicationController
     @pledge.created_by = current_user
 
     if @pledge.save
+      flash[:notice] = 'A new pledge has been successfully saved'
       redirect_to edit_patient_path(@patient)
-      # respond_to { |format| format.js } # TODO: running into mysterious authenticity token error?
+      # respond_to { |format| format.js } # TODO: running into mysterious authenticity token error? form submitting as html for no good reason. should be js.
     else
       head :bad_request
     end
