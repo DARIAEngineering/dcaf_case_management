@@ -47,9 +47,9 @@ class RecordCallTest < ActionDispatch::IntegrationTest
         # assert has_css? 'tr', count: 3
       # end
 
-      within :css, '#completed_calls_content' do
-        assert has_css? 'tr', count: 1
-      end
+      # within :css, '#completed_calls_content' do
+        # assert has_css? 'tr', count: 1
+      # end
     end
 
     # problematic test
