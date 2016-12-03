@@ -69,18 +69,19 @@ class CallListTest < ActionDispatch::IntegrationTest
   describe 'completed calls section' do
     before do
       within :css, '#call_list_content' do
-        find("a[href='#call-123-123-1234']").click
+        find("a[href='#call-#{@patient.primary_phone_display}']").click
       end
       find('a', text: 'I left a voicemail for the patient').click
       visit authenticated_root_path
+      wait_for_element 'Your completed calls'
     end
 
     # problematic test
-    # it 'should add a call to completed when a call was made within 8 hrs' do
-    #   within :css, '#completed_calls_content' do
-    #     assert has_text? @patient.name
-    #   end
-    # end
+    it 'should add a call to completed when a call was made within 8 hrs' do
+      within :css, '#completed_calls_content' do
+        assert has_text? @patient.name
+      end
+    end
 
     # problematic test
     # it 'should time a call out after 8 hours' do
