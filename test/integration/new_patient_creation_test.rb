@@ -4,7 +4,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
-    log_in_as @user
+    log_in_as @user, 'MD'
   end
 
   after do
@@ -18,6 +18,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       fill_in 'Phone', with: '555-666-7777'
       fill_in 'Name', with: 'Susan Everyteen 2'
       fill_in 'Initial Call Date', with: '03/04/2016'
+      select 'MD', from: 'Line'
       find('button', text: /Add new patient/).trigger('click')
       sleep 1
     end
@@ -46,6 +47,17 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
     it 'should autopopulate the call list' do
       within :css, '#call_list' do
         assert has_link? 'Susan Everyteen 2'
+      end
+    end
+
+    it 'should only be viewable on that line' do
+      ['VA', 'DC'].each do |line|
+        sign_out
+        log_in_as @user, line
+
+        fill_in 'search', with: 'Susan Everyteen 2'
+        click_button 'Search'
+        refute has_text? '555-666-7777'
       end
     end
   end

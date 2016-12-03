@@ -13,11 +13,18 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
 
   describe 'looking up someone who exists', js: true do
     before do
-      @patient = create :patient, name: 'Susan Everyteen',
+      @patient = create :patient, name: 'Susan Everyteen DC',
                                   primary_phone: '111-222-3333',
                                   other_contact: 'Yolo Goat',
                                   other_phone: '222-333-4455'
       @pregnancy = create :pregnancy, patient: @patient
+
+      @patient_2 = create :patient, name: 'Susan Everyteen MD',
+                                  primary_phone: '111-222-4444',
+                                  other_contact: 'Yolo Goat',
+                                  other_phone: '222-333-4455',
+                                  line: 'MD'
+      @pregnancy_2 = create :pregnancy, patient: @patient_2
     end
 
     it 'should have a functional search form' do
@@ -31,7 +38,8 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       assert has_text? 'Search results'
-      assert has_text? 'Susan Everyteen'
+      assert has_text? 'Susan Everyteen DC'
+      refute has_text? 'Susan Everyteen MD'
       assert_text @patient.primary_phone_display
     end
 
@@ -40,7 +48,8 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       assert has_text? 'Search results'
-      assert has_text? 'Susan Everyteen'
+      assert has_text? 'Susan Everyteen DC'
+      refute has_text? 'Susan Everyteen MD'
     end
 
     it 'should be able to retrieve a record based on other phone' do
@@ -48,7 +57,8 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       assert has_text? 'Search results'
-      assert has_text? 'Susan Everyteen'
+      assert has_text? 'Susan Everyteen DC'
+      refute has_text? 'Susan Everyteen MD'
     end
 
     it 'should be able to retrieve a record regardless of phone formatting' do
@@ -56,7 +66,18 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       assert has_text? 'Search results'
-      assert has_text? 'Susan Everyteen'
+      assert has_text? 'Susan Everyteen DC'
+    end
+
+    it 'should not pick up patients on other lines' do
+      fill_in 'search', with: '111-222-4444'
+      click_button 'Search'
+
+      refute has_text? 'Susan Everyteen MD'
+      within :css, '#search_results_shell' do
+        assert has_text? 'Your search produced no results, so add a new patient'
+        assert has_no_text? 'Search results'
+      end
     end
 
     # it 'should display new pregnancy partial even for the search results' do

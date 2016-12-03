@@ -32,6 +32,9 @@ class CallListTest < ActionDispatch::IntegrationTest
       # assert has_text? @patient_2.name
       # assert has_link? 'Remove', count: 2
       # end
+
+      # TODO
+      # assert that call lists are scoped to particular line
     end
 
     it 'should let you remove people from the call list roll' do
