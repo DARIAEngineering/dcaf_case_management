@@ -45,7 +45,7 @@ class PatientsController < ApplicationController
     @pregnancy.created_by = current_user
 
     if @patient.save
-      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges and you're set."
+      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
       current_user.add_patient @patient
       redirect_to edit_patient_path @patient
     else
