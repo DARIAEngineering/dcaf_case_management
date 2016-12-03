@@ -11,9 +11,9 @@ if (URL.indexOf(substring) !== 1) {
 }
 
 if (location.pathname == Routes.authenticated_root_path) {
-  $("#call_list").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients, sortable: true }) %>")
-  $("#completed_calls").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients }) %>")
-  $("#urgent_patients").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: Patient.urgent_patients }) %>")
+  $("#call_list").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients(current_line), sortable: true }) %>")
+  $("#completed_calls").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients(current_line) }) %>")
+  $("#urgent_patients").html("<%= escape_javascript( render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: Patient.urgent_patients(current_line) }) %>")
   $(".new-call").modal('hide')
   $('body').removeClass('modal-open')
   $('.modal-backdrop').remove()
