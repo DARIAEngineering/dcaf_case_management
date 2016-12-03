@@ -1,5 +1,5 @@
 <h5>Or, record a new external pledge:</h4>
-<%= bootstrap_form_for [patient, external_pledge], format: :js, remote: true do |f| %>
+<%= bootstrap_form_for [patient, external_pledge] do |f| %>
   <%= f.select :source, options_for_select(external_pledge_source_options) %>
   <%= f.text_field :amount %>
   <%= f.submit class: 'btn btn-primary' %>
