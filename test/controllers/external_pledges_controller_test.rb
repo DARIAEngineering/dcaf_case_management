@@ -10,28 +10,33 @@ class ExternalPledgesControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @pledge = attributes_for :external_pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+      post :create, patient_id: @patient.id, external_pledge: @pledge #, format: :js
     end
 
     it 'should create and save a new pledge' do
       @pledge[:source] = 'diff'
       assert_difference 'Patient.find(@patient).external_pledges.count', 1 do
-        post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+        post :create, patient_id: @patient.id, external_pledge: @pledge#, format: :js
       end
-    end
-
-    it 'should respond success if the pledge submits' do
-      assert_response :success
     end
 
     it 'should respond bad_request if the pledge does not submit' do
       # submitting a duplicate pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+      post :create, patient_id: @patient.id, external_pledge: @pledge#, format: :js
       assert_response :bad_request
     end
 
-    it 'should render create js if it saves' do
-      assert_template 'external_pledges/create'
+    # commented out until we get the ajax working :(
+    # it 'should render create js if it saves' do
+      # assert_template 'external_pledges/create'
+    # end
+
+    # it 'should respond success if the pledge submits' do
+    #   assert_response :success
+    # end
+
+    it 'should redirect to patient edit page' do
+      assert_redirected_to edit_patient_path(@patient)
     end
 
     it 'should log the creating user' do

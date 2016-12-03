@@ -1,4 +1,4 @@
-# Create a pledge. Not currently utilized
+# Create a pledge from a non-DCAF organization
 class ExternalPledgesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_pledge, only: [:update, :destroy]
@@ -6,11 +6,13 @@ class ExternalPledgesController < ApplicationController
               with: -> { head :bad_request }
 
   def create
-    pledge = @patient.external_pledges.new external_pledge_params
-    pledge.created_by = current_user
+    @pledge = @patient.external_pledges.new external_pledge_params
+    @pledge.created_by = current_user
 
-    if pledge.save
-      respond_to { |format| format.js }
+    if @pledge.save
+      flash[:notice] = 'A new pledge has been successfully saved'
+      redirect_to edit_patient_path(@patient)
+      # respond_to { |format| format.js } # TODO: running into mysterious authenticity token error? form submitting as html for no good reason. should be js.
     else
       head :bad_request
     end
