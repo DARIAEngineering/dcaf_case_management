@@ -11,7 +11,10 @@ require 'minitest/reporters'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 Minitest::Reporters.use!
-# Capybara.javascript_driver = :poltergeist
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+end
 
 DatabaseCleaner.clean_with :truncation
 
