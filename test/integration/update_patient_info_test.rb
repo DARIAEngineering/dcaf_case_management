@@ -65,6 +65,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     # problematic test
     it 'should alter the information' do
       within :css, '#abortion_information' do
+        page.driver.resize(2000, 2000)
         assert_equal 'Sample Clinic 1', find('#patient_clinic_name').value
         assert_equal '1', find('#patient_pregnancy_resolved_without_dcaf').value
         # TODO: review after getting clinic logic in place
