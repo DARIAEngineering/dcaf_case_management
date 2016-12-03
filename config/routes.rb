@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :notes, only: [ :create, :update ]
       resources :external_pledges, only: [ :create, :update, :destroy ]
     end
+    get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
+    post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]
     get 'accountant', to: 'accountants#index', as: 'accountant'
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }

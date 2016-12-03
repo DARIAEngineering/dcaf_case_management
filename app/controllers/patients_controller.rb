@@ -14,6 +14,7 @@ class PatientsController < ApplicationController
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{patient.errors.full_messages.to_sentence}"
     end
+
     current_user.add_patient patient
     redirect_to root_path
   end
@@ -29,6 +30,30 @@ class PatientsController < ApplicationController
       head :bad_request
     end
   end
+
+  # The following two methods are for mass data entry and
+  # should be turned off when not in use
+  def data_entry
+    @patient = Patient.new
+    @pregnancy = @patient.build_pregnancy
+  end
+
+  def data_entry_create # temporary
+    @patient = Patient.new patient_params
+    @patient.created_by = current_user
+    @pregnancy = @patient.pregnancy || @patient.build_pregnancy
+    @pregnancy.created_by = current_user
+
+    if @patient.save
+      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges and you're set."
+      current_user.add_patient @patient
+      redirect_to edit_patient_path @patient
+    else
+      flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
+      render 'data_entry'
+    end
+  end
+  # end routes to be turned off when not in active use
 
   private
 
