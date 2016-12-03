@@ -10,6 +10,7 @@ require 'rails/test_help'
 require 'minitest/reporters'
 require 'capybara/rails'
 require 'capybara/poltergeist'
+require 'capybara-screenshot/minitest'
 Minitest::Reporters.use!
 
 Capybara.register_driver :poltergeist do |app|
@@ -25,8 +26,12 @@ class ActiveSupport::TestCase
   after  { DatabaseCleaner.clean }
 end
 
+# Save screenshots if integration tests fail
+Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
+
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+  include Capybara::Screenshot::MiniTestPlugin
 
   def log_in_as(user, line = 'DC')
     log_in user

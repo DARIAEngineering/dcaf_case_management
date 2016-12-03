@@ -78,6 +78,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.14)
+      capybara (>= 1.0, < 3)
+      launchy
     cliver (0.3.2)
     code_analyzer (0.4.5)
       sexp_processor
@@ -367,6 +370,7 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara
+  capybara-screenshot
   codecov
   coffee-rails (~> 4.1.0)
   database_cleaner

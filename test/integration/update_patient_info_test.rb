@@ -12,6 +12,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
+    page.driver.resize(2000, 2000)
   end
 
   after do
@@ -62,7 +63,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       visit authenticated_root_path
       visit edit_patient_path @patient
       click_link 'Abortion Information'
-      page.driver.resize(2000, 2000)
     end
 
     it 'should alter the information' do
@@ -74,10 +74,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
-
-        screenshot_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}/screnshot.png"
-        page.save_screenshot(screenshot_path)
-
         assert has_field? 'DCAF pledge', with: '25'
         assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
       end

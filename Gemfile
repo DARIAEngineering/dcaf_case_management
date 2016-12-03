@@ -58,6 +58,7 @@ group :test do
   gem 'launchy'
   gem 'codecov', require: false
   gem 'timecop'
+  gem 'capybara-screenshot'
 end
 
 group :production do
