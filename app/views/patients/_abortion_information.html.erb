@@ -71,25 +71,23 @@
   <%# end of main form  %>
   <% end %>
 
-          <div id="external_pledges">
+          <div id="existing-external-pledges">
             <%# slight hack - individual edit forms for each pledge %>
-            <% patient.external_pledges.each do |pledge| %>
-              <%= render 'external_pledges/edit', patient: patient, pledge: pledge %>
+            <% patient.external_pledges.each do |external_pledge| %>
+              <%= render 'external_pledges/edit', patient: patient, external_pledge: external_pledge %>
             <% end %>
           </div>
 
 
-<!--           <div class="form-group">
-
-
-            <label>Select Other</label>
-            <%#= select_tag :pledges, options_for_select(pledges_options), class: "pledges-select form-control"  %>
+          <div id="new-external-pledge">
+            <%= render 'external_pledges/new', patient: patient, external_pledge: new_external_pledge %>
           </div>
-          <button class="button btn-success add-button">
-            <span class="glyphicon glyphicon-plus-sign"></span>Add Other
-          </button> -->
+
+
         </div>
       </div>
     </div>
   <%# end %>
 </section>
+
+
