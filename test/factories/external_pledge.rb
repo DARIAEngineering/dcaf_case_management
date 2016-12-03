@@ -1,7 +1,9 @@
 FactoryGirl.define do
-  factory :pledge do
+  factory :external_pledge do
     patient
-    pledge_type 'Soft'
+    sequence :source do |n|
+      "Fund #{n}"
+    end
     amount 100
     created_by { FactoryGirl.create(:user) }
   end

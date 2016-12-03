@@ -11,7 +11,10 @@ require 'minitest/reporters'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 Minitest::Reporters.use!
-# Capybara.javascript_driver = :poltergeist
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+end
 
 DatabaseCleaner.clean_with :truncation
 
@@ -25,11 +28,21 @@ end
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
 
-  def log_in_as(user)
+  def log_in_as(user, line = 'DC')
+    log_in user
+    select_line line
+  end
+
+  def log_in(user)
     visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Sign in'
+  end
+
+  def select_line(line = 'DC')
+    choose line
+    click_button 'Select your line for this session'
   end
 
   def sign_out

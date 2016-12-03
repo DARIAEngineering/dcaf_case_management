@@ -138,6 +138,9 @@ class PatientTest < ActiveSupport::TestCase
                                primary_phone: '124-567-7890',
                                other_contact: 'Friend Ship'
       @pt_3 = create :patient, name: 'Susan A', other_phone: '999-999-9999'
+      @pt_4 = create :patient, name: 'Susan A in MD',
+                               other_phone: '999-111-9888',
+                               line: 'MD'
       [@pt_1, @pt_2, @pt_3].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
       end
@@ -158,6 +161,11 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should be able to find based on phone patterns' do
       assert_equal 2, Patient.search('124').count
+    end
+
+    it 'should be able to narrow on line' do
+      assert_equal 2, Patient.search('Susan A').count
+      assert_equal 1, Patient.search('Susan A', 'MD').count
     end
 
     it 'should not choke if it does not find anything' do
@@ -201,7 +209,38 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'scopes' do
+    before do
+      # DC patients created in initial before block
+      create :patient, line: 'MD'
+      create :patient, line: 'VA'
+    end
+
+    it 'should allow scoping for each line' do
+      assert_equal 2, Patient.dc.count
+      assert_equal 1, Patient.va.count
+      assert_equal 1, Patient.md.count
+    end
+  end
+
   describe 'methods' do
+    describe 'urgent patients class method' do
+      before do
+        create :patient
+        2.times { create :patient, urgent_flag: true }
+        create :patient, urgent_flag: true, line: 'MD'
+      end
+
+      it 'should return urgent patients' do
+        assert_equal 3, Patient.urgent_patients.count
+      end
+
+      it 'should scope to a line if asked' do
+        assert_equal 2, Patient.urgent_patients('DC').count
+        assert_equal 1, Patient.urgent_patients('MD').count
+      end
+    end
+
     describe 'identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
