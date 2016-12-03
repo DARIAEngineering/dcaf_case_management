@@ -41,8 +41,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     end
 
     it 'should be viewable on the call log' do
-      # visit edit_patient_path @patient
-      # wait_for_page_to_load
       wait_for_element 'Call Log'
       find('a', text: 'Call Log').click
       wait_for_element 'Record new call'
@@ -57,7 +55,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
   end
 
   describe 'logging multiple calls' do
-    # problematic test
     it 'should let you save more than one call' do
       3.times do
         visit authenticated_root_path
@@ -94,14 +91,14 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         find('a', text: @link_text).click
       end
 
-      # problematic test
+      # problematic test?
       it "should close the modal when clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
         assert has_no_text? 'Call Susan Everyteen now'
         assert has_no_link? @link_text
       end
 
-      # problematic test
+      # problematic test?
       it "should be visible on the call log after clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
         visit edit_patient_path @patient
