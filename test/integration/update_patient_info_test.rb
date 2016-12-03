@@ -53,7 +53,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
       fill_in 'DCAF pledge', with: '25'
-      # fill_in 'Baltimore Abortion Fund pledge', with: '25'# # failing due to ambiguous match?
+      # fill_in 'Baltimore Abortion Fund pledge', with: '25' # TODO: failing due to ambiguous match?
       check 'Resolved without assistance from DCAF'
 
       click_away_from_field
