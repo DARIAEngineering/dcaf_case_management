@@ -5,6 +5,7 @@ class ShowPatientInformationTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
     @pregnancy = create :pregnancy, patient: @patient
+    @ext_pledge = create :external_pledge, patient: @patient, source: 'BAF'
     @user = create :user
     log_in_as @user
     visit edit_patient_path(@patient)
@@ -50,6 +51,8 @@ class ShowPatientInformationTest < ActionDispatch::IntegrationTest
         assert has_text? 'Abortion information'
         assert has_text? 'Clinic details'
         assert has_text? 'Cost details'
+        assert has_text? 'BAF pledge'
+        assert has_text? 'record a new external pledge'
       end
     end
 

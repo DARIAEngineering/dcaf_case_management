@@ -21,6 +21,7 @@ class PatientsController < ApplicationController
 
   def edit
     @note = @patient.notes.new
+    @external_pledge = @patient.external_pledges.new
   end
 
   def update

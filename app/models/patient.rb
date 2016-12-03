@@ -36,7 +36,7 @@ class Patient
   field :clinic_name, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
-  enum :line, LINES # Default to :DC, :MD, :VA. See config/initializers/lines.rb
+  enum :line, [:DC, :MD, :VA] # See config/initializers/lines.rb. TODO: Env var.
   field :spanish, type: Boolean
 
   field :age, type: Integer

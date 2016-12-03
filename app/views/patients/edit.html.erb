@@ -14,7 +14,7 @@
   </div>
 
   <div id="sections" class="col-sm-8 tab-content">
-    <%= render 'patients/abortion_information', patient: @patient %>
+    <%= render 'patients/abortion_information', patient: @patient, new_external_pledge: @external_pledge %>
     <%= render 'patients/patient_information', patient: @patient %>
     <%= render 'patients/change_log', patient: @patient %>
     <%= render 'patients/call_log', patient: @patient %>
