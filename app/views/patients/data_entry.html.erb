@@ -7,9 +7,9 @@
 
   <%= f.date_field :initial_call_date, format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
 
-  <%= f.text_field :name %>
+  <%= f.text_field :name, autocomplete: 'off' %>
 
-  <%= f.text_field :primary_phone %>
+  <%= f.text_field :primary_phone, autocomplete: 'off' %>
 
   <div class="row">
     <%= f.fields_for @pregnancy do |pr| %>
@@ -22,8 +22,8 @@
     <% end %>
   </div>
 
-  <%= f.text_field :city %>
-  <%= f.text_field :state %>
+  <%= f.text_field :city, autocomplete: 'off' %>
+  <%= f.text_field :state, autocomplete: 'off' %>
 
   <!-- Notes doesn't work because strong params :( -->
   <%#= f.fields_for @patient.notes.new do |notes| %>
@@ -34,7 +34,7 @@
     <%= pr.text_field :dcaf_soft_pledge %>
   <% end %>
 
-  <%= f.text_field :age %>
+  <%= f.text_field :age, autocomplete: 'off' %>
   <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>
   <%= f.select :clinic_name, options_for_select(clinic_options) %>
 
