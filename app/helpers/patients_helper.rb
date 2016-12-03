@@ -57,10 +57,10 @@ module PatientsHelper
     patient.pregnancy.pledge_info_present? ? 'disabled' : ''
   end
 
-  def pledges_options
-    [nil,"Baltimore Abortion Fund", "Richmond Reproductive Freedom Project",
-      "Blue Ridge Abortion Assistance Fund", "Tiller Fund (NNAF)",
-      "Carolina Abortion Fund", "Women's Medical Fund (Philadelphia)",
-      "NYAAF (New York)", "Other"]
+  def external_pledge_source_options
+    [nil, "Baltimore Abortion Fund", "Richmond Reproductive Freedom Project (RRFP)",
+     "Blue Ridge Abortion Assistance Fund (BRAAF)", "Tiller Fund (NNAF)",
+     "Carolina Abortion Fund", "Women's Medical Fund (Philadelphia)",
+     "NYAAF (New York)", "Other funds (see notes)"]
   end
 end
