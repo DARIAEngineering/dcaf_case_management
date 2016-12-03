@@ -81,13 +81,16 @@ class User
   # someone has a call from the current_user
   # that is less than 8 hours old,
   # AND they would otherwise be in the call list
+  # (e.g. assigned to current line and in user.patients)
 
-  def recently_called_patients
-    patients.select { |patient| recently_called_by_user? patient }
+  def recently_called_patients(lines = LINES)
+    patients.in(_line: lines)
+            .select { |patient| recently_called_by_user? patient }
   end
 
-  def call_list_patients
-    patients.reject { |patient| recently_called_by_user? patient }
+  def call_list_patients(lines = LINES)
+    patients.in(_line: lines)
+            .reject { |patient| recently_called_by_user? patient }
   end
 
   def add_patient(patient)
@@ -111,9 +114,9 @@ class User
     reload
   end
 
-  def ordered_patients
-    return call_list_patients unless call_order
-    ordered_patients = call_list_patients.sort_by do |patient|
+  def ordered_patients(lines = LINES)
+    return call_list_patients(lines) unless call_order
+    ordered_patients = call_list_patients(lines).sort_by do |patient|
       call_order.index(patient.id.to_s) || call_order.length
     end
     ordered_patients

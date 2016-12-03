@@ -1,15 +1,13 @@
 module LinesHelper
   def lines
-    ENV['LINES'].present? ? split_and_strip(ENV['LINES']) : %w(DC MD VA)
+    LINES
   end
 
-  def current_line
+  def current_line_display
     "Line: #{session[:line]}" if session[:line]
   end
 
-  private
-
-  def split_and_strip(string)
-    string.split(',').map(&:strip)
+  def current_line
+    session[:line]
   end
 end

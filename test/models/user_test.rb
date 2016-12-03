@@ -34,25 +34,35 @@ class UserTest < ActiveSupport::TestCase
 
   describe 'call list methods' do
     before do
-      @patient = create :patient
-      @patient_2 = create :patient
+      @patient = create :patient, line: 'DC'
+      @patient_2 = create :patient, line: 'DC'
+      @md_patient = create :patient, line: 'MD'
       @user.patients << @patient
       @user.patients << @patient_2
+      @user.patients << @md_patient
       @user_2 = create :user
     end
 
     it 'should return recently_called_patients accurately' do
       assert_equal 0, @user.recently_called_patients.count
-      @call = create :call, patient: @patient, created_by: @user
+
+      create :call, patient: @patient, created_by: @user
       assert_equal 1, @user.recently_called_patients.count
+
+      create :call, patient: @md_patient, created_by: @user
+      assert_equal 2, @user.recently_called_patients.count
+      assert_equal 1, @user.recently_called_patients('MD').count
     end
 
     it 'should return call_list_patients accurately' do
-      assert_equal 2, @user.call_list_patients.count
-      @call = create :call, patient: @patient, created_by: @user
-      assert_equal 1, @user.call_list_patients.count
-      @call_2 = create :call, patient: @patient_2, created_by: @user_2
-      assert_equal 1, @user.call_list_patients.count
+      assert_equal 3, @user.call_list_patients.count
+      assert_equal 2, @user.call_list_patients('DC').count
+
+      create :call, patient: @patient, created_by: @user
+      assert_equal 1, @user.call_list_patients('DC').count
+
+      create :call, patient: @patient_2, created_by: @user_2
+      assert_equal 1, @user.call_list_patients('DC').count
     end
 
     it 'should clear calls when patient has been reached' do
@@ -95,7 +105,7 @@ class UserTest < ActiveSupport::TestCase
 
   describe 'patient methods' do
     before do
-      @patient = create :patient
+      @patient = create :patient, line: 'MD'
       @patient_2 = create :patient
       @patient_3 = create :patient
     end
@@ -125,6 +135,9 @@ class UserTest < ActiveSupport::TestCase
         assert_equal @patient_3, @user.ordered_patients.first
         assert_equal @patient, @user.ordered_patients[1]
         assert_equal @patient_2, @user.ordered_patients[2]
+
+        # and in line scope
+        assert_equal @patient_2, @user.ordered_patients('DC')[1]
       end
 
       it 'should always add new patients to the front of the call order' do
