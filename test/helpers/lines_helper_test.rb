@@ -18,10 +18,5 @@ class LinesHelperTest < ActionView::TestCase
         assert_equal current_line, state.to_s
       end
     end
-
-    it 'should split current lines from string' do
-      line_strings = 'TX, WV'
-      assert_equal %w(TX WV), send(:split_and_strip, line_strings)
-    end
   end
 end
