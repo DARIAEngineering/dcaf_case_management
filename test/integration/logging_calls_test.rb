@@ -54,33 +54,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'logging multiple calls' do
-    it 'should let you save more than one call' do
-      2.times do
-        visit authenticated_root_path
-        wait_for_element 'Build your call list'
-        fill_in 'search', with: 'Susan Everyteen'
-        click_button 'Search'
-        within :css, '#search_results' do
-          wait_for_element 'Susan Everyteen'
-        end
-        find("a[href='#call-123-123-1234']").click
-        wait_for_element 'Call Susan Everyteen now:'
-        click_link 'I reached the patient'
-        wait_for_element 'Patient information'
-      end
-
-      visit edit_patient_path @patient
-      wait_for_element 'Call Log'
-      click_link 'Call Log'
-      wait_for_element 'Record new call'
-
-      within :css, '#call_log' do
-        assert has_content? 'Reached patient', count: 2
-      end
-    end
-  end
-
   ['Left voicemail', "Couldn't reach patient"].each do |call_status|
     describe "logging #{call_status}" do
       before do
