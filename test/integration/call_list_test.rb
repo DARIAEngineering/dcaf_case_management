@@ -83,7 +83,6 @@ class CallListTest < ActionDispatch::IntegrationTest
       end
     end
 
-    # problematic test
     it 'should time a call out after 8 hours' do
       Timecop.freeze(9.hours.from_now) do
         log_in_as @user
