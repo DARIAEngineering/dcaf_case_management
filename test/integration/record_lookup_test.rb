@@ -80,6 +80,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       end
     end
 
+    # We haven't reached a UX agreement on this yet, but test is ready to go
     # it 'should display new pregnancy partial even for the search results' do
     #   fill_in 'search', with: 'susan everyteen'
     #   click_button 'Search'
