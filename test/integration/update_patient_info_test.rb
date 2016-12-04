@@ -6,10 +6,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @user = create :user
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
-    @ext_pledge = create :external_pledge, patient: @patient, source: 'Baltimore Abortion Fund'
+    @ext_pledge = create :external_pledge,
+                         patient: @patient,
+                         source: 'Baltimore Abortion Fund'
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
+    page.driver.resize(2000, 2000)
   end
 
   after do
@@ -48,13 +51,14 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     before do
       click_link 'Abortion Information'
       select 'Sample Clinic 1', from: 'patient_clinic_name'
-      # TODO: finish this after implementing clinic logic
+      check 'Resolved without assistance from DCAF'
+
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
       fill_in 'DCAF pledge', with: '25'
-      # fill_in 'Baltimore Abortion Fund pledge', with: '25' # TODO: failing due to ambiguous match?
-      check 'Resolved without assistance from DCAF'
+      fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
+      fill_in 'Abortion cost', with: '300' # hack
 
       click_away_from_field
       visit authenticated_root_path
@@ -62,19 +66,19 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       click_link 'Abortion Information'
     end
 
-    # problematic test
-  #   it 'should alter the information' do
-  #     within :css, '#abortion_information' do
-  #       assert_equal 'Sample Clinic 1', find('#patient_clinic_name').value
-  #       # TK after clinic logic
-  #       assert has_field? 'Abortion cost', with: '300'
-  #       assert has_field? 'Patient contribution', with: '200'
-  #       assert has_field? 'National Abortion Federation pledge', with: '50'
-  #       assert has_field? 'DCAF pledge', with: '25'
-  #       # assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
-  #       assert_equal '1', find('#patient_pregnancy_resolved_without_dcaf').value
-  #     end
-  #   end
+    it 'should alter the information' do
+      within :css, '#abortion_information' do
+        assert_equal 'Sample Clinic 1', find('#patient_clinic_name').value
+        assert_equal '1', find('#patient_pregnancy_resolved_without_dcaf').value
+        # TODO: review after getting clinic logic in place
+
+        assert has_field? 'Abortion cost', with: '300'
+        assert has_field? 'Patient contribution', with: '200'
+        assert has_field? 'National Abortion Federation pledge', with: '50'
+        assert has_field? 'DCAF pledge', with: '25'
+        assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
+      end
+    end
   end
 
   describe 'changing patient information' do
@@ -105,7 +109,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       visit edit_patient_path @patient
     end
 
-    # problematic test
     it 'should alter the information' do
       click_link 'Patient Information'
       within :css, '#patient_information' do
@@ -132,6 +135,15 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
       end
+    end
+  end
+
+  describe 'clicking around' do
+    it 'should let you click back to abortion information' do
+      click_link 'Notes'
+      within(:css, '#sections') { refute has_text? 'Abortion information' }
+      click_link 'Abortion Information'
+      within(:css, '#sections') { assert has_text? 'Abortion information' }
     end
   end
 

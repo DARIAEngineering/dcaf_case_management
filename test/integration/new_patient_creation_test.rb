@@ -51,7 +51,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
     end
 
     it 'should only be viewable on that line' do
-      ['VA', 'DC'].each do |line|
+      %w(VA DC).each do |line|
         sign_out
         log_in_as @user, line
 

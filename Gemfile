@@ -58,6 +58,8 @@ group :test do
   gem 'launchy'
   gem 'codecov', require: false
   gem 'timecop'
+  gem 'capybara-screenshot'
+  gem 'minitest-ci', git: 'git@github.com:circleci/minitest-ci.git'
 end
 
 group :production do
