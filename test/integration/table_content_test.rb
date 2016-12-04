@@ -25,7 +25,7 @@ class TableContentTest < ActionDispatch::IntegrationTest
 
   describe 'visiting the dashboard' do
     it 'should display header fields in call list table' do
-      within :css, '#call_list' do
+      within :css, 'table#call_list_table' do
         assert has_content? 'Phone'
         assert has_content? 'Name'
         assert has_content? 'LMP'
@@ -36,7 +36,7 @@ class TableContentTest < ActionDispatch::IntegrationTest
     end
 
     it 'should display attributes in call list table' do
-      within :css, '#call_list' do
+      within :css, '#call_list_content' do
         assert has_content? @patient.primary_phone_display
         assert has_content? @patient.name
         assert has_content? 3.days.from_now.display_date

@@ -109,7 +109,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       visit edit_patient_path @patient
     end
 
-    # problematic test
     it 'should alter the information' do
       click_link 'Patient Information'
       within :css, '#patient_information' do
