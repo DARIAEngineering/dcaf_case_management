@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuditTrailLoggingTest < ActionDispatch::IntegrationTest
+class ChangeLogTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user, email: 'first_user@email.com'
