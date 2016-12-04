@@ -41,6 +41,7 @@ class TableContentTest < ActionDispatch::IntegrationTest
         assert has_content? @patient.name
         assert has_content? 3.days.from_now.display_date
         assert has_content? @patient.pregnancy.last_menstrual_period_display_short
+        # TODO: has remove, phone clicky
       end
     end
   end
