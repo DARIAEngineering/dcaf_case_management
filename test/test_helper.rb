@@ -54,6 +54,10 @@ class ActionDispatch::IntegrationTest
     has_content? text
   end
 
+  def wait_for_no_element(test)
+    has_no_content? text
+  end
+
   def sign_out
     click_link 'Sign out'
   end

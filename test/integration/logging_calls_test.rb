@@ -3,7 +3,8 @@ require 'test_helper'
 class LoggingCallsTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
-    @patient = create :patient, name: 'Susan Everyteen', primary_phone: '123-123-1234'
+    @patient = create :patient, name: 'Susan Everyteen',
+                                primary_phone: '123-123-1234'
     @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
     log_in_as @user
@@ -58,17 +59,21 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     it 'should let you save more than one call' do
       2.times do
         visit authenticated_root_path
-        has_content? 'Build your call list'
+        wait_for_element 'Build your call list'
         fill_in 'search', with: 'Susan Everyteen'
         click_button 'Search'
+        within :css, '#search_results' do
+          wait_for_element 'Susan Everyteen'
+        end
         find("a[href='#call-123-123-1234']").click
+        wait_for_element 'Call Susan Everyteen now:'
         click_link 'I reached the patient'
         wait_for_element 'Patient information'
       end
 
       visit edit_patient_path @patient
       wait_for_element 'Call Log'
-      find('a', text: 'Call Log').click
+      click_link 'Call Log'
       wait_for_element 'Record new call'
 
       within :css, '#call_log' do
@@ -91,14 +96,12 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         find('a', text: @link_text).click
       end
 
-      # problematic test?
       it "should close the modal when clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
         assert has_no_text? 'Call Susan Everyteen now'
         assert has_no_link? @link_text
       end
 
-      # problematic test?
       it "should be visible on the call log after clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
         visit edit_patient_path @patient
