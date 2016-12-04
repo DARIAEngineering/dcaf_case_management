@@ -27,7 +27,7 @@
           </div>
         <% end %>
       </div>
-    </div>    
+    </div>
   </div>
 
   <div id="cost_fields" class="col-sm-12">
@@ -56,12 +56,12 @@
             </div>
           </div>
         <% end %>
-      </div>          
+      </div>
     </div>
   </div>
 
-  <div id="external_pledges" class="row">
-    <div class="col-sm-12">
+  <div id="external_pledges" class="col-sm-12">
+    <div class="row col-sm-12">
       <div class="col-sm-6">
         <!-- Future right of math -->
       </div>
@@ -73,10 +73,10 @@
             <%= render 'external_pledges/edit', patient: patient, external_pledge: external_pledge %>
           <% end %>
         </div>
-        
+
         <div id="new-external-pledge">
           <%= render 'external_pledges/new', patient: patient, external_pledge: new_external_pledge %>
-        </div>        
+        </div>
       </div>
     </div>
   </div>
