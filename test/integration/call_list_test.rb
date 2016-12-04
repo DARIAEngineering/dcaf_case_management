@@ -10,21 +10,20 @@ class CallListTest < ActionDispatch::IntegrationTest
     @va_patient = create :patient, name: 'James Hetfield', line: 'VA'
     @va_pregnancy = create :pregnancy, patient: @va_patient
     @user = create :user
-    [@patient_2, @va_patient].each { |pt| @user.add_patient pt }
+    @user.add_patient @va_patient
     log_in_as @user
-    add_to_call_list @patient.name
+    add_to_call_list @patient
+    page.driver.resize(2000, 2000)
   end
 
-  after do
-    Capybara.use_default_driver
-  end
+  after { Capybara.use_default_driver }
 
   describe 'populating call list' do
     it 'should add people to the call list roll' do
+      add_to_call_list @patient_2
       within :css, '#call_list_content' do
-        assert has_text? @patient.name
-        assert has_text? @patient_2.name
-        assert has_link? 'Remove', count: 2
+        wait_for_element @patient_2.name
+        assert has_link? 'Remove'
       end
     end
 
@@ -35,8 +34,9 @@ class CallListTest < ActionDispatch::IntegrationTest
     end
 
     it 'should let you remove people from the call list roll' do
-      find('a', text: 'Remove').click
       within :css, '#call_list_content' do
+        wait_for_element @patient.name
+        page.accept_confirm first(:link, 'Remove').click
         assert has_no_text? @patient.name
       end
     end
@@ -50,7 +50,7 @@ class CallListTest < ActionDispatch::IntegrationTest
     it 'should allow a call to be on two users call lists' do
       sign_out
       log_in_as @user_2
-      add_to_call_list @patient.name
+      add_to_call_list @patient
       within :css, '#call_list_content' do
         assert has_text? @patient.name
       end
@@ -69,8 +69,7 @@ class CallListTest < ActionDispatch::IntegrationTest
         find("a[href='#call-#{@patient.primary_phone_display}']").click
       end
       find('a', text: 'I left a voicemail for the patient').click
-      visit authenticated_root_path
-      wait_for_element 'Your completed calls'
+      wait_for_no_element "Call #{@patient.name} now:"
     end
 
     it 'should add a call to completed when a call was made within 8 hrs' do
@@ -99,10 +98,29 @@ class CallListTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'patient edit page call log' do
+    before do
+      visit edit_patient_path @patient
+      wait_for_element 'Call Log'
+      click_link 'Call Log'
+      wait_for_element 'Record new call'
+    end
+
+    it 'should update on the fly' do
+      click_link 'Record new call'
+      wait_for_element "Call #{@patient.name} now:"
+      click_link 'I left a voicemail for the patient'
+      wait_for_no_element "Call #{@patient.name} now:"
+
+      assert has_content? 'Left voicemail'
+    end
+  end
+
   private
 
-  def add_to_call_list(patient_name)
-    fill_in 'search', with: patient_name
+  def add_to_call_list(patient)
+    wait_for_element 'Build your call list'
+    fill_in 'search', with: patient.name
     click_button 'Search'
     find('a', text: 'Add').click
   end
