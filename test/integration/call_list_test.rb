@@ -5,16 +5,17 @@ class CallListTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
     @pregnancy = create :pregnancy, patient: @patient
-    @patient_2 = create :patient, name: 'Thorny', primary_phone: '123-123-1235'
+    @patient_2 = create :patient, name: 'Thorny'
     @pregnancy_2 = create :pregnancy, patient: @patient_2
+    @va_patient = create :patient, name: 'James Hetfield', line: 'VA'
+    @va_pregnancy = create :pregnancy, patient: @va_patient
     @user = create :user
+    [@patient_2, @va_patient].each { |pt| @user.add_patient pt }
     log_in_as @user
     add_to_call_list @patient.name
   end
 
   after do
-    # use reset_sessions! if enabling Timecop
-    # Capybara.reset_sessions!
     Capybara.use_default_driver
   end
 
@@ -22,20 +23,15 @@ class CallListTest < ActionDispatch::IntegrationTest
     it 'should add people to the call list roll' do
       within :css, '#call_list_content' do
         assert has_text? @patient.name
-        assert has_link? 'Remove'
-      end
-
-      # problematic test
-      add_to_call_list @patient_2.name
-      within :css, '#call_list_content' do
-        wait_for_element @patient_2.name
-        assert has_text? @patient.name
         assert has_text? @patient_2.name
         assert has_link? 'Remove', count: 2
       end
+    end
 
-      # TODO
-      # assert that call lists are scoped to particular line
+    it 'should scope the call list to a particular line' do
+      within :css, '#call_list_content' do
+        assert has_no_text? @va_patient.name
+      end
     end
 
     it 'should let you remove people from the call list roll' do
