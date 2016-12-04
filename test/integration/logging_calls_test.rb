@@ -36,7 +36,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       wait_for_element 'Patient information'
     end
 
-    # potentially problematic test
     it 'should redirect to the edit view when a patient has been reached' do
       assert_equal current_path, edit_patient_path(@patient)
     end

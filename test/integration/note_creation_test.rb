@@ -8,6 +8,7 @@ class NoteCreationTest < ActionDispatch::IntegrationTest
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
     visit edit_patient_path(@patient)
+    wait_for_element 'Notes'
     click_link 'Notes'
   end
 
