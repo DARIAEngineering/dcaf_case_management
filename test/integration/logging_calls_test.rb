@@ -56,7 +56,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
 
   describe 'logging multiple calls' do
     it 'should let you save more than one call' do
-      3.times do
+      2.times do
         visit authenticated_root_path
         has_content? 'Build your call list'
         fill_in 'search', with: 'Susan Everyteen'
@@ -72,7 +72,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
       wait_for_element 'Record new call'
 
       within :css, '#call_log' do
-        assert has_content? 'Reached patient', count: 3
+        assert has_content? 'Reached patient', count: 2
       end
     end
   end
