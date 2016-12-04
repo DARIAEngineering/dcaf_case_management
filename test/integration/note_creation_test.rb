@@ -19,7 +19,7 @@ class NoteCreationTest < ActionDispatch::IntegrationTest
   describe 'add patient notes' do
     it 'should display a case notes form and current notes' do
       within('#notes') do
-        assert has_text? 'Notes' # confirm notes header is visible
+        assert has_text? 'Notes'
         assert has_button? 'Create Note'
       end
     end
