@@ -138,6 +138,15 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'clicking around' do
+    it 'should let you click back to abortion information' do
+      click_link 'Notes'
+      within(:css, '#sections') { refute has_text? 'Abortion information' }
+      click_link 'Abortion Information'
+      within(:css, '#sections') { assert has_text? 'Abortion information' }
+    end
+  end
+
   private
 
   def click_away_from_field
