@@ -1,0 +1,5 @@
+$('#search_results_shell').empty();
+
+<% if @results.any? %>
+  $("#search_results_shell").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { title: 'Search Results', table_type: 'search_results', patients: @results } ) %>");
+<% end %>

@@ -6,10 +6,10 @@
 
 <div class="container">
   <div class="col-sm-12">
-    <%= render partial: 'dashboards/overview' %>
+    <%= render partial: 'dashboards/budget_bar', locals: { expenditures: @expenditures } %>
     <%= render partial: 'dashboards/search_form' %>
-    <%= render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients, sortable: true } %>
-    <%= render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients } %>
+    <%= render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients(current_line), sortable: true } %>
+    <%= render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients(current_line) } %>
     <%= render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: @urgent_patients } %>
   </div>
 </div>

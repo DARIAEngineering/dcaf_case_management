@@ -7,18 +7,24 @@ class Patient
   include Mongoid::Userstamp
   include StatusHelper
 
+  LINES.each do |line|
+    scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
+  end
+
   before_validation :clean_fields
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   embeds_one :pregnancy
+  embeds_one :fulfillment
   embeds_one :clinic
   embeds_many :calls
-  embeds_many :pledges
+  embeds_many :external_pledges
   embeds_many :notes
 
   # Enable mass posting in forms
   accepts_nested_attributes_for :pregnancy
+  accepts_nested_attributes_for :fulfillment
   accepts_nested_attributes_for :clinic
 
   # Fields
@@ -30,7 +36,7 @@ class Patient
   field :clinic_name, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
-  enum :line, [:DC, :MD, :VA]
+  enum :line, [:DC, :MD, :VA] # See config/initializers/lines.rb. TODO: Env var.
   field :spanish, type: Boolean
 
   field :age, type: Integer
@@ -63,6 +69,7 @@ class Patient
             :primary_phone,
             :initial_call_date,
             :created_by,
+            :line,
             presence: true
   validates :primary_phone, format: /\d{10}/, length: { is: 10 }, uniqueness: true
   validates :other_phone, format: /\d{10}/,
@@ -74,6 +81,7 @@ class Patient
   validate :confirm_appointment_after_initial_call
 
   validates_associated :pregnancy
+  validates_associated :fulfillment
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
@@ -87,8 +95,8 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.urgent_patients
-    where(urgent_flag: true)
+  def self.urgent_patients(lines = LINES)
+    Patient.in(_line: lines).where(urgent_flag: true)
   end
 
   def self.trim_urgent_patients
@@ -98,6 +106,21 @@ class Patient
         patient.save
       end
     end
+  end
+
+  def self.pledged_status_summary(num_days = 7)
+    # return pledge totals for patients with appts in the next num_days
+    # TODO move to Pledge class, when implemented?
+    outstanding_pledges = 0
+    sent_total = 0
+    Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
+      if patient.pregnancy.pledge_sent
+        sent_total += (patient.pregnancy.dcaf_soft_pledge || 0)
+      else
+        outstanding_pledges += (patient.pregnancy.dcaf_soft_pledge || 0)
+      end
+    end
+    { pledged: outstanding_pledges, sent: sent_total }
   end
 
   def recent_calls
@@ -118,6 +141,17 @@ class Patient
   def most_recent_note
     notes.order('created_at DESC').limit(1).first
   end
+
+  # TODO: reimplement once pledge is available
+  #def most_recent_pledge_display_date
+  #  display_date = most_recent_pledge.try(:sent).to_s
+  #  display_date
+  #end
+
+  # TODO: reimplement once pledge is available
+  #def most_recent_pledge
+  #  pledges.order('created_at DESC').limit(1).first
+  #end
 
   def primary_phone_display
     return nil unless primary_phone.present?
@@ -144,35 +178,41 @@ class Patient
     false
   end
 
+  def assemble_audit_trails
+    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
+                                               .reverse
+  end
+
   # Search-related stuff
   class << self
     # Case insensitive and phone number format agnostic!
-    def search(name_or_phone_str)
+    def search(name_or_phone_str, lines = LINES)
+      # lines should be an array of symbols
       name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
       clean_phone = name_or_phone_str.gsub(/\D/, '')
       phone_regexp = /#{Regexp.escape(clean_phone)}/
 
-      all_matching_names = find_name_matches name_regexp
-      all_matching_phones = find_phone_matches phone_regexp
+      all_matching_names = find_name_matches name_regexp, lines
+      all_matching_phones = find_phone_matches phone_regexp, lines
 
       (all_matching_names | all_matching_phones)
     end
 
     private
 
-    def find_name_matches(name_regexp)
+    def find_name_matches(name_regexp, lines = LINES)
       if nonempty_regexp? name_regexp
-        primary_names = Patient.where name: name_regexp
-        other_names = Patient.where other_contact: name_regexp
+        primary_names = Patient.in(_line: lines).where name: name_regexp
+        other_names = Patient.in(_line: lines).where other_contact: name_regexp
         return (primary_names | other_names)
       end
       []
     end
 
-    def find_phone_matches(phone_regexp)
+    def find_phone_matches(phone_regexp, lines = LINES)
       if nonempty_regexp? phone_regexp
-        primary_phones = Patient.where primary_phone: phone_regexp
-        other_phones = Patient.where other_phone: phone_regexp
+        primary_phones = Patient.in(_line: lines).where(primary_phone: phone_regexp)
+        other_phones = Patient.in(_line: lines).where(other_phone: phone_regexp)
         return (primary_phones | other_phones)
       end
       []

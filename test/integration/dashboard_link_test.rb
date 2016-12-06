@@ -9,7 +9,7 @@ class DashboardLinkTest < ActionDispatch::IntegrationTest
   describe 'visiting the dashboard' do
     it 'should not display the dashboard link' do
       visit authenticated_root_path
-      refute has_link? 'Dashboard', href: authenticated_root_path
+      wait_for_element 'Sign out'
     end
   end
 
@@ -18,6 +18,7 @@ class DashboardLinkTest < ActionDispatch::IntegrationTest
       @patient = create :patient
       @pregnancy = create :pregnancy, patient: @patient
       visit edit_patient_path(@patient)
+      wait_for_element 'Patient information'
     end
 
     it 'should display the dashboard link' do
@@ -26,6 +27,7 @@ class DashboardLinkTest < ActionDispatch::IntegrationTest
 
     it 'should direct the user to the dashboard' do
       find('a', text: 'Dashboard').click
+      wait_for_element 'Build your call list'
       assert_equal current_path, authenticated_root_path
       refute has_link? 'Dashboard', href: authenticated_root_path
     end

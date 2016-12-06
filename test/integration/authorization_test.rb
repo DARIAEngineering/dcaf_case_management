@@ -26,7 +26,7 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
     it 'should bump you back to root' do
       sign_out
       @user.password = 'not_valid'
-      log_in_as @user
+      log_in @user
       assert_equal current_path, new_user_session_path
       assert_text 'Invalid email or password.'
       assert_no_text @user.name

@@ -10,9 +10,13 @@ class PasswordResetTest < ActionDispatch::IntegrationTest
       visit root_path
     end
 
+    # problematic test -- Circular dependency detected while autoloading
+    # constant Devise::PasswordsController.
     it 'should have a link to the password reset page' do
       assert has_link? 'Forgot your password?'
       click_link 'Forgot your password?'
+      wait_for_element 'Password Reset'
+
       assert_routing new_user_password_path, controller: 'devise/passwords',
                                              action: 'new'
       assert_text 'Password Reset'

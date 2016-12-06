@@ -7,16 +7,21 @@ class AccountantsControllerTest < ActionController::TestCase
   end
 
   describe 'index method' do
-    it 'should return success' do
+    before do
       get :index
+    end
+
+    it 'should return success' do
       assert_response :success
     end
   end
 
-  describe 'search post method' do
-    it 'should return success' do
-      post :search
-      assert_response :success
+  describe 'search method' do
+    it 'should return on name, primary phone, and other phone' do
+      ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
+        post :search, search: searcher, format: :js
+        assert_response :success
+      end
     end
   end
 end
