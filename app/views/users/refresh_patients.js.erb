@@ -1,4 +1,4 @@
 $('#call_list, #completed_calls, #urgent_patients').empty();
-$('#call_list').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients, sortable: true }) %>');
-$('#completed_calls').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients }) %>');
-$("#urgent_patients").append('<%= escape_javascript( render partial: "dashboards/table_content", locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: Patient.urgent_patients }) %>')
+$('#call_list').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients(current_line), sortable: true }) %>');
+$('#completed_calls').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients(current_line) }) %>');
+$("#urgent_patients").append('<%= escape_javascript( render partial: "dashboards/table_content", locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: Patient.urgent_patients(current_line) }) %>')

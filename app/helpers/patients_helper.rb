@@ -22,7 +22,7 @@ module PatientsHelper
     [nil, 'DC Medicaid', 'MD MCHIP',
      'MD Medical Assistance for Families (MA4F)', 'VA Medicaid/CHIP',
      'Other state Medicaid', 'Private or employer-sponsored health insurance',
-     'No insurance', "Don't know"]
+     'No insurance', 'Don\'t know', 'Other (add to notes)']
   end
 
   def income_options
@@ -51,5 +51,9 @@ module PatientsHelper
   def clinic_options
     (ENV['CLINICS'].try(:split, ',') || ['Sample Clinic 1', 'Sample Clinic 2'])
       .unshift nil
+  end
+
+  def disable_continue?(patient)
+    patient.pregnancy.pledge_info_present? ? 'disabled' : ''
   end
 end

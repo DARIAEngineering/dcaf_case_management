@@ -78,6 +78,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.14)
+      capybara (>= 1.0, < 3)
+      launchy
     cliver (0.3.2)
     code_analyzer (0.4.5)
       sexp_processor
@@ -164,6 +167,8 @@ GEM
       rails (>= 2.3.3)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
+    minitest-ci (3.1.0)
+      minitest (~> 5.0, >= 5.0.6)
     minitest-reporters (1.1.9)
       ansi
       builder
@@ -367,6 +372,7 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara
+  capybara-screenshot
   codecov
   coffee-rails (~> 4.1.0)
   database_cleaner
@@ -380,6 +386,7 @@ DEPENDENCIES
   js-routes
   launchy
   mini_backtrace
+  minitest-ci
   minitest-reporters
   minitest-spec-rails
   mongo_session_store-rails4

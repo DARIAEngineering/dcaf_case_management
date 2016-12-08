@@ -3,7 +3,8 @@ require 'test_helper'
 class LoggingCallsTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
-    @patient = create :patient, name: 'Susan Everyteen', primary_phone: '123-123-1234'
+    @patient = create :patient, name: 'Susan Everyteen',
+                                primary_phone: '123-123-1234'
     @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
     log_in_as @user
@@ -32,47 +33,23 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     before do
       @timestamp = Time.zone.now
       find('a', text: 'I reached the patient').click
-      wait_for_page_to_load
+      wait_for_element 'Patient information'
     end
 
-    # problematic test
     it 'should redirect to the edit view when a patient has been reached' do
       assert_equal current_path, edit_patient_path(@patient)
     end
 
     it 'should be viewable on the call log' do
-      visit edit_patient_path @patient
-      wait_for_page_to_load
+      wait_for_element 'Call Log'
       find('a', text: 'Call Log').click
-      wait_for_ajax
+      wait_for_element 'Record new call'
 
       within :css, '#call_log' do
         assert has_text? @timestamp.display_date
         assert has_text? @timestamp.display_time
         assert has_text? 'Reached patient'
         assert has_text? @user.name
-      end
-    end
-  end
-
-  describe 'logging multiple calls' do
-    # problematic test
-    it 'should let you save more than one call' do
-      3.times do
-        visit authenticated_root_path
-        fill_in 'search', with: 'Susan Everyteen'
-        click_button 'Search'
-        find("a[href='#call-123-123-1234']").click
-        click_link 'I reached the patient'
-      end
-
-      visit edit_patient_path @patient
-      wait_for_page_to_load
-      find('a', text: 'Call Log').click
-      wait_for_ajax
-
-      within :css, '#call_log' do
-        assert has_content? 'Reached patient', count: 3
       end
     end
   end
@@ -91,20 +68,18 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
         find('a', text: @link_text).click
       end
 
-      # problematic test
       it "should close the modal when clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
         assert has_no_text? 'Call Susan Everyteen now'
         assert has_no_link? @link_text
       end
 
-      # problematic test
       it "should be visible on the call log after clicking #{call_status}" do
         assert_equal current_path, authenticated_root_path
         visit edit_patient_path @patient
-        wait_for_page_to_load
+        wait_for_element 'Call Log'
         find('a', text: 'Call Log').click
-        wait_for_ajax
+        wait_for_element 'Record new call'
 
         within :css, '#call_log' do
           assert has_text? @timestamp.display_date

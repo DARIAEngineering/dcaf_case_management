@@ -9,6 +9,14 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     Capybara.use_default_driver
   end
 
+  describe 'nonadmin user' do
+    before { visit root_path }
+
+    it 'should not let you create a user' do
+      assert has_no_link? 'Sign up'
+    end
+  end
+
   describe 'admin user' do
     before do
       @user = create :user, role: :admin

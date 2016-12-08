@@ -7,10 +7,10 @@ ENV DCAF_DIR=/usr/src/app \
     APP_DEPENDENCIES="nodejs"
 
 # get our gem house in order
-RUN mkdir -p ${DCAF_DIR}
+RUN mkdir -p ${DCAF_DIR} && cd ${DCAF_DIR}
 WORKDIR ${DCAF_DIR}
-COPY Gemfile ${DCAF_DIR}
-COPY Gemfile.lock ${DCAF_DIR}
+COPY Gemfile ${DCAF_DIR}/Gemfile
+COPY Gemfile.lock ${DCAF_DIR}/Gemfile.lock
 
 # install packages
 RUN apk --no-cache add \
