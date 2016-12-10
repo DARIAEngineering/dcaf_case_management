@@ -14,7 +14,7 @@ class LinesHelperTest < ActionView::TestCase
 
       %w(DC MD VA).each do |state|
         session[:line] = state
-        assert_equal current_line_display, "Line: #{state}"
+        assert_equal current_line_display, "Your current line: #{state}"
         assert_equal current_line, state.to_s
       end
     end
