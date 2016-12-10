@@ -21,7 +21,7 @@
                 options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), 
                 label: 'Weeks Along at Procedure', 
                 autocomplete: 'off' %>
-            <%= pt.text_field :abortion_care_cost, label: 'Abortion Care $', autocomplete: 'off'%>
+            <%= pt.text_field :abortion_care_cost, label: 'Abortion Care $', autocomplete: 'off', prepend: '$'%>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">
