@@ -20,7 +20,7 @@
     <%= render 'patients/call_log', patient: @patient %>
     <%= render 'patients/notes', patient: @patient, note: @note %>
     <% if current_user.admin? && @patient.pregnancy.pledge_sent == true %>
-      <%= render 'patients/pledge_fulfillment', patient: @patient %>
+      <%= render 'patients/fulfillment', patient: @patient %>
     <% end %>  
   </div>
 </div>
