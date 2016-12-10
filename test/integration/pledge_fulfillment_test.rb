@@ -36,8 +36,8 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       visit edit_patient_path @patient
     end
     
-    it 'should show text with no link when the pledge has not been sent' do
-      assert has_text? 'Pledge Fulfillment'
+    it 'should not show the pledge fulfillment link to an admin unless the pledge has been sent' do
+      refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
     end
   
