@@ -4,7 +4,7 @@ module LinesHelper
   end
 
   def current_line_display
-    "Line: #{session[:line]}" if session[:line]
+    "Your current line: #{session[:line]}" if session[:line]
   end
 
   def current_line
