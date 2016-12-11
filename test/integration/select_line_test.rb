@@ -20,7 +20,7 @@ class SelectLineTest < ActionDispatch::IntegrationTest
       choose 'DC'
       click_button 'Select your line for this session'
       assert_equal current_path, authenticated_root_path
-      assert has_content? 'Line: DC'
+      assert has_content? 'Your current line: DC'
     end
   end
 

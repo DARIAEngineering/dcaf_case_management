@@ -63,6 +63,7 @@ class Patient
   index(name: 1)
   index(other_contact: 1)
   index(urgent_flag: 1)
+  index(_line: 1)
 
   # Validations
   validates :name,
