@@ -11,9 +11,9 @@ module CallsHelper
 
   def display_other_contact_and_phone_if_exists(patient)
     section = []
-    if patient.other_contact? && patient.other_phone?
+    if patient.other_contact? || patient.other_phone?
       section.push name_display_h4(patient)
-      section.push other_phone_h4(patient)
+      section.push other_phone_h4(patient) if patient.other_phone?
       section.push patient_name_h4(patient)
     end
     safe_join section, ''
@@ -75,9 +75,14 @@ module CallsHelper
   end
 
   def other_contact_name_display(patient)
-    patient.other_contact +
-      other_contact_relationship_display(patient) +
-      ' is the primary contact for this patient:'
+    if patient.other_contact?
+      patient.other_contact +
+        other_contact_relationship_display(patient) +
+        ' is the primary contact for this patient' +
+        "#{patient.other_phone? ? ':' : '.'}"
+    else
+      'Primary contact:'
+    end
   end
 
   def other_phone_h4(patient)
