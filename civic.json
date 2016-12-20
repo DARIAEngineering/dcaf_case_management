@@ -2,9 +2,9 @@
     "name": "DCAF Case Manager", 
     "description": "A Rails-based case management system for ", 
     "license": "MIT", 
-    "status": "Alpha", 
-    "homepage": "http://casemanagerdemo.herokuapp.com", 
-    "repository": "https://github.com/colinxfleming/dcaf_case_manager", 
+    "status": "Production", 
+    "homepage": "http://dcaf-cmapp-staging.herokuapp.com", 
+    "repository": "https://github.com/colinxfleming/dcaf_case_management", 
     "type": "Web App", 
     "thumbnail": "", 
     "geography": [
@@ -24,9 +24,9 @@
             "url": "http://codefordc.org"
         },
         {
-            "name": "Code for DC", 
+            "name": "DC Abortion Fund", 
             "email": "",
-            "url": "http://codefordc.org"
+            "url": "http://dcabortionfund.org"
         },
         {
             "name": "Mollie Bates", 
