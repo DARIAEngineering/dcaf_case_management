@@ -1,4 +1,4 @@
-<%= render '/shared/multi_modal', :captured => capture { %>
+<%= render '/shared/multi_modal', disable_next: disable_continue?(patient), :captured => capture { %>
   <div class="row hide" data-step="1" data-title="Confirm the following information is correct:">
     <% if patient.pregnancy.pledge_info_present? %>
       <% patient.pregnancy.pledge_info_errors.each do |error| %>
