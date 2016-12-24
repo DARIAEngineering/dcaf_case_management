@@ -1,24 +1,4 @@
-<%= render '/shared/multi_modal',
-  :captured => capture { %>
-
-<!-- <<<<<<< HEAD
-		<div class="pledge_modal_screen1">
-			<div class="pledge_intro">Confirm the following information is correct:</div>
-			<div class="pledge_form">
-
-
-				<div><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
-				<div><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
-				<div><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.pregnancy.dcaf_soft_pledge %> </div>
-				<div><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
-				<div><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
-			</div>
-			<a class="pledge_process_btn pledge_cancel"  data-dismiss="modal" aria-label="Close">Cancel</a>
-		 	<a class="btn btn-primary btn-sm pledge_process_btn pledge_submit <%= disable_continue?(patient) %>" id='submit-pledge-to-p2'>Continue</a>
-		</div>
-======= -->
-
-
+<%= render '/shared/multi_modal', :captured => capture { %>
   <div class="row hide" data-step="1" data-title="Confirm the following information is correct:">
     <% if patient.pregnancy.pledge_info_present? %>
       <% patient.pregnancy.pledge_info_errors.each do |error| %>
@@ -31,7 +11,6 @@
     <div class='col-sm-12'><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
     <div class='col-sm-12'><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
   </div>
-<!-- >>>>>>> 8a028da3b8bacc256a1038afc0b8a34545b2d34a -->
 
   <div class="row hide" data-step="2" data-title="Review this preview of your pledge: (Not working yet)">
     <div class="col-sm-6">This space intentionally left blank.</div>
@@ -49,5 +28,4 @@
       <% end %>
     </div>
   </div>
-
 <% } %>
