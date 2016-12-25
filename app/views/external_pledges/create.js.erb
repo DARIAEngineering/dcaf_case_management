@@ -1,1 +1,2 @@
 $('#external_pledge_amount').val('');
+$('#existing-external-pledges').empty().append('<%= escape_javascript(render partial: "external_pledges/external_pledges_table", locals: { patient: @patient, external_pledges: @patient.external_pledges.order_by('created_at desc') } ) %>');

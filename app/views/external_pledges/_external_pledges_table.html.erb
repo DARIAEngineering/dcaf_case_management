@@ -1,5 +1,4 @@
-<div class="col-sm-6">
-  <div id="existing-external-pledges">
+<div id="existing-external-pledges">
     <%# slight hack - individual edit forms for each pledge %>
     <% external_pledges.each do |external_pledge| %>
       <%= render 'external_pledges/edit', patient: patient, external_pledge: external_pledge %>
