@@ -65,12 +65,15 @@
       <div class="col-sm-6">
         <!-- Future right of math -->
       </div>
+
       <div class="col-sm-6">
         <%= render partial: 'external_pledges/external_pledges_table', locals: { patient: patient, external_pledges: patient.external_pledges.order_by('created_at desc') } %>
-        
+      </div>
+
+      <div id="new-external-pledge">
         <%= render partial: 'external_pledges/new', locals: { patient: patient, new_external_pledge: new_external_pledge } %>
       </div>
-      </div>
+
     </div>
   </div>
 </section>
