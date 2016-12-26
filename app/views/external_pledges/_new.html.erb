@@ -1,6 +1,6 @@
 <h5>Or, record a new external pledge:</h5>
 <%= bootstrap_form_for [patient, new_external_pledge], remote: true do |f| %>
-	<%= f.select :source, options_for_select(available_pledge_source_options_for(patient)) %>
+	<%= f.select :source, available_pledge_source_options_for(patient) %>
 	<%= f.text_field :amount %>
 	<%= f.submit class: 'btn btn-primary' %>
 <% end %>
