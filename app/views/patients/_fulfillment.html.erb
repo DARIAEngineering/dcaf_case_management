@@ -10,19 +10,19 @@
       <div class="row">
         <div class="col-sm-12">
           <%= f.fields_for patient.build_fulfillment do |pt| %>
-            <%= pt.form_group :pledge_fulfilled do %>
-              <%= pt.check_box :pledge_fulfilled, label: 'Pledge Fulfilled' %>
+            <%= pt.form_group :fulfilled do %>
+              <%= pt.check_box :fulfilled, label: 'Pledge Fulfilled' %>
             <% end %>
           <% end %>
         </div>  
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.build_fulfillment do |pt| %>
             <%= pt.date_field :procedure_date, label: 'Procedure Date' %>
-            <%= pt.select :weeks_along, 
+            <%= pt.select :gestation_at_procedure, 
                 options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), 
                 label: 'Weeks Along at Procedure', 
                 autocomplete: 'off' %>
-            <%= pt.text_field :abortion_care_cost, label: 'Abortion Care $', autocomplete: 'off', prepend: '$'%>
+            <%= pt.text_field :procedure_cost, label: 'Abortion Care $', autocomplete: 'off', prepend: '$'%>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">

@@ -77,7 +77,9 @@ class PatientsController < ApplicationController
       pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
                   :resolved_without_dcaf, :procedure_cost, :pledge_sent,
                   :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
-      special_circumstances: []
+      special_circumstances: [],
+      fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
+                    :procedure_cost, :check_number, :check_date]
     )
   end
 end
