@@ -138,6 +138,27 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'changing fulfillment information' do
+    before do
+      # update patient to have submitted pledge
+      # reload
+
+      # pledge fulfilled
+      # Procedure date
+      # Weeks along at procedure
+      # Abortion care $
+      # Check #
+      # Date of check
+      click_away_from_field
+      visit authenticated_root_path
+      visit edit_patient_path @patient
+    end
+
+    it 'should alter the information' do
+      assert false
+    end
+  end
+
   describe 'clicking around' do
     it 'should let you click back to abortion information' do
       click_link 'Notes'
