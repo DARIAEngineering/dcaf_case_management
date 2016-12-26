@@ -140,22 +140,26 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   describe 'changing fulfillment information' do
     before do
-      # update patient to have submitted pledge
-      # reload
+      @fulfillment = create :fulfillment, patient: @patient
+      visit edit_patient_path @patient
+      check 'Pledge fulfilled'
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%m/%Y')
+      select '12 weeks', from: 'Weeks along at procedure'
+      fill_in 'Abortion care $', with: '100'
+      fill_in 'Check #', with: '444-22'
+      fill_in 'Procedure date', with: 2.weeks.from_now.strftime('%m/%m/%Y')
 
-      # pledge fulfilled
-      # Procedure date
-      # Weeks along at procedure
-      # Abortion care $
-      # Check #
-      # Date of check
       click_away_from_field
       visit authenticated_root_path
       visit edit_patient_path @patient
     end
 
     it 'should alter the information' do
-      assert false
+      click_link 'Pledge Fulfillment'
+      within :css, '#fulfillment' do
+        assert false
+
+      end
     end
   end
 
