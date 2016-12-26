@@ -15,7 +15,7 @@ class Clinic
   field :street_address_1, type: String
   field :street_address_2, type: String
   field :city, type: String
-  field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
+  field :state, type: String # TODO: enumeration?
   field :zip, type: String
 
   # Validations
