@@ -1,13 +1,14 @@
 require 'test_helper'
 
 class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
-  
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @admin = create :user, role: :admin
-    @patient = create :patient, clinic_name: 'Nice Clinic', appointment_date: DateTime.now + 14
-    @pregnancy = create :pregnancy, patient: @patient, pledge_sent: false, dcaf_soft_pledge: 500
+    @patient = create :patient, clinic_name: 'Nice Clinic',
+                                appointment_date: 2.weeks.from_now
+    @pregnancy = create :pregnancy, patient: @patient,
+                                    pledge_sent: false, dcaf_soft_pledge: 500
     @fulfillment = create :fulfillment, patient: @patient
   end
 
@@ -37,12 +38,12 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       visit edit_patient_path @patient
     end
 
-    it 'should not show the pledge fulfillment link to an admin unless the pledge has been sent' do
+    it 'should not show the fulfillment link to an admin unless pledge sent' do
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
     end
 
-    it 'should show a link to the pledge fulfillment tab after the pledge has been sent' do
+    it 'should show a link to the pledge fulfillment tab after pledge sent' do
       find('#submit-pledge-button').click
       find('#submit-pledge-to-p2').click
       find('#submit-pledge-to-p3').click

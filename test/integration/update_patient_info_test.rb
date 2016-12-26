@@ -60,10 +60,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
       fill_in 'Abortion cost', with: '300' # hack
 
-      click_away_from_field
-      visit authenticated_root_path
-      visit edit_patient_path @patient
-      click_link 'Abortion Information'
+      reload_page_and_click_link 'Abortion Information'
     end
 
     it 'should alter the information' do
@@ -104,13 +101,10 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       check 'Homelessness'
       check 'Prison'
 
-      click_away_from_field
-      visit authenticated_root_path
-      visit edit_patient_path @patient
+      reload_page_and_click_link 'Patient Information'
     end
 
     it 'should alter the information' do
-      click_link 'Patient Information'
       within :css, '#patient_information' do
         assert has_field? 'Other contact name', with: 'Susie Everyteen Sr'
         assert has_field? 'Other phone', with: '123-666-7777'
@@ -140,25 +134,39 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
   describe 'changing fulfillment information' do
     before do
-      @fulfillment = create :fulfillment, patient: @patient
+      @user.update role: :admin
+      @patient = create :patient, appointment_date: 2.days.from_now,
+                                              clinic_name: 'Sample Clinic 1'
+      create :pregnancy, patient: @patient,
+                         dcaf_soft_pledge: 100,
+                         pledge_sent: true
+      create :fulfillment, patient: @patient
       visit edit_patient_path @patient
+      # find('#submit-pledge-button').click
+      # assert false
+
+      click_link 'Pledge Fulfillment'
       check 'Pledge fulfilled'
-      fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%m/%Y')
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%d/%Y')
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
-      fill_in 'Procedure date', with: 2.weeks.from_now.strftime('%m/%m/%Y')
+      fill_in 'Procedure date', with: 2.weeks.from_now.strftime('%m/%d/%Y')
 
-      click_away_from_field
-      visit authenticated_root_path
-      visit edit_patient_path @patient
+      reload_page_and_click_link 'Pledge Fulfillment'
     end
 
     it 'should alter the information' do
-      click_link 'Pledge Fulfillment'
       within :css, '#fulfillment' do
-        assert false
-
+        assert has_checked_field? 'Pledge fulfilled'
+        assert has_field? 'Procedure_date',
+                          with: 2.days.from_now.strftime('%m/%d/%Y')
+        assert_equal '12 weeks',
+                     find('#patient_fulfillment_gestation_at_procedure').value
+        assert has_field? 'Abortion care $', with: 100
+        assert has_field? 'Check #', with: '444-22'
+        assert has_field? 'Procedure date',
+                          with: 2.weeks.from_now.strftime('%m/%d/%Y')
       end
     end
   end
@@ -173,6 +181,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def reload_page_and_click_link(link_text)
+    click_away_from_field
+    visit authenticated_root_path
+    visit edit_patient_path @patient
+    click_link link_text
+  end
 
   def click_away_from_field
     fill_in 'First and last name', with: nil
