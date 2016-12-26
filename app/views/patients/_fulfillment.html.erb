@@ -1,0 +1,37 @@
+<section id="fulfillment" class="abortion-info tab-pane active">
+  <%= bootstrap_form_for patient, html: { id: 'fulfillment_form' }, remote: true do |f| %>
+  <%# bootstrap_form_for @fulfillment, html: { id: 'fulfillment_form' }, remote: true do |f| %>
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2>Pledge Fulfillment</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <%= f.fields_for patient.build_fulfillment do |pt| %>
+            <%= pt.form_group :pledge_fulfilled do %>
+              <%= pt.check_box :pledge_fulfilled, label: 'Pledge Fulfilled' %>
+            <% end %>
+          <% end %>
+        </div>  
+        <div class="info-form-left col-sm-6">
+          <%= f.fields_for patient.build_fulfillment do |pt| %>
+            <%= pt.date_field :procedure_date, label: 'Procedure Date' %>
+            <%= pt.select :weeks_along, 
+                options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), 
+                label: 'Weeks Along at Procedure', 
+                autocomplete: 'off' %>
+            <%= pt.text_field :abortion_care_cost, label: 'Abortion Care $', autocomplete: 'off', prepend: '$'%>
+          <% end %>
+        </div>
+        <div class="info-form-right col-sm-6">
+          <%= f.fields_for patient.build_fulfillment do |pt| %>
+            <%= pt.text_field :check_number, label: 'Check #', autocomplete: 'off'%>
+            <%= pt.date_field :date_of_check, label: 'Date of Check' %>
+          <% end %>
+        </div>  
+      </div>
+    </div>
+  <% end %>
+</section>
