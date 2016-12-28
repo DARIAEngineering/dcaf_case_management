@@ -10,7 +10,7 @@ class ExternalPledgesControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @pledge = attributes_for :external_pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge #, format: :js
+      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
     end
 
     it 'should create and save a new pledge' do
