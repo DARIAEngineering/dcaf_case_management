@@ -1,2 +1,2 @@
 $('#existing-external-pledges').empty().append('<%= escape_javascript(render partial: "external_pledges/external_pledges_table", locals: { patient: @patient, external_pledges: @patient.external_pledges.order_by('created_at desc') } ) %>');
-$('#new-external-pledge').empty().append('<%= escape_javascript(render partial: "external_pledges/new", locals: { patient: @patient, new_external_pledge: @new_external_pledge } ) %>');
+$('#new-external-pledge').empty().append('<%= escape_javascript(render partial: "external_pledges/new", locals: { patient: @patient, new_external_pledge: @patient.external_pledges.new } ) %>');
