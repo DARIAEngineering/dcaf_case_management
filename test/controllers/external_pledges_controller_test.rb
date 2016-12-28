@@ -16,13 +16,13 @@ class ExternalPledgesControllerTest < ActionController::TestCase
     it 'should create and save a new pledge' do
       @pledge[:source] = 'diff'
       assert_difference 'Patient.find(@patient).external_pledges.count', 1 do
-        post :create, patient_id: @patient.id, external_pledge: @pledge#, format: :js
+        post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
       end
     end
 
     it 'should respond bad_request if the pledge does not submit' do
       # submitting a duplicate pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge#, format: :js
+      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
       assert_response :bad_request
     end
 
