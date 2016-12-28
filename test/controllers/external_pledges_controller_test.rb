@@ -26,17 +26,12 @@ class ExternalPledgesControllerTest < ActionController::TestCase
       assert_response :bad_request
     end
 
-    # commented out until we get the ajax working :(
-    # it 'should render create js if it saves' do
-      # assert_template 'external_pledges/create'
-    # end
+    it 'should render create js if it saves' do
+      assert_template 'external_pledges/create'
+    end
 
-    # it 'should respond success if the pledge submits' do
-    #   assert_response :success
-    # end
-
-    it 'should redirect to patient edit page' do
-      assert_redirected_to edit_patient_path(@patient)
+    it 'should respond success if the pledge submits' do
+      assert_response :success
     end
 
     it 'should log the creating user' do
