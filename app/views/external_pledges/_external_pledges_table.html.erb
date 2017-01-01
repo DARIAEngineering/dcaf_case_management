@@ -1,0 +1,5 @@
+<div id="existing-external-pledges">
+    <% external_pledges.each do |external_pledge| %>
+      <%= render 'external_pledges/edit', patient: patient, external_pledge: external_pledge %>
+    <% end %>
+</div>
