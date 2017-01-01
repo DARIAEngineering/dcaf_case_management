@@ -17,11 +17,14 @@
         </div>  
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.date_field :procedure_date, label: 'Procedure date' %>
+            <%= pt.datetime_picker :procedure_date, 
+                                  label: 'Procedure date',
+                                  autocomplete: 'off', format: '%Y-%m-%d',
+                                  placeholder: 'YYYY-MM-DD' %>
             <%= pt.select :gestation_at_procedure, 
-                options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), 
-                label: 'Weeks along at procedure', 
-                autocomplete: 'off' %>
+                          options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
+                          label: 'Weeks along at procedure',
+                          autocomplete: 'off' %>
             <%= pt.text_field :procedure_cost, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
           <% end %>
         </div>
