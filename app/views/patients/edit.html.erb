@@ -19,5 +19,8 @@
     <%= render 'patients/change_log', patient: @patient %>
     <%= render 'patients/call_log', patient: @patient %>
     <%= render 'patients/notes', patient: @patient, note: @note %>
+    <% if current_user.admin? && @patient.pregnancy.pledge_sent == true %>
+      <%= render 'patients/fulfillment', patient: @patient %>
+    <% end %>  
   </div>
 </div>

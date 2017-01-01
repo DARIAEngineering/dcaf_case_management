@@ -33,6 +33,7 @@ Patient.all.each do |patient|
 
   pregnancy = patient.build_pregnancy(creation_hash)
   pregnancy.save
+  patient.build_fulfillment(created_by_id: User.first.id).save
 
   # Create calls for pregnancy
   5.times do

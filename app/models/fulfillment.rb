@@ -7,11 +7,11 @@ class Fulfillment
   # Relationships
   embedded_in :patient
 
-  field :pledge_fulfilled, type: Boolean
+  field :fulfilled, type: Boolean
   field :procedure_date, type: Date
-  field :weeks_along, type: String
-  field :abortion_care_cost, type: Integer
-  field :check_number, type: Integer
+  field :gestation_at_procedure, type: String
+  field :procedure_cost, type: Integer
+  field :check_number, type: String
   field :date_of_check, type: Date
 
   # Validations
@@ -25,7 +25,4 @@ class Fulfillment
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
-
-
 end
-

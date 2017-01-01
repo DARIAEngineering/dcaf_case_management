@@ -9,6 +9,7 @@ class PatientsController < ApplicationController
 
     patient.created_by = current_user
     (patient.pregnancy || patient.build_pregnancy).created_by = current_user
+    (patient.fulfillment || patient.build_fulfillment).created_by = current_user
     if patient.save
       flash[:notice] = 'A new patient has been successfully saved'
     else
@@ -44,6 +45,7 @@ class PatientsController < ApplicationController
     @patient.created_by = current_user
     @pregnancy = @patient.pregnancy || @patient.build_pregnancy
     @pregnancy.created_by = current_user
+    (@patient.fulfillment || @patient.build_fulfillment).created_by = current_user
 
     if @patient.save
       flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
@@ -77,7 +79,9 @@ class PatientsController < ApplicationController
       pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
                   :resolved_without_dcaf, :procedure_cost, :pledge_sent,
                   :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
-      special_circumstances: []
+      special_circumstances: [],
+      fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
+                    :procedure_cost, :check_number, :check_date]
     )
   end
 end
