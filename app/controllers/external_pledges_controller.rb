@@ -8,11 +8,9 @@ class ExternalPledgesController < ApplicationController
   def create
     @pledge = @patient.external_pledges.new external_pledge_params
     @pledge.created_by = current_user
-
     if @pledge.save
-      flash[:notice] = 'A new pledge has been successfully saved'
-      redirect_to edit_patient_path(@patient)
-      # respond_to { |format| format.js } # TODO: running into mysterious authenticity token error? form submitting as html for no good reason. should be js.
+      @pledge = @patient.reload.external_pledges.order_by 'created_at desc'
+      respond_to { |format| format.js }
     else
       head :bad_request
     end
