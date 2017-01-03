@@ -34,6 +34,7 @@
           <% if table_type == 'completed_calls' || table_type == 'urgent_patients' %>
             <td class="blank-td"></td>
           <% else %>
+            <!-- This right here is what's causing the N+1 join. THis check that current user is in there. Find another way to do this that doesn't involve a SQL query for every pt. -->
             <% if current_user.patients.include?(patient) %>
               <td><%= link_to "Remove", remove_patient_path(current_user, patient), method: :patch, data: { confirm: "Are you sure you want to remove #{patient.name} from your call list?" },  remote: true %></td>
             <% else %>
