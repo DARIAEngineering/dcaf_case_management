@@ -6,6 +6,8 @@ user = User.create name: 'testuser', email: 'test@test.com',
                    password: 'P4ssword', password_confirmation: 'P4ssword'
 user2 = User.create name: 'testuser2', email: 'test2@test.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword'
+user3 = User.create name: 'testuser3', email: 'jeffryxtron@gmail.com',
+                    password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Create ten patients
 10.times do |i|
