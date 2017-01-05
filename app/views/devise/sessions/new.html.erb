@@ -2,6 +2,8 @@
   <div class="authform">
     <h3>Sign in</h3>
 
+    <%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+
     <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
       <%= devise_error_messages! %>
 
