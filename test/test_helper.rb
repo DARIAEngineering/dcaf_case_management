@@ -11,7 +11,6 @@ require 'minitest/reporters'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/minitest'
-include Capybara::DSL
 Minitest::Reporters.use!
 
 Capybara.register_driver :poltergeist do |app|
@@ -75,4 +74,5 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+  include Capybara::DSL
 end
