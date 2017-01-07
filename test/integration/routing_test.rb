@@ -14,11 +14,11 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   it 'should not display navigation partial on sign in' do
-    refute has_text? 'DARIA - DC Abortion Fund'
+    refute has_text? 'DARIA - development - DC Abortion Fund'
     visit root_path
     @user = create :user
     log_in_as @user
     visit authenticated_root_path
-    assert has_text? 'DARIA - DC Abortion Fund'
+    assert has_text? 'DARIA - development - DC Abortion Fund'
   end
 end
