@@ -74,4 +74,5 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+  include Capybara::DSL
 end
