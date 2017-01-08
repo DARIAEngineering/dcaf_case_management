@@ -127,8 +127,8 @@ We use Google SSO for login, but setting it up requires a few more hoops to be j
 
 * Obtain values for the following from @colinxfleming or @DarthHater
 * Add two environment variables to your .bash_profile (or whatever you use)
-** GOOGLE_KEY (public key for Google SSO API)
-** GOOGLE_SECRET (secret key for Google SSO API)
+    - GOOGLE_KEY (public key for Google SSO API)
+    - GOOGLE_SECRET (secret key for Google SSO API)
 
 Once you've done this, Sign In with Google functionality should start working for you.
 
