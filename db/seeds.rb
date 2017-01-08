@@ -1,5 +1,17 @@
+if ARGV[1].blank?
+  puts "\n****SEED FAILED, but it's easy to fix****\n" \
+       "Rerun with your google account as an argument to create a Google SSO user\n" \
+       "Ex: `rake db:seed colin@gmail.com\n"
+  raise
+end
+
 Patient.destroy_all
 User.destroy_all
+
+# Create google SSO user
+puts "Creating user with email #{ARGV[1]}..."
+sso_user = User.create! email: ARGV[1], name: 'Development user',
+                        password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Create two test users
 user = User.create name: 'testuser', email: 'test@test.com',
@@ -94,7 +106,6 @@ Patient.all.each do |patient|
     patient.update name: "Resolved without DCAF - 5"
   end
 
-
   patient.save
 end
 
@@ -128,6 +139,9 @@ patient_in_completed_calls.calls.create status: 'Left voicemail',
                                         created_by: user
 
 # Log results
-puts "Seed completed! Inserted #{Patient.count} patient objects.\n" \
+puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "User created! Credentials are as follows: " \
-     "EMAIL: #{user.email} PASSWORD: P4ssword"
+     "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
+
+exit # so it doesn't try to run other rake tasks
+
