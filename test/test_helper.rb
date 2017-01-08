@@ -33,6 +33,8 @@ Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capyb
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Screenshot::MiniTestPlugin
+  include OmniauthMocker
+  OmniAuth.config.test_mode = true
 
   def log_in_as(user, line = 'DC')
     log_in user
