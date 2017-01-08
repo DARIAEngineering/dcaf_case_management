@@ -11,6 +11,7 @@ require 'minitest/reporters'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/minitest'
+require 'omniauth_helper'
 Minitest::Reporters.use!
 
 Capybara.register_driver :poltergeist do |app|
