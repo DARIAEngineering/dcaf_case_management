@@ -1,4 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  rescue_from Mongoid::Errors::DocumentNotFound,
+              with: -> { redirect_to root_path }
+  
   def google_oauth2
       @user = User.from_omniauth(request.env["omniauth.auth"])
 
