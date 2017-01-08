@@ -141,7 +141,8 @@ patient_in_completed_calls.calls.create status: 'Left voicemail',
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "User created! Credentials are as follows: " \
-     "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
+     "EMAIL: #{user.email} PASSWORD: P4ssword"
+     # "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
 
 exit # so it doesn't try to run other rake tasks
 
