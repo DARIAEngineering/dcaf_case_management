@@ -8,10 +8,10 @@
   <%= bootstrap_form_for patient do |f| %>
     <div class="row">
       <div class="col-sm-2">
-        <%= f.text_field :primary_phone, label: 'Phone', value: phone %>
+        <%= f.text_field :primary_phone, label: 'Phone', value: phone, required: true, pattern: '.{10}' %>
       </div>
       <div class="col-md-4">
-        <%= f.text_field :name, label: 'Name', value: name %>
+        <%= f.text_field :name, label: 'Name', value: name, required: true %>
       </div>
 
       <%= f.fields_for patient.build_pregnancy do |p| %>
