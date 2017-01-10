@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'omniauth_helper'
 
 class GoogleSSOTest < ActionDispatch::IntegrationTest
   describe 'access top page' do

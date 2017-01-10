@@ -121,16 +121,16 @@ In the Terminal command line:
 
 Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.
 
-#### Bonus Points
+#### Bonus Points / Optional stuff if you need to wrench on the SSO
 
-We use Google SSO for login, but setting it up requires a few more hoops to be jumped through. You'll need to:
+We can use Google SSO for login, but setting it up requires a few more hoops to jump through. You'll need to:
 
 * Obtain values for the following from @colinxfleming or @DarthHater
-* Add two environment variables to your .bash_profile (or whatever you use)
-    - GOOGLE_KEY (public key for Google SSO API)
-    - GOOGLE_SECRET (secret key for Google SSO API)
+* Add two lines variables to your .bash_profile (or whatever you use)
+    - `export GOOGLE_KEY='(public key for Google SSO API)'`
+    - `export GOOGLE_SECRET='(secret key for Google SSO API)'`
 
-Once you've done this, Sign In with Google functionality should start working for you.
+Once you've done this, Sign In with Google functionality should start working for you. (We mock this in test environments, so you don't have to worry about that.)
 
 ### Cloud9
 
