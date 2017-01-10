@@ -119,7 +119,18 @@ In the Terminal command line:
 2.) Start your rails server by running `rails server`.
 3.) In the address bar, go to `localhost:3000`. The app should render.
 
-Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.   
+Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.
+
+#### Bonus Points / Optional stuff if you need to wrench on the SSO
+
+We can use Google SSO for login, but setting it up requires a few more hoops to jump through. You'll need to:
+
+* Obtain values for the following from @colinxfleming or @DarthHater
+* Define the environment variables `GOOGLE_KEY` and `GOOGLE_SECRET`. On OSX or linux, you can do this by two lines variables to your `.bash_profile` (or whatever you use):
+    - `export GOOGLE_KEY='(public key for Google SSO API)'`
+    - `export GOOGLE_SECRET='(secret key for Google SSO API)'`
+
+Once you've done this, Sign In with Google functionality should start working for you. (We mock this in test environments, so you don't have to worry about that.)
 
 ### Cloud9
 
