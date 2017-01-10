@@ -126,7 +126,7 @@ Use 'Control + C' for both MongoDB and Rails to stop their servers from running.
 We can use Google SSO for login, but setting it up requires a few more hoops to jump through. You'll need to:
 
 * Obtain values for the following from @colinxfleming or @DarthHater
-* Add two lines variables to your .bash_profile (or whatever you use)
+* Define the environment variables `GOOGLE_KEY` and `GOOGLE_SECRET`. On OSX or linux, you can do this by two lines variables to your `.bash_profile` (or whatever you use):
     - `export GOOGLE_KEY='(public key for Google SSO API)'`
     - `export GOOGLE_SECRET='(secret key for Google SSO API)'`
 
