@@ -144,5 +144,5 @@ puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "EMAIL: #{user.email} PASSWORD: P4ssword"
      # "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
 
-exit # so it doesn't try to run other rake tasks
+# exit # so it doesn't try to run other rake tasks
 
