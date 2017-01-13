@@ -2,7 +2,7 @@
   <div class="margin-bottom col-sm-12">
     <h2>
       Call Log
-      <small><%= link_to "Record new call <span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{@patient.primary_phone_display}", data: {toggle: "modal"} %></small>
+      <span class="pull-right new-call-entry"><small><%= link_to "Record new call".html_safe, "#call-#{@patient.primary_phone_display}", data: {toggle: "modal"} %></small></span>
     </h2>
 
     <%= render partial: 'calls/new_call', locals: {patient: @patient} %>
