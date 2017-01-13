@@ -207,3 +207,17 @@ h5 {
   }
 
 }
+
+
+// Modal partial styling
+.btn-success, .btn-success[disabled] {
+  background-color: #5D3E8D;
+  &:hover {
+    background-color: #5D3E8D;
+  }
+}
+
+
+
+
+
