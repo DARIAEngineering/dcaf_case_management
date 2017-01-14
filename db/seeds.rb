@@ -1,3 +1,5 @@
+fail 'No running seeds in prod' unless [nil, 'Test Sandbox'].include? ENV['FUND']
+
 # if ARGV[1].blank?
 #   puts "\n****SEED FAILED, but it's easy to fix****\n" \
 #        "Rerun with your google account as an argument to create a Google SSO user\n" \
@@ -14,8 +16,9 @@ User.destroy_all
 #                         password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Create two test users
-user = User.create name: 'testuser', email: 'test@test.com',
-                   password: 'P4ssword', password_confirmation: 'P4ssword'
+user = User.create name: 'testuser (admin)', email: 'test@test.com',
+                   password: 'P4ssword', password_confirmation: 'P4ssword',
+                   role: :admin
 user2 = User.create name: 'testuser2', email: 'test2@test.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword'
 user3 = User.create name: 'testuser3', email: 'dcaf.testing@gmail.com',
