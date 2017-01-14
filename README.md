@@ -132,6 +132,8 @@ We can use Google SSO for login, but setting it up requires a few more hoops to 
 
 Once you've done this, Sign In with Google functionality should start working for you. (We mock this in test environments, so you don't have to worry about that.)
 
+BUT WAIT! What about Docker?! Never fear, these environment variables will get passed through to the docker image if you are using docker-compose up. 
+
 ### Cloud9
 
 If you don't currently have Rails installed (or are on Windows), Cloud9 makes things WAY easier by letting you skip installation of Rails and MongoDB.
