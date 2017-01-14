@@ -90,9 +90,9 @@ If you prefer a local environment, do the following:
 
 * Fork the repo to your own github!
 * Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down and pop into the repo
-* Install Ruby! We use version `2.3.1`. (Usually `rbenv install 2.3.1` or `rvm install 2.3.1`)
-* Set that version of ruby as your default within the directory (`rbenv local 2.3.1` / `rvm use 2.3.1`)
-* Run the command `bundle install` to install dependences, including `rails`!
+* Install Ruby! We use version `2.3.3`. (Usually `rbenv install 2.3.3` or `rvm install 2.3.3`)
+* Set that version of ruby as your default within the directory (`rbenv local 2.3.3` / `rvm use 2.3.3`)
+* Run the command `gem install bundler && bundle install` to install dependences, including `rails`!
 * Install MongoDB! (MongoDB setup instructions are below)
 * Install PhantomJS, which our test suite depends on (`brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))
 
