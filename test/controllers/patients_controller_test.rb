@@ -123,4 +123,30 @@ class PatientsControllerTest < ActionController::TestCase
       assert_redirected_to root_path
     end
   end
+
+  #confirm get :data_entry returns a success code
+  describe `data_entry method` do
+    before do
+      @new_patient = attributes_for :patient, name: 'Test Patient'
+      @new_patient[:pregnancy] = attributes_for :pregnancy
+    end
+
+    it 'should respond success on completion' do
+      assert_response do get :data_entry, :success
+    end
+  end
+
+  # confirm sending a 'post' with a payload results in a new patient
+  describe `data_entry_create method` do
+    before do
+      @test_patient = attributes_for :patient, name: 'Test Patient'
+      @test_patient[:pregnancy] = attributes_for :pregnancy
+    end
+
+    it 'should create and save a new patient' do
+      assert_difference 'Patient.count', 1 do
+        post :create, patient: @test_patient
+      end
+    end
+  end
 end
