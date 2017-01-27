@@ -208,16 +208,80 @@ h5 {
 
 }
 
+$dcaf-color-lt : #825fb9;
 
 // Modal partial styling
-.btn-success, .btn-success[disabled] {
-  background-color: #5D3E8D;
+.btn-success {
+
+  background-color: $dcaf-color;
+  border-color: $dcaf-color;
+
   &:hover {
-    background-color: #5D3E8D;
+    background-color: $dcaf-color-lt;
+    border-color: $dcaf-color;
   }
+  &:active {
+    background-color: #286090 !important;
+  }
+  &:focus {
+    background-color: $dcaf-color;
+    &:hover {
+    background-color: $dcaf-color-lt;
+    }
+  }
+
 }
 
 
+
+
+.btn-warning {
+  color: black;
+  border-color: $dcaf-color;
+  background-color: white;
+  &:hover {
+    background-color: $dcaf-color-lt;
+    border-color: $dcaf-color;
+  }
+  &:active {
+    background-color: #286090 !important;
+  }
+  &:focus {
+    background-color: $dcaf-color;
+    &:hover {
+    background-color: $dcaf-color-lt;
+    }
+  }
+  
+}
+
+.btn-success[disabled] {
+  color: white;
+  background-color: gray;
+  border-color: $dcaf-color;
+  &:hover {
+    background-color: gray;
+    border-color: $dcaf-color;
+  }
+  &:focus {
+    background-color: gray;
+    border-color: $dcaf-color;
+    &:hover {
+      background-color: gray;
+      border-color: $dcaf-color;
+    }
+  }
+  
+}
+
+
+.btn-warning[disabled] {
+  @extend .btn-success[disabled];
+}
+
+.label-success {
+  background-color: $dcaf-color;
+}
 
 
 
