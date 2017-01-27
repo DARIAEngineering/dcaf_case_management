@@ -135,8 +135,8 @@ class PatientsControllerTest < ActionController::TestCase
   # confirm sending a 'post' with a payload results in a new patient
   describe 'data_entry_create method' do
     before do
-      @test_patient = attributes_for :patient, name: 'Test Patient'
-      @test_patient[:pregnancy] = attributes_for :pregnancy
+      @test_patient = create :patient, name: 'Test Patient'
+      create :pregnancy, patient: @test_patient
     end
 
     it 'should create and save a new patient' do
