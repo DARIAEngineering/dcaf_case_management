@@ -286,4 +286,16 @@ $dcaf-color-lt : #825fb9;
   color: red;
 }
 
+.modal-header, .modal-body, .modal-footer {
+  padding: 30px
+}
+
+.modal-header > h4 {
+  padding-left: 1em;
+  .label {
+    margin-left: -2em;
+  }
+}
+
+
 
