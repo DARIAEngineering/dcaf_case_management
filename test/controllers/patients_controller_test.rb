@@ -140,8 +140,38 @@ class PatientsControllerTest < ActionController::TestCase
 
     it 'should create and save a new patient' do
       assert_difference 'Patient.count', 1 do
-        post :create, patient: @test_patient
+        post :data_entry_create, patient: @test_patient
       end
+    end
+
+    it 'should redirect to the root path afterwards' do
+      post :data_entry_create, patient: @test_patient
+      assert_redirected_to root_path
+    end
+
+    it 'should fail to save if name is blank' do
+      @test_patient[:name] = ''
+      assert_no_difference 'Patient.count' do
+        post :data_entry_create, patient: @test_patient
+      end
+      assert_no_difference 'Pregnancy.count' do
+        post :data_entry_create, patient: @test_patient
+      end
+    end
+
+    it 'should fail to save if primary phone is blank' do
+      @test_patient[:primary_phone] = ''
+      assert_no_difference 'Patient.count' do
+        post :data_entry_create, patient: @test_patient
+      end
+      assert_no_difference 'Pregnancy.count' do
+        post :data_entry_create, patient: @test_patient
+      end
+    end
+
+    it 'should create an associated pregnancy object' do
+      post :data_entry_create, patient: @test_patient
+      assert_not_nil Patient.find_by(name: 'Test Patient').pregnancy
     end
   end
 end
