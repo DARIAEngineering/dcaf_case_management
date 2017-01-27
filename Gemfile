@@ -27,6 +27,7 @@ gem 'mongoid-enum'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem "omniauth-google-oauth2", "~> 0.2.1"
+gem 'rack-attack', '~> 5.0.1'
 
 group :development do
   gem 'web-console', '~> 2.0'

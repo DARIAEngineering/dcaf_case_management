@@ -258,6 +258,8 @@ GEM
       ruby_parser (>= 3.2.2, != 3.6.6)
       source_finder (>= 3.0.0)
     rack (1.6.4)
+    rack-attack (5.0.1)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7.1)
@@ -420,6 +422,7 @@ DEPENDENCIES
   poltergeist
   puma
   quality
+  rack-attack (~> 5.0.1)
   rails (~> 4.2.7)
   rails_12factor
   rubocop
@@ -438,4 +441,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.6
+   1.14.3
