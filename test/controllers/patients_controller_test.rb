@@ -127,7 +127,8 @@ class PatientsControllerTest < ActionController::TestCase
   #confirm get :data_entry returns a success code
   describe 'data_entry method' do
     it 'should respond success on completion' do
-      assert_response do get :data_entry, :success
+      get :data_entry
+      assert_response :success
     end
   end
 
