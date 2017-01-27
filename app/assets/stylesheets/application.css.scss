@@ -274,7 +274,6 @@ $dcaf-color-lt : #825fb9;
   
 }
 
-
 .btn-warning[disabled] {
   @extend .btn-success[disabled];
 }
@@ -283,5 +282,8 @@ $dcaf-color-lt : #825fb9;
   background-color: $dcaf-color;
 }
 
+.btn[data-orientation='cancel'] {
+  color: red;
+}
 
 
