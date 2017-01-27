@@ -41,7 +41,7 @@ class Rack::Attack
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:logins/ip:#{req.ip}"
   throttle('logins/ip', :limit => 5, :period => 20.seconds) do |req|
-    if req.path == '/login' && req.post?
+    if req.path == '/users/sign_in' && req.post?
       req.ip
     end
   end
@@ -55,9 +55,9 @@ class Rack::Attack
   # denied, but that's not very common and shouldn't happen to you. (Knock
   # on wood!)
   throttle("logins/email", :limit => 5, :period => 20.seconds) do |req|
-    if req.path == '/login' && req.post?
+    if req.path == '/users/sign_in' && req.post?
       # return the email if present, nil otherwise
-      req.params['email'].presence
+      req.params['user_email'].presence
     end
   end
 
@@ -69,9 +69,9 @@ class Rack::Attack
   # If you want to return 503 so that the attacker might be fooled into
   # believing that they've successfully broken your app (or you just want to
   # customize the response), then uncomment these lines.
-  # self.throttled_response = lambda do |env|
-  #  [ 503,  # status
-  #    {},   # headers
-  #    ['']] # body
-  # end
+  self.throttled_response = lambda do |env|
+    [ 503,  # status
+      {},   # headers
+      ['']] # body
+  end
 end
