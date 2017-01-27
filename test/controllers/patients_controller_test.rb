@@ -135,8 +135,8 @@ class PatientsControllerTest < ActionController::TestCase
   # confirm sending a 'post' with a payload results in a new patient
   describe 'data_entry_create method' do
     before do
-      @test_patient = create :patient, name: 'Test Patient'
-      create :pregnancy, patient: @test_patient
+      @test_patient = attributes_for :patient, name: 'Test Patient'
+      @test_patient[:pregnancy] = attributes_for :pregnancy
     end
 
     it 'should create and save a new patient' do
@@ -145,9 +145,10 @@ class PatientsControllerTest < ActionController::TestCase
       end
     end
 
-    it 'should redirect to the root path afterwards' do
+    it 'should redirect to edit_patient_path afterwards' do
       post :data_entry_create, patient: @test_patient
-      assert_redirected_to root_path
+      @created_patient = Patient.find_by(name: 'Test Patient')
+      assert_redirected_to edit_patient_path @created_patient
     end
 
     it 'should fail to save if name is blank' do
