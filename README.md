@@ -70,57 +70,15 @@ We also keep track of our administrative issues and discussion in Github under t
 
 
 ## Setting Stuff Up
-**First things first**: Make a copy of your own to wrench on! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
+
+**First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
 **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
 **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
 
-For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem. The directions below get you to a point where you can run the app with a test-seeded database.
+For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem.
 
-### Docker
+For detailed instructions on how to get the code running, including Rails and MongoDB, please refer to [our setup documentation](https://github.com/colinxfleming/dcaf_case_management/blob/master/docs/SETUP.md).
 
-We've dockerized this app, to manage the dependencies and save us all the headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
-* `docker-compose build`
-* `docker-compose run web rake db:seed # to populate the database`
-* `docker-compose up`
-
-If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
-
-### Local environment
-
-If you prefer a local environment, do the following:
-
-* Fork the repo to your own github!
-* Run the command `git clone git@github.com:{YOUR GITHUB USERNAME}/dcaf_case_management.git && cd dcaf_case_management` to pull down and pop into the repo
-* Install Ruby! We use version `2.3.3`. (Usually `rbenv install 2.3.3` or `rvm install 2.3.3`)
-* Set that version of ruby as your default within the directory (`rbenv local 2.3.3` / `rvm use 2.3.3`)
-* Run the command `gem install bundler && bundle install` to install dependences, including `rails`!
-* Install MongoDB! (MongoDB setup instructions are below)
-* Install PhantomJS, which our test suite depends on (`brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html))
-
-If you don't have MongoDB installed, also do:
-* Install MongoDB locally (`brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
-* Create a folder in the root directory for the MongoDB database. `sudo mkdir -p /data/db`
-* Allow for MongoDB read/write permissions `sudo chmod 777 /data/db`
-* Open another terminal tab and run `mongod` to start up the database
-
-After that:
-* Run `rake db:seed` to populate your database with test data
-* Run the command `rails server` to start the rails server
-* All set! Navigate your browser to `http://localhost:3000`
-
-To Run the Tests:
-* Run `rake test` to test the entire suite
-* Run `rake test [fullpath-to-test]` to run a specific test file
-
-#### Troubleshooting
-
-If you've never run MongoDB on a Rails server before...
-In the Terminal command line:
-1.) Once you have `mongod` running, seed your database by running `rake db:seed`.
-2.) Start your rails server by running `rails server`.
-3.) In the address bar, go to `localhost:3000`. The app should render.
-
-Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.
 
 #### Bonus Points / Optional stuff if you need to wrench on the SSO
 
