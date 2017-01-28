@@ -419,7 +419,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.2.1)
   poltergeist
   puma
-  quality
+  quality (= 20.1.0)
   rails (~> 4.2.7)
   rails_12factor
   rubocop
@@ -438,4 +438,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.6
+   1.14.2
