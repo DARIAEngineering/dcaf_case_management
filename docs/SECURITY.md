@@ -18,7 +18,7 @@ The first line of defense is a regular review of code as it is developed and dep
 
 Our project uses a variety of industry standard methods to ensure our existing codebase stays secure and free of vulnerabilities.
 
-1. The team at Brakeman Pro have generously donated our team a license for their software, which scans our entire codebase. We perform this scan on a regular basis and, in the event that the scan flags a security hole, we fix it as soon as possible. (Thank you, team Brakeman!)
+1. The team at Brakeman Pro have generously donated our team a license for their software, which scans our entire codebase to alert us about potential holes we've left open. We perform this scan on a regular basis and, in the event that the scan flags a security hole, we fix it as soon as possible. (Thank you, team Brakeman!)
 
 2. Because difficult-to-read code can lead to security holes, we regularly revise our code to conform to a standard style. We also make it a point to revise code in pull requests during code review.
 
@@ -32,7 +32,11 @@ Proposed code changes are expected to be accompanied by tests proving that they 
 
 ## Vulnerability monitoring
 
-Ruby audit, bundler audit, brakeman, other haxx
+In addition to automated tests, we have several tools which automatically run at the same time to alert us of any security holes. It effectively provides an "Everything is okay alarm" every time there's a proposed code change. The libraries we use and their area of focus are as follows:
+
+1. **Ruby-audit**: This tool keeps track of known vulnerabilities in the Ruby language.
+2. **Bundler-audit**: This tool keeps track of known vulnerabilities in the libraries we use to construct the app.
+3. **Brakeman**: A free version of Brakeman Pro, this performs a limited scan of our codebase, and confirms that the version of the Rails framework we run does not require patching or updating.
 
 
 ## Vendor selection and hosting
