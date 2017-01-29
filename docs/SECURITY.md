@@ -41,34 +41,58 @@ In addition to automated tests, we have several tools which automatically run at
 
 ## Vendor selection and hosting
 
-We farm out hosting and etc to services which run dedicated security teams and which have bug bounty programs.
+For hosting purposes, we have selected service vendors which are backed by significant security engineering teams. This enables us to effectively have security professionals monitoring our apps against intrusion, and allows us to benefit from their practices to safeguard our own data.
 
 
 ## SSL
 
-We aren't dumb
-
-
-## Backups
-
-Regularly scheduled backups of the last week of data taken 2x daily and stored in the cloud tk
+All traffic going to and from any environment we're in is protected by SSL, per industry best practice.
 
 
 ## User management
 
-Passwords and SSO
+Given that a very common attack vector for an app of this type is a user account hijack, we take a few steps to harden against this potential threat.
+
+1. We give users the option to log in through Google, which lets us take advantage of Google's user security best practices. To this end, we encourage our users to set up 2-factor authentication on their accounts.
+
+2. We use an industry-standard library, `devise`, for user authentication, to avoid having to write and maintain our own secure authentication system.
+
+3. We recommend against using a password, but for users who insist on logging in via a password, we enforce a high password standard. We also send email notifications on password change, so that potential intrusions can be flagged as soon as possible.
+
+
+## Data access
+
+We follow the principle of least use; most users are permissioned to see only necessary data. 
+
+Furthermore, we do not have a user-accessible way to bulk-export or bulk-lookup data, so that in the event of an intrusion someone can't simply hit an export button.
+
+
+## Other attack vectors
+
+TK.
+
+<!-- Rackattack, rails security -->
 
 
 ## Data encryption practices
 
-Archiving records TK, encryption at rest TK
+TK.
+
+<!-- Archiving records TK, encryption at rest TK -->
 
 
 ## Monitoring
 
-New relic
+TK.
 
 
 ## Pen testing
 
-Someday
+TK.
+
+
+## Backups
+
+TK.
+
+<!-- Regularly scheduled backups of the last week of data taken 2x daily and stored in the cloud tk -->
