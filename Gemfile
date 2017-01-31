@@ -19,7 +19,6 @@ gem 'bson_ext'
 gem 'figaro'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
-gem 'quality', require: false
 gem 'nokogiri', '>= 1.6.8'
 gem 'newrelic_rpm'
 gem 'mongo_session_store-rails4'
@@ -35,6 +34,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
+  gem 'quality', '20.1.0', require: false
   # gem 'dawnscanner', require: false # disable until dawnscanner fixes CD prob
 end
 
