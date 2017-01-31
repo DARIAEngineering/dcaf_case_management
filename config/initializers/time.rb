@@ -1,7 +1,7 @@
 # Extends time class with convenience methods
 class Time
   def display_date
-    getlocal.strftime("%Y-%m-%d")
+    getlocal.strftime("%m-%d-%Y")
   end
 
   def display_time
