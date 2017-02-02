@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/jalada/platform-api.git
+  remote: https://github.com/jalada/platform-api
   revision: 45ddb3c1a7e2c7f85d979c0791db18e99affb237
   branch: master
   specs:
