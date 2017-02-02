@@ -25,7 +25,7 @@ gem 'mongo_session_store-rails4'
 gem 'mongoid-enum'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
-gem "omniauth-google-oauth2", "~> 0.2.1"
+gem 'omniauth-google-oauth2', '~> 0.2.1'
 gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
 
 group :development do
