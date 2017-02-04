@@ -93,7 +93,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       check 'Spanish Only'
 
       select 'Part-time', from: 'patient_employment_status'
-      select '$30,000-34,999 ($577-672/week, $2,500-2916/mo)',
+      select '$30,000-34,999 ($577-672/wk - $2500-2916/mo)',
              from: 'patient_income'
       select '1', from: 'patient_household_size_adults'
       select '3', from: 'patient_household_size_children'
@@ -119,7 +119,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_checked_field? 'Spanish Only'
 
         assert_equal 'Part-time', find('#patient_employment_status').value
-        assert_equal '$30,000-34,999 ($577-672/week, $2,500-2916/mo)',
+        assert_equal '$30,000-34,999',
                      find('#patient_income').value
         assert_equal '1', find('#patient_household_size_adults').value
         assert_equal '3', find('#patient_household_size_children').value
