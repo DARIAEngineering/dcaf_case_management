@@ -47,10 +47,19 @@
                                           patient.employment_status),
                                           autocomplete: 'off' %>
           <%= f.select :income,
-                       options_for_select(income_options,
-                                          patient.income),
-                                          autocomplete: 'off' %>
-
+                       options_for_select([[income_options[1],'Under $9,999'],
+                                           [income_options[2],'$10,000-14,999'],
+                                           [income_options[3],'$15,000-19,999'],
+                                           [income_options[4],'$20,000-24,999'],
+                                           [income_options[5],'$25,000-29,999'],
+                                           [income_options[6],'$30,000-34,999'],
+                                           [income_options[7],'$35,000-39,999 '],
+                                           [income_options[8],'$40,000-44,999'],
+                                           [income_options[9],'$45,000-49,999'],
+                                           [income_options[10],'$50,000-59,999'],
+                                           [income_options[11],'$60,000-74,999'],
+                                           [income_options[12],'$75,000 or more/yr'],],patient.income),
+                                           autocomplete: 'off' %>
           <div class="row">
             <div class="col-sm-6">
               <%= f.select :household_size_adults,
