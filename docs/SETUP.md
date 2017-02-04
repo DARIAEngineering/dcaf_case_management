@@ -2,6 +2,7 @@
 
 The directions below get you to a point where you can run the app with a test-seeded database.
 
+
 ## Docker
 
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
@@ -9,20 +10,21 @@ We've dockerized this app, to manage the dependencies and save us some headache.
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
+
 ## Local environment
 
 If you prefer a local environment, totally cool! We recommend the following:
 
 ### First, ruby dependencies
-* Make sure you have a ruby version manager installed; we recommend either [rbenv](link_to_rbenv) or [rvm](link_to_rvm).
-* Install our version of Ruby! We use version `2.3.3`. (Usually `rbenv install 2.3.3` or `rvm install 2.3.3`)
+* Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/)
+* Install our version of Ruby! We use version `2.3.3` (Usually `rbenv install 2.3.3` or `rvm install 2.3.3` once you have your version manager set up)
 * Install PhantomJS, which our test suite depends on, via `brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html)
 * Run the command `gem install bundler && bundle install` to install ruby dependences, including `rails`
 
 ### Then, MongoDB dependencies
 You'll also need to set up MongoDB, which you can do as follows:
 * Install MongoDB locally (`brew install mongodb`, for example, or the [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
-* Create a folder in the root directory for the MongoDB database. `sudo mkdir -p /data/db`
+* Create a folder in the root directory for the MongoDB database with the command `sudo mkdir -p /data/db`
 * Allow for MongoDB read/write permissions by running `sudo chmod 777 /data/db`
 * Open another terminal tab and run `mongod` to start up the database
 
@@ -33,7 +35,6 @@ After that:
 * All set! Navigate your browser to `http://localhost:3000`
 
 #### Troubleshooting MongoDB
-
 If you've never run MongoDB on a Rails server before...
 In the Terminal command line:
 1.) Once you have `mongod` running, seed your database by running `rake db:seed`.
@@ -41,6 +42,7 @@ In the Terminal command line:
 3.) In the address bar, go to `localhost:3000`. The app should render.
 
 Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.
+
 
 ## Cloud9
 
