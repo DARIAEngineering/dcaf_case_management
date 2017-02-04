@@ -9,11 +9,9 @@
 
 ## Next major project milestone: April 1: Launch to Baltimore!
 
-
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
-Join via the [Code for DC website](http://codefordc.org/joinslack).
-
+[Join via the Code for DC website](http://codefordc.org/joinslack).
 
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Before this app, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. This app replaced that with a nice, clean, useable and shareable rails system that ditches spreadsheets forever! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
@@ -33,7 +31,6 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 
 
 ### Our structure
-
 We run two week sprints where we try to complete 2-3 small features. These sync up with [Code for DC meetups](https://www.meetup.com/code-for-dc/).
 
 At any given time, we have a list of active features or pieces of features we're working on (marked `Active development`) in a [github milestone](https://github.com/colinxfleming/dcaf_case_management/milestones). We also have a list of major features on deck for a release. If you're looking for a place to dive in, check out the `Active development` milestone!
@@ -42,14 +39,12 @@ We also have a milestone for major features in a release. @colinxfleming breaks 
 
 
 ### We <3 new people and beginners!
-
 We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
 
 We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB and a couple gems.
 
 
 ### Pull Requests Please!
-
 This project runs on *Github forks and pull requests*, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). 
 
 Here's how you do it:
@@ -61,7 +56,6 @@ Here's how you do it:
 
 
 ### How We Categorize Our To Do List / Issues
-
 As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We categorize things as follows:
 
 Our major categories of software development related issues are as follows:
@@ -86,7 +80,7 @@ We also keep track of our administrative issues and discussion in Github under t
 
 For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem.
 
-For detailed instructions on how to get the code running, including Rails and MongoDB, please refer to [our setup documentation](https://github.com/colinxfleming/dcaf_case_management/blob/master/docs/SETUP.md).
+For detailed instructions on how to get the code running, including Rails and MongoDB, please refer to [our setup documentation](docs/SETUP.md).
 
 
 ## For designers (Team lead: @mebates, user testing lead: @eheintzelman)
@@ -120,7 +114,7 @@ DCAF's case management corps has a steady presence on this project -- we have us
 @nerdygirl537 serves as the primary liaison to other funds interested in adopting the system. If you are interested in putting this software to work for your organization, reach out to her in our slack channel.
 
 
-## I'm not really any of these
+## I'm not really any of these but want to help!
 
 Don't let that stop you! Hit us up, we'll find something for you to do.
 
