@@ -34,7 +34,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       select '1', from: 'patient_household_size_adults'
       select '2', from: 'patient_household_size_children'
       select 'Student', from: 'patient_employment_status'
-      select 'Under $9,999 (less than $192/week)', from: 'patient_income'
+      select 'Under $9,999 ($192/wk - $833/mo)', from: 'patient_income'
       select 'Clinic', from: 'patient_referred_by'
       fill_in 'Full cost / abortion cost', with: '200'
       fill_in 'Patient contribution', with: '150'
@@ -70,7 +70,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
         assert has_field? 'State', with: 'DC'
 
         assert_equal 'Student', find('#patient_employment_status').value
-        assert_equal 'Under $9,999 (less than $192/week)',
+        assert_equal 'Under $9,999',
                      find('#patient_income').value
         assert_equal '1', find('#patient_household_size_adults').value
         assert_equal '2', find('#patient_household_size_children').value
