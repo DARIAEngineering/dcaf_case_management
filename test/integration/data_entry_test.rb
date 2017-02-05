@@ -101,19 +101,30 @@ class DataEntryTest < ActionDispatch::IntegrationTest
         select 'DC', from: 'patient_line'
         fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%y')
         fill_in 'Name', with: 'Susie Everyteen'
-        fill_in 'Primary phone', with: '111-222-3344'
+        fill_in 'Primary phone', with: '111-111-1111'
         click_button 'Create Patient'
       end
 
       it 'should return an error on a duplicate phone' do
-
-
+        assert has_text? 'Primary phone is already taken'
+        assert_equal current_path, data_entry_path
       end
-
-
     end
 
     describe 'pledge with insufficient other info' do
+      before do
+        select 'DC', from: 'patient_line'
+        fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%y')
+        fill_in 'Name', with: 'Susie Everyteen'
+        fill_in 'Primary phone', with: '111-222-3344'
+        check 'Pledge sent'
+        click_button 'Create Patient'
+      end
+
+      it 'should return an error on insufficient pledge sent data' do
+        assert has_text? 'Pregnancy is invalid'
+        assert_equal current_path, data_entry_path
+      end
     end
   end
 end
