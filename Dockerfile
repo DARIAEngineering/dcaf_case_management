@@ -2,9 +2,10 @@ FROM ruby:2.3.3-alpine
 MAINTAINER Colin Fleming <c3flemin@gmail.com> 
 
 # configure environment variable
-ARG DCAF_DIR=/usr/src/app 
-ARG BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers" 
-ARG APP_DEPENDENCIES="nodejs"
+# note: move this to three ARG commands when CircleCI updates their docker
+ENV DCAF_DIR=/usr/src/app \
+    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers" \
+    APP_DEPENDENCIES="nodejs"
 
 # get our gem house in order
 RUN mkdir -p ${DCAF_DIR} && cd ${DCAF_DIR}
