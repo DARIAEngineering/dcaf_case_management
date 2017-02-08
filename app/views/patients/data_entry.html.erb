@@ -84,7 +84,7 @@
   <p style="font-weight:bold">Special circumstances</p>
   <%= f.form_group :special_circumstances do %>
     <div class="col-sm-6">
-      <%= f.check_box :special_circumstances, { label: 'Fetal anomaly', name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal anomaly', '' %>
+      <%= f.check_box :special_circumstances, { label: 'Fetal diagnosis', name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal diagnosis', '' %>
       <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'patient[special_circumstances][]', namespace: 'Home' }, 'Homelessness', '' %>
       <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'patient[special_circumstances][]', namespace: 'Domestic' }, 'Domestic violence', '' %>
     </div>
