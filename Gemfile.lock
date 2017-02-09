@@ -423,6 +423,7 @@ DEPENDENCIES
   puma
   quality (= 20.1.0)
   rack-attack (~> 5.0.1)
+  rack-test (~> 0.6.3)
   rails (~> 4.2.7)
   rails_12factor
   rubocop

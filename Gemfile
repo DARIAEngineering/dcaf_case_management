@@ -27,6 +27,7 @@ gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem "omniauth-google-oauth2", "~> 0.2.1"
 gem 'rack-attack', '~> 5.0.1'
+gem 'rack-test', '~> 0.6.3', require: 'rack/test'
 
 group :development do
   gem 'web-console', '~> 2.0'
