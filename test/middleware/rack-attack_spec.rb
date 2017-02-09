@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AttackTest < MiniTest::Test
+class AttackTest < ActionDispatch::IntegrationTest
 
   include Rack::Test::Methods
   def app
