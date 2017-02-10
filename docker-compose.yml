@@ -9,6 +9,8 @@ web:
     - db
   environment:
     mongohost: db
+  env_file:
+    - web-variables.env
 db:
   image: mongo
   ports:

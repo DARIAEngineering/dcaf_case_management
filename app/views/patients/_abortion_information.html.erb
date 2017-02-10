@@ -67,15 +67,10 @@
       </div>
 
       <div class="col-sm-6">
-        <div id="existing-external-pledges">
-          <%# slight hack - individual edit forms for each pledge %>
-          <% patient.external_pledges.each do |external_pledge| %>
-            <%= render 'external_pledges/edit', patient: patient, external_pledge: external_pledge %>
-          <% end %>
-        </div>
+        <%= render partial: 'external_pledges/external_pledges_table', locals: { patient: patient, external_pledges: patient.external_pledges.order_by('created_at desc') } %>
 
         <div id="new-external-pledge">
-          <%= render 'external_pledges/new', patient: patient, external_pledge: new_external_pledge %>
+          <%= render partial: 'external_pledges/new', locals: { patient: patient, new_external_pledge: new_external_pledge } %>
         </div>
       </div>
     </div>

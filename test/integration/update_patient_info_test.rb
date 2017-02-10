@@ -60,10 +60,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
       fill_in 'Abortion cost', with: '300' # hack
 
-      click_away_from_field
-      visit authenticated_root_path
-      visit edit_patient_path @patient
-      click_link 'Abortion Information'
+      reload_page_and_click_link 'Abortion Information'
     end
 
     it 'should alter the information' do
@@ -96,7 +93,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       check 'Spanish Only'
 
       select 'Part-time', from: 'patient_employment_status'
-      select '$30,000-34,999 ($577-672/week)', from: 'patient_income'
+      select '$30,000-34,999 ($577-672/wk - $2500-2916/mo)',
+             from: 'patient_income'
       select '1', from: 'patient_household_size_adults'
       select '3', from: 'patient_household_size_children'
       select 'Other state Medicaid', from: 'patient_insurance'
@@ -104,13 +102,10 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       check 'Homelessness'
       check 'Prison'
 
-      click_away_from_field
-      visit authenticated_root_path
-      visit edit_patient_path @patient
+      reload_page_and_click_link 'Patient Information'
     end
 
     it 'should alter the information' do
-      click_link 'Patient Information'
       within :css, '#patient_information' do
         assert has_field? 'Other contact name', with: 'Susie Everyteen Sr'
         assert has_field? 'Other phone', with: '123-666-7777'
@@ -124,7 +119,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_checked_field? 'Spanish Only'
 
         assert_equal 'Part-time', find('#patient_employment_status').value
-        assert_equal '$30,000-34,999 ($577-672/week)',
+        assert_equal '$30,000-34,999',
                      find('#patient_income').value
         assert_equal '1', find('#patient_household_size_adults').value
         assert_equal '3', find('#patient_household_size_children').value
@@ -134,6 +129,42 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_checked_field? 'Spanish Only'
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
+      end
+    end
+  end
+
+  describe 'changing fulfillment information' do
+    before do
+      @user.update role: :admin
+      @patient = create :patient, appointment_date: 2.days.from_now,
+                                  clinic_name: 'Sample Clinic 1'
+      create :pregnancy, patient: @patient,
+                         dcaf_soft_pledge: 100,
+                         pledge_sent: true
+      create :fulfillment, patient: @patient
+      visit edit_patient_path @patient
+      # find('#submit-pledge-button').click
+      # assert false
+
+      click_link 'Pledge Fulfillment'
+      check 'Pledge fulfilled'
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%Y-%m-%d')
+      select '12 weeks', from: 'Weeks along at procedure'
+      fill_in 'Abortion care $', with: '100'
+      fill_in 'Check #', with: '444-22'
+
+      reload_page_and_click_link 'Pledge Fulfillment'
+    end
+
+    it 'should alter the information' do
+      within :css, '#fulfillment' do
+        assert has_checked_field? 'Pledge fulfilled'
+        assert has_field? 'Procedure date',
+                          with: 2.days.from_now.strftime('%Y-%m-%d')
+        assert_equal '12',
+                     find('#patient_fulfillment_gestation_at_procedure').value
+        assert has_field? 'Abortion care $', with: 100
+        assert has_field? 'Check #', with: '444-22'
       end
     end
   end
@@ -148,6 +179,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   end
 
   private
+
+  def reload_page_and_click_link(link_text)
+    click_away_from_field
+    visit authenticated_root_path
+    visit edit_patient_path @patient
+    click_link link_text
+  end
 
   def click_away_from_field
     fill_in 'First and last name', with: nil
