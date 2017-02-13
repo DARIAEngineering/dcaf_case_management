@@ -41,11 +41,11 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
-  # Do this before forcing SSL
+  # Do this before forcing SSL, see https://github.com/pixielabs/letsencrypt-rails-heroku/blob/master/README.md#installation for more info
   config.middleware.insert_before ActionDispatch::SSL, Letsencrypt::Middleware
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # Do this AFTER the world hasn't imploded (see previous line)
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
