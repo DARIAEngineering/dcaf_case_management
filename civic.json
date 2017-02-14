@@ -3,7 +3,7 @@
     "description": "A Rails-based case management system for ", 
     "license": "MIT", 
     "status": "Production", 
-    "homepage": "http://dcaf-cmapp-staging.herokuapp.com", 
+    "homepage": "https://sandbox.dcabortionfnd.org", 
     "repository": "https://github.com/colinxfleming/dcaf_case_management", 
     "type": "Web App", 
     "thumbnail": "", 
