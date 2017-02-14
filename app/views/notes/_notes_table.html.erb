@@ -2,13 +2,11 @@
   <tbody>
     <% notes.each do |note| %>
       <% unless note.new_record? %>
+        <div class="notes-wrapper">
+          <p class="name-date-time"><%= note.created_by.name %> <%= note.created_at.display_date %> <%= note.created_at.display_time %></p>
+        </div>
         <tr>
-          <th><%= note.created_at.display_date %></th>
-          <th><%= note.created_at.display_time %></th>
-          <th><%= note.created_by.name %></td>
-        </tr>
-        <tr>
-          <td><%= note.full_text %></td>
+          <p class="notes-body"><%= note.full_text %></p>
         </tr>
       <% end %>
     <% end %>
