@@ -23,7 +23,7 @@ $font-size: 17px;
       text-decoration: underline;
     }
     &:visited{
-      color: #0B0BF6;
+      color: #000080;
     }
   }
 }
@@ -87,19 +87,6 @@ $font-size: 17px;
   margin: 15px 0;
   padding: 15px 30px;
 }
-
-// Global links
-.container {
-  a {
-    &:hover {
-      text-decoration: underline;
-    }
-    &:visited {
-      color: #0B0BF6;
-    }
-  }
-}
-
 
 // General styling artifacts
 // make all images responsive by default
