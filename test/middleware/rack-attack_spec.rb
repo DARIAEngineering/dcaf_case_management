@@ -14,7 +14,7 @@ class AttackTest < ActionDispatch::IntegrationTest
       it "does not change the request status" do
         limit.times do
           get "/", {}, "REMOTE_ADDR" => "1.2.3.4"
-          !assert_equal(last_response.status, 503)
+          assert_not_equal 503, last_response.status, "Should not hit throttle limit"
         end
       end
     end
@@ -24,7 +24,7 @@ class AttackTest < ActionDispatch::IntegrationTest
         (limit * 2).times do |i|
 
           get "/", {}, "REMOTE_ADDR" => "1.2.3.5"
-          assert_equal(last_response.status, 503) if i > limit
+          assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
         end
       end
     end
@@ -37,7 +37,7 @@ class AttackTest < ActionDispatch::IntegrationTest
       it "does not change the request status" do
         limit.times do |i|
           post "/users/sign_in", { email: "example3#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.7"
-          !assert_equal(last_response.status, 503)
+          assert_not_equal 503, last_response.status, "Should not hit throttle limit"
         end
       end
     end
@@ -46,7 +46,7 @@ class AttackTest < ActionDispatch::IntegrationTest
       it "changes the request status to 503" do
         (limit * 2).times do |i|
           post "/users/sign_in", { email: "example4#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.9"
-          assert_equal(last_response.status, 503) if i > limit
+          assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
         end
       end
     end
@@ -59,7 +59,7 @@ class AttackTest < ActionDispatch::IntegrationTest
       it "does not change the request status" do
         limit.times do |i|
           post "/users/sign_in", { email: "example7@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.6.9"
-          !assert_equal(last_response.status, 503)
+          assert_not_equal 503, last_response.status, "Should not hit throttle limit"
         end
       end
     end
@@ -68,7 +68,7 @@ class AttackTest < ActionDispatch::IntegrationTest
       it "changes the request status to 503" do
         (limit * 2).times do |i|
           post "/users/sign_in", { email: "example8@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.7.9" 
-          assert_equal(last_response.status, 503) if i > limit
+          assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
         end
       end
     end
