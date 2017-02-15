@@ -19,7 +19,11 @@ $font-size: 17px;
   .navbar-header > a, .navbar-nav > li > a, .navbar-link{
     color: $dcaf-color;
     &:hover{
-      color: lighten($dcaf-color, 20%)
+      color: lighten($dcaf-color, 20%);
+      text-decoration: underline;
+    }
+    &:visited{
+      color: #000080;
     }
   }
 }
@@ -83,7 +87,6 @@ $font-size: 17px;
   margin: 15px 0;
   padding: 15px 30px;
 }
-
 
 // General styling artifacts
 // make all images responsive by default

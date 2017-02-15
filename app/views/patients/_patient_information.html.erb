@@ -49,6 +49,7 @@
           <%= f.select :income,
                        options_for_select(income_options,
                                           patient.income),
+                                          help: 'Employment, Food Stamps, SS, TANF, etc.',
                                           autocomplete: 'off' %>
           <div class="row">
             <div class="col-sm-6">
