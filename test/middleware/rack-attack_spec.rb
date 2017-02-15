@@ -73,4 +73,6 @@ class AttackTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  Rack::Attack.cache.store.clear
 end
