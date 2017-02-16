@@ -300,5 +300,19 @@ class PatientTest < ActiveSupport::TestCase
         assert_not @patient.still_urgent?
       end
     end
+
+    describe 'contacted_since method' do
+      it 'should return a hash' do
+
+        # with this:
+        # {
+        #   since: datetime,
+        #   contacts: (count of reached patients),
+        #   first_contacts: (count of first time reached patients),
+        #   pledges_sent: (count of pledges sent)
+        # }
+
+      end
+    end
   end
 end
