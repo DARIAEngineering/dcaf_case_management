@@ -136,8 +136,8 @@ class Patient
     #   pledges_sent: (count of pledges sent)
     # }
 
-
-    Patient.each do |patient|
+    patients_reached
+    all.each do |patient|
       calls = patient.calls.select { |call| call.status == "Reached patient" && call.updated_at >= datetime }
       unless calls.nil?
         patients_reached << patient
