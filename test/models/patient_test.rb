@@ -9,6 +9,8 @@ class PatientTest < ActiveSupport::TestCase
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
     @pregnancy = create :pregnancy, patient: @patient
+    @call = create :call, patient: @patient,
+                          status: 'Reached patient'
   end
 
   describe 'callbacks' do
@@ -303,15 +305,8 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'contacted_since method' do
       it 'should return a hash' do
-
-        # with this:
-        # {
-        #   since: datetime,
-        #   contacts: (count of reached patients),
-        #   first_contacts: (count of first time reached patients),
-        #   pledges_sent: (count of pledges sent)
-        # }
-
+        datetime = DateTime.now
+        assert_equal '{:since=>' + datetime.strftime("%a, %e %b %Y %H:%M:%S %z") + ', :contacts=>2, :first_contacts=>0, :pledges_sent=>20}', Patient.contacted_since(datetime)
       end
     end
   end
