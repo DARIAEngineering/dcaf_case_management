@@ -306,7 +306,7 @@ class PatientTest < ActiveSupport::TestCase
     describe 'contacted_since method' do
       it 'should return a hash' do
         datetime = DateTime.now
-        hash = {:since=>datetime, :contacts=>2, :first_contacts=>0, :pledges_sent=>20 }
+        hash = {:since=>datetime, :contacts=>2, :first_contacts=>0, :pledges_sent=>20}
         assert_equal hash, Patient.contacted_since(datetime)
       end
     end
