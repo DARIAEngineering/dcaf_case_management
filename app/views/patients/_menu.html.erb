@@ -15,7 +15,9 @@
   <div class="row">
     <div class="col-sm-10">
       <%#= f.submit 'TEMP: SAVE INFORMATION', class: 'btn btn-primary btn-block' %>
-      <a class="btn btn-primary btn-lg submit-btn btn-block" data-toggle="modal"  data-target=".pledge_modal" id='submit-pledge-button'>Submit pledge</a>
+
+<%= link_to "<span class='btn btn-primary btn-lg submit-btn btn-block' aria-hidden='true' id='submit-pledge-button'>Submit pledge</span>".html_safe, '#pledge-modal', class: "submit-pledge-button", data: {toggle: "modal"} %>
+
     </div>
   </div>
 </section>
