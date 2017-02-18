@@ -77,6 +77,23 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'data volunteer user' do
+    before do
+      @user = create :user, role: :data_volunteer
+      log_in_as @user
+    end
+
+    it 'should not show add user button' do
+      assert_no_text 'Create User'
+    end
+
+    it 'should redirect to root path if navigate to form' do
+      assert_not @user.admin?
+      visit new_user_path
+      assert_equal current_path, root_path
+    end
+  end
+
   describe 'not logged in' do
     it 'should show nothing if not logged in' do
       visit new_user_path
