@@ -77,10 +77,10 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
 
     it 'should show a link to the pledge fulfillment tab after pledge sent' do
       find('#submit-pledge-button').click
-      find('#submit-pledge-to-p2').click
-      find('#submit-pledge-to-p3').click
+      find('#pledge-next').click
+      find('#pledge-next').click
       check 'I sent the pledge'
-      find('#submit-pledge-finish').click
+      find('#pledge-next').click
       visit authenticated_root_path
       visit edit_patient_path @patient
 
