@@ -9,8 +9,8 @@ class GoogleSSOTest < ActionDispatch::IntegrationTest
     it 'can sign in with Google Auth Account' do
       @user = create :user, email: 'test@gmail.com'
       visit root_path
-      page.has_content?('Sign in with Google')
-      click_link('Sign in with Google')
+      wait_for_element 'Sign in with Google'
+      click_link 'Sign in with Google'
 
       assert has_content? 'Sign out'
     end
