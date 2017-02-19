@@ -1,6 +1,16 @@
+GIT
+  remote: https://github.com/jalada/platform-api
+  revision: 45ddb3c1a7e2c7f85d979c0791db18e99affb237
+  branch: master
+  specs:
+    platform-api (0.8.0)
+      heroics (~> 0.0.17)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    acme-client (0.4.1)
+      faraday (~> 0.9, >= 0.9.1)
     actionmailer (4.2.7.1)
       actionpack (= 4.2.7.1)
       actionview (= 4.2.7.1)
@@ -116,6 +126,7 @@ GEM
     easy_diff (1.0.0)
     equalizer (0.0.11)
     erubis (2.7.0)
+    excon (0.54.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -140,6 +151,12 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashie (3.4.6)
+    heroics (0.0.17)
+      erubis (~> 2.0)
+      excon
+      moneta
+      multi_json (>= 1.9.2)
+      netrc
     i18n (0.7.0)
     ice_nine (0.11.2)
     jbuilder (2.5.0)
@@ -158,6 +175,9 @@ GEM
     jwt (1.5.6)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letsencrypt-rails-heroku (0.3.0)
+      acme-client (~> 0.4.0)
+      platform-api
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -180,6 +200,7 @@ GEM
     minitest-spec-rails (5.4.0)
       minitest (~> 5.0)
       rails (>= 4.1)
+    moneta (0.8.1)
     mongo (2.2.5)
       bson (~> 4.0)
     mongo_session_store-rails4 (6.0.0)
@@ -204,6 +225,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    netrc (0.11.0)
     newrelic_rpm (3.15.2.317)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -407,6 +429,7 @@ DEPENDENCIES
   jquery-ui-rails
   js-routes
   launchy
+  letsencrypt-rails-heroku
   mini_backtrace
   minitest-ci
   minitest-reporters
@@ -419,6 +442,7 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri (>= 1.6.8)
   omniauth-google-oauth2 (~> 0.2.1)
+  platform-api!
   poltergeist
   puma
   quality (= 20.1.0)

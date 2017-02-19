@@ -28,6 +28,7 @@ gem 'js-routes'
 gem "omniauth-google-oauth2", "~> 0.2.1"
 gem 'rack-attack', '~> 5.0.1'
 gem 'rack-test', '~> 0.6.3', require: 'rack/test'
+gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -68,4 +69,5 @@ end
 group :production do
   gem 'puma'
   gem 'rails_12factor'
+  gem 'letsencrypt-rails-heroku'
 end

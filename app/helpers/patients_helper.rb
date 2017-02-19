@@ -61,6 +61,6 @@ module PatientsHelper
   end
 
   def disable_continue?(patient)
-    patient.pregnancy.pledge_info_present? ? 'disabled' : ''
+    patient.pregnancy.pledge_info_present? ? 'disabled="disabled"' : ''
   end
 end
