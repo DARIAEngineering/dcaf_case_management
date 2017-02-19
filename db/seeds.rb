@@ -85,6 +85,8 @@ Patient.all.each do |patient|
 
   # Add example of patient with a pledge submitted
   if patient.name == 'Patient 3'
+    patient.update! clinic_name: "Sample Clinic 1",
+                    appointment_date: 10.days.from_now
     patient.pregnancy.update! naf_pledge: 2000,
                              procedure_cost: 4000,
                              procedure_date: 1.week.from_now,
@@ -92,9 +94,7 @@ Patient.all.each do |patient|
                              pledge_sent: true,
                              patient_contribution: 1000,
                              created_by: user2
-    patient.update! name: "Pledge submitted - 3",
-                   clinic_name: "Sample Clinic 1", 
-                   appointment_date: 10.days.from_now
+    patient.update! name: "Pledge submitted - 3"
   end
 
   # Add example of patient should have special circumstances
