@@ -1,11 +1,11 @@
-FROM 		ruby:2.3.3-alpine
-MAINTAINER 	Colin Fleming <c3flemin@gmail.com> 
+FROM        ruby:2.3.3-alpine
+MAINTAINER  Colin Fleming <c3flemin@gmail.com> 
 
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
-	BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash git openssh" \
-	APP_DEPENDENCIES="nodejs"
+    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash git openssh" \
+    APP_DEPENDENCIES="nodejs"
 
 # get our gem house in order
 RUN mkdir -p ${DCAF_DIR} && cd ${DCAF_DIR}
@@ -15,12 +15,12 @@ COPY Gemfile.lock ${DCAF_DIR}/Gemfile.lock
 
 # install packages
 RUN apk update && apk upgrade && \
-	apk add --no-cache \
-	${BUILD_DEPENDENCIES} \
-	${APP_DEPENDENCIES} && \
-	gem install bundler --no-ri --no-rdoc && \
-	cd ${DCAF_DIR} ; bundle install --without development test && \
-	apk del ${BUILD_DEPENDENCIES} 
+    apk add --no-cache \
+    ${BUILD_DEPENDENCIES} \
+    ${APP_DEPENDENCIES} && \
+    gem install bundler --no-ri --no-rdoc && \
+    cd ${DCAF_DIR} ; bundle install --without development test && \
+    apk del ${BUILD_DEPENDENCIES} 
 
 # symlink which nodejs to node
 RUN ln -s `which nodejs` /usr/bin/node
