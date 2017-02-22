@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/DarthHater/mongoid-enum
+  revision: 361188caace7da251cdd362d805c3dfbbcbf1a1b
+  branch: master
+  specs:
+    mongoid-enum (0.4.0)
+      mongoid (~> 6.0)
+
+GIT
   remote: https://github.com/DarthHater/mongoid_userstamp.git
   revision: 27fba4b0db1bd405fb2d05fe4517691d31a6aa44
   branch: master
@@ -221,8 +229,6 @@ GEM
     mongoid-compatibility (0.4.1)
       activesupport
       mongoid (>= 2.0)
-    mongoid-enum-i18n (0.8.1)
-      mongoid (> 4.0.0)
     mongoid-history (0.6.1)
       activesupport
       easy_diff
@@ -439,7 +445,7 @@ DEPENDENCIES
   minitest-spec-rails
   mongo_session_store-rails4
   mongoid (= 6.0.0)
-  mongoid-enum-i18n
+  mongoid-enum!
   mongoid-history (= 0.6.1)
   mongoid_userstamp!
   newrelic_rpm

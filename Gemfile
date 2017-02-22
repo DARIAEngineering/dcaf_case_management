@@ -22,7 +22,7 @@ gem 'bootstrap_form-datetimepicker'
 gem 'nokogiri', '>= 1.6.8'
 gem 'newrelic_rpm'
 gem 'mongo_session_store-rails4'
-gem 'mongoid-enum-i18n'
+gem 'mongoid-enum', git: 'https://github.com/DarthHater/mongoid-enum', branch: 'master'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem "omniauth-google-oauth2", "~> 0.2.1"
