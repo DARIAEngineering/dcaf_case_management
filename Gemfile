@@ -21,7 +21,7 @@ gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
 gem 'nokogiri', '>= 1.6.8'
 gem 'newrelic_rpm'
-gem 'mongo_session_store-rails4'
+gem 'mongo_session_store-rails4', git: 'https://github.com/drgcms/mongo_session_store', branch: 'rails5'
 gem 'mongoid-enum', git: 'https://github.com/DarthHater/mongoid-enum', branch: 'master'
 gem 'tzinfo-data', require: false
 gem 'js-routes'

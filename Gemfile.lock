@@ -15,6 +15,14 @@ GIT
       mongoid (>= 3.0.4)
 
 GIT
+  remote: https://github.com/drgcms/mongo_session_store
+  revision: 079212a6e6842789206951a033db7cca1b0d517b
+  branch: rails5
+  specs:
+    mongo_session_store-rails4 (6.0.1)
+      actionpack (>= 3.1)
+
+GIT
   remote: https://github.com/jalada/platform-api
   revision: 45ddb3c1a7e2c7f85d979c0791db18e99affb237
   branch: master
@@ -221,8 +229,6 @@ GEM
     moneta (0.8.1)
     mongo (2.4.1)
       bson (>= 4.2.1, < 5.0.0)
-    mongo_session_store-rails4 (6.0.0)
-      actionpack (>= 3.1)
     mongoid (6.0.0)
       activemodel (~> 5.0)
       mongo (~> 2.3)
@@ -443,7 +449,7 @@ DEPENDENCIES
   minitest-ci
   minitest-reporters
   minitest-spec-rails
-  mongo_session_store-rails4
+  mongo_session_store-rails4!
   mongoid (= 6.0.0)
   mongoid-enum!
   mongoid-history (= 0.6.1)
