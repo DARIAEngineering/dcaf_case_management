@@ -11,7 +11,7 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.serve_static_files                = false
+  config.public_file_server.enabled        = false
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
