@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/DarthHater/mongo_session_store.git
+  revision: 365ad5412ba369abf83516846de10f4d02ff63ff
+  branch: rails5
+  specs:
+    mongo_session_store-rails4 (6.0.1)
+      actionpack (>= 3.1)
+
+GIT
   remote: https://github.com/DarthHater/mongoid-enum
   revision: 361188caace7da251cdd362d805c3dfbbcbf1a1b
   branch: master
@@ -8,19 +16,11 @@ GIT
 
 GIT
   remote: https://github.com/DarthHater/mongoid_userstamp.git
-  revision: 27fba4b0db1bd405fb2d05fe4517691d31a6aa44
+  revision: 057eaea6988da10ac81a6808e6fff1ee4fe55ce5
   branch: master
   specs:
     mongoid_userstamp (0.4.0)
       mongoid (>= 3.0.4)
-
-GIT
-  remote: https://github.com/drgcms/mongo_session_store
-  revision: 079212a6e6842789206951a033db7cca1b0d517b
-  branch: rails5
-  specs:
-    mongo_session_store-rails4 (6.0.1)
-      actionpack (>= 3.1)
 
 GIT
   remote: https://github.com/jalada/platform-api
@@ -72,7 +72,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     ansi (1.5.0)
     arel (7.1.4)
     ast (2.3.0)
@@ -175,14 +176,14 @@ GEM
       sexp_processor (~> 4.4)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    hashie (3.4.6)
+    hashie (3.5.4)
     heroics (0.0.17)
       erubis (~> 2.0)
       excon
       moneta
       multi_json (>= 1.9.2)
       netrc
-    i18n (0.8.0)
+    i18n (0.8.1)
     ice_nine (0.11.2)
     jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -254,16 +255,15 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.3.1)
-      hashie (>= 1.2, < 4)
-      rack (>= 1.0, < 3)
-    omniauth-google-oauth2 (0.2.10)
-      addressable (~> 2.3)
-      jwt (~> 1.0)
+    omniauth (1.6.1)
+      hashie (>= 3.4.6, < 3.6.0)
+      rack (>= 1.6.2, < 3)
+    omniauth-google-oauth2 (0.4.1)
+      jwt (~> 1.5.2)
       multi_json (~> 1.3)
       omniauth (>= 1.1.1)
-      omniauth-oauth2 (~> 1.3.1)
-    omniauth-oauth2 (1.3.1)
+      omniauth-oauth2 (>= 1.3.1)
+    omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
@@ -277,6 +277,7 @@ GEM
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
+    public_suffix (2.0.5)
     puma (3.6.2)
     punchlist (1.2.0)
       source_finder (>= 2)
@@ -456,7 +457,7 @@ DEPENDENCIES
   mongoid_userstamp!
   newrelic_rpm
   nokogiri (>= 1.6.8)
-  omniauth-google-oauth2 (~> 0.2.1)
+  omniauth-google-oauth2
   platform-api!
   poltergeist
   puma
