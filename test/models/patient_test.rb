@@ -81,6 +81,10 @@ class PatientTest < ActiveSupport::TestCase
       @patient.appointment_date = '2016-07-01'
       assert @patient.valid?
     end
+
+    it 'should save the identifer' do
+      assert_equal @patient.identifier, "#{@patient.line[0]}#{@patient.primary_phone[-5]}-#{@patient.primary_phone[-4..-1]}"
+    end
   end
 
   describe 'pledge_summary' do
@@ -165,6 +169,10 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal 2, Patient.search('124').count
     end
 
+    it 'should be able to find based on identifier' do
+      assert_equal 1, Patient.search('D9-9999').count
+    end
+
     it 'should be able to narrow on line' do
       assert_equal 2, Patient.search('Susan A').count
       assert_equal 1, Patient.search('Susan A', 'MD').count
@@ -243,10 +251,10 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'identifier method' do
+    describe 'saving identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
-        assert_equal 'D3-5555', @patient.identifier
+        assert_equal 'D3-5555', @patient.save_identifier
       end
     end
 

@@ -34,6 +34,7 @@ class Patient
   field :other_phone, type: String
   field :other_contact_relationship, type: String
   field :clinic_name, type: String
+  field :identifier, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
   enum :line, [:DC, :MD, :VA] # See config/initializers/lines.rb. TODO: Env var.
@@ -64,6 +65,7 @@ class Patient
   index(other_contact: 1)
   index(urgent_flag: 1)
   index(_line: 1)
+  index(identifier: 1)
 
   # Validations
   validates :name,
@@ -83,6 +85,7 @@ class Patient
 
   validates_associated :pregnancy
   validates_associated :fulfillment
+  before_save :save_identifier
 
   # some validation of presence of at least one pregnancy
   # some validation of only one active pregnancy at a time
@@ -180,9 +183,8 @@ class Patient
     "#{other_phone[0..2]}-#{other_phone[3..5]}-#{other_phone[6..9]}"
   end
 
-  def identifier # unique ID made up by DCAF to easier identify patients
-    return nil unless line
-    "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+  def save_identifier
+    self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
   def still_urgent?
@@ -208,6 +210,7 @@ class Patient
       name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
       clean_phone = name_or_phone_str.gsub(/\D/, '')
       phone_regexp = /#{Regexp.escape(clean_phone)}/
+      identifier_regexp = /#{Regexp.escape(name_or_phone_str)}/i
 
       all_matching_names = find_name_matches name_regexp, lines
       all_matching_phones = find_phone_matches phone_regexp, lines
@@ -222,6 +225,14 @@ class Patient
         primary_names = Patient.in(_line: lines).where name: name_regexp
         other_names = Patient.in(_line: lines).where other_contact: name_regexp
         return (primary_names | other_names)
+      end
+      []
+    end
+
+    def find_identfier_matches(identifier_regexp)
+      if nonempty_regexp? identifier
+        identifier = Patient.where identifier: identifier_regexp
+        return identifier
       end
       []
     end

@@ -33,17 +33,17 @@ class AuditTrailTest < ActiveSupport::TestCase
 
     it 'should conveniently render changed fields' do
       assert_equal @track.changed_fields,
-                   ['Name', 'Primary phone']
+                   ['Name', 'Primary phone', 'Identifier']
     end
 
     it 'should conveniently render what they were before' do
       assert_equal @track.changed_from,
-                   ['Susie Everyteen', '1112223333']
+                   ['Susie Everyteen', '1112223333', 'D2-3333']
     end
 
     it 'should conveniently render what they are now' do
       assert_equal @track.changed_to,
-                   %w(Yolo 1234569999)
+                   %w(Yolo 1234569999 D6-9999)
     end
 
     it 'should default to System if it cannot find a user' do
