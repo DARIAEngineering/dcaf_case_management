@@ -3,9 +3,6 @@
 /vendor/bundle/
 /vendor/ruby/
 
-# npm stuff
-npm-debug.log
-
 # minimal Rails specific artifacts
 db/*.sqlite3
 /db/*.sqlite3-journal
