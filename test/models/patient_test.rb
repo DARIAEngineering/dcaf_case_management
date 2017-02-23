@@ -251,10 +251,10 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'identifier method' do
+    describe 'saving identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
-        assert_equal 'D3-5555', @patient.identifier
+        assert_equal 'D3-5555', @patient.save_identifier
       end
     end
 
