@@ -124,6 +124,32 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
+  def self.contacted_since(datetime)
+    # 1) filters to all patients with a call logged as Reached patient >= the date and counts them
+    # 2) identifies how many of those patients have been marked pledge_sent this week
+
+    # returns hash
+    # {
+    #   since: datetime,
+    #   contacts: (count of patients reached)
+    #   first_contacts: (count of first time reached patients),
+    #   pledges_sent: (count of pledges sent)
+    # }
+
+    patients_reached = Array.new
+    all.each do |patient|
+      calls = patient.calls.select { |call| call.status == "Reached patient" && call.updated_at >= datetime }
+      unless calls.nil?
+        patients_reached << patient
+      end
+    end
+
+    first_contact = patients_reached.select { |patient| patient.initial_call_date >= datetime }
+
+    # hard coding in first_contacts and pledges_sent for now
+    return { :since => datetime, :contacts => patients_reached.length, :first_contacts => first_contact.length, :pledges_sent => 20 } 
+  end
+
   def recent_calls
     calls.order('created_at DESC').limit(10)
   end
