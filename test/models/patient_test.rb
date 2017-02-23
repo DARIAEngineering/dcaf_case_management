@@ -81,6 +81,10 @@ class PatientTest < ActiveSupport::TestCase
       @patient.appointment_date = '2016-07-01'
       assert @patient.valid?
     end
+
+    it 'should save the identifer' do
+      assert_equal @patient.identifier, "#{@patient.line[0]}#{@patient.primary_phone[-5]}-#{@patient.primary_phone[-4..-1]}"
+    end
   end
 
   describe 'pledge_summary' do
@@ -163,6 +167,10 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should be able to find based on phone patterns' do
       assert_equal 2, Patient.search('124').count
+    end
+
+    it 'should be able to find based on identifier' do
+      assert_equal 1, Patient.search('D9-9999').count
     end
 
     it 'should be able to narrow on line' do
