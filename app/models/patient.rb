@@ -124,6 +124,22 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
+  def self.contacted_since(datetime)
+    patients_reached = []
+    all.each do |patient|
+      calls = patient.calls.select { |call| call.status == 'Reached patient' &&
+                                            call.created_at >= datetime }
+      patients_reached << patient if calls.present?
+    end
+
+    # Should we use this or first call?
+    first_contact = patients_reached.select { |patient| patient.initial_call_date >= datetime }
+
+    # hard coding in first_contacts and pledges_sent for now
+    { since: datetime, contacts: patients_reached.length,
+      first_contacts: first_contact.length, pledges_sent: 20 }
+  end
+
   def recent_calls
     calls.order('created_at DESC').limit(10)
   end
