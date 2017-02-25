@@ -95,8 +95,6 @@
                               checked: patient.special_circumstances.include?('Incest'), namespace: 'Incest' }, 'Incest', '' %>
             <%= f.check_box :special_circumstances, { label: 'Prison', name: 'patient[special_circumstances][]',
                               checked: patient.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>
-            <%= f.check_box :special_circumstances, { label: 'Undocumented', name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Undocumented'), namespace: 'Undocumented' }, 'Undocumented', '' %>
             </div>
           <% end %>
         </div>
