@@ -49,8 +49,8 @@
           <%= f.select :income,
                        options_for_select(income_options,
                                           patient.income),
+                                          help: 'Employment, Food Stamps, SS, TANF, etc.',
                                           autocomplete: 'off' %>
-
           <div class="row">
             <div class="col-sm-6">
               <%= f.select :household_size_adults,
@@ -95,8 +95,6 @@
                               checked: patient.special_circumstances.include?('Incest'), namespace: 'Incest' }, 'Incest', '' %>
             <%= f.check_box :special_circumstances, { label: 'Prison', name: 'patient[special_circumstances][]',
                               checked: patient.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>
-            <%= f.check_box :special_circumstances, { label: 'Undocumented', name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Undocumented'), namespace: 'Undocumented' }, 'Undocumented', '' %>
             </div>
           <% end %>
         </div>

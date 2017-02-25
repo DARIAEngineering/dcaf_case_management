@@ -11,6 +11,8 @@ require 'minitest/reporters'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/minitest'
+require 'omniauth_helper'
+require 'rack/test'
 Minitest::Reporters.use!
 
 Capybara.register_driver :poltergeist do |app|
@@ -32,6 +34,8 @@ Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capyb
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Screenshot::MiniTestPlugin
+  include OmniauthMocker
+  OmniAuth.config.test_mode = true
 
   def log_in_as(user, line = 'DC')
     log_in user

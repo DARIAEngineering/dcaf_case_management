@@ -1,6 +1,16 @@
+GIT
+  remote: https://github.com/jalada/platform-api
+  revision: 45ddb3c1a7e2c7f85d979c0791db18e99affb237
+  branch: master
+  specs:
+    platform-api (0.8.0)
+      heroics (~> 0.0.17)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    acme-client (0.4.1)
+      faraday (~> 0.9, >= 0.9.1)
     actionmailer (4.2.7.1)
       actionpack (= 4.2.7.1)
       actionview (= 4.2.7.1)
@@ -116,6 +126,7 @@ GEM
     easy_diff (1.0.0)
     equalizer (0.0.11)
     erubis (2.7.0)
+    excon (0.54.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -124,6 +135,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.3)
       i18n (~> 0.5)
+    faraday (0.10.1)
+      multipart-post (>= 1.2, < 3)
     figaro (1.1.1)
       thor (~> 0.14)
     flay (2.8.0)
@@ -137,6 +150,13 @@ GEM
       sexp_processor (~> 4.4)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    hashie (3.4.6)
+    heroics (0.0.17)
+      erubis (~> 2.0)
+      excon
+      moneta
+      multi_json (>= 1.9.2)
+      netrc
     i18n (0.7.0)
     ice_nine (0.11.2)
     jbuilder (2.5.0)
@@ -152,8 +172,12 @@ GEM
       railties (>= 3.2)
       sprockets-rails
     json (1.8.3)
+    jwt (1.5.6)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letsencrypt-rails-heroku (0.3.0)
+      acme-client (~> 0.4.0)
+      platform-api
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -176,6 +200,7 @@ GEM
     minitest-spec-rails (5.4.0)
       minitest (~> 5.0)
       rails (>= 4.1)
+    moneta (0.8.1)
     mongo (2.2.5)
       bson (~> 4.0)
     mongo_session_store-rails4 (6.0.0)
@@ -198,10 +223,31 @@ GEM
     mongoid_userstamp (0.4.0)
       mongoid (>= 3.0.4)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
+    multipart-post (2.0.0)
+    netrc (0.11.0)
     newrelic_rpm (3.15.2.317)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    oauth2 (1.3.0)
+      faraday (>= 0.8, < 0.11)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
+    omniauth (1.3.1)
+      hashie (>= 1.2, < 4)
+      rack (>= 1.0, < 3)
+    omniauth-google-oauth2 (0.2.10)
+      addressable (~> 2.3)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      omniauth (>= 1.1.1)
+      omniauth-oauth2 (~> 1.3.1)
+    omniauth-oauth2 (1.3.1)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
     origin (2.2.0)
     orm_adapter (0.5.0)
     parallel (1.9.0)
@@ -234,6 +280,8 @@ GEM
       ruby_parser (>= 3.2.2, != 3.6.6)
       source_finder (>= 3.0.0)
     rack (1.6.4)
+    rack-attack (5.0.1)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7.1)
@@ -274,7 +322,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
-    rake (11.3.0)
+    rake (12.0.0)
     rdoc (4.2.2)
       json (~> 1.4)
     reek (4.1.0)
@@ -381,6 +429,7 @@ DEPENDENCIES
   jquery-ui-rails
   js-routes
   launchy
+  letsencrypt-rails-heroku
   mini_backtrace
   minitest-ci
   minitest-reporters
@@ -392,9 +441,13 @@ DEPENDENCIES
   mongoid_userstamp
   newrelic_rpm
   nokogiri (>= 1.6.8)
+  omniauth-google-oauth2 (~> 0.2.1)
+  platform-api!
   poltergeist
   puma
-  quality
+  quality (= 20.1.0)
+  rack-attack (~> 5.0.1)
+  rack-test (~> 0.6.3)
   rails (~> 4.2.7)
   rails_12factor
   rubocop
@@ -410,7 +463,7 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.6
+   1.14.3

@@ -167,4 +167,21 @@ class UserTest < ActiveSupport::TestCase
       assert_equal @user.patients, @user_2.patients
     end
   end
+
+  describe 'omniauthing' do
+    before do
+      @token = OpenStruct.new info: { 'email' => @user.email }
+    end
+
+    it 'should return a user from an access token' do
+      assert_equal @user, User.from_omniauth(@token)
+    end
+
+    it 'should error on no user' do
+      @user.destroy
+      assert_raises Mongoid::Errors::DocumentNotFound do
+        User.from_omniauth(@token)
+      end
+    end
+  end
 end

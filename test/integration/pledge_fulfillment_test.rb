@@ -5,6 +5,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @admin = create :user, role: :admin
+    @data_volunteer = create :user, role: :data_volunteer
     @patient = create :patient, clinic_name: 'Nice Clinic',
                                 appointment_date: 2.weeks.from_now
     @pregnancy = create :pregnancy, patient: @patient,
@@ -38,6 +39,10 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       visit edit_patient_path @patient
     end
 
+    after do
+      sign_out
+    end
+
     it 'should not show the fulfillment link to an admin unless pledge sent' do
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
@@ -45,10 +50,37 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
 
     it 'should show a link to the pledge fulfillment tab after pledge sent' do
       find('#submit-pledge-button').click
-      find('#submit-pledge-to-p2').click
-      find('#submit-pledge-to-p3').click
+      find('#pledge-next').click
+      find('#pledge-next').click
       check 'I sent the pledge'
-      find('#submit-pledge-finish').click
+      find('#pledge-next').click
+      visit authenticated_root_path
+      visit edit_patient_path @patient
+
+      assert has_link? 'Pledge Fulfillment'
+      click_link 'Pledge Fulfillment'
+      assert has_text? 'Procedure date'
+      assert has_text? 'Check #'
+    end
+  end
+
+  describe 'visiting the edit patient view as a data volunteer' do
+    before do
+      log_in_as @data_volunteer
+      visit edit_patient_path @patient
+    end
+
+    it 'should not show the fulfillment link to a data_volunteer unless pledge sent' do
+      refute has_text? 'Pledge Fulfillment'
+      refute has_link? 'Pledge Fulfillment'
+    end
+
+    it 'should show a link to the pledge fulfillment tab after pledge sent' do
+      find('#submit-pledge-button').click
+      find('#pledge-next').click
+      find('#pledge-next').click
+      check 'I sent the pledge'
+      find('#pledge-next').click
       visit authenticated_root_path
       visit edit_patient_path @patient
 

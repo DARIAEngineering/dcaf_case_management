@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.3.3'
 
 gem 'rails', '~> 4.2.7'
 gem 'sass-rails', '~> 5.0'
@@ -19,13 +19,16 @@ gem 'bson_ext'
 gem 'figaro'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
-gem 'quality', require: false
 gem 'nokogiri', '>= 1.6.8'
 gem 'newrelic_rpm'
 gem 'mongo_session_store-rails4'
 gem 'mongoid-enum'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
+gem "omniauth-google-oauth2", "~> 0.2.1"
+gem 'rack-attack', '~> 5.0.1'
+gem 'rack-test', '~> 0.6.3', require: 'rack/test'
+gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -33,6 +36,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
+  gem 'quality', '20.1.0', require: false
   # gem 'dawnscanner', require: false # disable until dawnscanner fixes CD prob
 end
 
@@ -65,4 +69,5 @@ end
 group :production do
   gem 'puma'
   gem 'rails_12factor'
+  gem 'letsencrypt-rails-heroku'
 end

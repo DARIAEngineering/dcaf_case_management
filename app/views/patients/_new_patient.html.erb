@@ -1,3 +1,4 @@
+
 <% if @results.empty? %>
   <h3><small>Your search produced no results, so add a new patient:</small></h3>
 <%# else %>
@@ -5,13 +6,14 @@
   <!-- <h3><small>Add a new patient:</small></h3> -->
 <%# end %>
 
+
   <%= bootstrap_form_for patient do |f| %>
     <div class="row">
       <div class="col-sm-2">
-        <%= f.text_field :primary_phone, label: 'Phone', value: phone %>
+        <%= f.text_field :primary_phone, label: 'Phone', value: phone, required: true, pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
       </div>
       <div class="col-md-4">
-        <%= f.text_field :name, label: 'Name', value: name %>
+        <%= f.text_field :name, label: 'Name', value: name, required: true %>
       </div>
 
       <%= f.fields_for patient.build_pregnancy do |p| %>

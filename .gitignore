@@ -9,6 +9,9 @@ db/*.sqlite3
 /log/*
 /tmp/*
 
+# cert file
+cacert.pem
+
 # various artifacts
 **.war
 *.rbc
