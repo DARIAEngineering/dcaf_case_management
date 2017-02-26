@@ -25,9 +25,7 @@
   margin-top: 0px;
 }
 
-.pt-phone,.pt-LMP {
-  width: 100px;
-  white-space: nowrap;
+.pt-spacer {
   padding-right: 5px;
 }
 
@@ -38,14 +36,4 @@
 .glyphicon-remove {
   color: red;
   padding: 0px 10px 0px 10px;
-}
-
-.glyphicon-plus-sign {
-  float: right;
-}
-
-.pt-name {
-  a {
-    padding-left: 10px;
-  }
 }
