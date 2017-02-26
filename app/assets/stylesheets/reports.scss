@@ -1,3 +1,21 @@
 // Place all the styles related to the Reports controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$dcaf-color: #5D3E8D;
+
+.report-section{
+  margin-bottom: 50px;
+}
+
+.line-header, .line-header:hover{
+  color: $dcaf-color;
+}
+
+#budget_bar{
+  background-color: #f5f5f5;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+    
