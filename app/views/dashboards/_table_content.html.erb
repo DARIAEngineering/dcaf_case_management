@@ -36,13 +36,13 @@
             <td class="blank-td"></td>
           <% else %>
             <% if current_user.patients.include?(patient) %>
-              <td><%= link_to "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span class='sr-only'>Remove call</span>".html_safe, remove_patient_path(current_user, patient), method: :patch, data: { confirm: "Are you sure you want to remove #{patient.name} from your call list?" },  remote: true %></td>  
+              <td><%= link_to remove_from_call_list_glyphicon, remove_patient_path(current_user, patient), method: :patch, data: { confirm: "Are you sure you want to remove #{patient.name} from your call list?" },  remote: true %></td>
             <% else %>
               <td><%= link_to "Add", add_patient_path(current_user, patient), method: :patch, remote: true %></td>
             <% end %>
           <% end %>
 
-          <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{patient.primary_phone_display}", data: {toggle: "modal"} %></td>
+          <td><%= link_to call_glyphicon, "#call-#{patient.primary_phone_display}", data: {toggle: "modal"} %></td>
 
           <%= render partial: 'calls/new_call', locals: {patient: patient} %>
         </tr>
