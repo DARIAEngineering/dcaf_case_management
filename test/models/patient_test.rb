@@ -126,28 +126,21 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
-  # describe 'relationships' do
-  #   it 'should have many pregnancies' do
-  #   end
-
-  #   it 'should have at least one associated patient' do
-  #   end
-
-  #   it 'should have only one active patient' do
-  #   end
-  # end
-
   describe 'search method' do
     before do
-      @pt_1 = create :patient, name: 'Susan Sher', primary_phone: '124-456-6789'
+      @pt_1 = create :patient, name: 'Susan Sher',
+                               primary_phone: '124-456-6789'
       @pt_2 = create :patient, name: 'Susan E',
                                primary_phone: '124-567-7890',
                                other_contact: 'Friend Ship'
-      @pt_3 = create :patient, name: 'Susan A', other_phone: '999-999-9999'
+      @pt_3 = create :patient, name: 'Susan A',
+                               primary_phone: '555-555-5555',
+                               other_phone: '999-999-9999'
       @pt_4 = create :patient, name: 'Susan A in MD',
+                               primary_phone: '777-777-7777',
                                other_phone: '999-111-9888',
                                line: 'MD'
-      [@pt_1, @pt_2, @pt_3].each do |pt|
+      [@pt_1, @pt_2, @pt_3, @pt_4].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
       end
     end
@@ -165,6 +158,7 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal 1, Patient.search('999-999-9999').count
     end
 
+    # spotty test?
     it 'should be able to find based on phone patterns' do
       assert_equal 2, Patient.search('124').count
     end
@@ -315,9 +309,6 @@ class PatientTest < ActiveSupport::TestCase
       it 'should return a hash' do
         datetime = 5.days.ago
         hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
-        Patient.all.each do |pt|
-          puts pt.calls.inspect
-        end
         assert_equal hash, Patient.contacted_since(datetime)
       end
     end
