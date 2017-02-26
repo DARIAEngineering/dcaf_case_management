@@ -25,18 +25,25 @@ class CreateUserTest < ActionDispatch::IntegrationTest
 
     it 'should be able to create user' do
       assert_difference('User.count', 1) do
-        assert_text 'Create User'
-        click_link 'Create User'
+        assert_difference 'Devise.mailer.deliveries.count', 1 do
+          assert_text 'Create User'
+          click_link 'Create User'
 
-        assert has_field? 'Email'
-        fill_in 'Email', with: 'test@test.com'
+          assert has_field? 'Email'
+          fill_in 'Email', with: 'test@test.com'
 
-        assert has_field? 'Name'
-        fill_in 'Name', with: 'Test User'
+          assert has_field? 'Name'
+          fill_in 'Name', with: 'Test User'
 
-        click_button 'Add'
-        wait_for_element 'User created!'
+          click_button 'Add'
+          wait_for_element 'User created!'
+          sleep 1 # bad practice but...
+        end
       end
+
+      user = User.find_by(email: 'test@test.com')
+      assert_not_nil user
+      assert_equal user.name, 'Test User'
     end
 
     it 'should validate form correctly' do
@@ -47,7 +54,9 @@ class CreateUserTest < ActionDispatch::IntegrationTest
 
       fill_in 'Email', with: 'test@test'
 
-      click_button 'Add'
+      assert_no_difference 'Devise.mailer.deliveries.count' do
+        click_button 'Add'
+      end
 
       assert_text 'is invalid'
     end
