@@ -70,6 +70,7 @@ class CallListTest < ActionDispatch::IntegrationTest
       end
       find('a', text: 'I left a voicemail for the patient').click
       wait_for_no_element "Call #{@patient.name} now:"
+      wait_for_element 'Your completed calls'
     end
 
     it 'should add a call to completed when a call was made within 8 hrs' do
