@@ -81,92 +81,19 @@ $font-size: 17px;
   }
 }
 
-.modal.pledge_modal {
-	display: none;
-  height: 475px;
-  width: 500px;
-  position: fixed;
-  margin: 0 auto;
-  top: auto;
-  bottom: auto;
-  background-color: white;
+#submit-pledge-button {
+  font-size: 22px;
   font-weight: bold;
-  font-size: 14px;
-  box-sizing: border-box;
-  .modal-cover {
-    height: 100%;
-  }
-	.pledge_modal_header {
-	  width: 100%;
-	  height: 50px;
-	  background-color: $dcaf-color;
-	  font-size: 20px;
-	  padding: 10px;
-	  color: white;
-	  font-weight: normal;
-	}
-
-  .pledge_header_text {
-    float: left;
-  }
-
-  .pledge_close {
-    font-size: 24px;
-    color: white;
-    padding: 0 10px;
-    float: right;
-  }
-
-  .pledge_modal_screen2, .pledge_modal_screen3 {
-    display: none;
-  }
-
-	.pledge_intro {
-		padding: 25px;
-	  font-size: 20px;
-	  font-weight: normal;
-	}
-
-	.pledge_form {
-    padding: 0 25px;
-	  line-height: 3;
-	}
-
-	.pledge_modal_category {
-	  font-weight: normal;
-	  display: inline-block;
-	  width: 150px;
-	}
-
-  .pledge_process_btn {
-    bottom: 10px;
-    margin: 25px;
-    cursor: pointer;
-    right: 0;
-    font-size: 14px;
-    position: absolute;
-  }
-
-  .pledge_cancel {
-    color: red;
-    position: absolute;
-    right: 100px;
-    padding-top: 6px;
-    bottom: 14px;
-  }
-
-  .pledge_back_submit, .pledge_back_review {
-    left: 0;
-    bottom: 14px;
-  }
-
-  .check_input {
-    font-weight: bold;
-  }
-
-  .pledge_sent_check {
-    height: 15px;
-    width: 15px;
-    margin-right: 5px;
-  }
 }
+
+a.submit-pledge-button {
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+

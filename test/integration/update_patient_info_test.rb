@@ -59,6 +59,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'DCAF pledge', with: '25'
       fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
       fill_in 'Abortion cost', with: '300' # hack
+      wait_for_ajax
 
       reload_page_and_click_link 'Abortion Information'
     end
@@ -93,13 +94,15 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       check 'Spanish Only'
 
       select 'Part-time', from: 'patient_employment_status'
-      select '$30,000-34,999 ($577-672/week)', from: 'patient_income'
+      select '$30,000-34,999 ($577-672/wk - $2500-2916/mo)',
+             from: 'patient_income'
       select '1', from: 'patient_household_size_adults'
       select '3', from: 'patient_household_size_children'
       select 'Other state Medicaid', from: 'patient_insurance'
       select 'Other abortion fund', from: 'patient_referred_by'
       check 'Homelessness'
       check 'Prison'
+      wait_for_ajax
 
       reload_page_and_click_link 'Patient Information'
     end
@@ -118,7 +121,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_checked_field? 'Spanish Only'
 
         assert_equal 'Part-time', find('#patient_employment_status').value
-        assert_equal '$30,000-34,999 ($577-672/week)',
+        assert_equal '$30,000-34,999',
                      find('#patient_income').value
         assert_equal '1', find('#patient_household_size_adults').value
         assert_equal '3', find('#patient_household_size_children').value
@@ -151,6 +154,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
+      wait_for_ajax
 
       reload_page_and_click_link 'Pledge Fulfillment'
     end

@@ -31,5 +31,8 @@ module DcafCaseManagement
     config.generators do |g|
       g.orm :mongoid
     end
+
+    # Throttling protection 
+    config.middleware.use Rack::Attack
   end
 end

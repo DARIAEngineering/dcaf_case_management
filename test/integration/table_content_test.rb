@@ -5,7 +5,7 @@ class TableContentTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     @patient = create :patient, initial_call_date: 3.days.ago,
-                                appointment_date: 3.days.from_now,
+                                appointment_date: 3.days.from_now.utc,
                                 urgent_flag: true,
                                 created_by: @user
     create :pregnancy, last_menstrual_period_weeks: 6,
@@ -28,7 +28,7 @@ class TableContentTest < ActionDispatch::IntegrationTest
       within :css, '#call_list_content' do
         assert has_content? @patient.primary_phone_display
         assert has_content? @patient.name
-        assert has_content? 3.days.from_now.display_date
+        assert has_content? 3.days.from_now.utc.strftime('%Y-%m-%d')
         assert has_content? @patient.pregnancy.last_menstrual_period_display_short
         # TODO: has remove, phone clicky
       end

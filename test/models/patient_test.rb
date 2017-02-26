@@ -9,6 +9,8 @@ class PatientTest < ActiveSupport::TestCase
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
     @pregnancy = create :pregnancy, patient: @patient
+    @call = create :call, patient: @patient,
+                          status: 'Reached patient'
   end
 
   describe 'callbacks' do
@@ -79,6 +81,10 @@ class PatientTest < ActiveSupport::TestCase
       @patient.appointment_date = '2016-07-01'
       assert @patient.valid?
     end
+
+    it 'should save the identifer' do
+      assert_equal @patient.identifier, "#{@patient.line[0]}#{@patient.primary_phone[-5]}-#{@patient.primary_phone[-4..-1]}"
+    end
   end
 
   describe 'pledge_summary' do
@@ -120,28 +126,21 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
-  # describe 'relationships' do
-  #   it 'should have many pregnancies' do
-  #   end
-
-  #   it 'should have at least one associated patient' do
-  #   end
-
-  #   it 'should have only one active patient' do
-  #   end
-  # end
-
   describe 'search method' do
     before do
-      @pt_1 = create :patient, name: 'Susan Sher', primary_phone: '124-456-6789'
+      @pt_1 = create :patient, name: 'Susan Sher',
+                               primary_phone: '124-456-6789'
       @pt_2 = create :patient, name: 'Susan E',
                                primary_phone: '124-567-7890',
                                other_contact: 'Friend Ship'
-      @pt_3 = create :patient, name: 'Susan A', other_phone: '999-999-9999'
+      @pt_3 = create :patient, name: 'Susan A',
+                               primary_phone: '555-555-5555',
+                               other_phone: '999-999-9999'
       @pt_4 = create :patient, name: 'Susan A in MD',
+                               primary_phone: '777-777-7777',
                                other_phone: '999-111-9888',
                                line: 'MD'
-      [@pt_1, @pt_2, @pt_3].each do |pt|
+      [@pt_1, @pt_2, @pt_3, @pt_4].each do |pt|
         create :pregnancy, patient: pt, created_by: @user
       end
     end
@@ -159,8 +158,13 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal 1, Patient.search('999-999-9999').count
     end
 
+    # spotty test?
     it 'should be able to find based on phone patterns' do
       assert_equal 2, Patient.search('124').count
+    end
+
+    it 'should be able to find based on identifier' do
+      assert_equal 1, Patient.search('D9-9999').count
     end
 
     it 'should be able to narrow on line' do
@@ -241,10 +245,10 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'identifier method' do
+    describe 'saving identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
-        assert_equal 'D3-5555', @patient.identifier
+        assert_equal 'D3-5555', @patient.save_identifier
       end
     end
 
@@ -298,6 +302,14 @@ class PatientTest < ActiveSupport::TestCase
         end
 
         assert_not @patient.still_urgent?
+      end
+    end
+
+    describe 'contacted_since method' do
+      it 'should return a hash' do
+        datetime = 5.days.ago
+        hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
+        assert_equal hash, Patient.contacted_since(datetime)
       end
     end
   end

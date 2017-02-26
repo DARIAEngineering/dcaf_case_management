@@ -36,6 +36,8 @@ class CreateUserTest < ActionDispatch::IntegrationTest
           fill_in 'Name', with: 'Test User'
 
           click_button 'Add'
+          wait_for_element 'User created!'
+          sleep 1 # bad practice but...
         end
       end
 
@@ -63,6 +65,23 @@ class CreateUserTest < ActionDispatch::IntegrationTest
   describe 'non admin user' do
     before do
       @user = create :user, role: :cm
+      log_in_as @user
+    end
+
+    it 'should not show add user button' do
+      assert_no_text 'Create User'
+    end
+
+    it 'should redirect to root path if navigate to form' do
+      assert_not @user.admin?
+      visit new_user_path
+      assert_equal current_path, root_path
+    end
+  end
+
+  describe 'data volunteer user' do
+    before do
+      @user = create :user, role: :data_volunteer
       log_in_as @user
     end
 

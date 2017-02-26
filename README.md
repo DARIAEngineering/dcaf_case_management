@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/colinxfleming/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/colinxfleming/dcaf_case_management)
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 
-[A deployed demo version of what's in the master branch is at: http://dcaf-cmapp-staging.herokuapp.com/](http://dcaf-cmapp-staging.herokuapp.com/)
+[A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/)
 
 
 ## Next major project milestone: April 1: Launch to Baltimore!
@@ -74,13 +74,11 @@ We also keep track of our administrative issues and discussion in Github under t
 
 ## Setting Stuff Up
 
-* **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
-* **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
-* **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
+[We have detailed instructions on how to get started here!](docs/SETUP.md)
 
-For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem.
+If you have any trouble getting things set up, please ping us in Slack!
 
-For detailed instructions on how to get the code running, including Rails and MongoDB, please refer to [our setup documentation](docs/SETUP.md).
+If you see a spot in the docs that's confusing or could be improved, please pay it forward by making a pull request!
 
 
 ## For designers (Team lead: @mebates, user testing lead: @eheintzelman)

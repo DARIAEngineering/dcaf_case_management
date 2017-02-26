@@ -30,7 +30,7 @@ class User
   # Non-devise generated
   field :name, type: String
   field :line, type: String
-  enum :role, [:cm, :admin]
+  enum :role, [:cm, :admin, :data_volunteer]
   field :call_order, type: Array
 
   ## Database authenticatable
