@@ -56,6 +56,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       visit authenticated_root_path
       visit edit_patient_path @patient
+      wait_for_element 'Patient information'
 
       assert has_link? 'Pledge Fulfillment'
       click_link 'Pledge Fulfillment'
