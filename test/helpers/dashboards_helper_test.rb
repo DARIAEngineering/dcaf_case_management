@@ -32,8 +32,16 @@ class DashboardsHelperTest < ActionView::TestCase
   describe 'remove_from_call_list_glyphicon' do
     it 'should return span tags' do
       assert_match /span/, remove_from_call_list_glyphicon
-      assert_match /aria-hidden/, remove_from_call_list_glyphicon
+      assert_match /glyphicon-remove/, remove_from_call_list_glyphicon
       assert_match /Remove call/, remove_from_call_list_glyphicon
+    end
+  end
+
+  describe 'call_glyphicon' do
+    it 'should return span tags' do
+      assert_match /span/, call_glyphicon
+      assert_match /glyphicon-earphone/, call_glyphicon
+      assert_match /Call/, call_glyphicon
     end
   end
 end

@@ -27,4 +27,11 @@ module DashboardsHelper
       tag(:span, class: ['sr-only'], text: 'Remove call')
     ]
   end
+
+  def call_glyphicon
+    safe_join [
+      tag(:span, class: ['glyphicon', 'glyphicon-earphone'], aria: { hidden: true }),
+      tag(:span, class: ['sr-only'], text: 'Call')
+    ]
+  end
 end
