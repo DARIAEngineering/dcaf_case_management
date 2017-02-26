@@ -7,6 +7,7 @@ class Patient
   include Mongoid::Userstamp
   include StatusHelper
 
+  SEARCH_LIMIT = 15
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
   end
@@ -215,10 +216,18 @@ class Patient
       all_matching_names = find_name_matches name_regexp, lines
       all_matching_phones = find_phone_matches phone_regexp, lines
 
-      (all_matching_names | all_matching_phones)
+      sort_and_limit_patient_matches(all_matching_names, all_matching_phones)
     end
 
     private
+
+
+    def sort_and_limit_patient_matches(all_matching_names, all_matching_phones)
+      matches = (all_matching_names | all_matching_phones)
+      matches.sort{|a,b|
+        b.updated_at <=> a.updated_at
+      }.first(SEARCH_LIMIT)
+    end
 
     def find_name_matches(name_regexp, lines = LINES)
       if nonempty_regexp? name_regexp

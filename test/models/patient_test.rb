@@ -154,6 +154,32 @@ class PatientTest < ActiveSupport::TestCase
     #   assert_equal 2, Patient.search('124-456-6789').count
     # end
 
+    describe 'order' do
+
+      before do
+        Timecop.freeze Date.new(2014,4,4)
+        @pt_4.update! name: 'Laila C.'
+        Timecop.freeze Date.new(2014,4,5)
+        @pt_3.update! name: 'Laila B.'
+      end
+
+      after do
+        Timecop.return
+      end
+
+      it 'should return patients in order of last modified' do
+        assert_equal [@pt_3, @pt_4], Patient.search('Laila')
+      end
+
+      it 'should limit the number of patients returned' do
+        16.times do |num|
+          create :patient, primary_phone: "124-567-78#{num+10}"
+        end
+        assert_equal 15, Patient.search('124').count
+      end
+
+    end
+
     it 'should be able to find based on secondary phones too' do
       assert_equal 1, Patient.search('999-999-9999').count
     end
