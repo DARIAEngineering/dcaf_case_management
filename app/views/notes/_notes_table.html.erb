@@ -3,9 +3,7 @@
     <% notes.each do |note| %>
       <% unless note.new_record? %>
         <tr>
-          <th><%= note.created_at.display_date %></th>
-          <th><%= note.created_at.display_time %></th>
-          <th><%= note.created_by.name %></td>
+          <th><%= note.created_by.name %> <%= note.created_at.display_date %> <%= note.created_at.display_time %></th>
         </tr>
         <tr>
           <td><%= note.full_text %></td>

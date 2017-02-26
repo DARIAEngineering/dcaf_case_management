@@ -20,4 +20,18 @@ module DashboardsHelper
 
     vm_options.map { |option| [enum_text[option], option] }
   end
+
+  def remove_from_call_list_glyphicon
+    safe_join [
+      tag(:span, class: ['glyphicon', 'glyphicon-remove'], aria: { hidden: true }),
+      tag(:span, class: ['sr-only'], text: 'Remove call')
+    ]
+  end
+
+  def call_glyphicon
+    safe_join [
+      tag(:span, class: ['glyphicon', 'glyphicon-earphone'], aria: { hidden: true }),
+      tag(:span, class: ['sr-only'], text: 'Call')
+    ]
+  end
 end

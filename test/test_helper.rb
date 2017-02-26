@@ -58,7 +58,7 @@ class ActionDispatch::IntegrationTest
     has_content? text
   end
 
-  def wait_for_no_element(test)
+  def wait_for_no_element(text)
     has_no_content? text
   end
 

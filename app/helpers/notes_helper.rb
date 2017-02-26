@@ -1,6 +1,6 @@
 module NotesHelper
   def plus_sign_glyphicon(note)
-    return nil unless note && note.try(:full_text).length > 41
+    return nil unless note && note.try(:full_text).length > 31
     "<span class='glyphicon glyphicon-plus-sign' aria-hidden='true' " \
     "data-toggle='popover' data-placement='bottom' title='Most recent note' " \
     "data-content='#{h note.full_text}'>" \

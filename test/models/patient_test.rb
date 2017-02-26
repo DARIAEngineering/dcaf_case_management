@@ -258,8 +258,8 @@ class PatientTest < ActiveSupport::TestCase
                               full_text: (1..100).map(&:to_s).join('')
       end
 
-      it 'returns 44 characters of the notes text' do
-        assert_equal 44, @patient.most_recent_note_display_text.length
+      it 'returns 34 characters of the notes text' do
+        assert_equal 34, @patient.most_recent_note_display_text.length
         assert_match /^1234/, @patient.most_recent_note_display_text
       end
     end

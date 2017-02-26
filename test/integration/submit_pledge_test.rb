@@ -32,6 +32,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
       click_link 'Dashboard'
       visit edit_patient_path @patient
+      wait_for_element 'Patient information'
+
       assert has_text? Patient::STATUSES[:pledge_sent]
     end
   end
