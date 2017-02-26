@@ -22,8 +22,7 @@ class CallListTest < ActionDispatch::IntegrationTest
     it 'should add people to the call list roll' do
       add_to_call_list @patient_2
       within :css, '#call_list_content' do
-        wait_for_element @patient_2.name
-        assert has_link? 'Remove'
+        assert has_content? @patient_2.name
       end
     end
 
@@ -36,7 +35,7 @@ class CallListTest < ActionDispatch::IntegrationTest
     it 'should let you remove people from the call list roll' do
       within :css, '#call_list_content' do
         wait_for_element @patient.name
-        page.accept_confirm first(:link, 'Remove').click
+        page.accept_confirm find('.glyphicon-remove').click
         assert has_no_text? @patient.name
       end
     end
