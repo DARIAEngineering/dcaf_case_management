@@ -19,5 +19,5 @@
 		</div>
   </div>
 
-  <%= render partial: 'notes/notes_table', locals: { notes: patient.notes.order_by('created_at desc') } %>
+  <%= render partial: 'notes/notes_table', locals: { notes: patient.notes.includes(:created_by).order_by('created_at desc') } %>
 </section>

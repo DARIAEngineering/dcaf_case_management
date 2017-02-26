@@ -144,11 +144,11 @@ class Patient
   end
 
   def recent_calls
-    calls.order('created_at DESC').limit(10)
+    calls.includes(:created_by).order('created_at DESC').limit(10)
   end
 
   def old_calls
-    calls.order('created_at DESC').offset(10)
+    calls.includes(:created_by).order('created_at DESC').offset(10)
   end
 
   def most_recent_note_display_text
