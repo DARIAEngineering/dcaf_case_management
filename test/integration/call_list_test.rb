@@ -22,7 +22,6 @@ class CallListTest < ActionDispatch::IntegrationTest
     it 'should add people to the call list roll' do
       add_to_call_list @patient_2
       within :css, '#call_list_content' do
-        wait_for_element @patient_2.name
         assert has_content? @patient_2.name
       end
     end
@@ -122,7 +121,9 @@ class CallListTest < ActionDispatch::IntegrationTest
   def add_to_call_list(patient)
     wait_for_element 'Build your call list'
     fill_in 'search', with: patient.name
+    wait_for_element 'Search results'
     click_button 'Search'
     find('a', text: 'Add').click
+    wait_for_ajax
   end
 end
