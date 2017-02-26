@@ -59,6 +59,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'DCAF pledge', with: '25'
       fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
       fill_in 'Abortion cost', with: '300' # hack
+      wait_for_ajax
 
       reload_page_and_click_link 'Abortion Information'
     end
@@ -101,6 +102,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select 'Other abortion fund', from: 'patient_referred_by'
       check 'Homelessness'
       check 'Prison'
+      wait_for_ajax
 
       reload_page_and_click_link 'Patient Information'
     end
@@ -152,6 +154,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
+      wait_for_ajax
 
       reload_page_and_click_link 'Pledge Fulfillment'
     end

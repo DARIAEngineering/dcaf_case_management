@@ -36,6 +36,8 @@ class CreateUserTest < ActionDispatch::IntegrationTest
           fill_in 'Name', with: 'Test User'
 
           click_button 'Add'
+          wait_for_element 'User created!'
+          sleep 1 # bad practice but...
         end
       end
 
