@@ -150,6 +150,10 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal 1, Patient.search('Friend Ship').count
     end
 
+    it 'can find multiple patients off an identifier' do
+      assert_same_elements [@pt_1, @pt_2], Patient.search('D1-24')
+    end
+
     # it 'should find multiple patients if there are multiple' do
     #   assert_equal 2, Patient.search('124-456-6789').count
     # end
@@ -187,10 +191,6 @@ class PatientTest < ActiveSupport::TestCase
     # spotty test?
     it 'should be able to find based on phone patterns' do
       assert_equal 2, Patient.search('124').count
-    end
-
-    it 'should be able to find based on identifier' do
-      assert_equal 1, Patient.search('D9-9999').count
     end
 
     it 'should be able to narrow on line' do

@@ -356,6 +356,7 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     sexp_processor (4.7.0)
+    shoulda-context (1.2.2)
     simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -454,6 +455,7 @@ DEPENDENCIES
   ruby_audit
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  shoulda-context
   simplecov
   spring
   timecop
@@ -466,4 +468,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.14.3
+   1.14.4
