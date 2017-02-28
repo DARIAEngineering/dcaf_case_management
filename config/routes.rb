@@ -6,7 +6,11 @@ Rails.application.routes.draw do
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
     resources :patients, only: [ :create, :edit, :update ] do
+      member do
+        get :download
+      end
       resources :calls, only: [ :create, :destroy ]
+      resources :calls, only: [ :create ]
       resources :notes, only: [ :create, :update ]
       resources :external_pledges, only: [ :create, :update, :destroy ]
     end
