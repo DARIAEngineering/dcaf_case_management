@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/DarthHater/mongo_session_store.git
-  revision: 365ad5412ba369abf83516846de10f4d02ff63ff
-  branch: rails5
-  specs:
-    mongo_session_store-rails4 (6.0.1)
-      actionpack (>= 3.1)
-
-GIT
   remote: https://github.com/DarthHater/mongoid-enum
   revision: 361188caace7da251cdd362d805c3dfbbcbf1a1b
   branch: master
@@ -21,6 +13,14 @@ GIT
   specs:
     mongoid_userstamp (0.4.0)
       mongoid (>= 3.0.4)
+
+GIT
+  remote: https://github.com/drgcms/mongo_session_store.git
+  revision: 032bbfb6d693428db8c8bf0f051285ef03e71fed
+  branch: rails5
+  specs:
+    mongo_session_store-rails4 (6.0.1)
+      actionpack (>= 3.1)
 
 GIT
   remote: https://github.com/jalada/platform-api
@@ -482,4 +482,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.4
+   1.14.5
