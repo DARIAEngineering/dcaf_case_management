@@ -3,7 +3,7 @@ module ExternalPledgesHelper
     ["Baltimore Abortion Fund", "Richmond Reproductive Freedom Project (RRFP)",
      "Blue Ridge Abortion Assistance Fund (BRAAF)", "Tiller Fund (NNAF)",
      "Carolina Abortion Fund", "Women's Medical Fund (Philadelphia)",
-     "NYAAF (New York)", "Other funds (see notes)"]
+     "NYAAF (New York)", "Clinic discount", "Other funds (see notes)"]
   end
 
   def available_pledge_source_options_for(patient)
