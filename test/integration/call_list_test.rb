@@ -124,7 +124,7 @@ class CallListTest < ActionDispatch::IntegrationTest
     fill_in 'search', with: patient.name
     wait_for_element 'Search results'
     click_button 'Search'
-    find('a', text: 'Add').click
+    find('a', text: 'Add', wait: 5).click
     wait_for_ajax
   end
 end
