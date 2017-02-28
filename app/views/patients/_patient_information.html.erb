@@ -9,6 +9,12 @@
 
       <div class="row">
         <div class="info-form-left col-sm-6">
+          <% if current_user.admin? %>
+            <%= f.select :line,
+                       options_for_select(line_options,
+                                          patient.line),
+                                          label: 'Line' %>
+          <% end %>
           <%= f.text_field :age, label: 'Age', autocomplete: 'off' %>
           <%= f.select :race_ethnicity,
                        options_for_select(race_ethnicity_options,
@@ -75,6 +81,8 @@
                        options_for_select(referred_by_options,
                                           patient.referred_by),
                                           autocomplete: 'off' %>
+
+
 
           <p style="font-weight:bold">Special circumstances</p>
           <%= f.form_group :special_circumstances do %>

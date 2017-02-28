@@ -134,9 +134,33 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_checked_field? 'Spanish Only'
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
+        assert has_no_css? '#patient_line'
+      end
+    end
+
+    # for changing a patient's line
+    describe 'changing ADMIN patient information' do
+      before do
+        @user.update role: :admin
+        click_link 'Patient Information'
+        visit edit_patient_path @patient
+
+        select 'MD', from: 'patient_line'
+
+        click_away_from_field
+        wait_for_ajax
+
+        reload_page_and_click_link 'Patient Information'
+      end
+
+      it 'should alter the information' do
+        within :css, '#patient_information' do
+          assert_equal 'MD', find('#patient_line').value
+        end
       end
     end
   end
+
 
   describe 'changing fulfillment information' do
     before do
@@ -157,6 +181,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
+
       click_away_from_field
       wait_for_ajax
 

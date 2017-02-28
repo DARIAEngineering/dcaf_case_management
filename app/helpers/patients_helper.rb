@@ -25,6 +25,10 @@ module PatientsHelper
      'No insurance', 'Don\'t know', 'Other (add to notes)']
   end
 
+  def line_options
+    ['DC', 'MD', 'VA']
+  end
+
   def income_options
     [nil,
      ['Under $9,999 ($192/wk - $833/mo)', 'Under $9,999'],
