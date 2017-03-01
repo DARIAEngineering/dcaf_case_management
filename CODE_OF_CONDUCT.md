@@ -33,9 +33,9 @@ Examples of unacceptable behavior by participants include:
 
 ## Our Responsibilities
 
-Project maintainers are responsible for clarifying the standards of acceptable
-behavior and are expected to take appropriate and fair corrective action in
-response to any instances of unacceptable behavior.
+Project maintainers (@colinxfleming and @mebates) are responsible for clarifying
+the standards of acceptable behavior and are expected to take appropriate and 
+fair corrective action in response to any instances of unacceptable behavior.
 
 Project maintainers have the right and responsibility to remove, edit, or
 reject comments, commits, code, wiki edits, issues, and other contributions
@@ -55,11 +55,11 @@ further defined and clarified by project maintainers.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at c3flemin@gmail.com. The project team
-will review and investigate all complaints, and will respond in a way that it deems
-appropriate to the circumstances. The project team is obligated to maintain
-confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
+reported by contacting the project team through Colin Flemming at c3flemin@gmail.com. 
+The project team will review and investigate all complaints, and will respond in a 
+way that it deems appropriate to the circumstances. The project team is obligated to 
+maintain confidentiality with regard to the reporter of an incident. Further details 
+of specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
