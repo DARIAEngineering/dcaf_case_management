@@ -30,6 +30,12 @@ Examples of unacceptable behavior by participants include:
   address, without explicit permission
 * Other conduct which could reasonably be considered inappropriate in a
   professional setting
+  
+
+This project deals explicitly with abortion access; in addition to treating 
+our fellow contributors respectfully, we commit to treat case managers and 
+the patients they serve by these same standards.
+
 
 ## Our Responsibilities
 
