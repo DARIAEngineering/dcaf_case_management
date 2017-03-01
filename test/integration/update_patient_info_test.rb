@@ -138,18 +138,15 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       end
     end
 
-    # for changing a patient's line
     describe 'changing ADMIN patient information' do
       before do
         @user.update role: :admin
         click_link 'Patient Information'
         visit edit_patient_path @patient
-
         select 'MD', from: 'patient_line'
 
         click_away_from_field
         wait_for_ajax
-
         reload_page_and_click_link 'Patient Information'
       end
 

@@ -11,7 +11,7 @@
         <div class="info-form-left col-sm-6">
           <% if current_user.admin? %>
             <%= f.select :line,
-                       options_for_select(line_options,
+                       options_for_select(lines,
                                           patient.line),
                                           label: 'Line' %>
           <% end %>
