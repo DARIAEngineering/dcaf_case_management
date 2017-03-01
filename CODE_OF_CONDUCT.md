@@ -30,7 +30,12 @@ Examples of unacceptable behavior by participants include:
   address, without explicit permission
 * Other conduct which could reasonably be considered inappropriate in a
   professional setting
+* Discussions of  the moral, political, or religious implications of abortion
+  or abortion access
   
+This is an explicitly pro-choice project serving pro-choice organizations; 
+it is not an appropriate venue for broader discussions about the moral, 
+political, or religious implications of abortion or abortion access.
 
 This project deals explicitly with abortion access; in addition to treating 
 our fellow contributors respectfully, we commit to treat case managers and 
