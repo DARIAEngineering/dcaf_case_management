@@ -1,10 +1,10 @@
-new clinic form
+<h1>Add a new clinic</h1>
 
 <%= bootstrap_form_for @clinic do |f| %>
-  <%= f.text_field :name %>
-  <%= f.text_field :address %>
-  <%= f.text_field :city %>
-  <%= f.text_field :state %>
-  <%= f.text_field :zip %>
+  <%= f.text_field :name, autocomplete: 'off' %>
+  <%= f.text_field :address, autocomplete: 'off' %>
+  <%= f.text_field :city, autocomplete: 'off' %>
+  <%= f.text_field :state, autocomplete: 'off' %>
+  <%= f.text_field :zip, autocomplete: 'off' %>
   <%= f.submit 'Add clinic' %>
 <% end %>

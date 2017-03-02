@@ -10,9 +10,12 @@ class ClinicsController < ApplicationController
   def create
     @clinic = Clinic.new clinic_params
     if @clinic.save
-      redirect_to clinics_path # flash good
+      flash[:notice] = "#{@clinic.name} created!"
+      redirect_to clinics_path
     else
-      redirect_to clinics_path # flash bad
+      flash[:alert] = 'Errors prevented this clinic from being saved: ' \
+                      "#{@clinic.errors.full_messages.to_sentence}"
+      render 'new'
     end
   end
 

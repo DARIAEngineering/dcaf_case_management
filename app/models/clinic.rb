@@ -1,5 +1,5 @@
 # Object representing a clinic that a fund works with.
-# NOTE: NOT CURRENTLY IMPLEMENTED. DO NOT USE. USE Patient#clinic_name instead.
+# NOTE: NOT CURRENTLY FULLY IMPLEMENTED. DO NOT USE. USE Patient#clinic_name instead.
 class Clinic
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -11,11 +11,12 @@ class Clinic
   field :name, type: String
   field :address, type: String
   field :city, type: String
-  field :state, type: String # ennnnnnummmmerrrrattttttioonnn???????
+  field :state, type: String
   field :zip, type: String
+  field :active, type: Boolean, default: true
 
   # Validations
-  # TODO: Validate clinic options based on ENV['CLINICS']
+  validates :name, :address, :city, :state, :zip, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

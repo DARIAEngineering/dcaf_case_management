@@ -1,4 +1,5 @@
 <h1>Clinics</h1>
+<p><%= link_to 'Add a new clinic', new_clinic_path %></p>
 
 <% @clinics.each do |clinic| %>
   <p><%= clinic.name %> - <%= clinic.address %></p>
