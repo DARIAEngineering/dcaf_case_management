@@ -36,4 +36,8 @@ class ApplicationController < ActionController::Base
       'object-src; ' \
       "report-uri https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
   end
+
+  def confirm_admin_user
+    redirect_to root_url unless current_user.admin?
+  end
 end
