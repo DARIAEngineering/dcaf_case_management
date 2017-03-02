@@ -1,2 +1,5 @@
-<h1>Clinics#index</h1>
-<p>Find me in app/views/clinics/index.html.erb</p>
+<h1>Clinics</h1>
+
+<% @clinics.each do |clinic| %>
+  <p><%= clinic.name %> - <%= clinic.address %></p>
+<% end %>

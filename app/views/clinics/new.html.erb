@@ -1,8 +1,8 @@
 new clinic form
 
-<%= bootstrap_form_for clinic do |f| %>
+<%= bootstrap_form_for @clinic do |f| %>
   <%= f.text_field :name %>
-  <%= f.text_field :street_address_1 %>
+  <%= f.text_field :address %>
   <%= f.text_field :city %>
   <%= f.text_field :state %>
   <%= f.text_field :zip %>
