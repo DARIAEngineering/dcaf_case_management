@@ -23,17 +23,17 @@ class ClinicsController < ApplicationController
     @clinic = Clinic.new
   end
 
-  def update
-    clinic = Clinic.find params[:id]
-    if clinic.save
-      head :ok
-    else
-      head :bad_request
-    end
-  end
+  # def update
+  #   clinic = Clinic.find params[:id]
+  #   if clinic.save
+  #     head :ok
+  #   else
+  #     head :bad_request
+  #   end
+  # end
 
-  def destroy
-  end
+  # def destroy
+  # end
 
   private
 
