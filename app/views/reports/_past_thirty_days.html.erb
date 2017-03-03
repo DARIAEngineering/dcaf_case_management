@@ -1,0 +1,13 @@
+<div class="report-section">
+  <h2 class="border-bottom">Past 30 days</h2>
+  <div class="row">
+    <% lines.each do |line| %>
+      <div class="col-sm-4">
+        <h3><%= link_to line, '#', class: 'line-header' %></h3>
+        <p>Patients contacted: <strong>87</strong></p>
+        <p>New patients contacted: <strong>60</strong></p>
+        <p>Pledges sent: <strong>42</strong></p>
+      </div>
+    <% end %>
+  </div>  
+</div>  
