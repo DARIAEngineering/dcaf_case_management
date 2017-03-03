@@ -1,17 +1,24 @@
 module NotesHelper
   def plus_sign_glyphicon(note)
     return nil unless note && note.try(:full_text).length > 31
-    "<span class='glyphicon glyphicon-plus-sign' aria-hidden='true' " \
-    "data-toggle='popover' data-placement='bottom' title='Most recent note' " \
-    "data-content='#{h note.full_text}'>" \
-    "</span><span class='sr-only'>Full note</span>".html_safe
+    note = tag(:span, class: 'glyphicon glyphicon-plus-sign',
+                      title: 'Most recent note',
+                      aria: { hidden: true },
+                      data: { toggle: 'popover', placement: 'bottom',
+                              content: note.full_text })
+    sr = tag(:span, class: 'sr-only', text: 'Full note')
+    safe_join([note, sr], '')
   end
 
   def display_note_text_for(note)
     return nil unless note.try(:full_text).present?
-
-    "<p><strong>Most recent note from #{h note.created_by.name} " \
-    "at #{note.created_at.display_timestamp}:</strong></p>" \
-    "<p>#{h note.full_text[0..400]}</p>".html_safe
+    info = content_tag :p do
+      content_tag(:strong) do
+        "Most recent note from #{note.created_by.name} " \
+        "at #{note.created_at.display_timestamp}:"
+      end
+    end
+    text = content_tag(:p) { note.full_text[0..400] }
+    safe_join([info, text], '')
   end
 end
