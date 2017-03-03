@@ -76,6 +76,10 @@ Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
+## What to do if there's an incident
+
+If you would like to report or flag an incident, please reach out to one or both of the project maintainers @colinxfleming and @mebates. You can do this anonymously if you prefer.
+
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
