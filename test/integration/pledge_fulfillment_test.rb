@@ -86,6 +86,9 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       check 'I sent the pledge'
       find('#pledge-next').click
+      wait_for_no_element 'Submit and send your pledge'
+      wait_for_ajax
+
       visit authenticated_root_path
       visit edit_patient_path @patient
 
