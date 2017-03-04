@@ -9,7 +9,6 @@ class PatientsControllerTest < ActionController::TestCase
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
     @pregnancy = create :pregnancy, patient: @patient
-    @clinic = create :clinic, name: 'Sample Clinic 1', patient: @patient
   end
 
   describe 'create method' do
@@ -74,13 +73,6 @@ class PatientsControllerTest < ActionController::TestCase
       assert_match /123-456-7890/, response.body
       assert_match /Sample Clinic 1/, response.body
     end
-
-    it 'should not die if clinic is nil' do
-      @clinic.destroy
-
-      get :edit, id: @patient
-      assert_response :success
-    end
   end
 
   describe 'update method' do
@@ -88,8 +80,7 @@ class PatientsControllerTest < ActionController::TestCase
       @date = 5.days.from_now.to_date
       @payload = {
         appointment_date: @date.strftime('%Y-%m-%d'), name: 'Susie Everyteen 2',
-        pregnancy: { resolved_without_dcaf: true },
-        clinic: { name: 'Sample Clinic 2', id: @clinic.id }
+        pregnancy: { resolved_without_dcaf: true }
       }
 
       patch :update, id: @patient, patient: @payload
@@ -108,10 +99,6 @@ class PatientsControllerTest < ActionController::TestCase
 
     it 'should update pregnancy fields' do
       assert_equal @date, @patient.appointment_date
-    end
-
-    it 'should update clinic fields' do
-      assert_equal 'Sample Clinic 2', @patient.clinic.name
     end
 
     it 'should update patient fields' do
