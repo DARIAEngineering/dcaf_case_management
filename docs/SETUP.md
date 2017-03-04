@@ -11,10 +11,27 @@ For the rest of the setup, you have three options: Docker, installing everything
 ## Docker
 
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
-* `docker-compose build`
+
+* `docker-compose pull`
+* `docker-compose build` (this may say 'uses an image, skipping' a few times, that's OK)
 * `docker-compose run web rake db:seed # to populate the database`
 * `docker-compose up`
 
+The last command will take a moment and should print a number of things. When it's ready
+to go, it should say something like:
+
+    web_1  | [1] * Listening on tcp://0.0.0.0:3000
+
+In order to connect to the application you will need the IP address of your Docker instance.
+This can be found with the `docker-machine ip default` command. With the IP, and the port
+from the output of the original `up` command, you can now go to your browser and navigate
+to the application.
+
+For example, if your Docker machine's IP is `192.168.99.100`, you would go to your browser
+and type: `http://192.168.99.100:3000/` and hit enter. The first time you view a page will
+take a minute or two for resources to compile and load, but it should eventually load.
+
+Any errors will show up in your terminal in the window you were running the `up` command in.
 
 ## Local environment
 
