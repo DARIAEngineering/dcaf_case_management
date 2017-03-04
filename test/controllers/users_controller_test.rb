@@ -29,7 +29,7 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     it 'should let admin access the route' do
-      @user.role = :admin 
+      @user.role = :admin
       @user.save!
       get :index
       assert_response :success

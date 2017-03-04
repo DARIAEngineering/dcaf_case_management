@@ -16,9 +16,9 @@ class Patient
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
+  has_one :clinic
   embeds_one :pregnancy
   embeds_one :fulfillment
-  embeds_one :clinic
   embeds_many :calls
   embeds_many :external_pledges
   embeds_many :notes

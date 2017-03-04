@@ -1,0 +1,18 @@
+<h1>Clinics</h1>
+<p><%= link_to 'Add a new clinic', new_clinic_path %></p>
+
+<% @clinics.each do |clinic| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3><%= clinic.name %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <%= clinic.address %>, <%= clinic.city %>, <%= clinic.state %> <%= clinic.zip %>
+    </div>
+    <div class="col-md-6">
+      Other stuff placeholder
+    </div>
+  </div>
+<% end %>

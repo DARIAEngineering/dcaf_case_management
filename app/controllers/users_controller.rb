@@ -1,7 +1,7 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
-  before_action :admin_user, only: [:new, :index]
+  before_action :confirm_admin_user, only: [:new, :index]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def new
-     @user = User.new
+    @user = User.new
     session[:return_to] ||= request.referer
   end
 
@@ -57,9 +57,5 @@ class UsersController < ApplicationController
   def retrieve_patients
     @patient = Patient.find params[:id]
     @urgent_patient = Patient.where(urgent_flag: true)
-  end
-
-  def admin_user
-    redirect_to root_url unless current_user.admin?
   end
 end
