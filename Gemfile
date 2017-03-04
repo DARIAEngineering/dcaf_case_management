@@ -31,6 +31,7 @@ gem 'rack-test', '~> 0.6.3', require: 'rack/test'
 gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
 
 group :development do
+  gem 'pry'
   gem 'web-console', '~> 2.0'
   gem 'rubocop', require: false
   gem 'brakeman', require: false

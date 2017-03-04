@@ -1,6 +1,8 @@
 <div class="report-section">
   <h2 class="border-bottom">Week of <%= week_range %></h2>
-  
+
+  <%= @weekly_report %>
+
   <% lines.each do |line| %>
     <h3><%= link_to "#{line} Call Line", '#', class: 'line-header' %></h3>
     <div class="row">
