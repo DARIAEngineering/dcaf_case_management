@@ -22,6 +22,9 @@
                 <%= pt.form_group :resolved_without_dcaf, label: { text: 'Resolved without assistance from DCAF' } do %>
                   <%= pt.check_box :resolved_without_dcaf, label: '' %>
                 <% end %>
+                <%= pt.form_group :referred_to_clinic, label: { text: 'Referred to clinic' } do %>
+                  <%= pt.check_box :referred_to_clinic, label: '' %>
+                <% end %>
               <% end %>
             </div>
           </div>

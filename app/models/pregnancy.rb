@@ -23,6 +23,7 @@ class Pregnancy
   field :procedure_date, type: DateTime
   field :procedure_completed_date, type: DateTime
   field :resolved_without_dcaf, type: Boolean
+  field :referred_to_clinic, type: Boolean
 
   # Temp fields associated with pledges: TEMPORARY
   field :patient_contribution, type: Integer

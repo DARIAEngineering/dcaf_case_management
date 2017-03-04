@@ -53,6 +53,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       click_link 'Abortion Information'
       select 'Sample Clinic 1', from: 'patient_clinic_name'
       check 'Resolved without assistance from DCAF'
+      check 'Referred to clinic'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
@@ -69,7 +70,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     it 'should alter the information' do
       within :css, '#abortion_information' do
         assert_equal 'Sample Clinic 1', find('#patient_clinic_name').value
-        assert_equal '1', find('#patient_pregnancy_resolved_without_dcaf').value
+        assert has_checked_field?('Resolved without assistance from DCAF')
+        assert has_checked_field?('Referred to clinic')
         # TODO: review after getting clinic logic in place
 
         assert has_field? 'Abortion cost', with: '300'
