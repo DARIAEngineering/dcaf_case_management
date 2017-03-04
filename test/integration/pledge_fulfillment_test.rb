@@ -51,6 +51,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     it 'should show a link to the pledge fulfillment tab after pledge sent' do
       find('#submit-pledge-button').click
       find('#pledge-next').click
+      wait_for_element 'Review this preview of your pledge'
       find('#pledge-next').click
       check 'I sent the pledge'
       find('#pledge-next').click
@@ -81,6 +82,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     it 'should show a link to the pledge fulfillment tab after pledge sent' do
       find('#submit-pledge-button').click
       find('#pledge-next').click
+      wait_for_element 'Review this preview of your pledge'
       find('#pledge-next').click
       check 'I sent the pledge'
       find('#pledge-next').click

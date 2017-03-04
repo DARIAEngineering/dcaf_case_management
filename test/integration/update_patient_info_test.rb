@@ -28,6 +28,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Appointment date', with: @date
       fill_in 'Phone number', with: '123-666-8888'
       fill_in 'First and last name', with: 'Susie Everyteen 2'
+      select 'VA', from: 'Line'
       click_away_from_field
       wait_for_ajax
 
@@ -44,6 +45,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal '2', lmp_days.value
         assert has_field?('Appointment date', with: @date)
         assert has_field? 'Phone number', with: '123-666-8888'
+        assert has_field? 'Line', with: 'VA'
       end
     end
   end
