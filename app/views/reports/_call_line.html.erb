@@ -2,6 +2,7 @@
   <h2 class="border-bottom">Week of <%= week_range %></h2>
 
   <%= @weekly_report %>
+  <div id='chart-weekly_report'></div>
 
   <% lines.each do |line| %>
     <h3><%= link_to "#{line} Call Line", '#', class: 'line-header' %></h3>

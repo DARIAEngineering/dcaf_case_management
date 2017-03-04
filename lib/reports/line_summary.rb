@@ -13,6 +13,7 @@ module Reports
 
       def subreport_for_line(line, date_start, date_end)
         {
+          name: line,
           patients_contacted: Reporting::Patient.contacted_for_line(line, date_start, date_end),
           new_patients_contacted: Reporting::Patient.new_contacted_for_line(line, date_start, date_end),
           pledges_sent: Reporting::Patient.pledges_sent_for_line(line, date_start, date_end)

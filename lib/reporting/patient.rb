@@ -32,7 +32,7 @@ module Reporting
       def pledges_sent_for_line(line, start_date, end_date)
         ::Patient.where(_line: line).inject(0) do |acc, patient|
           if patient.pregnancy.pledge_sent
-            acc += (patient.pregnancy.dcaf_soft_pledge || 0)
+            acc += 1
           end
 
           acc
