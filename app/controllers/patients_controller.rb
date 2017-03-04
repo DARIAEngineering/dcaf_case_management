@@ -27,7 +27,7 @@ class PatientsController < ApplicationController
 
   def update
     if @patient.update_attributes patient_params
-      head :ok
+      respond_to { |format| format.js }
     else
       head :bad_request
     end
