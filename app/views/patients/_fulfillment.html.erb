@@ -5,6 +5,11 @@
       <div class="row">
         <div class="col-sm-12">
           <h2>Pledge Fulfillment</h2>
+          <p>Please confirm that the clinic and pledge amounts are correct:</p>
+          <ul>
+            <li>Clinic: <%= @patient.clinic_name %></li>
+            <li>DCAF Pledge Amount: $<%= @patient.pregnancy.dcaf_soft_pledge %></li>
+          </ul>
         </div>
       </div>
       <div class="row">
