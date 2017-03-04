@@ -17,7 +17,7 @@
         </div>  
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.datetime_picker :procedure_date, 
+            <%= pt.text_field :procedure_date,
                                   label: 'Procedure date',
                                   autocomplete: 'off', format: '%Y-%m-%d',
                                   placeholder: 'YYYY-MM-DD' %>
