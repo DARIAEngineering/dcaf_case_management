@@ -1,4 +1,14 @@
-<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable -->
+<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable, autosortable -->
+
+<%
+    # variables used for tables that can be sorted by column
+    string_sort = local_assigns[:autosortable] ? ' data-sort="string"' : ""
+    int_sort = local_assigns[:autosortable] ? ' data-sort="int"' : ""
+    float_sort = local_assigns[:autosortable] ? ' data-sort="float"' : ""
+
+    # this span will be replaced with an up or down arrow when the column is clicked
+    autosort_span = local_assigns[:autosortable] ? ' <span class="arrow">[-]</span>' : "";
+%>
 
 <div id="<%= table_type %>" class="margin-bottom">
   <h1 class="border-bottom title"><%= title %></h1>
@@ -11,8 +21,8 @@
         <th>Phone</th>
         <th>Name</th>
         <th>LMP</th>
-        <th>Status</th>
-        <th>Appt date</th>
+        <th<%= string_sort.html_safe %>>Status<%= autosort_span.html_safe %></th>
+        <th<%= string_sort.html_safe %>>Appt date<%= autosort_span.html_safe %></th>
         <th>Notes</th>
         <th></th>
         <th></th>
