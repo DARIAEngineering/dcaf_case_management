@@ -38,7 +38,7 @@ class ClinicsControllerTest < ActionController::TestCase
     end
 
     it 'should fail if fields not there' do
-      @new_clinic[:address] = ''
+      @new_clinic[:street_address] = ''
       assert_no_difference 'Clinic.count' do
         post :create, clinic: @new_clinic
       end

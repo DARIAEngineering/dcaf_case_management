@@ -143,9 +143,9 @@ patient_in_completed_calls.calls.create! status: 'Left voicemail',
                                         created_by: user
 
 # Seed a pair of clinics, Sample 1 and Sample 2
-Clinic.create! name: 'Sample Clinic 1 - DC', address: '123 Fake Street',
+Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
                city: 'Washington', state: 'DC', zip: '20011'
-Clinic.create! name: 'Sample Clinic 2 - VA', address: '123 Fake Street',
+Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
                city: 'Arlington', state: 'DC', zip: '22204'
                       
 # Log results
