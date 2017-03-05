@@ -49,3 +49,7 @@ h4.calls-phone {
   -moz-box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
   box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
 }
+
+#call_list th[data-sort], #completed_calls th[data-sort], #urgent_patients th[data-sort] {
+    cursor: pointer;
+}
