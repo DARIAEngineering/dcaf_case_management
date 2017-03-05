@@ -128,15 +128,15 @@ Patient.all.each do |patient|
 end
 
 # Adds 5 Patients to regular call list
-['Patient 0', 'Other Contact info - 1', 
- 'Clinic and Appt - 2', 
+['Patient 0', 'Other Contact info - 1',
+ 'Clinic and Appt - 2',
  'Pledge submitted - 3',
  'Resolved without DCAF - 5'].each do |patient_name|
   user.add_patient Patient.find_by name: patient_name
 end
 
 # Add Patient to completed calls list
-patient_in_completed_calls = 
+patient_in_completed_calls =
   Patient.find_by name: 'Special Circumstances - 4'
 user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create! status: 'Left voicemail',
@@ -147,7 +147,102 @@ Clinic.create! name: 'Sample Clinic 1 - DC', address: '123 Fake Street',
                city: 'Washington', state: 'DC', zip: '20011'
 Clinic.create! name: 'Sample Clinic 2 - VA', address: '123 Fake Street',
                city: 'Arlington', state: 'DC', zip: '22204'
-                      
+
+
+# Add some patients with pledges some of whom have
+# fulfillments for reporting testing for fulfillments
+10.times do |i|
+  flag = i.even? ? true : false
+
+  patient = Patient.create!(
+    name: "Reporting Patient #{i}",
+    primary_phone: "263-0#{i}0-002#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: flag,
+    line: i.even? ? 'DC' : 'MD',
+    created_by: User.first,
+    clinic_name: "Sample Clinic #{rand(2)}",
+    appointment_date: 10.days.from_now,
+  )
+
+  pregnancy = patient.build_pregnancy(
+    last_menstrual_period_weeks: 1,
+    last_menstrual_period_days: 7,
+    created_by: User.first,
+    naf_pledge: 2000,
+    procedure_cost: 4000,
+    procedure_date: 1.week.from_now,
+    dcaf_soft_pledge: 1000,
+    pledge_sent: true,
+    patient_contribution: 1000
+  ).save
+
+  if i.even?
+    patient.build_fulfillment(
+      created_by_id: User.first.id,
+      fulfilled: true
+    ).save
+  end
+end
+
+
+
+# Add some patients with calls for call reporting
+lines = ['DC', 'VA', 'MD']
+(1..5).each do |patient_number|
+  patient = Patient.create!(
+    name: "Reporting Patient #{patient_number}",
+    primary_phone: "287-0#{patient_number}0-002#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: patient_number.even? ? true : false,
+    line: lines[patient_number%3],
+    created_by: User.first,
+    clinic_name: "Sample Clinic #{rand(2)}",
+    appointment_date: 10.days.from_now,
+  )
+
+  # reached calls this month
+  (1..5).each do |call_number|
+    Call.create(
+      patient: patient,
+      status: 'Reached patient',
+      created_by: User.first,
+      created_at: (Time.now - call_number.days)
+    )
+  end
+
+  # not reached calls this month
+  (1..5).each do |call_number|
+    patient.build_call(
+      status: 'Left voicemail',
+      created_by: User.first,
+      created_at: Time.now - call_number.days
+    )
+  end
+end
+
+# we'll create 5 patients with calls this year
+(1..5).each do |patient_number|
+  patient = create(
+    :patient,
+    line: 'VA',
+    other_phone: '111-222-3333',
+    other_contact: 'Yolo'
+  )
+
+    # calls this year
+  (1..5).each do |call_number|
+    Timecop.freeze(Time.now - call_number.months - call_number.days) do
+      create(
+        :call,
+        patient: patient,
+        status: 'Reached patient'
+      )
+    end
+  end
+end
+
+
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "User created! Credentials are as follows: " \
@@ -155,4 +250,3 @@ puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      # "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
 
 # exit # so it doesn't try to run other rake tasks
-

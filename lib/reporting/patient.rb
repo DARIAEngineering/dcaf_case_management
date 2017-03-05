@@ -40,6 +40,45 @@ module Reporting
           count
         end
       end
+
+      def fulfillment_by_line
+        map = %Q{
+          function() {
+            if (this.pregnancy.pledge_sent) {
+              emit(this._line, { patient_id: this._id, fulfilled: this.fulfillment.fulfilled });
+            }
+          }
+        }
+
+        reduce = %Q{
+          function(key, values) {
+            var result = {
+              line: key,
+              fulfilled_count: 0,
+              pledged_count: 0
+            };
+
+            values.forEach(function(value) {
+              result.pledged_count += 1;
+
+              if (value.fulfilled) {
+                result.fulfilled_count += 1;
+              }
+            });
+
+            return result;
+          }
+        }
+
+        finalize = %Q{
+          function (key, reducedVal) {
+            reducedVal.rate = reducedVal.fulfilled_count/reducedVal.pledged_count;
+            return reducedVal;
+          };
+        }
+
+        results = Patient.map_reduce(map, reduce).out(inline: 1).finalize(finalize)
+      end
     end
   end
 end
