@@ -44,4 +44,14 @@ ready = ->
   if $("#patient_pregnancy_procedure_cost").val()
     updateBalance()
 
+  # put a help icon next to form field labels that have the "tooltip-header" class
+  # the text that shows up in the tooltip is from the label's corresponding form field's "data-tooltip-text" attribute
+  $( '.tooltip-header' ).append( ' <span class="tooltip-header-help">(?)</span>' )
+  $( '.tooltip-header' ).parent( '.form-group' ).find( '.form-control' ).each ->
+    $(@).parents( '.form-group' ).find( '.tooltip-header-help' ).tooltip( {
+      html: true,
+      placement: 'top',
+      title: $(@).data( 'tooltip-text' )
+    } )
+
 $(document).on 'ready page:load', ready

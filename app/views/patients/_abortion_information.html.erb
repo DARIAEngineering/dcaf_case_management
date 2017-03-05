@@ -58,7 +58,7 @@
               <%= f.fields_for patient.pregnancy do |pt| %>
                 <%= pt.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
                 <%= pt.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
-                <%= pt.number_field :dcaf_soft_pledge, label: 'DCAF pledge', autocomplete: 'off', prepend: '$' %>
+                <%= pt.number_field :dcaf_soft_pledge, label: 'DCAF pledge', autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': dcaf_pledge_limit_help_text() } %>
               <% end %>
             </div>
           </div>
