@@ -17,6 +17,7 @@ gem 'mongoid-history', '~> 0.5.0'
 gem 'mongoid_userstamp'
 gem 'bson_ext'
 gem 'figaro'
+gem 'gon', '~> 6.1.0'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
 gem 'nokogiri', '>= 1.6.8'
@@ -31,6 +32,7 @@ gem 'rack-test', '~> 0.6.3', require: 'rack/test'
 gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
 
 group :development do
+  gem 'pry'
   gem 'web-console', '~> 2.0'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
