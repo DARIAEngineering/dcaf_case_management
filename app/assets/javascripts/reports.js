@@ -1,6 +1,9 @@
 $(function() {
   ['weekly_report', 'monthly_report', 'yearly_report'].forEach(function(reportName) {
     var chart = c3.generate({
+      transition: {
+        duration: 2000
+      },
       bindto: '#chart-' + reportName,
       data: {
           json: [
