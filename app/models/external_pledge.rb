@@ -18,7 +18,7 @@ class ExternalPledge
   field :active, type: Boolean, default: true
 
   # Validations
-  validates :created_by, :source, :amount, presence: true
+  validates :created_by_id, :source, :amount, presence: true
   validates :source, uniqueness: { scope: :active }
 
   # History and auditing
