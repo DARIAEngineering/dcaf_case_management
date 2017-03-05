@@ -202,21 +202,23 @@ lines = ['DC', 'VA', 'MD']
   )
 
   # reached calls this month
-  (1..5).each do |call_number|
-    Call.create(
+  5.times do
+    Call.create!(
       patient: patient,
       status: 'Reached patient',
       created_by: User.first,
-      created_at: (Time.now - call_number.days)
+      created_at: (Time.now - rand(10).days)
     )
   end
 
   # not reached calls this month
-  (1..5).each do |call_number|
-    patient.build_call(
-      status: 'Left voicemail',
+  # reached calls this month
+  5.times do
+    Call.create!(
+      patient: patient,
+      status: 'Reached patient',
       created_by: User.first,
-      created_at: Time.now - call_number.days
+      created_at: (Time.now - rand(10).days - 10.days)
     )
   end
 end
