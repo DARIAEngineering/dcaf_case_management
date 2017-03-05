@@ -9,14 +9,23 @@ class Clinic
 
   # Fields
   field :name, type: String
-  field :address, type: String
+  field :street_address, type: String
   field :city, type: String
   field :state, type: String
   field :zip, type: String
+  field :phone, type: String
   field :active, type: Boolean, default: true
+  field :accepts_naf, type: Boolean, default: false
+  field :gestational_limit, type: Integer
+  field :costs_9wks, type: Integer
+  field :costs_12wks, type: Integer
+  field :costs_18wks, type: Integer
+  field :costs_24wks, type: Integer
+  field :costs_30wks, type: Integer
+
 
   # Validations
-  validates :name, :address, :city, :state, :zip, presence: true
+  validates :name, :street_address, :city, :state, :zip, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
