@@ -12,7 +12,8 @@ module WelcomeMessageHelper
       'You are making choice a reality for the people you serve.',
       "Keep up the good work, you're doing great!",
       "We're all rooting for you!",
-      'We appreciate all that you do!'
+      'We appreciate all that you do!',
+      "From San Francisco with love!"
     ]
   end
 end
