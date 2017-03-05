@@ -94,7 +94,7 @@ Current UX and wireframe assets are available [here](https://github.com/colinxfl
 
 By and large, we are executing on the fantastic work of the design team.
 
-The stack we use is Rails 4, MongoDB, PhantomJS and Capybara for integration tests, and `rails_bootstrap_forms` for forms. Nearly everything else is out of the box.
+The stack we use is Rails, MongoDB, PhantomJS and Capybara for integration tests, and `rails_bootstrap_forms` for forms. Nearly everything else is out of the box.  Are you new to any of the technologies in the DCAF stack? We have a handy page for more on [our stack, domain, and links to useful documentation](docs/TECH_STACK_INTRO.md).
 
 **We prioritize inclusivity of all skill levels on this project** -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
 
