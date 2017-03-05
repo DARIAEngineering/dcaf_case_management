@@ -15,7 +15,8 @@ module WelcomeMessageHelper
       'We appreciate all that you do!',
       "From San Francisco with love!",
       "You're a real gem - the client_finder gem team",
-      "You're rad and your work is much appreciated!"
+      "You're rad and your work is much appreciated!",
+      "The work that you do is essential and helps so many people!"
     ]
   end
 end
