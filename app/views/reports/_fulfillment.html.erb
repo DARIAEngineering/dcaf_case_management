@@ -1,0 +1,15 @@
+<div class="report-section">
+  <h2 class="border-bottom">Fulfillment</h2>
+  <div id='chart-fulfillment'></div>
+  <div class="row">
+    <% lines.each do |line| %>
+      <div class="col-sm-4">
+        <h3><%= link_to line, '#', class: 'line-header' %></h3>
+        <% fulfillment_info = @fulfillment_report[:fulfillment_by_line].select { |entry| entry[:name] == line.to_s }.first %>
+        <p>Pledges: <strong><%= fulfillment_info[:pledged_count] %></strong></p>
+        <p>Fulfillments: <strong><%= fulfillment_info[:fulfilled_count] %></strong></p>
+        <p>Fulfillment rate: <strong><%= fulfillment_info[:fulfillment_rate] %></strong></p>
+      </div>
+    <% end %>
+  </div>
+</div>

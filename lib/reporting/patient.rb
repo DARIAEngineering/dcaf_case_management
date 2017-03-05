@@ -73,12 +73,21 @@ module Reporting
 
         finalize = %Q{
           function (key, reducedVal) {
-            reducedVal.rate = reducedVal.fulfilled_count/reducedVal.pledged_count;
+            reducedVal.fulfillment_rate = reducedVal.fulfilled_count/reducedVal.pledged_count;
             return reducedVal;
           };
         }
 
-        results = Patient.map_reduce(map, reduce).out(inline: 1).finalize(finalize)
+        output = ::Patient.map_reduce(map, reduce).out(inline: 1).finalize(finalize).entries
+
+        output.map do |entry|
+          {
+            name: entry['_id'],
+            fulfilled_count: entry['value']['fulfilled_count'],
+            pledged_count: entry['value']['pledged_count'],
+            fulfillment_rate: entry['value']['fulfillment_rate']
+          }
+        end
       end
 
       def fulfillment_by_clinic
@@ -113,12 +122,21 @@ module Reporting
 
         finalize = %Q{
           function (key, reducedVal) {
-            reducedVal.rate = reducedVal.fulfilled_count/reducedVal.pledged_count;
+            reducedVal.fulfillment_rate = reducedVal.fulfilled_count/reducedVal.pledged_count;
             return reducedVal;
           };
         }
 
-        results = Patient.map_reduce(map, reduce).out(inline: 1).finalize(finalize)
+        output = ::Patient.map_reduce(map, reduce).out(inline: 1).finalize(finalize).entries
+
+        output.map do |entry|
+          {
+            name: entry['_id'],
+            fulfilled_count: entry['value']['fulfilled_count'],
+            pledged_count: entry['value']['pledged_count'],
+            fulfillment_rate: entry['value']['fulfillment_rate']
+          }
+        end
       end
     end
   end
