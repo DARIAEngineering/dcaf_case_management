@@ -31,8 +31,10 @@ module Reporting
 
       def pledges_sent_for_line(line, start_date, end_date)
         ::Patient.where(_line: line).inject(0) do |acc, patient|
-          if patient.pregnancy.pledge_sent
-            acc += 1
+          if patient.pregnancy.try(:pledge_sent)
+            if patient.pregnancy.updated_at > start_date && patient.pregnancy.updated_at < end_date
+              acc += 1
+            end
           end
 
           acc
