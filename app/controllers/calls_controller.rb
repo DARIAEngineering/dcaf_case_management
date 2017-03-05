@@ -1,6 +1,6 @@
 # Create method for calls, plus triggers for modal behavior
 class CallsController < ApplicationController
-  before_action :find_patient, only: [:create]
+  before_action :find_patient, only: [:create, :destroy]
 
   def create
     @call = @patient.calls.new call_params
@@ -10,8 +10,18 @@ class CallsController < ApplicationController
     elsif @call.save
       respond_to { |format| format.js }
     else
-      flash[:alert] = 'Call failed to save! Please submit the call again.'
-      redirect_to root_path
+      head :bad_request
+    end
+  end
+
+  def destroy
+    call = @patient.calls.find params[:id]
+    if call.created_by != current_user || !call.recent?
+      head :forbidden
+    elsif call.destroy
+      respond_to { |format| format.js }
+    else
+      head :bad_request
     end
   end
 
