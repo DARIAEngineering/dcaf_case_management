@@ -9,7 +9,7 @@
   <% clinics.each do |clinic| %>
     <tr>
       <% clinic_fields.each do |field| %>
-        <td><%= clinic[field] %></td>
+        <td><%= clinic[field].to_s.titleize %></td>
       <% end %>
     </tr>
   <% end %>
