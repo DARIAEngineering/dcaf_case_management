@@ -77,8 +77,8 @@ class PatientsController < ApplicationController
       clinic: [:id, :name, :street_address_1, :street_address_2,
                :city, :state, :zip],
       pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
-                  :resolved_without_dcaf, :procedure_cost, :pledge_sent,
-                  :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
+                  :resolved_without_dcaf, :referred_to_clinic, :procedure_cost,
+                  :pledge_sent, :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
       special_circumstances: [],
       fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
                     :procedure_cost, :check_number, :check_date]

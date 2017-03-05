@@ -1,4 +1,6 @@
 <%= render '/shared/multi_modal', disable_next: disable_continue?(patient), :captured => capture { %>
+
+<% if not patient.pregnancy.pledge_sent %>
   <div class="row hide" data-step="1" data-title="Confirm the following information is correct:">
     <% if patient.pregnancy.pledge_info_present? %>
       <% patient.pregnancy.pledge_info_errors.each do |error| %>
@@ -28,4 +30,21 @@
       <% end %>
     </div>
   </div>
+<% else %>
+  <div class="row hide" data-step="1" data-title="Cancel pledge:">
+    <p class="col-sm-12">If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page.</p>
+  </div>
+
+  <div class="row hide" data-step="2" data-title="Cancel pledge:">
+    <p class="col-sm-12">To confirm you want to cancel this pledge, please uncheck the check box below.</p>
+    <div class="col-sm-12">
+      <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
+        <%= f.fields_for patient.pregnancy do |p| %>
+          <%= p.check_box :pledge_sent, label: 'Uncheck this box to rescind the pledge' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
 <% } %>

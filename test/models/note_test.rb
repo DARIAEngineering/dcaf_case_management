@@ -19,10 +19,8 @@ class NoteTest < ActiveSupport::TestCase
       refute @note.valid?
     end
 
-    it 'requires a real user' do
-      @note.created_by_id = nil
-      refute @note.valid?
-      @note.created_by_id = 'not a user'
+    it 'requires a creator' do
+      @note.created_by = nil
       refute @note.valid?
     end
   end

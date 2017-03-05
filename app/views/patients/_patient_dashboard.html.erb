@@ -24,7 +24,7 @@
 
   <div class="col-sm-4">
     <div class="row">
-      <%= f.datetime_picker :appointment_date, label: 'Appointment date', autocomplete: 'off', format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD', help: "Approx gestation at appt: #{patient.pregnancy.last_menstrual_period_at_appt}" %>
+      <%= f.text_field :appointment_date, label: 'Appointment date', autocomplete: 'off', format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD', help: "Approx gestation at appt: #{patient.pregnancy.last_menstrual_period_at_appt}" %>
     </div>
   </div>
 <% end %>

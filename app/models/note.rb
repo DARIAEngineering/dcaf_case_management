@@ -12,7 +12,7 @@ class Note
   field :full_text, type: String
 
   # Validations
-  validates :created_by, :full_text, presence: true
+  validates :created_by_id, :full_text, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

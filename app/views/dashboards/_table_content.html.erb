@@ -1,4 +1,4 @@
-<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable -->
+<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable, autosortable -->
 
 <div id="<%= table_type %>" class="margin-bottom">
   <h1 class="border-bottom title"><%= title %></h1>
@@ -11,8 +11,8 @@
         <th>Phone</th>
         <th>Name</th>
         <th>LMP</th>
-        <th>Status</th>
-        <th>Appt date</th>
+        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Status<%= autosort_arrow_span(local_assigns).html_safe %></th>
+        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Appt date<%= autosort_arrow_span(local_assigns).html_safe %></th>
         <th>Notes</th>
         <th></th>
         <th></th>
