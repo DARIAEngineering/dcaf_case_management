@@ -22,7 +22,6 @@ Rails.application.routes.draw do
     resources :clinics, only: [:index, :create, :update, :new, :destroy]
     get 'clinicfinder', to: 'clinicfinders#index', as: 'clinicfinder'
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
-    resources :clinicfinders, only: [:index]
   end
   root :to => redirect('/users/sign_in')
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
