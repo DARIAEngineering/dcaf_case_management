@@ -1,22 +1,16 @@
 <h3><%= title %></h3>
-<table>
+<table class="table">
   <thead>
-    <th>Name</th>
-    <th>Address</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
-    <th>Accepts NAF</th>
+    <% labels.each do |label| %>
+      <th><%= label %></th>
+    <% end %>
   </thead>
   <tbody>
   <% clinics.each do |clinic| %>
     <tr>
-      <td><%= clinic %></td>
-      <td><%= clinic.street_address %></td>
-      <td><%= clinic.city %></td>
-      <td><%= clinic.state %></td>
-      <td><%= clinic.zip %></td>
-      <th><%= clinic.accepts_naf %></th>
+      <% clinic_fields.each do |field| %>
+        <td><%= clinic[field] %></td>
+      <% end %>
     </tr>
   <% end %>
   </tbody>
