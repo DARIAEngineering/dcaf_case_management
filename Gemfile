@@ -30,6 +30,8 @@ gem "omniauth-google-oauth2", "~> 0.2.1"
 gem 'rack-attack', '~> 5.0.1'
 gem 'rack-test', '~> 0.6.3', require: 'rack/test'
 gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
+gem 'clinic_finder', '~> 0.0.0'
+gem 'geokit'
 
 group :development do
   gem 'pry'
