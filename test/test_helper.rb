@@ -38,6 +38,8 @@ class ActionDispatch::IntegrationTest
   include OmniauthMocker
   OmniAuth.config.test_mode = true
 
+  before { Capybara.reset_sessions! }
+
   def log_in_as(user, line = 'DC')
     log_in user
     select_line line
