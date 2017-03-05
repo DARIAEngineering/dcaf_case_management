@@ -148,7 +148,6 @@ Clinic.create! name: 'Sample Clinic 1 - DC', address: '123 Fake Street',
 Clinic.create! name: 'Sample Clinic 2 - VA', address: '123 Fake Street',
                city: 'Arlington', state: 'DC', zip: '22204'
 
-
 # Add some patients with pledges some of whom have
 # fulfillments for reporting testing for fulfillments
 10.times do |i|
@@ -185,14 +184,12 @@ Clinic.create! name: 'Sample Clinic 2 - VA', address: '123 Fake Street',
   end
 end
 
-
-
 # Add some patients with calls for call reporting
 lines = ['DC', 'VA', 'MD']
 (1..5).each do |patient_number|
   patient = Patient.create!(
     name: "Reporting Patient #{patient_number}",
-    primary_phone: "287-0#{patient_number}0-002#{rand(10)}",
+    primary_phone: "297-0#{patient_number}0-002#{rand(10)}",
     initial_call_date: 3.days.ago,
     urgent_flag: patient_number.even? ? true : false,
     line: lines[patient_number%3],
@@ -225,22 +222,60 @@ end
 
 # we'll create 5 patients with calls this year
 (1..5).each do |patient_number|
-  patient = create(
-    :patient,
-    line: 'VA',
-    other_phone: '111-222-3333',
-    other_contact: 'Yolo'
+  patient = Patient.create!(
+    name: "Old Reporting Patient #{patient_number}",
+    primary_phone: "290-0#{patient_number}0-002#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: patient_number.even? ? true : false,
+    line: lines[patient_number%3],
+    created_by: User.first,
+    clinic_name: "Sample Clinic #{rand(2)}",
+    appointment_date: 10.days.from_now,
   )
 
-    # calls this year
-  (1..5).each do |call_number|
-    Timecop.freeze(Time.now - call_number.months - call_number.days) do
-      create(
-        :call,
-        patient: patient,
-        status: 'Reached patient'
-      )
-    end
+  # rcalls this year
+  5.times do
+    Call.create!(
+      patient: patient,
+      status: 'Reached patient',
+      created_by: User.first,
+      created_at: (Time.now - rand(10).days - 6.months)
+    )
+  end
+end
+
+# we'll create 5 patients with pledges at different times
+(1..5).each do |patient_number|
+  patient = Patient.create!(
+    name: "Pledge Reporting Patient #{patient_number}",
+    primary_phone: "190-0#{patient_number}0-002#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: patient_number.even? ? true : false,
+    line: lines[patient_number%3],
+    created_by: User.first,
+    clinic_name: "Sample Clinic #{rand(2)}",
+    appointment_date: 10.days.from_now,
+  )
+
+  [
+    Time.now,
+    Time.now - 2.days,
+    Time.now - 1.week,
+    Time.now - 2.weeks,
+    Time.now - 2.months,
+    Time.now - 3.months
+  ].each do |pledge_time|
+
+    creation_hash = {
+      created_by: User.first,
+      pledge_sent: true,
+      dcaf_soft_pledge: 1000,
+      updated_at: pledge_time,
+      created_at: pledge_time
+    }
+
+    pregnancy = patient.build_pregnancy(creation_hash)
+    pregnancy.save!
   end
 end
 
