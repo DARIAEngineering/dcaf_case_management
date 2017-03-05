@@ -11,7 +11,7 @@ class ClinicTest < ActiveSupport::TestCase
       assert @clinic.valid?
     end
 
-    [:name, :address, :city, :state, :zip].each do |attr|
+    [:name, :street_address, :city, :state, :zip].each do |attr|
       it "requires a #{attr}" do
         @clinic[attr] = nil
         refute @clinic.valid?
