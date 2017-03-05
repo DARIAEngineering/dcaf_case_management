@@ -2,12 +2,13 @@
 
 <%
     # variables used for tables that can be sorted by column
-    string_sort = local_assigns[:autosortable] ? ' data-sort="string"' : ""
-    int_sort = local_assigns[:autosortable] ? ' data-sort="int"' : ""
-    float_sort = local_assigns[:autosortable] ? ' data-sort="float"' : ""
+    string_sort = autosort_string_html_attr(local_assigns)
+    string_ins_sort = autosort_string_ins_html_attr(local_assigns)
+    int_sort = autosort_int_html_attr(local_assigns)
+    float_sort = autosort_float_html_attr(local_assigns)
 
     # this span will be replaced with an up or down arrow when the column is clicked
-    autosort_span = local_assigns[:autosortable] ? ' <span class="arrow">[-]</span>' : "";
+    autosort_span = autosort_arrow_span(local_assigns)
 %>
 
 <div id="<%= table_type %>" class="margin-bottom">
