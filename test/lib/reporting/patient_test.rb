@@ -36,7 +36,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
       end
     end
 
-      # we'll create 5 patients with calls this year
+    # we'll create 5 patients with calls this year
     (1..5).each do |patient_number|
       patient = create(
         :patient,
@@ -64,9 +64,43 @@ class ReportingPatientTest < ActiveSupport::TestCase
       assert_equal 5, month_num_contacted
 
       year_num_contacted = Reporting::Patient.contacted_for_line('VA', Time.now - 1.year, Time.now)
-      # require 'pry'
-      # binding.pry
       assert_equal 10, year_num_contacted
+    end
+  end
+
+  describe '#new_contacted_for_line' do
+    before do
+      # this patient should not appear in monthly because they were contacted first 2 months ago
+      # they should appear in yearly
+      patient = create(
+        :patient,
+        line: 'VA',
+        other_phone: '111-222-3333',
+        other_contact: 'Yolo'
+      )
+
+      # call from 2 months ago
+      Timecop.freeze(Time.now - 2.months) do
+        create(
+          :call,
+          patient: patient,
+          status: 'Reached patient'
+        )
+      end
+
+      # call from now
+      create(
+        :call,
+        patient: patient,
+        status: 'Reached patient'
+      )
+    end
+    it 'should return the correct amount of contacted patients for the first time in the timeframe' do
+      month_num_contacted = Reporting::Patient.new_contacted_for_line('VA', Time.now - 1.month, Time.now)
+      assert_equal 5, month_num_contacted
+
+      year_num_contacted = Reporting::Patient.new_contacted_for_line('VA', Time.now - 1.year, Time.now)
+      assert_equal 11, year_num_contacted
     end
   end
 end
