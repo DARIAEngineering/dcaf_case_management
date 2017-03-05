@@ -40,7 +40,7 @@
     <div class="col-sm-12">
       <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
         <%= f.fields_for patient.pregnancy do |p| %>
-          <%= p.check_box :pledge_sent, label: 'I sent the pledge' %>
+          <%= p.check_box :pledge_sent, label: 'Uncheck this box to rescind the pledge' %>
         <% end %>
       <% end %>
     </div>
