@@ -12,7 +12,11 @@
   </ul>
   <div class="row">
     <div class="col-sm-10">
-      <%= link_to submit_pledge_button, '#pledge-modal', class: 'submit-pledge-button', data: { toggle: 'modal' } %>
+      <% if not patient.pregnancy.pledge_sent %>
+        <%= link_to submit_pledge_button, '#pledge-modal', class: 'submit-pledge-button', data: { toggle: 'modal' } %>
+      <% else %>
+        <%= link_to cancel_pledge_button, '#pledge-modal', class: 'cancel-pledge-button', data: { toggle: 'modal' } %>
+      <% end %>
     </div>
   </div>
 </section>
