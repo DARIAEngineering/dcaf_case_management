@@ -32,7 +32,7 @@ class Pregnancy
   field :pledge_sent, type: Boolean
 
   # Validations
-  validates :created_by,
+  validates :created_by_id,
             presence: true
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
 

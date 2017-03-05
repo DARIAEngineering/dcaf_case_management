@@ -17,7 +17,7 @@ class Call
                       "Couldn't reach patient"]
   validates :status,  presence: true,
                       inclusion: { in: allowed_statuses }
-  validates :created_by, presence: true
+  validates :created_by_id, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
