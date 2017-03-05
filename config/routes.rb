@@ -19,9 +19,9 @@ Rails.application.routes.draw do
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
     resources :lines, only: [:new, :create]
-    resources :clinics, only: [:index, :create, :update, :new, :destroy]
     get 'clinicfinder', to: 'clinicfinders#index', as: 'clinicfinder'
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
+    resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
   end
   root :to => redirect('/users/sign_in')
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
