@@ -13,7 +13,8 @@ module WelcomeMessageHelper
       "Keep up the good work, you're doing great!",
       "We're all rooting for you!",
       'We appreciate all that you do!',
-      "From San Francisco with love!"
+      "From San Francisco with love!",
+      'You rock!'
     ]
   end
 end
