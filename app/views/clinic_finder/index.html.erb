@@ -1,0 +1,9 @@
+<h1>Clinic Finder</h1>
+
+<h3>Patient information</h3>
+
+<%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |f| %>
+  <%= f.number_field :patient_zip, label: 'Zip Code', autofocus: true %>
+  <%= f.number_field :gestational_age, label: 'Gestational Age' %>
+  <%= f.submit 'Find Clinics' %>
+<% end %>

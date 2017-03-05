@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
     resources :lines, only: [:new, :create]
     resources :clinics, only: [:index, :create, :update, :new, :destroy]
+    resources :clinic_finder, only: [:index]
   end
   root :to => redirect('/users/sign_in')
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
