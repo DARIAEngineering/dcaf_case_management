@@ -70,6 +70,13 @@ $font-size: 17px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
 }
 
+// empty add - char
+.blush:empty:before {
+  content: '\2013';
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
 // add spacing
 .margin-bottom {
   margin-bottom: 100px;

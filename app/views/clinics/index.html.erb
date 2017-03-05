@@ -9,10 +9,46 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <%= clinic.address %>, <%= clinic.city %>, <%= clinic.state %> <%= clinic.zip %>
+      <p><%= clinic.street_address %>, <%= clinic.city %>, <%= clinic.state %> <%= clinic.zip %></p>
+      <p><%= clinic.phone %></p>
     </div>
-    <div class="col-md-6">
-      Other stuff placeholder
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="collapse collapsible-clinic-details" id="<%= clinic.id %>">
+        <div class="additional-clinic-details">
+          <div class="accepts-naf clinic-detail-group">
+            <label>Accepts NAF?</label>
+            <p class="blush"><%= clinic.accepts_naf ? 'Yes' : 'No' %></p>
+          </div>
+          <div class="gestational-limit clinic-detail-group">
+            <label>Gestational Limit</label>
+            <p class="blush"><%= clinic.gestational_limit %></p>
+          </div>
+          <div class="clinic-costs clinic-detail-group">
+            <label>Clinic Costs</label>
+            <table class="clinic-costs-table table">
+              <thead>
+                <th>9 Weeks</th>
+                <th>12 Weeks</th>
+                <th>18 Weeks</th>
+                <th>24 Weeks</th>
+                <th>30 Weeks</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>$<span class="blush"><%= clinic.costs_9wks %></span></td>
+                  <td>$<span class="blush"><%= clinic.costs_12wks %></span></td>
+                  <td>$<span class="blush"><%= clinic.costs_18wks %></span></td>
+                  <td>$<span class="blush"><%= clinic.costs_24wks %></span></td>
+                  <td>$<span class="blush"><%= clinic.costs_30wks %></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <a role="button" class="clinic-detail-toggle" data-toggle="collapse" href="#<%= clinic.id %>" aria-expanded="false" aria-controls="<%= clinic.id %>">More details</a>
     </div>
   </div>
 <% end %>
