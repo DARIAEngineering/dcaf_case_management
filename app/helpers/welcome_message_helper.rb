@@ -8,12 +8,13 @@ module WelcomeMessageHelper
 
   def welcome_messages
     [
-      'Thank you! - Team CM',
-      'You are making choice a reality for the people you serve.',
+      "Thank you! - Team CM",
+      "You are making choice a reality for the people you serve.",
       "Keep up the good work, you're doing great!",
       "We're all rooting for you!",
       'We appreciate all that you do!',
-      "From San Francisco with love!"
+      "From San Francisco with love!",
+      "Thank you for fighting the good fight!"
     ]
   end
 end
