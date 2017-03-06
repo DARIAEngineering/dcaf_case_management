@@ -19,7 +19,11 @@ module LastMenstrualPeriodHelper
   private
 
   def last_menstrual_period_now
-    last_menstrual_period_on_date Time.zone.today
+    if patient.appointment_date && patient.appointment_date < Time.zone.today
+      last_menstrual_period_on_date patient.appointment_date
+    else
+      last_menstrual_period_on_date Time.zone.today
+    end
   end
 
   def last_menstrual_period_on_date(date)
