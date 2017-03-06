@@ -29,11 +29,10 @@ class ClinicsController < ApplicationController
   def update
     if @clinic.update_attributes clinic_params
       flash[:notice] = 'Successfully updated clinic details'
-      redirect_to clinics_path
     else
-      flash[:notice] = 'Error saving clinic details'
-      redirect_to clinics_path
+      flash[:alert] = 'Error saving clinic details'
     end
+    redirect_to clinics_path
   end
 
   def find_clinic
