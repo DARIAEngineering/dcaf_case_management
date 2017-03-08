@@ -1,0 +1,144 @@
+# A set of fake clinics with cost, geo, and naf data to use as stubs
+planned_parenthood_oakland:
+  street_address: 1001 Broadway
+  city: Oakland
+  state: CA
+  zip: 94607
+  accepts_naf: false
+  gestational_limit: 139
+  costs_9wks: 425
+  costs_12wks: 475
+  costs_18wks: 975
+  costs_24wks: null
+  costs_30wks: null
+
+planned_parenthood_san_fran:
+  street_address: 2430 Folsom
+  city: San Francisco
+  state: CA
+  zip: 94110
+  accepts_naf: false
+  gestational_limit: 111
+  costs_9wks: 300
+  costs_12wks: 325
+  costs_18wks: null
+  costs_18wks: null
+  costs_24wks: null
+  costs_30wks: null
+
+castro_family_planning:
+  street_address: 517 Castro
+  city: San Francisco
+  state: CA
+  zip: 94114
+  accepts_naf: true
+  gestational_limit: 126
+  costs_9wks: 295
+  costs_12wks: 425
+  costs_18wks: 1500
+  costs_24wks: null
+  costs_30wks: null
+
+silcon_valley_womens_clinic:
+  street_address: 110 S Market
+  city: San Jose
+  state: CA
+  zip: 95110
+  accepts_naf: true
+  gestational_limit: 98
+  costs_9wks: 375
+  costs_12wks: 400
+  costs_18wks: null
+  costs_24wks: null
+  costs_30wks: null
+
+discreet_treatment_centers_of_ca:
+  street_address: 570 Pacific
+  city: Monterey
+  state: CA
+  zip: 93940
+  accepts_naf: false
+  gestational_limit: 154
+  costs_9wks: 400
+  costs_12wks: 400
+  costs_18wks: 1150
+  costs_24wks: null
+  costs_30wks: null
+
+albuquerque_medical_center:
+  street_address: 1801 Mountain NW
+  city: Albuquerque
+  state: NM
+  zip: 87104
+  accepts_naf: true
+  gestational_limit: 210
+  costs_9wks: 300
+  costs_12wks: 325
+  costs_18wks: 1100
+  costs_24wks: 4000
+  costs_30wks: 9500
+
+butte_health_clinic:
+  street_address: 7473 Humboldt
+  city: Butte Meadows
+  state: CA
+  zip: 95942
+  accepts_naf: true
+  gestational_limit: 111
+  costs_9wks: 350
+  costs_12wks: 400
+  costs_18wks: null
+  costs_24wks: null
+  costs_30wks: null
+
+planned_parenthood_fresno:
+  street_address: 2220 Tulare
+  city: Fresno
+  state: CA
+  zip: 93721
+  accepts_naf: false
+  gestational_limit: 97
+  costs_9wks: 425
+  costs_12wks: 475
+  costs_18wks: null
+  costs_24wks: null
+  costs_30wks: null
+
+womens_health_of_venice_beach:
+  street_address: 2025 Pacific
+  city: Los Angeles
+  state: CA
+  zip: 90291
+  accepts_naf: true
+  gestational_limit: 119
+  costs_9wks: 350
+  costs_12wks: 350
+  costs_18wks: null
+  costs_24wks: null
+  costs_30wks: null
+
+planned_parenthood_la:
+  street_address: 3900 W Manchester
+  city: Los Angeles
+  state: CA
+  zip: 90305
+  accepts_naf: false
+  gestational_limit: 146
+  costs_9wks: 415
+  costs_12wks: 460
+  costs_18wks: 1450
+  costs_24wks: null
+  costs_30wks: null
+
+la_medical_center:
+  street_address: 5905 Wilshire
+  city: Los Angeles
+  state: CA
+  zip: 90036
+  accepts_naf: true
+  gestational_limit: 168
+  costs_9wks: 400
+  costs_12wks: 400
+  costs_18wks: 1600
+  costs_24wks: 3000
+  costs_30wks: null
