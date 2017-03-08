@@ -16,9 +16,13 @@ module WelcomeMessageHelper
       "From San Francisco with love!"
       "You're a real gem - the client_finder gem team"
       "You're rad and your work is much appreciated!"
-      "You are amazing and we all appreciate you!"
-      "Have no fear, Team CM is here!"
-      "Thanks for rocking our socks!"
+      "From San Francisco with love!",
+      "You're a real gem - the client_finder gem team",
+      "You're rad and your work is much appreciated!",
+      "Thanks for rocking our socks!",
+      "You are amazing and we all appreciate you!",
+      "Have no fear, Team CM is here!",
+      "The work that you do is essential and helps so many people!"
     ]
   end
 end
