@@ -59,7 +59,7 @@ $font-size: 17px;
       
     }
   }
-  a.submit-btn {
+  a.submit-btn, a.cancel-btn {
     font-size: 22px;
   }
 
@@ -81,19 +81,11 @@ $font-size: 17px;
   }
 }
 
-#submit-pledge-button {
+#submit-pledge-button, #cancel-pledge-button {
   font-size: 22px;
   font-weight: bold;
 }
 
-a.submit-pledge-button {
+a.submit-pledge-button, a.cancel-pledge-button {
   text-decoration: none;
 }
-
-
-
-
-
-
-
-
