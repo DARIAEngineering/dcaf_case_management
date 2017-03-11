@@ -1,0 +1,24 @@
+<%= bootstrap_form_for @clinic do |f| %>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="info-form-left col-sm-6">
+        <%= f.text_field :name, autocomplete: 'off' %>
+        <%= f.text_field :street_address, autocomplete: 'off' %>
+        <%= f.text_field :city, autocomplete: 'off' %>
+        <%= f.text_field :state, autocomplete: 'off' %>
+        <%= f.text_field :zip, autocomplete: 'off' %>
+        <%= f.text_field :phone, autocomplete: 'off', pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
+        <%= f.check_box :accepts_naf, autocomplete: 'off' %>
+      </div>
+      <div class="info-form-right col-sm-6">
+        <%= f.number_field :gestational_limit, autocomplete: 'off' %>
+        <%= f.number_field :costs_9wks, autocomplete: 'off' %>
+        <%= f.number_field :costs_12wks, autocomplete: 'off' %>
+        <%= f.number_field :costs_18wks, autocomplete: 'off' %>
+        <%= f.number_field :costs_24wks, autocomplete: 'off' %>
+        <%= f.number_field :costs_30wks, autocomplete: 'off' %>
+      </div>
+    </div>
+    <%= f.submit label %>
+  </div>
+<% end %>

@@ -4,7 +4,10 @@
 <% @clinics.each do |clinic| %>
   <div class="row">
     <div class="col-sm-12">
-      <h3><%= clinic.name %></h3>
+      <h3 class="clinic-name"><%= clinic.name %></h3>
+      <span class="edit-clinic-details">
+        <%= link_to 'Edit', edit_clinic_path(clinic) %>
+      </span>
     </div>
   </div>
   <div class="row">
