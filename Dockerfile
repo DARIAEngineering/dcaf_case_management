@@ -19,7 +19,7 @@ RUN apk update && apk upgrade && \
     ${BUILD_DEPENDENCIES} \
     ${APP_DEPENDENCIES} && \
     gem install bundler --no-ri --no-rdoc && \
-    cd ${DCAF_DIR} ; bundle install --without development test && \
+    cd ${DCAF_DIR} ; bundle install && \
     apk del ${BUILD_DEPENDENCIES} 
 
 # symlink which nodejs to node
