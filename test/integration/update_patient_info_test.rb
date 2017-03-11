@@ -30,6 +30,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       click_away_from_field
       wait_for_ajax
+      sleep 5 # out of ideas
 
       visit authenticated_root_path
       visit edit_patient_path @patient
@@ -63,6 +64,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'Abortion cost', with: '300' # hack
       click_away_from_field
       wait_for_ajax
+      sleep 5 # out of ideas
 
       reload_page_and_click_link 'Abortion Information'
     end
@@ -108,6 +110,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       check 'Prison'
       click_away_from_field
       wait_for_ajax
+      sleep 5 # out of ideas
 
       reload_page_and_click_link 'Patient Information'
     end
@@ -146,6 +149,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         click_link 'Patient Information'
         visit edit_patient_path @patient
         select 'MD', from: 'patient_line'
+        sleep 5 # out of ideas
 
         click_away_from_field
         wait_for_ajax
@@ -183,6 +187,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
       click_away_from_field
       wait_for_ajax
+      sleep 5 # out of ideas
 
       reload_page_and_click_link 'Pledge Fulfillment'
     end
