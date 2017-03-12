@@ -7,7 +7,7 @@
 [A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/)
 
 
-## Next major project milestone: April 1: Launch to Baltimore!
+## Next major project milestone: June 15: Launch to Baltimore!
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
@@ -22,6 +22,8 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 
 
 ## Contributing to this Project
+
+### [If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](docs/YOUR_FIRST_CONTRIBUTION.md)
 
 ### tl;dr
 * We run on forks and pull requests
