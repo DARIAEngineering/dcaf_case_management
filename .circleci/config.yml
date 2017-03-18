@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
           name: Install System Dependencies
-          command: apt-get update -qq && apt-get install -y build-essential nodejs
+          command: apt-get update -qq && apt-get install -y build-essential nodejs && npm install -g phantomjs-prebuilt
       - run:
           name: Install dependencies
           command: bundle install
