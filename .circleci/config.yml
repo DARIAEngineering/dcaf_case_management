@@ -9,7 +9,10 @@ jobs:
       - checkout
       - run:
           name: Install System Dependencies
-          command: apt-get update -qq && apt-get install -y build-essential nodejs && ln -s `which nodejs` /usr/bin/node && npm install -g phantomjs-prebuilt
+          command: apt-get update -qq && apt-get install -y build-essential nodejs
+      - run:
+          name: Symlink node and install phantom
+          command: ln -s `which nodejs` /usr/bin/node && npm install -g phantomjs-prebuilt
       - run:
           name: Install dependencies
           command: bundle install
