@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: bundle install
+          command: gem install bundler && bundle install
       - run:
           name: Run tests
           command: bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS"
