@@ -3,14 +3,15 @@ jobs:
   build:
     working_directory: ~/dcaf_case_management
     docker:
-      - image: buildpack-deps:trusty
+      - image: ruby:2.3
       - image: mongo
     steps:
-      - run: pwd
-      - run: ls
       # - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh nodejs && gem install bundler
       # - run: ln -s `which nodejs` /usr/bin/node
       - checkout
+      - run:
+          name: Install System Dependencies
+          command: apt-get update -qq && apt-get install -y build-essential nodejs
       - run:
           name: Install dependencies
           command: gem install bundler && bundle install
