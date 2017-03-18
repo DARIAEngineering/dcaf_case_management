@@ -6,9 +6,6 @@ jobs:
       - image: colinxfleming/dcaf_case_management
       - image: mongo
     steps:
-      - checkout
-      - restore_cache:
-          key: projectname-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install dependencies
           command: bundle install
