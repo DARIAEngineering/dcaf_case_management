@@ -3,9 +3,10 @@ jobs:
   build:
     working_directory: ~/dcaf_case_management
     docker:
-      - image: colinxfleming/dcaf_case_management
+      - image: buildpack-deps:trusty
       - image: mongo
     steps:
+      - checkout
       - run:
           name: Install dependencies
           command: bundle install
