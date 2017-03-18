@@ -6,8 +6,6 @@ jobs:
       - image: ruby:2.3
       - image: mongo
     steps:
-      # - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh nodejs && gem install bundler
-      # - run: ln -s `which nodejs` /usr/bin/node
       - checkout
       - run:
           name: Install System Dependencies
@@ -17,7 +15,9 @@ jobs:
           command: bundle install
       - run:
           name: Run tests
-          command: bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS"
+          command: bundle exec rake test
+
+  # ported
   # machine:
   #   ruby:
   #     version: 2.3.3
