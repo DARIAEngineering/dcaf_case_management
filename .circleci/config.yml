@@ -3,12 +3,13 @@ jobs:
   build:
     working_directory: ~/dcaf_case_management
     docker:
-      - image: ruby:2.3.3-alpine
-      - image: mongo
+      - image: colinxfleming/dcaf_case_management
+      # - image: mongo
     steps:
       - run: pwd
       - run: ls
-      - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh && gem install bundler
+      # - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh nodejs && gem install bundler
+      
       - checkout
       - run:
           name: Install dependencies
