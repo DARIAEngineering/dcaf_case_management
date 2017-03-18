@@ -6,12 +6,13 @@ jobs:
       - image: ruby:2.3.3-alpine
       - image: mongo
     steps:
-      - run: pwd && ls
-      - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh
+      - run: pwd
+      - run: ls
+      - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh && gem install bundler
+      - checkout
       - run:
           name: Install dependencies
-          command: gem install bundler && bundle install
-      - checkout
+          command: bundle install
       - run:
           name: Run tests
           command: bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS"
