@@ -3,7 +3,10 @@ jobs:
   build:
     working_directory: ~/dcaf_case_management
     docker:
-      - image: buildpack-deps:trusty
+      - image: ruby:2.3.3-alpine
+        command: 
+          - apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh
+          - gem install bundler
       - image: mongo
     steps:
       - checkout
