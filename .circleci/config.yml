@@ -8,8 +8,8 @@ jobs:
     steps:
       - run: pwd
       - run: ls
-      # - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh nodejs && gem install bundler
-      
+      - run: apk update && apk upgrade && apk add --no-cache build-base libxml2-dev libxslt-dev linux-headers bash git openssh nodejs
+
       - checkout
       - run:
           name: Install dependencies
