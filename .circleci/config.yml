@@ -15,11 +15,11 @@ jobs:
         - run:
             name: Run tests
             command: bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS"
-  machine:
-    ruby:
-      version: 2.3.3
-    services:
-      - docker
+  # machine:
+  #   ruby:
+  #     version: 2.3.3
+  #   services:
+  #     - docker
 
 # deployment:
 #   staging:
