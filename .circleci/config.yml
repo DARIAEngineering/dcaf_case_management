@@ -1,20 +1,19 @@
 version: '2'
 jobs:
   build:
-     working_directory: /usr/src/app
-     docker:
-        - image: ruby:2.3.3-alpine
-        - image: mongo
-      steps:
-        - checkout
-        - restore_cache:
-            key: projectname-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-        - run:
-            name: Install dependencies
-            command: bundle install
-        - run:
-            name: Run tests
-            command: bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS"
+    docker:
+      - image: ruby:2.3.3-alpine
+      - image: mongo
+    steps:
+      - checkout
+      - restore_cache:
+          key: projectname-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Install dependencies
+          command: bundle install
+      - run:
+          name: Run tests
+          command: bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS"
   # machine:
   #   ruby:
   #     version: 2.3.3
