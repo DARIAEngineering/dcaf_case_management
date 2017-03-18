@@ -2,9 +2,9 @@ version: '2'
 jobs:
   build:
     working_directory: ~/dcaf_case_management
-    # docker:
-    #   - image: ruby:2.3.3
-    #   - image: mongo
+    docker:
+      - image: colinxfleming/dcaf_case_management
+      - image: mongo
     steps:
       - checkout
       - restore_cache:
