@@ -18,7 +18,10 @@ jobs:
           command: bundle install
       - run:
           name: Run tests
-          command: bundle exec rake test
+          command: circleci tests glob "test/**/*.rb" | circleci tests split
+
+          # bundle exec rake test
+
 
   # ported
   # machine:
