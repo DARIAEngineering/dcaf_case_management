@@ -18,7 +18,7 @@ jobs:
           command: bundle install
       - run:
           name: Run tests
-          command: circleci tests glob "test/**/*_test.rb" | tests=${circleci tests split} | rake test TEST=${tests}
+          command: circleci tests glob "test/**/*_test.rb" | circleci tests split | while read file; do rake test TEST=${file}; done
 
           # bundle exec rake test
 
