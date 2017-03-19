@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
-# require 'rails/all'
+# rails 5 add
+require 'rails/all'
 
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
@@ -34,5 +35,8 @@ module DcafCaseManagement
 
     # Throttling protection
     config.middleware.use Rack::Attack
+
+    # Raise errors in transactional callbacks, rails 5 add
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end
