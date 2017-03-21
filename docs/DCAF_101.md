@@ -2,7 +2,7 @@
 
 DCAF has many volunteer **case managers** who answer **patient** calls coming in through a hotline phone number and voicemail. DCAF case management software helps the case managers keep track of patient status and needs.
 
-The workflow is similar to many Customer Relationship Manager (CRM) systems. After patients leave a voicemail, the case managers (our users) return their calls and assist patients in navigating the process of scheduling an appointment and raising funds. If the patient is short on money, after a series of phone calls we issue a pledge to support their visit to a clinic. If a patient takes advantage of the pledge and complete their abortion, our accounting team logs that as a **fulfillment**.
+The workflow is similar to many Customer Relationship Manager (CRM) systems. After patients leave a voicemail, the case managers (our users) return their calls and assist patients in navigating the process of scheduling an appointment and raising funds. If the patient is short on money, after a series of phone calls we issue a **pledge** to support their visit to a clinic. If a patient takes advantage of the pledge and complete their abortion, our accounting team logs that as a **fulfillment**.
 
 [![DCAF High Level User Flow](https://cloud.githubusercontent.com/assets/12372787/11200243/45b1a5de-8ca2-11e5-876c-da0f738041f0.jpg)](https://cloud.githubusercontent.com/assets/12372787/11200243/45b1a5de-8ca2-11e5-876c-da0f738041f0.jpg)
 
