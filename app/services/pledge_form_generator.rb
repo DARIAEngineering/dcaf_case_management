@@ -8,7 +8,7 @@ class PledgeFormGenerator
 
 
   def patient_amount
-    @patient.pregnancy.dcaf_soft_pledge + @patient.pregnancy.naf_pledge
+    @patient.pregnancy.dcaf_soft_pledge
   end
 
   # TODO when clinics actually exist instead of just name, do this
