@@ -51,7 +51,9 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     it 'should show a link to the pledge fulfillment tab after pledge sent' do
       find('#submit-pledge-button').click
       find('#pledge-next').click
+      assert has_text? 'Download your pledge here!'
       find('#pledge-next').click
+      wait_for_ajax
       check 'I sent the pledge'
       find('#pledge-next').click
       wait_for_no_element 'Submit and send your pledge'
@@ -86,6 +88,9 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       check 'I sent the pledge'
       find('#pledge-next').click
+      wait_for_no_element 'Submit and send your pledge'
+      wait_for_ajax
+
       visit authenticated_root_path
       visit edit_patient_path @patient
 

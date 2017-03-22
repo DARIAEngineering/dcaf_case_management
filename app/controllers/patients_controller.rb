@@ -1,6 +1,6 @@
 # Create and update patients, plus the main patient view in edit
 class PatientsController < ApplicationController
-  before_action :find_patient, only: [:edit, :update]
+  before_action :find_patient, only: [:edit, :update, :download]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
 
@@ -18,6 +18,11 @@ class PatientsController < ApplicationController
 
     current_user.add_patient patient
     redirect_to root_path
+  end
+
+  def download
+    pdf = PledgeFormGenerator.new(current_user, @patient).generate_pledge_pdf
+    send_data pdf.render, filename: "#{@patient.name}_pledge_form.pdf", type: "application/pdf"
   end
 
   def edit

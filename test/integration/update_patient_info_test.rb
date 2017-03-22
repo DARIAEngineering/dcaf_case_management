@@ -223,6 +223,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   end
 
   def click_away_from_field
+    find("body").click
     fill_in 'First and last name', with: nil
     wait_for_ajax
   end
