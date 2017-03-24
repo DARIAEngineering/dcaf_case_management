@@ -92,20 +92,20 @@ class PledgeFormGenerator
     pdf.bounding_box([25, pdf.cursor], width: 475, height: 130) do
       pdf.transparent(0.5) { pdf.stroke_bounds }
       pdf.move_down 10
-      pdf.text "<b><i>This section to be filled out by clinic only (DCAF will only be liable for pledges billed within two months of procedure date).</i></b>", align: :left, indent_paragraphs: 5, size: 8, inline_format: true
+      pdf.text '<b><i>This section to be filled out by clinic only (DCAF will only be liable for pledges billed within two months of procedure date).</i></b>', align: :left, indent_paragraphs: 5, size: 8, inline_format: true
       pdf.move_down 10
       pdf.text "Patient's weeks of pregnancy at date of procedure: _________________", align: :left, style: :bold, indent_paragraphs: 5
       pdf.move_down 10
-      pdf.text "Date on which procedure was completed: _________________________", align: :left, style: :bold, indent_paragraphs: 5
+      pdf.text 'Date on which procedure was completed: _________________________', align: :left, style: :bold, indent_paragraphs: 5
       pdf.move_down 10
-      pdf.text "Signature of Clinic Administrator: ________________________________", align: :left, style: :bold, indent_paragraphs: 5
+      pdf.text 'Signature of Clinic Administrator: ________________________________', align: :left, style: :bold, indent_paragraphs: 5
       pdf.move_down 10
-      pdf.text "For billing questions only, please contact billing@dcabortionfund.org", align: :left, style: :italic, indent_paragraphs: 5
+      pdf.text 'For billing questions only, please contact billing@dcabortionfund.org', align: :left, style: :italic, indent_paragraphs: 5
     end
     pdf.move_down 10
 
     # footer
-    pdf.text "The information in this transmission is confidential.  If the reader of this message is not the intended recipient, you are hereby notified that any dissemination, distribution, or duplication of this communication is strictly prohibited. If you have received this transmission in error, please contact the sender at the information provided above, and destroy all copies.", style: :italic, align: :left, size: 8
+    pdf.text 'The information in this transmission is confidential.  If the reader of this message is not the intended recipient, you are hereby notified that any dissemination, distribution, or duplication of this communication is strictly prohibited. If you have received this transmission in error, please contact the sender at the information provided above, and destroy all copies.', style: :italic, align: :left, size: 8
 
     # slam dunk
     return pdf
