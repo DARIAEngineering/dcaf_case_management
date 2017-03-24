@@ -17,12 +17,32 @@ class Clinic
   field :active, type: Boolean, default: true
   field :accepts_naf, type: Boolean, default: false
   field :gestational_limit, type: Integer
-  field :costs_9wks, type: Integer
+  field :costs_05wks, type: Integer
+  field :costs_06wks, type: Integer
+  field :costs_07wks, type: Integer
+  field :costs_08wks, type: Integer
+  field :costs_09wks, type: Integer
+  field :costs_10wks, type: Integer
+  field :costs_11wks, type: Integer
   field :costs_12wks, type: Integer
+  field :costs_13wks, type: Integer
+  field :costs_14wks, type: Integer
+  field :costs_15wks, type: Integer
+  field :costs_16wks, type: Integer
+  field :costs_17wks, type: Integer
   field :costs_18wks, type: Integer
+  field :costs_19wks, type: Integer
+  field :costs_20wks, type: Integer
+  field :costs_21wks, type: Integer
+  field :costs_22wks, type: Integer
+  field :costs_23wks, type: Integer
   field :costs_24wks, type: Integer
+  field :costs_25wks, type: Integer
+  field :costs_26wks, type: Integer
+  field :costs_27wks, type: Integer
+  field :costs_28wks, type: Integer
+  field :costs_29wks, type: Integer
   field :costs_30wks, type: Integer
-
 
   # Validations
   validates :name, :street_address, :city, :state, :zip, presence: true
