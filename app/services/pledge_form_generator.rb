@@ -37,7 +37,7 @@ class PledgeFormGenerator
     # header
     y_position = pdf.cursor
     pdf.bounding_box([0, y_position], width: 200, height: 100) do
-      pdf.image '#{Rails.root.join("public", "dcaf_logo.png")}',
+      pdf.image "#{Rails.root.join("public", "dcaf_logo.png")}",
                 position: :left, width: 200
     end
     pdf.bounding_box([250, y_position], width: 200, height: 100) do
