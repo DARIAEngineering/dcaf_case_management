@@ -1,9 +1,10 @@
 class PledgeFormGenerator
-  attr_reader :patient, :user
+  attr_reader :patient, :user, :case_manager_name
 
-  def initialize(user, patient)
+  def initialize(user, patient, case_manager_name)
     @patient = patient
     @user = user
+    @case_manager_name = case_manager_name
   end
 
   def patient_amount
@@ -45,6 +46,7 @@ class PledgeFormGenerator
                 position: :left, width: 200
     end
     pdf.bounding_box([250, y_position], width: 200, height: 100) do
+      pdf.text case_manager_name
       pdf.text 'DC Abortion Fund'
       pdf.text 'P.O. Box 65061'
       pdf.text 'Tel: 202-452-7464'

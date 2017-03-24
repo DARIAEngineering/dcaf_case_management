@@ -21,8 +21,10 @@ class PatientsController < ApplicationController
   end
 
   def download
-    pdf = PledgeFormGenerator.new(current_user, @patient).generate_pledge_pdf
-    send_data pdf.render, filename: "#{@patient.name}_pledge_form.pdf", type: "application/pdf"
+    puts params
+    pdf = PledgeFormGenerator.new(current_user, @patient, params[:case_manager_name]).generate_pledge_pdf
+    send_data pdf.render, filename: "#{@patient.name}_pledge_form.pdf",
+                          type: "application/pdf"
   end
 
   def edit
