@@ -19,7 +19,7 @@ class PledgeFormGenerator
     patient.clinic_name
   end
 
-  def patient_date
+  def appointment_date
     patient.appointment_date.strftime "%B%e, %Y"
   end
 
@@ -56,7 +56,7 @@ class PledgeFormGenerator
     # main text with patient info
     pdf.move_down 10
     patient_info_block = <<-TEXT
-      We are writing to confirm that the DC Abortion Fund (DCAF) is pledging assistance in the amount of $#{patient_amount} toward the cost of abortion care for Patient #{patient_name} #{patient_identifier} on #{patient_date}. This payment will be remitted to the abortion provider, #{patient_provider_name} located in #{provider_address}.
+      We are writing to confirm that the DC Abortion Fund (DCAF) is pledging assistance in the amount of $#{patient_amount} toward the cost of abortion care for Patient #{patient_name} (#{patient_identifier}) on #{appointment_date}. This payment will be remitted to the abortion provider, #{patient_provider_name} located in #{provider_address}.
 
       In order to receive payment, the abortion provider must mail a copy of this pledge form to:
     TEXT
