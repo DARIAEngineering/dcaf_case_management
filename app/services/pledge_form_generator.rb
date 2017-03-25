@@ -35,7 +35,38 @@ class PledgeFormGenerator
   def generate_pledge_pdf
     pdf = Prawn::Document.new
 
-    # header
+    build_header pdf
+    pdf.stroke_horizontal_rule
+    pdf.move_down 10
+
+    # main text portion
+    build_patient_info_block pdf
+    pdf.move_down 10
+
+    build_dcaf_info_block pdf
+    pdf.move_down 10
+
+    build_thank_you_text_block pdf
+    pdf.move_down 10
+
+    # signature and remit portion
+    build_signature_block pdf
+    pdf.move_down 10
+
+    # remit portion
+    build_remit_block pdf
+    pdf.move_down 10
+
+    # footer
+    build_footer pdf
+
+    # slam dunk
+    pdf
+  end
+
+  private
+
+  def build_header(pdf)
     y_position = pdf.cursor
     pdf.bounding_box([0, y_position], width: 200, height: 100) do
       pdf.image "#{Rails.root.join("public", "dcaf_logo.png")}",
@@ -49,33 +80,34 @@ class PledgeFormGenerator
       pdf.text 'E-mail: info@dcabortionfund.org'
       pdf.text 'Web: www.dcabortionfund.org'
     end
-    pdf.stroke_horizontal_rule
+  end
 
-    # main text with patient info
-    pdf.move_down 10
+  def build_patient_info_block(pdf)
     patient_info_block = <<-TEXT
       We are writing to confirm that the DC Abortion Fund (DCAF) is pledging assistance in the amount of $#{patient_amount} toward the cost of abortion care for Patient #{patient_name} (#{patient_identifier}) on #{appointment_date}. This payment will be remitted to the abortion provider, #{patient_provider_name} located in #{provider_address}.
 
       In order to receive payment, the abortion provider must mail a copy of this pledge form to:
     TEXT
     pdf.text patient_info_block, align: :left
-    pdf.move_down 10
+  end
 
+  def build_dcaf_info_block(pdf)
     dcaf_info_block = <<-TEXT
       DCAF
       P.O. Box 65061
       Washington, D.C.  20035-5061
     TEXT
     pdf.text dcaf_info_block, align: :center
-    pdf.move_down 10
+  end
 
+  def build_thank_you_text_block(pdf)
     thank_you_text = <<-TEXT
       Please know how much we appreciate the time and commitment it takes for clinics to coordinate funding for women in low-income situations.  If there is anything we can do to smooth the process, please let us know.  Again, thank you for making the freedom of choice a reality for all women.
     TEXT
     pdf.text thank_you_text, align: :left
-    pdf.move_down 10
+  end
 
-    # signature portion
+  def build_signature_block(pdf)
     next_y_position = pdf.cursor
     pdf.move_down 10
     pdf.bounding_box([0, next_y_position], width: 200, height: 50) do
@@ -88,9 +120,9 @@ class PledgeFormGenerator
       pdf.line [0, 25], [225, 25]
       pdf.draw_text 'Date', at: [10, 10]
     end
-    pdf.move_down 10
+  end
 
-    # remit portion
+  def build_remit_block(pdf)
     pdf.bounding_box([25, pdf.cursor], width: 475, height: 130) do
       pdf.transparent(0.5) { pdf.stroke_bounds }
       pdf.move_down 10
@@ -104,12 +136,9 @@ class PledgeFormGenerator
       pdf.move_down 10
       pdf.text 'For billing questions only, please contact billing@dcabortionfund.org', align: :left, style: :italic, indent_paragraphs: 5
     end
-    pdf.move_down 10
+  end
 
-    # footer
+  def build_footer(pdf)
     pdf.text 'The information in this transmission is confidential.  If the reader of this message is not the intended recipient, you are hereby notified that any dissemination, distribution, or duplication of this communication is strictly prohibited. If you have received this transmission in error, please contact the sender at the information provided above, and destroy all copies.', style: :italic, align: :left, size: 8
-
-    # slam dunk
-    pdf
   end
 end
