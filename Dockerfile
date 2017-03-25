@@ -1,5 +1,5 @@
-FROM        ruby:2.3.3-alpine
-MAINTAINER  Colin Fleming <c3flemin@gmail.com> 
+FROM ruby:2.4.1-alpine
+MAINTAINER Colin Fleming <c3flemin@gmail.com> 
 
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker

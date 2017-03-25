@@ -36,7 +36,7 @@ class CallListTest < ActionDispatch::IntegrationTest
     it 'should let you remove people from the call list roll' do
       within :css, '#call_list_content' do
         wait_for_element @patient.name
-        page.accept_confirm find('.glyphicon-remove').click
+        accept_confirm { find('.glyphicon-remove').click }
         assert has_no_text? @patient.name
       end
     end
