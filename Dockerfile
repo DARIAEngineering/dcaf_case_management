@@ -26,7 +26,7 @@ RUN apk update && apk upgrade && \
 RUN ln -s `which nodejs` /usr/bin/node
 
 # install phantomjs
-RUN npm install -g phantomjs-prebuilt@2.1.11
+RUN npm install -g phantomjs-prebuilt@2.1.14
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
