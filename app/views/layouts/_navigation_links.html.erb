@@ -1,6 +1,9 @@
 <% if session[:line] %>
   <ul class="nav navbar-nav navbar-left">
     <li><%= link_to current_line_display, '#' %></li>
+    <% if ENV['CM_RESOURCES_URL'] %>
+      <li><%= link_to 'CM Resources', ENV['CM_RESOURCES_URL'], target: '_blank' %></li>
+    <% end %>
   </ul>
 <% end %>
 
