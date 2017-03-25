@@ -12,32 +12,9 @@
       </div>
       <div class="info-form-right col-sm-6">
         <%= f.number_field :gestational_limit, autocomplete: 'off' %>
-        <%= f.number_field :costs_05wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_06wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_07wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_08wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_09wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_10wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_11wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_12wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_13wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_14wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_15wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_16wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_17wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_18wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_19wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_20wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_21wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_22wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_23wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_24wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_25wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_26wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_27wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_28wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_29wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_30wks, autocomplete: 'off' %>
+        <% (5..30).each do |week| %>
+          <%= f.number_field "costs_#{week}wks".to_sym, autocomplete: 'off' %>
+        <% end %>
       </div>
     </div>
     <%= f.submit label %>
