@@ -14,8 +14,15 @@
     <div class='col-sm-12'><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
   </div>
 
-  <div class="row hide" data-step="2" data-title="Review this preview of your pledge: (Not working yet)">
-    <%= link_to "Download your pledge here!", download_patient_path(patient), case_manager_name: 'Billy Everyteen' %>
+  <div class="row hide" data-step="2" data-title="Generate your pledge form:">
+    <p class="col-sm-12"><strong>Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.</strong></p>
+
+    <div class="col-sm-12">
+      <%= bootstrap_form_tag url: download_patient_path(patient), method: 'get' do |f| %>
+        <%= f.text_field :case_manager_name, label: 'Enter your name in this box to sign your pledge:' %>
+        <%= f.submit 'Generate your pledge', class: 'btn btn-large btn-primary' %>
+      <% end %>      
+    </div>
   </div>
 
   <div class="row hide" data-step="3" data-title="Submit and send your pledge:">
