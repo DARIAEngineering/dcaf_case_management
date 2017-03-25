@@ -20,11 +20,16 @@ class PatientsController < ApplicationController
     redirect_to root_path
   end
 
+  # download a filled out pledge form based on patient record
   def download
-    puts params
-    pdf = PledgeFormGenerator.new(current_user, @patient, params[:case_manager_name]).generate_pledge_pdf
-    send_data pdf.render, filename: "#{@patient.name}_pledge_form.pdf",
-                          type: "application/pdf"
+    now = Time.zone.now.strftime('%Y%m%d')
+    pdf_filename = "#{@patient.name}_pledge_form_#{now}.pdf"
+    pdf = PledgeFormGenerator.new(current_user,
+                                  @patient,
+                                  params[:case_manager_name])
+                             .generate_pledge_pdf
+
+    send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
   end
 
   def edit

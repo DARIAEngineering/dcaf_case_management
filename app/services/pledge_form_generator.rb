@@ -4,7 +4,7 @@ class PledgeFormGenerator
   def initialize(user, patient, case_manager_name)
     @patient = patient
     @user = user
-    @case_manager_name = case_manager_name
+    @case_manager_name = case_manager_name.to_s
   end
 
   def patient_amount
@@ -30,10 +30,6 @@ class PledgeFormGenerator
 
   def patient_identifier
     patient.identifier
-  end
-
-  def user_name
-    user.name
   end
 
   def generate_pledge_pdf
@@ -83,7 +79,7 @@ class PledgeFormGenerator
     next_y_position = pdf.cursor
     pdf.move_down 10
     pdf.bounding_box([0, next_y_position], width: 200, height: 50) do
-      pdf.draw_text user_name, at: [10, 35]
+      pdf.draw_text case_manager_name, at: [10, 35]
       pdf.line [0, 25], [225, 25]
       pdf.draw_text 'Case Manager, DC Abortion Fund', at: [10, 10]
     end
@@ -114,6 +110,6 @@ class PledgeFormGenerator
     pdf.text 'The information in this transmission is confidential.  If the reader of this message is not the intended recipient, you are hereby notified that any dissemination, distribution, or duplication of this communication is strictly prohibited. If you have received this transmission in error, please contact the sender at the information provided above, and destroy all copies.', style: :italic, align: :left, size: 8
 
     # slam dunk
-    return pdf
+    pdf
   end
 end
