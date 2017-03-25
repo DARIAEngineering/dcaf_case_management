@@ -5,7 +5,7 @@ The directions below get you to a point where you can run the app with a test-se
 * **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
 * **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
 * **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
-* **Fourth things fourth**: Make the source repo fetch-only by unsetting the URL: `git remote set-url --push upstream no-pushing-to-upstream`. This will prevent mistakenly pushing to upstream if you become a contributor down the road.
+* **Fourth things fourth**: Make the source repo fetch-only by unsetting the URL: `git remote set-url --push upstream no-pushing-to-upstream`. This will prevent mistakenly pushing to upstream if you get push access down the road.
 
 For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem.
 
