@@ -12,11 +12,9 @@
       </div>
       <div class="info-form-right col-sm-6">
         <%= f.number_field :gestational_limit, autocomplete: 'off' %>
-        <%= f.number_field :costs_9wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_12wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_18wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_24wks, autocomplete: 'off' %>
-        <%= f.number_field :costs_30wks, autocomplete: 'off' %>
+        <% (5..30).each do |week| %>
+          <%= f.number_field "costs_#{week}wks".to_sym, autocomplete: 'off' %>
+        <% end %>
       </div>
     </div>
     <%= f.submit label %>
