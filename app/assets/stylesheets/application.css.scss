@@ -69,6 +69,18 @@ $font-size: 17px;
   height: 1px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
 }
+.logo {
+  display: inline-block;
+  padding: 0 10px;
+  height: 45px;
+}
+
+// empty add - char
+.blush:empty:before {
+  content: '\2013';
+  padding-left: 2px;
+  padding-right: 2px;
+}
 
 // add spacing
 .margin-bottom {

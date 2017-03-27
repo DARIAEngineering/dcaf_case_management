@@ -8,6 +8,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/reporters'
+require 'minitest/autorun'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/minitest'
@@ -37,6 +38,8 @@ class ActionDispatch::IntegrationTest
   include OmniauthMocker
   OmniAuth.config.test_mode = true
 
+  before { Capybara.reset_sessions! }
+
   def log_in_as(user, line = 'DC')
     log_in user
     select_line line
@@ -58,7 +61,7 @@ class ActionDispatch::IntegrationTest
     has_content? text
   end
 
-  def wait_for_no_element(test)
+  def wait_for_no_element(text)
     has_no_content? text
   end
 

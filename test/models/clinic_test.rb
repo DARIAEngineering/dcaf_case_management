@@ -6,6 +6,19 @@ class ClinicTest < ActiveSupport::TestCase
     @clinic = create :clinic, created_by: @user
   end
 
+  describe 'validations' do
+    it 'should build' do
+      assert @clinic.valid?
+    end
+
+    [:name, :street_address, :city, :state, :zip].each do |attr|
+      it "requires a #{attr}" do
+        @clinic[attr] = nil
+        refute @clinic.valid?
+      end
+    end
+  end
+
   describe 'mongoid attachments' do
     it 'should have timestamps from Mongoid::Timestamps' do
       [:created_at, :updated_at].each do |field|

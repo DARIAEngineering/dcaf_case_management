@@ -20,4 +20,43 @@ module DashboardsHelper
 
     vm_options.map { |option| [enum_text[option], option] }
   end
+
+  def remove_from_call_list_glyphicon
+    safe_join [
+      tag(:span, class: ['glyphicon', 'glyphicon-remove'], aria: { hidden: true }),
+      tag(:span, class: ['sr-only'], text: 'Remove call')
+    ]
+  end
+
+  def call_glyphicon
+    safe_join [
+      tag(:span, class: ['glyphicon', 'glyphicon-earphone'], aria: { hidden: true }),
+      tag(:span, class: ['sr-only'], text: 'Call')
+    ]
+  end
+
+  # column has string data
+  def autosort_string_html_attr(local_assigns)
+    local_assigns[:autosortable] ? ' data-sort="string"' : ''
+  end
+
+  # column has string data that should be sorted case insensitively
+  def autosort_string_ins_html_attr(local_assigns)
+    local_assigns[:autosortable] ? ' data-sort="string-ins"' : ''
+  end
+
+  # column has integer data
+  def autosort_int_html_attr(local_assigns)
+    local_assigns[:autosortable] ? ' data-sort="int"' : ''
+  end
+
+  # column has floating point data
+  def autosort_float_html_attr(local_assigns)
+    local_assigns[:autosortable] ? ' data-sort="float"' : ''
+  end
+
+  # span that holds the up/down arrow
+  def autosort_arrow_span(local_assigns)
+    local_assigns[:autosortable] ? ' <span class="arrow">[-]</span>' : '';
+  end
 end

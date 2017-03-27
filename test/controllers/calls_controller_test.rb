@@ -43,12 +43,37 @@ class CallsControllerTest < ActionController::TestCase
         assert_no_difference 'Patient.find(@patient).calls.count' do
           post :create, call: @call, patient_id: @patient.id, format: :js
         end
-        assert_redirected_to root_path
+        assert_response :bad_request
       end
     end
 
     it 'should log the creating user' do
       assert_equal Patient.find(@patient).calls.last.created_by, @user
+    end
+  end
+
+  describe 'destroy method' do
+    it 'should destroy a call' do
+      call = create :call, patient: @patient, created_by: @user
+      assert_difference 'Patient.find(@patient).calls.count', -1 do
+        delete :destroy, id: call.id, patient_id: @patient.id, format: :js
+      end
+    end
+
+    it 'should not allow user to destroy calls created by others' do
+      call = create :call, patient: @patient, created_by: create(:user)
+      assert_no_difference 'Patient.find(@patient).calls.count' do
+        delete :destroy, id: call.id, patient_id: @patient.id, format: :js
+      end
+      assert_response :forbidden
+    end
+
+    it 'should not allow user to destroy old calls' do
+      call = create :call, patient: @patient, created_by: @user, updated_at: Time.now - 1.day
+      assert_no_difference 'Patient.find(@patient).calls.count' do
+        delete :destroy, id: call.id, patient_id: @patient.id, format: :js
+      end
+      assert_response :forbidden
     end
   end
 end

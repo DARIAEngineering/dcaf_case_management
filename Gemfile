@@ -22,15 +22,19 @@ gem 'mongo_session_store-rails4', git: 'https://github.com/drgcms/mongo_session_
 gem 'mongoid-enum', git: 'https://github.com/DarthHater/mongoid-enum', branch: 'master'
 gem 'bson_ext'
 gem 'figaro'
-gem 'nokogiri', '>= 1.6.8'
+gem 'gon', '~> 6.1.0'
+gem 'nokogiri', '>= 1.7.1'
 gem 'newrelic_rpm'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem 'rack-attack', '~> 5.0.1'
 gem 'rack-test', '~> 0.6.3', require: 'rack/test'
 gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
+gem 'clinic_finder', '~> 0.0.1'
+gem 'geokit'
 
 group :development do
+  gem 'pry'
   gem 'web-console', '~> 2.0'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
@@ -50,6 +54,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'shoulda-context'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'

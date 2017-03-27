@@ -1,5 +1,7 @@
 # Setting up Google SSO
 
+## SHORT VERSION: Unless you need to make a fix to the SSO, you don't need to do this and can log in with a regular password. See `db/seeds.rb` for login creds in development
+
 To avoid password related weaknesses, we give our case managers the opportunity to use their google accounts to sign in. Password authentication still works, so you can avoid this completely and it's fine.
 
 Setting it up requires a few more hoops to jump through. You'll need to acquire a few keys from @colinxfleming or @DarthHater and then do the following:

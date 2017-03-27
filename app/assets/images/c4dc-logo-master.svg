@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   x="0px"
+   y="0px"
+   width="700px"
+   height="310px">
+<rect x="141.5" y="144.5" fill="#800000" width="366" height="68"/>
+<rect x="141.5" y="241.5" fill="#800000" width="366" height="68"/>
+<path fill="#800000" d="M196.5,0.5l17,34l37,5l-27,26l6,37l-33-17l-33,17l6-37l-27-26l37-5L196.5,0.5z"/>
+<path fill="#800000" d="M324.5,0.5l17,34l37,5l-27,26l6,37l-33-17l-33,17l6-37l-27-26l37-5L324.5,0.5z"/>
+<path fill="#800000" d="M452.5,0.5l17,34l37,5l-27,26l6,37l-33-17l-33,17l6-37l-27-26l37-5L452.5,0.5z"/>
+<path d="M550,275l32-183h18l-32,183H550z"/>
+<path d="M610.5,251.5v-34l62-34l-61.999-33v-34l88.999,53v29L610.5,251.5z"/>
+<path d="M89.5,251.5l-89-53v-29l89-53v34l-62,33l62,34V251.5z"/>
+</svg>

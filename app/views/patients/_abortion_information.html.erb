@@ -22,6 +22,9 @@
                 <%= pt.form_group :resolved_without_dcaf, label: { text: 'Resolved without assistance from DCAF' } do %>
                   <%= pt.check_box :resolved_without_dcaf, label: '' %>
                 <% end %>
+                <%= pt.form_group :referred_to_clinic, label: { text: 'Referred to clinic' } do %>
+                  <%= pt.check_box :referred_to_clinic, label: '' %>
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -42,16 +45,20 @@
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
           <div class="col-sm-6">
             <%= f.fields_for patient.pregnancy do |pt| %>
-              <%= pt.text_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
+              <%= pt.number_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
             <% end %>
+            <div class="info-form-left form-group outstanding-balance-ctn hidden">
+              <label class="control-label">Outstanding Balance</label>
+              <div id="outstanding-balance"></div>
+            </div>
           </div>
 
           <div class="col-sm-6">
             <div id="pledge-contributions">
               <%= f.fields_for patient.pregnancy do |pt| %>
-                <%= pt.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
-                <%= pt.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
-                <%= pt.text_field :dcaf_soft_pledge, label: 'DCAF pledge', autocomplete: 'off', prepend: '$' %>
+                <%= pt.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+                <%= pt.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+                <%= pt.number_field :dcaf_soft_pledge, label: 'DCAF pledge', autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': dcaf_pledge_limit_help_text() } %>
               <% end %>
             </div>
           </div>

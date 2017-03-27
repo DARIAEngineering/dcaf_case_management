@@ -7,7 +7,7 @@
 [A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/)
 
 
-## Next major project milestone: April 1: Launch to Baltimore!
+## Next major project milestone: June 15: Launch to Baltimore!
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
@@ -16,12 +16,14 @@
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Before this app, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. This app replaced that with a nice, clean, useable and shareable rails system that ditches spreadsheets forever! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets.
 
-Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](https://github.com/colinxfleming/dcaf_case_management/wiki/DCAF-101), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/). You can also check out a [blog post about how we're using agile-ish](http://codefordc.org/blog/2016/09/12/code-for-dcaf.html).
+Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](docs/DCAF-101.md), looking at the design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/). You can also check out a [blog post about how we're using agile-ish](http://codefordc.org/blog/2016/09/12/code-for-dcaf.html).
 
 The three co-leads on this project are @colinxfleming (rails and technical lead), @mebates (design and UI lead), and @adinneen (project manager and UX lead). We also have a large presence from DCAF actively consulting on this project, led by @lwaldsc and @nerdygirl537. Feel free to hit any of us up with questions about the project, we're nice!
 
 
 ## Contributing to this Project
+
+### [If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](docs/YOUR_FIRST_CONTRIBUTION.md)
 
 ### tl;dr
 * We run on forks and pull requests
@@ -74,13 +76,11 @@ We also keep track of our administrative issues and discussion in Github under t
 
 ## Setting Stuff Up
 
-* **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
-* **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
-* **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
+[We have detailed instructions on how to get started here!](docs/SETUP.md)
 
-For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem.
+If you have any trouble getting things set up, please ping us in Slack!
 
-For detailed instructions on how to get the code running, including Rails and MongoDB, please refer to [our setup documentation](docs/SETUP.md).
+If you see a spot in the docs that's confusing or could be improved, please pay it forward by making a pull request!
 
 
 ## For designers (Team lead: @mebates, user testing lead: @eheintzelman)
@@ -96,7 +96,7 @@ Current UX and wireframe assets are available [here](https://github.com/colinxfl
 
 By and large, we are executing on the fantastic work of the design team.
 
-The stack we use is Rails 4, MongoDB, PhantomJS and Capybara for integration tests, and `rails_bootstrap_forms` for forms. Nearly everything else is out of the box.
+The stack we use is Rails, MongoDB, PhantomJS and Capybara for integration tests, and `rails_bootstrap_forms` for forms. Nearly everything else is out of the box.  Are you new to any of the technologies in the DCAF stack? We have a handy page for more on [our stack, domain, and links to useful documentation](docs/TECH_STACK_INTRO.md).
 
 **We prioritize inclusivity of all skill levels on this project** -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
 

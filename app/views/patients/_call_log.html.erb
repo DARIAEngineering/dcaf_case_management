@@ -13,6 +13,7 @@
         <th>Time</th>
         <th>Result</th>
         <th>CM</th>
+        <th>Actions</th>
       </tr>
       <tbody>
         <% @patient.recent_calls.each do |call| %>
@@ -21,6 +22,11 @@
             <td><%= call.created_at.display_time %></td>
             <td><%= call.status %></td>
             <td><%= call.created_by.name %></td>
+            <td>
+              <% if call.created_by == current_user && call.recent? %>
+                <%= button_to 'Remove', patient_call_path(@patient, call), remote: true, method: :delete, data: { confirm: "Are you sure you want to remove this call from the call log?" }, class: "btn btn-danger" %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
         <% @patient.old_calls.each do |call| %>
@@ -29,6 +35,7 @@
             <td><%= call.created_at.display_time %></td>
             <td><%= call.status %></td>
             <td><%= call.created_by.name %></td>
+            <td></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,4 +1,4 @@
-<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable -->
+<!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable, autosortable -->
 
 <div id="<%= table_type %>" class="margin-bottom">
   <h1 class="border-bottom title"><%= title %></h1>
@@ -11,9 +11,10 @@
         <th>Phone</th>
         <th>Name</th>
         <th>LMP</th>
-        <th>Status</th>
-        <th>Appointment date</th>
+        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Status<%= autosort_arrow_span(local_assigns).html_safe %></th>
+        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Appt date<%= autosort_arrow_span(local_assigns).html_safe %></th>
         <th>Notes</th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -24,24 +25,24 @@
           <% if local_assigns[:sortable] %>
             <td class="handle"><span class="glyphicon glyphicon-move"></span></td>
           <% end %>
-          <td><%= patient.primary_phone_display %></td>
-          <td><%= link_to patient.name, edit_patient_path(patient) %></td>
-          <td><%= patient.pregnancy.last_menstrual_period_display_short %></td>
+          <td class="pt-spacer"><%= patient.primary_phone_display %></td>
+          <td class="pt-spacer"><%= link_to patient.name, edit_patient_path(patient) %></td>
+          <td class="pt-spacer"><%= patient.pregnancy.last_menstrual_period_display_short %></td>
           <td><%= patient.status %></td>
           <td><%= patient.appointment_date %></td>
-          <td><%= patient.most_recent_note_display_text %> <%= plus_sign_glyphicon(patient.most_recent_note) %></td>
-
+          <td><%= patient.most_recent_note_display_text %></td>
+          <td><%= plus_sign_glyphicon(patient.most_recent_note) %></td>
           <% if table_type == 'completed_calls' || table_type == 'urgent_patients' %>
             <td class="blank-td"></td>
           <% else %>
             <% if current_user.patients.include?(patient) %>
-              <td><%= link_to "Remove", remove_patient_path(current_user, patient), method: :patch, data: { confirm: "Are you sure you want to remove #{patient.name} from your call list?" },  remote: true %></td>
+              <td><%= link_to remove_from_call_list_glyphicon, remove_patient_path(current_user, patient), method: :patch, data: { confirm: "Are you sure you want to remove #{patient.name} from your call list?" },  remote: true %></td>
             <% else %>
               <td><%= link_to "Add", add_patient_path(current_user, patient), method: :patch, remote: true %></td>
             <% end %>
           <% end %>
 
-          <td><%= link_to "<span class='glyphicon glyphicon-earphone' aria-hidden='true'></span><span class='sr-only'>Call</span>".html_safe, "#call-#{patient.primary_phone_display}", data: {toggle: "modal"} %></td>
+          <td><%= link_to call_glyphicon, "#call-#{patient.primary_phone_display}", data: {toggle: "modal"} %></td>
 
           <%= render partial: 'calls/new_call', locals: {patient: patient} %>
         </tr>

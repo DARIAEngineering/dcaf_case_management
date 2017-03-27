@@ -9,6 +9,7 @@ fail 'No running seeds in prod' unless [nil, 'Test Sandbox'].include? ENV['FUND'
 
 Patient.destroy_all
 User.destroy_all
+Clinic.destroy_all
 
 # Create google SSO user
 # puts "Creating user with email #{ARGV[1]}..."
@@ -141,6 +142,12 @@ user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create! status: 'Left voicemail',
                                         created_by: user
 
+# Seed a pair of clinics, Sample 1 and Sample 2
+Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
+               city: 'Washington', state: 'DC', zip: '20011'
+Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
+               city: 'Arlington', state: 'DC', zip: '22204'
+                      
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "User created! Credentials are as follows: " \

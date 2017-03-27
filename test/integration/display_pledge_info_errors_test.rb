@@ -34,7 +34,9 @@ class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
       # TODO: check for pledge, appt date, and clinic
 
       find('#pledge-next').click
-      refute has_text? 'Confirm the following information is correct'
+      wait_for_no_element 'Confirm the following information is correct'
+
+      refute has_text? 'Review this preview of you pledge'
     end
   end
 end

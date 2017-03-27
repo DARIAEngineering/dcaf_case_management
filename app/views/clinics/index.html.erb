@@ -1,0 +1,53 @@
+<h1>Clinics</h1>
+<p><%= link_to 'Add a new clinic', new_clinic_path %></p>
+
+<% @clinics.each do |clinic| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="clinic-name"><%= clinic.name %></h3>
+      <span class="edit-clinic-details">
+        <%= link_to 'Edit', edit_clinic_path(clinic) %>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <p><%= clinic.street_address %>, <%= clinic.city %>, <%= clinic.state %> <%= clinic.zip %></p>
+      <p><%= clinic.phone %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="collapse collapsible-clinic-details" id="<%= clinic.id %>">
+        <div class="additional-clinic-details">
+          <div class="accepts-naf clinic-detail-group">
+            <label>Accepts NAF?</label>
+            <p class="blush"><%= clinic.accepts_naf ? 'Yes' : 'No' %></p>
+          </div>
+          <div class="gestational-limit clinic-detail-group">
+            <label>Gestational Limit</label>
+            <p class="blush"><%= clinic.gestational_limit %></p>
+          </div>
+          <div class="clinic-costs clinic-detail-group">
+            <label>Clinic Costs by Week</label>
+            <table class="clinic-costs-table table">
+              <thead>
+                  <% (5..30).each do |week| %>
+                    <th><%= week %> </th>
+                  <% end %>
+              </thead>
+              <tbody>
+                <tr>
+                  <% (5..30).each do |week| %>
+                    <td>$<span class="blush"><%= clinic["costs_#{week}wks".to_sym] %></span></td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <a role="button" class="clinic-detail-toggle" data-toggle="collapse" href="#<%= clinic.id %>" aria-expanded="false" aria-controls="<%= clinic.id %>">More details</a>
+    </div>
+  </div>
+<% end %>

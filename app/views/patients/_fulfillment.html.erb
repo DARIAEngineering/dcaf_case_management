@@ -1,10 +1,15 @@
-<section id="fulfillment" class="abortion-info tab-pane active">
+<section id="fulfillment" class="abortion-info tab-pane">
   <%= bootstrap_form_for patient, html: { id: 'fulfillment_form' }, remote: true do |f| %>
   <%# bootstrap_form_for @fulfillment, html: { id: 'fulfillment_form' }, remote: true do |f| %>
     <div class="col-sm-12">
       <div class="row">
         <div class="col-sm-12">
           <h2>Pledge Fulfillment</h2>
+          <p>Please confirm that the clinic and pledge amounts are correct:</p>
+          <ul>
+            <li>Clinic: <%= @patient.clinic_name %></li>
+            <li>DCAF Pledge Amount: $<%= @patient.pregnancy.dcaf_soft_pledge %></li>
+          </ul>
         </div>
       </div>
       <div class="row">
@@ -17,15 +22,15 @@
         </div>  
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.datetime_picker :procedure_date, 
-                                  label: 'Procedure date',
-                                  autocomplete: 'off', format: '%Y-%m-%d',
-                                  placeholder: 'YYYY-MM-DD' %>
+            <%= pt.text_field :procedure_cost, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
             <%= pt.select :gestation_at_procedure, 
                           options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
                           label: 'Weeks along at procedure',
                           autocomplete: 'off' %>
-            <%= pt.text_field :procedure_cost, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
+            <%= pt.text_field :procedure_date,
+                                  label: 'Procedure date',
+                                  autocomplete: 'off', format: '%Y-%m-%d',
+                                  placeholder: 'YYYY-MM-DD' %>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">

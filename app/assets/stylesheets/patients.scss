@@ -1,3 +1,9 @@
 // Place all the styles related to the Patients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tooltip-header-help {
+    color: #737373;
+    border-bottom: 1px dotted #737373;
+    cursor: pointer;
+}

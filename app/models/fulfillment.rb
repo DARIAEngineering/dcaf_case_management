@@ -15,7 +15,7 @@ class Fulfillment
   field :date_of_check, type: Date
 
   # Validations
-  validates :created_by,
+  validates :created_by_id,
             presence: true
 
   # History and auditing

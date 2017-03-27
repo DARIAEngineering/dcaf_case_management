@@ -21,22 +21,26 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     before do
       @user = create :user, role: :admin
       log_in_as @user
+      @mail_mock = Minitest::Mock.new
+      @mail_mock.expect :deliver_now, nil
     end
 
     it 'should be able to create user' do
       assert_difference('User.count', 1) do
-        assert_difference 'Devise.mailer.deliveries.count', 1 do
-          assert_text 'Create User'
-          click_link 'Create User'
+        assert_text 'Create User'
+        click_link 'Create User'
 
-          assert has_field? 'Email'
-          fill_in 'Email', with: 'test@test.com'
+        assert has_field? 'Email'
+        fill_in 'Email', with: 'test@test.com'
 
-          assert has_field? 'Name'
-          fill_in 'Name', with: 'Test User'
+        assert has_field? 'Name'
+        fill_in 'Name', with: 'Test User'
 
+        UserMailer.stub(:account_created, @mail_mock) do
           click_button 'Add'
+          wait_for_element 'User created!'
         end
+        assert @mail_mock.verify
       end
 
       user = User.find_by(email: 'test@test.com')

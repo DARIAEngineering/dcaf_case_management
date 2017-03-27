@@ -54,11 +54,16 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       check 'I sent the pledge'
       find('#pledge-next').click
+      wait_for_no_element 'Submit and send your pledge'
+      wait_for_ajax
       visit authenticated_root_path
       visit edit_patient_path @patient
+      wait_for_element 'Patient information'
 
       assert has_link? 'Pledge Fulfillment'
       click_link 'Pledge Fulfillment'
+      assert has_text? 'Clinic: Nice Clinic'
+      assert has_text? 'DCAF Pledge Amount: $500'
       assert has_text? 'Procedure date'
       assert has_text? 'Check #'
     end
