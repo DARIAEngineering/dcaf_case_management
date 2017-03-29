@@ -80,5 +80,6 @@ class ActionDispatch::IntegrationTest
 end
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  # include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 end
