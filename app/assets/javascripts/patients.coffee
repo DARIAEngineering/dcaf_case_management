@@ -54,4 +54,4 @@ ready = ->
       title: $(@).data( 'tooltip-text' )
     } )
 
-$(document).on 'ready page:load', ready
+$(document).on 'ready turbolinks:load', ready

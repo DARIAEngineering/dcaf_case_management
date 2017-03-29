@@ -8,4 +8,4 @@ ready = ->
   $(document).on 'hide.bs.collapse', '.collapsible-clinic-details', (event) ->
     $(event.target).siblings('.clinic-detail-toggle').text('More Details')
 
-$(document).on 'ready page:load', ready
+$(document).on 'ready turbolinks:load', ready
