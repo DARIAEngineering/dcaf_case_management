@@ -69,6 +69,7 @@ group :test do
   gem 'timecop'
   gem 'capybara-screenshot'
   gem 'minitest-ci'
+  gem 'rails-controller-testing'
 end
 
 group :production do
