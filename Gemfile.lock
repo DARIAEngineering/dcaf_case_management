@@ -319,6 +319,10 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.2)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.1)
+      actionpack (~> 5.x)
+      actionview (~> 5.x)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.2)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6)
@@ -479,6 +483,7 @@ DEPENDENCIES
   rack-attack (~> 5.0.1)
   rack-test (~> 0.6.3)
   rails (>= 5.0.0, < 5.1)
+  rails-controller-testing
   rails_12factor
   rubocop
   ruby_audit
