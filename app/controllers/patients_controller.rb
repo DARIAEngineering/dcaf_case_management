@@ -29,7 +29,7 @@ class PatientsController < ApplicationController
     if @patient.update_attributes patient_params
       head :ok
     else
-      head :bad_request
+      head :internal_server_error
     end
   end
 
