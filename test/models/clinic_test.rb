@@ -20,7 +20,7 @@ class ClinicTest < ActiveSupport::TestCase
 
     it 'should be unique on name' do
       clinic_name = @clinic.name
-      dupe_clinic = create :clinic, name: clinic_name, created_by: @user
+      dupe_clinic = build :clinic, name: clinic_name, created_by: @user
       refute dupe_clinic.valid?
     end
   end
