@@ -14,18 +14,16 @@ class Clinic
   field :state, type: String
   field :zip, type: String
   field :phone, type: String
+  field :fax, type: String
   field :active, type: Boolean, default: true
   field :accepts_naf, type: Boolean, default: false
   field :gestational_limit, type: Integer
-  field :costs_9wks, type: Integer
-  field :costs_12wks, type: Integer
-  field :costs_18wks, type: Integer
-  field :costs_24wks, type: Integer
-  field :costs_30wks, type: Integer
-
+  # costs_5wks, costs_6wks, ..., costs_30wks
+  (5..30).each { |i| field "costs_#{i}wks".to_sym, type: Integer }
 
   # Validations
   validates :name, :street_address, :city, :state, :zip, presence: true
+  validates :name, uniqueness: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

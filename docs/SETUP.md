@@ -5,6 +5,7 @@ The directions below get you to a point where you can run the app with a test-se
 * **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/colinxfleming/dcaf_case_management and hit the `fork` button up in the top right.
 * **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system
 * **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/colinxfleming/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
+* **Fourth things fourth**: Make the source repo fetch-only by unsetting the URL: `git remote set-url --push upstream no-pushing-to-upstream`. This will prevent mistakenly pushing to upstream if you get push access down the road.
 
 For the rest of the setup, you have three options: Docker, installing everything locally, or Cloud9. We recommend Docker if you're comfortable with its ecosystem.
 
@@ -39,8 +40,8 @@ If you prefer a local environment, totally cool! We recommend the following:
 
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/)
-* Install our version of Ruby! We use version `2.3.3` (Usually `rbenv install 2.3.3` or `rvm install 2.3.3` once you have your version manager set up)
-* Install PhantomJS, which our test suite depends on, via `brew install phantomjs`, or `npm install -g phantomjs`, or the [linux instructions](http://phantomjs.org/download.html)
+* Install our version of Ruby! We use version `2.4.1` (Usually `rbenv install 2.4.1` or `rvm install 2.4.1` once you have your version manager set up)
+* Install PhantomJS, which our test suite depends on, via `brew install phantomjs`, or `npm install -g phantomjs-prebuilt`, or the [linux instructions](http://phantomjs.org/download.html)
 * Run the command `gem install bundler && bundle install` to install ruby dependences, including `rails`
 
 ### Then, MongoDB dependencies
@@ -72,7 +73,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 * Sign into `https://c9.io/` and create a new workspace
 * Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
-* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.3.3 is not installed. To install do: `rvm install ruby-2.3.3`". Run that command to install the necessary version of Ruby.
+* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.4.1 is not installed. To install do: `rvm install ruby-2.4.1`". Run that command to install the necessary version of Ruby.
 * Next, install the bundler gem by entering `gem install bundler` in the terminal.
 * Install MongoDB by entering `sudo apt-get install -y mongodb-org`.
 * Once MongoDB is installed, run `bundle install` in the terminal

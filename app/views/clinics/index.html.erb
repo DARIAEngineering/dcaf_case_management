@@ -29,22 +29,18 @@
             <p class="blush"><%= clinic.gestational_limit %></p>
           </div>
           <div class="clinic-costs clinic-detail-group">
-            <label>Clinic Costs</label>
+            <label>Clinic Costs by Week</label>
             <table class="clinic-costs-table table">
               <thead>
-                <th>9 Weeks</th>
-                <th>12 Weeks</th>
-                <th>18 Weeks</th>
-                <th>24 Weeks</th>
-                <th>30 Weeks</th>
+                  <% (5..30).each do |week| %>
+                    <th><%= week %> </th>
+                  <% end %>
               </thead>
               <tbody>
                 <tr>
-                  <td>$<span class="blush"><%= clinic.costs_9wks %></span></td>
-                  <td>$<span class="blush"><%= clinic.costs_12wks %></span></td>
-                  <td>$<span class="blush"><%= clinic.costs_18wks %></span></td>
-                  <td>$<span class="blush"><%= clinic.costs_24wks %></span></td>
-                  <td>$<span class="blush"><%= clinic.costs_30wks %></span></td>
+                  <% (5..30).each do |week| %>
+                    <td>$<span class="blush"><%= clinic["costs_#{week}wks".to_sym] %></span></td>
+                  <% end %>
                 </tr>
               </tbody>
             </table>
