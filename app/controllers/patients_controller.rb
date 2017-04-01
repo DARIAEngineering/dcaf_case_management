@@ -26,7 +26,6 @@ class PatientsController < ApplicationController
   end
 
   def update
-    puts params
     if @patient.update_attributes patient_params
       head :ok
     else

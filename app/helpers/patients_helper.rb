@@ -58,8 +58,6 @@ module PatientsHelper
   def clinic_options
     Clinic.where(active: true).map { |clinic| [clinic.name, clinic.id] }
       .unshift nil
-    # (ENV['CLINICS'].try(:split, ',') || ['Sample Clinic 1', 'Sample Clinic 2'])
-      # .unshift nil
   end
 
   def disable_continue?(patient)

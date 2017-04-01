@@ -26,7 +26,6 @@ class Patient
   # Enable mass posting in forms
   accepts_nested_attributes_for :pregnancy
   accepts_nested_attributes_for :fulfillment
-  # accepts_nested_attributes_for :clinic
 
   # Fields
   field :name, type: String # strip
@@ -34,7 +33,6 @@ class Patient
   field :other_contact, type: String
   field :other_phone, type: String
   field :other_contact_relationship, type: String
-  # field :clinic_name, type: String
   field :identifier, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
