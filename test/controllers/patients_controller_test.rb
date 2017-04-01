@@ -120,13 +120,18 @@ class PatientsControllerTest < ActionController::TestCase
   end
 
   describe 'download a link' do
+    it 'should not download a pdf with no case manager name' do
+      get :download, id: @patient, case_manager_name: ""
+      assert_redirected_to edit_patient_path(@patient)
+    end
+
     it 'should download a pdf' do
       pledge_generator_mock = Minitest::Mock.new
       pdf_mock_result = Minitest::Mock.new
       pledge_generator_mock.expect(:generate_pledge_pdf, pdf_mock_result)
       pdf_mock_result.expect :render, "mow"
       PledgeFormGenerator.stub(:new, pledge_generator_mock) do
-        get :download, id: @patient
+        get :download, id: @patient, case_manager_name: "somebody"
       end
       assert_response :success
     end
