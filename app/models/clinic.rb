@@ -8,7 +8,7 @@ class Clinic
   include ClinicsHelper
 
   # Relationships
-  belongs_to :patient
+  has_many :patients
 
   # Fields
   field :name, type: String

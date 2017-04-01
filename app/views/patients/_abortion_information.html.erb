@@ -12,7 +12,7 @@
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
           <div class="col-sm-6">
             <div class="info-form-left">
-              <%= f.collection_select :clinic, Clinic.all.unshift(OpenStruct.new(name: nil, value: nil)), :id, :name %>
+              <%= f.select :clinic, options_for_select(clinic_options, patient.clinic) %>
             </div>
           </div>
 
