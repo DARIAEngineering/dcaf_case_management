@@ -22,14 +22,19 @@ class PatientsController < ApplicationController
 
   # download a filled out pledge form based on patient record
   def download
-    now = Time.zone.now.strftime('%Y%m%d')
-    pdf_filename = "#{@patient.name}_pledge_form_#{now}.pdf"
-    pdf = PledgeFormGenerator.new(current_user,
-                                  @patient,
-                                  params[:case_manager_name])
-                             .generate_pledge_pdf
+    if params[:case_manager_name].blank?
+      flash[:alert] = "You need to enter your name in the box to sign and download the pledge"
+      redirect_to edit_patient_path @patient
+    else
+      now = Time.zone.now.strftime('%Y%m%d')
+      pdf_filename = "#{@patient.name}_pledge_form_#{now}.pdf"
+      pdf = PledgeFormGenerator.new(current_user,
+                                    @patient,
+                                    params[:case_manager_name])
+                               .generate_pledge_pdf
 
-    send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
+      send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
+    end
   end
 
   def edit
