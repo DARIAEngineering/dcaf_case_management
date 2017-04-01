@@ -16,7 +16,7 @@ class Patient
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
-  has_one :clinic
+  belongs_to :clinic
   embeds_one :pregnancy
   embeds_one :fulfillment
   embeds_many :calls
@@ -26,7 +26,7 @@ class Patient
   # Enable mass posting in forms
   accepts_nested_attributes_for :pregnancy
   accepts_nested_attributes_for :fulfillment
-  accepts_nested_attributes_for :clinic
+  # accepts_nested_attributes_for :clinic
 
   # Fields
   field :name, type: String # strip
@@ -34,7 +34,7 @@ class Patient
   field :other_contact, type: String
   field :other_phone, type: String
   field :other_contact_relationship, type: String
-  field :clinic_name, type: String
+  # field :clinic_name, type: String
   field :identifier, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
