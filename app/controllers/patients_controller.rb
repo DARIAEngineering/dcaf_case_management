@@ -75,7 +75,7 @@ class PatientsController < ApplicationController
       :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income,
       :household_size_adults, :household_size_children, :insurance,
       :referred_by, :initial_call_date, :urgent_flag,
-      :clinic,
+      :clinic_id,
       pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
                   :resolved_without_dcaf, :referred_to_clinic, :procedure_cost,
                   :pledge_sent, :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
