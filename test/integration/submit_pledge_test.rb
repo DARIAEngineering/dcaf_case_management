@@ -18,6 +18,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
   describe 'submitting a pledge' do
     it 'should let you mark a pledge submitted' do
       find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
       assert has_text? 'Confirm the following information is correct'
       find('#pledge-next').click
       wait_for_no_element 'Confirm the following information is correct'
