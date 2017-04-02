@@ -29,7 +29,7 @@ user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
 Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
                city: 'Washington', state: 'DC', zip: '20011'
 Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
-               city: 'Arlington', state: 'DC', zip: '22204'
+               city: 'Arlington', state: 'VA', zip: '22204'
 
 # Create ten patients
 10.times do |i|
