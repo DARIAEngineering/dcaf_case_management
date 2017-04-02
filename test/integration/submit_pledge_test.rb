@@ -28,6 +28,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
       assert has_text? 'Awesome, you generated a DCAF'
       check 'I sent the pledge'
+      wait_for_ajax
       find('#pledge-next').click
       wait_for_no_element 'Awesome, you generated a DCAF'
 
