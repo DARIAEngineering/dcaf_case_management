@@ -4,7 +4,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
-    @patient = create :patient, clinic_name: 'Nice Clinic',
+    @clinic = create :clinic
+    @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14
     @pregnancy = create :pregnancy, patient: @patient, dcaf_soft_pledge: 500
     log_in_as @user
