@@ -30,7 +30,7 @@ class PatientsController < ApplicationController
       pdf_filename = "#{@patient.name}_pledge_form_#{now}.pdf"
       pdf = PledgeFormGenerator.new(current_user,
                                     @patient,
-                                    params[:case_manager_name])
+                                    params[:case_manager_name].to_s)
                                .generate_pledge_pdf
 
       send_data pdf.render, filename: pdf_filename, type: 'application/pdf'

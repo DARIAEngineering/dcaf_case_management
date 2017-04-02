@@ -80,7 +80,7 @@ class PatientsControllerTest < ActionController::TestCase
       @date = 5.days.from_now.to_date
       @payload = {
         appointment_date: @date.strftime('%Y-%m-%d'), name: 'Susie Everyteen 2',
-        pregnancy: {resolved_without_dcaf: true}
+        pregnancy: { resolved_without_dcaf: true }
       }
 
       patch :update, id: @patient, patient: @payload

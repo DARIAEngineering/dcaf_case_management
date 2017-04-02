@@ -4,7 +4,7 @@ class PledgeFormGenerator
   def initialize(user, patient, case_manager_name)
     @patient = patient
     @user = user
-    @case_manager_name = case_manager_name.to_s
+    @case_manager_name = case_manager_name
   end
 
   def patient_amount
