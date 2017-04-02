@@ -17,8 +17,9 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
 
     describe 'variable text' do
       it 'should include dynamically generated information' do
-        assert_includes(@pdf_text, 'Angela Davis')
-        assert_includes(@pdf_text, 'will be remitted to the abortion provider, Da Clinic located in Washington, District of Colombia.')
+        assert_includes @pdf_text, 'Angela Davis'
+        assert_includes @pdf_text, 'Da Clinic'
+        assert_includes @pdf_text, 'Washington, District of Colombia'
       end
     end
 
@@ -31,7 +32,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
     end
 
     it 'should get the amount pledged' do
-      assert_equal(@pledge_form_generator.patient_amount, 300)
+      assert_equal(@pledge_form_generator.patient_amount, '$300')
     end
 
     it 'should get the patient name' do

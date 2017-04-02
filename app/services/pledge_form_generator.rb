@@ -10,7 +10,7 @@ class PledgeFormGenerator
   end
 
   def patient_amount
-    number_to_currency(@patient.pregnancy.dcaf_soft_pledge)
+    number_to_currency(@patient.pregnancy.dcaf_soft_pledge, precision: 0)
   end
 
   # TODO when clinics actually exist instead of just name, do this
