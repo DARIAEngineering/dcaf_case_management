@@ -10,14 +10,15 @@
         <%= f.text_field :phone, autocomplete: 'off', pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
         <%= f.text_field :fax, autocomplete: 'off', pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
         <%= f.check_box :accepts_naf, autocomplete: 'off' %>
+        <%= f.check_box :active, autocomplete: 'off', label: 'Are we actively working with this clinic?' %>
       </div>
       <div class="info-form-right col-sm-6">
-        <%= f.number_field :gestational_limit, autocomplete: 'off' %>
+        <%= f.number_field :gestational_limit, autocomplete: 'off', label: 'Gestational limit (in days)' %>
         <% (5..30).each do |week| %>
           <%= f.number_field "costs_#{week}wks".to_sym, autocomplete: 'off' %>
         <% end %>
       </div>
     </div>
-    <%= f.submit label %>
+    <%= f.submit label, class: 'btn btn-primary btn-lg' %>
   </div>
 <% end %>
