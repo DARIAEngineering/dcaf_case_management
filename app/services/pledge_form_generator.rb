@@ -1,4 +1,6 @@
 class PledgeFormGenerator
+  include ActionView::Helpers::NumberHelper # for currency formatting
+
   attr_reader :patient, :user, :case_manager_name
 
   def initialize(user, patient, case_manager_name)
@@ -8,7 +10,7 @@ class PledgeFormGenerator
   end
 
   def patient_amount
-    @patient.pregnancy.dcaf_soft_pledge
+    number_to_currency(@patient.pregnancy.dcaf_soft_pledge)
   end
 
   # TODO when clinics actually exist instead of just name, do this
@@ -84,20 +86,20 @@ class PledgeFormGenerator
 
   def build_patient_info_block(pdf)
     patient_info_block = <<-TEXT
-      We are writing to confirm that the DC Abortion Fund (DCAF) is pledging assistance in the amount of $#{patient_amount} toward the cost of abortion care for Patient #{patient_name} (#{patient_identifier}) on #{appointment_date}. This payment will be remitted to the abortion provider, #{patient_provider_name} located in #{provider_address}.
+      We are writing to confirm that the DC Abortion Fund (DCAF) is pledging assistance in the amount of <b>#{patient_amount}</b> toward the cost of abortion care for <b>Patient #{patient_name} (#{patient_identifier})</b> on <b>#{appointment_date}</b>. This payment will be remitted to the abortion provider, <b>#{patient_provider_name}</b> located in <b>#{provider_address}</b>.
 
       In order to receive payment, the abortion provider must mail a copy of this pledge form to:
     TEXT
-    pdf.text patient_info_block, align: :left
+    pdf.text patient_info_block, align: :left, inline_format: true
   end
 
   def build_dcaf_info_block(pdf)
     dcaf_info_block = <<-TEXT
-      DCAF
+      <b>DCAF
       P.O. Box 65061
-      Washington, D.C.  20035-5061
+      Washington, D.C.  20035-5061</b>
     TEXT
-    pdf.text dcaf_info_block, align: :center
+    pdf.text dcaf_info_block, align: :center, inline_format: true
   end
 
   def build_thank_you_text_block(pdf)
