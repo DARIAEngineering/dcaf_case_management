@@ -108,6 +108,8 @@ class PledgeFormGenerator
   end
 
   def build_signature_block(pdf)
+    now_as_date = Time.zone.now.strftime('%b %d, %Y')
+
     next_y_position = pdf.cursor
     pdf.move_down 10
     pdf.bounding_box([0, next_y_position], width: 200, height: 50) do
@@ -116,7 +118,7 @@ class PledgeFormGenerator
       pdf.draw_text 'Case Manager, DC Abortion Fund', at: [10, 10]
     end
     pdf.bounding_box([250, next_y_position], width: 200, height: 50) do
-      pdf.draw_text 'February 26, 2017', at: [10, 35]
+      pdf.draw_text now_as_date, at: [10, 35]
       pdf.line [0, 25], [225, 25]
       pdf.draw_text 'Date', at: [10, 10]
     end
