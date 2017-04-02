@@ -80,7 +80,7 @@ class PatientsControllerTest < ActionController::TestCase
       @date = 5.days.from_now.to_date
       @payload = {
         appointment_date: @date.strftime('%Y-%m-%d'), name: 'Susie Everyteen 2',
-        pregnancy: { resolved_without_dcaf: true }
+        pregnancy: {resolved_without_dcaf: true}
       }
 
       patch :update, id: @patient, patient: @payload
@@ -115,6 +115,24 @@ class PatientsControllerTest < ActionController::TestCase
   describe 'data_entry method' do
     it 'should respond success on completion' do
       get :data_entry
+      assert_response :success
+    end
+  end
+
+  describe 'download a link' do
+    it 'should not download a pdf with no case manager name' do
+      get :download, id: @patient, case_manager_name: ""
+      assert_redirected_to edit_patient_path(@patient)
+    end
+
+    it 'should download a pdf' do
+      pledge_generator_mock = Minitest::Mock.new
+      pdf_mock_result = Minitest::Mock.new
+      pledge_generator_mock.expect(:generate_pledge_pdf, pdf_mock_result)
+      pdf_mock_result.expect :render, "mow"
+      PledgeFormGenerator.stub(:new, pledge_generator_mock) do
+        get :download, id: @patient, case_manager_name: "somebody"
+      end
       assert_response :success
     end
   end
