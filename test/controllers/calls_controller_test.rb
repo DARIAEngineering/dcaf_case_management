@@ -1,47 +1,41 @@
 require 'test_helper'
 
-class CallsControllerTest < ActionController::TestCase
+class CallsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
-    sign_in @user
+    log_in_controller @user
     @patient = create :patient
   end
 
   describe 'create method' do
     before do
       @call = attributes_for :call
-      post :create, patient_id: @patient.id, call: @call, format: :js
+      post patient_calls_path(@patient), params: { call: @call }, xhr: true
     end
 
     it 'should create and save a new call' do
       assert_difference 'Patient.find(@patient).calls.count', 1 do
-        post :create, call: @call, patient_id: @patient.id, format: :js
+        post patient_calls_path(@patient), params: { call: @call }, xhr: true
       end
     end
 
     it 'should respond success if patient is not reached' do
-      call = attributes_for :call, status: 'Left voicemail'
-      post :create, call: call, patient_id: @patient.id, format: :js
-      assert_response :success
+      ['Left voicemail', "Couldn't reach patient"].each do |status|
+        call = attributes_for :call, status: status
+        post patient_calls_path(@patient), params: { call: call }, xhr: true
+        assert_response :success
+      end
     end
 
     it 'should redirect to the edit patient path if patient is reached' do
       assert_redirected_to edit_patient_path(@patient)
     end
 
-    it 'should render create.js.erb if patient is not reached' do
-      ['Left voicemail', "Couldn't reach patient"].each do |status|
-        @call[:status] = status
-        post :create, call: @call, patient_id: @patient.id, format: :js
-        assert_template 'calls/create'
-      end
-    end
-
     it 'should not save and flash an error if status is blank or bad' do
       [nil, 'not a real status'].each do |bad_status|
         @call[:status] = bad_status
         assert_no_difference 'Patient.find(@patient).calls.count' do
-          post :create, call: @call, patient_id: @patient.id, format: :js
+          post patient_calls_path(@patient), params: { call: @call }, xhr: true
         end
         assert_response :bad_request
       end
@@ -56,22 +50,23 @@ class CallsControllerTest < ActionController::TestCase
     it 'should destroy a call' do
       call = create :call, patient: @patient, created_by: @user
       assert_difference 'Patient.find(@patient).calls.count', -1 do
-        delete :destroy, id: call.id, patient_id: @patient.id, format: :js
+        delete patient_call_path(@patient, call), params: { id: call.id }, xhr: true
       end
     end
 
     it 'should not allow user to destroy calls created by others' do
       call = create :call, patient: @patient, created_by: create(:user)
       assert_no_difference 'Patient.find(@patient).calls.count' do
-        delete :destroy, id: call.id, patient_id: @patient.id, format: :js
+        delete patient_call_path(@patient, call), params: { id: call.id }, xhr: true
       end
       assert_response :forbidden
     end
 
     it 'should not allow user to destroy old calls' do
-      call = create :call, patient: @patient, created_by: @user, updated_at: Time.now - 1.day
+      call = create :call, patient: @patient, created_by: @user,
+                           updated_at: Time.zone.now - 1.day
       assert_no_difference 'Patient.find(@patient).calls.count' do
-        delete :destroy, id: call.id, patient_id: @patient.id, format: :js
+        delete patient_call_path(@patient, call), params: { id: call.id }, xhr: true
       end
       assert_response :forbidden
     end
