@@ -40,6 +40,12 @@ class ActionDispatch::IntegrationTest
 
   before { Capybara.reset_sessions! }
 
+  def log_in_controller(user)
+    post user_session_path \
+      "user[email]" => user.email,
+      "user[password]" => user.password
+  end
+
   def log_in_as(user, line = 'DC')
     log_in user
     select_line line
