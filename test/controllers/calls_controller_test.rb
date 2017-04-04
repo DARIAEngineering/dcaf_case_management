@@ -50,14 +50,16 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     it 'should destroy a call' do
       call = create :call, patient: @patient, created_by: @user
       assert_difference 'Patient.find(@patient).calls.count', -1 do
-        delete patient_call_path(@patient, call), params: { id: call.id }, xhr: true
+        delete patient_call_path(@patient, call), params: { id: call.id },
+                                                  xhr: true
       end
     end
 
     it 'should not allow user to destroy calls created by others' do
       call = create :call, patient: @patient, created_by: create(:user)
       assert_no_difference 'Patient.find(@patient).calls.count' do
-        delete patient_call_path(@patient, call), params: { id: call.id }, xhr: true
+        delete patient_call_path(@patient, call), params: { id: call.id },
+                                                  xhr: true
       end
       assert_response :forbidden
     end
@@ -66,7 +68,8 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
       call = create :call, patient: @patient, created_by: @user,
                            updated_at: Time.zone.now - 1.day
       assert_no_difference 'Patient.find(@patient).calls.count' do
-        delete patient_call_path(@patient, call), params: { id: call.id }, xhr: true
+        delete patient_call_path(@patient, call), params: { id: call.id },
+                                                  xhr: true
       end
       assert_response :forbidden
     end
