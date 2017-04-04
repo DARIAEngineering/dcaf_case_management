@@ -39,13 +39,8 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     before do
       @pledge = create :external_pledge, patient: @patient
       @pledge_edits = { source: 'Edited Pledge' }
-      patch :update, patient_id: @patient, id: @pledge,
-                     external_pledge: @pledge_edits, format: :js
+      patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
       @pledge.reload
-    end
-
-    it 'should render the correct template' do
-      assert_template 'external_pledges/update'
     end
 
     it 'should respond with success' do
@@ -69,8 +64,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
                                      .external_pledges.find(@pledge)
                                      .history_tracks.count' do
           @pledge_edits[:source] = bad_text
-          patch :update, patient_id: @patient, id: @pledge,
-                         external_pledge: @pledge_edits, format: :js
+          patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
           assert_response :bad_request
           @pledge.reload
           assert_equal @pledge.source, 'Edited Pledge'
@@ -83,7 +77,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     before { @pledge = create :external_pledge, patient: @patient }
 
     it 'should set a pledge to inactive' do
-      delete :destroy, patient_id: @patient, id: @pledge, format: :js
+      delete patient_external_pledge_path(@patient, @pledge), xhr: true
       @pledge.reload
       refute @pledge.active?
     end
