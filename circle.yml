@@ -17,7 +17,7 @@ deployment:
 
 test:
   override:
-    - bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS":
+    - bundle exec rails test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS":
         parallel: true
         files:
           - test/**/*_test.rb
