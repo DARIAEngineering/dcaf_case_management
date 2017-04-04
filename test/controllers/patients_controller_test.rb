@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PatientsControllerTest < ActionController::TestCase
+class PatientsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     sign_in @user
@@ -19,44 +19,44 @@ class PatientsControllerTest < ActionController::TestCase
 
     it 'should create and save a new patient' do
       assert_difference 'Patient.count', 1 do
-        post :create, patient: @new_patient
+        post patients_path, params: { patient: @new_patient }
       end
     end
 
     it 'should redirect to the root path afterwards' do
-      post :create, patient: @new_patient
+      post patients_path, params: { patient: @new_patient }
       assert_redirected_to root_path
     end
 
     it 'should fail to save if name is blank' do
       @new_patient[:name] = ''
       assert_no_difference 'Patient.count' do
-        post :create, patient: @new_patient
+        post patients_path, params: { patient: @new_patient }
       end
       assert_no_difference 'Pregnancy.count' do
-        post :create, patient: @new_patient
+        post patients_path, params: { patient: @new_patient }
       end
     end
 
     it 'should fail to save if primary phone is blank' do
       @new_patient[:primary_phone] = ''
       assert_no_difference 'Patient.count' do
-        post :create, patient: @new_patient
+        post patients_path, params: { patient: @new_patient }
       end
       assert_no_difference 'Pregnancy.count' do
-        post :create, patient: @new_patient
+        post patients_path, params: { patient: @new_patient }
       end
     end
 
     it 'should create an associated pregnancy object' do
-      post :create, patient: @new_patient
+      post patients_path, params: { patient: @new_patient }
       assert_not_nil Patient.find_by(name: 'Test Patient').pregnancy
     end
   end
 
   describe 'edit method' do
     before do
-      get :edit, id: @patient
+      get edit_patient_path(@patient)
     end
 
     it 'should get edit' do
@@ -64,7 +64,7 @@ class PatientsControllerTest < ActionController::TestCase
     end
 
     it 'should redirect to root on a bad id' do
-      get :edit, id: 'notanid'
+      get edit_patient_path('notanid')
       assert_redirected_to root_path
     end
 
@@ -83,7 +83,7 @@ class PatientsControllerTest < ActionController::TestCase
         pregnancy: { resolved_without_dcaf: true }
       }
 
-      patch :update, id: @patient, patient: @payload
+      patch patient_path(@patient), params: { patient: @payload }
       @patient.reload
     end
 
@@ -93,7 +93,7 @@ class PatientsControllerTest < ActionController::TestCase
 
     it 'should respond internal server error on failure' do
       @payload[:primary_phone] = nil
-      patch :update, id: @patient, patient: @payload
+      patch patient_path(@patient), params: { patient: @payload }
       assert_response :internal_server_error
     end
 
@@ -106,7 +106,7 @@ class PatientsControllerTest < ActionController::TestCase
     end
 
     it 'should redirect if record does not exist' do
-      patch :update, id: 'notanactualid', patient: @payload
+      patch patient_path('notanactualid'), params: { patient: @payload }
       assert_redirected_to root_path
     end
   end
@@ -114,7 +114,7 @@ class PatientsControllerTest < ActionController::TestCase
   #confirm get :data_entry returns a success code
   describe 'data_entry method' do
     it 'should respond success on completion' do
-      get :data_entry
+      get data_entry_path
       assert_response :success
     end
   end
@@ -128,12 +128,12 @@ class PatientsControllerTest < ActionController::TestCase
 
     it 'should create and save a new patient' do
       assert_difference 'Patient.count', 1 do
-        post :data_entry_create, patient: @test_patient
+        post data_entry_create_path, params: { patient: @test_patient }
       end
     end
 
     it 'should redirect to edit_patient_path afterwards' do
-      post :data_entry_create, patient: @test_patient
+      post data_entry_create_path, params: { patient: @test_patient }
       @created_patient = Patient.find_by(name: 'Test Patient')
       assert_redirected_to edit_patient_path @created_patient
     end
@@ -141,25 +141,25 @@ class PatientsControllerTest < ActionController::TestCase
     it 'should fail to save if name is blank' do
       @test_patient[:name] = ''
       assert_no_difference 'Patient.count' do
-        post :data_entry_create, patient: @test_patient
+        post data_entry_create_path, params: { patient: @test_patient }
       end
       assert_no_difference 'Pregnancy.count' do
-        post :data_entry_create, patient: @test_patient
+        post data_entry_create_path, params: { patient: @test_patient }
       end
     end
 
     it 'should fail to save if primary phone is blank' do
       @test_patient[:primary_phone] = ''
       assert_no_difference 'Patient.count' do
-        post :data_entry_create, patient: @test_patient
+        post data_entry_create_path, params: { patient: @test_patient }
       end
       assert_no_difference 'Pregnancy.count' do
-        post :data_entry_create, patient: @test_patient
+        post data_entry_create_path, params: { patient: @test_patient }
       end
     end
 
     it 'should create an associated pregnancy object' do
-      post :data_entry_create, patient: @test_patient
+      post data_entry_create_path, params: { patient: @test_patient }
       assert_not_nil Patient.find_by(name: 'Test Patient').pregnancy
     end
   end
