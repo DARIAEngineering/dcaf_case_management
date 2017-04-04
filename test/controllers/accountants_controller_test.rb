@@ -3,7 +3,7 @@ require 'test_helper'
 class AccountantsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
-    log_in_controller @user
+    sign_in @user
   end
 
   describe 'index method' do

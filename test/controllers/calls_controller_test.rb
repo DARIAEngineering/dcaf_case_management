@@ -3,7 +3,7 @@ require 'test_helper'
 class CallsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
-    log_in_controller @user
+    sign_in @user
     @patient = create :patient
   end
 

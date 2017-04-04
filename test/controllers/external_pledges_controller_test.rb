@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExternalPledgesControllerTest < ActionController::TestCase
+class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     sign_in @user
@@ -10,24 +10,20 @@ class ExternalPledgesControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @pledge = attributes_for :external_pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+      post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
     end
 
     it 'should create and save a new pledge' do
       @pledge[:source] = 'diff'
       assert_difference 'Patient.find(@patient).external_pledges.count', 1 do
-        post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
       end
     end
 
     it 'should respond bad_request if the pledge does not submit' do
       # submitting a duplicate pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+      post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
       assert_response :bad_request
-    end
-
-    it 'should render create js if it saves' do
-      assert_template 'external_pledges/create'
     end
 
     it 'should respond success if the pledge submits' do
