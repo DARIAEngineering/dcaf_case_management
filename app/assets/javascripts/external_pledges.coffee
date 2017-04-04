@@ -4,6 +4,6 @@
 
 jQuery ->
   # use event that works with rails turbolinks
-  $(document).on 'ready turbolinks:load', ->
+  $(document).on 'ready page:load', ->
     # select all elements with id ending with "modal"
     $('[id$=modal]').modalSteps()
