@@ -12,9 +12,9 @@ module StatusHelper
   def status
     return STATUSES[:resolved] if pregnancy.resolved_without_dcaf?
     return STATUSES[:pledge_sent] if pregnancy.pledge_sent?
+    return STATUSES[:no_contact] if not contact_made?
     return STATUSES[:fundraising] if appointment_date
-    return STATUSES[:needs_appt] if contact_made?
-    STATUSES[:no_contact]
+    STATUSES[:needs_appt]
   end
 
   private

@@ -8,7 +8,7 @@ class StatusHelperTest < ActionView::TestCase
     @pregnancy = create :pregnancy, patient: @patient
   end
 
-  describe 'status method' do
+  describe 'status method branch 1' do
     it 'should default to "No Contact Made" when a patient has no calls' do
       assert_equal Patient::STATUSES[:no_contact], @patient.status
     end
@@ -18,12 +18,20 @@ class StatusHelperTest < ActionView::TestCase
       assert_equal Patient::STATUSES[:no_contact], @patient.status
     end
 
+    it 'should still say "No Contact Made" if patient leaves voicemail with appointment' do
+      @patient.appointment_date = '01/01/2017'
+      assert_equal Patient::STATUSES[:no_contact], @patient.status
+    end
+  end
+
+  describe 'status method branch 2' do
     it 'should update to "Needs Appointment" once patient has been reached' do
       create :call, patient: @patient, status: 'Reached patient'
       assert_equal Patient::STATUSES[:needs_appt], @patient.status
     end
 
-    it 'should update to "Fundraising" once an appointment has been made' do
+    it 'should update to "Fundraising" once appointment made and patient reached' do
+      create :call, patient: @patient, status: 'Reached patient'
       @patient.appointment_date = '01/01/2017'
       assert_equal Patient::STATUSES[:fundraising], @patient.status
     end

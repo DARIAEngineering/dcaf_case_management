@@ -4,7 +4,7 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash git openssh" \
+    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash git openssh fontconfig" \
     APP_DEPENDENCIES="nodejs"
 
 # get our gem house in order
@@ -26,7 +26,7 @@ RUN apk update && apk upgrade && \
 RUN ln -s `which nodejs` /usr/bin/node
 
 # install phantomjs
-RUN npm install -g phantomjs-prebuilt
+RUN npm install -g phantomjs-prebuilt@2.1.14
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
