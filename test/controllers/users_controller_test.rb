@@ -12,10 +12,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     it 'should raise if user is not admin' do
-      @user.role = :cm
-      @user.save!
-      assert_raise RuntimeError, 'Permission Denied' do
-        post users_path, params: { user: attributes_for(:user) }
+      User::ROLE.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        assert_no_difference 'User.count' do
+          post users_path, params: { user: attributes_for(:user) }
+        end
       end
     end
   end
