@@ -405,7 +405,7 @@ GEM
     timecop (0.8.1)
     turbolinks (2.5.3)
       coffee-rails
-    tzinfo (1.2.3)
+    tzinfo (1.2.2)
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.2)
       tzinfo (>= 1.0.0)

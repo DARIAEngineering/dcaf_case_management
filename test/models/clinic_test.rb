@@ -17,6 +17,12 @@ class ClinicTest < ActiveSupport::TestCase
         refute @clinic.valid?
       end
     end
+
+    it 'should be unique on name' do
+      clinic_name = @clinic.name
+      dupe_clinic = build :clinic, name: clinic_name, created_by: @user
+      refute dupe_clinic.valid?
+    end
   end
 
   describe 'mongoid attachments' do

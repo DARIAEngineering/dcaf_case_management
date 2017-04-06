@@ -14,6 +14,7 @@ class Clinic
   field :state, type: String
   field :zip, type: String
   field :phone, type: String
+  field :fax, type: String
   field :active, type: Boolean, default: true
   field :accepts_naf, type: Boolean, default: false
   field :gestational_limit, type: Integer
@@ -22,6 +23,7 @@ class Clinic
 
   # Validations
   validates :name, :street_address, :city, :state, :zip, presence: true
+  validates :name, uniqueness: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
