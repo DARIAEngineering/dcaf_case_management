@@ -7,3 +7,5 @@ Following our project's participation in an Abortion Access Hackathon in early 2
 2017-03-07 [Those at Abortion Access Hackathon Seek to Solve ‘the Very Problems We Are Experiencing’](https://rewire.news/article/2017/03/07/abortion-access-hackathon-seek-solve-problems-experiencing/) at Rewire
 
 2017-03-06 [Techies team up for abortion access hackathon](http://money.cnn.com/2017/03/06/technology/abortion-access-hackathon-san-francisco/) at CNN Tech
+
+2017-02-01 [Abortion Access Hackathon to Help Find Tech-Based Solutions for Abortion Advocates](http://www.teenvogue.com/story/abortion-access-hackathon-to-help-find-tech-based-solutions-for-abortion-advocates) in Teen Vogue.
