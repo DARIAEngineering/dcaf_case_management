@@ -25,6 +25,8 @@
                 <%= pt.form_group :referred_to_clinic, label: { text: 'Referred to clinic' } do %>
                   <%= pt.check_box :referred_to_clinic, label: '' %>
                 <% end %>
+                <%= label_tag 'Enable only NAF clinics' %>
+                <%= check_box_tag 'naf_filter' %>
               <% end %>
             </div>
           </div>
