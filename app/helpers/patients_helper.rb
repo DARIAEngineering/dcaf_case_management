@@ -55,15 +55,16 @@ module PatientsHelper
     (1..10).map { |i| i }.unshift [nil, nil]
   end
 
-  def map_clinic_with_naf array
-    clinic_with_naf = array.map { |clinics| [clinics, :"data-naf" => Clinic.find_by(name: clinics).accepts_naf] }
-    return clinic_with_naf
-  end
+  # def map_clinic_with_naf array
+  #   clinic_with_naf = array.map { |clinics| [clinics, :"data-naf" => Clinic.find_by(name: clinics).accepts_naf] }
+  #   return clinic_with_naf
+  # end
 
   def clinic_options
     clinics = ['Sample Clinic 1 - DC', 'Sample Clinic 2 - VA', 'Sample Clinic with NAF', 'Sample Clinic without NAF']
 
-    map_clinic_with_naf(ENV['CLINICS'].try(:split, ',') || clinics)
+    # map_clinic_with_naf(ENV['CLINICS'].try(:split, ',') || clinics)
+    (ENV['CLINICS'].try(:split, ',') || clinics)
       .unshift nil
   end
 

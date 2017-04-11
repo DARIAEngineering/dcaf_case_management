@@ -56,6 +56,17 @@ class PatientsController < ApplicationController
       render 'data_entry'
     end
   end
+
+
+  def fetch_clinic_naf
+    accepts_naf =  Clinic.find_by(name: params['name']).accepts_naf
+    render json: [params['name'], accepts_naf]
+  end
+
+  def get_clinics
+    @clinics = Clinic.where(active: true).map{ |clinic| [clinic.name, clinic.id] }
+    render json: @clinics.to_json
+  end
   # end routes to be turned off when not in active use
 
   private

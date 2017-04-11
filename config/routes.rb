@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :notes, only: [ :create, :update ]
       resources :external_pledges, only: [ :create, :update, :destroy ]
     end
+    get 'get_clinics', to: 'patients#get_clinics', as: 'get_clinics'
+    get 'fetch_clinic_naf', to: 'patients#fetch_clinic_naf', as: 'fetch_clinic_naf'
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]

@@ -21,6 +21,40 @@ calculateRemainder = ->
 valueToNumber = (val) ->
   +val || 0
 
+getClinics = ->
+  $.get '/get_clinics', (data, status) ->
+    if status == 'success'
+      $.when data
+
+filterNAF = ->
+  checked = $("#naf_filter").prop("checked")
+  $("#patient_clinic_name > option").each ->
+    if $(this).attr('data-naf') == "false"
+      $(this).attr("disabled", checked)
+
+mapNAFtoClinic = (deferred) ->
+  $.each deferred, (index) ->
+    name = deferred[index].responseJSON[0]
+    accepts_naf = deferred[index].responseJSON[1]
+    $('#patient_clinic_name > option[value=\'' + name + '\']').attr 'data-naf', accepts_naf
+
+fetchClinicNAF = (data) ->
+  deferred = []
+  $.each data, (index) ->
+    deferred.push $.ajax(
+      url: '/fetch_clinic_naf'
+      data:
+        name: data[index][0]
+      type: 'GET')
+    return
+  $.when.apply($, deferred).then(->
+    mapNAFtoClinic(deferred)
+    return
+  ).fail(->
+    console.log "failed to fetch clinic attributes"
+    return
+  )
+
 ready = ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
@@ -41,10 +75,12 @@ ready = ->
     setTimeout(updateBalance, 500)
 
   $(document).on "click", "#naf_filter", ->
-    checked = $("#naf_filter").prop("checked")
-    $("#patient_clinic_name > option").each ->
-      if $(this).attr('data-naf') == "false"
-        $(this).attr("disabled", checked)
+    attr = $('#patient_clinic_name > option').last().attr 'data-naf'
+    if typeof attr == 'undefined'
+      getClinics().then(fetchClinicNAF).then(filterNAF)
+    else
+      filterNAF()
+
 
 
   if $("#patient_pregnancy_procedure_cost").val()
