@@ -17,7 +17,8 @@ deployment:
 
 test:
   override:
-    - bundle exec rails test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS":
+    # Currently rails test is blowing up on CI, so back to rake test for now
+    - bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS":
         parallel: true
         files:
           - test/**/*_test.rb
