@@ -4,7 +4,6 @@ require File.expand_path('../boot', __FILE__)
 # we don't need ActiveRecord, and ActiveRecord freaks out
 # if there's no connection pool. -CF
 # require 'rails/all'
-
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'sprockets/railtie'
