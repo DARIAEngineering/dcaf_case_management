@@ -45,10 +45,6 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
       @note.reload
     end
 
-    it 'should render the correct template' do
-      assert_template 'notes/update'
-    end
-
     it 'should respond with success' do
       assert_response :success
     end
