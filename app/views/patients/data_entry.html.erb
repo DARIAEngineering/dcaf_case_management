@@ -40,7 +40,7 @@
 
   <%= f.text_field :age, autocomplete: 'off' %>
   <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>
-  <%= f.select :clinic_name, options_for_select(clinic_options) %>
+  <%= f.select :clinic_id, options_for_select(clinic_options) %>
 
   <%= f.text_field :appointment_date, label: 'Appointment date', autocomplete: 'off', format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
 

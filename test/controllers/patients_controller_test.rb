@@ -9,6 +9,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
     @pregnancy = create :pregnancy, patient: @patient
+    @clinic = create :clinic
   end
 
   describe 'create method' do
@@ -71,7 +72,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     it 'should contain the current record' do
       assert_match /Susie Everyteen/, response.body
       assert_match /123-456-7890/, response.body
-      assert_match /Sample Clinic 1/, response.body
+      assert_match /Friendly Clinic/, response.body
     end
   end
 

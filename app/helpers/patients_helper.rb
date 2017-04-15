@@ -56,7 +56,7 @@ module PatientsHelper
   end
 
   def clinic_options
-    (ENV['CLINICS'].try(:split, ',') || ['Sample Clinic 1', 'Sample Clinic 2'])
+    Clinic.where(active: true).map { |clinic| [clinic.name, clinic.id] }
       .unshift nil
   end
 

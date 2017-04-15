@@ -4,6 +4,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
+    @clinic = create :clinic
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
     @ext_pledge = create :external_pledge,
@@ -15,9 +16,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     page.driver.resize(2000, 2000)
   end
 
-  after do
-    Capybara.use_default_driver
-  end
+  after { Capybara.use_default_driver }
 
   describe 'changing patient dashboard information' do
     before do
@@ -52,7 +51,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing abortion information' do
     before do
       click_link 'Abortion Information'
-      select 'Sample Clinic 1', from: 'patient_clinic_name'
+      select @clinic.name, from: 'patient_clinic_id'
       check 'Resolved without assistance from DCAF'
       check 'Referred to clinic'
 
@@ -71,7 +70,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
     it 'should alter the information' do
       within :css, '#abortion_information' do
-        assert_equal 'Sample Clinic 1', find('#patient_clinic_name').value
+        assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
         assert has_checked_field?('Resolved without assistance from DCAF')
         # assert has_checked_field?('Referred to clinic') # wonky test for no reason
         # TODO: review after getting clinic logic in place
@@ -167,8 +166,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   describe 'changing fulfillment information' do
     before do
       @user.update role: :admin
+      @clinic = create :clinic
       @patient = create :patient, appointment_date: 2.days.from_now,
-                                  clinic_name: 'Sample Clinic 1'
+                                  clinic: @clinic
       create :pregnancy, patient: @patient,
                          dcaf_soft_pledge: 100,
                          pledge_sent: true

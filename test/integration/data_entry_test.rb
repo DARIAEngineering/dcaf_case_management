@@ -4,6 +4,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
+    @clinic = create :clinic
     log_in_as @user
     visit data_entry_path
     has_text? 'PATIENT ENTRY' # wait until load
@@ -28,7 +29,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       fill_in 'Dcaf soft pledge', with: '100'
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'
-      select 'Sample Clinic 1', from: 'patient_clinic_name'
+      select @clinic.name, from: 'patient_clinic_id'
       fill_in 'Appointment date', with: 1.day.ago.strftime('%Y-%m-%d')
       select 'DC Medicaid', from: 'patient_insurance'
       select '1', from: 'patient_household_size_adults'
@@ -84,7 +85,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     it 'should log a new patient ready for further editing: abortion' do
       click_link 'Abortion Information'
       within :css, '#abortion_information' do
-        assert_equal 'Sample Clinic 1', find('#patient_clinic_name').value
+        assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
         assert has_field? 'Abortion cost', with: '200'
         assert has_field? 'Patient contribution', with: '150'
         assert has_field? 'National Abortion Federation pledge', with: '50'
