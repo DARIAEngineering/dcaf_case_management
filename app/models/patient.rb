@@ -12,6 +12,10 @@ class Patient
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
   end
 
+  CSV_EXPORT_FIELDS = { "BSON ID" => :id,
+                        "Identifier" => :identifier,
+                        "Has Alt Contact?" => :has_alt_contact? }
+
   before_validation :clean_fields
 
   # Relationships
@@ -184,6 +188,10 @@ class Patient
 
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+  end
+
+  def has_alt_contact?
+    !!(other_contact || other_phone || other_contact_relationship)
   end
 
   def still_urgent?

@@ -1,0 +1,8 @@
+<%=
+CSV.generate do |csv|
+  csv << Patient::CSV_EXPORT_FIELDS.keys # Header line
+  @patients.each do |patient|
+    csv << Patient::CSV_EXPORT_FIELDS.values.map { |field| patient.send(field) }
+  end
+end.html_safe
+%>

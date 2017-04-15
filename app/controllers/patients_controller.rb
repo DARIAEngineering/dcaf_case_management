@@ -1,8 +1,14 @@
 # Create and update patients, plus the main patient view in edit
 class PatientsController < ApplicationController
+  before_action :confirm_user_has_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
+
+  def index
+    @patients = Patient.all
+    respond_to :csv
+  end
 
   def create
     patient = Patient.new patient_params

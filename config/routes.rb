@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients, 
-              only: [ :create, :edit, :update ] do
+              only: [ :create, :edit, :update, :index ] do
       resources :calls, 
                 only: [ :create, :destroy ]
       resources :notes, 
