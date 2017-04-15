@@ -45,6 +45,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       check 'Homelessness'
       click_button 'Create Patient'
       has_text? 'Patient information' # wait for redirect
+      #  problem here
     end
 
     it 'should log a new patient ready for further editing: dashboard' do
