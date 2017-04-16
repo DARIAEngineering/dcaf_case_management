@@ -45,11 +45,12 @@ class ClinicsController < ApplicationController
   private
 
   def clinic_params
+    clinic_params = %i(name street_address city state zip
+                       phone fax active accepts_naf gestational_limit)
+    cost_params = (5..30).map { |i| "costs_#{i}wks".to_sym }
+
     params.require(:clinic).permit(
-      :name, :street_address, :city, :state, :zip,
-      :phone, :accepts_naf, :gestational_limit,
-      :costs_9wks, :costs_12wks, :costs_18wks,
-      :costs_24wks, :costs_30wks
+      clinic_params.concat(cost_params)
     )
   end
 end
