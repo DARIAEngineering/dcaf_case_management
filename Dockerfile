@@ -4,8 +4,9 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash git openssh fontconfig" \
-    APP_DEPENDENCIES="nodejs"
+    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash openssh fontconfig fontconfig-dev curl" \
+    APP_DEPENDENCIES="nodejs git" \
+    FONTCONFIG_PATH=/etc/fonts
 
 # get our gem house in order
 RUN mkdir -p ${DCAF_DIR} && cd ${DCAF_DIR}
@@ -20,20 +21,21 @@ RUN apk update && apk upgrade && \
     ${APP_DEPENDENCIES} && \
     gem install bundler --no-ri --no-rdoc && \
     cd ${DCAF_DIR} ; bundle install && \
+    curl -Ls https://github.com/DarthHater/docker-phantomjs2/releases/download/2.1.1/dockerized-phantomjs.tar.gz | tar xz -C / && \
+	phantomjs --version && \
     apk del ${BUILD_DEPENDENCIES} 
 
 # symlink which nodejs to node
 RUN ln -s `which nodejs` /usr/bin/node
-
-# install phantomjs
-RUN npm install -g phantomjs-prebuilt@2.1.14
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
 RUN addgroup dcaf && adduser -s /bin/bash -D -G dcaf dcaf
 RUN chown -R dcaf:dcaf ${DCAF_DIR}
+
 USER dcaf
+
 WORKDIR ${DCAF_DIR}
 
 COPY . ${DCAF_DIR}
