@@ -20,12 +20,10 @@ Rails.application.routes.draw do
       resources :external_pledges,
                 only: [ :create, :update, :destroy ]
     end
-# <<<<<<< HEAD
-#     get 'get_clinics', to: 'patients#get_clinics', as: 'get_clinics'
-#     get 'fetch_clinic_naf', to: 'patients#fetch_clinic_naf', as: 'fetch_clinic_naf'
-# =======
-#
-# >>>>>>> 152dbd29ecde23e54a0ef1db2a0b557b6862f047
+
+    get 'naf_status', to: 'clinics#naf_status', as: 'naf_status'
+    get 'clinics', to: 'clinics#index', as: 'clinics'
+
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]

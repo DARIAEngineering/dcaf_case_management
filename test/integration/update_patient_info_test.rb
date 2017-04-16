@@ -68,6 +68,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       reload_page_and_click_link 'Abortion Information'
     end
 
+    # it 'should enable NAF only clinics' do
+    #   click_link 'Abortion Information'
+    #
+    #   find('#naf_filter').click
+    #
+    #   wait_for_ajax
+    #   within :css, '#abortion_information' do
+    #     assert_equal false, find('#patient_clinic_id')['data-naf']
+    #   end
+    # end
+
     it 'should alter the information' do
       within :css, '#abortion_information' do
         assert_equal @clinic.id.to_s, find('#patient_clinic_id').value

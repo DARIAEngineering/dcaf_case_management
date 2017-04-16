@@ -57,18 +57,6 @@ class PatientsController < ApplicationController
     end
   end
 
-
-  def fetch_clinic_naf
-    accepts_naf =  Clinic.find_by(id: params['id']).accepts_naf
-    render json: [params['id'], accepts_naf]
-  end
-
-  def get_clinics
-    @clinics = Clinic.where(active: true).map{ |clinic| [clinic.name, clinic.id] }
-    render json: @clinics.to_json
-  end
-  # end routes to be turned off when not in active use
-
   private
 
   def find_patient

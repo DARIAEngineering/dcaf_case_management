@@ -5,6 +5,7 @@ class ClinicsController < ApplicationController
 
   def index
     @clinics = Clinic.all
+    render json: @clinics.to_json
   end
 
   def create
@@ -37,6 +38,11 @@ class ClinicsController < ApplicationController
 
   def find_clinic
     @clinic = Clinic.find params[:id]
+  end
+
+  def naf_status
+    accepts_naf =  Clinic.find(id: params['id']).accepts_naf
+    render json: [params['id'], accepts_naf]
   end
 
   # def destroy
