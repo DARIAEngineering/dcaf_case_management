@@ -56,8 +56,10 @@ module PatientsHelper
   end
 
   def clinic_options
-    Clinic.where(active: true).map { |clinic| [clinic.name, clinic.id] }
-      .unshift nil
+    Clinic.where(active: true)
+          .sort_by(&:name)
+          .map { |clinic| [clinic.name, clinic.id] }
+          .unshift nil
   end
 
   def disable_continue?(patient)
