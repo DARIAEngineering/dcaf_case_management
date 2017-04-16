@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    raise 'Permission Denied' unless current_user.admin?
+    raise RuntimeError('Permission Denied') unless current_user.admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     sign_in @user
@@ -12,33 +12,35 @@ class UsersControllerTest < ActionController::TestCase
 
   describe 'create method' do
     it 'should raise if user is not admin' do
-      @user.role = :cm
-      @user.save!
-      assert_raise RuntimeError, 'Permission Denied' do
-        post :create
+      User::ROLE.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        assert_no_difference 'User.count' do
+          post users_path, params: { user: attributes_for(:user) }
+        end
       end
     end
   end
 
   describe 'index method' do
     it 'should redirect if user is not admin' do
-      @user.role = :cm
-      @user.save!
-      get :index
-      assert_response :redirect
+      User::ROLE.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        get users_path
+        assert_response :redirect
+      end
     end
 
     it 'should let admin access the route' do
       @user.role = :admin
       @user.save!
-      get :index
+      get users_path
       assert_response :success
     end
   end
 
   describe 'add_patient method' do
     before do
-      patch :add_patient, id: @patient_1, user_id: @user, format: :js
+      patch add_patient_path(@user, @patient_1), xhr: true
     end
 
     it 'should respond successfully' do
@@ -49,7 +51,7 @@ class UsersControllerTest < ActionController::TestCase
       @user.reload
       assert_equal @user.patients.count, 1
       assert_difference '@user.patients.count', 1 do
-        patch :add_patient, id: @patient_2, user_id: @user, format: :js
+        patch add_patient_path(@user, @patient_2), xhr: true
         @user.reload
       end
       assert_equal @user.patients.count, 2
@@ -57,21 +59,21 @@ class UsersControllerTest < ActionController::TestCase
 
     it 'should not adjust the count if a patient is already in the list' do
       assert_no_difference '@user.patients.count' do
-        patch :add_patient, id: @patient_1, user_id: @user, format: :js
+        patch add_patient_path(@user, @patient_1), xhr: true
       end
     end
 
     it 'should should return bad request on sketch ids' do
-      patch :add_patient, id: '12345678', user_id: @user, format: :js
+      patch add_patient_path(@user, 'nopatient'), xhr: true
       assert_response :bad_request
     end
   end
 
   describe 'remove_patient method' do
     before do
-      patch :add_patient, id: @patient_1, user_id: @user, format: :js
-      patch :add_patient, id: @patient_2, user_id: @user, format: :js
-      patch :remove_patient, id: @patient_1, user_id: @user, format: :js
+      patch add_patient_path(@user, @patient_1), xhr: true
+      patch add_patient_path(@user, @patient_2), xhr: true
+      patch remove_patient_path(@user, @patient_1), xhr: true
       @user.reload
     end
 
@@ -81,20 +83,20 @@ class UsersControllerTest < ActionController::TestCase
 
     it 'should remove a patient' do
       assert_difference '@user.patients.count', -1 do
-        patch :remove_patient, id: @patient_2, user_id: @user, format: :js
+        patch remove_patient_path(@user, @patient_2), xhr: true
         @user.reload
       end
     end
 
     it 'should do nothing if the patient is not currently in the call list' do
       assert_no_difference '@user.patients.count' do
-        patch :remove_patient, id: @patient_1, user_id: @user, format: :js
+        patch remove_patient_path(@user, @patient_1), xhr: true
       end
       assert_response :success
     end
 
     it 'should should return bad request on sketch ids' do
-      patch :remove_patient, id: '12345678', user_id: @user, format: :js
+      patch remove_patient_path(@user, 'whatever'), xhr: true
       assert_response :bad_request
     end
   end
@@ -105,7 +107,7 @@ class UsersControllerTest < ActionController::TestCase
       4.times { @ids << create(:patient)._id.to_s }
       @ids.shuffle!
 
-      patch :reorder_call_list, order: @ids, format: :js
+      patch reorder_call_list_path, params: { order: @ids }, xhr: true
       @user.reload
     end
 

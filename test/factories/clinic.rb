@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :clinic do
-    name 'Friendly Clinic'
+    sequence :name do |n| 
+      "Friendly Clinic #{n}"
+    end
     street_address '123 Fake Street'
     city 'Washington'
     state 'DC'

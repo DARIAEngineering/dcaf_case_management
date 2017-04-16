@@ -5,13 +5,27 @@ Rails.application.routes.draw do
     get 'report', to: 'reports#index', as: 'report'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
-    resources :patients, only: [ :create, :edit, :update ] do
-      resources :calls, only: [ :create, :destroy ]
-      resources :notes, only: [ :create, :update ]
-      resources :external_pledges, only: [ :create, :update, :destroy ]
+
+    # Patient routes
+    # /patients/:id
+    # /patients/:id/calls
+    # /patients/:id/notes
+    # /patients/:id/external_pledges
+    resources :patients,
+              only: [ :create, :edit, :update ] do
+      resources :calls,
+                only: [ :create, :destroy ]
+      resources :notes,
+                only: [ :create, :update ]
+      resources :external_pledges,
+                only: [ :create, :update, :destroy ]
     end
-    get 'get_clinics', to: 'patients#get_clinics', as: 'get_clinics'
-    get 'fetch_clinic_naf', to: 'patients#fetch_clinic_naf', as: 'fetch_clinic_naf'
+# <<<<<<< HEAD
+#     get 'get_clinics', to: 'patients#get_clinics', as: 'get_clinics'
+#     get 'fetch_clinic_naf', to: 'patients#fetch_clinic_naf', as: 'fetch_clinic_naf'
+# =======
+#
+# >>>>>>> 152dbd29ecde23e54a0ef1db2a0b557b6862f047
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]
@@ -25,6 +39,8 @@ Rails.application.routes.draw do
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
   end
+
+  # Auth routes
   root :to => redirect('/users/sign_in')
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
                      skip: [:registrations]
