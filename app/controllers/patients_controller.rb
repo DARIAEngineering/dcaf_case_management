@@ -59,8 +59,8 @@ class PatientsController < ApplicationController
 
 
   def fetch_clinic_naf
-    accepts_naf =  Clinic.find_by(name: params['name']).accepts_naf
-    render json: [params['name'], accepts_naf]
+    accepts_naf =  Clinic.find_by(id: params['id']).accepts_naf
+    render json: [params['id'], accepts_naf]
   end
 
   def get_clinics

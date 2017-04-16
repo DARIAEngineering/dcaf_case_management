@@ -44,14 +44,13 @@ fetchClinicNAF = (data) ->
     deferred.push $.ajax(
       url: '/fetch_clinic_naf'
       data:
-        name: data[index][0]
+        id: data[index][1].$oid
       type: 'GET')
     return
   $.when.apply($, deferred).then(->
     mapNAFtoClinic(deferred)
     return
   ).fail(->
-    console.log "failed to fetch clinic attributes"
     return
   )
 
