@@ -41,7 +41,7 @@ class ClinicsController < ApplicationController
   end
 
   def naf_status
-    accepts_naf =  Clinic.find(id: params['id']).accepts_naf
+    accepts_naf =  Clinic.find(params['id']).accepts_naf
     render json: [params['id'], accepts_naf]
   end
 
