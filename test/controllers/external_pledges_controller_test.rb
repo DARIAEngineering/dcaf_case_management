@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExternalPledgesControllerTest < ActionController::TestCase
+class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     sign_in @user
@@ -10,24 +10,20 @@ class ExternalPledgesControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @pledge = attributes_for :external_pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+      post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
     end
 
     it 'should create and save a new pledge' do
       @pledge[:source] = 'diff'
       assert_difference 'Patient.find(@patient).external_pledges.count', 1 do
-        post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
       end
     end
 
     it 'should respond bad_request if the pledge does not submit' do
       # submitting a duplicate pledge
-      post :create, patient_id: @patient.id, external_pledge: @pledge, format: :js
+      post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
       assert_response :bad_request
-    end
-
-    it 'should render create js if it saves' do
-      assert_template 'external_pledges/create'
     end
 
     it 'should respond success if the pledge submits' do
@@ -43,13 +39,8 @@ class ExternalPledgesControllerTest < ActionController::TestCase
     before do
       @pledge = create :external_pledge, patient: @patient
       @pledge_edits = { source: 'Edited Pledge' }
-      patch :update, patient_id: @patient, id: @pledge,
-                     external_pledge: @pledge_edits, format: :js
+      patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
       @pledge.reload
-    end
-
-    it 'should render the correct template' do
-      assert_template 'external_pledges/update'
     end
 
     it 'should respond with success' do
@@ -73,8 +64,7 @@ class ExternalPledgesControllerTest < ActionController::TestCase
                                      .external_pledges.find(@pledge)
                                      .history_tracks.count' do
           @pledge_edits[:source] = bad_text
-          patch :update, patient_id: @patient, id: @pledge,
-                         external_pledge: @pledge_edits, format: :js
+          patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
           assert_response :bad_request
           @pledge.reload
           assert_equal @pledge.source, 'Edited Pledge'
@@ -87,7 +77,7 @@ class ExternalPledgesControllerTest < ActionController::TestCase
     before { @pledge = create :external_pledge, patient: @patient }
 
     it 'should set a pledge to inactive' do
-      delete :destroy, patient_id: @patient, id: @pledge, format: :js
+      delete patient_external_pledge_path(@patient, @pledge), xhr: true
       @pledge.reload
       refute @pledge.active?
     end

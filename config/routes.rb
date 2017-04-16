@@ -5,11 +5,22 @@ Rails.application.routes.draw do
     get 'report', to: 'reports#index', as: 'report'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
-    resources :patients, only: [ :create, :edit, :update ] do
-      resources :calls, only: [ :create, :destroy ]
-      resources :notes, only: [ :create, :update ]
-      resources :external_pledges, only: [ :create, :update, :destroy ]
+
+    # Patient routes
+    # /patients/:id
+    # /patients/:id/calls 
+    # /patients/:id/notes
+    # /patients/:id/external_pledges
+    resources :patients, 
+              only: [ :create, :edit, :update ] do
+      resources :calls, 
+                only: [ :create, :destroy ]
+      resources :notes, 
+                only: [ :create, :update ]
+      resources :external_pledges, 
+                only: [ :create, :update, :destroy ]
     end
+
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]
@@ -23,6 +34,8 @@ Rails.application.routes.draw do
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
   end
+
+  # Auth routes
   root :to => redirect('/users/sign_in')
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
                      skip: [:registrations]

@@ -1,0 +1,3 @@
+# config/initializers/mongoid_belongs_to_required_by_default.rb
+
+Mongoid.belongs_to_required_by_default = false

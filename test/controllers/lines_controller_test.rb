@@ -1,10 +1,9 @@
 require 'test_helper'
 
-class LinesControllerTest < ActionController::TestCase
+class LinesControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     sign_in @user
-    session[:line] = 'dc'
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
@@ -14,7 +13,7 @@ class LinesControllerTest < ActionController::TestCase
 
   describe 'new' do
     before do
-      get :new
+      get new_line_path
     end
 
     it 'should return success' do
@@ -24,7 +23,7 @@ class LinesControllerTest < ActionController::TestCase
 
   describe 'create' do
     before do
-      post :create, line: 'MD'
+      post lines_path, params: { line: 'MD' }
     end
 
     it 'should set a session variable' do

@@ -29,7 +29,7 @@ class PatientsController < ApplicationController
     if @patient.update_attributes patient_params
       head :ok
     else
-      head :bad_request
+      head :internal_server_error
     end
   end
 
@@ -69,13 +69,12 @@ class PatientsController < ApplicationController
       :name, :primary_phone, :other_contact, :other_phone,
       :other_contact_relationship, :line, :voicemail_preference, :spanish,
       # fields in dashboard
-      :clinic_name,
+      # :clinic_name,
       :appointment_date,
       :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income,
       :household_size_adults, :household_size_children, :insurance,
       :referred_by, :initial_call_date, :urgent_flag,
-      clinic: [:id, :name, :street_address_1, :street_address_2,
-               :city, :state, :zip],
+      :clinic_id,
       pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
                   :resolved_without_dcaf, :referred_to_clinic, :procedure_cost,
                   :pledge_sent, :patient_contribution, :naf_pledge, :dcaf_soft_pledge],

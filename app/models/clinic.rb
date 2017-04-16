@@ -7,6 +7,9 @@ class Clinic
   include Mongoid::Userstamp
   include ClinicsHelper
 
+  # Relationships
+  has_many :patients
+
   # Fields
   field :name, type: String
   field :street_address, type: String

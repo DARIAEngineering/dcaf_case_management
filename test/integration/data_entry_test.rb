@@ -4,6 +4,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
+    @clinic = create :clinic
     log_in_as @user
     visit data_entry_path
     has_text? 'PATIENT ENTRY' # wait until load
@@ -15,7 +16,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     before do
       # fill out the form
       select 'DC', from: 'patient_line'
-      fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%y')
+      fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d')
       fill_in 'Name', with: 'Susie Everyteen'
       fill_in 'Primary phone', with: '111-222-3344'
       fill_in 'Other contact name', with: 'Billy Everyteen'
@@ -28,7 +29,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       fill_in 'Dcaf soft pledge', with: '100'
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'
-      select 'Sample Clinic 1', from: 'patient_clinic_name'
+      select @clinic.name, from: 'patient_clinic_id'
       fill_in 'Appointment date', with: 1.day.ago.strftime('%Y-%m-%d')
       select 'DC Medicaid', from: 'patient_insurance'
       select '1', from: 'patient_household_size_adults'
@@ -50,9 +51,10 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       within :css, '#patient_dashboard' do
         lmp_weeks = find('#patient_pregnancy_last_menstrual_period_weeks')
         lmp_days = find('#patient_pregnancy_last_menstrual_period_days')
-        assert has_field?('First and last name', with: 'Susie Everyteen')
+        assert has_field? 'First and last name', with: 'Susie Everyteen'
         assert_equal '1', lmp_weeks.value
         assert_equal '2', lmp_days.value
+        assert has_text? "Called on: #{2.days.ago.strftime('%Y-%m-%d')}"
         assert has_field?('Appointment date',
                           with: 1.day.ago.strftime('%Y-%m-%d'))
         assert has_field? 'Phone number', with: '111-222-3344'
@@ -84,7 +86,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     it 'should log a new patient ready for further editing: abortion' do
       click_link 'Abortion Information'
       within :css, '#abortion_information' do
-        assert_equal 'Sample Clinic 1', find('#patient_clinic_name').value
+        assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
         assert has_field? 'Abortion cost', with: '200'
         assert has_field? 'Patient contribution', with: '150'
         assert has_field? 'National Abortion Federation pledge', with: '50'

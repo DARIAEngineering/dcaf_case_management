@@ -25,6 +25,12 @@ user2 = User.create! name: 'testuser2', email: 'test2@test.com',
 user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword'
 
+# Seed a pair of clinics, Sample 1 and Sample 2
+Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
+               city: 'Washington', state: 'DC', zip: '20011'
+Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
+               city: 'Arlington', state: 'VA', zip: '22204'
+
 # Create ten patients
 10.times do |i|
   flag = i.even? ? true : false
@@ -80,13 +86,13 @@ Patient.all.each do |patient|
   # Add example of patient with appointment one week from today && clinic selected
   if patient.name == 'Patient 2'
     patient.update! name: "Clinic and Appt - 2",
-                    clinic_name: "Sample Clinic 1",
+                    clinic: Clinic.first,
                     appointment_date: (1.week.from_now)
   end
 
   # Add example of patient with a pledge submitted
   if patient.name == 'Patient 3'
-    patient.update! clinic_name: "Sample Clinic 1",
+    patient.update! clinic: Clinic.first,
                     appointment_date: 10.days.from_now
     patient.pregnancy.update! naf_pledge: 2000,
                              procedure_cost: 4000,
@@ -142,12 +148,6 @@ user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create! status: 'Left voicemail',
                                         created_by: user
 
-# Seed a pair of clinics, Sample 1 and Sample 2
-Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
-               city: 'Washington', state: 'DC', zip: '20011'
-Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
-               city: 'Arlington', state: 'DC', zip: '22204'
-                      
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "User created! Credentials are as follows: " \
