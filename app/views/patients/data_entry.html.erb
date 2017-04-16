@@ -5,7 +5,7 @@
 <%= bootstrap_form_for @patient, url: data_entry_create_path, html: { class: 'mass_entry_form' } do |f| %>
   <%= f.select :line, options_for_select(lines, current_line) %>
 
-  <%= f.date_field :initial_call_date, format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
+  <%= f.text_field :initial_call_date, format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD' %>
 
   <%= f.text_field :name, autocomplete: 'off' %>
 

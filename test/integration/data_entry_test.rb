@@ -16,7 +16,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     before do
       # fill out the form
       select 'DC', from: 'patient_line'
-      fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%y')
+      fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d')
       fill_in 'Name', with: 'Susie Everyteen'
       fill_in 'Primary phone', with: '111-222-3344'
       fill_in 'Other contact name', with: 'Billy Everyteen'
@@ -51,9 +51,10 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       within :css, '#patient_dashboard' do
         lmp_weeks = find('#patient_pregnancy_last_menstrual_period_weeks')
         lmp_days = find('#patient_pregnancy_last_menstrual_period_days')
-        assert has_field?('First and last name', with: 'Susie Everyteen')
+        assert has_field? 'First and last name', with: 'Susie Everyteen'
         assert_equal '1', lmp_weeks.value
         assert_equal '2', lmp_days.value
+        assert has_text? "Called on: #{2.days.ago.strftime('%Y-%m-%d')}"
         assert has_field?('Appointment date',
                           with: 1.day.ago.strftime('%Y-%m-%d'))
         assert has_field? 'Phone number', with: '111-222-3344'
