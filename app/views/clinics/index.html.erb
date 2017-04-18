@@ -1,25 +1,36 @@
 <h1>Clinics</h1>
 <p><%= link_to 'Add a new clinic', new_clinic_path %></p>
 
-<% @clinics.each do |clinic| %>
-  <div class="row">
-    <div class="col-sm-12">
-      <h3 class="clinic-name"><%= clinic.name %></h3>
-      <span class="edit-clinic-details">
-        <%= link_to 'Edit', edit_clinic_path(clinic) %>
-      </span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <p><%= clinic.street_address %>, <%= clinic.city %>, <%= clinic.state %> <%= clinic.zip %></p>
-      <p><%= clinic.phone %></p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="collapse collapsible-clinic-details" id="<%= clinic.id %>">
-        <div class="additional-clinic-details">
+
+<table class="table table-hover">
+  <tr>
+    <th>CLINIC NAME</th>
+    <th>ADDRESS</th>
+    <th>CITY</th>
+    <th>STATE</th>
+    <th>ZIP</th>
+    <th></th>
+  </tr>
+
+    <% @clinics.each do |clinic| %>
+
+      
+      <tr>
+        <td><%= clinic.name %></td>
+        <td><%= clinic.street_address %></td>
+        <td><%= clinic.city %></td>
+        <td><%= clinic.state %></td>
+        <td><%= clinic.zip %></td>
+          <td>
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href= <%="#"+clinic.id %> aria-expanded="true" aria-controls=<%= clinic.id %>>
+            <i class="short-full glyphicon glyphicon-chevron-down"></i>
+            </a>
+          </td>
+      </tr>
+
+      <tr>
+        <td colspan=6>
+          <div  id=<%= clinic.id %>  class="collapse collapsible-clinic-details" role="tabpanel" aria-labelledby="headingOne">
           <div class="accepts-naf clinic-detail-group">
             <label>Accepts NAF?</label>
             <p class="blush"><%= clinic.accepts_naf ? 'Yes' : 'No' %></p>
@@ -27,27 +38,24 @@
           <div class="gestational-limit clinic-detail-group">
             <label>Gestational Limit</label>
             <p class="blush"><%= clinic.gestational_limit %></p>
+            </div>
           </div>
-          <div class="clinic-costs clinic-detail-group">
-            <label>Clinic Costs by Week</label>
-            <table class="clinic-costs-table table">
-              <thead>
-                  <% (5..30).each do |week| %>
-                    <th><%= week %> </th>
-                  <% end %>
-              </thead>
-              <tbody>
-                <tr>
-                  <% (5..30).each do |week| %>
-                    <td>$<span class="blush"><%= clinic["costs_#{week}wks".to_sym] %></span></td>
-                  <% end %>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <a role="button" class="clinic-detail-toggle" data-toggle="collapse" href="#<%= clinic.id %>" aria-expanded="false" aria-controls="<%= clinic.id %>">More details</a>
-    </div>
-  </div>
-<% end %>
+         </td>
+      </tr>
+      
+    <% end %>
+
+
+</table>
+
+<script>
+ $(document).ready(function(){    
+    $('#collapseOne').on('shown', function () {
+       $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+    });
+
+    $('#collapseOne').on('hidden', function () {
+       $(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+    });
+}); 
+</script>
