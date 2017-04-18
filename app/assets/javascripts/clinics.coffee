@@ -2,9 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 getClinics = ->
-  $.get '/clinics', (data, status) ->
+  $.get '/clinics', ((data, status) ->
     if status == 'success'
       $.when data
+  ), 'json'
 
 filterClinicsByNAF = ->
   checked = $("#naf_filter").prop("checked")

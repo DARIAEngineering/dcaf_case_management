@@ -21,16 +21,6 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'naf_status' do
-    before {
-      @clinic = create :clinic
-      @clinic[:accepts_naf] = true
-     }
-    it 'should render true' do
-      assert_equal true, @clinic[:accepts_naf]
-    end
-  end
-
   describe 'create' do
     before { @new_clinic = attributes_for :clinic }
 

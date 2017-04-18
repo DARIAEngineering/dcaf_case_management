@@ -4,7 +4,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
-    @clinic = create :clinic
+    @clinic = create :clinic, accepts_naf: true
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
     @ext_pledge = create :external_pledge,
