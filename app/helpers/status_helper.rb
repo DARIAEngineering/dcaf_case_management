@@ -6,7 +6,8 @@ module StatusHelper
     fundraising: 'Fundraising',
     pledge_sent: 'Pledge Sent',
     pledge_paid: 'Pledge Paid',
-    resolved: 'Resolved Without DCAF'
+    resolved: 'Resolved Without DCAF',
+    dropoff: 'Patient Has dropped Off'
   }.freeze
 
   def status
@@ -14,6 +15,7 @@ module StatusHelper
     return STATUSES[:pledge_sent] if pregnancy.pledge_sent?
     return STATUSES[:no_contact] if not contact_made?
     return STATUSES[:fundraising] if appointment_date
+    return STATUSES[:dropoff] if more_than_120
     STATUSES[:needs_appt]
   end
 
