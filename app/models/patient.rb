@@ -1,4 +1,6 @@
 # Object representing core patient information and demographic data.
+# require_relative 'concerns/auditable'
+
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -6,6 +8,7 @@ class Patient
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
   include StatusHelper
+  include Urgency
 
   SEARCH_LIMIT = 15
   LINES.each do |line|
@@ -98,18 +101,18 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.urgent_patients(lines = LINES)
-    Patient.in(_line: lines).where(urgent_flag: true)
-  end
+  # def self.urgent_patients(lines = LINES)
+  #   Patient.in(_line: lines).where(urgent_flag: true)
+  # end
 
-  def self.trim_urgent_patients
-    Patient.all do |patient|
-      unless patient.still_urgent?
-        patient.urgent_flag = false
-        patient.save
-      end
-    end
-  end
+  # def self.trim_urgent_patients
+  #   Patient.all do |patient|
+  #     unless patient.still_urgent?
+  #       patient.urgent_flag = false
+  #       patient.save
+  #     end
+  #   end
+  # end
 
   def self.pledged_status_summary(num_days = 7)
     # return pledge totals for patients with appts in the next num_days
@@ -186,15 +189,15 @@ class Patient
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
-  def still_urgent?
-    # Verify that a pregnancy has not been marked urgent in the past six days
-    return false if recent_history_tracks.count == 0
-    return false if pregnancy.pledge_sent || pregnancy.resolved_without_dcaf
-    recent_history_tracks.sort.reverse.each do |history|
-      return true if history.marked_urgent?
-    end
-    false
-  end
+  # def still_urgent?
+  #   # Verify that a pregnancy has not been marked urgent in the past six days
+  #   return false if recent_history_tracks.count == 0
+  #   return false if pregnancy.pledge_sent || pregnancy.resolved_without_dcaf
+  #   recent_history_tracks.sort.reverse.each do |history|
+  #     return true if history.marked_urgent?
+  #   end
+  #   false
+  # end
 
   def assemble_audit_trails
     (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
