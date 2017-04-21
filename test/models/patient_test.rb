@@ -8,7 +8,6 @@ class PatientTest < ActiveSupport::TestCase
 
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
-    @pregnancy = create :pregnancy, patient: @patient
     @call = create :call, patient: @patient,
                           status: 'Reached patient'
   end
@@ -89,18 +88,9 @@ class PatientTest < ActiveSupport::TestCase
 
   describe 'pledge_summary' do
     # TODO: needs timecopping
-    it "should not error when there are no pregnancies" do
-      Patient.destroy_all
-      assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary.to_s
-    end
     it "should return proper pledge summaries for various timespans" do
-      [@patient, @patient2].each do |pt|
-        create :pregnancy, patient: pt, created_by: @user
-      end
-      @patient.update appointment_date: (Date.today + 4)
-      @patient.pregnancy.update dcaf_soft_pledge: 300
-      @patient2.update appointment_date: (Date.today + 8)
-      @patient2.pregnancy.update dcaf_soft_pledge: 500, pledge_sent: true
+      @patient.update appointment_date: (Date.today + 4), dcaf_soft_pledge: 300
+      @patient2.update appointment_date: (Date.today + 8), dcaf_soft_pledge: 500, pledge_sent: true
       assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary(1).to_s
       assert_equal '{:pledged=>300, :sent=>0}', Patient.pledged_status_summary.to_s
       # TODO Timecop this test
@@ -140,9 +130,6 @@ class PatientTest < ActiveSupport::TestCase
                                primary_phone: '777-777-7777',
                                other_phone: '999-111-9888',
                                line: 'MD'
-      [@pt_1, @pt_2, @pt_3, @pt_4].each do |pt|
-        create :pregnancy, patient: pt, created_by: @user
-      end
     end
 
     it 'should find a patient on name or other name' do
@@ -159,7 +146,6 @@ class PatientTest < ActiveSupport::TestCase
     # end
 
     describe 'order' do
-
       before do
         Timecop.freeze Date.new(2014,4,4)
         @pt_4.update! name: 'Laila C.'
@@ -181,7 +167,6 @@ class PatientTest < ActiveSupport::TestCase
         end
         assert_equal 15, Patient.search('124').count
       end
-
     end
 
     it 'should be able to find based on secondary phones too' do
@@ -312,13 +297,13 @@ class PatientTest < ActiveSupport::TestCase
 
       it 'should return false if pledge sent' do
         @patient.update urgent_flag: true
-        @pregnancy.update pledge_sent: true
+        @patient.update pledge_sent: true
         assert_not @patient.still_urgent?
       end
 
       it 'should return false if resolved without dcaf' do
         @patient.update urgent_flag: true
-        @pregnancy.update resolved_without_dcaf: true
+        @patient.update resolved_without_dcaf: true
         assert_not @patient.still_urgent?
       end
 
