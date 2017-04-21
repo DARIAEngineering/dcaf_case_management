@@ -324,4 +324,56 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'pledge_sent validation' do
+    before do
+      @clinic = create :clinic
+      @patient.dcaf_soft_pledge = 500
+      @patient.clinic = @clinic
+      @patient.appointment_date = 14.days.from_now
+    end
+
+    it 'should validate pledge_sent when all items in #check_other_validations? are present' do
+      @patient.pledge_sent = true
+      assert @patient.valid?
+    end
+
+    it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
+      @patient.dcaf_soft_pledge = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should not validate pledge_sent if the clinic name is blank' do
+      @patient.clinic = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['Clinic name cannot be blank'], @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should not validate pledge_sent if the appointment date is blank' do
+      @patient.appointment_date = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['Appointment date cannot be blank'], @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should produce three error messages if three required fields are blank' do
+      @patient.dcaf_soft_pledge = nil
+      @patient.clinic = nil
+      @patient.appointment_date = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['DCAF soft pledge field cannot be blank', 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
+      @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should have convenience methods to render in view, just in case' do
+      refute @patient.pledge_info_present?
+      @patient.dcaf_soft_pledge = nil
+      assert @patient.pledge_info_present?
+      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.pledge_info_errors
+    end
+  end
 end
