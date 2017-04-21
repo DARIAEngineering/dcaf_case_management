@@ -13,7 +13,6 @@ class Patient
   include Notetakeable
   include Searchable
 
-  SEARCH_LIMIT = 15
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
   end
@@ -149,13 +148,7 @@ class Patient
                                                .reverse
   end
 
-  # Search-related stuff
-
   private
-
-  # def recent_history_tracks
-  #   history_tracks.select { |ht| ht.updated_at > 6.days.ago }
-  # end
 
   def confirm_appointment_after_initial_call
     if appointment_date.present? && initial_call_date > appointment_date
