@@ -1,5 +1,4 @@
 # Object representing core patient information and demographic data.
-# require_relative 'concerns/auditable'
 
 class Patient
   include Mongoid::Document
@@ -12,6 +11,7 @@ class Patient
   include Callable
   include Notetakeable
   include Searchable
+  include AttributeDisplayable
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
