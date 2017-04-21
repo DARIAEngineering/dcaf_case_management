@@ -7,6 +7,9 @@ class Patient
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
   include StatusHelper
+
+  include LastMenstrualPeriodHelper
+
   include Urgency
   include Callable
   include Notetakeable
@@ -22,17 +25,18 @@ class Patient
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
-  embeds_one :pregnancy
+  # embeds_one :pregnancy
   embeds_one :fulfillment
   embeds_many :calls
   embeds_many :external_pledges
   embeds_many :notes
 
   # Enable mass posting in forms
-  accepts_nested_attributes_for :pregnancy
+  # accepts_nested_attributes_for :pregnancy
   accepts_nested_attributes_for :fulfillment
 
   # Fields
+  # Searchable info
   field :name, type: String # strip
   field :primary_phone, type: String
   field :other_contact, type: String
@@ -40,10 +44,16 @@ class Patient
   field :other_contact_relationship, type: String
   field :identifier, type: String
 
+  # Contact-related info
   enum :voicemail_preference, [:not_specified, :no, :yes]
   enum :line, [:DC, :MD, :VA] # See config/initializers/lines.rb. TODO: Env var.
   field :spanish, type: Boolean
+  field :initial_call_date, type: Date
+  field :urgent_flag, type: Boolean
+  field :last_menstrual_period_weeks, type: Integer
+  field :last_menstrual_period_days, type: Integer
 
+  # Program analysis related or NAF eligibility related info
   field :age, type: Integer
   field :city, type: String
   field :state, type: String
@@ -55,12 +65,16 @@ class Patient
   field :household_size_adults, type: Integer
   field :insurance, type: String
   field :income, type: String
-  field :referred_by, type: String
-  field :appointment_date, type: Date
-  field :initial_call_date, type: Date
-
-  field :urgent_flag, type: Boolean
   field :special_circumstances, type: Array, default: []
+  field :referred_by, type: String
+
+  # Status and pledge related fields
+  field :appointment_date, type: Date
+  field :patient_contribution, type: Integer
+  field :naf_pledge, type: Integer
+  field :dcaf_soft_pledge, type: Integer
+  field :pledge_sent, type: Boolean
+  field :resolved_without_dcaf, type: Boolean
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
@@ -87,7 +101,9 @@ class Patient
 
   validate :confirm_appointment_after_initial_call
 
-  validates_associated :pregnancy
+  validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
+
+  # validates_associated :pregnancy
   validates_associated :fulfillment
   before_save :save_identifier
 
@@ -103,16 +119,25 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
+  def pledge_info_present?
+    pledge_info_presence
+    errors.messages.present?
+  end
+
+  def pledge_info_errors
+    errors.messages.values.flatten.uniq
+  end
+
   def self.pledged_status_summary(num_days = 7)
     # return pledge totals for patients with appts in the next num_days
     # TODO move to Pledge class, when implemented?
     outstanding_pledges = 0
     sent_total = 0
     Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
-      if patient.pregnancy.pledge_sent
-        sent_total += (patient.pregnancy.dcaf_soft_pledge || 0)
+      if patient.pledge_sent
+        sent_total += (patient.dcaf_soft_pledge || 0)
       else
-        outstanding_pledges += (patient.pregnancy.dcaf_soft_pledge || 0)
+        outstanding_pledges += (patient.dcaf_soft_pledge || 0)
       end
     end
     { pledged: outstanding_pledges, sent: sent_total }
@@ -129,23 +154,13 @@ class Patient
    pledges.order('created_at DESC').limit(1).first
   end
 
-  def primary_phone_display
-    return nil unless primary_phone.present?
-    "#{primary_phone[0..2]}-#{primary_phone[3..5]}-#{primary_phone[6..9]}"
-  end
-
-  def other_phone_display
-    return nil unless other_phone.present?
-    "#{other_phone[0..2]}-#{other_phone[3..5]}-#{other_phone[6..9]}"
-  end
-
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
   def assemble_audit_trails
-    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
-                                               .reverse
+    history_tracks.sort_by(&:created_at)
+                  .reverse
   end
 
   private
@@ -162,5 +177,16 @@ class Patient
     name.strip! if name
     other_contact.strip! if other_contact
     other_contact_relationship.strip! if other_contact_relationship
+  end
+
+  def updating_pledge_sent?
+    pledge_sent == true
+  end
+
+  def pledge_info_presence
+    errors.add(:pledge_sent, 'DCAF soft pledge field cannot be blank') if dcaf_soft_pledge.blank?
+    errors.add(:pledge_sent, 'Patient name cannot be blank') if name.blank?
+    errors.add(:pledge_sent, 'Clinic name cannot be blank') if clinic.blank?
+    errors.add(:pledge_sent, 'Appointment date cannot be blank') if appointment_date.blank?
   end
 end
