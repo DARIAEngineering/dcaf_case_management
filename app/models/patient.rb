@@ -119,15 +119,6 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def pledge_info_present?
-    pledge_info_presence
-    errors.messages.present?
-  end
-
-  def pledge_info_errors
-    errors.messages.values.flatten.uniq
-  end
-
   def self.pledged_status_summary(num_days = 7)
     # return pledge totals for patients with appts in the next num_days
     # TODO move to Pledge class, when implemented?
@@ -177,16 +168,5 @@ class Patient
     name.strip! if name
     other_contact.strip! if other_contact
     other_contact_relationship.strip! if other_contact_relationship
-  end
-
-  def updating_pledge_sent?
-    pledge_sent == true
-  end
-
-  def pledge_info_presence
-    errors.add(:pledge_sent, 'DCAF soft pledge field cannot be blank') if dcaf_soft_pledge.blank?
-    errors.add(:pledge_sent, 'Patient name cannot be blank') if name.blank?
-    errors.add(:pledge_sent, 'Clinic name cannot be blank') if clinic.blank?
-    errors.add(:pledge_sent, 'Appointment date cannot be blank') if appointment_date.blank?
   end
 end
