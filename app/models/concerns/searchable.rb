@@ -1,3 +1,4 @@
+# Methods pertaining to patient search
 module Searchable
   extend ActiveSupport::Concern
 

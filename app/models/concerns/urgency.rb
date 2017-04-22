@@ -1,3 +1,4 @@
+# Methods pertaining to urgent patients
 module Urgency
   extend ActiveSupport::Concern
 
@@ -26,10 +27,9 @@ module Urgency
     end
   end
 
-  private
+  # private
 
-  def recent_history_tracks
-    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
-  end
-
+  # def recent_history_tracks
+  #   history_tracks.select { |ht| ht.updated_at > 6.days.ago }
+  # end
 end
