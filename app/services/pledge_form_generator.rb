@@ -19,7 +19,7 @@ class PledgeFormGenerator
   end
 
   def patient_provider_name
-    patient.clinic_name
+    patient.clinic.name
   end
 
   def appointment_date

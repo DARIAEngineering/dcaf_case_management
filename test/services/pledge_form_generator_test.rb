@@ -3,9 +3,13 @@ require 'test_helper'
 class PledgeFormGeneratorTest < ActiveSupport::TestCase
   before do
     @user = create :user, name: 'Da User'
+    clinic = create :clinic, name: 'Da Clinic'
     pregnancy = create :pregnancy, dcaf_soft_pledge: 300, naf_pledge: 200
-    @patient = create :patient, name: 'Sarah', other_phone: '111-222-3333', pregnancy: pregnancy,
-                      other_contact: 'Yolo', initial_call_date: Date.new(2015, 12, 1), appointment_date: Date.new(2016, 1, 1), clinic_name: 'Da Clinic'
+    @patient = create :patient, name: 'Sarah', other_phone: '111-222-3333',
+                                pregnancy: pregnancy, other_contact: 'Yolo',
+                                initial_call_date: Date.new(2015, 12, 1),
+                                appointment_date: Date.new(2016, 1, 1),
+                                clinic: clinic
     @case_manager_name = 'Angela Davis'
   end
 
