@@ -3,7 +3,6 @@ class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Enum
-  include Mongoid::History::Trackable
   include Mongoid::Userstamp
   include StatusHelper
 
@@ -98,11 +97,6 @@ class Patient
   # some validation of only one active pregnancy at a time
 
   # History and auditing
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
   mongoid_userstamp user_model: 'User'
 
   # Methods
