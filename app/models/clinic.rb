@@ -1,5 +1,4 @@
 # Object representing a clinic that a fund works with.
-# NOTE: NOT CURRENTLY FULLY IMPLEMENTED. DO NOT USE. USE Patient#clinic_name instead.
 class Clinic
   include Mongoid::Document
   include Mongoid::Timestamps

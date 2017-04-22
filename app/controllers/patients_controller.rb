@@ -50,8 +50,7 @@ class PatientsController < ApplicationController
     end
   end
 
-  # The following two methods are for mass data entry and
-  # should be turned off when not in use
+  # The following two methods are for mass data entry
   def data_entry
     @patient = Patient.new
     @pregnancy = @patient.build_pregnancy
@@ -73,7 +72,6 @@ class PatientsController < ApplicationController
       render 'data_entry'
     end
   end
-  # end routes to be turned off when not in active use
 
   private
 
@@ -86,7 +84,6 @@ class PatientsController < ApplicationController
       :name, :primary_phone, :other_contact, :other_phone,
       :other_contact_relationship, :line, :voicemail_preference, :spanish,
       # fields in dashboard
-      # :clinic_name,
       :appointment_date,
       :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income,
       :household_size_adults, :household_size_children, :insurance,
