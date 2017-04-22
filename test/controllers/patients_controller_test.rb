@@ -120,9 +120,9 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'download a link' do
+  describe 'download' do
     it 'should not download a pdf with no case manager name' do
-      get :download, id: @patient, case_manager_name: ""
+      get generate_pledge_patient_path(@patient), params: { case_manager_name: '' }
       assert_redirected_to edit_patient_path(@patient)
     end
 
@@ -131,9 +131,12 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       pdf_mock_result = Minitest::Mock.new
       pledge_generator_mock.expect(:generate_pledge_pdf, pdf_mock_result)
       pdf_mock_result.expect :render, "mow"
+      assert_nil @patient.pledge_generated_at
       PledgeFormGenerator.stub(:new, pledge_generator_mock) do
-        get :download, id: @patient, case_manager_name: "somebody"
+        get generate_pledge_patient_path(@patient), params: { case_manager_name: 'somebody' }
       end
+
+      refute_nil @patient.reload.pledge_generated_at
       assert_response :success
     end
   end

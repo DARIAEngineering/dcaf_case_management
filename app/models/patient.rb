@@ -64,6 +64,7 @@ class Patient
 
   field :urgent_flag, type: Boolean
   field :special_circumstances, type: Array, default: []
+  field :pledge_generated_at, type: DateTime
 
   # Indices
   index({ primary_phone: 1 }, unique: true)

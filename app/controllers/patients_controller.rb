@@ -32,6 +32,7 @@ class PatientsController < ApplicationController
                                     @patient,
                                     params[:case_manager_name].to_s)
                                .generate_pledge_pdf
+      @patient.update pledge_generated_at: Time.zone.now
 
       send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
     end

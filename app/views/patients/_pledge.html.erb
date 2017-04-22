@@ -19,7 +19,7 @@
     <p class="col-sm-12"><strong>Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.</strong></p>
 
     <div class="col-sm-12">
-      <%= bootstrap_form_tag url: download_patient_path(patient), method: 'get' do |f| %>
+      <%= bootstrap_form_tag url: generate_pledge_patient_path(patient), method: 'get' do |f| %>
         <%= f.text_field :case_manager_name, label: 'Enter your name in this box to sign your pledge:' %>
         <%= f.submit 'Generate your pledge', class: 'btn btn-large btn-primary' %>
       <% end %>      
