@@ -3,7 +3,7 @@ require 'test_helper'
 class PledgeFormGeneratorTest < ActiveSupport::TestCase
   before do
     @user = create :user, name: 'Da User'
-    clinic = create :clinic, name: 'Da Clinic'
+    clinic = create :clinic, name: 'Da Clinic', city: 'Morgantown', state: 'WV'
     pregnancy = create :pregnancy, dcaf_soft_pledge: 300, naf_pledge: 200
     @patient = create :patient, name: 'Sarah', other_phone: '111-222-3333',
                                 pregnancy: pregnancy, other_contact: 'Yolo',
@@ -23,7 +23,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
       it 'should include dynamically generated information' do
         assert_includes @pdf_text, 'Angela Davis'
         assert_includes @pdf_text, 'Da Clinic'
-        assert_includes @pdf_text, 'Washington, District of Colombia'
+        assert_includes @pdf_text, 'Morgantown, WV'
       end
     end
 

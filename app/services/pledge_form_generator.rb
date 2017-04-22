@@ -15,7 +15,7 @@ class PledgeFormGenerator
 
   # TODO when clinics actually exist instead of just name, do this
   def provider_address
-    'Washington, District of Colombia'
+    patient.clinic.display_location
   end
 
   def patient_provider_name
