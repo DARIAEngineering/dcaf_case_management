@@ -4,7 +4,6 @@ class Clinic
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
-  include ClinicsHelper
 
   # Relationships
   has_many :patients
@@ -34,4 +33,10 @@ class Clinic
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+
+  # Methods
+  def display_location
+    return nil if city.blank? || state.blank?
+    "#{city}, #{state}"
+  end
 end
