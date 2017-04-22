@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NotesControllerTest < ActionController::TestCase
+class NotesControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     sign_in @user
@@ -10,21 +10,17 @@ class NotesControllerTest < ActionController::TestCase
   describe 'create method' do
     before do
       @note = attributes_for :note, full_text: 'This is a note'
-      post :create, patient_id: @patient.id, note: @note, format: :js
+      post patient_notes_path(@patient), params: { note: @note }, xhr: true
     end
 
     it 'should create and save a new note' do
       assert_difference 'Patient.find(@patient).notes.count', 1 do
-        post :create, patient_id: @patient.id, note: @note, format: :js
+        post patient_notes_path(@patient), params: { note: @note }, xhr: true
       end
     end
 
     it 'should respond success if the note submits' do
       assert_response :success
-    end
-
-    it 'should render create.js.erb if it successfully saves' do
-      assert_template 'notes/create'
     end
 
     it 'should log the creating user' do
@@ -34,25 +30,19 @@ class NotesControllerTest < ActionController::TestCase
     it 'should alert failure if there is not text or an associated patient' do
       @note[:full_text] = nil
       assert_no_difference 'Patient.find(@patient).notes.count' do
-        post :create, patient_id: @patient, note: @note, format: :js
+        post patient_notes_path(@patient), params: { note: @note }, xhr: true
       end
       assert_response :bad_request
     end
   end
 
+  # Note: Unimplemented from frontend, but available just in case
   describe 'update method' do
     before do
       @note = create :note, patient: @patient, full_text: 'Original text'
       @note_edits = attributes_for :note, full_text: 'This is edited text'
-      patch :update, patient_id: @patient,
-                     id: @note,
-                     note: @note_edits,
-                     format: :js
+      patch patient_note_path(@patient, @note), params: { note: @note_edits }, xhr: true
       @note.reload
-    end
-
-    it 'should render the correct template' do
-      assert_template 'notes/update'
     end
 
     it 'should respond with success' do
@@ -76,8 +66,7 @@ class NotesControllerTest < ActionController::TestCase
                                       .find(@note)
                                       .history_tracks.count' do
           @note_edits[:full_text] = bad_text
-          patch :update, patient_id: @patient, id: @note,
-                         note: @note_edits, format: :js
+          patch patient_note_path(@patient, @note), params: { note: @note_edits }, xhr: true
           assert_response :bad_request
           @note.reload
           assert_equal @note.full_text, 'This is edited text'

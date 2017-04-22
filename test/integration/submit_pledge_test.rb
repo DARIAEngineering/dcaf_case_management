@@ -4,7 +4,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user
-    @patient = create :patient, clinic_name: 'Nice Clinic',
+    @clinic = create :clinic
+    @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14
     @pregnancy = create :pregnancy, patient: @patient, dcaf_soft_pledge: 500
     log_in_as @user
@@ -17,6 +18,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
   describe 'submitting a pledge' do
     it 'should let you mark a pledge submitted' do
       find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
       assert has_text? 'Confirm the following information is correct'
       find('#pledge-next').click
       wait_for_ajax
@@ -27,6 +29,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
       assert has_text? 'Awesome, you generated a DCAF'
       check 'I sent the pledge'
+      wait_for_ajax
       find('#pledge-next').click
       wait_for_no_element 'Awesome, you generated a DCAF'
 

@@ -45,7 +45,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
         other_contact: 'Yolo'
       )
 
-        # calls this year
+      # calls this year
       (1..5).each do |call_number|
         Timecop.freeze(Time.now - call_number.months - call_number.days) do
           create(
@@ -106,12 +106,13 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
   describe '.pledges_sent_for_line' do
     before do
+      @clinic = create :clinic
       patient = create(
         :patient,
         line: 'VA',
         other_phone: '111-222-3333',
         other_contact: 'Yolo',
-        clinic_name: 'My special clinic',
+        clinic: @clinic,
         appointment_date: Date.today
       )
 
@@ -131,7 +132,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
         line: 'VA',
         other_phone: '111-222-3333',
         other_contact: 'Yolo',
-        clinic_name: 'My special clinic',
+        clinic: @clinic,
         appointment_date: Date.today
       )
 

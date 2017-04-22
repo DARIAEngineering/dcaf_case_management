@@ -45,8 +45,9 @@ class PregnancyTest < ActiveSupport::TestCase
   end
 
   before do
+    @clinic = create :clinic
     @pregnancy.dcaf_soft_pledge = 500
-    @pt_1.clinic_name = 'Nice Clinic'
+    @pt_1.clinic = @clinic
     @pt_1.appointment_date = DateTime.now + 14
   end
 
@@ -64,7 +65,7 @@ class PregnancyTest < ActiveSupport::TestCase
     end
 
     it 'should not validate pledge_sent if the clinic name is blank' do
-      @pt_1.clinic_name = nil
+      @pt_1.clinic = nil
       @pregnancy.pledge_sent = true
       refute @pregnancy.valid?
       assert_equal ['Clinic name cannot be blank'], @pregnancy.errors.messages[:pledge_sent]
@@ -79,7 +80,7 @@ class PregnancyTest < ActiveSupport::TestCase
 
     it 'should produce three error messages if three required fields are blank' do
       @pregnancy.dcaf_soft_pledge = nil
-      @pt_1.clinic_name = nil
+      @pt_1.clinic = nil
       @pt_1.appointment_date = nil
       @pregnancy.pledge_sent = true
       refute @pregnancy.valid?

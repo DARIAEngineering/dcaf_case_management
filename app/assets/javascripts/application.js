@@ -16,6 +16,5 @@
 //= require turbolinks
 //= require js-routes
 //= require bootstrap-sprockets
-//= require google_analytics
 //= require_tree .
 //= require_tree ../../../vendor/assets/javascripts/.

@@ -28,7 +28,7 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
       @user.password = 'not_valid'
       log_in @user
       assert_equal current_path, new_user_session_path
-      assert_text 'Invalid email or password.'
+      assert_text 'Invalid Email or password.'
       assert_no_text @user.name
     end
   end
