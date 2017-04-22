@@ -2,13 +2,9 @@
 module HistoryTrackable
   extend ActiveSupport::Concern
 
-  included do
-    include Mongoid::History::Trackable
-    track_history on: self.fields.keys + [:updated_by_id],
-                  version_field: :version,
-                  track_create: true,
-                  track_update: true,
-                  track_destroy: true
+  def assemble_audit_trails
+    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
+                                               .reverse
   end
 
   def recent_history_tracks

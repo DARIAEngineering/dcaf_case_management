@@ -4,6 +4,7 @@ class Patient
   include Mongoid::Timestamps
   include Mongoid::Enum
   include Mongoid::Userstamp
+  include Mongoid::History::Trackable
   include StatusHelper
 
   # The following are concerns, or groupings of domain-related methods
@@ -97,6 +98,11 @@ class Patient
   # some validation of only one active pregnancy at a time
 
   # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
   mongoid_userstamp user_model: 'User'
 
   # Methods
@@ -117,11 +123,6 @@ class Patient
 
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
-  end
-
-  def assemble_audit_trails
-    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
-                                               .reverse
   end
 
   private
