@@ -1,5 +1,4 @@
 # Object representing core patient information and demographic data.
-
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -7,11 +6,15 @@ class Patient
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
   include StatusHelper
+
+  # The following are concerns, or groupings of domain-related methods
+  # This blog post is a good intro: https://vaidehijoshi.github.io/blog/2015/10/13/stop-worrying-and-start-being-concerned-activesupport-concerns/
   include Urgency
   include Callable
   include Notetakeable
   include Searchable
   include AttributeDisplayable
+  include HistoryTrackable
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
@@ -116,27 +119,6 @@ class Patient
       end
     end
     { pledged: outstanding_pledges, sent: sent_total }
-  end
-
-  # TODO: reimplement once pledge is available
-  def most_recent_pledge_display_date
-   display_date = most_recent_pledge.try(:sent).to_s
-   display_date
-  end
-
-  # TODO: reimplement once pledge is available
-  def most_recent_pledge
-   pledges.order('created_at DESC').limit(1).first
-  end
-
-  def primary_phone_display
-    return nil unless primary_phone.present?
-    "#{primary_phone[0..2]}-#{primary_phone[3..5]}-#{primary_phone[6..9]}"
-  end
-
-  def other_phone_display
-    return nil unless other_phone.present?
-    "#{other_phone[0..2]}-#{other_phone[3..5]}-#{other_phone[6..9]}"
   end
 
   def save_identifier
