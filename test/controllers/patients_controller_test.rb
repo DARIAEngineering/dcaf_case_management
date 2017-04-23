@@ -28,7 +28,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       get patients_path
       assert_redirected_to root_path
 
-      get patients_path + '.csv'
+      get patients_path(format: :csv)
       assert_redirected_to root_path
     end
 
@@ -40,25 +40,25 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should get csv when user is admin' do
       sign_in @admin
-      get patients_path + '.csv'
+      get patients_path(format: :csv)
       assert_response :success
     end
 
     it 'should get csv when user is data volunteer' do
       sign_in @data_volunteer
-      get patients_path + '.csv'
+      get patients_path(format: :csv)
       assert_response :success
     end
 
     it 'should use proper mimetype' do
       sign_in @data_volunteer
-      get patients_path + '.csv'
+      get patients_path(format: :csv)
       assert_equal 'text/csv', response.content_type.split(';').first
     end
 
     it 'should consist of a header line and the patient record' do
       sign_in @data_volunteer
-      get patients_path + '.csv'
+      get patients_path(format: :csv)
       lines = response.body.split("\n").reject(&:blank?)
       assert_equal 2, lines.count
       assert_match @patient.id.to_s, lines[1]
@@ -67,7 +67,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should not contain personally-identifying information' do
       sign_in @data_volunteer
-      get patients_path + '.csv'
+      get patients_path(format: :csv)
       refute_match @patient.name.to_s, response.body
       refute_match @patient.primary_phone.to_s, response.body
       refute_match @patient.other_phone.to_s, response.body
