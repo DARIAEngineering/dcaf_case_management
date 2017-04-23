@@ -23,7 +23,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       wait_for_ajax
       wait_for_no_element 'Confirm the following information is correct'
-      assert has_text? 'Review this preview of your pledge'
+      assert has_text? 'Generate your pledge form'
       find('#pledge-next').click
       wait_for_no_element 'Review this preview of your pledge'
 
