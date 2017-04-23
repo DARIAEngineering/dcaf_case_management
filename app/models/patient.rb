@@ -17,7 +17,24 @@ class Patient
 
   CSV_EXPORT_FIELDS = { "BSON ID" => :id,
                         "Identifier" => :identifier,
-                        "Has Alt Contact?" => :has_alt_contact? }
+                        "Has Alt Contact?" => :has_alt_contact?,
+                        "Voicemail Preference" => :voicemail_preference,
+                        "Line" => :line,
+                        "Spanish?" => :spanish,
+                        "Age" => :age,
+                        "State" => :state,
+                        "County" => :county,
+                        "Race/Ethnicity" => :race_ethnicity,
+                        "Employment Status" => :employment_status,
+                        "Minors in Household" => :household_size_children,
+                        "Adults in Household" => :household_size_adults,
+                        "Insurance" => :insurance,
+                        "Income" => :income,
+                        "Referred By" => :referred_by,
+                        "Appointment Date" => :appointment_date,
+                        "Initial Call Date" => :initial_call_date,
+                        "Urgent?" => :urgent_flag,
+                        "Special Circumstances" => :special_circumstances }
 
   before_validation :clean_fields
 
