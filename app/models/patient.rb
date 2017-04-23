@@ -203,7 +203,7 @@ class Patient
   end
 
   def has_alt_contact?
-    !!(other_contact || other_phone || other_contact_relationship)
+    other_contact.present? || other_phone.present? || other_contact_relationship.present?
   end
 
   def still_urgent?
