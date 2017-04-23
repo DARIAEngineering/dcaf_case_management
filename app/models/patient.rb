@@ -170,7 +170,16 @@ class Patient
     CSV.generate(encoding: 'utf-8') do |csv|
       csv << CSV_EXPORT_FIELDS.keys # Header line
       all.each do |patient|
-        csv << CSV_EXPORT_FIELDS.values.map { |field| patient.public_send field }
+        csv << CSV_EXPORT_FIELDS.values.map do |field|
+          value = patient.public_send(field)
+          case value
+          when Array
+            # Use simpler serialization for Array values than default `to_s`
+            value.reject(&:blank?).join(', ')
+          else
+            value
+          end
+        end
       end
     end
   end
