@@ -1,26 +1,14 @@
-<div class="modal fade new-call" tabindex="-1" role="dialog" id="call-<%= patient.primary_phone_display %>">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="calls-layout">
-          <button type="button" class="close close-terms" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title calls-request">
-            Call <b><%= patient.name %></b> now:</h4>
-          <br>
-            <!-- wrapper for ajaxing when recording new call  -->
-            <%= display_other_contact_and_phone_if_exists(patient) %>
 
-            <%= content_tag :h4, patient.primary_phone_display, class: 'calls-phone' %>
+Call <b><%= patient.name %></b> now:</h4>
+<br>
+<%= display_other_contact_and_phone_if_exists(patient) %>
 
-            <%= display_reached_patient_link patient %>
+<%= content_tag :h4, patient.primary_phone_display, class: 'calls-phone' %>
 
-            <%= display_voicemail_link_with_warning patient %>
+<%= display_reached_patient_link patient %>
 
-            <%= display_couldnt_reach_patient_link patient %>
+<%= display_voicemail_link_with_warning patient %>
 
-            <%= display_note_text_for patient.most_recent_note %>
-        </div><!-- calls-layout -->
-      </div><!-- /.modal-body -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<%= display_couldnt_reach_patient_link patient %>
+
+<%= display_note_text_for patient.most_recent_note %>

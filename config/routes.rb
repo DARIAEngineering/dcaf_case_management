@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :patients,
               only: [ :create, :edit, :update ] do
       resources :calls,
-                only: [ :create, :destroy ]
+                only: [ :create, :destroy, :new ]
       resources :notes,
                 only: [ :create, :update ]
       resources :external_pledges,

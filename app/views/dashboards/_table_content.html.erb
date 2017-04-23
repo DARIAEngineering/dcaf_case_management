@@ -41,20 +41,7 @@
               <td><%= link_to "Add", add_patient_path(current_user, patient), method: :patch, remote: true %></td>
             <% end %>
           <% end %>
-
-      <td>
-        <%= link_to call_glyphicon, "#call-#{patient.primary_phone_display}", class:"call_button",
-        data: {
-          patientname: patient.name,
-          othercontact: display_other_contact_and_phone_if_exists(patient),
-          primaryphone: patient.primary_phone_display,
-          reachedpatientlink: display_reached_patient_link(patient),
-          voicemaillink: display_voicemail_link_with_warning(patient),
-          couldntreachlink: display_couldnt_reach_patient_link(patient),
-          notetext: display_note_text_for(patient.most_recent_note)
-        }
-        %>
-      </td>
+          <td><%= link_to call_glyphicon, new_patient_call_path(patient), class:"call_button", remote: true %> </td>
 
         </tr>
       <% end %>

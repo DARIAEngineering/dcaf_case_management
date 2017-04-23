@@ -14,6 +14,13 @@ class CallsController < ApplicationController
     end
   end
 
+  def new
+    @patient = Patient.find params['patient_id']
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def destroy
     call = @patient.calls.find params[:id]
     if call.created_by != current_user || !call.recent?

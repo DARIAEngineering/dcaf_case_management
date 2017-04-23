@@ -1,0 +1,4 @@
+$('.modal-title').html('')
+$('.new-call').attr('id', '<%= @patient.primary_phone_display %>')
+$('.modal-title').append('<%= escape_javascript(render partial: "calls/new_call", locals: { patient: @patient })%>');
+$('.modal').modal('toggle');
