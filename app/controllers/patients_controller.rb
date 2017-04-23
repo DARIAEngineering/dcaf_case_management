@@ -6,8 +6,15 @@ class PatientsController < ApplicationController
               with: -> { redirect_to root_path }
 
   def index
-    @patients = Patient.all
-    respond_to :csv
+    patients = Patient.all
+
+    respond_to do |format|
+      format.csv do
+        now = Time.zone.now.strftime('%Y%m%d')
+        csv_filename = "patient_data_export_#{now}.csv"
+        send_data patients.to_csv, filename: csv_filename, format: 'text/csv'
+      end
+    end
   end
 
   def create

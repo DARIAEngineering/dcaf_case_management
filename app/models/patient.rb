@@ -1,4 +1,7 @@
 # Object representing core patient information and demographic data.
+
+require 'csv'
+
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -144,6 +147,15 @@ class Patient
     # hard coding in first_contacts and pledges_sent for now
     { since: datetime, contacts: patients_reached.length,
       first_contacts: first_contact.length, pledges_sent: 20 }
+  end
+
+  def self.to_csv
+    CSV.generate(encoding: 'utf-8') do |csv|
+      csv << CSV_EXPORT_FIELDS.keys # Header line
+      all.each do |patient|
+        csv << CSV_EXPORT_FIELDS.values.map { |field| patient.public_send field }
+      end
+    end
   end
 
   def recent_calls
