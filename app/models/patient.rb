@@ -172,9 +172,8 @@ class Patient
       all.each do |patient|
         csv << CSV_EXPORT_FIELDS.values.map do |field|
           value = patient.public_send(field)
-          case value
-          when Array
-            # Use simpler serialization for Array values than default `to_s`
+          if value.is_a?(Array)
+            # Use simpler serialization for Array values than the default (`to_s`)
             value.reject(&:blank?).join(', ')
           else
             value
