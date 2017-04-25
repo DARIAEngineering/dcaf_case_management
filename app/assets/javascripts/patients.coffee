@@ -23,6 +23,23 @@ valueToNumber = (val) ->
   +val || 0
 
 ready = ->
+  fields = [
+    '#patient_fulfillment_procedure_cost'
+    '#patient_fulfillment_check_number'
+    '#patient_fulfillment_gestation_at_procedure'
+    '#patient_fulfillment_date_of_check'
+    '#patient_fulfillment_procedure_date'
+  ]
+  i = 0
+  field_selectors = ''
+
+  while i<fields.length
+    if i == fields.length - 1
+      field_selectors += fields[i]
+    else
+      field_selectors += fields[i] + ', '
+    i++
+
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
     html = if $(".old-calls").hasClass("hidden") then "View all calls" else "Limit list"
@@ -36,6 +53,26 @@ ready = ->
 
   $(document).on "change", "#abortion-information-form input, #external_pledges input", ->
     updateBalance()
+
+  $(document).on "change", field_selectors, ->
+    i = 0
+    empty = true
+    el = $('#patient_fulfillment_fulfilled')
+
+    while i < fields.length
+      if $(fields[i]).val().length > 0
+        empty = false
+        if el.prop 'checked'
+          break;
+        else
+          el.prop 'checked', true
+        i++
+      else
+        i++
+    if empty == true
+          el.prop 'checked', false
+
+    $(this).submit()
 
   $(document).on "click", "#create-external-pledge", ->
     # timeout to handle mongo updating and rails appending new field
