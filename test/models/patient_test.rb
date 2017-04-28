@@ -29,6 +29,13 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal '1112223333', @new_patient.primary_phone
       assert_equal '9998887777', @new_patient.other_phone
     end
+
+    it 'should init a fulfillment after creation' do
+      assert_nil @new_patient.fulfillment
+      @new_patient.save
+      @new_patient.reload
+      refute_nil @new_patient.fulfillment
+    end
   end
 
   describe 'validations' do

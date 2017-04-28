@@ -22,6 +22,7 @@ class Patient
   end
 
   before_validation :clean_fields
+  after_create :initialize_fulfillment
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
@@ -169,5 +170,9 @@ class Patient
     name.strip! if name
     other_contact.strip! if other_contact
     other_contact_relationship.strip! if other_contact_relationship
+  end
+
+  def initialize_fulfillment
+    build_fulfillment(created_by_id: created_by_id).save
   end
 end
