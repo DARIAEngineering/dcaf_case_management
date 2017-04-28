@@ -139,32 +139,10 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
-<<<<<<< HEAD
-  # TODO: reimplement once pledge is available
-  def most_recent_pledge_display_date
-   display_date = most_recent_pledge.try(:sent).to_s
-   display_date
-  end
-
-  # TODO: reimplement once pledge is available
-  def most_recent_pledge
-   pledges.order('created_at DESC').limit(1).first
-  end
-
-=======
->>>>>>> b0887761f9a86e1181a62d014493cded481091a5
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
-<<<<<<< HEAD
-  def assemble_audit_trails
-    history_tracks.sort_by(&:created_at)
-                  .reverse
-  end
-
-=======
->>>>>>> b0887761f9a86e1181a62d014493cded481091a5
   private
 
   def confirm_appointment_after_initial_call
