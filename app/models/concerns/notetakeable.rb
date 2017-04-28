@@ -1,3 +1,4 @@
+# Methods relating to notes or parsing notes
 module Notetakeable
   extend ActiveSupport::Concern
 

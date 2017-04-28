@@ -1,3 +1,4 @@
+# Methods relating to calls or contacts
 module Callable
   extend ActiveSupport::Concern
 

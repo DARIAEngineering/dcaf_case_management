@@ -6,7 +6,7 @@ class DashboardsController < ApplicationController
 
   def index
     @urgent_patients = Patient.urgent_patients(current_line)
-    @expenditures = Patient.pledged_status_summary
+    @expenditures = [] # Patient.pledged_status_summary # Commenting out until budget bar is ready
   end
 
   def search

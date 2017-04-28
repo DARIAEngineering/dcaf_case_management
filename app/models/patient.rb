@@ -1,21 +1,22 @@
 # Object representing core patient information and demographic data.
-
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Enum
-  include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include Mongoid::History::Trackable
   include StatusHelper
 
-  include LastMenstrualPeriodMeasureable
-
+  # The following are concerns, or groupings of domain-related methods
+  # This blog post is a good intro: https://vaidehijoshi.github.io/blog/2015/10/13/stop-worrying-and-start-being-concerned-activesupport-concerns/
   include Urgency
   include Callable
   include Notetakeable
   include Searchable
   include AttributeDisplayable
+  include LastMenstrualPeriodMeasureable
   include Pledgeable
+  include HistoryTrackable
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
@@ -138,6 +139,7 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
+<<<<<<< HEAD
   # TODO: reimplement once pledge is available
   def most_recent_pledge_display_date
    display_date = most_recent_pledge.try(:sent).to_s
@@ -149,15 +151,20 @@ class Patient
    pledges.order('created_at DESC').limit(1).first
   end
 
+=======
+>>>>>>> b0887761f9a86e1181a62d014493cded481091a5
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
+<<<<<<< HEAD
   def assemble_audit_trails
     history_tracks.sort_by(&:created_at)
                   .reverse
   end
 
+=======
+>>>>>>> b0887761f9a86e1181a62d014493cded481091a5
   private
 
   def confirm_appointment_after_initial_call
