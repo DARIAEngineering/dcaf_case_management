@@ -8,7 +8,7 @@ class Patient
   include Mongoid::Userstamp
   include StatusHelper
 
-  include LastMenstrualPeriodHelper
+  include LastMenstrualPeriodMeasureable
 
   include Urgency
   include Callable
