@@ -72,6 +72,7 @@ class Patient
 
   # Status and pledge related fields
   field :appointment_date, type: Date
+  field :procedure_cost, type: Integer
   field :patient_contribution, type: Integer
   field :naf_pledge, type: Integer
   field :dcaf_soft_pledge, type: Integer
