@@ -10,9 +10,9 @@ module StatusHelper
   }.freeze
 
   def status
-    return STATUSES[:resolved] if pregnancy.resolved_without_dcaf?
-    return STATUSES[:pledge_sent] if pregnancy.pledge_sent?
-    return STATUSES[:no_contact] if not contact_made?
+    return STATUSES[:resolved] if resolved_without_dcaf?
+    return STATUSES[:pledge_sent] if pledge_sent?
+    return STATUSES[:no_contact] unless contact_made?
     return STATUSES[:fundraising] if appointment_date
     STATUSES[:needs_appt]
   end
