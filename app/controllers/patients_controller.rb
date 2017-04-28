@@ -8,8 +8,6 @@ class PatientsController < ApplicationController
     patient = Patient.new patient_params
 
     patient.created_by = current_user
-    (patient.pregnancy || patient.build_pregnancy).created_by = current_user
-    (patient.fulfillment || patient.build_fulfillment).created_by = current_user
     if patient.save
       flash[:notice] = 'A new patient has been successfully saved'
     else
@@ -33,30 +31,22 @@ class PatientsController < ApplicationController
     end
   end
 
-  # The following two methods are for mass data entry and
-  # should be turned off when not in use
   def data_entry
     @patient = Patient.new
-    @pregnancy = @patient.build_pregnancy
   end
 
-  def data_entry_create # temporary
+  def data_entry_create
     @patient = Patient.new patient_params
     @patient.created_by = current_user
-    @pregnancy = @patient.pregnancy || @patient.build_pregnancy
-    @pregnancy.created_by = current_user
-    (@patient.fulfillment || @patient.build_fulfillment).created_by = current_user
 
     if @patient.save
       flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
-      current_user.add_patient @patient
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
       render 'data_entry'
     end
   end
-  # end routes to be turned off when not in active use
 
   private
 
@@ -75,6 +65,9 @@ class PatientsController < ApplicationController
       :household_size_adults, :household_size_children, :insurance,
       :referred_by, :initial_call_date, :urgent_flag,
       :clinic_id,
+
+      :last_menstrual_period_days, :last_menstrual_period_weeks,
+
       pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
                   :resolved_without_dcaf, :referred_to_clinic, :procedure_cost,
                   :pledge_sent, :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
