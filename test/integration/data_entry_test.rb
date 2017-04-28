@@ -22,8 +22,8 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       fill_in 'Other contact name', with: 'Billy Everyteen'
       fill_in 'Other phone', with: '111-555-9999'
       fill_in 'Relationship to other contact', with: 'Friend'
-      select '1 week', from: 'patient_pregnancy_last_menstrual_period_weeks'
-      select '2 days', from: 'patient_pregnancy_last_menstrual_period_days'
+      select '1 week', from: 'patient_last_menstrual_period_weeks'
+      select '2 days', from: 'patient_last_menstrual_period_days'
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'Dcaf soft pledge', with: '100'
@@ -49,8 +49,8 @@ class DataEntryTest < ActionDispatch::IntegrationTest
 
     it 'should log a new patient ready for further editing: dashboard' do
       within :css, '#patient_dashboard' do
-        lmp_weeks = find('#patient_pregnancy_last_menstrual_period_weeks')
-        lmp_days = find('#patient_pregnancy_last_menstrual_period_days')
+        lmp_weeks = find('#patient_last_menstrual_period_weeks')
+        lmp_days = find('#patient_last_menstrual_period_days')
         assert has_field? 'First and last name', with: 'Susie Everyteen'
         assert_equal '1', lmp_weeks.value
         assert_equal '2', lmp_days.value
