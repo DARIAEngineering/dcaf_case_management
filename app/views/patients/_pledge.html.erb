@@ -1,17 +1,17 @@
 <%= render '/shared/multi_modal', disable_next: disable_continue?(patient), :captured => capture { %>
 
-<% if not patient.pregnancy.pledge_sent %>
+<% if not patient.pledge_sent %>
   <div class="row hide" data-step="1" data-title="Confirm the following information is correct:">
-    <% if patient.pregnancy.pledge_info_present? %>
-      <% patient.pregnancy.pledge_info_errors.each do |error| %>
+    <% if patient.pledge_info_present? %>
+      <% patient.pledge_info_errors.each do |error| %>
         <div class="form-error col-sm-12">Data required: <%= error %></div>
       <% end %>
     <% end %>
     <div class='col-sm-12'><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
     <div class='col-sm-12'><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
-    <div class='col-sm-12'><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.pregnancy.dcaf_soft_pledge %> </div>
+    <div class='col-sm-12'><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.dcaf_soft_pledge %> </div>
     <div class='col-sm-12'><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
-    <div class='col-sm-12'><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.name if patient.clinic %></div>
+    <div class='col-sm-12'><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.try :name %></div>
   </div>
 
   <div class="row hide" data-step="2" data-title="Review this preview of your pledge: (Not working yet)">
@@ -24,9 +24,7 @@
     <p class="col-sm-12">Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</p>
     <div class="col-sm-12">
       <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
-        <%= f.fields_for patient.pregnancy do |p| %>
-          <%= p.check_box :pledge_sent, label: 'I sent the pledge' %>
-        <% end %>
+        <%= f.check_box :pledge_sent, label: 'I sent the pledge' %>
       <% end %>
     </div>
   </div>
@@ -39,9 +37,7 @@
     <p class="col-sm-12">To confirm you want to cancel this pledge, please uncheck the check box below.</p>
     <div class="col-sm-12">
       <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
-        <%= f.fields_for patient.pregnancy do |p| %>
-          <%= p.check_box :pledge_sent, label: 'Uncheck this box to rescind the pledge' %>
-        <% end %>
+        <%= f.check_box :pledge_sent, label: 'Uncheck this box to rescind the pledge' %>
       <% end %>
     </div>
   </div>

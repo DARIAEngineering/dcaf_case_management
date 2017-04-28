@@ -16,13 +16,12 @@
         <%= f.text_field :name, label: 'Name', value: name, required: true %>
       </div>
 
-      <%= f.fields_for patient.build_pregnancy do |p| %>
-        <div class="col-sm-2">
-          <%= p.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.pregnancy.last_menstrual_period_weeks ), label: 'LMP (weeks)', autocomplete: 'off' %>
-        </div>
-        <div class="col-sm-2">
-          <%= p.select :last_menstrual_period_days, options_for_select(days_options, patient.pregnancy.last_menstrual_period_days ), label: 'LMP (days)', autocomplete: 'off' %>
-        </div>
+      <div class="col-sm-2">
+        <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: 'LMP (weeks)', autocomplete: 'off' %>
+      </div>
+      <div class="col-sm-2">
+        <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: 'LMP (days)', autocomplete: 'off' %>
+      </div>
       <% end %>
 
       <div class="col-sm-2">
