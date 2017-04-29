@@ -57,6 +57,7 @@ module DashboardsHelper
 
   # span that holds the up/down arrow
   def autosort_arrow_span(local_assigns)
-    local_assigns[:autosortable] ? ' <span class="arrow">[-]</span>' : '';
+    return '' unless local_assigns[:autosortable]
+    content_tag(:span, '[-]', class: 'arrow').prepend ' '
   end
 end
