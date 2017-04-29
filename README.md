@@ -47,7 +47,7 @@ We've tried to structure the project in such a way that minimal specialized know
 
 
 ### Pull Requests Please!
-This project runs on *Github forks and pull requests*, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). 
+This project runs on *Github forks and pull requests*, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/).
 
 Here's how you do it:
 
