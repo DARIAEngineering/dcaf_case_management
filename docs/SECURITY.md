@@ -22,6 +22,9 @@ Our project uses a variety of industry standard methods to ensure our existing c
 
 2. Because difficult-to-read code can lead to security holes, we regularly revise our code to conform to a standard style. We also make it a point to revise code in pull requests during code review.
 
+## Dependency checking
+
+A reality of most projects nowadays is they use a LOT of Open Source code, and DCAF is no exception. Old dependencies in turn depend on other old things, and this can cause a compound problem when attempting to remediate security issues. While we don't live on the very extreme edge of dependencies, keeping things fresh allows us to more easily absorb a fix if one is released. We use Gemnasium to keep track of our depedencies and if they are out of date. This manifests as a badge on the README, as well as a more comprehensive list if you click through to Gemnasium. 
 
 ## Automated testing
 
