@@ -38,4 +38,4 @@ We love our case managers and the UX team that figures out how we can help them 
 * Our design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ)
 * Join and read through the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/)
 * Read this [blog post about how we're using agile-ish](http://codefordc.org/blog/2016/09/12/code-for-dcaf.html)
-* Read [the README](https://github.com/colinxfleming/dcaf_case_management/) (if you haven't already) :sparkling_heart:
+* Read [the README](https://github.com/DCAFEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:

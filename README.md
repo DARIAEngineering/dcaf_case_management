@@ -35,13 +35,13 @@ The three co-leads on this project are @colinxfleming (rails and technical lead)
 ### Our structure
 We run two week sprints where we try to complete 2-3 small features. These sync up with [Code for DC meetups](https://www.meetup.com/code-for-dc/).
 
-At any given time, we have a list of active features or pieces of features we're working on (marked `Active development`) in a [github milestone](https://github.com/colinxfleming/dcaf_case_management/milestones). We also have a list of major features on deck for a release. If you're looking for a place to dive in, check out the `Active development` milestone!
+At any given time, we have a list of active features or pieces of features we're working on (marked `Active development`) in a [github milestone](https://github.com/DCAFEngineering/dcaf_case_management/milestones). We also have a list of major features on deck for a release. If you're looking for a place to dive in, check out the `Active development` milestone!
 
 We also have a milestone for major features in a release. @colinxfleming breaks off pieces of these and puts them in the active development milestone, and closes them when they're implemented, confirmed working, and tested.
 
 
 ### We <3 new people and beginners!
-We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
+We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
 
 We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB and a couple gems.
 
@@ -51,27 +51,27 @@ This project runs on *Github forks and pull requests*, so we can be sure to make
 
 Here's how you do it:
 
-* Visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
+* Visit [the main project page](https://github.com/DCAFEngineering/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
 * Do any work in your local environment and commit it to your fork in github.
 * Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button.
 * At least one other person (probably @colinxfleming) will review and comment on code changes, work with you to resolve issues, and merge the pull request when it's ready.
 
 
 ### How We Categorize Our To Do List / Issues
-As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We categorize things as follows:
+As noted above, this project maintains a [list of issues in Github](https://github.com/DCAFEngineering/dcaf_case_management/issues) that make up our To-Do List. We categorize things as follows:
 
 Our major categories of software development related issues are as follows:
-* [Frontend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Afrontend) (Rails view work, CSS/JS work)
-* [Backend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abackend) (Rails controller and model work)
-* [Minitest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aminitest) (Feature and unit test work)
-* [Bug](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abug) (Something deployed that isn't working as intended!)
-* [UX/Design](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3AUX%2Fdesign) (Design todos)
-* [Beginner Friendly](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
+* [Frontend](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Afrontend) (Rails view work, CSS/JS work)
+* [Backend](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abackend) (Rails controller and model work)
+* [Minitest](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aminitest) (Feature and unit test work)
+* [Bug](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abug) (Something deployed that isn't working as intended!)
+* [UX/Design](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3AUX%2Fdesign) (Design todos)
+* [Beginner Friendly](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
 
 We also keep track of our administrative issues and discussion in Github under the following issue labels:
-* [Admin](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
-* [Question](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before we settle on a plan of attack)
-* [Backlog](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that we'll get around to someday)
+* [Admin](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
+* [Question](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before we settle on a plan of attack)
+* [Backlog](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that we'll get around to someday)
 
 
 ## Setting Stuff Up
@@ -89,7 +89,7 @@ The design team primarily drafts out the application layouts and works with user
 
 The design team has created a working InVision prototype for iteration, [here](https://projects.invisionapp.com/share/6757W6WFJ). We need help furthering the wireframes in InVision beyond the "Submit Pledge" button, as well as resolving questions raised by user testing.
 
-Current UX and wireframe assets are available [here](https://github.com/colinxfleming/dcaf_case_management/tree/master/_design).
+Current UX and wireframe assets are available [here](https://github.com/DCAFEngineering/dcaf_case_management/tree/master/_design).
 
 
 ## For developers (Team lead: @colinxfleming)
