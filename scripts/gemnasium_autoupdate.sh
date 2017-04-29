@@ -4,5 +4,5 @@ if [[ $CIRCLE_BRANCH =~ "gemnasium-auto-update" ]]; then
   echo "skipping build"; 
 else
   echo "running autoupdate"
-  gemnasium --token $GEMNASIUM_TOKEN autoupdate;
+  gemnasium au r;
 fi
