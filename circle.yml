@@ -9,7 +9,7 @@ machine:
 
 dependencies:
   post:
-    - bash ./test/install_gemnasium.sh
+    - bash ./scripts/install_gemnasium.sh
 
 deployment:
   staging:
@@ -30,5 +30,5 @@ test:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
     - gem install --no-rdoc ruby_audit; bundle exec ruby-audit check
     - gem install --no-rdoc bundler-audit; bundle-audit update; bundle-audit check
-    - bash ./test/autoupdate.sh
+    - bash ./scripts/autoupdate.sh
     # - rake quality
