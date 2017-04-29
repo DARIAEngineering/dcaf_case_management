@@ -35,6 +35,14 @@ module DashboardsHelper
     ]
   end
 
+  def th_autosortable(column_name, type, local_assigns)
+    content_tag :th, data: { sort: type } do
+      column_name + autosort_arrow_span(local_assigns)
+
+      # "#{column_name}" + autosort_arrow_span(local_assigns)
+    end
+  end
+
   # column has string data
   def autosort_string_html_attr(local_assigns)
     local_assigns[:autosortable] ? ' data-sort="string"' : ''
@@ -58,6 +66,6 @@ module DashboardsHelper
   # span that holds the up/down arrow
   def autosort_arrow_span(local_assigns)
     return '' unless local_assigns[:autosortable]
-    content_tag(:span, '[-]', class: 'arrow').prepend ' '
+    content_tag(:span, '[-]', class: 'arrow')
   end
 end
