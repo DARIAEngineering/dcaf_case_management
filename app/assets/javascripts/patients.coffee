@@ -50,8 +50,6 @@ markFulfilledWhenFieldsChecked = ->
 
 
 ready = ->
-
-  markFulfilledWhenFieldsChecked()
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
     html = if $(".old-calls").hasClass("hidden") then "View all calls" else "Limit list"
