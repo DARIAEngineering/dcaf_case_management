@@ -54,26 +54,41 @@ class PatientsController < ApplicationController
     @patient = Patient.find params[:id]
   end
 
+  # Strong params divided up by partial, in order of appearance
+  PATIENT_DASHBOARD_PARAMS = [
+    :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
+    :appointment_date, :primary_phone
+  ].freeze
+
+  PATIENT_INFORMATION_PARAMS = [
+    :line, :age, :race_ethnicity, :spanish,
+    :voicemail_preference, :city, :state, :zip, :other_contact, :other_phone,
+    :other_contact_relationship, :employment_status, :income,
+    :household_size_adults, :household_size_children, :insurance, :referred_by,
+    special_circumstances: []
+  ].freeze
+
+  ABORTION_INFORMATION_PARAMS = [
+    :clinic_id, :resolved_without_dcaf, :referred_to_clinic,
+    :procedure_cost, :patient_contribution, :naf_pledge, :dcaf_soft_pledge
+  ].freeze
+
+  NOTES_PARAMS = [:urgent_flag].freeze
+
+  FULFILLMENT_PARAMS = [
+    fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
+                  :procedure_cost, :check_number, :check_date]
+  ].freeze
+
+  NEW_PATIENT_PARAMS = [
+    :initial_call_date
+  ].freeze
+
   def patient_params
     params.require(:patient).permit(
-      :name, :primary_phone, :other_contact, :other_phone,
-      :other_contact_relationship, :line, :voicemail_preference, :spanish,
-      # fields in dashboard
-      # :clinic_name,
-      :appointment_date,
-      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income,
-      :household_size_adults, :household_size_children, :insurance,
-      :referred_by, :initial_call_date, :urgent_flag,
-      :clinic_id,
-
-      :last_menstrual_period_days, :last_menstrual_period_weeks,
-
-      pregnancy: [:last_menstrual_period_days, :last_menstrual_period_weeks,
-                  :resolved_without_dcaf, :referred_to_clinic, :procedure_cost,
-                  :pledge_sent, :patient_contribution, :naf_pledge, :dcaf_soft_pledge],
-      special_circumstances: [],
-      fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                    :procedure_cost, :check_number, :check_date]
+      [].concat(PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
+                ABORTION_INFORMATION_PARAMS, NOTES_PARAMS,
+                FULFILLMENT_PARAMS, NEW_PATIENT_PARAMS)
     )
   end
 end
