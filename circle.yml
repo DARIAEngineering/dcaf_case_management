@@ -15,13 +15,15 @@ deployment:
       - git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
       - docker build -t colinxfleming/dcaf_case_management . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
 
-# test:
+test:
+  minitest_globs:
+    - test/**/*_test.rb
   # override:
-    # Currently rails test is blowing up on CI, so back to rake test for now
-    # - bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS":
-        # parallel: true
-        # files:
-          # - test/**/*_test.rb
+  #   - bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS/reports":
+  #       parallel: true
+  #       files:
+  #         - test/**/*_test.rb
+
   post:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
     - gem install --no-rdoc ruby_audit; bundle exec ruby-audit check
