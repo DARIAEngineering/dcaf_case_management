@@ -391,94 +391,159 @@ class PatientTest < ActiveSupport::TestCase
                                   initial_call_date: 2.days.ago,
                                   last_menstrual_period_weeks: 9,
                                   last_menstrual_period_days: 2,
-                                  appointment_date: 2.days.from_now,
-                                  pregnancy: @pregnancy
+                                  appointment_date: 2.days.from_now
     end
 
     describe 'last_menstrual_period_display' do
       it 'should return nil if LMP weeks is not set' do
-        @pregnancy.last_menstrual_period_weeks = nil
-        assert_nil @pregnancy.last_menstrual_period_display
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.last_menstrual_period_display
       end
 
       it 'should return LMP in weeks and days' do
         assert_equal '9 weeks, 4 days',
-                     @pregnancy.last_menstrual_period_display
+                     @patient.last_menstrual_period_display
       end
     end
 
     describe 'last_menstrual_period_display_short' do
       it 'should return nil if LMP weeks is not set' do
-        @pregnancy.last_menstrual_period_weeks = nil
-        assert_nil @pregnancy.last_menstrual_period_display_short
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.last_menstrual_period_display_short
       end
 
       it 'should return shorter LMP in weeks and days' do
-        assert_equal @pregnancy.last_menstrual_period_display_short, '9w 4d'
+        assert_equal @patient.last_menstrual_period_display_short, '9w 4d'
       end
     end
 
     describe 'last_menstrual_period_at_appt' do
       it 'should return nil unless appt date is set' do
         @patient.appointment_date = nil
-        assert_nil @pregnancy.last_menstrual_period_at_appt
+        assert_nil @patient.last_menstrual_period_at_appt
       end
 
       it 'should return a calculated LMP on date of appointment' do
         assert_equal '9 weeks, 6 days',
-                     @pregnancy.last_menstrual_period_at_appt
+                     @patient.last_menstrual_period_at_appt
       end
     end
 
     describe 'last_menstrual_period_now' do
       it 'should return nil if LMP weeks is not set' do
-        @pregnancy.last_menstrual_period_weeks = nil
-        assert_nil @pregnancy.send(:last_menstrual_period_now)
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.send(:_last_menstrual_period_now)
       end
 
       it 'should be equivalent to LMP on date - Time.zone.today' do
-        assert_equal  @pregnancy.send(:last_menstrual_period_now),
-                      @pregnancy.send(:last_menstrual_period_on_date,
-                                      Time.zone.today)
+        assert_equal  @patient.send(:_last_menstrual_period_now),
+                      @patient.send(:_last_menstrual_period_on_date,
+                                    Time.zone.today)
       end
 
       it 'should be LMP on date of appointment if appointment is in the past' do
         @patient.appointment_date = 1.day.ago
-        assert_equal  @pregnancy.send(:last_menstrual_period_now),
-                      @pregnancy.send(:last_menstrual_period_on_date, 1.day.ago.to_date)
+        assert_equal  @patient.send(:_last_menstrual_period_now),
+                      @patient.send(:_last_menstrual_period_on_date, 1.day.ago.to_date)
       end
     end
 
     describe 'last_menstrual_period_on_date' do
       it 'should nil out if LMP weeks is not set' do
-        @pregnancy.last_menstrual_period_weeks = nil
-        assert_nil @pregnancy.send(:last_menstrual_period_on_date,
-                                   Time.zone.today)
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.send(:_last_menstrual_period_on_date,
+                                 Time.zone.today)
       end
 
       it 'should accurately calculate LMP on a given date' do
-        assert_equal @pregnancy.send(:last_menstrual_period_on_date,
-                                     Time.zone.today), 67
-        assert_equal @pregnancy.send(:last_menstrual_period_on_date,
-                                     5.days.from_now.to_date), 72
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   Time.zone.today), 67
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   5.days.from_now.to_date), 72
 
         @patient.initial_call_date = 4.days.ago
-        assert_equal @pregnancy.send(:last_menstrual_period_on_date,
-                                     Time.zone.today), 69
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                    Time.zone.today), 69
 
-        @pregnancy.last_menstrual_period_weeks = 10
-        assert_equal @pregnancy.send(:last_menstrual_period_on_date,
-                                     Time.zone.today), 76
+        @patient.last_menstrual_period_weeks = 10
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   Time.zone.today), 76
 
-        @pregnancy.last_menstrual_period_days = 6
-        assert_equal @pregnancy.send(:last_menstrual_period_on_date,
-                                     Time.zone.today), 80
+        @patient.last_menstrual_period_days = 6
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   Time.zone.today), 80
       end
     end
 
-    describe 'display_as_weeks' do
+    describe '_display_as_weeks' do
       it 'should return a value of weeks and days' do
-        assert_equal '3 weeks, 3 days', display_as_weeks(24)
+        assert_equal '3 weeks, 3 days', @patient.send(:_display_as_weeks, 24)
+      end
+    end
+  end
+
+  describe 'status concern methods' do
+    before do
+      @user = create :user
+      @patient = create :patient, other_phone: '111-222-3333',
+                                  other_contact: 'Yolo'
+    end
+
+    describe 'status method branch 1' do
+      it 'should default to "No Contact Made" when a patient has no calls' do
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
+      end
+
+      it 'should default to "No Contact Made" on a patient left voicemail' do
+        create :call, patient: @patient, status: 'Left voicemail'
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
+      end
+
+      it 'should still say "No Contact Made" if patient leaves voicemail with appointment' do
+        @patient.appointment_date = '01/01/2017'
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
+      end
+    end
+
+    describe 'status method branch 2' do
+      it 'should update to "Needs Appointment" once patient has been reached' do
+        create :call, patient: @patient, status: 'Reached patient'
+        assert_equal Patient::STATUSES[:needs_appt], @patient.status
+      end
+
+      it 'should update to "Fundraising" once appointment made and patient reached' do
+        create :call, patient: @patient, status: 'Reached patient'
+        @patient.appointment_date = '01/01/2017'
+        assert_equal Patient::STATUSES[:fundraising], @patient.status
+      end
+
+      it 'should update to "Sent Pledge" after a pledge has been sent' do
+        @patient.pledge_sent = true
+        assert_equal Patient::STATUSES[:pledge_sent], @patient.status
+      end
+
+      # it 'should update to "Pledge Paid" after a pledge has been paid' do
+      # end
+
+      it 'should update to "Resolved Without DCAF" if patient is resolved' do
+        @patient.resolved_without_dcaf = true
+        assert_equal Patient::STATUSES[:resolved], @patient.status
+      end
+    end
+
+    describe 'contact_made? method' do
+      it 'should return false if no calls have been made' do
+        refute @patient.send :contact_made?
+      end
+
+      it 'should return false if an unsuccessful call has been made' do
+        create :call, patient: @patient, status: 'Left voicemail'
+        refute @patient.send :contact_made?
+      end
+
+      it 'should return true if a successful call has been made' do
+        create :call, patient: @patient, status: 'Reached patient'
+        assert @patient.send :contact_made?
       end
     end
   end
