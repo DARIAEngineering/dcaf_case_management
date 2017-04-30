@@ -36,31 +36,11 @@ module DashboardsHelper
   end
 
   def th_autosortable(column_name, type, local_assigns)
+    # Throw a flag unless sorting by string, int, or float
+    raise 'Bad datatype' unless %w(string string-ins int float).include? type
     content_tag :th, data: { sort: type } do
-      column_name + autosort_arrow_span(local_assigns)
-
-      # "#{column_name}" + autosort_arrow_span(local_assigns)
+      safe_join [column_name, autosort_arrow_span(local_assigns)], ' '
     end
-  end
-
-  # column has string data
-  def autosort_string_html_attr(local_assigns)
-    local_assigns[:autosortable] ? ' data-sort="string"' : ''
-  end
-
-  # column has string data that should be sorted case insensitively
-  def autosort_string_ins_html_attr(local_assigns)
-    local_assigns[:autosortable] ? ' data-sort="string-ins"' : ''
-  end
-
-  # column has integer data
-  def autosort_int_html_attr(local_assigns)
-    local_assigns[:autosortable] ? ' data-sort="int"' : ''
-  end
-
-  # column has floating point data
-  def autosort_float_html_attr(local_assigns)
-    local_assigns[:autosortable] ? ' data-sort="float"' : ''
   end
 
   # span that holds the up/down arrow
