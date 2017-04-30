@@ -101,7 +101,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
         create :patient, primary_phone: '111-111-1111'
 
         select 'DC', from: 'patient_line'
-        fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%y')
+        fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d')
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Primary phone', with: '111-111-1111'
         click_button 'Create Patient'
@@ -116,7 +116,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     describe 'pledge with insufficient other info' do
       before do
         select 'DC', from: 'patient_line'
-        fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%y')
+        fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d')
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Primary phone', with: '111-222-3344'
         check 'Pledge sent'
