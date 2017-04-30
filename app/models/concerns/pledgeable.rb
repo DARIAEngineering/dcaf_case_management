@@ -1,3 +1,4 @@
+# Methods pertaining to pledges or pledge validation
 module Pledgeable
   extend ActiveSupport::Concern
 

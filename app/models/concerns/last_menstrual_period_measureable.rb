@@ -1,4 +1,4 @@
-# Last menstrual period calculator methods
+# Methods pertaining to last menstrual period calculation
 module LastMenstrualPeriodMeasureable
   extend ActiveSupport::Concern
 
