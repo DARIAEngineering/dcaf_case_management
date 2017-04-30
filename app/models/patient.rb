@@ -5,7 +5,7 @@ class Patient
   include Mongoid::Enum
   include Mongoid::Userstamp
   include Mongoid::History::Trackable
-  include StatusHelper
+  include Statusable
 
   # The following are concerns, or groupings of domain-related methods
   # This blog post is a good intro: https://vaidehijoshi.github.io/blog/2015/10/13/stop-worrying-and-start-being-concerned-activesupport-concerns/
