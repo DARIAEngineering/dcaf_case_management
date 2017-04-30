@@ -39,7 +39,7 @@ module DashboardsHelper
     # Throw a flag unless sorting by string, int, or float
     raise 'Bad datatype' unless %w(string string-ins int float).include? type
     content_tag :th, data: { sort: type } do
-      safe_join [column_name, autosort_arrow_span(local_assigns)], ' '
+      safe_join([column_name, autosort_arrow_span(local_assigns)], ' ').strip
     end
   end
 
