@@ -43,6 +43,8 @@ module DashboardsHelper
     end
   end
 
+  private
+
   # span that holds the up/down arrow
   def autosort_arrow_span(local_assigns)
     return '' unless local_assigns[:autosortable]
