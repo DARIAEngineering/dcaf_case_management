@@ -74,10 +74,10 @@ module PatientsHelper
     "Pledge Limit Guidelines:<br />1st trimester (7-12 weeks): $#{first_tri}<br />2nd trimester (12-24 weeks): $#{second_tri}<br />Later care (25+ weeks): $#{later_care}"
   end
 
-  def duration_since_last_call
-    @patient = Patient.find(params[:id])
-    days_since_last_call = (Time.now - @patient.calls.last.created_at).to_i / 86400
-    if days_since_last_call => 120, return more_than_120
+  def days_since_last_call
+    day = 86400
+    number_of_days_since_last_call = (Time.now - calls.sort_by(created_at).last).to_i / day
+    return number_of_days_since_last_call
   end
 
 end

@@ -11,11 +11,11 @@ module StatusHelper
   }.freeze
 
   def status
+    return STATUSES[:dropoff] if number_of_days_since_last_call > 120
     return STATUSES[:resolved] if pregnancy.resolved_without_dcaf?
     return STATUSES[:pledge_sent] if pregnancy.pledge_sent?
     return STATUSES[:no_contact] if not contact_made?
     return STATUSES[:fundraising] if appointment_date
-    return STATUSES[:dropoff] if more_than_120
     STATUSES[:needs_appt]
   end
 
