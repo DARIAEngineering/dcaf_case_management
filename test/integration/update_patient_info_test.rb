@@ -6,7 +6,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @user = create :user
     @clinic = create :clinic
     @patient = create :patient
-    @pregnancy = create :pregnancy, patient: @patient
     @ext_pledge = create :external_pledge,
                          patient: @patient,
                          source: 'Baltimore Abortion Fund'
@@ -22,8 +21,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     before do
       @date = 5.days.from_now.strftime('%Y-%m-%d')
       fill_in 'First and last name', with: 'Susie Everyteen 2'
-      select '5 weeks', from: 'patient_pregnancy_last_menstrual_period_weeks'
-      select '2 days', from: 'patient_pregnancy_last_menstrual_period_days'
+      select '5 weeks', from: 'patient_last_menstrual_period_weeks'
+      select '2 days', from: 'patient_last_menstrual_period_days'
       fill_in 'Appointment date', with: @date
       fill_in 'Phone number', with: '123-666-8888'
       fill_in 'First and last name', with: 'Susie Everyteen 2'
@@ -37,8 +36,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
     it 'should alter the information' do
       within :css, '#patient_dashboard' do
-        lmp_weeks = find('#patient_pregnancy_last_menstrual_period_weeks')
-        lmp_days = find('#patient_pregnancy_last_menstrual_period_days')
+        lmp_weeks = find('#patient_last_menstrual_period_weeks')
+        lmp_days = find('#patient_last_menstrual_period_days')
         assert has_field?('First and last name', with: 'Susie Everyteen 2')
         assert_equal '5', lmp_weeks.value
         assert_equal '2', lmp_days.value
@@ -168,10 +167,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       @user.update role: :admin
       @clinic = create :clinic
       @patient = create :patient, appointment_date: 2.days.from_now,
-                                  clinic: @clinic
-      create :pregnancy, patient: @patient,
-                         dcaf_soft_pledge: 100,
-                         pledge_sent: true
+                                  clinic: @clinic,
+                                  dcaf_soft_pledge: 100,
+                                  pledge_sent: true
       create :fulfillment, patient: @patient
       visit edit_patient_path @patient
       # find('#submit-pledge-button').click
