@@ -54,6 +54,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'knapsack', require: false
   gem 'shoulda-context'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
