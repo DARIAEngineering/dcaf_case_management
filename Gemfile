@@ -47,6 +47,7 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'spring'
+  gem 'knapsack'
 
   # better error handling
   gem 'better_errors'
@@ -54,7 +55,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'knapsack', require: false
   gem 'shoulda-context'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
