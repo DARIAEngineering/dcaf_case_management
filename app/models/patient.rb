@@ -5,7 +5,6 @@ class Patient
   include Mongoid::Enum
   include Mongoid::Userstamp
   include Mongoid::History::Trackable
-  include Statusable
 
   # The following are concerns, or groupings of domain-related methods
   # This blog post is a good intro: https://vaidehijoshi.github.io/blog/2015/10/13/stop-worrying-and-start-being-concerned-activesupport-concerns/
@@ -17,12 +16,14 @@ class Patient
   include LastMenstrualPeriodMeasureable
   include Pledgeable
   include HistoryTrackable
+  include Statusable
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
   end
 
   before_validation :clean_fields
+  before_save :save_identifier
   after_create :initialize_fulfillment
 
   # Relationships
@@ -108,12 +109,7 @@ class Patient
 
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
 
-  # validates_associated :pregnancy
   validates_associated :fulfillment
-  before_save :save_identifier
-
-  # some validation of presence of at least one pregnancy
-  # some validation of only one active pregnancy at a time
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

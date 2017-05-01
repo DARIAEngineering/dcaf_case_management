@@ -73,22 +73,17 @@ class PatientsController < ApplicationController
     :procedure_cost, :patient_contribution, :naf_pledge, :dcaf_soft_pledge
   ].freeze
 
-  NOTES_PARAMS = [:urgent_flag].freeze
-
   FULFILLMENT_PARAMS = [
     fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
                   :procedure_cost, :check_number, :check_date]
   ].freeze
 
-  NEW_PATIENT_PARAMS = [
-    :initial_call_date
-  ].freeze
+  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
 
   def patient_params
     params.require(:patient).permit(
       [].concat(PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
-                ABORTION_INFORMATION_PARAMS, NOTES_PARAMS,
-                FULFILLMENT_PARAMS, NEW_PATIENT_PARAMS)
+                ABORTION_INFORMATION_PARAMS, OTHER_PARAMS, FULFILLMENT_PARAMS)
     )
   end
 end

@@ -124,7 +124,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       end
 
       it 'should return an error on insufficient pledge sent data' do
-        assert has_text? 'Pregnancy is invalid'
+        assert has_text? 'Errors prevented this patient from being saved'
         assert_equal current_path, data_entry_path
       end
     end
