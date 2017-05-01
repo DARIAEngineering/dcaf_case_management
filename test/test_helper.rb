@@ -20,7 +20,7 @@ if ENV['CIRCLE_ARTIFACTS']
   require 'knapsack'
   knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
   knapsack_adapter.set_test_helper_path(__FILE__)
-end  
+end
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: false)
