@@ -15,7 +15,7 @@ class CallsController < ApplicationController
   end
 
   def new
-    @patient = Patient.find params['patient_id']
+    @patient = Patient.find params[:patient_id]
     respond_to do |format|
       format.js
     end
