@@ -3,11 +3,19 @@ class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Enum
-  include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include Mongoid::History::Trackable
   include StatusHelper
 
-  SEARCH_LIMIT = 15
+  # The following are concerns, or groupings of domain-related methods
+  # This blog post is a good intro: https://vaidehijoshi.github.io/blog/2015/10/13/stop-worrying-and-start-being-concerned-activesupport-concerns/
+  include Urgency
+  include Callable
+  include Notetakeable
+  include Searchable
+  include AttributeDisplayable
+  include HistoryTrackable
+
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
   end
@@ -16,7 +24,7 @@ class Patient
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
-  has_one :clinic
+  belongs_to :clinic
   embeds_one :pregnancy
   embeds_one :fulfillment
   embeds_many :calls
@@ -26,7 +34,6 @@ class Patient
   # Enable mass posting in forms
   accepts_nested_attributes_for :pregnancy
   accepts_nested_attributes_for :fulfillment
-  accepts_nested_attributes_for :clinic
 
   # Fields
   field :name, type: String # strip
@@ -34,7 +41,6 @@ class Patient
   field :other_contact, type: String
   field :other_phone, type: String
   field :other_contact_relationship, type: String
-  field :clinic_name, type: String
   field :identifier, type: String
 
   enum :voicemail_preference, [:not_specified, :no, :yes]
@@ -100,19 +106,6 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.urgent_patients(lines = LINES)
-    Patient.in(_line: lines).where(urgent_flag: true)
-  end
-
-  def self.trim_urgent_patients
-    Patient.all do |patient|
-      unless patient.still_urgent?
-        patient.urgent_flag = false
-        patient.save
-      end
-    end
-  end
-
   def self.pledged_status_summary(num_days = 7)
     # return pledge totals for patients with appts in the next num_days
     # TODO move to Pledge class, when implemented?
@@ -128,149 +121,11 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
-  def self.contacted_since(datetime)
-    patients_reached = []
-    all.each do |patient|
-      calls = patient.calls.select { |call| call.status == 'Reached patient' &&
-                                            call.created_at >= datetime }
-      patients_reached << patient if calls.present?
-    end
-
-    # Should we use this or first call?
-    first_contact = patients_reached.select { |patient| patient.initial_call_date >= datetime }
-
-    # hard coding in first_contacts and pledges_sent for now
-    { since: datetime, contacts: patients_reached.length,
-      first_contacts: first_contact.length, pledges_sent: 20 }
-  end
-
-  def recent_calls
-    calls.includes(:created_by).order('created_at DESC').limit(10)
-  end
-
-  def old_calls
-    calls.includes(:created_by).order('created_at DESC').offset(10)
-  end
-
-  def most_recent_note_display_text
-    note_text = most_recent_note.try(:full_text).to_s
-    display_note = note_text[0..30]
-    display_note << '...' if note_text.length > 31
-    display_note
-  end
-
-  def most_recent_note
-    notes.order('created_at DESC').limit(1).first
-  end
-
-  # TODO: reimplement once pledge is available
-  #def most_recent_pledge_display_date
-  #  display_date = most_recent_pledge.try(:sent).to_s
-  #  display_date
-  #end
-
-  # TODO: reimplement once pledge is available
-  #def most_recent_pledge
-  #  pledges.order('created_at DESC').limit(1).first
-  #end
-
-  def primary_phone_display
-    return nil unless primary_phone.present?
-    "#{primary_phone[0..2]}-#{primary_phone[3..5]}-#{primary_phone[6..9]}"
-  end
-
-  def other_phone_display
-    return nil unless other_phone.present?
-    "#{other_phone[0..2]}-#{other_phone[3..5]}-#{other_phone[6..9]}"
-  end
-
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
-  def still_urgent?
-    # Verify that a pregnancy has not been marked urgent in the past six days
-    return false if recent_history_tracks.count == 0
-    return false if pregnancy.pledge_sent || pregnancy.resolved_without_dcaf
-    recent_history_tracks.sort.reverse.each do |history|
-      return true if history.marked_urgent?
-    end
-    false
-  end
-
-  def assemble_audit_trails
-    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
-                                               .reverse
-  end
-
-  # Search-related stuff
-  class << self
-    # Case insensitive and phone number format agnostic!
-    def search(name_or_phone_str, lines = LINES)
-      # lines should be an array of symbols
-      name_regexp = /#{Regexp.escape(name_or_phone_str)}/i
-      clean_phone = name_or_phone_str.gsub(/\D/, '')
-      phone_regexp = /#{Regexp.escape(clean_phone)}/
-      identifier_regexp = /#{Regexp.escape(name_or_phone_str)}/i
-
-      all_matching_names = find_name_matches name_regexp, lines
-      all_matching_phones = find_phone_matches phone_regexp, lines
-      all_matching_identifiers = find_identifier_matches(identifier_regexp)
-
-      sort_and_limit_patient_matches(all_matching_names, all_matching_phones, all_matching_identifiers)
-    end
-
-    private
-
-
-    def sort_and_limit_patient_matches(*matches)
-      all_matches = matches.reduce{ |results, matches_of_type|
-        results | matches_of_type
-      }
-      all_matches.sort { |a,b|
-        b.updated_at <=> a.updated_at
-      }.first(SEARCH_LIMIT)
-    end
-
-    def find_name_matches(name_regexp, lines = LINES)
-      if nonempty_regexp? name_regexp
-        primary_names = Patient.in(_line: lines).where name: name_regexp
-        other_names = Patient.in(_line: lines).where other_contact: name_regexp
-        return (primary_names | other_names)
-      end
-      []
-    end
-
-    def find_identifier_matches(identifier_regexp)
-      if nonempty_regexp? identifier_regexp
-        identifier = Patient.where identifier: identifier_regexp
-        return identifier
-      end
-      []
-    end
-
-    def find_phone_matches(phone_regexp, lines = LINES)
-      if nonempty_regexp? phone_regexp
-        primary_phones = Patient.in(_line: lines).where(primary_phone: phone_regexp)
-        other_phones = Patient.in(_line: lines).where(other_phone: phone_regexp)
-        return (primary_phones | other_phones)
-      end
-      []
-    end
-
-    def nonempty_regexp?(regexp)
-      # Escaped regexes are always present, so check presence
-      # after stripping out standard stuff
-      # (opening stuff to semicolon, closing parenthesis)
-      regexp.to_s.gsub(/^.*:/, '').chop.present?
-    end
-  end
-
   private
-
-  def recent_history_tracks
-    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
-  end
 
   def confirm_appointment_after_initial_call
     if appointment_date.present? && initial_call_date > appointment_date

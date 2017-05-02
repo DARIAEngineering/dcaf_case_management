@@ -1,7 +1,7 @@
 # DCAF Case Manager
 
-[![CircleCI](https://circleci.com/gh/colinxfleming/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/colinxfleming/dcaf_case_management)
-[![codecov](https://codecov.io/gh/colinxfleming/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/colinxfleming/dcaf_case_management)
+[![CircleCI](https://circleci.com/gh/DCAFEngineering/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/DCAFEngineering/dcaf_case_management)
+[![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 
 [A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@test.com, Pass: P4ssword
@@ -41,23 +41,24 @@ We also have a milestone for major features in a release. @colinxfleming breaks 
 
 
 ### We <3 new people and beginners!
-We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
+We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
 
 We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB and a couple gems.
 
 
 ### Pull Requests Please!
-This project runs on *Github forks and pull requests*, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/). 
+This project runs on *Github forks and pull requests*, so we can be sure to make changes incrementally and keep everything clean. For an introduction to Github, check out [this guide on github.com](https://guides.github.com/activities/hello-world/).
 
 Here's how you do it:
 
-* Visit [the main project page](https://github.com/colinxfleming/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
+* Visit [the main project page](https://github.com/DCAFEngineering/dcaf_case_management) and fork from the master branch by pressing the `fork` button near the top right.
 * Do any work in your local environment and commit it to your fork in github.
 * Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button.
 * At least one other person will review and comment on code changes, work with you to resolve issues, and merge the pull request when it's ready.
 
 
 ### How We Categorize Our To Do List / Issues
+
 As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We generally categorize things as follows:
 
 Our major categories of software development related issues are as follows:
@@ -69,9 +70,9 @@ Our major categories of software development related issues are as follows:
 * [UX/Design](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3AUX%2Fdesign) (Design todos, or stuff that could use some feedback)
 
 We also keep track of our administrative issues and discussion in Github under the following issue labels:
-* [Admin](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
-* [Question](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before we settle on a plan of attack)
-* [Backlog](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that we'll get around to someday)
+* [Admin](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
+* [Question](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before we settle on a plan of attack)
+* [Backlog](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that we'll get around to someday)
 
 
 ## Setting Stuff Up

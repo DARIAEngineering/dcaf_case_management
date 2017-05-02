@@ -6,6 +6,7 @@ class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
     @user = create :user
     @patient = create :patient
     @pregnancy = create :pregnancy, patient: @patient
+    @clinic = create :clinic
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
@@ -22,7 +23,7 @@ class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
     end
 
     it 'should not show errors when information is present' do
-      @patient = create :patient, clinic_name: 'Nice Clinic',
+      @patient = create :patient, clinic: @clinic,
                                   appointment_date: 14.days.from_now
       @pregnancy = create :pregnancy, patient: @patient, dcaf_soft_pledge: 500
       visit edit_patient_path @patient
