@@ -1,23 +1,38 @@
-<% if session[:line] %>
-  <ul class="nav navbar-nav navbar-left">
-    <li class="navbar-text"><%= current_line_display %></li>
-    <% if ENV['CM_RESOURCES_URL'] %>
-      <li><%= link_to 'CM Resources', ENV['CM_RESOURCES_URL'], target: '_blank' %></li>
-    <% end %>
-  </ul>
-<% end %>
+<ul class="nav navbar-nav navbar-left">
+  <% if current_user && session[:line] %>
+    <li class="navbar-text-alt"><%= current_line_display %></li>
+  <% end %>
+</ul>    
 
 <ul class="nav navbar-nav navbar-right">
   <% if !user_signed_in? %>
     <li><%= link_to 'Sign in', new_user_session_path %></li>
   <% else %>
-    <% unless current_page?(authenticated_root_url) %>
-      <li><%= link_to 'Dashboard', authenticated_root_path %></li>
+    <li><%= link_to 'Reports', '#' %></li>
+    <% if ENV['CM_RESOURCES_URL'] %>
+      <li><%= link_to 'CM Resources', ENV['CM_RESOURCES_URL'], target: '_blank' %></li>
     <% end %>
     <% if current_user.admin? %>
-      <li> <%= link_to 'Create User', new_user_path %></li>
+      <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'User Management', new_user_path %></li>
+          <li><%= link_to 'Clinic Management', '#' %></li>
+          <li><%= link_to 'Accounting', '#' %></li>
+          <li><%= link_to 'Reporting', '#' %></li>
+        </ul>
+      </li>
     <% end %>
-    <li><%= link_to current_user.name, edit_user_registration_path %></li>
-    <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
+
+    <li class="dropdown">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= current_user.name %><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'My Profile', edit_user_registration_path %></li>
+        <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
+      </ul>
+    </li>
   <% end %>
 </ul>
+
+
+

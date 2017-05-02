@@ -10,6 +10,7 @@
 @charset "utf-8";
 
 $dcaf-color: #5D3E8D;
+$grey-color: #828282;
 $font-size: 17px;
 
 /* NAVBAR */
@@ -34,6 +35,12 @@ $font-size: 17px;
     line-height:20px;
   }
 
+  .navbar-text-alt{
+    color: $grey-color;
+    padding:15px;
+    margin:0px;
+    line-height:20px;
+  }
 }
 
 
