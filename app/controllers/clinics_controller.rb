@@ -5,6 +5,10 @@ class ClinicsController < ApplicationController
 
   def index
     @clinics = Clinic.all.sort_by{|c| [c.name]}
+    respond_to do |format|
+      format.html
+      format.json { render json: @clinics }
+    end
   end
 
   def create
