@@ -10,6 +10,7 @@ gem 'jquery-ui-rails'
 gem 'turbolinks', '~> 5.0.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'prawn'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
@@ -69,6 +70,7 @@ group :test do
   gem 'timecop'
   gem 'capybara-screenshot'
   gem 'minitest-ci'
+  gem 'pdf-inspector', require: "pdf/inspector"
 end
 
 group :production do

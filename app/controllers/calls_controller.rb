@@ -6,7 +6,7 @@ class CallsController < ApplicationController
     @call = @patient.calls.new call_params
     @call.created_by = current_user
     if call_saved_and_patient_reached @call, params
-      redirect_to edit_patient_path @patient
+      redirect_via_turbolinks_to edit_patient_path @patient
     elsif @call.save
       respond_to { |format| format.js }
     else
