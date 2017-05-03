@@ -29,14 +29,12 @@ class Patient
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
-  # embeds_one :pregnancy
   embeds_one :fulfillment
   embeds_many :calls
   embeds_many :external_pledges
   embeds_many :notes
 
   # Enable mass posting in forms
-  # accepts_nested_attributes_for :pregnancy
   accepts_nested_attributes_for :fulfillment
 
   # Fields
