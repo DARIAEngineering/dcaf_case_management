@@ -19,6 +19,11 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
       get clinics_path
       assert_response :success
     end
+
+    it 'should render json' do
+      get clinics_path, :format => :json
+      assert_response :success
+    end
   end
 
   describe 'create' do

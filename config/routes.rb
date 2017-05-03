@@ -8,19 +8,19 @@ Rails.application.routes.draw do
 
     # Patient routes
     # /patients/:id/edit
-    # /patients/:id/calls 
+    # /patients/:id/calls
     # /patients/:id/notes
     # /patients/:id/external_pledges
-    resources :patients, 
+    resources :patients,
               only: [ :create, :edit, :update ] do
       member do
         get :download, as: 'generate_pledge'
       end
       resources :calls, 
                 only: [ :create, :destroy ]
-      resources :notes, 
+      resources :notes,
                 only: [ :create, :update ]
-      resources :external_pledges, 
+      resources :external_pledges,
                 only: [ :create, :update, :destroy ]
     end
 
