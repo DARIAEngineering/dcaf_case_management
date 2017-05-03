@@ -13,7 +13,6 @@ class PledgeFormGenerator
     number_to_currency(@patient.pregnancy.dcaf_soft_pledge, precision: 0)
   end
 
-  # TODO when clinics actually exist instead of just name, do this
   def provider_address
     patient.clinic.display_location
   end
@@ -45,7 +44,7 @@ class PledgeFormGenerator
     build_patient_info_block pdf
     pdf.move_down 10
 
-    build_dcaf_info_block pdf
+    build_fund_info_block pdf
     pdf.move_down 10
 
     build_thank_you_text_block pdf
@@ -93,7 +92,7 @@ class PledgeFormGenerator
     pdf.text patient_info_block, align: :left, inline_format: true
   end
 
-  def build_dcaf_info_block(pdf)
+  def build_fund_info_block(pdf)
     dcaf_info_block = <<-TEXT
       <b>DCAF
       P.O. Box 65061
