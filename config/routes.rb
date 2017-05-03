@@ -7,12 +7,15 @@ Rails.application.routes.draw do
     resources :users, only: [:new, :create, :index]
 
     # Patient routes
-    # /patients/:id
+    # /patients/:id/edit
     # /patients/:id/calls 
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients, 
               only: [ :create, :edit, :update ] do
+      member do
+        get :download, as: 'generate_pledge'
+      end
       resources :calls, 
                 only: [ :create, :destroy ]
       resources :notes, 
