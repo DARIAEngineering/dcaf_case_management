@@ -21,7 +21,7 @@
     </thead>
     <tbody id="<%= table_type %>_content">
       <% patients.each do |patient| %>
-        <tr class="pregnancy-data" id="<%= patient.id %>">
+        <tr class="patient-data" id="<%= patient.id %>">
           <% if local_assigns[:sortable] %>
             <td class="handle"><span class="glyphicon glyphicon-move"></span></td>
           <% end %>
