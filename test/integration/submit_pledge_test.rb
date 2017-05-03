@@ -22,9 +22,9 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       assert has_text? 'Confirm the following information is correct'
       find('#pledge-next').click
       sleep 2 # out of ideas
-      wait_for_no_element 'Confirm the following information is correct'
 
-      assert has_text? 'Review this preview of your pledge'
+      wait_for_no_element 'Confirm the following information is correct'
+      assert has_text? 'Generate your pledge form'
       find('#pledge-next').click
       wait_for_no_element 'Review this preview of your pledge'
 

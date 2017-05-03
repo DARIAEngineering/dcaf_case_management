@@ -30,6 +30,11 @@ Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
                city: 'Washington', state: 'DC', zip: '20011'
 Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
                city: 'Arlington', state: 'VA', zip: '22204'
+Clinic.create! name: 'Sample Clinic with NAF', street_address: '123 Fake Street',
+              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: true
+Clinic.create! name: 'Sample Clinic without NAF', street_address: '123 Fake Street',
+              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: false
+
 
 # Create ten patients
 10.times do |i|
@@ -118,15 +123,15 @@ Patient.all.each do |patient|
 end
 
 # Adds 5 Patients to regular call list
-['Patient 0', 'Other Contact info - 1', 
- 'Clinic and Appt - 2', 
+['Patient 0', 'Other Contact info - 1',
+ 'Clinic and Appt - 2',
  'Pledge submitted - 3',
  'Resolved without DCAF - 5'].each do |patient_name|
   user.add_patient Patient.find_by name: patient_name
 end
 
 # Add Patient to completed calls list
-patient_in_completed_calls = 
+patient_in_completed_calls =
   Patient.find_by name: 'Special Circumstances - 4'
 user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create! status: 'Left voicemail',
@@ -134,9 +139,9 @@ patient_in_completed_calls.calls.create! status: 'Left voicemail',
 
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
+     "Inserted #{Clinic.count} clinic objects. \n" \
      "User created! Credentials are as follows: " \
      "EMAIL: #{user.email} PASSWORD: P4ssword"
      # "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
 
 # exit # so it doesn't try to run other rake tasks
-

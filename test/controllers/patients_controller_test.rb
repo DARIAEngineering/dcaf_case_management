@@ -109,6 +109,27 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'download' do
+    it 'should not download a pdf with no case manager name' do
+      get generate_pledge_patient_path(@patient), params: { case_manager_name: '' }
+      assert_redirected_to edit_patient_path(@patient)
+    end
+
+    it 'should download a pdf' do
+      pledge_generator_mock = Minitest::Mock.new
+      pdf_mock_result = Minitest::Mock.new
+      pledge_generator_mock.expect(:generate_pledge_pdf, pdf_mock_result)
+      pdf_mock_result.expect :render, "mow"
+      assert_nil @patient.pledge_generated_at
+      PledgeFormGenerator.stub(:new, pledge_generator_mock) do
+        get generate_pledge_patient_path(@patient), params: { case_manager_name: 'somebody' }
+      end
+
+      refute_nil @patient.reload.pledge_generated_at
+      assert_response :success
+    end
+  end
+
   # confirm sending a 'post' with a payload results in a new patient
   describe 'data_entry_create method' do
     before do

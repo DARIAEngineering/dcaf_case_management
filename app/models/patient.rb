@@ -79,6 +79,7 @@ class Patient
   field :dcaf_soft_pledge, type: Integer
   field :pledge_sent, type: Boolean
   field :resolved_without_dcaf, type: Boolean
+  field :pledge_generated_at, type: DateTime
 
   # Indices
   index({ primary_phone: 1 }, unique: true)

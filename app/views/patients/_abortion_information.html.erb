@@ -14,6 +14,9 @@
             <div class="info-form-left">
               <%= f.select :clinic_id, options_for_select(clinic_options, patient.clinic.try(:id)) %>
             </div>
+            <%= label_tag 'Enable only NAF clinics' %>
+            <br>
+            <%= check_box_tag 'naf_filter' %>
           </div>
 
           <div class="col-sm-6">
