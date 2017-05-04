@@ -29,7 +29,7 @@
     <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= current_user.name %><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><%= link_to 'My Profile', edit_user_registration_path %></li>
-        <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
+        <li><%= link_to 'Sign Out', destroy_user_session_path, method: 'delete' %></li>
       </ul>
     </li>
   <% end %>

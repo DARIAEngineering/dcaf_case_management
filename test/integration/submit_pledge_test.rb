@@ -33,7 +33,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       wait_for_no_element 'Awesome, you generated a DCAF'
 
-      click_link 'Dashboard'
+      go_to_dashboard
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
 

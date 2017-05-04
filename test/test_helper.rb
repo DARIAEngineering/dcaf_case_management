@@ -78,7 +78,9 @@ class ActionDispatch::IntegrationTest
   end
 
   def sign_out
-    click_link 'Sign out'
+    click_link "#{@user.name}"
+    click_link 'Sign Out'
+    #select 'Sign Out', from: @user.name
   end
 
   def wait_for_ajax
@@ -88,6 +90,10 @@ class ActionDispatch::IntegrationTest
       sleep(0.1)
       raise 'Ajax request took longer than 5 seconds, failing' if counter >= 50
     end
+  end
+  
+  def go_to_dashboard
+    click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
   end
 end
 
