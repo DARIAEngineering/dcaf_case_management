@@ -68,6 +68,22 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       reload_page_and_click_link 'Abortion Information'
     end
 
+    it 'should update balance on field change' do
+      # updateBalance()
+      find('#outstanding-balance').has_text?('$0')
+
+      fill_in 'Abortion cost', :with => '20000'
+      find('#outstanding-balance').has_text?('$19700')
+      fill_in 'Patient contribution', with: '0'
+      find('#outstanding-balance').has_text?('$19900')
+      fill_in 'National Abortion Federation pledge', with: '0'
+      find('#outstanding-balance').has_text?('$19950')
+      fill_in 'Baltimore Abortion Fund pledge', with: '0', match: :prefer_exact
+      find('#outstanding-balance').has_text?('$19975')
+      fill_in 'DCAF pledge', with: '0'
+      find('#outstanding-balance').has_text?('$20000')
+    end
+
     it 'should alter the information' do
       within :css, '#abortion_information' do
         assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
