@@ -18,7 +18,8 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
     end
 
     it 'should have a sign out link' do
-      assert has_link? 'Sign out', href: destroy_user_session_path
+      click_link "#{@user.name}"
+      assert has_link? 'Sign Out', href: destroy_user_session_path
     end
   end
 
