@@ -1,6 +1,4 @@
 class ReportsController < ApplicationController
-  include Reports::LineSummary
-
   def index
     @weekly_report = gon.weekly_report = Reports::LineSummary.generate(1.week.ago, Date.today)
     @monthly_report = gon.monthly_report = Reports::LineSummary.generate(1.month.ago, Date.today)
