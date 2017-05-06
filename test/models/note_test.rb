@@ -26,7 +26,7 @@ class NoteTest < ActiveSupport::TestCase
   end
 
   describe 'relationships' do
-    it 'should have an associated pregnancy' do
+    it 'should have an associated patient' do
       assert @note.respond_to? :patient
       assert @note.patient
     end

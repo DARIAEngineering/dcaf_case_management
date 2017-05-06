@@ -43,28 +43,14 @@ Clinic.create! name: 'Sample Clinic without NAF', street_address: '123 Fake Stre
                  primary_phone: "123-123-123#{i}",
                  initial_call_date: 3.days.ago,
                  urgent_flag: flag,
+                 last_menstrual_period_weeks: (i + 1 * 2),
+                 last_menstrual_period_days: 3,
                  created_by: user2
 end
 
-# Create active pregnancies for every patient
+# Create associated objects
 Patient.all.each do |patient|
-  # If the patient number is even, flag as urgent
-  if patient.name[-1, 1].to_i.even?
-    lmp_weeks = (patient.name[-1, 1].to_i + 1) * 2
-    lmp_days = 3
-  end
-
-  # Create pregnancy
-  creation_hash = { last_menstrual_period_weeks: lmp_weeks,
-                    last_menstrual_period_days: lmp_days,
-                    created_by: user2
-                  }
-
-  pregnancy = patient.build_pregnancy(creation_hash)
-  pregnancy.save
-  patient.build_fulfillment(created_by_id: User.first.id).save
-
-  # Create calls for pregnancy
+  # Create calls for patient
   5.times do
     patient.calls.create! status: 'Left voicemail',
                           created_at: 3.days.ago,
@@ -98,27 +84,25 @@ Patient.all.each do |patient|
   # Add example of patient with a pledge submitted
   if patient.name == 'Patient 3'
     patient.update! clinic: Clinic.first,
-                    appointment_date: 10.days.from_now
-    patient.pregnancy.update! naf_pledge: 2000,
-                             procedure_cost: 4000,
-                             procedure_date: 1.week.from_now,
-                             dcaf_soft_pledge: 1000,
-                             pledge_sent: true,
-                             patient_contribution: 1000,
-                             created_by: user2
-    patient.update! name: "Pledge submitted - 3"
+                    appointment_date: 10.days.from_now,
+                    naf_pledge: 2000,
+                    procedure_cost: 4000,
+                    dcaf_soft_pledge: 1000,
+                    pledge_sent: true,
+                    patient_contribution: 1000,
+                    name: "Pledge submitted - 3"
   end
 
   # Add example of patient should have special circumstances
   if patient.name == 'Patient 4'
     patient.update! name: "Special Circumstances - 4",
-                   special_circumstances: ["Prison", "Fetal anomaly"]
+                    special_circumstances: ["Prison", "Fetal anomaly"]
   end
 
   # Add example of patient should be marked resolved without DCAF
   if patient.name == 'Patient 5'
-    patient.pregnancy.update! resolved_without_dcaf: true
-    patient.update! name: "Resolved without DCAF - 5"
+    patient.update! name: "Resolved without DCAF - 5",
+                    resolved_without_dcaf: true
   end
 
   patient.save

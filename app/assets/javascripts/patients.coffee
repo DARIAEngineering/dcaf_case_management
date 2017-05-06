@@ -2,17 +2,17 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 updateBalance = ->
-  if $("#patient_pregnancy_procedure_cost").val()
+  if $("#patient_procedure_cost").val()
     $(".outstanding-balance-ctn").removeClass('hidden')
     $("#outstanding-balance").text('$' + calculateRemainder())
   else
     $(".outstanding-balance-ctn").addClass('hidden')
 
 calculateRemainder = ->
-  total = valueToNumber $("#patient_pregnancy_procedure_cost").val()
-  contributions = valueToNumber($("#patient_pregnancy_patient_contribution").val()) +
-                  valueToNumber($("#patient_pregnancy_naf_pledge").val()) +
-                  valueToNumber($("#patient_pregnancy_dcaf_soft_pledge").val()) +
+  total = valueToNumber $("#patient_procedure_cost").val()
+  contributions = valueToNumber($("#patient_patient_contribution").val()) +
+                  valueToNumber($("#patient_naf_pledge").val()) +
+                  valueToNumber($("#patient_dcaf_soft_pledge").val()) +
                   valueToNumber($(".external_pledge_amount").toArray().reduce (acc, next) ->
                     acc + valueToNumber($(next).val())
                   , 0)
@@ -48,7 +48,7 @@ $(document).on 'turbolinks:load', ->
     # timeout to handle mongo updating and rails appending new field
     setTimeout(updateBalance, 500)
 
-  if $("#patient_pregnancy_procedure_cost").val()
+  if $("#patient_procedure_cost").val()
     updateBalance()
 
   # put a help icon next to form field labels that have the "tooltip-header" class
