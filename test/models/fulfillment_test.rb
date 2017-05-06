@@ -1,13 +1,9 @@
 require 'test_helper'
 
 class FulfillmentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   before do
     @user = create :user
     @pt_1 = create :patient, name: 'Susan Smith'
-    @pregnancy = create :pregnancy, patient: @pt_1, created_by: @user
     @fulfillment = create :fulfillment, patient: @pt_1, created_by: @user
   end
 
@@ -42,6 +38,4 @@ class FulfillmentTest < ActiveSupport::TestCase
       assert @fulfillment.created_by
     end
   end
-
-
 end

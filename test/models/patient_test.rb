@@ -8,7 +8,6 @@ class PatientTest < ActiveSupport::TestCase
 
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
-    @pregnancy = create :pregnancy, patient: @patient
     @call = create :call, patient: @patient,
                           status: 'Reached patient'
   end
@@ -29,6 +28,13 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal 'something', @new_patient.other_contact_relationship
       assert_equal '1112223333', @new_patient.primary_phone
       assert_equal '9998887777', @new_patient.other_phone
+    end
+
+    it 'should init a fulfillment after creation' do
+      assert_nil @new_patient.fulfillment
+      @new_patient.save
+      @new_patient.reload
+      refute_nil @new_patient.fulfillment
     end
   end
 
@@ -89,18 +95,9 @@ class PatientTest < ActiveSupport::TestCase
 
   describe 'pledge_summary' do
     # TODO: needs timecopping
-    it "should not error when there are no pregnancies" do
-      Patient.destroy_all
-      assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary.to_s
-    end
     it "should return proper pledge summaries for various timespans" do
-      [@patient, @patient2].each do |pt|
-        create :pregnancy, patient: pt, created_by: @user
-      end
-      @patient.update appointment_date: (Date.today + 4)
-      @patient.pregnancy.update dcaf_soft_pledge: 300
-      @patient2.update appointment_date: (Date.today + 8)
-      @patient2.pregnancy.update dcaf_soft_pledge: 500, pledge_sent: true
+      @patient.update appointment_date: (Date.today + 4), dcaf_soft_pledge: 300
+      @patient2.update appointment_date: (Date.today + 8), dcaf_soft_pledge: 500, pledge_sent: true
       assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary(1).to_s
       assert_equal '{:pledged=>300, :sent=>0}', Patient.pledged_status_summary.to_s
       # TODO Timecop this test
@@ -140,9 +137,6 @@ class PatientTest < ActiveSupport::TestCase
                                primary_phone: '777-777-7777',
                                other_phone: '999-111-9888',
                                line: 'MD'
-      [@pt_1, @pt_2, @pt_3, @pt_4].each do |pt|
-        create :pregnancy, patient: pt, created_by: @user
-      end
     end
 
     it 'should find a patient on name or other name' do
@@ -159,7 +153,6 @@ class PatientTest < ActiveSupport::TestCase
     # end
 
     describe 'order' do
-
       before do
         Timecop.freeze Date.new(2014,4,4)
         @pt_4.update! name: 'Laila C.'
@@ -181,7 +174,6 @@ class PatientTest < ActiveSupport::TestCase
         end
         assert_equal 15, Patient.search('124').count
       end
-
     end
 
     it 'should be able to find based on secondary phones too' do
@@ -312,13 +304,13 @@ class PatientTest < ActiveSupport::TestCase
 
       it 'should return false if pledge sent' do
         @patient.update urgent_flag: true
-        @pregnancy.update pledge_sent: true
+        @patient.update pledge_sent: true
         assert_not @patient.still_urgent?
       end
 
       it 'should return false if resolved without dcaf' do
         @patient.update urgent_flag: true
-        @pregnancy.update resolved_without_dcaf: true
+        @patient.update resolved_without_dcaf: true
         assert_not @patient.still_urgent?
       end
 
@@ -336,6 +328,222 @@ class PatientTest < ActiveSupport::TestCase
         datetime = 5.days.ago
         hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
         assert_equal hash, Patient.contacted_since(datetime)
+      end
+    end
+  end
+
+  describe 'pledge_sent validation' do
+    before do
+      @clinic = create :clinic
+      @patient.dcaf_soft_pledge = 500
+      @patient.clinic = @clinic
+      @patient.appointment_date = 14.days.from_now
+    end
+
+    it 'should validate pledge_sent when all items in #check_other_validations? are present' do
+      @patient.pledge_sent = true
+      assert @patient.valid?
+    end
+
+    it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
+      @patient.dcaf_soft_pledge = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should not validate pledge_sent if the clinic name is blank' do
+      @patient.clinic = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['Clinic name cannot be blank'], @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should not validate pledge_sent if the appointment date is blank' do
+      @patient.appointment_date = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['Appointment date cannot be blank'], @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should produce three error messages if three required fields are blank' do
+      @patient.dcaf_soft_pledge = nil
+      @patient.clinic = nil
+      @patient.appointment_date = nil
+      @patient.pledge_sent = true
+      refute @patient.valid?
+      assert_equal ['DCAF soft pledge field cannot be blank', 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
+      @patient.errors.messages[:pledge_sent]
+    end
+
+    it 'should have convenience methods to render in view, just in case' do
+      refute @patient.pledge_info_present?
+      @patient.dcaf_soft_pledge = nil
+      assert @patient.pledge_info_present?
+      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.pledge_info_errors
+    end
+  end
+
+  describe 'last menstrual period calculation concern' do
+    before do
+      @user = create :user
+      @patient = create :patient, created_by: @user,
+                                  initial_call_date: 2.days.ago,
+                                  last_menstrual_period_weeks: 9,
+                                  last_menstrual_period_days: 2,
+                                  appointment_date: 2.days.from_now
+    end
+
+    describe 'last_menstrual_period_display' do
+      it 'should return nil if LMP weeks is not set' do
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.last_menstrual_period_display
+      end
+
+      it 'should return LMP in weeks and days' do
+        assert_equal '9 weeks, 4 days',
+                     @patient.last_menstrual_period_display
+      end
+    end
+
+    describe 'last_menstrual_period_display_short' do
+      it 'should return nil if LMP weeks is not set' do
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.last_menstrual_period_display_short
+      end
+
+      it 'should return shorter LMP in weeks and days' do
+        assert_equal @patient.last_menstrual_period_display_short, '9w 4d'
+      end
+    end
+
+    describe 'last_menstrual_period_at_appt' do
+      it 'should return nil unless appt date is set' do
+        @patient.appointment_date = nil
+        assert_nil @patient.last_menstrual_period_at_appt
+      end
+
+      it 'should return a calculated LMP on date of appointment' do
+        assert_equal '9 weeks, 6 days',
+                     @patient.last_menstrual_period_at_appt
+      end
+    end
+
+    describe 'last_menstrual_period_now' do
+      it 'should return nil if LMP weeks is not set' do
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.send(:_last_menstrual_period_now)
+      end
+
+      it 'should be equivalent to LMP on date - Time.zone.today' do
+        assert_equal  @patient.send(:_last_menstrual_period_now),
+                      @patient.send(:_last_menstrual_period_on_date,
+                                    Time.zone.today)
+      end
+
+      it 'should be LMP on date of appointment if appointment is in the past' do
+        @patient.appointment_date = 1.day.ago
+        assert_equal  @patient.send(:_last_menstrual_period_now),
+                      @patient.send(:_last_menstrual_period_on_date, 1.day.ago.to_date)
+      end
+    end
+
+    describe 'last_menstrual_period_on_date' do
+      it 'should nil out if LMP weeks is not set' do
+        @patient.last_menstrual_period_weeks = nil
+        assert_nil @patient.send(:_last_menstrual_period_on_date,
+                                 Time.zone.today)
+      end
+
+      it 'should accurately calculate LMP on a given date' do
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   Time.zone.today), 67
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   5.days.from_now.to_date), 72
+
+        @patient.initial_call_date = 4.days.ago
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                    Time.zone.today), 69
+
+        @patient.last_menstrual_period_weeks = 10
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   Time.zone.today), 76
+
+        @patient.last_menstrual_period_days = 6
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   Time.zone.today), 80
+      end
+    end
+
+    describe '_display_as_weeks' do
+      it 'should return a value of weeks and days' do
+        assert_equal '3 weeks, 3 days', @patient.send(:_display_as_weeks, 24)
+      end
+    end
+  end
+
+  describe 'status concern methods' do
+    before do
+      @user = create :user
+      @patient = create :patient, other_phone: '111-222-3333',
+                                  other_contact: 'Yolo'
+    end
+
+    describe 'status method branch 1' do
+      it 'should default to "No Contact Made" when a patient has no calls' do
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
+      end
+
+      it 'should default to "No Contact Made" on a patient left voicemail' do
+        create :call, patient: @patient, status: 'Left voicemail'
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
+      end
+
+      it 'should still say "No Contact Made" if patient leaves voicemail with appointment' do
+        @patient.appointment_date = '01/01/2017'
+        assert_equal Patient::STATUSES[:no_contact], @patient.status
+      end
+    end
+
+    describe 'status method branch 2' do
+      it 'should update to "Needs Appointment" once patient has been reached' do
+        create :call, patient: @patient, status: 'Reached patient'
+        assert_equal Patient::STATUSES[:needs_appt], @patient.status
+      end
+
+      it 'should update to "Fundraising" once appointment made and patient reached' do
+        create :call, patient: @patient, status: 'Reached patient'
+        @patient.appointment_date = '01/01/2017'
+        assert_equal Patient::STATUSES[:fundraising], @patient.status
+      end
+
+      it 'should update to "Sent Pledge" after a pledge has been sent' do
+        @patient.pledge_sent = true
+        assert_equal Patient::STATUSES[:pledge_sent], @patient.status
+      end
+
+      # it 'should update to "Pledge Paid" after a pledge has been paid' do
+      # end
+
+      it 'should update to "Resolved Without DCAF" if patient is resolved' do
+        @patient.resolved_without_dcaf = true
+        assert_equal Patient::STATUSES[:resolved], @patient.status
+      end
+    end
+
+    describe 'contact_made? method' do
+      it 'should return false if no calls have been made' do
+        refute @patient.send :contact_made?
+      end
+
+      it 'should return false if an unsuccessful call has been made' do
+        create :call, patient: @patient, status: 'Left voicemail'
+        refute @patient.send :contact_made?
+      end
+
+      it 'should return true if a successful call has been made' do
+        create :call, patient: @patient, status: 'Reached patient'
+        assert @patient.send :contact_made?
       end
     end
   end
