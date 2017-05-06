@@ -49,12 +49,13 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     it 'should redirect if not admin' do
       User::ROLE.reject { |role| role == :admin }.each do |role|
         @user.update role: role
-        get clinics_path
+        get new_clinic_path
         assert_response :redirect
       end
     end
 
     it 'should render' do
+      @user.update role: :admin
       get new_clinic_path
       assert_response :success
     end
@@ -66,13 +67,14 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     it 'should redirect if not admin' do
       User::ROLE.reject { |role| role == :admin }.each do |role|
         @user.update role: role
-        get clinics_path
+        get edit_clinic_path @clinic
         assert_response :redirect
       end
     end
 
     it 'should render' do
-      get edit_clinic_path(@clinic)
+      @user.update role: :admin
+      get edit_clinic_path @clinic
       assert_response :success
     end
   end
