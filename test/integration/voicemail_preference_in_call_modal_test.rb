@@ -4,7 +4,6 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
-    @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
     log_in_as @user
   end

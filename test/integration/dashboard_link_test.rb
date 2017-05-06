@@ -16,7 +16,6 @@ class DashboardLinkTest < ActionDispatch::IntegrationTest
   describe 'visiting a page other than the dashboard' do
     before do
       @patient = create :patient
-      @pregnancy = create :pregnancy, patient: @patient
       visit edit_patient_path(@patient)
       wait_for_element 'Patient information'
     end
