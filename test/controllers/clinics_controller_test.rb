@@ -7,21 +7,13 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'index' do
-    it 'should redirect if not admin' do
-      User::ROLE.reject { |role| role == :admin }.each do |role|
-        @user.update role: role
-        get clinics_path
-        assert_response :redirect
-      end
-    end
-
     it 'should render if admin' do
       get clinics_path
       assert_response :success
     end
 
     it 'should render json' do
-      get clinics_path, :format => :json
+      get clinics_path, format: :json
       assert_response :success
     end
   end
@@ -54,6 +46,14 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'new' do
+    it 'should redirect if not admin' do
+      User::ROLE.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        get clinics_path
+        assert_response :redirect
+      end
+    end
+
     it 'should render' do
       get new_clinic_path
       assert_response :success
@@ -62,6 +62,14 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'edit' do
     before { @clinic = create :clinic }
+
+    it 'should redirect if not admin' do
+      User::ROLE.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        get clinics_path
+        assert_response :redirect
+      end
+    end
 
     it 'should render' do
       get edit_clinic_path(@clinic)

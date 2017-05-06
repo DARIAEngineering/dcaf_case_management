@@ -1,6 +1,6 @@
 class ClinicsController < ApplicationController
-  before_action :confirm_admin_user
-  before_action :find_clinic, only: [:update, :edit, :destroy]
+  before_action :confirm_admin_user, except: %i(index)
+  before_action :find_clinic, only: %i(update edit destroy new)
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
@@ -39,14 +39,14 @@ class ClinicsController < ApplicationController
     redirect_to clinics_path
   end
 
-  def find_clinic
-    @clinic = Clinic.find params[:id]
-  end
-
   # def destroy
   # end
 
   private
+
+  def find_clinic
+    @clinic = Clinic.find params[:id]
+  end
 
   def clinic_params
     clinic_params = %i(name street_address city state zip
