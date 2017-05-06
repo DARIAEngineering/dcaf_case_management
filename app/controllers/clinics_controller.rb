@@ -4,7 +4,11 @@ class ClinicsController < ApplicationController
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
-    @clinics = Clinic.all
+    @clinics = Clinic.all.sort_by{|c| [c.name]}
+    respond_to do |format|
+      format.html
+      format.json { render json: @clinics }
+    end
   end
 
   def create

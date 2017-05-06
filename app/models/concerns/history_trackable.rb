@@ -3,8 +3,7 @@ module HistoryTrackable
   extend ActiveSupport::Concern
 
   def assemble_audit_trails
-    (history_tracks | pregnancy.history_tracks).sort_by(&:created_at)
-                                               .reverse
+    history_tracks.sort_by(&:created_at).reverse
   end
 
   def recent_history_tracks

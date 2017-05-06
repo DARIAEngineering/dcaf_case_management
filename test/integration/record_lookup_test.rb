@@ -17,14 +17,12 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
                                   primary_phone: '111-222-3333',
                                   other_contact: 'Yolo Goat',
                                   other_phone: '222-333-4455'
-      @pregnancy = create :pregnancy, patient: @patient
 
       @patient_2 = create :patient, name: 'Susan Everyteen MD',
-                                  primary_phone: '111-222-4444',
-                                  other_contact: 'Yolo Goat',
-                                  other_phone: '222-333-4455',
-                                  line: 'MD'
-      @pregnancy_2 = create :pregnancy, patient: @patient_2
+                                    primary_phone: '111-222-4444',
+                                    other_contact: 'Yolo Goat',
+                                    other_phone: '222-333-4455',
+                                    line: 'MD'
     end
 
     it 'should have a functional search form' do
@@ -81,7 +79,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
     end
 
     # We haven't reached a UX agreement on this yet, but test is ready to go
-    # it 'should display new pregnancy partial even for the search results' do
+    # it 'should display new patient partial even for the search results' do
     #   fill_in 'search', with: 'susan everyteen'
     #   click_button 'Search'
 
@@ -92,7 +90,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
   end
 
   describe 'looking for someone who does not exist', js: true do
-    it 'should display new pregnancy partial with name' do
+    it 'should display new patient partial with name' do
       fill_in 'search', with: 'Nobody Real Here'
       click_button 'Search'
 
@@ -103,7 +101,7 @@ class RecordLookupTest < ActionDispatch::IntegrationTest
       end
     end
 
-    it 'should display new pregnancy partial with phone' do
+    it 'should display new patient partial with phone' do
       fill_in 'search', with: '111-111-1112'
       click_button 'Search'
 

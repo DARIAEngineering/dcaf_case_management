@@ -4,11 +4,8 @@ class CallListTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
-    @pregnancy = create :pregnancy, patient: @patient
     @patient_2 = create :patient, name: 'Thorny'
-    @pregnancy_2 = create :pregnancy, patient: @patient_2
     @va_patient = create :patient, name: 'James Hetfield', line: 'VA'
-    @va_pregnancy = create :pregnancy, patient: @va_patient
     @user = create :user
     @user.add_patient @va_patient
     log_in_as @user
@@ -124,6 +121,7 @@ class CallListTest < ActionDispatch::IntegrationTest
     fill_in 'search', with: patient.name
     wait_for_element 'Search results'
     click_button 'Search'
+    wait_for_ajax
     find('a', text: 'Add', wait: 5).click
     wait_for_ajax
   end

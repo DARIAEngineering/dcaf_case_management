@@ -22,7 +22,7 @@ class DashboardsHelperTest < ActionView::TestCase
   end
 
   describe 'voicemail_options' do
-    it 'should return an array based on pregnancy.voicemail_options' do
+    it 'should return an array based on patient voicemail_options' do
       Patient::VOICEMAIL_PREFERENCE.each do |pref|
         refute_empty voicemail_options.select { |opt| opt[1] == pref }
       end

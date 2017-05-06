@@ -33,7 +33,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       end
     end
 
-    it 'should make them viewable from the pregnancy edit page' do
+    it 'should make them viewable from the patient edit page' do
       fill_in 'search', with: 'Susan Everyteen 2'
       click_button 'Search'
       click_link 'Susan Everyteen 2'
