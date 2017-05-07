@@ -21,7 +21,7 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
   end
   
   describe 'user dropdown' do
-    before { click_link "#{@user.name}" }
+    before { click_link @user.name }
     it 'should display the profile link' do
       assert has_link? 'My Profile', edit_user_registration_path
     end
@@ -30,15 +30,15 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
   describe 'admin dropdown' do
     before { click_link 'Admin' }
     it 'should display the Clinic Management link' do
-      assert has_link? 'Clinic Management'
+      assert has_link? 'Clinic Management', clinics_path
     end
     
     it 'should display the Accounting link' do
-      assert has_link? 'Accounting'
+      assert has_link? 'Accounting', accountants_path
     end
     
     it 'should display the Reporting link' do
-      assert has_link? 'Reporting'
+      assert has_link? 'Reporting', reports_path
     end
   end
 end

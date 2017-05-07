@@ -80,7 +80,6 @@ class ActionDispatch::IntegrationTest
   def sign_out
     click_link "#{@user.name}"
     click_link 'Sign Out'
-    #select 'Sign Out', from: @user.name
   end
 
   def wait_for_ajax

@@ -12,7 +12,7 @@ class GoogleSSOTest < ActionDispatch::IntegrationTest
       wait_for_element 'Sign in with Google'
       click_link 'Sign in with Google'
 
-      assert has_content? "#{@user.name}"
+      assert has_content? @user.name
     end
 
     it 'will reject sign ins if email is not associated with a user' do
