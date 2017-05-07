@@ -7,7 +7,6 @@ class FilterNafClinicsTest < ActionDispatch::IntegrationTest
     @naf_clinic = create :clinic, name: 'NAF Accepted', accepts_naf: true
     @nonnaf_clinic = create :clinic, name: 'No NAF here', accepts_naf: false
     @patient = create :patient
-    @pregnancy = create :pregnancy, patient: @patient
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
