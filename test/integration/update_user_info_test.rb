@@ -13,7 +13,7 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
       fill_in 'First and last name', with: 'Thorny'
       fill_in 'Current password', with: @user.password
       click_button 'Update info'
-      assert has_link? 'Thorny', href: edit_user_registration_path
+      assert has_text? 'Thorny'
     end
 
     it 'should let you change email' do
