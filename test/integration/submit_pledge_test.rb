@@ -6,8 +6,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
     @user = create :user
     @clinic = create :clinic
     @patient = create :patient, clinic: @clinic,
-                                appointment_date: Time.zone.now + 14
-    @pregnancy = create :pregnancy, patient: @patient, dcaf_soft_pledge: 500
+                                appointment_date: Time.zone.now + 14,
+                                dcaf_soft_pledge: 500
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name'
@@ -21,7 +21,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_element 'Patient name'
       assert has_text? 'Confirm the following information is correct'
       find('#pledge-next').click
-      wait_for_ajax
+      sleep 2 # out of ideas
+
       wait_for_no_element 'Confirm the following information is correct'
       assert has_text? 'Generate your pledge form'
       find('#pledge-next').click
@@ -33,7 +34,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       wait_for_no_element 'Awesome, you generated a DCAF'
 
-      click_link 'Dashboard'
+      go_to_dashboard
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
 

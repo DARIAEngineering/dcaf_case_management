@@ -5,7 +5,6 @@ class Patient
   include Mongoid::Enum
   include Mongoid::Userstamp
   include Mongoid::History::Trackable
-  include StatusHelper
 
   # The following are concerns, or groupings of domain-related methods
   # This blog post is a good intro: https://vaidehijoshi.github.io/blog/2015/10/13/stop-worrying-and-start-being-concerned-activesupport-concerns/
@@ -14,28 +13,32 @@ class Patient
   include Notetakeable
   include Searchable
   include AttributeDisplayable
+  include LastMenstrualPeriodMeasureable
+  include Pledgeable
   include HistoryTrackable
+  include Statusable
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
   end
 
   before_validation :clean_fields
+  before_save :save_identifier
+  after_create :initialize_fulfillment
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
-  embeds_one :pregnancy
   embeds_one :fulfillment
   embeds_many :calls
   embeds_many :external_pledges
   embeds_many :notes
 
   # Enable mass posting in forms
-  accepts_nested_attributes_for :pregnancy
   accepts_nested_attributes_for :fulfillment
 
   # Fields
+  # Searchable info
   field :name, type: String # strip
   field :primary_phone, type: String
   field :other_contact, type: String
@@ -43,10 +46,16 @@ class Patient
   field :other_contact_relationship, type: String
   field :identifier, type: String
 
+  # Contact-related info
   enum :voicemail_preference, [:not_specified, :no, :yes]
   enum :line, [:DC, :MD, :VA] # See config/initializers/lines.rb. TODO: Env var.
   field :spanish, type: Boolean
+  field :initial_call_date, type: Date
+  field :urgent_flag, type: Boolean
+  field :last_menstrual_period_weeks, type: Integer
+  field :last_menstrual_period_days, type: Integer
 
+  # Program analysis related or NAF eligibility related info
   field :age, type: Integer
   field :city, type: String
   field :state, type: String
@@ -58,12 +67,18 @@ class Patient
   field :household_size_adults, type: Integer
   field :insurance, type: String
   field :income, type: String
-  field :referred_by, type: String
-  field :appointment_date, type: Date
-  field :initial_call_date, type: Date
-
-  field :urgent_flag, type: Boolean
   field :special_circumstances, type: Array, default: []
+  field :referred_by, type: String
+  field :referred_to_clinic, type: Boolean
+
+  # Status and pledge related fields
+  field :appointment_date, type: Date
+  field :procedure_cost, type: Integer
+  field :patient_contribution, type: Integer
+  field :naf_pledge, type: Integer
+  field :dcaf_soft_pledge, type: Integer
+  field :pledge_sent, type: Boolean
+  field :resolved_without_dcaf, type: Boolean
   field :pledge_generated_at, type: DateTime
 
   # Indices
@@ -91,12 +106,9 @@ class Patient
 
   validate :confirm_appointment_after_initial_call
 
-  validates_associated :pregnancy
-  validates_associated :fulfillment
-  before_save :save_identifier
+  validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
 
-  # some validation of presence of at least one pregnancy
-  # some validation of only one active pregnancy at a time
+  validates_associated :fulfillment
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -113,10 +125,10 @@ class Patient
     outstanding_pledges = 0
     sent_total = 0
     Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
-      if patient.pregnancy.pledge_sent
-        sent_total += (patient.pregnancy.dcaf_soft_pledge || 0)
+      if patient.pledge_sent
+        sent_total += (patient.dcaf_soft_pledge || 0)
       else
-        outstanding_pledges += (patient.pregnancy.dcaf_soft_pledge || 0)
+        outstanding_pledges += (patient.dcaf_soft_pledge || 0)
       end
     end
     { pledged: outstanding_pledges, sent: sent_total }
@@ -140,5 +152,9 @@ class Patient
     name.strip! if name
     other_contact.strip! if other_contact
     other_contact_relationship.strip! if other_contact_relationship
+  end
+
+  def initialize_fulfillment
+    build_fulfillment(created_by_id: created_by_id).save
   end
 end

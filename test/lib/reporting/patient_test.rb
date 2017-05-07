@@ -15,7 +15,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
       # reached calls this month
       (1..5).each do |call_number|
-        Timecop.freeze(Time.now - call_number.days) do
+        Timecop.freeze(Time.zone.now - call_number.days) do
           create(
             :call,
             patient: patient,
@@ -26,7 +26,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
       # not reached calls this month
       (1..5).each do |call_number|
-        Timecop.freeze(Time.now - call_number.days) do
+        Timecop.freeze(Time.zone.now - call_number.days) do
           create(
             :call,
             patient: patient,
@@ -47,7 +47,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
       # calls this year
       (1..5).each do |call_number|
-        Timecop.freeze(Time.now - call_number.months - call_number.days) do
+        Timecop.freeze(Time.zone.now - call_number.months - call_number.days) do
           create(
             :call,
             patient: patient,
@@ -60,10 +60,10 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
   describe '.contacted_for_line' do
     it 'should return the correct amount of contacted patients for the timeframe' do
-      month_num_contacted = Reporting::Patient.contacted_for_line('VA', Time.now - 1.month, Time.now)
+      month_num_contacted = Reporting::Patient.contacted_for_line('VA', Time.zone.now - 1.month, Time.zone.now)
       assert_equal 5, month_num_contacted
 
-      year_num_contacted = Reporting::Patient.contacted_for_line('VA', Time.now - 1.year, Time.now)
+      year_num_contacted = Reporting::Patient.contacted_for_line('VA', Time.zone.now - 1.year, Time.zone.now)
       assert_equal 10, year_num_contacted
     end
   end
@@ -80,7 +80,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
       )
 
       # call from 2 months ago
-      Timecop.freeze(Time.now - 2.months) do
+      Timecop.freeze(Time.zone.now - 2.months) do
         create(
           :call,
           patient: patient,
@@ -96,10 +96,10 @@ class ReportingPatientTest < ActiveSupport::TestCase
       )
     end
     it 'should return the correct amount of contacted patients for the first time in the timeframe' do
-      month_num_contacted = Reporting::Patient.new_contacted_for_line('VA', Time.now - 1.month, Time.now)
+      month_num_contacted = Reporting::Patient.new_contacted_for_line('VA', Time.zone.now - 1.month, Time.zone.now)
       assert_equal 5, month_num_contacted
 
-      year_num_contacted = Reporting::Patient.new_contacted_for_line('VA', Time.now - 1.year, Time.now)
+      year_num_contacted = Reporting::Patient.new_contacted_for_line('VA', Time.zone.now - 1.year, Time.zone.now)
       assert_equal 11, year_num_contacted
     end
   end
@@ -116,15 +116,14 @@ class ReportingPatientTest < ActiveSupport::TestCase
         appointment_date: Date.today
       )
 
-      Timecop.freeze(Time.now - 2.days) do
-        creation_hash = {
+      Timecop.freeze(Time.zone.now - 2.days) do
+        update_hash = {
           created_by: @user,
           pledge_sent: true,
           dcaf_soft_pledge: 1000
         }
 
-        pregnancy = patient.build_pregnancy(creation_hash)
-        pregnancy.save
+        patient.update! update_hash
       end
 
       patient2 = create(
@@ -136,23 +135,22 @@ class ReportingPatientTest < ActiveSupport::TestCase
         appointment_date: Date.today
       )
 
-      Timecop.freeze(Time.now - 2.months) do
-        creation_hash = {
+      Timecop.freeze(Time.zone.now - 2.months) do
+        update_hash = {
           created_by: @user,
           pledge_sent: true,
           dcaf_soft_pledge: 1000
         }
 
-        pregnancy = patient2.build_pregnancy(creation_hash)
-        pregnancy.save
+        patient2.update! update_hash
       end
     end
 
     it 'should return the number of patients who have pregnancies updated within the date range whose pledges are sent' do
-      month_num_contacted = Reporting::Patient.pledges_sent_for_line('VA', Time.now - 1.month, Time.now)
+      month_num_contacted = Reporting::Patient.pledges_sent_for_line('VA', Time.zone.now - 1.month, Time.zone.now)
       assert_equal 1, month_num_contacted
 
-      year_num_contacted = Reporting::Patient.pledges_sent_for_line('VA', Time.now - 1.year, Time.now)
+      year_num_contacted = Reporting::Patient.pledges_sent_for_line('VA', Time.zone.now - 1.year, Time.zone.now)
       assert_equal 2, year_num_contacted
     end
   end

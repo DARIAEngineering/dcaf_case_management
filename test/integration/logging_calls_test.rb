@@ -5,7 +5,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen',
                                 primary_phone: '123-123-1234'
-    @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
     log_in_as @user
     fill_in 'search', with: 'Susan Everyteen'
