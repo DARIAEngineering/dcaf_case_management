@@ -12,7 +12,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'index method' do
     before do
-      get report_path
+      get reports_path
     end
 
     it 'should return success' do
