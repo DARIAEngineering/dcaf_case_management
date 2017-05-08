@@ -71,7 +71,7 @@ class PatientsController < ApplicationController
       # fields in dashboard
       # :clinic_name,
       :appointment_date,
-      :age, :race_ethnicity, :city, :state, :zip, :employment_status, :income,
+      :age, :race_ethnicity, :city, :state, :county, :zip, :employment_status, :income,
       :household_size_adults, :household_size_children, :insurance,
       :referred_by, :initial_call_date, :urgent_flag,
       :clinic_id,
