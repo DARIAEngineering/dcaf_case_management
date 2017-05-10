@@ -43,4 +43,19 @@ class ClinicTest < ActiveSupport::TestCase
       assert @clinic.created_by
     end
   end
+
+  describe 'methods' do
+    describe 'display_location' do
+      it 'should display city and state if both are present' do
+        [:city, :state].each do |attr|
+          stowed_attribute = @clinic[attr]
+          @clinic[attr] = nil
+          assert_nil @clinic.display_location
+          @clinic[attr] = stowed_attribute
+        end
+
+        assert_equal @clinic.display_location, 'Washington, DC'
+      end
+    end
+  end
 end
