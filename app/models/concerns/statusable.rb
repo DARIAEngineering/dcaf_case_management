@@ -1,5 +1,7 @@
-# Methods relating to inferring patient status
-module StatusHelper
+# Methods pertaining to determining a patient's displayed status
+module Statusable
+  extend ActiveSupport::Concern
+
   STATUSES = {
     no_contact: 'No Contact Made',
     needs_appt: 'Needs Appointment',
