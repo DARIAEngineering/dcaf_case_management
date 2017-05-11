@@ -101,10 +101,6 @@ class PatientsController < ApplicationController
 
   def patient_params
     params.require(:patient).permit(
-
-      fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                    :procedure_cost, :check_number, :check_date]
-
       [].concat(PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
                 ABORTION_INFORMATION_PARAMS, OTHER_PARAMS, FULFILLMENT_PARAMS)
     )
