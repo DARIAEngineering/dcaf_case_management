@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
-    get 'report', to: 'reports#index', as: 'report'
+    get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
 
