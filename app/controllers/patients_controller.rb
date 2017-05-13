@@ -81,7 +81,7 @@ class PatientsController < ApplicationController
 
   PATIENT_INFORMATION_PARAMS = [
     :line, :age, :race_ethnicity, :spanish,
-    :voicemail_preference, :city, :state, :zip, :other_contact, :other_phone,
+    :voicemail_preference, :city, :state, :county, :zip, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
     special_circumstances: []
