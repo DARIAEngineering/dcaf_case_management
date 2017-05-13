@@ -109,7 +109,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select 'White/Caucasian', from: 'patient_race_ethnicity'
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
-      fill_in 'State', with: 'Wash'
+      fill_in 'County', with: 'Wash'
       fill_in 'ZIP', with: '90210'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
       check 'Spanish Only'
