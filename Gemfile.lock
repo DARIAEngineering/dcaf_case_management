@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/DarthHater/mongoid-enum
+  remote: https://github.com/DCAFEngineering/mongoid-enum
   revision: 361188caace7da251cdd362d805c3dfbbcbf1a1b
   branch: master
   specs:
@@ -7,20 +7,12 @@ GIT
       mongoid (~> 6.0)
 
 GIT
-  remote: https://github.com/DarthHater/mongoid_userstamp.git
+  remote: https://github.com/DCAFEngineering/mongoid_userstamp.git
   revision: 057eaea6988da10ac81a6808e6fff1ee4fe55ce5
   branch: master
   specs:
     mongoid_userstamp (0.4.0)
       mongoid (>= 3.0.4)
-
-GIT
-  remote: https://github.com/drgcms/mongo_session_store.git
-  revision: 032bbfb6d693428db8c8bf0f051285ef03e71fed
-  branch: rails5
-  specs:
-    mongo_session_store-rails4 (6.0.1)
-      actionpack (>= 3.1)
 
 GIT
   remote: https://github.com/jalada/platform-api
@@ -237,6 +229,9 @@ GEM
       rails (>= 4.1)
     mongo (2.4.1)
       bson (>= 4.2.1, < 5.0.0)
+    mongo_session_store (3.1.0)
+      actionpack (>= 4.0)
+      mongo (~> 2.0)
     mongoid (6.1.0)
       activemodel (~> 5.0)
       mongo (>= 2.4.1, < 3.0.0)
@@ -480,7 +475,7 @@ DEPENDENCIES
   minitest-ci
   minitest-reporters
   minitest-spec-rails
-  mongo_session_store-rails4!
+  mongo_session_store (>= 3.1.0)
   mongoid (= 6.1.0)
   mongoid-enum!
   mongoid-history (= 0.6.1)
