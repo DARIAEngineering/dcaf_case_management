@@ -8,7 +8,8 @@ module Statusable
     fundraising: 'Fundraising',
     pledge_sent: 'Pledge Sent',
     pledge_paid: 'Pledge Paid',
-    resolved: 'Resolved Without DCAF'
+    resolved: 'Resolved Without DCAF',
+    dropoff: 'No contact in 120 days'
   }.freeze
 
   def status
@@ -30,8 +31,9 @@ module Statusable
   end
 
   def days_since_last_call
-    day = 86400
-    days_since_last_call = (Time.zone.now - calls.sort_by(created_at).last).to_i / day
+    return 0 unless calls
+    day = 86_400
+    days_since_last_call = (Time.zone.now - last_call.created_at).to_i / day
     days_since_last_call
   end
 end
