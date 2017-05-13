@@ -7,10 +7,9 @@ class DragAndDropTest < ActionDispatch::IntegrationTest
     log_in_as @user
 
     4.times do |i|
-      pt = create :patient, name: "Patient #{i}",
-                            primary_phone: "123-123-123#{i}",
-                            created_by: @user
-      create :pregnancy, patient: pt
+      create :patient, name: "Patient #{i}",
+                       primary_phone: "123-123-123#{i}",
+                       created_by: @user
     end
 
     @user.add_patient Patient.find_by(name: 'Patient 0')
