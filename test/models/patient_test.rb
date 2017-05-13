@@ -524,6 +524,13 @@ class PatientTest < ActiveSupport::TestCase
 
       # it 'should update to "Pledge Paid" after a pledge has been paid' do
       # end
+      it 'should update to "No contact in 120 days" after 120ish days of no calls' do
+        create :call, patient: @patient, status: 'Reached patient', created_at: 122.days.ago
+        assert_equal Patient::STATUSES[:dropoff], @patient.status
+
+        create :call, patient: @patient, status: 'Left voicemail', created_at: 119.days.ago
+        assert_equal Patient::STATUSES[:needs_appt], @patient.status
+      end
 
       it 'should update to "Resolved Without DCAF" if patient is resolved' do
         @patient.resolved_without_dcaf = true
