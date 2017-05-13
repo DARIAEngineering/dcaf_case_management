@@ -2,22 +2,26 @@ Rails.application.routes.draw do
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
-    get 'report', to: 'reports#index', as: 'report'
+    get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
 
     # Patient routes
-    # /patients/:id
-    # /patients/:id/calls 
+    # /patients/:id/edit
+    # /patients/:id/calls
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients, 
               only: [ :create, :edit, :update, :index ] do
+              only: [ :create, :edit, :update, :index ] do
+      member do
+        get :download, as: 'generate_pledge'
+      end
       resources :calls, 
                 only: [ :create, :destroy ]
-      resources :notes, 
+      resources :notes,
                 only: [ :create, :update ]
-      resources :external_pledges, 
+      resources :external_pledges,
                 only: [ :create, :update, :destroy ]
     end
 

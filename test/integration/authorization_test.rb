@@ -13,12 +13,13 @@ class AuthorizationTest < ActionDispatch::IntegrationTest
   end
 
   describe 'the page navbar' do
-    it 'should have a name in the top corner' do
-      assert has_link? @user.name, href: edit_user_registration_path
+    it 'should display the username in the top corner' do
+      assert has_text? @user.name
     end
 
     it 'should have a sign out link' do
-      assert has_link? 'Sign out', href: destroy_user_session_path
+      click_link "#{@user.name}"
+      assert has_link? 'Sign Out', href: destroy_user_session_path
     end
   end
 

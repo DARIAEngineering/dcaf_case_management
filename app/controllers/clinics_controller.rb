@@ -1,10 +1,14 @@
 class ClinicsController < ApplicationController
-  before_action :confirm_admin_user
-  before_action :find_clinic, only: [:update, :edit, :destroy]
+  before_action :confirm_admin_user, except: %i(index)
+  before_action :find_clinic, only: %i(update edit destroy)
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
-    @clinics = Clinic.all
+    @clinics = Clinic.all.sort_by{|c| [c.name]}
+    respond_to do |format|
+      format.html
+      format.json { render json: @clinics }
+    end
   end
 
   def create
@@ -35,21 +39,22 @@ class ClinicsController < ApplicationController
     redirect_to clinics_path
   end
 
-  def find_clinic
-    @clinic = Clinic.find params[:id]
-  end
-
   # def destroy
   # end
 
   private
 
+  def find_clinic
+    @clinic = Clinic.find params[:id]
+  end
+
   def clinic_params
+    clinic_params = %i(name street_address city state zip
+                       phone fax active accepts_naf gestational_limit)
+    cost_params = (5..30).map { |i| "costs_#{i}wks".to_sym }
+
     params.require(:clinic).permit(
-      :name, :street_address, :city, :state, :zip,
-      :phone, :accepts_naf, :gestational_limit,
-      :costs_9wks, :costs_12wks, :costs_18wks,
-      :costs_24wks, :costs_30wks
+      clinic_params.concat(cost_params)
     )
   end
 end

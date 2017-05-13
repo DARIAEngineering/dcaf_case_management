@@ -5,7 +5,6 @@ class CreateNewExternalPledgeTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :poltergeist
     @user = create :user
     @patient = create :patient
-    @pregnancy = create :pregnancy, patient: @patient
     log_in_as @user
     visit edit_patient_path @patient
     wait_for_element 'Abortion Information'
