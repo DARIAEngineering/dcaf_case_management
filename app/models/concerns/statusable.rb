@@ -9,7 +9,7 @@ module Statusable
     pledge_sent: 'Pledge Sent',
     pledge_paid: 'Pledge Paid',
     resolved: 'Resolved Without DCAF',
-    dropoff: 'No contact in 120 days'
+    dropoff: 'Probable dropoff'
   }.freeze
 
   def status
