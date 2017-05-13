@@ -11,7 +11,7 @@ deployment:
   staging:
     branch: master
     commands:
-      - gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL; bundle exec brakeman --exit-on-warn .
+      - gem uninstall brakeman; gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL; bundle exec brakeman --exit-on-warn .
       - bundle exec rake assets:clobber assets:precompile
       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
       - git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
