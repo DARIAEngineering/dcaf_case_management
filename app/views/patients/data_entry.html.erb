@@ -26,6 +26,7 @@
 
   <%= f.text_field :city, autocomplete: 'off' %>
   <%= f.text_field :state, autocomplete: 'off' %>
+  <%= f.text_field :county, label: 'County', autocomplete: 'off' %>
 
   <!-- Notes doesn't work because strong params :( -->
   <%#= f.fields_for @patient.notes.new do |notes| %>
