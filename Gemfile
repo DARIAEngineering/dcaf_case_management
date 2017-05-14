@@ -3,13 +3,14 @@ ruby '2.4.1'
 
 gem 'rails', '>= 5.0.0', '< 5.1'
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 3.2.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'turbolinks', '2.5.3'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'prawn'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
@@ -17,9 +18,9 @@ gem 'devise', '~> 4.2.1'
 gem 'omniauth-google-oauth2'
 gem 'mongoid', '6.1.0'
 gem 'mongoid-history', '0.6.1'
-gem 'mongoid_userstamp', git: 'https://github.com/DarthHater/mongoid_userstamp.git', branch: 'master'
-gem 'mongo_session_store-rails4', git: 'https://github.com/drgcms/mongo_session_store.git', branch: 'rails5'
-gem 'mongoid-enum', git: 'https://github.com/DarthHater/mongoid-enum', branch: 'master'
+gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git', branch: 'master'
+gem 'mongo_session_store', '>= 3.1.0'
+gem 'mongoid-enum', git: 'https://github.com/DCAFEngineering/mongoid-enum', branch: 'master'
 gem 'bson_ext'
 gem 'figaro'
 gem 'gon', '~> 6.1.0'
@@ -69,10 +70,10 @@ group :test do
   gem 'timecop'
   gem 'capybara-screenshot'
   gem 'minitest-ci'
+  gem 'pdf-inspector', require: "pdf/inspector"
 end
 
 group :production do
   gem 'puma'
-  gem 'rails_12factor'
   gem 'letsencrypt-rails-heroku'
 end

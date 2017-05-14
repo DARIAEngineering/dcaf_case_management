@@ -22,7 +22,7 @@ class DashboardsHelperTest < ActionView::TestCase
   end
 
   describe 'voicemail_options' do
-    it 'should return an array based on pregnancy.voicemail_options' do
+    it 'should return an array based on patient voicemail_options' do
       Patient::VOICEMAIL_PREFERENCE.each do |pref|
         refute_empty voicemail_options.select { |opt| opt[1] == pref }
       end
@@ -42,6 +42,23 @@ class DashboardsHelperTest < ActionView::TestCase
       assert_match /span/, call_glyphicon
       assert_match /glyphicon-earphone/, call_glyphicon
       assert_match /Call/, call_glyphicon
+    end
+  end
+
+  describe 'autosortable methods' do
+    describe 'th_autosortable' do
+      it 'should choke on a bad datatype' do
+        assert_raises RuntimeError do
+          th_autosortable 'Status', 'date', {}
+        end
+      end
+
+      it 'should return a column header' do
+        th_tag = th_autosortable 'Status', 'string-ins', autosortable: true
+        [/th/, /data-sort="string-ins"/, /span/, /arrow/].each do |regexp|
+          assert_match regexp, th_tag
+        end
+      end
     end
   end
 end

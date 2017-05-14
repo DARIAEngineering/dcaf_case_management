@@ -4,7 +4,6 @@ class UrgentCasesTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen', urgent_flag: true
-    @pregnancy = create :pregnancy, patient: @patient
     @user = create :user
     log_in_as @user
   end

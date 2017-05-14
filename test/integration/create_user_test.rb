@@ -27,8 +27,9 @@ class CreateUserTest < ActionDispatch::IntegrationTest
 
     it 'should be able to create user' do
       assert_difference('User.count', 1) do
-        assert_text 'Create User'
-        click_link 'Create User'
+        click_link 'Admin'
+        assert_text 'User Management'
+        click_link 'User Management'
 
         assert has_field? 'Email'
         fill_in 'Email', with: 'test@test.com'

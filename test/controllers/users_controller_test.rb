@@ -5,9 +5,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @user = create :user
     sign_in @user
     @patient_1 = create :patient, name: 'Susan Everyteen'
-    create :pregnancy, patient: @patient_1
     @patient_2 = create :patient, name: 'Yolo Goat'
-    create :pregnancy, patient: @patient_2
   end
 
   describe 'create method' do

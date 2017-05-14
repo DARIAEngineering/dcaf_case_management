@@ -11,8 +11,8 @@
         <th>Phone</th>
         <th>Name</th>
         <th>LMP</th>
-        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Status<%= autosort_arrow_span(local_assigns).html_safe %></th>
-        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Appt date<%= autosort_arrow_span(local_assigns).html_safe %></th>
+        <%= th_autosortable 'Status', 'string', local_assigns %>
+        <%= th_autosortable 'Appt date', 'string', local_assigns %>
         <th>Notes</th>
         <th></th>
         <th></th>
@@ -21,13 +21,13 @@
     </thead>
     <tbody id="<%= table_type %>_content">
       <% patients.each do |patient| %>
-        <tr class="pregnancy-data" id="<%= patient.id %>">
+        <tr class="patient-data" id="<%= patient.id %>">
           <% if local_assigns[:sortable] %>
             <td class="handle"><span class="glyphicon glyphicon-move"></span></td>
           <% end %>
           <td class="pt-spacer"><%= patient.primary_phone_display %></td>
           <td class="pt-spacer"><%= link_to patient.name, edit_patient_path(patient) %></td>
-          <td class="pt-spacer"><%= patient.pregnancy.last_menstrual_period_display_short %></td>
+          <td class="pt-spacer"><%= patient.last_menstrual_period_display_short %></td>
           <td><%= patient.status %></td>
           <td><%= patient.appointment_date %></td>
           <td><%= patient.most_recent_note_display_text %></td>

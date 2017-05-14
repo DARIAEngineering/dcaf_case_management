@@ -8,14 +8,12 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
-    @pregnancy = create :pregnancy, patient: @patient
     @clinic = create :clinic
   end
 
   describe 'create method' do
     before do
       @new_patient = attributes_for :patient, name: 'Test Patient'
-      @new_patient[:pregnancy] = attributes_for :pregnancy
     end
 
     it 'should create and save a new patient' do
@@ -34,9 +32,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_no_difference 'Patient.count' do
         post patients_path, params: { patient: @new_patient }
       end
-      assert_no_difference 'Pregnancy.count' do
-        post patients_path, params: { patient: @new_patient }
-      end
     end
 
     it 'should fail to save if primary phone is blank' do
@@ -44,14 +39,11 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_no_difference 'Patient.count' do
         post patients_path, params: { patient: @new_patient }
       end
-      assert_no_difference 'Pregnancy.count' do
-        post patients_path, params: { patient: @new_patient }
-      end
     end
 
-    it 'should create an associated pregnancy object' do
+    it 'should create an associated fulfillment object' do
       post patients_path, params: { patient: @new_patient }
-      assert_not_nil Patient.find_by(name: 'Test Patient').pregnancy
+      assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
     end
   end
 
@@ -80,8 +72,9 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     before do
       @date = 5.days.from_now.to_date
       @payload = {
-        appointment_date: @date.strftime('%Y-%m-%d'), name: 'Susie Everyteen 2',
-        pregnancy: { resolved_without_dcaf: true }
+        appointment_date: @date.strftime('%Y-%m-%d'),
+        name: 'Susie Everyteen 2',
+        resolved_without_dcaf: true
       }
 
       patch patient_path(@patient), params: { patient: @payload }
@@ -96,10 +89,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       @payload[:primary_phone] = nil
       patch patient_path(@patient), params: { patient: @payload }
       assert_response :internal_server_error
-    end
-
-    it 'should update pregnancy fields' do
-      assert_equal @date, @patient.appointment_date
     end
 
     it 'should update patient fields' do
@@ -120,11 +109,31 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'download' do
+    it 'should not download a pdf with no case manager name' do
+      get generate_pledge_patient_path(@patient), params: { case_manager_name: '' }
+      assert_redirected_to edit_patient_path(@patient)
+    end
+
+    it 'should download a pdf' do
+      pledge_generator_mock = Minitest::Mock.new
+      pdf_mock_result = Minitest::Mock.new
+      pledge_generator_mock.expect(:generate_pledge_pdf, pdf_mock_result)
+      pdf_mock_result.expect :render, "mow"
+      assert_nil @patient.pledge_generated_at
+      PledgeFormGenerator.stub(:new, pledge_generator_mock) do
+        get generate_pledge_patient_path(@patient), params: { case_manager_name: 'somebody' }
+      end
+
+      refute_nil @patient.reload.pledge_generated_at
+      assert_response :success
+    end
+  end
+
   # confirm sending a 'post' with a payload results in a new patient
   describe 'data_entry_create method' do
     before do
       @test_patient = attributes_for :patient, name: 'Test Patient'
-      @test_patient[:pregnancy] = attributes_for :pregnancy
     end
 
     it 'should create and save a new patient' do
@@ -144,9 +153,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_no_difference 'Patient.count' do
         post data_entry_create_path, params: { patient: @test_patient }
       end
-      assert_no_difference 'Pregnancy.count' do
-        post data_entry_create_path, params: { patient: @test_patient }
-      end
     end
 
     it 'should fail to save if primary phone is blank' do
@@ -154,14 +160,11 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_no_difference 'Patient.count' do
         post data_entry_create_path, params: { patient: @test_patient }
       end
-      assert_no_difference 'Pregnancy.count' do
-        post data_entry_create_path, params: { patient: @test_patient }
-      end
     end
 
-    it 'should create an associated pregnancy object' do
+    it 'should create an associated fulfillment object' do
       post data_entry_create_path, params: { patient: @test_patient }
-      assert_not_nil Patient.find_by(name: 'Test Patient').pregnancy
+      assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
     end
   end
 end

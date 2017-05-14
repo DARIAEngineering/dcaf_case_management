@@ -6,7 +6,6 @@ class MarkUrgentCasesTest < ActionDispatch::IntegrationTest
     @user = create :user
     log_in_as @user
     @patient = create :patient
-    @pregnancy = create :pregnancy, patient: @patient
     visit edit_patient_path(@patient)
     click_link 'Notes'
   end
