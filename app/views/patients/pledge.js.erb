@@ -1,8 +1,16 @@
 $('.modal-content').html('')
+$('.modal').attr('id', 'pledge-modal')
 $('.modal-content').append(
-  '<%= escape_javascript(render partial: "patients/pledge", locals: { patient: @patient, disable_next: disable_continue?(@patient) })%>');
+  '<%= escape_javascript(render partial: "patients/pledge", locals: { patient: @patient, disable_next: disable_continue?(@patient) })%>'
+);
 
 $('.modal').modal('toggle');
 $('.js-title-step span').slice(1).remove();
+var el = $(".js-title-step").contents()
+
+if (el.length > 2) {
+  el.slice(2,el.length).remove();
+}
+
 
 $('[id$=modal]').modalSteps()
