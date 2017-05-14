@@ -11,8 +11,8 @@
         <th>Phone</th>
         <th>Name</th>
         <th>LMP</th>
-        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Status<%= autosort_arrow_span(local_assigns).html_safe %></th>
-        <th<%= autosort_string_html_attr(local_assigns).html_safe %>>Appt date<%= autosort_arrow_span(local_assigns).html_safe %></th>
+        <%= th_autosortable 'Status', 'string', local_assigns %>
+        <%= th_autosortable 'Appt date', 'string', local_assigns %>
         <th>Notes</th>
         <th></th>
         <th></th>
