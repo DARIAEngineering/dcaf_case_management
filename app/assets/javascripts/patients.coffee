@@ -36,6 +36,7 @@ markFulfilledWhenFieldsChecked = ->
 
   while i < pledge_fields.length
     if $(pledge_fields[i]).val().length > 0
+      console.log($(pledge_fields[i]).val())
       empty = false
       if el.prop 'checked'
         break;
@@ -55,6 +56,9 @@ ready = ->
     $("#toggle-call-log").html(html)
 
   $(document).on "change", ".edit_patient", ->
+    $(this).submit()
+
+  $(document).on "change", "#fulfillment", ->
     markFulfilledWhenFieldsChecked()
     $(this).submit()
 
