@@ -1,7 +1,5 @@
 # Object representing core patient information and demographic data.
 
-require 'csv'
-
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -20,31 +18,11 @@ class Patient
   include Pledgeable
   include HistoryTrackable
   include Statusable
+  include Exportable
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
   end
-
-  CSV_EXPORT_FIELDS = { "BSON ID" => :id,
-                        "Identifier" => :identifier,
-                        "Has Alt Contact?" => :has_alt_contact?,
-                        "Voicemail Preference" => :voicemail_preference,
-                        "Line" => :line,
-                        "Spanish?" => :spanish,
-                        "Age" => :age,
-                        "State" => :state,
-                        "County" => :county,
-                        "Race/Ethnicity" => :race_ethnicity,
-                        "Employment Status" => :employment_status,
-                        "Minors in Household" => :household_size_children,
-                        "Adults in Household" => :household_size_adults,
-                        "Insurance" => :insurance,
-                        "Income" => :income,
-                        "Referred By" => :referred_by,
-                        "Appointment Date" => :appointment_date,
-                        "Initial Call Date" => :initial_call_date,
-                        "Urgent?" => :urgent_flag,
-                        "Special Circumstances" => :special_circumstances }
 
   before_validation :clean_fields
   before_save :save_identifier
@@ -158,29 +136,8 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
-  def self.to_csv
-    CSV.generate(encoding: 'utf-8') do |csv|
-      csv << CSV_EXPORT_FIELDS.keys # Header line
-      all.each do |patient|
-        csv << CSV_EXPORT_FIELDS.values.map do |field|
-          value = patient.public_send(field)
-          if value.is_a?(Array)
-            # Use simpler serialization for Array values than the default (`to_s`)
-            value.reject(&:blank?).join(', ')
-          else
-            value
-          end
-        end
-      end
-    end
-  end
-
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
-  end
-
-  def has_alt_contact?
-    other_contact.present? || other_phone.present? || other_contact_relationship.present?
   end
 
   private
