@@ -2,17 +2,21 @@ Rails.application.routes.draw do
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
-    get 'report', to: 'reports#index', as: 'report'
+    get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     resources :users, only: [:new, :create, :index]
 
     # Patient routes
-    # /patients/:id
+    # /patients/:id/edit
     # /patients/:id/calls
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients,
               only: [ :create, :edit, :update ] do
+
+      member do
+        get :download, as: 'generate_pledge'
+      end
       resources :calls,
                 only: [ :create, :destroy, :new ]
       resources :notes,
@@ -20,7 +24,7 @@ Rails.application.routes.draw do
       resources :external_pledges,
                 only: [ :create, :update, :destroy ]
     end
-
+    get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]

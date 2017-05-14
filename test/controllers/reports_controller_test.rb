@@ -8,12 +8,11 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
-    @pregnancy = create :pregnancy, patient: @patient
   end
 
   describe 'index method' do
     before do
-      get report_path
+      get reports_path
     end
 
     it 'should return success' do

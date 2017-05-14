@@ -1,0 +1,8 @@
+$('.modal-content').html('')
+$('.modal-content').append(
+  '<%= escape_javascript(render partial: "patients/pledge", locals: { patient: @patient, disable_next: disable_continue?(@patient) })%>');
+
+$('.modal').modal('toggle');
+$('.js-title-step span').slice(1).remove();
+
+$('[id$=modal]').modalSteps()

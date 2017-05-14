@@ -2,10 +2,10 @@
   <div class="margin-bottom col-sm-12">
     <h2>
       Call Log
-      <span class="pull-right new-call-entry"><small><%= link_to "Record new call", "#call-#{@patient.primary_phone_display}", data: {toggle: "modal"} %></small></span>
+      <span class="pull-right new-call-entry"><small>
+        <%= link_to "Record new call", new_patient_call_path(@patient), class:"call_button", remote: true %>
+      </small></span>
     </h2>
-
-    <%= render partial: 'calls/new_call', locals: {patient: @patient} %>
 
     <table class="table border-side">
       <tr>

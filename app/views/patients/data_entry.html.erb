@@ -16,14 +16,12 @@
   <%= f.text_field :other_contact_relationship, autocomplete: 'off', label: 'Relationship to other contact' %>
 
   <div class="row">
-    <%= f.fields_for @pregnancy do |pr| %>
-      <div class="col-sm-6">
-        <%= pr.select :last_menstrual_period_weeks, options_for_select(weeks_options), label: 'LMP at intake', autocomplete: 'off' %>
-      </div>
-      <div class="col-sm-6 hide-label">
-        <%= pr.select :last_menstrual_period_days, options_for_select(days_options), label: '.', autocomplete: 'off' %>
-      </div>
-    <% end %>
+    <div class="col-sm-6">
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options), label: 'LMP at intake', autocomplete: 'off' %>
+    </div>
+    <div class="col-sm-6 hide-label">
+      <%= f.select :last_menstrual_period_days, options_for_select(days_options), label: '.', autocomplete: 'off' %>
+    </div>
   </div>
 
   <%= f.text_field :city, autocomplete: 'off' %>
@@ -33,10 +31,8 @@
   <%#= f.fields_for @patient.notes.new do |notes| %>
     <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
   <%# end %>
-
-  <%= f.fields_for @pregnancy do |pr| %>
-    <%= pr.text_field :dcaf_soft_pledge %>
-  <% end %>
+  
+  <%= f.text_field :dcaf_soft_pledge %>
 
   <%= f.text_field :age, autocomplete: 'off' %>
   <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>
@@ -73,13 +69,11 @@
                options_for_select(referred_by_options),
                                   autocomplete: 'off' %>
 
-  <%= f.fields_for @pregnancy do |pr| %>
-    <%= pr.text_field :procedure_cost, label: 'Full cost / abortion cost' %>
-    <%= pr.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
-    <%= pr.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+    <%= f.text_field :procedure_cost, label: 'Full cost / abortion cost' %>
+    <%= f.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+    <%= f.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
 
-    <%= pr.check_box :pledge_sent, label: 'Pledge sent' %>
-  <% end %>
+    <%= f.check_box :pledge_sent, label: 'Pledge sent' %>
 
   <p style="font-weight:bold">Special circumstances</p>
   <%= f.form_group :special_circumstances do %>

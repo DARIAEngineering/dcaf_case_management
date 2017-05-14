@@ -1,6 +1,7 @@
 <!-- Patient Info -->
 
-<%= render "pledge", patient: @patient %>
+<%= render partial: "patients/modal" %>
+
 
 <div id="patient_dashboard" class="row">
   <%= render 'patients/patient_dashboard', patient: @patient %>
@@ -19,8 +20,8 @@
     <%= render 'patients/change_log', patient: @patient %>
     <%= render 'patients/call_log', patient: @patient %>
     <%= render 'patients/notes', patient: @patient, note: @note %>
-    <% if ( current_user.admin? || current_user.data_volunteer? ) && @patient.pregnancy.pledge_sent == true %>
+    <% if ( current_user.admin? || current_user.data_volunteer? ) && @patient.pledge_sent == true %>
       <%= render 'patients/fulfillment', patient: @patient %>
-    <% end %>  
+    <% end %>
   </div>
 </div>

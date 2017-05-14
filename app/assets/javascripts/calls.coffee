@@ -13,7 +13,7 @@ jQuery ->
     $('#call_list').sortable(
       placeholder: "ui-state-highlight"
       axis: 'y'
-      items: '.pregnancy-data'
+      items: '.patient-data'
       cursor: 'move'
       sort: (e, ui) ->
         ui.item.addClass('active-item-shadow')

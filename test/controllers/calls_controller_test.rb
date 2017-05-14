@@ -7,6 +7,14 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     @patient = create :patient
   end
 
+  describe 'new method' do
+    it 'should respond successfully' do
+      @call = attributes_for :call
+      get new_patient_call_path(@patient), xhr: true
+      assert_response :success
+    end
+  end
+
   describe 'create method' do
     before do
       @call = attributes_for :call
