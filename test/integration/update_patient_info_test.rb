@@ -109,6 +109,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select 'White/Caucasian', from: 'patient_race_ethnicity'
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
+      fill_in 'County', with: 'Wash'
       fill_in 'ZIP', with: '90210'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
       check 'Spanish Only'
@@ -138,6 +139,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'White/Caucasian', find('#patient_race_ethnicity').value
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
+        assert has_field? 'County', with: 'Wash'
         assert has_field? 'ZIP', with: '90210'
         assert_equal 'yes', find('#patient_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
