@@ -36,7 +36,6 @@ markFulfilledWhenFieldsChecked = ->
 
   while i < pledge_fields.length
     if $(pledge_fields[i]).val().length > 0
-      console.log($(pledge_fields[i]).val())
       empty = false
       if el.prop 'checked'
         break;
