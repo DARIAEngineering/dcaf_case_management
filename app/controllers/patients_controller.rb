@@ -1,8 +1,21 @@
 # Create and update patients, plus the main patient view in edit
 class PatientsController < ApplicationController
+  before_action :confirm_user_has_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
+
+  def index
+    patients = Patient.all
+
+    respond_to do |format|
+      format.csv do
+        now = Time.zone.now.strftime('%Y%m%d')
+        csv_filename = "patient_data_export_#{now}.csv"
+        send_data patients.to_csv, filename: csv_filename, format: 'text/csv'
+      end
+    end
+  end
 
   def create
     patient = Patient.new patient_params
