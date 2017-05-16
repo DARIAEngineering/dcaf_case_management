@@ -41,8 +41,6 @@
 
           <%= f.text_field :county, label: 'County', autocomplete: 'off' %>
 
-          <%= f.text_field :zip, label: 'ZIP', autocomplete: 'off' %>
-
           <h3>Other Contact</h3>
             <%= f.text_field :other_contact, autocomplete: 'off', label: 'Other contact name' %>
             <%= f.text_field :other_phone, value: patient.other_phone_display, autocomplete: 'off', label: 'Other phone' %>
