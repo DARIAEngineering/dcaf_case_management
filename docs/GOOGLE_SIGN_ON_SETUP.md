@@ -6,9 +6,9 @@ To avoid password related weaknesses, we give our case managers the opportunity 
 
 Setting it up requires a few more hoops to jump through. You'll need to acquire a few keys from @colinxfleming or @DarthHater and then do the following:
 
-* Define the environment variables `DCAF_GOOGLE_KEY` and `DCAF_GOOGLE_SECRET`. On OSX or linux, you can do this by two lines variables to your `.bash_profile` (or whatever you use):
-    - `export DCAF_GOOGLE_KEY='public key for Google SSO API'`
-    - `export DCAF_GOOGLE_SECRET='secret key for Google SSO API'`
+* Define the environment variables `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET`. On OSX or linux, you can do this by two lines variables to your `.bash_profile` (or whatever you use):
+    - `export DARIA_GOOGLE_KEY='public key for Google SSO API'`
+    - `export DARIA_GOOGLE_SECRET='secret key for Google SSO API'`
 
 Once you've done this, Sign In with Google functionality should start working for you. (We mock this in test environments, so you don't have to worry about that.)
 
