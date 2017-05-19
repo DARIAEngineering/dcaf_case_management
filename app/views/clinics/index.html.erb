@@ -22,40 +22,35 @@
         <td><%= clinic.state %></td>
         <td><%= clinic.zip %></td>
           <td>
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href= <%="#"+clinic.id %> aria-expanded="true" aria-controls=<%= clinic.id %>>
-            <i class="short-full glyphicon glyphicon-chevron-down"></i>
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href= <%="#"+clinic.id %> aria-expanded="false" aria-controls=<%= clinic.id %>>
+              <i class="short-full glyphicon glyphicon-chevron-down"></i>
+              <i class="short-full glyphicon glyphicon-chevron-up"></i>
             </a>
           </td>
       </tr>
 
-      <tr>
-        <td colspan=6>
-          <div  id=<%= clinic.id %>  class="collapse collapsible-clinic-details" role="tabpanel" aria-labelledby="headingOne">
+      <tr id=<%= clinic.id %>  class="collapse collapsible-clinic-details" role="tabpanel" aria-labelledby="headingOne">
+        <td>
           <div class="accepts-naf clinic-detail-group">
             <label>Accepts NAF?</label>
             <p class="blush"><%= clinic.accepts_naf ? 'Yes' : 'No' %></p>
           </div>
+        </td>
+        <td>
           <div class="gestational-limit clinic-detail-group">
             <label>Gestational Limit</label>
             <p class="blush"><%= clinic.gestational_limit %></p>
-            </div>
           </div>
-         </td>
+        </td>
+
+
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
       
     <% end %>
 
 
 </table>
-
-<script>
- $(document).ready(function(){    
-    $('#collapseOne').on('shown', function () {
-       $(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-    });
-
-    $('#collapseOne').on('hidden', function () {
-       $(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-    });
-}); 
-</script>
