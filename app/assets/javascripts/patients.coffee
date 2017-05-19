@@ -21,6 +21,7 @@ calculateRemainder = ->
 valueToNumber = (val) ->
   +val || 0
 
+
 ready = ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
@@ -48,6 +49,8 @@ ready = ->
     # timeout to handle mongo updating and rails appending new field
     setTimeout(updateBalance, 500)
 
+
+
   if $("#patient_procedure_cost").val()
     updateBalance()
 
@@ -60,5 +63,17 @@ ready = ->
       placement: 'top',
       title: $(@).data( 'tooltip-text' )
     } )
+
+  callback1 = ->
+    console.log 'A specific callback for step 1!'
+    return
+
+  callback2 = ->
+    console.log 'A specific callback for step 2!'
+    return
+
+  $('#pledge-modal').modalSteps callbacks:
+    '1': callback1
+    '2': callback2
 
 $(document).on 'ready page:load', ready
