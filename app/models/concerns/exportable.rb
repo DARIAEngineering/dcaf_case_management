@@ -26,7 +26,7 @@ module Exportable
     "Initial Call Date" => :initial_call_date,
     "Urgent?" => :urgent_flag,
     # "Special Circumstances" => :special_circumstances,
-    "Intake LMP (weeks)" => :last_menstrual_period_weeks,
+    "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "Race or Ethnicity" => :race_ethnicity,
     "Employment status" => :employment_status,
     "Abortion cost" => :procedure_cost,
