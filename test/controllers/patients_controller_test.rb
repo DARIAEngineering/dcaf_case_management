@@ -3,12 +3,74 @@ require 'test_helper'
 class PatientsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
+    @admin = create :user, role: :admin
+    @data_volunteer = create :user, role: :data_volunteer
+
     sign_in @user
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
     @clinic = create :clinic
+  end
+
+  describe 'index method' do
+    before do
+      # Not sure if there is a better way to do this, but just calling
+      # `sign_in` a second time doesn't work as expected
+      delete destroy_user_session_path
+    end
+
+    it 'should reject users without access' do
+      sign_in @user
+
+      get patients_path
+      assert_redirected_to root_path
+
+      get patients_path(format: :csv)
+      assert_redirected_to root_path
+    end
+
+    it 'should not serve html' do
+      sign_in @data_volunteer
+      get patients_path
+      assert_response :not_acceptable
+    end
+
+    it 'should get csv when user is admin' do
+      sign_in @admin
+      get patients_path(format: :csv)
+      assert_response :success
+    end
+
+    it 'should get csv when user is data volunteer' do
+      sign_in @data_volunteer
+      get patients_path(format: :csv)
+      assert_response :success
+    end
+
+    it 'should use proper mimetype' do
+      sign_in @data_volunteer
+      get patients_path(format: :csv)
+      assert_equal 'text/csv', response.content_type.split(';').first
+    end
+
+    it 'should consist of a header line and the patient record' do
+      sign_in @data_volunteer
+      get patients_path(format: :csv)
+      lines = response.body.split("\n").reject(&:blank?)
+      assert_equal 2, lines.count
+      assert_match @patient.id.to_s, lines[1]
+      assert_match @patient.identifier.to_s, lines[1]
+    end
+
+    it 'should not contain personally-identifying information' do
+      sign_in @data_volunteer
+      get patients_path(format: :csv)
+      refute_match @patient.name.to_s, response.body
+      refute_match @patient.primary_phone.to_s, response.body
+      refute_match @patient.other_phone.to_s, response.body
+    end
   end
 
   describe 'create method' do
@@ -98,6 +160,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     it 'should redirect if record does not exist' do
       patch patient_path('notanactualid'), params: { patient: @payload }
       assert_redirected_to root_path
+    end
+  end
+
+  describe 'pledge method' do
+    it 'should respond success on completion' do
+      get submit_pledge_path(@patient), xhr: true
+      assert_response :success
     end
   end
 

@@ -19,11 +19,9 @@ deployment:
 
 test:
   override:
-    # Currently rails test is blowing up on CI, so back to rake test for now
-    - bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS":
-        # parallel: true
-        files:
-          - test/**/*_test.rb
+    - bundle exec rake knapsack:minitest:
+        parallel: true
+
   post:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
     - gem install --no-rdoc ruby_audit; bundle exec ruby-audit check

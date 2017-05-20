@@ -1,8 +1,21 @@
 # Create and update patients, plus the main patient view in edit
 class PatientsController < ApplicationController
+  before_action :confirm_user_has_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
+
+  def index
+    patients = Patient.all
+
+    respond_to do |format|
+      format.csv do
+        now = Time.zone.now.strftime('%Y%m%d')
+        csv_filename = "patient_data_export_#{now}.csv"
+        send_data patients.to_csv, filename: csv_filename, format: 'text/csv'
+      end
+    end
+  end
 
   def create
     patient = Patient.new patient_params
@@ -16,6 +29,13 @@ class PatientsController < ApplicationController
 
     current_user.add_patient patient
     redirect_to root_path
+  end
+
+  def pledge
+    @patient = Patient.find params[:patient_id]
+    respond_to do |format|
+      format.js
+    end
   end
 
   # download a filled out pledge form based on patient record
@@ -81,7 +101,7 @@ class PatientsController < ApplicationController
 
   PATIENT_INFORMATION_PARAMS = [
     :line, :age, :race_ethnicity, :spanish,
-    :voicemail_preference, :city, :state, :zip, :other_contact, :other_phone,
+    :voicemail_preference, :city, :state, :county, :zip, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
     special_circumstances: []

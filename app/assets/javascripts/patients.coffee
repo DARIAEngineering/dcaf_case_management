@@ -79,6 +79,8 @@ ready = ->
     # timeout to handle mongo updating and rails appending new field
     setTimeout(updateBalance, 500)
 
+
+
   if $("#patient_procedure_cost").val()
     updateBalance()
 
