@@ -102,7 +102,7 @@ class PatientsController < ApplicationController
 
   ABORTION_INFORMATION_PARAMS = [
     :clinic_id, :resolved_without_dcaf, :referred_to_clinic,
-    :procedure_cost, :patient_contribution, :naf_pledge, :dcaf_soft_pledge
+    :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge
   ].freeze
 
   FULFILLMENT_PARAMS = [

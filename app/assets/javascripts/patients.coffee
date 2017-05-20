@@ -12,7 +12,7 @@ calculateRemainder = ->
   total = valueToNumber $("#patient_procedure_cost").val()
   contributions = valueToNumber($("#patient_patient_contribution").val()) +
                   valueToNumber($("#patient_naf_pledge").val()) +
-                  valueToNumber($("#patient_dcaf_soft_pledge").val()) +
+                  valueToNumber($("#patient_fund_pledge").val()) +
                   valueToNumber($(".external_pledge_amount").toArray().reduce (acc, next) ->
                     acc + valueToNumber($(next).val())
                   , 0)

@@ -87,7 +87,7 @@ Patient.all.each do |patient|
                     appointment_date: 10.days.from_now,
                     naf_pledge: 2000,
                     procedure_cost: 4000,
-                    dcaf_soft_pledge: 1000,
+                    fund_pledge: 1000,
                     pledge_sent: true,
                     patient_contribution: 1000,
                     name: "Pledge submitted - 3"

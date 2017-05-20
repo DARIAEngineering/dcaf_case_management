@@ -8,7 +8,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
                                 other_contact: 'Yolo', clinic: clinic,
                                 initial_call_date: Date.new(2015, 12, 1),
                                 appointment_date: Date.new(2016, 1, 1),
-                                dcaf_soft_pledge: 300, naf_pledge: 200
+                                fund_pledge: 300, naf_pledge: 200
                                 
     @case_manager_name = 'Angela Davis'
   end
