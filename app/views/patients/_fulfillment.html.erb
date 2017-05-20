@@ -8,7 +8,7 @@
           <p>Please confirm that the clinic and pledge amounts are correct:</p>
           <ul>
             <li>Clinic: <%= @patient.clinic.try(:name) %></li>
-            <li>DCAF Pledge Amount: $<%= @patient.fund_pledge %></li>
+            <li><%= FUND %> Pledge Amount: $<%= @patient.fund_pledge %></li>
           </ul>
         </div>
       </div>

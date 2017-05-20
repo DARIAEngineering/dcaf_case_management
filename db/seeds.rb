@@ -102,7 +102,7 @@ Patient.all.each do |patient|
   # Add example of patient should be marked resolved without DCAF
   if patient.name == 'Patient 5'
     patient.update! name: "Resolved without DCAF - 5",
-                    resolved_without_dcaf: true
+                    resolved_without_fund: true
   end
 
   patient.save
