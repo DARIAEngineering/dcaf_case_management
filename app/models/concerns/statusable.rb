@@ -8,11 +8,11 @@ module Statusable
     fundraising: 'Fundraising',
     pledge_sent: 'Pledge Sent',
     pledge_paid: 'Pledge Paid',
-    resolved: 'Resolved Without DCAF'
+    resolved: "Resolved Without #{FUND}"
   }.freeze
 
   def status
-    return STATUSES[:resolved] if resolved_without_dcaf?
+    return STATUSES[:resolved] if resolved_without_fund?
     return STATUSES[:pledge_sent] if pledge_sent?
     return STATUSES[:no_contact] unless contact_made?
     return STATUSES[:fundraising] if appointment_date

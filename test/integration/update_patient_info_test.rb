@@ -184,7 +184,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       @clinic = create :clinic
       @patient = create :patient, appointment_date: 2.days.from_now,
                                   clinic: @clinic,
-                                  dcaf_soft_pledge: 100,
+                                  fund_pledge: 100,
                                   pledge_sent: true
       create :fulfillment, patient: @patient
       visit edit_patient_path @patient

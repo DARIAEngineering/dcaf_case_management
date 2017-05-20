@@ -9,7 +9,7 @@
     <% end %>
     <div class='col-sm-12'><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
     <div class='col-sm-12'><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
-    <div class='col-sm-12'><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.dcaf_soft_pledge %> </div>
+    <div class='col-sm-12'><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.fund_pledge %> </div>
     <div class='col-sm-12'><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
     <div class='col-sm-12'><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.try :name %></div>
   </div>
