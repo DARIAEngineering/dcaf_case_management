@@ -1,4 +1,5 @@
 # Object representing core patient information and demographic data.
+
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -17,6 +18,7 @@ class Patient
   include Pledgeable
   include HistoryTrackable
   include Statusable
+  include Exportable
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
@@ -59,7 +61,6 @@ class Patient
   field :age, type: Integer
   field :city, type: String
   field :state, type: String
-  field :zip, type: String
   field :county, type: String
   field :race_ethnicity, type: String
   field :employment_status, type: String
