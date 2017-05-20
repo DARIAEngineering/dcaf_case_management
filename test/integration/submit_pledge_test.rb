@@ -7,7 +7,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
     @clinic = create :clinic
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14,
-                                dcaf_soft_pledge: 500
+                                fund_pledge: 500
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name'

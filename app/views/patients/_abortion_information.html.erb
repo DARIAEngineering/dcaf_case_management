@@ -21,8 +21,8 @@
 
           <div class="col-sm-6">
             <div class="info-form-right">
-              <%= f.form_group :resolved_without_dcaf, label: { text: 'Resolved without assistance from DCAF' } do %>
-                <%= f.check_box :resolved_without_dcaf, label: '' %>
+              <%= f.form_group :resolved_without_fund, label: { text: "Resolved without assistance from #{FUND}" } do %>
+                <%= f.check_box :resolved_without_fund, label: '' %>
               <% end %>
               <%= f.form_group :referred_to_clinic, label: { text: 'Referred to clinic' } do %>
                 <%= f.check_box :referred_to_clinic, label: '' %>
@@ -56,7 +56,7 @@
             <div id="pledge-contributions">
               <%= f.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
               <%= f.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :dcaf_soft_pledge, label: 'DCAF pledge', autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': dcaf_pledge_limit_help_text() } %>
+              <%= f.number_field :fund_pledge, label: "#{FUND} pledge", autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': dcaf_pledge_limit_help_text() } %>
             </div>
           </div>
         <% end %>

@@ -96,8 +96,8 @@ class PatientTest < ActiveSupport::TestCase
   describe 'pledge_summary' do
     # TODO: needs timecopping
     it "should return proper pledge summaries for various timespans" do
-      @patient.update appointment_date: (Date.today + 4), dcaf_soft_pledge: 300
-      @patient2.update appointment_date: (Date.today + 8), dcaf_soft_pledge: 500, pledge_sent: true
+      @patient.update appointment_date: (Date.today + 4), fund_pledge: 300
+      @patient2.update appointment_date: (Date.today + 8), fund_pledge: 500, pledge_sent: true
       assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary(1).to_s
       assert_equal '{:pledged=>300, :sent=>0}', Patient.pledged_status_summary.to_s
       # TODO Timecop this test
@@ -308,9 +308,9 @@ class PatientTest < ActiveSupport::TestCase
         assert_not @patient.still_urgent?
       end
 
-      it 'should return false if resolved without dcaf' do
+      it 'should return false if resolved without fund' do
         @patient.update urgent_flag: true
-        @patient.update resolved_without_dcaf: true
+        @patient.update resolved_without_fund: true
         assert_not @patient.still_urgent?
       end
 
@@ -335,7 +335,7 @@ class PatientTest < ActiveSupport::TestCase
   describe 'pledge_sent validation' do
     before do
       @clinic = create :clinic
-      @patient.dcaf_soft_pledge = 500
+      @patient.fund_pledge = 500
       @patient.clinic = @clinic
       @patient.appointment_date = 14.days.from_now
     end
@@ -346,7 +346,7 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
-      @patient.dcaf_soft_pledge = nil
+      @patient.fund_pledge = nil
       @patient.pledge_sent = true
       refute @patient.valid?
       assert_equal ['DCAF soft pledge field cannot be blank'], @patient.errors.messages[:pledge_sent]
@@ -367,7 +367,7 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should produce three error messages if three required fields are blank' do
-      @patient.dcaf_soft_pledge = nil
+      @patient.fund_pledge = nil
       @patient.clinic = nil
       @patient.appointment_date = nil
       @patient.pledge_sent = true
@@ -378,7 +378,7 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should have convenience methods to render in view, just in case' do
       refute @patient.pledge_info_present?
-      @patient.dcaf_soft_pledge = nil
+      @patient.fund_pledge = nil
       assert @patient.pledge_info_present?
       assert_equal ['DCAF soft pledge field cannot be blank'], @patient.pledge_info_errors
     end
@@ -526,7 +526,7 @@ class PatientTest < ActiveSupport::TestCase
       # end
 
       it 'should update to "Resolved Without DCAF" if patient is resolved' do
-        @patient.resolved_without_dcaf = true
+        @patient.resolved_without_fund = true
         assert_equal Patient::STATUSES[:resolved], @patient.status
       end
     end

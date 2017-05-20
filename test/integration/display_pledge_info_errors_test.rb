@@ -24,7 +24,7 @@ class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
     it 'should not show errors when information is present' do
       @patient = create :patient, clinic: @clinic,
                                   appointment_date: 14.days.from_now,
-                                  dcaf_soft_pledge: 500
+                                  fund_pledge: 500
       visit edit_patient_path @patient
 
       find('#submit-pledge-button').click

@@ -10,7 +10,7 @@ class PledgeFormGenerator
   end
 
   def patient_amount
-    number_to_currency(@patient.dcaf_soft_pledge, precision: 0)
+    number_to_currency(@patient.fund_pledge, precision: 0)
   end
 
   def provider_address

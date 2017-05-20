@@ -136,7 +136,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       @payload = {
         appointment_date: @date.strftime('%Y-%m-%d'),
         name: 'Susie Everyteen 2',
-        resolved_without_dcaf: true
+        resolved_without_fund: true
       }
 
       patch patient_path(@patient), params: { patient: @payload }
