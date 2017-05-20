@@ -25,7 +25,7 @@ module Exportable
     "Initial Call Date" => :initial_call_date,
     "Urgent?" => :urgent_flag,
     "Special Circumstances" => :special_circumstances,
-    "Intake LMP" => :last_menstrual_period_weeks,
+    "Intake LMP (weeks)" => :last_menstrual_period_weeks,
     "Race or Ethnicity" => :race_ethnicity,
     "Employment status" => :employment_status,
     "Insurance" => :insurance,
@@ -37,6 +37,7 @@ module Exportable
     "NAF pledge" => :naf_pledge,
     "Fund pledge" => :dcaf_soft_pledge,
     "Abortion cost" => :procedure_cost,
+    "Clinic" => :export_clinic_name,
     "Pledge sent" => :pledge_sent,
     "Resolved without fund assistance" => :resolved_without_dcaf,
     "Pledge generated time" => :pledge_generated_at
@@ -49,6 +50,10 @@ module Exportable
 
   def has_alt_contact?
     other_contact.present? || other_phone.present? || other_contact_relationship.present?
+  end
+
+  def export_clinic_name
+    clinic.try :name
   end
 
   def age_range
