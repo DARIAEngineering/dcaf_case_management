@@ -3,7 +3,7 @@
     <h2>
       Call Log
       <span class="pull-right new-call-entry"><small>
-        <%= link_to "Record new call", new_patient_call_path(@patient), class:"call_button", remote: true %>
+        <%= link_to "Record new call", new_patient_call_path(@patient), class:"call_button call-#{@patient.primary_phone_display}", remote: true %>
       </small></span>
     </h2>
 

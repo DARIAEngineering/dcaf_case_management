@@ -199,6 +199,9 @@ GEM
       sprockets-rails
     json (1.8.6)
     jwt (1.5.6)
+    knapsack (1.13.3)
+      rake
+      timecop (>= 0.1.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     letsencrypt-rails-heroku (1.2.0)
@@ -464,6 +467,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   js-routes
+  knapsack
   launchy
   letsencrypt-rails-heroku
   mini_backtrace

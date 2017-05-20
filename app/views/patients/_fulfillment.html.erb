@@ -16,7 +16,7 @@
         <div class="col-sm-12">
           <%= f.fields_for patient.fulfillment do |pt| %>
             <%= pt.form_group :fulfilled do %>
-              <%= pt.check_box :fulfilled, label: 'Pledge fulfilled' %>
+              <%= pt.check_box :fulfilled, label: 'Pledge fulfilled', autocomplete: 'off' %>
             <% end %>
           <% end %>
         </div>  
@@ -36,7 +36,7 @@
         <div class="info-form-right col-sm-6">
           <%= f.fields_for patient.fulfillment do |pt| %>
             <%= pt.text_field :check_number, label: 'Check #', autocomplete: 'off'%>
-            <%= pt.date_field :date_of_check, label: 'Date of check' %>
+            <%= pt.date_field :date_of_check, label: 'Date of check', autocomplete: 'off' %>
           <% end %>
         </div>  
       </div>
