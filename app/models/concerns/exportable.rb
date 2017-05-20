@@ -42,6 +42,7 @@ module Exportable
     # TODO call stuff
     # TODO fulfillment stuff
     # TODO external pledges
+    # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
 
   def has_alt_contact?
