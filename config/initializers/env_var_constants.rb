@@ -9,5 +9,5 @@ LINES = if ENV['LINES'].present?
         end
 
 # Definition of fund
-FUND = ENV['FUND'] || 'DC Abortion Fund'
-FUND_ACRONYM = ENV['DARIA_FUND_ABBREV'] || 'DCAF'
+FUND_FULL = ENV['DARIA_FUND_FULL'] || 'DC Abortion Fund'
+FUND = ENV['DARIA_FUND'] || 'DCAF'
