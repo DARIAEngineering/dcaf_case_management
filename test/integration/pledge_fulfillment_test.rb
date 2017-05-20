@@ -9,7 +9,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     @data_volunteer = create :user, role: :data_volunteer
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: 2.weeks.from_now,
-                                dcaf_soft_pledge: 500
+                                fund_pledge: 500
     @fulfillment = create :fulfillment, patient: @patient
   end
 

@@ -120,7 +120,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
         update_hash = {
           created_by: @user,
           pledge_sent: true,
-          dcaf_soft_pledge: 1000
+          fund_pledge: 1000
         }
 
         patient.update! update_hash
@@ -139,7 +139,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
         update_hash = {
           created_by: @user,
           pledge_sent: true,
-          dcaf_soft_pledge: 1000
+          fund_pledge: 1000
         }
 
         patient2.update! update_hash
