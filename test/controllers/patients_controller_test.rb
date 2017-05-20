@@ -163,6 +163,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'pledge method' do
+    it 'should respond success on completion' do
+      get submit_pledge_path(@patient), xhr: true
+      assert_response :success
+    end
+  end
+
   #confirm get :data_entry returns a success code
   describe 'data_entry method' do
     it 'should respond success on completion' do

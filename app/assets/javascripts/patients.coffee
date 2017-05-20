@@ -21,6 +21,7 @@ calculateRemainder = ->
 valueToNumber = (val) ->
   +val || 0
 
+
 ready = ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
@@ -47,6 +48,8 @@ ready = ->
   $(document).on "click", "#create-external-pledge", ->
     # timeout to handle mongo updating and rails appending new field
     setTimeout(updateBalance, 500)
+
+
 
   if $("#patient_procedure_cost").val()
     updateBalance()
