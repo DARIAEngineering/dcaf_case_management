@@ -308,9 +308,9 @@ class PatientTest < ActiveSupport::TestCase
         assert_not @patient.still_urgent?
       end
 
-      it 'should return false if resolved without dcaf' do
+      it 'should return false if resolved without fund' do
         @patient.update urgent_flag: true
-        @patient.update resolved_without_dcaf: true
+        @patient.update resolved_without_fund: true
         assert_not @patient.still_urgent?
       end
 
@@ -526,7 +526,7 @@ class PatientTest < ActiveSupport::TestCase
       # end
 
       it 'should update to "Resolved Without DCAF" if patient is resolved' do
-        @patient.resolved_without_dcaf = true
+        @patient.resolved_without_fund = true
         assert_equal Patient::STATUSES[:resolved], @patient.status
       end
     end

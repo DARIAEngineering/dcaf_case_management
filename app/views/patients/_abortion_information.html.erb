@@ -21,8 +21,8 @@
 
           <div class="col-sm-6">
             <div class="info-form-right">
-              <%= f.form_group :resolved_without_dcaf, label: { text: 'Resolved without assistance from DCAF' } do %>
-                <%= f.check_box :resolved_without_dcaf, label: '' %>
+              <%= f.form_group :resolved_without_fund, label: { text: "Resolved without assistance from #{FUND}" } do %>
+                <%= f.check_box :resolved_without_fund, label: '' %>
               <% end %>
               <%= f.form_group :referred_to_clinic, label: { text: 'Referred to clinic' } do %>
                 <%= f.check_box :referred_to_clinic, label: '' %>

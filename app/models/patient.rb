@@ -79,7 +79,7 @@ class Patient
   field :naf_pledge, type: Integer
   field :fund_pledge, type: Integer
   field :pledge_sent, type: Boolean
-  field :resolved_without_dcaf, type: Boolean
+  field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
 
   # Indices
