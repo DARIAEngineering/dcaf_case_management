@@ -54,9 +54,9 @@ module Exportable
 
   def age_range
     case age
-    when nil
+    when nil, ''
       nil
-    when 0..18
+    when 1..17
       'Under 18'
     when 18..24
       '18-24'
@@ -68,6 +68,8 @@ module Exportable
       '45-54'
     when 55..100
       '55+'
+    else
+      'Bad value'
     end
   end
 
