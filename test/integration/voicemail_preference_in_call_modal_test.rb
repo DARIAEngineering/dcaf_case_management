@@ -54,6 +54,6 @@ class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
   def open_call_modal_for(patient)
     fill_in 'search', with: patient.name
     click_button 'Search'
-    find("a[href='#call-#{patient.primary_phone_display}']").click
+    find("a.call-#{patient.primary_phone_display}").click
   end
 end

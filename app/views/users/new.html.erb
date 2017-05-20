@@ -3,6 +3,7 @@
     <%= bootstrap_form_for @user do |f| %>
         <%= f.email_field :email %>
         <%= f.text_field :name %>
+        <%= f.select :_role, options_for_select(user_role_options) %>
         <%= f.submit "Add", class: 'btn btn-primary' %>
       </div>
     <% end %>

@@ -41,10 +41,8 @@
               <td><%= link_to "Add", add_patient_path(current_user, patient), method: :patch, remote: true %></td>
             <% end %>
           <% end %>
+          <td><%= link_to call_glyphicon, new_patient_call_path(patient), class:"call_button call-#{patient.primary_phone_display}", remote: true %> </td>
 
-          <td><%= link_to call_glyphicon, "#call-#{patient.primary_phone_display}", data: {toggle: "modal"} %></td>
-
-          <%= render partial: 'calls/new_call', locals: {patient: patient} %>
         </tr>
       <% end %>
     </tbody>

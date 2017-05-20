@@ -63,7 +63,7 @@ class CallListTest < ActionDispatch::IntegrationTest
   describe 'completed calls section' do
     before do
       within :css, '#call_list_content' do
-        find("a[href='#call-#{@patient.primary_phone_display}']").click
+        find("a.call-#{@patient.primary_phone_display}").click
       end
       find('a', text: 'I left a voicemail for the patient').click
       wait_for_no_element "Call #{@patient.name} now:"
