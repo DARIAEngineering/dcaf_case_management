@@ -87,7 +87,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     before do
       log_in_as @admin
       visit edit_patient_path @patient
-      @pregnancy.update pledge_sent: true
+      @patient.update pledge_sent: true
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
       assert has_link? 'Pledge Fulfillment'
