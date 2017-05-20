@@ -6,7 +6,7 @@ module Exportable
 
   CSV_EXPORT_FIELDS = {
     "BSON ID" => :id,
-    "Identifier" => :identifier,
+    # "Identifier" => :identifier,
     "Has Alt Contact?" => :has_alt_contact?,
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
