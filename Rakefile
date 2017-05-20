@@ -6,3 +6,5 @@ Rails.application.load_tasks
 task clear_call_lists: :environment do
   User.all.each(&:clear_call_list)
 end
+
+Knapsack.load_tasks if defined?(Knapsack)

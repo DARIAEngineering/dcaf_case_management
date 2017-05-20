@@ -12,18 +12,18 @@ Rails.application.routes.draw do
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients,
-              only: [ :create, :edit, :update ] do
+              only: [ :create, :edit, :update, :index ] do
       member do
         get :download, as: 'generate_pledge'
       end
-      resources :calls, 
-                only: [ :create, :destroy ]
+      resources :calls,
+                only: [ :create, :destroy, :new ]
       resources :notes,
                 only: [ :create, :update ]
       resources :external_pledges,
                 only: [ :create, :update, :destroy ]
     end
-
+    get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]
