@@ -32,10 +32,10 @@ module Exportable
     "Abortion cost" => :procedure_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
-    "Fund pledge" => :dcaf_soft_pledge,
+    "Fund pledge" => :fund_pledge,
     "Clinic" => :export_clinic_name,
     "Pledge sent" => :pledge_sent,
-    "Resolved without fund assistance" => :resolved_without_dcaf,
+    "Resolved without fund assistance" => :resolved_without_fund,
     "Pledge generated time" => :pledge_generated_at
 
     # TODO clinic stuff
