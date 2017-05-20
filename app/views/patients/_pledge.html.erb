@@ -15,15 +15,19 @@
   </div>
 
   <div class="row hide" data-step="2" data-title="Generate your pledge form:" id="generate-pledge-form">
-    <div class="alert alert-danger" style="display:none;"> You need to enter your name in the box to sign and download the pledge </div>
-    <p class="col-sm-12"><strong>Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.</strong></p>
+    <% if ENV['DARIA_PLEDGE_GENERATOR_DISABLED'] %>
+      <p>Please generate your pledge form and click next.</p>
+    <% else %>
+      <div class="alert alert-danger" style="display:none;"> You need to enter your name in the box to sign and download the pledge </div>
+      <p class="col-sm-12"><strong>Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.</strong></p>
 
-    <div class="col-sm-12">
-      <%= bootstrap_form_tag url: generate_pledge_patient_path(patient), method: 'get' do |f| %>
-        <%= f.text_field :case_manager_name, label: 'Enter your name in this box to sign your pledge:' %>
-        <%= f.submit 'Generate your pledge', class: 'btn btn-large btn-primary' %>
-      <% end %>
-    </div>
+      <div class="col-sm-12">
+        <%= bootstrap_form_tag url: generate_pledge_patient_path(patient), method: 'get' do |f| %>
+          <%= f.text_field :case_manager_name, label: 'Enter your name in this box to sign your pledge:' %>
+          <%= f.submit 'Generate your pledge', class: 'btn btn-large btn-primary' %>
+        <% end %>      
+      </div>
+    <% end %>
   </div>
 
   <div class="row hide" data-step="3" data-title="Submit and send your pledge:">

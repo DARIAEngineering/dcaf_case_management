@@ -61,7 +61,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
     before do
       @patient.update pledge_sent: true,
                       appointment_date: 2.weeks.from_now,
-                      dcaf_soft_pledge: 500
+                      fund_pledge: 500
 
       @fulfillment = create :fulfillment, patient: @patient
       visit edit_patient_path @patient
