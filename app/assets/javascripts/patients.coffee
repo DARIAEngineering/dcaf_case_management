@@ -21,7 +21,7 @@ calculateRemainder = ->
 valueToNumber = (val) ->
   +val || 0
 
-$(document).on 'turbolinks:load', ->
+ready = ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
     html = if $(".old-calls").hasClass("hidden") then "View all calls" else "Limit list"
@@ -60,3 +60,5 @@ $(document).on 'turbolinks:load', ->
       placement: 'top',
       title: $(@).data( 'tooltip-text' )
     } )
+
+$(document).on 'ready page:load', ready

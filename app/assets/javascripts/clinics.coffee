@@ -20,7 +20,7 @@ mapNAFtoClinic = (data) ->
     accepts_naf = data[index].accepts_naf
     $('#patient_clinic_id > option[value=\'' + id + '\']').attr 'data-naf', accepts_naf
 
-$(document).on 'turbolinks:load', ->
+ready = ->
   $(document).on 'show.bs.collapse', '.collapsible-clinic-details', (event) ->
     $(event.target).siblings('.clinic-detail-toggle').text('Fewer Details')
 
@@ -33,3 +33,5 @@ $(document).on 'turbolinks:load', ->
       getClinics().then(mapNAFtoClinic).then(filterClinicsByNAF)
     else
       filterClinicsByNAF()
+
+$(document).on 'ready page:load', ready
