@@ -108,8 +108,9 @@ class CallListTest < ActionDispatch::IntegrationTest
       click_link 'Record new call'
       wait_for_element "Call #{@patient.name} now:"
       click_link 'I left a voicemail for the patient'
-      sleep 1 # out of ideas
       wait_for_no_element "Call #{@patient.name} now:"
+      sleep 1 # out of ideas
+      wait_for_ajax
 
       assert has_content? 'Left voicemail'
     end
