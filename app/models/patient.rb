@@ -50,7 +50,7 @@ class Patient
 
   # Contact-related info
   enum :voicemail_preference, [:not_specified, :no, :yes]
-  enum :line, [:DC, :MD, :VA] # See config/initializers/lines.rb. TODO: Env var.
+  enum :line, LINES # See config/initializers/env_vars.rb
   field :spanish, type: Boolean
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean

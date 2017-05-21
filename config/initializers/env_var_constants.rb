@@ -1,6 +1,6 @@
 # Definition of line constants
-LINES = if ENV['LINES'].present?
-          ENV['LINES'].split(',')
+LINES = if ENV['DARIA_LINES'].present?
+          ENV['DARIA_LINES'].split(',')
                       .map(&:strip)
                       .map(&:to_sym)
                       .freeze
