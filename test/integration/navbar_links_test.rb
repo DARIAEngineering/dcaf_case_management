@@ -28,21 +28,71 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
   end
 
   describe 'admin dropdown' do
-    before { click_link 'Admin' }
-    it 'should display the Clinic Management link' do
-      assert has_link? 'Clinic Management', href: clinics_path
+    describe 'admin view'
+      before { click_link 'Admin' }
+
+      it 'should display the new user link' do
+        assert has_link? 'User Management', href: new_user_path
+      end
+
+      it 'should display the Clinic Management link' do
+        assert has_link? 'Clinic Management', href: clinics_path
+      end
+
+      it 'should display the Accounting link' do
+        assert has_link? 'Accounting', href: accountants_path
+      end
+
+      it 'should display the Reporting link' do
+        assert has_link? 'Reporting', href: reports_path
+      end
+
+      it 'should display the export link' do
+        assert has_link? 'Export anonymized CSV', href: patients_path(format: :csv)
+      end
     end
 
-    it 'should display the Accounting link' do
-      assert has_link? 'Accounting', href: accountants_path
+    describe 'data volunteer view' do
+      before do
+        @user2 = create :user, role: :data_volunteer
+        visit authenticated_root_path
+        click_link 'Admin'
+      end
+
+      it 'should not display the new user link' do
+        refute has_link? 'User Management'
+      end
+
+      it 'should not display the Clinic Management link' do
+        refute has_link? 'Clinic Management'
+      end
+
+      it 'should display the Accounting link' do
+        assert has_link? 'Accounting', href: accountants_path
+      end
+
+      it 'should display the Reporting link' do
+        assert has_link? 'Reporting', href: reports_path
+      end
+
+      it 'should display the export link' do
+        assert has_link? 'Export anonymized CSV', href: patients_path(format: :csv)
+      end
     end
 
-    it 'should display the Reporting link' do
-      assert has_link? 'Reporting', href: reports_path
-    end
+    describe 'case manager view' do
+      before do
+        @user2 = create :user, role: :cm
+        visit authenticated_root_path
+      end
 
-    it 'should display the export link' do
-      assert has_link? 'Export anonymized CSV', href: patients_path(format: :csv)
+      it 'should not display an admin link' do
+        refute has_link? 'Admin'
+      end
     end
+  end
+
+  describe 'data volunteer dropdown' do
+    before { @user.update role: :data_volunteer }
   end
 end
