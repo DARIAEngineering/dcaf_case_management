@@ -15,7 +15,7 @@ class Rack::Attack
   # (blocklist & throttles are skipped)
   Rack::Attack.safelist('allow from localhost') do |req|
     # Requests are allowed if the return value is truthy
-    '127.0.0.1' == req.ip || '::1' == req.ip || '74.96.182.39' == req.ip
+    '127.0.0.1' == req.ip || '::1' == req.ip
   end
   ### Throttle Spammy Clients ###
 
