@@ -61,7 +61,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       lines = response.body.split("\n").reject(&:blank?)
       assert_equal 2, lines.count
       assert_match @patient.id.to_s, lines[1]
-      assert_match @patient.identifier.to_s, lines[1]
     end
 
     it 'should not contain personally-identifying information' do
