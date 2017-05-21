@@ -12,3 +12,8 @@ $('#fulfillment').remove();
 $('#sections').append(
   '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
 );
+
+$('#change_log').remove();
+$('#sections').append(
+  '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
+);
