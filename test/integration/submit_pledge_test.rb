@@ -118,12 +118,9 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
+      sleep 1 # out of ideas
 
       assert has_link? 'Submit pledge'
     end
-
-
   end
-
-
 end
