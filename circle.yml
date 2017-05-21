@@ -19,7 +19,7 @@ deployment:
 
 test:
   override:
-    - bundle exec rake knapsack:minitest:
+    - bundle exec rake knapsack:minitest TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS/reports":
         parallel: true
 
   post:
