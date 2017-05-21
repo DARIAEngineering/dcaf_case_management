@@ -21,8 +21,8 @@ These are detailed instructions in spinning up an instance in heroku. These assu
 - `CSP_VIOLATION_URI` (note to self: did this dirty)
 - `DARIA_FUND`
 - `DARIA_FUND_FULL`
-- `DCAF_GOOGLE_KEY`
-- `DCAF_GOOGLE_SECRET`
+- `DARIA_GOOGLE_KEY`
+- `DARIA_GOOGLE_SECRET`
 - `FUND_MAILER_DOMAIN`
 - `LANG`
 - `LINES`
@@ -35,7 +35,7 @@ These are detailed instructions in spinning up an instance in heroku. These assu
 - `RAILS_LOG_TO_STDOUT`
 - `RAILS_SERVE_STATIC_FILES`
 - `SECRET_KEY_BASE`
-- `SITE_URL`
+- `SITE_URL` ()
 
 ## Optional steps
 
@@ -43,3 +43,11 @@ These are detailed instructions in spinning up an instance in heroku. These assu
 
 * If not within DCAF pipeline, in Heroku, add some other app members if there aren't any. Make sure you aren't the only member of your fund with config access!
 
+## Checklist
+
+* Go to root url
+* Create yourself an admin account from the rails console. Confirm that this sends an email to the email you put down confirming that 
+* After you get that email, log in with google to confirm the oauth signin flow works. (This should use the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` creds.)
+* Confirm that the lines are properly set and show up right
+* Confirm that the top left badge name (`DARIA - full fund name`) is set properly
+* 
