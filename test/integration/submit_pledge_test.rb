@@ -83,7 +83,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_no_element 'Cancel pledge:'
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
     end
-    
+
     it 'should not cancel if not rescinded' do
       assert has_link? 'Cancel pledge'
       find('#cancel-pledge-button').click
@@ -91,8 +91,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
       assert has_text? 'Cancel pledge:'
       find('#pledge-next').click
+      sleep 1 # :(
 
-      wait_for_no_element 'Cancel pledge:'
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
       find('#pledge-next').click
 
@@ -113,13 +113,13 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_no_element 'Cancel pledge:'
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
       find('#patient_pledge_sent').click
+      sleep 1 # out of ideas
+      wait_for_ajax
 
       find('#pledge-next').click
 
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
-      sleep 1 # out of ideas
-      wait_for_ajax
 
       assert has_link? 'Submit pledge'
     end
