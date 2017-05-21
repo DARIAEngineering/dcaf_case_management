@@ -28,7 +28,7 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
   end
 
   describe 'admin dropdown' do
-    describe 'admin view'
+    describe 'admin view' do
       before { click_link 'Admin' }
 
       it 'should display the new user link' do
@@ -54,9 +54,11 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
 
     describe 'data volunteer view' do
       before do
+        sign_out
         @user2 = create :user, role: :data_volunteer
+        log_in_as @user2
         visit authenticated_root_path
-        click_link 'Admin'
+        click_link 'Admin tools'
       end
 
       it 'should not display the new user link' do
@@ -82,17 +84,15 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
 
     describe 'case manager view' do
       before do
-        @user2 = create :user, role: :cm
+        sign_out
+        @user3 = create :user, role: :cm
+        log_in_as @user3
         visit authenticated_root_path
       end
 
       it 'should not display an admin link' do
-        refute has_link? 'Admin'
+        refute has_link? 'Admin tools'
       end
     end
-  end
-
-  describe 'data volunteer dropdown' do
-    before { @user.update role: :data_volunteer }
   end
 end
