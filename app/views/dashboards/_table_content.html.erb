@@ -29,7 +29,11 @@
           <td class="pt-spacer"><%= link_to patient.name, edit_patient_path(patient) %></td>
           <td class="pt-spacer"><%= patient.last_menstrual_period_display_short %></td>
           <td><%= patient.status %></td>
-          <td><%= patient.appointment_date %></td>
+          <% if patient.appointment_date.nil? %>
+            <td><%= patient.appointment_date %></td>
+          <% else %>
+            <td><%= patient.appointment_date.strftime("%m-%d-%Y") %></td>
+          <% end %>
           <td><%= patient.most_recent_note_display_text %></td>
           <td><%= plus_sign_glyphicon(patient.most_recent_note) %></td>
           <% if table_type == 'completed_calls' || table_type == 'urgent_patients' %>
