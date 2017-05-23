@@ -1,0 +1,33 @@
+<div id="user-list" class="margin-bottom">
+  <table class="table border-side">
+    <thead>
+      <tr>
+        <% if local_assigns[:sortable] %>
+          <th><!-- handle --></th>
+        <% end %>
+        <th><input type="checkbox" id="select-all-users"></th>
+        <th>FULL NAME</th>
+        <th>ROLE</th>
+        <th>LAST LOGIN</th>
+        <%= th_autosortable 'DATE CREATED', 'string', local_assigns %>
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.each do |user| %>
+        <tr>
+          <td><input type="checkbox" id="select-<%= user.id %>"></td>
+          <td><%= link_to user.name, edit_user_path(user) %></td>
+          <td><%= user.role %>
+          <td><%= user.last_sign_in_at %>
+          <td><%= user.created_at %>
+          <% if !user.locked_at.nil? %>
+            <td>Locked</td>
+          <% else %>
+            <td>Active</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -20,7 +20,34 @@ module Searchable
       sort_and_limit_patient_matches(all_matching_names, all_matching_phones, all_matching_identifiers)
     end
 
+    def search_users(name_str)
+      name_regexp = /#{Regexp.escape(name_str)}/i
+      all_matching_names = find_name_matches_user name_regexp
+
+      sort_and_limit_user_matches(all_matching_names)
+
+    end
+
     private
+
+    def find_name_matches_user(name_regexp)
+      if nonempty_regexp? name_regexp
+        primary_names = User.where name: name_regexp
+        other_names = User.where other_contact: name_regexp
+        return (primary_names | other_names)
+      end
+      []
+    end
+
+    def sort_and_limit_user_matches(*matches)
+      all_matches = matches.reduce do |results, matches_of_type|
+        results | matches_of_type
+      end
+
+      all_matches.sort { |a, b|
+        b.updated_at <=> a.updated_at
+      }.first(SEARCH_LIMIT)
+    end
 
     def sort_and_limit_patient_matches(*matches)
       all_matches = matches.reduce do |results, matches_of_type|

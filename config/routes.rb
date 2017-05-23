@@ -4,7 +4,10 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
-    resources :users, only: [:new, :create, :index]
+
+    post 'users/search', to: 'users#search', defaults: { format: :js }
+
+    resources :users, only: [:new, :create, :index, :edit, :update]
 
     # Patient routes
     # /patients/:id/edit
@@ -24,6 +27,8 @@ Rails.application.routes.draw do
                 only: [ :create, :update, :destroy ]
     end
     get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
+    get 'users/lock_users/', to: 'users#lock_users', as: 'lock_users'
+
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
     resources :accountants, only: [:index]

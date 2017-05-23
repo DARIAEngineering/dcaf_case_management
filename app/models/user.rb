@@ -4,6 +4,10 @@ class User
   include Mongoid::Document
   include Mongoid::Enum
   include Mongoid::Userstamp::User
+  include Mongoid::History::Tracker
+
+  include Searchable
+
 
   after_create :send_account_created_email, if: :persisted?
 
@@ -15,7 +19,7 @@ class User
           :validatable,
           :lockable,
           :timeoutable,
-          :omniauthable, 
+          :omniauthable,
           :omniauth_providers => [:google_oauth2]
   # :rememberable
   # :confirmable

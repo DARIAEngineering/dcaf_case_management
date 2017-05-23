@@ -1,0 +1,4 @@
+  <%= bootstrap_form_tag url: '/users/search', remote: true, layout: :inline do |p| %>
+    <%= p.text_field :search, placeholder: 'Name (Susan Smith)', hide_label: true, class: 'search_form_input' %>
+    <%= p.submit 'Search', class: 'btn btn-primary' %>
+  <% end %>

@@ -1,0 +1,48 @@
+
+
+<div class="row">
+  <h1> <%= @user.name %></h1>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <h3> Status:
+    <% if !@user.locked_at.nil? %>
+      Locked</h3>
+    <% else %>
+      Active
+    <% end %>
+    </h3>
+    <h3> Last login: <%= @user.last_sign_in_at %> </h3>
+  </div>
+</row>
+<div class="row">
+  <div class="col-sm-12">
+    <button type="button" class="btn btn-primary">Reset Password (WIP)</button>
+    <% if !@user.locked_at.nil? %>
+      <button type="button" class="btn btn-primary">Unlock Account (WIP)</button>
+    <% else %>
+      <button type="button" class="btn btn-primary">Lock Account (WIP)</button>
+    <% end %>
+  </div>
+</row>
+<div class="row">
+  <div class="col-sm-12">
+    <h3> Clinic details </h3>
+    <%= bootstrap_form_for @user, html: { id: 'user-form' } do |f| %>
+
+      <div class="col-sm-6">
+        <%= f.text_field :name, label: 'Name', autocomplete: 'off' %>
+
+        <%= f.text_field :email, label: 'Email', autocomplete: 'off' %>
+
+        <%= f.select :role,
+                   options_for_select(user_role_options,
+                                      @user.role),
+                                      label: 'Role' %>
+
+        <%= f.submit "Save", class: 'btn btn-primary' %>
+        <%= link_to "Cancel", users_path %>
+      </div>
+    <% end %>
+  </div>
+</div>

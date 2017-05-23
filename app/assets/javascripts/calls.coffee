@@ -5,7 +5,7 @@
 # http://stackoverflow.com/questions/1307705/jquery-ui-sortable-with-table-and-tr-width/1372954#1372954
 # http://benw.me/posts/sortable-bootstrap-tables/
 
-jQuery -> 
+jQuery ->
 
     $('#call_list td').each (index, element) ->
       $(element).css('width', $(element).width())
@@ -39,7 +39,7 @@ jQuery ->
     )
 
     # make the columns of all of the tables sortable
-    autosortable_tables = [ '#call_list table', '#completed_calls table', '#urgent_patients table' ]
+    autosortable_tables = [ '#call_list table', '#completed_calls table', '#urgent_patients table', '#user-list table']
     autosortable_tables.forEach ( table ) ->
         stupidtable = $( table ).stupidtable()
 
