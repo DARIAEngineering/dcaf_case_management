@@ -26,7 +26,7 @@ class TableContentTest < ActionDispatch::IntegrationTest
       within :css, '#call_list_content' do
         assert has_content? @patient.primary_phone_display
         assert has_content? @patient.name
-        assert has_content? 3.days.from_now.utc.strftime('%Y-%m-%d')
+        assert has_content? 3.days.from_now.utc.strftime('%m-%d-%Y')
         assert has_content? @patient.last_menstrual_period_display_short
         # TODO: has remove, phone clicky
       end

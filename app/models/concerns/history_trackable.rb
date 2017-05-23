@@ -9,4 +9,5 @@ module HistoryTrackable
   def recent_history_tracks
     history_tracks.select { |ht| ht.updated_at > 6.days.ago }
   end
+
 end

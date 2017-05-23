@@ -26,8 +26,6 @@ class Patient
 
   before_validation :clean_fields
   before_save :save_identifier
-  # before_save :format_date, :if => :appointment_date_changed?
-  # before_update :format_date
 
   after_create :initialize_fulfillment
 
@@ -141,7 +139,6 @@ class Patient
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
-
 
   private
 

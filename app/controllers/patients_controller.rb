@@ -2,8 +2,6 @@
 class PatientsController < ApplicationController
   before_action :confirm_user_has_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download]
-  # TODO need to format everywhere
-  before_action :format_date, only: [:update, :create, :data_entry_create]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
 
@@ -20,6 +18,7 @@ class PatientsController < ApplicationController
   end
 
   def create
+
     patient = Patient.new patient_params
 
     patient.created_by = current_user
@@ -65,14 +64,8 @@ class PatientsController < ApplicationController
 
   def update
     # date_of_check unpermitted, picking a check date.
-    # fails on check date
-    # TODO only fulfillment dates muck up
-    new_params_with_date = patient_params
-    new_params_with_date[:appointment_date] = Date.strptime(patient_params[:appointment_date], '%m-%d-%Y')
-    # new_params_with_date[:procedure_date] = Date.strptime(patient_params[:procedure_date], '%m-%d-%Y')
-
-    puts new_params_with_date[:appointment_date]
-    if @patient.update_attributes new_params_with_date
+    # TODO only check date muck up, run through colin and see whether check date should persist
+    if @patient.update_attributes format_dates(patient_params)
       head :ok
     else
       head :internal_server_error
@@ -83,8 +76,12 @@ class PatientsController < ApplicationController
     @patient = Patient.new
   end
 
+
+
   def data_entry_create
-    @patient = Patient.new patient_params
+
+    @patient = Patient.new format_dates(patient_params)
+
     @patient.created_by = current_user
 
     if @patient.save
@@ -99,21 +96,30 @@ class PatientsController < ApplicationController
 
   private
 
-  def format_date
-    # puts patient_params.inspect
-    puts patient_params[:check_date]
-    # new_params_with_date = patient_params
-    # puts 'check me'
-    # puts new_params_with_date
-    # newDate = Date.strptime(patient_params[:appointment_date], '%m-%d-%Y')
-    # puts 'after strptime'
-    # puts newDate
-    # new_params_with_date[:appointment_date] = newDate
-    # puts new_params_with_date[:appointment_date]
-  end
-
   def find_patient
     @patient = Patient.find params[:id]
+  end
+
+  def format_dates(params)
+    new_params = params
+    if !new_params[:appointment_date].blank?
+      new_params[:appointment_date] = Date.strptime(params[:appointment_date], '%m-%d-%Y')
+    end
+    if !(new_params[:fulfillment] && new_params[:fulfillment][:procedure_date]).nil?
+      new_params[:fulfillment][:procedure_date] = Date.strptime(params[:fulfillment][:procedure_date], '%m-%d-%Y')
+    end
+
+    if !new_params[:initial_call_date].blank?
+      begin
+        new_params[:initial_call_date] = Date.strptime(params[:initial_call_date], '%m-%d-%Y')
+      rescue
+        # for patient_controller_test where date parameters include timezones.
+        # culprit is in test/factories/patient.rb
+        new_params[:initial_call_date] = Date.strptime(params[:initial_call_date], '%Y-%m-%d %H:%M:%S %z')
+      end
+    end
+
+    return new_params
   end
 
   # Strong params divided up by partial

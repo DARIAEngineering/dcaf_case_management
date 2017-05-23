@@ -5,6 +5,8 @@ class AuditTrailTest < ActiveSupport::TestCase
     @user = create :user
     @patient = create :patient, name: 'Susie Everyteen',
                                 primary_phone: '111-222-3333',
+                                appointment_date: Time.now + 5.days,
+                                initial_call_date: Time.now - 3.days,
                                 created_by: @user
   end
 
@@ -22,7 +24,9 @@ class AuditTrailTest < ActiveSupport::TestCase
   describe 'methods' do
     before do
       @patient.update_attributes name: 'Yolo',
-                                 primary_phone: '123-456-9999'
+                                 primary_phone: '123-456-9999',
+                                 appointment_date: Time.now + 10.days,
+                                 initial_call_date: Time.now - 4.days
       @track = @patient.history_tracks.second
     end
 
@@ -31,24 +35,34 @@ class AuditTrailTest < ActiveSupport::TestCase
                    @track.date_of_change
     end
 
+
     it 'should conveniently render changed fields' do
       assert_equal @track.changed_fields,
-                   ['Name', 'Primary phone', 'Identifier']
+                   ["Name", "Primary phone", "Appointment date", "Initial call date", "Identifier"]
     end
 
     it 'should conveniently render what they were before' do
       assert_equal @track.changed_from,
-                   ['Susie Everyteen', '1112223333', 'D2-3333']
+                   ["Susie Everyteen",
+                     "1112223333",
+                     (Time.now + 5.days).strftime('%m-%d-%Y'),
+                     (Time.now - 3.days).strftime('%m-%d-%Y'),
+                     "D2-3333"]
     end
 
     it 'should conveniently render what they are now' do
       assert_equal @track.changed_to,
-                   %w(Yolo 1234569999 D6-9999)
+                  ["Yolo",
+                    "1234569999",
+                    (Time.now + 10.days).strftime('%m-%d-%Y'),
+                    (Time.now - 4.days).strftime('%m-%d-%Y'),
+                    "D6-9999"]
     end
 
     it 'should default to System if it cannot find a user' do
       assert_equal @track.changed_by_user, 'System'
     end
+
   end
 
   describe 'marked urgent' do

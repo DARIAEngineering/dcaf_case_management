@@ -19,18 +19,19 @@
               <%= pt.check_box :fulfilled, label: 'Pledge fulfilled', autocomplete: 'off' %>
             <% end %>
           <% end %>
-        </div>  
+        </div>
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.fulfillment do |pt| %>
             <%= pt.text_field :procedure_cost, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
-            <%= pt.select :gestation_at_procedure, 
+            <%= pt.select :gestation_at_procedure,
                           options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
                           label: 'Weeks along at procedure',
                           autocomplete: 'off' %>
             <%= pt.text_field :procedure_date,
+                                  value: patient.procedure_date_display,
                                   label: 'Procedure date',
-                                  autocomplete: 'off', format: '%Y-%m-%d',
-                                  placeholder: 'YYYY-MM-DD' %>
+                                  autocomplete: 'off', format: '%m-%d-%Y',
+                                  placeholder: 'MM-DD-YYYY' %>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">
@@ -38,7 +39,7 @@
             <%= pt.text_field :check_number, label: 'Check #', autocomplete: 'off'%>
             <%= pt.date_field :date_of_check, label: 'Date of check', autocomplete: 'off' %>
           <% end %>
-        </div>  
+        </div>
       </div>
     </div>
   <% end %>

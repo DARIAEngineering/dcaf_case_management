@@ -15,21 +15,51 @@ class AuditTrail
     relevant_fields = modified.map do |key, _value|
       key unless IRRELEVANT_FIELDS.include? key
     end
-
     relevant_fields.compact.map(&:humanize)
   end
 
   # TODO: properly render null values like in special circumstances
   # Something like this should work:
   # "HAHA I WIN" if (fields.all?{|f| f.blank? || (f.flatten.all? &:blank? if f.respond_to?('each'))})
+
+  def formatDates(hash)
+    for key in ['appointment_date', 'initial_call_date', 'pledge_generated_at']
+      if hash.has_key? key
+        hash[key] = Date.strptime(hash[key].to_s, "%Y-%m-%d %H:%M:%S %Z").strftime('%m-%d-%Y')
+      end
+    end
+    return hash
+  end
+
+  # TODO make columns more consistent in height
+  def formatEmptyArrays(hash)
+    hash.each do |key, value|
+      if value.kind_of?(Array)
+        hash[key].reject! { |item| item.blank? }
+        if value.empty?
+          hash[key] = 'not selected'
+        end
+      end
+    end
+    return hash
+  end
+
+  def parseClinics(hash)
+    if hash.key?('clinic_id')
+      @clinic = Clinic.where(:id => hash["clinic_id"]).first
+      hash["clinic_id"] = @clinic.name
+    end
+    return hash
+  end
+
   def changed_from
-    original.map do |key, value|
+    formatEmptyArrays(parseClinics(formatDates(original))).map do |key, value|
       value unless IRRELEVANT_FIELDS.include? key
     end
   end
 
   def changed_to
-    modified.map do |key, value|
+    formatEmptyArrays(parseClinics(formatDates(modified))).map do |key, value|
       value unless IRRELEVANT_FIELDS.include? key
     end
   end
