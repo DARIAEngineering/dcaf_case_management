@@ -15,7 +15,7 @@ class User
           :validatable,
           :lockable,
           :timeoutable,
-          :omniauthable, 
+          :omniauthable,
           :omniauth_providers => [:google_oauth2]
   # :rememberable
   # :confirmable
@@ -92,6 +92,8 @@ class User
   # AND they would otherwise be in the call list
   # (e.g. assigned to current line and in user.patients)
 
+
+
   def recently_called_patients(lines = LINES)
     patients.in(_line: lines)
             .select { |patient| recently_called_by_user? patient }
@@ -125,6 +127,7 @@ class User
 
   def ordered_patients(lines = LINES)
     return call_list_patients(lines) unless call_order
+    puts call_list_patients(lines)
     ordered_patients = call_list_patients(lines).sort_by do |patient|
       call_order.index(patient.id.to_s) || call_order.length
     end
