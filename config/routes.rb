@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
     post 'users/search', to: 'users#search', defaults: { format: :js }
+    get 'users/reset_password/:user_id', to: 'users#reset_password', as: 'reset_password'
+    get 'users/toggle_lock/:user_id', to: 'users#toggle_lock', as: 'toggle_lock'
 
     resources :users, only: [:new, :create, :index, :edit, :update]
 
@@ -27,7 +29,6 @@ Rails.application.routes.draw do
                 only: [ :create, :update, :destroy ]
     end
     get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
-    get 'users/lock_users/', to: 'users#lock_users', as: 'lock_users'
 
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary

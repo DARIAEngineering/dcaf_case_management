@@ -16,8 +16,6 @@ module UsersHelper
   end
 
   def autosort_arrow_span(local_assigns)
-    puts 'putting local_assigns'
-    puts local_assigns
     return '' unless local_assigns[:autosortable]
     content_tag(:span, '[-]', class: 'arrow')
   end

@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def edit
   end
 
+  # TODO test, also refactor search
   def search
     if params[:search].empty?
       @results = User.all
@@ -23,12 +24,36 @@ class UsersController < ApplicationController
     end
   end
 
-  # TODO needs devise
-  def lock_account
-
+  # TODO test
+  def toggle_lock
+    @user = User.find(params[:user_id])
+    if @user == current_user
+      redirect_to edit_user_path @user
+    else
+      if @user.access_locked?
+        flash[:notice] = 'Successfully unlocked ' + @user.email
+        @user.unlock_access!
+      else
+        flash[:notice] = 'Successfully locked ' + @user.email
+        @user.lock_access!
+      end
+      redirect_to edit_user_path @user
+    end
     # respond_to { |format| format.js }
   end
 
+  #TODO test
+  def reset_password
+    @user = User.find(params[:user_id])
+
+    # TODO doesn't work in dev
+    @user.send_reset_password_instructions
+
+    flash[:notice] = 'Successfully sent password reset instructions to ' + @user.email
+    redirect_to edit_user_path @user
+  end
+
+  # TODO test
   def update
     if @user.update_attributes user_params
       flash[:notice] = 'Successfully updated user details'
@@ -45,7 +70,7 @@ class UsersController < ApplicationController
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
     if @user.save
-      flash[:success] = 'User created!'
+      flash[:notice] = 'User created!'
       redirect_to session.delete(:return_to)
     else
       # if validation errors, render creation page with error msgs
@@ -81,6 +106,7 @@ class UsersController < ApplicationController
 
   private
 
+  # copied from DashboardsController
   def searched_for_name?(query)
     /[a-z]/i.match query
   end

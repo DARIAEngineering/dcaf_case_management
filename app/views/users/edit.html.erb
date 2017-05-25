@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-sm-12">
     <h3> Status:
-    <% if !@user.locked_at.nil? %>
+    <% if @user.access_locked? %>
       Locked</h3>
     <% else %>
       Active
@@ -17,11 +17,13 @@
 </row>
 <div class="row">
   <div class="col-sm-12">
-    <button type="button" class="btn btn-primary">Reset Password (WIP)</button>
-    <% if !@user.locked_at.nil? %>
-      <button type="button" class="btn btn-primary">Unlock Account (WIP)</button>
-    <% else %>
-      <button type="button" class="btn btn-primary">Lock Account (WIP)</button>
+    <%= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
+    <% if @user != current_user %>
+      <% if @user.access_locked? %>
+        <%= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+      <% end %>
     <% end %>
   </div>
 </row>
