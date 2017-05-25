@@ -37,16 +37,26 @@ These are detailed instructions in spinning up an instance in heroku. These assu
 - `SECRET_KEY_BASE`
 - `SITE_URL` ()
 
+(did not do these yet)
+* Set up new relic
+* set up an uptime monitor
+* Go into logentries and add anyone who needs to be added to the alerts. This should be just people who need to know about application errors, pretty much.
+
+#### You don't need to worry about
+* Setting `SECRET_KEY_BASE` (the buildpack does it for you)
+
+
+
 ## Optional steps
 
 * If within DCAF pipeline, go to the pipeline after Heroku app is created and add app to pipeline, so it can enjoy downstream
 
 * If not within DCAF pipeline, in Heroku, add some other app members if there aren't any. Make sure you aren't the only member of your fund with config access!
 
-## Checklist
+## Checklist after setup
 
 * Go to root url
-* Create yourself an admin account from the rails console. Confirm that this sends an email to the email you put down confirming that 
+* Create yourself an admin account from the rails console. Confirm that this sends an email to you
 * After you get that email, log in with google to confirm the oauth signin flow works. (This should use the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` creds.)
 * Confirm that the lines are properly set and show up right
 * Confirm that the top left badge name (`DARIA - full fund name`) is set properly
