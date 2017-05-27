@@ -5,9 +5,9 @@ Rails.application.routes.draw do
     get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
-    post 'users/search', to: 'users#search', defaults: { format: :js }
-    get 'users/reset_password/:user_id', to: 'users#reset_password', as: 'reset_password'
-    get 'users/toggle_lock/:user_id', to: 'users#toggle_lock', as: 'toggle_lock'
+    post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
+    get 'users/:user_id/reset_password', to: 'users#reset_password', as: 'reset_password'
+    get 'users/:user_id/toggle_lock', to: 'users#toggle_lock', as: 'toggle_lock'
 
     resources :users, only: [:new, :create, :index, :edit, :update]
 

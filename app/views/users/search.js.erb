@@ -1,5 +1,6 @@
 
 <% if @results.any? %>
   $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: @results }) %>");
+<% else %>
+  $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: nil }) %>");
 <% end %>
-console.log('no matches')

@@ -1,17 +1,9 @@
-
-
 <div class="row">
-  <h1> <%= @user.name %></h1>
+  <h1><%= @user.name %></h1>
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <h3> Status:
-    <% if @user.access_locked? %>
-      Locked</h3>
-    <% else %>
-      Active
-    <% end %>
-    </h3>
+    <h3> Status: <%= status(@user) %></h3>
     <h3> Last login: <%= @user.last_sign_in_at %> </h3>
   </div>
 </row>
@@ -29,7 +21,7 @@
 </row>
 <div class="row">
   <div class="col-sm-12">
-    <h3> Clinic details </h3>
+    <h3> User details </h3>
     <%= bootstrap_form_for @user, html: { id: 'user-form' } do |f| %>
 
       <div class="col-sm-6">

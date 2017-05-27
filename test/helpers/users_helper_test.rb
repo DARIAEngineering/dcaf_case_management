@@ -6,4 +6,17 @@ class UsersHelperTest < ActionView::TestCase
       assert user_role_options.is_a? Array
     end
   end
+
+  describe 'status helper' do
+    before do
+      @user = create :user, name: 'Locke'
+    end
+    it 'should return active' do
+      assert_equal status(@user), 'Active'
+    end
+    it 'should return locked' do
+      @user.lock_access!
+      assert_equal status(@user), 'Locked'
+    end
+  end
 end

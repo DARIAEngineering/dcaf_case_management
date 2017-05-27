@@ -1,5 +1,5 @@
 # Methods pertaining to patient search
-module Searchable
+module PatientSearchable
   extend ActiveSupport::Concern
 
   SEARCH_LIMIT = 15

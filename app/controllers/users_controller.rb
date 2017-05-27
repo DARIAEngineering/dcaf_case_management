@@ -13,18 +13,16 @@ class UsersController < ApplicationController
   def edit
   end
 
-  # TODO test, also refactor search
   def search
     if params[:search].empty?
       @results = User.all
-      respond_to { |format| format.js }
     else
-      @results = User.search_users params[:search]
-      respond_to { |format| format.js }
+      @results = User.search params[:search]
     end
+    respond_to { |format| format.js }
+
   end
 
-  # TODO test
   def toggle_lock
     @user = User.find(params[:user_id])
     if @user == current_user
@@ -39,10 +37,10 @@ class UsersController < ApplicationController
       end
       redirect_to edit_user_path @user
     end
+    # TODO multiple locks?
     # respond_to { |format| format.js }
   end
 
-  #TODO test
   def reset_password
     @user = User.find(params[:user_id])
 
@@ -53,16 +51,14 @@ class UsersController < ApplicationController
     redirect_to edit_user_path @user
   end
 
-  # TODO test
   def update
     if @user.update_attributes user_params
       flash[:notice] = 'Successfully updated user details'
     else
       flash[:alert] = 'Error saving user details'
     end
-    redirect_to users_path
+    redirect_to edit_user_path @user
   end
-
 
   def create
     raise RuntimeError('Permission Denied') unless current_user.admin?
@@ -73,7 +69,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'User created!'
       redirect_to session.delete(:return_to)
     else
-      # if validation errors, render creation page with error msgs
+      # TODO if validation errors, render creation page with error msgs
       render 'new'
     end
   end
@@ -105,11 +101,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  # copied from DashboardsController
-  def searched_for_name?(query)
-    /[a-z]/i.match query
-  end
 
   def find_user
     @user = User.find(params[:id])

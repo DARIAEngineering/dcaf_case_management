@@ -12,7 +12,7 @@ class Patient
   include Urgency
   include Callable
   include Notetakeable
-  include Searchable
+  include PatientSearchable
   include AttributeDisplayable
   include LastMenstrualPeriodMeasureable
   include Pledgeable

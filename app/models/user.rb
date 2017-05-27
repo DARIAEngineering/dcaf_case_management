@@ -7,8 +7,8 @@ class User
   include Mongoid::Userstamp::User
   include Mongoid::History::Trackable
 
-  # include Searchable
-  track_history   :track_create   =>  false    # track document creation, default is false
+  include UserSearchable
+  track_history   :track_create   =>  true    # track document creation, default is false
 
 
   after_create :send_account_created_email, if: :persisted?
@@ -65,7 +65,7 @@ class User
 
   ## Lockable
   field :failed_attempts, type: Integer, default: 0
-  field :unlock_token,    type: String 
+  field :unlock_token,    type: String
   field :locked_at,       type: Time
 
   # Validations
