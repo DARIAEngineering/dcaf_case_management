@@ -30,10 +30,10 @@ module LastMenstrualPeriodMeasureable
     return nil unless initial_call_date && last_menstrual_period_weeks
     weeks = 7 * (last_menstrual_period_weeks || 0)
     days = (last_menstrual_period_days || 0)
-    if (date - patient.initial_call_date) + weeks + days > 280
+    if (date - initial_call_date) + weeks + days > 280
       return 280
     else
-      (date - patient.initial_call_date) + weeks + days
+      (date - initial_call_date) + weeks + days
     end
   end
 
