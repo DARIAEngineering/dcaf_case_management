@@ -2,30 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.clinic-name {
-  display: inline-block;
-
-  & + .edit-clinic-details {
-    margin-left: 5px;
-  }
-}
-
-a[aria-expanded=true] .glyphicon-chevron-down {
+a[aria-expanded=true] .accordion-toggle-down {
    display: none;
 }
-a[aria-expanded=false] .glyphicon-chevron-up {
+a[aria-expanded=false] .accordion-toggle-up {
    display: none;
 }
-
-/*
-.table{
-  tbody{
-    tr{
-      td{
-        padding:0px;
-      }
-    }
-  }
-}
-
-*/

@@ -18,15 +18,15 @@
       <td><%= clinic.city %></td>
       <td><%= clinic.state %></td>
       <td><%= clinic.zip %></td>
-        <td>
-          <a role="button" data-toggle="collapse" data-parent="#accordion" href='#<%= clinic.id %>' aria-expanded="false" aria-controls='<%= clinic.id %>'>
-            <i class="short-full glyphicon glyphicon-chevron-down"></i>
-            <i class="short-full glyphicon glyphicon-chevron-up"></i>
-          </a>
-        </td>
+      <td>
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href='#<%= clinic.id %>' aria-expanded="false" aria-controls='<%= clinic.id %>'>
+          <i class="short-full glyphicon glyphicon-chevron-down accordion-toggle-down"></i>
+          <i class="short-full glyphicon glyphicon-chevron-up accordion-toggle-up"></i>
+        </a>
+      </td>
     </tr>
 
-    <tr id=<%= clinic.id %>  class="collapse collapsible-clinic-details" role="tabpanel" aria-labelledby="headingOne">
+    <tr id='<%= clinic.id %>' class="collapse collapsible-clinic-details" role="tabpanel">
       <td>
         <div class="accepts-naf clinic-detail-group">
           <label>Accepts NAF?</label>
