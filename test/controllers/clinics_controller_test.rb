@@ -13,7 +13,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should render json' do
-      get clinics_path, format: :json
+      get clinics_path, xhr: true
       assert_response :success
     end
   end

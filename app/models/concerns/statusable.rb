@@ -1,3 +1,4 @@
+
 # Methods pertaining to determining a patient's displayed status
 module Statusable
   extend ActiveSupport::Concern
@@ -8,12 +9,12 @@ module Statusable
     fundraising: 'Fundraising',
     pledge_sent: 'Pledge Sent',
     pledge_paid: 'Pledge Paid',
-    resolved: 'Resolved Without DCAF',
-    dropoff: 'Probable dropoff'
+    dropoff: 'Probable dropoff',
+    resolved: "Resolved Without #{FUND}"
   }.freeze
 
   def status
-    return STATUSES[:resolved] if resolved_without_dcaf?
+    return STATUSES[:resolved] if resolved_without_fund?
     return STATUSES[:pledge_sent] if pledge_sent?
     return STATUSES[:dropoff] if days_since_last_call > 120
     return STATUSES[:no_contact] unless contact_made?
@@ -32,8 +33,8 @@ module Statusable
 
   def days_since_last_call
     return 0 if calls.blank?
-    day = 86_400
-    days_since_last_call = (Time.zone.now - last_call.created_at).to_i / day
+    # day = 86_400
+    days_since_last_call = (Time.zone.now - last_call.created_at)
     days_since_last_call
   end
 end
