@@ -26,13 +26,14 @@
 
   <%= f.text_field :city, autocomplete: 'off' %>
   <%= f.text_field :state, autocomplete: 'off' %>
+  <%= f.text_field :county, label: 'County', autocomplete: 'off' %>
 
   <!-- Notes doesn't work because strong params :( -->
   <%#= f.fields_for @patient.notes.new do |notes| %>
     <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
   <%# end %>
   
-  <%= f.text_field :dcaf_soft_pledge %>
+  <%= f.text_field :fund_pledge, label: "#{FUND} soft pledge" %>
 
   <%= f.text_field :age, autocomplete: 'off' %>
   <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>

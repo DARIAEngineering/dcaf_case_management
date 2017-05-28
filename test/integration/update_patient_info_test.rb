@@ -109,7 +109,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select 'White/Caucasian', from: 'patient_race_ethnicity'
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
-      fill_in 'ZIP', with: '90210'
+      fill_in 'County', with: 'Wash'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
       check 'Spanish Only'
 
@@ -138,7 +138,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'White/Caucasian', find('#patient_race_ethnicity').value
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
-        assert has_field? 'ZIP', with: '90210'
+        assert has_field? 'County', with: 'Wash'
         assert_equal 'yes', find('#patient_voicemail_preference').value
         assert has_checked_field? 'Spanish Only'
 
@@ -184,7 +184,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       @clinic = create :clinic
       @patient = create :patient, appointment_date: 2.days.from_now,
                                   clinic: @clinic,
-                                  dcaf_soft_pledge: 100,
+                                  fund_pledge: 100,
                                   pledge_sent: true
       create :fulfillment, patient: @patient
       visit edit_patient_path @patient
