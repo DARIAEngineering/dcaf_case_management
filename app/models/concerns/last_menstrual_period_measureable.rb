@@ -30,10 +30,11 @@ module LastMenstrualPeriodMeasureable
     return nil unless initial_call_date && last_menstrual_period_weeks
     weeks = 7 * (last_menstrual_period_weeks || 0)
     days = (last_menstrual_period_days || 0)
-    if (date - initial_call_date) + weeks + days > 280
+    current_lmp_in_days = (date - initial_call_date) + weeks + days
+    if current_lmp_in_days > 280
       return 280
     else
-      (date - initial_call_date) + weeks + days
+      current_lmp_in_days
     end
   end
 
