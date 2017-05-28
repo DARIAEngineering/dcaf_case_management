@@ -1,4 +1,3 @@
-
 # Methods pertaining to determining a patient's displayed status
 module Statusable
   extend ActiveSupport::Concern
