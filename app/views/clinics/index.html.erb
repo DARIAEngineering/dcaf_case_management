@@ -1,56 +1,49 @@
 <h1>Clinics</h1>
 <p><%= link_to 'Add a new clinic', new_clinic_path %></p>
 
-
 <table class="table table-hover">
   <tr>
-    <th>CLINIC NAME</th>
-    <th>ADDRESS</th>
-    <th>CITY</th>
-    <th>STATE</th>
+    <th>Clinic name</th>
+    <th>Address</th>
+    <th>Cit</th>
+    <th>State</th>
     <th>ZIP</th>
     <th></th>
   </tr>
 
-    <% @clinics.each do |clinic| %>
-
-      
-      <tr>
-        <td><%= clinic.name %></td>
-        <td><%= clinic.street_address %></td>
-        <td><%= clinic.city %></td>
-        <td><%= clinic.state %></td>
-        <td><%= clinic.zip %></td>
-          <td>
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href= <%="#"+clinic.id %> aria-expanded="false" aria-controls=<%= clinic.id %>>
-              <i class="short-full glyphicon glyphicon-chevron-down"></i>
-              <i class="short-full glyphicon glyphicon-chevron-up"></i>
-            </a>
-          </td>
-      </tr>
-
-      <tr id=<%= clinic.id %>  class="collapse collapsible-clinic-details" role="tabpanel" aria-labelledby="headingOne">
+  <% @clinics.each do |clinic| %>
+    <tr>
+      <td><%= link_to clinic.name, edit_clinic_path(clinic) %></td>
+      <td><%= clinic.street_address %></td>
+      <td><%= clinic.city %></td>
+      <td><%= clinic.state %></td>
+      <td><%= clinic.zip %></td>
         <td>
-          <div class="accepts-naf clinic-detail-group">
-            <label>Accepts NAF?</label>
-            <p class="blush"><%= clinic.accepts_naf ? 'Yes' : 'No' %></p>
-          </div>
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href='#<%= clinic.id %>' aria-expanded="false" aria-controls='<%= clinic.id %>'>
+            <i class="short-full glyphicon glyphicon-chevron-down"></i>
+            <i class="short-full glyphicon glyphicon-chevron-up"></i>
+          </a>
         </td>
-        <td>
-          <div class="gestational-limit clinic-detail-group">
-            <label>Gestational Limit</label>
-            <p class="blush"><%= clinic.gestational_limit %></p>
-          </div>
-        </td>
+    </tr>
 
+    <tr id=<%= clinic.id %>  class="collapse collapsible-clinic-details" role="tabpanel" aria-labelledby="headingOne">
+      <td>
+        <div class="accepts-naf clinic-detail-group">
+          <label>Accepts NAF?</label>
+          <p class="blush"><%= clinic.accepts_naf ? 'Yes' : 'No' %></p>
+        </div>
+      </td>
+      <td>
+        <div class="gestational-limit clinic-detail-group">
+          <label>Gestational Limit</label>
+          <p class="blush"><%= clinic.gestational_limit %></p>
+        </div>
+      </td>
 
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      
-    <% end %>
-
-
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <% end %>
 </table>
