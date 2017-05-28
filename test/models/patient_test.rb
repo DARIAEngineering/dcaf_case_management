@@ -473,6 +473,12 @@ class PatientTest < ActiveSupport::TestCase
         assert_equal @patient.send(:_last_menstrual_period_on_date,
                                    Time.zone.today), 80
       end
+
+      it 'should cap at 280 days' do
+        @patient.last_menstrual_period_weeks = 52
+        assert_equal @patient.send(:_last_menstrual_period_on_date,
+                                   Time.zone.today), 280
+      end
     end
 
     describe '_display_as_weeks' do
