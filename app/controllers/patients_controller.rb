@@ -31,6 +31,13 @@ class PatientsController < ApplicationController
     redirect_to root_path
   end
 
+  def pledge
+    @patient = Patient.find params[:patient_id]
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # download a filled out pledge form based on patient record
   def download
     if params[:case_manager_name].blank?
@@ -101,8 +108,8 @@ class PatientsController < ApplicationController
   ].freeze
 
   ABORTION_INFORMATION_PARAMS = [
-    :clinic_id, :resolved_without_dcaf, :referred_to_clinic,
-    :procedure_cost, :patient_contribution, :naf_pledge, :dcaf_soft_pledge
+    :clinic_id, :resolved_without_fund, :referred_to_clinic,
+    :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge
   ].freeze
 
   FULFILLMENT_PARAMS = [

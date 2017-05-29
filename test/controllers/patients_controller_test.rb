@@ -61,7 +61,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       lines = response.body.split("\n").reject(&:blank?)
       assert_equal 2, lines.count
       assert_match @patient.id.to_s, lines[1]
-      assert_match @patient.identifier.to_s, lines[1]
     end
 
     it 'should not contain personally-identifying information' do
@@ -136,7 +135,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       @payload = {
         appointment_date: @date.strftime('%Y-%m-%d'),
         name: 'Susie Everyteen 2',
-        resolved_without_dcaf: true
+        resolved_without_fund: true
       }
 
       patch patient_path(@patient), params: { patient: @payload }
@@ -160,6 +159,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     it 'should redirect if record does not exist' do
       patch patient_path('notanactualid'), params: { patient: @payload }
       assert_redirected_to root_path
+    end
+  end
+
+  describe 'pledge method' do
+    it 'should respond success on completion' do
+      get submit_pledge_path(@patient), xhr: true
+      assert_response :success
     end
   end
 

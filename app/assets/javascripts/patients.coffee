@@ -12,7 +12,7 @@ calculateRemainder = ->
   total = valueToNumber $("#patient_procedure_cost").val()
   contributions = valueToNumber($("#patient_patient_contribution").val()) +
                   valueToNumber($("#patient_naf_pledge").val()) +
-                  valueToNumber($("#patient_dcaf_soft_pledge").val()) +
+                  valueToNumber($("#patient_fund_pledge").val()) +
                   valueToNumber($(".external_pledge_amount").toArray().reduce (acc, next) ->
                     acc + valueToNumber($(next).val())
                   , 0)
@@ -21,6 +21,33 @@ calculateRemainder = ->
 valueToNumber = (val) ->
   +val || 0
 
+markFulfilledWhenFieldsChecked = ->
+  pledge_fields = [
+    '#patient_fulfillment_procedure_cost'
+    '#patient_fulfillment_check_number'
+    '#patient_fulfillment_gestation_at_procedure'
+    '#patient_fulfillment_date_of_check'
+    '#patient_fulfillment_procedure_date'
+  ]
+
+  i = 0
+  empty = true
+  el = $('#patient_fulfillment_fulfilled')
+
+  while i < pledge_fields.length
+    if $(pledge_fields[i]).val().length > 0
+      empty = false
+      if el.prop 'checked'
+        break;
+      else
+        el.prop 'checked', true
+      i++
+    else
+      i++
+  if empty == true
+        el.prop 'checked', false
+
+
 ready = ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
@@ -28,6 +55,10 @@ ready = ->
     $("#toggle-call-log").html(html)
 
   $(document).on "change", ".edit_patient", ->
+    $(this).submit()
+
+  $(document).on "change", "#fulfillment", ->
+    markFulfilledWhenFieldsChecked()
     $(this).submit()
 
   $(document).on "change", ".edit_external_pledge", ->
@@ -47,6 +78,8 @@ ready = ->
   $(document).on "click", "#create-external-pledge", ->
     # timeout to handle mongo updating and rails appending new field
     setTimeout(updateBalance, 500)
+
+
 
   if $("#patient_procedure_cost").val()
     updateBalance()

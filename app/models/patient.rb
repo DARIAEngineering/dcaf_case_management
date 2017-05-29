@@ -50,7 +50,7 @@ class Patient
 
   # Contact-related info
   enum :voicemail_preference, [:not_specified, :no, :yes]
-  enum :line, [:DC, :MD, :VA] # See config/initializers/lines.rb. TODO: Env var.
+  enum :line, LINES # See config/initializers/env_vars.rb
   field :spanish, type: Boolean
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean
@@ -77,9 +77,9 @@ class Patient
   field :procedure_cost, type: Integer
   field :patient_contribution, type: Integer
   field :naf_pledge, type: Integer
-  field :dcaf_soft_pledge, type: Integer
+  field :fund_pledge, type: Integer
   field :pledge_sent, type: Boolean
-  field :resolved_without_dcaf, type: Boolean
+  field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
 
   # Indices
@@ -127,9 +127,9 @@ class Patient
     sent_total = 0
     Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
       if patient.pledge_sent
-        sent_total += (patient.dcaf_soft_pledge || 0)
+        sent_total += (patient.fund_pledge || 0)
       else
-        outstanding_pledges += (patient.dcaf_soft_pledge || 0)
+        outstanding_pledges += (patient.fund_pledge || 0)
       end
     end
     { pledged: outstanding_pledges, sent: sent_total }
