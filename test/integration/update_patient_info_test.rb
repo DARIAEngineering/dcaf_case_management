@@ -160,6 +160,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     describe 'changing ADMIN patient information' do
       before do
         @user.update role: :admin
+        @user.reload
+        wait_for_element 'Patient Information'
         click_link 'Patient Information'
         visit edit_patient_path @patient
         select 'MD', from: 'patient_line'
