@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "no-reply@#{ENV['FUND_DOMAIN']}.org"
+  default from: "no-reply@#{FUND_DOMAIN}.org"
   layout 'mailer'
 end
