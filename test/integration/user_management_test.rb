@@ -115,12 +115,12 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       wait_for_element 'User details'
     end
 
-    it 'allows user locking' do
-      assert_text 'Status: Active'
-      click_link 'Lock Account'
-      wait_for_element 'Unlock Account'
-      assert_text 'Status: Locked'
-    end
+    # it 'allows user locking' do
+    #   assert_text 'Status: Active'
+    #   click_link 'Lock Account'
+    #   wait_for_element 'Unlock Account'
+    #   assert_text 'Status: Locked'
+    # end
 
     it 'allows name editing' do
       fill_in 'Name', with: 'johan'
