@@ -43,7 +43,7 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
 
       it 'should send an email notifying' do
         email_content = ActionMailer::Base.deliveries.last.to_s
-        assert_match /Your password has changed/, email_content
+        assert_match /Your DARIA password has changed/, email_content
         assert_match @user.email, email_content
       end
     end
