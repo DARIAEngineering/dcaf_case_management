@@ -1,7 +1,7 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
-  before_action :confirm_admin_user, only: [:new, :index]
+  before_action :confirm_admin_user, only: [:new, :index, :update]
   before_action :find_user, only: [:update, :edit, :destroy]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
@@ -61,6 +61,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    # should confirm admin user and remove runtime error?
     raise RuntimeError('Permission Denied') unless current_user.admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64

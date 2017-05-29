@@ -20,14 +20,6 @@ module PatientSearchable
       sort_and_limit_patient_matches(all_matching_names, all_matching_phones, all_matching_identifiers)
     end
 
-    def search_users(name_str)
-      name_regexp = /#{Regexp.escape(name_str)}/i
-      all_matching_names = find_name_matches_user name_regexp
-
-      sort_and_limit_user_matches(all_matching_names)
-
-    end
-
     private
 
     def find_name_matches_user(name_regexp)

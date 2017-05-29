@@ -13,8 +13,6 @@
       </tr>
     </thead>
     <tbody>
-      <% if users.nil? %>
-      <% else %>
         <% users.each do |user| %>
           <tr>
             <td><input type="checkbox" id="select-<%= user.id %>"></td>
@@ -24,7 +22,6 @@
             <td><%= user.created_at %>
             <td><%= status(user) %>
           </tr>
-        <% end %>
       <% end %>
     </tbody>
   </table>
