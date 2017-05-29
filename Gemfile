@@ -77,4 +77,5 @@ end
 group :production do
   gem 'puma'
   gem 'letsencrypt-rails-heroku'
+  gem 'skylight'
 end
