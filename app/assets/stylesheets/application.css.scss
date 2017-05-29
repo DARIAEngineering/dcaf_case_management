@@ -9,7 +9,7 @@
 @import "bootstrap";
 @charset "utf-8";
 
-$dcaf-color: #5D3E8D;
+$daria-color: #5D3E8D;
 $grey-color: #828282;
 $font-size: 17px;
 
@@ -18,9 +18,9 @@ $font-size: 17px;
   background-color: #f5f5f5;
   border: none;
   .navbar-header > a, .navbar-nav > li > a, .navbar-link{
-    color: $dcaf-color;
+    color: $daria-color;
     &:hover{
-      color: lighten($dcaf-color, 20%);
+      color: lighten($daria-color, 20%);
       text-decoration: underline;
     }
     &:visited{
