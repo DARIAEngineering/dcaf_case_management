@@ -9,6 +9,19 @@ class ExternalPledgesHelperTest < ActionView::TestCase
       assert @options.class == Array
     end
 
+    it 'should include the whole list of options' do
+      expected_external_pledges_array = [ "Baltimore Abortion Fund", 
+        "Richmond Reproductive Freedom Project (RRFP)",
+        "Blue Ridge Abortion Assistance Fund (BRAAF)",
+        "Tiller Fund (NNAF)",
+        "Carolina Abortion Fund", 
+        "Women's Medical Fund (Philadelphia)",
+        "NYAAF (New York)", 
+        "Clinic discount", 
+        "Other funds (see notes)" ]
+      assert_same_elements @options, expected_external_pledges_array
+    end
+
     it 'should remove preselected options' do
       @patient = create :patient
       create :external_pledge, source: 'Baltimore Abortion Fund',
