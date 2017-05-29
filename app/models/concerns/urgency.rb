@@ -29,10 +29,6 @@ module Urgency
         { :"calls.created_by_id" => current_user.id } ]).order_by(created_at: :asc)
     end
 
-    def recently_called_by_user?(patient)
-      patient.calls.any? { |call| call.created_by_id == id && call.recent? }
-    end
-
     def trim_urgent_patients
       Patient.all do |patient|
         unless patient.still_urgent?
