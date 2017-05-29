@@ -12,9 +12,11 @@
     <%= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
     <% if @user != current_user %>
       <% if @user.access_locked? %>
-        <%= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
+        <!-- <%= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %> -->
       <% else %>
-        <%= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
+        <!-- <%= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %> -->
       <% end %>
     <% end %>
   </div>

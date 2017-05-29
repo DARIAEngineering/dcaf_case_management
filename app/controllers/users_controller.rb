@@ -24,21 +24,21 @@ class UsersController < ApplicationController
   end
 
   def toggle_lock
-    @user = User.find(params[:user_id])
-    if @user == current_user
-      redirect_to edit_user_path @user
-    else
-      if @user.access_locked?
-        flash[:notice] = 'Successfully unlocked ' + @user.email
-        @user.unlock_access!
-      else
-        flash[:notice] = 'Successfully locked ' + @user.email
-        @user.lock_access!
-      end
-      redirect_to edit_user_path @user
-    end
-    # TODO multiple locks?
-    # respond_to { |format| format.js }
+    # @user = User.find(params[:user_id])
+    # if @user == current_user
+    #   redirect_to edit_user_path @user
+    # else
+    #   if @user.access_locked?
+    #     flash[:notice] = 'Successfully unlocked ' + @user.email
+    #     @user.unlock_access!
+    #   else
+    #     flash[:notice] = 'Successfully locked ' + @user.email
+    #     @user.lock_access!
+    #   end
+    #   redirect_to edit_user_path @user
+    # end
+    # # TODO multiple locks?
+    # # respond_to { |format| format.js }
   end
 
   def reset_password

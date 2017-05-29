@@ -3,6 +3,7 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
+    @user_2 = create :user
     sign_in @user
     @patient_1 = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Yolo Goat'
@@ -43,33 +44,33 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'toggle_lock method' do
-    before do
-      @user_2 = create :user, name: 'John Smith', email: 'john@smith.com'
-    end
-
-    it 'should respond successfully' do
-      assert_response :redirect
-    end
-
-    it 'should prevent current users from locking themselves' do
-      get toggle_lock_path(@user)
-      @user.reload
-      assert_equal @user.access_locked?, false
-    end
-
-    it 'should toggle locked status from false to true' do
-      assert_equal @user_2.access_locked?, false
-      get toggle_lock_path(@user_2)
-      @user_2.reload
-      assert_equal @user_2.access_locked?, true
-    end
-
-    it 'should flash success' do
-      get toggle_lock_path(@user_2)
-      assert_equal "Successfully locked " + @user_2.email, flash[:notice]
-    end
-  end
+  # describe 'toggle_lock method' do
+  #   before do
+  #     @user_2 = create :user, name: 'John Smith', email: 'john@smith.com'
+  #   end
+  #
+  #   it 'should respond successfully' do
+  #     assert_response :redirect
+  #   end
+  #
+  #   it 'should prevent current users from locking themselves' do
+  #     get toggle_lock_path(@user)
+  #     @user.reload
+  #     assert_equal @user.access_locked?, false
+  #   end
+  #
+  #   it 'should toggle locked status from false to true' do
+  #     assert_equal @user_2.access_locked?, false
+  #     get toggle_lock_path(@user_2)
+  #     @user_2.reload
+  #     assert_equal @user_2.access_locked?, true
+  #   end
+  #
+  #   it 'should flash success' do
+  #     get toggle_lock_path(@user_2)
+  #     assert_equal "Successfully locked " + @user_2.email, flash[:notice]
+  #   end
+  # end
 
   describe 'reset_password method' do
     before do
@@ -86,7 +87,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   end
 
-  # should users be able to update their roles?
   describe 'update method' do
     before do
       @params = {
@@ -98,20 +98,30 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       @user.reload
     end
 
-    it 'should respond success in completion' do
+    it 'should respond redirect in completion' do
       assert_response :redirect
     end
 
-    it 'should update parameters' do
-      assert_equal @user.name, 'jimmy'
-      assert_equal @user.email, 'jimmy@hotmail.com'
+    it 'should NOT update parameters' do
+      assert_equal @user.name, 'Billy Everyteen'
     end
 
-    it 'should flash success' do
-      assert_equal 'Successfully updated user details', flash[:notice]
+    it 'should NOT flash success' do
+      assert_equal nil, flash[:notice]
     end
+
+    # TODO should i write a separate test ?
+    # it 'should update if ADMIN' do
+    #   @user.update role: :admin
+    #   @user.reload
+    #   patch user_path(@user_2), params: { user: @params }
+    #
+    #   assert_equal @user_2.name, 'jimmy'
+    #   assert_equal @user_2.email, 'jimmy@hotmail.com'
+    # end
 
   end
+
 
   describe 'add_patient method' do
     before do
