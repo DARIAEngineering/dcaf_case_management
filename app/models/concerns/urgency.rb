@@ -17,21 +17,18 @@ module Urgency
       Patient.in(_line: lines).where(urgent_flag: true)
     end
 
-    def call_list(lines = LINES, current_user)
-      # puts Patient.in(_line: lines)
-
-      # Patient.in(_line: lines).reject { |patient| recently_called_by_user? patient }
-      # Patient.in(_line: lines)
-      # Patient.in(_line: lines).where("calls.updated_at" => (8.hours.ago..Time.now), "calls.created_by_id" == )
-      Patient.in(_line: lines).where(:"calls.updated_at".ne => (8.hours.ago..Time.now)).and(:"calls.created_by_id".ne => current_user.id).order_by(created_at: :desc)
-
-
-
+    def call_list(line, current_user)
+      Patient.in(_line: line, user_ids: BSON::ObjectId(current_user.id)).where( :$and =>
+      [ { :"calls.updated_at".ne => (8.hours.ago..Time.now) },
+        { :"calls.created_by_id".ne => current_user.id } ]).order_by(created_at: :desc)
     end
-    # def call_list_patients(lines = LINES)
-    #   patients.in(_line: lines)
-    #           .reject { |patient| recently_called_by_user? patient }
-    # end
+
+    def completed_calls(line, current_user)
+      Patient.in(_line: line, user_ids: BSON::ObjectId(current_user.id)).where( :$and =>
+      [ { :"calls.updated_at"  => (8.hours.ago..Time.now) },
+        { :"calls.created_by_id" => current_user.id } ]).order_by(created_at: :asc)
+    end
+
     def recently_called_by_user?(patient)
       patient.calls.any? { |call| call.created_by_id == id && call.recent? }
     end

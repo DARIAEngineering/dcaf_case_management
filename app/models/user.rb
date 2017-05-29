@@ -127,7 +127,6 @@ class User
 
   def ordered_patients(lines = LINES)
     return call_list_patients(lines) unless call_order
-    puts call_list_patients(lines)
     ordered_patients = call_list_patients(lines).sort_by do |patient|
       call_order.index(patient.id.to_s) || call_order.length
     end
