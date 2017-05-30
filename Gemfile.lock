@@ -410,8 +410,9 @@ GEM
     tilt (2.0.6)
     timecop (0.8.1)
     ttfunk (1.5.0)
-    turbolinks (2.5.3)
-      coffee-rails
+    turbolinks (5.0.1)
+      turbolinks-source (~> 5)
+    turbolinks-source (5.0.1)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.1)
@@ -500,7 +501,7 @@ DEPENDENCIES
   simplecov
   spring
   timecop
-  turbolinks (= 2.5.3)
+  turbolinks (~> 5.0.0)
   tzinfo-data
   uglifier (>= 3.2.0)
   web-console (~> 2.0)
