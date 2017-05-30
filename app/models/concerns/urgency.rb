@@ -21,13 +21,14 @@ module Urgency
       Patient.in(_line: line, user_ids: BSON::ObjectId(current_user.id)).where( :$and =>
       [ { :"calls.updated_at".ne => (8.hours.ago..Time.now) },
         { :"calls.created_by_id".ne => current_user.id } ]).order_by(created_at: :desc)
+
     end
 
-    def completed_calls(line, current_user)
-      Patient.in(_line: line, user_ids: BSON::ObjectId(current_user.id)).where( :$and =>
-      [ { :"calls.updated_at"  => (8.hours.ago..Time.now) },
-        { :"calls.created_by_id" => current_user.id } ]).order_by(created_at: :asc)
-    end
+    # def completed_calls(line, current_user)
+    #   Patient.in(_line: line, user_ids: BSON::ObjectId(current_user.id)).where( :$and =>
+    #   [ { :"calls.updated_at"  => (8.hours.ago..Time.now) },
+    #     { :"calls.created_by_id" => current_user.id } ]).order_by(created_at: :asc)
+    # end
 
     def trim_urgent_patients
       Patient.all do |patient|

@@ -5,7 +5,7 @@ class DashboardsController < ApplicationController
   before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
-    @completed_calls = Patient.completed_calls(current_line, current_user)
+    # @completed_calls = Patient.completed_calls(current_line, current_user)
     @call_list = Patient.call_list(current_line, current_user)
     @urgent_patients = Patient.urgent_patients(current_line)
     @expenditures = [] # Patient.pledged_status_summary # Commenting out until budget bar is ready
