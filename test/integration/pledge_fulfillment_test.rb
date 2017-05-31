@@ -57,6 +57,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       assert has_text? 'Procedure date'
       assert has_text? 'Check #'
     end
+
   end
 
   describe 'visiting the edit patient view as a data volunteer' do
@@ -80,5 +81,40 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       assert has_text? 'Procedure date'
       assert has_text? 'Check #'
     end
+  end
+
+  describe 'pledge fulfilled autochecking on change' do
+    before do
+      log_in_as @admin
+      visit edit_patient_path @patient
+      @patient.update pledge_sent: true
+      visit edit_patient_path @patient
+      wait_for_element 'Patient information'
+      assert has_link? 'Pledge Fulfillment'
+      click_link 'Pledge Fulfillment'
+    end
+
+    it 'should autocheck on field change' do
+      fill_in 'patient_fulfillment_procedure_cost', with: '10'
+      assert has_checked_field? 'Pledge fulfilled'
+    end
+
+    it 'should uncheck when all fields are empty' do
+      fill_in 'patient_fulfillment_procedure_cost', with: '10'
+      fill_in 'patient_fulfillment_check_number', with: '10340'
+      fill_in 'patient_fulfillment_procedure_date', with: '2017/05/25'
+      select '1 week', from: "patient_fulfillment_gestation_at_procedure"
+      assert has_checked_field? 'Pledge fulfilled'
+
+      fill_in 'patient_fulfillment_procedure_cost', with: ''
+      fill_in 'patient_fulfillment_check_number', with: ''
+      assert has_checked_field? 'Pledge fulfilled'
+
+      fill_in 'patient_fulfillment_procedure_date', with: ''
+      select '', from: "patient_fulfillment_gestation_at_procedure"
+      assert has_no_checked_field? 'Pledge fulfilled'
+
+    end
+
   end
 end

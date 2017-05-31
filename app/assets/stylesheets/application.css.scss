@@ -9,7 +9,7 @@
 @import "bootstrap";
 @charset "utf-8";
 
-$dcaf-color: #5D3E8D;
+$daria-color: #5D3E8D;
 $grey-color: #828282;
 $font-size: 17px;
 
@@ -18,9 +18,9 @@ $font-size: 17px;
   background-color: #f5f5f5;
   border: none;
   .navbar-header > a, .navbar-nav > li > a, .navbar-link{
-    color: $dcaf-color;
+    color: $daria-color;
     &:hover{
-      color: lighten($dcaf-color, 20%);
+      color: lighten($daria-color, 20%);
       text-decoration: underline;
     }
     &:visited{
@@ -29,7 +29,7 @@ $font-size: 17px;
   }
 
   .navbar-text{
-    color: $dcaf-color;
+    color: $daria-color;
     padding:15px;
     margin:0px;
     line-height:20px;
@@ -57,7 +57,7 @@ $font-size: 17px;
 
 .btn-primary {
   @extend .btn-primary;
-  background-color: $dcaf-color;
+  background-color: $daria-color;
   border: none;
   margin-bottom: 2px;
   font-size: $font-size;
@@ -65,7 +65,7 @@ $font-size: 17px;
 
 .btn-primary:hover {
   @extend .btn-primary:hover;
-  background-color: lighten($dcaf-color,15%);
+  background-color: lighten($daria-color,15%);
 }
 
 .border-bottom {
@@ -238,25 +238,25 @@ h5 {
 
 }
 
-$dcaf-color-lt : #825fb9;
+$daria-color-lt : #825fb9;
 
 // Modal partial styling
 .btn-success {
 
-  background-color: $dcaf-color;
-  border-color: $dcaf-color;
+  background-color: $daria-color;
+  border-color: $daria-color;
 
   &:hover {
-    background-color: $dcaf-color-lt;
-    border-color: $dcaf-color;
+    background-color: $daria-color-lt;
+    border-color: $daria-color;
   }
   &:active {
     background-color: #286090 !important;
   }
   &:focus {
-    background-color: $dcaf-color;
+    background-color: $daria-color;
     &:hover {
-    background-color: $dcaf-color-lt;
+    background-color: $daria-color-lt;
     }
   }
 
@@ -267,19 +267,19 @@ $dcaf-color-lt : #825fb9;
 
 .btn-warning {
   color: black;
-  border-color: $dcaf-color;
+  border-color: $daria-color;
   background-color: white;
   &:hover {
-    background-color: $dcaf-color-lt;
-    border-color: $dcaf-color;
+    background-color: $daria-color-lt;
+    border-color: $daria-color;
   }
   &:active {
     background-color: #286090 !important;
   }
   &:focus {
-    background-color: $dcaf-color;
+    background-color: $daria-color;
     &:hover {
-    background-color: $dcaf-color-lt;
+    background-color: $daria-color-lt;
     }
   }
   
@@ -288,17 +288,17 @@ $dcaf-color-lt : #825fb9;
 .btn-success[disabled] {
   color: white;
   background-color: gray;
-  border-color: $dcaf-color;
+  border-color: $daria-color;
   &:hover {
     background-color: gray;
-    border-color: $dcaf-color;
+    border-color: $daria-color;
   }
   &:focus {
     background-color: gray;
-    border-color: $dcaf-color;
+    border-color: $daria-color;
     &:hover {
       background-color: gray;
-      border-color: $dcaf-color;
+      border-color: $daria-color;
     }
   }
   
@@ -309,7 +309,7 @@ $dcaf-color-lt : #825fb9;
 }
 
 .label-success {
-  background-color: $dcaf-color;
+  background-color: $daria-color;
 }
 
 .btn[data-orientation='cancel'] {
