@@ -35,7 +35,7 @@ class Patient
   embeds_many :calls
   embeds_many :external_pledges
   embeds_many :notes
-  has_one :_id, class_name: 'User', inverse_of: :pledge_generated_by
+  has_one 'current_user', class_name: 'User', inverse_of: :pledge_generated_by
 
   # Enable mass posting in forms
   accepts_nested_attributes_for :fulfillment

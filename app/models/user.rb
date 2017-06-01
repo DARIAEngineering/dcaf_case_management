@@ -25,7 +25,7 @@ class User
 
   # Relationships
   has_and_belongs_to_many :patients, inverse_of: :users
-  belongs_to :pledge_generated_by, class_name: 'Patient', inverse_of: :_id
+  belongs_to :pledge_generated_by, class_name: 'Patient', inverse_of: 'current_user'
   
   # Fields
   # Non-devise generated
