@@ -528,7 +528,7 @@ class PatientTest < ActiveSupport::TestCase
         create :call, patient: @patient, status: 'Reached patient', created_at: 121.days.ago
         assert_equal Patient::STATUSES[:dropoff], @patient.status
 
-        create :call, patient: @patient, status: 'Left voicemail', created_at: 119.days.ago
+        create :call, patient: @patient, status: 'Left voicemail', created_at: 120.days.ago
         assert_equal Patient::STATUSES[:needs_appt], @patient.status
       end
 
