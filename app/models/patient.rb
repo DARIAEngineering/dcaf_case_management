@@ -3,7 +3,6 @@
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Enum
   include Mongoid::Userstamp
   include Mongoid::History::Trackable
 
@@ -19,6 +18,7 @@ class Patient
   include HistoryTrackable
   include Statusable
   include Exportable
+  extend Enumerize
 
   LINES.each do |line|
     scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
@@ -49,8 +49,12 @@ class Patient
   field :identifier, type: String
 
   # Contact-related info
-  enum :voicemail_preference, [:not_specified, :no, :yes]
-  enum :line, LINES # See config/initializers/env_vars.rb
+  field :voicemail_preference
+  enumerize :voicemail_preference, in: [:not_specified, :no, :yes]
+
+  field :line
+  enumerize :line, in: LINES # See config/initializers/env_vars.rb
+
   field :spanish, type: Boolean
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean

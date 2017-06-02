@@ -16,9 +16,10 @@ module DashboardsHelper
     enum_text = { not_specified: 'No instructions; no ID VM',
                   no: 'Do not leave a voicemail',
                   yes: 'Voicemail OK, ID OK' }
-    vm_options = Patient::VOICEMAIL_PREFERENCE
+    vm_options = Patient.voicemail_preference.values
+    vm_options.map! { |option| option.to_sym }
 
-    vm_options.map { |option| [enum_text[option], option] }
+    vm_options.map { |option| [enum_text[option], option.to_sym] }
   end
 
   def remove_from_call_list_glyphicon

@@ -2,8 +2,9 @@
 # Fields are all devise settings; most of the methods relate to call list mgmt.
 class User
   include Mongoid::Document
-  include Mongoid::Enum
   include Mongoid::Userstamp::User
+  extend Enumerize
+  extend ActiveModel::Naming
 
   after_create :send_account_created_email, if: :persisted?
 
@@ -15,7 +16,7 @@ class User
           :validatable,
           :lockable,
           :timeoutable,
-          :omniauthable, 
+          :omniauthable,
           :omniauth_providers => [:google_oauth2]
   # :rememberable
   # :confirmable
@@ -30,7 +31,8 @@ class User
   # Non-devise generated
   field :name, type: String
   field :line, type: String
-  enum :role, [:cm, :admin, :data_volunteer]
+  field :role
+  enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: { prefix: true }
   field :call_order, type: Array
 
   ## Database authenticatable
