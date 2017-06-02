@@ -10,6 +10,10 @@ module Callable
     calls.includes(:created_by).order('created_at DESC').offset(10)
   end
 
+  def last_call
+    calls.order(created_at: :desc).first
+  end
+
   class_methods do
     def contacted_since(datetime)
       patients_reached = []
