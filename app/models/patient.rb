@@ -53,7 +53,7 @@ class Patient
   enumerize :voicemail_preference, in: [:not_specified, :no, :yes]
 
   field :line
-  enumerize :line, in: LINES # See config/initializers/env_vars.rb
+  enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
 
   field :spanish, type: Boolean
   field :initial_call_date, type: Date

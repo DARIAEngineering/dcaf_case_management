@@ -10,10 +10,10 @@
 </ul>
 
 <ul class="nav navbar-nav navbar-right">
-  <% if !user_signed_in? || user_signed_in? == nil %>
+  <% if !user_signed_in? %>
     <li><%= link_to 'Sign in', new_user_session_path %></li>
   <% else %>
-    <% if current_user.admin? || current_user.role_data_volunteer? %>
+    <% if current_user.role_admin? || current_user.role_data_volunteer? %>
       <li class="dropdown">
         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin tools<b class="caret"></b></a>
         <ul class="dropdown-menu">
