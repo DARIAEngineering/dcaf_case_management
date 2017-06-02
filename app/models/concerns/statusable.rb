@@ -32,7 +32,7 @@ module Statusable
 
   def days_since_last_call
     return 0 if calls.blank?
-    days_since_last_call = (DateTime.now.to_date - last_call.created_at.to_date).to_i
+    days_since_last_call = (DateTime.now.in_time_zone.to_date - last_call.created_at.to_date).to_i
     days_since_last_call
   end
 end
