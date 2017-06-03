@@ -90,12 +90,13 @@ class ActionDispatch::IntegrationTest
   end
 
   def wait_for_ajax
-    counter = 0
-    while page.execute_script('return $.active').to_i > 0
-      counter += 1
-      sleep(0.1)
-      raise 'Ajax request took longer than 5 seconds, failing' if counter >= 50
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until _finished_all_ajax_requests?
     end
+  end
+
+  def _finished_all_ajax_requests?
+    page.evaluate_script('jQuery.active').zero?
   end
   
   def go_to_dashboard
