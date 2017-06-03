@@ -21,7 +21,7 @@ class Patient
   extend Enumerize
 
   LINES.each do |line|
-    scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
+    scope line.downcase.to_sym, -> { where(:line.in => [line]) }
   end
 
   before_validation :clean_fields
@@ -50,7 +50,7 @@ class Patient
 
   # Contact-related info
   field :voicemail_preference
-  enumerize :voicemail_preference, in: [:not_specified, :no, :yes]
+  enumerize :voicemail_preference, in: [:not_specified, :no, :yes], default: :not_specified
 
   field :line
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
@@ -92,7 +92,7 @@ class Patient
   index(name: 1)
   index(other_contact: 1)
   index(urgent_flag: 1)
-  index(_line: 1)
+  index(line: 1)
   index(identifier: 1)
 
   # Validations

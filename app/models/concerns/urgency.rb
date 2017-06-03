@@ -14,7 +14,7 @@ module Urgency
 
   class_methods do
     def urgent_patients(lines = LINES)
-      Patient.in(_line: lines).where(urgent_flag: true)
+      Patient.in(line: lines).where(urgent_flag: true)
     end
 
     def trim_urgent_patients

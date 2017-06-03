@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    raise RuntimeError('Permission Denied') unless current_user.admin?
+    raise RuntimeError('Permission Denied') unless current_user.role_admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :_role)
+    params.require(:user).permit(:name, :email, :role)
   end
 
   def retrieve_patients

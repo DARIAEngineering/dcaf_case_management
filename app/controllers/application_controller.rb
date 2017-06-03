@@ -36,10 +36,10 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_admin_user
-    redirect_to root_url unless current_user.admin?
+    redirect_to root_url unless current_user.role_admin?
   end
 
   def confirm_user_has_data_access
-    redirect_to root_url unless (current_user.admin? || current_user.data_volunteer?)
+    redirect_to root_url unless (current_user.role_admin? || current_user.role_data_volunteer?)
   end
 end
