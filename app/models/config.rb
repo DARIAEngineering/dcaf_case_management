@@ -6,13 +6,14 @@ class Config
 
   # Fields
   field :config_key, type: String
-  field :config_json, type: Hash
+  field :config_value, type: Hash
 
   # Indices
   index({ config_key: 1 }, unique: true)
 
   # Validations
-  validates_uniqueness_of :config_key
+  validates :config_key, uniqueness: true
+  validates :created_by_id, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
