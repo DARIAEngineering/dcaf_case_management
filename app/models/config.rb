@@ -6,7 +6,7 @@ class Config
   include Mongoid::History::Trackable
 
   # Fields
-  enum :config_key, [:insurance, :external_pledges]
+  enum :config_key, [:insurance, :external_pledge_source]
   field :config_value, type: Hash
 
   # Indices

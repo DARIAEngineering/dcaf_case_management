@@ -8,7 +8,7 @@
 
   <div class="col-md-6">
     <label>Current options are:</label>
-    <% insurance_options.each do |opt| %>
+    <% public_send("#{config.config_key}_options").each do |opt| %>
       <%= opt %><br />
     <% end %>
   </div>
