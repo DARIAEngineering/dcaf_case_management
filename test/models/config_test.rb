@@ -11,7 +11,9 @@ class ConfigTest < ActiveSupport::TestCase
     end
 
     it 'should be unique on config_key' do
-      assert true
+      @dupe_config = build :config
+      refute @dupe_config.save
+      assert @dupe_config.errors.messages[:config_key].include? 'is already taken'
     end
 
     it 'should require a user id' do
