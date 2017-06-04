@@ -1,6 +1,8 @@
 module ExternalPledgesHelper
   def external_pledge_source_options
-    Rails.configuration.external_pledges['funds']
+    Rails.configuration
+         .external_pledges['funds']
+         .reject { |fund| fund == FUND_FULL }
   end
 
   def available_pledge_source_options_for(patient)

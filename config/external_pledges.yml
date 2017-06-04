@@ -1,5 +1,6 @@
 default: &all
   funds:
+    - "DC Abortion Fund"
     - "Baltimore Abortion Fund"
     - "Richmond Reproductive Freedom Project (RRFP)"
     - "Blue Ridge Abortion Assistance Fund (BRAAF)"
@@ -9,7 +10,7 @@ default: &all
     - "NYAAF (New York)"
     - "Clinic discount"
     - "Other funds (see notes)"
-    
+
 development:
   <<: *all
 
