@@ -2,10 +2,11 @@ class Config
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Userstamp
+  include Mongoid::Enum
   include Mongoid::History::Trackable
 
   # Fields
-  field :config_key, type: String
+  enum :config_key, [:insurance, :external_pledges]
   field :config_value, type: Hash
 
   # Indices
