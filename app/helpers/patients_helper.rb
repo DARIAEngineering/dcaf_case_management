@@ -21,10 +21,6 @@ module PatientsHelper
   def insurance_options
     standard_options = ['No insurance', 'Don\'t know', 'Other (add to notes)']
     [nil] + Config.find_by(config_key: 'insurance').options + standard_options
-     # Config.find_by(config_key'DC Medicaid', 'MD MCHIP',
-     # 'MD Medical Assistance for Families (MA4F)', 'VA Medicaid/CHIP',
-     # 'Other state Medicaid', 'Private or employer-sponsored health insurance',
-     # 'No insurance', 'Don\'t know', 'Other (add to notes)']
   end
 
   def income_options
