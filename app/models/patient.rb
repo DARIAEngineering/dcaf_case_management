@@ -83,7 +83,6 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
  
-
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
