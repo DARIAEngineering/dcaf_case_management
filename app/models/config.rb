@@ -22,4 +22,9 @@ class Config
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+
+  # Methods
+  def options
+    config_value[:options]
+  end
 end

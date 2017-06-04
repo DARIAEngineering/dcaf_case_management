@@ -21,7 +21,7 @@ class ConfigsController < ApplicationController
     @config = Config.find params[:id]
     @config.config_value = format_config_params(config_params) # this is not going to work
     if @config.save
-      flash[:success] = 'Config updated successfully'
+      flash[:notice] = 'Config updated successfully'
       redirect_to configs_path
     else
       flash[:danger] = 'Config failed to update'
