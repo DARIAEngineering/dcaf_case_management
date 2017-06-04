@@ -48,7 +48,8 @@ markFulfilledWhenFieldsChecked = ->
         el.prop 'checked', false
 
 
-ready = ->
+
+$(document).on 'turbolinks:load', ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
     html = if $(".old-calls").hasClass("hidden") then "View all calls" else "Limit list"
@@ -93,5 +94,3 @@ ready = ->
       placement: 'top',
       title: $(@).data( 'tooltip-text' )
     } )
-
-$(document).on 'ready page:load', ready
