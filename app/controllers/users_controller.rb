@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   before_action :confirm_admin_user, only: [:new, :index, :update]
-  before_action :find_user, only: [:update, :edit, :destroy]
+  before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
@@ -37,31 +37,31 @@ class UsersController < ApplicationController
     #   end
     #   redirect_to edit_user_path @user
     # end
-    # # TODO multiple locks?
-    # # respond_to { |format| format.js }
   end
 
+  # TODO find_user tweaking.
   def reset_password
-    @user = User.find(params[:user_id])
+    # @user = User.find(params[:user_id])
 
     # TODO doesn't work in dev
     @user.send_reset_password_instructions
 
-    flash[:notice] = 'Successfully sent password reset instructions to ' + @user.email
+    flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
     redirect_to edit_user_path @user
   end
 
   def update
     if @user.update_attributes user_params
       flash[:notice] = 'Successfully updated user details'
+      redirect_to users_path
     else
       flash[:alert] = 'Error saving user details'
+      render 'edit'
     end
     redirect_to edit_user_path @user
   end
 
   def create
-    # should confirm admin user and remove runtime error?
     raise RuntimeError('Permission Denied') unless current_user.admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64

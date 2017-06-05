@@ -7,6 +7,7 @@ class UsersHelperTest < ActionView::TestCase
     end
   end
 
+  # TODO status helper
   # describe 'status helper' do
   #   before do
   #     @user = create :user, name: 'Locke'

@@ -29,6 +29,11 @@ class UserManagementTest < ActionDispatch::IntegrationTest
     it 'should not be able to access Admin links' do
       assert has_no_link? 'Admin'
     end
+
+    it 'should redirect to main dashboard' do
+      visit users_path
+      assert_text 'Build your call list'
+    end
   end
 
   describe 'data volunteer' do
@@ -115,6 +120,7 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       wait_for_element 'User details'
     end
 
+    # TODO lock test
     # it 'allows user locking' do
     #   assert_text 'Status: Active'
     #   click_link 'Lock Account'
