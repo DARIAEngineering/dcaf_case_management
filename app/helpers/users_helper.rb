@@ -7,7 +7,7 @@ module UsersHelper
     ]
   end
 
-  def status user
+  def user_lock_status user
     if user.access_locked?
       'Locked'
     else

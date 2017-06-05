@@ -27,6 +27,7 @@ class UserManagementTest < ActionDispatch::IntegrationTest
     end
 
     it 'should not be able to access Admin links' do
+      visit users_path
       assert has_no_link? 'Admin'
     end
 
@@ -55,9 +56,11 @@ class UserManagementTest < ActionDispatch::IntegrationTest
 
     it 'should be able to access user management' do
       click_link 'Admin'
+      assert has_content? 'User Management'
       assert_text 'User Management'
       click_link 'User Management'
       wait_for_element 'User Account Management'
+      assert has_content? 'User Account Management'
       click_link 'Add New User'
     end
   end
@@ -135,6 +138,7 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       assert_text 'johan'
     end
 
+    #TODO finish test
     it 'allows email editing' do
       fill_in 'Email', with: 'johan@gmail.com'
       click_button 'Save'

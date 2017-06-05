@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
-    get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
+    # TODO reset password
+    # get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
     # TODO toggle lock route
     # get 'users/:id/toggle_lock', to: 'users#toggle_lock', as: 'toggle_lock'
 
