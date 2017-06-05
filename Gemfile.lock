@@ -388,6 +388,8 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    secure_headers (3.6.4)
+      useragent
     sexp_processor (4.8.0)
     shoulda-context (1.2.2)
     simplecov (0.14.1)
@@ -424,6 +426,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.2.1)
     url (0.3.2)
+    useragent (0.16.8)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -500,6 +503,7 @@ DEPENDENCIES
   ruby_audit
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  secure_headers (~> 3.6, >= 3.6.4)
   shoulda-context
   simplecov
   skylight
