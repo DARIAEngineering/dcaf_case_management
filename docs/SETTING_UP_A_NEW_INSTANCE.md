@@ -25,7 +25,8 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 * Set up a google cloud account and generate OAuth credentials (Google Cloud Platform -> API Manager -> Credentials -> Create Credentials)
 
 * Go back to heroku, to `Settings` and set the buildpack to `heroku/ruby`
-* Also under settings, set the following config variables with the following values (values tk)
+* Go into logentries and add anyone who needs to be added to the alerts. This should be just people who need to know about application errors, pretty much.
+* Also under settings, set the following config variables with the following values:
 
 - (possibly ACME_DOMAIN, ACME_EMAIL, HEROKU_APP, HEROKU_TOKEN? may be OBE due to heroku ACM)
 - `CM_RESOURCES_URL` (usually a link to the google drive folder with CM resources in it)
@@ -46,11 +47,6 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 - `RAILS_SERVE_STATIC_FILES` (set to `true`)
 - `SITE_URL` (The URL, without http, your CMs will go to. e.g. `app.myabortionfund.org`)
 - `SKYLIGHT_AUTH_TOKEN` (get it from Skylight)
-
-
-
-(did not do these yet)
-* Go into logentries and add anyone who needs to be added to the alerts. This should be just people who need to know about application errors, pretty much.
 
 #### You don't need to worry about
 
