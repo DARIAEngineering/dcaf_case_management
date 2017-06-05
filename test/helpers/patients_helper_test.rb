@@ -28,7 +28,7 @@ class PatientsHelperTest < ActionView::TestCase
 
   describe 'insurance options' do
     it 'should include the option set' do
-      expected_insurance_options_array = ['DC Medicaid', 'MD MCHIP', 'MD Medical Assistance for Families (MA4F)', 'VA Medicaid/CHIP', 'Other state Medicaid', 'Private or employer-sponsored health insurance', 'No insurance', "Don't know", 'Other (add to notes)']
+      expected_insurance_options_array = [nil, 'DC Medicaid', 'MD MCHIP', 'MD Medical Assistance for Families (MA4F)', 'VA Medicaid/CHIP', 'Other state Medicaid', 'Private or employer-sponsored health insurance', 'No insurance', "Don't know", 'Other (add to notes)']
       assert_same_elements insurance_options, expected_insurance_options_array
     end
   end
