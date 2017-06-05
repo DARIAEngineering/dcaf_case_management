@@ -1,0 +1,27 @@
+default: &all
+  DCAF:
+    - 'DC Medicaid'
+    - 'MD MCHIP'
+    - 'MD Medical Assistance for Families (MA4F)'
+    - 'VA Medicaid/CHIP'
+    - 'Other state Medicaid'
+    - 'Private or employer-sponsored health insurance'
+    - 'No insurance'
+    - "Don't know"
+    - 'Other (add to notes)'
+  BAF:
+    - 'MD Medical Assistance/Medicaid'
+    - 'Other state Medicaid'
+    - 'Private or employer-sponsored health insurance'
+    - 'No insurance'
+    - "Don't know"
+    - 'Other (add to notes)'
+
+development:
+  <<: *all
+
+test:
+  <<: *all
+
+production:
+  <<: *all
