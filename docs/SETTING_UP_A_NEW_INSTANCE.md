@@ -48,6 +48,8 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 - `SITE_URL` (The URL, without http, your CMs will go to. e.g. `app.myabortionfund.org`)
 - `SKYLIGHT_AUTH_TOKEN` (get it from Skylight)
 
+* Run `rake db:mongoid:create_indexes`
+
 #### You don't need to worry about
 
 * Setting `SECRET_KEY_BASE` (the buildpack does it for you)
