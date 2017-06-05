@@ -76,6 +76,6 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 
 ### When you start entering data
 
-* There's a specialized endpoint for bulk data entry at `/data_entry` not linked anywhere, this should
+* There's a specialized endpoint for bulk data entry at `/data_entry` not linked anywhere. This has most of the info in one form and helps speed the data entry process up.
 
 ## gl hf
