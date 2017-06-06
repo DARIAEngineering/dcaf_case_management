@@ -82,6 +82,12 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
 
+  # Archiving Fields
+  field :archived, type: Boolean
+  enum :age_range, [:unknown, :under_18, :age18_24, :age25_34, :age35_44, :age45_54, :age55_100, :over_100]
+  field :had_other_contact, type: Boolean
+
+
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
@@ -97,8 +103,11 @@ class Patient
             :initial_call_date,
             :created_by_id,
             :line,
-            presence: true
-  validates :primary_phone, format: /\d{10}/, length: { is: 10 }, uniqueness: true
+            presence: true#, unless :archived?
+  validates :primary_phone,
+            format: /\d{10}/,
+            length: { is: 10 },
+            uniqueness: true#, unless :archived?
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -145,6 +154,10 @@ class Patient
     if appointment_date.present? && initial_call_date > appointment_date
       errors.add(:appointment_date, 'must be after date of initial call')
     end
+  end
+
+  def archived?
+    archived.present? && archived
   end
 
   def clean_fields
