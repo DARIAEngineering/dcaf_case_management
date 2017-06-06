@@ -2,8 +2,8 @@
 <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
   <div class="col-md-12">
     <%= link_to "Add New User", new_user_path, class: "btn btn-primary" %>
-    <%= link_to "Reset Password (WIP)", "#", class: "btn btn-primary", disabled: true %>
-    <%= link_to "Toggle Lock (WIP)", "#", class: "btn btn-primary", disabled: true %>
+    <%= link_to "Reset Password (WIP)", "#", class: "btn btn-default", disabled: true %>
+    <%= link_to "Toggle Lock (WIP)", "#", class: "btn btn-default", disabled: true %>
     <div style="float: right;">
       <%= render partial: 'users/search_form', locals: { autosortable: true } %>
     </div>

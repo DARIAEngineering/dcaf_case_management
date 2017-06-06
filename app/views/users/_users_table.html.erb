@@ -20,7 +20,7 @@
             <td><%= user.role %>
             <td><%= user.last_sign_in_at %>
             <td><%= user.created_at %>
-            <td><%= status(user) %>
+            <td><%= user_lock_status(user) %>
           </tr>
       <% end %>
     </tbody>
