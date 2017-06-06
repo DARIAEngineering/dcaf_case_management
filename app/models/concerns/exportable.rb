@@ -45,6 +45,47 @@ module Exportable
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
 
+  # Only these fields will survive the purge
+  PATIENT_ARCHIVE_SAFE = {
+    "BSON ID" => :id,
+    "Archived" => :archived, #new field
+    "Line" => :line,
+    "Age" => :age_range,
+#    "Race/Ethnicity" => :race_ethnicity,
+#    "Spanish?" => :spanish,
+#    "Voicemail Preference" => :voicemail_preference,
+#    "State" => :state,
+#    "County" => :county,
+#    "City" => :city,
+#    "Has Alt Contact?" => :has_alt_contact?, #new field
+#
+#    "Employment Status" => :employment_status,
+#    "Insurance" => :insurance,
+#    "Income" => :income,
+#    "Referred By" => :referred_by,
+#    "Referred to clinic by fund" => :referred_to_clinic,
+#    "Appointment Date" => :appointment_date,
+#    "Initial Call Date" => :initial_call_date,
+#    "Urgent?" => :urgent_flag,
+#    "LMP at intake (weeks)" => :last_menstrual_period_weeks,
+#    "Race or Ethnicity" => :race_ethnicity,
+#    "Employment status" => :employment_status,
+#    "Abortion cost" => :procedure_cost,
+#    "Patient contribution" => :patient_contribution,
+#    "NAF pledge" => :naf_pledge,
+#    "Fund pledge" => :fund_pledge,
+#    "Clinic" => :export_clinic_name,
+#    "Pledge sent" => :pledge_sent,
+#    "Resolved without fund assistance" => :resolved_without_fund,
+#    "Pledge generated time" => :pledge_generated_at
+
+    # TODO clinic stuff
+    # TODO call stuff
+    # TODO fulfillment stuff
+    # TODO external pledges
+    # TODO test to confirm that specific blacklisted fields aren't being exported
+  }.freeze
+
   def has_alt_contact?
     other_contact.present? || other_phone.present? || other_contact_relationship.present?
   end
