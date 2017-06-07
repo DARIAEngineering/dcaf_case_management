@@ -1,3 +1,5 @@
+require 'SecureRandom'
+
 # Sets a few devise configs and security measures
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -26,9 +28,10 @@ class ApplicationController < ActionController::Base
 
   # Add CSP
   def csp_headers
+    nonce = SecureRandom.uuid
     response.headers['Content-Security-Policy-Report-Only'] =
       "default-src 'self'; " \
-      "script-src 'self' 'sha256-1kYydMhZjhS1eCkHYjBthAOfULylJjbss3YE6S2CGLc=' 'unsafe-eval'; " \
+      "script-src 'self' 'nonce-#{nonce}' 'unsafe-eval'; " \
       "font-src 'self' fonts.gstatic.com; " \
       "style-src 'self' 'unsafe-inline'; " \
       'object-src; ' \
