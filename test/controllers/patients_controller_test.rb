@@ -194,6 +194,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       end
 
       refute_nil @patient.reload.pledge_generated_at
+      refute_nil @patient.reload.pledge_generated_by
       assert_response :success
     end
   end

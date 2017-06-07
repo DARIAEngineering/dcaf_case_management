@@ -7,13 +7,22 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
     @clinic = create :clinic
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14,
-                                fund_pledge: 500
+                                fund_pledge: 500,
+                                urgent_flag: true
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name'
   end
 
   after { Capybara.use_default_driver }
+
+  it 'should load properly without other page touches' do
+    visit dashboard_path
+    click_link @patient.name
+    find('#submit-pledge-button').click
+    sleep 2
+    assert has_text? 'Confirm the following information is correct'
+  end
 
   describe 'submitting a pledge' do
     it 'should let you mark a pledge submitted' do
@@ -109,6 +118,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
       assert has_text? 'Cancel pledge:'
       find('#pledge-next').click
+      wait_for_ajax
 
       wait_for_no_element 'Cancel pledge:'
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
