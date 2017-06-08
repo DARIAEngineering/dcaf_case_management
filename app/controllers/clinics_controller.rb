@@ -1,7 +1,7 @@
 # Clinic-related functionality.
 class ClinicsController < ApplicationController
-  before_action :confirm_admin_user, except: %i[index]
-  before_action :find_clinic, only: %i[update edit destroy]
+  before_action :confirm_admin_user, except: [:index]
+  before_action :find_clinic, only: [:update, :edit, :destroy]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
@@ -48,8 +48,8 @@ class ClinicsController < ApplicationController
   end
 
   def clinic_params
-    clinic_params = %i[name street_address city state zip
-                       phone fax active accepts_naf gestational_limit]
+    clinic_params = [:name, :street_address, :city, :state, :zip,
+                     :phone, :fax, :active, :accepts_naf, :gestational_limit]
     cost_params = (5..30).map { |i| "costs_#{i}wks".to_sym }
 
     params.require(:clinic).permit(

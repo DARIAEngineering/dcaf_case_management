@@ -2,7 +2,7 @@
 class DashboardsController < ApplicationController
   include LinesHelper
 
-  before_action :pick_line_if_not_set, only: %i[index search]
+  before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
     @urgent_patients = Patient.urgent_patients(current_line)
