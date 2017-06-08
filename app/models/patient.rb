@@ -81,7 +81,7 @@ class Patient
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
- 
+
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
@@ -98,7 +98,9 @@ class Patient
             :created_by_id,
             :line,
             presence: true
-  validates :primary_phone, format: /\d{10}/, length: { is: 10 }, uniqueness: true
+  validates :primary_phone, format: /\d{10}/,
+                            length: { is: 10 },
+                            uniqueness: true
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
