@@ -15,7 +15,7 @@ class User
           :validatable,
           :lockable,
           :timeoutable,
-          :omniauthable, 
+          :omniauthable,
           :omniauth_providers => [:google_oauth2]
   # :rememberable
   # :confirmable
