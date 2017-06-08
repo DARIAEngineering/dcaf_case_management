@@ -4,7 +4,7 @@ class User
   include Mongoid::Document
   include Mongoid::Userstamp::User
   extend Enumerize
-  extend ActiveModel::Naming
+  # extend ActiveModel::Naming
 
   after_create :send_account_created_email, if: :persisted?
 
@@ -26,7 +26,7 @@ class User
 
   # Relationships
   has_and_belongs_to_many :patients, inverse_of: :users
-  
+
   # Fields
   # Non-devise generated
   field :name, type: String
