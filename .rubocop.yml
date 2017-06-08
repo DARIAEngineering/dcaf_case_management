@@ -7,9 +7,6 @@ Style/FrozenStringLiteralComment:
 Lint/AmbiguousRegexpLiteral:
   Enabled: false # this is a tremendously stupid rule
 
-Documentation: 
-  Enabled: false
-
 Rails:
   Enabled: true
 
