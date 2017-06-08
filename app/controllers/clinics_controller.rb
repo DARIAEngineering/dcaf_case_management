@@ -4,7 +4,7 @@ class ClinicsController < ApplicationController
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
-    @clinics = Clinic.all.sort_by{|c| [c.name]}
+    @clinics = Clinic.all.sort_by { |c| [c.name] }
     respond_to do |format|
       format.html
       format.json { render json: @clinics }
@@ -27,8 +27,7 @@ class ClinicsController < ApplicationController
     @clinic = Clinic.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @clinic.update_attributes clinic_params
@@ -39,8 +38,7 @@ class ClinicsController < ApplicationController
     redirect_to clinics_path
   end
 
-  # def destroy
-  # end
+  # def destroy; end
 
   private
 
@@ -49,8 +47,8 @@ class ClinicsController < ApplicationController
   end
 
   def clinic_params
-    clinic_params = %i(name street_address city state zip
-                       phone fax active accepts_naf gestational_limit)
+    clinic_params = %i[name street_address city state zip
+                       phone fax active accepts_naf gestational_limit]
     cost_params = (5..30).map { |i| "costs_#{i}wks".to_sym }
 
     params.require(:clinic).permit(
