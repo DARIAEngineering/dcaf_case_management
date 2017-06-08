@@ -1,3 +1,4 @@
+# Functions to process data in the budget bar.
 module BudgetBarHelper
   def progress_bar_color(type)
     color = type == :pledged ? 'warning' : 'success'
