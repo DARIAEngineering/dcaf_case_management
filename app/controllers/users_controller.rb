@@ -1,7 +1,7 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
-  before_action :retrieve_patients, only: [:add_patient, :remove_patient]
-  before_action :confirm_admin_user, only: [:new, :index]
+  before_action :retrieve_patients, only: %i[add_patient remove_patient]
+  before_action :confirm_admin_user, only: %i[new index]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index

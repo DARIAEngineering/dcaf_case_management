@@ -4,6 +4,9 @@ Style/ClassAndModuleChildren:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/SymbolArray:
+  Enabled: false
+
 Lint/AmbiguousRegexpLiteral:
   Enabled: false # this is a tremendously stupid rule
 
