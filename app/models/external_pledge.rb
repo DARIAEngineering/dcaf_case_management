@@ -1,5 +1,5 @@
-# Object representing money from outside organizations.
-# For DCAF pledges or NNAF pledges, see the patient model.
+# Object representing money from organizations that aren't the fund or NAF.
+# For primary fund pledges or NAF pledges, see the patient model.
 class ExternalPledge
   include Mongoid::Document
   include Mongoid::Timestamps
