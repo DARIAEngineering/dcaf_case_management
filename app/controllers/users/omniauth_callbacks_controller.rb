@@ -1,3 +1,4 @@
+# Controller allowing authentication via google oauth.
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
