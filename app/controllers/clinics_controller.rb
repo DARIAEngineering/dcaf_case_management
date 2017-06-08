@@ -1,3 +1,4 @@
+# Clinic-related functionality.
 class ClinicsController < ApplicationController
   before_action :confirm_admin_user, except: %i[index]
   before_action :find_clinic, only: %i[update edit destroy]

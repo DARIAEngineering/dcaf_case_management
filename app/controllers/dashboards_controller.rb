@@ -1,8 +1,8 @@
-# Basically just search and the home view
+# Controller for rendering the home view and patient search.
 class DashboardsController < ApplicationController
   include LinesHelper
 
-  before_action :pick_line_if_not_set, only: [:index, :search]
+  before_action :pick_line_if_not_set, only: %i[index search]
 
   def index
     @urgent_patients = Patient.urgent_patients(current_line)
@@ -32,6 +32,6 @@ class DashboardsController < ApplicationController
   end
 
   def pick_line_if_not_set
-    redirect_to new_line_path unless session[:line].present?
+    redirect_to new_line_path if session[:line].blank?
   end
 end
