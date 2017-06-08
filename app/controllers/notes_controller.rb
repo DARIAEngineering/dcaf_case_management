@@ -1,4 +1,4 @@
-# Create notes associated with patients.
+# Create notes associated with patients. 
 class NotesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_note, only: [:update]
@@ -16,13 +16,13 @@ class NotesController < ApplicationController
     end
   end
 
-  # def update
-  #   if @note.update_attributes note_params
-  #     respond_to { |format| format.js }
-  #   else
-  #     head :bad_request
-  #   end
-  # end
+  def update
+    if @note.update_attributes note_params
+      respond_to { |format| format.js }
+    else
+      head :bad_request
+    end
+  end
 
   private
 

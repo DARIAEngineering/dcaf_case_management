@@ -1,3 +1,4 @@
+# Controller for automatically generated service reporting across lines.
 class ReportsController < ApplicationController
   def index
     @weekly_report = gon.weekly_report = Reports::LineSummary.generate(1.week.ago, Date.today)
