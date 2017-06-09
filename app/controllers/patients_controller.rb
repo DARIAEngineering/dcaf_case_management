@@ -1,4 +1,4 @@
-# Create and update patients, plus the main patient view in edit
+# Create, edit, and update patients. The main patient view is edit.
 class PatientsController < ApplicationController
   before_action :confirm_user_has_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download]
@@ -50,7 +50,8 @@ class PatientsController < ApplicationController
                                     @patient,
                                     params[:case_manager_name].to_s)
                                .generate_pledge_pdf
-      @patient.update pledge_generated_at: Time.zone.now, pledge_generated_by: current_user
+      @patient.update pledge_generated_at: Time.zone.now,
+                      pledge_generated_by: current_user
       send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
     end
   end
