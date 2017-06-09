@@ -248,7 +248,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    newrelic_rpm (4.0.0.332)
     nio4r (2.0.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
@@ -483,7 +482,6 @@ DEPENDENCIES
   mongoid-enum!
   mongoid-history (= 0.6.1)
   mongoid_userstamp!
-  newrelic_rpm
   nokogiri (>= 1.7.2)
   omniauth-google-oauth2
   pdf-inspector

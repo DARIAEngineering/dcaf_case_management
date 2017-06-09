@@ -25,7 +25,6 @@ gem 'bson_ext'
 gem 'figaro'
 gem 'gon', '~> 6.1.0'
 gem 'nokogiri', '>= 1.7.2'
-gem 'newrelic_rpm'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem 'rack-attack', '~> 5.0.1'
