@@ -79,7 +79,6 @@ class PatientsController < ApplicationController
 
     if @patient.save
       flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
-      current_user.add_patient @patient
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
