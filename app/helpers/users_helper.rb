@@ -1,3 +1,4 @@
+# Functions for cleaner rendering of user panels.
 module UsersHelper
   def user_role_options
     [
