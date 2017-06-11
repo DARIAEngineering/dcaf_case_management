@@ -69,7 +69,7 @@ module Exportable
 
   def procedure_cost
     # TODO need to convert to integer
-    fulfillment.try :procedure_cost
+    # fulfillment.try :procedure_cost
   end
 
   def check_number
