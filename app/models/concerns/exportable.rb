@@ -66,9 +66,9 @@ module Exportable
   def gestation_at_procedure
     fulfillment.try :gestation_at_procedure
   end
-  #
+
   def procedure_cost
-    # need to convert to integer
+    # TODO need to convert to integer
     fulfillment.try :procedure_cost
   end
 
