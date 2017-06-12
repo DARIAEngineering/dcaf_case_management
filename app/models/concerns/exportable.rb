@@ -46,7 +46,7 @@ module Exportable
     "Fulfilled" => :fulfilled,
     "Procedure date" => :procedure_date,
     "Gestation at Procedure" => :gestation_at_procedure,
-    # "Procedure cost" => :procedure_cost,
+    "Procedure cost" => :procedure_cost,
     "Check number" => :check_number,
     "Date of Check" => :date_of_check
 
@@ -67,10 +67,9 @@ module Exportable
     fulfillment.try :gestation_at_procedure
   end
 
-  # def procedure_cost
-  #   # TODO need to convert to integer
-  #   # fulfillment.try :procedure_cost
-  # end
+  def procedure_cost_amount
+    fulfillment.try :procedure_cost
+  end
 
   def check_number
     fulfillment.try :check_number
