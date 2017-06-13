@@ -37,10 +37,12 @@ module Exportable
     "Pledge sent" => :pledge_sent,
     "Resolved without fund assistance" => :resolved_without_fund,
     "Pledge generated time" => :pledge_generated_at,
+
     "Timestamp of first call" => :first_call_timestamp,
     "Timestamp of last call" => :last_call_timestamp,
     "Call count" => :call_count,
     "Reached Patient call count" => :reached_patient_call_count,
+
     "Fulfilled" => :fulfilled,
     "Procedure date" => :procedure_date,
     "Gestation at Procedure" => :gestation_at_procedure,
@@ -65,7 +67,7 @@ module Exportable
     fulfillment.try :gestation_at_procedure
   end
 
-  def procedure_cost
+  def procedure_cost_amount
     fulfillment.try :procedure_cost
   end
 
@@ -76,7 +78,6 @@ module Exportable
   def date_of_check
     fulfillment.try :date_of_check
   end
-
 
   def first_call_timestamp
     calls.first.try :created_at
