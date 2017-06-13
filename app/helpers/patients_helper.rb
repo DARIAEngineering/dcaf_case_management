@@ -1,4 +1,4 @@
-# Populates selects etc on patient edit view
+# Functions primarily related to populating selects on patient edit view.
 module PatientsHelper
   def weeks_options
     (1..30).map { |i| [pluralize(i, 'week'), i] }.unshift [nil, nil]
@@ -19,10 +19,7 @@ module PatientsHelper
   end
 
   def insurance_options
-    [nil, 'DC Medicaid', 'MD MCHIP',
-     'MD Medical Assistance for Families (MA4F)', 'VA Medicaid/CHIP',
-     'Other state Medicaid', 'Private or employer-sponsored health insurance',
-     'No insurance', 'Don\'t know', 'Other (add to notes)']
+    [nil] + Rails.configuration.insurances[FUND]
   end
 
   def income_options

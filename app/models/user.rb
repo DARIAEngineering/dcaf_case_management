@@ -34,7 +34,7 @@ class User
 
   # Relationships
   has_and_belongs_to_many :patients, inverse_of: :users
-
+  
   # Fields
   # Non-devise generated
   field :name, type: String

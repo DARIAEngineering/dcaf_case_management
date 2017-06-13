@@ -1,3 +1,4 @@
+# Functions to display call-related items.
 module CallsHelper
   def display_voicemail_link_with_warning(patient)
     if patient.voicemail_preference == :no
@@ -64,22 +65,24 @@ module CallsHelper
 
   def voicemail_ok_notifier
     content_tag :p, class: 'text-success' do
-      content_tag :strong, 'Voicemail OK; Okay to identify as DCAF'
+      content_tag :strong, "Voicemail OK; Okay to identify as #{FUND}"
     end
   end
 
   def voicemail_not_specified_notifier
     content_tag :p, class: 'text-warning' do
-      content_tag :strong, 'Voicemail OK; Do not identify as DCAF'
+      content_tag :strong, "Voicemail OK; Do not identify as #{FUND}"
     end
   end
 
   def other_contact_name_display(patient)
     if patient.other_contact?
-      patient.other_contact +
-        other_contact_relationship_display(patient) +
-        ' is the primary contact for this patient' +
-        "#{patient.other_phone? ? ':' : '.'}"
+      display_block = <<-TEXT
+        #{patient.other_contact} #{other_contact_relationship_display(patient)}
+        is the primary contact for this
+        patient#{patient.other_phone? ? ':' : '.'}
+      TEXT
+      display_block
     else
       'Primary contact:'
     end
