@@ -38,14 +38,16 @@ module Exportable
     "Resolved without fund assistance" => :resolved_without_fund,
     "Pledge generated time" => :pledge_generated_at,
 
+    # Call related
     "Timestamp of first call" => :first_call_timestamp,
     "Timestamp of last call" => :last_call_timestamp,
     "Call count" => :call_count,
     "Reached Patient call count" => :reached_patient_call_count,
 
+    # Fulfillment related
     "Fulfilled" => :fulfilled,
     "Procedure date" => :procedure_date,
-    "Gestation at Procedure" => :gestation_at_procedure,
+    "Gestation at procedure in weeks" => :gestation_at_procedure,
     "Procedure cost" => :procedure_cost,
     "Check number" => :check_number,
     "Date of Check" => :date_of_check
