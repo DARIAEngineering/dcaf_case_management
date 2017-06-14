@@ -73,20 +73,19 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   #   end
   # end
 
-  describe 'reset_password method' do
-    before do
-      get reset_password_path(@user)
-    end
+  # describe 'reset_password method' do
+  #   before do
+  #     get reset_password_path(@user)
+  #   end
 
-    it 'should redirect on success' do
-      assert_response :redirect
-    end
+  #   it 'should redirect on success' do
+  #     assert_response :redirect
+  #   end
 
-    it 'should flash success' do
-      assert_equal 'Successfully sent password reset instructions to ' + @user.email, flash[:notice]
-    end
-
-  end
+  #   it 'should flash success' do
+  #     assert_equal 'Successfully sent password reset instructions to ' + @user.email, flash[:notice]
+  #   end
+  # end
 
   describe 'update method' do
     before do
@@ -108,7 +107,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should NOT flash success' do
-      assert_equal nil, flash[:notice]
+      assert_nil flash[:notice]
     end
 
     # TODO 
@@ -120,9 +119,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     #   assert_equal @user_2.name, 'jimmy'
     #   assert_equal @user_2.email, 'jimmy@hotmail.com'
     # end
-
   end
-
 
   describe 'add_patient method' do
     before do
@@ -198,10 +195,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond success' do
+      # this is wrong. it's returning bad request
       assert_response :success
     end
 
     it 'should populate the user call order field' do
+      # this is failing because it's returning a bad request due to an extra id field for some reason. probably js problem?
       assert_not_nil @user.call_order
       assert_equal @ids, @user.call_order
     end
