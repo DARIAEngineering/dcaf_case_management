@@ -1,13 +1,12 @@
 require 'test_helper'
 
 class UserManagementTest < ActionDispatch::IntegrationTest
-
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user,
-                    name: 'john',
-                    email: 'user@dcaf.com',
-                    role: :cm
+                   name: 'john',
+                   email: 'user@dcaf.com',
+                   role: :cm
 
     @admin = create :user,
                     name: 'admin',
@@ -15,15 +14,14 @@ class UserManagementTest < ActionDispatch::IntegrationTest
                     role: :admin
 
     @data_volunteer = create :user,
-                            name: 'volunteer',
-                            email: 'data@gmail.com',
-                            role: :data_volunteer
-
+                             name: 'volunteer',
+                             email: 'data@gmail.com',
+                             role: :data_volunteer
   end
 
   describe 'case manager' do
     before do
-      log_in @user
+      log_in_as @user
     end
 
     it 'should not be able to access Admin links' do
@@ -46,7 +44,6 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       click_link 'Admin'
       assert_no_text 'User Management'
     end
-
   end
 
   describe 'admin user' do
@@ -109,12 +106,11 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       wait_for_ajax
       page.has_css?("#user-list tbody tr", :count => 3)
     end
-
   end
 
   describe 'edit a user' do
     before do
-      log_in @admin
+      log_in_as @admin
       click_link 'Admin'
       assert_text 'User Management'
       click_link 'User Management'
@@ -138,22 +134,21 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       assert_text 'johan'
     end
 
-    #TODO finish test
+    # TODO finish test
     it 'allows email editing' do
       fill_in 'Email', with: 'johan@gmail.com'
       click_button 'Save'
       wait_for_element 'Successfully updated user details'
-      # assert_text 'johan@gmail.com'
+      click_link 'john'
+      assert has_field? 'Email', with: 'johan@gmail.com'
     end
 
     # TODO figure out a way to show error
     it 'disallows role editing' do
-      select 'Admin', from: "user_role"
+      select 'Admin', from: 'Role'
       click_button 'Save'
       wait_for_element 'Successfully updated user details'
-      assert_equal 'Case manager', find_field('user_role').find('option[selected]').text
+      assert_text 'cm'
     end
   end
-
-
 end

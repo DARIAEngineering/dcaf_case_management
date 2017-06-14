@@ -9,14 +9,14 @@
 </row>
 <div class="row">
   <div class="col-sm-12">
-    <%= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
+    <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
     <% if @user != current_user %>
       <% if @user.access_locked? %>
         <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
-        <!-- <%= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %> -->
+        <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
       <% else %>
         <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
-        <!-- <%= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %> -->
+        <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
       <% end %>
     <% end %>
   </div>

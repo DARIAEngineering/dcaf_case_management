@@ -20,7 +20,6 @@ class UsersController < ApplicationController
       @results = User.search params[:search]
     end
     respond_to { |format| format.js }
-
   end
 
   def toggle_lock
@@ -58,7 +57,6 @@ class UsersController < ApplicationController
       flash[:alert] = 'Error saving user details'
       render 'edit'
     end
-    redirect_to edit_user_path @user
   end
 
   def create
