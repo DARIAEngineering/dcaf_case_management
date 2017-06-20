@@ -5,13 +5,16 @@ Rails.application.routes.draw do
     get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
+    # User routes behind the authentication wall
+    resources :users, only: [:new, :create, :index, :edit, :update]
+    patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
+    patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
+    patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
     # TODO reset password
     # get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
     # TODO toggle lock route
     # get 'users/:id/toggle_lock', to: 'users#toggle_lock', as: 'toggle_lock'
-
-    resources :users, only: [:new, :create, :index, :edit, :update]
 
     # Patient routes
     # /patients/:id/edit
@@ -37,9 +40,6 @@ Rails.application.routes.draw do
     resources :accountants, only: [:index]
     get 'accountant', to: 'accountants#index', as: 'accountant'
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }
-    patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
-    patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
-    patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
     resources :lines, only: [:new, :create]
     get 'clinicfinder', to: 'clinicfinders#index', as: 'clinicfinder'
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
