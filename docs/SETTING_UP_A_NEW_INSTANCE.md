@@ -22,7 +22,7 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 
 * Set up an uptime monitor (we recommend StatusCake!)
 * Set up a CSP report endpoint (we recommend report-uri.io)
-* Set up a google cloud account and generate OAuth credentials (Google Cloud Platform -> API Manager -> Credentials -> Create Credentials)
+* Set up a google cloud account and generate OAuth credentials (Google Cloud Platform -> API Manager -> Credentials -> Create Credentials, can be set up alongside existing creds for different environments)
 
 * Go back to heroku, to `Settings` and set the buildpack to `heroku/ruby`
 * Go into logentries and add anyone who needs to be added to the alerts. This should be just people who need to know about application errors, pretty much.
@@ -42,13 +42,12 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 - `mongopass` (password from MONGODB_URI)
 - `mongoport` (port from MONGODB_URI)
 - `mongouser` (user from MONGODB_URI)
-- `NEW_RELIC_LICENSE_KEY` (Get from New Relic APM)
 - `RAILS_LOG_TO_STDOUT` (set to `true`)
 - `RAILS_SERVE_STATIC_FILES` (set to `true`)
 - `SITE_URL` (The URL, without http, your CMs will go to. e.g. `app.myabortionfund.org`)
 - `SKYLIGHT_AUTH_TOKEN` (get it from Skylight)
 
-* Run `rake db:mongoid:create_indexes`
+* Run `rake db:mongoid:create_indexes` on the server to set up database indexes
 
 #### You don't need to worry about
 
@@ -66,7 +65,7 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 
 - [ ] Go to root url
 - [ ] Create yourself an admin account from the rails console. Confirm that this sends an email to you
-- [ ] After you get that email, log in with google to confirm the oauth signin flow works. (This should use the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` creds.)
+- [ ] After you get that email, log in with google to confirm the oauth signin flow works. (This should use the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` creds. If something's jacked up, make sure you have these set properly.)
 - [ ] Confirm that the lines are properly set and show up right
 - [ ] Confirm that the top left badge name (`DARIA - full fund name`) is set properly
 - [ ] Confirm that you can create and update a patient. Delete it afterwards in the rails console
@@ -78,6 +77,6 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 
 ### When you start entering data
 
-* There's a specialized endpoint for bulk data entry at `/data_entry` not linked anywhere. This has most of the info in one form and helps speed the data entry process up.
+* There's a specialized endpoint for bulk data entry at `/data_entry` not linked from the main url. This has most of the info in one form and helps speed the data entry process up if you are entering patients en masse, for example.
 
 ## gl hf
