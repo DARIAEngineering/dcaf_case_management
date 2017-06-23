@@ -103,11 +103,11 @@ class Patient
             :initial_call_date,
             :created_by_id,
             :line,
-            presence: true#, unless :archived?
+            presence: true, unless: :archived?
   validates :primary_phone,
             format: /\d{10}/,
             length: { is: 10 },
-            uniqueness: true#, unless :archived?
+            uniqueness: true, unless: :archived?
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -117,6 +117,8 @@ class Patient
   validate :confirm_appointment_after_initial_call
 
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
+
+  validate :archived_state, if: :archived?
 
   validates_associated :fulfillment
 
@@ -158,6 +160,28 @@ class Patient
 
   def archived?
     archived.present? && archived
+  end
+
+  def archived_state
+    ## should be blank
+    #:name,
+    #:primary_phone,
+    #:other_phone,
+    #:age,
+    #:contact_name,
+    #:circumstances,
+    #presence: false
+    ## should be scrambled
+    #:identifier
+    ## should not have any
+    #:notes
+    #:
+    ## fulfillment shouldnt have
+    #:check_number
+
+    ## should have
+    #:age_range
+    #:had_other_contact
   end
 
   def clean_fields
