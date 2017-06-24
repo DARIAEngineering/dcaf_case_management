@@ -1,19 +1,23 @@
-$('a[href$="#patient_information"]').click();
-
-$('#menu').html(
-  '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
-);
+// $('a[href$="#patient_information"]').click();
 
 $('#patient_dashboard').html(
   '<%= escape_javascript(render partial: "patients/patient_dashboard", locals: { patient: @patient })%>'
 );
 
-$('#fulfillment').remove();
-$('#sections').append(
-  '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
-);
-
-$('#change_log').remove();
-$('#sections').append(
+// $('#change_log').remove();
+$('#patient_change_log').html(
   '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
 );
+
+// $('#fulfillment').remove();
+<% if @patient.previous_changes.key?('pledge_sent') && current_user.allowed_data_access? %>
+  <% if @patient.pledge_sent? %>
+    $('#fulfillment').html(
+      '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
+    );
+  <% end %>
+
+  $('#menu').html(
+    '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
+  );
+<% end %>

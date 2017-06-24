@@ -1,6 +1,6 @@
 # Create, edit, and update patients. The main patient view is edit.
 class PatientsController < ApplicationController
-  before_action :confirm_user_has_data_access, only: [:index]
+  before_action :redirect_unless_has_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
@@ -63,15 +63,15 @@ class PatientsController < ApplicationController
 
   def update
     if @patient.update_attributes patient_params
-      if @patient.previous_changes.key?("pledge_sent")
+      puts @patient.previous_changes
+      # if @patient.previous_changes.key?("pledge_sent")
         respond_to { |format| format.js }
-      else
-        head :ok
-      end
+      # else
+        # head :ok
+      # end
     else
       head :internal_server_error
     end
-
   end
 
   def data_entry
