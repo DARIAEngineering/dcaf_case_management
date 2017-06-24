@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user.admin?
   end
 
-  def confirm_user_has_data_access
-    redirect_to root_url unless (current_user.admin? || current_user.data_volunteer?)
+  def redirect_unless_has_data_access
+    redirect_to root_url unless current_user.allowed_data_access?
   end
 end
