@@ -12,8 +12,6 @@
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
 
-    <%= link_to "Forgot your password?", new_user_password_path %>
-
     <%= f.password_field :current_password, autocomplete: 'off' %>
 
     <%= f.submit "Update info", class: 'btn btn-primary' %>
