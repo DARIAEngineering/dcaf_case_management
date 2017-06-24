@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def edit
   end
 
-  def search
+  def search # TODO needs more rigorous testing
     if params[:search].empty?
       @results = User.all
     else
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     redirect_to edit_user_path @user
   end
 
-  def update
+  def update # TODO needs more rigorous testing
     if @user.update_attributes user_params
       flash[:notice] = 'Successfully updated user details'
       redirect_to users_path
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def create
+  def create # TODO needs more rigorous testing
     raise RuntimeError('Permission Denied') unless current_user.admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def new
+  def new # TODO needs more rigorous testing
     @user = User.new
     session[:return_to] ||= request.referer
   end
@@ -101,7 +101,7 @@ class UsersController < ApplicationController
 
   private
 
-  def find_user
+  def find_user # TODO needs more rigorous testing
     @user = User.find(params[:id])
   end
 
