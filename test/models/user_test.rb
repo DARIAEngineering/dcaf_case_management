@@ -184,4 +184,18 @@ class UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'data access' do
+    it 'should allow for admins' do
+      assert create(:user, role: :admin).allowed_data_access?
+    end
+
+    it 'should allow for data volunteers' do
+      assert create(:user, role: :data_volunteer).allowed_data_access?
+    end
+
+    it 'should not allow for CMs' do
+      refute create(:user, role: :cm).allowed_data_access?
+    end
+  end
 end
