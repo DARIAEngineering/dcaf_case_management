@@ -5,7 +5,7 @@ $('#patient_dashboard').html(
 );
 
 // $('#change_log').remove();
-$('#patient_change_log').html(
+$('#change_log').html(
   '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
 );
 
@@ -20,4 +20,6 @@ $('#patient_change_log').html(
   $('#menu').html(
     '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
   );
+<% else %>
+  $('#fulfillment').empty();
 <% end %>
