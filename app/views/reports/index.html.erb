@@ -35,6 +35,6 @@
 
 <h1><strong>DCAF Data Center</strong></h1>
 
-<%= render partial: 'reports/call_line' %>
-<%= render partial: 'reports/past_thirty_days' %>
-<%= render partial: 'reports/year_to_date' %>
+<%= render_async weekly_report_path %>
+<%= render_async monthly_report_path %>
+<%= render_async yearly_report_path %>

@@ -12,6 +12,8 @@
     <%= Gon::Base.render_data %>
   </head>
   <body>
+    <%= content_for :render_async %>
+
     <% if current_user.present? %>
       <header>
         <%= render 'layouts/navigation' %>

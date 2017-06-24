@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       resources :external_pledges,
                 only: [ :create, :update, :destroy ]
     end
+    get :weekly_report, :controller => :reports
+    get :monthly_report, :controller => :reports
+    get :yearly_report, :controller => :reports
+
     get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
