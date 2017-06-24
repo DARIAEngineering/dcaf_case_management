@@ -110,7 +110,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert_nil flash[:notice]
     end
 
-    # TODO 
+    # TODO
     # it 'should update if ADMIN' do
     #   @user.update role: :admin
     #   @user.reload
@@ -195,12 +195,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond success' do
-      # this is wrong. it's returning bad request
       assert_response :success
     end
 
     it 'should populate the user call order field' do
-      # this is failing because it's returning a bad request due to an extra id field for some reason. probably js problem?
       assert_not_nil @user.call_order
       assert_equal @ids, @user.call_order
     end
