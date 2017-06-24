@@ -1,0 +1,19 @@
+$('a[href$="#patient_information"]').click();
+
+$('#menu').html(
+  '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
+);
+
+$('#patient_dashboard').html(
+  '<%= escape_javascript(render partial: "patients/patient_dashboard", locals: { patient: @patient })%>'
+);
+
+$('#fulfillment').remove();
+$('#sections').append(
+  '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
+);
+
+$('#change_log').remove();
+$('#sections').append(
+  '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
+);

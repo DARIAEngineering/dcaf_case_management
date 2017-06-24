@@ -133,5 +133,32 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
       assert has_link? 'Submit pledge'
     end
+
+    it 'should dynamically update page' do
+      assert has_link? 'Cancel pledge'
+
+      find('#cancel-pledge-button').click
+
+      wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
+      assert has_text? 'Cancel pledge:'
+      find('#pledge-next').click
+
+      wait_for_no_element 'Cancel pledge:'
+      assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
+      find('#patient_pledge_sent').click
+
+      find('#pledge-next').click
+
+      wait_for_ajax
+      wait_for_no_element 'Cancel pledge:'
+      sleep 2
+
+      assert has_link? 'Submit pledge'
+
+      click_link 'Change Log'
+      wait_for_element 'Record new call'
+
+      assert has_text? 'Pledge sent', count: 2
+    end
   end
 end

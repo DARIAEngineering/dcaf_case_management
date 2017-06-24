@@ -143,8 +143,12 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond success on completion' do
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      assert_response :success
+      patch patient_path(@patient), params: { patient: @payload }
       assert_response :success
     end
+
 
     it 'should respond internal server error on failure' do
       @payload[:primary_phone] = nil
