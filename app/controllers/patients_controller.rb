@@ -63,12 +63,7 @@ class PatientsController < ApplicationController
 
   def update
     if @patient.update_attributes patient_params
-      puts @patient.previous_changes
-      # if @patient.previous_changes.key?("pledge_sent")
-        respond_to { |format| format.js }
-      # else
-        # head :ok
-      # end
+      respond_to { |format| format.js }
     else
       head :internal_server_error
     end
