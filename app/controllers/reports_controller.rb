@@ -9,7 +9,7 @@ class ReportsController < ApplicationController
   def weekly_report
     puts 'going async'
     @weekly_report = gon.weekly_report = Reports::LineSummary.generate(1.week.ago, Date.today)
-    render :partial => "call_line"
+    render partial: "call_line", locals: {weekly_report: @weekly_report}
   end
 
   def monthly_report

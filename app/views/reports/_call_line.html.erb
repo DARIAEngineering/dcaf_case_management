@@ -15,10 +15,45 @@
       <div class="col-sm-4">
         <h3><%= link_to line, '#', class: 'line-header' %></h3>
 
-        <p>Patients contacted: <strong><%= @weekly_report[line.to_sym][:patients_contacted] %></strong></p>
-        <p>New patients contacted: <strong><%= @weekly_report[line.to_sym][:new_patients_contacted] %></strong></p>
-        <p>Pledges sent: <strong><%= @weekly_report[line.to_sym][:pledges_sent] %></strong></p>
+        <p>Patients contacted: <strong><%= weekly_report[line.to_sym][:patients_contacted] %></strong></p>
+        <p>New patients contacted: <strong><%= weekly_report[line.to_sym][:new_patients_contacted] %></strong></p>
+        <p>Pledges sent: <strong><%= weekly_report[line.to_sym][:pledges_sent] %></strong></p>
       </div>
     <% end %>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  $(function() {
+    ['weekly_report'].forEach(function(reportName) {
+      var chart = c3.generate({
+        transition: {
+          duration: 2000
+        },
+        bindto: '#chart-' + reportName,
+        data: {
+            json: [
+              gon[reportName]['DC'],
+              gon[reportName]['MD'],
+              gon[reportName]['VA']
+            ],
+            type: 'bar',
+            keys: {
+              x: 'name',
+              value: ['patients_contacted', 'new_patients_contacted', 'pledges_sent'],
+            }
+        },
+        bar: {
+            width: {
+                ratio: 0.5
+            }
+        },
+        axis: {
+          x: {
+            type: 'category'
+          }
+        }
+      });
+    });
+  });
+<% end %>
