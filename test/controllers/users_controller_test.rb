@@ -204,7 +204,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  it 'should be the devise controller' do
-    assert :devise_controller?
+  describe 'devise controller customization' do
+    it 'should be the devise controller' do
+      assert :devise_controller?
+    end
+
+    it 'should not let you edit email' do
+      params = { email: 'nope@nope.com', current_password: @user.password }
+      put registration_path, params: { user: params }
+      @user.reload
+      refute_equal @user.email, 'nope@nope.com'
+    end
   end
 end
