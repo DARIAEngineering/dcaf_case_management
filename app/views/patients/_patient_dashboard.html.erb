@@ -11,11 +11,11 @@
       </div>
       <div class="col-sm-6 hide-label">
         <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: "Called on: #{patient.initial_call_date}" %>
-      </div>
+      </div><%=  %>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <p><strong>Status:</strong> <%= patient.status %></p>
+        <p><strong>Status:</strong> <span id='patient_status'><%= patient.status %></span></p>
       </div>
     </div>
   </div>

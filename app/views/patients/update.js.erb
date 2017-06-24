@@ -1,25 +1,37 @@
-// $('a[href$="#patient_information"]').click();
+// rerack approx gestation
+$('#patient_appointment_date')
+  .parent()
+  .find('span.help-block')
+  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>')
 
-$('#patient_dashboard').html(
-  '<%= escape_javascript(render partial: "patients/patient_dashboard", locals: { patient: @patient })%>'
-);
+// rerack status
+$('#patient_status').text('<%= @patient.status %>');
 
-// $('#change_log').remove();
+// rerack current LMP
+$('#patient_last_menstrual_period_weeks')
+  .parent()
+  .find('span.help-block')
+  .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
+
+// refresh entire changelog
 $('#change_log').html(
   '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
 );
 
-// $('#fulfillment').remove();
+// if pledge is sent, re-rack fulfillment info
 <% if @patient.previous_changes.key?('pledge_sent') && current_user.allowed_data_access? %>
+  // properly set the button and make fulfillment show up, if it should
+  $('#menu').html(
+    '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
+  );
+
+  // populate the fulfillment form if it's supposed to be there
   <% if @patient.pledge_sent? %>
     $('#fulfillment').html(
       '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
     );
   <% end %>
-
-  $('#menu').html(
-    '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
-  );
 <% else %>
+  // clear out fulfillment form
   $('#fulfillment').empty();
 <% end %>
