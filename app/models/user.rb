@@ -3,7 +3,16 @@
 class User
   include Mongoid::Document
   include Mongoid::Enum
+  include Mongoid::Timestamps
   include Mongoid::Userstamp::User
+  include Mongoid::History::Trackable
+
+  include UserSearchable
+  track_history on: fields.keys + [:updated_by_id],
+                  version_field: :version,
+                  track_create: true,
+                  track_update: true,
+                  track_destroy: true
 
   after_create :send_account_created_email, if: :persisted?
 
@@ -15,7 +24,7 @@ class User
           :validatable,
           :lockable,
           :timeoutable,
-          :omniauthable, 
+          :omniauthable,
           :omniauth_providers => [:google_oauth2]
   # :rememberable
   # :confirmable
@@ -59,7 +68,7 @@ class User
 
   ## Lockable
   field :failed_attempts, type: Integer, default: 0
-  # field :unlock_token,    type: String # Requires unlock strategy
+  # field :unlock_token,    type: String
   field :locked_at,       type: Time
 
   # Validations

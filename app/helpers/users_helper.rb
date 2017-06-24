@@ -7,4 +7,12 @@ module UsersHelper
       ['Admin', 'admin']
     ]
   end
+
+  def user_lock_status(user)
+    if user.access_locked?
+      'Locked'
+    else
+      'Active'
+    end
+  end
 end

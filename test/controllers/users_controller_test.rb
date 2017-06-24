@@ -3,6 +3,7 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
+    @user_2 = create :user
     sign_in @user
     @patient_1 = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Yolo Goat'
@@ -34,6 +35,90 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       get users_path
       assert_response :success
     end
+  end
+
+  describe 'search method' do
+    it 'should return success' do
+      post users_search_path, params: { search: '' }, xhr: :true
+      assert_response :success
+    end
+  end
+
+  # TODO test
+  # describe 'toggle_lock method' do
+  #   before do
+  #     @user_2 = create :user, name: 'John Smith', email: 'john@smith.com'
+  #   end
+  #
+  #   it 'should respond successfully' do
+  #     assert_response :redirect
+  #   end
+  #
+  #   it 'should prevent current users from locking themselves' do
+  #     get toggle_lock_path(@user)
+  #     @user.reload
+  #     assert_equal @user.access_locked?, false
+  #   end
+  #
+  #   it 'should toggle locked status from false to true' do
+  #     assert_equal @user_2.access_locked?, false
+  #     get toggle_lock_path(@user_2)
+  #     @user_2.reload
+  #     assert_equal @user_2.access_locked?, true
+  #   end
+  #
+  #   it 'should flash success' do
+  #     get toggle_lock_path(@user_2)
+  #     assert_equal "Successfully locked " + @user_2.email, flash[:notice]
+  #   end
+  # end
+
+  # describe 'reset_password method' do
+  #   before do
+  #     get reset_password_path(@user)
+  #   end
+
+  #   it 'should redirect on success' do
+  #     assert_response :redirect
+  #   end
+
+  #   it 'should flash success' do
+  #     assert_equal 'Successfully sent password reset instructions to ' + @user.email, flash[:notice]
+  #   end
+  # end
+
+  describe 'update method' do
+    before do
+      @params = {
+        name: 'jimmy',
+        email: 'jimmy@hotmail.com'
+      }
+
+      patch user_path(@user), params: { user: @params }
+      @user.reload
+    end
+
+    it 'should respond redirect in completion' do
+      assert_response :redirect
+    end
+
+    it 'should NOT update parameters' do
+      assert_equal @user.name, 'Billy Everyteen'
+    end
+
+    it 'should NOT flash success' do
+      assert_nil flash[:notice]
+    end
+
+    # TODO
+    # it 'should update if ADMIN' do
+    #   @user.update role: :admin
+    #   @user.reload
+    #   patch user_path(@user_2), params: { user: @params }
+    #
+    #   assert_equal @user_2.name, 'jimmy'
+    #   assert_equal @user_2.email, 'jimmy@hotmail.com'
+    # end
   end
 
   describe 'add_patient method' do
