@@ -3,7 +3,7 @@ require 'test_helper'
 class SubmitPledgeTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
-    @user = create :user
+    @user = create :user, role: :data_volunteer
     @clinic = create :clinic
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14,
@@ -48,6 +48,8 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_element 'Patient information'
 
       assert has_text? Patient::STATUSES[:pledge_sent]
+      assert has_link? 'Fulfillment'
+      assert has_link? 'Cancel pledge'
     end
 
     it 'should render after opening call modal' do
@@ -83,10 +85,12 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_element "Call #{@patient.name} now:"
 
       find('#cancel-pledge-button').click
+      wait_for_ajax
 
       wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
       assert has_text? 'Cancel pledge:'
       find('#pledge-next').click
+      wait_for_ajax
 
       wait_for_no_element 'Cancel pledge:'
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
@@ -129,6 +133,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       assert has_link? 'Submit pledge'
       assert has_content? Patient::STATUSES[:no_contact]
+      refute has_link? 'Fulfillment'
     end
   end
 end
