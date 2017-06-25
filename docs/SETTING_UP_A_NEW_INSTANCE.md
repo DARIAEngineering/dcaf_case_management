@@ -55,6 +55,8 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 
 ## Optional steps
 
+* Make any edits necessary to the lists in `config/external_pledges.yml` and `config/insurance.yml` (unless we've set up Config models, in which case, bump this readme to reflect that, and do it within the app instead)
+
 * If within DCAF pipeline, go to the pipeline after Heroku app is created and add app to pipeline, so it can enjoy downstream deployments
 
 * If not within DCAF pipeline, in Heroku, add some other app members if there aren't any. Make sure you aren't the only member of your fund with config access!
