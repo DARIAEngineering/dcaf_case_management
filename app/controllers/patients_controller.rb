@@ -63,6 +63,7 @@ class PatientsController < ApplicationController
 
   def update
     if @patient.update_attributes patient_params
+      @patient.reload
       respond_to { |format| format.js }
     else
       head :internal_server_error
