@@ -1,3 +1,4 @@
+# Functions related to navigating around the pledge submission modal.
 module PledgesHelper
   def submit_pledge_button
     content_tag :span, class: 'btn btn-primary btn-lg submit-btn btn-block',

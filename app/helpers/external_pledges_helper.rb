@@ -1,9 +1,9 @@
+# Functions to populate dropdowns related to external pledges.
 module ExternalPledgesHelper
   def external_pledge_source_options
-    ["Baltimore Abortion Fund", "Richmond Reproductive Freedom Project (RRFP)",
-     "Blue Ridge Abortion Assistance Fund (BRAAF)", "Tiller Fund (NNAF)",
-     "Carolina Abortion Fund", "Women's Medical Fund (Philadelphia)",
-     "NYAAF (New York)", "Clinic discount", "Other funds (see notes)"]
+    Rails.configuration
+         .external_pledges['funds']
+         .reject { |fund| fund == FUND_FULL }
   end
 
   def available_pledge_source_options_for(patient)

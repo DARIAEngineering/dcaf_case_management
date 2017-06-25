@@ -1,3 +1,4 @@
+# Functions related to displaying notes
 module NotesHelper
   def plus_sign_glyphicon(note)
     return nil unless note && note.try(:full_text).length > 31
@@ -11,7 +12,7 @@ module NotesHelper
   end
 
   def display_note_text_for(note)
-    return nil unless note.try(:full_text).present?
+    return nil if note.try(:full_text).blank?
     info = content_tag :p do
       content_tag(:strong) do
         "Most recent note from #{note.created_by.name} " \

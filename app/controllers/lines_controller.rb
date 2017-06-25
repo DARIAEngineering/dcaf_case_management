@@ -1,6 +1,6 @@
+# Single-serving controller for setting current line for a user.
 class LinesController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     session[:line] = params[:line]
