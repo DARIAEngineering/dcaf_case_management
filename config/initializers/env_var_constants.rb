@@ -10,4 +10,5 @@ LINES = if ENV['DARIA_LINES'].present?
 
 # Definition of fund
 FUND_FULL = ENV['DARIA_FUND_FULL'] || 'DC Abortion Fund'
+FUND_DOMAIN = FUND_FULL.gsub(' ', '').downcase
 FUND = ENV['DARIA_FUND'] || 'DCAF'
