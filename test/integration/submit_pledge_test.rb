@@ -128,6 +128,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
       find('#pledge-next').click
       assert has_link? 'Submit pledge'
+      assert has_content? Patient::STATUSES[:no_contact]
     end
   end
 end
