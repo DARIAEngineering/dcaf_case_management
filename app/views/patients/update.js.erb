@@ -2,7 +2,7 @@
 $('#patient_appointment_date')
   .parent()
   .find('span.help-block')
-  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>')
+  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
 
 // rerack status
 $('#patient_status').text('<%= @patient.status %>');
