@@ -170,7 +170,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # confirm get :data_entry returns a success code
   describe 'data_entry method' do
     it 'should respond success on completion' do
       get data_entry_path
