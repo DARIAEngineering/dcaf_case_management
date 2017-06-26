@@ -1,3 +1,37 @@
+<%= javascript_tag do %>
+  $(function() {
+    var weekly_report = <%= weekly_report.to_json.html_safe %>
+    var chart = c3.generate({
+      transition: {
+        duration: 2000
+      },
+      bindto: '#chart-weekly_report',
+      data: {
+          json: [
+            weekly_report['DC'],
+            weekly_report['MD'],
+            weekly_report['VA']
+          ],
+          type: 'bar',
+          keys: {
+            x: 'name',
+            value: ['patients_contacted', 'new_patients_contacted', 'pledges_sent'],
+          }
+      },
+      bar: {
+          width: {
+              ratio: 0.5
+          }
+      },
+      axis: {
+        x: {
+          type: 'category'
+        }
+      }
+    });
+  });
+<% end %>
+
 <div class="report-section">
   <div class="row">
     <h4 class="col-sm-8"><strong>Budget bar, design TK</strong></h4>
@@ -22,38 +56,3 @@
     <% end %>
   </div>
 </div>
-
-<%= javascript_tag do %>
-  $(function() {
-    ['weekly_report'].forEach(function(reportName) {
-      var chart = c3.generate({
-        transition: {
-          duration: 2000
-        },
-        bindto: '#chart-' + reportName,
-        data: {
-            json: [
-              gon[reportName]['DC'],
-              gon[reportName]['MD'],
-              gon[reportName]['VA']
-            ],
-            type: 'bar',
-            keys: {
-              x: 'name',
-              value: ['patients_contacted', 'new_patients_contacted', 'pledges_sent'],
-            }
-        },
-        bar: {
-            width: {
-                ratio: 0.5
-            }
-        },
-        axis: {
-          x: {
-            type: 'category'
-          }
-        }
-      });
-    });
-  });
-<% end %>
