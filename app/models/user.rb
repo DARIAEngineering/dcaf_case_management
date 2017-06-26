@@ -156,6 +156,10 @@ class User
     role == :admin
   end
 
+  def allowed_data_access?
+    admin? || data_volunteer?
+  end
+
   private
 
   def verify_password_complexity
