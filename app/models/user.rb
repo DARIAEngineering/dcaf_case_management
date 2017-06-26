@@ -103,9 +103,8 @@ class User
   # (e.g. assigned to current line and in user.patients)
 
   def call_list_patients(lines = LINES)
-    Patient.in(_line: lines, user_ids: BSON::ObjectId(id)).where( :$and =>
-    [ { :"calls.updated_at".ne => RECENT_TIMEFRAME },
-      { :"calls.created_by_id".ne => id } ]).order_by(created_at: :desc)
+    Patient.in(_line: lines, user_ids: BSON::ObjectId(id)).where(
+    { :"calls.updated_at".ne => RECENT_TIMEFRAME }).order_by(created_at: :desc)
   end
 
   def recently_called_patients(lines = LINES)
