@@ -19,4 +19,34 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
   end
+
+  describe 'weekly_report method' do
+    before do
+      get weekly_report_path
+    end
+
+    it 'should return success' do
+      assert_response :success
+    end
+  end
+
+  describe 'monthly_report method' do
+    before do
+      get monthly_report_path
+    end
+
+    it 'should return success' do
+      assert_response :success
+    end
+  end
+
+  describe 'yearly_report method' do
+    before do
+      get yearly_report_path
+    end
+
+    it 'should return success' do
+      assert_response :success
+    end
+  end
 end
