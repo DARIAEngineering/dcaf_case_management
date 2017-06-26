@@ -102,6 +102,12 @@ class User
   # AND they would otherwise be in the call list
   # (e.g. assigned to current line and in user.patients)
 
+  def call_list_patients(lines = LINES)
+    Patient.in(_line: lines, user_ids: BSON::ObjectId(id)).where( :$and =>
+    [ { :"calls.updated_at".ne => RECENT_TIMEFRAME },
+      { :"calls.created_by_id".ne => id } ]).order_by(created_at: :desc)
+  end
+
   def recently_called_patients(lines = LINES)
     Patient.in(_line: lines, user_ids: BSON::ObjectId(id)).where( :$and =>
     [ { :"calls.updated_at"  => RECENT_TIMEFRAME },
@@ -135,12 +141,6 @@ class User
       call_order.index(patient.id.to_s) || call_order.length
     end
     ordered_patients
-  end
-
-  def call_list_patients(lines = LINES)
-    Patient.in(_line: lines, user_ids: BSON::ObjectId(id)).where( :$and =>
-    [ { :"calls.updated_at".ne => RECENT_TIMEFRAME },
-      { :"calls.created_by_id".ne => id } ]).order_by(created_at: :desc)
   end
 
   def clear_call_list
