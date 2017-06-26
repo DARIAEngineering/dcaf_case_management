@@ -34,7 +34,7 @@ class User
 
   # Relationships
   has_and_belongs_to_many :patients, inverse_of: :users
-  
+
   # Fields
   # Non-devise generated
   field :name, type: String
@@ -77,6 +77,7 @@ class User
   validate :secure_password
 
   TIME_BEFORE_INACTIVE = 2.weeks
+  RECENT_TIMEFRAME = 8.hours.ago..Time.zone.now
 
   def secure_password
     return true if password.nil?
@@ -103,7 +104,7 @@ class User
 
   def recently_called_patients(lines = LINES)
     Patient.in(_line: lines, user_ids: BSON::ObjectId(id)).where( :$and =>
-    [ { :"calls.updated_at"  => (8.hours.ago..Time.now) },
+    [ { :"calls.updated_at"  => RECENT_TIMEFRAME },
       { :"calls.created_by_id" => id } ]).order_by(created_at: :asc)
   end
 
@@ -130,15 +131,15 @@ class User
 
   def ordered_patients(lines = LINES)
     return call_list_patients(lines) unless call_order
-      ordered_patients = call_list_patients(lines).sort_by do |patient|
-        call_order.index(patient.id.to_s) || call_order.length
-      end
-      ordered_patients
+    ordered_patients = call_list_patients(lines).sort_by do |patient|
+      call_order.index(patient.id.to_s) || call_order.length
+    end
+    ordered_patients
   end
 
   def call_list_patients(lines = LINES)
     Patient.in(_line: lines, user_ids: BSON::ObjectId(id)).where( :$and =>
-    [ { :"calls.updated_at".ne => (8.hours.ago..Time.now) },
+    [ { :"calls.updated_at".ne => RECENT_TIMEFRAME },
       { :"calls.created_by_id".ne => id } ]).order_by(created_at: :desc)
   end
 
