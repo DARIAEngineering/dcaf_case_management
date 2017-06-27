@@ -4,18 +4,20 @@ class ReportsController < ApplicationController
 
   end
 
-  def weekly_report
-    @weekly_report = Reports::LineSummary.generate(1.week.ago, Date.today)
-    render partial: "call_line", locals: {weekly_report: @weekly_report}
+  def report
+    case params[:timeframe]
+    when 'weekly'
+      @report = Reports::LineSummary.generate(1.week.ago, Date.today)
+      render partial: "patient_report", locals: {report: @report, lines: LINES, timeframe: params[:timeframe] }
+
+    when 'monthly'
+      @report = Reports::LineSummary.generate(1.month.ago, Date.today)
+      render partial: "patient_report", locals: {report: @report, lines: LINES, timeframe: params[:timeframe] }
+
+    when 'yearly'
+      @report = Reports::LineSummary.generate(1.year.ago, Date.today)
+      render partial: "patient_report", locals: {report: @report, lines: LINES, timeframe: params[:timeframe]}
+    end
   end
 
-  def monthly_report
-    @monthly_report = Reports::LineSummary.generate(1.month.ago, Date.today)
-    render partial: "past_thirty_days", locals: {monthly_report: @monthly_report}
-  end
-
-  def yearly_report
-    @yearly_report = Reports::LineSummary.generate(1.year.ago, Date.today)
-    render partial: "year_to_date", locals: {yearly_report: @yearly_report}
-  end
 end

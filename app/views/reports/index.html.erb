@@ -1,5 +1,13 @@
 <h1><strong>DCAF Data Center</strong></h1>
-
-<%= render_async weekly_report_path %>
-<%= render_async monthly_report_path %>
-<%= render_async yearly_report_path %>
+<div class="row">
+  <h4 class="col-sm-8"><strong>Budget bar, design TK</strong></h4>
+</div>
+<!-- UNCOMMENT WHEN BUDGET BAR IS READY
+<div id="budget_bar">
+  <div class="progress"></div>
+  <div class="progress-bar progress-bar-striped"</div>
+</div>
+ -->
+<%= render_async patients_report_path(timeframe: 'weekly') %>
+<%= render_async patients_report_path(timeframe: 'monthly') %>
+<%= render_async patients_report_path(timeframe: 'yearly') %>
