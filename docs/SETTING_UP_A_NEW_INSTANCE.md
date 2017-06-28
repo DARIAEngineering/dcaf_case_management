@@ -4,7 +4,7 @@ These are detailed instructions in spinning up an instance in heroku. These assu
 
 ## By the way
 
-DCAF has a lot of the surrounding infrastructure set up in such a way that it's easy to add new instances to our set. So please reach out to us if you're interested in skipping a lot of the tedious technical setup here.
+DCAF has a lot of the surrounding infrastructure set up in such a way that it's easy to add new instances to our set (what's referred to in this document as the `DCAF pipeline`). So please reach out to us if you're interested in skipping a lot of the tedious technical setup here.
 
 ## Main steps
 
