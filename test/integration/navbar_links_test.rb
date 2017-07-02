@@ -31,8 +31,8 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
     describe 'admin view' do
       before { click_link 'Admin' }
 
-      it 'should display the new user link' do
-        assert has_link? 'User Management', href: new_user_path
+      it 'should display User management link' do
+        assert has_link? 'User Management', href: users_path
       end
 
       it 'should display the Clinic Management link' do

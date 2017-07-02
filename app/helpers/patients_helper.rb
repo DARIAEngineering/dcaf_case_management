@@ -1,4 +1,4 @@
-# Populates selects etc on patient edit view
+# Functions primarily related to populating selects on patient edit view.
 module PatientsHelper
   def weeks_options
     (1..30).map { |i| [pluralize(i, 'week'), i] }.unshift [nil, nil]

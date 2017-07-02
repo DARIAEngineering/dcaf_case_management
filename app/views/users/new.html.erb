@@ -5,6 +5,7 @@
         <%= f.text_field :name %>
         <%= f.select :role, options_for_select(user_role_options) %>
         <%= f.submit "Add", class: 'btn btn-primary' %>
-      </div>
     <% end %>
+    <br>
+    <%= link_to "Back", :back %>
 </div>

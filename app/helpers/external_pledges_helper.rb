@@ -1,3 +1,4 @@
+# Functions to populate dropdowns related to external pledges.
 module ExternalPledgesHelper
   def external_pledge_source_options
     Rails.configuration

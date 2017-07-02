@@ -1,3 +1,4 @@
+# Functions to display call-related items.
 module CallsHelper
   def display_voicemail_link_with_warning(patient)
     if patient.voicemail_preference == :no
@@ -76,10 +77,12 @@ module CallsHelper
 
   def other_contact_name_display(patient)
     if patient.other_contact?
-      patient.other_contact +
-        other_contact_relationship_display(patient) +
-        ' is the primary contact for this patient' +
-        "#{patient.other_phone? ? ':' : '.'}"
+      display_block = <<-TEXT
+        #{patient.other_contact} #{other_contact_relationship_display(patient)}
+        is the primary contact for this
+        patient#{patient.other_phone? ? ':' : '.'}
+      TEXT
+      display_block
     else
       'Primary contact:'
     end

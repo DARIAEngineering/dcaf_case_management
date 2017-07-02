@@ -2,9 +2,17 @@
 # Fields are all devise settings; most of the methods relate to call list mgmt.
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Mongoid::Userstamp::User
+  include Mongoid::History::Trackable
   extend Enumerize
-  # extend ActiveModel::Naming
+
+  include UserSearchable
+  track_history on: fields.keys + [:updated_by_id],
+                  version_field: :version,
+                  track_create: true,
+                  track_update: true,
+                  track_destroy: true
 
   after_create :send_account_created_email, if: :persisted?
 
@@ -62,7 +70,7 @@ class User
 
   ## Lockable
   field :failed_attempts, type: Integer, default: 0
-  # field :unlock_token,    type: String # Requires unlock strategy
+  # field :unlock_token,    type: String
   field :locked_at,       type: Time
 
   # Validations
@@ -147,7 +155,11 @@ class User
   end
 
   def admin?
-    role == :admin
+    role == 'admin'
+  end
+
+  def allowed_data_access?
+    admin? || data_volunteer?
   end
 
   private

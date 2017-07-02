@@ -3,7 +3,7 @@ require 'test_helper'
 class SubmitPledgeTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
-    @user = create :user
+    @user = create :user, role: :data_volunteer
     @clinic = create :clinic
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14,
@@ -16,6 +16,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
 
   after { Capybara.use_default_driver }
 
+  # this is a test for a persistent turbolinks bug
   it 'should load properly without other page touches' do
     visit dashboard_path
     click_link @patient.name
@@ -43,11 +44,12 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       find('#pledge-next').click
       wait_for_no_element 'Awesome, you generated a DCAF'
 
-      go_to_dashboard
-      visit edit_patient_path @patient
+      wait_for_ajax
       wait_for_element 'Patient information'
 
       assert has_text? Patient::STATUSES[:pledge_sent]
+      assert has_link? 'Fulfillment'
+      assert has_link? 'Cancel pledge'
     end
 
     it 'should render after opening call modal' do
@@ -75,7 +77,6 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       @fulfillment = create :fulfillment, patient: @patient
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
-
     end
 
     it 'should render after opening call modal' do
@@ -84,10 +85,12 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_element "Call #{@patient.name} now:"
 
       find('#cancel-pledge-button').click
+      wait_for_ajax
 
       wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
       assert has_text? 'Cancel pledge:'
       find('#pledge-next').click
+      wait_for_ajax
 
       wait_for_no_element 'Cancel pledge:'
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
@@ -105,7 +108,7 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
       find('#pledge-next').click
 
-      visit edit_patient_path @patient
+      wait_for_ajax
       wait_for_element 'Patient information'
 
       assert has_link? 'Cancel pledge'
@@ -123,15 +126,14 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
       wait_for_no_element 'Cancel pledge:'
       assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
       find('#patient_pledge_sent').click
+      wait_for_ajax
       sleep 1 # out of ideas
       wait_for_ajax
 
       find('#pledge-next').click
-
-      visit edit_patient_path @patient
-      wait_for_element 'Patient information'
-
       assert has_link? 'Submit pledge'
+      assert has_content? Patient::STATUSES[:no_contact]
+      refute has_link? 'Fulfillment'
     end
   end
 end

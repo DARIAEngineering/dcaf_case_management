@@ -1,28 +1,79 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
-  before_action :confirm_admin_user, only: [:new, :index]
+  before_action :confirm_admin_user, only: [:new, :index, :update]
+  before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
+
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
     @users = User.all
   end
 
-  def create
+  def edit
+  end
+
+  def search # TODO needs more rigorous testing
+    if params[:search].empty?
+      @results = User.all
+    else
+      @results = User.search params[:search]
+    end
+    respond_to { |format| format.js }
+  end
+
+  def toggle_lock
+    # @user = User.find(params[:user_id])
+    # if @user == current_user
+    #   redirect_to edit_user_path @user
+    # else
+    #   if @user.access_locked?
+    #     flash[:notice] = 'Successfully unlocked ' + @user.email
+    #     @user.unlock_access!
+    #   else
+    #     flash[:notice] = 'Successfully locked ' + @user.email
+    #     @user.lock_access!
+    #   end
+    #   redirect_to edit_user_path @user
+    # end
+  end
+
+  # TODO find_user tweaking.
+  def reset_password
+    # @user = User.find(params[:user_id])
+
+    # TODO doesn't work in dev
+    @user.send_reset_password_instructions
+
+    flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
+    redirect_to edit_user_path @user
+  end
+
+  def update # TODO needs more rigorous testing
+    if @user.update_attributes user_params
+      flash[:notice] = 'Successfully updated user details'
+      redirect_to users_path
+    else
+      flash[:alert] = 'Error saving user details'
+      render 'edit'
+    end
+  end
+
+  def create # TODO needs more rigorous testing
     raise RuntimeError('Permission Denied') unless current_user.role_admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
     if @user.save
-      flash[:success] = 'User created!'
+      flash[:notice] = 'User created!'
       redirect_to session.delete(:return_to)
     else
-      # if validation errors, render creation page with error msgs
+      # TODO if validation errors, render creation page with error msgs
       render 'new'
     end
   end
 
-  def new
+  def new # TODO needs more rigorous testing
     @user = User.new
     session[:return_to] ||= request.referer
   end
@@ -49,6 +100,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def find_user # TODO needs more rigorous testing
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :role)

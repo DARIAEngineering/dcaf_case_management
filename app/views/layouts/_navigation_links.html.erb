@@ -18,7 +18,7 @@
         <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin tools<b class="caret"></b></a>
         <ul class="dropdown-menu">
           <% if current_user.role_admin? %>
-            <li><%= link_to 'User Management', new_user_path %></li>
+            <li><%= link_to 'User Management', users_path %></li>
             <li><%= link_to 'Clinic Management', clinics_path %></li>
           <% end %>
           <li><%= link_to 'Accounting', accountants_path %></li>

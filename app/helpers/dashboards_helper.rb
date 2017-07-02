@@ -24,31 +24,17 @@ module DashboardsHelper
 
   def remove_from_call_list_glyphicon
     safe_join [
-      tag(:span, class: ['glyphicon', 'glyphicon-remove'], aria: { hidden: true }),
+      tag(:span, class: ['glyphicon', 'glyphicon-remove'],
+                 aria: { hidden: true }),
       tag(:span, class: ['sr-only'], text: 'Remove call')
     ]
   end
 
   def call_glyphicon
     safe_join [
-      tag(:span, class: ['glyphicon', 'glyphicon-earphone'], aria: { hidden: true }),
+      tag(:span, class: ['glyphicon', 'glyphicon-earphone'],
+                 aria: { hidden: true }),
       tag(:span, class: ['sr-only'], text: 'Call')
     ]
-  end
-
-  def th_autosortable(column_name, type, local_assigns)
-    # Throw a flag unless sorting by string, int, or float
-    raise 'Bad datatype' unless %w(string string-ins int float).include? type
-    content_tag :th, data: { sort: type } do
-      safe_join [column_name, autosort_arrow_span(local_assigns)], ' '
-    end
-  end
-
-  private
-
-  # span that holds the up/down arrow
-  def autosort_arrow_span(local_assigns)
-    return '' unless local_assigns[:autosortable]
-    content_tag(:span, '[-]', class: 'arrow')
   end
 end

@@ -7,12 +7,13 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers, unless: :devise_controller?
   before_action :authenticate_user!
-  before_action :csp_headers
 
   # whitelists attributes in devise
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update) do |user|
+      user.permit :name, :current_password, :password, :password_confirmation
+    end
   end
 
   private
@@ -24,22 +25,11 @@ class ApplicationController < ActionController::Base
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
-  # Add CSP
-  def csp_headers
-    response.headers['Content-Security-Policy-Report-Only'] =
-      "default-src 'self'; " \
-      "script-src 'self' 'sha256-1kYydMhZjhS1eCkHYjBthAOfULylJjbss3YE6S2CGLc=' 'unsafe-eval'; " \
-      "font-src 'self' fonts.gstatic.com; " \
-      "style-src 'self' 'unsafe-inline'; " \
-      'object-src; ' \
-      "report-uri https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
-  end
-
   def confirm_admin_user
     redirect_to root_url unless current_user.role_admin?
   end
 
-  def confirm_user_has_data_access
-    redirect_to root_url unless (current_user.role_admin? || current_user.role_data_volunteer?)
+  def redirect_unless_has_data_access
+    redirect_to root_url unless current_user.allowed_data_access?
   end
 end
