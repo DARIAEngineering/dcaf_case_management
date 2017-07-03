@@ -92,7 +92,7 @@ GEM
     bootstrap_form (2.6.0)
     bootstrap_form-datetimepicker (0.0.1)
       bootstrap_form
-    brakeman (3.5.0)
+    brakeman (3.7.0)
     bson (4.2.1)
     bson_ext (1.5.1)
     builder (3.2.3)
