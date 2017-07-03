@@ -2,7 +2,7 @@ SecureHeaders::Configuration.default do |config|
   config.csp = {
     preserve_schemes: true, # default: false.
     default_src: %w('self'),
-    script_src: %w('self' 'unsafe-eval' 'unsafe-inline'), #TODO find workaround
+    script_src: %w('self' 'unsafe-eval'),
     font_src: %w('self' fonts.gstatic.com),
     connect_src: %w('self'),
     style_src: %w('self' 'unsafe-inline'),
