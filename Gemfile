@@ -36,7 +36,7 @@ gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
 group :development do
   gem 'pry'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
