@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
   # whitelists attributes in devise
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update) do |user|
+      user.permit :name, :current_password, :password, :password_confirmation
+    end
   end
 
   private
@@ -27,7 +29,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user.admin?
   end
 
-  def confirm_user_has_data_access
-    redirect_to root_url unless (current_user.admin? || current_user.data_volunteer?)
+  def redirect_unless_has_data_access
+    redirect_to root_url unless current_user.allowed_data_access?
   end
 end
