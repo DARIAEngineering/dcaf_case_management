@@ -41,7 +41,6 @@ group :development do
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
-  gem 'quality', '20.1.0', require: false
   # gem 'dawnscanner', require: false # disable until dawnscanner fixes CD prob
 end
 
