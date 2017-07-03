@@ -387,8 +387,8 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    secure_headers (3.6.4)
-      useragent
+    secure_headers (3.6.6)
+      useragent (>= 0.15.0)
     sexp_processor (4.8.0)
     shoulda-context (1.2.2)
     simplecov (0.14.1)
