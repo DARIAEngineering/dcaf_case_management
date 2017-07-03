@@ -16,8 +16,12 @@ $font-size: 17px;
   }
 }
 
-#menu {
-  border-right: 1px solid black;
+#sections {
+  border-left: 1px solid black;
+  padding-left: 15%;
+}
+
+#patient_detail {
   height: 70vh;
   ul{
     li{

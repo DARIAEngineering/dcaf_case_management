@@ -8,13 +8,11 @@
 </div>
 
 <div id="patient_detail" class="row">
-  <div class="col-sm-4">
-    <div id="menu" class="col-sm-9">
-      <%= render 'patients/menu', patient: @patient %>
-    </div>
+  <div class="col-sm-3">
+    <%= render 'patients/menu', patient: @patient %>
   </div>
 
-  <div id="sections" class="col-sm-8 tab-content">
+  <div id="sections" class="col-sm-9 tab-content">
     <%= render 'patients/abortion_information', patient: @patient, new_external_pledge: @external_pledge %>
     <%= render 'patients/patient_information', patient: @patient %>
     <%= render 'patients/change_log', patient: @patient %>
