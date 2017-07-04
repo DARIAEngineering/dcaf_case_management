@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_admin_user
-    redirect_to root_url unless current_user.role_admin?
+    redirect_to root_url unless current_user.admin?
   end
 
   def redirect_unless_has_data_access
