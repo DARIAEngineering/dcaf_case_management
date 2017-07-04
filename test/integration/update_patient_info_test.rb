@@ -43,6 +43,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal '2', lmp_days.value
         assert has_field?('Appointment date', with: @date)
         assert has_field? 'Phone number', with: '123-666-8888'
+
+        assert has_content? 'Currently: 5w 4d'
+        assert has_content? 'Approx gestation at appt: 6 weeks, 2 days'
       end
     end
   end

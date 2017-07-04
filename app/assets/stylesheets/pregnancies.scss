@@ -16,8 +16,12 @@ $font-size: 17px;
   }
 }
 
+#sections {
+  border-left: 1px solid black;
+  padding-left: 9.5%;
+}
+
 #menu {
-  border-right: 1px solid black;
   height: 70vh;
   ul{
     li{
