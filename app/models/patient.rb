@@ -51,7 +51,7 @@ class Patient
 
   # Contact-related info
   field :voicemail_preference
-  enumerize :voicemail_preference, in: [:not_specified, :no, :yes], default: :not_specified
+  enumerize :voicemail_preference, in: [not_specified: 0, no: 1, yes: 2], default: :not_specified
 
   field :line
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
@@ -86,7 +86,7 @@ class Patient
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
- 
+
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
