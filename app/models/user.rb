@@ -41,7 +41,7 @@ class User
   field :line, type: String
   field :role
 
-  enumerize :role, in: {:cm => 0, :admin => 1, :data_volunteer => 2}, predicates: true
+  enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: true
   field :call_order, type: Array
 
 
