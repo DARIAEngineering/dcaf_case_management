@@ -10,10 +10,10 @@ class Config
   field :config_value, type: Hash
 
   # Indices
-  index({ config_key: 1 }, unique: true)
+  index({ _config_key: 1 }, unique: true)
 
   # Validations
-  validates :config_key, uniqueness: true
+  validates :_config_key, uniqueness: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
