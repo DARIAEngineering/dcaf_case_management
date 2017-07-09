@@ -2,7 +2,7 @@ class ConfigsController < ApplicationController
   before_action :confirm_admin_user
 
   def index
-    @configs = Config.all
+    @configs = Config.all.sort
   end
 
   def update
