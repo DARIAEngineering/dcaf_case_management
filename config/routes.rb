@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       resources :external_pledges,
                 only: [ :create, :update, :destroy ]
     end
+
+    get 'reports/:timeframe', to: 'reports#report', as: 'patients_report'
+
     get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
 
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary

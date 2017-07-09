@@ -23,6 +23,7 @@ gem 'mongo_session_store', '>= 3.1.0'
 gem 'enumerize'
 gem 'bson_ext'
 gem 'figaro'
+gem 'render_async', '~> 0.1.2'
 gem 'gon', '~> 6.1.0'
 gem 'nokogiri', '>= 1.7.2'
 gem 'tzinfo-data', require: false

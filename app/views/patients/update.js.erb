@@ -22,9 +22,10 @@ $('#change_log').html(
 <% if @patient.previous_changes.key?('pledge_sent') && current_user.allowed_data_access? %>
   // populate the fulfillment form if it's supposed to be there
   <% if @patient.pledge_sent? %>
-    $('#fulfillment').html(
-      '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
-    );
+  $('#fulfillment').remove();
+  $('#sections').append(
+    '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
+  );
   <% end %>
 
   // properly set the button and make fulfillment show up, if it should
