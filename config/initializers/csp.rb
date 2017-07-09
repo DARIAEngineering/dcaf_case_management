@@ -1,4 +1,4 @@
-SecureHeaders::Configuration.default do |config|  
+SecureHeaders::Configuration.default do |config|
   config.csp = {
     preserve_schemes: true, # default: false.
     default_src: %w('self'),
@@ -8,4 +8,4 @@ SecureHeaders::Configuration.default do |config|
     style_src: %w('self' 'unsafe-inline'),
     report_uri: ["https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"]
   }
-end 
+end
