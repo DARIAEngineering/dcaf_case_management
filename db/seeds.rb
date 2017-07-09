@@ -137,6 +137,12 @@ user.add_patient patient_in_completed_calls
 patient_in_completed_calls.calls.create! status: 'Left voicemail',
                                         created_by: user
 
+# Create insurance and external pledge source keysets
+Config.create config_key: 'insurance',
+              config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance']}
+Config.create config_key: 'external_pledge_source',
+              config_value: { options: ['Baltimore Abortion Fund', 'Metallica Abortion Fund']}
+
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "Inserted #{Clinic.count} clinic objects. \n" \
