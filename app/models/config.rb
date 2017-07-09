@@ -13,7 +13,7 @@ class Config
   index({ _config_key: 1 }, unique: true)
 
   # Validations
-  validates :_config_key, uniqueness: true
+  validates :config_key, uniqueness: true, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

@@ -139,9 +139,9 @@ patient_in_completed_calls.calls.create! status: 'Left voicemail',
 
 # Create insurance and external pledge source keysets
 Config.destroy_all
-Config.create _config_key: 'insurance',
+Config.create config_key: :insurance,
               config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance']}
-Config.create _config_key: 'external_pledge_source',
+Config.create config_key: :external_pledge_source,
               config_value: { options: ['Baltimore Abortion Fund', 'Metallica Abortion Fund']}
 
 # Log results
