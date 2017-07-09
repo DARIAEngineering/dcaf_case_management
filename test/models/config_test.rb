@@ -15,11 +15,6 @@ class ConfigTest < ActiveSupport::TestCase
       refute @dupe_config.save
       assert @dupe_config.errors.messages[:config_key].include? 'is already taken'
     end
-
-    it 'should require a user id' do
-      @config.created_by = nil
-      refute @config.valid?
-    end
   end
 
   describe 'mongoid attachments' do

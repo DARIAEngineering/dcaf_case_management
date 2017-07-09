@@ -14,7 +14,6 @@ class Config
 
   # Validations
   validates :config_key, uniqueness: true
-  validates :created_by_id, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
