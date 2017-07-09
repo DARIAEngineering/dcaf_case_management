@@ -5,18 +5,6 @@ class ConfigsController < ApplicationController
     @configs = Config.all
   end
 
-  # def create
-  #   new_config = Config.new config_params
-  #   new_config.created_by = current_user
-  #   if new_config.save
-  #     flash[:success] = 'Config created successfully'
-  #     redirect_to config_path
-  #   else
-  #     flash[:danger] = 'Config failed to create'
-  #     render 'index'
-  #   end
-  # end
-
   def update
     @config = Config.find params[:id]
     @config.config_value = format_config_params(config_params) # this is not going to work

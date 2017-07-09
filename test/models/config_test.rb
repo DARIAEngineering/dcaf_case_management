@@ -12,8 +12,14 @@ class ConfigTest < ActiveSupport::TestCase
 
     it 'should be unique on config_key' do
       @dupe_config = build :config
-      refute @dupe_config.save
-      assert @dupe_config.errors.messages[:config_key].include? 'is already taken'
+      refute @dupe_config.valid?
+      assert @dupe_config.errors.messages[:_config_key].include? 'is already taken'
+    end
+
+    it 'should require a config_key' do
+      @bad_config = build :config, config_key: nil
+      refute @bad_config.valid?
+      assert @bad_config.errors.messages[:_config_key].include? "can't be blank"
     end
   end
 
@@ -33,6 +39,13 @@ class ConfigTest < ActiveSupport::TestCase
     it 'should have accessible userstamp methods' do
       assert @config.respond_to? :created_by
       assert @config.created_by
+    end
+  end
+
+  describe 'methods' do
+    it 'should easily retrieve options' do
+      assert_equal @config.options,
+                   ['DC Medicaid', 'No insurance', "Don't know"]
     end
   end
 end
