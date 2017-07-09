@@ -106,11 +106,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-<<<<<<< HEAD
-    params.require(:user).permit(:name, :email, :role)
-=======
     params.require(:user).permit(:name, :email)
->>>>>>> b136fb4357426a216e3ebde7b753c05c53d4896f
   end
 
   def retrieve_patients
