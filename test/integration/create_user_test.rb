@@ -30,6 +30,8 @@ class CreateUserTest < ActionDispatch::IntegrationTest
         click_link 'Admin'
         assert_text 'User Management'
         click_link 'User Management'
+        wait_for_element 'User Account Management'
+        click_link 'Add New User'
 
         assert has_field? 'Email'
         fill_in 'Email', with: 'test@test.com'

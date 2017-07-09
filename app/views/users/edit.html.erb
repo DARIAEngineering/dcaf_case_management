@@ -1,0 +1,44 @@
+<div class="row">
+  <h1><%= @user.name %></h1>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <h3> Status: <%= user_lock_status(@user) %></h3>
+    <h3> Last login: <%= @user.last_sign_in_at %> </h3>
+  </div>
+</row>
+<div class="row">
+  <div class="col-sm-12">
+    <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
+    <% if @user != current_user %>
+      <% if @user.access_locked? %>
+        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
+        <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+      <% else %>
+        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
+        <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  </div>
+</row>
+<div class="row">
+  <div class="col-sm-12">
+    <h3> User details </h3>
+    <%= bootstrap_form_for @user, html: { id: 'user-form' } do |f| %>
+
+      <div class="col-sm-6">
+        <%= f.text_field :name, label: 'Name', autocomplete: 'off' %>
+
+        <%= f.text_field :email, label: 'Email', autocomplete: 'off' %>
+
+        <%= f.select :role,
+                   options_for_select(user_role_options,
+                                      @user.role),
+                                      label: 'Role' %>
+
+        <%= f.submit "Save", class: 'btn btn-primary' %>
+        <%= link_to "Cancel", users_path %>
+      </div>
+    <% end %>
+  </div>
+</div>
