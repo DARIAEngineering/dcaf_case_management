@@ -2,7 +2,6 @@
   <div class="col-md-6">
     <%= bootstrap_form_for config, inline: true do |f| %>
       <%= f.text_area :options, label: "#{config.config_key.to_s.humanize} options",
-                                # should probably be a model method
                                 value: config.config_value.try(:values_at, 'options')
                                                           .try(:join, ', '),
                                 help: 'Please separate with commas.' %>
