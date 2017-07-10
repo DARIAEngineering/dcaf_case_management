@@ -36,11 +36,23 @@ module Exportable
     "Clinic" => :export_clinic_name,
     "Pledge sent" => :pledge_sent,
     "Resolved without fund assistance" => :resolved_without_fund,
-    "Pledge generated time" => :pledge_generated_at
+    "Pledge generated time" => :pledge_generated_at,
+
+    # Call related
+    "Timestamp of first call" => :first_call_timestamp,
+    "Timestamp of last call" => :last_call_timestamp,
+    "Call count" => :call_count,
+    "Reached Patient call count" => :reached_patient_call_count,
+
+    # Fulfillment related
+    "Fulfilled" => :fulfilled,
+    "Procedure date" => :procedure_date,
+    "Gestation at procedure in weeks" => :gestation_at_procedure,
+    "Procedure cost" => :procedure_cost,
+    "Check number" => :check_number,
+    "Date of Check" => :date_of_check
 
     # TODO clinic stuff
-    # TODO call stuff
-    # TODO fulfillment stuff
     # TODO external pledges
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
@@ -85,6 +97,47 @@ module Exportable
     # TODO external pledges
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
+
+  def fulfilled
+    fulfillment.try :fulfilled
+  end
+
+  def procedure_date
+    fulfillment.try :procedure_date
+  end
+
+  def gestation_at_procedure
+    fulfillment.try :gestation_at_procedure
+  end
+
+  def procedure_cost_amount
+    fulfillment.try :procedure_cost
+  end
+
+  def check_number
+    fulfillment.try :check_number
+  end
+
+  def date_of_check
+    fulfillment.try :date_of_check
+  end
+
+  def first_call_timestamp
+    calls.first.try :created_at
+  end
+
+  def last_call_timestamp
+    calls.last.try :created_at
+  end
+
+  def call_count
+    calls.count
+  end
+
+  def reached_patient_call_count
+    reached_calls = calls.select {|call| call.status == "Reached patient"}
+    reached_calls.count
+  end
 
   def has_alt_contact?
     other_contact.present? || other_phone.present? || other_contact_relationship.present?

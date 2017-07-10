@@ -12,7 +12,7 @@ class Patient
   include Urgency
   include Callable
   include Notetakeable
-  include Searchable
+  include PatientSearchable
   include AttributeDisplayable
   include LastMenstrualPeriodMeasureable
   include Pledgeable
@@ -35,6 +35,7 @@ class Patient
   embeds_many :calls
   embeds_many :external_pledges
   embeds_many :notes
+  belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
 
   # Enable mass posting in forms
   accepts_nested_attributes_for :fulfillment
@@ -84,9 +85,12 @@ class Patient
 
   # Archiving Fields
   field :archived, type: Boolean
-  enum :age_range, [:unknown, :under_18, :age18_24, :age25_34, :age35_44, :age45_54, :age55_100, :over_100]
+  enum :age_range,
+    [:unknown, :under_18,
+     :age18_24, :age25_34,
+     :age35_44, :age45_54,
+     :age55_100, :over_100]
   field :had_other_contact, type: Boolean
-
 
   # Indices
   index({ primary_phone: 1 }, unique: true)

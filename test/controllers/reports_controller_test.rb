@@ -19,4 +19,21 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
   end
+
+  describe 'report method' do
+    it 'should return success on proper timeframe' do
+      get patients_report_path(timeframe: 'weekly')
+      assert_response :success
+      get patients_report_path(timeframe: 'monthly')
+      assert_response :success
+      get patients_report_path(timeframe: 'yearly')
+      assert_response :success
+    end
+
+    it 'should return 406 on bad timeframe' do
+      get patients_report_path(timeframe: 'nonexistent')
+      assert_response 406
+    end
+  end
+
 end

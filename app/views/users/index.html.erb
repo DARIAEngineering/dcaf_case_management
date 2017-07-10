@@ -1,36 +1,15 @@
 <h1>User Account Management</h1>
 <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <%= link_to "Add New User", new_user_path, class: "btn btn-primary" %>
-  </div>
-  <div class="col-md-4">
+    <%= link_to "Reset Password (WIP)", "#", class: "btn btn-default", disabled: true %>
+    <%= link_to "Toggle Lock (WIP)", "#", class: "btn btn-default", disabled: true %>
     <div style="float: right;">
-      <%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |p| %>
-        <%= p.text_field :search, placeholder: 'search', hide_label: true, class: 'search_form_input' %>
-        <%= p.submit 'Search', class: 'btn btn-primary' %>
-      <% end %>
+      <%= render partial: 'users/search_form', locals: { autosortable: true } %>
     </div>
   </div>
+
 </div>
-<table class="table border-side">
-  <thead>
-    <tr>
-      <th>FULL NAME</th>
-      <th>ROLE</th>
-      <th>LAST LOGIN</th>
-      <th>STATUS</th>
-      <th> RESET PASSWORD</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.name, "#" %></td>
-        <td><%= user.role %>
-        <td><%= user.last_sign_in_at %>
-        <td> STATUS </td>
-        <td><button type="button" class="btn btn-primary">Reset Password</button></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="user-list" class="margin-bottom">
+  <%= render partial: 'users/users_table', locals: { users: @users, autosortable: true } %>
+</div>
