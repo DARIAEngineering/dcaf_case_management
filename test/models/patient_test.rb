@@ -561,6 +561,56 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'archive tests v1' do
+    before { @patient = create :patient }
+
+    describe 'archived status tests' do
+      it 'should report not archived for active patients' do
+        assert_not true patient.archived?
+      end
+
+      it 'should report archived for archived patients' do
+        patient.archive
+        assert true patient.archived?
+      end
+
+      it 'should not have a numeric ID' do
+        flunk( "IOU" )
+      end
+      it 'should not have a phone number' do
+        flunk( "IOU" )
+      end
+      it 'should not have a name' do
+        flunk( "IOU" )
+      end
+      it 'should not have any notes' do
+        flunk( "IOU" )
+      end
+      it 'should not have an age' do
+        flunk( "IOU" )
+      end
+      it 'should have an age_range' do
+        flunk( "IOU" )
+      end
+      it 'should not have an other contact name or number' do
+        flunk( "IOU" )
+      end
+      it 'should not have any circumstances' do
+        flunk( "IOU" )
+      end
+      it 'should not have a check # on pledge' do
+        flunk( "IOU" )
+      end
+    end
+
+    describe 'archived status readonly' do
+      it 'should not allow updates to archived patients' do
+        flunk("IOU")
+        # TODO integration test for this as well?
+      end
+    end
+  end
+
   describe 'export concern methods' do
     before { @patient = create :patient }
 
