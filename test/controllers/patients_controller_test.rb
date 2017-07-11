@@ -143,6 +143,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond success on completion' do
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
       assert_response :success
     end
 
@@ -169,7 +170,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  #confirm get :data_entry returns a success code
   describe 'data_entry method' do
     it 'should respond success on completion' do
       get data_entry_path
@@ -194,6 +194,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       end
 
       refute_nil @patient.reload.pledge_generated_at
+      refute_nil @patient.reload.pledge_generated_by
       assert_response :success
     end
   end

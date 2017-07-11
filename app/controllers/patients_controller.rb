@@ -1,6 +1,6 @@
-# Create and update patients, plus the main patient view in edit
+# Create, edit, and update patients. The main patient view is edit.
 class PatientsController < ApplicationController
-  before_action :confirm_user_has_data_access, only: [:index]
+  before_action :redirect_unless_has_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
@@ -51,8 +51,8 @@ class PatientsController < ApplicationController
                                     @patient,
                                     params[:case_manager_name].to_s)
                                .generate_pledge_pdf
-      @patient.update pledge_generated_at: Time.zone.now
-
+      @patient.update pledge_generated_at: Time.zone.now,
+                      pledge_generated_by: current_user
       send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
     end
   end
@@ -63,10 +63,9 @@ class PatientsController < ApplicationController
   end
 
   def update
-    # date_of_check unpermitted, picking a check date.
-    # TODO only check date muck up, run through colin and see whether check date should persist
     if @patient.update_attributes format_dates(patient_params)
-      head :ok
+      @patient.reload
+      respond_to { |format| format.js }
     else
       head :internal_server_error
     end
@@ -86,7 +85,6 @@ class PatientsController < ApplicationController
 
     if @patient.save
       flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
-      current_user.add_patient @patient
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"

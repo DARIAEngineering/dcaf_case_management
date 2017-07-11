@@ -9,19 +9,16 @@ class UpdateUserInfoTest < ActionDispatch::IntegrationTest
   end
 
   describe 'alter user info' do
-    it 'should let you change name and email' do
+    it 'should let you change name' do
       fill_in 'First and last name', with: 'Thorny'
       fill_in 'Current password', with: @user.password
       click_button 'Update info'
       assert has_text? 'Thorny'
     end
 
-    it 'should let you change email' do
-      fill_in 'Email', with: 'different@email.com'
-      fill_in 'Current password', with: @user.password
-      click_button 'Update info'
-      visit edit_user_registration_path
-      assert_text 'different@email.com'
+    it 'should not let you change email' do
+      assert has_text? 'Email'
+      refute has_field? 'Email'
     end
 
     describe 'changing your password' do
