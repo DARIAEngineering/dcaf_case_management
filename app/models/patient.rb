@@ -49,7 +49,7 @@ class Patient
   field :other_contact_relationship, type: String
   field :identifier, type: String
 
-  # Contact-related info
+  # Contact-related -info
   enum :voicemail_preference, [:not_specified, :no, :yes]
   enum :line, LINES # See config/initializers/env_vars.rb
   field :spanish, type: Boolean
@@ -82,7 +82,7 @@ class Patient
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
- 
+
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
