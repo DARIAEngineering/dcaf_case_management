@@ -2,10 +2,10 @@
 # Fields are all devise settings; most of the methods relate to call list mgmt.
 class User
   include Mongoid::Document
-  include Mongoid::Enum
   include Mongoid::Timestamps
   include Mongoid::Userstamp::User
   include Mongoid::History::Trackable
+  extend Enumerize
 
   include UserSearchable
   track_history on: fields.keys + [:updated_by_id],
@@ -34,13 +34,16 @@ class User
 
   # Relationships
   has_and_belongs_to_many :patients, inverse_of: :users
-  
+
   # Fields
   # Non-devise generated
   field :name, type: String
   field :line, type: String
-  enum :role, [:cm, :admin, :data_volunteer]
+  field :role
+
+  enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: true
   field :call_order, type: Array
+
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -102,12 +105,12 @@ class User
   # (e.g. assigned to current line and in user.patients)
 
   def recently_called_patients(lines = LINES)
-    patients.in(_line: lines)
+    patients.in(line: lines)
             .select { |patient| recently_called_by_user? patient }
   end
 
   def call_list_patients(lines = LINES)
-    patients.in(_line: lines)
+    patients.in(line: lines)
             .reject { |patient| recently_called_by_user? patient }
   end
 
@@ -153,7 +156,7 @@ class User
   end
 
   def admin?
-    role == :admin
+    role == 'admin'
   end
 
   def allowed_data_access?

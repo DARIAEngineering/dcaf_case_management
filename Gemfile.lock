@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/DCAFEngineering/mongoid-enum
-  revision: 361188caace7da251cdd362d805c3dfbbcbf1a1b
-  branch: master
-  specs:
-    mongoid-enum (0.4.0)
-      mongoid (~> 6.0)
-
-GIT
   remote: https://github.com/DCAFEngineering/mongoid_userstamp.git
   revision: 057eaea6988da10ac81a6808e6fff1ee4fe55ce5
   branch: master
@@ -145,6 +137,8 @@ GEM
       warden (~> 1.2.3)
     docile (1.1.5)
     easy_diff (1.0.0)
+    enumerize (2.1.2)
+      activesupport (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
     excon (0.55.0)
@@ -466,6 +460,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise (~> 4.2.1)
+  enumerize
   factory_girl_rails
   faker
   figaro
@@ -484,7 +479,6 @@ DEPENDENCIES
   minitest-spec-rails
   mongo_session_store (>= 3.1.0)
   mongoid (= 6.1.0)
-  mongoid-enum!
   mongoid-history (= 0.6.1)
   mongoid_userstamp!
   nokogiri (>= 1.7.2)
