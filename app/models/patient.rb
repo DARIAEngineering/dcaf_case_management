@@ -52,7 +52,7 @@ class Patient
   # Contact-related info
   enum :voicemail_preference, [:not_specified, :no, :yes]
   enum :line, LINES # See config/initializers/env_vars.rb
-  field :spanish, type: Boolean
+  field :language, type: String
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean
   field :last_menstrual_period_weeks, type: Integer

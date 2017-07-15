@@ -21,10 +21,11 @@
                                           patient.race_ethnicity),
                                           label: 'Race / Ethnicity',
                                           autocomplete: 'off' %>
-
-          <%= f.form_group :spanish do %>
-            <%= f.check_box :spanish, label: 'Spanish Only' %>
-          <% end %>
+          <%= f.select :language,
+                       options_for_select(language,
+                                          patient.language),
+                                          label: 'Preferred Language',
+                                          autocomplete: 'off' %>
 
           <%= f.select :voicemail_preference,
                        options_for_select(voicemail_options,

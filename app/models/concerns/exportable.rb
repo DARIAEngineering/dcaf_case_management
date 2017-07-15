@@ -10,7 +10,7 @@ module Exportable
     "Has Alt Contact?" => :has_alt_contact?,
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
-    "Spanish?" => :spanish,
+    "Language?" => :language,
     "Age" => :age_range,
     "State" => :state,
     "County" => :county,
