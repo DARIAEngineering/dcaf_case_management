@@ -77,5 +77,4 @@ end
 group :production do
   gem 'puma'
   gem 'skylight'
-  gem 'rails_12factor'
 end
