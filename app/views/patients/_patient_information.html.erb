@@ -28,6 +28,7 @@
                                           patient.language),
                                           label: 'Preferred Language',
                                           autocomplete: 'off' %>
+          <% end %>
 
           <%= f.select :voicemail_preference,
                        options_for_select(voicemail_options,
