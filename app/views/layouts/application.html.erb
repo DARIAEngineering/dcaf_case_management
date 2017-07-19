@@ -21,7 +21,11 @@
     <% end %>
     <main role="main">
       <div class="container">
-        <%= render 'layouts/messages' %>
+        <div id="flash">
+          <% if notice.present? %>
+            <%= render 'layouts/messages' %>
+          <% end %>
+        </div>
 
         <br>
         <%= yield %>
