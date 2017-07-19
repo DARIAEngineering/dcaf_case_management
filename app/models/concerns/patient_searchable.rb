@@ -53,8 +53,8 @@ module PatientSearchable
 
     def find_name_matches(name_regexp, lines = LINES)
       if nonempty_regexp? name_regexp
-        primary_names = Patient.in(_line: lines).where name: name_regexp
-        other_names = Patient.in(_line: lines).where other_contact: name_regexp
+        primary_names = Patient.in(line: lines).where name: name_regexp
+        other_names = Patient.in(line: lines).where other_contact: name_regexp
         return (primary_names | other_names)
       end
       []
@@ -70,8 +70,8 @@ module PatientSearchable
 
     def find_phone_matches(phone_regexp, lines = LINES)
       if nonempty_regexp? phone_regexp
-        primary_phones = Patient.in(_line: lines).where(primary_phone: phone_regexp)
-        other_phones = Patient.in(_line: lines).where(other_phone: phone_regexp)
+        primary_phones = Patient.in(line: lines).where(primary_phone: phone_regexp)
+        other_phones = Patient.in(line: lines).where(other_phone: phone_regexp)
         return (primary_phones | other_phones)
       end
       []
