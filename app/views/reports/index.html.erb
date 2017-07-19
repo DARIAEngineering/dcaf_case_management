@@ -8,6 +8,6 @@
   <div class="progress-bar progress-bar-striped"</div>
 </div>
  -->
-<%= render_async patients_report_path(timeframe: 'weekly', nonce: content_security_policy_script_nonce) %>
-<%= render_async patients_report_path(timeframe: 'monthly', nonce: content_security_policy_script_nonce) %>
-<%= render_async patients_report_path(timeframe: 'yearly', nonce: content_security_policy_script_nonce) %>
+<%= render_async patients_report_path(timeframe: 'weekly'), nonce: content_security_policy_script_nonce %>
+<%= render_async patients_report_path(timeframe: 'monthly'), nonce: content_security_policy_script_nonce %>
+<%= render_async patients_report_path(timeframe: 'yearly'), nonce: content_security_policy_script_nonce %>
