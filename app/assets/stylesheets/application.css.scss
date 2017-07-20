@@ -197,6 +197,19 @@ h5 {
   /*max-width: 320px;*/
   margin: 0 auto;
 }
+
+.authform a:first-of-type {
+  font-size: 1.625rem;
+  padding: 4px;
+  color: #FFFAF8;
+  background-color: $daria-color;
+  border-radius: 4px;
+}
+
+.authform a:first-of-type:hover {
+  background-color: lighten($daria-color,15%);
+}
+
 .authform form {
   /*@extend .well;*/
   /*@extend .well-lg;*/
