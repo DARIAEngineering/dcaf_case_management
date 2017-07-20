@@ -1,0 +1,6 @@
+<div id='activity_feed' class='margin-bottom'>
+  <h1 class='border-bottom title'>Activity Feed</h1>
+  <% Event.order_by(created_at: :desc).limit(10).each do |event| %>
+    <%= "#{event.cm_name} #{event.event_type} #{event.patient_name} #{event.patient_id} #{event.created_at}" %>
+  <% end %>
+</div>
