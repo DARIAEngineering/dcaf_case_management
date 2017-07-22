@@ -2,7 +2,7 @@
 module ExternalPledgesHelper
   def external_pledge_source_options
     standard_options = ['Clinic discount', 'Other fund (see notes)']
-    [nil] + Config.find_by(_config_key: 'external_pledge_source').options + standard_options
+    [nil] + Config.find_by(config_key: 'external_pledge_source').options + standard_options
   end
 
   def available_pledge_source_options_for(patient)
