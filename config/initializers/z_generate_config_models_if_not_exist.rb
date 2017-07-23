@@ -1,6 +1,5 @@
 # Generates backing config objects based on Config::CONFIG_FIELDS
 puts 'Confirming fund config fields exist...'
-# User.current = User.order(created_at: :asc).limit(1).first
 
 Config::CONFIG_FIELDS.map(&:to_s).each do |field|
   if Config.where(config_key: field).count != 1
