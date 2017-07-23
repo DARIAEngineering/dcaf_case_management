@@ -2,7 +2,7 @@
 class Config
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Userstamp
+  # include Mongoid::Userstamp
   include Mongoid::History::Trackable
   extend Enumerize
 
@@ -17,14 +17,15 @@ class Config
 
   # Validations
   validates :config_key, uniqueness: true, presence: true
+  # validates :created_by_id, presence: true
 
   # History and auditing
-  track_history on: fields.keys + [:updated_by_id],
+  track_history on: fields.keys,# + [:updated_by_id],
                 version_field: :version,
                 track_create: true,
                 track_update: true,
                 track_destroy: true
-  mongoid_userstamp user_model: 'User'
+  # mongoid_userstamp user_model: 'User'
 
   # Methods
   def options
