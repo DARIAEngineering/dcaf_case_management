@@ -10,7 +10,7 @@ module Exportable
     "Has Alt Contact?" => :has_alt_contact?,
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
-    "Spanish?" => :spanish,
+    "Language" => :preferred_language,
     "Age" => :age_range,
     "State" => :state,
     "County" => :county,
@@ -124,6 +124,15 @@ module Exportable
       '55+'
     else
       'Bad value'
+    end
+  end
+
+  def preferred_language
+    case language
+    when nil, ''
+      'English'
+    else
+      language
     end
   end
 
