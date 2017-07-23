@@ -1,4 +1,8 @@
 # Generates backing config objects based on Config::CONFIG_FIELDS
+# This has a z in front of the name because it needs to run AFTER
+# the devise and mongoid history initializers, and rails runs them
+# in order on startup.
+# I know exactly how dumb that is, but here we are. -CF
 puts 'Confirming fund config fields exist...'
 
 Config::CONFIG_FIELDS.map(&:to_s).each do |field|
