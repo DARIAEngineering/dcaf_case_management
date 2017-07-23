@@ -77,4 +77,5 @@ end
 group :production do
   gem 'puma'
   gem 'skylight'
+  gem 'sqreen'
 end
