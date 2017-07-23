@@ -13,6 +13,7 @@ $daria-color: #5D3E8D;
 $grey-color: #828282;
 $font-size: 17px;
 
+
 /* NAVBAR */
 .navbar-inverse{
   background-color: #f5f5f5;
@@ -34,7 +35,7 @@ $font-size: 17px;
     margin:0px;
     line-height:20px;
   }
-  
+
   .navbar-text-alt{
     color: $grey-color;
     padding:15px;
@@ -228,6 +229,11 @@ h5 {
    margin-top:25px;
 }
 
+.info-form .checkbox label {
+  font-weight: bold;
+}
+
+
 // Search result
 // shell styling
 .form-group input {
@@ -282,7 +288,7 @@ $daria-color-lt : #825fb9;
     background-color: $daria-color-lt;
     }
   }
-  
+
 }
 
 .btn-success[disabled] {
@@ -301,7 +307,7 @@ $daria-color-lt : #825fb9;
       border-color: $daria-color;
     }
   }
-  
+
 }
 
 .btn-warning[disabled] {
@@ -326,6 +332,3 @@ $daria-color-lt : #825fb9;
     margin-left: -2em;
   }
 }
-
-
-

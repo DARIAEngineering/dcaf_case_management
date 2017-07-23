@@ -23,14 +23,13 @@ gem 'mongo_session_store', '>= 3.1.0'
 gem 'enumerize'
 gem 'bson_ext'
 gem 'figaro'
-gem 'render_async', '~> 0.1.2'
+gem 'render_async', '~> 0.2.3'
 gem 'gon', '~> 6.1.0'
 gem 'nokogiri', '>= 1.7.2'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem 'rack-attack', '~> 5.0.1'
 gem 'rack-test', '~> 0.6.3', require: 'rack/test'
-gem 'platform-api', git: 'https://github.com/jalada/platform-api', branch: 'master'
 gem 'clinic_finder', '~> 0.0.1'
 gem 'geokit'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
@@ -77,6 +76,5 @@ end
 
 group :production do
   gem 'puma'
-  gem 'letsencrypt-rails-heroku'
   gem 'skylight'
 end

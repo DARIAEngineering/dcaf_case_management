@@ -143,7 +143,7 @@ module Exportable
         csv << CSV_EXPORT_FIELDS.keys # Header line
         all.each do |patient|
           csv << CSV_EXPORT_FIELDS.values.map do |field|
-             patient.get_field_value_for_serialization(field)
+            patient.get_field_value_for_serialization(field)
           end
         end
       end
