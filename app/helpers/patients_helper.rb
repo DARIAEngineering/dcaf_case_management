@@ -15,7 +15,7 @@ module PatientsHelper
   end
 
   def language
-    [nil, 'English', 'Spanish', 'French', 'Korean']
+    [['English', nil], 'Spanish', 'French', 'Korean']
   end
 
   def employment_status_options
