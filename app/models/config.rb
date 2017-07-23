@@ -2,7 +2,7 @@
 class Config
   include Mongoid::Document
   include Mongoid::Timestamps
-  # include Mongoid::Userstamp
+  include Mongoid::Userstamp
   include Mongoid::History::Trackable
   extend Enumerize
 
