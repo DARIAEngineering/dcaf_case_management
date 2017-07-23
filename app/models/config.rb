@@ -1,11 +1,12 @@
-CONFIG_FIELDS = [:insurance, :external_pledge_source]
-
+# Class so that funds can set their own dropdown lists of things
 class Config
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Userstamp
-  include Mongoid::Enum
   include Mongoid::History::Trackable
+  extend Enumerize
+
+  CONFIG_FIELDS = [:insurance, :external_pledge_source]
 
   # Fields
   enumerize :config_key, in: CONFIG_FIELDS
