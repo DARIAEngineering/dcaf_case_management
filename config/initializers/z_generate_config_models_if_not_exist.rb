@@ -3,7 +3,8 @@ puts 'Confirming fund config fields exist...'
 # User.current = User.order(created_at: :asc).limit(1).first
 
 Config::CONFIG_FIELDS.map(&:to_s).each do |field|
-  if Config.where(config_key: field) != 1
+  if Config.where(config_key: field).count != 1
+    puts "Creating config for #{field}..."
     Config.create config_key: field,
                   config_value: { options: [] }
   end
