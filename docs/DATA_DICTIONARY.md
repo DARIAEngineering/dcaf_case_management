@@ -12,7 +12,7 @@ Field | Description | Exportable? | Reported by | Input Type
 **Insurance** | Patient's current insurance coverage, if any. This includes public and private options. | Exportable | Patient Reported | Dropdown
 **Employment Status** | Patient's current employment status | Exportable | Patient Reported | Dropdown
 **Income Level** | Patient's income level (ranges) |  | Patient Reported | Dropdown
-**City** | Patient's city | Exportable | Patient Reported | Text field
+**City** | Patient's city of residency | Exportable | Patient Reported | Text field
 **State** | Patient's state of residency | Exportable | Patient Reported | Text field
 **County** | Patient's county of residency | Exportable | Patient Reported | Text field
 **Referred by** | How did the patient found out about or was referred to the Fund | Exportable | Patient Reported | Dropdown
