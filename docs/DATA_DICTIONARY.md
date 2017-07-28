@@ -11,7 +11,7 @@ Field | Description | Exportable? | Reported by | Input Type
 **Race/Ethnicity** | Patient's race or ethinicity | Exportable | Patient Reported | Dropdown
 **Insurance** | Patient's current insurance coverage, if any. This includes public and private options. | Exportable | Patient Reported | Dropdown
 **Employment Status** | Patient's current employment status | Exportable | Patient Reported | Dropdown
-**Income Level** | Patient's income level (ranges) |  | Patient Reported | Dropdown
+**Income Level** | Patient's income level (ranges) | Exportable | Patient Reported | Dropdown
 **City** | Patient's city of residency | Exportable | Patient Reported | Text field
 **State** | Patient's state of residency | Exportable | Patient Reported | Text field
 **County** | Patient's county of residency | Exportable | Patient Reported | Text field
