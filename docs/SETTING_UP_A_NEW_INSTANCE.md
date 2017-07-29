@@ -45,6 +45,7 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 - `RAILS_SERVE_STATIC_FILES` (set to `true`)
 - `SITE_URL` (The URL, without http, your CMs will go to. e.g. `app.myabortionfund.org`)
 - `SKYLIGHT_AUTH_TOKEN` (get it from Skylight)
+- `SQREEN_TOKEN` (get it from Sqreen)
 
 * Run `rake db:mongoid:create_indexes` on the server to set up database indexes
 

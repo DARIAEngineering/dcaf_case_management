@@ -10,11 +10,11 @@ module Exportable
     "Has Alt Contact?" => :has_alt_contact?,
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
-    "Spanish?" => :spanish,
+    "Language" => :preferred_language,
     "Age" => :age_range,
     "State" => :state,
     "County" => :county,
-    "Race/Ethnicity" => :race_ethnicity,
+    "Race or Ethnicity" => :race_ethnicity,
     "Employment Status" => :employment_status,
     "Minors in Household" => :household_size_children,
     "Adults in Household" => :household_size_adults,
@@ -27,8 +27,6 @@ module Exportable
     "Urgent?" => :urgent_flag,
     # "Special Circumstances" => :special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
-    "Race or Ethnicity" => :race_ethnicity,
-    "Employment status" => :employment_status,
     "Abortion cost" => :procedure_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
@@ -124,6 +122,15 @@ module Exportable
       '55+'
     else
       'Bad value'
+    end
+  end
+
+  def preferred_language
+    case language
+    when nil, ''
+      'English'
+    else
+      language
     end
   end
 

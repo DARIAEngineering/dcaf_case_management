@@ -65,9 +65,9 @@ Given that a very common attack vector for an app of this type is a user account
 
 ## Data access
 
-We follow the principle of least use; most users are permissioned to see only necessary data. 
+We follow the principle of least use; most users are permissioned to see only necessary data.
 
-Furthermore, we do not have a user-accessible way to bulk-export or bulk-lookup data, so that in the event of an intrusion someone can't simply hit an export button.
+For users with heightened permissions, we have a user-accessible way to bulk-export anonymized data for aggregation. We don't have a user-accessible way to bulk-lookup data.
 
 
 ## Other attack vectors

@@ -24,9 +24,8 @@
       </div>
 
       <div class="col-sm-2">
-        <%= f.form_group :spanish, label: { text: 'Spanish only' } do %>
-          <%= f.check_box :spanish, label: '' %>
-        <% end %>
+        <%= f.select :language, options_for_select(language, patient.language ),
+          label: 'Preferred Language', autocomplete: 'off' %>
       </div>
     </div>
 
