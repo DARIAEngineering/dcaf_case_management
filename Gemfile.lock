@@ -156,7 +156,6 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.19)
-    libv8 (3.16.14.19-x86_64-darwin-15)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
