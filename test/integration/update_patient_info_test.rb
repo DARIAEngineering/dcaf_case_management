@@ -114,7 +114,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
-      check 'Spanish Only'
+      select 'Spanish', from: 'patient_language'
 
       select 'Part-time', from: 'patient_employment_status'
       select '$30,000-34,999 ($577-672/wk - $2500-2916/mo)',
@@ -143,7 +143,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'State', with: 'DC'
         assert has_field? 'County', with: 'Wash'
         assert_equal 'yes', find('#patient_voicemail_preference').value
-        assert has_checked_field? 'Spanish Only'
+        assert_equal 'Spanish', find('#patient_language').value
 
         assert_equal 'Part-time', find('#patient_employment_status').value
         assert_equal '$30,000-34,999',
@@ -153,7 +153,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'Other state Medicaid', find('#patient_insurance').value
         assert_equal 'Other abortion fund', find('#patient_referred_by').value
         assert_equal 'yes', find('#patient_voicemail_preference').value
-        assert has_checked_field? 'Spanish Only'
+        assert_equal 'Spanish', find('#patient_language').value
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
         assert has_no_css? '#patient_line'

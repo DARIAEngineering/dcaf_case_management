@@ -10,3 +10,7 @@
 * Check the `beginner friendly` tag for issues that don't require deep familiarity with the codebase.
 * Check out the README! We do a pretty good job of documenting our processes. 
 * Come hang out with us at a Code for DC meeting!
+
+### Security Practices
+
+* Please see [this document](https://github.com/DCAFEngineering/dcaf_case_management/docs/SECURITY_INTRO.md) for good security practices

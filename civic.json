@@ -1,6 +1,6 @@
 {
     "name": "DCAF Case Manager", 
-    "description": "A Rails-based case management system for ", 
+    "description": "A Rails-based case management system for abortion funds",
     "license": "MIT", 
     "status": "Production", 
     "homepage": "https://sandbox.dcabortionfnd.org", 

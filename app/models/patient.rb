@@ -1,9 +1,7 @@
 # Object representing core patient information and demographic data.
-
 class Patient
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Enum
   include Mongoid::Userstamp
   include Mongoid::History::Trackable
 
@@ -19,9 +17,10 @@ class Patient
   include HistoryTrackable
   include Statusable
   include Exportable
+  extend Enumerize
 
   LINES.each do |line|
-    scope line.downcase.to_sym, -> { where(:_line.in => [line]) }
+    scope line.downcase.to_sym, -> { where(:line.in => [line]) }
   end
 
   before_validation :clean_fields
@@ -50,9 +49,13 @@ class Patient
   field :identifier, type: String
 
   # Contact-related info
-  enum :voicemail_preference, [:not_specified, :no, :yes]
-  enum :line, LINES # See config/initializers/env_vars.rb
-  field :spanish, type: Boolean
+  field :voicemail_preference
+  enumerize :voicemail_preference, in: [:not_specified, :no, :yes], default: :not_specified
+
+  field :line
+  enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
+
+  field :language, type: String
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean
   field :last_menstrual_period_weeks, type: Integer
@@ -82,14 +85,14 @@ class Patient
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: DateTime
- 
+
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
   index(name: 1)
   index(other_contact: 1)
   index(urgent_flag: 1)
-  index(_line: 1)
+  index(line: 1)
   index(identifier: 1)
 
   # Validations
@@ -99,7 +102,9 @@ class Patient
             :created_by_id,
             :line,
             presence: true
-  validates :primary_phone, format: /\d{10}/, length: { is: 10 }, uniqueness: true
+  validates :primary_phone, format: /\d{10}/,
+                            length: { is: 10 },
+                            uniqueness: true
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
