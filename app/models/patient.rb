@@ -17,6 +17,7 @@ class Patient
   include HistoryTrackable
   include Statusable
   include Exportable
+  include Archivable
   extend Enumerize
 
   LINES.each do |line|
@@ -110,10 +111,10 @@ class Patient
             :initial_call_date,
             :created_by_id,
             :line,
-            presence: true, unless: :archived?
+            presence: true#, unless: :archived?
   validates :primary_phone, format: /\d{10}/,
                             length: { is: 10 },
-                            uniqueness: true, unless: :archived?
+                            uniqueness: true#, unless: :archived?
 
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
@@ -163,32 +164,6 @@ class Patient
     if appointment_date.present? && initial_call_date > appointment_date
       errors.add(:appointment_date, 'must be after date of initial call')
     end
-  end
-
-  def archived?
-    archived.present? && archived
-  end
-
-  def archived_state
-    ## should be blank
-    #:name,
-    #:primary_phone,
-    #:other_phone,
-    #:age,
-    #:contact_name,
-    #:circumstances,
-    #presence: false
-    ## should be scrambled
-    #:identifier
-    ## should not have any
-    #:notes
-    #:
-    ## fulfillment shouldnt have
-    #:check_number
-
-    ## should have
-    #:age_range
-    #:had_other_contact
   end
 
   def clean_fields
