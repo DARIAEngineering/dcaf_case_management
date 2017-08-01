@@ -158,6 +158,12 @@ class Patient
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
+  def fulfilled_on_or_before(datetime)
+    Patient.where( fulfillment.present? &&
+                   fulfillment.date_of_check.present? &&
+                   fullfullment.date_of_check <= datetime)
+  end
+
   private
 
   def confirm_appointment_after_initial_call
