@@ -14,6 +14,10 @@ module PatientsHelper
      'Native American', 'Mixed Race/Ethnicity', 'Other']
   end
 
+  def language
+    [['English', nil], 'Spanish', 'French', 'Korean']
+  end
+
   def employment_status_options
     [nil, 'Full-time', 'Part-time', 'Unemployed', 'Odd jobs', 'Student']
   end

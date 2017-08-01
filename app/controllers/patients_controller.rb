@@ -6,13 +6,11 @@ class PatientsController < ApplicationController
               with: -> { redirect_to root_path }
 
   def index
-    patients = Patient.all
-
     respond_to do |format|
       format.csv do
         now = Time.zone.now.strftime('%Y%m%d')
         csv_filename = "patient_data_export_#{now}.csv"
-        send_data patients.to_csv, filename: csv_filename, format: 'text/csv'
+        send_data Patient.to_csv, filename: csv_filename, format: 'text/csv'
       end
     end
   end
@@ -100,7 +98,7 @@ class PatientsController < ApplicationController
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
-    :line, :age, :race_ethnicity, :spanish,
+    :line, :age, :race_ethnicity, :language,
     :voicemail_preference, :city, :state, :county, :zip, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,

@@ -1,4 +1,4 @@
-<h1><strong>DCAF Data Center</strong></h1>
+<h1><strong><%= FUND %> Data Center</strong></h1>
 <div class="row">
   <h4 class="col-sm-8"><strong>Budget bar, design TK</strong></h4>
 </div>
@@ -8,6 +8,6 @@
   <div class="progress-bar progress-bar-striped"</div>
 </div>
  -->
-<%= render_async patients_report_path(timeframe: 'weekly') %>
-<%= render_async patients_report_path(timeframe: 'monthly') %>
-<%= render_async patients_report_path(timeframe: 'yearly') %>
+<%= render_async patients_report_path(timeframe: 'weekly'), nonce: content_security_policy_script_nonce %>
+<%= render_async patients_report_path(timeframe: 'monthly'), nonce: content_security_policy_script_nonce %>
+<%= render_async patients_report_path(timeframe: 'yearly'), nonce: content_security_policy_script_nonce %>

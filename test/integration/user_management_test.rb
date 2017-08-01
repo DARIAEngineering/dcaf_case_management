@@ -24,14 +24,10 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       log_in_as @user
     end
 
-    it 'should not be able to access Admin links' do
-      visit users_path
-      assert has_no_link? 'Admin'
-    end
-
     it 'should redirect to main dashboard' do
       visit users_path
       assert_text 'Build your call list'
+      assert_no_text 'User Account Management'
     end
   end
 
@@ -42,7 +38,7 @@ class UserManagementTest < ActionDispatch::IntegrationTest
 
     it 'should not be able to access user management' do
       click_link 'Admin'
-      assert_no_text 'User Management'
+      assert_no_text 'User Account Management'
     end
   end
 
@@ -144,6 +140,8 @@ class UserManagementTest < ActionDispatch::IntegrationTest
     end
 
     # TODO figure out a way to show error
+    # Right now this is failing because role is not in user params.
+    # Alter this test when there's a good story around that
     it 'disallows role editing' do
       select 'Admin', from: 'Role'
       click_button 'Save'

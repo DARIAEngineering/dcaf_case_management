@@ -1,4 +1,4 @@
-# Object representing a clinic that a fund works with.
+# Object representing a clinic that a patient is going to.
 class Clinic
   include Mongoid::Document
   include Mongoid::Timestamps

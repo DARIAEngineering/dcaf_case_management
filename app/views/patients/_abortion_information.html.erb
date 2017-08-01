@@ -7,25 +7,28 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12 info-form">
         <h3> Clinic details </h3>
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
           <div class="col-sm-6">
             <div class="info-form-left">
               <%= f.select :clinic_id, options_for_select(clinic_options, patient.clinic.try(:id)) %>
+              <div class="checkbox">
+                <%= label_tag 'naf_filter' do %>
+                  <%= check_box_tag 'naf_filter' %>
+                  Enable only NAF clinics
+                <% end %>
+              </div>
             </div>
-            <%= label_tag 'Enable only NAF clinics' %>
-            <br>
-            <%= check_box_tag 'naf_filter' %>
           </div>
 
           <div class="col-sm-6">
             <div class="info-form-right">
-              <%= f.form_group :resolved_without_fund, label: { text: "Resolved without assistance from #{FUND}" } do %>
-                <%= f.check_box :resolved_without_fund, label: '' %>
+              <%= f.form_group :resolved_without_fund do %>
+                <%= f.check_box :resolved_without_fund, label: "Resolved without assistance from #{FUND}" %>
               <% end %>
-              <%= f.form_group :referred_to_clinic, label: { text: 'Referred to clinic' } do %>
-                <%= f.check_box :referred_to_clinic, label: '' %>
+              <%= f.form_group :referred_to_clinic do %>
+                <%= f.check_box :referred_to_clinic, label: 'Referred to clinic' %>
               <% end %>
             </div>
           </div>
