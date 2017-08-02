@@ -81,3 +81,8 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 * Pop back to the previous tab and run `rake db:seed` to populate your database with test data
 * Hit the `Run Project` button up top. (If the button is unresponsive, you may need select **Run -> Run With -> Rails Default** from the dropdown.)
 * Check out the URL it's running on! You're all set!
+
+
+## Security
+
+Checkout [this document](https://github.com/DCAFEngineering/dcaf_case_management/docs/SECURITY_INTRO.md) on Ruby on Rails security.
