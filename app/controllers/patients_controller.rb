@@ -64,7 +64,8 @@ class PatientsController < ApplicationController
       @patient.reload
       respond_to { |format| format.js }
     else
-      respond_to { |format| format.js {render 'update_failed.js.erb'}}
+      @errors = @patient.errors.full_messages.to_sentence
+      respond_to { |format| format.js {render 'update_failed.js.erb', locals: {:errors => @errors}}}
     end
   end
 
