@@ -64,7 +64,6 @@ class PatientsController < ApplicationController
       @patient.reload
       respond_to { |format| format.js }
     else
-      # head :internal_server_error
       respond_to { |format| format.js {render 'update_failed.js.erb'}}
     end
   end

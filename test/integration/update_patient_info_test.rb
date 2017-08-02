@@ -132,6 +132,12 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       reload_page_and_click_link 'Patient Information'
     end
 
+    it 'should flash success on field change' do
+      click_link 'Patient Information'
+      fill_in 'Age', with: '25'
+      has_text? 'Patient data saved!'
+    end
+
     it 'should alter the information' do
       within :css, '#patient_information' do
         assert has_field? 'Other contact name', with: 'Susie Everyteen Sr'
