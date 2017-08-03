@@ -24,6 +24,21 @@ class SelectLineTest < ActionDispatch::IntegrationTest
     end
   end
 
+  # TODO
+  describe 'line redirect on single line' do
+    before do
+      # TODO setup line array like so ['dc']
+      @user.line='DC'
+      # LINES=%w(DC).map(&:to_sym).freeze
+      puts @user.inspect
+      # how to change env var constants in this block?
+    end
+
+    it 'should redirect to the dashboard' do
+      assert_equal current_path, authenticated_root_path
+    end
+  end
+
   describe 'redirection conditions' do
     before { @patient = create :patient }
     it 'should redirect from dashboard if no line is set' do
