@@ -42,8 +42,5 @@ if ($( "#flash" ).length == 0) {
   $('main > .container').prepend("<div id='flash'></div>")
 }
 
+$('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
 $('#flash').removeClass().hide().fadeIn('slow')
-$('#flash').addClass("alert alert-success")
-$('#flash').html(
-  '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><div id="flash_notice"> Patient data saved!</div>'
-);
