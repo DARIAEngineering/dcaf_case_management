@@ -64,8 +64,8 @@ class PatientsController < ApplicationController
       @patient.reload
       flash.now[:notice] = 'Patient info successfully saved'
     else
-      @error = @patient.errors.full_messages.to_sentence
-      flash.now[:alert] = @error
+      error = @patient.errors.full_messages.to_sentence
+      flash.now[:alert] = error
     end
     respond_to { |format| format.js }
   end
