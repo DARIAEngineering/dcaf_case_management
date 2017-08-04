@@ -135,7 +135,12 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     it 'should flash success on field change' do
       click_link 'Patient Information'
       fill_in 'Age', with: '25'
-      has_text? 'Patient data saved!'
+      assert has_text? 'Patient data saved!'
+    end
+
+    it 'should flash failure on a bad field change' do
+      fill_in 'Phone number', with: '111-222-3333445'
+      assert has_text? 'Primary phone is the wrong length'
     end
 
     it 'should alter the information' do
