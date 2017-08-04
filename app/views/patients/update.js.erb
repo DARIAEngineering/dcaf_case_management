@@ -1,5 +1,5 @@
 // rerack approx gestation
-<% if @patient.changed? %>
+<% if @patient.previous_changes.present? %>
   $('#patient_appointment_date')
     .parent()
     .find('span.help-block')
