@@ -68,7 +68,6 @@ class PatientsController < ApplicationController
       flash.now[:alert] = @error
     end
     respond_to { |format| format.js }
-
   end
 
   def data_entry
