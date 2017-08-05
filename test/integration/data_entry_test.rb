@@ -5,6 +5,8 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :poltergeist
     @user = create :user
     @clinic = create :clinic
+    create :config, config_key: 'insurance',
+                    config_value: { options: ['DC Medicaid', 'Maryland Medicaid'] }
     log_in_as @user
     visit data_entry_path
     has_text? 'PATIENT ENTRY' # wait until load
