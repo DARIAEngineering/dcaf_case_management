@@ -10,7 +10,7 @@ class Config
 
   # Fields
   enumerize :config_key, in: CONFIG_FIELDS
-  field :config_value, type: Hash
+  field :config_value, type: Hash, default: { options: [] }
 
   # Indices
   index({ config_key: 1 }, unique: true)
