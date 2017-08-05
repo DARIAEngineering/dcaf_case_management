@@ -47,5 +47,31 @@ class ConfigTest < ActiveSupport::TestCase
       assert_equal @config.options,
                    ['DC Medicaid', 'No insurance', "Don't know"]
     end
+
+    describe 'autosetup' do
+      before { Config.destroy_all }
+
+      it 'should create any missing config objects' do
+        assert_difference 'Config.count', Config::CONFIG_FIELDS.count do
+          Config.autosetup
+        end
+
+        Config::CONFIG_FIELDS.each do |field|
+          assert Config.find_by(config_key: field.to_s)
+        end
+      end
+
+      it 'should only create necessary missing config objects' do
+        create_insurance_config
+
+        assert_difference 'Config.count', (Config::CONFIG_FIELDS.count - 1) do
+          Config.autosetup
+        end
+
+        Config::CONFIG_FIELDS.each do |field|
+          assert Config.find_by(config_key: field.to_s)
+        end
+      end
+    end
   end
 end

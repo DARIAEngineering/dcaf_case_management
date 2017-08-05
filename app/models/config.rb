@@ -6,7 +6,7 @@ class Config
   include Mongoid::History::Trackable
   extend Enumerize
 
-  CONFIG_FIELDS = [:insurance, :external_pledge_source]
+  CONFIG_FIELDS = [:insurance, :external_pledge_source].freeze
 
   # Fields
   enumerize :config_key, in: CONFIG_FIELDS
