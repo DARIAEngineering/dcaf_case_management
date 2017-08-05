@@ -68,7 +68,7 @@ class ActionDispatch::IntegrationTest
     visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Sign in'
+    click_button 'Sign in with password'
   end
 
   def select_line(line = 'DC')
@@ -98,7 +98,7 @@ class ActionDispatch::IntegrationTest
   def _finished_all_ajax_requests?
     page.evaluate_script('jQuery.active').zero?
   end
-  
+
   def go_to_dashboard
     click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
   end
