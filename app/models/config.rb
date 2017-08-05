@@ -30,4 +30,12 @@ class Config
   def options
     config_value[:options]
   end
+
+  def self.autosetup
+    CONFIG_FIELDS.map(&:to_s).each do |field|
+      if Config.where(config_key: field).count != 1
+        Config.create config_key: field
+      end
+    end
+  end
 end

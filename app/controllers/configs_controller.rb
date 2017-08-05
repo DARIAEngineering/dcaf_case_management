@@ -2,6 +2,7 @@ class ConfigsController < ApplicationController
   before_action :confirm_admin_user
 
   def index
+    Config.autosetup
     @configs = Config.all.sort
   end
 
