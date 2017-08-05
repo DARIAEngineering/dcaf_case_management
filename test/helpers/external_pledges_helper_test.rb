@@ -38,8 +38,12 @@ class ExternalPledgesHelperTest < ActionView::TestCase
   describe 'creating a config object if one does not exist yet' do
     it 'should do that, with a properly set key' do
       assert_difference 'Config.count', 1 do
-        external_pledge_source_options
+        @options = external_pledge_source_options
       end
+
+      expected_external_pledges_array = ['Clinic discount',
+                                         'Other funds (see notes)']
+      assert_same_elements @options, expected_external_pledges_array
 
       assert Config.find_by(config_key: 'external_pledge_source')
     end
