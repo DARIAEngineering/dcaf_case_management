@@ -2,7 +2,11 @@ require 'test_helper'
 
 class ExternalPledgesHelperTest < ActionView::TestCase
   describe 'options generators' do
-    before { @options = external_pledge_source_options }
+    before do
+      create :config, config_key: 'external_pledge_source',
+                      config_value: { options: ['Baltimore Abortion Fund', 'Tiller Fund (NNAF)', 'NYAAF (New York)'] }
+      @options = external_pledge_source_options
+    end
 
     it 'should spit out an array of available other funds' do
       assert_includes @options, 'Baltimore Abortion Fund'
@@ -10,15 +14,11 @@ class ExternalPledgesHelperTest < ActionView::TestCase
     end
 
     it 'should include the whole list of options' do
-      expected_external_pledges_array = [ "Baltimore Abortion Fund", 
-        "Richmond Reproductive Freedom Project (RRFP)",
-        "Blue Ridge Abortion Assistance Fund (BRAAF)",
+      expected_external_pledges_array = ["Baltimore Abortion Fund",
         "Tiller Fund (NNAF)",
-        "Carolina Abortion Fund", 
-        "Women's Medical Fund (Philadelphia)",
-        "NYAAF (New York)", 
-        "Clinic discount", 
-        "Other funds (see notes)" ]
+        "NYAAF (New York)",
+        "Clinic discount",
+        "Other funds (see notes)"]
       assert_same_elements @options, expected_external_pledges_array
     end
 
@@ -32,6 +32,16 @@ class ExternalPledgesHelperTest < ActionView::TestCase
                       'Baltimore Abortion Fund'
       assert_includes available_pledge_source_options_for(@patient),
                       'NYAAF (New York)'
+    end
+  end
+
+  describe 'creating a config object if one does not exist yet' do
+    it 'should do that, with a properly set key' do
+      assert_difference 'Config.count', 1 do
+        external_pledge_source_options
+      end
+
+      assert Config.find_by(config_key: 'external_pledge_source')
     end
   end
 end

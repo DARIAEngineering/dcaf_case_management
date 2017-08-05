@@ -40,7 +40,7 @@ class NavbarLinksTest < ActionDispatch::IntegrationTest
       end
 
       it 'should display the Config Management link' do
-        assert has_link? 'Config Management', href: clinics_path
+        assert has_link? 'Config Management', href: configs_path
       end
 
       it 'should display the Accounting link' do
