@@ -22,6 +22,8 @@
             </div>
           </div>
 
+
+
           <div class="col-sm-6">
             <div class="info-form-right">
               <%= f.form_group :resolved_without_fund do %>
@@ -34,6 +36,16 @@
           </div>
         <% end %>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12" id="clinic_finder_container">
+
+        <%= link_to display_clinic_finder_path, class: 'display_button', remote: true do %>
+        <h3>Find clinics</h3>
+        <% end %>
+      </div>
+
     </div>
   </div>
 

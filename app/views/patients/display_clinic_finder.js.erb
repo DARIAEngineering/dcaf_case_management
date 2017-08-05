@@ -1,0 +1,13 @@
+
+if ($('#clinic_finder_container').hasClass('open')) {
+  $('#clinic_finder_container').children().not('.display_button').hide();
+  $('#clinic_finder_container').removeClass('open');
+} else {
+  $('#clinic_finder_container').children().show();
+  $('#clinic_finder_container').addClass('open');
+}
+// check if finder has been clicked
+if ($('#clinic_finder_container').children().length == 1) {
+  $('#clinic_finder_container').append("<%= escape_javascript(render partial: 'clinicfinders/form', locals: { title: 'Most Affordable Clinics'}) %>")
+  $('#clinic_finder_container').addClass('open');
+}

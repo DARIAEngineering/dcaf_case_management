@@ -1,0 +1,25 @@
+  <div class="col-sm-6">
+    <div class="info-form-left">
+      <div> Zip code </div>
+      <div> <input type="text"></div>
+      <br>
+      <div class="btn btn-primary">Clear Button (WIP)</div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="info-form-right">
+      <div>    Approx gestation at appt</div>
+      <div>
+        <select>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+      </select>
+      </div>
+      <br>
+      <%= link_to "Search clinics", display_clinic_results_path, remote: true, class: "col-sm-6 btn btn-primary" %>
+
+    </div>
+  </div>

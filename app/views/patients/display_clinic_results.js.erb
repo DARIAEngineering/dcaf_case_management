@@ -1,0 +1,8 @@
+
+
+if ($('.results').length) {
+  $('.results').html('');
+} else {
+  $('#clinic_finder_container').append("<div class='results'></div>");
+}
+$('.results').append("<%= escape_javascript(render partial: 'clinicfinders/results', locals: { title: 'Most Affordable Clinics'}) %>")
