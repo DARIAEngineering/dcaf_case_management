@@ -36,12 +36,10 @@ gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
 group :development do
   gem 'pry'
-  gem 'web-console', '~> 2.0'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
-  gem 'quality', '20.1.0', require: false
   # gem 'dawnscanner', require: false # disable until dawnscanner fixes CD prob
 end
 
