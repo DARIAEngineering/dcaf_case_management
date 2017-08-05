@@ -15,8 +15,8 @@ class UpdatingConfigsTest < ActionDispatch::IntegrationTest
   describe 'admin usage' do
     before do
       Capybara.current_driver = :poltergeist
-      create :config, config_key: :insurance
-      create :config, config_key: :external_pledge_source
+      create_insurance_config
+      create_external_pledge_source_config
       @patient = create :patient
       @user = create :user, role: :admin
       log_in_as @user
@@ -57,18 +57,17 @@ class UpdatingConfigsTest < ActionDispatch::IntegrationTest
                      find('#config_options_external_pledge_source').value
         within :css, '#external_pledge_source_options_list' do
           assert has_content? 'Yolo'
-          assert has_content? 'Yolo'
           assert has_content? 'Goat'
           assert has_content? 'Something'
           assert has_content? 'Clinic discount'
-          assert has_content? 'Other fund (see notes)'
+          assert has_content? 'Other funds (see notes)'
         end
 
         visit edit_patient_path(@patient)
         click_link 'Abortion Information'
-        assert has_select? 'Source', options: ['', 'Yolo', 'Goat', 'Something',
+        assert has_select? 'Source', options: ['Yolo', 'Goat', 'Something',
                                                'Clinic discount',
-                                               'Other fund (see notes)']
+                                               'Other funds (see notes)']
       end
     end
   end
