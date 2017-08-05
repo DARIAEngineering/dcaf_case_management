@@ -31,4 +31,4 @@ However, in the unlikely event that an anonymized export were to leak, we wouldn
 
 ## How long we store it
 
-We store anonymized reporting data indefinitely; personally identifiable fields are wiped after (TBD EXACT BUSINESS RULES).
+We store anonymized reporting data indefinitely; personally identifiable fields are wiped after. We're hashing out exact rules but see [this issue](https://github.com/DCAFEngineering/dcaf_case_management/issues/812) for progress.
