@@ -15,8 +15,6 @@ class UpdatingConfigsTest < ActionDispatch::IntegrationTest
   describe 'admin usage' do
     before do
       Capybara.current_driver = :poltergeist
-      create_insurance_config
-      create_external_pledge_source_config
       @patient = create :patient
       @user = create :user, role: :admin
       log_in_as @user

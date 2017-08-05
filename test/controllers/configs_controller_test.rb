@@ -27,9 +27,23 @@ class ConfigsControllerTest < ActionDispatch::IntegrationTest
       sign_in user
     end
 
-    it 'should get the index method' do
-      get configs_path
-      assert_response :success
+    describe 'index method' do
+      it 'should get the index method' do
+        get configs_path
+        assert_response :success
+      end
+
+      it 'should create any missing configs on load' do
+        Config.destroy_all
+
+        assert_difference 'Config.count', Config::CONFIG_FIELDS.count do
+          get configs_path
+        end
+
+        Config::CONFIG_FIELDS.each do |field|
+          assert Config.find_by(config_key: field.to_s)
+        end
+      end
     end
 
     it 'should let you update configs' do
