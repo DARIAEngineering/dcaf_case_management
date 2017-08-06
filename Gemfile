@@ -36,6 +36,7 @@ gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
 group :development do
   gem 'pry'
+  gem 'listen'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
