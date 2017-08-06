@@ -5,8 +5,6 @@ Rails.application.routes.draw do
     get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
     get 'display_clinic_finder', to: 'patients#display_clinic_finder', as: 'display_clinic_finder'
-    get 'display_clinic_results', to: 'patients#display_clinic_results', as: 'display_clinic_results'
-
 
     # User routes behind the authentication wall
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
@@ -49,7 +47,7 @@ Rails.application.routes.draw do
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }
     resources :lines, only: [:new, :create]
     get 'clinicfinder', to: 'clinicfinders#index', as: 'clinicfinder'
-    post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
+    post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } , as: 'clinicfinder_search'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
   end
 

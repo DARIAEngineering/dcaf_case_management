@@ -1,5 +1,5 @@
 $('.clinic-finder-results').empty();
-
+console.log('hooked')
 <% if @nearest.any? %>
   $(".clinic-finder-results").append("<%= escape_javascript(render partial: 'clinicfinders/result_table', locals: { title: 'Nearest Clinics', labels: ['Name', 'Distance'], clinic_fields: [:name, :distance], clinics: @nearest }) %>");
 <% end %>

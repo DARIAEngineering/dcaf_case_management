@@ -247,9 +247,13 @@ h5 {
 
 #clinic_finder_container {
   background-color: #ccc;
-  color: black;
+
   .button-right {
     float: right;
+  }
+  .display_button {
+    color:black;
+    text-decoration: none;
   }
 }
 
