@@ -243,6 +243,16 @@ h5 {
 
 }
 
+// Clinic Finder styling
+
+#clinic_finder_container {
+  background-color: #ccc;
+  color: black;
+  .button-right {
+    float: right;
+  }
+}
+
 $daria-color-lt : #825fb9;
 
 // Modal partial styling
