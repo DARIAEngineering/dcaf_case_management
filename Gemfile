@@ -16,6 +16,7 @@ gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
 gem 'devise', '~> 4.2.1'
 gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
+gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 gem 'mongoid', '6.1.0'
 gem 'mongoid-history', '0.6.1'
 gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git', branch: 'master'
