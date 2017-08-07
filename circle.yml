@@ -18,6 +18,9 @@ deployment:
       - docker build -t colinxfleming/dcaf_case_management . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
 
 test:
+  override:
+    - bundle exec rails test
+
   post:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
     - gem install --no-rdoc ruby_audit; bundle exec ruby-audit check
