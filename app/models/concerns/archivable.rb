@@ -126,5 +126,5 @@ end
     # TODO fulfillment stuff
     # TODO external pledges
     # TODO test to confirm that specific blacklisted fields aren't being exported
-  }.freeze
+  #}.freeze
 

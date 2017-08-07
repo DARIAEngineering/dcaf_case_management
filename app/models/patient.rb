@@ -89,11 +89,11 @@ class Patient
 
   # Archiving Fields
   field :archived, type: Boolean
-  enum :age_range,
-    [:unknown, :under_18,
-     :age18_24, :age25_34,
-     :age35_44, :age45_54,
-     :age55_100, :over_100]
+  #enumerize :age_range,
+  #  [:unknown, :under_18,
+  #   :age18_24, :age25_34,
+  #   :age35_44, :age45_54,
+  #   :age55_100, :over_100]
   field :had_other_contact, type: Boolean
 
   # Indices
