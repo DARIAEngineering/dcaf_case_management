@@ -19,7 +19,8 @@ deployment:
 
 test:
   override:
-    - bundle exec rails test
+    - bundle exec rails test:
+        parallel: true
 
   post:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
