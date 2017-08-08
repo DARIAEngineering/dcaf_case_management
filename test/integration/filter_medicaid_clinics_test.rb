@@ -4,8 +4,8 @@ class FilterNafClinicsTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
-    @Medicaid_clinic = create :clinic, name: 'Medicaid Accepted', accepts_Medicaid: true
-    @nonMedicaid_clinic = create :clinic, name: 'No Medicaid here', accepts_Medicaid: false
+    @Medicaid_clinic = create :clinic, name: 'Medicaid Accepted', accepts_medicaid: true
+    @nonMedicaid_clinic = create :clinic, name: 'No Medicaid here', accepts_medicaid: false
     @patient = create :patient
     log_in_as @user
     visit edit_patient_path @patient
