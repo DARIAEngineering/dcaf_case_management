@@ -18,7 +18,7 @@ class FilterNafClinicsTest < ActionDispatch::IntegrationTest
       assert has_select? 'patient_clinic_id', options: ['', @Medicaid_clinic.name,
                                                              @nonMedicaid_clinic.name]
 
-      check 'Medicaid_filter'
+      check 'medicaid_filter'
       sleep 1
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
