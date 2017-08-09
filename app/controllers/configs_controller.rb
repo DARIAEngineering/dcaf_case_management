@@ -8,7 +8,7 @@ class ConfigsController < ApplicationController
 
   def update
     @config = Config.find params[:id]
-    @config.config_value = format_config_params(config_params) # this is not going to work
+    @config.config_value = format_config_params(config_params)
     if @config.save
       flash[:notice] = 'Config updated successfully'
       redirect_to configs_path
@@ -25,7 +25,6 @@ class ConfigsController < ApplicationController
   end
 
   def format_config_params(params)
-    # should probably be a model method?
     formatted_options = params[:options].split(',').map(&:strip)
     { options: formatted_options }
   end
