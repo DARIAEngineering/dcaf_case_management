@@ -3,7 +3,7 @@ class ConfigsController < ApplicationController
 
   def index
     Config.autosetup
-    @configs = Config.all.sort
+    @configs = Config.all.sort_by(&:config_key)
   end
 
   def update
