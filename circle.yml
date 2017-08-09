@@ -19,8 +19,10 @@ deployment:
 
 test:
   override:
-    - bundle exec rails test:
+    - bundle exec rake test TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS/reports":
         parallel: true
+        files:
+          - test/**/*_test.rb
 
   post:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
