@@ -19,7 +19,7 @@ deployment:
 
 test:
   override:
-    - bundle exec rake knapsack:minitest:
+    - bundle exec rails test:
         parallel: true
 
   post:
