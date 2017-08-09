@@ -63,7 +63,7 @@ class UpdatingConfigsTest < ActionDispatch::IntegrationTest
 
         visit edit_patient_path(@patient)
         click_link 'Abortion Information'
-        assert has_select? 'Source', options: ['Yolo', 'Goat', 'Something',
+        assert has_select? 'Source', options: ['', 'Yolo', 'Goat', 'Something',
                                                'Clinic discount',
                                                'Other funds (see notes)']
       end
