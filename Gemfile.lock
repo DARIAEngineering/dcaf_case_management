@@ -152,8 +152,6 @@ GEM
       sprockets-rails
     json (1.8.6)
     jwt (1.5.6)
-    knapsack (1.14.0)
-      rake
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.19)
@@ -400,7 +398,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   js-routes
-  knapsack
   launchy
   listen
   mini_backtrace

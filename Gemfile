@@ -47,7 +47,7 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'spring'
-  gem 'knapsack'
+  # gem 'knapsack'
 
   # better error handling
   gem 'better_errors'
