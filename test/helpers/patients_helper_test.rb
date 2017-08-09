@@ -27,9 +27,28 @@ class PatientsHelperTest < ActionView::TestCase
   end
 
   describe 'insurance options' do
-    it 'should include the option set' do
-      expected_insurance_options_array = [nil, 'DC Medicaid', 'MD MCHIP', 'MD Medical Assistance for Families (MA4F)', 'VA Medicaid/CHIP', 'Other state Medicaid', 'Private or employer-sponsored health insurance', 'No insurance', "Don't know", 'Other (add to notes)']
-      assert_same_elements insurance_options, expected_insurance_options_array
+    describe 'with a config' do
+      before { create_insurance_config }
+
+      it 'should include the option set' do
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 'No insurance', "Don't know", 'Other (add to notes)']
+        assert_same_elements insurance_options, expected_insurance_options_array
+      end
+    end
+
+    describe 'without a config' do
+      it 'should create a config and return proper options' do
+        assert_difference 'Config.count', 1 do
+          @options = insurance_options
+        end
+
+        expected_insurance_array = [nil,
+                                    'No insurance',
+                                    'Don\'t know',
+                                    'Other (add to notes)']
+        assert_same_elements @options, expected_insurance_array
+        assert Config.find_by(config_key: 'insurance')
+      end
     end
   end
 

@@ -9,6 +9,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @ext_pledge = create :external_pledge,
                          patient: @patient,
                          source: 'Baltimore Abortion Fund'
+    create_external_pledge_source_config
+    create_insurance_config
+
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
