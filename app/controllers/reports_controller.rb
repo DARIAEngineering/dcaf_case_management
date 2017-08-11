@@ -14,14 +14,16 @@ class ReportsController < ApplicationController
       @report = :invalid_timeframe
     end
 
-    render head 406 if @report == :invalid_timeframe
-
-    respond_to do |format|
-      format.js do
-        render partial: 'patient_report',
-               locals: { report: @report,
-                         lines: LINES,
-                         timeframe: params[:timeframe] }
+    if @report == :invalid_timeframe
+      head :not_acceptable
+    else
+      respond_to do |format|
+        format.js do
+          render partial: 'patient_report',
+                 locals: { report: @report,
+                           lines: LINES,
+                           timeframe: params[:timeframe] }
+        end
       end
     end
   end
