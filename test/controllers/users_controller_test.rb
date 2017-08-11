@@ -16,7 +16,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_no_difference 'User.count' do
           post users_path, params: { user: attributes_for(:user) }
         end
-        assert_response :internal_server_error
+        assert_response :unauthorized
       end
     end
   end
