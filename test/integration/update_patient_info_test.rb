@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
+class UpdatePatientInfoTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     @clinic = create :clinic
     @patient = create :patient
@@ -14,8 +14,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     has_text? 'First and last name' # wait until page loads
     page.driver.resize(2000, 2000)
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'changing patient dashboard information' do
     before do

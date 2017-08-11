@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class DragAndDropTest < ActionDispatch::IntegrationTest
+class DragAndDropTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user
 
@@ -19,7 +19,6 @@ class DragAndDropTest < ActionDispatch::IntegrationTest
   end
 
   after do
-    Capybara.use_default_driver
     Patient.destroy_all
   end
 

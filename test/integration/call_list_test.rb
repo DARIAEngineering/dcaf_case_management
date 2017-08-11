@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class CallListTest < ActionDispatch::IntegrationTest
+class CallListTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Thorny'
     @va_patient = create :patient, name: 'James Hetfield', line: 'VA'
@@ -12,8 +12,6 @@ class CallListTest < ActionDispatch::IntegrationTest
     add_to_call_list @patient
     page.driver.resize(2000, 2000)
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'populating call list' do
     # test arbitrarily failing

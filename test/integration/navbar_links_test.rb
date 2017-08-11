@@ -1,6 +1,7 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class NavbarLinksTest < ActionDispatch::IntegrationTest
+class NavbarLinksTest < ApplicationSystemTestCase
   before do
     @user = create :user, role: :admin
     log_in_as @user

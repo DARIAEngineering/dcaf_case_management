@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class LoggingCallsTest < ActionDispatch::IntegrationTest
+class LoggingCallsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen',
                                 primary_phone: '123-123-1234'
     @user = create :user
@@ -12,10 +12,6 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
     find("a.call-123-123-1234").click
     wait_for_page_to_load
     wait_for_ajax
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'verifying modal behavior and content' do

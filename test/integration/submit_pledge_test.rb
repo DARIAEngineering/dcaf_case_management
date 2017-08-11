@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class SubmitPledgeTest < ActionDispatch::IntegrationTest
+class SubmitPledgeTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :data_volunteer
     @clinic = create :clinic
     @patient = create :patient, clinic: @clinic,
@@ -13,8 +13,6 @@ class SubmitPledgeTest < ActionDispatch::IntegrationTest
     visit edit_patient_path @patient
     has_text? 'First and last name'
   end
-
-  after { Capybara.use_default_driver }
 
   # this is a test for a persistent turbolinks bug
   it 'should load properly without other page touches' do

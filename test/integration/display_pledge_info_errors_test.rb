@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
+class DisplayPledgeInfoErrorsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     @patient = create :patient
     @clinic = create :clinic
@@ -10,8 +10,6 @@ class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'rendering errors in patient modal' do
     it 'should render errors when popping up the pledge sent modal' do

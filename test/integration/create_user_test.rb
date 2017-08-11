@@ -1,14 +1,7 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class CreateUserTest < ActionDispatch::IntegrationTest
-  before do
-    Capybara.current_driver = :poltergeist
-  end
-
-  after do
-    Capybara.use_default_driver
-  end
-
+class CreateUserTest < ApplicationSystemTestCase
   describe 'nonadmin user' do
     before { visit root_path }
 

@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class ChangeLogTest < ActionDispatch::IntegrationTest
+class ChangeLogTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, email: 'first_user@email.com'
     @user2 = create :user, email: 'second_user@email.com'
     log_in_as @user
@@ -12,10 +12,6 @@ class ChangeLogTest < ActionDispatch::IntegrationTest
 
     visit edit_patient_path(@patient)
     fill_in 'City', with: 'Washington'
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'viewing the changelog' do

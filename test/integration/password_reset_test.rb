@@ -1,6 +1,7 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class PasswordResetTest < ActionDispatch::IntegrationTest
+class PasswordResetTest < ApplicationSystemTestCase
   before do
     @user = create :user
   end

@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class UpdateUserInfoTest < ActionDispatch::IntegrationTest
+class UpdateUserInfoTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user
     visit edit_user_registration_path

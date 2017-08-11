@@ -1,8 +1,8 @@
 require 'test_helper'
+require 'application_system_test_case'
 
-class FilterNafClinicsTest < ActionDispatch::IntegrationTest
+class FilterNafClinicsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @naf_clinic = create :clinic, name: 'NAF Accepted', accepts_naf: true
     @nonnaf_clinic = create :clinic, name: 'No NAF here', accepts_naf: false
