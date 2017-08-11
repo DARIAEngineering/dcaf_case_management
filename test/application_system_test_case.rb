@@ -1,14 +1,12 @@
 require "capybara/poltergeist"
+require 'omniauth_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  # Rack::Test
-  # driven_by :rack_test
+  include IntegrationSystemTestHelpers
+  include OmniauthMocker
 
-  # capybara-webkit
-  # Capybara::Webkit.configure do |config|
-  #   config.raise_javascript_errors = false
-  # end
-  # driven_by :webkit
+  before { Capybara.reset_sessions! }
+  OmniAuth.config.test_mode = true
 
   # Poltergeist
   Capybara.register_driver :poltergeist do |app|
