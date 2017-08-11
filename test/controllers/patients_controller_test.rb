@@ -33,8 +33,9 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should not serve html' do
       sign_in @data_volunteer
-      get patients_path
-      assert_response :not_acceptable
+      assert_raise ActionController::UnknownFormat do
+        get patients_path
+      end
     end
 
     it 'should get csv when user is admin' do
@@ -138,7 +139,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
         resolved_without_fund: true
       }
 
-      patch patient_path(@patient), params: { patient: @payload }
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
       @patient.reload
     end
 
