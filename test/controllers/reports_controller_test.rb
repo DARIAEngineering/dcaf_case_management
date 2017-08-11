@@ -35,5 +35,4 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
       assert_response 406
     end
   end
-
 end
