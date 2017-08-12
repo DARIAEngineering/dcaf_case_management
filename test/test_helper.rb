@@ -16,13 +16,6 @@ require 'omniauth_helper'
 require 'rack/test'
 Minitest::Reporters.use!
 
-if ENV['CIRCLE_ARTIFACTS']
-  # To rerack the test divider, run: KNAPSACK_GENERATE_REPORT=true bundle exec rake test
-  require 'knapsack'
-  knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
-  knapsack_adapter.set_test_helper_path(__FILE__)
-end
-
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: false)
 end
