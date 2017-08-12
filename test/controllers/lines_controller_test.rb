@@ -11,12 +11,18 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'new' do
-    before do
-      get new_line_path
+    describe 'instance with multiple lines' do
+      it 'should return success' do
+        get new_line_path
+        assert_response :success
+      end
     end
 
-    it 'should return success' do
-      assert_response :success
+    describe 'instance with one line' do
+      before { LINES = [:DC] }
+      it 'should redirect to patient dashboard' do
+        assert_redirected_to authenticated_root_path
+      end
     end
   end
 
