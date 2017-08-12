@@ -13,4 +13,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     Capybara::Poltergeist::Driver.new(app, js_errors: false)
   end
   driven_by :poltergeist
+
+  def with_modified_env(options, &block)
+    ClimateControl.modify(options, &block)
+  end
 end

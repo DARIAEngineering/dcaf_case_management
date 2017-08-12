@@ -48,6 +48,7 @@ group :development, :test do
   gem 'byebug'
   gem 'spring'
   gem 'binding_of_caller'
+  gem 'climate_control'
 end
 
 group :test do

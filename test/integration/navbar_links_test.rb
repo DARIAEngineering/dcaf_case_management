@@ -8,13 +8,13 @@ class NavbarLinksTest < ApplicationSystemTestCase
 
   describe 'additional resources link' do
     it 'should display if env var is set' do
-      ENV['CM_RESOURCES_URL'] = 'www.google.com'
-      visit authenticated_root_path
-      assert has_link? 'CM Resources', href: 'www.google.com'
+      with_modified_env CM_RESOURCES_URL: 'www.google.com' do
+        visit authenticated_root_path
+        assert has_link? 'CM Resources', href: 'www.google.com'
+      end
     end
 
     it 'should not display if env var is not set' do
-      ENV['CM_RESOURCES_URL'] = nil
       visit authenticated_root_path
       refute has_link? 'CM Resources'
     end
