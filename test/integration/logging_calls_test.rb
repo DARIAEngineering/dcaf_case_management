@@ -8,7 +8,7 @@ class LoggingCallsTest < ApplicationSystemTestCase
     log_in_as @user
     fill_in 'search', with: 'Susan Everyteen'
     click_button 'Search'
-    find("a.call-123-123-1234").click
+    find('a.call-123-123-1234').click
     wait_for_page_to_load
     wait_for_ajax
   end
@@ -73,6 +73,7 @@ class LoggingCallsTest < ApplicationSystemTestCase
         visit edit_patient_path @patient
         wait_for_element 'Call Log'
         find('a', text: 'Call Log').click
+        wait_for_ajax
         wait_for_element 'Record new call'
 
         within :css, '#call_log' do
