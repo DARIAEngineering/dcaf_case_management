@@ -80,6 +80,7 @@ class User
   validate :secure_password
 
   TIME_BEFORE_INACTIVE = 2.weeks
+  RECENT_TIMEFRAME = 8.hours.ago..Time.zone.now
 
   def secure_password
     return true if password.nil?
