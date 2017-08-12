@@ -27,11 +27,7 @@ class SelectLineTest < ActionDispatch::IntegrationTest
   # TODO
   describe 'line redirect on single line' do
     before do
-      # TODO setup line array like so ['dc']
-      @user.line='DC'
-      # LINES=%w(DC).map(&:to_sym).freeze
-      puts @user.inspect
-      # how to change env var constants in this block?
+      ENV['DARIA_LINES'] = 'DC'
     end
 
     it 'should redirect to the dashboard' do
