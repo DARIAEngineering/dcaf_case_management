@@ -1,4 +1,4 @@
-<%= javascript_tag, nonce: content_security_policy_script_nonce do %>
+<%= javascript_tag nonce: content_security_policy_script_nonce do %>
   $(function() {
     var report = <%= report.to_json.html_safe %>
     var lines = (<%= lines.to_json.html_safe %>)
