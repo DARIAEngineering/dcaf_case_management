@@ -92,7 +92,7 @@ class CallListTest < ApplicationSystemTestCase
     #       assert has_text? @patient.name
     #     end
     #   end
-    end
+    # end
   end
 
   describe 'patient edit page call log' do
