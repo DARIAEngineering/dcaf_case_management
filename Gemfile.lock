@@ -408,7 +408,7 @@ DEPENDENCIES
   minitest-reporters
   minitest-spec-rails
   mongo_session_store (>= 3.1.0)
-  mongoid (>= 6.1.0, < 7)
+  mongoid (>= 6.2.0, < 7)
   mongoid-history (= 0.6.1)
   mongoid_userstamp!
   nokogiri (>= 1.7.2)
