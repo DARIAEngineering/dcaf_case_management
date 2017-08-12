@@ -31,11 +31,12 @@ class CreateUserTest < ApplicationSystemTestCase
         assert has_field? 'Name'
         fill_in 'Name', with: 'Test User'
 
-        UserMailer.stub(:account_created, @mail_mock) do
-          click_button 'Add'
-          wait_for_element 'User created!'
-        end
-        assert @mail_mock.verify
+        click_button 'Add'
+        assert has_content? 'User created!'
+        assert has_link? 'Test User'
+
+        click_link 'Test User'
+        assert has_content? 'Status: Active'
       end
 
       user = User.find_by(email: 'test@test.com')
