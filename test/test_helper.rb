@@ -14,8 +14,8 @@ require 'capybara/poltergeist'
 # require 'capybara-screenshot/minitest'
 require 'omniauth_helper'
 require 'rack/test'
-require 'integration_system_test_helpers'
-Minitest::Reporters.use!
+# require 'integration_system_test_helpers'
+Minitest::Reporters.use! Minitest::Reporters::ProgressReporter
 
 # Capybara.register_driver :poltergeist do |app|
   # Capybara::Poltergeist::Driver.new(app, js_errors: false)

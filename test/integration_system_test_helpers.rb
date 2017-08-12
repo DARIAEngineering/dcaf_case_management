@@ -1,7 +1,7 @@
-module IntegrationSystemTestHelpers
-  include Capybara::DSL
-  include Capybara::Screenshot::MiniTestPlugin
+# module IntegrationSystemTestHelpers
+#   include Capybara::DSL
+#   include Capybara::Screenshot::MiniTestPlugin
 
-  # for controllers
-  # for proper integration tests
-end
+#   # for controllers
+#   # for proper integration tests
+# end
