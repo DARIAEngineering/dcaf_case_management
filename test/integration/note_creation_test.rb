@@ -1,4 +1,3 @@
-require 'test_helper'
 require 'application_system_test_case'
 
 class NoteCreationTest < ApplicationSystemTestCase

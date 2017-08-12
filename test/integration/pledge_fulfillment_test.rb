@@ -1,4 +1,3 @@
-require 'test_helper'
 require 'application_system_test_case'
 
 class PledgeFulfillmentTest < ApplicationSystemTestCase
@@ -20,8 +19,6 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       visit edit_patient_path @patient
     end
 
-    after { sign_out }
-
     it 'should not show the pledge fulfillment link to a CM' do
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
@@ -33,8 +30,6 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       log_in_as @admin
       visit edit_patient_path @patient
     end
-
-    after { sign_out }
 
     it 'should not show the fulfillment link to an admin unless pledge sent' do
       refute has_text? 'Pledge Fulfillment'
