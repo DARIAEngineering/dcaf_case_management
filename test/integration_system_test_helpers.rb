@@ -1,6 +1,5 @@
 module IntegrationSystemTestHelpers
   include Capybara::DSL
-  include Capybara::Screenshot::MiniTestPlugin
 
   # for controllers
   def sign_in(user)
