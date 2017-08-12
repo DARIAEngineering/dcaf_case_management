@@ -7,7 +7,7 @@ SimpleCov.formatter = SimpleCov::Formatter::Codecov
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'minitest/reporters'
+# require 'minitest/reporters'
 require 'minitest/autorun'
 # require 'capybara/rails'
 require 'capybara/poltergeist'
@@ -15,7 +15,7 @@ require 'capybara/poltergeist'
 require 'omniauth_helper'
 require 'rack/test'
 # require 'integration_system_test_helpers'
-Minitest::Reporters.use! Minitest::Reporters::ProgressReporter
+# Minitest::Reporters.use! Minitest::Reporters::ProgressReporter
 
 # Capybara.register_driver :poltergeist do |app|
   # Capybara::Poltergeist::Driver.new(app, js_errors: false)
