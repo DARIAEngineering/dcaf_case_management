@@ -31,11 +31,6 @@ RUN ln -s `which nodejs` /usr/bin/node
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
-RUN addgroup dcaf && adduser -s /bin/bash -D -G dcaf dcaf
-RUN chown -R dcaf:dcaf ${DCAF_DIR}
-
-USER dcaf
-
 WORKDIR ${DCAF_DIR}
 
 COPY . ${DCAF_DIR}
