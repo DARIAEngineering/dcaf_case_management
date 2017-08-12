@@ -79,8 +79,8 @@ class CallListTest < ApplicationSystemTestCase
     end
 
     it 'should time a call out after 8 hours' do
-      Timecop.freeze(9.hours.from_now) do
-        log_in_as @user
+      travel 9.hours.from_now do
+        visit authenticated_root_path
         wait_for_element 'Your completed calls'
 
         within :css, '#completed_calls_content' do
