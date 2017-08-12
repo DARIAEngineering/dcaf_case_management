@@ -43,7 +43,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def sign_out
-    click_link "#{@user.name}"
+    click_link @user.name
     click_link 'Sign Out'
   end
 
@@ -56,7 +56,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def _finished_all_ajax_requests?
     page.evaluate_script('jQuery.active').zero?
   end
-  
+
   def go_to_dashboard
     click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
   end
