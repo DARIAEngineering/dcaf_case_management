@@ -45,8 +45,8 @@ class AuditTrailTest < ActiveSupport::TestCase
       assert_equal @track.changed_from,
                    ["Susie Everyteen",
                      "1112223333",
-                     (Time.now + 5.days).strftime('%m-%d-%Y'),
-                     (Time.now - 3.days).strftime('%m-%d-%Y'),
+                     (Time.now + 5.days).strftime('%m/%d/%Y'),
+                     (Time.now - 3.days).strftime('%m/%d/%Y'),
                      "D2-3333"]
     end
 
@@ -54,8 +54,8 @@ class AuditTrailTest < ActiveSupport::TestCase
       assert_equal @track.changed_to,
                   ["Yolo",
                     "1234569999",
-                    (Time.now + 10.days).strftime('%m-%d-%Y'),
-                    (Time.now - 4.days).strftime('%m-%d-%Y'),
+                    (Time.now + 10.days).strftime('%m/%d/%Y'),
+                    (Time.now - 4.days).strftime('%m/%d/%Y'),
                     "D6-9999"]
     end
 
