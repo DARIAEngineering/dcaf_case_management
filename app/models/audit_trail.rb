@@ -23,7 +23,7 @@ class AuditTrail
   # Something like this should work:
   # "HAHA I WIN" if (fields.all?{|f| f.blank? || (f.flatten.all? &:blank? if f.respond_to?('each'))})
 
-  def formatDates(hash)
+  def format_dates(hash)
     for key in ['appointment_date', 'initial_call_date', 'pledge_generated_at']
       if hash.has_key? key
         hash[key] = Date.strptime(hash[key].to_s, "%Y-%m-%d %H:%M:%S %Z").strftime('%m-%d-%Y')
@@ -33,7 +33,7 @@ class AuditTrail
   end
 
   # TODO make columns more consistent in height
-  def formatEmptyArrays(hash)
+  def format_empty_arrays(hash)
     hash.each do |key, value|
       if value.kind_of?(Array)
         hash[key].reject! { |item| item.blank? }
@@ -45,7 +45,7 @@ class AuditTrail
     return hash
   end
 
-  def parseClinics(hash)
+  def parse_clinics(hash)
     if hash.key?('clinic_id')
       @clinic = Clinic.where(:id => hash["clinic_id"]).first
       hash["clinic_id"] = @clinic.name
@@ -54,13 +54,13 @@ class AuditTrail
   end
 
   def changed_from
-    formatEmptyArrays(parseClinics(formatDates(original))).map do |key, value|
+    format_empty_arrays(parse_clinics(format_dates(original))).map do |key, value|
       value unless IRRELEVANT_FIELDS.include? key
     end
   end
 
   def changed_to
-    formatEmptyArrays(parseClinics(formatDates(modified))).map do |key, value|
+    format_empty_arrays(parse_clinics(format_dates(modified))).map do |key, value|
       value unless IRRELEVANT_FIELDS.include? key
     end
   end
