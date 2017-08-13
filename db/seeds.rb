@@ -41,7 +41,7 @@ Clinic.create! name: 'Sample Clinic without NAF', street_address: '123 Fake Stre
   flag = i.even? ? true : false
   Patient.create! name: "Patient #{i}",
                  primary_phone: "123-123-123#{i}",
-                 initial_call_date: 3.days.ago.strftime('%m-%d-%Y'),
+                 initial_call_date: 3.days.ago,
                  urgent_flag: flag,
                  last_menstrual_period_weeks: (i + 1 * 2),
                  last_menstrual_period_days: 3,
@@ -232,7 +232,7 @@ end
 
 # we'll create 5 patients with pledges at different times
 (1..5).each do |patient_number|
-  pledge_time = 
+  pledge_time =
   patient = Patient.create!(
     name: "Pledge Reporting Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
