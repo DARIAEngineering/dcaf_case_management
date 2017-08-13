@@ -61,7 +61,8 @@ class PatientsController < ApplicationController
   end
 
   def update
-    if @patient.update_attributes format_dates(patient_params)
+    if @patient.update_attributes patient_params
+    # if @patient.update_attributes format_dates(patient_params)
       @patient.reload
       flash.now[:notice] = 'Patient info successfully saved'
     else
@@ -78,8 +79,8 @@ class PatientsController < ApplicationController
 
 
   def data_entry_create
-
-    @patient = Patient.new format_dates(patient_params)
+    @patient = Patient.new patient_params
+    # @patient = Patient.new format_dates(patient_params)
 
     @patient.created_by = current_user
 
