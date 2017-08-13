@@ -605,5 +605,17 @@ class PatientTest < ActiveSupport::TestCase
         end
       end
     end
+
+    describe 'preferred language tests' do
+      it 'should return the right language' do
+        ['', nil].each do |language|
+          @patient.update language: language
+          assert_equal @patient.preferred_language, 'English'
+        end
+
+        @patient.language = 'Spanish'
+          assert_equal @patient.preferred_language, 'Spanish'
+      end
+    end
   end
 end

@@ -15,14 +15,14 @@ class CreateNewExternalPledgeTest < ActionDispatch::IntegrationTest
 
   describe 'creating and viewing a pledge' do
     it 'should let you create a new pledge' do
-      select 'Baltimore Abortion Fund', from: 'Source'
+      select 'Clinic discount', from: 'Source'
       fill_in 'Amount', with: '30000'
       click_button 'Create External pledge'
       wait_for_element 'Patient Information'
       click_link 'Abortion Information'
       wait_for_element 'Abortion information'
 
-      assert has_field? 'Baltimore Abortion Fund pledge', with: '30000'
+      assert has_field? 'Clinic discount pledge', with: '30000'
     end
   end
 end

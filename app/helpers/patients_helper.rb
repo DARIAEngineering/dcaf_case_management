@@ -23,7 +23,8 @@ module PatientsHelper
   end
 
   def insurance_options
-    [nil] + Rails.configuration.insurances[FUND]
+    standard_options = ['No insurance', 'Don\'t know', 'Other (add to notes)']
+    [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
   end
 
   def income_options

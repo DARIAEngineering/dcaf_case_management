@@ -9,6 +9,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @ext_pledge = create :external_pledge,
                          patient: @patient,
                          source: 'Baltimore Abortion Fund'
+    create_external_pledge_source_config
+    create_insurance_config
+
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
@@ -130,6 +133,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       sleep 5 # out of ideas
 
       reload_page_and_click_link 'Patient Information'
+    end
+
+    it 'should flash success on field change' do
+      click_link 'Patient Information'
+      fill_in 'Age', with: '25'
+      assert has_text? 'Patient info successfully saved'
+    end
+
+    it 'should flash failure on a bad field change' do
+      fill_in 'Phone number', with: '111-222-3333445'
+      assert has_text? 'Primary phone is the wrong length'
     end
 
     it 'should alter the information' do

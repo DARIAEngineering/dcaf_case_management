@@ -62,10 +62,12 @@ class PatientsController < ApplicationController
   def update
     if @patient.update_attributes patient_params
       @patient.reload
-      respond_to { |format| format.js }
+      flash.now[:notice] = 'Patient info successfully saved'
     else
-      head :internal_server_error
+      error = @patient.errors.full_messages.to_sentence
+      flash.now[:alert] = error
     end
+    respond_to { |format| format.js }
   end
 
   def data_entry

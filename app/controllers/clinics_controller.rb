@@ -49,7 +49,7 @@ class ClinicsController < ApplicationController
 
   def clinic_params
     clinic_params = [:name, :street_address, :city, :state, :zip,
-                     :phone, :fax, :active, :accepts_naf, :gestational_limit]
+                     :phone, :fax, :active, :accepts_naf, :accepts_medicaid, :gestational_limit]
     cost_params = (5..30).map { |i| "costs_#{i}wks".to_sym }
 
     params.require(:clinic).permit(

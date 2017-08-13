@@ -1,38 +1,44 @@
 // rerack approx gestation
-$('#patient_appointment_date')
-  .parent()
-  .find('span.help-block')
-  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
+<% if @patient.previous_changes.present? %>
+  $('#patient_appointment_date')
+    .parent()
+    .find('span.help-block')
+    .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
 
-// rerack status
-$('#patient_status').text('<%= @patient.status %>');
+  // rerack status
+  $('#patient_status').text('<%= @patient.status %>');
 
-// rerack current LMP
-$('#patient_last_menstrual_period_weeks')
-  .parent()
-  .find('span.help-block')
-  .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
+  // rerack current LMP
+  $('#patient_last_menstrual_period_weeks')
+    .parent()
+    .find('span.help-block')
+    .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
 
-// refresh entire changelog
-$('#change_log').html(
-  '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
-);
-
-// if pledge is sent, re-rack fulfillment info
-<% if @patient.previous_changes.key?('pledge_sent') && current_user.allowed_data_access? %>
-  // populate the fulfillment form if it's supposed to be there
-  <% if @patient.pledge_sent? %>
-  $('#fulfillment').remove();
-  $('#sections').append(
-    '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
+  // refresh entire changelog
+  $('#change_log').html(
+    '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
   );
+
+  // if pledge is sent, re-rack fulfillment info
+  <% if @patient.previous_changes.key?('pledge_sent') && current_user.allowed_data_access? %>
+    // populate the fulfillment form if it's supposed to be there
+    <% if @patient.pledge_sent? %>
+    $('#fulfillment').remove();
+    $('#sections').append(
+      '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
+    );
+    <% end %>
+
+    // properly set the button and make fulfillment show up, if it should
+    $('#menu').html(
+      '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
+    );
+  <% elsif !@patient.pledge_sent %>
+    // clear out fulfillment form
+    $('#fulfillment').empty();
   <% end %>
-
-  // properly set the button and make fulfillment show up, if it should
-  $('#menu').html(
-    '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
-  );
-<% elsif !@patient.pledge_sent %>
-  // clear out fulfillment form
-  $('#fulfillment').empty();
 <% end %>
+
+// flash the result
+$('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
+$('#flash').removeClass().hide().fadeIn('slow')
