@@ -14,11 +14,11 @@ module AttributeDisplayable
 
   def appointment_date_display
     return nil unless appointment_date.present?
-    "#{appointment_date.strftime("%m-%d-%Y")}"
+    "#{appointment_date.strftime("%m/%d/%Y")}"
   end
 
   def procedure_date_display
     return nil unless fulfillment.procedure_date.present?
-    "#{fulfillment.procedure_date.strftime("%m-%d-%Y")}"
+    "#{fulfillment.procedure_date}"
   end
 end
