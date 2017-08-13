@@ -1,4 +1,4 @@
-# Object representing a clinic that a fund works with.
+# Object representing a clinic that a patient is going to.
 class Clinic
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -18,6 +18,7 @@ class Clinic
   field :fax, type: String
   field :active, type: Boolean, default: true
   field :accepts_naf, type: Boolean, default: false
+  field :accepts_medicaid, type: Boolean, default: false
   field :gestational_limit, type: Integer
   # costs_5wks, costs_6wks, ..., costs_30wks
   (5..30).each { |i| field "costs_#{i}wks".to_sym, type: Integer }

@@ -1,9 +1,10 @@
 # Functions to populate dropdowns related to external pledges.
 module ExternalPledgesHelper
   def external_pledge_source_options
-    Rails.configuration
-         .external_pledges['funds']
-         .reject { |fund| fund == FUND_FULL }
+    standard_options = ['Clinic discount', 'Other funds (see notes)']
+    Config.find_or_create_by(config_key: 'external_pledge_source').options
+          .push(*standard_options)
+          .uniq
   end
 
   def available_pledge_source_options_for(patient)

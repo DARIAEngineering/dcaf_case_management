@@ -14,12 +14,17 @@ module PatientsHelper
      'Native American', 'Mixed Race/Ethnicity', 'Other']
   end
 
+  def language
+    [['English', nil], 'Spanish', 'French', 'Korean']
+  end
+
   def employment_status_options
     [nil, 'Full-time', 'Part-time', 'Unemployed', 'Odd jobs', 'Student']
   end
 
   def insurance_options
-    [nil] + Rails.configuration.insurances[FUND]
+    standard_options = ['No insurance', 'Don\'t know', 'Other (add to notes)']
+    [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
   end
 
   def income_options

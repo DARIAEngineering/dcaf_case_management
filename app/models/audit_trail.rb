@@ -1,10 +1,11 @@
-# Keeps track of the history of objects (mostly patients and pregnancies).
+# Keeps track of the history of objects (mostly patients).
+# Primarily consumed by the change log partial of PatientsController#edit.
 class AuditTrail
   include Mongoid::History::Tracker
   include Mongoid::Userstamp
   mongoid_userstamp user_model: 'User'
 
-  IRRELEVANT_FIELDS = %w(user_ids updated_by).freeze
+  IRRELEVANT_FIELDS = %w[user_ids updated_by].freeze
 
   # convenience methods for clean view display
   def date_of_change
