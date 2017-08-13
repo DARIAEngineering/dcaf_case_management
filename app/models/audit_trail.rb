@@ -26,7 +26,7 @@ class AuditTrail
   def format_dates(hash)
     for key in ['appointment_date', 'initial_call_date', 'pledge_generated_at']
       if hash.has_key? key
-        hash[key] = Date.strptime(hash[key].to_s, "%Y-%m-%d %H:%M:%S %Z").strftime('%m-%d-%Y')
+        hash[key] = Date.strptime(hash[key].to_s, "%Y-%m-%d %H:%M:%S %Z").strftime('%m/%d/%Y')
       end
     end
     return hash
