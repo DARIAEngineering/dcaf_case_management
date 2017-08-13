@@ -10,7 +10,7 @@
         <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: 'LMP at intake', autocomplete: 'off', help: "Currently: #{patient.last_menstrual_period_display_short}" %>
       </div>
       <div class="col-sm-6 hide-label">
-        <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: "Called on: #{patient.initial_call_date.strftime("%m-%d-%Y")}" %>
+        <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: "Called on: #{patient.initial_call_date.strftime("%m/%d/%Y")}" %>
       </div>
     </div>
     <div class="row">
@@ -22,7 +22,7 @@
 
   <div class="col-sm-4">
     <div class="row">
-      <%= f.text_field :appointment_date, value: patient.appointment_date_display, label: 'Appointment date', autocomplete: 'off', format: '%m-%d-%Y', placeholder: 'MM-DD-YYYY', help: "Approx gestation at appt: #{patient.last_menstrual_period_at_appt}" %>
+      <%= f.date_field :appointment_date, label: 'Appointment date', autocomplete: 'off', help: "Approx gestation at appt: #{patient.last_menstrual_period_at_appt}" %>
     </div>
   </div>
 <% end %>
