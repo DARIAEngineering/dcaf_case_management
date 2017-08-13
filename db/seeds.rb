@@ -161,10 +161,11 @@ Config.create config_key: :external_pledge_source,
     appointment_date: 10.days.from_now,
     last_menstrual_period_weeks: 7,
     last_menstrual_period_days: 7,
-    naf_pledge: 2000,
-    fund_pledge: 1000,
+    naf_pledge: 300,
+    fund_pledge: 200,
+    procedure_cost: 600,
     pledge_sent: true,
-    patient_contribution: 1000)
+    patient_contribution: 100)
 
   if i.even?
     patient.build_fulfillment(
