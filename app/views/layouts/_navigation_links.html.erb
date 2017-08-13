@@ -20,6 +20,7 @@
           <% if current_user.admin? %>
             <li><%= link_to 'User Management', users_path %></li>
             <li><%= link_to 'Clinic Management', clinics_path %></li>
+            <li><%= link_to 'Config Management', configs_path %></li>
           <% end %>
           <li><%= link_to 'Accounting', accountants_path %></li>
           <li><%= link_to 'Reporting', reports_path %></li>

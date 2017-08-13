@@ -9,7 +9,7 @@ Field | Description | Exportable? | Reported by | Input Type
 ------------ | ------------- | ------------- | ------------- | -------------
 **Age** | Patient's age in years (input as specific years; exported as a count in a range of years) | Exportable | Patient Reported | Text field
 **Race/Ethnicity** | Patient's race or ethinicity | Exportable | Patient Reported | Dropdown
-**Insurance** | Patient's current insurance coverage, if any. This includes public and private options. | Exportable | Patient Reported | Dropdown
+**Insurance** | Patient's current insurance coverage, if any. This includes public and private options. [Note: If a patient reports a managed care organization, it is up to either the patient or case manager to determine and report as public insurance rather than private.]  | Exportable | Patient Reported | Dropdown
 **Employment Status** | Patient's current employment status | Exportable | Patient Reported | Dropdown
 **Income Level** | Patient's income level (ranges) | Exportable | Patient Reported | Dropdown
 **City** | Patient's city of residency | Exportable | Patient Reported | Text field
