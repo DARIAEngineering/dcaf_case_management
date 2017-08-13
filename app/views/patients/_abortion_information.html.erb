@@ -65,7 +65,7 @@
             <div id="pledge-contributions">
               <%= f.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
               <%= f.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :fund_pledge, label: "#{FUND} pledge", autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': pledge_limit_help_text() } %>
+              <%= f.number_field :fund_pledge, label: "#{FUND} pledge", autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': daria_limit_help_text() } %>
             </div>
           </div>
         <% end %>
