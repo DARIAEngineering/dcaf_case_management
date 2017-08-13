@@ -133,7 +133,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     before do
       @date = 5.days.from_now.to_date
       @payload = {
-        appointment_date: @date.strftime('%m-%d-%Y'),
+        appointment_date: @date.strftime('%Y-%m-%d'),
         name: 'Susie Everyteen 2',
         resolved_without_fund: true
       }
@@ -207,7 +207,6 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should create and save a new patient' do
       assert_difference 'Patient.count', 1 do
-        puts @test_patient.inspect
         post data_entry_create_path, params: { patient: @test_patient }
       end
     end
