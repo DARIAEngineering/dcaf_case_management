@@ -33,7 +33,7 @@ class AuditTrail
   end
 
   # TODO make columns more consistent in height
-  def format_empty_arrays(hash)
+  def format_special_circumstances(hash)
     hash.each do |key, value|
       if value.kind_of?(Array)
         hash[key].reject! { |item| item.blank? }
@@ -54,13 +54,13 @@ class AuditTrail
   end
 
   def changed_from
-    format_empty_arrays(parse_clinics(format_dates(original))).map do |key, value|
+    format_special_circumstances(parse_clinics(format_dates(original))).map do |key, value|
       value unless IRRELEVANT_FIELDS.include? key
     end
   end
 
   def changed_to
-    format_empty_arrays(parse_clinics(format_dates(modified))).map do |key, value|
+    format_special_circumstances(parse_clinics(format_dates(modified))).map do |key, value|
       value unless IRRELEVANT_FIELDS.include? key
     end
   end
