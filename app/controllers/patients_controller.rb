@@ -96,9 +96,6 @@ class PatientsController < ApplicationController
     @patient = Patient.find params[:id]
   end
 
-  # Strong params divided up by partial
-  #TODO how to unfreeze part of array, i.e appointment date, procedure_date, check date
-  # should it be before_action?
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
     :appointment_date, :primary_phone
