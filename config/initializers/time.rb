@@ -1,7 +1,6 @@
 # Extends time class with convenience methods
 class Time
   def display_date
-    # not being converted to /
     getlocal.strftime("%m/%d/%Y")
   end
 
