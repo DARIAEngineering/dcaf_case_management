@@ -38,8 +38,8 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
       end
 
       it 'should send an email notifying' do
-        email_content = ActionMailer::Base.deliveries.last.to_s
-        assert_match /Your DARIA password has changed/, email_content
+        email_content = ActionMailer::Base.deliveries.last
+        assert_match /Your DARIA password has changed/, email_content.subject.to_s
         assert_match @user.email, email_content
       end
     end
