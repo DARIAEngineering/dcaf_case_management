@@ -62,7 +62,6 @@ class PatientsController < ApplicationController
 
   def update
     if @patient.update_attributes patient_params
-    # if @patient.update_attributes format_dates(patient_params)
       @patient.reload
       flash.now[:notice] = 'Patient info successfully saved'
     else
@@ -80,8 +79,6 @@ class PatientsController < ApplicationController
 
   def data_entry_create
     @patient = Patient.new patient_params
-    # @patient = Patient.new format_dates(patient_params)
-
     @patient.created_by = current_user
 
     if @patient.save
@@ -97,28 +94,6 @@ class PatientsController < ApplicationController
 
   def find_patient
     @patient = Patient.find params[:id]
-  end
-
-  def format_dates(params)
-    new_params = params
-    if !new_params[:appointment_date].blank?
-      new_params[:appointment_date] = Date.strptime(params[:appointment_date], '%m-%d-%Y')
-    end
-    if !(new_params[:fulfillment] && new_params[:fulfillment][:procedure_date]).nil?
-      new_params[:fulfillment][:procedure_date] = Date.strptime(params[:fulfillment][:procedure_date], '%m-%d-%Y')
-    end
-
-    if !new_params[:initial_call_date].blank?
-      begin
-        new_params[:initial_call_date] = Date.strptime(params[:initial_call_date], '%m-%d-%Y')
-      rescue
-        # for patient_controller_test where date parameters include timezones.
-        # culprit is in test/factories/patient.rb
-        new_params[:initial_call_date] = Date.strptime(params[:initial_call_date], '%Y-%m-%d %H:%M:%S %z')
-      end
-    end
-
-    return new_params
   end
 
   # Strong params divided up by partial
