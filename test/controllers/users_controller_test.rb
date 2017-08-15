@@ -45,6 +45,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'when a users password is changed' do
+    after { Devise.mailer.deliveries.clear }
+
+    it 'should send an email' do
+      @user.update password: 'NewT3stP@ssword'
+      @user.save
+      email_content = ActionMailer::Base.deliveries.last
+      assert_match /Your DARIA password has changed/, email_content.subject.to_s
+      assert_match @user.email, email_content
+    end
+  end
+
   # TODO test
   # describe 'toggle_lock method' do
   #   before do

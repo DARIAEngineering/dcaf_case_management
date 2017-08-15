@@ -36,12 +36,6 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
         log_in_as @user
         refute has_text? 'Signed in successfully.'
       end
-
-      it 'should send an email notifying' do
-        email_content = ActionMailer::Base.deliveries.last
-        assert_match /Your DARIA password has changed/, email_content.subject.to_s
-        assert_match @user.email, email_content
-      end
     end
 
     it 'should veto changes without current password' do
