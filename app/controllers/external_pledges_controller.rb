@@ -1,4 +1,4 @@
-# Create a pledge from a non-DCAF organization
+# Create a pledge from a non-fund organization
 class ExternalPledgesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_pledge, only: [:update, :destroy]

@@ -87,7 +87,7 @@ class User
     if pc == false
       errors.add :password, 'Password must include at least one lowercase ' \
                             'letter, one uppercase letter, and one digit. ' \
-                            'Forbidden words include DCAF and password.'
+                            "Forbidden words include #{FUND} and password."
     end
   end
 
@@ -171,7 +171,7 @@ class User
     return false if (password =~ /[A-Z]/).nil? # at least one uppercase
     return false if (password =~ /[0-9]/).nil? # at least one digit
     # Make sure no bad words are in there
-    return false unless password.downcase[/(password|dcaf)/].nil?
+    return false unless password.downcase[/(password|#{FUND})/].nil?
     true
   end
 

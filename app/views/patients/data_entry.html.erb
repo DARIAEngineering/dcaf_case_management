@@ -33,7 +33,7 @@
     <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
   <%# end %>
 
-  <%= f.text_field :fund_pledge, label: "#{FUND} soft pledge" %>
+  <%= f.text_field :fund_pledge, label: "#{FUND} pledge" %>
 
   <%= f.text_field :age, autocomplete: 'off' %>
   <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>
