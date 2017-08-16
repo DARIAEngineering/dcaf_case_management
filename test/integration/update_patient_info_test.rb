@@ -212,7 +212,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
       click_link 'Pledge Fulfillment'
       check 'Pledge fulfilled'
-      fill_in 'Procedure date', with: 2.days.from_now.strftime('%Y-%m-%d')
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%d/%Y')
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
