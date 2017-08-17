@@ -28,7 +28,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
-      fill_in 'DCAF soft pledge', with: '100'
+      fill_in 'DCAF pledge', with: '100'
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'
       select @clinic.name, from: 'patient_clinic_id'
