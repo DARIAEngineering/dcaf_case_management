@@ -27,6 +27,8 @@
     $('#sections').append(
       '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
     );
+
+    <% @patient.update_attributes urgent_flag: false %>
     <% end %>
 
     // properly set the button and make fulfillment show up, if it should
@@ -36,6 +38,9 @@
   <% elsif !@patient.pledge_sent %>
     // clear out fulfillment form
     $('#fulfillment').empty();
+    <% if @patient.resolved_without_fund %>
+      <% @patient.update_attributes urgent_flag: false %>
+    <% end %>
   <% end %>
 <% end %>
 
