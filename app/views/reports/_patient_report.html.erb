@@ -1,37 +1,4 @@
-<%= javascript_tag do %>
-  $(function() {
-    var report = <%= report.to_json.html_safe %>
-    var lines = (<%= lines.to_json.html_safe %>)
-    lines = lines.map(function(line) {
-      return report[line]
-    });
 
-    var chart = c3.generate({
-      transition: {
-        duration: 2000
-      },
-      bindto: '#chart-<%= timeframe %>_report',
-      data: {
-          json: lines,
-          type: 'bar',
-          keys: {
-            x: 'name',
-            value: ['patients_contacted', 'new_patients_contacted', 'pledges_sent'],
-          }
-      },
-      bar: {
-          width: {
-              ratio: 0.5
-          }
-      },
-      axis: {
-        x: {
-          type: 'category'
-        }
-      }
-    });
-  });
-<% end %>
 
 <div class="report-section">
   <% case timeframe
@@ -43,7 +10,9 @@
   <h2 class="border-bottom">Year to date</h2>
   <% end %>
   <div class="row">
-    <div id='chart-<%= timeframe %>_report'></div>
+    <div id='chart-<%= timeframe %>_report'>
+      <%= column_chart report, discrete:true, nonce: content_security_policy_script_nonce%>
+    </div>
     <% lines.each do |line| %>
       <div class="col-sm-4">
         <h3><%= link_to line, '#', class: 'line-header' %></h3>
