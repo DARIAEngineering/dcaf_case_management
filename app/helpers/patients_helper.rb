@@ -68,26 +68,11 @@ module PatientsHelper
     patient.pledge_info_present? ? 'disabled="disabled"' : ''
   end
 
-  def pledge_limit_help_text
-    if (FUND == 'DCAF')
-      first_tri = ENV['DCAF_PLEDGE_LIMIT_FIRST_TRI'] || 100
-      first_tri_weeks = '7-12 weeks'
-      second_tri = ENV['DCAF_PLEDGE_LIMIT_SECOND_TRI'] || 300
-      second_tri_weeks = '12-24 weeks'
-      later_care = ENV['DCAF_PLEDGE_LIMIT_LATER_CARE'] || 600
-      later_care_weeks = '25+ weeks'
-    end
+  def dcaf_pledge_limit_help_text
+    first_tri = ENV['DCAF_PLEDGE_LIMIT_FIRST_TRI'] || 100
+    second_tri = ENV['DCAF_PLEDGE_LIMIT_SECOND_TRI'] || 300
+    later_care = ENV['DCAF_PLEDGE_LIMIT_LATER_CARE'] || 600
 
-    if (FUND == 'BAF')
-      first_tri = ENV['BAF_PLEDGE_LIMIT_FIRST_TRI'] || 100
-      first_tri_weeks = '9-12.6 weeks'
-      second_tri = ENV['BAF_PLEDGE_LIMIT_SECOND_TRI'] || 200
-      second_tri_weeks = '13-19.6 weeks'
-      later_care = ENV['BAF_PLEDGE_LIMIT_LATER_CARE'] || 300
-      later_care_weeks = '20-23.6 weeks'
-    end
-
-
-    "Pledge Limit Guidelines:<br />1st trimester (#{first_tri_weeks}): $#{first_tri}<br />2nd trimester (#{second_tri_weeks}): $#{second_tri}<br />Later care (#{later_care_weeks}): $#{later_care}"
+    "Pledge Limit Guidelines:<br />1st trimester (7-12 weeks): $#{first_tri}<br />2nd trimester (12-24 weeks): $#{second_tri}<br />Later care (25+ weeks): $#{later_care}"
   end
 end
