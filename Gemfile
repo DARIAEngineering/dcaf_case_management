@@ -70,6 +70,10 @@ group :test do
   gem 'pdf-inspector', require: "pdf/inspector"
 end
 
+  # gem 'capybara', '~> 2.13'
+  gem 'selenium-webdriver'
+
+
 group :production do
   gem 'puma'
   gem 'skylight'
