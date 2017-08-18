@@ -8,9 +8,9 @@ module Statusable
     fundraising: 'Fundraising',
     pledge_sent: 'Pledge Sent',
     pledge_paid: 'Pledge Paid',
-    pledge_unfulfilled: 'Pledge not fulfilled',
+    pledge_unfulfilled: 'Pledge Not Fulfilled',
     fulfilled: 'Pledge Fulfilled',
-    dropoff: 'Probable dropoff',
+    dropoff: 'Probable Dropoff',
     resolved: "Resolved Without #{FUND}"
   }.freeze
 
