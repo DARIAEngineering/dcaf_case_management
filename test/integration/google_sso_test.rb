@@ -12,7 +12,9 @@ class GoogleSSOTest < ApplicationSystemTestCase
       wait_for_element 'Sign in with Google'
       click_link 'Sign in with Google'
 
+      take_screenshot
       assert has_content? @user.name
+      take_screenshot
     end
 
     it 'will reject sign ins if email is not associated with a user' do
