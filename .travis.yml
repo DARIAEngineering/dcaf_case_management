@@ -7,8 +7,10 @@ bundler_args: --without development
 # sudo: enabled
 dist: trusty
 install:
-  - sudo apt-get update && sudo apt-get install -y libfontconfig google-chrome-stable
+  - sudo apt-get update && sudo apt-get install -y libfontconfig chromium-chromedriver
   - bundle install
+before_script:
+  - "export PATH=$PATH:/usr/lib/chromium-browser/"
 script: bundle exec rails test
 # env:
 #   global:
