@@ -236,10 +236,4 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     visit edit_patient_path @patient
     click_link link_text
   end
-
-  def click_away_from_field
-    find("body").click
-    fill_in 'First and last name', with: nil
-    wait_for_ajax
-  end
 end
