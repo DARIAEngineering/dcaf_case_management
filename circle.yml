@@ -20,9 +20,9 @@ deployment:
 test:
   override:
     - bundle exec rails test test/integration/google_sso_test.rb TESTOPTS="--ci-dir=$CIRCLE_TEST_REPORTS/reports":
-        parallel: true
-        files:
-          - test/**/*_test.rb
+        # parallel: true
+        # files:
+          # - test/**/*_test.rb
 
   post:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
