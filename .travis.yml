@@ -5,3 +5,10 @@ sudo: enabled
 dist: trusty
 install:
   - sudo apt-get update && sudo apt-get install -y libfontconfig google-chrome-stable
+script: bundle exec rails test
+env:
+  global:
+    - CI_NODE_TOTAL=2
+  matrix:
+    - CI_NODE_INDEX=0
+    - CI_NODE_INDEX=1
