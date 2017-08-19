@@ -5,6 +5,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     Capybara.current_driver = :poltergeist
     @user = create :user
     @clinic = create :clinic
+    create_insurance_config
     log_in_as @user
     visit data_entry_path
     has_text? 'PATIENT ENTRY' # wait until load
@@ -27,7 +28,7 @@ class DataEntryTest < ActionDispatch::IntegrationTest
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
-      fill_in 'DCAF soft pledge', with: '100'
+      fill_in 'DCAF pledge', with: '100'
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'
       select @clinic.name, from: 'patient_clinic_id'

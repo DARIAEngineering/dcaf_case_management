@@ -34,11 +34,6 @@ module DcafCaseManagement
     # Throttling protection
     config.middleware.use Rack::Attack
 
-    # Load external pledges
-    config.external_pledges = config_for(:external_pledges)
-    # Load insurance options
-    config.insurances = config_for(:insurance)
-
     # Raise errors in transactional callbacks. We have this turned off because
     # we are using Mongoid instead of Rails' built in ActiveRecord. -CF
     # Do not swallow errors in after_commit/after_rollback callbacks.

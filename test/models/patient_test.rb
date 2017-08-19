@@ -345,11 +345,11 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.valid?
     end
 
-    it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
+    it "should not validate pledge_sent if the #{FUND} pledge field is blank" do
       @patient.fund_pledge = nil
       @patient.pledge_sent = true
       refute @patient.valid?
-      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.errors.messages[:pledge_sent]
+      assert_equal ["DCAF pledge field cannot be blank"], @patient.errors.messages[:pledge_sent]
     end
 
     it 'should not validate pledge_sent if the clinic name is blank' do
@@ -372,7 +372,7 @@ class PatientTest < ActiveSupport::TestCase
       @patient.appointment_date = nil
       @patient.pledge_sent = true
       refute @patient.valid?
-      assert_equal ['DCAF soft pledge field cannot be blank', 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
+      assert_equal ["DCAF pledge field cannot be blank", 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
       @patient.errors.messages[:pledge_sent]
     end
 
@@ -380,7 +380,7 @@ class PatientTest < ActiveSupport::TestCase
       refute @patient.pledge_info_present?
       @patient.fund_pledge = nil
       assert @patient.pledge_info_present?
-      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.pledge_info_errors
+      assert_equal ["DCAF pledge field cannot be blank"], @patient.pledge_info_errors
     end
   end
 
