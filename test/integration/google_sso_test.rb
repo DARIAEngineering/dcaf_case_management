@@ -13,6 +13,7 @@ class GoogleSSOTest < ApplicationSystemTestCase
       click_link 'Sign in with Google'
 
       sleep(3)
+      raise
       assert has_content? @user.name
       sleep(3)
     end
