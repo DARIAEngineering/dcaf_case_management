@@ -7,12 +7,12 @@ SimpleCov.formatter = SimpleCov::Formatter::Codecov
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'minitest/reporters'
+# require 'minitest/reporters'
 require 'minitest/autorun'
-require 'omniauth_helper'
-require 'rack/test'
-require 'capybara/poltergeist'
-Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
+# require 'omniauth_helper'
+# require 'rack/test'
+# require 'capybara/poltergeist'
+# Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
 DatabaseCleaner.clean_with :truncation
 
@@ -24,7 +24,7 @@ class ActiveSupport::TestCase
 end
 
 # Save screenshots if integration tests fail - I don't THINK we need this anymore
-Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/screenshots'))}" if ENV['CIRCLE_ARTIFACTS']
+# Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
 
 class ActionDispatch::IntegrationTest
   # de facto controller tests
