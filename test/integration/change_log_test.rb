@@ -1,5 +1,6 @@
 require 'application_system_test_case'
 
+# Test behavior of the changelog partial to confirm proper info displays
 class ChangeLogTest < ApplicationSystemTestCase
   before do
     @user = create :user, email: 'first_user@email.com'

@@ -9,7 +9,6 @@ class CallListTest < ApplicationSystemTestCase
     @user.add_patient @va_patient
     log_in_as @user
     add_to_call_list @patient
-    page.driver.resize(2000, 2000)
   end
 
   describe 'populating call list' do
