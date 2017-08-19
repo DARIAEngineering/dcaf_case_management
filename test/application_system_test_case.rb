@@ -9,12 +9,19 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   # Poltergeist
 
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  # driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
 
   # Capybara.register_driver :poltergeist do |app|
   #   Capybara::Poltergeist::Driver.new(app, js_errors: false)
   # end
   # driven_by :poltergeist
+
+  # capybara-webkit
+  Capybara::Webkit.configure do |config|
+    config.raise_javascript_errors = false
+  end
+  driven_by :webkit
+
 
   def with_modified_env(options, &block)
     ClimateControl.modify(options, &block)
