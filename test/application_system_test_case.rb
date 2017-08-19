@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'omniauth_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # include IntegrationSystemTestHelpers
