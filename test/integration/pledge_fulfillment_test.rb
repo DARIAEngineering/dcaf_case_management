@@ -48,7 +48,6 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       assert has_text? 'Procedure date'
       assert has_text? 'Check #'
     end
-
   end
 
   describe 'visiting the edit patient view as a data volunteer' do
@@ -87,6 +86,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
 
     it 'should autocheck on field change' do
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
+      click_away_from_field
       assert has_checked_field? 'Pledge fulfilled'
     end
 
