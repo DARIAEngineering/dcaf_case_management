@@ -22,8 +22,6 @@ class FilterNafClinicsTest < ApplicationSystemTestCase
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
 
-                                                      puts options_with_filter
-
       assert options_with_filter.find { |x| x[:name] == @nonnaf_clinic.name }[:disabled] == 'true'
       assert options_with_filter.find { |x| x[:name] == @naf_clinic.name }[:disabled] == nil
 

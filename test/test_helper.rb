@@ -24,7 +24,7 @@ class ActiveSupport::TestCase
 end
 
 # Save screenshots if integration tests fail - I don't THINK we need this anymore
-# Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
+Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
 
 class ActionDispatch::IntegrationTest
   # de facto controller tests
