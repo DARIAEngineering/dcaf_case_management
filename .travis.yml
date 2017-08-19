@@ -18,3 +18,5 @@ script: bundle exec rails test
 #   matrix:
 #     - CI_NODE_INDEX=0
 #     - CI_NODE_INDEX=1
+notifications:
+  email: false
