@@ -6,6 +6,7 @@ bundler_args: --without development
 dist: trusty
 install:
   - sudo apt-get update && sudo apt-get install -y libfontconfig google-chrome-stable
+  - bundle install
 script: bundle exec rails test
 # env:
 #   global:
