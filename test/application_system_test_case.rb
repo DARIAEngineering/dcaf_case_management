@@ -1,6 +1,8 @@
 require 'test_helper'
 require 'omniauth_helper'
 
+Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
+
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # include IntegrationSystemTestHelpers
   include OmniauthMocker
@@ -10,7 +12,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
   puts ENV['CIRCLE_ARTIFACTS']
-  Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
 
   def with_modified_env(options, &block)
     ClimateControl.modify(options, &block)
