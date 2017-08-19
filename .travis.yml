@@ -1,6 +1,8 @@
 language: ruby
 rvm:
   - 2.4.1
+services:
+  - mongodb
 bundler_args: --without development
 # sudo: enabled
 dist: trusty
