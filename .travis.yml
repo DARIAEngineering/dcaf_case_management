@@ -13,9 +13,9 @@ install:
   - sudo apt-get update && sudo apt-get install -y libfontconfig chromium-chromedriver
   - bundle install
 #before_script:
-#  - "export PATH=$PATH:/usr/bin/chromium-browser/"
+#  - "export PATH=$PATH:/usr/lib/chromium-browser/"
 script:
-  - PATH=$PATH:/usr/bin/chromium-browser/ bundle exec rails test
+  - PATH=$PATH:/usr/lib/chromium-browser/ bundle exec rails test
 # env:
 #   global:
 #     - CI_NODE_TOTAL=2
