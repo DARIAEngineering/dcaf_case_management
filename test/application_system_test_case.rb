@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'omniauth_helper'
 
-Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
+# Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # include IntegrationSystemTestHelpers
