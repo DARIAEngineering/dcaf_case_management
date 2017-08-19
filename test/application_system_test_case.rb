@@ -9,6 +9,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   OmniAuth.config.test_mode = true
 
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
 
   def with_modified_env(options, &block)
     ClimateControl.modify(options, &block)
