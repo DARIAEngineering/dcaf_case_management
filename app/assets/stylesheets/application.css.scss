@@ -120,6 +120,10 @@ $font-size: 17px;
   position: absolute;
   width: 100%;
   z-index: 999;
+  transition-duration: .5s;
+  &:hover {
+    opacity: .5;
+  }
 }
 
 // General styling artifacts
