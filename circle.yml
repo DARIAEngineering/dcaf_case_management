@@ -3,7 +3,9 @@ machine:
     version: 2.4.1
   pre:
     - sudo apt-get install libfontconfig
-    - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+    - wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip
+    - unzip chromedriver_linux64.zip
+    - sudo cp chromedriver /usr/local/bin/chromedriver
   services:
     - docker
 
