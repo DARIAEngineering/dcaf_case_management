@@ -31,10 +31,6 @@ class PatientsController < ApplicationController
 
   def pledge
     @patient = Patient.find params[:patient_id]
-    if @patient.update_attributes params[:pledge_sent]
-       @patient.update pledge_sent_at: Time.zone.now,
-                       pledge_sent_by: current_user
-    end
     respond_to do |format|
       format.js
     end
@@ -121,7 +117,7 @@ class PatientsController < ApplicationController
                   :procedure_cost, :check_number, :date_of_check]
   ].freeze
 
-  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent, :pledge_sent_at, :pledge_sent_by].freeze
+  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
 
   def patient_params
     params.require(:patient).permit(
