@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.4.1
 bundler_args: --without development
-sudo: enabled
+# sudo: enabled
 dist: trusty
 install:
   - sudo apt-get update && sudo apt-get install -y libfontconfig google-chrome-stable
