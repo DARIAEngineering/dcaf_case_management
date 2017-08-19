@@ -7,8 +7,10 @@ services:
 bundler_args: --without development
 # sudo: enabled
 dist: trusty
+addons:
+  chrome: stable
 install:
-  - sudo apt-get update && sudo apt-get install -y libfontconfig chromium-chromedriver
+  - sudo apt-get update && sudo apt-get install -y libfontconfig
   - bundle install
 before_script:
   - "export PATH=$PATH:/usr/lib/chromium-browser/"
