@@ -15,7 +15,6 @@ class GoogleSSOTest < ApplicationSystemTestCase
 
       take_screenshot
       assert has_content? @user.name
-      take_screenshot
     end
 
     it 'will reject sign ins if email is not associated with a user' do
