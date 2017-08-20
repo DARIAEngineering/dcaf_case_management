@@ -212,7 +212,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
       click_link 'Pledge Fulfillment'
       check 'Pledge fulfilled'
-      fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%d/%Y')
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%Y-%m-%d')  # TODO: Driver format problem
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
@@ -228,7 +228,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       within :css, '#fulfillment' do
         assert has_checked_field? 'Pledge fulfilled'
         assert has_field? 'Procedure date',
-                          with: 2.days.from_now.strftime('%m/%d/%Y')
+                          with: 2.days.from_now.strftime('%Y-%m-%d') # TODO: Driver format problem
         assert_equal '12',
                      find('#patient_fulfillment_gestation_at_procedure').value
         assert has_field? 'Abortion care $', with: 100
