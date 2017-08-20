@@ -5,8 +5,8 @@ class AuditTrailTest < ActiveSupport::TestCase
     @user = create :user
     @patient = create :patient, name: 'Susie Everyteen',
                                 primary_phone: '111-222-3333',
-                                appointment_date: Time.zone.now + 5.days,
-                                initial_call_date: Time.zone.now - 3.days,
+                                appointment_date: 5.days.from_now,
+                                initial_call_date: 3.days.ago,
                                 created_by: @user
   end
 
@@ -25,8 +25,8 @@ class AuditTrailTest < ActiveSupport::TestCase
     before do
       @patient.update_attributes name: 'Yolo',
                                  primary_phone: '123-456-9999',
-                                 appointment_date: Time.zone.now + 10.days,
-                                 initial_call_date: Time.zone.now - 4.days
+                                 appointment_date: 10.days.from_now,
+                                 initial_call_date: 4.days.ago
       @track = @patient.history_tracks.second
     end
 
@@ -45,8 +45,8 @@ class AuditTrailTest < ActiveSupport::TestCase
       assert_equal @track.changed_from,
                    ["Susie Everyteen",
                      "1112223333",
-                     (Time.zone.now + 5.days).strftime('%m/%d/%Y'),
-                     (Time.zone.now - 3.days).strftime('%m/%d/%Y'),
+                     5.days.from_now.strftime('%m/%d/%Y'),
+                     3.days.ago.strftime('%m/%d/%Y'),
                      "D2-3333"]
     end
 
@@ -54,8 +54,8 @@ class AuditTrailTest < ActiveSupport::TestCase
       assert_equal @track.changed_to,
                   ["Yolo",
                     "1234569999",
-                    (Time.zone.now + 10.days).strftime('%m/%d/%Y'),
-                    (Time.zone.now - 4.days).strftime('%m/%d/%Y'),
+                    10.days.from_now.strftime('%m/%d/%Y'),
+                    4.days.ago.strftime('%m/%d/%Y'),
                     "D6-9999"]
     end
 
