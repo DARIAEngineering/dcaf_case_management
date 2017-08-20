@@ -16,6 +16,7 @@ class PatientsController < ApplicationController
   end
 
   def create
+
     patient = Patient.new patient_params
 
     patient.created_by = current_user
@@ -74,6 +75,8 @@ class PatientsController < ApplicationController
     @patient = Patient.new
   end
 
+
+
   def data_entry_create
     @patient = Patient.new patient_params
     @patient.created_by = current_user
@@ -93,7 +96,6 @@ class PatientsController < ApplicationController
     @patient = Patient.find params[:id]
   end
 
-  # Strong params divided up by partial
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
     :appointment_date, :primary_phone

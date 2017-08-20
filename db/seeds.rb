@@ -234,7 +234,6 @@ end
 
 # we'll create 5 patients with pledges at different times
 (1..5).each do |patient_number|
-  pledge_time = 
   patient = Patient.create!(
     name: "Pledge Reporting Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-004#{rand(10)}",

@@ -29,10 +29,9 @@
                           options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
                           label: 'Weeks along at procedure',
                           autocomplete: 'off' %>
-            <%= pt.text_field :procedure_date,
+            <%= pt.date_field :procedure_date,
                                   label: 'Procedure date',
-                                  autocomplete: 'off', format: '%Y-%m-%d',
-                                  placeholder: 'YYYY-MM-DD' %>
+                                  autocomplete: 'off' %>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">
