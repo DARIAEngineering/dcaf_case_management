@@ -68,5 +68,26 @@ class UpdatingConfigsTest < ActionDispatch::IntegrationTest
                                                'Other funds (see notes)']
       end
     end
+
+    describe 'updating a config - Pledge limit help text' do
+      it 'should update and be available' do
+        fill_in 'config_options_pledge_limit_help_text',
+                with: 'Pledge guidelines, 13 weeks $100'
+        click_button 'Update options for Pledge limit help text'
+
+        assert_equal 'Pledge guidelines, 13 weeks $100',
+                     find('#config_options_pledge_limit_help_text').value
+        within :css, '#pledge_limit_help_text_options_list' do
+          assert has_content? 'Pledge guidelines'
+          assert has_content? '13 weeks $100'
+        end
+
+        visit edit_patient_path @patient
+        click_link 'Abortion Information'
+        find('.tooltip-header-help').hover
+        assert has_text? 'Pledge guidelines'
+        assert has_text? '13 weeks $100'
+      end
+    end
   end
 end
