@@ -16,7 +16,6 @@ class PatientsController < ApplicationController
   end
 
   def create
-
     patient = Patient.new patient_params
 
     patient.created_by = current_user
