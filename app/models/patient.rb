@@ -85,8 +85,8 @@ class Patient
   field :fund_pledge, type: Integer
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
-  field :pledge_generated_at, type: DateTime
-  field :pledge_sent_at, type: DateTime
+  field :pledge_generated_at, type: Time
+  field :pledge_sent_at, type: Time
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
