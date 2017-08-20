@@ -74,8 +74,6 @@ class PatientsController < ApplicationController
     @patient = Patient.new
   end
 
-
-
   def data_entry_create
     @patient = Patient.new patient_params
     @patient.created_by = current_user
