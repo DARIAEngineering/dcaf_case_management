@@ -249,6 +249,72 @@ end
     fund_pledge: 1000)
 end
 
+# create patients with ALL THE INFO to play with archiving
+(1..2).each do |patient_number|
+  # initial create data
+  patient = Patient.create!(
+    name: "Archive Dataful Patient #{patient_number}",
+    primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
+    voicemail_preference: "yes",
+    line: lines[patient_number%3],
+    language: "Spanish",
+    initial_call_date: 90.days.ago,
+    last_menstrual_period_weeks: 6,
+    last_menstrual_period_days: 5,
+    created_by: User.first,
+  )
+
+  patient.update!(
+    # header info - hand filled in
+    appointment_date: 60.days.ago,
+
+    # patient info - hand filled in
+    age: 24,
+    race_ethnicity: "Hispanic/Latino",
+    city: "Washington",
+    state: "DC",
+    county: "Washington",
+    other_contact: "Susie Q.",
+    other_phone: "321-0#{patient_number}0-005#{rand(10)}",
+    other_contact_relationship: "Mother",
+
+    employment_status: "Student",
+    income: "$10,000-14,999",
+    household_size_adults: 3,
+    household_size_children: 2,
+    insurance: "Other Insurance",
+    referred_by: "Clinic",
+    special_circumstances: ["", "", "Homelessness", "", "", "Other medical issue", "", "", ""],
+
+    # abortion info - hand filled in
+    clinic: Clinic.all.sample,
+    referred_to_clinic:  patient_number.odd? ? true : false,
+    resolved_without_fund:  patient_number.even? ? true : false,
+  )
+
+  # notes
+  # TODO generate notes
+  patient.update!(
+    urgent_flag: patient_number.even? ? true : false,
+  )
+
+  next if patient.resolved_without_fund
+
+  # pledges
+  # TODO generate an external pledge
+  patient.update!(
+    procedure_cost: 555,
+    patient_contribution: 120,
+    naf_pledge: 120,
+    fund_pledge: 115,
+    pledge_sent: true,
+    pledge_generated_at: 70.days.ago,
+    pledge_generated_by: User.first,
+  )
+end
+
+
+
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "Inserted #{Clinic.count} clinic objects. \n" \
