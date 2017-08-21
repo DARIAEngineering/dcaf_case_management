@@ -41,8 +41,8 @@ module Statusable
   end
 
   def days_since_pledge_sent
-    return 0 if pledge_sent = nil
-    return 0 if !pledge_sent_at.instance_of?(DateTime)
+    return 0 if !pledge_sent
+    return 0 if !pledge_sent_at
     days_since_pledge_sent = (DateTime.now.in_time_zone.to_date - pledge_sent_at.to_date).to_i
     days_since_pledge_sent
   end
