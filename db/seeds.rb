@@ -256,7 +256,7 @@ end
     name: "Archive Dataful Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
     voicemail_preference: "yes",
-    line: lines[patient_number%3],
+    line: 'DC',
     language: "Spanish",
     initial_call_date: 90.days.ago,
     last_menstrual_period_weeks: 6,
@@ -275,7 +275,7 @@ end
     state: "DC",
     county: "Washington",
     other_contact: "Susie Q.",
-    other_phone: "321-0#{patient_number}0-005#{rand(10)}",
+    other_phone: "555-0#{patient_number}0-0053",
     other_contact_relationship: "Mother",
 
     employment_status: "Student",
@@ -292,16 +292,7 @@ end
     resolved_without_fund:  patient_number.even? ? true : false,
   )
 
-  # notes
-  # TODO generate notes
-  patient.update!(
-    urgent_flag: patient_number.even? ? true : false,
-  )
-
-  next if patient.resolved_without_fund
-
-  # pledges
-  # TODO generate an external pledge
+  # abortion info - pledges - hand filled in
   patient.update!(
     procedure_cost: 555,
     patient_contribution: 120,
@@ -311,6 +302,29 @@ end
     pledge_generated_at: 70.days.ago,
     pledge_generated_by: User.first,
   )
+  # generate external pledges
+  patient.external_pledges.create!(
+    source: 'Metallica Abortion Fund',
+    amount: 100,
+    created_by: user,
+  );
+  patient.external_pledges.create!(
+    source: 'Baltimore Abortion Fund',
+    amount: 100,
+    created_by: user,
+  );
+
+  # notes tab
+  # toggle urgent, maybe
+  patient.update!(
+    urgent_flag: patient_number.even? ? true : false,
+  )
+  # generate notes
+  patient.notes.create! full_text: "One note, maybe with iffy PII!",
+                        created_by: user
+  patient.notes.create! full_text: "Two note, maybe with iffy PII!",
+                        created_by: user2
+
 end
 
 
