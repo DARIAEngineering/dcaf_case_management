@@ -325,6 +325,18 @@ end
   patient.notes.create! full_text: "Two note, maybe with iffy PII!",
                         created_by: user2
 
+  # fulfillment - only on the patient resolved with fund
+  next if patient.resolved_without_fund?
+
+  patient.fulfillment.update!(
+    fulfilled: true,
+    procedure_date: 60.days.ago,
+    gestation_at_procedure: "11",
+    procedure_cost: 555,
+    check_number: 4563,
+    date_of_check: 55.days.ago,
+  )
+
 end
 
 
