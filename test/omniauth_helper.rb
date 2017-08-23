@@ -16,4 +16,8 @@ module OmniauthMocker
       }
     })
   end
+
+  def unmock_omniauth
+    OmniAuth.config.mock_auth[:google_oauth2] = nil
+  end
 end
