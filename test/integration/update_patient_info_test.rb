@@ -15,7 +15,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
-    page.driver.resize(2000, 2000)
   end
 
   after { Capybara.use_default_driver }

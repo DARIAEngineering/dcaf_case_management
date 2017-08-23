@@ -96,6 +96,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
 
     it 'should autocheck on field change' do
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
+      click_away_from_field
       assert has_checked_field? 'Pledge fulfilled'
     end
 
@@ -113,8 +114,6 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       fill_in 'patient_fulfillment_procedure_date', with: ''
       select '', from: "patient_fulfillment_gestation_at_procedure"
       assert has_no_checked_field? 'Pledge fulfilled'
-
     end
-
   end
 end
