@@ -59,8 +59,30 @@ class PatientsController < ApplicationController
     @external_pledge = @patient.external_pledges.new
   end
 
+  # turned off until update is resolved
+  # def update_urgent_flag patient
+  #   if patient.pledge_sent?
+  #     patient.update_attributes urgent_flag: false
+  #   else
+  #     if patient.resolved_without_fund
+  #       patient.update_attributes urgent_flag: false
+  #     end
+  #   end
+  #   return patient
+  # end
+
   def update
     if @patient.update_attributes patient_params
+      # @patient = update_urgent_flag(patient)
+      @patient.reload
+      if @patient.pledge_sent?
+        @patient.update urgent_flag: false
+      else
+        if @patient.resolved_without_fund
+          @patient.update urgent_flag: false
+        end
+      end
+
       @patient.reload
       flash.now[:notice] = 'Patient info successfully saved'
     else
