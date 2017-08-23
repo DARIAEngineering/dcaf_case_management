@@ -12,7 +12,7 @@ module OmniauthMocker
       },
       'credentials' => {
         'token' => 'ya29.Ci_LA4hiS1Zh2Pj9PuU9aaa6QuB4yH8VEuPgCR642H9E5ZDfFr_amKNlr48GUPfC_Q',
-        'expires_at' => DateTime.now
+        'expires_at' => 30.minutes.from_now
       }
     })
   end
