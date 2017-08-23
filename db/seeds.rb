@@ -33,7 +33,7 @@ Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
 Clinic.create! name: 'Sample Clinic with NAF', street_address: '123 Fake Street',
               city: 'Washington', state: 'DC', zip: '20011', accepts_naf: true
 Clinic.create! name: 'Sample Clinic without NAF', street_address: '123 Fake Street',
-              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: false
+              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: false, accepts_medicaid: true
 
 
 # Create ten patients
@@ -143,6 +143,109 @@ Config.create config_key: :insurance,
               config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance']}
 Config.create config_key: :external_pledge_source,
               config_value: { options: ['Baltimore Abortion Fund', 'Metallica Abortion Fund']}
+Config.create config_key: :pledge_limit_help_text,
+              config_value: { options: ['Pledge Limit Guidelines:', '1st trimester (7-12 weeks): $100', '2nd trimester (12-24 weeks): $300', 'Later care (25+ weeks): $600']}
+
+# Reporting fixtures
+# Add some patients with pledges some of whom have
+# fulfillments for reporting testing for fulfillments
+10.times do |i|
+  flag = i.even? ? true : false
+
+  patient = Patient.create!(
+    name: "Reporting Patient #{i}",
+    primary_phone: "321-0#{i}0-001#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: flag,
+    line: i.even? ? 'DC' : 'MD',
+    created_by: User.first,
+    clinic: Clinic.all.sample,
+    appointment_date: 10.days.from_now,
+    last_menstrual_period_weeks: 7,
+    last_menstrual_period_days: 7,
+    naf_pledge: 300,
+    fund_pledge: 200,
+    procedure_cost: 600,
+    pledge_sent: true,
+    patient_contribution: 100)
+
+  if i.even?
+    patient.build_fulfillment(
+      created_by_id: User.first.id,
+      fulfilled: true,
+      procedure_cost: 4000,
+      procedure_date: 10.days.from_now
+    ).save
+  end
+end
+
+# Add some patients with calls for call reporting
+lines = ['DC', 'VA', 'MD']
+(1..5).each do |patient_number|
+  patient = Patient.create!(
+    name: "Reporting Patient #{patient_number}",
+    primary_phone: "321-0#{patient_number}0-002#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: patient_number.even? ? true : false,
+    line: lines[patient_number%3],
+    created_by: User.first,
+    clinic: Clinic.all.sample,
+    appointment_date: 10.days.from_now)
+
+  # reached calls this month
+  5.times do
+    Call.create!(
+      patient: patient,
+      status: 'Reached patient',
+      created_by: User.first,
+      created_at: (Time.now - rand(10).days))
+  end
+
+  5.times do
+    Call.create!(
+      patient: patient,
+      status: 'Reached patient',
+      created_by: User.first,
+      created_at: (Time.now - rand(10).days - 10.days))
+  end
+end
+
+# we'll create 5 patients with calls this year
+(1..5).each do |patient_number|
+  patient = Patient.create!(
+    name: "Old Reporting Patient #{patient_number}",
+    primary_phone: "321-0#{patient_number}0-003#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: patient_number.even? ? true : false,
+    line: lines[patient_number%3],
+    created_by: User.first,
+    clinic: Clinic.all.sample,
+    appointment_date: 10.days.from_now)
+
+  # rcalls this year
+  5.times do
+    Call.create!(
+      patient: patient,
+      status: 'Reached patient',
+      created_by: User.first,
+      created_at: (Time.now - rand(10).days - 6.months))
+  end
+end
+
+# we'll create 5 patients with pledges at different times
+(1..5).each do |patient_number|
+  patient = Patient.create!(
+    name: "Pledge Reporting Patient #{patient_number}",
+    primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
+    initial_call_date: 3.days.ago,
+    urgent_flag: patient_number.even? ? true : false,
+    line: lines[patient_number%3],
+    created_by: User.first,
+    clinic: Clinic.all.sample,
+    appointment_date: 10.days.from_now,
+    pledge_sent: true,
+    fund_pledge: 1000)
+end
 
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \

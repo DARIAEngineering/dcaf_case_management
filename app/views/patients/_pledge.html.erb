@@ -10,7 +10,7 @@
     <div class='col-sm-12'><span class="pledge_modal_category">Patient name:</span> <%= patient.name %></div>
     <div class='col-sm-12'><span class="pledge_modal_category">Patient ID:</span> <%= patient.identifier %></div>
     <div class='col-sm-12'><span class="pledge_modal_category">Pledge amount:</span> $<%= patient.fund_pledge %> </div>
-    <div class='col-sm-12'><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date %></div>
+    <div class='col-sm-12'><span class="pledge_modal_category">Appointment date:</span> <%= patient.appointment_date_display %></div>
     <div class='col-sm-12'><span class="pledge_modal_category">Clinic name:</span> <%= patient.clinic.try :name %></div>
   </div>
 
@@ -25,13 +25,13 @@
         <%= bootstrap_form_tag url: generate_pledge_patient_path(patient), method: 'get' do |f| %>
           <%= f.text_field :case_manager_name, label: 'Enter your name in this box to sign your pledge:' %>
           <%= f.submit 'Generate your pledge', class: 'btn btn-large btn-primary' %>
-        <% end %>      
+        <% end %>
       </div>
     <% end %>
   </div>
 
   <div class="row hide" data-step="3" data-title="Submit and send your pledge:">
-    <p class="col-sm-12">Awesome, you generated a DCAF Pledge! Thanks!</p>
+    <p class="col-sm-12">Awesome, you generated a <%= FUND %> Pledge! Thanks!</p>
     <p class="col-sm-12">Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
     <p class="col-sm-12"><strong>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</strong></p>
     <div class="col-sm-12">

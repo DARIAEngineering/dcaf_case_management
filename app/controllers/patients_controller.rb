@@ -79,7 +79,7 @@ class PatientsController < ApplicationController
     @patient.created_by = current_user
 
     if @patient.save
-      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
+      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the #{FUND} pledge amounts are the same, and you're set."
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
@@ -93,7 +93,6 @@ class PatientsController < ApplicationController
     @patient = Patient.find params[:id]
   end
 
-  # Strong params divided up by partial
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
     :appointment_date, :primary_phone
@@ -114,7 +113,7 @@ class PatientsController < ApplicationController
 
   FULFILLMENT_PARAMS = [
     fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :procedure_cost, :check_number, :check_date]
+                  :procedure_cost, :check_number, :date_of_check]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
