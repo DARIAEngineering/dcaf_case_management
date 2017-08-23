@@ -13,7 +13,7 @@ class GoogleSSOTest < ApplicationSystemTestCase
         wait_for_element 'Sign in with Google'
         click_link 'Sign in with Google'
 
-        assert has_content? 'Your current line'
+        assert has_content? 'Welcome to DCAF'
       end
     end
 
