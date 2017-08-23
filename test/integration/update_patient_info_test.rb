@@ -216,6 +216,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
+      fill_in 'Date of check', with: 2.weeks.from_now.strftime('%Y-%m-%d')
 
       click_away_from_field
       wait_for_ajax
@@ -233,6 +234,8 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
                      find('#patient_fulfillment_gestation_at_procedure').value
         assert has_field? 'Abortion care $', with: 100
         assert has_field? 'Check #', with: '444-22'
+        assert has_field? 'Date of check',
+                          with: 2.weeks.from_now.strftime('%Y-%m-%d')
       end
     end
   end
