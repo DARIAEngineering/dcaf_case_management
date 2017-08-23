@@ -1,5 +1,6 @@
 require 'application_system_test_case'
 
+# Test behavior of the changelog partial to confirm proper info displays
 class ChangeLogTest < ApplicationSystemTestCase
   before do
     @user = create :user, email: 'first_user@email.com'
@@ -7,16 +8,17 @@ class ChangeLogTest < ApplicationSystemTestCase
     log_in_as @user
     @patient = create :patient, name: 'tester',
                                 primary_phone: '1231231234',
-                                created_by: @user2
+                                created_by: @user2,
+                                city: 'Washington'
 
     visit edit_patient_path(@patient)
-    fill_in 'City', with: 'Washington'
   end
 
   describe 'viewing the changelog' do
     it 'should log patient accessibly' do
-      fill_in 'City', with: 'Washington'
-      visit edit_patient_path(@patient)
+      fill_in 'City', with: 'Canada'
+      click_away_from_field
+      # visit edit_patient_path(@patient)
       wait_for_element 'Change Log'
       click_link 'Change Log'
       wait_for_element 'Patient history'
@@ -25,6 +27,7 @@ class ChangeLogTest < ApplicationSystemTestCase
         assert has_text? Time.zone.now.display_date
         assert has_text? 'City'
         assert has_text? 'Washington'
+        assert has_text? 'Canada'
         assert has_text? @user.name
       end
     end

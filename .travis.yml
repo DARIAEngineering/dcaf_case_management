@@ -1,0 +1,26 @@
+language: ruby
+cache: bundler
+rvm:
+  - 2.4.1
+services:
+  - mongodb
+bundler_args: --without development
+# sudo: enabled
+dist: trusty
+#addons:
+#  chrome: stable
+install:
+  - sudo apt-get update && sudo apt-get install -y libfontconfig chromium-chromedriver
+  - bundle install
+#before_script:
+#  - "export PATH=$PATH:/usr/lib/chromium-browser/"
+script:
+  - PATH=$PATH:/usr/lib/chromium-browser/ bundle exec rails test
+# env:
+#   global:
+#     - CI_NODE_TOTAL=2
+#   matrix:
+#     - CI_NODE_INDEX=0
+#     - CI_NODE_INDEX=1
+notifications:
+  email: false

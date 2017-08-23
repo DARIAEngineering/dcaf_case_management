@@ -52,8 +52,8 @@ group :development, :test do
 end
 
 group :test do
+  gem 'selenium-webdriver'
   gem 'shoulda-context'
-  gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
   gem 'factory_girl_rails'
@@ -69,10 +69,6 @@ group :test do
   gem 'minitest-ci'
   gem 'pdf-inspector', require: "pdf/inspector"
 end
-
-  # gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
-
 
 group :production do
   gem 'puma'

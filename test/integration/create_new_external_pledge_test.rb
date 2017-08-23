@@ -15,10 +15,6 @@ class CreateNewExternalPledgeTest < ApplicationSystemTestCase
       select 'Baltimore Abortion Fund', from: 'Source'
       fill_in 'Amount', with: '30000'
       click_button 'Create External pledge'
-      wait_for_element 'Patient Information'
-      click_link 'Abortion Information'
-      wait_for_element 'Abortion information'
-
       assert has_field? 'Baltimore Abortion Fund pledge', with: '30000'
     end
   end

@@ -2,19 +2,19 @@ require 'application_system_test_case'
 
 class GoogleSSOTest < ApplicationSystemTestCase
   describe 'access top page' do
-    before do
-      mock_omniauth
-    end
+    before { mock_omniauth }
+    after { unmock_omniauth }
 
-    it 'can sign in with Google Auth Account' do
-      @user = create :user, email: 'test@gmail.com'
-      visit root_path
-      wait_for_element 'Sign in with Google'
-      click_link 'Sign in with Google'
+    describe 'signing in' do
+      before { create :user, email: 'test@gmail.com' }
 
-      sleep(3)
-      assert has_content? @user.name
-      sleep(3)
+      it 'can sign in with Google Auth Account' do
+        visit root_path
+        wait_for_element 'Sign in with Google'
+        click_link 'Sign in with Google'
+
+        assert has_content? 'Welcome to DCAF'
+      end
     end
 
     it 'will reject sign ins if email is not associated with a user' do

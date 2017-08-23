@@ -1,20 +1,14 @@
 require 'test_helper'
+require 'omniauth_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  # include IntegrationSystemTestHelpers
   include OmniauthMocker
 
   before { Capybara.reset_sessions! }
   OmniAuth.config.test_mode = true
 
-  # Poltergeist
-
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
-
-  # Capybara.register_driver :poltergeist do |app|
-  #   Capybara::Poltergeist::Driver.new(app, js_errors: false)
-  # end
-  # driven_by :poltergeist
+  puts ENV['CIRCLE_ARTIFACTS']
 
   def with_modified_env(options, &block)
     ClimateControl.modify(options, &block)
@@ -62,5 +56,11 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def go_to_dashboard
     click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
+  end
+
+  def click_away_from_field
+    find('body').click
+    fill_in 'First and last name', with: nil
+    wait_for_ajax
   end
 end
