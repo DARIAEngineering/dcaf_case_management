@@ -7,8 +7,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted?
+      puts 'Getting here'
       log_in_user_via_google
     else
+      puts 'login failing'
       reject_login
     end
   end
