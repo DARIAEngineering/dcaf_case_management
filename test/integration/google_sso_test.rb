@@ -3,11 +3,11 @@ require 'application_system_test_case'
 class GoogleSSOTest < ApplicationSystemTestCase
   describe 'access top page' do
     before do
+      @user = create :user, email: 'test@gmail.com', name: 'yologoat'
       mock_omniauth
     end
 
     it 'can sign in with Google Auth Account' do
-      @user = create :user, email: 'test@gmail.com'
       visit root_path
       wait_for_element 'Sign in with Google'
       click_link 'Sign in with Google'
