@@ -250,7 +250,7 @@ end
 
 # create patients with ALL THE INFO to play with archiving
 (1..2).each do |patient_number|
-  # initial create data
+  # initial create data from voicemail
   patient = Patient.create!(
     name: "Archive Dataful Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
@@ -261,7 +261,15 @@ end
     last_menstrual_period_weeks: 6,
     last_menstrual_period_days: 5,
     created_by: User.first,
+    created_at: 90.days.ago,
   )
+
+  # Call, but no answer. leave a VM.
+
+  patient.calls.create status: 'Left voicemail', created_by: User.first, created_at: 90.days.ago
+
+  # Call, which updates patient info, maybe flags urgent, make a note.
+  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 89.days.ago
 
   patient.update!(
     # header info - hand filled in
@@ -289,7 +297,28 @@ end
     clinic: Clinic.all.sample,
     referred_to_clinic:  patient_number.odd? ? true : false,
     resolved_without_fund:  patient_number.even? ? true : false,
+
+    updated_at: 89.days.ago, #not sure if this even works?
   )
+
+  # notes tab
+  # toggle urgent, maybe
+  patient.update!(
+    urgent_flag: patient_number.odd? ? true : false,
+    updated_at: 89.days.ago,
+  )
+  # generate notes
+  patient.notes.create!(
+    full_text: "One note, with iffy PII! This one was from the first call!",
+    created_by: user,
+    created_at: 89.days.ago,
+  )
+
+  # only continue for the unresolved patient(s)
+  next if patient.resolved_without_fund?
+
+  # another call. get abortion information, create pledges, a note.
+  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 81.days.ago
 
   # abortion info - pledges - hand filled in
   patient.update!(
@@ -300,32 +329,30 @@ end
     pledge_sent: true,
     pledge_generated_at: 70.days.ago,
     pledge_generated_by: User.first,
+    updated_at: 81.days.ago,
   )
   # generate external pledges
   patient.external_pledges.create!(
     source: 'Metallica Abortion Fund',
     amount: 100,
     created_by: user,
+    created_at: 81.days.ago,
   );
   patient.external_pledges.create!(
     source: 'Baltimore Abortion Fund',
     amount: 100,
     created_by: user,
+    created_at: 81.days.ago,
   );
 
   # notes tab
-  # toggle urgent, maybe
-  patient.update!(
-    urgent_flag: patient_number.even? ? true : false,
+  patient.notes.create!(
+    full_text: "Two note, maybe with iffy PII! From the second call.",
+    created_by: user2,
+    created_at: 81.days.ago,
   )
-  # generate notes
-  patient.notes.create! full_text: "One note, maybe with iffy PII!",
-                        created_by: user
-  patient.notes.create! full_text: "Two note, maybe with iffy PII!",
-                        created_by: user2
 
-  # fulfillment - only on the patient resolved with fund
-  next if patient.resolved_without_fund?
+  # fulfillment
 
   patient.fulfillment.update!(
     fulfilled: true,
@@ -334,6 +361,7 @@ end
     procedure_cost: 555,
     check_number: 4563,
     date_of_check: 55.days.ago,
+    updated_at: 51.days.ago,
   )
 
 end
