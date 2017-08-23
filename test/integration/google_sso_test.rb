@@ -5,7 +5,6 @@ class GoogleSSOTest < ApplicationSystemTestCase
     before { mock_omniauth }
     after { unmock_omniauth }
 
-    # TODO this test is failing for some idiotic mysterious pointless reason
     describe 'signing in' do
       before { create :user, email: 'test@gmail.com' }
 
