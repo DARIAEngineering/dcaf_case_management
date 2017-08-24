@@ -60,11 +60,10 @@ class PatientsController < ApplicationController
   end
 
   def update
-    if @patient.update_attributes params[:pledge_sent]
-       @patient.pledge_sent_at = Time.zone.now
-       @patient.pledge_sent_by = current_user
-    end
     if @patient.update_attributes patient_params
+      if @patient.previous_changes[:pledge_sent] && @patient.pledge_sent
+        @patient.update_attributes pledge_sent_at: Time.zone.now, pledge_sent_by: current_user
+      end
       @patient.reload
       flash.now[:notice] = 'Patient info successfully saved'
     else
