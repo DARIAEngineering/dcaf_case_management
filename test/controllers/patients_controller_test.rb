@@ -243,4 +243,5 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
     end
   end
+
 end

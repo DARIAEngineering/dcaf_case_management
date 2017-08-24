@@ -1,4 +1,4 @@
-<section id="fulfillment" class="abortion-info tab-pane">
+<section id="fulfillment_content">
   <%= bootstrap_form_for patient, html: { id: 'fulfillment_form' }, remote: true do |f| %>
   <%# bootstrap_form_for @fulfillment, html: { id: 'fulfillment_form' }, remote: true do |f| %>
     <div class="col-sm-12">
@@ -31,10 +31,9 @@
                           options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
                           label: 'Weeks along at procedure',
                           autocomplete: 'off' %>
-            <%= pt.text_field :procedure_date,
+            <%= pt.date_field :procedure_date,
                                   label: 'Procedure date',
-                                  autocomplete: 'off', format: '%Y-%m-%d',
-                                  placeholder: 'YYYY-MM-DD' %>
+                                  autocomplete: 'off' %>
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">
