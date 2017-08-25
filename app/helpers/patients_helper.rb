@@ -14,12 +14,17 @@ module PatientsHelper
      'Native American', 'Mixed Race/Ethnicity', 'Other']
   end
 
+  def language
+    [['English', nil], 'Spanish', 'French', 'Korean']
+  end
+
   def employment_status_options
     [nil, 'Full-time', 'Part-time', 'Unemployed', 'Odd jobs', 'Student']
   end
 
   def insurance_options
-    [nil] + Rails.configuration.insurances[FUND]
+    standard_options = ['No insurance', 'Don\'t know', 'Other (add to notes)']
+    [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
   end
 
   def income_options
@@ -41,7 +46,7 @@ module PatientsHelper
 
   def referred_by_options
     [nil, 'Clinic', 'Crime victim advocacy center',
-     'DCAF website or social media',
+     "#{FUND} website or social media",
      'Domestic violence crisis/intervention org', 'Family member', 'Friend',
      'Google/Web search', 'Homeless shelter', 'Legal clinic', 'NAF', 'NNAF',
      'Other abortion fund', 'Previous patient', 'School',
@@ -63,11 +68,7 @@ module PatientsHelper
     patient.pledge_info_present? ? 'disabled="disabled"' : ''
   end
 
-  def dcaf_pledge_limit_help_text
-    first_tri = ENV['DCAF_PLEDGE_LIMIT_FIRST_TRI'] || 100
-    second_tri = ENV['DCAF_PLEDGE_LIMIT_SECOND_TRI'] || 300
-    later_care = ENV['DCAF_PLEDGE_LIMIT_LATER_CARE'] || 600
-
-    "Pledge Limit Guidelines:<br />1st trimester (7-12 weeks): $#{first_tri}<br />2nd trimester (12-24 weeks): $#{second_tri}<br />Later care (25+ weeks): $#{later_care}"
+  def pledge_limit_help_text_options
+    Config.find_or_create_by(config_key: 'pledge_limit_help_text').options
   end
 end

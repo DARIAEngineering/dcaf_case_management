@@ -147,10 +147,10 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
-    it 'should respond internal server error on failure' do
+    it 'should respond not acceptable error on failure' do
       @payload[:primary_phone] = nil
       patch patient_path(@patient), params: { patient: @payload }
-      assert_response :internal_server_error
+      assert_response :not_acceptable
     end
 
     it 'should update patient fields' do
@@ -236,4 +236,5 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
     end
   end
+
 end

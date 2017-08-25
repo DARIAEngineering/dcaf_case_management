@@ -25,6 +25,7 @@ class Patient
 
   before_validation :clean_fields
   before_save :save_identifier
+
   after_create :initialize_fulfillment
 
   # Relationships
@@ -55,7 +56,7 @@ class Patient
   field :line
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
 
-  field :spanish, type: Boolean
+  field :language, type: String
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean
   field :last_menstrual_period_weeks, type: Integer

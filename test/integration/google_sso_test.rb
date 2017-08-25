@@ -10,17 +10,17 @@ class GoogleSSOTest < ActionDispatch::IntegrationTest
       @user = create :user, email: 'test@gmail.com'
       visit root_path
       wait_for_element 'Sign in with Google'
-      click_link 'Sign in with Google'
+      click_button 'Sign in with Google'
 
       assert has_content? @user.name
     end
 
     it 'will reject sign ins if email is not associated with a user' do
       visit root_path
-      assert has_content? 'Sign in'
-      click_link 'Sign in with Google'
+      assert has_content? 'Forgot your password?'
+      click_button 'Sign in with Google'
 
-      assert has_content? 'Sign in'
+      assert has_content? 'Forgot your password?'
     end
   end
 end

@@ -24,7 +24,9 @@ module WelcomeMessageHelper
       "Have no fear, Team CM is here!",
       "The work that you do is essential and helps so many people!",
       "Thank you for fighting the good fight!",
-      'You rock!'
+      'You rock!',
+      "You are invaluable - keep it up!!",
+      "You're a real gem - the client_finder gem team",
     ]
   end
 end

@@ -6,13 +6,11 @@ class PatientsController < ApplicationController
               with: -> { redirect_to root_path }
 
   def index
-    patients = Patient.all
-
     respond_to do |format|
       format.csv do
         now = Time.zone.now.strftime('%Y%m%d')
         csv_filename = "patient_data_export_#{now}.csv"
-        send_data patients.to_csv, filename: csv_filename, format: 'text/csv'
+        send_data Patient.to_csv, filename: csv_filename, format: 'text/csv'
       end
     end
   end
@@ -64,10 +62,12 @@ class PatientsController < ApplicationController
   def update
     if @patient.update_attributes patient_params
       @patient.reload
-      respond_to { |format| format.js }
+      flash.now[:notice] = 'Patient info successfully saved'
     else
-      head :internal_server_error
+      error = @patient.errors.full_messages.to_sentence
+      flash.now[:alert] = error
     end
+    respond_to { |format| format.js }
   end
 
   def data_entry
@@ -79,7 +79,7 @@ class PatientsController < ApplicationController
     @patient.created_by = current_user
 
     if @patient.save
-      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
+      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the #{FUND} pledge amounts are the same, and you're set."
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
@@ -93,14 +93,13 @@ class PatientsController < ApplicationController
     @patient = Patient.find params[:id]
   end
 
-  # Strong params divided up by partial
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
     :appointment_date, :primary_phone
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
-    :line, :age, :race_ethnicity, :spanish,
+    :line, :age, :race_ethnicity, :language,
     :voicemail_preference, :city, :state, :county, :zip, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
@@ -114,7 +113,7 @@ class PatientsController < ApplicationController
 
   FULFILLMENT_PARAMS = [
     fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :procedure_cost, :check_number, :check_date]
+                  :procedure_cost, :check_number, :date_of_check]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze

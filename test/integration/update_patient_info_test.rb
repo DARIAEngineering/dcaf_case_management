@@ -9,6 +9,9 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @ext_pledge = create :external_pledge,
                          patient: @patient,
                          source: 'Baltimore Abortion Fund'
+    create_external_pledge_source_config
+    create_insurance_config
+
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
@@ -114,7 +117,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
-      check 'Spanish Only'
+      select 'Spanish', from: 'patient_language'
 
       select 'Part-time', from: 'patient_employment_status'
       select '$30,000-34,999 ($577-672/wk - $2500-2916/mo)',
@@ -132,6 +135,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       reload_page_and_click_link 'Patient Information'
     end
 
+    it 'should flash success on field change' do
+      click_link 'Patient Information'
+      fill_in 'Age', with: '25'
+      assert has_text? 'Patient info successfully saved'
+    end
+
+    it 'should flash failure on a bad field change' do
+      fill_in 'Phone number', with: '111-222-3333445'
+      assert has_text? 'Primary phone is the wrong length'
+    end
+
     it 'should alter the information' do
       within :css, '#patient_information' do
         assert has_field? 'Other contact name', with: 'Susie Everyteen Sr'
@@ -143,7 +157,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert has_field? 'State', with: 'DC'
         assert has_field? 'County', with: 'Wash'
         assert_equal 'yes', find('#patient_voicemail_preference').value
-        assert has_checked_field? 'Spanish Only'
+        assert_equal 'Spanish', find('#patient_language').value
 
         assert_equal 'Part-time', find('#patient_employment_status').value
         assert_equal '$30,000-34,999',
@@ -153,7 +167,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
         assert_equal 'Other state Medicaid', find('#patient_insurance').value
         assert_equal 'Other abortion fund', find('#patient_referred_by').value
         assert_equal 'yes', find('#patient_voicemail_preference').value
-        assert has_checked_field? 'Spanish Only'
+        assert_equal 'Spanish', find('#patient_language').value
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
         assert has_no_css? '#patient_line'
@@ -198,10 +212,11 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
       click_link 'Pledge Fulfillment'
       check 'Pledge fulfilled'
-      fill_in 'Procedure date', with: 2.days.from_now.strftime('%Y-%m-%d')
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%Y-%m-%d')  # TODO: Driver format problem
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
+      fill_in 'Date of check', with: 2.weeks.from_now.strftime('%Y-%m-%d')
 
       click_away_from_field
       wait_for_ajax
@@ -214,11 +229,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       within :css, '#fulfillment' do
         assert has_checked_field? 'Pledge fulfilled'
         assert has_field? 'Procedure date',
-                          with: 2.days.from_now.strftime('%Y-%m-%d')
+                          with: 2.days.from_now.strftime('%Y-%m-%d') # TODO: Driver format problem
         assert_equal '12',
                      find('#patient_fulfillment_gestation_at_procedure').value
         assert has_field? 'Abortion care $', with: 100
         assert has_field? 'Check #', with: '444-22'
+        assert has_field? 'Date of check',
+                          with: 2.weeks.from_now.strftime('%Y-%m-%d')
       end
     end
   end

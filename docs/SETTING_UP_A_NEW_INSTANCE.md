@@ -45,6 +45,7 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 - `RAILS_SERVE_STATIC_FILES` (set to `true`)
 - `SITE_URL` (The URL, without http, your CMs will go to. e.g. `app.myabortionfund.org`)
 - `SKYLIGHT_AUTH_TOKEN` (get it from Skylight)
+- `SQREEN_TOKEN` (get it from Sqreen)
 
 * Run `rake db:mongoid:create_indexes` on the server to set up database indexes
 
@@ -75,11 +76,12 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 
 ### Before you start entering data
 
-- [ ] Go to Admin Tools -> Clinic Management and enter info about clinics your work with
+- [ ] Go to Admin Tools -> Clinic Management and enter info about clinics you work with
+- [ ] Go to Admin Tools -> Config Management and enter info about other funds your work with, insurance options you want to track, etc.
 - [ ] Create any other admin accounts by going to Admin Tools -> User Management and following the workflow there
 
 ### When you start entering data
 
-* There's a specialized endpoint for bulk data entry at `/data_entry` not linked from the main url. This has most of the info in one form and helps speed the data entry process up if you are entering patients en masse, for example.
+* There's a specialized endpoint for bulk data entry at `/data_entry` not linked from the main dashboards. This has most of the info in one form and helps speed the data entry process up if you are entering patients en masse, for example.
 
 ## gl hf

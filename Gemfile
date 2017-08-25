@@ -15,7 +15,8 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
 gem 'devise', '~> 4.2.1'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
+gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 gem 'mongoid', '6.1.0'
 gem 'mongoid-history', '0.6.1'
 gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git', branch: 'master'
@@ -23,7 +24,7 @@ gem 'mongo_session_store', '>= 3.1.0'
 gem 'enumerize'
 gem 'bson_ext'
 gem 'figaro'
-gem 'render_async', '~> 0.1.2'
+gem 'render_async', '~> 0.2.3'
 gem 'gon', '~> 6.1.0'
 gem 'nokogiri', '>= 1.7.2'
 gem 'tzinfo-data', require: false
@@ -36,12 +37,10 @@ gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
 group :development do
   gem 'pry'
-  gem 'web-console', '~> 2.0'
   gem 'rubocop', require: false
   gem 'brakeman', require: false
   gem 'ruby_audit', require: false
   gem 'bundler-audit', require: false
-  gem 'quality', '20.1.0', require: false
   # gem 'dawnscanner', require: false # disable until dawnscanner fixes CD prob
 end
 
@@ -77,4 +76,5 @@ end
 group :production do
   gem 'puma'
   gem 'skylight'
+  gem 'sqreen'
 end

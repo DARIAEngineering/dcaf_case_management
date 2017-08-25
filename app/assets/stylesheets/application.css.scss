@@ -116,6 +116,16 @@ $font-size: 17px;
   padding: 15px 30px;
 }
 
+#flash {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  transition-duration: .5s;
+  &:hover {
+    opacity: .5;
+  }
+}
+
 // General styling artifacts
 // make all images responsive by default
 img {
@@ -197,6 +207,7 @@ h5 {
   /*max-width: 320px;*/
   margin: 0 auto;
 }
+
 .authform form {
   /*@extend .well;*/
   /*@extend .well-lg;*/
@@ -228,6 +239,11 @@ h5 {
 .btn-space {
    margin-top:25px;
 }
+
+.info-form .checkbox label {
+  font-weight: bold;
+}
+
 
 // Search result
 // shell styling
