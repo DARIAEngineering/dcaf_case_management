@@ -1,6 +1,6 @@
 # DCAF Case Manager Press Coverage
 
-2017-08-15 [DC Tech Stories podcast] (http://dctechstories.com/posts/cfdc/)
+2017-08-15 [DC Tech Stories podcast](http://dctechstories.com/posts/cfdc/)
 
 Following our project's participation in an Abortion Access Hackathon in early 2017, the project was featured in several publications.
 
