@@ -35,4 +35,13 @@ class Call
   def reached?
     status == 'Reached patient'
   end
+
+  def event_params
+    {
+      event_type:   status,
+      cm_name:      created_by_id,
+      patient_name: patient.name,
+      patient_id:   patient.id
+    }
+  end
 end
