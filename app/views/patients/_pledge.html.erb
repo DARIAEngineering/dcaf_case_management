@@ -1,6 +1,8 @@
-<%= render '/shared/multi_modal', disable_next: disable_continue?(patient), :captured => capture { %>
+
 
 <% if not patient.pledge_sent %>
+
+  <%= render '/shared/multi_modal', disable_next: disable_continue?(patient), :captured => capture { %>
   <div class="row hide" data-step="1" data-title="Confirm the following information is correct:">
     <% if patient.pledge_info_present? %>
       <% patient.pledge_info_errors.each do |error| %>
@@ -25,13 +27,13 @@
         <%= bootstrap_form_tag url: generate_pledge_patient_path(patient), method: 'get' do |f| %>
           <%= f.text_field :case_manager_name, label: 'Enter your name in this box to sign your pledge:' %>
           <%= f.submit 'Generate your pledge', class: 'btn btn-large btn-primary' %>
-        <% end %>      
+        <% end %>
       </div>
     <% end %>
   </div>
 
   <div class="row hide" data-step="3" data-title="Submit and send your pledge:">
-    <p class="col-sm-12">Awesome, you generated a DCAF Pledge! Thanks!</p>
+    <p class="col-sm-12">Awesome, you generated a <%= FUND %> Pledge! Thanks!</p>
     <p class="col-sm-12">Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
     <p class="col-sm-12"><strong>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</strong></p>
     <div class="col-sm-12">
@@ -40,19 +42,21 @@
       <% end %>
     </div>
   </div>
+  <% } %>
 <% else %>
-  <div class="row hide" data-step="1" data-title="Cancel pledge:">
-    <p class="col-sm-12">If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page.</p>
+  <div class="modal-header">
+    <h4 class="modal-title">Cancel Pledge</h4>
   </div>
-
-  <div class="row hide" data-step="2" data-title="Cancel pledge:">
-    <p class="col-sm-12">To confirm you want to cancel this pledge, please uncheck the check box below.</p>
-    <div class="col-sm-12">
-      <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
-        <%= f.check_box :pledge_sent, label: 'Uncheck this box to rescind the pledge' %>
-      <% end %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <p>Are you sure you want to cancel this pledge?</p>
+      </div>
     </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">No</button>
+    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal" style="margin-bottom: 15px;">Yes</button>
   </div>
 <% end %>
 
-<% } %>
