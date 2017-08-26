@@ -56,7 +56,11 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">No</button>
-    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal" style="margin-bottom: 15px;">Yes</button>
+
+    <%= form_for @patient, html:{style:'display:inline-block;', id:'cancel-pledge-form'}, remote: true do |f|%>    
+      <%= f.hidden_field :pledge_sent, :value=> false %>
+      <%= f.submit 'Yes', class:"btn btn-default btn-lg", id: 'cancel-pledge-submit', style: "margin-bottom: 15px;"%>
+    <% end %>
   </div>
 <% end %>
 

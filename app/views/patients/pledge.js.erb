@@ -17,4 +17,8 @@ $('.modal').modal('toggle');
 
   $('#pledge-modal').modalSteps();
 
+<% else %>
+  $('#cancel-pledge-form').on('submit', function() {
+    $('.modal').modal('hide');
+  })
 <% end %>
