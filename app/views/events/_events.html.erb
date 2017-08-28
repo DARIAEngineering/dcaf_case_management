@@ -1,0 +1,5 @@
+<ul class='well well-lg'>
+  <% @events.each do |event| %>
+    <%= content_tag :p, display_event(event) %><br />
+  <% end %>
+</ul>

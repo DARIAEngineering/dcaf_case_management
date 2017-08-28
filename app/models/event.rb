@@ -30,6 +30,11 @@ class Event
     "#{created_at.display_date} #{created_at.display_time} - #{cm_name} #{event_text} #{patient_name}"
   end
 
+  def glyphicon
+    'usd' if event_type == 'Pledged'
+    'earpiece'
+  end
+
   private
 
   def event_text
@@ -43,10 +48,5 @@ class Event
     when 'Reached patient'
       'called and reached'
     end
-  end
-
-  def glyphicon
-    'usd' if event_type == 'Pledged'
-    'earpiece'
   end
 end
