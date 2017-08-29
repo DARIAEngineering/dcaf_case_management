@@ -39,9 +39,10 @@ class Call
   def event_params
     {
       event_type:   status,
-      cm_name:      created_by_id,
+      cm_name:      created_by.name,
       patient_name: patient.name,
-      patient_id:   patient.id
+      patient_id:   patient.id,
+      line:         patient.line
     }
   end
 end

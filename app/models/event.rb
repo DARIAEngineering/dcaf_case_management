@@ -26,16 +26,10 @@ class Event
   validates :event_type, inclusion: { in: EVENT_TYPES }
   validates :cm_name, :patient_name, :patient_id, presence: true
 
-  def to_log_entry
-    "#{created_at.display_date} #{created_at.display_time} - #{cm_name} #{event_text} #{patient_name}"
-  end
-
   def glyphicon
     'usd' if event_type == 'Pledged'
-    'earpiece'
+    'earphone'
   end
-
-  private
 
   def event_text
     case event_type
