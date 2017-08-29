@@ -8,53 +8,53 @@ module Archivable
   # How to handle fields found on patient.
   # Anything found that isn't specified will be shredded and complained about.
   PATIENT_ARCHIVE_REFERENCE = {
-    :special_circumstances        => :shred,
-    :name                         => :shred,
-    :primary_phone                => :shred,
-    :other_contact                => :shred,
-    :other_phone                  => :shred,
-    :other_contact_relationship   => :shred,
-    :household_size_adults        => :shred,
-    :household_size_children      => :shred,
-    :referred_by                  => :shred,
-    :identifier                   => :scramble,
-    :age                          => :convert_age,
-    :fulfillment                  => :archive_fulfillment,
-    :calls                        => :archive_calls,
-    :notes                        => :archive_notes,
-    :external_pledges             => :archive_pledges,
-    :archived                     => :save,
-    :age_range                    => :save,
-    :_id                          => :save,
-    :voicemail_preference         => :save,
-    :line                         => :save,
-    :language                     => :save,
-    :initial_call_date            => :save,
-    :last_menstrual_period_weeks  => :save,
-    :last_menstrual_period_days   => :save,
-    :created_at                   => :save,
-    :created_by_id                => :save,
-    :updated_at                   => :save,
-    :version                      => :save,
-    :appointment_date             => :save,
-    :race_ethnicity               => :save,
-    :city                         => :save,
-    :state                        => :save,
-    :county                       => :save,
-    :employment_status            => :save,
-    :income                       => :save,
-    :insurance                    => :save,
-    :referred_to_clinic           => :save,
-    :resolved_without_fund        => :save,
-    :clinic_id                    => :save,
-    :urgent_flag                  => :save,
-    :procedure_cost               => :save,
-    :patient_contribution         => :save,
-    :naf_pledge                   => :save,
-    :fund_pledge                  => :save,
-    :pledge_sent                  => :save,
-    :pledge_generated_at          => :save,
-    :pledge_generated_by_id       => :save,
+    'special_circumstances'       => :shred,
+    'name'                        => :shred,
+    'primary_phone'               => :shred,
+    'other_contact'               => :shred,
+    'other_phone'                 => :shred,
+    'other_contact_relationship'  => :shred,
+    'household_size_adults'       => :shred,
+    'household_size_children'     => :shred,
+    'referred_by'                 => :shred,
+    'identifier'                  => :scramble,
+    'age'                         => :convert_age,
+    'fulfillment'                 => :archive_fulfillment,
+    'calls'                       => :archive_calls,
+    'notes'                       => :archive_notes,
+    'external_pledges'            => :archive_pledges,
+    'archived'                    => :save,
+    'age_range'                   => :save,
+    '_id'                         => :save,
+    'voicemail_preference'        => :save,
+    'line'                        => :save,
+    'language'                    => :save,
+    'initial_call_date'           => :save,
+    'last_menstrual_period_weeks' => :save,
+    'last_menstrual_period_days'  => :save,
+    'created_at'                  => :save,
+    'created_by_id'               => :save,
+    'updated_at'                  => :save,
+    'version'                     => :save,
+    'appointment_date'            => :save,
+    'race_ethnicity'              => :save,
+    'city'                        => :save,
+    'state'                       => :save,
+    'county'                      => :save,
+    'employment_status'           => :save,
+    'income'                      => :save,
+    'insurance'                   => :save,
+    'referred_to_clinic'          => :save,
+    'resolved_without_fund'       => :save,
+    'clinic_id'                   => :save,
+    'urgent_flag'                 => :save,
+    'procedure_cost'              => :save,
+    'patient_contribution'        => :save,
+    'naf_pledge'                  => :save,
+    'fund_pledge'                 => :save,
+    'pledge_sent'                 => :save,
+    'pledge_generated_at'         => :save,
+    'pledge_generated_by_id'      => :save,
   }.freeze
 
   FULFILLMENT_ARCHIVE_REFERENCE = {
@@ -123,7 +123,7 @@ module Archivable
   end
 
   def shred(field)
-    # TODO field should be removed entirely
+    self[field.to_sym] = nil
   end
 
   def scramble(field)
@@ -133,110 +133,48 @@ module Archivable
   def convert_age
   end
 
-  # TODO fix
+  # TODO
   def archive_fulfillment
-    attributes.keys do |field|
-      if FULFILLMENT_ARCHIVE_REFERENCE.has_key(field.to_sym)
-        action = FULFILLMENT_ARCHIVE_REFERENCE[field.to_sym]
-        if respond_to?(action)
-          send(action, field)
-        else
-          logger.warn "Func '#{action}' for field'#{field}' not found. Shredding"
-          shred(field)
-        end
-      else
-        logger.warn "Found unaccounted for key '#{field}' when archiving. " \
-                    "Shredding the content of this field. Please add proper " \
-                    "handling for the field in the archive concern"
-        shred(field)
-      end
-    end
-
   end
 
-  # TODO fix
+  # TODO
   def archive_calls
-    attributes.keys do |field|
-      if CALLS_ARCHIVE_REFERENCE.has_key(field.to_sym)
-        action = CALLS_ARCHIVE_REFERENCE[field.to_sym]
-        if respond_to?(action)
-          send(action, field)
-        else
-          logger.warn "Func '#{action}' for field'#{field}' not found. Shredding"
-          shred(field)
-        end
-      else
-        logger.warn "Found unaccounted for key '#{field}' when archiving. " \
-                    "Shredding the content of this field. Please add proper " \
-                    "handling for the field in the archive concern"
-        shred(field)
-      end
-    end
-
   end
 
-  # TODO fix
+  # TODO
   def archive_notes
-    attributes.keys do |field|
-      if NOTES_ARCHIVE_REFERENCE.has_key(field.to_sym)
-        action = NOTES_ARCHIVE_REFERENCE[field.to_sym]
-        if respond_to?(action)
-          send(action, field)
-        else
-          logger.warn "Func '#{action}' for field'#{field}' not found. Shredding"
-          shred(field)
-        end
-      else
-        logger.warn "Found unaccounted for key '#{field}' when archiving. " \
-                    "Shredding the content of this field. Please add proper " \
-                    "handling for the field in the archive concern"
-        shred(field)
-      end
-    end
-
   end
 
-  # TODO fix
+  # TODO
   def archive_pledges
-    attributes.keys do |field|
-      if PLEDGES_ARCHIVE_REFERENCE.has_key(field.to_sym)
-        action = PLEDGES_ARCHIVE_REFERENCE[field.to_sym]
-        if respond_to?(action)
-          send(action, field)
-        else
-          logger.warn "Func '#{action}' for field'#{field}' not found. Shredding"
-          shred(field)
-        end
-      else
-        logger.warn "Found unaccounted for key '#{field}' when archiving. " \
-                    "Shredding the content of this field. Please add proper " \
-                    "handling for the field in the archive concern"
-        shred(field)
-      end
-    end
-
-
   end
+
 
   def archive!
-    attributes.keys do |field|
-      if PATIENT_ARCHIVE_REFERENCE.has_key(field.to_sym)
-        action = PATIENT_ARCHIVE_REFERENCE[field.to_sym]
-        if respond_to?(action)
-          send(action, field)
+    self.archived = true
+    self.had_other_contact = self.has_alt_contact?
+
+    self.attributes.keys do |field|
+      if PATIENT_ARCHIVE_REFERENCE.has_key(field)
+        action = PATIENT_ARCHIVE_REFERENCE[field]
+        #if self.respond_to?(action) # long term
+        if action == :shred
+          self.shred(field)
+        elsif action == :save
+          self.save
         else
           logger.warn "Func '#{action}' for field'#{field}' not found. Shredding"
-          shred(field)
+          self.shred(field)
         end
       else
         logger.warn "Found unaccounted for key '#{field}' when archiving. " \
                     "Shredding the content of this field. Please add proper " \
                     "handling for the field in the archive concern"
-        shred(field)
+        self.shred(field)
       end
     end
-    had_other_contact = has_alt_contact?
-    archived = true
+    # self.shred(:other_contact_relationship)
+    # self.shred(:name) #these shred work, why doesn't the attributes loop work?
   end
 
   class_methods do
@@ -249,8 +187,6 @@ module Archivable
         patient.archive!
       end
     end
-
-
   end
 
   private
@@ -272,6 +208,8 @@ module Archivable
     def archived_state
       # Dummy implementation
       archived?
+
+      validates :name, presence: false
 
       ## should be blank
       #:name,

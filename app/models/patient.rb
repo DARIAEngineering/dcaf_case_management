@@ -111,10 +111,10 @@ class Patient
             :initial_call_date,
             :created_by_id,
             :line,
-            presence: true#, unless: :archived?
+            presence: true, unless: :archived?
   validates :primary_phone, format: /\d{10}/,
                             length: { is: 10 },
-                            uniqueness: true#, unless: :archived?
+                            uniqueness: true, unless: :archived?
 
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
