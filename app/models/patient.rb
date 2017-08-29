@@ -176,5 +176,5 @@ class Patient
 
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
-  end  
+  end
 end

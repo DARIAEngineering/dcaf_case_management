@@ -18,7 +18,7 @@ module EventLoggable
     is_a? Call
   end
 
-  def pledge_was_sent
-    is_a?(Patient) && previous_changes[:pledge_sent].second == true
+  def pledge_was_sent?
+    is_a?(Patient) && pledge_sent_changed? && pledge_sent
   end
 end

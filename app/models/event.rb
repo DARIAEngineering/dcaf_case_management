@@ -28,14 +28,14 @@ class Event
   validates :cm_name, :patient_name, :patient_id, presence: true
 
   def glyphicon
-    'usd' if event_type == 'Pledged'
+    return 'usd' if event_type == 'Pledged'
     'earphone'
   end
 
   def event_text
     case event_type
     when 'Pledged'
-      'sent a pledge to'
+      "sent a $#{pledge_amount} pledge for"
     when 'Left voicemail'
       'left a voicemail for'
     when "Couldn't reach patient"
