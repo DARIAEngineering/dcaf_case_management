@@ -17,6 +17,7 @@ class Patient
   include HistoryTrackable
   include Statusable
   include Exportable
+  include EventLoggable
   extend Enumerize
 
   LINES.each do |line|
@@ -146,6 +147,17 @@ class Patient
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
+  def event_params
+    {
+      event_type:    'Pledged',
+      cm_name:       updated_by.name,
+      patient_name:  name,
+      patient_id:    id,
+      line:          line,
+      pledge_amount: fund_pledge
+    }
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -164,5 +176,5 @@ class Patient
 
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
-  end
+  end  
 end

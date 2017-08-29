@@ -21,6 +21,7 @@ class Event
   enumerize :line, in: LINES, default: LINES[0]
   field :patient_name, type: String
   field :patient_id, type: String
+  field :pledge_amount, type: Integer
 
   # Validations
   validates :event_type, inclusion: { in: EVENT_TYPES }
