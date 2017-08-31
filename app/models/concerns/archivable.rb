@@ -17,78 +17,44 @@ module Archivable
     'household_size_adults'       => :shred,
     'household_size_children'     => :shred,
     'referred_by'                 => :shred,
+    'age'                         => :shred,
     'identifier'                  => :scramble,
-    'age'                         => :convert_age,
     'fulfillment'                 => :archive_fulfillment,
     'calls'                       => :archive_calls,
     'notes'                       => :archive_notes,
     'external_pledges'            => :archive_pledges,
-    'archived'                    => :save,
-    'age_range'                   => :save,
-    '_id'                         => :save,
-    'voicemail_preference'        => :save,
-    'line'                        => :save,
-    'language'                    => :save,
-    'initial_call_date'           => :save,
-    'last_menstrual_period_weeks' => :save,
-    'last_menstrual_period_days'  => :save,
-    'created_at'                  => :save,
-    'created_by_id'               => :save,
-    'updated_at'                  => :save,
-    'version'                     => :save,
-    'appointment_date'            => :save,
-    'race_ethnicity'              => :save,
-    'city'                        => :save,
-    'state'                       => :save,
-    'county'                      => :save,
-    'employment_status'           => :save,
-    'income'                      => :save,
-    'insurance'                   => :save,
-    'referred_to_clinic'          => :save,
-    'resolved_without_fund'       => :save,
-    'clinic_id'                   => :save,
-    'urgent_flag'                 => :save,
-    'procedure_cost'              => :save,
-    'patient_contribution'        => :save,
-    'naf_pledge'                  => :save,
-    'fund_pledge'                 => :save,
-    'pledge_sent'                 => :save,
-    'pledge_generated_at'         => :save,
-    'pledge_generated_by_id'      => :save,
-  }.freeze
-
-  FULFILLMENT_ARCHIVE_REFERENCE = {
-    :check_number           => :shred,
-    :_id                    => :save,
-    :created_by_id          => :save,
-    :updated_at             => :save,
-    :created_at             => :save,
-    :version                => :save,
-    :fulfilled              => :save,
-    :procedure_date         => :save,
-    :gestation_at_procedure => :save,
-    :procedure_cost         => :save,
-    :date_of_check          => :save,
-  }.freeze
-
-  NOTES_ARCHIVE_REFERENCE = {
-    :full_text     => :shred,
-    :_id           => :save,
-    :created_at    => :save,
-    :created_by_id => :save,
-    :updated_at    => :save,
-    :version       => :save,
-  }.freeze
-
-  PLEDGES_ARCHIVE_REFERENCE = {
-    :_id           => :save,
-    :active        => :save,
-    :source        => :save,
-    :amount        => :save,
-    :created_at    => :save,
-    :created_by_id => :save,
-    :updated_at    => :save,
-    :version       => :save,
+    'archived'                    => :keep,
+    'age_range'                   => :keep,
+    '_id'                         => :keep,
+    'voicemail_preference'        => :keep,
+    'line'                        => :keep,
+    'language'                    => :keep,
+    'initial_call_date'           => :keep,
+    'last_menstrual_period_weeks' => :keep,
+    'last_menstrual_period_days'  => :keep,
+    'created_at'                  => :keep,
+    'created_by_id'               => :keep,
+    'updated_at'                  => :keep,
+    'version'                     => :keep,
+    'appointment_date'            => :keep,
+    'race_ethnicity'              => :keep,
+    'city'                        => :keep,
+    'state'                       => :keep,
+    'county'                      => :keep,
+    'employment_status'           => :keep,
+    'income'                      => :keep,
+    'insurance'                   => :keep,
+    'referred_to_clinic'          => :keep,
+    'resolved_without_fund'       => :keep,
+    'clinic_id'                   => :keep,
+    'urgent_flag'                 => :keep,
+    'procedure_cost'              => :keep,
+    'patient_contribution'        => :keep,
+    'naf_pledge'                  => :keep,
+    'fund_pledge'                 => :keep,
+    'pledge_sent'                 => :keep,
+    'pledge_generated_at'         => :keep,
+    'pledge_generated_by_id'      => :keep,
   }.freeze
 
 
@@ -96,7 +62,7 @@ module Archivable
     other_contact.present? || other_phone.present? || other_contact_relationship.present?
   end
 
-  def age_range
+  def set_age_range
     case age
     when nil, ''
       nil
@@ -117,11 +83,6 @@ module Archivable
     end
   end
 
-  def save
-    # field can be returned as is
-    # no action necesary, just avoids flagging to delete
-  end
-
   def shred(field)
     self[field.to_sym] = nil
   end
@@ -130,40 +91,48 @@ module Archivable
     # TODO field should be one-way hashed (with salt)
   end
 
-  def convert_age
+  def archive_fulfillment(field)
+    self.fulfillment.archive!
   end
 
-  # TODO
-  def archive_fulfillment
+  # TODO these archive calls are almost all identical
+  # on all the models. Abstract out somehow?
+  def archive_calls(field)
+    self.calls.each do |call|
+      call.archive!
+    end
   end
 
-  # TODO
-  def archive_calls
+  def archive_notes(field)
+    self.notes.each do |note|
+      note.archive!
+    end
   end
 
-  # TODO
-  def archive_notes
-  end
-
-  # TODO
-  def archive_pledges
+  def archive_pledges(field)
+    self.external_pledges.each do |pledge|
+      pledge.archive!
+    end
   end
 
 
   def archive!
     self.archived = true
     self.had_other_contact = self.has_alt_contact?
+    self.age_range = self.set_age_range
 
-    self.attributes.keys do |field|
-      if PATIENT_ARCHIVE_REFERENCE.has_key(field)
+    self.attributes.keys.each do |field|
+      if PATIENT_ARCHIVE_REFERENCE.has_key?(field)
         action = PATIENT_ARCHIVE_REFERENCE[field]
-        #if self.respond_to?(action) # long term
-        if action == :shred
-          self.shred(field)
-        elsif action == :save
-          self.save
+        if action == :keep
+          #puts "Found a keep! (#{field})"
+          next
+        elsif self.respond_to?(action) # long term
+          #puts "Found a #{action} for field #{field}!"
+          self.send(action, field)
         else
-          logger.warn "Func '#{action}' for field'#{field}' not found. Shredding"
+          logger.warn "Func '#{action}' for field '#{field}' not found. Shredding"
+          #puts "Func '#{action}' for field '#{field}' not found. Shredding"
           self.shred(field)
         end
       else
@@ -204,12 +173,15 @@ module Archivable
       archived.present? && archived
     end
 
+    def sub_archive
+    end
+
     # validator
     def archived_state
       # Dummy implementation
       archived?
 
-      validates :name, presence: false
+      validate :name, presence: false
 
       ## should be blank
       #:name,
