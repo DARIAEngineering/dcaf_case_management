@@ -19,6 +19,6 @@ module EventLoggable
   end
 
   def pledge_was_sent?
-    is_a?(Patient) && pledge_sent_changed? && pledge_sent
+    is_a?(Patient) && pledge_sent_changed? && pledge_sent?
   end
 end

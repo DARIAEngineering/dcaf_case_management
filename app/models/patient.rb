@@ -150,7 +150,7 @@ class Patient
   def event_params
     {
       event_type:    'Pledged',
-      cm_name:       updated_by.name,
+      cm_name:       updated_by&.name || 'System',
       patient_name:  name,
       patient_id:    id,
       line:          line,
