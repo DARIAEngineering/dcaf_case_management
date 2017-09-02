@@ -2,7 +2,7 @@ module EventsHelper
   def display_event(event)
     safe_join [
       # TODO style this so it isn't the same as he regular call buttons
-      tag(:span, class: ['glyphicon', "glyphicon-#{event.glyphicon}"]),
+      tag(:span, class: ['glyphicon', "glyphicon-#{event.glyphicon}", 'event-item']),
       log_entry(event)
     ], ' '
   end

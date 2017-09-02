@@ -29,7 +29,7 @@ class Event
   validates :pledge_amount, presence: true, if: :pledged_type?
 
   def glyphicon
-    return 'usd' if event_type == 'Pledged'
+    return 'thumbs-up' if event_type == 'Pledged'
     'earphone'
   end
 
@@ -42,7 +42,7 @@ class Event
     when "Couldn't reach patient"
       "called, but couldn't reach"
     when 'Reached patient'
-      'called and reached'
+      'reached'
     end
   end
 

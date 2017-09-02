@@ -1,3 +1,14 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$daria-color: #5D3E8D;
+
+.event-item {
+  color: white;
+  background-color: $daria-color;
+  vertical-align: top;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 12px;
+}
