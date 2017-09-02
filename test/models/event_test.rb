@@ -42,7 +42,7 @@ class EventTest < ActiveSupport::TestCase
       assert_equal 'earphone', @event.glyphicon
 
       @event.event_type = 'Pledged'
-      assert_equal 'usd', @event.glyphicon
+      assert_equal 'thumbs-up', @event.glyphicon
     end
 
     it 'should do something on event text' do
