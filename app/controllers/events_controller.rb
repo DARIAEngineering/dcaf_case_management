@@ -1,10 +1,11 @@
 # For render
 class EventsController < ApplicationController
+  include LinesHelper
+
   def index
-    @events = Event.all.order_by(created_at: :desc)
-                   # .where(line: current_user.line)
-                   
-                   # .includes(:user, :patient)
+    puts current_line
+    @events = Event.where(line: current_line)
+                   .order_by(created_at: :desc)
 
     render partial: 'events/events'
     # respond_to { |format| format.js }
