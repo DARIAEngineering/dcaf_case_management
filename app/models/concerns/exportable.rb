@@ -146,12 +146,11 @@ module Exportable
 
   class_methods do
     def to_csv
-      CSV.generate(encoding: 'utf-8') do |csv|
-        csv << CSV_EXPORT_FIELDS.keys # Header line
-        all.each do |patient|
-          csv << CSV_EXPORT_FIELDS.values.map do |field|
-            patient.get_field_value_for_serialization(field)
-          end
+      Enumerator.new do |y|
+        y << CSV.generate_line(CSV_EXPORT_FIELDS.keys, encoding: 'utf-8')
+        each do |patient|
+          row = CSV_EXPORT_FIELDS.values.map{ |field| patient.get_field_value_for_serialization(field) }
+          y << CSV.generate_line(row, encoding: 'utf-8')
         end
       end
     end
