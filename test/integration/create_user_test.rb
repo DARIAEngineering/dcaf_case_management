@@ -38,8 +38,8 @@ class CreateUserTest < ActionDispatch::IntegrationTest
       assert has_field? 'Name'
       fill_in 'Name', with: 'Test User'
 
-      click_link 'Test User'
-      assert has_content? 'Status: Active'
+      click_button 'Add'
+      assert has_content? 'Active', count: 2
     end
 
     it 'should validate form correctly' do
