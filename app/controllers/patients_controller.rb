@@ -58,6 +58,10 @@ class PatientsController < ApplicationController
   end
 
   def update
+    if @patient.update_attributes params[:pledge_sent]
+       @patient.pledge_sent_at = Time.zone.now
+       @patient.pledge_sent_by = current_user
+    end
     if @patient.update_attributes patient_params
       @patient.reload
       flash.now[:notice] = 'Patient info successfully saved'

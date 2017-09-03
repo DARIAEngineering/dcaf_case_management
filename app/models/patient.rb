@@ -36,6 +36,7 @@ class Patient
   embeds_many :external_pledges
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
+  belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
 
   # Enable mass posting in forms
   accepts_nested_attributes_for :fulfillment
@@ -85,7 +86,8 @@ class Patient
   field :fund_pledge, type: Integer
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
-  field :pledge_generated_at, type: DateTime
+  field :pledge_generated_at, type: Time
+  field :pledge_sent_at, type: Time
 
   # Indices
   index({ primary_phone: 1 }, unique: true)

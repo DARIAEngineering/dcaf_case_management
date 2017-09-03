@@ -528,6 +528,17 @@ class PatientTest < ActiveSupport::TestCase
         assert_equal Patient::STATUSES[:pledge_sent], @patient.status
       end
 
+      it 'should update to "Pledge Not Fulfilled" if a pledge has not been fulfilled for 150 days' do
+        @patient.pledge_sent = true 
+        @patient.pledge_sent_at = (Time.zone.now - 151.days)
+        assert_equal Patient::STATUSES[:pledge_unfulfilled], @patient.status
+      end
+
+      it 'should update to "Pledge Fulfilled" if a pledge has been fulfilled' do
+        @patient.fulfillment.fulfilled = true
+        assert_equal Patient::STATUSES[:fulfilled], @patient.status
+      end
+
       # it 'should update to "Pledge Paid" after a pledge has been paid' do
       # end
       it 'should update to "No contact in 120 days" after 120ish days of no calls' do
