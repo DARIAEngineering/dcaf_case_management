@@ -19,7 +19,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       fill_in 'Name', with: 'Susan Everyteen 2'
       fill_in 'Initial Call Date', with: '03/04/2016'
       select 'MD', from: 'Line'
-      find('button', text: /Add new patient/).trigger('click')
+      click_button 'Add new patient'
       sleep 1
     end
 
@@ -58,6 +58,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
         fill_in 'search', with: 'Susan Everyteen 2'
         click_button 'Search'
         refute has_text? '555-666-7777'
+        assert has_text? 'Your search produced no results'
       end
     end
   end

@@ -15,7 +15,6 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
-    page.driver.resize(2000, 2000)
   end
 
   after { Capybara.use_default_driver }
@@ -256,11 +255,5 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     visit authenticated_root_path
     visit edit_patient_path @patient
     click_link link_text
-  end
-
-  def click_away_from_field
-    find("body").click
-    fill_in 'First and last name', with: nil
-    wait_for_ajax
   end
 end
