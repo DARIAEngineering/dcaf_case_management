@@ -12,7 +12,7 @@ A case manager can only be working on one line at a time; their line scopes thei
 results.
 
 Many (possibly most!) funds operate only one, primary line. The system functions perfectly
-well with this use case.
+well with this use case. However, an instance does need at least one line declared!
 
 ## What this means for abortion funds
 
@@ -25,7 +25,8 @@ Note that this requires an engineer or someone with heroku access to complete.
 
 In [config/initializers/env_var_constants.rb](../config/initializers/env_var_constants.rb),
 we set an array of the lines `LINES`. (We default it to the DCAF use case, which operates
-lines for DC, MD, and VA.) It reads from the environment variable `DARIA_LINES`.
+lines for DC, MD, and VA.) It reads from the environment variable `DARIA_LINES` -- this
+value defines the lines for an instance.
 
 We bubble that up and make it accessible in the app via the [LinesHelper](../app/helpers/lines_helper.rb).
 We also have a convenience method, `current_line`, which aliases to the session variable.
