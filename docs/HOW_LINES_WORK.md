@@ -11,6 +11,16 @@ own lines so patients in a given service area are easier to keep track of.
 A case manager can only be working on one line at a time; their line scopes their search
 results.
 
+Many (possibly most!) funds operate only one, primary line. The system functions perfectly
+well with this use case.
+
+## What this means for abortion funds
+
+For abortion funds, this means that adding a new division to how they field calls
+is as straightforward as changing the `DARIA_LINES` environment variable. If a
+fund decides to split their phone intake into two, just alter the environment variable.
+Note that this requires an engineer or someone with heroku access to complete.
+
 ## What this means for engineers
 
 In [config/initializers/env_var_constants.rb](../config/initializers/env_var_constants.rb),
@@ -23,9 +33,3 @@ We also have a convenience method, `current_line`, which aliases to the session 
 Case managers have their lines set as a session variable, and they have to log out to
 change it.
 
-## What this means for abortion funds
-
-For abortion funds, this means that adding a new division to how they field calls
-is as straightforward as changing the `DARIA_LINES` environment variable. If a
-fund decides to split their phone intake into two, just alter the environment variable.
-Note that this requires an engineer or someone with heroku access to complete.
