@@ -1,5 +1,7 @@
-<ul class='well well-lg'>
-  <% @events.each do |event| %>
-    <%= content_tag :p, display_event(event) %>
-  <% end %>
-</ul>
+<div class='well well-lg' id='event-data'>
+  <ul id='event-list'>
+    <% @events.each do |event| %>
+      <%= content_tag :p, display_event(event) %>
+    <% end %>
+  </ul>
+</div>
