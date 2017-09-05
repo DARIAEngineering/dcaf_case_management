@@ -33,4 +33,3 @@ We also have a convenience method, `current_line`, which aliases to the session 
 
 Case managers have their lines set as a session variable, and they have to log out to
 change it.
-
