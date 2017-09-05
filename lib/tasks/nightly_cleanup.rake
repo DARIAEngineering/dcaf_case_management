@@ -1,4 +1,4 @@
-desc 'Clean up call lists and urgent patients'
+desc 'Clean up call lists, unmark urgent patients, destroy old events'
 task nightly_cleanup: :environment do
   User.all.each { |user| user.clear_call_list }
   puts "#{Time.now} -- cleared all recently reached patients from call lists"
