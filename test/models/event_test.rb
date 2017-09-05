@@ -49,4 +49,25 @@ class EventTest < ActiveSupport::TestCase
       assert @event.event_text
     end
   end
+
+  describe 'cleaning old events' do
+    before do
+      # Here are the destroyers
+      create :event, created_at: 4.weeks.ago
+      create :event, created_at: 22.days.ago
+      create :event, created_at: 3.weeks.ago
+
+      # Here are the keepers
+      # In addition to the other event...
+      create :event, created_at: 20.days.ago
+      create :event, created_at: 2.weeks.ago
+    end
+
+    it 'should be able to clean old events' do
+      assert_equal 6, Event.count
+      Event.destroy_old_events
+
+      assert_equal 3, Event.count
+    end
+  end
 end

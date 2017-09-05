@@ -46,6 +46,12 @@ class Event
     end
   end
 
+  # Clean events older than three weeks
+  def self.destroy_old_events
+    Event.where(:created_at.lte => 3.weeks.ago)
+         .destroy_all
+  end
+
   private
 
   def pledged_type?
