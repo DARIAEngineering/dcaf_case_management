@@ -27,8 +27,23 @@ class ActiveSupport::TestCase
 
   before { DatabaseCleaner.start }
   after  { DatabaseCleaner.clean }
-end
 
+  def create_insurance_config
+    create :config, config_key: 'insurance',
+                    config_value: { options: ['DC Medicaid', 'Other state Medicaid'] }
+  end
+
+  def create_external_pledge_source_config
+    create :config, config_key: 'external_pledge_source',
+                    config_value: { options: ['Baltimore Abortion Fund', 'Tiller Fund (NNAF)', 'NYAAF (New York)'] }
+  end
+
+  def create_language_config
+    create :config, config_key: 'language',
+                    config_value: { options: ['Spanish', 'French', 'Korean'] }
+  end
+end
+  
 # Save screenshots if integration tests fail
 Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
 
@@ -61,7 +76,7 @@ class ActionDispatch::IntegrationTest
     visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Sign in'
+    click_button 'Sign in with password'
   end
 
   def select_line(line = 'DC')
@@ -91,9 +106,15 @@ class ActionDispatch::IntegrationTest
   def _finished_all_ajax_requests?
     page.evaluate_script('jQuery.active').zero?
   end
-  
+
   def go_to_dashboard
     click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
+  end
+
+  def click_away_from_field
+    find('body').click
+    fill_in 'First and last name', with: nil
+    wait_for_ajax
   end
 end
 

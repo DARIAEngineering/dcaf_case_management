@@ -10,6 +10,7 @@ class PatientTest < ActiveSupport::TestCase
                                 other_contact: 'Foobar'
     @call = create :call, patient: @patient,
                           status: 'Reached patient'
+    create_language_config
   end
 
   describe 'callbacks' do
@@ -345,11 +346,11 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.valid?
     end
 
-    it 'should not validate pledge_sent if the DCAF soft pledge field is blank' do
+    it "should not validate pledge_sent if the #{FUND} pledge field is blank" do
       @patient.fund_pledge = nil
       @patient.pledge_sent = true
       refute @patient.valid?
-      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.errors.messages[:pledge_sent]
+      assert_equal ["DCAF pledge field cannot be blank"], @patient.errors.messages[:pledge_sent]
     end
 
     it 'should not validate pledge_sent if the clinic name is blank' do
@@ -372,7 +373,7 @@ class PatientTest < ActiveSupport::TestCase
       @patient.appointment_date = nil
       @patient.pledge_sent = true
       refute @patient.valid?
-      assert_equal ['DCAF soft pledge field cannot be blank', 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
+      assert_equal ["DCAF pledge field cannot be blank", 'Clinic name cannot be blank', 'Appointment date cannot be blank'],
       @patient.errors.messages[:pledge_sent]
     end
 
@@ -380,7 +381,7 @@ class PatientTest < ActiveSupport::TestCase
       refute @patient.pledge_info_present?
       @patient.fund_pledge = nil
       assert @patient.pledge_info_present?
-      assert_equal ['DCAF soft pledge field cannot be blank'], @patient.pledge_info_errors
+      assert_equal ["DCAF pledge field cannot be blank"], @patient.pledge_info_errors
     end
   end
 
@@ -526,6 +527,17 @@ class PatientTest < ActiveSupport::TestCase
       it 'should update to "Sent Pledge" after a pledge has been sent' do
         @patient.pledge_sent = true
         assert_equal Patient::STATUSES[:pledge_sent], @patient.status
+      end
+
+      it 'should update to "Pledge Not Fulfilled" if a pledge has not been fulfilled for 150 days' do
+        @patient.pledge_sent = true 
+        @patient.pledge_sent_at = (Time.zone.now - 151.days)
+        assert_equal Patient::STATUSES[:pledge_unfulfilled], @patient.status
+      end
+
+      it 'should update to "Pledge Fulfilled" if a pledge has been fulfilled' do
+        @patient.fulfillment.fulfilled = true
+        assert_equal Patient::STATUSES[:fulfilled], @patient.status
       end
 
       # it 'should update to "Pledge Paid" after a pledge has been paid' do

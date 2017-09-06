@@ -1,4 +1,4 @@
-<section id="abortion_information" class="abortion-info tab-pane">
+<section id="abortion_information_content">
   <div id="patient_fields" class="col-sm-12">
     <div class="row">
       <div class="col-sm-12">
@@ -17,6 +17,12 @@
                 <%= label_tag 'naf_filter' do %>
                   <%= check_box_tag 'naf_filter' %>
                   Enable only NAF clinics
+                <% end %>
+              </div>
+              <div class="checkbox">
+                <%= label_tag 'medicaid_filter' do %>
+                  <%= check_box_tag 'medicaid_filter' %>
+                  Enable only Medicaid clinics
                 <% end %>
               </div>
             </div>
@@ -59,7 +65,7 @@
             <div id="pledge-contributions">
               <%= f.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
               <%= f.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :fund_pledge, label: "#{FUND} pledge", autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': dcaf_pledge_limit_help_text() } %>
+              <%= f.number_field :fund_pledge, label: "#{FUND} pledge", autocomplete: 'off', prepend: '$', label_class: 'tooltip-header', data: { 'tooltip-text': pledge_limit_help_text_options().join("<br />") } %>
             </div>
           </div>
         <% end %>

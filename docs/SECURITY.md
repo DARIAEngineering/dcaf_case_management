@@ -39,7 +39,7 @@ In addition to automated tests, we have several tools which automatically run at
 
 1. **Ruby-audit**: This tool keeps track of known vulnerabilities in the Ruby language.
 2. **Bundler-audit**: This tool keeps track of known vulnerabilities in the libraries we use to construct the app.
-3. **Brakeman**: A free version of Brakeman Pro, this performs a limited scan of our codebase, and confirms that the version of the Rails framework we run does not require patching or updating.
+3. **Brakeman Pro**: See above for information on Brakeman Pro.
 
 
 ## Vendor selection and hosting
@@ -68,6 +68,11 @@ Given that a very common attack vector for an app of this type is a user account
 We follow the principle of least use; most users are permissioned to see only necessary data.
 
 For users with heightened permissions, we have a user-accessible way to bulk-export anonymized data for aggregation. We don't have a user-accessible way to bulk-lookup data.
+
+
+## Limiting data we collect
+
+See [our data collection practices document](OUR_DATA_COLLECTION_PRACTICES.md) for a fuller accounting of what we collect and why.
 
 
 ## Other attack vectors

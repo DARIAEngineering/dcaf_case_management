@@ -13,15 +13,17 @@
     </tr>
   </thead>
   <tbody>
-    <% users&.each do |user| %>
-      <tr>
-        <td><input type="checkbox" id="select-<%= user.id %>"></td>
-        <td><%= link_to user.name, edit_user_path(user) %></td>
-        <td><%= user.role %>
-        <td><%= user.last_sign_in_at %>
-        <td><%= user.created_at %>
-        <td><%= user_lock_status(user) %>
-      </tr>
+    <% if users.present? %>
+      <% users.each do |user| %>
+        <tr>
+          <td><input type="checkbox" id="select-<%= user.id %>"></td>
+          <td><%= link_to user.name, edit_user_path(user) %></td>
+          <td><%= user.role %>
+          <td><%= user.last_sign_in_at %>
+          <td><%= user.created_at %>
+          <td><%= user_lock_status(user) %>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

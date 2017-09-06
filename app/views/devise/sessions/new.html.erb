@@ -1,8 +1,10 @@
 <div class="col-sm-6">
   <div class="authform">
-    <h3>Sign in</h3>
+    <h3>
+      <%= button_to "Sign in with Google (recommended)", user_google_oauth2_omniauth_authorize_path, class: 'btn btn-primary' %>
+    </h3>
 
-    <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
+    <p>Or, sign in with a password:</p>
 
     <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
       <%= devise_error_messages! %>
@@ -10,18 +12,18 @@
       <%- if devise_mapping.registerable? %>
         <%#= link_to 'Sign up', new_registration_path(resource_name), class: 'right' %>
       <% end -%>
-      <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', class: 'form-control' %>
+      <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', autocomplete: 'off', class: 'form-control' %>
 
       <%- if devise_mapping.recoverable? %>
         <%#= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
       <% end -%>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, autocomplete: 'off' %>
 
       <% if devise_mapping.rememberable? -%>
         <%= f.check_box :remember_me %>
       <% end -%>
 
-      <%= f.submit 'Sign in', :class => 'btn btn-primary' %>
+      <%= f.submit 'Sign in with password', class: 'btn btn-default' %>
     <% end %>
 
     <%= render "devise/shared/links" %>

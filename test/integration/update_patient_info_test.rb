@@ -9,10 +9,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     @ext_pledge = create :external_pledge,
                          patient: @patient,
                          source: 'Baltimore Abortion Fund'
+    create_external_pledge_source_config
+    create_insurance_config
+    create_language_config
+
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
-    page.driver.resize(2000, 2000)
   end
 
   after { Capybara.use_default_driver }
@@ -132,6 +135,17 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       reload_page_and_click_link 'Patient Information'
     end
 
+    it 'should flash success on field change' do
+      click_link 'Patient Information'
+      fill_in 'Age', with: '25'
+      assert has_text? 'Patient info successfully saved'
+    end
+
+    it 'should flash failure on a bad field change' do
+      fill_in 'Phone number', with: '111-222-3333445'
+      assert has_text? 'Primary phone is the wrong length'
+    end
+
     it 'should alter the information' do
       within :css, '#patient_information' do
         assert has_field? 'Other contact name', with: 'Susie Everyteen Sr'
@@ -198,10 +212,11 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
 
       click_link 'Pledge Fulfillment'
       check 'Pledge fulfilled'
-      fill_in 'Procedure date', with: 2.days.from_now.strftime('%Y-%m-%d')
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%Y-%m-%d')  # TODO: Driver format problem
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
       fill_in 'Check #', with: '444-22'
+      fill_in 'Date of check', with: 2.weeks.from_now.strftime('%Y-%m-%d')
 
       click_away_from_field
       wait_for_ajax
@@ -214,11 +229,13 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
       within :css, '#fulfillment' do
         assert has_checked_field? 'Pledge fulfilled'
         assert has_field? 'Procedure date',
-                          with: 2.days.from_now.strftime('%Y-%m-%d')
+                          with: 2.days.from_now.strftime('%Y-%m-%d') # TODO: Driver format problem
         assert_equal '12',
                      find('#patient_fulfillment_gestation_at_procedure').value
         assert has_field? 'Abortion care $', with: 100
         assert has_field? 'Check #', with: '444-22'
+        assert has_field? 'Date of check',
+                          with: 2.weeks.from_now.strftime('%Y-%m-%d')
       end
     end
   end
@@ -239,11 +256,5 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
     visit authenticated_root_path
     visit edit_patient_path @patient
     click_link link_text
-  end
-
-  def click_away_from_field
-    find("body").click
-    fill_in 'First and last name', with: nil
-    wait_for_ajax
   end
 end

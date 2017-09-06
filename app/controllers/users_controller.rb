@@ -62,7 +62,6 @@ class UsersController < ApplicationController
 
   def create # TODO needs more rigorous testing
     raise Exceptions::UnauthorizedError unless current_user.admin?
-
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
