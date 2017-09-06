@@ -14,8 +14,9 @@ module PatientsHelper
      'Native American', 'Mixed Race/Ethnicity', 'Other']
   end
 
-  def language
-    [['English', nil], 'Spanish', 'French', 'Korean']
+  def language_options
+    standard_options = [['English', nil]]
+    standard_options + Config.find_or_create_by(config_key: 'language').options
   end
 
   def employment_status_options
