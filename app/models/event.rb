@@ -29,8 +29,14 @@ class Event
   validates :pledge_amount, presence: true, if: :pledged_type?
 
   def glyphicon
-    return 'thumbs-up' if event_type == 'Pledged'
-    'earphone'
+    case event_type
+    when 'Pledged'
+      'thumbs-up'
+    when 'Reached patient'
+      'comment'
+    else
+      'earphone'
+    end
   end
 
   def event_text
