@@ -12,12 +12,12 @@
       <%- if devise_mapping.registerable? %>
         <%#= link_to 'Sign up', new_registration_path(resource_name), class: 'right' %>
       <% end -%>
-      <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', class: 'form-control' %>
+      <%= f.email_field :email, :autofocus => true, autocorrect: 'off', autocapitalize: 'off', autocomplete: 'off', class: 'form-control' %>
 
       <%- if devise_mapping.recoverable? %>
         <%#= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
       <% end -%>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, autocomplete: 'off' %>
 
       <% if devise_mapping.rememberable? -%>
         <%= f.check_box :remember_me %>
