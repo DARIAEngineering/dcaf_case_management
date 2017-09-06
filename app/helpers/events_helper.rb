@@ -9,7 +9,9 @@ module EventsHelper
   def log_entry(event)
     time = "#{event.created_at.display_date} #{event.created_at.display_time}"
     str = "-- #{event.cm_name} #{event.event_text}"
-    link = link_to event.patient_name, edit_patient_path(event.patient_id)
-    safe_join [time, str, link], ' '
+    pt_link = link_to "#{event.patient_name}.", edit_patient_path(event.patient_id)
+    add_link = link_to '(Add to call list)', add_patient_path(current_user, event.patient_id), method: :patch, remote: true
+
+    safe_join [time, str, pt_link, add_link], ' '
   end
 end
