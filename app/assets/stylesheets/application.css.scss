@@ -116,6 +116,16 @@ $font-size: 17px;
   padding: 15px 30px;
 }
 
+#flash {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  transition-duration: .5s;
+  &:hover {
+    opacity: .5;
+  }
+}
+
 // General styling artifacts
 // make all images responsive by default
 img {
