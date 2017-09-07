@@ -82,6 +82,7 @@ class CallListTest < ActionDispatch::IntegrationTest
     end
 
     it 'should time a call out after 8 hours' do
+      sign_out
       Timecop.freeze(9.hours.from_now) do
         log_in_as @user
         wait_for_element 'Your completed calls'
