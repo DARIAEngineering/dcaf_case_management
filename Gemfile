@@ -62,6 +62,7 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'launchy'
   gem 'codecov', require: false

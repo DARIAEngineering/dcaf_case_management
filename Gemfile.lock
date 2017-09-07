@@ -82,6 +82,8 @@ GEM
     capybara-screenshot (1.0.17)
       capybara (>= 1.0, < 3)
       launchy
+    childprocess (0.7.1)
+      ffi (~> 1.0, >= 1.0.11)
     clinic_finder (0.0.1)
     cliver (0.3.2)
     codecov (0.1.10)
@@ -299,6 +301,7 @@ GEM
     ruby_audit (1.1.0)
       bundler-audit (~> 0.5.0)
     ruby_dep (1.5.0)
+    rubyzip (1.2.1)
     sass (3.5.1)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -315,6 +318,9 @@ GEM
       rdoc (~> 4.0)
     secure_headers (3.6.7)
       useragent
+    selenium-webdriver (3.5.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
     shoulda-context (1.2.2)
     simplecov (0.14.1)
       docile (~> 1.1.0)
@@ -421,6 +427,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   secure_headers (~> 3.6, >= 3.6.4)
+  selenium-webdriver
   shoulda-context
   simplecov
   skylight
