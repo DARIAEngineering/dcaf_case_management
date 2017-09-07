@@ -145,7 +145,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should update pledge fields' do
       @payload[:pledge_sent] = true
-      patch patient_path(@patient), params: { patient: @payload }
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
       assert_kind_of Time, @patient.pledge_sent_at
       assert_kind_of Object, @patient.pledge_sent_by
     end
@@ -157,7 +157,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should respond not acceptable error on failure' do
       @payload[:primary_phone] = nil
-      patch patient_path(@patient), params: { patient: @payload }
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
       assert_response :not_acceptable
     end
 
