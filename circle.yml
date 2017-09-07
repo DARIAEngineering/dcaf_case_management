@@ -3,9 +3,13 @@ machine:
     version: 2.4.1
   pre:
     - sudo apt-get install libfontconfig
-    - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+    - sudo apt-get install -y google-chrome-stable
   services:
     - docker
+
+general:
+  artifacts:
+    - "tmp/screenshots/"
 
 deployment:
   staging:
@@ -26,4 +30,3 @@ test:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
     - gem install --no-rdoc ruby_audit; bundle exec ruby-audit check
     - gem install --no-rdoc bundler-audit; bundle-audit update; bundle-audit check
-    # - rake quality

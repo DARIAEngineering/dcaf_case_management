@@ -50,7 +50,6 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     afm (0.2.2)
-    ansi (1.5.0)
     arel (8.0.0)
     ast (2.3.0)
     autoprefixer-rails (7.1.2.3)
@@ -175,11 +174,6 @@ GEM
     minitest (5.10.3)
     minitest-ci (3.2.0)
       minitest (>= 5.0.6)
-    minitest-reporters (1.1.14)
-      ansi
-      builder
-      minitest (>= 5.0)
-      ruby-progressbar
     minitest-spec-rails (5.4.0)
       minitest (~> 5.0)
       rails (>= 4.1)
@@ -404,7 +398,6 @@ DEPENDENCIES
   listen
   mini_backtrace
   minitest-ci
-  minitest-reporters
   minitest-spec-rails
   mongo_session_store (>= 3.1.0)
   mongoid (>= 6.2.0, < 7)

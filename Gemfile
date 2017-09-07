@@ -54,7 +54,6 @@ end
 
 group :test do
   gem 'shoulda-context'
-  gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
   gem 'factory_girl_rails'
