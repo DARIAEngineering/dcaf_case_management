@@ -15,7 +15,8 @@ test:
       options:
         read:
           mode: :primary
-        max_pool_size: 1
+        max_pool_size: 15
+        wait_queue_timeout: 15
 
 production: 
   clients:
