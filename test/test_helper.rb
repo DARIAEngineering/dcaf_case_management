@@ -9,6 +9,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/autorun'
 require 'capybara/rails'
+require 'capybara/poltergeist'
 require 'capybara-screenshot/minitest'
 require 'omniauth_helper'
 require 'rack/test'
