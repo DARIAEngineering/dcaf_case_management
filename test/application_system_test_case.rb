@@ -1,4 +1,4 @@
-quire 'test_helper'
+require 'test_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # include IntegrationSystemTestHelpers
@@ -29,7 +29,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Sign in'
+    click_button 'Sign in with password'
   end
 
   def select_line(line = 'DC')

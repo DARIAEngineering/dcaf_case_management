@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class AuthorizationTest < ActionDispatch::IntegrationTest
+class AuthorizationTest < ApplicationSystemTestCase
   before do
     @user = create :user
     log_in_as @user
