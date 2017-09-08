@@ -110,15 +110,18 @@ class Patient
   index(identifier: 1)
 
   # Validations
-  validates :name,
-            :primary_phone,
-            :initial_call_date,
+  validates :initial_call_date,
             :created_by_id,
             :line,
-            presence: true, unless: :archived?
+            presence: true
+  validates :name,
+            :primary_phone,
+            presence: true,
+            unless: :archived?
   validates :primary_phone, format: /\d{10}/,
                             length: { is: 10 },
-                            uniqueness: true, unless: :archived?
+                            uniqueness: true,
+                            unless: :archived?
 
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },

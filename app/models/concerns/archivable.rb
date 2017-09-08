@@ -142,8 +142,7 @@ module Archivable
         self.shred(field)
       end
     end
-    # self.shred(:other_contact_relationship)
-    # self.shred(:name) #these shred work, why doesn't the attributes loop work?
+    save
   end
 
   class_methods do
@@ -173,34 +172,28 @@ module Archivable
       archived.present? && archived
     end
 
-    def sub_archive
-    end
-
     # validator
     def archived_state
-      # Dummy implementation
-      archived?
+      validate :name,
+               :special_circumstances,
+               :primary_phone,
+               :other_contact,
+               :other_phone,
+               :other_contact_relationship,
+               :household_size_adults,
+               :household_size_children,
+               :referred_by,
+               :age, presence: false
 
-      validate :name, presence: false
+      # Identifier should look like a UUID
+      validate :identifier,
+        format: /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
 
-      ## should be blank
-      #:name,
-      #:primary_phone,
-      #:other_phone,
-      #:age,
-      #:contact_name,
-      #:circumstances,
-      #presence: false
-      ## should be scrambled
-      #:identifier
-      ## should not have any
-      #:notes
-      #:
+      validate :age_range,
+               :had_other_contact,
+               presence: true
+
       ## fulfillment shouldnt have
       #:check_number
-
-      ## should have
-      #:age_range
-      #:had_other_contact
     end
 end
