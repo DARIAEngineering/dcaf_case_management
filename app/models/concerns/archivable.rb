@@ -88,7 +88,7 @@ module Archivable
   end
 
   def scramble(field)
-    # TODO field should be one-way hashed (with salt)
+    self[field.to_sym] = SecureRandom.uuid
   end
 
   def archive_fulfillment(field)
