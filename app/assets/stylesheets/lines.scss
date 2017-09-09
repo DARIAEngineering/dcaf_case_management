@@ -2,20 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-input[type="radio"] {
-    -ms-transform: scale(2); /* IE 9 */
-    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
-    transform: scale(2);
-}
+.lines-form {
+    input[type="radio"] {
+        -ms-transform: scale(2); /* IE 9 */
+        -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+        transform: scale(2);
+        margin-top: 10px;
+    }
 
-label {
-    margin: 10px;
-}
+    label {
+        margin: 10px;
+        font-size: 24px;
+    }
 
-.radio label {
-    float: left;
-}
+    .radio label {
+        float: left;
+    }
 
-.btn-primary {
-    display: block;
+    .btn-primary {
+        display: block;
+    }
 }
