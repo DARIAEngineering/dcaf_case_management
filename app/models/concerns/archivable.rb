@@ -8,8 +8,7 @@ module Archivable
   # How to handle fields found on patient.
   # Anything found that isn't specified will be shredded and complained about.
   PATIENT_ARCHIVE_REFERENCE = {
-    'special_circumstances'       => :shred,
-    'name'                        => :shred,
+    'special_circumstances'       => :empty,
     'primary_phone'               => :shred,
     'other_contact'               => :shred,
     'other_phone'                 => :shred,
@@ -18,6 +17,7 @@ module Archivable
     'household_size_children'     => :shred,
     'referred_by'                 => :shred,
     'age'                         => :shred,
+    'name'                        => :overwrite,
     'identifier'                  => :scramble,
     'fulfillment'                 => :archive_fulfillment,
     'calls'                       => :archive_calls,
@@ -25,6 +25,7 @@ module Archivable
     'external_pledges'            => :archive_pledges,
     'archived'                    => :keep,
     'age_range'                   => :keep,
+    'had_other_contact'           => :keep,
     '_id'                         => :keep,
     'voicemail_preference'        => :keep,
     'line'                        => :keep,
@@ -65,19 +66,19 @@ module Archivable
   def set_age_range
     case age
     when nil, ''
-      nil
+      :unknown
     when 1..17
-      'Under 18'
+      :under_18
     when 18..24
-      '18-24'
+      :age18_24
     when 25..34
-      '25-34'
+      :age25_34
     when 35..44
-      '35-44'
+      :age35-44
     when 45..54
-      '45-54'
+      :age45_54
     when 55..100
-      '55+'
+      :age55_100
     else
       'Bad value'
     end
@@ -87,8 +88,16 @@ module Archivable
     self[field.to_sym] = nil
   end
 
+  def empty(field)
+    self[field.to_sym] = []
+  end
+
   def scramble(field)
     self[field.to_sym] = SecureRandom.uuid
+  end
+
+  def overwrite(field)
+    self[field.to_sym] = "ARCHIVED"
   end
 
   def archive_fulfillment(field)
@@ -119,7 +128,7 @@ module Archivable
   def archive!
     self.archived = true
     self.had_other_contact = self.has_alt_contact?
-    self.age_range = self.set_age_range
+    self.age_range = set_age_range
 
     self.attributes.keys.each do |field|
       if PATIENT_ARCHIVE_REFERENCE.has_key?(field)
@@ -168,32 +177,54 @@ module Archivable
       dropped_off_patients + completed_patients
     end
 
-    def archived?
-      archived.present? && archived
-    end
-
     # validator
     def archived_state
-      validate :name,
-               :special_circumstances,
-               :primary_phone,
-               :other_contact,
-               :other_phone,
-               :other_contact_relationship,
-               :household_size_adults,
-               :household_size_children,
-               :referred_by,
-               :age, presence: false
+      if name.present? && name != "ARCHIVED"
+        errors.add(:name, "should be overwritten for archived patients")
+      end
+      if special_circumstances.present? && ! special_circumstances.nil?
+        errors.add(:special_circumstances, "should be nil for archived patients")
+      end
+      if primary_phone.present? && ! primary_phone.nil?
+        errors.add(:primary_phone, "should be nil for archived patients")
+      end
+      if other_contact.present? && ! other_contact.nil?
+        errors.add(:other_contact, "should be nil for archived patients")
+      end
+      if other_phone.present? && ! other_phone.nil?
+        errors.add(:other_phone, "should be nil for archived patients")
+      end
+      if household_size_adults.present? && ! household_size_adults.nil?
+        errors.add(:household_size_adults, "should be nil for archived patients")
+      end
+      if household_size_children.present? && ! household_size_children.nil?
+        errors.add(:household_size_children, "should be nil for archived patients")
+      end
+      if referred_by.present? && ! referred_by.nil?
+        errors.add(:referred_by, "should be nil for archived patients")
+      end
+      if age.present? && ! age.nil?
+        errors.add(:age, "should be nil for archived patients")
+      end
 
       # Identifier should look like a UUID
-      validate :identifier,
-        format: /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
+      unless ( identifier =~ /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/)
+        errors.add(:identifier, "should be a UUID for archived patients")
+      end
 
-      validate :age_range,
-               :had_other_contact,
-               presence: true
+      if age_range.nil?
+        errors.add(:age_range, "should be set for archived patients")
+      end
+      if had_other_contact.nil?
+        errors.add(:had_other_contact, "should be set for archived patients")
+      end
 
       ## fulfillment shouldnt have
       #:check_number
     end
+
+    def archived?
+      archived.present? && archived
+    end
+
 end

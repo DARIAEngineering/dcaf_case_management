@@ -24,7 +24,7 @@ class Note
   mongoid_userstamp user_model: 'User'
 
   NOTE_ARCHIVE_REFERENCE = {
-    'full_text'     => :shred,
+    'full_text'     => :overwrite,
     '_id'           => :keep,
     'created_at'    => :keep,
     'created_by_id' => :keep,
@@ -41,9 +41,9 @@ class Note
         if action == :keep
           #puts "Found a keep! (#{field})"
           next
-        elsif action == :shred
+        elsif action == :overwrite
           #puts "Found a #{action} for field #{field}!"
-          self[field] = nil
+          self[field] = "ARCHIVED"
         else
           logger.warn "Func '#{action}' for note field '#{field}' not found. Shredding"
           #puts "Func '#{action}' for field '#{field}' not found. Shredding"

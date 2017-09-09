@@ -162,7 +162,9 @@ class Patient
   end
 
   def save_identifier
-    self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+    unless archived?
+      self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+    end
   end
 
   def fulfilled_on_or_before(datetime)
