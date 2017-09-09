@@ -44,6 +44,11 @@ class ActiveSupport::TestCase
     create :config, config_key: 'external_pledge_source',
                     config_value: { options: ['Baltimore Abortion Fund', 'Tiller Fund (NNAF)', 'NYAAF (New York)'] }
   end
+
+  def create_language_config
+    create :config, config_key: 'language',
+                    config_value: { options: ['Spanish', 'French', 'Korean'] }
+  end
 end
   
 # Save screenshots if integration tests fail

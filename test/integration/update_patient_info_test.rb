@@ -11,6 +11,7 @@ class UpdatePatientInfoTest < ActionDispatch::IntegrationTest
                          source: 'Baltimore Abortion Fund'
     create_external_pledge_source_config
     create_insurance_config
+    create_language_config
 
     log_in_as @user
     visit edit_patient_path @patient
