@@ -145,6 +145,8 @@ Config.create config_key: :external_pledge_source,
               config_value: { options: ['Baltimore Abortion Fund', 'Metallica Abortion Fund']}
 Config.create config_key: :pledge_limit_help_text,
               config_value: { options: ['Pledge Limit Guidelines:', '1st trimester (7-12 weeks): $100', '2nd trimester (12-24 weeks): $300', 'Later care (25+ weeks): $600']}
+Config.create config_key: :language,
+              config_value: { options: ['Spanish', 'French', 'Korean']}
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have

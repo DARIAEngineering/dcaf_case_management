@@ -10,6 +10,7 @@ class PatientTest < ActiveSupport::TestCase
                                 other_contact: 'Foobar'
     @call = create :call, patient: @patient,
                           status: 'Reached patient'
+    create_language_config
   end
 
   describe 'callbacks' do

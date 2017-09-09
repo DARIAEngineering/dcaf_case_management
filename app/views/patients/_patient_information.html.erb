@@ -24,7 +24,7 @@
                                           
           <%= f.form_group :language do %>
             <%= f.select :language,
-                       options_for_select(language,
+                       options_for_select(language_options,
                                           patient.language),
                                           label: 'Preferred Language',
                                           autocomplete: 'off' %>
