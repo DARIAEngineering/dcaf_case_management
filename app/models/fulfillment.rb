@@ -20,6 +20,8 @@ class Fulfillment
   validates :created_by_id,
             presence: true
 
+#  validate :archived_state, if: self.patient.archived?
+
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -66,6 +68,13 @@ class Fulfillment
       end
     end
     self.save
+  end
+
+  # validator
+  def archived_state
+    if check_number.present? && ! check_number.nil?
+      errors.add(:check_number, "should be nil for archived patients")
+    end
   end
 
 end
