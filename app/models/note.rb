@@ -14,7 +14,7 @@ class Note
 
   # Validations
   validates :created_by_id, :full_text, presence: true
-#  validate :archived_state, if: self.patient.archived? # how do I access the associated patient
+  #validate :archived_state, if: patient.archived? # how do I access the associated patient
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -66,6 +66,4 @@ class Note
       errors.add(:full_text, "should be overwritten for archived patients")
     end
   end
-
-
 end

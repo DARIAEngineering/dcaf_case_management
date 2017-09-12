@@ -579,54 +579,82 @@ class PatientTest < ActiveSupport::TestCase
                                   other_contact: 'Yolo',
                                   primary_phone: '222-333-4321',
                                   name: 'Archiveworthy'
+
+      @active_patient = create :patient, other_phone: '111-222-3333',
+                                other_contact: 'Yolo'
+
     end
 
     describe 'archived status tests' do
       it 'should report not archived for active patients' do
-        @archive_patient.update initial_call_date: 2.days.ago
+        @active_patient.update initial_call_date: 2.days.ago
         Patient.archive
-        assert_not @archive_patient.archived?
+        @active_patient.reload
+        assert_not @active_patient.archived?
       end
 
       it 'should report archived for archived patients' do
         @archive_patient.update initial_call_date: 2.years.ago
         Patient.archive
+        @archive_patient.reload
         assert @archive_patient.archived?
       end
 
       it 'should not have a phone number' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_not @archive_patient.primary_phone
       end
       it 'should not have a name' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_equal "ARCHIVED", @archive_patient.name
       end
       it 'should not have any notes' do
+        @archive_patient.archive!
+        @archive_patient.reload
         @archive_patient.notes.each do |note|
           assert_equal "ARCHIVED", note.full_text
         end
       end
       it 'should not have an age' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_not @archive_patient.age
       end
       it 'should have an age_range' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert @archive_patient.age_range
       end
       it 'should not have an other contact name' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_not @archive_patient.other_contact
       end
       it 'should not have an other contact number' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_not @archive_patient.other_phone
       end
       it 'should not have an other contact relationship' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_not @archive_patient.other_contact_relationship
       end
       it 'should not have any circumstances' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_equal [], @archive_patient.special_circumstances
       end
       it 'should not have a check # on pledges' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_not @archive_patient.fulfillment.check_number
       end
       it 'should have a UUID based ID' do
+        @archive_patient.archive!
+        @archive_patient.reload
         assert_match  /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/, @archive_patient.identifier
       end
     end

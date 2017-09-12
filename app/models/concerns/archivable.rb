@@ -167,16 +167,6 @@ module Archivable
   end
 
   private
-    def ready_to_archive
-      # Final times TODO
-      # should I avoid archiving patients from a year ago,
-      # with recent call activity...?
-      dropped_off_patients = Patient.initial_call_date(1.year.ago)
-      completed_patients = Patient.fulfilled_on_or_before(120.days.ago)
-
-      dropped_off_patients + completed_patients
-    end
-
     # validator
     def archived_state
       if name.present? && name != "ARCHIVED"
