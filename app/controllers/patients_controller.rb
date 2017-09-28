@@ -64,7 +64,7 @@ class PatientsController < ApplicationController
     end
     if @patient.update_attributes patient_params
       @patient.reload
-      flash.now[:notice] = 'Patient info successfully saved'
+      flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.strftime("%-m-%-d-%Y %l:%M %p")}"
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error
