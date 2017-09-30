@@ -9,7 +9,7 @@
     "CM_RESOURCES_URL": {
       "description": "usually a link to the google drive folder with CM resources in it",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "CSP_VIOLATION_URI": {
       "description": "from your CSP report endpoint",
@@ -26,12 +26,12 @@
     "DARIA_GOOGLE_KEY": {
       "description": "from google cloud account",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "DARIA_GOOGLE_SECRET": {
       "description": "from google cloud account",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "FUND_MAILER_DOMAIN": {
       "description": "domain you want emails to come from. e.g. dcabortionfund.org",
@@ -52,17 +52,17 @@
     "SITE_URL": {
       "description": "The URL, without http, your CMs will go to. e.g. app.myabortionfund.org",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "SKYLIGHT_AUTH_TOKEN": {
       "description": "get it from Skylight",
       "value": "",
-      "required": "false"
+      "required": false
     },
     "SQREEN_TOKEN": {
       "description": "get it from Sqreen",
       "value": "",
-      "required": "false"
+      "required": false
     }
   },
   "formation": {
