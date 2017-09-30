@@ -73,16 +73,16 @@
   },
   "addons": [
     {
-      "plan": "logentries:tryit"
+      "plan": "logentries"
     },
     {
-      "plan": "mongolab:sandbox"
+      "plan": "mongolab"
     },
     {
-      "plan": "scheduler:standard"
+      "plan": "scheduler"
     },
     {
-      "plan": "sendgrid:starter"
+      "plan": "sendgrid"
     }
   ],
   "buildpacks": [
