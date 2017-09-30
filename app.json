@@ -8,7 +8,8 @@
   "env": {
     "CM_RESOURCES_URL": {
       "description": "usually a link to the google drive folder with CM resources in it",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "CSP_VIOLATION_URI": {
       "description": "from your CSP report endpoint",
@@ -24,11 +25,13 @@
     },
     "DARIA_GOOGLE_KEY": {
       "description": "from google cloud account",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "DARIA_GOOGLE_SECRET": {
       "description": "from google cloud account",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "FUND_MAILER_DOMAIN": {
       "description": "domain you want emails to come from. e.g. dcabortionfund.org",
@@ -40,7 +43,7 @@
     },
     "RAILS_LOG_TO_STDOUT": {
       "description": "set to true",
-      "value": ""
+      "value": "true"
     },
     "RAILS_SERVE_STATIC_FILES": {
       "description": "set to true",
@@ -48,15 +51,18 @@
     },
     "SITE_URL": {
       "description": "The URL, without http, your CMs will go to. e.g. app.myabortionfund.org",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "SKYLIGHT_AUTH_TOKEN": {
       "description": "get it from Skylight",
-      "value": ""
+      "value": "",
+      "required": false
     },
     "SQREEN_TOKEN": {
       "description": "get it from Sqreen",
-      "value": ""
+      "value": "",
+      "required": false
     }
   },
   "formation": {
@@ -67,16 +73,16 @@
   },
   "addons": [
     {
-      "plan": "logentries:tryit"
+      "plan": "logentries"
     },
     {
-      "plan": "mongolab:sandbox"
+      "plan": "mongolab"
     },
     {
-      "plan": "scheduler:standard"
+      "plan": "scheduler"
     },
     {
-      "plan": "sendgrid:starter"
+      "plan": "sendgrid"
     }
   ],
   "buildpacks": [
