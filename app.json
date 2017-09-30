@@ -54,9 +54,8 @@
       "value": "true"
     },
     "SITE_URL": {
-      "description": "The URL, without http, your CMs will go to. e.g. app.myabortionfund.org",
-      "value": "",
-      "required": false
+      "description": "The app name you just selected plus .herokuapp.com . e.g. myfund.herokuapp.com",
+      "value": ""
     },
     "SKYLIGHT_AUTH_TOKEN": {
       "description": "get it from Skylight",
