@@ -37,9 +37,13 @@
       "description": "domain you want emails to come from. e.g. dcabortionfund.org",
       "value": ""
     },
-    "LINES": {
+    "DARIA_LINES": {
       "description": "Lines to divide calls into, separated by commas. If one line, just put Main",
       "value": "Main"
+    },
+    "DARIA_PLEDGE_GENERATOR_DISABLED": {
+      "description": "The PDF Pledge generator only works for DCAF for now",
+      "value": "true"
     },
     "RAILS_LOG_TO_STDOUT": {
       "description": "set to true",
@@ -50,9 +54,8 @@
       "value": "true"
     },
     "SITE_URL": {
-      "description": "The URL, without http, your CMs will go to. e.g. app.myabortionfund.org",
-      "value": "",
-      "required": false
+      "description": "The app name you just selected plus .herokuapp.com . e.g. myfund.herokuapp.com",
+      "value": ""
     },
     "SKYLIGHT_AUTH_TOKEN": {
       "description": "get it from Skylight",
@@ -68,7 +71,7 @@
   "formation": {
     "web": {
       "quantity": 1,
-      "size": "Hobby"
+      "size": "Free"
     }
   },
   "addons": [
