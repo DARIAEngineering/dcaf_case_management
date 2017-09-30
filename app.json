@@ -5,7 +5,6 @@
   "scripts": {
     "postdeploy": "bundle exec rake db:mongoid:create_indexes"
   },
-
   "env": {
     "CM_RESOURCES_URL": {
       "description": "usually a link to the google drive folder with CM resources in it",
@@ -58,7 +57,7 @@
     "SQREEN_TOKEN": {
       "description": "get it from Sqreen",
       "value": null
-    },
+    }
   },
   "formation": {
     "web": {
@@ -84,5 +83,5 @@
     {
       "url": "heroku/ruby"
     }
-  ],
+  ]
 }
