@@ -67,13 +67,13 @@
   },
   "addons": [
     {
-      "plan": "logentries:tryit",
+      "plan": "logentries:tryit"
     },
     {
-      "plan": "mongolab:sandbox",
+      "plan": "mongolab:sandbox"
     },
     {
-      "plan": "scheduler:standard",
+      "plan": "scheduler:standard"
     },
     {
       "plan": "sendgrid:starter"
