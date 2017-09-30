@@ -44,7 +44,7 @@
     },
     "RAILS_SERVE_STATIC_FILES": {
       "description": "set to true",
-      "value": ""
+      "value": "true"
     },
     "SITE_URL": {
       "description": "The URL, without http, your CMs will go to. e.g. app.myabortionfund.org",
@@ -57,7 +57,7 @@
     "SQREEN_TOKEN": {
       "description": "get it from Sqreen",
       "value": ""
-    },
+    }
   },
   "formation": {
     "web": {
