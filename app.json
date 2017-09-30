@@ -9,7 +9,7 @@
   "env": {
     "CM_RESOURCES_URL": {
       "description": "usually a link to the google drive folder with CM resources in it",
-      "value": null
+      "value": ""
     },
     "CSP_VIOLATION_URI": {
       "description": "from your CSP report endpoint",
@@ -17,23 +17,23 @@
     },
     "DARIA_FUND": {
       "description": "fund abbreviation. e.g. DCAF",
-      "value": null
+      "value": ""
     },
     "DARIA_FUND_FULL": {
       "description": "full fund name. e.g. DC Abortion Fund",
-      "value": null
+      "value": ""
     },
     "DARIA_GOOGLE_KEY": {
       "description": "from google cloud account",
-      "value": null
+      "value": ""
     },
     "DARIA_GOOGLE_SECRET": {
       "description": "from google cloud account",
-      "value": null
+      "value": ""
     },
     "FUND_MAILER_DOMAIN": {
       "description": "domain you want emails to come from. e.g. dcabortionfund.org",
-      "value": null
+      "value": ""
     },
     "LINES": {
       "description": "Lines to divide calls into, separated by commas. If one line, just put Main",
@@ -41,23 +41,23 @@
     },
     "RAILS_LOG_TO_STDOUT": {
       "description": "set to true",
-      "value": true
+      "value": ""
     },
     "RAILS_SERVE_STATIC_FILES": {
       "description": "set to true",
-      "value": true
+      "value": ""
     },
     "SITE_URL": {
       "description": "The URL, without http, your CMs will go to. e.g. app.myabortionfund.org",
-      "value": null
+      "value": ""
     },
     "SKYLIGHT_AUTH_TOKEN": {
       "description": "get it from Skylight",
-      "value": null
+      "value": ""
     },
     "SQREEN_TOKEN": {
       "description": "get it from Sqreen",
-      "value": null
+      "value": ""
     },
   },
   "formation": {
