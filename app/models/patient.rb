@@ -18,6 +18,7 @@ class Patient
   include Statusable
   include Exportable
   include Archivable
+  include EventLoggable
   extend Enumerize
 
   LINES.each do |line|
@@ -183,6 +184,17 @@ class Patient
     Patient.where( fulfillment.present? &&
                    fulfillment.date_of_check.present? &&
                    fullfullment.date_of_check <= datetime)
+  end
+
+  def event_params
+    {
+      event_type:    'Pledged',
+      cm_name:       updated_by&.name || 'System',
+      patient_name:  name,
+      patient_id:    id,
+      line:          line,
+      pledge_amount: fund_pledge
+    }
   end
 
   private

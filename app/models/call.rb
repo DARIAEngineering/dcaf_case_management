@@ -4,6 +4,7 @@ class Call
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
+  include EventLoggable
 
   # Relationships
   embedded_in :patient
@@ -68,6 +69,16 @@ class Call
       end
     end
     self.save
+  end
+
+  def event_params
+    {
+      event_type:   status,
+      cm_name:      created_by&.name || 'System',
+      patient_name: patient.name,
+      patient_id:   patient.id,
+      line:         patient.line
+    }
   end
 
 end
