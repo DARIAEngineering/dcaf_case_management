@@ -181,9 +181,7 @@ class Patient
   end
 
   def self.fulfilled_on_or_before(datetime)
-    Patient.where( fulfillment.present? &&
-                   fulfillment.date_of_check.present? &&
-                   fullfullment.date_of_check <= datetime)
+    Patient.where( 'fulfillment.date_of_check' => { '$lte' => datetime } )
   end
 
   def event_params

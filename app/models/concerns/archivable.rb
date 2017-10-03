@@ -151,19 +151,24 @@ module Archivable
         self.shred(field)
       end
     end
-    save
+    self.save
   end
 
   class_methods do
     def unarchived
+      # TODO change to scope and acutally call this
       Patient.where(archived: :false)
     end
 
     def archive
-      Patient.ready_to_archive do |patient|
+      ready_to_archive do |patient|
         patient.archive!
       end
     end
+  end
+
+  def archived?
+    archived.present? && archived
   end
 
   private
@@ -211,10 +216,6 @@ module Archivable
 
       ## fulfillment shouldnt have
       #:check_number
-    end
-
-    def archived?
-      archived.present? && archived
     end
 
 end

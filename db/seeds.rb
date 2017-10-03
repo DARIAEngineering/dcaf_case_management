@@ -250,7 +250,7 @@ end
 end
 
 # create patients with ALL THE INFO to play with archiving
-(1..2).each do |patient_number|
+(1..3).each do |patient_number|
   # initial create data from voicemail
   patient = Patient.create!(
     name: "Archive Dataful Patient #{patient_number}",
@@ -357,12 +357,12 @@ end
 
   patient.fulfillment.update!(
     fulfilled: true,
-    procedure_date: 60.days.ago,
+    procedure_date: (patient_number * 80).days.ago,
     gestation_at_procedure: "11",
     procedure_cost: 555,
     check_number: 4563,
-    date_of_check: 55.days.ago,
-    updated_at: 51.days.ago,
+    date_of_check: (patient_number * 90).days.ago,
+    updated_at: (patient_number * 88).days.ago,
   )
 
 end
