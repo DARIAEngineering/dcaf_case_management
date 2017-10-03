@@ -27,6 +27,7 @@ gem 'figaro'
 gem 'render_async', '~> 0.2.3'
 gem 'gon', '~> 6.1.0'
 gem 'nokogiri', '>= 1.7.2'
+gem 'symmetric-encryption', '~> 4.0.0'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem 'rack-attack', '~> 5.0.1'

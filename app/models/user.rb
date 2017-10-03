@@ -37,7 +37,7 @@ class User
 
   # Fields
   # Non-devise generated
-  field :name, type: String
+  field :encrypted_name, type: String, encrypted: true
   field :line, type: String
   field :role
 
