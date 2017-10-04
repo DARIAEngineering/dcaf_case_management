@@ -1,6 +1,26 @@
 
 <% if @results.any? %>
-  $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: @results }) %>");
+  $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: @results, autosortable: true }) %>");
+
+  //TODO figure out way to import function from /javascripts/table_sorting.coffee
+  var autosortable_tables;
+autosortable_tables = ['#call_list table', '#completed_calls table', '#urgent_patients table', '#user-list table'];
+
+autosortable_tables.forEach(function(table) {
+  var stupidtable;
+  stupidtable = $(table).stupidtable();
+  stupidtable.on('beforetablesort', function(event, data) {
+    return stupidtable.find('th').filter(function(i) {
+      return i !== data.column;
+    }).find('.arrow').html('[-]');
+  });
+  return stupidtable.on('aftertablesort', function(event, data) {
+    var arrow;
+    arrow = data.direction === $.fn.stupidtable.dir.ASC ? '[&uarr;]' : '[&darr;]';
+    return stupidtable.find('th').eq(data.column).find('.arrow').html(arrow);
+  });
+});
+
 <% else %>
-  $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: nil }) %>");
+  $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: nil, autosortable: true }) %>");
 <% end %>
