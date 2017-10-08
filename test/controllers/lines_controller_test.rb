@@ -18,15 +18,15 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    # TODO
-    # describe 'instance with one line' do
-    #   before { ENV['DARIA_LINES'] = 'DC' }
-    #   it 'should redirect to patient dashboard' do
-    #     get new_line_path
-    #     assert_equal 'DC', session[:line]
-    #     assert_redirected_to authenticated_root_path
-    #   end
-    # end
+    describe 'instance with one line' do
+      it 'should redirect to patient dashboard' do
+        Object.stub_const(:LINES, ['DC']) do
+          get new_line_path
+          assert_equal 'DC', session[:line]
+          assert_redirected_to authenticated_root_path
+        end
+      end
+    end
   end
 
   describe 'create' do

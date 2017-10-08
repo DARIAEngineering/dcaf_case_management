@@ -179,6 +179,7 @@ GEM
     minitest-spec-rails (5.4.0)
       minitest (~> 5.0)
       rails (>= 4.1)
+    minitest-stub-const (0.6)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
     mongo_session_store (3.1.0)
@@ -390,6 +391,7 @@ DEPENDENCIES
   minitest-ci
   minitest-reporters
   minitest-spec-rails
+  minitest-stub-const
   mongo_session_store (>= 3.1.0)
   mongoid (= 6.1.0)
   mongoid-history (= 0.6.1)
