@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Test lines setting behavior
 class LinesControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
