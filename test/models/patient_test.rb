@@ -575,22 +575,29 @@ class PatientTest < ActiveSupport::TestCase
 
   describe 'archive tests v1' do
     before do
-      @archive_patient = create :patient, other_phone: '111-222-3333',
+      @old_fulfill_patient = create :patient, other_phone: '111-222-3333',
                                   other_contact: 'Yolo',
                                   primary_phone: '222-333-4321',
                                   name: 'Archiveworthy'
 
-      @archive_patient.update initial_call_date: 2.years.ago
-      @archive_patient.fulfillment.update date_of_check: 300.days.ago
+      @old_fulfill_patient.update initial_call_date: 150.days.ago
+      @old_fulfill_patient.fulfillment.update date_of_check: 120.days.ago
+      @dropoff_patient = create :patient, other_phone: '111-222-3233',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '222-333-4325',
+                                  name: 'Archiveworthy'
+      @dropoff_patient.update initial_call_date: 2.years.ago
+
       @active_patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
 
       @active_patient.update initial_call_date: 2.days.ago
       Patient.archive
-      #@archive_patient.archive!
-      @archive_patient.reload
+      #@old_fulfill_patient.archive!
+      @old_fulfill_patient.reload
+      @dropoff_patient.reload
       @active_patient.reload
-      #puts "BAZRAZ" + @archive_patient.inspect.to_s
+      #puts "BAZRAZ" + @old_fulfill_patient.inspect.to_s
     end
 
     describe 'archived status tests' do
@@ -599,43 +606,44 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should report archived for archived patients' do
-        assert @archive_patient.archived?
+        assert @old_fulfill_patient.archived?
+        assert @dropoff_patient.archived?
       end
 
       it 'should not have a phone number' do
-        assert_not @archive_patient.primary_phone
+        assert_not @old_fulfill_patient.primary_phone
       end
       it 'should not have a name' do
-        assert_equal "ARCHIVED", @archive_patient.name
+        assert_equal "ARCHIVED", @old_fulfill_patient.name
       end
       it 'should not have any notes' do
-        @archive_patient.notes.each do |note|
+        @old_fulfill_patient.notes.each do |note|
           assert_equal "ARCHIVED", note.full_text
         end
       end
       it 'should not have an age' do
-        assert_not @archive_patient.age
+        assert_not @old_fulfill_patient.age
       end
       it 'should have an age_range' do
-        assert @archive_patient.age_range
+        assert @old_fulfill_patient.age_range
       end
       it 'should not have an other contact name' do
-        assert_not @archive_patient.other_contact
+        assert_not @old_fulfill_patient.other_contact
       end
       it 'should not have an other contact number' do
-        assert_not @archive_patient.other_phone
+        assert_not @old_fulfill_patient.other_phone
       end
       it 'should not have an other contact relationship' do
-        assert_not @archive_patient.other_contact_relationship
+        assert_not @old_fulfill_patient.other_contact_relationship
       end
       it 'should not have any circumstances' do
-        assert_equal [], @archive_patient.special_circumstances
+        assert_equal [], @old_fulfill_patient.special_circumstances
       end
       it 'should not have a check # on pledges' do
-        assert_not @archive_patient.fulfillment.check_number
+        assert_not @old_fulfill_patient.fulfillment.check_number
       end
       it 'should have a UUID based ID' do
-        assert_match  /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/, @archive_patient.identifier
+        assert_match  /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/, @old_fulfill_patient.identifier
       end
 
       it 'should archive on direct archive call' do

@@ -154,14 +154,26 @@ module Archivable
     self.save
   end
 
+
   class_methods do
+    def ready_to_archive
+      # Final times TODO
+      # should I avoid archiving patients from a year ago,
+      # with recent call activity...?
+      dropped_off_patients = Patient.where(:initial_call_date.lte => 1.year.ago)
+      completed_patients = Patient.fulfilled_on_or_before(120.days.ago)
+
+      dropped_off_patients + completed_patients
+    end
+
+
     def unarchived
       # TODO change to scope and acutally call this
       Patient.where(archived: :false)
     end
 
     def archive
-      ready_to_archive do |patient|
+      ready_to_archive.each do |patient|
         patient.archive!
       end
     end

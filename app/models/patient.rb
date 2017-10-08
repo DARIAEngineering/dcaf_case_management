@@ -162,16 +162,6 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
-    def self.ready_to_archive
-      # Final times TODO
-      # should I avoid archiving patients from a year ago,
-      # with recent call activity...?
-      dropped_off_patients = Patient.where(:initial_call_date.lte => 1.year.ago)
-      completed_patients = Patient.fulfilled_on_or_before(120.days.ago)
-
-      dropped_off_patients + completed_patients
-    end
-
 
 
   def save_identifier
