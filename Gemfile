@@ -71,6 +71,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'minitest-ci'
   gem 'pdf-inspector', require: "pdf/inspector"
+  gem 'minitest-stub-const'
 end
 
 group :production do
