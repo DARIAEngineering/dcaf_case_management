@@ -8,9 +8,7 @@ class PatientsController < ApplicationController
   def index
     respond_to do |format|
       format.csv do
-        now = Time.zone.now.strftime('%Y%m%d')
-        csv_filename = "patient_data_export_#{now}.csv"
-        send_data Patient.to_csv, filename: csv_filename, format: 'text/csv'
+        render_csv
       end
     end
   end
@@ -60,9 +58,13 @@ class PatientsController < ApplicationController
   end
 
   def update
+    if @patient.update_attributes params[:pledge_sent]
+       @patient.pledge_sent_at = Time.zone.now
+       @patient.pledge_sent_by = current_user
+    end
     if @patient.update_attributes patient_params
       @patient.reload
-      flash.now[:notice] = 'Patient info successfully saved'
+      flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.display_timestamp}"
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error
@@ -123,5 +125,23 @@ class PatientsController < ApplicationController
       [].concat(PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
                 ABORTION_INFORMATION_PARAMS, OTHER_PARAMS, FULFILLMENT_PARAMS)
     )
+  end
+
+  def render_csv
+    now = Time.zone.now.strftime('%Y%m%d')
+    csv_filename = "patient_data_export_#{now}.csv"
+    set_headers(csv_filename)
+
+    response.status = 200
+
+    self.response_body = Patient.to_csv
+  end
+
+  def set_headers(filename)
+    headers["Content-Type"] = "text/csv"
+    headers["Content-disposition"] = "attachment; filename=\"#{filename}\""
+    headers['X-Accel-Buffering'] = 'no'
+    headers["Cache-Control"] = "no-cache"
+    headers.delete("Content-Length")
   end
 end

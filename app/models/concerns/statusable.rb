@@ -8,12 +8,16 @@ module Statusable
     fundraising: 'Fundraising',
     pledge_sent: 'Pledge Sent',
     pledge_paid: 'Pledge Paid',
-    dropoff: 'Probable dropoff',
+    pledge_unfulfilled: 'Pledge Not Fulfilled',
+    fulfilled: 'Pledge Fulfilled',
+    dropoff: 'Probable Dropoff',
     resolved: "Resolved Without #{FUND}"
   }.freeze
 
   def status
+    return STATUSES[:fulfilled] if fulfillment.fulfilled?
     return STATUSES[:resolved] if resolved_without_fund?
+    return STATUSES[:pledge_unfulfilled] if days_since_pledge_sent > 150
     return STATUSES[:pledge_sent] if pledge_sent?
     return STATUSES[:dropoff] if days_since_last_call > 120
     return STATUSES[:no_contact] unless contact_made?
@@ -34,5 +38,12 @@ module Statusable
     return 0 if calls.blank?
     days_since_last_call = (DateTime.now.in_time_zone.to_date - last_call.created_at.to_date).to_i
     days_since_last_call
+  end
+
+  def days_since_pledge_sent
+    return 0 if !pledge_sent
+    return 0 if !pledge_sent_at
+    days_since_pledge_sent = (DateTime.now.in_time_zone.to_date - pledge_sent_at.to_date).to_i
+    days_since_pledge_sent
   end
 end

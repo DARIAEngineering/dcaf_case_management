@@ -23,16 +23,10 @@ to go, it should say something like:
 
     web_1  | [1] * Listening on tcp://0.0.0.0:3000
 
-In order to connect to the application you will need the IP address of your Docker instance.
-This can be found with the `docker-machine ip default` command. With the IP, and the port
-from the output of the original `up` command, you can now go to your browser and navigate
-to the application.
-
-For example, if your Docker machine's IP is `192.168.99.100`, you would go to your browser
-and type: `http://192.168.99.100:3000/` and hit enter. The first time you view a page will
+This runs the app on `localhost:3000` and you can hit it like a regular rails server. The first time you view a page will
 take a minute or two for resources to compile and load, but it should eventually load.
 
-Any errors will show up in your terminal in the window you were running the `up` command in.
+Any errors will show up in your terminal in the window you are running the `up` command in.
 
 ## Local environment
 
@@ -40,7 +34,7 @@ If you prefer a local environment, totally cool! We recommend the following:
 
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/)
-* Install our version of Ruby! We use version `2.4.1` (Usually `rbenv install 2.4.1` or `rvm install 2.4.1` once you have your version manager set up)
+* Install our version of Ruby! We use version `2.4.2` (Usually `rbenv install 2.4.2` or `rvm install 2.4.2` once you have your version manager set up)
 * Install PhantomJS, which our test suite depends on, via `brew install phantomjs`, or `npm install -g phantomjs-prebuilt`, or the [linux instructions](http://phantomjs.org/download.html)
 * Run the command `gem install bundler && bundle install` to install ruby dependences, including `rails`
 
@@ -73,7 +67,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 * Sign into `https://c9.io/` and create a new workspace
 * Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
-* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.4.1 is not installed. To install do: `rvm install ruby-2.4.1`". Run that command to install the necessary version of Ruby.
+* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.4.2 is not installed. To install do: `rvm install ruby-2.4.2`". Run that command to install the necessary version of Ruby.
 * Next, install the bundler gem by entering `gem install bundler` in the terminal.
 * Install MongoDB by entering `sudo apt-get install -y mongodb-org`.
 * Once MongoDB is installed, run `bundle install` in the terminal

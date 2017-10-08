@@ -142,6 +142,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       @patient.reload
     end
 
+    it 'should update pledge fields' do
+      @payload[:pledge_sent] = true
+      patch patient_path(@patient), params: { patient: @payload }
+      assert_kind_of Time, @patient.pledge_sent_at
+      assert_kind_of Object, @patient.pledge_sent_by
+    end
+
     it 'should respond success on completion' do
       patch patient_path(@patient), params: { patient: @payload }, xhr: true
       assert_response :success

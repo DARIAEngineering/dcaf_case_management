@@ -10,10 +10,9 @@
     <%= javascript_include_tag :application %>
     <%= csrf_meta_tags %>
     <%= Gon::Base.render_data %>
+    <%= content_for :render_async %>
   </head>
   <body>
-    <%= content_for :render_async %>
-
     <% if current_user.present? %>
       <header>
         <%= render 'layouts/navigation' %>
