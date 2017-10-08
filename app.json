@@ -23,8 +23,17 @@
       "description": "full fund name. e.g. DC Abortion Fund",
       "value": ""
     },
+    "DARIA_FUND_PHONE": {
+      "description": "Your fund's hotline number, for display in the footer. e.g. 202-452-7464",
+      "value": ""
+    },
+    "DARIA_FAX_SERVICE": {
+      "description": "URL of your fax service, for display in the footer. e.g. onlinefaxes.com",
+      "value": "",
+      "required": false
+    },
     "DARIA_GOOGLE_KEY": {
-      "description": "from google cloud account",
+      "description": "from google cloud account.",
       "value": "",
       "required": false
     },
@@ -34,7 +43,7 @@
       "required": false
     },
     "FUND_MAILER_DOMAIN": {
-      "description": "domain you want emails to come from. e.g. dcabortionfund.org",
+      "description": "domain you want emails to come from. Should be your fund's domain. e.g. dcabortionfund.org",
       "value": ""
     },
     "DARIA_LINES": {
