@@ -573,6 +573,28 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'patient archive scopes' do
+    before do
+      @pt1 = create :patient, other_phone: '111-222-3333',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '222-333-4321',
+                                  name: 'Archiveworthy'
+
+      @pt2 = create :patient, other_phone: '111-222-3933',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '222-033-4321',
+                                  name: 'Archiveworthy'
+      @pt2.archive!
+    end
+
+#    it 'should see that there are archived and unarchived patients' do
+#      @pt1.reload
+#      @pt2.reload
+#      assert_equal 1, Patient.archived.count
+#      assert_equal 1, Patient.unarchived.count
+#    end
+  end
+
   describe 'archive tests v1' do
     before do
       @old_fulfill_patient = create :patient, other_phone: '111-222-3333',

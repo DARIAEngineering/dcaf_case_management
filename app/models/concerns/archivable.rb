@@ -167,10 +167,11 @@ module Archivable
     end
 
 
-    def unarchived
-      # TODO change to scope and acutally call this
-      Patient.where(archived: :false)
-    end
+    #scope :english, ->{ where(country: "England") }
+    #def unarchived
+      ## TODO change to scope and acutally call this
+      #Patient.where(archived: :false)
+    #end
 
     def archive
       ready_to_archive.each do |patient|

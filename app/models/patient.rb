@@ -25,6 +25,8 @@ class Patient
     scope line.downcase.to_sym, -> { where(:line.in => [line]) }
   end
 
+  scope :unarchived, ->{ where(archived: false) }
+  scope :archived, ->{ where(archived: true) }
   before_validation :clean_fields
   before_save :save_identifier
 
