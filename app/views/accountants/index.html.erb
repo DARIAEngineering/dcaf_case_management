@@ -1,5 +1,11 @@
 <div class="container">
   <div class="col-sm-12">
     <%= render partial: 'accountants/search_form' %>
+
+    <h1>Accountant Billing</h1>
+
+    <div id="user-list" class="margin-bottom">
+      <%= render partial: 'accountants/table_content', locals: { patients: @patients, autosortable: true } %>
+    </div>
   </div>
 </div>

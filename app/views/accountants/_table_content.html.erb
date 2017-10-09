@@ -1,26 +1,35 @@
 <!-- locals: -->
 
-<div id="<%= table_type %>" class="margin-bottom">
-  <h1 class="border-bottom title"><%= title %></h1>
+<table class="table border-side">
   <table class="table border-side">
     <thead>
       <tr>
-        <th>Patient ID</th>
-        <th>Name</th>
-        <th>Pledge Sent Date</th>
         <th>Clinic Name</th>
-        <th>Clinic Location</th>
+        <th>PT initials</th>
+        <th>Abortion Care $</th>
+        <th>Weeks at Procedure</th>
+        <%= th_autosortable 'Pledge Sent Date', 'string', local_assigns %>
+        <th>Check #</th>
+        <th>Date of Check</th>
       </tr>
     </thead>
-    <tbody id="<%= table_type %>_content">
-      <% patients.each do |patient| %>
-        <tr class="pregnancy-data" id="<%= patient.id %>">
-          <td><%= patient.identifier %></td>
-          <td><%= link_to patient.name, edit_patient_path(patient) %></td>
-          <td><!-- patient.most_recent_pledge_display_date --></td>
-          <td><%= patient.clinic.try :name %></td>
-          <td></td>
-        </tr>
+    <tbody>
+        <% patients.each do |patient| %>
+        <%= bootstrap_form_for patient, html: { id: 'patient_information_form' }, remote: true do |f| %>
+
+          <tr>
+            <td><%= patient.clinic.name %></td>
+            <td><%= link_to patientInitials(patient), edit_patient_path(patient) %></td>
+            <td><%= patient.fulfillment.procedure_cost %></td>
+            <td><%= patient.fulfillment.gestation_at_procedure %></td>
+            <td><%= patient.fulfillment.created_at %></td>
+            <%= f.fields_for patient.fulfillment do |pt| %>
+              <td><%= pt.text_field :check_number, hide_label: true, autocomplete: 'off'%></td>
+              <td><%= pt.date_field :date_of_check, hide_label: true, autocomplete: 'off' %></td>
+            <% end %>
+          </tr>
+
+          <% end %>
       <% end %>
     </tbody>
   </table>
