@@ -86,7 +86,6 @@ GEM
     capybara-screenshot (1.0.14)
       capybara (>= 1.0, < 3)
       launchy
-    climate_control (0.2.0)
     clinic_finder (0.0.1)
     cliver (0.3.2)
     codecov (0.1.10)
@@ -371,7 +370,6 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  climate_control
   clinic_finder (~> 0.0.1)
   codecov
   coffee-rails (~> 4.1.0)
