@@ -20,8 +20,8 @@
           <tr>
             <td><%= patient.clinic.name %></td>
             <td><%= link_to patientInitials(patient), edit_patient_path(patient) %></td>
-            <td><%= patient.fulfillment.procedure_cost %></td>
-            <td><%= patient.fulfillment.gestation_at_procedure %></td>
+            <td>$<%= patient.fulfillment.procedure_cost %></td>
+            <td><%= patient.last_menstrual_period_weeks %> weeks </td>
             <td><%= patient.fulfillment.created_at %></td>
             <%= f.fields_for patient.fulfillment do |pt| %>
               <td><%= pt.text_field :check_number, hide_label: true, autocomplete: 'off'%></td>

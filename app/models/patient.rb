@@ -23,6 +23,8 @@ class Patient
     scope line.downcase.to_sym, -> { where(:line.in => [line]) }
   end
 
+  # paginates_per 1
+
   before_validation :clean_fields
   before_save :save_identifier
   after_create :initialize_fulfillment
