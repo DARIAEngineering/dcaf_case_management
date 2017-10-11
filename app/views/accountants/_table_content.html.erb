@@ -13,24 +13,26 @@
         <th>Date of Check</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="patient_information_form">
         <% patients.each do |patient| %>
-        <%= bootstrap_form_for patient, html: { id: 'patient_information_form' }, remote: true do |f| %>
-
-          <tr>
-            <td><%= patient.clinic.name %></td>
-            <td><%= link_to patientInitials(patient), edit_patient_path(patient) %></td>
-            <td>$<%= patient.fulfillment.procedure_cost %></td>
-            <td><%= patient.last_menstrual_period_weeks %> weeks </td>
-            <td><%= patient.fulfillment.created_at %></td>
-            <%= f.fields_for patient.fulfillment do |pt| %>
-              <td><%= pt.text_field :check_number, hide_label: true, autocomplete: 'off'%></td>
-              <td><%= pt.date_field :date_of_check, hide_label: true, autocomplete: 'off' %></td>
-            <% end %>
-          </tr>
-
+        <%= bootstrap_form_for patient, remote: true do |f| %>
+          <div class="col-sm-12">
+            <tr>
+                <td><%= patient.clinic.name %></td>
+                <td><%= link_to patientInitials(patient), edit_patient_path(patient) %></td>
+                <%= f.fields_for patient.fulfillment do |pt| %>
+                <td><%= pt.text_field :procedure_cost, hide_label: true, autocomplete: 'off', prepend: '$'%></td>
+                <td><%= pt.select :gestation_at_procedure,
+                            options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
+                            hide_label: true,
+                            autocomplete: 'off' %></td>
+                <td><%= patient.fulfillment.created_at %></td>
+                <td><%= pt.text_field :check_number, hide_label: true, autocomplete: 'off'%></td>
+                <td><%= pt.date_field :date_of_check, hide_label: true, autocomplete: 'off' %></td>
+              <% end %>
+            </tr>
+          </div>
           <% end %>
       <% end %>
     </tbody>
   </table>
-</div>
