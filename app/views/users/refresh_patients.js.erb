@@ -1,3 +1,6 @@
+$('#flash').html('<%= escape_javascript(render partial: "layouts/call_list_messages", locals: {name: "notice", msg: msg}) %>');
+$('#flash').removeClass().hide().fadeIn('slow')
+
 $('#call_list, #completed_calls, #urgent_patients').empty();
 $('#call_list').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients(current_line), sortable: true, autosortable: true }) %>');
 $('#completed_calls').append('<%= escape_javascript(render partial: "dashboards/table_content", locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients(current_line), autosortable: true }) %>');
