@@ -48,6 +48,6 @@
     </tbody>
   </table>
   <% if table_type == 'call_list' && current_user.patients.count > 0%>
-    <%= link_to "Remove all patients from your call list", remove_all_patients_path(current_user), method: :patch, data: { confirm: "Are you sure you want to remove this call from the call log?" }, remote: true %>
+    <%= link_to "Remove all patients from your call list", remove_all_patients_path(current_user), class:"remove-all-patients-link", data: { confirm: "Are you sure you want to remove this call from the call log?" }, method: :patch, remote: true %>
   <% end %>
 </div>
