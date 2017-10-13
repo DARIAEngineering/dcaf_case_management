@@ -41,7 +41,7 @@
 
 // if on accounting page, reload tables
 $('#user-list').html(
-  '<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @patients, autosortable: true })%>'
+  "<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @patients, autosortable: true })%>"
 )
 // refresh pagination count
 

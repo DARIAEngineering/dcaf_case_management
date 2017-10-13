@@ -2,4 +2,5 @@
 $('.modal-content').html('')
 $('.modal-content').html("<%= escape_javascript(render partial: 'patients/fulfillment', locals: { patient: @patient })%>")
 
+// TODO pass params from search to patients fulfillment partial up here
 $('.modal').modal('toggle');
