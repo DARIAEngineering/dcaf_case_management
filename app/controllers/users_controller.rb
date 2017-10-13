@@ -51,6 +51,7 @@ class UsersController < ApplicationController
 
   def update # TODO needs more rigorous testing
     if @user.update_attributes user_params
+      puts user_params
       flash[:notice] = 'Successfully updated user details'
       redirect_to users_path
     else
@@ -106,7 +107,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :role)
   end
 
   def retrieve_patients
