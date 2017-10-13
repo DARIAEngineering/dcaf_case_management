@@ -184,6 +184,23 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'remove_all_patients method' do
+    before do
+      patch add_patient_path(@user, @patient_1), xhr: true
+      patch add_patient_path(@user, @patient_2), xhr: true
+      patch remove_all_patients_path(@user), xhr: true
+      @user.reload
+    end
+
+    it 'should respond successfully' do
+      assert_response :success
+    end
+
+    it 'should remove all patients' do
+      assert_equal @user.patients.count, 0
+    end
+  end
+
   describe 'reorder call list' do
     before do
       @ids = []
