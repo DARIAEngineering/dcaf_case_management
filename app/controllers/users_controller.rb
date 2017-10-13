@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   before_action :confirm_admin_user, only: [:new, :index, :update]
-  before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
+  before_action :find_user, only: [:update, :edit, :destroy, :reset_password, :remove_all_patients]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
@@ -87,6 +87,14 @@ class UsersController < ApplicationController
 
   def remove_patient
     current_user.remove_patient @patient
+    respond_to do |format|
+      format.js { render template: 'users/refresh_patients', layout: false }
+    end
+  end
+
+  def remove_all_patients
+    current_user.patients.destroy_all
+    puts 'removing'
     respond_to do |format|
       format.js { render template: 'users/refresh_patients', layout: false }
     end
