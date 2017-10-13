@@ -139,14 +139,11 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       assert has_field? 'Email', with: 'johan@gmail.com'
     end
 
-    # TODO figure out a way to show error
-    # Right now this is failing because role is not in user params.
-    # Alter this test when there's a good story around that
     it 'disallows role editing' do
       select 'Admin', from: 'Role'
       click_button 'Save'
       wait_for_element 'Successfully updated user details'
-      assert_text 'cm'
+      refute_text 'cm'
     end
   end
 end
