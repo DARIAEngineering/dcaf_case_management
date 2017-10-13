@@ -11,28 +11,24 @@
         <%= th_autosortable 'Pledge Sent Date', 'string', local_assigns %>
         <th>Check #</th>
         <th>Date of Check</th>
+        <th></th>
       </tr>
     </thead>
     <tbody id="patient_information_form">
         <% patients.each do |patient| %>
-          <%= bootstrap_form_for patient, remote: true do |f| %>
-
             <tr>
                 <td><%= patient.clinic.name %></td>
-                <td><%= link_to patientInitials(patient), edit_patient_path(patient) %></td>
-              <%= f.fields_for patient.fulfillment do |pt| %>
-                <td><%= pt.text_field :procedure_cost, hide_label: true, autocomplete: 'off', prepend: '$'%></td>
-                <td><%= pt.select :gestation_at_procedure,
-                            options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
-                            hide_label: true,
-                            autocomplete: 'off' %></td>
+                <td><%= link_to initials(patient), edit_patient_path(patient) %></td>
+                <td><%= procedure_cost(patient.fulfillment.procedure_cost) %></td>
+                <td><%= weeks_at_procedure(patient.gestation_at_procedure) %></td>
                 <td><%= patient.fulfillment.created_at %></td>
-                <td><%= pt.text_field :check_number, hide_label: true, autocomplete: 'off'%></td>
-                <td><%= pt.date_field :date_of_check, hide_label: true, autocomplete: 'off' %></td>
-              <% end %>
+                <td><%= patient.fulfillment.check_number%></td>
+                <td><%= patient.fulfillment.date_of_check %></td>
+                <td><%= link_to edit_fulfillment_path(patient), remote: true do %>
+                    <i class="glyphicon glyphicon-pencil"></i>
+                <% end %>
+              </td>
             </tr>
-
-          <% end %>
       <% end %>
     </tbody>
   </table>

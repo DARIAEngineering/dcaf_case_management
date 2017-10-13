@@ -3,3 +3,10 @@ $('#user-list').empty();
 <% if @results.any? %>
   $("#user-list").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @results, autosortable: true } ) %>");
 <% end %>
+
+<% @patients = Kaminari.paginate_array(@results).page(params[:page]).per(25) %>
+
+// refresh pagination count
+$('#pagination-entries').html(
+  '<%= page_entries_info @patients, entry_name: 'patient' %>'
+)

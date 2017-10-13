@@ -8,6 +8,27 @@ module PatientsHelper
     (0..6).map { |i| [pluralize(i, 'day'), i] }.unshift [nil, nil]
   end
 
+  def weeks_at_procedure(weeks)
+    unless weeks == ''
+      weeks + ' weeks'
+    end
+  end
+
+  def procedure_cost(cost)
+    unless cost == nil
+      '$' + cost.to_s
+    end
+  end
+
+  def initials(patient)
+    nameArr=patient.name.split(" ")
+    initial = ''
+    for i in nameArr
+      initial.concat(i[0])
+    end
+    return initial
+  end
+
   def race_ethnicity_options
     [nil, 'White/Caucasian', 'Black/African-American', 'Hispanic/Latino',
      'Asian or South Asian', 'Native Hawaiian or Pacific Islander',

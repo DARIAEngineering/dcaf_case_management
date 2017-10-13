@@ -1,0 +1,5 @@
+
+$('.modal-content').html('')
+$('.modal-content').html("<%= escape_javascript(render partial: 'patients/fulfillment', locals: { patient: @patient })%>")
+
+$('.modal').modal('toggle');

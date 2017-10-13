@@ -60,6 +60,9 @@ class PatientsController < ApplicationController
   end
 
   def update
+    # this is needed to refresh accountant table info on pledge update.
+    @patients = Patient.where('fulfillment.fulfilled' => true)
+
     if @patient.update_attributes patient_params
       @patient.reload
       flash.now[:notice] = 'Patient info successfully saved'
