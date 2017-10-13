@@ -63,12 +63,13 @@ class AccountantTableSearchTest < ActionDispatch::IntegrationTest
       click_button 'Search'
 
       page.has_css?("tr", :count => 2)
+    end
 
-      # fill_in 'search', with: 'Zarha'
-      # click_button 'Search'
-      #
-      # page.has_css?("tr", :count => 3)
+    it 'searching will find relevant patients - 2' do
+      fill_in 'search', with: 'Zarha'
+      click_button 'Search'
 
+      page.has_css?("tr", :count => 3)
     end
   end
 end
