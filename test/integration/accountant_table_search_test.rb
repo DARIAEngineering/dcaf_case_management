@@ -27,7 +27,7 @@ class AccountantTableSearchTest < ActionDispatch::IntegrationTest
 
   end
 
-  describe 'searching will find relevant patients' do
+  describe 'search function' do
     before do
       @user.update role: :admin
       @user.reload
@@ -48,7 +48,7 @@ class AccountantTableSearchTest < ActionDispatch::IntegrationTest
       assert has_content? 'Search Cases'
     end
 
-    it 'populates with correct number of relevant patients' do
+    it 'initializes with correct number of relevant patients' do
       page.has_css?("tr", :count => 3)
     end
 
@@ -58,18 +58,38 @@ class AccountantTableSearchTest < ActionDispatch::IntegrationTest
       refute has_text? 'NFT'
     end
 
-    it 'searching will find relevant patients' do
+    it 'will find relevant patients' do
       fill_in 'search', with: 'Thorny'
       click_button 'Search'
 
       page.has_css?("tr", :count => 2)
     end
 
-    it 'searching will find relevant patients - 2' do
+    it 'will find relevant patients - 2' do
       fill_in 'search', with: 'Zarha'
       click_button 'Search'
 
       page.has_css?("tr", :count => 3)
     end
+  end
+
+  describe 'patient fulfillment edit' do
+    before do
+      visit accountant_path
+      wait_for_element 'Accounting'
+    end
+
+    it 'should open fulfillment modal' do
+
+    end
+
+    it 'should refresh background table on update' do
+
+    end
+
+    it 'should reset paginate number' do
+      
+    end
+
   end
 end
