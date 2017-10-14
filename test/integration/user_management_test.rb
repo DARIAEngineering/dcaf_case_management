@@ -104,7 +104,7 @@ class UserManagementTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'edit a user' do
+  describe 'editing a user' do
     before do
       log_in_as @admin
       click_link 'Admin'
@@ -139,7 +139,7 @@ class UserManagementTest < ActionDispatch::IntegrationTest
       assert has_field? 'Email', with: 'johan@gmail.com'
     end
 
-    it 'disallows role editing' do
+    it 'allows role editing' do
       select 'Admin', from: 'Role'
       click_button 'Save'
       wait_for_element 'Successfully updated user details'
