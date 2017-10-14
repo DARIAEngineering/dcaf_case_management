@@ -17,6 +17,7 @@ class Patient
   include HistoryTrackable
   include Statusable
   include Exportable
+  include EventLoggable
   extend Enumerize
 
   LINES.each do |line|
@@ -27,6 +28,7 @@ class Patient
 
   before_validation :clean_fields
   before_save :save_identifier
+
   after_create :initialize_fulfillment
 
   # Relationships
@@ -37,6 +39,7 @@ class Patient
   embeds_many :external_pledges
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
+  belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
 
   # Enable mass posting in forms
   accepts_nested_attributes_for :fulfillment
@@ -86,7 +89,8 @@ class Patient
   field :fund_pledge, type: Integer
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
-  field :pledge_generated_at, type: DateTime
+  field :pledge_generated_at, type: Time
+  field :pledge_sent_at, type: Time
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
@@ -145,6 +149,17 @@ class Patient
 
   def save_identifier
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+  end
+
+  def event_params
+    {
+      event_type:    'Pledged',
+      cm_name:       updated_by&.name || 'System',
+      patient_name:  name,
+      patient_id:    id,
+      line:          line,
+      pledge_amount: fund_pledge
+    }
   end
 
   private

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FilterNafClinicsTest < ActionDispatch::IntegrationTest
+class FilterMedicaidClinicsTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
