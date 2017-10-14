@@ -9,7 +9,8 @@ module EventLoggable
   end
 
   def log_event(params = {})
-    Event.create!(params)
+    @event = Event.create!(params)
+    ApplicationController.helpers.append_new_event(@event)
   end
 
   private
