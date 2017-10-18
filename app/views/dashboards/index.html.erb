@@ -12,5 +12,6 @@
     <%= render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients(current_line), autosortable: true } %>
     <%= render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: @urgent_patients, autosortable: true } %>
     <%= render partial: 'dashboards/modal' %>
+    <%= render partial: 'dashboards/activity_log' %>
   </div>
 </div>

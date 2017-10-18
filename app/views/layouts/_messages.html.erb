@@ -1,4 +1,5 @@
 <div id='flash'>
+  <div class="col-sm-10">
   <% flash.each do |name, msg| %>
     <% if name != 'timedout' && msg.length > 0 %>
       <div class="alert alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
@@ -6,5 +7,6 @@
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       </div>
     <% end %>
-  <% end %>  
+  <% end %>
+  </div>
 </div>

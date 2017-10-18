@@ -44,6 +44,11 @@ class ActiveSupport::TestCase
     create :config, config_key: 'external_pledge_source',
                     config_value: { options: ['Baltimore Abortion Fund', 'Tiller Fund (NNAF)', 'NYAAF (New York)'] }
   end
+
+  def create_language_config
+    create :config, config_key: 'language',
+                    config_value: { options: ['Spanish', 'French', 'Korean'] }
+  end
 end
   
 # Save screenshots if integration tests fail
@@ -83,7 +88,7 @@ class ActionDispatch::IntegrationTest
 
   def select_line(line = 'DC')
     choose line
-    click_button 'Select your line for this session'
+    click_button 'Start'
   end
 
   def wait_for_element(text)
@@ -111,6 +116,12 @@ class ActionDispatch::IntegrationTest
 
   def go_to_dashboard
     click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
+  end
+
+  def click_away_from_field
+    find('body').click
+    fill_in 'First and last name', with: nil
+    wait_for_ajax
   end
 end
 

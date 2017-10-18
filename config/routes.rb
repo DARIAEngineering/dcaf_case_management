@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
+    resources :events, only: [:index]
   end
 
   # Auth routes

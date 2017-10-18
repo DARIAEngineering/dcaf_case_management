@@ -18,10 +18,6 @@ class CreateNewExternalPledgeTest < ActionDispatch::IntegrationTest
       select 'Clinic discount', from: 'Source'
       fill_in 'Amount', with: '30000'
       click_button 'Create External pledge'
-      wait_for_element 'Patient Information'
-      click_link 'Abortion Information'
-      wait_for_element 'Abortion information'
-
       assert has_field? 'Clinic discount pledge', with: '30000'
     end
   end
