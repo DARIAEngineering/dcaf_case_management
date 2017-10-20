@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
-    patch 'users/remove_all_patients/:id', to: 'users#remove_all_patients', as: 'remove_all_patients', defaults: { format: :js }
+    patch 'users/clear_call_list/:id', to: 'users#clear_call_list', as: 'clear_call_list', defaults: { format: :js }
     # TODO reset password
     # get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
     # TODO toggle lock route

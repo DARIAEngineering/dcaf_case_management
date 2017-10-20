@@ -1,4 +1,4 @@
-$('#flash').html('<%= escape_javascript(render partial: "layouts/call_list_messages", locals: {name: "notice", msg: msg}) %>');
+$('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
 $('#flash').removeClass().hide().fadeIn('slow')
 
 $('#call_list, #completed_calls, #urgent_patients').empty();

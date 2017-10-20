@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   before_action :confirm_admin_user, only: [:new, :index, :update]
-  before_action :find_user, only: [:update, :edit, :destroy, :reset_password, :remove_all_patients]
+  before_action :find_user, only: [:update, :edit, :destroy, :reset_password, :clear_call_list]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
@@ -80,22 +80,25 @@ class UsersController < ApplicationController
 
   def add_patient
     current_user.add_patient @patient
+    flash.now[:notice] = "Successfully added call"
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', locals: {msg: 'Successfully added Patient'}, layout: false }
+      format.js { render template: 'users/refresh_patients' }
     end
   end
 
   def remove_patient
     current_user.remove_patient @patient
+    flash.now[:notice] = "Successfully removed call"
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', locals: {msg: 'Successfully removed Patient'}, layout: false }
+      format.js { render template: 'users/refresh_patients'}
     end
   end
 
-  def remove_all_patients
-    current_user.patients.destroy_all
+  def clear_call_list
+    current_user.patients.clear
+    flash.now[:notice] = "Successfully removed all calls"
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', locals: {msg: 'Successfully removed all Patients'}, layout: false }
+      format.js { render template: 'users/refresh_patients' }
     end
   end
 

@@ -185,11 +185,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'remove_all_patients method' do
+  describe 'clear_call_list method' do
     before do
       patch add_patient_path(@user, @patient_1), xhr: true
       patch add_patient_path(@user, @patient_2), xhr: true
-      patch remove_all_patients_path(@user), xhr: true
+      patch clear_call_list_path(@user), xhr: true
       @user.reload
     end
 
@@ -200,6 +200,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     it 'should remove all patients' do
       assert_equal @user.patients.count, 0
     end
+
+    it 'should not remove patients' do
+      patch add_patient_path(@user, @patient_2), xhr: true
+      assert_no_difference 'Patient.count' do
+        patch clear_call_list_path(@user), xhr: true
+      end
+    end
+
   end
 
   describe 'reorder call list' do
