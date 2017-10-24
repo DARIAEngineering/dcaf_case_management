@@ -33,14 +33,19 @@
       "required": false
     },
     "DARIA_GOOGLE_KEY": {
-      "description": "from google cloud account.",
+      "description": "from google cloud account for oauth/sign on",
       "value": "",
       "required": false
     },
     "DARIA_GOOGLE_SECRET": {
-      "description": "from google cloud account",
+      "description": "from google cloud account for oauth/sign on",
       "value": "",
       "required": false
+    },
+    "GOOGLE_GEO_API_KEY": {
+      "description": "from google cloud account, specific to the geography API",
+      "value": "",
+      "required": false,
     },
     "FUND_MAILER_DOMAIN": {
       "description": "domain you want emails to come from. Should be your fund's domain. e.g. dcabortionfund.org",

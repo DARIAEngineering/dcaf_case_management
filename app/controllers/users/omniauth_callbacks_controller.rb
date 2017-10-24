@@ -4,6 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
               with: -> { redirect_to root_path }
 
   def google_oauth2
+    response.headers['Content-Type'] = 'text/html'
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted?
