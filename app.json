@@ -1,0 +1,110 @@
+{
+  "name": "DARIA Case Manager",
+  "description": "A Rails-based case management system for abortion funds",
+  "repository": "https://github.com/DCAFEngineering/dcaf_case_management",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:mongoid:create_indexes"
+  },
+  "env": {
+    "CM_RESOURCES_URL": {
+      "description": "usually a link to the google drive folder with CM resources in it",
+      "value": "",
+      "required": false
+    },
+    "CSP_VIOLATION_URI": {
+      "description": "from your CSP report endpoint",
+      "value": "26d24d139baa52b71da9637b14c7d17b.report-uri.io/r/default"
+    },
+    "DARIA_FUND": {
+      "description": "fund abbreviation. e.g. DCAF",
+      "value": ""
+    },
+    "DARIA_FUND_FULL": {
+      "description": "full fund name. e.g. DC Abortion Fund",
+      "value": ""
+    },
+    "DARIA_FUND_PHONE": {
+      "description": "Your fund's hotline number, for display in the footer. e.g. 202-452-7464",
+      "value": ""
+    },
+    "DARIA_FAX_SERVICE": {
+      "description": "URL of your fax service, for display in the footer. e.g. onlinefaxes.com",
+      "value": "",
+      "required": false
+    },
+    "DARIA_GOOGLE_KEY": {
+      "description": "from google cloud account for oauth/sign on",
+      "value": "",
+      "required": false
+    },
+    "DARIA_GOOGLE_SECRET": {
+      "description": "from google cloud account for oauth/sign on",
+      "value": "",
+      "required": false
+    },
+    "GOOGLE_GEO_API_KEY": {
+      "description": "from google cloud account, specific to the geography API",
+      "value": "",
+      "required": false,
+    },
+    "FUND_MAILER_DOMAIN": {
+      "description": "domain you want emails to come from. Should be your fund's domain. e.g. dcabortionfund.org",
+      "value": ""
+    },
+    "DARIA_LINES": {
+      "description": "Lines to divide calls into, separated by commas. If one line, just put Main",
+      "value": "Main"
+    },
+    "DARIA_PLEDGE_GENERATOR_DISABLED": {
+      "description": "The PDF Pledge generator only works for DCAF for now",
+      "value": "true"
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "description": "set to true",
+      "value": "true"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "description": "set to true",
+      "value": "true"
+    },
+    "SITE_URL": {
+      "description": "The app name you just selected plus .herokuapp.com . e.g. myfund.herokuapp.com",
+      "value": ""
+    },
+    "SKYLIGHT_AUTH_TOKEN": {
+      "description": "get it from Skylight",
+      "value": "",
+      "required": false
+    },
+    "SQREEN_TOKEN": {
+      "description": "get it from Sqreen",
+      "value": "",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "Hobby"
+    }
+  },
+  "addons": [
+    {
+      "plan": "logentries"
+    },
+    {
+      "plan": "mongolab"
+    },
+    {
+      "plan": "scheduler"
+    },
+    {
+      "plan": "sendgrid"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}

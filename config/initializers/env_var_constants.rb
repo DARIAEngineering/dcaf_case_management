@@ -13,3 +13,4 @@ FUND_FULL = ENV['DARIA_FUND_FULL'] || 'DC Abortion Fund'
 FUND_DOMAIN = FUND_FULL.gsub(' ', '').downcase
 FUND_PHONE = ENV['DARIA_FUND_PHONE'] || '202-452-7464'
 FUND = ENV['DARIA_FUND'] || 'DCAF'
+FUND_FAX_SERVICE = ENV['DARIA_FAX_SERVICE'] || 'onlinefaxes.com'
