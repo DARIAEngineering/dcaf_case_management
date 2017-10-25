@@ -30,15 +30,5 @@ module Callable
       { since: datetime, contacts: patients_reached.length,
         first_contacts: first_contact.length, pledges_sent: 20 }
     end
-
-    def no_contact_since(datetime)
-      patients_inactive = []
-      Patient.unarchived.each do |patient|
-        calls = patient.calls.select { |call| call.created_at >= datetime }
-        patients_inactive << patient unless calls.present?
-      end
-
-      patients_inactive
-    end
   end
 end

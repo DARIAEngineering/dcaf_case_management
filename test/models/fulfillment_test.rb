@@ -37,5 +37,10 @@ class FulfillmentTest < ActiveSupport::TestCase
       assert @fulfillment.respond_to? :created_by
       assert @fulfillment.created_by
     end
+
+    it 'should respond to archive methods' do
+      assert @fulfillment.respond_to? :archive!
+      assert @fulfillment.archive!
+    end
   end
 end

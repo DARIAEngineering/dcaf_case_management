@@ -74,7 +74,7 @@ module Archivable
     when 25..34
       :age25_34
     when 35..44
-      :age35-44
+      :age35_44
     when 45..54
       :age45_54
     when 55..100

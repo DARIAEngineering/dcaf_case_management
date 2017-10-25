@@ -230,6 +230,7 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.respond_to? :created_by
       assert @patient.created_by
     end
+
   end
 
   describe 'scopes' do
@@ -329,6 +330,87 @@ class PatientTest < ActiveSupport::TestCase
         datetime = 5.days.ago
         hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
         assert_equal hash, Patient.contacted_since(datetime)
+      end
+    end
+
+    describe 'no_contact_since method' do
+      it 'should return a hash' do
+        datetime = 5.days.ago
+        hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
+        assert_equal hash, Patient.contacted_since(datetime)
+      end
+    end
+
+    describe 'fulfilled_on_or_before method' do
+      before do
+        @fulfilled_patient = create :patient, other_phone: '404-222-3333',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '909-333-4321',
+                                  line: 'DC',
+                                  name: 'Pat'
+        @unfulfilled_patient = create :patient, other_phone: '234-222-3333',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '909-333-4999',
+                                  line: 'DC',
+                                  name: 'Chelsea'
+        @fulfilled_patient.update initial_call_date: 150.days.ago
+        @fulfilled_patient.fulfillment.update date_of_check: 120.days.ago
+      end
+
+      it 'should be able to give me patients fulfilled on or before a day' do
+        assert_equal 1, Patient.fulfilled_on_or_before(20.days.ago).count
+      end
+    end
+
+    describe 'set_age_range method' do
+      before do
+        @rapidly_aging_patient = create :patient, primary_phone: '703-867-5309',
+                                      line: 'DC',
+                                      name: 'Mickey'
+      end
+
+      it 'should return unknown for nil' do
+        assert_equal :unknown, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return unknown for empty' do
+        @rapidly_aging_patient.age = ''
+        assert_equal :unknown, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return under_18 for 17' do
+        @rapidly_aging_patient.age = 17
+        assert_equal :under_18, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age18_24 for 21' do
+        @rapidly_aging_patient.age = 21
+        assert_equal :age18_24, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age25_34 for 33' do
+        @rapidly_aging_patient.age = 33
+        assert_equal :age25_34, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age35_44 for 38' do
+        @rapidly_aging_patient.age = 38
+        assert_equal :age35_44, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age45_54 for 49' do
+        @rapidly_aging_patient.age = 49
+        assert_equal :age45_54, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age55_100 for 60' do
+        @rapidly_aging_patient.age = 60
+        assert_equal :age55_100, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return Bad value for 111' do
+        @rapidly_aging_patient.age = 111
+        assert_equal 'Bad value', @rapidly_aging_patient.set_age_range
       end
     end
   end
