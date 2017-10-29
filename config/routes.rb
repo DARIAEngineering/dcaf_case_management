@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
+    get 'display_clinic_finder', to: 'patients#display_clinic_finder', as: 'display_clinic_finder'
 
     # User routes behind the authentication wall
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
     patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
+
     # TODO reset password
     # get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
     # TODO toggle lock route
@@ -45,7 +47,7 @@ Rails.application.routes.draw do
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }
     resources :lines, only: [:new, :create]
     get 'clinicfinder', to: 'clinicfinders#index', as: 'clinicfinder'
-    post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
+    post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } , as: 'clinicfinder_search'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
