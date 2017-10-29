@@ -5,10 +5,14 @@ class ClinicfindersController < ApplicationController
 
   def search
     puts 'searching fasdlfndsl'
-    @abortron = Abortron::ClinicFinder.new("#{Rails.root}/clinics.yml")
-    @nearest = @abortron.locate_nearest_clinic patient_zipcode: params[:zip].to_i.to_s,
-                                               gestational_age: params[:gestation].to_i
-    @cheapest = @abortron.locate_cheapest_clinic(gestational_age: params[:gestation].to_i)
+    puts params
+    @abortron = ClinicFinder::Locator.new(Clinic.all,
+                                          gestational_age: (params[:gestation].to_i || 0),
+                                          naf_only: (params[:naf_only] || false),
+                                          medicaid_only: (params[:medicaid_only] || false))
+
+    @nearest = @abortron.locate_nearest_clinics params[:zip]
+    # @cheapest = @abortron.locate_cheapest_clinic
 
     respond_to { |format| format.js }
   end
