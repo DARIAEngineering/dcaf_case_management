@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/DCAFEngineering/clinic_finder.git
+  revision: 2fc4e913019866b92edc2789f9c31640136c4cba
+  branch: object-orient
+  specs:
+    clinic_finder (0.0.2pre)
+
+GIT
   remote: https://github.com/DCAFEngineering/mongoid_userstamp.git
   revision: 057eaea6988da10ac81a6808e6fff1ee4fe55ce5
   branch: master
@@ -86,7 +93,6 @@ GEM
     capybara-screenshot (1.0.14)
       capybara (>= 1.0, < 3)
       launchy
-    clinic_finder (0.0.1)
     cliver (0.3.2)
     codecov (0.1.10)
       json
@@ -370,7 +376,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  clinic_finder (~> 0.0.1)
+  clinic_finder!
   codecov
   coffee-rails (~> 4.1.0)
   database_cleaner
