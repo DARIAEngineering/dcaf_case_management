@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name 'Billy Everyteen'
     sequence :email do |n|
