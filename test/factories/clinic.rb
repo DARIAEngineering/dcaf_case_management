@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :clinic do
     sequence :name do |n| 
       "Friendly Clinic #{n}"
