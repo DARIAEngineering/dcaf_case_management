@@ -59,7 +59,7 @@ group :test do
   gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'database_cleaner'
   gem 'capybara'
