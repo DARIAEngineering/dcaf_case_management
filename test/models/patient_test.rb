@@ -107,19 +107,39 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'callbacks' do
-    %w(name other_contact).each do |field|
-      it "should strip whitespace from before and after #{field}" do
-        @patient[field] = '   Yolo Goat   '
-        @patient.save
-        assert_equal 'Yolo Goat', @patient[field]
+    describe 'clean_fields' do
+      %w(name other_contact).each do |field|
+        it "should strip whitespace from before and after #{field}" do
+          @patient[field] = '   Yolo Goat   '
+          @patient.save
+          assert_equal 'Yolo Goat', @patient[field]
+        end
+      end
+
+      %w(primary_phone other_phone).each do |field|
+        it "should remove nondigits on save from #{field}" do
+          @patient[field] = '111-222-3333'
+          @patient.save
+          assert_equal '1112223333', @patient[field]
+        end
       end
     end
 
-    %w(primary_phone other_phone).each do |field|
-      it "should remove nondigits on save from #{field}" do
-        @patient[field] = '111-222-3333'
-        @patient.save
-        assert_equal '1112223333', @patient[field]
+    describe 'confirm still urgent' do
+      before do
+        create :clinic
+        @patient = create :patient, urgent_flag: true,
+                                    clinic: Clinic.first,
+                                    appointment_date: 2.days.from_now,
+                                    fund_pledge: 300
+      end
+
+      %w(pledge_sent resolved_without_fund).each do |attrib|
+        it "should unmark urgent after update if #{attrib}" do
+          @patient[attrib.to_sym] = true
+
+          refute @patient.urgent_flag
+        end
       end
     end
   end
