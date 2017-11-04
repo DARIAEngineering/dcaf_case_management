@@ -28,6 +28,8 @@
             </div>
           </div>
 
+
+
           <div class="col-sm-6">
             <div class="info-form-right">
               <%= f.check_box :resolved_without_fund, label: "Resolved without assistance from #{FUND}" %>
@@ -36,6 +38,16 @@
           </div>
         <% end %>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12" id="clinic_finder_container">
+
+        <%= link_to display_clinic_finder_path, class: 'display_button', remote: true do %>
+        <h3>Find clinics<span class='glyphicon glyphicon-plus-sign button-right'></span></h3>
+        <% end %>
+      </div>
+
     </div>
   </div>
 

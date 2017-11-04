@@ -13,6 +13,12 @@ class PatientsController < ApplicationController
     end
   end
 
+  def display_clinic_finder
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def create
     patient = Patient.new patient_params
 

@@ -1,0 +1,23 @@
+var container = $('#clinic_finder_container')
+if (container.hasClass('open')) {
+  container.children().not('.display_button').hide();
+  container.removeClass('open');
+} else {
+  container.children().show();
+  container.addClass('open');
+}
+// check if finder has been clicked
+if (container.children().length == 1) {
+  container.append("<%= escape_javascript(render partial: 'clinicfinders/form', locals: { title: 'Most Affordable Clinics'}) %>")
+  container.addClass('open');
+}
+
+// toggle glyphicon symbol
+var glyphicon = $('.display_button > h3 > .glyphicon')
+if (glyphicon.hasClass('glyphicon-plus-sign')) {
+  glyphicon.removeClass('glyphicon-plus-sign');
+  glyphicon.addClass('glyphicon-minus-sign');
+} else {
+  glyphicon.removeClass('glyphicon-minus-sign');
+  glyphicon.addClass('glyphicon-plus-sign');
+}
