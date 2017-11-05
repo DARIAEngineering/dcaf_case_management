@@ -24,4 +24,14 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  describe 'edit_fulfillment method' do
+    before do
+      get edit_fulfillment_path
+    end
+
+    it 'should return success' do
+      assert_response :success
+    end
+  end
 end

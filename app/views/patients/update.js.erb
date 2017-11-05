@@ -39,6 +39,18 @@
   <% end %>
 <% end %>
 
+// if on accounting page, reload tables
+$('#user-list').html(
+  "<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @patients, autosortable: true })%>"
+)
+// refresh pagination count
+
+<% @patients = Kaminari.paginate_array(@patients).page(params[:page]).per(25) %>
+
+$('#pagination-entries').html(
+  '<%= page_entries_info @patients, entry_name: 'patient' %>'
+)
+
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
 $('#flash').removeClass().hide().fadeIn('slow')
