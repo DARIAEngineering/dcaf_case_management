@@ -134,9 +134,10 @@ class PatientTest < ActiveSupport::TestCase
                                     fund_pledge: 300
       end
 
-      %w(pledge_sent resolved_without_fund).each do |attrib|
+      %w[pledge_sent resolved_without_fund].each do |attrib|
         it "should unmark urgent after update if #{attrib}" do
           @patient[attrib.to_sym] = true
+          @patient.save
 
           refute @patient.urgent_flag
         end

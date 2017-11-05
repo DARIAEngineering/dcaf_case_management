@@ -13,7 +13,9 @@ module Urgency
   end
 
   def confirm_still_urgent
-    update urgent_flag: false unless still_urgent?
+    if urgent_flag?
+      update urgent_flag: false unless still_urgent?
+    end
   end
 
   class_methods do
@@ -22,8 +24,8 @@ module Urgency
     end
 
     def trim_urgent_patients
-      Patient.urgent_patients(LINES)
-             .call(&:confirm_still_urgent)
+      Patient.where(urgent_flag: true)
+             .each(&:confirm_still_urgent)
     end
   end
 
