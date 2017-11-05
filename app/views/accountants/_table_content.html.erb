@@ -15,20 +15,21 @@
       </tr>
     </thead>
     <tbody id="patient_information_form">
-        <% patients.each do |patient| %>
-            <tr>
-                <td><%= patient.clinic.name %></td>
-                <td><%= link_to initials(patient), edit_patient_path(patient) %></td>
-                <td><%= procedure_cost(patient.fulfillment.procedure_cost) %></td>
-                <td><%= weeks_at_procedure(patient.gestation_at_procedure) %></td>
-                <td><%= patient.fulfillment.created_at %></td>
-                <td><%= patient.fulfillment.check_number%></td>
-                <td><%= patient.fulfillment.date_of_check %></td>
-                <td><%= link_to edit_fulfillment_path(patient), remote: true do %>
-                    <i class="glyphicon glyphicon-pencil"></i>
-                <% end %>
-              </td>
-            </tr>
+      <% patients.each do |patient| %>
+        <tr>
+          <td><%= patient.clinic.name %></td>
+          <td><%= link_to initials(patient), edit_patient_path(patient) %></td>
+          <td><%= procedure_cost(patient.fulfillment.procedure_cost) %></td>
+          <td><%= weeks_at_procedure(patient.gestation_at_procedure) %></td>
+          <td><%= patient.fulfillment.created_at %></td>
+          <td><%= patient.fulfillment.check_number%></td>
+          <td><%= patient.fulfillment.date_of_check %></td>
+          <td>
+            <%= link_to edit_accountant_path(patient), remote: true do %>
+              <i class="glyphicon glyphicon-pencil"></i>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>

@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
-    get 'accountants/:patient/edit_fulfillment', to: 'accountants#edit_fulfillment', as: 'edit_fulfillment', defaults: {format: :js}
     # TODO reset password
     # get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
     # TODO toggle lock route
@@ -41,12 +40,15 @@ Rails.application.routes.draw do
 
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
-    resources :accountants, only: [:index]
-    get 'accountant', to: 'accountants#index', as: 'accountant'
+
+    resources :accountants, only: [:index, :edit]
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }
+
     resources :lines, only: [:new, :create]
+
     get 'clinicfinder', to: 'clinicfinders#index', as: 'clinicfinder'
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } #, as: 'clinicfinder'
+
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
