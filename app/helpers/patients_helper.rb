@@ -9,15 +9,11 @@ module PatientsHelper
   end
 
   def weeks_at_procedure(weeks)
-    unless weeks == ''
-      weeks + ' weeks'
-    end
+    "#{weeks} weeks" if weeks.present?
   end
 
   def procedure_cost(cost)
-    unless cost == nil
-      '$' + cost.to_s
-    end
+    "$#{cost}" if cost
   end
 
   def initials(patient)
