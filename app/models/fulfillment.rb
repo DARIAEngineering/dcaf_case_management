@@ -27,4 +27,8 @@ class Fulfillment
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
+
+  def gestation_at_procedure_display
+    "#{gestation_at_procedure} weeks" if gestation_at_procedure.present?
+  end
 end

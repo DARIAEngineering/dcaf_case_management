@@ -18,9 +18,9 @@
       <% patients.each do |patient| %>
         <tr>
           <td><%= patient.clinic.name %></td>
-          <td><%= link_to initials(patient), edit_patient_path(patient) %></td>
-          <td><%= procedure_cost(patient.fulfillment.procedure_cost) %></td>
-          <td><%= weeks_at_procedure(patient.gestation_at_procedure) %></td>
+          <td><%= link_to patient.initials, edit_patient_path(patient) %></td>
+          <td><%= number_to_currency patient.fulfillment.procedure_cost, precision: 0 %></td>
+          <td><%= patient.fulfillment.gestation_at_procedure_display %></td>
           <td><%= patient.fulfillment.created_at %></td>
           <td><%= patient.fulfillment.check_number%></td>
           <td><%= patient.fulfillment.date_of_check %></td>
