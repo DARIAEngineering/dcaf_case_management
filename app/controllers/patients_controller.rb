@@ -58,6 +58,8 @@ class PatientsController < ApplicationController
   end
 
   def update
+    @patients = Patient.where('fulfillment.fulfilled' => true)
+    
     if @patient.update_attributes params[:pledge_sent]
        @patient.pledge_sent_at = Time.zone.now
        @patient.pledge_sent_by = current_user
