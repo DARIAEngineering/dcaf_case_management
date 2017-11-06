@@ -21,7 +21,7 @@
           <td><%= link_to patient.initials, edit_patient_path(patient) %></td>
           <td><%= number_to_currency patient.fulfillment.procedure_cost, precision: 0 %></td>
           <td><%= patient.fulfillment.gestation_at_procedure_display %></td>
-          <td><%= patient.fulfillment.created_at %></td>
+          <td><%= patient.pledge_sent_at&.display_date %></td>
           <td><%= patient.fulfillment.check_number%></td>
           <td><%= patient.fulfillment.date_of_check %></td>
           <td>
