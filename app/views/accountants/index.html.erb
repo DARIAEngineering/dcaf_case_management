@@ -8,7 +8,9 @@
       <h1 class='border-bottom title'>
         Accountant Dashboard
         <small class='pull-right'>
-          <%= page_entries_info @patients, entry_name: 'patient' %>
+          <span id='pagination-entries'>
+            <%= page_entries_info @patients, entry_name: 'patient' %>
+          </span>
           <%= paginate @patients %> 
         </small>
       </h1>
