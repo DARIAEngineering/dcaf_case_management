@@ -60,7 +60,7 @@ module Archivable
 
 
   def has_alt_contact?
-    other_contact.present? || other_phone.present? || other_contact_relationship.present?
+    ! ( other_contact.nil? || other_phone.nil? || other_contact_relationship.nil? )
   end
 
   def set_age_range

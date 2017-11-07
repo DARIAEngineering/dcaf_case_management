@@ -362,6 +362,42 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
+    describe 'has_alt_contact method' do
+      before do
+        @lonely_patient = create :patient, primary_phone: '703-867-5319',
+                                      line: 'DC',
+                                      name: 'Mickey'
+        @popular_patient_1 = create :patient, primary_phone: '703-867-5329',
+                                      line: 'DC',
+                                      name: 'Daffy',
+                                      other_contact: 'Daisy'
+        @popular_patient_2 = create :patient, primary_phone: '703-867-5339',
+                                      line: 'DC',
+                                      name: 'Lucy',
+                                      other_phone: '802-212-1242'
+        @popular_patient_3 = create :patient, primary_phone: '703-867-5359',
+                                      line: 'DC',
+                                      name: 'Chuck',
+                                      other_contact_relationship: 'Mom'
+      end
+
+      it 'should return false for lonely patient' do
+        refute @lonely_patient.has_alt_contact?
+      end
+
+      it 'should return true when patient has other contact' do
+        refute @popular_patient_1.has_alt_contact?
+      end
+
+      it 'should return true when patient has other phone' do
+        refute @popular_patient_2.has_alt_contact?
+      end
+
+      it 'should return true when patient has other contact relationship' do
+        refute @popular_patient_3.has_alt_contact?
+      end
+    end #has_alt_contact
+
     describe 'set_age_range method' do
       before do
         @rapidly_aging_patient = create :patient, primary_phone: '703-867-5309',
@@ -412,8 +448,8 @@ class PatientTest < ActiveSupport::TestCase
         @rapidly_aging_patient.age = 111
         assert_equal 'Bad value', @rapidly_aging_patient.set_age_range
       end
-    end
-  end
+    end # set_age_range 
+  end # methods
 
   describe 'pledge_sent validation' do
     before do
