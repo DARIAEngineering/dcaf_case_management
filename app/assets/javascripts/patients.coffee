@@ -91,3 +91,15 @@ $(document).on 'turbolinks:load', ->
       placement: 'top',
       title: $(@).data( 'tooltip-text' )
     } )
+
+$( '.tooltip-header' ).parent().find('.has-tooltip, .form-control').each ->
+  $(@).parent().find( 'span.tooltip-header-help' ).tooltip( {
+    html: true,
+    placement: 'bottom',
+    title: $(@).data( 'tooltip-text' )
+  } )
+  $(@).parents('.form-group').find('.tooltip-header-help').tooltip( {
+    html: true,
+    placement: 'bottom',
+    title: $(@).data( 'tooltip-text' )
+  } )

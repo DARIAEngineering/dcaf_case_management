@@ -30,7 +30,7 @@
 
           <div class="col-sm-6">
             <div class="info-form-right">
-              <%= f.check_box :resolved_without_fund, label: "Resolved without assistance from #{FUND}" %>
+              <%= f.check_box :resolved_without_fund, label: "Resolved without assistance from #{FUND}", label_class: 'tooltip-header', data: { 'toggle': 'tooltip', 'placement': 'right' }, title: 'METALLICA'  %>
               <%= f.check_box :referred_to_clinic, label: 'Referred to clinic' %>
             </div>
           </div>

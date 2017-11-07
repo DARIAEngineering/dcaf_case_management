@@ -72,4 +72,28 @@ module PatientsHelper
   def pledge_limit_help_text_options
     Config.find_or_create_by(config_key: 'pledge_limit_help_text').options
   end
+
+  def call_list_help_text
+    return "This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it."
+  end
+
+  def completed_calls_help_text
+    return "This is a list of patients you have already called tonight."
+  end
+
+  def urgent_cases_help_text
+    return "These are patients who require a little more attention. This list is shared across all case managers working on a single line."
+  end
+
+  def status_help_text
+   return true
+  end
+
+  def record_new_external_pledge_help_text
+    return "To record a pledge from another abortion fund, choose the fund from the dropdown menu, enter the amount of the pledge, and click Create External Pledge."
+  end
+
+  def resolved_without_dcaf_help_text
+    return "This status indicates a patient does not require our services any longer."
+  end
 end
