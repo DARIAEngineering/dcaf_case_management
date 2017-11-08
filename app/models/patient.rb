@@ -28,7 +28,7 @@ class Patient
   before_save :save_identifier
 
   after_create :initialize_fulfillment
-  after_save :confirm_still_urgent
+  after_update :confirm_still_urgent, if: :urgent_flag?
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients

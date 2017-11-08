@@ -13,9 +13,10 @@ module Urgency
   end
 
   def confirm_still_urgent
-    if urgent_flag?
+    if urgent_flag
       update urgent_flag: false unless still_urgent?
     end
+    true
   end
 
   class_methods do
