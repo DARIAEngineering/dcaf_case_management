@@ -28,7 +28,7 @@
       "value": ""
     },
     "DARIA_FAX_SERVICE": {
-      "description": "URL of your fax service, for display in the footer. e.g. www.efaxcom",
+      "description": "URL of your fax service, for display in the footer. e.g. www.efax.com",
       "value": "",
       "required": false
     },
