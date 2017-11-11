@@ -1,0 +1,15 @@
+
+$('table').each(function(index) {
+  var stupidtable;
+  stupidtable = $(this).stupidtable();
+  stupidtable.on('beforetablesort', function(event, data) {
+    return stupidtable.find('th').filter(function(i) {
+      return i !== data.column;
+    }).find('.arrow').html('[-]');
+  });
+  return stupidtable.on('aftertablesort', function(event, data) {
+    var arrow;
+    arrow = data.direction === $.fn.stupidtable.dir.ASC ? '[&uarr;]' : '[&darr;]';
+    return stupidtable.find('th').eq(data.column).find('.arrow').html(arrow);
+  });
+});

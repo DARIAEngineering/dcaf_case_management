@@ -17,10 +17,10 @@
       </div>
 
       <div class="col-sm-2">
-        <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: 'LMP (weeks)', autocomplete: 'off' %>
+        <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: 'Weeks along at intake', autocomplete: 'off' %>
       </div>
       <div class="col-sm-2">
-        <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: 'LMP (days)', autocomplete: 'off' %>
+        <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: 'Days along at intake', autocomplete: 'off' %>
       </div>
 
       <div class="col-sm-2">
