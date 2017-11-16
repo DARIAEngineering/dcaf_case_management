@@ -185,11 +185,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'clear_call_list method' do
+  describe 'clear_current_user_call_list method' do
     before do
       patch add_patient_path(@user, @patient_1), xhr: true
       patch add_patient_path(@user, @patient_2), xhr: true
-      patch clear_call_list_path(@user), xhr: true
+      assert_equal @user.patients.count, 2
+      patch clear_current_user_call_list_path(@user), xhr: true
       @user.reload
     end
 
@@ -197,14 +198,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
-    it 'should remove all patients' do
+    it 'should destroy all patients' do
       assert_equal @user.patients.count, 0
     end
 
-    it 'should not remove patients' do
+    it 'should not destroy patients' do
       patch add_patient_path(@user, @patient_2), xhr: true
       assert_no_difference 'Patient.count' do
-        patch clear_call_list_path(@user), xhr: true
+        patch clear_current_user_call_list_path(@user), xhr: true
       end
     end
 
