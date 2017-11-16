@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :event do
     event_type 'Reached patient'
     cm_name 'Yolorita'
