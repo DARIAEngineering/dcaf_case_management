@@ -59,7 +59,7 @@ group :test do
   gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'database_cleaner'
   gem 'capybara'
@@ -71,6 +71,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'minitest-ci'
   gem 'pdf-inspector', require: "pdf/inspector"
+  gem 'minitest-stub-const'
 end
 
 group :production do

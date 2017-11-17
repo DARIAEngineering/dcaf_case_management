@@ -30,12 +30,8 @@
 
           <div class="col-sm-6">
             <div class="info-form-right">
-              <%= f.form_group :resolved_without_fund do %>
-                <%= f.check_box :resolved_without_fund, label: "Resolved without assistance from #{FUND}" %>
-              <% end %>
-              <%= f.form_group :referred_to_clinic do %>
-                <%= f.check_box :referred_to_clinic, label: 'Referred to clinic' %>
-              <% end %>
+              <%= f.check_box :resolved_without_fund, label: "Resolved without assistance from #{FUND}" %>
+              <%= f.check_box :referred_to_clinic, label: 'Referred to clinic' %>
             </div>
           </div>
         <% end %>

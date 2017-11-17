@@ -1,17 +1,13 @@
 development:
   clients:
     default:
-      database: dcaf_case_management_development
-      hosts:
-        - <%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>
+      uri: mongodb://<%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>/dcaf_case_management_development
       options:
 
 test:
   clients:
     default:
-      database: dcaf_case_management_test
-      hosts:
-        - <%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>
+      uri: mongodb://<%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>/dcaf_case_management_test
       options:
         read:
           mode: :primary
@@ -20,9 +16,4 @@ test:
 production: 
   clients:
     default:
-      database: '<%= ENV['mongodb'] %>'
-      hosts:
-        - '<%= ENV['mongohost'] %>:<%= ENV['mongoport'] %>'
-      options:
-        user: '<%= ENV['mongouser'] %>'
-        password: '<%= ENV['mongopass'] %>'
+      uri: <%= ENV['MONGODB_URI'] %>

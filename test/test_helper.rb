@@ -30,7 +30,7 @@ end
 DatabaseCleaner.clean_with :truncation
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   before { DatabaseCleaner.start }
   after  { DatabaseCleaner.clean }

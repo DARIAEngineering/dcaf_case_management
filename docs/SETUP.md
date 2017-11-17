@@ -23,16 +23,12 @@ to go, it should say something like:
 
     web_1  | [1] * Listening on tcp://0.0.0.0:3000
 
-In order to connect to the application you will need the IP address of your Docker instance.
-This can be found with the `docker-machine ip default` command. With the IP, and the port
-from the output of the original `up` command, you can now go to your browser and navigate
-to the application.
-
-For example, if your Docker machine's IP is `192.168.99.100`, you would go to your browser
-and type: `http://192.168.99.100:3000/` and hit enter. The first time you view a page will
+This runs the app on `localhost:3000` and you can hit it like a regular rails server. The first time you view a page will
 take a minute or two for resources to compile and load, but it should eventually load.
 
-Any errors will show up in your terminal in the window you were running the `up` command in.
+Any errors will show up in your terminal in the window you are running the `up` command in.
+
+If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
 
 ## Local environment
 
