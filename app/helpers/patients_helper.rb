@@ -59,10 +59,14 @@ module PatientsHelper
   end
 
   def clinic_options
-    Clinic.where(active: true)
-          .sort_by(&:name)
-          .map { |clinic| [clinic.name, clinic.id] }
-          .unshift nil
+    clinics = Clinic.all.sort_by(&:name)
+    active_clinics = clinics.select(&:active)
+                            .map { |clinic| [clinic.name, clinic.id] }
+                            .unshift nil
+    inactive_clinics = clinics.reject(&:active)
+                              .map { |clinic| ["(Not currently working with DCAF) -- #{clinic.name}", clinic.id] }
+                              .unshift ['--- INACTIVE CLINICS ---', nil]
+    active_clinics | inactive_clinics
   end
 
   def disable_continue?(patient)
