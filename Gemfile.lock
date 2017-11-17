@@ -276,6 +276,7 @@ GEM
       rake
     rake (12.0.0)
     rdoc (4.3.0)
+    redis (3.3.5)
     ref (2.0.0)
     render_async (0.2.3)
       bundler (~> 1.8)
@@ -407,6 +408,7 @@ DEPENDENCIES
   rack-attack (~> 5.0.1)
   rack-test (~> 0.6.3)
   rails (>= 5.0.0, < 5.1)
+  redis (~> 3.0)
   render_async (~> 0.2.3)
   rubocop
   ruby_audit

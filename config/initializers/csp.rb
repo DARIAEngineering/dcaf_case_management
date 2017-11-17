@@ -7,7 +7,7 @@ SecureHeaders::Configuration.default do |config|
     default_src: %w('self'),
     script_src: ["'self'", "'unsafe-eval'", gon_gem_sha, popover_sha],
     font_src: %w('self' fonts.gstatic.com),
-    connect_src: %w('self'),
+    connect_src: %w(*),
     style_src: %w('self' 'unsafe-inline'),
     report_uri: ["https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"]
   }
