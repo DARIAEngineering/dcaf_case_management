@@ -50,7 +50,7 @@ class AuditTrailTest < ActiveSupport::TestCase
                      "D2-3333"]
     end
 
-    it 'should conveniently render what they are now' do
+    it 'should conveniently render what they areTime now' do
       assert_equal @track.changed_to,
                   ["Yolo",
                     "1234569999",
