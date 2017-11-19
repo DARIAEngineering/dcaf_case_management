@@ -14,6 +14,10 @@
 
 [Join via the Code for DC website](http://codefordc.org/joinslack).
 
+## Are you from an abortion fund and are interested in seeing this will work for you?
+
+Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let us know!
+
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/) (DCAF), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care.
 
