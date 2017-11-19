@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :fulfillment do
     patient
-    created_by { FactoryGirl.create(:user) }
+    created_by { FactoryBot.create(:user) }
   end
 end

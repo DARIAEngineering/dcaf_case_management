@@ -30,7 +30,7 @@ end
 DatabaseCleaner.clean_with :truncation
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   before { DatabaseCleaner.start }
   after  { DatabaseCleaner.clean }
@@ -88,7 +88,7 @@ class ActionDispatch::IntegrationTest
 
   def select_line(line = 'DC')
     choose line
-    click_button 'Select your line for this session'
+    click_button 'Start'
   end
 
   def wait_for_element(text)

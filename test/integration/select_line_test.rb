@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Tests around line selection behavior
 class SelectLineTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
@@ -13,16 +14,26 @@ class SelectLineTest < ActionDispatch::IntegrationTest
       assert has_content? 'DC'
       assert has_content? 'MD'
       assert has_content? 'VA'
-      assert has_button? 'Select your line for this session'
+      assert has_button? 'Start'
     end
 
     it 'should redirect to the main dashboard after line set' do
       choose 'DC'
-      click_button 'Select your line for this session'
+      click_button 'Start'
       assert_equal current_path, authenticated_root_path
       assert has_content? 'Your current line: DC'
     end
   end
+
+  # This is handled in `lines_controller_test` rather than here,
+  # because setting env vars in integration tests suuuuucks. -CF
+  # describe 'line redirect on single line' do
+  #   Object.stub_const(:LINES, ['DC']) do
+  #     it 'should redirect to the dashboard' do
+  #       assert_equal current_path, authenticated_root_path
+  #     end
+  #   end
+  # end
 
   describe 'redirection conditions' do
     before { @patient = create :patient }

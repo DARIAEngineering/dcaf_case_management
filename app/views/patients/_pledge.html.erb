@@ -32,7 +32,7 @@
 
   <div class="row hide" data-step="3" data-title="Submit and send your pledge:">
     <p class="col-sm-12">Awesome, you generated a <%= FUND %> Pledge! Thanks!</p>
-    <p class="col-sm-12">Your pledge should appear in your computer's downloads. Find the document and go to <a href="http://www.onlinefaxes.com" target="_blank">onlinefaxes.com</a> to submit the pledge for your client.</p>
+    <p class="col-sm-12">Your pledge should appear in your computer's downloads. Find the document and go to <%= link_to FUND_FAX_SERVICE, "http://#{FUND_FAX_SERVICE}", target: '_blank', rel: 'noopener nofollow' %> to submit the pledge for your client.</p>
     <p class="col-sm-12"><strong>Once you've completed the online fax process, please use the check box below to indicate your pledge has been sent.</strong></p>
     <div class="col-sm-12">
       <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>

@@ -1,3 +1,25 @@
 // Place all the styles related to the lines controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.lines-form {
+    input[type="radio"] {
+        -ms-transform: scale(2); /* IE 9 */
+        -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+        transform: scale(2);
+        margin-top: 10px;
+    }
+
+    label {
+        margin: 10px;
+        font-size: 24px;
+    }
+
+    .radio label {
+        float: left;
+    }
+
+    .btn-primary {
+        display: block;
+    }
+}
