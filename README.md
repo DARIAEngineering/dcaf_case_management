@@ -1,4 +1,4 @@
-# DCAF Case Manager
+# DARIA (DCAF Case Manager)
 
 [![CircleCI](https://circleci.com/gh/DCAFEngineering/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/DCAFEngineering/dcaf_case_management)
 [![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
@@ -8,18 +8,20 @@
 [A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@test.com, Pass: P4ssword
 
 
-## Next major project milestone: June 15: Launch to Baltimore!
+## Next major project milestone: December 3: Declare victory 
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
 [Join via the Code for DC website](http://codefordc.org/joinslack).
 
 ## Project description
-This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Before this app, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. This app replaced that with a nice, clean, useable and shareable rails system that ditches spreadsheets forever! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets. In addition, other abortion funds doing similar work in other places are in the process of adopting this system for their use.
+This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/) (DCAF), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care.
+
+Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. This app replaced that with a nice, clean, useable and shareable rails system that ditches spreadsheets forever! This will let DCAF continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets. In addition, other abortion funds doing similar work in other places are in the process of adopting this system for their use.
 
 Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](docs/DCAF_101.md), reading the [Code of Conduct](CODE_OF_CONDUCT.md), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files). You can also check out a [blog post about how we're using agile-ish](http://codefordc.org/blog/2016/09/12/code-for-dcaf.html) and see [some of the other buzz](docs/PRESS.md).
 
-The active co-leads on this project are @colinxfleming (rails and technical lead), and @mebates (design and UI lead). We also have a presence from DCAF actively consulting on this project, led by @lwaldsc and @nerdygirl537. Feel free to hit any of us up with questions about the project, we're nice!
+The active co-leads on this project are @colinxfleming (rails and technical lead), and @mebates (design and UI lead). We also have a presence from DCAF actively consulting on this project, led by @lwaldsc and @nerdygirl537. @alisonnjones leads data-related efforts. Feel free to hit any of us up with questions about the project, we're nice!
 
 
 ## Contributing to this Project
