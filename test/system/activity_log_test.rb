@@ -1,9 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
 # Confirm that calls and pledges are showing up in activity log
-class ActivityLogTest < ActionDispatch::IntegrationTest
+class ActivityLogTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     @clinic = create :clinic
     @patient = create :patient,
@@ -12,11 +11,9 @@ class ActivityLogTest < ActionDispatch::IntegrationTest
                       appointment_date: 3.days.from_now
 
     log_in_as @user
-    choose_line 'dc'
     visit edit_patient_path @patient
   end
 
-  after { Capybara.use_default_driver }
 
   describe 'logging phone calls' do
     it 'should log a phone call into the activity log' do
