@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery prepend: true, with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :prevent_caching_via_headers, unless: :devise_controller?
+  before_action :prevent_caching_via_headers
   before_action :authenticate_user!
 
   # whitelists attributes in devise

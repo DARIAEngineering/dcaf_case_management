@@ -1,6 +1,6 @@
 machine:
   ruby:
-    version: 2.4.1
+    version: 2.4.2
   pre:
     - sudo apt-get install libfontconfig
     - sudo apt-get install -y google-chrome-stable

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.4.2'
 
 gem 'rails', '>= 5.1'
 gem 'sass-rails', '~> 5.0'
@@ -26,7 +26,7 @@ gem 'bson_ext'
 gem 'figaro'
 gem 'render_async', '~> 0.2.3'
 gem 'gon', '~> 6.1.0'
-gem 'nokogiri', '>= 1.7.2'
+gem 'nokogiri', '>= 1.8.1'
 gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem 'rack-attack', '~> 5.0.1'
@@ -56,7 +56,7 @@ group :test do
   gem 'shoulda-context'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'faker'
   gem 'database_cleaner'
   gem 'capybara'
@@ -69,6 +69,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'minitest-ci'
   gem 'pdf-inspector', require: "pdf/inspector"
+  gem 'minitest-stub-const'
 end
 
 group :production do
