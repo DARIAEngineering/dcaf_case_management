@@ -4,8 +4,8 @@ class FilterMedicaidClinicsTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
-    @Medicaid_clinic = create :clinic, name: 'Medicaid Accepted', accepts_medicaid: true
-    @nonMedicaid_clinic = create :clinic, name: 'No Medicaid here', accepts_medicaid: false
+    @medicaid_clinic = create :clinic, name: 'Medicaid Accepted', accepts_medicaid: true
+    @non_medicaid_clinic = create :clinic, name: 'No Medicaid here', accepts_medicaid: false
     @patient = create :patient
     log_in_as @user
     visit edit_patient_path @patient
@@ -15,19 +15,19 @@ class FilterMedicaidClinicsTest < ActionDispatch::IntegrationTest
 
   describe 'filtering to just Medicaid clinics' do
     it 'should filter to only Medicaid clinics when box is checked' do
-      assert has_select? 'patient_clinic_id', options: ['', @Medicaid_clinic.name,
-                                                             @nonMedicaid_clinic.name]
+      assert has_select? 'patient_clinic_id', with_options: [@medicaid_clinic.name,
+                                                             @non_medicaid_clinic.name]
 
       check 'medicaid_filter'
       sleep 1
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
 
-      assert options_with_filter.find { |x| x[:name] == @nonMedicaid_clinic.name }[:disabled] == true
-      assert options_with_filter.find { |x| x[:name] == @Medicaid_clinic.name }[:disabled] == false
+      assert options_with_filter.find { |x| x[:name] == @non_medicaid_clinic.name }[:disabled] == true
+      assert options_with_filter.find { |x| x[:name] == @medicaid_clinic.name }[:disabled] == false
 
       # try to select and watch it not work
-      select @nonMedicaid_clinic.name, from: 'patient_clinic_id'
+      select @non_medicaid_clinic.name, from: 'patient_clinic_id'
       assert_equal '', find('#patient_clinic_id').value
     end
   end
