@@ -14,7 +14,6 @@ class ActivityLogTest < ApplicationSystemTestCase
     visit edit_patient_path @patient
   end
 
-
   describe 'logging phone calls' do
     it 'should log a phone call into the activity log' do
       wait_for_element 'Call Log'
@@ -23,6 +22,7 @@ class ActivityLogTest < ApplicationSystemTestCase
       click_link 'I left a voicemail for the patient'
 
       visit authenticated_root_path
+      wait_for_ajax
       within :css, '#activity_log_content' do
         assert has_content? "#{@user.name} left a voicemail for " \
                             "#{@patient.name}"
@@ -42,6 +42,7 @@ class ActivityLogTest < ApplicationSystemTestCase
       wait_for_ajax
 
       visit authenticated_root_path
+      wait_for_ajax
       within :css, '#activity_log_content' do
         assert has_content? "#{@user.name} sent a $#{@patient.fund_pledge} " \
                             "pledge for #{@patient.name}"
