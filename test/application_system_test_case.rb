@@ -34,7 +34,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def select_line(line = 'DC')
     choose line
-    click_button 'Select your line for this session'
+    click_button 'Start'
   end
 
   def wait_for_element(text)
