@@ -1,17 +1,21 @@
-require 'application_system_test_case'
+require 'test_helper'
 
-class MarkUrgentCasesTest < ApplicationSystemTestCase
+class MarkUrgentCasesTest < ActionDispatch::IntegrationTest
   before do
+    Capybara.current_driver = :poltergeist
     @user = create :user
-    @patient = create :patient
     log_in_as @user
-
+    @patient = create :patient
     visit edit_patient_path(@patient)
     click_link 'Notes'
   end
 
+  after do
+    Capybara.use_default_driver
+  end
+
   it 'should initially show an empty checkbox' do
-    refute has_checked_field?('patient_urgent_flag')
+    refute page.has_checked_field?('patient_urgent_flag')
   end
 
   it 'should move the case to urgent after checking the checkbox' do
