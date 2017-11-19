@@ -47,7 +47,7 @@ class AuditTrail
   def parse_clinics(hash)
     if hash.key?('clinic_id')
       @clinic = Clinic.where(:id => hash["clinic_id"]).first
-      hash["clinic_id"] = @clinic.name
+      hash["clinic_id"] = @clinic&.name # TODO not having a try here fails the update patient info test for some reason!
     end
     return hash
   end
