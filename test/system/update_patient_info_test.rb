@@ -3,8 +3,9 @@ require 'application_system_test_case'
 class UpdatePatientInfoTest < ApplicationSystemTestCase
   before do
     @user = create :user
+    @admin = create :user, role: :admin
     @clinic = create :clinic
-    @patient = create :patient
+    @patient = create :patient, line: :DC
     @ext_pledge = create :external_pledge,
                          patient: @patient,
                          source: 'Baltimore Abortion Fund'
@@ -17,35 +18,35 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     has_text? 'First and last name' # wait until page loads
   end
 
-  describe 'changing patient dashboard information' do
-    before do
-      @date = 5.days.from_now
-      fill_in 'First and last name', with: 'Susie Everyteen 2'
-      select '5 weeks', from: 'patient_last_menstrual_period_weeks'
-      select '2 days', from: 'patient_last_menstrual_period_days'
-      fill_in 'Appointment date', with: @date.strftime('%m/%d/%Y')
-      fill_in 'Phone number', with: '123-666-8888'
-      fill_in 'First and last name', with: 'Susie Everyteen 2'
-      wait_for_ajax
-      reload_page_and_click_link 'Patient Information'
-    end
+  # describe 'changing patient dashboard information' do
+  #   before do
+  #     @date = 5.days.from_now
+  #     fill_in 'First and last name', with: 'Susie Everyteen 2'
+  #     select '5 weeks', from: 'patient_last_menstrual_period_weeks'
+  #     select '2 days', from: 'patient_last_menstrual_period_days'
+  #     fill_in 'Appointment date', with: @date.strftime('%m/%d/%Y')
+  #     fill_in 'Phone number', with: '123-666-8888'
+  #     fill_in 'First and last name', with: 'Susie Everyteen 2'
+  #     click_away_from_field
+  #     reload_page_and_click_link 'Patient Information'
+  #   end
 
-    it 'should alter the information' do
-      within :css, '#patient_dashboard' do
-        lmp_weeks = find('#patient_last_menstrual_period_weeks')
-        lmp_days = find('#patient_last_menstrual_period_days')
-        assert has_field?('First and last name', with: 'Susie Everyteen 2')
-        assert_equal '5', lmp_weeks.value
-        assert_equal '2', lmp_days.value
+  #   it 'should alter the dashboard information' do
+  #     within :css, '#patient_dashboard' do
+  #       lmp_weeks = find('#patient_last_menstrual_period_weeks')
+  #       lmp_days = find('#patient_last_menstrual_period_days')
+  #       assert has_field?('First and last name', with: 'Susie Everyteen 2')
+  #       assert_equal '5', lmp_weeks.value
+  #       assert_equal '2', lmp_days.value
 
-        assert has_field? 'Appointment date', with: @date.strftime('%Y-%m-%d')
-        assert has_field? 'Phone number', with: '123-666-8888'
+  #       assert has_field? 'Appointment date', with: @date.strftime('%Y-%m-%d')
+  #       assert has_field? 'Phone number', with: '123-666-8888'
 
-        assert has_content? 'Currently: 5w 4d'
-        assert has_content? 'Approx gestation at appt: 6 weeks, 2 days'
-      end
-    end
-  end
+  #       assert has_content? 'Currently: 5w 4d'
+  #       assert has_content? 'Approx gestation at appt: 6 weeks, 2 days'
+  #     end
+  #   end
+  # end
 
   # describe 'changing abortion information' do
   #   before do
@@ -59,11 +60,8 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   #     fill_in 'National Abortion Federation pledge', with: '50'
   #     fill_in 'DCAF pledge', with: '25'
   #     fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
-  #     fill_in 'Abortion cost', with: '300' # hack
+  #     fill_in 'Abortion cost', with: '300'
   #     click_away_from_field
-  #     wait_for_ajax
-  #     sleep 5 # out of ideas
-
   #     reload_page_and_click_link 'Abortion Information'
   #   end
 
@@ -83,12 +81,11 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   #     find('#outstanding-balance').has_text?('$20000')
   #   end
 
-  #   it 'should alter the information' do
+  #   it 'should alter the abortion information' do
   #     within :css, '#abortion_information' do
   #       assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
   #       assert has_checked_field?('Resolved without assistance from DCAF')
-  #       # assert has_checked_field?('Referred to clinic') # wonky test for no reason
-  #       # TODO: review after getting clinic logic in place
+  #       assert has_checked_field?('Referred to clinic')
 
   #       assert has_field? 'Abortion cost', with: '300'
   #       assert has_field? 'Patient contribution', with: '200'
@@ -123,26 +120,11 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   #     check 'Homelessness'
   #     check 'Prison'
   #     click_away_from_field
-  #     wait_for_ajax
-  #     sleep 5 # out of ideas
 
   #     reload_page_and_click_link 'Patient Information'
   #   end
 
-  #   it 'should flash success on field change' do
-  #     click_link 'Patient Information'
-  #     fill_in 'Age', with: '25'
-  #     click_away_from_field
-  #     assert has_text? 'Patient info successfully saved'
-  #   end
-
-  #   it 'should flash failure on a bad field change' do
-  #     fill_in 'Phone number', with: '111-222-3333445'
-  #     click_away_from_field
-  #     assert has_text? 'Primary phone is the wrong length'
-  #   end
-
-  #   it 'should alter the information' do
+  #   it 'should alter the patient information information' do
   #     within :css, '#patient_information' do
   #       assert has_field? 'Other contact name', with: 'Susie Everyteen Sr'
   #       assert has_field? 'Other phone', with: '123-666-7777'
@@ -172,16 +154,14 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
   #   describe 'changing ADMIN patient information' do
   #     before do
-  #       @user.update role: :admin
-  #       @user.reload
-  #       wait_for_element 'Patient Information'
-  #       click_link 'Patient Information'
+  #       @admin = create :user, role: :admin
+  #       log_out
+  #       log_in_as @admin
   #       visit edit_patient_path @patient
-  #       select 'MD', from: 'patient_line'
-  #       sleep 5 # out of ideas
+  #       wait_for_element 'Patient Information'
 
+  #       select 'MD', from: 'patient_line'
   #       click_away_from_field
-  #       wait_for_ajax
   #       reload_page_and_click_link 'Patient Information'
   #     end
 
@@ -193,49 +173,59 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   #   end
   # end
 
-  # describe 'changing fulfillment information' do
-  #   before do
-  #     @user.update role: :admin
-  #     @clinic = create :clinic
-  #     @patient = create :patient, appointment_date: 2.days.from_now,
-  #                                 clinic: @clinic,
-  #                                 fund_pledge: 100,
-  #                                 pledge_sent: true
-  #     create :fulfillment, patient: @patient
-  #     visit edit_patient_path @patient
-  #     # find('#submit-pledge-button').click
-  #     # assert false
-
-  #     click_link 'Pledge Fulfillment'
-  #     check 'Pledge fulfilled'
-  #     fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%d/%Y')
-  #     select '12 weeks', from: 'Weeks along at procedure'
-  #     fill_in 'Abortion care $', with: '100'
-  #     fill_in 'Check #', with: '444-22'
-  #     fill_in 'Date of check', with: 2.weeks.from_now.strftime('%m/%d/%Y')
-
+  # describe 'flash notifications' do
+  #   it 'should flash success on field change' do
+  #     click_link 'Patient Information'
+  #     fill_in 'Age', with: '25'
   #     click_away_from_field
-  #     wait_for_ajax
-  #     sleep 5 # out of ideas
-
-  #     reload_page_and_click_link 'Pledge Fulfillment'
+  #     assert has_text? 'Patient info successfully saved'
   #   end
 
-  #   it 'should alter the information' do
-  #     within :css, '#fulfillment' do
-  #       assert has_checked_field? 'Pledge fulfilled'
-  #       assert has_field? 'Procedure date',
-  #                         with: 2.days.from_now.strftime('%m/%d/%Y')
-  #       assert_equal '12',
-  #                    find('#patient_fulfillment_gestation_at_procedure').value
-  #       assert has_field? 'Abortion care $', with: 100
-  #       assert has_field? 'Check #', with: '444-22'
-  #       assert has_field? 'Date of check',
-  #                         with: 2.weeks.from_now.strftime('%m/%d/%Y')
-  #                         fail
-  #     end
+  #   it 'should flash failure on a bad field change' do
+  #     fill_in 'Phone number', with: '111-222-3333445'
+  #     click_away_from_field
+  #     assert has_text? 'Primary phone is the wrong length'
   #   end
   # end
+
+  describe 'changing fulfillment information' do
+    before do
+      @patient = create :patient, appointment_date: 2.days.from_now,
+                                  clinic: @clinic,
+                                  fund_pledge: 100,
+                                  pledge_sent: true
+      create :fulfillment, patient: @patient
+
+      log_out && log_in_as(@admin)
+      visit edit_patient_path @patient
+
+      click_link 'Pledge Fulfillment'
+      fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%d/%Y')
+      select '12 weeks', from: 'Weeks along at procedure'
+      fill_in 'Abortion care $', with: '100'
+      fill_in 'Check #', with: '444-22'
+      puts 2.weeks.from_now.strftime('%m/%d/%Y')
+      fill_in 'Date of check', with: 2.weeks.from_now.strftime('%m/%d/%Y')
+
+      click_away_from_field
+      save_and_open_screenshot
+      reload_page_and_click_link 'Pledge Fulfillment'
+    end
+
+    it 'should alter the information' do
+      within :css, '#fulfillment' do
+        assert has_checked_field? 'Pledge fulfilled'
+        assert has_field? 'Procedure date',
+                          with: 2.days.from_now.strftime('%Y-%m-%d')
+        assert_equal '12',
+                     find('#patient_fulfillment_gestation_at_procedure').value
+        assert has_field? 'Abortion care $', with: 100
+        assert has_field? 'Check #', with: '444-22'
+        assert has_field? 'Date of check',
+                          with: 2.weeks.from_now.strftime('%Y-%m-%d')
+      end
+    end
+  end
 
   # describe 'clicking around' do
   #   it 'should let you click back to abortion information' do

@@ -50,6 +50,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     click_link 'Sign Out'
   end
 
+  def log_out
+    sign_out
+  end
+
   def wait_for_ajax
     Timeout.timeout(Capybara.default_max_wait_time) do
       loop until _finished_all_ajax_requests?
