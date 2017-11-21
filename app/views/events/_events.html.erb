@@ -3,7 +3,7 @@
     <% @events.map { |event| event.created_at.display_date }.uniq.each do |date| %>
       <h3><%= date %></h3>
       <% @events.select { |event| event.created_at.display_date == date }.each do |event| %>
-        <%= content_tag :p, display_event(event) %>
+        <%= content_tag :p, display_event(event), class: 'event-item' %>
       <% end %>
     <% end %>
   </ul>
