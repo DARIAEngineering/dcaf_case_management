@@ -46,7 +46,7 @@
   "vendor/bundle/ruby/2.4.0/gems/minitest-spec-rails-5.4.0/lib/minitest-spec-rails/dsl.rb": 0.042215585708618164,
   "test/integration/display_pledge_info_errors_test.rb": 4.680459499359131,
   "test/controllers/calls_controller_test.rb": 1.021301031112671,
-  "test/integration/google_sso_test.rb": 0.18637371063232422,
+  "test/integration/google_sso_test.rb": 999.18637371063232422,
   "test/integration/submit_pledge_test.rb": 1.8072223663330078,
   "test/controllers/notes_controller_test.rb": 1.2451469898223877,
   "test/lib/reports/line_summary_test.rb": 0.043898820877075195,
