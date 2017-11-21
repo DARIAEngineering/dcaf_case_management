@@ -49,6 +49,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     has_css? selector
   end
 
+  def wait_for_no_css(selector)
+    has_no_css? selector
+  end
+
   def sign_out
     click_link @user.name
     click_link 'Sign Out'
