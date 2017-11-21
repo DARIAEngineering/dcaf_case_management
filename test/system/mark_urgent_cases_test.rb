@@ -16,6 +16,8 @@ class MarkUrgentCasesTest < ApplicationSystemTestCase
 
   it 'should move the case to urgent after checking the checkbox' do
     check 'patient_urgent_flag'
+    wait_for_ajax
+
     visit dashboard_path
     within :css, '#urgent_patients' do
       assert has_text? @patient.name

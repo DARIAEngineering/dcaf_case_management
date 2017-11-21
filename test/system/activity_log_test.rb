@@ -22,7 +22,7 @@ class ActivityLogTest < ApplicationSystemTestCase
       click_link 'I left a voicemail for the patient'
       wait_for_ajax
 
-      visit authenticated_root_path && wait_for_ajax
+      visit authenticated_root_path && wait_for_css('#event-data')
       within :css, '#activity_log_content' do
         assert has_content? "#{@user.name} left a voicemail for " \
                             "#{@patient.name}"
@@ -41,8 +41,7 @@ class ActivityLogTest < ApplicationSystemTestCase
       check 'I sent the pledge'
       wait_for_ajax
 
-      visit authenticated_root_path
-      wait_for_ajax
+      visit authenticated_root_path && wait_for_css('#event-data')
       within :css, '#activity_log_content' do
         assert has_content? "#{@user.name} sent a $#{@patient.fund_pledge} " \
                             "pledge for #{@patient.name}"
