@@ -211,8 +211,12 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       click_link 'Pledge Fulfillment'
       fill_in 'Procedure date', with: 2.days.from_now.strftime('%m/%d/%Y')
+      wait_for_ajax
+
       select '12 weeks', from: 'Weeks along at procedure'
       fill_in 'Abortion care $', with: '100'
+      wait_for_ajax
+
       fill_in 'Check #', with: '444-22'
       # fill_in 'Date of check', with: 2.weeks.from_now.strftime('%m/%d/%Y')
 
