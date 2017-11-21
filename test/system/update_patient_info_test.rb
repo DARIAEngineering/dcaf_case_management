@@ -102,24 +102,34 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       fill_in 'Other contact name', with: 'Susie Everyteen Sr'
       fill_in 'Other phone', with: '123-666-7777'
       fill_in 'Relationship to other contact', with: 'Friend'
+      wait_for_ajax
+
       fill_in 'Age', with: '24'
       select 'White/Caucasian', from: 'patient_race_ethnicity'
       fill_in 'City', with: 'Washington'
+      wait_for_ajax
+
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
-      select 'Spanish', from: 'patient_language'
+      wait_for_ajax
 
+      select 'Spanish', from: 'patient_language'
       select 'Part-time', from: 'patient_employment_status'
       select '$30,000-34,999 ($577-672/wk - $2500-2916/mo)',
              from: 'patient_income'
+      wait_for_ajax
+
       select '1', from: 'patient_household_size_adults'
       select '3', from: 'patient_household_size_children'
       select 'Other state Medicaid', from: 'patient_insurance'
+      wait_for_ajax
+
       select 'Other abortion fund', from: 'patient_referred_by'
       check 'Homelessness'
       check 'Prison'
       click_away_from_field
+      wait_for_ajax
 
       reload_page_and_click_link 'Patient Information'
     end
