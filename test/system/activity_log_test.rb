@@ -20,9 +20,9 @@ class ActivityLogTest < ApplicationSystemTestCase
       click_link 'Call Log'
       click_link 'Record new call'
       click_link 'I left a voicemail for the patient'
-
-      visit authenticated_root_path
       wait_for_ajax
+
+      visit authenticated_root_path && wait_for_ajax
       within :css, '#activity_log_content' do
         assert has_content? "#{@user.name} left a voicemail for " \
                             "#{@patient.name}"
