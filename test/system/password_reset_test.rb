@@ -29,7 +29,7 @@ class PasswordResetTest < ApplicationSystemTestCase
     end
 
     it 'should respond if email does not exist' do
-      fill_in 'Email', with: 'not_a_real_email@gmail.com'
+      fill_in 'Email', with: 'not_a_real_email@example.com'
       click_button 'Send me password reset instructions'
       assert_text 'If your email address exists in our database, you will ' \
                   'receive a password recovery link at your email address ' \
