@@ -6,7 +6,6 @@ class DashboardsController < ApplicationController
 
   def index
     @urgent_patients = Patient.urgent_patients(current_line)
-    @expenditures = [] # Patient.pledged_status_summary # Commenting out until budget bar is ready
   end
 
   def search
@@ -22,8 +21,9 @@ class DashboardsController < ApplicationController
   end
 
   def budget_bar
-    @expenditures = []
-    render partial: 'dashboards/budget_bar'
+    # @expenditures = Patient.pledged_status_summary # Stub for now
+    expenditures = { sent: 200, pledged: 300 }
+    render partial: 'dashboards/budget_bar', locals: { expenditures: expenditures }
   end
 
   private
