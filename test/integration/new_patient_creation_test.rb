@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Behavior around creating and searching for a new patient
 class NewPatientCreationTest < ActionDispatch::IntegrationTest
   before do
     Capybara.current_driver = :poltergeist
@@ -39,7 +40,9 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       click_link 'Susan Everyteen 2'
       assert current_path, edit_patient_path(Patient.last)
     end
+  end
 
+  describe 'endpoint behavior' do
     it 'should redirect to the root path' do
       assert_equal current_path, authenticated_root_path
     end
