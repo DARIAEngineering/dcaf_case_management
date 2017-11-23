@@ -21,6 +21,11 @@ class DashboardsController < ApplicationController
     respond_to { |format| format.js }
   end
 
+  def budget_bar
+    @expenditures = []
+    render partial: 'dashboards/budget_bar'
+  end
+
   private
 
   def searched_for_phone?(query)

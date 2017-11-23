@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get 'reports', to: 'reports#index', as: 'reports'
+    get 'budget_bar', to: 'dashboards#budget_bar', defaults: { format: :js }, as: 'budget_bar'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
     # User routes behind the authentication wall
