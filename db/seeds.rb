@@ -10,6 +10,7 @@ fail 'No running seeds in prod' unless [nil, 'Test Sandbox'].include? ENV['FUND'
 Patient.destroy_all
 User.destroy_all
 Clinic.destroy_all
+Event.destroy_all
 
 # Create google SSO user
 # puts "Creating user with email #{ARGV[1]}..."
@@ -78,18 +79,18 @@ Patient.all.each do |patient|
   if patient.name == 'Patient 2'
     patient.update! name: "Clinic and Appt - 2",
                     clinic: Clinic.first,
-                    appointment_date: (1.week.from_now)
+                    appointment_date: (2.days.from_now)
   end
 
   # Add example of patient with a pledge submitted
   if patient.name == 'Patient 3'
     patient.update! clinic: Clinic.first,
-                    appointment_date: 10.days.from_now,
-                    naf_pledge: 2000,
-                    procedure_cost: 4000,
-                    fund_pledge: 1000,
+                    appointment_date: 3.days.from_now,
+                    naf_pledge: 200,
+                    procedure_cost: 400,
+                    fund_pledge: 100,
                     pledge_sent: true,
-                    patient_contribution: 1000,
+                    patient_contribution: 100,
                     name: "Pledge submitted - 3"
   end
 
@@ -246,7 +247,7 @@ end
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now,
     pledge_sent: true,
-    fund_pledge: 1000)
+    fund_pledge: 50)
 end
 
 # Log results

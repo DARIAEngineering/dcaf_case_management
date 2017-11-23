@@ -130,16 +130,18 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.pledged_status_summary(num_days = 7)
+  def self.pledged_status_summary(num_days = 7, lines = LINES)
     # return pledge totals for patients with appts in the next num_days
-    # TODO move to Pledge class, when implemented?
     outstanding_pledges = 0
     sent_total = 0
-    Patient.where(:appointment_date.lte => Date.today + num_days).each do |patient|
-      if patient.pledge_sent
-        sent_total += (patient.fund_pledge || 0)
+    Patient.in(line: lines)
+           .where(:appointment_date.lte => Date.today.beginning_of_week(:monday) + num_days,
+                  :fund_pledge.nin => ['', nil])
+           .pluck(:id, :fund_pledge, :pledge_sent).each do |patient|
+      if patient[2] # pledge sent
+        sent_total += (patient[1] || 0)
       else
-        outstanding_pledges += (patient.fund_pledge || 0)
+        outstanding_pledges += (patient[1] || 0)
       end
     end
     { pledged: outstanding_pledges, sent: sent_total }

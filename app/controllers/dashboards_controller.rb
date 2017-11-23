@@ -21,8 +21,9 @@ class DashboardsController < ApplicationController
   end
 
   def budget_bar
-    # @expenditures = Patient.pledged_status_summary # Stub for now
-    expenditures = { sent: 200, pledged: 300 }
+    expenditures = Patient.pledged_status_summary # Stub for now
+    puts expenditures
+    # expenditures = { sent: 200, pledged: 300 }
     render partial: 'dashboards/budget_bar', locals: { expenditures: expenditures }
   end
 
