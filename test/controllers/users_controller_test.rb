@@ -45,6 +45,23 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  # TODO this is DEFINITELY busted. break it up into multiple tests, the whole flow is weird
+  # describe 'when a users password is changed' do
+  #   it 'should send an email' do
+  #     post user_password_path, params: { user: @user.email }
+  #     assert sends email if it works, doesn't send an email if user not present
+  #     assert redirects to root url
+
+  #     get  user passwords path with the specialized key
+  #     assert success
+
+  #     using whatever key, post to user_password_path
+  #     email_content = ActionMailer::Base.deliveries.last
+  #     assert_match /Your DARIA password has changed/, email_content.subject.to_s
+  #     assert_match @user.email, email_content.to_s
+  #   end
+  # end
+
   # TODO test
   # describe 'toggle_lock method' do
   #   before do

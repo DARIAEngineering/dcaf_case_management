@@ -1,14 +1,9 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class RecordLookupTest < ActionDispatch::IntegrationTest
+class RecordLookupTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'looking up someone who exists', js: true do

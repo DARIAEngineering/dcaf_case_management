@@ -1,9 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
 # Tests around line selection behavior
-class SelectLineTest < ActionDispatch::IntegrationTest
+class SelectLineTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in @user
   end

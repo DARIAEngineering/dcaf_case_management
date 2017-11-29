@@ -1,8 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
+class PledgeFulfillmentTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @admin = create :user, role: :admin
     @clinic = create :clinic
@@ -18,15 +17,11 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     @fulfillment = create :fulfillment, patient: @pledged_pt
   end
 
-  after { Capybara.use_default_driver }
-
   describe 'visiting the edit patient view as a CM' do
     before do
       log_in_as @user
       visit edit_patient_path @pledged_pt
     end
-
-    after { sign_out }
 
     it 'should not show the pledge fulfillment link to a CM' do
       refute has_text? 'Pledge Fulfillment'
@@ -38,8 +33,6 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     before do
       log_in_as @admin
     end
-
-    after { sign_out }
 
     it 'should not show the fulfillment link to an admin unless pledge sent' do
       visit edit_patient_path @nonpledged_pt

@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class RoutingTest < ActionDispatch::IntegrationTest
+class RoutingTest < ApplicationSystemTestCase
   before do
     visit root_path
   end

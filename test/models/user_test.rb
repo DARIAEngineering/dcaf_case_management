@@ -198,4 +198,16 @@ class UserTest < ActiveSupport::TestCase
       refute create(:user, role: :cm).allowed_data_access?
     end
   end
+
+  describe 'when a users password is changed' do
+    before { Devise.mailer.deliveries.clear }
+    after { Devise.mailer.deliveries.clear }
+
+    it 'should send an email' do
+      @user.update password: 'NewT3stP@ssword', password_confirmation: 'NewT3stP@ssword'
+      email_content = ActionMailer::Base.deliveries.last
+      assert_match /Your DARIA password has changed/, email_content.subject.to_s
+      assert_match @user.email, email_content.to_s
+    end
+  end
 end

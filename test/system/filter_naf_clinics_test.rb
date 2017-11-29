@@ -1,8 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class FilterNafClinicsTest < ActionDispatch::IntegrationTest
+class FilterNafClinicsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @naf_clinic = create :clinic, name: 'NAF Accepted', accepts_naf: true
     @nonnaf_clinic = create :clinic, name: 'No NAF here', accepts_naf: false
@@ -19,7 +18,7 @@ class FilterNafClinicsTest < ActionDispatch::IntegrationTest
                                                              @nonnaf_clinic.name]
 
       check 'naf_filter'
-      sleep 1
+      wait_for_ajax
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
 

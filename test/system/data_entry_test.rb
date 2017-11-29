@@ -1,8 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class DataEntryTest < ActionDispatch::IntegrationTest
+class DataEntryTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     @clinic = create :clinic
     create_insurance_config
@@ -10,8 +9,6 @@ class DataEntryTest < ActionDispatch::IntegrationTest
     visit data_entry_path
     has_text? 'PATIENT ENTRY' # wait until load
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'entering a new patient' do
     before do

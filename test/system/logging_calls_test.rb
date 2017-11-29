@@ -74,6 +74,7 @@ class LoggingCallsTest < ApplicationSystemTestCase
         visit edit_patient_path @patient
         wait_for_element 'Call Log'
         find('a', text: 'Call Log').click
+        wait_for_ajax
         wait_for_element 'Record new call'
 
         within :css, '#call_log' do

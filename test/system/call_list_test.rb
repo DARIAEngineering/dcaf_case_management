@@ -2,6 +2,7 @@ require 'application_system_test_case'
 
 class CallListTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
+
   before do
     @patient = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Thorny'

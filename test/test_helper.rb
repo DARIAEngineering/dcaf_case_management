@@ -8,9 +8,6 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/autorun'
-require 'capybara/rails'
-require 'capybara/poltergeist'
-require 'capybara-screenshot/minitest'
 require 'omniauth_helper'
 require 'rack/test'
 
@@ -19,10 +16,6 @@ if ENV['CIRCLE_ARTIFACTS']
   require 'knapsack'
   knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
   knapsack_adapter.set_test_helper_path(__FILE__)
-end
-
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false)
 end
 
 DatabaseCleaner.clean_with :truncation
@@ -53,18 +46,12 @@ end
 Capybara.save_path = "#{ENV.fetch('CIRCLE_ARTIFACTS', Rails.root.join('tmp/capybara'))}" if ENV['CIRCLE_ARTIFACTS']
 
 class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Screenshot::MiniTestPlugin
-  include OmniauthMocker
-  OmniAuth.config.test_mode = true
+  # de facto controller tests
 
-  before { Capybara.reset_sessions! }
-
-  # for controllers
   def sign_in(user)
     post user_session_path \
-      "user[email]" => user.email,
-      "user[password]" => user.password
+      'user[email]' => user.email,
+      'user[password]' => user.password
   end
 
   def choose_line(line)

@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class ChangeLogTest < ActionDispatch::IntegrationTest
+# Confirm that edits to the patient record are accessible in the changelog
+class ChangeLogTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, email: 'first_user@email.com'
     @patient = create :patient, name: 'tester',
                                 primary_phone: '1231231234',
@@ -11,10 +11,6 @@ class ChangeLogTest < ActionDispatch::IntegrationTest
 
     log_in_as @user
     visit edit_patient_path(@patient)
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'viewing the changelog' do

@@ -1,12 +1,12 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class FilterMedicaidClinicsTest < ActionDispatch::IntegrationTest
+class FilterMedicaidClinicsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @medicaid_clinic = create :clinic, name: 'Medicaid Accepted', accepts_medicaid: true
     @non_medicaid_clinic = create :clinic, name: 'No Medicaid here', accepts_medicaid: false
     @patient = create :patient
+
     log_in_as @user
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
@@ -19,7 +19,7 @@ class FilterMedicaidClinicsTest < ActionDispatch::IntegrationTest
                                                              @non_medicaid_clinic.name]
 
       check 'medicaid_filter'
-      sleep 1
+      wait_for_ajax
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
 

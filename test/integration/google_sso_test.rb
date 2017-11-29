@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'application_system_test_case'
 
 # TODO: There is a bizarre problem with this test. I think systemtests running on the same node break it
 # class GoogleSSOTest < ActionDispatch::IntegrationTest
