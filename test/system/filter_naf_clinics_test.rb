@@ -18,7 +18,7 @@ class FilterNafClinicsTest < ApplicationSystemTestCase
                                                              @nonnaf_clinic.name]
 
       check 'naf_filter'
-      sleep 1
+      wait_for_ajax
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
 
