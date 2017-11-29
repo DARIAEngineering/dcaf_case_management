@@ -19,26 +19,18 @@ class CreateUserTest < ApplicationSystemTestCase
 
     it 'should be able to create user' do
       assert has_field? 'Email'
-      fill_in 'Email', with: 'test@test.com'
-
-      assert has_field? 'Name'
+      fill_in 'Email', with: 'test@example.com'
       fill_in 'Name', with: 'Test User'
-
       click_button 'Add'
       assert has_content? 'Active', count: 2
     end
 
     it 'should validate form correctly' do
       click_button 'Add'
-
       assert_text "can't be blank"
 
       fill_in 'Email', with: 'test@test'
-
-      assert_no_difference 'Devise.mailer.deliveries.count' do
-        click_button 'Add'
-      end
-
+      click_button 'Add'
       assert_text 'is invalid'
     end
   end
