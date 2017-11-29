@@ -1,21 +1,16 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class LoggingCallsTest < ActionDispatch::IntegrationTest
+class LoggingCallsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen',
                                 primary_phone: '123-123-1234'
     @user = create :user
     log_in_as @user
     fill_in 'search', with: 'Susan Everyteen'
     click_button 'Search'
-    find("a.call-123-123-1234").click
+    find('a.call-123-123-1234').click
     wait_for_page_to_load
     wait_for_ajax
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'verifying modal behavior and content' do
@@ -65,6 +60,7 @@ class LoggingCallsTest < ActionDispatch::IntegrationTest
                       end
         @timestamp = Time.zone.now
         find('a', text: @link_text).click
+        wait_for_no_element @link_text
       end
 
       it "should close the modal when clicking #{call_status}" do

@@ -1,24 +1,25 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class NavbarLinksTest < ActionDispatch::IntegrationTest
+class NavbarLinksTest < ApplicationSystemTestCase
   before do
     @user = create :user, role: :admin
     log_in_as @user
   end
 
-  describe 'additional resources link' do
-    it 'should display if env var is set' do
-      ENV['CM_RESOURCES_URL'] = 'www.google.com'
-      visit authenticated_root_path
-      assert has_link? 'CM Resources', href: 'www.google.com'
-    end
+  # Can't test this under the current systemtest model. TODO maybe move to its own integration test.
+  # describe 'additional resources link' do
+  #   it 'should display if env var is set' do
+  #     ENV['CM_RESOURCES_URL'] = 'www.google.com'
+  #     visit authenticated_root_path
+  #     assert has_link? 'CM Resources', href: 'www.google.com'
+  #   end
 
-    it 'should not display if env var is not set' do
-      ENV['CM_RESOURCES_URL'] = nil
-      visit authenticated_root_path
-      refute has_link? 'CM Resources'
-    end
-  end
+  #   it 'should not display if env var is not set' do
+  #     ENV['CM_RESOURCES_URL'] = nil
+  #     visit authenticated_root_path
+  #     refute has_link? 'CM Resources'
+  #   end
+  # end
 
   describe 'user dropdown' do
     before { click_link @user.name }

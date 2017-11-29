@@ -54,7 +54,6 @@ end
 
 group :test do
   gem 'shoulda-context'
-  gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
   gem 'factory_bot_rails'
@@ -62,6 +61,7 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'launchy'
   gem 'codecov', require: false
