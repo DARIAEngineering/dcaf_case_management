@@ -13,17 +13,10 @@ class CreateUserTest < ApplicationSystemTestCase
     before do
       @user = create :user, role: :admin
       log_in_as @user
-      @mail_mock = Minitest::Mock.new
-      @mail_mock.expect :deliver_now, nil
+      visit new_user_path
     end
 
     it 'should be able to create user' do
-      click_link 'Admin'
-      assert_text 'User Management'
-      click_link 'User Management'
-      wait_for_element 'User Account Management'
-      click_link 'Add New User'
-
       assert has_field? 'Email'
       fill_in 'Email', with: 'test@test.com'
 
@@ -41,11 +34,7 @@ class CreateUserTest < ApplicationSystemTestCase
       assert_text "can't be blank"
 
       fill_in 'Email', with: 'test@test'
-
-      assert_no_difference 'Devise.mailer.deliveries.count' do
-        click_button 'Add'
-      end
-
+      click_button 'Add'
       assert_text 'is invalid'
     end
   end
@@ -54,10 +43,6 @@ class CreateUserTest < ApplicationSystemTestCase
     before do
       @user = create :user, role: :cm
       log_in_as @user
-    end
-
-    it 'should not show add user button' do
-      assert_no_text 'Create User'
     end
 
     it 'should redirect to root path if navigate to form' do
@@ -71,10 +56,6 @@ class CreateUserTest < ApplicationSystemTestCase
     before do
       @user = create :user, role: :data_volunteer
       log_in_as @user
-    end
-
-    it 'should not show add user button' do
-      assert_no_text 'Create User'
     end
 
     it 'should redirect to root path if navigate to form' do
