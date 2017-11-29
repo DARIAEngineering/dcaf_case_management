@@ -72,10 +72,6 @@ group :test do
   gem 'minitest-stub-const'
 end
 
-  # gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
-
-
 group :production do
   gem 'puma'
   gem 'skylight'

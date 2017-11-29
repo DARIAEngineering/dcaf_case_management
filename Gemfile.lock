@@ -379,7 +379,6 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  climate_control
   clinic_finder (~> 0.0.1)
   codecov
   coffee-rails (~> 4.2.2)
