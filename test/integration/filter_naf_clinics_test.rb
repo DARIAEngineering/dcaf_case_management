@@ -14,7 +14,7 @@ class FilterNafClinicsTest < ApplicationSystemTestCase
 
   describe 'filtering to just NAF clinics' do
     it 'should filter to only NAF clinics when box is checked' do
-      assert has_select? 'patient_clinic_id', options: ['', @naf_clinic.name,
+      assert has_select? 'patient_clinic_id', with_options: [@naf_clinic.name,
                                                              @nonnaf_clinic.name]
 
       check 'naf_filter'

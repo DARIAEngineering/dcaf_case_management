@@ -6,17 +6,21 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
     @admin = create :user, role: :admin
     @clinic = create :clinic
     @data_volunteer = create :user, role: :data_volunteer
-    @patient = create :patient, clinic: @clinic,
-                                appointment_date: 2.weeks.from_now,
-                                fund_pledge: 500
-    @fulfillment = create :fulfillment, patient: @patient
+
+    @pledged_pt = create :patient, clinic: @clinic,
+                                   appointment_date: 2.weeks.from_now,
+                                   fund_pledge: 500,
+                                   pledge_sent: true
+    @nonpledged_pt = create :patient, clinic: @clinic,
+                                      appointment_date: 2.weeks.from_now,
+                                      fund_pledge: 500
+    @fulfillment = create :fulfillment, patient: @pledged_pt
   end
 
   describe 'visiting the edit patient view as a CM' do
     before do
-      @patient.update pledge_sent: true
       log_in_as @user
-      visit edit_patient_path @patient
+      visit edit_patient_path @pledged_pt
     end
 
     it 'should not show the pledge fulfillment link to a CM' do
@@ -28,17 +32,16 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
   describe 'visiting the edit patient view as an admin' do
     before do
       log_in_as @admin
-      visit edit_patient_path @patient
     end
 
     it 'should not show the fulfillment link to an admin unless pledge sent' do
+      visit edit_patient_path @nonpledged_pt
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
     end
 
     it 'should show a link to the pledge fulfillment tab after pledge sent' do
-      @patient.update pledge_sent: true
-      visit edit_patient_path @patient
+      visit edit_patient_path @pledged_pt
       wait_for_element 'Patient information'
 
       assert has_link? 'Pledge Fulfillment'
@@ -48,23 +51,21 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       assert has_text? 'Procedure date'
       assert has_text? 'Check #'
     end
-
   end
 
   describe 'visiting the edit patient view as a data volunteer' do
     before do
       log_in_as @data_volunteer
-      visit edit_patient_path @patient
     end
 
     it 'should not show the fulfillment link to a data_volunteer unless pledge sent' do
+      visit edit_patient_path @nonpledged_pt
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
     end
 
     it 'should show a link to the pledge fulfillment tab after pledge sent' do
-      @patient.update pledge_sent: true
-      visit edit_patient_path @patient
+      visit edit_patient_path @pledged_pt
       wait_for_element 'Patient information'
 
       assert has_link? 'Pledge Fulfillment'
@@ -77,9 +78,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
   describe 'pledge fulfilled autochecking on change' do
     before do
       log_in_as @admin
-      visit edit_patient_path @patient
-      @patient.update pledge_sent: true
-      visit edit_patient_path @patient
+      visit edit_patient_path @pledged_pt
       wait_for_element 'Patient information'
       assert has_link? 'Pledge Fulfillment'
       click_link 'Pledge Fulfillment'
@@ -87,6 +86,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
 
     it 'should autocheck on field change' do
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
+      click_away_from_field
       assert has_checked_field? 'Pledge fulfilled'
     end
 
@@ -104,8 +104,6 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       fill_in 'patient_fulfillment_procedure_date', with: ''
       select '', from: "patient_fulfillment_gestation_at_procedure"
       assert has_no_checked_field? 'Pledge fulfilled'
-
     end
-
   end
 end

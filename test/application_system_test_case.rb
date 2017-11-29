@@ -7,18 +7,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   before { Capybara.reset_sessions! }
   OmniAuth.config.test_mode = true
 
-  # Poltergeist
-
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
-
-  # Capybara.register_driver :poltergeist do |app|
-  #   Capybara::Poltergeist::Driver.new(app, js_errors: false)
-  # end
-  # driven_by :poltergeist
-
-  def with_modified_env(options, &block)
-    ClimateControl.modify(options, &block)
-  end
 
   def log_in_as(user, line = 'DC')
     log_in user
@@ -29,12 +18,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Sign in'
+    click_button 'Sign in with password'
   end
 
   def select_line(line = 'DC')
     choose line
-    click_button 'Select your line for this session'
+    click_button 'Start'
   end
 
   def wait_for_element(text)
@@ -45,9 +34,21 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     has_no_content? text
   end
 
+  def wait_for_css(selector)
+    has_css? selector
+  end
+
+  def wait_for_no_css(selector)
+    has_no_css? selector
+  end
+
   def sign_out
     click_link @user.name
     click_link 'Sign Out'
+  end
+
+  def log_out
+    sign_out
   end
 
   def wait_for_ajax
@@ -62,5 +63,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def go_to_dashboard
     click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
+  end
+
+  def click_away_from_field
+    find('body').click
+    wait_for_ajax
   end
 end

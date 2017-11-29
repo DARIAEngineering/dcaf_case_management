@@ -4,6 +4,7 @@ class DataEntryTest < ApplicationSystemTestCase
   before do
     @user = create :user
     @clinic = create :clinic
+    create_insurance_config
     log_in_as @user
     visit data_entry_path
     has_text? 'PATIENT ENTRY' # wait until load
@@ -24,7 +25,7 @@ class DataEntryTest < ApplicationSystemTestCase
       fill_in 'City', with: 'Washington'
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
-      fill_in 'DCAF soft pledge', with: '100'
+      fill_in 'DCAF pledge', with: '100'
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'
       select @clinic.name, from: 'patient_clinic_id'
@@ -52,9 +53,9 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'First and last name', with: 'Susie Everyteen'
         assert_equal '1', lmp_weeks.value
         assert_equal '2', lmp_days.value
-        assert has_text? "Called on: #{2.days.ago.strftime('%Y-%m-%d')}"
+        assert has_text? "Called on: #{2.days.ago.strftime('%m/%d/%Y')}"
         assert has_field?('Appointment date',
-                          with: 1.day.ago.strftime('%Y-%m-%d'))
+                          with: 1.day.ago.strftime('%Y-%m-%d')) # TODO: Driver format problem
         assert has_field? 'Phone number', with: '111-222-3344'
       end
     end
@@ -100,7 +101,7 @@ class DataEntryTest < ApplicationSystemTestCase
         create :patient, primary_phone: '111-111-1111'
 
         select 'DC', from: 'patient_line'
-        fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d')
+        fill_in 'Initial call date', with: 2.days.ago.strftime('%m-%d-%Y') # TODO: Driver format problem
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Primary phone', with: '111-111-1111'
         click_button 'Create Patient'
@@ -115,7 +116,7 @@ class DataEntryTest < ApplicationSystemTestCase
     describe 'pledge with insufficient other info' do
       before do
         select 'DC', from: 'patient_line'
-        fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d')
+        fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d') # TODO: Driver format problem
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Primary phone', with: '111-222-3344'
         check 'Pledge sent'

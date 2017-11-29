@@ -143,15 +143,22 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       @patient.reload
     end
 
+    it 'should update pledge fields' do
+      @payload[:pledge_sent] = true
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      assert_kind_of Time, @patient.pledge_sent_at
+      assert_kind_of Object, @patient.pledge_sent_by
+    end
+
     it 'should respond success on completion' do
       patch patient_path(@patient), params: { patient: @payload }, xhr: true
       assert_response :success
     end
 
-    it 'should respond internal server error on failure' do
+    it 'should respond not acceptable error on failure' do
       @payload[:primary_phone] = nil
-      patch patient_path(@patient), params: { patient: @payload }
-      assert_response :internal_server_error
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      assert_response :not_acceptable
     end
 
     it 'should update patient fields' do
@@ -237,4 +244,5 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
     end
   end
+
 end

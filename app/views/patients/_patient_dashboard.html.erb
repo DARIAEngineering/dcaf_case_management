@@ -1,28 +1,30 @@
-<%= bootstrap_form_for patient, html: { id: 'patient_dashboard_form' }, remote: true do |f| %>
-  <div class="col-sm-4" >
-    <%= f.text_field :name, label: 'First and last name', autocomplete: 'off' %>
-    <%= f.text_field :primary_phone, value: patient.primary_phone_display, label: 'Phone number', autocomplete: 'off' %>
-  </div>
+<div id="patient_dashboard_content">
+  <%= bootstrap_form_for patient, html: { id: 'patient_dashboard_form' }, remote: true do |f| %>
+    <div class="col-sm-4" >
+      <%= f.text_field :name, label: 'First and last name', autocomplete: 'off' %>
+      <%= f.text_field :primary_phone, value: patient.primary_phone_display, label: 'Phone number', autocomplete: 'off' %>
+    </div>
 
-  <div class="col-sm-4">
-    <div class="row">
-      <div class="col-sm-6">
-        <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: 'LMP at intake', autocomplete: 'off', help: "Currently: #{patient.last_menstrual_period_display_short}" %>
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-6">
+          <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: 'Weeks along at intake', autocomplete: 'off', help: "Currently: #{patient.last_menstrual_period_display_short}" %>
+        </div>
+        <div class="col-sm-6 hide-label">
+          <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: "Called on: #{patient.initial_call_date.strftime("%m/%d/%Y")}" %>
+        </div>
       </div>
-      <div class="col-sm-6 hide-label">
-        <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: "Called on: #{patient.initial_call_date}" %>
+      <div class="row">
+        <div class="col-sm-12">
+          <p><strong>Status:</strong> <span id='patient_status'><%= patient.status %></span></p>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <p><strong>Status:</strong> <span id='patient_status'><%= patient.status %></span></p>
-      </div>
-    </div>
-  </div>
 
-  <div class="col-sm-4">
-    <div class="row">
-      <%= f.text_field :appointment_date, label: 'Appointment date', autocomplete: 'off', format: '%Y-%m-%d', placeholder: 'YYYY-MM-DD', help: "Approx gestation at appt: #{patient.last_menstrual_period_at_appt}" %>
+    <div class="col-sm-4">
+      <div class="row">
+        <%= f.date_field :appointment_date, label: 'Appointment date', autocomplete: 'off', help: "Approx gestation at appt: #{patient.last_menstrual_period_at_appt}" %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+<div id='activity_log' class='margin-bottom'>
+  <h1 class='border-bottom title'><%= current_line %> Call Line Activity Log</h1>
+
+  <div id="activity_log_content">
+    <%= render_async events_path, nonce: content_security_policy_script_nonce, 'data-turbolinks-track': 'reload' %>
+  </div>
+</div>

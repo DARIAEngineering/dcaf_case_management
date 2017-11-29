@@ -8,9 +8,7 @@ class PatientsController < ApplicationController
   def index
     respond_to do |format|
       format.csv do
-        now = Time.zone.now.strftime('%Y%m%d')
-        csv_filename = "patient_data_export_#{now}.csv"
-        send_data Patient.to_csv, filename: csv_filename, format: 'text/csv'
+        render_csv
       end
     end
   end
@@ -60,12 +58,19 @@ class PatientsController < ApplicationController
   end
 
   def update
+    if @patient.update_attributes params[:pledge_sent]
+       @patient.pledge_sent_at = Time.zone.now
+       @patient.pledge_sent_by = current_user
+    end
     if @patient.update_attributes patient_params
       @patient.reload
-      respond_to { |format| format.js }
+      flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.display_timestamp}"
     else
-      head :internal_server_error
+      error = @patient.errors.full_messages.to_sentence
+      flash.now[:alert] = error
+      response.status = :not_acceptable
     end
+    respond_to { |format| format.js }
   end
 
   def data_entry
@@ -77,7 +82,7 @@ class PatientsController < ApplicationController
     @patient.created_by = current_user
 
     if @patient.save
-      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the soft pledge amounts are the same, and you're set."
+      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the #{FUND} pledge amounts are the same, and you're set."
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
@@ -91,7 +96,6 @@ class PatientsController < ApplicationController
     @patient = Patient.find params[:id]
   end
 
-  # Strong params divided up by partial
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
     :appointment_date, :primary_phone
@@ -112,7 +116,7 @@ class PatientsController < ApplicationController
 
   FULFILLMENT_PARAMS = [
     fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :procedure_cost, :check_number, :check_date]
+                  :procedure_cost, :check_number, :date_of_check]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
@@ -122,5 +126,23 @@ class PatientsController < ApplicationController
       [].concat(PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
                 ABORTION_INFORMATION_PARAMS, OTHER_PARAMS, FULFILLMENT_PARAMS)
     )
+  end
+
+  def render_csv
+    now = Time.zone.now.strftime('%Y%m%d')
+    csv_filename = "patient_data_export_#{now}.csv"
+    set_headers(csv_filename)
+
+    response.status = 200
+
+    self.response_body = Patient.to_csv
+  end
+
+  def set_headers(filename)
+    headers["Content-Type"] = "text/csv"
+    headers["Content-disposition"] = "attachment; filename=\"#{filename}\""
+    headers['X-Accel-Buffering'] = 'no'
+    headers["Cache-Control"] = "no-cache"
+    headers.delete("Content-Length")
   end
 end
