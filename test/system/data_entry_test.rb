@@ -15,7 +15,7 @@ class DataEntryTest < ApplicationSystemTestCase
     before do
       # fill out the form
       select 'DC', from: 'patient_line'
-      fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d')
+      fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%Y')
       fill_in 'Name', with: 'Susie Everyteen'
       fill_in 'Primary phone', with: '111-222-3344'
       fill_in 'Other contact name', with: 'Billy Everyteen'
@@ -30,7 +30,7 @@ class DataEntryTest < ApplicationSystemTestCase
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'
       select @clinic.name, from: 'patient_clinic_id'
-      fill_in 'Appointment date', with: 1.day.ago.strftime('%Y-%m-%d')
+      fill_in 'Appointment date', with: 1.day.ago.strftime('%m/%d/%Y')
       select 'DC Medicaid', from: 'patient_insurance'
       select '1', from: 'patient_household_size_adults'
       select '2', from: 'patient_household_size_children'
@@ -56,7 +56,7 @@ class DataEntryTest < ApplicationSystemTestCase
         assert_equal '2', lmp_days.value
         assert has_text? "Called on: #{2.days.ago.strftime('%m/%d/%Y')}"
         assert has_field?('Appointment date',
-                          with: 1.day.ago.strftime('%Y-%m-%d')) # TODO: Driver format problem
+                          with: 1.day.ago.strftime('%m/%d/%Y'))
         assert has_field? 'Phone number', with: '111-222-3344'
       end
     end
@@ -102,7 +102,7 @@ class DataEntryTest < ApplicationSystemTestCase
         create :patient, primary_phone: '111-111-1111'
 
         select 'DC', from: 'patient_line'
-        fill_in 'Initial call date', with: 2.days.ago.strftime('%m-%d-%Y') # TODO: Driver format problem
+        fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%Y')
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Primary phone', with: '111-111-1111'
         click_button 'Create Patient'
@@ -117,7 +117,7 @@ class DataEntryTest < ApplicationSystemTestCase
     describe 'pledge with insufficient other info' do
       before do
         select 'DC', from: 'patient_line'
-        fill_in 'Initial call date', with: 2.days.ago.strftime('%Y-%m-%d') # TODO: Driver format problem
+        fill_in 'Initial call date', with: 2.days.ago.strftime('%m/%d/%Y')
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Primary phone', with: '111-222-3344'
         check 'Pledge sent'
