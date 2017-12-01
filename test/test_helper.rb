@@ -7,14 +7,12 @@ SimpleCov.formatter = SimpleCov::Formatter::Codecov
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'minitest/reporters'
 require 'minitest/autorun'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'capybara-screenshot/minitest'
 require 'omniauth_helper'
 require 'rack/test'
-Minitest::Reporters.use!
 
 if ENV['CIRCLE_ARTIFACTS']
   # To rerack the test divider, run: KNAPSACK_GENERATE_REPORT=true bundle exec rake test

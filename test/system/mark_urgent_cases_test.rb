@@ -1,17 +1,13 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class MarkUrgentCasesTest < ActionDispatch::IntegrationTest
+# Mark patients urgent and confirm that they show up on the dash after
+class MarkUrgentCasesTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
-    log_in_as @user
     @patient = create :patient
+    log_in_as @user
     visit edit_patient_path(@patient)
     click_link 'Notes'
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   it 'should initially show an empty checkbox' do
@@ -20,6 +16,8 @@ class MarkUrgentCasesTest < ActionDispatch::IntegrationTest
 
   it 'should move the case to urgent after checking the checkbox' do
     check 'patient_urgent_flag'
+    wait_for_ajax
+
     visit dashboard_path
     within :css, '#urgent_patients' do
       assert has_text? @patient.name
