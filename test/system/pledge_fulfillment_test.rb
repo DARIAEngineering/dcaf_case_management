@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
+# Confirm behavior around pledge fulfillment
+class PledgeFulfillmentTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @admin = create :user, role: :admin
     @clinic = create :clinic
@@ -17,8 +17,6 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
                                       fund_pledge: 500
     @fulfillment = create :fulfillment, patient: @pledged_pt
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'visiting the edit patient view as a CM' do
     before do
