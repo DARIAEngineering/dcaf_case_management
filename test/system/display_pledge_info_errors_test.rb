@@ -29,7 +29,9 @@ class DisplayPledgeInfoErrorsTest < ApplicationSystemTestCase
       assert has_text? 'Confirm the following information is correct'
       assert has_text? @patient.name
       assert has_text? @patient.identifier
-      # TODO: check for pledge, appt date, and clinic 
+      assert has_text? "$#{@patient.fund_pledge}"
+      assert has_text? 14.days.from_now.strftime('%m/%d/%Y')
+      assert has_text? @clinic.name
 
       find('#pledge-next').click
       wait_for_no_element 'Confirm the following information is correct'
