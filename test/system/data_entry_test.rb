@@ -56,7 +56,7 @@ class DataEntryTest < ApplicationSystemTestCase
         assert_equal '2', lmp_days.value
         assert has_text? "Called on: #{2.days.ago.strftime('%m/%d/%Y')}"
         assert has_field?('Appointment date',
-                          with: 1.day.ago.strftime('%m/%d/%Y'))
+                          with: 1.day.ago.strftime('%Y-%m-%d'))
         assert has_field? 'Phone number', with: '111-222-3344'
       end
     end
