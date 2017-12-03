@@ -23,8 +23,8 @@ class FilterMedicaidClinicsTest < ApplicationSystemTestCase
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
 
-      assert options_with_filter.find { |x| x[:name] == @non_medicaid_clinic.name }[:disabled] == true
-      assert options_with_filter.find { |x| x[:name] == @medicaid_clinic.name }[:disabled] == false
+      assert options_with_filter.find { |x| x[:name] == @non_medicaid_clinic.name }[:disabled]
+      refute options_with_filter.find { |x| x[:name] == @medicaid_clinic.name }[:disabled]
 
       # try to select and watch it not work
       select @non_medicaid_clinic.name, from: 'patient_clinic_id'
