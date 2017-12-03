@@ -1,14 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class CreateUserTest < ActionDispatch::IntegrationTest
-  before do
-    Capybara.current_driver = :poltergeist
-  end
-
-  after do
-    Capybara.use_default_driver
-  end
-
+# Behavior and permissioning around creating new users
+class CreateUserTest < ApplicationSystemTestCase
   describe 'nonadmin user' do
     before { visit root_path }
 
@@ -21,39 +14,23 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     before do
       @user = create :user, role: :admin
       log_in_as @user
-      @mail_mock = Minitest::Mock.new
-      @mail_mock.expect :deliver_now, nil
+      visit new_user_path
     end
 
     it 'should be able to create user' do
-      click_link 'Admin'
-      assert_text 'User Management'
-      click_link 'User Management'
-      wait_for_element 'User Account Management'
-      click_link 'Add New User'
-
       assert has_field? 'Email'
-      fill_in 'Email', with: 'test@test.com'
-
-      assert has_field? 'Name'
+      fill_in 'Email', with: 'test@example.com'
       fill_in 'Name', with: 'Test User'
-
       click_button 'Add'
       assert has_content? 'Active', count: 2
     end
 
     it 'should validate form correctly' do
-      visit new_user_path
       click_button 'Add'
-
       assert_text "can't be blank"
 
       fill_in 'Email', with: 'test@test'
-
-      assert_no_difference 'Devise.mailer.deliveries.count' do
-        click_button 'Add'
-      end
-
+      click_button 'Add'
       assert_text 'is invalid'
     end
   end
