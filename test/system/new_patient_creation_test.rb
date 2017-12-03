@@ -1,14 +1,10 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class NewPatientCreationTest < ActionDispatch::IntegrationTest
+# Confirm that new patients can be created
+class NewPatientCreationTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user, 'MD'
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'creating and recalling a new patient' do
