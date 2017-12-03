@@ -16,7 +16,7 @@ class NewPatientCreationTest < ApplicationSystemTestCase
       fill_in 'Initial Call Date', with: '03/04/2016'
       select 'MD', from: 'Line'
       click_button 'Add new patient'
-      sleep 1
+      wait_for_ajax
     end
 
     it 'should make that patient retrievable via search' do
