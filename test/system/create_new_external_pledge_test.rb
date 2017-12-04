@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class CreateNewExternalPledgeTest < ActionDispatch::IntegrationTest
+# Test around creating a new external pledge for a fund
+class CreateNewExternalPledgeTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     @patient = create :patient
     log_in_as @user
@@ -10,8 +10,6 @@ class CreateNewExternalPledgeTest < ActionDispatch::IntegrationTest
     wait_for_element 'Abortion Information'
     click_link 'Abortion Information'
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'creating and viewing a pledge' do
     it 'should let you create a new pledge' do

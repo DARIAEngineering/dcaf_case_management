@@ -19,6 +19,9 @@ class ReportsController < ApplicationController
     when 'fulfillment'
       @reports = Rerports::Fulfillmentt.generate
       render partial: "patient_report", locals: { report: @report, lines: LINES, timeframe: params[:timeframe] }
+
+    else
+      head :not_acceptable
     end
   end
 end
