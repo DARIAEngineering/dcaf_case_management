@@ -708,12 +708,12 @@ class PatientTest < ActiveSupport::TestCase
 #    it 'should see that there are archived and unarchived patients' do
 #      @pt1.reload
 #      @pt2.reload
-#      assert_equal 1, Patient.archived.count
+#      assert_equal 1, Patient.is_archived.count
 #      assert_equal 1, Patient.unarchived.count
 #    end
   end
 
-  describe 'archive tests v1' do
+  describe 'archive tests' do
     before do
       @old_fulfill_patient = create :patient, other_phone: '111-222-3333',
                                   other_contact: 'Yolo',
@@ -721,7 +721,10 @@ class PatientTest < ActiveSupport::TestCase
                                   name: 'Archiveworthy'
 
       @old_fulfill_patient.update initial_call_date: 150.days.ago
-      @old_fulfill_patient.fulfillment.update date_of_check: 120.days.ago
+      @old_fulfill_patient.fulfillment.update date_of_check: 120.days.ago,
+                                              check_number: 1337
+      create :call, patient: @old_fulfill_patient, status: 'Reached patient', created_at: 142.days.ago
+      create :note, patient: @old_fulfill_patient, full_text: (1..100).map(&:to_s).join('')
       @dropoff_patient = create :patient, other_phone: '111-222-3233',
                                   other_contact: 'Yolo',
                                   primary_phone: '222-333-4325',

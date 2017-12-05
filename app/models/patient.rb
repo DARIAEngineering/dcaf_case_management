@@ -26,7 +26,7 @@ class Patient
   end
 
   scope :unarchived, ->{ where(archived: false) }
-  scope :archived, ->{ where(archived: true) }
+  scope :is_archived, ->{ where(archived: true) }
   before_validation :clean_fields
   before_save :save_identifier
 
