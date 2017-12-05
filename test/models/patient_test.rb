@@ -725,6 +725,8 @@ class PatientTest < ActiveSupport::TestCase
                                               check_number: 1337
       create :call, patient: @old_fulfill_patient, status: 'Reached patient', created_at: 142.days.ago
       create :note, patient: @old_fulfill_patient, full_text: (1..100).map(&:to_s).join('')
+      @user = create :user
+      create :external_pledge, patient: @old_fulfill_patient, created_by: @user
       @dropoff_patient = create :patient, other_phone: '111-222-3233',
                                   other_contact: 'Yolo',
                                   primary_phone: '222-333-4325',
