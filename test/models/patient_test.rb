@@ -718,7 +718,9 @@ class PatientTest < ActiveSupport::TestCase
       @old_fulfill_patient = create :patient, other_phone: '111-222-3333',
                                   other_contact: 'Yolo',
                                   primary_phone: '222-333-4321',
-                                  name: 'Archiveworthy'
+                                  name: 'Archiveworthy',
+                                  special_circumstances: ["Prison", "Fetal anomaly"],
+                                  line: 'DC'
 
       @old_fulfill_patient.update initial_call_date: 150.days.ago
       @old_fulfill_patient.fulfillment.update date_of_check: 120.days.ago,
