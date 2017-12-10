@@ -59,10 +59,10 @@ class PatientsController < ApplicationController
 
   def update
     @patient.update_attributes params[:pledge_sent]
-    if pledge_sent && pledge_sent_changed?
+    if @patient.pledge_sent && @patient.pledge_sent_changed?
       @patient.pledge_sent_at = Time.zone.now
       @patient.pledge_sent_by = current_user
-    elsif !pledge_sent && pledge_sent_changed?
+    elsif !@patient.pledge_sent && @patient.pledge_sent_changed?
       @patient.pledge_sent_at = nil
       @patient.pledge_sent_by = nil
     end
