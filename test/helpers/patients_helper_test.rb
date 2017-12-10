@@ -50,6 +50,22 @@ class PatientsHelperTest < ActionView::TestCase
         assert Config.find_by(config_key: 'insurance')
       end
     end
+
+    describe 'clinic options' do
+      before do
+        @active = create :clinic, name: 'active clinic', active: true
+        @inactive = create :clinic, name: 'closed clinic', active: false
+      end
+
+      it 'should return all clinics' do
+        expected_clinic_array = [nil,
+                                 [@active.name, @active.id],
+                                 ['--- INACTIVE CLINICS ---', nil],
+                                 ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id]]
+
+        assert_same_elements clinic_options, expected_clinic_array
+      end
+    end
   end
 
   %w(race_ethnicity employment_status insurance income referred_by
