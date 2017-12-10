@@ -17,6 +17,7 @@ class PatientsController < ApplicationController
     patient = Patient.new patient_params
 
     patient.created_by = current_user
+    patient.pledge_sent = false
     if patient.save
       flash[:notice] = 'A new patient has been successfully saved'
     else
