@@ -45,7 +45,7 @@
     "GOOGLE_GEO_API_KEY": {
       "description": "from google cloud account, specific to the geography API",
       "value": "",
-      "required": false,
+      "required": false
     },
     "FUND_MAILER_DOMAIN": {
       "description": "domain you want emails to come from. Should be your fund's domain. e.g. dcabortionfund.org",
