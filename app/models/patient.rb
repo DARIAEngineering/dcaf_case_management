@@ -26,7 +26,6 @@ class Patient
 
   before_validation :clean_fields
   before_save :save_identifier
-  after_save :update_pledge_sent_by_and_sent_at
   after_create :initialize_fulfillment
 
   # Relationships
@@ -158,16 +157,6 @@ class Patient
       line:          line,
       pledge_amount: fund_pledge
     }
-  end
-
-  def update_pledge_sent_by_and_sent_at
-    if pledge_sent and pledge_sent_at.nil?
-      pledge_sent_at = Time.zone.now
-      pledge_sent_by = current_user
-    elsif !pledge_sent 
-      pledge_sent_at = nil
-      pledge_sent_by = nil
-    end
   end
 
   private
