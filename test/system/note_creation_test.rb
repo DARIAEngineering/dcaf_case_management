@@ -1,18 +1,14 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class NoteCreationTest < ActionDispatch::IntegrationTest
+# Confirm that notes on a patient can be created
+class NoteCreationTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user
     @patient = create :patient
     visit edit_patient_path(@patient)
     wait_for_element 'Notes'
     click_link 'Notes'
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'add patient notes' do
