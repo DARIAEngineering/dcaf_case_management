@@ -4,7 +4,7 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash openssh fontconfig fontconfig-dev curl" \
+    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash openssh fontconfig fontconfig-dev curl chromium-chromedriver" \
     APP_DEPENDENCIES="nodejs git" \
     FONTCONFIG_PATH=/etc/fonts
 
@@ -21,8 +21,6 @@ RUN apk update && apk upgrade && \
     ${APP_DEPENDENCIES} && \
     gem install bundler --no-ri --no-rdoc && \
     cd ${DCAF_DIR} ; bundle install && \
-    curl -Ls https://github.com/DarthHater/docker-phantomjs2/releases/download/2.1.1/dockerized-phantomjs.tar.gz | tar xz -C / && \
-	phantomjs --version && \
     apk del ${BUILD_DEPENDENCIES} 
 
 # symlink which nodejs to node
