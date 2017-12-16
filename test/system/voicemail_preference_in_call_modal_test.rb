@@ -1,14 +1,12 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class VoicemailPreferenceInCallModalTest < ActionDispatch::IntegrationTest
+# Confirm display behavior around whether a patient should receive VMs
+class VoicemailPreferenceInCallModalTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen'
     @user = create :user
     log_in_as @user
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'different voicemail preferences and links' do
     describe 'no voicemail' do
