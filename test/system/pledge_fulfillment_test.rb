@@ -24,8 +24,6 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       visit edit_patient_path @pledged_pt
     end
 
-    after { sign_out }
-
     it 'should not show the pledge fulfillment link to a CM' do
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
@@ -36,8 +34,6 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
     before do
       log_in_as @admin
     end
-
-    after { sign_out }
 
     it 'should not show the fulfillment link to an admin unless pledge sent' do
       visit edit_patient_path @nonpledged_pt
@@ -106,7 +102,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       fill_in 'patient_fulfillment_check_number', with: ''
       assert has_checked_field? 'Pledge fulfilled'
 
-      fill_in 'patient_fulfillment_procedure_date', with: ''
+      fill_in 'patient_fulfillment_procedure_date', with: 'mm/dd/yyyy'
       select '', from: "patient_fulfillment_gestation_at_procedure"
       assert has_no_checked_field? 'Pledge fulfilled'
     end
