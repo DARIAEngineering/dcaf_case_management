@@ -1,6 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class UpdatingConfigsTest < ActionDispatch::IntegrationTest
+# Confirm behavior around updating fund-editable settings
+class UpdatingConfigsTest < ApplicationSystemTestCase
   describe 'non-admin redirect' do
     [:data_volunteer, :cm].each do |role|
       it "should deny access as a #{role.to_s}" do
@@ -14,14 +15,11 @@ class UpdatingConfigsTest < ActionDispatch::IntegrationTest
 
   describe 'admin usage' do
     before do
-      Capybara.current_driver = :poltergeist
       @patient = create :patient
       @user = create :user, role: :admin
       log_in_as @user
       visit configs_path
     end
-
-    after { Capybara.use_default_driver }
 
     describe 'updating a config - insurance' do
       it 'should update and be available' do
