@@ -26,9 +26,7 @@ class Patient
 
   before_validation :clean_fields
   before_save :save_identifier
-
   after_create :initialize_fulfillment
-
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
@@ -89,7 +87,7 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
-
+  
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
@@ -159,7 +157,7 @@ class Patient
       pledge_amount: fund_pledge
     }
   end
-
+  
   private
 
   def confirm_appointment_after_initial_call
