@@ -189,6 +189,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     before do
       patch add_patient_path(@user, @patient_1), xhr: true
       patch add_patient_path(@user, @patient_2), xhr: true
+      @user.reload
     end
 
     it 'should respond successfully' do

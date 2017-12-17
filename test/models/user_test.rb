@@ -97,7 +97,7 @@ class UserTest < ActiveSupport::TestCase
     it 'should not clear patient list if user signed in recently' do
       assert_not @user.patients.empty?
       @user.last_sign_in_at = Time.zone.now
-      @user.clean_call_list
+      @user.clean_call_list_between_shifts
 
       assert_not @user.patients.empty?
     end

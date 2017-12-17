@@ -94,7 +94,7 @@ class UsersController < ApplicationController
   end
 
   def clear_current_user_call_list
-    current_user.patients.clear
+    current_user.clear_call_list
     respond_to do |format|
       format.js { render template: 'users/refresh_patients', layout: false }
     end
