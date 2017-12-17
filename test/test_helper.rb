@@ -16,7 +16,7 @@ require 'rack/test'
 
 if ENV['CIRCLE_ARTIFACTS']
   # To rerack the test divider, run:
-  # KNAPSACK_GENERATE_REPORT=true bundle exec rake test
+  # KNAPSACK_GENERATE_REPORT=true bundle exec rake test test:system
   require 'knapsack'
   knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
   knapsack_adapter.set_test_helper_path(__FILE__)
