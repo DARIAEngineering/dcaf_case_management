@@ -22,7 +22,8 @@ deployment:
 
 test:
   override:
-    - KNAPSACK_GENERATE_REPORT=true bundle exec rake test test:system
+    - bundle exec rake knapsack:minitest:
+        parallel: true
 
   post:
     - gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
