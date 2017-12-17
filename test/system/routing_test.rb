@@ -1,6 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class RoutingTest < ActionDispatch::IntegrationTest
+# Confirm that logging in sends you to the sign in path
+class RoutingTest < ApplicationSystemTestCase
   before do
     visit root_path
   end
@@ -14,9 +15,9 @@ class RoutingTest < ActionDispatch::IntegrationTest
   end
 
   it 'should not display navigation partial on sign in' do
+    @user = create :user
     refute has_text? 'DARIA - ' + Rails.env
     visit root_path
-    @user = create :user
     log_in_as @user
     visit authenticated_root_path
     assert has_text? 'DARIA - ' + Rails.env
