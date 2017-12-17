@@ -147,9 +147,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    it 'should should return bad request on sketch ids' do
+    it 'should should return not found on sketch ids' do
       patch add_patient_path(@user, 'nopatient'), xhr: true
-      assert_response :bad_request
+      assert_response :not_found
     end
   end
 
@@ -181,7 +181,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     it 'should should return bad request on sketch ids' do
       patch remove_patient_path(@user, 'whatever'), xhr: true
-      assert_response :bad_request
+      assert_response :not_found
     end
   end
 

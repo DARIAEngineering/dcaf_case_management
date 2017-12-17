@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :confirm_admin_user, only: [:new, :index, :update]
   before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
 
-  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
+  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
 
   def index
