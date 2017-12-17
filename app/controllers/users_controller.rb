@@ -82,14 +82,21 @@ class UsersController < ApplicationController
   def add_patient
     current_user.add_patient @patient
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
+      format.js { render template: 'users/refresh_patients' }
     end
   end
 
   def remove_patient
     current_user.remove_patient @patient
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
+      format.js { render template: 'users/refresh_patients'}
+    end
+  end
+
+  def clear_current_user_call_list
+    current_user.patients.clear
+    respond_to do |format|
+      format.js { render template: 'users/refresh_patients' }
     end
   end
 

@@ -185,6 +185,32 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'clear_current_user_call_list method' do
+    before do
+      patch add_patient_path(@user, @patient_1), xhr: true
+      patch add_patient_path(@user, @patient_2), xhr: true
+      assert_equal @user.patients.count, 2
+      patch clear_current_user_call_list_path(@user), xhr: true
+      @user.reload
+    end
+
+    it 'should respond successfully' do
+      assert_response :success
+    end
+
+    it 'should destroy all patients' do
+      assert_equal @user.patients.count, 0
+    end
+
+    it 'should not destroy patients' do
+      patch add_patient_path(@user, @patient_2), xhr: true
+      assert_no_difference 'Patient.count' do
+        patch clear_current_user_call_list_path(@user), xhr: true
+      end
+    end
+
+  end
+
   describe 'reorder call list' do
     before do
       @ids = []
