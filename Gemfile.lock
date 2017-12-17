@@ -84,7 +84,6 @@ GEM
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     clinic_finder (0.0.1)
-    cliver (0.3.2)
     codecov (0.1.10)
       json
       simplecov
@@ -228,10 +227,6 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    poltergeist (1.15.0)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
@@ -409,7 +404,6 @@ DEPENDENCIES
   omniauth-google-oauth2 (= 0.2.1)
   omniauth-oauth2 (= 1.3.1)
   pdf-inspector
-  poltergeist
   prawn
   pry
   puma

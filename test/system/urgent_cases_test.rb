@@ -1,15 +1,11 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class UrgentCasesTest < ActionDispatch::IntegrationTest
+# Test behavior around urgent cases list
+class UrgentCasesTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @patient = create :patient, name: 'Susan Everyteen', urgent_flag: true
     @user = create :user
     log_in_as @user
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'urgent cases section' do
