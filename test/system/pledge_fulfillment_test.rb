@@ -87,7 +87,8 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
 
     it 'should autocheck on field change' do
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
-      click_away_from_field
+      # Trigger a field chang ehere
+      fill_in 'patient_fulfillment_check_number', with: ''
       assert has_checked_field? 'Pledge fulfilled'
     end
 
