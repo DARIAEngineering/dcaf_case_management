@@ -59,7 +59,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       log_in_as @data_volunteer
     end
 
-    it 'should not show the fulfillment link to a data_volunteer unless pledge sent' do
+    it 'should not show fulfillment to a data_volunteer unless pledge sent' do
       visit edit_patient_path @nonpledged_pt
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
@@ -87,7 +87,8 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
 
     it 'should autocheck on field change' do
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
-      click_away_from_field
+      # Trigger a field change / save
+      fill_in 'patient_fulfillment_check_number', with: ''
       assert has_checked_field? 'Pledge fulfilled'
     end
 
@@ -95,7 +96,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
       fill_in 'patient_fulfillment_check_number', with: '10340'
       fill_in 'patient_fulfillment_procedure_date', with: '2017/05/25'
-      select '1 week', from: "patient_fulfillment_gestation_at_procedure"
+      select '1 week', from: 'patient_fulfillment_gestation_at_procedure'
       assert has_checked_field? 'Pledge fulfilled'
 
       fill_in 'patient_fulfillment_procedure_cost', with: ''
@@ -103,7 +104,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       assert has_checked_field? 'Pledge fulfilled'
 
       fill_in 'patient_fulfillment_procedure_date', with: 'mm/dd/yyyy'
-      select '', from: "patient_fulfillment_gestation_at_procedure"
+      select '', from: 'patient_fulfillment_gestation_at_procedure'
       assert has_no_checked_field? 'Pledge fulfilled'
     end
   end
