@@ -58,15 +58,7 @@ class PatientsController < ApplicationController
   end
 
   def update
-    @patient.update_attributes params[:pledge_sent]
-    @patient.reload
-    if @patient.pledge_sent and !@patient.pledge_sent_at
-      @patient.pledge_sent_at = Time.zone.now
-      @patient.pledge_sent_by = current_user
-    elsif !@patient.pledge_sent
-      @patient.pledge_sent_at = nil
-      @patient.pledge_sent_by = nil
-    end
+    @patient.last_edited_by = current_user
     if @patient.update_attributes patient_params
       @patient.reload
       flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.display_timestamp}"
@@ -124,7 +116,7 @@ class PatientsController < ApplicationController
                   :procedure_cost, :check_number, :date_of_check]
   ].freeze
 
-  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
+  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent, :pledge_sent_by, :pledge_sent_at, :last_edited_by].freeze
 
   def patient_params
     params.require(:patient).permit(

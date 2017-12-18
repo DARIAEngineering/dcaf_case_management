@@ -26,7 +26,7 @@ class Patient
 
   before_validation :clean_fields
   before_save :save_identifier
-
+  before_update :update_sent_by_sent_at
   after_create :initialize_fulfillment
 
   # Relationships
@@ -38,7 +38,8 @@ class Patient
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
-
+  belongs_to :last_edited_by, class_name: 'User', inverse_of: nil
+  
   # Enable mass posting in forms
   accepts_nested_attributes_for :fulfillment
 
@@ -160,6 +161,8 @@ class Patient
     }
   end
 
+
+
   private
 
   def confirm_appointment_after_initial_call
@@ -178,5 +181,15 @@ class Patient
 
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
+  end
+  
+  def update_sent_by_sent_at
+    if self.pledge_sent  && !self.pledge_sent_by
+      self.pledge_sent_at = Time.zone.now
+      self.pledge_sent_by = last_edited_by
+    elsif !(self.pledge_sent)#       self.pledge_sent_at = nil
+       self.pledge_sent_by = nil
+       self.pledge_sent_at = nil
+    end
   end
 end
