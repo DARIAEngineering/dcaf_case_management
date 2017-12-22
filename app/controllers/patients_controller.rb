@@ -116,7 +116,7 @@ class PatientsController < ApplicationController
                   :procedure_cost, :check_number, :date_of_check]
   ].freeze
 
-  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent, :pledge_sent_by, :pledge_sent_at, :last_edited_by].freeze
+  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent, :last_edited_by].freeze
 
   def patient_params
     params.require(:patient).permit(
