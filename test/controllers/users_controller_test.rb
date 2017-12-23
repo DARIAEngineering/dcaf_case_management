@@ -200,6 +200,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     it 'should clear all patients for a user' do
       assert_difference '@user.patients.count', -2 do
         patch clear_current_user_call_list_path, xhr: true
+        @user.reload
       end
     end
 

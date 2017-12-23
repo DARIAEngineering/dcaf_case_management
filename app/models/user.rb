@@ -156,6 +156,7 @@ class User
 
   def clear_call_list
     patients.clear
+    save
   end
 
   def admin?
