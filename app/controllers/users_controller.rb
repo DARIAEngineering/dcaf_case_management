@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
+  rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
 
   def index
     @users = User.all
@@ -60,13 +61,13 @@ class UsersController < ApplicationController
   end
 
   def create # TODO needs more rigorous testing
-    raise('Permission Denied') unless current_user.admin?
+    raise Exceptions::UnauthorizedError unless current_user.admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
     if @user.save
       flash[:notice] = 'User created!'
-      redirect_to session.delete(:return_to)
+      redirect_to users_path
     else
       # TODO if validation errors, render creation page with error msgs
       render 'new'

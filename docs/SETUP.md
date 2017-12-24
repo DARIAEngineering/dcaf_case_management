@@ -28,6 +28,8 @@ take a minute or two for resources to compile and load, but it should eventually
 
 Any errors will show up in your terminal in the window you are running the `up` command in.
 
+If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
+
 ## Local environment
 
 If you prefer a local environment, totally cool! We recommend the following:

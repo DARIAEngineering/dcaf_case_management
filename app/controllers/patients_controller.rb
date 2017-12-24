@@ -68,6 +68,7 @@ class PatientsController < ApplicationController
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error
+      response.status = :not_acceptable
     end
     respond_to { |format| format.js }
   end
