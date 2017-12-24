@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class UserManagementTest < ActionDispatch::IntegrationTest
+# Confirm user management functionality
+class UserManagementTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user,
                    name: 'john',
                    email: 'user@dcaf.com',

@@ -1,15 +1,10 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-# Behavior around creating and searching for a new patient
-class NewPatientCreationTest < ActionDispatch::IntegrationTest
+# Confirm that new patients can be created
+class NewPatientCreationTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     log_in_as @user, 'MD'
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 
   describe 'creating and recalling a new patient' do
@@ -21,7 +16,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
       fill_in 'Initial Call Date', with: '03/04/2016'
       select 'MD', from: 'Line'
       click_button 'Add new patient'
-      sleep 1
+      wait_for_ajax
     end
 
     it 'should make that patient retrievable via search' do
@@ -54,7 +49,7 @@ class NewPatientCreationTest < ActionDispatch::IntegrationTest
     end
 
     it 'should only be viewable on that line' do
-      %w(VA DC).each do |line|
+      %w[VA DC].each do |line|
         sign_out
         log_in_as @user, line
 

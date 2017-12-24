@@ -48,20 +48,18 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'spring'
-  gem 'binding_of_caller'
   gem 'knapsack'
 end
 
 group :test do
   gem 'shoulda-context'
-  gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'launchy'
   gem 'codecov', require: false

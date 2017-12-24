@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
+# Test that pledge errors are showing up properly on trying to send a pledge
+class DisplayPledgeInfoErrorsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user
     @patient = create :patient
     @clinic = create :clinic
@@ -10,8 +10,6 @@ class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
     visit edit_patient_path @patient
     has_text? 'First and last name' # wait until page loads
   end
-
-  after { Capybara.use_default_driver }
 
   describe 'rendering errors in patient modal' do
     it 'should render errors when popping up the pledge sent modal' do
@@ -31,7 +29,9 @@ class DisplayPledgeInfoErrorsTest < ActionDispatch::IntegrationTest
       assert has_text? 'Confirm the following information is correct'
       assert has_text? @patient.name
       assert has_text? @patient.identifier
-      # TODO: check for pledge, appt date, and clinic
+      assert has_text? "$#{@patient.fund_pledge}"
+      assert has_text? 14.days.from_now.strftime('%m/%d/%Y')
+      assert has_text? @clinic.name
 
       find('#pledge-next').click
       wait_for_no_element 'Confirm the following information is correct'
