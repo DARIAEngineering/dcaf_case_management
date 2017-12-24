@@ -67,7 +67,7 @@ class UsersController < ApplicationController
     @user.password, @user.password_confirmation = hex
     if @user.save
       flash[:notice] = 'User created!'
-      redirect_to session.delete(:return_to)
+      redirect_to users_path
     else
       # TODO if validation errors, render creation page with error msgs
       render 'new'

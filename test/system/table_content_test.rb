@@ -1,6 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class TableContentTest < ActionDispatch::IntegrationTest
+# Testing around call list table content
+class TableContentTest < ApplicationSystemTestCase
   # problematic test
   before do
     @user = create :user

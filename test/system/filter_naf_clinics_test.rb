@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class FilterNafClinicsTest < ActionDispatch::IntegrationTest
+# Confirm that the naf filter checkbox works
+class FilterNafClinicsTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @naf_clinic = create :clinic, name: 'NAF Accepted', accepts_naf: true
     @nonnaf_clinic = create :clinic, name: 'No NAF here', accepts_naf: false
@@ -19,12 +19,12 @@ class FilterNafClinicsTest < ActionDispatch::IntegrationTest
                                                              @nonnaf_clinic.name]
 
       check 'naf_filter'
-      sleep 1
+      wait_for_ajax
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
 
-      assert options_with_filter.find { |x| x[:name] == @nonnaf_clinic.name }[:disabled] == true
-      assert options_with_filter.find { |x| x[:name] == @naf_clinic.name }[:disabled] == false
+      assert options_with_filter.find { |x| x[:name] == @nonnaf_clinic.name }[:disabled]
+      refute options_with_filter.find { |x| x[:name] == @naf_clinic.name }[:disabled]
 
       # try to select and watch it not work
       select @nonnaf_clinic.name, from: 'patient_clinic_id'

@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'application_system_test_case'
 
-class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
+# Confirm behavior around pledge fulfillment
+class PledgeFulfillmentTest < ApplicationSystemTestCase
   before do
-    Capybara.current_driver = :poltergeist
     @user = create :user, role: :cm
     @admin = create :user, role: :admin
     @clinic = create :clinic
@@ -18,15 +18,11 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     @fulfillment = create :fulfillment, patient: @pledged_pt
   end
 
-  after { Capybara.use_default_driver }
-
   describe 'visiting the edit patient view as a CM' do
     before do
       log_in_as @user
       visit edit_patient_path @pledged_pt
     end
-
-    after { sign_out }
 
     it 'should not show the pledge fulfillment link to a CM' do
       refute has_text? 'Pledge Fulfillment'
@@ -38,8 +34,6 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
     before do
       log_in_as @admin
     end
-
-    after { sign_out }
 
     it 'should not show the fulfillment link to an admin unless pledge sent' do
       visit edit_patient_path @nonpledged_pt
@@ -65,7 +59,7 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       log_in_as @data_volunteer
     end
 
-    it 'should not show the fulfillment link to a data_volunteer unless pledge sent' do
+    it 'should not show fulfillment to a data_volunteer unless pledge sent' do
       visit edit_patient_path @nonpledged_pt
       refute has_text? 'Pledge Fulfillment'
       refute has_link? 'Pledge Fulfillment'
@@ -93,7 +87,8 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
 
     it 'should autocheck on field change' do
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
-      click_away_from_field
+      # Trigger a field change / save
+      fill_in 'patient_fulfillment_check_number', with: ''
       assert has_checked_field? 'Pledge fulfilled'
     end
 
@@ -101,15 +96,15 @@ class PledgeFulfillmentTest < ActionDispatch::IntegrationTest
       fill_in 'patient_fulfillment_procedure_cost', with: '10'
       fill_in 'patient_fulfillment_check_number', with: '10340'
       fill_in 'patient_fulfillment_procedure_date', with: '2017/05/25'
-      select '1 week', from: "patient_fulfillment_gestation_at_procedure"
+      select '1 week', from: 'patient_fulfillment_gestation_at_procedure'
       assert has_checked_field? 'Pledge fulfilled'
 
       fill_in 'patient_fulfillment_procedure_cost', with: ''
       fill_in 'patient_fulfillment_check_number', with: ''
       assert has_checked_field? 'Pledge fulfilled'
 
-      fill_in 'patient_fulfillment_procedure_date', with: ''
-      select '', from: "patient_fulfillment_gestation_at_procedure"
+      fill_in 'patient_fulfillment_procedure_date', with: 'mm/dd/yyyy'
+      select '', from: 'patient_fulfillment_gestation_at_procedure'
       assert has_no_checked_field? 'Pledge fulfilled'
     end
   end
