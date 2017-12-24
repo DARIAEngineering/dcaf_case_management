@@ -55,8 +55,6 @@ GEM
     autoprefixer-rails (7.1.2.3)
       execjs
     bcrypt (3.1.11)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -98,7 +96,6 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     database_cleaner (1.6.1)
-    debug_inspector (0.0.3)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -364,7 +361,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  binding_of_caller
   bootstrap-sass (~> 3.3, >= 3.3.6)
   bootstrap_form
   bootstrap_form-datetimepicker

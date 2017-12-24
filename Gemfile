@@ -48,7 +48,6 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'spring'
-  gem 'binding_of_caller'
   gem 'knapsack'
 end
 
