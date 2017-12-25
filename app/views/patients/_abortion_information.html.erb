@@ -39,10 +39,13 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-12" id="clinic_finder_container">
+      <div class="col-sm-6 clinic_finder_container">
         <%= link_to authenticated_root_path, class: 'display_button', remote: true do %>
-          <h3>Find clinics<span class='glyphicon glyphicon-plus-sign button-right'></span></h3>
+          <h3>Clinic Locator Assistant<span class='glyphicon glyphicon-plus-sign button-right'></span></h3>
         <% end %>
+      </div>
+      <div class='col-sm-12 clinic_finder_container'>
+
         <%= render 'clinicfinders/search_form' %>
         <div id="clinic-finder-results"></div>
       </div>
