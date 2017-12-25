@@ -31,7 +31,7 @@ gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem 'rack-attack', '~> 5.0.1'
 gem 'rack-test', '~> 0.6.3', require: 'rack/test'
-gem 'clinic_finder', git: 'https://github.com/DCAFEngineering/clinic_finder.git', branch: 'object-orient'
+gem 'clinic_finder', git: 'https://github.com/DCAFEngineering/clinic_finder.git', branch: 'master'
 gem 'geokit'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
