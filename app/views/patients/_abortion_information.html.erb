@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-sm-12 info-form">
         <h3> Clinic details </h3>
-        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
+        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-1' }, remote: true do |f| %>
           <div class="col-sm-6">
             <div class="info-form-left">
               <%= f.select :clinic_id, options_for_select(clinic_options, patient.clinic.try(:id)) %>
@@ -28,8 +28,6 @@
             </div>
           </div>
 
-
-
           <div class="col-sm-6">
             <div class="info-form-right">
               <%= f.check_box :resolved_without_fund, label: "Resolved without assistance from #{FUND}" %>
@@ -42,12 +40,12 @@
 
     <div class="row">
       <div class="col-sm-12" id="clinic_finder_container">
-
-        <%= link_to display_clinic_finder_path, class: 'display_button', remote: true do %>
-        <h3>Find clinics<span class='glyphicon glyphicon-plus-sign button-right'></span></h3>
+        <%= link_to authenticated_root_path, class: 'display_button', remote: true do %>
+          <h3>Find clinics<span class='glyphicon glyphicon-plus-sign button-right'></span></h3>
         <% end %>
+        <%= render 'clinicfinders/search_form' %>
+        <div id="clinic-finder-results"></div>
       </div>
-
     </div>
   </div>
 
@@ -60,7 +58,7 @@
 
     <div class="row col-sm-12" >
       <div class="patient_cost_fields">
-        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
+        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
           <div class="col-sm-6">
             <%= f.number_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
             <div class="info-form-left form-group outstanding-balance-ctn hidden">
