@@ -8,8 +8,8 @@ class ClinicfindersController < ApplicationController
     puts params
     @abortron = ClinicFinder::Locator.new(
       Clinic.all, gestational_age: (params[:gestation].to_i || 0),
-                  naf_only: (params[:naf_only] || false),
-                  medicaid_only: (params[:medicaid_only] || false)
+                  naf_only: false, # (params[:naf_only] || false),
+                  medicaid_only: false # (params[:medicaid_only] || false)
     )
 
     @nearest = @abortron.locate_nearest_clinics params[:zip]

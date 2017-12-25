@@ -1,12 +1,22 @@
 <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
-  <div class="col-sm-6 info-form-left">
-    <%= f.text_field :zip %>
+  <div class="row">
+    <div class="col-sm-6 info-form-left">
+      <%= f.text_field :zip %>
+    </div>    
+
+    <div class="col-sm-6">
+      <div class="info-form-right">
+        <%= f.select :approx_gestation_at_appt, weeks_options, label: 'Approx. gestation at appt' %>
+      </div>
+    </div>
   </div>
 
-  <div class="col-sm-6">
-    <div class="info-form-right">
-      <%= f.select :approx_gestation_at_appt, weeks_options, label: 'Approx. gestation at appt' %>
+  <div class="row">
+    <div class='col-sm-6'>
+      <%#= f.check_box :naf_only, label: 'Show NAF clinics only' %>  
+      <%#= f.check_box :medicaid_only, label: 'Show Medicaid clinics only' %>
+
       <%= f.submit "Search clinics", class: "btn btn-primary" %>
-    </div>
+    </div>    
   </div>
 <% end %>
