@@ -394,8 +394,8 @@ class PatientTest < ActiveSupport::TestCase
       @patient.fund_pledge = true
       @patient.update
       @patient.reload
-      assert_equal @patient.pledge_sent_by, @user
-      assert_equal @patient.pledge_sent_at, Date.today
+      assert_equal @user, @patient.pledge_sent_by
+      assert_equal Date.today, @patient.pledge_sent_at
     end
     
     it 'should set pledge sent and sent at to nil if a pledge is cancelled' do
