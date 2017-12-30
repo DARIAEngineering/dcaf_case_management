@@ -390,7 +390,7 @@ class PatientTest < ActiveSupport::TestCase
       @patient.fund_pledge = 500
       @patient.clinic = @clinic
       @patient.appointment_date = 14.days.from_now
-      @patient.last_updated_by = @user
+      @patient.last_edited_by = @user
       @patient.fund_pledge = true
       @patient.update
       @patient.reload
