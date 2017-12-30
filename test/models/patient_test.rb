@@ -37,6 +37,7 @@ class PatientTest < ActiveSupport::TestCase
       @new_patient.reload
       refute_nil @new_patient.fulfillment
     end
+    
   end
 
   describe 'validations' do
@@ -383,6 +384,28 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.pledge_info_present?
       assert_equal ["DCAF pledge field cannot be blank"], @patient.pledge_info_errors
     end
+    
+    it 'should update sent by and sent at when sending the pledge' do
+      @user = create :user
+      @patient.fund_pledge = 500
+      @patient.clinic = @clinic
+      @patient.appointment_date = 14.days.from_now
+      @patient.last_updated_by = @user
+      @patient.fund_pledge = true
+      @patient.update
+      @patient.reload
+      assert_equal @patient.pledge_sent_by, @user
+      assert_equal @patient.pledge_sent_at, Date.today
+    end
+    
+    it 'should set pledge sent and sent at to nil if a pledge is cancelled' do
+      @patient.pledge_sent = false
+      @patient.update
+      @patient.reload
+      assert_nil @patient.pledge_sent_by
+      assert_nil @patient.pledge_sent_at
+    end
+    
   end
 
   describe 'last menstrual period calculation concern' do
