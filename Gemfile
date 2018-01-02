@@ -14,7 +14,7 @@ gem 'prawn'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'bootstrap_form'
 gem 'bootstrap_form-datetimepicker'
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4.3'
 gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
 gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 gem 'mongoid', '>= 6.2.0', '< 7'
