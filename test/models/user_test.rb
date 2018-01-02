@@ -65,13 +65,13 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 1, @user.call_list_patients('DC').count
     end
 
-    it 'should clear calls when patient has been reached' do
+    it 'should clean calls when patient has been reached' do
       assert_equal 0, @user.recently_called_patients.count
       @call = create :call, patient: @patient,
                             created_by: @user,
                             status: 'Reached patient'
       assert_equal 1, @user.recently_called_patients.count
-      @user.clear_call_list
+      @user.clean_call_list_between_shifts
       assert_equal 0, @user.recently_called_patients.count
     end
 
@@ -81,7 +81,7 @@ class UserTest < ActiveSupport::TestCase
                             created_by: @user,
                             status: 'Left voicemail'
       assert_equal 1, @user.recently_called_patients.count
-      @user.clear_call_list
+      @user.clean_call_list_between_shifts
       assert_equal 1, @user.recently_called_patients.count
     end
 
@@ -89,7 +89,7 @@ class UserTest < ActiveSupport::TestCase
       assert_not @user.patients.empty?
       last_sign_in = Time.zone.now - User::TIME_BEFORE_INACTIVE - 1.day
       @user.last_sign_in_at = last_sign_in
-      @user.clear_call_list
+      @user.clean_call_list_between_shifts
 
       assert @user.patients.empty?
     end
@@ -97,9 +97,15 @@ class UserTest < ActiveSupport::TestCase
     it 'should not clear patient list if user signed in recently' do
       assert_not @user.patients.empty?
       @user.last_sign_in_at = Time.zone.now
-      @user.clear_call_list
+      @user.clean_call_list_between_shifts
 
       assert_not @user.patients.empty?
+    end
+
+    it 'should clear call list when someone invokes the cleanout' do
+      assert_difference '@user.patients.count', -3 do
+        @user.clear_call_list
+      end
     end
   end
 
