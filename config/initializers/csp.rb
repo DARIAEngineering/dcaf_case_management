@@ -5,10 +5,10 @@ SecureHeaders::Configuration.default do |config|
   config.csp = {
     preserve_schemes: true, # default: false.
     default_src: %w('self'),
-    script_src: ["'self'", "'unsafe-eval'", gon_gem_sha, popover_sha],
+    script_src: ["'self'", "'unsafe-eval'", gon_gem_sha, popover_sha, 'https'],
     font_src: %w('self' fonts.gstatic.com),
     connect_src: %w('self'),
-    style_src: %w('self' 'unsafe-inline'),
+    style_src: %w('self' 'unsafe-inline' https),
     report_uri: ["https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"]
   }
 end

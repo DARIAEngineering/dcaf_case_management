@@ -33,7 +33,7 @@ gem 'rack-attack', '~> 5.0.1'
 gem 'rack-test', '~> 0.6.3', require: 'rack/test'
 gem 'clinic_finder', '~> 0.0.1'
 gem 'geokit'
-gem 'secure_headers', '~> 3.6', '>= 3.6.4'
+gem 'secure_headers', '~> 5'
 
 group :development do
   gem 'pry'

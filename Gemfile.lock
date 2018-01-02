@@ -303,8 +303,8 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    secure_headers (3.6.7)
-      useragent
+    secure_headers (5.0.4)
+      useragent (>= 0.15.0)
     selenium-webdriver (3.5.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
@@ -411,7 +411,7 @@ DEPENDENCIES
   ruby_audit
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
-  secure_headers (~> 3.6, >= 3.6.4)
+  secure_headers (~> 5)
   selenium-webdriver
   shoulda-context
   simplecov
