@@ -45,4 +45,7 @@
       <% end %>
     </tbody>
   </table>
+  <% if table_type == 'call_list' && current_user.patients.count.nonzero? %>
+    <%= link_to "Clear your call list", clear_current_user_call_list_path, class: "pull-right text-danger", data: { confirm: "Are you sure you want to clear your current call list? This will also clear completed calls." }, method: :patch, remote: true %>
+  <% end %>
 </div>
