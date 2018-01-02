@@ -5,8 +5,6 @@ machine:
     - sudo apt-get install libfontconfig
   services:
     - docker
-  environment:
-    TESTOPTS: "--ci-dir=$CIRCLE_TEST_REPORTS/reports"
 
 general:
   artifacts:
