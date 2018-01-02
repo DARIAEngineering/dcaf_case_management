@@ -65,6 +65,7 @@ group :test do
   gem 'codecov', require: false
   gem 'timecop'
   gem 'capybara-screenshot'
+  gem 'minitest-ci'
   gem 'pdf-inspector', require: "pdf/inspector"
   gem 'minitest-stub-const'
 end
