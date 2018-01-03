@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :confirm_admin_user, only: [:new, :index, :update]
   before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
 
-  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
+  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
 
   def index
@@ -88,6 +88,13 @@ class UsersController < ApplicationController
 
   def remove_patient
     current_user.remove_patient @patient
+    respond_to do |format|
+      format.js { render template: 'users/refresh_patients', layout: false }
+    end
+  end
+
+  def clear_current_user_call_list
+    current_user.clear_call_list
     respond_to do |format|
       format.js { render template: 'users/refresh_patients', layout: false }
     end
