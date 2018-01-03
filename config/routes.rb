@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     # User routes behind the authentication wall
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
+    patch 'users/clear_current_user_call_list', to: 'users#clear_current_user_call_list', as: 'clear_current_user_call_list', defaults: { format: :js }
     resources :users, only: [:new, :create, :index, :edit, :update]
     patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
