@@ -53,6 +53,8 @@ class SubmitPledgeTest < ApplicationSystemTestCase
 
       click_link 'Notes'
       refute has_checked_field? 'Flag this patient as urgent'
+
+      raise 'do not let this fly until you fix the menu probelm'
     end
 
     it 'should render after opening call modal' do
