@@ -1,5 +1,5 @@
 // rerack approx gestation
-<% if @patient.previous_changes.present? %>
+<%# if @patient.previous_changes.present? %>
   <% puts '??????????' # There is a problem here because the callback is washing previous_changes %>
   $('#patient_appointment_date')
     .parent()
@@ -15,10 +15,12 @@
     .find('span.help-block')
     .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
 
-  // refresh entire changelog
+  // refresh entire changelog and notes sections
   $('#change_log').html(
     '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
   );
+
+  $('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
 
   // if pledge is sent, re-rack fulfillment info
   <% if current_user.allowed_data_access? %>
@@ -35,7 +37,7 @@
     // clear out fulfillment form
     $('#fulfillment').empty();
   <% end %>
-<% end %>
+<%# end %>
 
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');

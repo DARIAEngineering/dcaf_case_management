@@ -40,7 +40,7 @@ class Patient
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
   belongs_to :last_edited_by, class_name: 'User', inverse_of: nil
-  
+
   # Enable mass posting in forms
   accepts_nested_attributes_for :fulfillment
 

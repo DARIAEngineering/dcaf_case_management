@@ -51,7 +51,8 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_link? 'Fulfillment'
       assert has_link? 'Cancel pledge'
 
-      raise 'this should fail until you make sure that this act unurgents someone'
+      click_link 'Notes'
+      refute has_checked_field? 'Flag this patient as urgent'
     end
 
     it 'should render after opening call modal' do
