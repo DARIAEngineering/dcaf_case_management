@@ -1,6 +1,6 @@
 machine:
   ruby:
-    version: 2.5.0
+    version: 2.4.3
   pre:
     - sudo apt-get install libfontconfig
   services:

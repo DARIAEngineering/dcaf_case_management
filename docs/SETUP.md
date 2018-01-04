@@ -36,7 +36,7 @@ If you prefer a local environment, totally cool! We recommend the following:
 
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/)
-* Install our version of Ruby! We use version `2.5.0` (Usually `rbenv install 2.5.0` or `rvm install 2.5.0` once you have your version manager set up)
+* Install our version of Ruby! We use version `2.4.3` (Usually `rbenv install 2.4.3` or `rvm install 2.4.3` once you have your version manager set up)
 * Install PhantomJS, which our test suite depends on, via `brew install phantomjs`, or `npm install -g phantomjs-prebuilt`, or the [linux instructions](http://phantomjs.org/download.html)
 * Run the command `gem install bundler && bundle install` to install ruby dependences, including `rails`
 
