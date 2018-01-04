@@ -22,8 +22,6 @@
   // if pledge is sent, re-rack fulfillment info
   <% if current_user.allowed_data_access? %>
     // populate the fulfillment form if it's supposed to be there
-    <% puts @patient.inspect %>
-    <% puts @patient.pledge_sent? %>
     <% if @patient.pledge_sent? %>
       $('#fulfillment').empty()
                        .append('<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>');
