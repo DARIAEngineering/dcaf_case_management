@@ -69,7 +69,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 * Sign into `https://c9.io/` and create a new workspace
 * Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
-* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.4.2 is not installed. To install do: `rvm install ruby-2.4.2`". Run that command to install the necessary version of Ruby.
+* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.4.3 is not installed. To install do: `rvm install ruby-2.4.3`". Run that command to install the necessary version of Ruby.
 * Next, install the bundler gem by entering `gem install bundler` in the terminal.
 * Install MongoDB by entering `sudo apt-get install -y mongodb-org`.
 * Once MongoDB is installed, run `bundle install` in the terminal
