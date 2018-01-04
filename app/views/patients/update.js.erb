@@ -1,5 +1,6 @@
 // rerack approx gestation
 <% if @patient.previous_changes.present? %>
+  <% puts '??????????' # There is a problem here because the callback is washing previous_changes %>
   $('#patient_appointment_date')
     .parent()
     .find('span.help-block')
