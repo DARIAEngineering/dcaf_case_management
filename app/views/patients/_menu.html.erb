@@ -5,7 +5,7 @@
     <li><%= link_to 'Notes', '#notes', data: { toggle: 'tab' } %></li>
     <li><%= link_to 'Change Log', '#change_log', data: { toggle: 'tab' } %></li>
     <li><%= link_to 'Call Log', '#call_log', data: { toggle: 'tab' } %></li>
-    <% if ( current_user.admin? || current_user.data_volunteer? ) && patient.pledge_sent == true %>
+    <% if current_user.allowed_data_access? && patient.pledge_sent == true %>
       <li><%= link_to 'Pledge Fulfillment', '#fulfillment', data: { toggle: 'tab' } %></li>
     <% end %>
 

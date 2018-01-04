@@ -32,10 +32,10 @@
       <%= render 'patients/notes', patient: @patient, note: @note %>    
     </div>
 
-    <% if ( current_user.admin? || current_user.data_volunteer? ) && @patient.pledge_sent == true %>
-      <div id="fulfillment" class="fulfillment-info tab-pane">
+    <div id="fulfillment" class="fulfillment-info tab-pane">
+      <% if current_user.allowed_data_access? && @patient.pledge_sent? %>
         <%= render 'patients/fulfillment', patient: @patient %>      
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
