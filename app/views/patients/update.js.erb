@@ -1,44 +1,37 @@
-// rerack approx gestation
-<%# if @patient.previous_changes.present? %>
-  <% puts '??????????' # There is a problem here because the callback is washing previous_changes %>
-  $('#patient_appointment_date')
-    .parent()
-    .find('span.help-block')
-    .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
+// rerack fields
+$('#patient_appointment_date')
+  .parent()
+  .find('span.help-block')
+  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
 
-  // rerack status
-  $('#patient_status').text('<%= @patient.status %>');
+// rerack status
+$('#patient_status').text('<%= @patient.status %>');
 
-  // rerack current LMP
-  $('#patient_last_menstrual_period_weeks')
-    .parent()
-    .find('span.help-block')
-    .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
+// rerack current LMP
+$('#patient_last_menstrual_period_weeks')
+  .parent()
+  .find('span.help-block')
+  .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
 
-  // refresh entire changelog and notes sections
-  $('#change_log').html(
-    '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
+// refresh entire changelog and notes sections
+$('#change_log').html(
+  '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
+);
+
+$('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
+
+// if pledge is sent, re-rack fulfillment info
+<% if current_user.allowed_data_access? && @patient.pledge_sent? %>
+  // populate the fulfillment form if it's supposed to be there
+  $('#fulfillment').empty()
+                   .append('<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>');
+  $('#menu').html(
+    '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
   );
-
-  $('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
-
-  // if pledge is sent, re-rack fulfillment info
-  <% if current_user.allowed_data_access? %>
-    // populate the fulfillment form if it's supposed to be there
-    <% if @patient.pledge_sent? %>
-      $('#fulfillment').empty()
-                       .append('<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>');
-    <% end %>
-    // properly set the button and make fulfillment show up, if it should
-    // HEADS UP this is a problem -- menu is getting reset. one way around it is to pass an arg to menu when reracking. another is to work back in previous changes.
-    $('#menu').html(
-      '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
-    );
-  <% elsif !@patient.pledge_sent %>
-    // clear out fulfillment form
-    $('#fulfillment').empty();
-  <% end %>
-<%# end %>
+<% else %>
+  // ensure fulfillment form is cleared out
+  $('#fulfillment').empty();
+<% end %>
 
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');

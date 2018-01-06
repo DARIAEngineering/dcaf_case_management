@@ -62,7 +62,7 @@ class PatientsController < ApplicationController
     if @patient.update_attributes patient_params
       # @patient.reload
       puts 'YEP'
-      pry
+      # pry
       flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.display_timestamp}"
     else
       error = @patient.errors.full_messages.to_sentence
