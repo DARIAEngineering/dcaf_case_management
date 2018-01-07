@@ -221,6 +221,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       # fill_in 'Date of check', with: 2.weeks.from_now.strftime('%m/%d/%Y')
 
       click_away_from_field
+      wait_for_ajax
       reload_page_and_click_link 'Pledge Fulfillment'
     end
 
