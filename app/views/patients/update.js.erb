@@ -23,15 +23,22 @@ $('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
 // if pledge is sent, re-rack fulfillment info
 <% if current_user.allowed_data_access? && @patient.pledge_sent? %>
   // populate the fulfillment form if it's supposed to be there
-  $('#fulfillment').empty()
-                   .append('<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>');
-  $('#menu').html(
-    '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
-  );
+  if ($('#pledge_fulfillment-menu-item').length == 0) {
+    $('#pledge_fulfillment').empty()
+                            .append('<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>');
+    $('#menu-list').append(
+      '<%= escape_javascript(render "patients/menu_item", link_for: "pledge_fulfillment", active: false) %>'
+    );
+  }
 <% else %>
   // ensure fulfillment form is cleared out
-  $('#fulfillment').empty();
+  $('#pledge_fulfillment').empty();
+  $('#pledge_fulfillment-menu-item').remove();
 <% end %>
+
+$('#menu-pledge-button').html(
+  '<%= escape_javascript(render "patients/menu_pledge_button", patient: @patient) %>'
+);
 
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
