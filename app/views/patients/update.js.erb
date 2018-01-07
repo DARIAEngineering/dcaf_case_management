@@ -1,4 +1,4 @@
-// rerack fields
+// rerack LMP calculation
 $('#patient_appointment_date')
   .parent()
   .find('span.help-block')
@@ -13,16 +13,17 @@ $('#patient_last_menstrual_period_weeks')
   .find('span.help-block')
   .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
 
-// refresh entire changelog and notes sections
+// refresh changelog
 $('#change_log').html(
   '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
 );
 
+// Rerack urgent status
 $('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
 
 // if pledge is sent, re-rack fulfillment info
 <% if current_user.allowed_data_access? && @patient.pledge_sent? %>
-  // populate the fulfillment form if it's supposed to be there
+  // populate the fulfillment form if it's supposed to be there and not there already
   if ($('#pledge_fulfillment-menu-item').length == 0) {
     $('#pledge_fulfillment').empty()
                             .append('<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>');
@@ -36,6 +37,7 @@ $('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
   $('#pledge_fulfillment-menu-item').remove();
 <% end %>
 
+// Rerack pledge button
 $('#menu-pledge-button').html(
   '<%= escape_javascript(render "patients/menu_pledge_button", patient: @patient) %>'
 );
