@@ -1,13 +1,13 @@
 <section class="abortion-left-menu">
   <ul class="nav nav-pills nav-stacked" id='menu-list'>
     <%= render 'menu_item', link_for: 'patient_information', active: true %>
-    <%= render 'menu_item', link_for: 'abortion_information' %>
-    <%= render 'menu_item', link_for: 'notes' %>
-    <%= render 'menu_item', link_for: 'change_log' %>
-    <%= render 'menu_item', link_for: 'call_log' %>
+    <%= render 'menu_item', link_for: 'abortion_information', active: false %>
+    <%= render 'menu_item', link_for: 'notes', active: false %>
+    <%= render 'menu_item', link_for: 'change_log', active: false %>
+    <%= render 'menu_item', link_for: 'call_log', active: false %>
 
     <% if current_user.allowed_data_access? && patient.pledge_sent? %>
-      <%= render 'menu_item', link_for: 'pledge_fulfillment' %>
+      <%= render 'menu_item', link_for: 'pledge_fulfillment', active: false %>
     <% end %>
   </ul>
   <div class="row">
