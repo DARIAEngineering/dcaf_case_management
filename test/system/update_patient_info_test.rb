@@ -226,7 +226,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
     # PROBLEMATIC TEST
     it 'should alter the information' do
-      within :css, '#fulfillment' do
+      within :css, '#pledge_fulfillment' do
         assert has_checked_field? 'Pledge fulfilled'
         assert has_field? 'Procedure date',
                           with: 2.days.from_now.strftime('%Y-%m-%d')
