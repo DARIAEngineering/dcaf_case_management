@@ -93,8 +93,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     it 'should create a user' do
+      attributes = attributes_for(:user)
+      attributes.delete :role
       assert_difference 'User.count', 1 do
-        post users_path, params: { user: attributes_for(:user) }
+        post users_path, params: { user: attributes }
       end
     end
 
