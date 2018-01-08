@@ -138,12 +138,5 @@ class UserManagementTest < ApplicationSystemTestCase
       click_link 'john'
       assert has_field? 'Email', with: 'johan@gmail.com'
     end
-
-    it 'allows role editing' do
-      select 'Admin', from: 'Role'
-      click_button 'Save'
-      wait_for_element 'Successfully updated user details'
-      refute_text 'cm'
-    end
   end
 end
