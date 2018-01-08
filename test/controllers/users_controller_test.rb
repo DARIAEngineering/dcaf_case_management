@@ -21,6 +21,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
+    %w[admin data_volunteer cm].each do |endpoint|
+      it "should redirect if user is not admin - #{endpoint}" do
+        User.role.values.reject { |role| role == :admin }.each do |role|
+          @user.update role: role
+          patch send("change_role_to_#{endpoint}_path".to_sym, @user_2)
+          assert_response :redirect
+        end
+      end
+    end
+
     it 'should respond unauthorized if user is not admin - users_search' do
       User.role.values.reject { |role| role == :admin }.each do |role|
         @user.update role: role
