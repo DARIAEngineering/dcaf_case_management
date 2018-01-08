@@ -29,12 +29,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes user_params
+    if user_not_demoting_themself(@user, user_params) && @user.update_attributes(user_params)
       flash[:notice] = 'Successfully updated user details'
       redirect_to users_path
     else
       error_content = @user.errors.full_messages.to_sentence
-      flash[:alert] = "Error saving user details - #{error_content}"
+      flash[:alert] = "Error saving user details - #{error_content}" unless flash[:alert]
       render 'edit'
     end
   end
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
 
   private
 
-  def find_user # TODO needs more rigorous testing
+  def find_user
     @user = User.find(params[:id])
   end
 
@@ -120,5 +120,14 @@ class UsersController < ApplicationController
   def retrieve_patients
     @patient = Patient.find params[:id]
     @urgent_patient = Patient.where(urgent_flag: true)
+  end
+
+  def user_not_demoting_themself(user, params)
+    if user.id == current_user.id && current_user.role == 'admin' && params[:role] != 'admin'
+      flash[:alert] = 'For safety reasons, you are not allowed to change ' \
+                      'your role from an admin to a not-admin.'
+      return false
+    end
+    true
   end
 end

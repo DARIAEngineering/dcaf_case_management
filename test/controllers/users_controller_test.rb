@@ -141,6 +141,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
                      flash[:alert]
       end
     end
+
+    describe 'users demotion rules' do
+      it 'should not let a user demote themself from admin' do
+        patch user_path(@user), params: { user: { role: 'cm' } }
+        assert_includes flash[:alert], 'For safety reasons'
+
+        @user.reload
+        assert_equal 'admin', @user.role
+      end
+
+      it 'should let a user demote others from admin' do
+        @other_admin = create :user, role: 'admin'
+        patch user_path(@other_admin), params: { user: { role: 'cm' } }
+
+        @other_admin.reload
+        assert_equal 'cm', @other_admin.role
+      end
+    end
   end
 
   # TODO test
