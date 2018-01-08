@@ -4,41 +4,40 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user, role: 'admin'
     @user_2 = create :user, role: 'cm'
-    sign_in @user
     @patient_1 = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Yolo Goat'
+
+    sign_in @user
   end
 
-  describe 'index method' do
-    it 'should redirect if user is not admin' do
+  describe 'authentication for restricted endpoints' do
+    %w[users_path new_user_path].each do |endpoint|
+      it "should redirect if user is not admin - #{endpoint}" do
+        User.role.values.reject { |role| role == :admin }.each do |role|
+          @user.update role: role
+          get send(endpoint.to_sym)
+          assert_response :redirect
+        end
+      end
+    end
+
+    it 'should respond unauthorized if user is not admin - users_search' do
       User.role.values.reject { |role| role == :admin }.each do |role|
         @user.update role: role
-        get users_path
+        post users_search_path, params: { search: '' }, xhr: true
+        assert_response :unauthorized
+      end
+    end
+
+    it 'should redirect if user is not admin - user update' do
+      User.role.values.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        patch user_path(@user_2), params: { user: {} }
         assert_response :redirect
       end
     end
 
-    it 'should let admin access the route' do
-      get users_path
-      assert_response :success
-    end
-  end
-
-  describe 'edit method' do
-    it 'should ???' do
-      raise 'write this test'
-    end
-  end
-
-  describe 'search method' do
-    it 'should return everyone if params' do
-      post users_search_path, params: { search: '' }, xhr: :true
-      assert_response :success
-    end
-  end
-
-  describe 'create method' do
-    it 'should raise if user is not admin' do
+    it 'should respond unauthorized if user is not admin - user update' do
       User.role.values.reject { |role| role == :admin }.each do |role|
         @user.update role: role
         assert_no_difference 'User.count' do
@@ -49,6 +48,100 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'index method' do
+    it 'should let admins access the route' do
+      get users_path
+      assert_response :success
+    end
+  end
+
+  describe 'edit method' do
+    it 'should be accessible' do
+      get edit_user_path(@user)
+      assert_response :success
+    end
+  end
+
+  describe 'search method' do
+    it 'should work on empty search' do
+      post users_search_path, params: { search: '' }, xhr: true
+      assert_response :success
+    end
+
+    it 'should work on nonempty search' do
+      post users_search_path, params: { search: 'yolo' }, xhr: true
+      assert_response :success
+    end
+  end
+
+  describe 'new method' do
+    it 'should return success' do
+      get new_user_path
+      assert_response :success
+    end
+  end
+
+  describe 'create method' do
+    it 'should create a user' do
+      assert_difference 'User.count', 1 do
+        post users_path, params: { user: attributes_for(:user) }
+      end
+    end
+
+    it 'should show errors if creation fails' do
+      attributes = attributes_for(:user)
+      attributes[:name] = nil
+      assert_no_difference 'User.count' do
+        post users_path, params: { user: attributes }
+      end
+      assert_includes response.body, 'can&#39;t be blank'
+    end
+  end
+
+  describe 'update method' do
+    before do
+      @params = {
+        name: 'jimmy',
+        email: 'jimmy@hotmail.com',
+        role: 'admin'
+      }
+    end
+
+    describe 'successful updates' do
+      before do
+        patch user_path(@user_2), params: { user: @params }
+        @user_2.reload
+      end
+
+      it 'should respond redirect in completion and flash' do
+        assert_response :redirect
+        assert_equal 'Successfully updated user details', flash[:notice]
+      end
+
+      it 'should update fields' do
+        assert_equal 'jimmy', @user_2.name
+        assert_equal 'jimmy@hotmail.com', @user_2.email
+        assert_equal 'admin', @user_2.role
+      end
+    end
+
+    describe 'failed updates' do
+      before do
+        @params[:role] = 'not a role'
+        patch user_path(@user_2), params: { user: @params }
+        @user_2.reload
+      end
+
+      it 'should not update parameters' do
+        assert_equal 'cm', @user_2.role
+      end
+
+      it 'should flash an error' do
+        assert_equal 'Error saving user details - Role is not included in the list',
+                     flash[:alert]
+      end
+    end
+  end
 
   # TODO test
   # describe 'toggle_lock method' do
@@ -92,78 +185,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   #     assert_equal 'Successfully sent password reset instructions to ' + @user.email, flash[:notice]
   #   end
   # end
-
-  describe 'update method' do
-    before do
-      @params = {
-        name: 'jimmy',
-        email: 'jimmy@hotmail.com',
-        role: 'admin'
-      }
-    end
-
-    describe 'user permissions' do
-      it 'should not update if the user is not an admin' do
-        User.role.values.reject { |role| role == :admin }.each do |role|
-        @user.update role: role
-        assert_no_difference '@user_2.role' do
-          patch user_path(@user_2), params: { user: @params }
-        end
-      end
-    end
-
-    describe 'successful updates' do
-      before do
-        patch user_path(@user_2), params: { user: @params }
-        @user_2.reload
-      end
-
-      it 'should respond redirect in completion and flash' do
-        assert_response :redirect
-        assert_equal 'Successfully updated user details', flash[:notice]
-      end
-
-      it 'should update fields' do
-        assert_equal 'jimmy', @user_2.name
-        assert_equal 'jimmy@hotmail.com', @user_2.email
-        assert_equal 'admin', @user_2.role
-      end
-    end
-
-    # describe 'failed updates' do
-    #   before do
-    #     @params[:role] = 'not a role'
-    #     patch user_path(@user_2), params: { user: @params }
-    #     @user_2.reload
-    #     puts @user_2
-    #   end
-
-    #   it 'should not update parameters'
-    #     assert_equal 'cm', @user_2.role
-    #   end
-
-    #   it 'should flash an error' do
-    #     assert_equal 'Error saving user details', flash[:alert]
-    #   end
-    # end
-
-    # it 'should let admin access the route' do
-    #   @user.role = :admin
-    #   @user.save!
-    #   get users_path
-    #   assert_response :success
-    # end
-
-    # TODO
-    # it 'should update if ADMIN' do
-    #   @user.update role: :admin
-    #   @user.reload
-    #   patch user_path(@user_2), params: { user: @params }
-    #
-    #   assert_equal @user_2.name, 'jimmy'
-    #   assert_equal @user_2.email, 'jimmy@hotmail.com'
-    # end
-  end
 
   describe 'add_patient method' do
     before do
@@ -286,5 +307,4 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       refute_equal @user.email, 'nope@nope.com'
     end
   end
-end
 end

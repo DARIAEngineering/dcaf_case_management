@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user.admin?
   end
 
+  def confirm_admin_user_async
+    head :unauthorized unless current_user.admin?
+  end
+
   def redirect_unless_has_data_access
     redirect_to root_url unless current_user.allowed_data_access?
   end

@@ -2,6 +2,7 @@
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   before_action :confirm_admin_user, only: [:new, :index, :update]
+  before_action :confirm_admin_user_async, only: [:search]
   before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
 
   def edit; end
 
-  def search # TODO needs more rigorous testing
+  def search
     @results = if params[:search].empty?
                  User.all
                else
@@ -22,44 +23,23 @@ class UsersController < ApplicationController
     respond_to { |format| format.js }
   end
 
-  def toggle_lock
-    # @user = User.find(params[:user_id])
-    # if @user == current_user
-    #   redirect_to edit_user_path @user
-    # else
-    #   if @user.access_locked?
-    #     flash[:notice] = 'Successfully unlocked ' + @user.email
-    #     @user.unlock_access!
-    #   else
-    #     flash[:notice] = 'Successfully locked ' + @user.email
-    #     @user.lock_access!
-    #   end
-    #   redirect_to edit_user_path @user
-    # end
+  def new
+    @user = User.new
+    session[:return_to] ||= request.referer
   end
 
-  # TODO find_user tweaking.
-  def reset_password
-    # @user = User.find(params[:user_id])
-
-    # TODO doesn't work in dev
-    @user.send_reset_password_instructions
-
-    flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
-    redirect_to edit_user_path @user
-  end
-
-  def update # TODO needs more rigorous testing
+  def update
     if @user.update_attributes user_params
       flash[:notice] = 'Successfully updated user details'
       redirect_to users_path
     else
-      flash[:alert] = 'Error saving user details'
+      error_content = @user.errors.full_messages.to_sentence
+      flash[:alert] = "Error saving user details - #{error_content}"
       render 'edit'
     end
   end
 
-  def create # TODO needs more rigorous testing
+  def create
     raise Exceptions::UnauthorizedError unless current_user.admin?
     @user = User.new(user_params)
     hex = SecureRandom.urlsafe_base64
@@ -68,15 +48,36 @@ class UsersController < ApplicationController
       flash[:notice] = 'User created!'
       redirect_to users_path
     else
-      # TODO if validation errors, render creation page with error msgs
       render 'new'
     end
   end
 
-  def new # TODO needs more rigorous testing
-    @user = User.new
-    session[:return_to] ||= request.referer
-  end
+  # def toggle_lock
+  #   # @user = User.find(params[:user_id])
+  #   # if @user == current_user
+  #   #   redirect_to edit_user_path @user
+  #   # else
+  #   #   if @user.access_locked?
+  #   #     flash[:notice] = 'Successfully unlocked ' + @user.email
+  #   #     @user.unlock_access!
+  #   #   else
+  #   #     flash[:notice] = 'Successfully locked ' + @user.email
+  #   #     @user.lock_access!
+  #   #   end
+  #   #   redirect_to edit_user_path @user
+  #   # end
+  # end
+
+  # # TODO find_user tweaking.
+  # def reset_password
+  #   # @user = User.find(params[:user_id])
+
+  #   # TODO doesn't work in dev
+  #   @user.send_reset_password_instructions
+
+  #   flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
+  #   redirect_to edit_user_path @user
+  # end
 
   def add_patient
     current_user.add_patient @patient
