@@ -11,15 +11,14 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def edit
-  end
+  def edit; end
 
   def search # TODO needs more rigorous testing
-    if params[:search].empty?
-      @results = User.all
-    else
-      @results = User.search params[:search]
-    end
+    @results = if params[:search].empty?
+                 User.all
+               else
+                 User.search params[:search]
+               end
     respond_to { |format| format.js }
   end
 

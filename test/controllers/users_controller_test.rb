@@ -2,11 +2,39 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   before do
-    @user = create :user
-    @user_2 = create :user
+    @user = create :user, role: 'admin'
+    @user_2 = create :user, role: 'cm'
     sign_in @user
     @patient_1 = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Yolo Goat'
+  end
+
+  describe 'index method' do
+    it 'should redirect if user is not admin' do
+      User.role.values.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        get users_path
+        assert_response :redirect
+      end
+    end
+
+    it 'should let admin access the route' do
+      get users_path
+      assert_response :success
+    end
+  end
+
+  describe 'edit method' do
+    it 'should ???' do
+      raise 'write this test'
+    end
+  end
+
+  describe 'search method' do
+    it 'should return everyone if params' do
+      post users_search_path, params: { search: '' }, xhr: :true
+      assert_response :success
+    end
   end
 
   describe 'create method' do
@@ -21,29 +49,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe 'index method' do
-    it 'should redirect if user is not admin' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
-        @user.update role: role
-        get users_path
-        assert_response :redirect
-      end
-    end
-
-    it 'should let admin access the route' do
-      @user.role = :admin
-      @user.save!
-      get users_path
-      assert_response :success
-    end
-  end
-
-  describe 'search method' do
-    it 'should return success' do
-      post users_search_path, params: { search: '' }, xhr: :true
-      assert_response :success
-    end
-  end
 
   # TODO test
   # describe 'toggle_lock method' do
@@ -92,24 +97,62 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     before do
       @params = {
         name: 'jimmy',
-        email: 'jimmy@hotmail.com'
+        email: 'jimmy@hotmail.com',
+        role: 'admin'
       }
-
-      patch user_path(@user), params: { user: @params }
-      @user.reload
     end
 
-    it 'should respond redirect in completion' do
-      assert_response :redirect
+    describe 'user permissions' do
+      it 'should not update if the user is not an admin' do
+        User.role.values.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        assert_no_difference '@user_2.role' do
+          patch user_path(@user_2), params: { user: @params }
+        end
+      end
     end
 
-    it 'should NOT update parameters' do
-      assert_equal @user.name, 'Billy Everyteen'
+    describe 'successful updates' do
+      before do
+        patch user_path(@user_2), params: { user: @params }
+        @user_2.reload
+      end
+
+      it 'should respond redirect in completion and flash' do
+        assert_response :redirect
+        assert_equal 'Successfully updated user details', flash[:notice]
+      end
+
+      it 'should update fields' do
+        assert_equal 'jimmy', @user_2.name
+        assert_equal 'jimmy@hotmail.com', @user_2.email
+        assert_equal 'admin', @user_2.role
+      end
     end
 
-    it 'should NOT flash success' do
-      assert_nil flash[:notice]
-    end
+    # describe 'failed updates' do
+    #   before do
+    #     @params[:role] = 'not a role'
+    #     patch user_path(@user_2), params: { user: @params }
+    #     @user_2.reload
+    #     puts @user_2
+    #   end
+
+    #   it 'should not update parameters'
+    #     assert_equal 'cm', @user_2.role
+    #   end
+
+    #   it 'should flash an error' do
+    #     assert_equal 'Error saving user details', flash[:alert]
+    #   end
+    # end
+
+    # it 'should let admin access the route' do
+    #   @user.role = :admin
+    #   @user.save!
+    #   get users_path
+    #   assert_response :success
+    # end
 
     # TODO
     # it 'should update if ADMIN' do
@@ -243,4 +286,5 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       refute_equal @user.email, 'nope@nope.com'
     end
   end
+end
 end
