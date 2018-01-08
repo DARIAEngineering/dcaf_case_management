@@ -18,16 +18,16 @@
   </div>
 
   <% if @user != current_user %>
-  <div class="row" id='user-panel'>
-    <h3>User panel for administrators</h3>
-    <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
-      <%# if @user.access_locked? %>
-        <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
-        <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-      <%# else %>
-        <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
-        <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-      <%# end %>
+    <div class="row" id='user-panel'>
+      <h3>User panel for administrators</h3>
+      <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
+        <%# if @user.access_locked? %>
+          <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
+          <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+        <%# else %>
+          <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
+          <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+        <%# end %>
       
       <h4>Update this user's role</h4>
       <div class="btn-group" role='group'>
@@ -35,6 +35,6 @@
         <%= role_toggle_button @user, 'data_volunteer' %>      
         <%= role_toggle_button @user, 'cm' %>        
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
