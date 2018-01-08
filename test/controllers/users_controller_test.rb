@@ -3,7 +3,7 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user, role: 'admin'
-    @user_2 = create :user, role: 'cm'
+    @user_2 = create :user, role: 'cm', name: 'Billy Everyteen'
     @patient_1 = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Yolo Goat'
 
@@ -102,8 +102,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     before do
       @params = {
         name: 'jimmy',
-        email: 'jimmy@hotmail.com',
-        role: 'admin'
+        email: 'jimmy@hotmail.com'
       }
     end
 
@@ -121,42 +120,46 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       it 'should update fields' do
         assert_equal 'jimmy', @user_2.name
         assert_equal 'jimmy@hotmail.com', @user_2.email
-        assert_equal 'admin', @user_2.role
       end
     end
 
     describe 'failed updates' do
       before do
-        @params[:role] = 'not a role'
+        @params[:name] = nil
         patch user_path(@user_2), params: { user: @params }
         @user_2.reload
       end
 
       it 'should not update parameters' do
-        assert_equal 'cm', @user_2.role
+        assert_equal 'Billy Everyteen', @user_2.name
       end
 
       it 'should flash an error' do
-        assert_equal 'Error saving user details - Role is not included in the list',
+        assert_equal "Error saving user details - Name can't be blank",
                      flash[:alert]
       end
     end
+  end
 
-    describe 'users demotion rules' do
-      it 'should not let a user demote themself from admin' do
-        patch user_path(@user), params: { user: { role: 'cm' } }
-        assert_includes flash[:alert], 'For safety reasons'
+  describe 'user role endpoints' do
+    it 'should let you change a user to an admin' do
+      patch change_role_to_admin_path(@user_2)
+      @user_2.reload
+      assert_equal 'admin', @user_2.role
+    end
 
-        @user.reload
-        assert_equal 'admin', @user.role
+    %w(data_volunteer cm).each do |role|
+      it "should let you change another user - #{role}" do
+        patch send("change_role_to_#{role}_path".to_sym, @user_2)
+        @user_2.reload
+        assert_equal role, @user_2.role
       end
 
-      it 'should let a user demote others from admin' do
-        @other_admin = create :user, role: 'admin'
-        patch user_path(@other_admin), params: { user: { role: 'cm' } }
-
-        @other_admin.reload
-        assert_equal 'cm', @other_admin.role
+      it "should not let you demote yourself - #{role}" do
+        patch send("change_role_to_#{role}_path".to_sym, @user)
+        @user.reload
+        assert_includes flash[:alert], 'For safety reasons'
+        assert_equal 'admin', @user.role
       end
     end
   end

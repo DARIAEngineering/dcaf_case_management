@@ -1,9 +1,14 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
-  before_action :confirm_admin_user, only: [:new, :index, :update]
+  before_action :confirm_admin_user, only: [:new, :index, :update,
+                                            :change_role_to_admin,
+                                            :change_role_to_data_volunteer,
+                                            :change_role_to_cm]
   before_action :confirm_admin_user_async, only: [:search]
-  before_action :find_user, only: [:update, :edit, :destroy, :reset_password]
+  before_action :find_user, only: [:update, :edit, :change_role_to_admin,
+                                   :change_role_to_data_volunteer,
+                                   :change_role_to_cm]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
@@ -29,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if user_not_demoting_themself(@user, user_params) && @user.update_attributes(user_params)
+    if @user.update_attributes(user_params)
       flash[:notice] = 'Successfully updated user details'
       redirect_to users_path
     else
@@ -50,6 +55,21 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def change_role_to_admin
+    @user.update role: 'admin'
+    render 'edit'
+  end
+
+  def change_role_to_data_volunteer
+    @user.update role: 'data_volunteer' if user_not_demoting_themself(@user)
+    render 'edit'
+  end
+
+  def change_role_to_cm
+    @user.update role: 'cm' if user_not_demoting_themself(@user)
+    render 'edit'
   end
 
   # def toggle_lock
@@ -114,7 +134,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :role)
+    params.require(:user).permit(:name, :email)
   end
 
   def retrieve_patients
@@ -122,10 +142,11 @@ class UsersController < ApplicationController
     @urgent_patient = Patient.where(urgent_flag: true)
   end
 
-  def user_not_demoting_themself(user, params)
-    if user.id == current_user.id && current_user.role == 'admin' && params[:role] != 'admin'
+  def user_not_demoting_themself(user)
+    if user.id == current_user.id && current_user.role == 'admin'
       flash[:alert] = 'For safety reasons, you are not allowed to change ' \
-                      'your role from an admin to a not-admin.'
+                      'your role from an admin to a not-admin. Ask another '\
+                      'admin to demote you.'
       return false
     end
     true
