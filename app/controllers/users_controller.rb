@@ -63,12 +63,12 @@ class UsersController < ApplicationController
   end
 
   def change_role_to_data_volunteer
-    @user.update role: 'data_volunteer' if user_not_demoting_themself(@user)
+    @user.update role: 'data_volunteer' if user_not_demoting_themself?(@user)
     render 'edit'
   end
 
   def change_role_to_cm
-    @user.update role: 'cm' if user_not_demoting_themself(@user)
+    @user.update role: 'cm' if user_not_demoting_themself?(@user)
     render 'edit'
   end
 
@@ -142,7 +142,7 @@ class UsersController < ApplicationController
     @urgent_patient = Patient.where(urgent_flag: true)
   end
 
-  def user_not_demoting_themself(user)
+  def user_not_demoting_themself?(user)
     if user.id == current_user.id && current_user.role == 'admin'
       flash[:alert] = 'For safety reasons, you are not allowed to change ' \
                       'your role from an admin to a not-admin. Ask another '\
