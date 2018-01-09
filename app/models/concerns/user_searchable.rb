@@ -8,7 +8,6 @@ module UserSearchable
   class_methods do
     def search(name_or_email_str)
       regexp = /#{Regexp.escape(name_or_email_str)}/i
-      # email_regexp = (VALID_EMAIL_REGEX).match(name_or_email_str)
 
       all_matching_names = find_name_matches regexp
       all_matching_emails = find_email_matches regexp
