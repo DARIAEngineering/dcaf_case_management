@@ -12,30 +12,30 @@
   </div>
 
   <div id="sections" class="col-sm-9 tab-content">
-    <div id="abortion_information" class="abortion-info tab-pane">
-      <%= render 'patients/abortion_information', patient: @patient, new_external_pledge: @external_pledge %>      
+    <div id="patient_information" class="patient-info tab-pane active">
+      <%= render 'patients/patient_information', patient: @patient %>
     </div>
 
-    <div id="patient_information" class="patient-info tab-pane active">
-      <%= render 'patients/patient_information', patient: @patient %>    
+    <div id="abortion_information" class="abortion-info tab-pane">
+      <%= render 'patients/abortion_information', patient: @patient, new_external_pledge: @external_pledge %>
     </div>
 
     <div id="change_log" class="change-log tab-pane">
-      <%= render 'patients/change_log', patient: @patient %>      
+      <%= render 'patients/change_log', patient: @patient %>
     </div>
 
     <div id="call_log" class="call-info tab-pane">
-      <%= render 'patients/call_log', patient: @patient %>    
+      <%= render 'patients/call_log', patient: @patient %>
     </div>
 
     <div id="notes" class="notes tab-pane">
-      <%= render 'patients/notes', patient: @patient, note: @note %>    
+      <%= render 'patients/notes', patient: @patient, note: @note %>
     </div>
 
-    <% if ( current_user.admin? || current_user.data_volunteer? ) && @patient.pledge_sent == true %>
-      <div id="fulfillment" class="fulfillment-info tab-pane">
+    <div id="pledge_fulfillment" class="pledge-fulfillment-info tab-pane">
+      <% if current_user.allowed_data_access? && @patient.pledge_sent? %>
         <%= render 'patients/fulfillment', patient: @patient %>      
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

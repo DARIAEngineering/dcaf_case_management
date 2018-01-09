@@ -50,6 +50,9 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_text? Patient::STATUSES[:pledge_sent]
       assert has_link? 'Fulfillment'
       assert has_link? 'Cancel pledge'
+
+      click_link 'Notes'
+      refute has_checked_field? 'Flag this patient as urgent'
     end
 
     it 'should render after opening call modal' do

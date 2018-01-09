@@ -1,43 +1,46 @@
-// rerack approx gestation
-<% if @patient.previous_changes.present? %>
-  $('#patient_appointment_date')
-    .parent()
-    .find('span.help-block')
-    .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
+// rerack LMP calculation
+$('#patient_appointment_date')
+  .parent()
+  .find('span.help-block')
+  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
 
-  // rerack status
-  $('#patient_status').text('<%= @patient.status %>');
+// rerack status
+$('#patient_status').text('<%= @patient.status %>');
 
-  // rerack current LMP
-  $('#patient_last_menstrual_period_weeks')
-    .parent()
-    .find('span.help-block')
-    .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
+// rerack current LMP
+$('#patient_last_menstrual_period_weeks')
+  .parent()
+  .find('span.help-block')
+  .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
 
-  // refresh entire changelog
-  $('#change_log').html(
-    '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
-  );
+// refresh changelog
+$('#change_log').html(
+  '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
+);
 
-  // if pledge is sent, re-rack fulfillment info
-  <% if @patient.previous_changes.key?('pledge_sent') && current_user.allowed_data_access? %>
-    // populate the fulfillment form if it's supposed to be there
-    <% if @patient.pledge_sent? %>
-    $('#fulfillment').remove();
-    $('#sections').append(
-      '<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>'
+// Rerack urgent status
+$('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
+
+// if pledge is sent, re-rack fulfillment info
+<% if current_user.allowed_data_access? && @patient.pledge_sent? %>
+  // populate the fulfillment form if it's supposed to be there and not there already
+  if ($('#pledge_fulfillment-menu-item').length == 0) {
+    $('#pledge_fulfillment').empty()
+                            .append('<%= escape_javascript(render partial: "patients/fulfillment", locals: { patient: @patient })%>');
+    $('#menu-list').append(
+      '<%= escape_javascript(render "patients/menu_item", link_for: "pledge_fulfillment", active: false) %>'
     );
-    <% end %>
-
-    // properly set the button and make fulfillment show up, if it should
-    $('#menu').html(
-      '<%= escape_javascript(render partial: "patients/menu", locals: { patient: @patient })%>'
-    );
-  <% elsif !@patient.pledge_sent %>
-    // clear out fulfillment form
-    $('#fulfillment').empty();
-  <% end %>
+  }
+<% else %>
+  // ensure fulfillment form is cleared out
+  $('#pledge_fulfillment').empty();
+  $('#pledge_fulfillment-menu-item').remove();
 <% end %>
+
+// Rerack pledge button
+$('#menu-pledge-button').html(
+  '<%= escape_javascript(render "patients/menu_pledge_button", patient: @patient) %>'
+);
 
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');

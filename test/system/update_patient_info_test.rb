@@ -221,12 +221,13 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       # fill_in 'Date of check', with: 2.weeks.from_now.strftime('%m/%d/%Y')
 
       click_away_from_field
+      wait_for_ajax
       reload_page_and_click_link 'Pledge Fulfillment'
     end
 
     # PROBLEMATIC TEST
     it 'should alter the information' do
-      within :css, '#fulfillment' do
+      within :css, '#pledge_fulfillment' do
         assert has_checked_field? 'Pledge fulfilled'
         assert has_field? 'Procedure date',
                           with: 2.days.from_now.strftime('%Y-%m-%d')
