@@ -1,9 +1,6 @@
-
 <% if @results.any? %>
   $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: @results, autosortable: true }) %>");
-
-<%= render partial: 'shared/activate_stupidtable' %>
-
+  <%= render partial: 'shared/activate_stupidtable' %>
 <% else %>
   $('#user-list').html("<%= escape_javascript(render partial: 'users/users_table', locals: { users: nil, autosortable: true }) %>");
 <% end %>

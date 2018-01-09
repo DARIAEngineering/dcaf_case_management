@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
+    patch 'users/:id/change_role_to_admin', to: 'users#change_role_to_admin', as: 'change_role_to_admin'
+    patch 'users/:id/change_role_to_data_volunteer', to: 'users#change_role_to_data_volunteer', as: 'change_role_to_data_volunteer'
+    patch 'users/:id/change_role_to_cm', to: 'users#change_role_to_cm', as: 'change_role_to_cm'
     # TODO reset password
     # get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
     # TODO toggle lock route

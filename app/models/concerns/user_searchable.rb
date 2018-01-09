@@ -6,13 +6,11 @@ module UserSearchable
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   class_methods do
-
     def search(name_or_email_str)
-      name_regexp = /#{Regexp.escape(name_or_email_str)}/i
-      email_regexp = (VALID_EMAIL_REGEX).match(name_or_email_str)
+      regexp = /#{Regexp.escape(name_or_email_str)}/i
 
-      all_matching_names = find_name_matches name_regexp
-      all_matching_emails = find_email_matches email_regexp
+      all_matching_names = find_name_matches regexp
+      all_matching_emails = find_email_matches regexp
 
       sort_and_limit_user_matches(all_matching_names, all_matching_emails)
     end
