@@ -5,20 +5,18 @@ class NewPatientCreationTest < ApplicationSystemTestCase
   before do
     @user = create :user
     log_in_as @user, 'MD'
+
+    fill_in 'search', with: 'Nobody Real Here'
+    click_button 'Search'
+    fill_in 'Phone', with: '555-666-7777'
+    fill_in 'Name', with: 'Susan Everyteen 2'
+    fill_in 'Initial Call Date', with: '03/04/2016'
+    select 'MD', from: 'Line'
+    click_button 'Add new patient'
+    wait_for_ajax
   end
 
   describe 'creating and recalling a new patient' do
-    before do
-      fill_in 'search', with: 'Nobody Real Here'
-      click_button 'Search'
-      fill_in 'Phone', with: '555-666-7777'
-      fill_in 'Name', with: 'Susan Everyteen 2'
-      fill_in 'Initial Call Date', with: '03/04/2016'
-      select 'MD', from: 'Line'
-      click_button 'Add new patient'
-      wait_for_ajax
-    end
-
     it 'should make that patient retrievable via search' do
       fill_in 'search', with: 'Susan Everyteen 2'
       click_button 'Search'
