@@ -37,6 +37,7 @@ class PatientTest < ActiveSupport::TestCase
       @new_patient.reload
       refute_nil @new_patient.fulfillment
     end
+    
   end
 
   describe 'validations' do
@@ -107,19 +108,40 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'callbacks' do
-    %w(name other_contact).each do |field|
-      it "should strip whitespace from before and after #{field}" do
-        @patient[field] = '   Yolo Goat   '
-        @patient.save
-        assert_equal 'Yolo Goat', @patient[field]
+    describe 'clean_fields' do
+      %w(name other_contact).each do |field|
+        it "should strip whitespace from before and after #{field}" do
+          @patient[field] = '   Yolo Goat   '
+          @patient.save
+          assert_equal 'Yolo Goat', @patient[field]
+        end
+      end
+
+      %w(primary_phone other_phone).each do |field|
+        it "should remove nondigits on save from #{field}" do
+          @patient[field] = '111-222-3333'
+          @patient.save
+          assert_equal '1112223333', @patient[field]
+        end
       end
     end
 
-    %w(primary_phone other_phone).each do |field|
-      it "should remove nondigits on save from #{field}" do
-        @patient[field] = '111-222-3333'
-        @patient.save
-        assert_equal '1112223333', @patient[field]
+    describe 'confirm still urgent' do
+      before do
+        create :clinic
+        @patient = create :patient, urgent_flag: true,
+                                    clinic: Clinic.first,
+                                    appointment_date: 2.days.from_now,
+                                    fund_pledge: 300
+      end
+
+      %w[pledge_sent resolved_without_fund].each do |attrib|
+        it "should unmark urgent after update if #{attrib}" do
+          @patient[attrib.to_sym] = true
+          @patient.save
+
+          refute @patient.urgent_flag
+        end
       end
     end
   end
@@ -383,6 +405,29 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.pledge_info_present?
       assert_equal ["DCAF pledge field cannot be blank"], @patient.pledge_info_errors
     end
+    
+    it 'should update sent by and sent at when sending the pledge' do
+      @user = create :user
+      @patient.fund_pledge = 500
+      @patient.clinic = @clinic
+      @patient.appointment_date = 14.days.from_now
+      @patient.last_edited_by = @user
+      @patient.fund_pledge = true
+      @patient.pledge_sent = true
+      @patient.update
+      @patient.reload
+      assert_in_delta Time.zone.now.to_f, @patient.pledge_sent_at.to_f, 15 #used assert_in_delta to account for slight differences in timing. Allows 15 seconds of lag?
+      assert_equal @user, @patient.pledge_sent_by
+    end
+    
+    it 'should set pledge sent and sent at to nil if a pledge is cancelled' do
+      @patient.pledge_sent = false
+      @patient.update
+      @patient.reload
+      assert_nil @patient.pledge_sent_by
+      assert_nil @patient.pledge_sent_at
+    end
+    
   end
 
   describe 'last menstrual period calculation concern' do

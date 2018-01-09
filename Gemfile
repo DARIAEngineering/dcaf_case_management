@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '2.4.3'
 
 gem 'rails', '>= 5.1'
 gem 'sass-rails', '~> 5.0'
@@ -65,7 +65,6 @@ group :test do
   gem 'codecov', require: false
   gem 'timecop'
   gem 'capybara-screenshot'
-  gem 'minitest-ci'
   gem 'pdf-inspector', require: "pdf/inspector"
   gem 'minitest-stub-const'
 end

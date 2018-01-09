@@ -3,4 +3,7 @@ $("#search_results_shell").append("<%= escape_javascript(render partial: 'patien
 
 <% if @results.any? %>
   $("#search_results_shell").append("<%= escape_javascript(render partial: 'dashboards/table_content', locals: { title: 'Search results', table_type: 'search_results', patients: @results } ) %>");
+    $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
 <% end %>
