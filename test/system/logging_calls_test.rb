@@ -61,6 +61,7 @@ class LoggingCallsTest < ApplicationSystemTestCase
         @timestamp = Time.zone.now
         find('a', text: @link_text).click
         wait_for_no_element @link_text
+        wait_for_ajax
       end
 
       it "should close the modal when clicking #{call_status}" do

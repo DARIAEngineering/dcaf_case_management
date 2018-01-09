@@ -1,6 +1,7 @@
 require 'test_helper'
 
 # TODO: There is a bizarre problem with this test. I think systemtests running on the same node break it
+# Test oauth sign in behavior
 # class GoogleSSOTest < ActionDispatch::IntegrationTest
 #   describe 'access top page' do
 #     before do
