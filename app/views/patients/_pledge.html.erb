@@ -54,9 +54,9 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-default js-btn-step pull-left" style="color:red;" data-dismiss="modal">No</button>
 
-    <%= form_for @patient, html:{id:'cancel-pledge-form'}, remote: true do |f|%>    
-      <%= f.hidden_field :pledge_sent, :value=> false %>
-      <%= f.submit 'Yes', class:"btn btn-success js-btn-step", id: 'cancel-pledge-submit'%>
+    <%= bootstrap_form_for @patient, html: { id:'cancel-pledge-form' }, remote: true do |f|%>    
+      <%= f.hidden_field :pledge_sent, value: false %>
+      <%= f.submit 'Yes', class: "btn btn-success js-btn-step", id: 'cancel-pledge-submit'%>
     <% end %>
   </div>
 <% end %>
