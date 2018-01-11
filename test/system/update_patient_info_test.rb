@@ -218,7 +218,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       wait_for_ajax
 
       fill_in 'Check #', with: '444-22'
-      # fill_in 'Date of check', with: 2.weeks.from_now.strftime('%m/%d/%Y')
+      fill_in 'Date of check', with: 2.weeks.from_now.strftime('%m/%d/%Y')
 
       click_away_from_field
       wait_for_ajax

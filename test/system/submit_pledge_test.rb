@@ -82,34 +82,12 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       wait_for_element 'Patient information'
     end
 
-    it 'should render after opening call modal' do
-      click_link 'Call Log'
-      wait_for_element 'Record new call'
-      wait_for_element "Call #{@patient.name} now:"
-
-      find('#cancel-pledge-button').click
-      wait_for_ajax
-
-      wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
-      assert has_text? 'Cancel pledge:'
-      find('#pledge-next').click
-      wait_for_ajax
-
-      wait_for_no_element 'Cancel pledge:'
-      assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
-    end
-
     it 'should not cancel if not rescinded' do
       assert has_link? 'Cancel pledge'
       find('#cancel-pledge-button').click
 
-      wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
-      assert has_text? 'Cancel pledge:'
-      find('#pledge-next').click
-      wait_for_ajax
-
-      assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
-      find('#pledge-next').click
+      assert has_text? 'Are you sure you want to cancel this pledge?'
+      click_button 'No'
 
       wait_for_ajax
       wait_for_element 'Patient information'
@@ -121,17 +99,10 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_link? 'Cancel pledge'
       find('#cancel-pledge-button').click
 
-      wait_for_element 'If you wish to cancel a pledge (such as to change it and resend it), please proceed to the next page'
-      assert has_text? 'Cancel pledge:'
-      find('#pledge-next').click
+      wait_for_element 'Are you sure you want to cancel this pledge?'
+      click_button 'Yes'
       wait_for_ajax
 
-      wait_for_no_element 'Cancel pledge:'
-      assert has_text? 'To confirm you want to cancel this pledge, please uncheck the check box below.'
-      find('#patient_pledge_sent').click
-      wait_for_ajax
-
-      find('#pledge-next').click
       assert has_link? 'Submit pledge'
       assert has_content? Patient::STATUSES[:no_contact]
       refute has_link? 'Fulfillment'
