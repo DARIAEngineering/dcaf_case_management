@@ -86,7 +86,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_link? 'Cancel pledge'
       find('#cancel-pledge-button').click
 
-      assert has_text? 'Are you sure you want to cancel the pledge?'
+      assert has_text? 'Are you sure you want to cancel this pledge?'
       click_button 'No'
 
       wait_for_ajax
@@ -99,7 +99,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_link? 'Cancel pledge'
       find('#cancel-pledge-button').click
 
-      wait_for_element 'Are you sure you want to cancel the pledge?'
+      wait_for_element 'Are you sure you want to cancel this pledge?'
       click_button has_text? 'Yes'
       wait_for_ajax
 
