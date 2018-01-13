@@ -35,7 +35,8 @@ class ClinicsController < ApplicationController
       flash[:notice] = 'Successfully updated clinic details'
       redirect_to clinics_path
     else
-      flash[:alert] = 'Error saving clinic details'
+      flash[:alert] = 'Error saving clinic details: ' \
+                      "#{@clinic.errors.full_messages.to_sentence}"
       render 'edit'
     end
   end
