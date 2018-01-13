@@ -1,7 +1,7 @@
 <h1>Clinics</h1>
 <p><%= link_to 'Add a new clinic', new_clinic_path %></p>
 
-<table class="table table-hover">
+<table class="table table-hover" id='clinics_table'>
   <tr>
     <th>Clinic name</th>
     <th>Address</th>
@@ -19,14 +19,14 @@
       <td><%= clinic.state %></td>
       <td><%= clinic.zip %></td>
       <td>
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href='#<%= clinic.id %>' aria-expanded="false" aria-controls='<%= clinic.id %>'>
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href='#<%= clinic.id %>' aria-expanded="false" aria-controls='<%= clinic.id %>' id='clinic-toggle-<%= clinic.id %>'>
           <i class="short-full glyphicon glyphicon-chevron-down accordion-toggle-down"></i>
           <i class="short-full glyphicon glyphicon-chevron-up accordion-toggle-up"></i>
         </a>
       </td>
     </tr>
 
-    <tr id='<%= clinic.id %>' class="collapse collapsible-clinic-details" role="tabpanel">
+    <tr id='clinic-<%= clinic.id %>-detail' class="collapse collapsible-clinic-details" role="tabpanel">
       <td>
         <div class="accepts-naf clinic-detail-group">
           <label>Accepts NAF?</label>
