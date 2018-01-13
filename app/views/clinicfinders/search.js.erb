@@ -1,7 +1,7 @@
 $('#clinic-finder-results').empty().hide();
 
 <% if @nearest&.any? %>
-  $("#clinic-finder-results").append("<%= escape_javascript(render partial: 'clinicfinders/result_table', locals: { title: 'Nearest Clinics', clinic_fields: [:name, :location, :distance], clinics: @nearest }) %>");
+  $("#clinic-finder-results").append("<%= escape_javascript(render partial: 'clinicfinders/result_table', locals: { title: 'Nearest Clinics', clinic_fields: [:name, :location, :accepts_naf, :distance], clinics: @nearest }) %>");
 <% end %>
 
 <% if @cheapest&.any? %>
