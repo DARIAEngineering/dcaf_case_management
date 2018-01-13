@@ -7,8 +7,9 @@
 
 [A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@test.com, Pass: P4ssword
 
+## Next major project milestone: Sharing with other funds
 
-## Next major project milestone: December 3: Victory party!
+Major new feature development on this project has more or less drawn to a close. If you are an abortion fund interested in whether this would work for you, hit us up and let us know!
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
@@ -19,9 +20,11 @@
 Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let us know!
 
 ## Project description
-This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/) (DCAF), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care.
+This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/) (DCAF), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Its primary goal is to simplify routine case management processes, such as keeping track of patient data, pledges, and contact information.
 
-Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. This app replaced that with a nice, clean, useable and shareable rails system that ditches spreadsheets forever! This will let DCAF and other funds continue to operate at a fast pace, and prevent volunteers from getting frustrated with shared Excel sheets. In addition, other abortion funds doing similar work in other places have adopted this system for their use.
+Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. This app replaces that with a nice, clean, useable and shareable rails system that ditches spreadsheets forever! This lets DCAF and other funds continue to operate at a fast pace, and prevents volunteers from getting frustrated with shared Excel sheets.
+
+In addition, other abortion funds doing similar work in other places can adopt this system to their use. We have a 
 
 Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](docs/DCAF_101.md), reading the [Code of Conduct](CODE_OF_CONDUCT.md), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files). You can also check out [some of the other buzz](docs/PRESS.md).
 
@@ -31,7 +34,7 @@ The team leads are:
 
 * @colinxfleming (rails and technical lead)
 * @mebates (design and UI lead)
-* @nerdygirl573 (DCAF manager)
+* @nerdygirl573 (DARIA manager)
 * @lwaldsc (DCAF liaison)
 * @alisonnjones (data lead)
 
@@ -42,8 +45,8 @@ Feel free to hit any of us up with questions about the project, we're nice!
 ### tl;dr
 * We are a regular presence at [Code for DC meetups](https://www.meetup.com/code-for-dc/)
 * We run on forks and pull requests
-* Our [list of priority issues is here](https://github.com/colinxfleming/dcaf_case_management/milestone/12)
-* Post in an issue when you're starting work on something
+* Our [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) is our project's remaining TODO list
+* Post in an issue when you're starting work on something, so @colinxfleming can keep track of it and so we don't duplicate work
 * We <3 new people and beginners
 
 ### [If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](docs/YOUR_FIRST_CONTRIBUTION.md)
@@ -72,23 +75,6 @@ Here's how you do it:
 * Do any work in your local environment and commit it to your fork in github.
 * Once you have finished your changes and have confirmed they're all working, make a pull request by pressing the Pull Request button.
 * At least one other person will review and comment on code changes, work with you to resolve issues, and merge the pull request when it's ready.
-
-### How We Categorize Our To Do List / Issues
-
-As noted above, this project maintains a [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) that make up our To-Do List. We generally categorize things as follows:
-
-Our major categories of software development related issues are as follows:
-* [Beginner Friendly](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) (Issues which require minimal familiarity with our codebase to complete, *reserved for people making their first contribution to this project*)
-* [Frontend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Afrontend) (Rails view work, CSS/JS work)
-* [Backend](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abackend) (Rails controller and model work)
-* [Minitest](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aminitest) (Feature and unit test work)
-* [Bug](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abug) (Something deployed that isn't working as intended!)
-* [UX/Design](https://github.com/colinxfleming/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3AUX%2Fdesign) (Design todos, or stuff that could use some feedback)
-
-We also keep track of our administrative issues and discussion in Github under the following issue labels:
-* [Admin](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aadmin) (Readme stuff, project organizing matters, etc)
-* [Question](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion) (Issues that require a little more discussion before we settle on a plan of attack)
-* [Backlog](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3Abacklog) (Low priority stuff that we'll get around to someday)
 
 ## Project Wall of Appreciation
 
