@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-sm-12 info-form">
         <h3> Clinic details </h3>
-        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
+        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-1' }, remote: true do |f| %>
           <div class="col-sm-6">
             <div class="info-form-left">
               <%= f.select :clinic_id, options_for_select(clinic_options, patient.clinic.try(:id)) %>
@@ -37,6 +37,14 @@
         <% end %>
       </div>
     </div>
+
+    <div class="row col-md-12 clinic_finder_container">
+      <div class='col-sm-12'>
+        <h5 class='clinic-finder-expand'>Clinic Locator Assistant<span class='glyphicon glyphicon-plus-sign pull-right'></span></h5>
+
+        <%= render 'clinicfinders/search_form' %>
+      </div>
+    </div>
   </div>
 
   <div id="cost_fields" class="col-sm-12">
@@ -48,7 +56,7 @@
 
     <div class="row col-sm-12" >
       <div class="patient_cost_fields">
-        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form' }, remote: true do |f| %>
+        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
           <div class="col-sm-6">
             <%= f.number_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
             <div class="info-form-left form-group outstanding-balance-ctn hidden">

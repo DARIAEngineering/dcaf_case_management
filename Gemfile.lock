@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/DCAFEngineering/clinic_finder.git
+  revision: efc38bb6b2f6d1b937ef7e7b62a635c13b45d87e
+  branch: master
+  specs:
+    clinic_finder (0.0.2pre)
+
+GIT
   remote: https://github.com/DCAFEngineering/mongoid_userstamp.git
   revision: 057eaea6988da10ac81a6808e6fff1ee4fe55ce5
   branch: master
@@ -81,7 +88,6 @@ GEM
       launchy
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
-    clinic_finder (0.0.1)
     codecov (0.1.10)
       json
       simplecov
@@ -368,7 +374,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  clinic_finder (~> 0.0.1)
+  clinic_finder!
   codecov
   coffee-rails (~> 4.2.2)
   database_cleaner

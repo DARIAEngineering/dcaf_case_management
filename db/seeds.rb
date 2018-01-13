@@ -26,14 +26,14 @@ user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Seed a pair of clinics, Sample 1 and Sample 2
-Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
-               city: 'Washington', state: 'DC', zip: '20011'
-Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
-               city: 'Arlington', state: 'VA', zip: '22204'
-Clinic.create! name: 'Sample Clinic with NAF', street_address: '123 Fake Street',
-              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: true
-Clinic.create! name: 'Sample Clinic without NAF', street_address: '123 Fake Street',
-              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: false, accepts_medicaid: true
+Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '1600 Pennsylvania Ave',
+               city: 'Washington', state: 'DC', zip: '20500'
+Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '1400 Defense',
+               city: 'Arlington', state: 'VA', zip: '20301'
+Clinic.create! name: 'Sample Clinic with NAF', street_address: '815 V Street NW',
+              city: 'Washington', state: 'DC', zip: '20001', accepts_naf: true
+Clinic.create! name: 'Sample Clinic without NAF', street_address: '1811 14th Street NW',
+              city: 'Washington', state: 'DC', zip: '20009', accepts_naf: false, accepts_medicaid: true
 
 
 # Create ten patients
