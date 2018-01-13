@@ -81,7 +81,18 @@ class ClinicManagementTest < ApplicationSystemTestCase
   end
 
   describe 'disabling a clinic' do
+    before { @patient = create :patient }
 
+    it 'should partition itself from the active clinics list when disabled' do
+      visit edit_clinic_path @clinic
+      uncheck 'Are we actively working with this clinic?'
+      click_button 'Save changes'
+
+      visit edit_patient_path @patient
+      click_link 'Abortion Information'
+      select "(Not currently working with DCAF) - #{@clinic.name}", from: 'patient_clinic_id'
+      assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
+    end
   end
 
   private
