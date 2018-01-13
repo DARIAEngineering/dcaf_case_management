@@ -5,11 +5,20 @@ $('.modal-content').append(
 );
 
 $('.modal').modal('toggle');
-$('.js-title-step span').slice(1).remove();
-var el = $(".js-title-step").contents()
 
-if (el.length > 2) {
-  el.slice(2,el.length).remove();
-}
+<% if (!@patient.pledge_sent) %>
 
-$('#pledge-modal').modalSteps();
+  $('.js-title-step span').slice(1).remove();
+  var el = $(".js-title-step").contents()
+
+  if (el.length > 2) {
+    el.slice(2,el.length).remove();
+  }
+
+  $('#pledge-modal').modalSteps();
+
+<% else %>
+  $('#cancel-pledge-form').on('submit', function() {
+    $('.modal').modal('hide');
+  })
+<% end %>

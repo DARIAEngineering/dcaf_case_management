@@ -28,6 +28,7 @@ class Patient
   before_save :save_identifier
   before_update :update_pledge_sent_by_sent_at
   after_create :initialize_fulfillment
+  after_update :confirm_still_urgent, if: :urgent_flag?
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
@@ -39,7 +40,7 @@ class Patient
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
   belongs_to :last_edited_by, class_name: 'User', inverse_of: nil
-  
+
   # Enable mass posting in forms
   accepts_nested_attributes_for :fulfillment
 
