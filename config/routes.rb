@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }
     resources :lines, only: [:new, :create]
     # resources :clinicfinders, only: [:index]
-    post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js } , as: 'clinicfinder_search'
+    post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js }, as: 'clinicfinder_search'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
