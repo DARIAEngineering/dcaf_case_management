@@ -6,7 +6,7 @@ class ClinicfindersControllerTest < ActionDispatch::IntegrationTest
     before do
       # Mock service
       @clinic_finder_mock = Minitest::Mock.new
-      @clinic_finder_mock.expect(:locate_nearest_clinics, [], ['12345'])
+      @clinic_finder_mock.expect(:locate_nearest_clinics, [create(:clinic)], ['12345'])
 
       sign_in create(:user)
     end
