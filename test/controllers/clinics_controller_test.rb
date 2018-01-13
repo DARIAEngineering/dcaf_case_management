@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Tests for the clinics controller
 class ClinicsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user, role: :admin
@@ -70,7 +71,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
       User.role.values.reject { |role| role == :admin }.each do |role|
         @user.update role: role
         get edit_clinic_path @clinic
-        assert_response :redirect
+        assert_redirected_to root_path
       end
     end
 
@@ -81,7 +82,36 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # TODO
   describe 'update' do
+    before do
+      @clinic = create :clinic
+      @clinic_attrs = attributes_for :clinic, name: 'Metallica'
+    end
+
+    it 'should redirect if not admin' do
+      User.role.values.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+        patch clinic_path(@clinic), params: { clinic: @clinic_attrs }
+        @clinic.reload
+        refute_equal 'Metallica', @clinic.name
+        assert_redirected_to root_path
+      end
+    end
+
+    it 'should update the clinic record' do
+      patch clinic_path(@clinic), params: { clinic: @clinic_attrs }
+      @clinic.reload
+      assert_equal 'Metallica', @clinic.name
+      assert_redirected_to clinics_path
+    end
+
+    it 'should not update the clinic record if the payload is bad' do
+      @clinic_attrs[:name] = nil
+
+      patch clinic_path(@clinic), params: { clinic: @clinic_attrs }
+      @clinic.reload
+      refute_equal 'Metallica', @clinic.name
+      assert_response :success
+    end
   end
 end
