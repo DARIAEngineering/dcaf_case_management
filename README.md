@@ -7,7 +7,7 @@
 
 [A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@test.com, Pass: P4ssword
 
-## Next major project milestone: Sharing is Caring!
+## Next major project milestone: Sharing with other funds
 
 Major new feature development on this project has more or less drawn to a close. If you are an abortion fund interested in whether this would work for you, hit us up and let us know!
 
