@@ -16,7 +16,7 @@ class ClinicfindersHelperTest < ActionView::TestCase
     it 'should parse distance specially' do
       @clinic_struct.distance = 4.530001
 
-      assert_equal "4.53 miles",
+      assert_equal '4.53 miles',
                    parse_clinicfinder_field(@clinic_struct, :distance)
     end
 
