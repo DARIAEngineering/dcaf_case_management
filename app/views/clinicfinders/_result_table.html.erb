@@ -1,8 +1,8 @@
 <h3><%= title %></h3>
 <table class="table">
   <thead>
-    <% labels.each do |label| %>
-      <th><%= label %></th>
+    <% clinic_fields.each do |label| %>
+      <th><%= label.to_s.humanize %></th>
     <% end %>
   </thead>
   <tbody>

@@ -1,6 +1,9 @@
+# Fields used in the result table will vary, so...
 module ClinicfindersHelper
   def parse_clinicfinder_field(clinic, field)
     case field
+    when :location
+      "#{clinic.city}, #{clinic.state}"
     when :distance
       "#{clinic[field].round(2)} miles"
     when :cost
