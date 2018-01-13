@@ -21,20 +21,22 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
   describe 'create' do
     before { @new_clinic = attributes_for :clinic }
 
-    # it 'should raise if user is not admin' do # TODO
-    #   @user.role = :cm
-    #   @user.save!
-    #   assert_raise RuntimeError, 'Permission Denied' do
-    #     post :create
-    #   end
-    # end
+    it 'should raise if user is not admin' do
+      User.role.values.reject { |role| role == :admin }.each do |role|
+        @user.update role: role
+
+        assert_no_difference 'Clinic.count' do
+          post clinics_path, params: { clinic: @new_clinic }
+        end
+        assert_redirected_to root_path
+      end
+    end
 
     it 'should create if fields are there' do
       assert_difference 'Clinic.count', 1 do
         post clinics_path, params: { clinic: @new_clinic }
       end
-      assert_response :redirect
-      # assert_redirected_to clinics_path
+      assert_redirected_to clinics_path
     end
 
     it 'should fail if fields not there' do
@@ -50,7 +52,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
       User.role.values.reject { |role| role == :admin }.each do |role|
         @user.update role: role
         get new_clinic_path
-        assert_response :redirect
+        assert_redirected_to root_path
       end
     end
 
@@ -80,6 +82,6 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # TODO
-  # describe 'update' do
-  # end
+  describe 'update' do
+  end
 end
