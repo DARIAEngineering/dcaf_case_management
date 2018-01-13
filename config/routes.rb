@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get 'reports', to: 'reports#index', as: 'reports'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
-    get 'display_clinic_finder', to: 'patients#display_clinic_finder', as: 'display_clinic_finder'
 
     # User routes behind the authentication wall
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
