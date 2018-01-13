@@ -4,14 +4,15 @@ class ClinicfindersController < ApplicationController
   def search
     return head :bad_request if params[:zip].blank?
 
-    @abortron = ClinicFinder::Locator.new(
-      Clinic.all, gestational_age: (params[:gestation].to_i || 0),
-                  naf_only: false, # (params[:naf_only] || false),
-                  medicaid_only: false # (params[:medicaid_only] || false)
+    clinic_finder = ClinicFinder::Locator.new(
+      Clinic.where.not(zip: nil),
+      gestational_age: (params[:gestation].to_i || 0),
+      naf_only: false, # (params[:naf_only] || false),
+      medicaid_only: false # (params[:medicaid_only] || false)
     )
 
-    @nearest = @abortron.locate_nearest_clinics params[:zip]
-    @cheapest = nil # @abortron.locate_cheapest_clinic
+    @nearest = clinic_finder.locate_nearest_clinics params[:zip]
+    @cheapest = nil # clinic_finder.locate_cheapest_clinic
     respond_to { |format| format.js }
   end
 end
