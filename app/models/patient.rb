@@ -27,6 +27,7 @@ class Patient
   before_validation :clean_fields
   before_save :save_identifier
   before_update :update_pledge_sent_by_sent_at
+  before_update :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
 
@@ -87,6 +88,7 @@ class Patient
   field :patient_contribution, type: Integer
   field :naf_pledge, type: Integer
   field :fund_pledge, type: Integer
+  field :fund_pledged_at, type: Time
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
@@ -132,22 +134,37 @@ class Patient
   mongoid_userstamp user_model: 'User'
 
   # Methods
-  def self.pledged_status_summary(num_days = 14, lines = LINES)
+  def self.pledged_status_summary(lines = LINES)
     # return pledge totals for patients with appts in the next num_days
-    outstanding_pledges = 0
-    sent_total = 0
-    start_of_week = Date.today.beginning_of_week(:monday)
-    Patient.in(line: lines)
-           .where(:appointment_date.lte => start_of_week + num_days,
-                  :fund_pledge.nin => ['', nil])
-           .pluck(:fund_pledge, :pledge_sent, :id, :name, :appointment_date).each do |patient|
-      if patient[1] && patient[4] >= (start_of_week + 7) # pledge sent
-        sent_total += (patient[0] || 0)
-      elsif patient[1]
-        outstanding_pledges += (patient[0] || 0)
+    # outstanding_pledges = 0
+    # sent_total = 0
+    start_of_week = Time.zone.today.beginning_of_week(:monday)
+    end_of_week = Time.zone.today.end_of_week(:monday)
+    patients = Patient.in(line: lines)
+                      .between(appointment_date: start_of_week..end_of_week)
+                      .where(:fund_pledge.nin => ['', nil])
+                      .map(&:to_simplified_patient)
+
+    patients.reduce do |acc = { sent: [], pledged: [] }, patient|
+      if patient.pledge_sent?
+        acc[:sent] << patient
+      else
+        acc[:pledged] << patient
       end
+      acc
     end
-    { pledged: outstanding_pledges, sent: sent_total }
+  end
+
+  def to_simplified_patient
+    {
+      fund_pledge: patient.fund_pledge,
+      pledge_sent: patient.pledge_sent?,
+      id: patient.id,
+      name: patient.name,
+      identifier: patient.identifier,
+      appointment_date: patient.appointment_date,
+      fund_pledged_at: patient.fund_pledged_at
+    }
   end
 
   def save_identifier
@@ -184,14 +201,22 @@ class Patient
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
   end
-  
+
   def update_pledge_sent_by_sent_at
-    if pledge_sent  && !pledge_sent_by
+    if pledge_sent && !pledge_sent_by
       self.pledge_sent_at = Time.zone.now
       self.pledge_sent_by = last_edited_by
     elsif !pledge_sent
       self.pledge_sent_by = nil
       self.pledge_sent_at = nil
+    end
+  end
+
+  def update_fund_pledged_at
+    if fund_pledge && !fund_pledged_at
+      fund_pledged_at = Time.zone.now
+    elsif fund_pledge.blank?
+      fund_pledged_at = nil
     end
   end
 end
