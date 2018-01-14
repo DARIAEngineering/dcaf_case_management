@@ -1,17 +1,17 @@
 <h3><%= title %></h3>
 <table class="table">
   <thead>
-    <% labels.each do |label| %>
-      <th><%= label %></th>
+    <% clinic_fields.each do |label| %>
+      <th><%= label.to_s.humanize %></th>
     <% end %>
   </thead>
   <tbody>
-  <% clinics.each do |clinic| %>
-    <tr>
-      <% clinic_fields.each do |field| %>
-        <td><%= clinic[field].to_s.titleize %></td>
-      <% end %>
-    </tr>
-  <% end %>
+    <% clinics.each do |clinic| %>
+      <tr>
+        <% clinic_fields.each do |field| %>
+          <td><%= parse_clinicfinder_field clinic, field %></td>
+        <% end %>
+      </tr>
+    <% end %>
   </tbody>
 </table>

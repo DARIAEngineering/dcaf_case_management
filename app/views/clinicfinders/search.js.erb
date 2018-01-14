@@ -1,9 +1,11 @@
-$('.clinic-finder-results').empty();
+$('#clinic-finder-results').empty().hide();
 
-<% if @nearest.any? %>
-  $(".clinic-finder-results").append("<%= escape_javascript(render partial: 'clinicfinders/result_table', locals: { title: 'Nearest Clinics', labels: ['Name', 'Distance'], clinic_fields: [:name, :distance], clinics: @nearest }) %>");
+<% if @nearest&.any? %>
+  $("#clinic-finder-results").append("<%= escape_javascript(render partial: 'clinicfinders/result_table', locals: { title: 'Nearest Clinics', clinic_fields: [:name, :location, :accepts_naf, :distance], clinics: @nearest }) %>");
 <% end %>
 
-<% if @cheapest.any? %>
-  $(".clinic-finder-results").append("<%= escape_javascript(render partial: 'clinicfinders/result_table', locals: { title: 'Most Affordable Clinics', labels: ['Name', 'Cost'], clinic_fields: [:name, :cost], clinics: @cheapest }) %>");
+<% if @cheapest&.any? %>
+  $("#clinic-finder-results").append("<%= escape_javascript(render partial: 'clinicfinders/result_table', locals: { title: 'Most Affordable Clinics', clinic_fields: [:name, :cost], clinics: @cheapest }) %>");
 <% end %>
+
+$("#clinic-finder-results").slideDown('fast');

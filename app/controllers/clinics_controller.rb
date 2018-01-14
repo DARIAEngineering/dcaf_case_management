@@ -1,7 +1,7 @@
 # Clinic-related functionality.
 class ClinicsController < ApplicationController
   before_action :confirm_admin_user, except: [:index]
-  before_action :find_clinic, only: [:update, :edit, :destroy]
+  before_action :find_clinic, only: [:update, :edit]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
@@ -33,13 +33,13 @@ class ClinicsController < ApplicationController
   def update
     if @clinic.update_attributes clinic_params
       flash[:notice] = 'Successfully updated clinic details'
+      redirect_to clinics_path
     else
-      flash[:alert] = 'Error saving clinic details'
+      flash[:alert] = 'Error saving clinic details: ' \
+                      "#{@clinic.errors.full_messages.to_sentence}"
+      render 'edit'
     end
-    redirect_to clinics_path
   end
-
-  # def destroy; end
 
   private
 
@@ -49,7 +49,8 @@ class ClinicsController < ApplicationController
 
   def clinic_params
     clinic_params = [:name, :street_address, :city, :state, :zip,
-                     :phone, :fax, :active, :accepts_naf, :accepts_medicaid, :gestational_limit]
+                     :phone, :fax, :active, :accepts_naf, :accepts_medicaid,
+                     :gestational_limit]
     cost_params = (5..30).map { |i| "costs_#{i}wks".to_sym }
 
     params.require(:clinic).permit(

@@ -1,44 +1,40 @@
-<div class="row">
-  <h1><%= @user.name %></h1>
-</div>
-<div class="row">
-  <div class="col-sm-12">
-    <h3> Status: <%= user_lock_status(@user) %></h3>
-    <h3> Last login: <%= @user.last_sign_in_at %> </h3>
+<div class="col-sm-12">
+  <div class="row" id='user-topline'>
+    <h1><%= @user.name %></h1>
+    <h4>Role: <%= @user.role.to_s %></h4>
+    <p>Status: <%= user_lock_status(@user) %></p>
+    <p>Last login: <%= @user.last_sign_in_at %></p>
   </div>
-</row>
-<div class="row">
-  <div class="col-sm-12">
-    <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
-    <% if @user != current_user %>
-      <% if @user.access_locked? %>
-        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
-        <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-      <% else %>
-        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
-        <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-  </div>
-</row>
-<div class="row">
-  <div class="col-sm-12">
-    <h3> User details </h3>
+
+  <div class="row">
+    <h3>Update details</h3>
     <%= bootstrap_form_for @user, html: { id: 'user-form' } do |f| %>
+      <%= f.text_field :name, label: 'Name', autocomplete: 'off' %>
 
-      <div class="col-sm-6">
-        <%= f.text_field :name, label: 'Name', autocomplete: 'off' %>
+      <%= f.text_field :email, label: 'Email', autocomplete: 'off' %>
 
-        <%= f.text_field :email, label: 'Email', autocomplete: 'off' %>
-
-        <%= f.select :role,
-                   options_for_select(user_role_options,
-                                      @user.role),
-                                      label: 'Role' %>
-
-        <%= f.submit "Save", class: 'btn btn-primary' %>
-        <%= link_to "Cancel", users_path %>
-      </div>
+      <%= f.submit "Save", class: 'btn btn-primary' %>
     <% end %>
   </div>
+
+  <% if @user != current_user %>
+    <div class="row" id='user-panel'>
+      <h3>User panel for administrators</h3>
+      <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
+        <%# if @user.access_locked? %>
+          <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
+          <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+        <%# else %>
+          <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
+          <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
+        <%# end %>
+      
+      <h4>Update this user's role</h4>
+      <div class="btn-group" role='group'>
+        <%= role_toggle_button @user, 'admin' %>      
+        <%= role_toggle_button @user, 'data_volunteer' %>      
+        <%= role_toggle_button @user, 'cm' %>        
+      </div>
+    </div>
+  <% end %>
 </div>

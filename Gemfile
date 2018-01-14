@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '2.4.3'
 
 gem 'rails', '>= 5.1'
 gem 'sass-rails', '~> 5.0'
@@ -31,7 +31,7 @@ gem 'tzinfo-data', require: false
 gem 'js-routes'
 gem 'rack-attack', '~> 5.0.1'
 gem 'rack-test', '~> 0.6.3', require: 'rack/test'
-gem 'clinic_finder', '~> 0.0.1'
+gem 'clinic_finder', git: 'https://github.com/DCAFEngineering/clinic_finder.git', branch: 'master'
 gem 'geokit'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
@@ -48,26 +48,23 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'spring'
-  gem 'binding_of_caller'
   gem 'knapsack'
 end
 
 group :test do
   gem 'shoulda-context'
-  gem 'minitest-reporters'
   gem 'mini_backtrace'
   gem 'minitest-spec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'launchy'
   gem 'codecov', require: false
   gem 'timecop'
   gem 'capybara-screenshot'
-  gem 'minitest-ci'
   gem 'pdf-inspector', require: "pdf/inspector"
   gem 'minitest-stub-const'
 end

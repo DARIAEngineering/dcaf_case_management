@@ -36,7 +36,7 @@ If you prefer a local environment, totally cool! We recommend the following:
 
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/)
-* Install our version of Ruby! We use version `2.4.2` (Usually `rbenv install 2.4.2` or `rvm install 2.4.2` once you have your version manager set up)
+* Install our version of Ruby! We use version `2.4.3` (Usually `rbenv install 2.4.3` or `rvm install 2.4.3` once you have your version manager set up)
 * Install PhantomJS, which our test suite depends on, via `brew install phantomjs`, or `npm install -g phantomjs-prebuilt`, or the [linux instructions](http://phantomjs.org/download.html)
 * Run the command `gem install bundler && bundle install` to install ruby dependences, including `rails`
 
@@ -69,7 +69,7 @@ If you don't currently have Rails installed (or are on Windows), Cloud9 makes th
 
 * Sign into `https://c9.io/` and create a new workspace
 * Clone from `git@github.com:{your_github_username}/dcaf_case_management.git` and select the Rails option
-* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.4.2 is not installed. To install do: `rvm install ruby-2.4.2`". Run that command to install the necessary version of Ruby.
+* The terminal at the bottom of your new workspace will have a warning message saying "ruby-2.4.3 is not installed. To install do: `rvm install ruby-2.4.3`". Run that command to install the necessary version of Ruby.
 * Next, install the bundler gem by entering `gem install bundler` in the terminal.
 * Install MongoDB by entering `sudo apt-get install -y mongodb-org`.
 * Once MongoDB is installed, run `bundle install` in the terminal

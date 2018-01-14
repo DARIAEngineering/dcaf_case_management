@@ -1,0 +1,28 @@
+<div class='col-sm-12 hide' id='clinic-finder-search-form'>
+  <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
+    <div class="row">
+      <div class="col-sm-6 info-form-left">
+        <%= f.text_field :zip, label: "Patient's ZIP code" %>
+      </div>    
+
+      <div class="col-sm-6">
+        <div class="info-form-right">
+          <p>NOTE: This is an experimental feature.</p>
+          <%# implement after gem change %>
+          <%#= f.select :approx_gestation_at_appt, weeks_options, label: "Patient's approx. gestation at appt" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class='col-sm-6'>
+        <%#= f.check_box :naf_only, label: 'Show NAF clinics only' %>  
+        <%#= f.check_box :medicaid_only, label: 'Show Medicaid clinics only' %>
+
+        <%= f.submit "Search clinics", class: "btn btn-primary" %>
+      </div>    
+    </div>
+  <% end %>
+</div>
+
+<div class='col-sm-12' id='clinic-finder-results'></div>

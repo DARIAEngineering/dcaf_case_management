@@ -1,4 +1,4 @@
-FROM ruby:2.4.2-alpine
+FROM ruby:2.4.3-alpine
 MAINTAINER Colin Fleming <c3flemin@gmail.com> 
 
 # configure environment variable
@@ -21,8 +21,6 @@ RUN apk update && apk upgrade && \
     ${APP_DEPENDENCIES} && \
     gem install bundler --no-ri --no-rdoc && \
     cd ${DCAF_DIR} ; bundle install && \
-    curl -Ls https://github.com/DarthHater/docker-phantomjs2/releases/download/2.1.1/dockerized-phantomjs.tar.gz | tar xz -C / && \
-	phantomjs --version && \
     apk del ${BUILD_DEPENDENCIES} 
 
 # symlink which nodejs to node

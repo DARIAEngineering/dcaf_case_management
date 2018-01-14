@@ -44,7 +44,6 @@ class User
   enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: true
   field :call_order, type: Array
 
-
   ## Database authenticatable
   field :email,              type: String, default: ''
   field :encrypted_password, type: String, default: ''
@@ -143,7 +142,7 @@ class User
     ordered_patients
   end
 
-  def clear_call_list
+  def clean_call_list_between_shifts
     if last_sign_in_at.present? &&
        last_sign_in_at < Time.zone.now - TIME_BEFORE_INACTIVE
       patients.clear
@@ -153,6 +152,11 @@ class User
         patients.delete(p) if recently_reached_by_user?(p)
       end
     end
+  end
+
+  def clear_call_list
+    patients.clear
+    save
   end
 
   def admin?
