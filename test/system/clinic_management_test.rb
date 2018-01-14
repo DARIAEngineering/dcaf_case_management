@@ -20,7 +20,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
         assert has_text? @clinic.name
       end
 
-      # TODO evisit this after it's less clunky
+      # TODO revisit this after viewing clinic details is less clunky
       # find("#clinic-toggle-#{@clinic.id}").click
       # wait_for_ajax
       # within :css, "clinic-#{@clinic.id}-detail" do

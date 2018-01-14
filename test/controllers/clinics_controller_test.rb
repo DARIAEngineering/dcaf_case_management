@@ -22,7 +22,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
   describe 'create' do
     before { @new_clinic = attributes_for :clinic }
 
-    it 'should raise if user is not admin' do
+    it 'should redirect if user is not admin' do
       User.role.values.reject { |role| role == :admin }.each do |role|
         @user.update role: role
 
