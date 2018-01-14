@@ -77,9 +77,7 @@ See [our data collection practices document](OUR_DATA_COLLECTION_PRACTICES.md) f
 
 ## Other attack vectors
 
-TK.
-
-<!-- Rackattack, rails security -->
+We have solutions in place to prevent common attack vectors. Keeping our framework, Rails, up to date protects us from a lot of common attacks. In addition, we use the ibraries `rack-attack` and `secure_headers` to prevent some less common attack vectors, such as DDOS attacks and javascript injection.
 
 
 ## Data encryption practices

@@ -58,7 +58,7 @@ $(document).on 'turbolinks:load', ->
   $(document).on "change", ".edit_patient", ->
     $(this).submit()
 
-  $(document).on "change", "#fulfillment", ->
+  $(document).on "change", "#pledge_fulfillment_form", ->
     markFulfilledWhenFieldsChecked()
     $(this).submit()
 

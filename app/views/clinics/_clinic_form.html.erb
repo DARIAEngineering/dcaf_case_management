@@ -9,8 +9,8 @@
         <%= f.text_field :zip, autocomplete: 'off' %>
         <%= f.text_field :phone, autocomplete: 'off', pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
         <%= f.text_field :fax, autocomplete: 'off', pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
-        <%= f.check_box :accepts_naf, autocomplete: 'off' %>
-        <%= f.check_box :accepts_medicaid, autocomplete: 'off' %>
+        <%= f.check_box :accepts_naf, label: 'Accepts NAF', autocomplete: 'off' %>
+        <%= f.check_box :accepts_medicaid, label: 'Accepts Medicaid', autocomplete: 'off' %>
         <%= f.check_box :active, autocomplete: 'off', label: 'Are we actively working with this clinic?' %>
       </div>
       <div class="info-form-right col-sm-6">

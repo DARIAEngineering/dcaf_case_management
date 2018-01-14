@@ -1,22 +1,19 @@
-<section class="abortion-left-menu">
-  <ul class="nav nav-pills nav-stacked">
-    <li class='active'><%= link_to 'Patient Information', '#patient_information', data: { toggle: 'tab' } %></li>
-    <li><%= link_to 'Abortion Information', '#abortion_information', data: { toggle: 'tab' } %></li>
-    <li><%= link_to 'Notes', '#notes', data: { toggle: 'tab' } %></li>
-    <li><%= link_to 'Change Log', '#change_log', data: { toggle: 'tab' } %></li>
-    <li><%= link_to 'Call Log', '#call_log', data: { toggle: 'tab' } %></li>
-    <% if ( current_user.admin? || current_user.data_volunteer? ) && patient.pledge_sent == true %>
-      <li><%= link_to 'Pledge Fulfillment', '#fulfillment', data: { toggle: 'tab' } %></li>
-    <% end %>
+<section id='menu-content' class="abortion-left-menu">
+  <ul class="nav nav-pills nav-stacked" id='menu-list'>
+    <%= render 'menu_item', link_for: 'patient_information', active: true %>
+    <%= render 'menu_item', link_for: 'abortion_information', active: false %>
+    <%= render 'menu_item', link_for: 'notes', active: false %>
+    <%= render 'menu_item', link_for: 'change_log', active: false %>
+    <%= render 'menu_item', link_for: 'call_log', active: false %>
 
+    <% if current_user.allowed_data_access? && patient.pledge_sent? %>
+      <%= render 'menu_item', link_for: 'pledge_fulfillment', active: false %>
+    <% end %>
   </ul>
+
   <div class="row">
-    <div class="col-sm-10">
-      <% if not patient.pledge_sent %>
-        <%= link_to submit_pledge_button, submit_pledge_path(patient), class:'submit-pledge-button', remote: true %>
-      <% else %>
-        <%= link_to cancel_pledge_button, submit_pledge_path(patient), class:'submit-pledge-button', remote: true %>
-      <% end %>
+    <div class="col-sm-10" id='menu-pledge-button'>
+      <%= render 'menu_pledge_button', patient: patient %>
     </div>
   </div>
 </section>

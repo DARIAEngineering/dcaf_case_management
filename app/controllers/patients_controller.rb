@@ -58,18 +58,14 @@ class PatientsController < ApplicationController
   end
 
   def update
-    @patients = Patient.where('fulfillment.fulfilled' => true)
-    
-    if @patient.update_attributes params[:pledge_sent]
-       @patient.pledge_sent_at = Time.zone.now
-       @patient.pledge_sent_by = current_user
-    end
+    @patient.last_edited_by = current_user
     if @patient.update_attributes patient_params
       @patient.reload
       flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.display_timestamp}"
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error
+      response.status = :not_acceptable
     end
     respond_to { |format| format.js }
   end
