@@ -1,4 +1,3 @@
-
 namespace :db do
   namespace :seed do
     desc 'Generate 20 training accounts - training-account-n@test.com'
