@@ -27,7 +27,7 @@ class Patient
   before_validation :clean_fields
   before_save :save_identifier
   before_update :update_pledge_sent_by_sent_at
-  before_update :update_fund_pledged_at
+  before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
 
@@ -135,35 +135,32 @@ class Patient
 
   # Methods
   def self.pledged_status_summary(lines = LINES)
-    # return pledge totals for patients with appts in the next num_days
-    # outstanding_pledges = 0
-    # sent_total = 0
+    # return pledge totals for patients with appts in a given week
     start_of_week = Time.zone.today.beginning_of_week(:monday)
-    end_of_week = Time.zone.today.end_of_week(:monday)
     patients = Patient.in(line: lines)
-                      .between(appointment_date: start_of_week..end_of_week)
-                      .where(:fund_pledge.nin => ['', nil])
+                      .where(:fund_pledge.nin => [0, nil, ''])
+                      .where(:fund_pledged_at.gte => start_of_week)
                       .map(&:to_simplified_patient)
 
-    patients.reduce do |acc = { sent: [], pledged: [] }, patient|
-      if patient.pledge_sent?
-        acc[:sent] << patient
+    patients.each_with_object(sent: [], pledged: []) do |patient, summary|
+      if patient[:pledge_sent]
+        summary[:sent] << patient
       else
-        acc[:pledged] << patient
+        summary[:pledged] << patient
       end
-      acc
+      summary
     end
   end
 
   def to_simplified_patient
     {
-      fund_pledge: patient.fund_pledge,
-      pledge_sent: patient.pledge_sent?,
-      id: patient.id,
-      name: patient.name,
-      identifier: patient.identifier,
-      appointment_date: patient.appointment_date,
-      fund_pledged_at: patient.fund_pledged_at
+      fund_pledge: fund_pledge,
+      pledge_sent: pledge_sent?,
+      id: id,
+      name: name,
+      identifier: identifier,
+      appointment_date: appointment_date,
+      fund_pledged_at: fund_pledged_at
     }
   end
 
@@ -213,10 +210,11 @@ class Patient
   end
 
   def update_fund_pledged_at
-    if fund_pledge && !fund_pledged_at
-      fund_pledged_at = Time.zone.now
+    # puts fund_pledge_changed?
+    if fund_pledge_changed? && fund_pledge
+      self.fund_pledged_at = Time.zone.now
     elsif fund_pledge.blank?
-      fund_pledged_at = nil
+      self.fund_pledged_at = nil
     end
   end
 end

@@ -1,5 +1,21 @@
-<div class="progress">
-  <% expenditures.each_pair do |type, value| %>
-    <div class="progress-bar progress-bar-striped <%= progress_bar_color type %>" style="<%= progress_bar_width value %>">$<%= value %> <%= type %></div>
-  <% end %>
+<div class="col-sm-12" id='budget-bar'>
+  <div class="row">
+    <div class="progress" id='budget-progress-bar'>
+      <% expenditures.each_pair do |type, patient_hashes| %>
+        <% patient_hashes.each do |patient| %>
+          <div class="progress-bar progress-bar-striped <%= progress_bar_color type %>" style='<%= progress_bar_width patient[:fund_pledge] %>'>
+            <%= patient[:fund_pledge] %> <%= type %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row" id='budget-report'>
+      <% expenditures.each_pair do |type, patient_hashes| %>
+        <div class="col-sm-6">
+          $<%= expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) %> <%= type  %> (<%= expenditures[type].count %> patients)
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
