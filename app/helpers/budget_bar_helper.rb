@@ -12,7 +12,7 @@ module BudgetBarHelper
   private
 
   def to_pct(value, total)
-    budget_total = total || 1_350
+    budget_total = total
     pct = (value.to_f / budget_total.to_f) * 100
     pct.round.to_s
   end
