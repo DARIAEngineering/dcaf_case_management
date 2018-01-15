@@ -9,7 +9,7 @@
 
 ## Next major project milestone: Sharing with other funds
 
-Major new feature development on this project has more or less drawn to a close. If you are an abortion fund interested in whether this would work for you, hit us up and let us know!
+Major new feature development on this project has more or less drawn to a close. Our general administration/maintenance plan is [here](docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md). If you are an abortion fund interested in whether this would work for you, hit us up and let us know!
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
