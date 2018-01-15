@@ -167,7 +167,7 @@ Config.create config_key: :language,
     last_menstrual_period_weeks: 7,
     last_menstrual_period_days: 7,
     naf_pledge: 300,
-    fund_pledge: 200,
+    fund_pledge: 50,
     procedure_cost: 600,
     pledge_sent: true,
     patient_contribution: 100)
