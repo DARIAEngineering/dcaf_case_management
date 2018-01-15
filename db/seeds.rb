@@ -1,4 +1,4 @@
-fail 'No running seeds in prod' unless [nil, 'Test Sandbox'].include? ENV['FUND']
+fail 'No running seeds in prod' unless [nil, 'Sandbox'].include? ENV['DARIA_FUND']
 
 # if ARGV[1].blank?
 #   puts "\n****SEED FAILED, but it's easy to fix****\n" \

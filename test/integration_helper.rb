@@ -53,7 +53,7 @@ module IntegrationHelper
   end
 
   def go_to_dashboard
-    click_link "DARIA - #{(ENV['FUND'] ? ENV['FUND'] : Rails.env)}"
+    click_link "DARIA - #{(ENV['DARIA_FUND'] || Rails.env)}"
   end
 
   def click_away_from_field
