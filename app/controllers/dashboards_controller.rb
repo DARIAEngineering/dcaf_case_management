@@ -21,7 +21,7 @@ class DashboardsController < ApplicationController
   end
 
   def budget_bar
-    expenditures = Patient.pledged_status_summary # Stub for now
+    expenditures = Patient.pledged_status_summary
     budget_bar_ceiling = [1350,
                           expenditures.values.flatten.map { |x| x[:fund_pledge] }.inject(:+)].max
 

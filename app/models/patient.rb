@@ -210,7 +210,6 @@ class Patient
   end
 
   def update_fund_pledged_at
-    # puts fund_pledge_changed?
     if fund_pledge_changed? && fund_pledge
       self.fund_pledged_at = Time.zone.now
     elsif fund_pledge.blank?

@@ -1,4 +1,4 @@
-<div class="col-sm-12" id='budget-bar'>
+<div class="col-sm-12" id='budget-bar-content'>
   <div class="row">
     <div class="progress" id='budget-progress-bar'>
       <% expenditures.each_pair do |type, patient_hashes| %>
@@ -15,7 +15,7 @@
     <div class="row" id='budget-report'>
       <% expenditures.each_pair do |type, patient_hashes| %>
         <div class="col-sm-6">
-          <%= number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+), precision: 0) %> <%= type  %> (<%= expenditures[type].count %> patients)
+          <%= number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) || 0, precision: 0)  %> <%= type  %> (<%= expenditures[type].count %> patients)
         </div>
       <% end %>
     </div>
