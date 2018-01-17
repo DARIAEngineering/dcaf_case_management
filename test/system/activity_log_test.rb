@@ -43,6 +43,7 @@ class ActivityLogTest < ApplicationSystemTestCase
       assert has_text? 'Confirm the following information is correct'
       click_button 'Next'
       wait_for_element 'Generate your pledge form'
+      fill_in 'case_manager_name', with: 'YOLO Jones'
       click_button 'Next'
       check 'I sent the pledge'
       wait_for_ajax

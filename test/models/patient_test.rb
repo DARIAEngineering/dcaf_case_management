@@ -252,6 +252,7 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.respond_to? :created_by
       assert @patient.created_by
     end
+
   end
 
   describe 'scopes' do
@@ -353,7 +354,124 @@ class PatientTest < ActiveSupport::TestCase
         assert_equal hash, Patient.contacted_since(datetime)
       end
     end
-  end
+
+    describe 'no_contact_since method' do
+      it 'should return a hash' do
+        datetime = 5.days.ago
+        hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
+        assert_equal hash, Patient.contacted_since(datetime)
+      end
+    end
+
+    describe 'fulfilled_on_or_before method' do
+      before do
+        @fulfilled_patient = create :patient, other_phone: '404-222-3333',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '909-333-4321',
+                                  line: 'DC',
+                                  name: 'Pat'
+        @unfulfilled_patient = create :patient, other_phone: '234-222-3333',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '909-333-4999',
+                                  line: 'DC',
+                                  name: 'Chelsea'
+        @fulfilled_patient.update initial_call_date: 150.days.ago
+        @fulfilled_patient.fulfillment.update date_of_check: 120.days.ago
+      end
+
+      it 'should be able to give me patients fulfilled on or before a day' do
+        assert_equal 1, Patient.fulfilled_on_or_before(20.days.ago).count
+      end
+    end
+
+    describe 'has_alt_contact method' do
+      before do
+        @lonely_patient = create :patient, primary_phone: '703-867-5319',
+                                      line: 'DC',
+                                      name: 'Mickey'
+        @popular_patient_1 = create :patient, primary_phone: '703-867-5329',
+                                      line: 'DC',
+                                      name: 'Daffy',
+                                      other_contact: 'Daisy'
+        @popular_patient_2 = create :patient, primary_phone: '703-867-5339',
+                                      line: 'DC',
+                                      name: 'Lucy',
+                                      other_phone: '802-212-1242'
+        @popular_patient_3 = create :patient, primary_phone: '703-867-5359',
+                                      line: 'DC',
+                                      name: 'Chuck',
+                                      other_contact_relationship: 'Mom'
+      end
+
+      it 'should return false for lonely patient' do
+        refute @lonely_patient.has_alt_contact?
+      end
+
+      it 'should return true when patient has other contact' do
+        refute @popular_patient_1.has_alt_contact?
+      end
+
+      it 'should return true when patient has other phone' do
+        refute @popular_patient_2.has_alt_contact?
+      end
+
+      it 'should return true when patient has other contact relationship' do
+        refute @popular_patient_3.has_alt_contact?
+      end
+    end #has_alt_contact
+
+    describe 'set_age_range method' do
+      before do
+        @rapidly_aging_patient = create :patient, primary_phone: '703-867-5309',
+                                      line: 'DC',
+                                      name: 'Mickey'
+      end
+
+      it 'should return unknown for nil' do
+        assert_equal :unknown, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return unknown for empty' do
+        @rapidly_aging_patient.age = ''
+        assert_equal :unknown, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return under_18 for 17' do
+        @rapidly_aging_patient.age = 17
+        assert_equal :under_18, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age18_24 for 21' do
+        @rapidly_aging_patient.age = 21
+        assert_equal :age18_24, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age25_34 for 33' do
+        @rapidly_aging_patient.age = 33
+        assert_equal :age25_34, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age35_44 for 38' do
+        @rapidly_aging_patient.age = 38
+        assert_equal :age35_44, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age45_54 for 49' do
+        @rapidly_aging_patient.age = 49
+        assert_equal :age45_54, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return age55_100 for 60' do
+        @rapidly_aging_patient.age = 60
+        assert_equal :age55_100, @rapidly_aging_patient.set_age_range
+      end
+
+      it 'should return Bad value for 111' do
+        @rapidly_aging_patient.age = 111
+        assert_equal 'Bad value', @rapidly_aging_patient.set_age_range
+      end
+    end # set_age_range 
+  end # methods
 
   describe 'pledge_sent validation' do
     before do
@@ -618,47 +736,171 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'patient archive scopes' do
+    before do
+      @pt1 = create :patient, other_phone: '111-222-3333',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '222-333-4321',
+                                  name: 'Archiveworthy'
+
+      @pt2 = create :patient, other_phone: '111-222-3933',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '222-033-4321',
+                                  name: 'Archiveworthy'
+      @pt2.archive!
+    end
+
+#    it 'should see that there are archived and unarchived patients' do
+#      @pt1.reload
+#      @pt2.reload
+#      assert_equal 1, Patient.is_archived.count
+#      assert_equal 1, Patient.unarchived.count
+#    end
+  end
+
+  describe 'archive tests' do
+    before do
+      @old_fulfill_patient = create :patient, other_phone: '111-222-3333',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '222-333-4321',
+                                  name: 'Archiveworthy',
+                                  special_circumstances: ["Prison", "Fetal anomaly"],
+                                  line: 'DC'
+
+      @old_fulfill_patient.update initial_call_date: 150.days.ago
+      @old_fulfill_patient.fulfillment.update date_of_check: 120.days.ago,
+                                              check_number: 1337
+      create :call, patient: @old_fulfill_patient, status: 'Reached patient', created_at: 142.days.ago
+      create :note, patient: @old_fulfill_patient, full_text: (1..100).map(&:to_s).join('')
+      @user = create :user
+      create :external_pledge, patient: @old_fulfill_patient, created_by: @user
+      @dropoff_patient = create :patient, other_phone: '111-222-3233',
+                                  other_contact: 'Yolo',
+                                  primary_phone: '222-333-4325',
+                                  name: 'Archiveworthy'
+      @dropoff_patient.update initial_call_date: 2.years.ago
+
+      @active_patient = create :patient, other_phone: '111-222-3333',
+                                other_contact: 'Yolo'
+
+      @active_patient.update initial_call_date: 2.days.ago
+      Patient.archive
+      #@old_fulfill_patient.archive!
+      @old_fulfill_patient.reload
+      @dropoff_patient.reload
+      @active_patient.reload
+      #puts "BAZRAZ" + @old_fulfill_patient.inspect.to_s
+    end
+
+    describe 'archived status tests' do
+      it 'should report not archived for active patients' do
+        assert_not @active_patient.archived?
+      end
+
+      it 'should report archived for archived patients' do
+        assert @old_fulfill_patient.archived?
+        assert @dropoff_patient.archived?
+      end
+
+      it 'should not have a phone number' do
+        assert_not @old_fulfill_patient.primary_phone
+      end
+      it 'should not have a name' do
+        assert_equal "ARCHIVED", @old_fulfill_patient.name
+      end
+      it 'should not have any notes' do
+        @old_fulfill_patient.notes.each do |note|
+          assert_equal "ARCHIVED", note.full_text
+        end
+      end
+      it 'should not have an age' do
+        assert_not @old_fulfill_patient.age
+      end
+      it 'should have an age_range' do
+        assert @old_fulfill_patient.age_range
+      end
+      it 'should not have an other contact name' do
+        assert_not @old_fulfill_patient.other_contact
+      end
+      it 'should not have an other contact number' do
+        assert_not @old_fulfill_patient.other_phone
+      end
+      it 'should not have an other contact relationship' do
+        assert_not @old_fulfill_patient.other_contact_relationship
+      end
+      it 'should not have any circumstances' do
+        assert_equal [], @old_fulfill_patient.special_circumstances
+      end
+      it 'should not have a check # on pledges' do
+        assert_not @old_fulfill_patient.fulfillment.check_number
+      end
+      it 'should have a UUID based ID' do
+        assert_match  /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/, @old_fulfill_patient.identifier
+      end
+
+      it 'should archive on direct archive call' do
+        @archive_direct = create :patient, other_phone: '111-222-2333',
+                                    other_contact: 'Yolo',
+                                    primary_phone: '222-333-4325',
+                                    name: 'Archiveworthy'
+        @archive_direct.update initial_call_date: 2.years.ago
+        @archive_direct.archive!
+        @archive_direct.reload
+
+        assert @archive_direct.archived?
+      end
+    end
+
+    # TODO test dropoff patients
+   # describe 'archived status readonly' do
+   #   it 'should not allow updates to archived patients' do
+   #     flunk("IOU")
+   #     # TODO integration test for this as well?
+   #   end
+   # end
+  end
+
   describe 'export concern methods' do
     before { @patient = create :patient }
 
     describe 'age range tests' do
       it 'should return the right age for numbers' do
         @patient.age = nil
-        assert_nil @patient.age_range
+        assert_nil @patient.get_age_range
 
         [15, 17].each do |age|
           @patient.update age: age
-          assert_equal @patient.age_range, 'Under 18'
+          assert_equal @patient.get_age_range, 'Under 18'
         end
 
         [18, 20, 24].each do |age|
           @patient.update age: age
-          assert_equal @patient.age_range, '18-24'
+          assert_equal @patient.get_age_range, '18-24'
         end
 
         [25, 30, 34].each do |age|
           @patient.update age: age
-          assert_equal @patient.age_range, '25-34'
+          assert_equal @patient.get_age_range, '25-34'
         end
 
         [35, 40, 44].each do |age|
           @patient.update age: age
-          assert_equal @patient.age_range, '35-44'
+          assert_equal @patient.get_age_range, '35-44'
         end
 
         [45, 50, 54].each do |age|
           @patient.update age: age
-          assert_equal @patient.age_range, '45-54'
+          assert_equal @patient.get_age_range, '45-54'
         end
 
         [55, 60, 100].each do |age|
           @patient.update age: age
-          assert_equal @patient.age_range, '55+'
+          assert_equal @patient.get_age_range, '55+'
         end
 
         [101, 'yolo'].each do |bad_age|
           @patient.age = bad_age
-          assert_equal @patient.age_range, 'Bad value'
+          assert_equal @patient.get_age_range, 'Bad value'
         end
       end
     end

@@ -49,5 +49,10 @@ class NoteTest < ActiveSupport::TestCase
       assert @note.respond_to? :created_by
       assert @note.created_by
     end
+
+    it 'should have archive methods' do
+      assert @note.respond_to? :archive!
+      assert @note.archive!
+    end
   end
 end

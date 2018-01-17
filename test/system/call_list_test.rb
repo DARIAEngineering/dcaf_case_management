@@ -61,6 +61,7 @@ class CallListTest < ApplicationSystemTestCase
       within :css, '#call_list_content' do
         find("a.call-#{@patient.primary_phone_display}").click
       end
+      wait_for_element "Call #{@patient.name} now:"
       find('a', text: 'I left a voicemail for the patient').click
       wait_for_no_element "Call #{@patient.name} now:"
       wait_for_ajax

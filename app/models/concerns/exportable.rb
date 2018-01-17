@@ -11,7 +11,7 @@ module Exportable
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
     "Language" => :preferred_language,
-    "Age" => :age_range,
+    "Age" => :get_age_range,
     "State" => :state,
     "County" => :county,
     "Race or Ethnicity" => :race_ethnicity,
@@ -104,7 +104,7 @@ module Exportable
     clinic.try :name
   end
 
-  def age_range
+  def get_age_range
     case age
     when nil, ''
       nil

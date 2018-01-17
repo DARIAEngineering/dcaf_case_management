@@ -36,6 +36,41 @@ class Call
     status == 'Reached patient'
   end
 
+  CALL_ARCHIVE_REFERENCE = {
+    '_id'           => :keep,
+    'status'        => :keep,
+    'created_at'    => :keep,
+    'created_by_id' => :keep,
+    'updated_at'    => :keep,
+    'version'       => :keep,
+  }.freeze
+
+  # still not DRY
+  def archive!
+    self.attributes.keys.each do |field|
+      if CALL_ARCHIVE_REFERENCE.has_key?(field)
+        action = CALL_ARCHIVE_REFERENCE[field]
+        if action == :keep
+          #puts "Found a keep! (#{field})"
+          next
+        elsif action == :shred
+          #puts "Found a #{action} for field #{field}!"
+          self[field] = nil
+        else
+          logger.warn "Func '#{action}' for call field '#{field}' not found. Shredding"
+          #puts "Func '#{action}' for field '#{field}' not found. Shredding"
+          self[field] = nil
+        end
+      else
+        logger.warn "Found unaccounted for key '#{field}' on call when archiving. " \
+                    "Shredding the content of this field. Please add proper " \
+                    "handling for the field in the archive concern"
+        self[field] = nil
+      end
+    end
+    self.save
+  end
+
   def event_params
     {
       event_type:   status,
@@ -45,4 +80,5 @@ class Call
       line:         patient.line
     }
   end
+
 end

@@ -17,6 +17,7 @@ class Patient
   include HistoryTrackable
   include Statusable
   include Exportable
+  include Archivable
   include EventLoggable
   extend Enumerize
 
@@ -24,6 +25,8 @@ class Patient
     scope line.downcase.to_sym, -> { where(:line.in => [line]) }
   end
 
+  scope :unarchived, ->{ where(archived: false) }
+  scope :is_archived, ->{ where(archived: true) }
   before_validation :clean_fields
   before_save :save_identifier
   before_update :update_pledge_sent_by_sent_at
@@ -92,6 +95,16 @@ class Patient
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
 
+  # Archiving Fields
+  field :archived, type: Boolean
+  field :age_range
+  enumerize :age_range, in:
+    [:unknown, :under_18,
+     :age18_24, :age25_34,
+     :age35_44, :age45_54,
+     :age55_100, :over_100]
+  field :had_other_contact, type: Boolean
+
   # Indices
   index({ primary_phone: 1 }, unique: true)
   index(other_contact_phone: 1)
@@ -102,15 +115,19 @@ class Patient
   index(identifier: 1)
 
   # Validations
-  validates :name,
-            :primary_phone,
-            :initial_call_date,
+  validates :initial_call_date,
             :created_by_id,
             :line,
             presence: true
+  validates :name,
+            :primary_phone,
+            presence: true,
+            unless: :archived?
   validates :primary_phone, format: /\d{10}/,
                             length: { is: 10 },
-                            uniqueness: true
+                            uniqueness: true,
+                            unless: :archived?
+
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -120,6 +137,8 @@ class Patient
   validate :confirm_appointment_after_initial_call
 
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
+
+  validate :archived_state, if: :archived?
 
   validates_associated :fulfillment
 
@@ -147,8 +166,16 @@ class Patient
     { pledged: outstanding_pledges, sent: sent_total }
   end
 
+
+
   def save_identifier
-    self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+    unless archived?
+      self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+    end
+  end
+
+  def self.fulfilled_on_or_before(datetime)
+    Patient.where( 'fulfillment.date_of_check' => { '$lte' => datetime } )
   end
 
   def event_params
