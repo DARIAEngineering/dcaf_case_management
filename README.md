@@ -43,7 +43,7 @@ Feel free to hit any of us up with questions about the project, we're nice!
 ## Contributing to this Project
 
 ### tl;dr
-* We are a regular presence at [Code for DC meetups](https://www.meetup.com/code-for-dc/)
+* We are best reached via the [Code for DC slack](http://codefordc.org/joinslack)
 * We run on forks and pull requests
 * Our [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) is our project's remaining TODO list
 * Post in an issue when you're starting work on something, so @colinxfleming can keep track of it and so we don't duplicate work
