@@ -191,4 +191,8 @@ class Patient
       self.pledge_sent_at = nil
     end
   end
+
+  def self.fulfilled_on_or_before(datetime)
+    Patient.where( 'fulfillment.date_of_check' => { '$lte' => datetime } )
+  end
 end

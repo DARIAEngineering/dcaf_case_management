@@ -63,6 +63,7 @@ class ArchivedPatient
 
   validates_associated :fulfillment
 
+  # TODO do we want track history?
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -71,4 +72,23 @@ class ArchivedPatient
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
 
+  # Archive & Delete patients who have fallen out of contact
+  def self.process_dropped_off_patients
+    Patient.where(:initial_call_date.lte => 1.year.ago).each do |patient|
+      ArchivePatient.convert_patient(patient)
+      #patient.destroy # TODO uncomment after initial testing
+    end
+  end
+
+  # Archive & Delete patients who are completely through our process
+  def self.process_fulfilled_patients
+    Patient.fulfilled_on_or_before(120.days.ago) do |patient|
+      ArchivePatient.convert_patient(patient)
+      #patient.destroy # TODO uncomment after initial testing
+    end
+  end
+
+  def self.convert_patient
+    # do stuff here later but for now dinner!
+  end
 end

@@ -8,4 +8,11 @@ task nightly_cleanup: :environment do
 
   Event.destroy_old_events
   puts "#{Time.now} -- destroyed old events"
+
+  ArchivedPatient.process_dropped_off_patients
+  puts "#{Time.now} -- archived dropped off patients"
+
+  ArchivedPatient.process_fulfilled_patients
+  puts "#{Time.now} -- archived fulfilled patients"
+
 end
