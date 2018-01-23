@@ -1,10 +1,10 @@
 # Our maintenance plan
 
-This roadmap outlines responsibilities for administration of funds in the DCAF-administered Heroku pipeline (e.g. where DCAF administers DARIA for them), and roadmapping new development.
+This roadmap outlines responsibilities for administration of funds in the DCAF-administered Heroku pipeline (e.g. where DCAF administers DARIA for them, hence referred to as our `pipeline`), and roadmapping new development.
 
 ## Administration
 
-* The engineering team has set up a series of monitors for applications, and is responsible for keeping an eye on them and troubleshooting when something goes wrong.
+* The engineering team has set up a series of monitors for applications within our pipeline, and is responsible for keeping an eye on them and troubleshooting when something goes wrong.
 * The engineering team is responsible for applying security fixes and other regular maintenance.
 * The DCAF case management team is responsible for communicating support requests to the engineers in the slack channel.
 * We can allow fund stakeholders access to management of the application so they can restart it if they like; funds should reach out to the engineering team or DARIA project lead if they're interested.
