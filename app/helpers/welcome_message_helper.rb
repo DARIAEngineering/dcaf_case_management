@@ -28,7 +28,8 @@ module WelcomeMessageHelper
       "You are invaluable - keep it up!!",
       "You're a real gem - the client_finder gem team",
       "Outstanding job! Keep up the hard work!",
-      "Keep up the Good Work"
+      "Keep up the Good Work",
+      "Another case, another human being helped. Keep it up!"
     ]
   end
 end
