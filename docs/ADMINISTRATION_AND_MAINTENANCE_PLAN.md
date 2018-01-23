@@ -17,5 +17,6 @@ This roadmap outlines responsibilities for administration of funds in the DCAF-a
 
 ## Getting new funds on DARIA
 
+* The (relatively easy!) instructions for setting up new instances are [here](https://github.com/DCAFEngineering/dcaf_case_management/blob/master/docs/SETTING_UP_A_NEW_INSTANCE.md#by-the-way)
 * New funds interested in adopting DARIA will be pointed toward the DARIA project lead, who will work with them to figure out whether or not this software is a good fit.
 * The DARIA project lead will serve as a liaison between the board, engineering team, and the new fund.
