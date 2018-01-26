@@ -2,6 +2,8 @@ class ArchivedPatient
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Userstamp
+  include Mongoid::History::Trackable
+  extend Enumerize
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
@@ -17,8 +19,8 @@ class ArchivedPatient
 
   # Fields generated from initial patient info
   field :had_other_contact, type: Mongoid::Boolean
-  field :age_range, type: Integer
-  enumerize :age_range, in: [:under18, :age18-25, :age26-35, :age36-45, :age46-55, :age56-65, :age65plus, :not_specified], default: :not_specified
+  field :age_range
+  enumerize :age_range, in: [:under18, :age18_25, :age26_35, :age36_45, :age46_55, :age56_65, :age65plus, :not_specified], default: :not_specified
 
   # Fields pulled from initial Patient
   field :voicemail_preference
@@ -59,7 +61,6 @@ class ArchivedPatient
             presence: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
-  validate :confirm_appointment_after_initial_call
 
   validates_associated :fulfillment
 
@@ -88,7 +89,44 @@ class ArchivedPatient
     end
   end
 
-  def self.convert_patient
-    # do stuff here later but for now dinner!
+  def self.convert_patient(patient)
+    create(
+      line: patient.line,
+      city: patient.city,
+      state: patient.state,
+      county: patient.county,
+      initial_call_date: patient.initial_call_date,
+      appointment_date: patient.appointment_date,
+
+      urgent_flag: patient.urgent_flag,
+      referred_to_clinic: patient.referred_to_clinic,
+
+      last_menstrual_period_weeks: patient.last_menstrual_period_weeks,
+      last_menstrual_period_days: patient.last_menstrual_period_days,
+
+      race_ethnicity: patient.race_ethnicity,
+      employment_status: patient.employment_status,
+      insurance: patient.insurance,
+      income: patient.income,
+      language: patient.language,
+      voicemail_preference: patient.voicemail_preference,
+
+      procedure_cost: patient.procedure_cost,
+      patient_contribution: patient.patient_contribution,
+      naf_pledge: patient.naf_pledge,
+      fund_pledge: patient.fund_pledge,
+
+      pledge_sent: patient.pledge_sent,
+      resolved_without_fund: patient.resolved_without_fund,
+      pledge_generated_at: patient.pledge_generated_at,
+      pledge_sent_at: patient.pledge_sent_at,
+
+      pledge_generated_by: patient.pledge_generated_by,
+      pledge_sent_by: patient.pledge_sent_by,
+      created_by_id: patient.pledge_sent_at,
+    )
+    # TODO copy fulfillment
+    # TODO copy calls
+    # TODO copy external pledges
   end
 end

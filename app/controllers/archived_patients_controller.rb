@@ -20,27 +20,6 @@ class ArchivedPatientsController < ApplicationController
   def show
   end
 
-  # TODO - not needed?
-  # GET /archived_patients/new
-  def new
-    @archived_patient = ArchivedPatient.new
-  end
-
-  # should be expecting to be handed an existing patient TODO
-  # POST /archived_patients
-  def create
-    @archived_patient = ArchivedPatient.new archived_patient_params
-
-    if @archived_patient.save
-       flash[:notice] = 'A patient has been successfully archived'
-    else
-       flash[:alert] = "Errors prevented this patient from being archived: #{archived_patient.errors.full_messages.to_sentence}"
-    end
-
-    current_user.add_patient patient
-    redirect_to root_path
-  end
-
   # DELETE /archived_patients/1
   def destroy
     @archived_patient.destroy
