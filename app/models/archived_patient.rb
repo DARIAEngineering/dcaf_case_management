@@ -76,16 +76,16 @@ class ArchivedPatient
   # Archive & Delete patients who have fallen out of contact
   def self.process_dropped_off_patients
     Patient.where(:initial_call_date.lte => 1.year.ago).each do |patient|
-      ArchivePatient.convert_patient(patient)
-      #patient.destroy # TODO uncomment after initial testing
+      ArchivedPatient.convert_patient(patient)
+      patient.destroy!
     end
   end
 
   # Archive & Delete patients who are completely through our process
   def self.process_fulfilled_patients
     Patient.fulfilled_on_or_before(120.days.ago) do |patient|
-      ArchivePatient.convert_patient(patient)
-      #patient.destroy # TODO uncomment after initial testing
+      ArchivedPatient.convert_patient(patient)
+      patient.destroy!
     end
   end
 
@@ -123,7 +123,7 @@ class ArchivedPatient
 
       pledge_generated_by: patient.pledge_generated_by,
       pledge_sent_by: patient.pledge_sent_by,
-      created_by_id: patient.pledge_sent_at,
+      created_by_id: patient.created_by_id,
     )
     # TODO copy fulfillment
     # TODO copy calls
