@@ -59,6 +59,7 @@
   <%= @archived_patient.pledge_generated_at %><br/>
   <strong>pledge_generated_by_id:</strong>
   <%= @archived_patient.pledge_generated_by_id %><br/>
+</p>
 
-<%= link_to 'Permanently Delete', archived_patient_path, method: 'delete' %>
+<%= link_to 'Permanently Delete', archived_patient_path, method: 'delete' %><br/>
 <%= link_to 'Back', archived_patients_path %>
