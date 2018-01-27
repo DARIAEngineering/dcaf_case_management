@@ -1,158 +1,64 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>UUID  :</strong>
-  <%= @archived_patient.UUID   %>
-</p
-
-<p>
   <strong>age_range :</strong>
-  <%= @archived_patient.age_range  %>
-</p
-
-<p>
+  <%= @archived_patient.age_range  %><br/>
   <strong>had_other_contact:</strong>
-  <%= @archived_patient.had_other_contact %>
-</p
-
-<p>
+  <%= @archived_patient.had_other_contact %><br/>
   <strong>voicemail_preference:</strong>
-  <%= @archived_patient.voicemail_preference %>
-</p
-
-<p>
+  <%= @archived_patient.voicemail_preference %><br/>
   <strong>line:</strong>
-  <%= @archived_patient.line %>
-</p
-
-<p>
+  <%= @archived_patient.line %><br/>
   <strong>language:</strong>
-  <%= @archived_patient.language %>
-</p
-
-<p>
+  <%= @archived_patient.language %><br/>
   <strong>initial_call_date:</strong>
-  <%= @archived_patient.initial_call_date %>
-</p
-
-<p>
-  <strong>last_menstual_period_weeks:</strong>
-  <%= @archived_patient.last_menstual_period_weeks %>
-</p
-
-<p>
-  <strong>last_menstual_period_days:</strong>
-  <%= @archived_patient.last_menstual_period_days %>
-</p
-
-<p>
+  <%= @archived_patient.initial_call_date %><br/>
+  <strong>last_menstrual_period_weeks:</strong>
+  <%= @archived_patient.last_menstrual_period_weeks %><br/>
+  <strong>last_menstrual_period_days:</strong>
+  <%= @archived_patient.last_menstrual_period_days %><br/>
   <strong>created_by_id:</strong>
-  <%= @archived_patient.created_by_id %>
-</p
-
-<p>
-  <strong>final_updated_at:</strong>
-  <%= @archived_patient.final_updated_at %>
-</p
-
-<p>
+  <%= @archived_patient.created_by_id %><br/>
   <strong>version:</strong>
-  <%= @archived_patient.version %>
-</p
-
-<p>
+  <%= @archived_patient.version %><br/>
   <strong>appointment_date:</strong>
-  <%= @archived_patient.appointment_date %>
-</p
-
-<p>
+  <%= @archived_patient.appointment_date %><br/>
   <strong>race_ethnicity:</strong>
-  <%= @archived_patient.race_ethnicity %>
-</p
-
-<p>
+  <%= @archived_patient.race_ethnicity %><br/>
   <strong>city:</strong>
-  <%= @archived_patient.city %>
-</p
-
-<p>
+  <%= @archived_patient.city %><br/>
   <strong>state:</strong>
-  <%= @archived_patient.state %>
-</p
-
-<p>
+  <%= @archived_patient.state %><br/>
   <strong>county:</strong>
-  <%= @archived_patient.county %>
-</p
-
-<p>
+  <%= @archived_patient.county %><br/>
   <strong>employment_status:</strong>
-  <%= @archived_patient.employment_status %>
-</p
-
-<p>
+  <%= @archived_patient.employment_status %><br/>
   <strong>income:</strong>
-  <%= @archived_patient.income %>
-</p
-
-<p>
+  <%= @archived_patient.income %><br/>
   <strong>insurance:</strong>
-  <%= @archived_patient.insurance %>
-</p
-
-<p>
+  <%= @archived_patient.insurance %><br/>
   <strong>referred_to_clinic:</strong>
-  <%= @archived_patient.referred_to_clinic %>
-</p
-
-<p>
+  <%= @archived_patient.referred_to_clinic %><br/>
   <strong>resolved_without_fund:</strong>
-  <%= @archived_patient.resolved_without_fund %>
-</p
-
-<p>
+  <%= @archived_patient.resolved_without_fund %><br/>
   <strong>clinic_id:</strong>
-  <%= @archived_patient.clinic_id %>
-</p
-
-<p>
+  <%= @archived_patient.clinic_id %><br/>
   <strong>urgent_flag:</strong>
-  <%= @archived_patient.urgent_flag %>
-</p
-
-<p>
+  <%= @archived_patient.urgent_flag %><br/>
   <strong>procedure_cost:</strong>
-  <%= @archived_patient.procedure_cost %>
-</p
-
-<p>
+  <%= @archived_patient.procedure_cost %><br/>
   <strong>patient_contribution:</strong>
-  <%= @archived_patient.patient_contribution %>
-</p
-
-<p>
+  <%= @archived_patient.patient_contribution %><br/>
   <strong>naf_pledge:</strong>
-  <%= @archived_patient.naf_pledge %>
-</p
-
-<p>
+  <%= @archived_patient.naf_pledge %><br/>
   <strong>fund_pledge:</strong>
-  <%= @archived_patient.fund_pledge %>
-</p
-
-<p>
+  <%= @archived_patient.fund_pledge %><br/>
   <strong>pledge_sent:</strong>
-  <%= @archived_patient.pledge_sent %>
-</p
-
-<p>
+  <%= @archived_patient.pledge_sent %><br/>
   <strong>pledge_generated_at:</strong>
-  <%= @archived_patient.pledge_generated_at %>
-</p
-
-<p>
+  <%= @archived_patient.pledge_generated_at %><br/>
   <strong>pledge_generated_by_id:</strong>
-  <%= @archived_patient.pledge_generated_by_id %>
-</p
+  <%= @archived_patient.pledge_generated_by_id %><br/>
 
+<%= link_to 'Permanently Delete', archived_patient_path, method: 'delete' %>
 <%= link_to 'Back', archived_patients_path %>

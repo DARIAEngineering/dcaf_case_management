@@ -12,12 +12,16 @@ class ArchivedPatientsController < ApplicationController
       format.csv do
         render_csv
       end
+      format.html do
+        @archived_patients = ArchivedPatient.all
+      end
     end
   end
 
 
   # GET /archived_patients/1
   def show
+    @archived_patient
   end
 
   # DELETE /archived_patients/1
@@ -42,12 +46,12 @@ class ArchivedPatientsController < ApplicationController
 
     def render_csv
       now = Time.zone.now.strftime('%Y%m%d')
-      csv_filename = "patient_data_export_#{now}.csv"
+      csv_filename = "archived_patient_data_export_#{now}.csv"
       set_headers(csv_filename)
 
       response.status = 200
 
-      self.response_body = Patient.to_csv
+      self.response_body = ArchivedPatient.to_csv
     end
 
     def set_headers(filename)
@@ -56,5 +60,10 @@ class ArchivedPatientsController < ApplicationController
       headers['X-Accel-Buffering'] = 'no'
       headers["Cache-Control"] = "no-cache"
       headers.delete("Content-Length")
+    end
+
+    def to_csv
+      #not yet implemented
+      # TODO connect to exportable concern
     end
 end
