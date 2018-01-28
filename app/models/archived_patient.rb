@@ -20,7 +20,7 @@ class ArchivedPatient
   # Fields generated from initial patient info
   field :had_other_contact, type: Mongoid::Boolean
   field :age_range
-  enumerize :age_range, in: [:under18, :age18_25, :age26_35, :age36_45, :age46_55, :age56_65, :age65plus, :not_specified], default: :not_specified
+  enumerize :age_range, in: [:under18, :age18_24, :age25_34, :age35_44, :age45_54, :age55plus, :not_specified], default: :not_specified
 
   # Fields pulled from initial Patient
   field :voicemail_preference
@@ -90,7 +90,7 @@ class ArchivedPatient
   end
 
   def self.convert_patient(patient)
-    create(
+    archived_patient = create(
       line: patient.line,
       city: patient.city,
       state: patient.state,
@@ -124,9 +124,19 @@ class ArchivedPatient
       pledge_generated_by: patient.pledge_generated_by,
       pledge_sent_by: patient.pledge_sent_by,
       created_by_id: patient.created_by_id,
+
+      age_range: patient.determine_age_range,
+      had_other_contact: patient.determine_had_other_contact,
     )
+    # TODO - making fulfillment, external pledges, and calls polymorphic is a bit bust. Patient relationships seem too strong. Pondering.
     # TODO copy fulfillment
+    #archived_patient.fulfillment = patient.fulfillment
+    #archived_patient.fulfillment.check_number = nil; # Erase the check number, if it existed.
     # TODO copy calls
+    #patient.calls.each do |call|
+    #end
     # TODO copy external pledges
+    #patient.external_pledges.each do |pledge|
+    #end
   end
 end
