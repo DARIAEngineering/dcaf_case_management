@@ -100,6 +100,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    colored (1.2)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     database_cleaner (1.6.2)
@@ -310,6 +311,9 @@ GEM
     selenium-webdriver (3.8.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+    shog (0.1.9)
+      colored (~> 1.2)
+      rails (>= 4)
     shoulda-context (1.2.2)
     simplecov (0.15.1)
       docile (~> 1.1.0)
@@ -413,6 +417,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   secure_headers (~> 3.6, >= 3.6.4)
   selenium-webdriver
+  shog
   shoulda-context
   simplecov
   skylight

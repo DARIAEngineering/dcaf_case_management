@@ -36,6 +36,7 @@ gem 'geokit'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
 group :development do
+  gem 'shog'
   gem 'pry'
   gem 'listen'
   gem 'rubocop', require: false
