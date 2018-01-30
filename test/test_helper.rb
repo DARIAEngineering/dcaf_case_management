@@ -69,4 +69,6 @@ class ActionDispatch::IntegrationTest
   OmniAuth.config.test_mode = true
 
   before { Capybara.reset_sessions! }
+
+  # for controllers
 end

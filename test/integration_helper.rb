@@ -1,5 +1,15 @@
 # Helpers for browser junk
 module IntegrationHelper
+  def sign_in(user)
+    post user_session_path \
+      'user[email]' => user.email,
+      'user[password]' => user.password
+  end
+
+  def choose_line(line)
+    post lines_path, params: { line: line.to_s }
+  end
+
   def log_in_as(user, line = 'DC')
     log_in user
     select_line line
