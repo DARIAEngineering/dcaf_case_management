@@ -32,9 +32,8 @@ gem 'devise', '~> 4.3.0'
 gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
 gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 
-# Lets us use `bootstrap_form_for` in views
+# We use `bootstrap_form_for` in views
 gem 'bootstrap_form'
-gem 'bootstrap_form-datetimepicker'
 
 # Security libraries
 gem 'rack-attack', '~> 5.0.1'
@@ -46,18 +45,16 @@ gem 'prawn' # pledge pdf generation
 gem 'clinic_finder', git: 'https://github.com/DCAFEngineering/clinic_finder.git',
                      branch: 'master' # powers our clinic finder search
 
-# ????? think we can remove these
-gem 'figaro'
-gem 'gon', '~> 6.1.0'
-gem 'geokit'
-
-# ???? probably can't remove these but it would be nice to try
-gem 'js-routes'
-gem 'rack-test', '~> 0.6.3', require: 'rack/test'
+# Stuff that we're targeting removal of
+gem 'figaro' # we handle secrets differently now
+gem 'gon', '~> 6.1.0' # render async does this better
+gem 'geokit' # should be included in clinic_finder instead of here
+gem 'js-routes' # Not sure if this is used anymore
+gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
 
 group :development do
   gem 'shog' # makes rails s output color!
-  gem 'listen'
+  gem 'listen' # used by systemtests
   gem 'rubocop', require: false # our code style / linting system
 
   # Security scanners that also run in CI
@@ -96,6 +93,7 @@ group :test do
   gem 'mini_backtrace' # settle down minitest output
   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
   gem 'minitest-stub-const'
+  gem 'rack-test', '~> 0.6.3', require: 'rack/test' # needed to test rack-attack
 end
 
 group :production do
