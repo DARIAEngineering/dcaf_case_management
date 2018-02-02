@@ -4,7 +4,7 @@ services:
     build: .
     image: colinxfleming/dcaf_case_management:latest
     volumes:
-      - .:/usr/src/app:z
+      - .:/usr/src/app
     ports:
       - "3000:3000"
     links:
