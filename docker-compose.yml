@@ -1,17 +1,21 @@
-web:
-  image: colinxfleming/dcaf_case_management
-  command: rails s -p 3000 -b 0.0.0.0
-  volumes:
-    - .:/usr/src/app
-  ports:
-    - "3000:3000"
-  links:
-    - db
-  environment:
-    mongohost: db
-  env_file:
-    - web-variables.env
-db:
-  image: mongo
-  ports:
-    - "27017:27017"
+version: '3.1'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: colinxfleming/dcaf_case_management:latest
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    environment:
+      mongohost: db
+    env_file:
+      - .docker/web-variables.env
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
