@@ -14,7 +14,7 @@ services:
     environment:
       mongohost: db
     env_file:
-      - web-variables.env
+      - .docker/web-variables.env
   db:
     image: mongo
     ports:
