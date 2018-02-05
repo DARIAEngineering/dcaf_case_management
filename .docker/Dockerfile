@@ -33,8 +33,8 @@ WORKDIR ${DCAF_DIR}
 
 COPY . ${DCAF_DIR}
 
-RUN chmod +x ${DCAF_DIR}/entrypoint.sh
+RUN chmod +x ${DCAF_DIR}/.docker/entrypoint.sh
 
 EXPOSE 3000
 
-ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/src/app/.docker/entrypoint.sh" ]
