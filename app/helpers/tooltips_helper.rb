@@ -50,7 +50,8 @@ module TooltipsHelper
 
   def resolved_without_fund_help_text
     text = <<-TEXT
-      This status indicates a patient does not require our services any longer.
+      This is used to indicate that a patient does not require or want
+      our services any longer.
     TEXT
     text.strip
   end
