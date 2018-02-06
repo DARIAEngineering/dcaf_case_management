@@ -18,7 +18,7 @@ module TooltipsHelper
 
   def your_completed_calls_help_text
     text = <<-TEXT
-      This is a list of patients you have already called tonight.
+      This is a list of patients you have called within the last 8 hours.
     TEXT
     text.strip
   end
@@ -42,9 +42,8 @@ module TooltipsHelper
 
   def record_new_external_pledge_help_text
     text = <<-TEXT
-      To record a pledge from another abortion fund, choose the fund from the
-      dropdown menu, enter the amount of the pledge, and click Create
-      External Pledge.
+      External pledges is our term for pledges by other abortion funds also
+      working with a patient.
     TEXT
     text.strip
   end
