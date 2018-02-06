@@ -34,10 +34,10 @@ module TooltipsHelper
   end
 
   def status_help_text
-    text = <<-TEXT
-      true
-    TEXT
-    text.strip
+    status_defs = Statusable::STATUSES.keys.map do |status|
+      "#{Statusable::STATUSES[status][:key]}: #{Statusable::STATUSES[status][:help_text]}"
+    end
+    safe_join(['Status definitions:'].concat(status_defs), tag('br'))
   end
 
   def record_new_external_pledge_help_text
