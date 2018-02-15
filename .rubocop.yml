@@ -13,6 +13,9 @@ Lint/AmbiguousRegexpLiteral:
 Rails:
   Enabled: true
 
+Bundler/OrderedGems:
+  Enabled: false
+
 AllCops:
   Exclude: 
     - db/**/*
