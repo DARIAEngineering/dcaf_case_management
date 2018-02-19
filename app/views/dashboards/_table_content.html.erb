@@ -1,7 +1,7 @@
 <!-- locals: title, table_type (for div id and tbody div id), pregnancies, sortable, autosortable -->
 
 <div id="<%= table_type %>" class="margin-bottom">
-  <h1 class="border-bottom title"><%= title %> <%= tooltip_shell public_send("#{title.parameterize(separator: '_')}_help_text".to_sym) %></h1>
+  <h1 class="border-bottom title"><%= title %> <%= tooltip_shell public_send("#{title.parameterize(separator: '_')}_help_text".to_sym) unless title == 'Search results' %></h1>
   <table class="table border-side" id="<%= table_type %>_table">
     <thead>
       <tr>
