@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile
+    command: rails s -p 3000 -b 0.0.0.0
     image: colinxfleming/dcaf_case_management:latest
     volumes:
       - .:/usr/src/app
