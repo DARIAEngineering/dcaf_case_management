@@ -8,6 +8,14 @@ module TooltipsHelper
     end
   end
 
+  def dashboard_table_content_tooltip_shell(title)
+    return if title == 'Search results'
+
+    method_name = "#{title.parameterize(separator: '_')}_help_text"
+    help_text = public_send(method_name)
+    tooltip_shell help_text
+  end
+
   def your_call_list_help_text
     text = <<-TEXT
       This sortable list is used to keep track of patients to call back
