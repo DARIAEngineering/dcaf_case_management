@@ -22,7 +22,7 @@ class PledgeFormGenerator
   end
 
   def appointment_date
-    patient.appointment_date.strftime "%B%e, %Y"
+    patient.appointment_date.strftime "%B %e, %Y"
   end
 
   def patient_name

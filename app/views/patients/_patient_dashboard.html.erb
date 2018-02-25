@@ -1,3 +1,12 @@
+<div class="row">
+  <div class="col-sm-4">
+    <% if current_user.admin? %>
+      <% if not patient.pledge_sent %>
+        <%= link_to delete_patient_button, delete_patient_path(patient),  class:'delete-patient-button', method: :delete, data: {confirm: "Are you sure you want to delete #{patient.name}?"} %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 <div id="patient_dashboard_content">
   <%= bootstrap_form_for patient, html: { id: 'patient_dashboard_form' }, remote: true do |f| %>
     <div class="col-sm-4" >
