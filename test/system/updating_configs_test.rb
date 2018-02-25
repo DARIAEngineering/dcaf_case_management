@@ -82,7 +82,9 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
 
         visit edit_patient_path @patient
         click_link 'Abortion Information'
-        find('.tooltip-header-help').hover
+        within :css, 'label[for=patient_fund_pledge]' do
+          find('.tooltip-header-help').hover
+        end
         assert has_text? 'Pledge guidelines'
         assert has_text? '13 weeks $100'
       end
