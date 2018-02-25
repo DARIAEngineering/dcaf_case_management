@@ -28,6 +28,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       fill_in 'Phone number', with: '123-666-8888'
       fill_in 'First and last name', with: 'Susie Everyteen 2'
       click_away_from_field
+      wait_for_ajax
       reload_page_and_click_link 'Patient Information'
     end
 
