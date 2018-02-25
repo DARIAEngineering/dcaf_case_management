@@ -33,19 +33,21 @@ class TooltipsTest < ApplicationSystemTestCase
     end
   end
 
-  # Failing test. For some reason the data attributes don't show up?
-  # But only in chromedriver, and not firefox or real chrome?
-  # Stashing in an issue.
+  # Can't get this to work quite right
   # describe 'an input label tooltip' do
-  #   # Using fund pledge as an example of this
+  #   before do
+  #     create :config, config_key: 'pledge_limit_help_text',
+  #                     config_value: { options: ['Pledge guidelines'] }
+  #   end
+
   #   it 'should pop up with content' do
   #     visit edit_patient_path(@patient)
-  #     click_link 'Abortion Information'
 
-  #     within :css, '.tooltip-header-input[for=patient_fund_pledge]' do
+  #     click_link 'Abortion Information'
+  #     within :css, 'label[for=patient_fund_pledge]' do
   #       find('.tooltip-header-help').hover
-  #       assert has_content? 'Pledge Limit Guidelines'
   #     end
+  #     assert has_content? 'Pledge guidelines'
   #   end
   # end
 end
