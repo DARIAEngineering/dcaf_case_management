@@ -1,10 +1,11 @@
 <div id="search_form" class="margin-bottom">
   <h1 class="border-bottom title">Build your call list</h1>
 
-  <!-- TODO change submit tag to a search glyphicon -->
   <%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |p| %>
     <%= p.text_field :search, placeholder: 'Name (Susan Smith) or Phone (555-555-5555)', hide_label: true, class: 'search_form_input' %>
-    <%= p.submit 'Search', class: 'btn btn-primary' %>
+    <%= p.button :class => "btn btn-primary" do %>
+      <i class="glyphicon glyphicon-search"></i>
+    <% end %>
   <% end %>
 
   <div id="search_results_shell"></div>
