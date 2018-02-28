@@ -4,6 +4,7 @@ language: ruby
 
 services:
   - docker
+  - mongod
 
 rvm:
   - 2.4.3
