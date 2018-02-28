@@ -1,5 +1,7 @@
 sudo: required
 
+dist: trusty
+
 language: ruby
 
 services:
@@ -14,7 +16,14 @@ jobs:
     - stage: build
       script: true
     - stage: test
-      script: 
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install chromium-chromedriver
+      before_script:
+        - "export PATH=$PATH:/usr/lib/chromium-browser/"
+        - "export DISPLAY=:99.0"
+        - "sh -e /etc/init.d/xvfb start"
+      script:
         - bundle show
         - bundle exec rake knapsack:minitest
       env:
