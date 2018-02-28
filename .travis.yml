@@ -4,6 +4,8 @@ dist: trusty
 
 language: ruby
 
+cache: bundler
+
 services:
   - docker
   - mongod
