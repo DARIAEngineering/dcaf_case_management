@@ -13,6 +13,18 @@ services:
 rvm:
   - 2.4.3
 
+stages:
+  - prepare cache
+  - test
+  - name: run brakeman pro
+    if: branch = master
+  - name: prepare assets
+    if: branch = master
+  - name: deploy to staging heroku
+    if: branch = master
+  - name: deploy new docker image
+    if: branch = master
+
 jobs:
   include:
     - stage: prepare cache
@@ -44,16 +56,4 @@ jobs:
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
         - docker build -t $DOCKER_USERNAME/dcaf_case_management:latest -f .docker/Dockerfile . 
         - docker push $DOCKER_USERNAME/dcaf_case_management
-
-stages:
-  - prepare cache
-  - test
-  - name: run brakeman pro
-    if: branch = master
-  - name: prepare assets
-    if: branch = master
-  - name: deploy to staging heroku
-    if: branch = master
-  - name: deploy new docker image
-    if: branch = master
  
