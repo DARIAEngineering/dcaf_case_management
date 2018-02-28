@@ -31,7 +31,7 @@ jobs:
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=1
     - stage: run brakeman pro
       script: 
-        - yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
+        - gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
         - bundle exec brakeman --exit-on-warn .
     - stage: prepare assets
       script: bundle exec rake assets:clobber assets:precompile
