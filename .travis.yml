@@ -28,20 +28,20 @@ jobs:
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=0
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=1
     - stage: run brakeman pro
-      if: type NOT pull_request AND branch = master
+      if: type NOT IN (push, pull_request)
       script: 
         - gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
         - bundle exec brakeman --exit-on-warn .
     - stage: prepare assets
-      if: type NOT pull_request AND branch = master
+      if: type NOT IN (push, pull_request)
       script: bundle exec rake assets:clobber assets:precompile
     - stage: deploy to staging heroku
-      if: type NOT pull_request AND branch = master
+      if: type NOT IN (push, pull_request)
       deploy: &heroku
         provider: heroku
         app: dcaf-cmapp-staging
     - stage: deploy new docker image
-      if: type NOT pull_request AND branch = master
+      if: type NOT IN (push, pull_request)
       script: 
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
         - docker build -t $DOCKER_USERNAME/dcaf_case_management:latest -f .docker/Dockerfile . 
