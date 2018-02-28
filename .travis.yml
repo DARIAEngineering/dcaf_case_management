@@ -15,13 +15,12 @@ rvm:
 
 jobs:
   include:
-    - stage: build
+    - stage: prepare cache
       script: true
     - stage: test
-      before_install:
+      before_script:
         - sudo apt-get update
         - sudo apt-get install chromium-chromedriver
-      before_script:
         - "export PATH=$PATH:/usr/lib/chromium-browser/"
         - "export DISPLAY=:99.0"
         - "sh -e /etc/init.d/xvfb start"
@@ -47,7 +46,7 @@ jobs:
         - docker push $DOCKER_USERNAME/dcaf_case_management
 
 stages:
-  - build
+  - prepare cache
   - test
   - name: run brakeman pro
     if: branch = master
