@@ -15,9 +15,7 @@ rvm:
 
 jobs:
   include:
-    - stage: prepare cache
-      script: true
-    - stage: test
+    - stage: bundle install and run tests
       before_script:
         - sudo apt-get update
         - sudo apt-get install chromium-chromedriver libfontconfig
@@ -30,20 +28,20 @@ jobs:
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=0
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=1
     - stage: run brakeman pro
-      if: branch = master
+      if: type NOT pull_request AND branch = master
       script: 
         - gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
         - bundle exec brakeman --exit-on-warn .
     - stage: prepare assets
-      if: branch = master
+      if: type NOT pull_request AND branch = master
       script: bundle exec rake assets:clobber assets:precompile
     - stage: deploy to staging heroku
-      if: branch = master
+      if: type NOT pull_request AND branch = master
       deploy: &heroku
         provider: heroku
         app: dcaf-cmapp-staging
     - stage: deploy new docker image
-      if: branch = master
+      if: type NOT pull_request AND branch = master
       script: 
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
         - docker build -t $DOCKER_USERNAME/dcaf_case_management:latest -f .docker/Dockerfile . 
