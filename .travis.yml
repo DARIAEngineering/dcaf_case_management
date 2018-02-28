@@ -15,7 +15,13 @@ jobs:
     - stage: test
       script: 
         - bundle show
-        - bundle exec rake knapsack:minitest:parallel: true
+        - bundle exec rake knapsack:minitest
+      env:
+        global:
+          - CI_NODE_TOTAL=2
+        matrix:
+          - CI_NODE_INDEX=0
+          - CI_NODE_INDEX=1
     - stage: run brakeman pro
       script: 
         - yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
