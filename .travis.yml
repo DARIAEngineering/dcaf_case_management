@@ -26,7 +26,6 @@ jobs:
         - "export DISPLAY=:99.0"
         - "sh -e /etc/init.d/xvfb start"
       script:
-        - bundle show
         - bundle exec rake knapsack:minitest
       env:
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=0
@@ -38,13 +37,11 @@ jobs:
     - stage: prepare assets
       script: bundle exec rake assets:clobber assets:precompile
     - stage: deploy to staging heroku
-      script: bundle show
       deploy: &heroku
         provider: heroku
         app: dcaf-cmapp-staging
     - stage: deploy new docker image
       script: 
-        - bundle show
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
         - docker build -t $DOCKER_USERNAME/dcaf_case_management:latest -f .docker/Dockerfile . 
         - docker push $DOCKER_USERNAME/dcaf_case_management
