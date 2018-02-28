@@ -1,0 +1,48 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+rvm:
+  - 2.4.3
+
+jobs:
+  include:
+    - stage: build
+      script: true
+    - stage: test
+      script: 
+        - bundle show
+        - bundle exec rake knapsack:minitest:parallel: true
+    - stage: run brakeman pro
+      script: 
+        - yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
+        - bundle exec brakeman --exit-on-warn .
+    - stage: prepare assets
+      script: bundle exec rake assets:clobber assets:precompile
+    - stage: deploy to staging heroku
+      script: bundle show
+      deploy: &heroku
+        provider: heroku
+        app: dcaf-cmapp-staging
+    - stage: deploy new docker image
+      script: 
+        - bundle show
+        - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+        - docker build -t $DOCKER_USERNAME/dcaf_case_management:latest -f .docker/Dockerfile . 
+        - docker push $DOCKER_USERNAME/dcaf_case_management
+
+stages:
+  - build
+  - test
+  - name: run brakeman pro
+    if: branch = master
+  - name: prepare assets
+    if: branch = master
+  - name: deploy to staging heroku
+    if: branch = master
+  - name: deploy new docker image
+    if: branch = master
+ 
