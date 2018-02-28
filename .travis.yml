@@ -13,18 +13,6 @@ services:
 rvm:
   - 2.4.3
 
-stages:
-  - prepare cache
-  - test
-  - name: run brakeman pro
-    if: branch = master
-  - name: prepare assets
-    if: branch = master
-  - name: deploy to staging heroku
-    if: branch = master
-  - name: deploy new docker image
-    if: branch = master
-
 jobs:
   include:
     - stage: prepare cache
@@ -42,16 +30,20 @@ jobs:
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=0
         - CI_NODE_TOTAL=2 CI_NODE_INDEX=1
     - stage: run brakeman pro
+      if: branch = master
       script: 
         - gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
         - bundle exec brakeman --exit-on-warn .
     - stage: prepare assets
+      if: branch = master
       script: bundle exec rake assets:clobber assets:precompile
     - stage: deploy to staging heroku
+      if: branch = master
       deploy: &heroku
         provider: heroku
         app: dcaf-cmapp-staging
     - stage: deploy new docker image
+      if: branch = master
       script: 
         - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
         - docker build -t $DOCKER_USERNAME/dcaf_case_management:latest -f .docker/Dockerfile . 
