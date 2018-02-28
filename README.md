@@ -1,6 +1,6 @@
 # DARIA (DCAF Case Manager)
 
-[![CircleCI](https://circleci.com/gh/DCAFEngineering/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/DCAFEngineering/dcaf_case_management)
+[![Build Status](https://travis-ci.org/DCAFEngineering/dcaf_case_management.svg?branch=master)](https://travis-ci.org/DCAFEngineering/dcaf_case_management)
 [![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 [![Dependency Status](https://gemnasium.com/badges/github.com/DCAFEngineering/dcaf_case_management.svg)](https://gemnasium.com/github.com/DCAFEngineering/dcaf_case_management)
