@@ -110,8 +110,10 @@ class Patient
             :line,
             presence: true
   validates :primary_phone, format: /\d{10}/,
-                            length: { is: 10 },
-                            uniqueness: true
+                            length: { is: 10 }
+
+  validate :confirm_unique_phone_number, on: :create
+
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -175,6 +177,28 @@ class Patient
     Event.where(patient_id: id.to_s).destroy_all
   end
 
+  def confirm_unique_phone_number
+    ##
+    # This method is preferred over Rail's built-in uniqueness validator
+    # so that case managers get a meaningful error message when a patient
+    # exists on a different line than the one the volunteer is serving.
+    #
+    # See https://github.com/DCAFEngineering/dcaf_case_management/issues/825
+    ##
+    already_taken_patient = Patient.where(primary_phone: primary_phone)
+    if already_taken_patient.exists?
+      # phones are unique, so there should only be one match in array
+      patients_line = already_taken_patient[0][:line]
+      volunteers_line = line
+
+      if volunteers_line == patients_line
+        errors.add(:this_phone_number_is_already_taken, "on this line.")
+      else
+        errors.add(:this_phone_number_is_already_taken, "on the #{patients_line}. Please contact the case manager on duty at the #{volunteers_line} line to confirm which line the patient should be under. If the line needs to be changed, please contact the CM Directors.")
+      end
+    end
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -194,7 +218,7 @@ class Patient
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
   end
-  
+
   def update_pledge_sent_by_sent_at
     if pledge_sent  && !pledge_sent_by
       self.pledge_sent_at = Time.zone.now
