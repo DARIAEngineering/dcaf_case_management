@@ -1,12 +1,12 @@
 # Create method for calls, plus triggers for modal behavior
 class CallsController < ApplicationController
-  before_action :find_can_call, only: [:new, :create, :destroy]
+  before_action :find_patient, only: [:create, :destroy]
 
   def create
-    @call = @can_call.calls.new call_params
+    @call = @patient.calls.new call_params
     @call.created_by = current_user
     if call_saved_and_patient_reached @call, params
-      redirect_to @can_call
+      redirect_to edit_patient_path @patient
     elsif @call.save
       respond_to { |format| format.js }
     else
@@ -15,13 +15,14 @@ class CallsController < ApplicationController
   end
 
   def new
+    @patient = Patient.find params[:patient_id]
     respond_to do |format|
       format.js
     end
   end
 
   def destroy
-    call = @can_call.calls.find params[:id]
+    call = @patient.calls.find params[:id]
     if call.created_by != current_user || !call.recent?
       head :forbidden
     elsif call.destroy
@@ -37,9 +38,8 @@ class CallsController < ApplicationController
     params.require(:call).permit(:status)
   end
 
-  def find_can_call
-    resource, id = request.path.split('/')[1,2]
-    @can_call = resource.singularize.classify.constantize.find(id)
+  def find_patient
+    @patient = Patient.find params[:patient_id]
   end
 
   def call_saved_and_patient_reached(call, params)
