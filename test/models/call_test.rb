@@ -4,7 +4,8 @@ class CallTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @patient = create :patient
-    @call = create :call, can_call: @patient, created_by: @user
+    @patient.calls.create attributes_for(:call, created_by: @user)
+    @call = @patient.calls.first
   end
 
   describe 'basic validations' do
