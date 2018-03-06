@@ -8,7 +8,7 @@ class PatientTest < ActiveSupport::TestCase
 
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
-    @call = create :call, patient: @patient,
+    @call = create :call, callable: @patient,
                           status: 'Reached patient'
     create_language_config
   end

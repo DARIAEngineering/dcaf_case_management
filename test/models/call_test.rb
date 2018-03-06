@@ -4,7 +4,7 @@ class CallTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @patient = create :patient
-    @call = create :call, patient: @patient, created_by: @user
+    @call = create :call, callable: @patient, created_by: @user
   end
 
   describe 'basic validations' do
@@ -33,7 +33,7 @@ class CallTest < ActiveSupport::TestCase
 
   describe 'relationships' do
     it 'should be linkable to a patient' do
-      assert_equal @call.patient, @patient
+      assert_equal @call.callable, @patient
     end
 
     it 'should be linkable to a user' do
