@@ -34,7 +34,7 @@ class Patient
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
   embeds_one :fulfillment
-  embeds_many :calls, as: :callable
+  embeds_many :calls, as: :can_call
   embeds_many :external_pledges
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
