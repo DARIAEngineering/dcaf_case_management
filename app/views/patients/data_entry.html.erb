@@ -70,9 +70,9 @@
                options_for_select(referred_by_options),
                                   autocomplete: 'off' %>
 
-    <%= f.text_field :procedure_cost, label: 'Full cost / abortion cost' %>
-    <%= f.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
-    <%= f.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :procedure_cost, label: 'Full cost / abortion cost' %>
+    <%= f.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
 
     <%= f.check_box :pledge_sent, label: 'Pledge sent' %>
 
