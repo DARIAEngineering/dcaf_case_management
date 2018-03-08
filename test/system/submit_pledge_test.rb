@@ -77,7 +77,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
                       appointment_date: 2.weeks.from_now,
                       fund_pledge: 500
 
-      @fulfillment = create :fulfillment, patient: @patient
+      #@fulfillment = create :fulfillment, patient: @patient
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
     end

@@ -15,7 +15,11 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
     @nonpledged_pt = create :patient, clinic: @clinic,
                                       appointment_date: 2.weeks.from_now,
                                       fund_pledge: 500
-    @fulfillment = create :fulfillment, patient: @pledged_pt
+
+#    @fulfillment = @pt_1.fulfillment
+#    @fulfillment.created_by = @user
+#    @fulfillment.reload
+    #@fulfillment = create :fulfillment, patient: @pledged_pt
   end
 
   describe 'visiting the edit patient view as a CM' do
