@@ -6,7 +6,9 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     @admin = create :user, role: :admin
     @clinic = create :clinic
     @patient = create :patient, line: :DC
-    @patient.external_pledges.create source: 'Baltimore Abortion Fund', amount: 100
+    @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                     amount: 100,
+                                     created_by: @user
     @ext_pledge = @patient.external_pledges.first
 #    @ext_pledge = create :external_pledge,
 #                         patient: @patient,
