@@ -4,7 +4,9 @@ class ExternalPledgeTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @patient = create :patient
-    @patient.external_pledges.create created_by: @user
+    @patient.external_pledges.create created_by: @user,
+                                     amount: 100,
+                                     source: 'BWAH'
     @pledge = @patient.external_pledges.first
   end
 
@@ -55,7 +57,10 @@ class ExternalPledgeTest < ActiveSupport::TestCase
 
   describe 'scopes' do
     before do
-      @patient.external_pledges.create! created_by: User.first, amount: 100, source: 'Bar', active: false
+      @patient.external_pledges.create! created_by: User.first,
+                                        amount: 100,
+                                        source: 'Bar',
+                                        active: false
     end
 
     it 'should leave inactive pledges out unless specified queries' do
