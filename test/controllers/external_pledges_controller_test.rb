@@ -42,7 +42,6 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
                                      amount: 100,
                                      created_by: @user
       @pledge = @patient.external_pledges.first
-      #@pledge = create :external_pledge, patient: @patient
       @pledge_edits = { source: 'Edited Pledge' }
       patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
       @pledge.reload
@@ -84,7 +83,6 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
                                      amount: 100,
                                      created_by: @user
       @pledge = @patient.external_pledges.first
-      #@pledge = create :external_pledge, patient: @patient
     end
 
     it 'should set a pledge to inactive' do
