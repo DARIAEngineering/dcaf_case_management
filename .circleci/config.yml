@@ -13,7 +13,6 @@ jobs:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
       - image: circleci/mongo:latest
-
     steps:
       - checkout
       - run: 
@@ -48,7 +47,7 @@ jobs:
 
 workflows:
   version: 2
-  dcaf-workflow:
+  dcaf_workflow_build_test_deploy:
     jobs:
       - build
       - deployment:
