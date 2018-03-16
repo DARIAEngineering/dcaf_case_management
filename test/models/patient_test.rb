@@ -8,8 +8,8 @@ class PatientTest < ActiveSupport::TestCase
 
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
-    @call = create :call, patient: @patient,
-                          status: 'Reached patient'
+    @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+    @call = @patient.calls.first
     create_language_config
   end
 
@@ -547,7 +547,7 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should default to "No Contact Made" on a patient left voicemail' do
-        create :call, patient: @patient, status: 'Left voicemail'
+        @patient.calls.create attributes_for(:call, status: 'Left voicemail')
         assert_equal Patient::STATUSES[:no_contact], @patient.status
       end
 
@@ -559,12 +559,12 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'status method branch 2' do
       it 'should update to "Needs Appointment" once patient has been reached' do
-        create :call, patient: @patient, status: 'Reached patient'
+        @patient.calls.create attributes_for(:call, status: 'Reached patient')
         assert_equal Patient::STATUSES[:needs_appt], @patient.status
       end
 
       it 'should update to "Fundraising" once appointment made and patient reached' do
-        create :call, patient: @patient, status: 'Reached patient'
+        @patient.calls.create attributes_for(:call, status: 'Reached patient')
         @patient.appointment_date = '01/01/2017'
         assert_equal Patient::STATUSES[:fundraising], @patient.status
       end
@@ -588,10 +588,10 @@ class PatientTest < ActiveSupport::TestCase
       # it 'should update to "Pledge Paid" after a pledge has been paid' do
       # end
       it 'should update to "No contact in 120 days" after 120ish days of no calls' do
-        create :call, patient: @patient, status: 'Reached patient', created_at: 121.days.ago
+        @patient.calls.create attributes_for(:call, status: 'Reached patient', created_at: 121.days.ago)
         assert_equal Patient::STATUSES[:dropoff], @patient.status
 
-        create :call, patient: @patient, status: 'Left voicemail', created_at: 120.days.ago
+        @patient.calls.create attributes_for(:call, status: 'Reached patient', created_at: 120.days.ago)
         assert_equal Patient::STATUSES[:needs_appt], @patient.status
       end
 
@@ -607,12 +607,12 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should return false if an unsuccessful call has been made' do
-        create :call, patient: @patient, status: 'Left voicemail'
+        @patient.calls.create attributes_for(:call, status: 'Left voicemail')
         refute @patient.send :contact_made?
       end
 
       it 'should return true if a successful call has been made' do
-        create :call, patient: @patient, status: 'Reached patient'
+        @patient.calls.create attributes_for(:call, status: 'Reached patient')
         assert @patient.send :contact_made?
       end
     end

@@ -196,19 +196,15 @@ lines = ['DC', 'VA', 'MD']
 
   # reached calls this month
   5.times do
-    Call.create!(
-      patient: patient,
-      status: 'Reached patient',
+    patient.calls.create! status: 'Reached patient',
       created_by: User.first,
-      created_at: (Time.now - rand(10).days))
+      created_at: (Time.now - rand(10).days)
   end
 
   5.times do
-    Call.create!(
-      patient: patient,
-      status: 'Reached patient',
+    patient.calls.create! status: 'Reached patient',
       created_by: User.first,
-      created_at: (Time.now - rand(10).days - 10.days))
+      created_at: (Time.now - rand(10).days - 10.days)
   end
 end
 
@@ -226,11 +222,9 @@ end
 
   # rcalls this year
   5.times do
-    Call.create!(
-      patient: patient,
-      status: 'Reached patient',
+    patient.calls.create! status: 'Reached patient',
       created_by: User.first,
-      created_at: (Time.now - rand(10).days - 6.months))
+      created_at: (Time.now - rand(10).days - 6.months)
   end
 end
 
