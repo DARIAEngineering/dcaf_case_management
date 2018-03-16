@@ -33,9 +33,9 @@
     <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
   <%# end %>
 
-  <%= f.text_field :fund_pledge, label: "#{FUND} pledge" %>
+  <%= f.number_field :fund_pledge, label: "#{FUND} pledge" %>
 
-  <%= f.text_field :age, autocomplete: 'off' %>
+  <%= f.number_field :age, autocomplete: 'off' %>
   <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>
   <%= f.select :clinic_id, options_for_select(clinic_options) %>
 
@@ -70,9 +70,9 @@
                options_for_select(referred_by_options),
                                   autocomplete: 'off' %>
 
-    <%= f.text_field :procedure_cost, label: 'Full cost / abortion cost' %>
-    <%= f.text_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
-    <%= f.text_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :procedure_cost, label: 'Full cost / abortion cost' %>
+    <%= f.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
 
     <%= f.check_box :pledge_sent, label: 'Pledge sent' %>
 

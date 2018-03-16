@@ -19,14 +19,6 @@ class ClinicManagementTest < ApplicationSystemTestCase
       within :css, '#clinics_table' do
         assert has_text? @clinic.name
       end
-
-      # TODO revisit this after viewing clinic details is less clunky
-      # find("#clinic-toggle-#{@clinic.id}").click
-      # wait_for_ajax
-      # within :css, "clinic-#{@clinic.id}-detail" do
-      #   assert has_text? 'Accepts Medicaid?'
-      #   assert has_text? 'Yes'
-      # end
     end
   end
 
