@@ -5,7 +5,7 @@ class AuditTrail
   include Mongoid::Userstamp
   mongoid_userstamp user_model: 'User'
 
-  IRRELEVANT_FIELDS = %w[user_ids updated_by].freeze
+  IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id].freeze
 
   # convenience methods for clean view display
   def date_of_change

@@ -9,11 +9,11 @@
 
 ## Next major project milestone: Sharing with other funds
 
-Major new feature development on this project has more or less drawn to a close. If you are an abortion fund interested in whether this would work for you, hit us up and let us know!
+Major new feature development on this project has more or less drawn to a close. Our general administration/maintenance plan is [here](docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md). If you are an abortion fund interested in whether this would work for you, hit us up and let us know!
 
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
-[Join via the Code for DC website](http://codefordc.org/joinslack).
+[Join via the Code for DC website](https://codefordc.org/resources/slack.html).
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?
 
@@ -43,7 +43,7 @@ Feel free to hit any of us up with questions about the project, we're nice!
 ## Contributing to this Project
 
 ### tl;dr
-* We are a regular presence at [Code for DC meetups](https://www.meetup.com/code-for-dc/)
+* We are best reached via the [Code for DC slack](https://codefordc.org/resources/slack.html)
 * We run on forks and pull requests
 * Our [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) is our project's remaining TODO list
 * Post in an issue when you're starting work on something, so @colinxfleming can keep track of it and so we don't duplicate work

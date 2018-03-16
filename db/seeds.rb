@@ -1,4 +1,4 @@
-fail 'No running seeds in prod' unless [nil, 'Test Sandbox'].include? ENV['FUND']
+fail 'No running seeds in prod' unless [nil, 'Sandbox'].include? ENV['DARIA_FUND']
 
 # if ARGV[1].blank?
 #   puts "\n****SEED FAILED, but it's easy to fix****\n" \
@@ -249,6 +249,126 @@ end
     pledge_sent: true,
     fund_pledge: 50)
 end
+
+# create patients with ALL THE INFO to play with archiving
+(1..2).each do |patient_number|
+  # initial create data from voicemail
+  patient = Patient.create!(
+    name: "Archive Dataful Patient #{patient_number}",
+    primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
+    voicemail_preference: "yes",
+    line: 'DC',
+    language: "Spanish",
+    initial_call_date: 90.days.ago,
+    last_menstrual_period_weeks: 6,
+    last_menstrual_period_days: 5,
+    created_by: User.first,
+    created_at: 90.days.ago,
+  )
+
+  # Call, but no answer. leave a VM.
+
+  patient.calls.create status: 'Left voicemail', created_by: User.first, created_at: 90.days.ago
+
+  # Call, which updates patient info, maybe flags urgent, make a note.
+  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 89.days.ago
+
+  patient.update!(
+    # header info - hand filled in
+    appointment_date: 60.days.ago,
+
+    # patient info - hand filled in
+    age: 24,
+    race_ethnicity: "Hispanic/Latino",
+    city: "Washington",
+    state: "DC",
+    county: "Washington",
+    other_contact: "Susie Q.",
+    other_phone: "555-0#{patient_number}0-0053",
+    other_contact_relationship: "Mother",
+
+    employment_status: "Student",
+    income: "$10,000-14,999",
+    household_size_adults: 3,
+    household_size_children: 2,
+    insurance: "Other Insurance",
+    referred_by: "Clinic",
+    special_circumstances: ["", "", "Homelessness", "", "", "Other medical issue", "", "", ""],
+
+    # abortion info - hand filled in
+    clinic: Clinic.all.sample,
+    referred_to_clinic:  patient_number.odd? ? true : false,
+    resolved_without_fund:  patient_number.even? ? true : false,
+
+    updated_at: 89.days.ago, #not sure if this even works?
+  )
+
+  # notes tab
+  # toggle urgent, maybe
+  patient.update!(
+    urgent_flag: patient_number.odd? ? true : false,
+    updated_at: 89.days.ago,
+  )
+  # generate notes
+  patient.notes.create!(
+    full_text: "One note, with iffy PII! This one was from the first call!",
+    created_by: user,
+    created_at: 89.days.ago,
+  )
+
+  # only continue for the unresolved patient(s)
+  next if patient.resolved_without_fund?
+
+  # another call. get abortion information, create pledges, a note.
+  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 81.days.ago
+
+  # abortion info - pledges - hand filled in
+  patient.update!(
+    procedure_cost: 555,
+    patient_contribution: 120,
+    naf_pledge: 120,
+    fund_pledge: 115,
+    pledge_sent: true,
+    pledge_generated_at: 70.days.ago,
+    pledge_generated_by: User.first,
+    updated_at: 81.days.ago,
+  )
+  # generate external pledges
+  patient.external_pledges.create!(
+    source: 'Metallica Abortion Fund',
+    amount: 100,
+    created_by: user,
+    created_at: 81.days.ago,
+  );
+  patient.external_pledges.create!(
+    source: 'Baltimore Abortion Fund',
+    amount: 100,
+    created_by: user,
+    created_at: 81.days.ago,
+  );
+
+  # notes tab
+  patient.notes.create!(
+    full_text: "Two note, maybe with iffy PII! From the second call.",
+    created_by: user2,
+    created_at: 81.days.ago,
+  )
+
+  # fulfillment
+
+  patient.fulfillment.update!(
+    fulfilled: true,
+    procedure_date: 60.days.ago,
+    gestation_at_procedure: "11",
+    procedure_cost: 555,
+    check_number: 4563,
+    date_of_check: 55.days.ago,
+    updated_at: 51.days.ago,
+  )
+
+end
+
+
 
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \

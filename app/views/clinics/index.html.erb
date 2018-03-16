@@ -5,10 +5,12 @@
   <tr>
     <th>Clinic name</th>
     <th>Address</th>
-    <th>Cit</th>
+    <th>City</th>
     <th>State</th>
     <th>ZIP</th>
-    <th></th>
+    <th>NAF</th>
+    <th>Medicaid</th>
+    <th>Gestational Limit (Days)</th>
   </tr>
 
   <% @clinics.each do |clinic| %>
@@ -19,37 +21,20 @@
       <td><%= clinic.state %></td>
       <td><%= clinic.zip %></td>
       <td>
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href='#<%= clinic.id %>' aria-expanded="false" aria-controls='<%= clinic.id %>' id='clinic-toggle-<%= clinic.id %>'>
-          <i class="short-full glyphicon glyphicon-chevron-down accordion-toggle-down"></i>
-          <i class="short-full glyphicon glyphicon-chevron-up accordion-toggle-up"></i>
-        </a>
-      </td>
-    </tr>
-
-    <tr id='clinic-<%= clinic.id %>-detail' class="collapse collapsible-clinic-details" role="tabpanel">
-      <td>
         <div class="accepts-naf clinic-detail-group">
-          <label>Accepts NAF?</label>
           <p class="blush"><%= clinic.accepts_naf ? 'Yes' : 'No' %></p>
         </div>
       </td>
       <td>
         <div class="accepts_medicaid clinic-detail-group">
-          <label>Accepts Medicaid?</label>
           <p class="blush"><%= clinic.accepts_medicaid ? 'Yes' : 'No' %></p>
         </div>
       </td>
       <td>
         <div class="gestational-limit clinic-detail-group">
-          <label>Gestational Limit</label>
           <p class="blush"><%= clinic.gestational_limit %></p>
         </div>
       </td>
-
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
     </tr>
   <% end %>
 </table>
