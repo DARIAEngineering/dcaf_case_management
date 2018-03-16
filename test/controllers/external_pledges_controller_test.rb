@@ -37,7 +37,11 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
   describe 'update method' do
     before do
-      @pledge = create :external_pledge, patient: @patient
+
+      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                     amount: 100,
+                                     created_by: @user
+      @pledge = @patient.external_pledges.first
       @pledge_edits = { source: 'Edited Pledge' }
       patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
       @pledge.reload
@@ -74,7 +78,12 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'destroy' do
-    before { @pledge = create :external_pledge, patient: @patient }
+    before do
+      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                     amount: 100,
+                                     created_by: @user
+      @pledge = @patient.external_pledges.first
+    end
 
     it 'should set a pledge to inactive' do
       delete patient_external_pledge_path(@patient, @pledge), xhr: true

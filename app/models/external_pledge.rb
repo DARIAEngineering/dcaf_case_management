@@ -7,7 +7,7 @@ class ExternalPledge
   include Mongoid::Userstamp
 
   # Relationships
-  embedded_in :patient
+  embedded_in :can_pledge, polymorphic: true
 
   default_scope -> { where(active: true) }
   scope :active, -> { where(active: true) }
