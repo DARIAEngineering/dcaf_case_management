@@ -3,7 +3,7 @@
 
   <%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |p| %>
     <%= p.text_field :search, placeholder: 'Name (Susan Smith) or Phone (555-555-5555)', hide_label: true, class: 'search_form_input' %>
-    <%= p.button :class => "btn btn-primary" do %>
+    <%= p.button :class => "btn btn-primary", title: "Search" do %>
       <i class="glyphicon glyphicon-search"></i>
     <% end %>
   <% end %>
