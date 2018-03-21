@@ -41,7 +41,9 @@ module TooltipsHelper
     text.strip
   end
 
-  def status_help_text
+  def status_help_text(patient)
+    # HERE    # 
+
     status_defs = Statusable::STATUSES.keys.map do |status|
       "#{Statusable::STATUSES[status][:key]}: #{Statusable::STATUSES[status][:help_text]}"
     end
