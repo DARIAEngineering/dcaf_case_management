@@ -26,9 +26,10 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       select '5 weeks', from: 'patient_last_menstrual_period_weeks'
       select '2 days', from: 'patient_last_menstrual_period_days'
       fill_in 'Appointment date', with: @date.strftime('%m/%d/%Y')
+      # There's a sporadic bug here that happens due to fields filling in too fast?
       fill_in 'Phone number', with: '123-666-8888'
-      fill_in 'First and last name', with: 'Susie Everyteen 2'
       click_away_from_field
+      wait_for_ajax
       reload_page_and_click_link 'Patient Information'
     end
 
