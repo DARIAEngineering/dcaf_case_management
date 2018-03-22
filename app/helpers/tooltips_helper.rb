@@ -42,12 +42,12 @@ module TooltipsHelper
   end
 
   def status_help_text(patient)
-    # HERE    # 
+    status = Statusable::STATUSES.find { |x, hsh| hsh[:key] == patient.status }
+                                 .second
 
-    status_defs = Statusable::STATUSES.keys.map do |status|
-      "#{Statusable::STATUSES[status][:key]}: #{Statusable::STATUSES[status][:help_text]}"
-    end
-    safe_join(['Status definitions:'].concat(status_defs), tag('br'))
+    status_def = "#{status[:key]}: #{status[:help_text]}"
+
+    safe_join(['Status definition:'].concat([status_def]), tag('br'))
   end
 
   def record_new_external_pledge_help_text
