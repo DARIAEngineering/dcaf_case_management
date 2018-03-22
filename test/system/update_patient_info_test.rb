@@ -6,9 +6,10 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     @admin = create :user, role: :admin
     @clinic = create :clinic
     @patient = create :patient, line: :DC
-    @ext_pledge = create :external_pledge,
-                         patient: @patient,
-                         source: 'Baltimore Abortion Fund'
+    @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                     amount: 100,
+                                     created_by: @user
+    @ext_pledge = @patient.external_pledges.first
     create_external_pledge_source_config
     create_insurance_config
     create_language_config
@@ -205,7 +206,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
                                   clinic: @clinic,
                                   fund_pledge: 100,
                                   pledge_sent: true
-      create :fulfillment, patient: @patient
 
       log_out && log_in_as(@admin)
       visit edit_patient_path @patient
