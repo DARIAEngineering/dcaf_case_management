@@ -77,8 +77,26 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       it 'should update appointment date' do
         within :css, '#patient_dashboard' do
-          assert has_field? 'Appointment date', with: @date.strftime('%Y-%m-%d')
+          assert has_field? 'Appointment date', with: 5.days.from_now.strftime('%Y-%m-%d')
         end
+      end
+    end
+
+    describe 'updating appointment date counter' do
+      before do
+        @patient.update last_menstrual_period_weeks: 5,
+                        last_menstrual_period_days: 2,
+                        appointment_date: 5.days.from_now.strftime('%Y-%m-%d')
+        visit edit_patient_path @patient
+      end
+
+      it 'should update the appointment date counter' do
+        assert has_content? 'Currently: 5w 4d'
+        assert has_content? 'Approx gestation at appt: 6 weeks, 2 days'
+
+        select '1 day', from: 'patient_last_menstrual_period_days'
+        assert has_content? 'Currently: 5w 3d'
+        assert has_content? 'Approx gestation at appt: 6 weeks, 1 day'
       end
     end
 
@@ -91,7 +109,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       end
 
       it 'should update phone' do
-        with :css, '#patient_dashboard' do
+        within :css, '#patient_dashboard' do
           assert has_field? 'Phone number', with: '123-666-8888'
         end
       end
