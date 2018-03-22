@@ -16,22 +16,14 @@ class ReportingPatientTest < ActiveSupport::TestCase
       # reached calls this month
       (1..5).each do |call_number|
         Timecop.freeze(Time.zone.now - call_number.days) do
-          create(
-            :call,
-            patient: patient,
-            status: 'Reached patient'
-          )
+          patient.calls.create attributes_for(:call, status: 'Reached patient')
         end
       end
 
       # not reached calls this month
       (1..5).each do |call_number|
         Timecop.freeze(Time.zone.now - call_number.days) do
-          create(
-            :call,
-            patient: patient,
-            status: 'Left voicemail'
-          )
+          patient.calls.create attributes_for(:call, status: 'Left voicemail')
         end
       end
     end
@@ -48,11 +40,7 @@ class ReportingPatientTest < ActiveSupport::TestCase
       # calls this year
       (1..5).each do |call_number|
         Timecop.freeze(Time.zone.now - call_number.months - call_number.days) do
-          create(
-            :call,
-            patient: patient,
-            status: 'Reached patient'
-          )
+          patient.calls.create attributes_for(:call, status: 'Reached patient')
         end
       end
     end
@@ -81,19 +69,11 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
       # call from 2 months ago
       Timecop.freeze(Time.zone.now - 2.months) do
-        create(
-          :call,
-          patient: patient,
-          status: 'Reached patient'
-        )
+        patient.calls.create attributes_for(:call, status: 'Reached patient')
       end
 
       # call from now
-      create(
-        :call,
-        patient: patient,
-        status: 'Reached patient'
-      )
+      patient.calls.create attributes_for(:call, status: 'Reached patient')
     end
     it 'should return the correct amount of contacted patients for the first time in the timeframe' do
       month_num_contacted = Reporting::Patient.new_contacted_for_line('VA', Time.zone.now - 1.month, Time.zone.now)
