@@ -10,7 +10,7 @@ LINES = if ENV['DARIA_LINES'].present?
 
 # Definition of fund
 FUND_FULL = ENV['DARIA_FUND_FULL'] || 'DC Abortion Fund'
-FUND_DOMAIN = ENV['FUND_MAILER_DOMAIN'] || 'dcabortionfund'
+FUND_DOMAIN = ENV['FUND_MAILER_DOMAIN'] || 'dcabortionfund.org'
 FUND_PHONE = ENV['DARIA_FUND_PHONE'] || '202-452-7464'
 FUND = ENV['DARIA_FUND'] || 'DCAF'
 FUND_FAX_SERVICE = ENV['DARIA_FAX_SERVICE'] || 'www.efax.com'
