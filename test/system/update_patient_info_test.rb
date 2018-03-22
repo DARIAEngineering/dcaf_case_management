@@ -20,32 +20,80 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   end
 
   describe 'changing patient dashboard information' do
-    before do
-      @date = 5.days.from_now
-      fill_in 'First and last name', with: 'Susie Everyteen 2'
-      select '5 weeks', from: 'patient_last_menstrual_period_weeks'
-      select '2 days', from: 'patient_last_menstrual_period_days'
-      fill_in 'Appointment date', with: @date.strftime('%m/%d/%Y')
-      # There's a sporadic bug here that happens due to fields filling in too fast?
-      fill_in 'Phone number', with: '123-666-8888'
-      click_away_from_field
-      wait_for_ajax
-      reload_page_and_click_link 'Patient Information'
+    describe 'updating name' do
+      before do
+        fill_in 'First and last name', with: 'Susie Everyteen 2'
+        click_away_from_field
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
+      end
+
+      it 'should update name' do
+        within :css, '#patient_dashboard' do
+          assert has_field?('First and last name', with: 'Susie Everyteen 2')
+        end
+      end
     end
 
-    it 'should alter the dashboard information' do
-      within :css, '#patient_dashboard' do
-        lmp_weeks = find('#patient_last_menstrual_period_weeks')
-        lmp_days = find('#patient_last_menstrual_period_days')
-        assert has_field?('First and last name', with: 'Susie Everyteen 2')
-        assert_equal '5', lmp_weeks.value
-        assert_equal '2', lmp_days.value
+    describe 'updating LMP weeks' do
+      before do
+        select '5 weeks', from: 'patient_last_menstrual_period_weeks'
+        click_away_from_field
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
+      end
 
-        assert has_field? 'Appointment date', with: @date.strftime('%Y-%m-%d')
-        assert has_field? 'Phone number', with: '123-666-8888'
+      it 'should update LMP weeks' do
+        within :css, '#patient_dashboard' do
+          lmp_weeks = find('#patient_last_menstrual_period_weeks')
+          assert_equal '5', lmp_weeks.value
+        end
+      end
+    end
 
-        assert has_content? 'Currently: 5w 4d'
-        assert has_content? 'Approx gestation at appt: 6 weeks, 2 days'
+    describe 'updating LMP days' do
+      before do
+        select '2 days', from: 'patient_last_menstrual_period_days'
+        click_away_from_field
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
+      end
+
+      it 'should update LMP days' do
+        within :css, '#patient_dashboard' do
+          lmp_days = find('#patient_last_menstrual_period_days')
+          assert_equal '2', lmp_days.value
+        end
+      end
+    end
+
+    describe 'updating appointment date' do
+      before do
+        fill_in 'Appointment date', with: 5.days.from_now.strftime('%m/%d/%Y')
+        click_away_from_field
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
+      end
+
+      it 'should update appointment date' do
+        within :css, '#patient_dashboard' do
+          assert has_field? 'Appointment date', with: @date.strftime('%Y-%m-%d')
+        end
+      end
+    end
+
+    describe 'updating phone number' do
+      before do
+        fill_in 'Phone number', with: '123-666-8888'
+        click_away_from_field
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
+      end
+
+      it 'should update phone' do
+        with :css, '#patient_dashboard' do
+          assert has_field? 'Phone number', with: '123-666-8888'
+        end
       end
     end
   end
