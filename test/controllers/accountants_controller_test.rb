@@ -2,9 +2,37 @@ require 'test_helper'
 
 class AccountantsControllerTest < ActionDispatch::IntegrationTest
   before do
-    @user = create :user
+    @user = create :user, role: :admin
     @patient = create :patient
     sign_in @user
+  end
+ 
+  describe 'admin use only' do
+    before do
+      @nonadmin_user = create :user, role: :cm
+      sign_out
+
+      sign_in @nonadmin_user
+    end
+
+    describe 'get routes' do
+      it 'should prevent nonadmins from using index' do
+        get accountants_path
+        assert_redirected_to root_path
+      end
+
+      it 'should prevent nonadmins from using edit' do
+        get edit_accountant_path(@patient)
+        assert_redirected_to root_path
+      end
+    end
+
+    describe 'post routes' do
+      it 'should prevent nonadmins from using search' do
+        post accountant_search_path, params: { search: '' }, xhr: true
+        assert_redirected_to root_path
+      end
+    end
   end
 
   describe 'index method' do
@@ -33,7 +61,7 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'edit_fulfillment method' do
     before do
-      get edit_accountants_path(@patient)
+      get edit_accountant_path(@patient)
     end
 
     it 'should return success' do

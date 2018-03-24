@@ -24,6 +24,8 @@ class AccountantsController < ApplicationController
   end
 
   def edit
+    # This is a cheater method that populates the fulfillment partial into a
+    # modal
     respond_to { |format| format.js }
   end
 
