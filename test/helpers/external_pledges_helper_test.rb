@@ -24,9 +24,13 @@ class ExternalPledgesHelperTest < ActionView::TestCase
 
     it 'should remove preselected options' do
       @patient = create :patient
-      create :external_pledge, source: 'Baltimore Abortion Fund',
-                               amount: 100,
-                               patient: @patient
+
+      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                       amount: 100,
+                                       created_by: @user
+      #create :external_pledge, source: 'Baltimore Abortion Fund',
+      #                         amount: 100,
+      #                         patient: @patient
 
       refute_includes available_pledge_source_options_for(@patient),
                       'Baltimore Abortion Fund'

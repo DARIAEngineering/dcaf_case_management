@@ -15,7 +15,7 @@
                                           patient.line),
                                           label: 'Line' %>
           <% end %>
-          <%= f.text_field :age, label: 'Age', autocomplete: 'off' %>
+          <%= f.number_field :age, label: 'Age', autocomplete: 'off' %>
           <%= f.select :race_ethnicity,
                        options_for_select(race_ethnicity_options,
                                           patient.race_ethnicity),
