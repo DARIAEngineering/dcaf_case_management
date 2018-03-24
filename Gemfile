@@ -28,7 +28,7 @@ gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4'
 gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
 gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 
