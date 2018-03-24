@@ -55,6 +55,10 @@ gem 'geokit' # should be included in clinic_finder instead of here
 gem 'js-routes' # Not sure if this is used anymore
 gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
 
+# Stuff we're hardsetting because of security concerns
+gem 'loofah', '>= 2.2.1'
+gem 'rails-html-sanitizer', '>= 1.0.4'
+
 group :development do
   gem 'shog' # makes rails s output color!
   gem 'listen' # used by systemtests

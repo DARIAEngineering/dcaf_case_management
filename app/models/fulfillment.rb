@@ -7,7 +7,7 @@ class Fulfillment
   include Mongoid::Userstamp
 
   # Relationships
-  embedded_in :patient
+  embedded_in :can_fulfill, polymorphic: true
 
   field :fulfilled, type: Boolean
   field :procedure_date, type: Date

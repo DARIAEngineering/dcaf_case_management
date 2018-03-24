@@ -35,9 +35,9 @@ class Patient
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
-  embeds_one :fulfillment
-  embeds_many :calls
-  embeds_many :external_pledges
+  embeds_one :fulfillment, as: :can_fulfill
+  embeds_many :calls, as: :can_call
+  embeds_many :external_pledges, as: :can_pledge
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
