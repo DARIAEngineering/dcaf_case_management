@@ -331,7 +331,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqreen (1.9.1)
+    sqreen (1.11.2)
       execjs (>= 0.3.0)
       therubyracer
     therubyracer (0.12.3)
