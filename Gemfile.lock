@@ -349,7 +349,7 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.2)
       tzinfo (>= 1.0.0)
-    uglifier (4.1.2)
+    uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.3.0)
     url (0.3.2)
@@ -379,7 +379,7 @@ DEPENDENCIES
   codecov
   coffee-rails (~> 4.2.2)
   database_cleaner
-  devise (~> 4)
+  devise (~> 4.3)
   enumerize
   factory_bot_rails
   faker
@@ -408,7 +408,7 @@ DEPENDENCIES
   prawn
   pry
   puma
-  rack-attack (~> 5)
+  rack-attack (~> 5.1)
   rack-test (~> 0.6.3)
   rails (>= 5.1)
   rails-html-sanitizer (>= 1.0.4)
@@ -428,7 +428,7 @@ DEPENDENCIES
   timecop
   turbolinks (~> 5.0.0)
   tzinfo-data
-  uglifier (>= 3.2.0)
+  uglifier (~> 4.1)
 
 RUBY VERSION
    ruby 2.4.3p205

@@ -13,7 +13,7 @@ gem 'tzinfo-data', require: false
 # Asset pipeline
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
-gem 'uglifier', '>= 3.2.0'
+gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -28,7 +28,7 @@ gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4'
+gem 'devise', '~> 4.3'
 gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
 gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 
@@ -36,7 +36,7 @@ gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 gem 'bootstrap_form'
 
 # Security libraries
-gem 'rack-attack', '~> 5'
+gem 'rack-attack', '~> 5.1'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
 # Specific useful stuff
