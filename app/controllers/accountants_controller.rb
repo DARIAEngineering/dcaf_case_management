@@ -4,17 +4,21 @@ class AccountantsController < ApplicationController
   before_action :find_patient, only: [:edit]
 
   def index
-    fulfilled_pts = Patient.where('fulfillment.fulfilled' => true)
+    fulfilled_pts = Patient.where(pledge_sent: true,
+                                  :initial_call_date.gte => 6.months.ago)
+                           .order('pledge_sent_at desc')
     @patients = Kaminari.paginate_array(fulfilled_pts)
                         .page(params[:page]).per(25)
   end
 
   def search
-    @results = if params[:search] != ''
-                 Patient.where('fulfillment.fulfilled' => true)
+    @results = if params[:search].blank?
+                 Patient.where(pledge_sent: true)
                         .search(params[:search])
+                        .order('pledge_sent_at desc')
                else
-                 Patient.where('fulfillment.fulfilled' => true)
+                 Patient.where(pledge_sent: true)
+                        .order('pledge_sent_at desc')
                end
     respond_to { |format| format.js }
   end
