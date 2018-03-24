@@ -36,7 +36,7 @@ gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 gem 'bootstrap_form'
 
 # Security libraries
-gem 'rack-attack', '~> 5.0.1'
+gem 'rack-attack', '~> 5'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
 
 # Specific useful stuff
