@@ -23,6 +23,10 @@ class AccountantsController < ApplicationController
                  Patient.where(pledge_sent: true)
                         .order('pledge_sent_at desc')
                end
+
+    @paginated_results = Kaminari.paginate_array(@results)
+                                 .page(params[:page])
+                                 .per(25)
     respond_to { |format| format.js }
   end
 
