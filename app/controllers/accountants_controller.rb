@@ -5,28 +5,23 @@ class AccountantsController < ApplicationController
   before_action :find_patient, only: [:edit]
 
   def index
-    fulfilled_pts = Patient.where(pledge_sent: true,
-                                  :initial_call_date.gte => 6.months.ago)
-                           .order('pledge_sent_at desc')
-    @patients = Kaminari.paginate_array(fulfilled_pts)
-                        .page(params[:page]).per(25)
+    patients = pledged_patients
+    @patients = paginate_results(patients)
   end
 
   def search
     # We're doing it janky because we implemented search to return an array,
     # not an activerecord object. some room for improvement.
-    @results = if params[:search].blank?
-                 Patient.search(params[:search])
+    if params[:search].present?
+      @results = Patient.search(params[:search])
                         .select(&:pledge_sent?)
-                        .sort(&:pledge_sent_at).reverse
-               else
-                 Patient.where(pledge_sent: true)
-                        .order('pledge_sent_at desc')
-               end
+                        .sort_by(&:pledge_sent_at).reverse
+      @paginated_results = nil
+    else
+      @results = pledged_patients
+      @paginated_results = paginated_results(@results)
+    end
 
-    @paginated_results = Kaminari.paginate_array(@results)
-                                 .page(params[:page])
-                                 .per(25)
     respond_to { |format| format.js }
   end
 
@@ -37,6 +32,18 @@ class AccountantsController < ApplicationController
   end
 
   private
+
+  def paginate_results(results)
+    Kaminari.paginate_array(results)
+            .page(params[:page])
+            .per(25)
+  end
+
+  def pledged_patients
+    Patient.where(pledge_sent: true,
+                  :initial_call_date.gte => 6.months.ago)
+           .order('pledge_sent_at desc')
+  end
 
   def find_patient
     @patient = Patient.find params[:id]

@@ -4,7 +4,12 @@ $('#accounting-list').empty();
   $("#accounting-list").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @results, autosortable: true } ) %>");
 <% end %>
 
-// refresh pagination count
-$('#pagination-entries').html(
-  '<%= page_entries_info @paginated_results, entry_name: 'patient' %>'
-)
+<% if @paginated_results %>
+  // refresh pagination count
+  $('#pagination-entries').html(
+    '<%= page_entries_info @paginated_results, entry_name: 'patient' %>'
+  )
+<% else %>
+  $('#pagination-entries').empty();
+  // TODO nuke the pagination div too
+<% end %>
