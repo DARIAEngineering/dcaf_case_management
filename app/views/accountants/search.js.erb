@@ -1,15 +1,10 @@
 $('#accounting-list').empty();
 
 <% if @results.any? %>
-  $("#accounting-list").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @results, autosortable: true } ) %>");
-<% end %>
-
-<% if @paginated_results %>
-  // refresh pagination count
-  $('#pagination-entries').html(
-    '<%= page_entries_info @paginated_results, entry_name: 'patient' %>'
-  )
-<% else %>
+  // Nuke pagination div on search for simplicity's sake
   $('#pagination-entries').empty();
-  // TODO nuke the pagination div too
+  $('nav.pagination').empty();
+
+  // And refresh the table content
+  $("#accounting-list").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @results, autosortable: true } ) %>");
 <% end %>

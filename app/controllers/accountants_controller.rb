@@ -12,15 +12,13 @@ class AccountantsController < ApplicationController
   def search
     # We're doing it janky because we implemented search to return an array,
     # not an activerecord object. some room for improvement.
-    if params[:search].present?
-      @results = Patient.search(params[:search])
+    @results = if params[:search].present?
+                 Patient.search(params[:search])
                         .select(&:pledge_sent?)
                         .sort_by(&:pledge_sent_at).reverse
-      @paginated_results = nil
-    else
-      @results = pledged_patients
-      @paginated_results = paginated_results(@results)
-    end
+               else
+                 pledged_patients
+               end
 
     respond_to { |format| format.js }
   end
