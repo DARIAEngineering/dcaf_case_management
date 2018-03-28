@@ -221,7 +221,8 @@ class PatientTest < ActiveSupport::TestCase
   describe 'other methods' do
     before do
       @patient = create :patient, primary_phone: '111-222-3333',
-                                  other_phone: '111-222-4444'
+                                  other_phone: '111-222-4444',
+                                  name: 'Yolo Goat Bart Simpson'
     end
 
     it 'primary_phone_display -- should be hyphenated phone' do
@@ -232,6 +233,10 @@ class PatientTest < ActiveSupport::TestCase
     it 'secondary_phone_display - should be hyphenated other phone' do
       refute_equal @patient.other_phone, @patient.other_phone_display
       assert_equal '111-222-4444', @patient.other_phone_display
+    end
+
+    it 'initials - creates proper initials' do
+      assert_equal 'YGBS', @patient.initials
     end
   end
 

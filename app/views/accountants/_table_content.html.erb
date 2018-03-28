@@ -14,7 +14,7 @@
     </thead>
     <tbody id="patient_information_form">
       <% patients.each do |patient| %>
-        <tr>
+        <tr id='row-<%= patient.id %>'>
           <td><%= patient.clinic.name %></td>
           <td><%= link_to patient.initials, edit_patient_path(patient) %></td>
           <td><%= number_to_currency patient.fulfillment.procedure_cost, precision: 0 %></td>
@@ -23,7 +23,7 @@
           <td><%= patient.fulfillment.check_number%></td>
           <td><%= patient.fulfillment.date_of_check %></td>
           <td>
-            <%= link_to edit_accountant_path(patient), remote: true do %>
+            <%= link_to edit_accountant_path(patient), id: "edit-#{patient.id}", remote: true do %>
               <i class="glyphicon glyphicon-pencil"></i>
             <% end %>
           </td>
