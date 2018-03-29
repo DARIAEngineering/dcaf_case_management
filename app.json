@@ -48,7 +48,7 @@
       "required": false
     },
     "FUND_MAILER_DOMAIN": {
-      "description": "domain you want emails to come from. Should be your fund's domain. e.g. dcabortionfund.org",
+      "description": "domain you want emails to come from. Should be your fund's domain. e.g. dcabortionfund.org for DCAF",
       "value": ""
     },
     "DARIA_LINES": {
