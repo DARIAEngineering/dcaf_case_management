@@ -98,9 +98,9 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
         find('h2').click # Click the header to get the field to save
         wait_for_ajax
       end
+      find('body').click
 
       # Now, should be updated!
-      visit accountants_path
       within :css, "#row-#{@pledged_patient.id}" do
         assert has_content? '$999'
         assert has_content? 'BB8'
