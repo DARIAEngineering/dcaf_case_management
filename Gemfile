@@ -38,9 +38,10 @@ gem 'bootstrap_form'
 # Security libraries
 gem 'rack-attack', '~> 5.1'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
-gem 'kaminari-mongoid'
-gem 'kaminari'
 
+# For pagination
+gem 'kaminari-mongoid', '~> 1.0'
+gem 'kaminari', '~> 1.0'
 
 # Specific useful stuff
 gem 'render_async', '~> 0.2.3' # load slow partials asynchronously
