@@ -1,27 +1,22 @@
-<!-- locals: -->
-
-<div id="<%= table_type %>" class="margin-bottom">
-  <h1 class="border-bottom title"><%= title %></h1>
+<table class="table border-side">
   <table class="table border-side">
     <thead>
       <tr>
-        <th>Patient ID</th>
-        <th>Name</th>
-        <th>Pledge Sent Date</th>
         <th>Clinic Name</th>
-        <th>Clinic Location</th>
+        <th>PT initials</th>
+        <th>Abortion Care $</th>
+        <th>Weeks at Procedure</th>
+        <th>Pledge Sent Date</th>
+        <th>Check #</th>
+        <th>Date of Check</th>
+        <th></th>
       </tr>
     </thead>
-    <tbody id="<%= table_type %>_content">
+    <tbody id="patient_information_form">
       <% patients.each do |patient| %>
-        <tr class="pregnancy-data" id="<%= patient.id %>">
-          <td><%= patient.identifier %></td>
-          <td><%= link_to patient.name, edit_patient_path(patient) %></td>
-          <td><!-- patient.most_recent_pledge_display_date --></td>
-          <td><%= patient.clinic.try :name %></td>
-          <td></td>
+        <tr id='row-<%= patient.id %>'>
+          <%= render 'accountants/table_content_row', patient: patient %>
         </tr>
       <% end %>
     </tbody>
   </table>
-</div>

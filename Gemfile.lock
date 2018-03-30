@@ -154,6 +154,21 @@ GEM
       sprockets-rails
     json (1.8.6)
     jwt (1.5.6)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
+    kaminari-mongoid (1.0.1)
+      kaminari-core (~> 1.0)
+      mongoid
     knapsack (1.15.0)
       rake
     launchy (2.4.3)
@@ -390,6 +405,8 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   js-routes
+  kaminari (~> 1.0)
+  kaminari-mongoid (~> 1.0)
   knapsack
   launchy
   listen

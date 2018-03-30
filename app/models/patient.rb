@@ -151,6 +151,10 @@ class Patient
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
+  def initials
+    name.split(' ').map { |part| part[0] }.join('')
+  end
+
   def event_params
     {
       event_type:    'Pledged',

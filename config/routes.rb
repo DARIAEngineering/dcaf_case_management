@@ -46,9 +46,10 @@ Rails.application.routes.draw do
 
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
-    resources :accountants, only: [:index]
-    get 'accountant', to: 'accountants#index', as: 'accountant'
+
+    resources :accountants, only: [:index, :edit]
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }
+
     resources :lines, only: [:new, :create]
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js }, as: 'clinicfinder_search'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
