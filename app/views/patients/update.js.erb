@@ -43,9 +43,11 @@ $('#menu-pledge-button').html(
 );
 
 // If updating the accountants view, refresh the row
-$('#row-<%= @patient.id %>').html(
-  '<%= escape_javascript(render "accountants/table_content_row", patient: @patient) %>'
-);
+if($('#row-<%= @patient.id %>')) {
+  $('#row-<%= @patient.id %>').html(
+    '<%= escape_javascript(render "accountants/table_content_row", patient: @patient) %>'
+  );
+}
 
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
