@@ -30,7 +30,7 @@ class Patient
   before_update :update_pledge_sent_by_sent_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
-  after_destroy :remove_associated_events
+  after_destroy :destroy_associated_events
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
