@@ -124,7 +124,7 @@ class User
   end
 
   def remove_patient(patient)
-    patient.delete patient
+    patients.delete patient
     reload
   end
 

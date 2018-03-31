@@ -76,11 +76,4 @@ module PatientsHelper
   def pledge_limit_help_text_options
     Config.find_or_create_by(config_key: 'pledge_limit_help_text').options
   end
-
-  def delete_patient_button
-    content_tag :span, class: 'btn btn-primary btn-lg cancel-btn btn-block',
-                       id: 'delete-patient-button' do
-      'Delete patient'
-    end
-  end
 end

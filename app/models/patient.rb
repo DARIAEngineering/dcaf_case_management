@@ -166,6 +166,10 @@ class Patient
     }
   end
 
+  def okay_to_destroy?
+    !pledge_sent? && !fulfillment.fulfilled?
+  end
+
   private
 
   def confirm_appointment_after_initial_call
