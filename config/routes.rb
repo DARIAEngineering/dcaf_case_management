@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients,
-              only: [ :create, :edit, :update, :index ] do
+              only: [ :create, :edit, :update, :index, :destroy ] do
       member do
         get :download, as: 'generate_pledge'
       end
@@ -55,6 +55,8 @@ Rails.application.routes.draw do
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
+
+    delete 'patients/:patient_id/delete_patient', to: 'patients#destroy', as: 'delete_patient'
   end
 
   # Auth routes

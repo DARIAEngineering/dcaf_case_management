@@ -1,7 +1,7 @@
 # Create, edit, and update patients. The main patient view is edit.
 class PatientsController < ApplicationController
   before_action :redirect_unless_has_data_access, only: [:index]
-  before_action :find_patient, only: [:edit, :update, :download]
+  before_action :find_patient, only: [:edit, :update, :download, :destroy]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
 
@@ -84,6 +84,29 @@ class PatientsController < ApplicationController
     else
       flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
       render 'data_entry'
+    end
+  end
+
+  # allow ONLY admins to delete patients, and only then if patient does not have pledge_sent
+  def destroy
+    @patient = Patient.find params[:patient_id]
+    if current_user.admin? && !@patient.pledge_sent?
+      @patient.destroy
+      redirect_to dashboard_path
+      flash[:notice] = "Patient successfully deleted"
+    end
+  end
+
+  # allow ONLY admins to delete patients, and only then if patient does not have pledge_sent
+  def destroy
+    @patient = Patient.find params[:patient_id]
+    if current_user.admin? && !@patient.pledge_sent?
+      current_user.remove_patient(@patient)
+      redirect_to dashboard_path
+      flash[:notice] = "Patient successfully deleted"
+    else
+      flash[:alert] = "Can't delete patients with pledges; please correct the patient record and try again."
+      render :edit
     end
   end
 
