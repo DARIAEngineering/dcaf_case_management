@@ -168,7 +168,7 @@ class Patient
   end
 
   def okay_to_destroy?
-    !pledge_sent? && !fulfillment.fulfilled?
+    !pledge_sent?
   end
 
   def destroy_associated_events
