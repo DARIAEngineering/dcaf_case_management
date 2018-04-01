@@ -18,7 +18,6 @@ class Patient
   include Statusable
   include Exportable
   include EventLoggable
-  include Destroyable
   extend Enumerize
 
   LINES.each do |line|
@@ -170,6 +169,10 @@ class Patient
 
   def okay_to_destroy?
     !pledge_sent? && !fulfillment.fulfilled?
+  end
+
+  def destroy_associated_events
+    Event.where(patient_id: id.to_s).destroy_all
   end
 
   private
