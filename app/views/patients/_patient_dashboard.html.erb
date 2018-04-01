@@ -26,7 +26,7 @@
         <%= f.date_field :appointment_date, label: 'Appointment date', autocomplete: 'off', help: "Approx gestation at appt: #{patient.last_menstrual_period_at_appt}" %>
       </div>
       <div class="row">
-        <% if current_user.admin? # && patient.okay_to_destroy? %>
+        <% if current_user.admin? %>
           <%= button_to 'Delete duplicate patient record', patient_path(patient), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure you want to delete #{patient.name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)" } %>
         <% end %>
       </div>

@@ -94,7 +94,7 @@ class PatientsController < ApplicationController
       redirect_to authenticated_root_path
     else
       flash[:alert] = "Can't delete patients with pledges; please correct the patient record and try again."
-      render :edit
+      redirect_to edit_patient_path(@patient)
     end
   end
 
