@@ -147,8 +147,6 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'blow away associated events on destroy' do
       it 'should nuke events in addition to the patient on destroy' do
-        create :event, patient_id: @patient.id.to_s
-
         assert_difference 'Event.count', -1 do
           @patient.destroy
         end
@@ -371,8 +369,6 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'destroy_associated_events method' do
       it 'should nuke associated events on patient destroy' do
-        create :event, patient_id: @patient.id.to_s
-
         assert_difference 'Event.count', -1 do
           @patient.destroy_associated_events
         end

@@ -270,7 +270,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     describe 'behavior' do
       before do
-        destroy_user_session_path
+        delete destroy_user_session_path
         sign_in @admin
       end
 
