@@ -1,4 +1,4 @@
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class DestroyingPatientsTest < ApplicationSystemTestCase
   describe 'destroying a patient' do
@@ -12,13 +12,18 @@ class DestroyingPatientsTest < ApplicationSystemTestCase
                                           fund_pledge: 100
     end
 
-    describe 'button display behavior' do
-      [@user, @data_volunteer].each do |nonadmin|
-        it "should not show the destroy button to #{nonadmin.role}" do
-          log_in_as nonadmin
-          visit edit_patient_path @patient
-          refute has_button? 'Delete duplicate patient'
-        end
+
+    describe 'hide the button for nonadmins' do
+      it "should not show the destroy button to CMs" do
+        log_in_as @user
+        visit edit_patient_path @patient
+        refute has_button? 'Delete duplicate'
+      end
+
+      it "should not show the destroy button to data vols" do
+        log_in_as @data_volunteer
+        visit edit_patient_path @patient
+        refute has_button? 'Delete duplicate'
       end
     end
 
@@ -29,17 +34,20 @@ class DestroyingPatientsTest < ApplicationSystemTestCase
         visit edit_patient_path @patient
 
         assert_difference 'Patient.count', -1 do
-          accept_confirm { click_button 'Destroy duplicate patient record' }
+          accept_confirm { click_button 'Delete duplicate patient record' }
         end
         assert_equal root_path, current_path
         assert has_content? 'removed from database'
+
+        visit edit_patient_path(@patient)
+        assert_redirected_to root_path
       end
 
       it 'should not let you delete patients with pledges' do
         visit edit_patient_path @pledged_patient
 
         assert_no_difference 'Patient.count' do
-          accept_confirm { click_button 'Destroy duplicate patient record' }
+          accept_confirm { click_button 'Delete duplicate patient record' }
         end
         assert_equal edit_patient_path(@patient), current_path
         assert has_content? 'please correct the patient record'
