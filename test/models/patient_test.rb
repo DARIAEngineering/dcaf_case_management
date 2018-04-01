@@ -144,6 +144,16 @@ class PatientTest < ActiveSupport::TestCase
         end
       end
     end
+
+    describe 'blow away associated events on destroy' do
+      it 'should nuke events in addition to the patient on destroy' do
+        create :event, patient_id: @patient.id.to_s
+
+        assert_difference 'Event.count', -1 do
+          @patient.destroy
+        end
+      end
+    end
   end
 
   describe 'search method' do
@@ -356,6 +366,29 @@ class PatientTest < ActiveSupport::TestCase
         datetime = 5.days.ago
         hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
         assert_equal hash, Patient.contacted_since(datetime)
+      end
+    end
+
+    describe 'destroy_associated_events method' do
+      it 'should nuke associated events on patient destroy' do
+        create :event, patient_id: @patient.id.to_s
+
+        assert_difference 'Event.count', -1 do
+          @patient.destroy_associated_events
+        end
+      end
+    end
+
+    describe 'okay_to_destroy? method' do
+      it 'should return false if pledge is sent' do
+        @patient.update appointment_date: 2.days.from_now,
+                        fund_pledge: 100,
+                        clinic: (create :clinic),
+                        pledge_sent: true
+        refute @patient.okay_to_destroy?
+
+        @patient[:pledge_sent] = false
+        assert @patient.okay_to_destroy?
       end
     end
   end
