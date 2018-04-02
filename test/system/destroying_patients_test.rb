@@ -36,6 +36,8 @@ class DestroyingPatientsTest < ApplicationSystemTestCase
 
         assert_difference 'Patient.count', -1 do
           accept_confirm { click_button 'Delete duplicate patient record' }
+          # Give things a second to load
+          wait_for_element 'Build your call list'
         end
         assert_equal root_path, current_path
         # flash message not showing, and I cannot figure out why
