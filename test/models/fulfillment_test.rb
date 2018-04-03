@@ -4,9 +4,7 @@ class FulfillmentTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @pt_1 = create :patient, name: 'Susan Smith'
-    @fulfillment = @pt_1.fulfillment
-    @fulfillment.created_by = @user
-    @fulfillment.reload
+    @fulfillment = create :fulfillment, patient: @pt_1, created_by: @user
   end
 
   describe 'validations' do

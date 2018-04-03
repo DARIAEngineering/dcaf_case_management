@@ -1,6 +1,9 @@
 require 'simplecov'
 SimpleCov.start 'rails'
 
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -11,23 +14,16 @@ require 'omniauth_helper'
 require 'integration_helper'
 require 'rack/test'
 
-# CI only
 if ENV['CIRCLE_ARTIFACTS']
-  # Use knapsack to split up tests on CI nodes
   # To rerack the test divider, run:
   # KNAPSACK_GENERATE_REPORT=true bundle exec rake test test:system
   require 'knapsack'
   knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
   knapsack_adapter.set_test_helper_path(__FILE__)
+end
 
-  # Activate codecov reporter for test coverage reports
-  require 'codecov'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-
-  # Save screenshots if integration tests fail
-  circle_path = ENV.fetch('CIRCLE_ARTIFACTS',
-                          Rails.root.join('tmp', 'capybara'))
-  Capybara.save_path = circle_path
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
 end
 
 DatabaseCleaner.clean_with :truncation
@@ -60,6 +56,13 @@ class ActiveSupport::TestCase
   end
 end
 
+# Save screenshots if integration tests fail
+if ENV['CIRCLE_ARTIFACTS']
+  circle_path = ENV.fetch('CIRCLE_ARTIFACTS',
+                          Rails.root.join('tmp', 'capybara'))
+  Capybara.save_path = circle_path
+end
+
 # Used by controller tests
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
@@ -71,4 +74,13 @@ class ActionDispatch::IntegrationTest
   before { Capybara.reset_sessions! }
 
   # for controllers
+  def sign_in(user)
+    post user_session_path \
+      'user[email]' => user.email,
+      'user[password]' => user.password
+  end
+
+  def choose_line(line)
+    post lines_path, params: { line: line.to_s }
+  end
 end

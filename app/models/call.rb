@@ -7,7 +7,7 @@ class Call
   include EventLoggable
 
   # Relationships
-  embedded_in :can_call, polymorphic: true
+  embedded_in :patient
 
   # Fields
   field :status, type: String
@@ -40,9 +40,9 @@ class Call
     {
       event_type:   status,
       cm_name:      created_by&.name || 'System',
-      patient_name: can_call.name,
-      patient_id:   can_call.id,
-      line:         can_call.line
+      patient_name: patient.name,
+      patient_id:   patient.id,
+      line:         patient.line
     }
   end
 end

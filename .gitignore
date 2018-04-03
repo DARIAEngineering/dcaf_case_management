@@ -77,9 +77,6 @@ config/initializers/secret_token.rb
 # Ignore application configuration
 /config/application.yml
 
-# VS Code
-.vscode/
-
 .sass-cache
 .jekyll-metadata
 .byebug_history
