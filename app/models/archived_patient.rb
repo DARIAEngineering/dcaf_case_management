@@ -1,12 +1,9 @@
 class ArchivedPatient
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Userstamp
-  include Mongoid::History::Trackable
   extend Enumerize
 
   # Relationships
-  has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
   embeds_one :fulfillment
   embeds_many :calls
@@ -18,7 +15,7 @@ class ArchivedPatient
   field :identifier, type: String # UUID, not phone number based!
 
   # Fields generated from initial patient info
-  field :had_other_contact, type: Mongoid::Boolean
+  field :has_other_contact, type: Mongoid::Boolean
   field :age_range
   enumerize :age_range, in: [:under18, :age18_24, :age25_34, :age35_44, :age45_54, :age55plus, :not_specified], default: :not_specified
 
@@ -74,7 +71,7 @@ class ArchivedPatient
   mongoid_userstamp user_model: 'User'
 
   # Archive & Delete patients who have fallen out of contact
-  def self.process_dropped_off_patients
+  def self.archive_dropped_off_patients!
     Patient.where(:initial_call_date.lte => 1.year.ago).each do |patient|
       ArchivedPatient.convert_patient(patient)
       patient.destroy!
@@ -82,8 +79,8 @@ class ArchivedPatient
   end
 
   # Archive & Delete patients who are completely through our process
-  def self.process_fulfilled_patients
-    Patient.fulfilled_on_or_before(120.days.ago) do |patient|
+  def self.archive_fulfilled_patients!
+    Patient.fulfilled_on_or_before(120.days.ago) do |patient| ## TODO get accountant signoff on 120 days?
       ArchivedPatient.convert_patient(patient)
       patient.destroy!
     end
