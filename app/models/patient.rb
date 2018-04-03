@@ -195,4 +195,56 @@ class Patient
       self.pledge_sent_at = nil
     end
   end
+
+  def self.fulfilled_on_or_before(datetime)
+    Patient.where( 'fulfillment.date_of_check' => { '$lte' => datetime } )
+  end
+
+  def age_range
+    case age
+    when nil, ''
+      nil
+    when 1..17
+      'Under 18'
+    when 18..24
+      '18-24'
+    when 25..34
+      '25-34'
+    when 35..44
+      '35-44'
+    when 45..54
+      '45-54'
+    when 55..100
+      '55+'
+    else
+      'Bad value'
+    end
+  end
+
+    # TODO merge with alike export functions 
+    def determine_had_other_contact
+      other_contact.present? || other_phone.present? || other_contact_relationship.present?
+    end
+
+    # TODO merge with alike export functions 
+    def determine_age_range
+      case age
+      when nil, ''
+          :not_specified
+      when 1..17
+          :under18
+      when 18..24
+          :age18_24
+      when 25..34
+          :age25_34
+      when 35..44
+          :age35_44
+      when 45..54
+          :age45_54
+      when 55..150
+          :age65plus
+      else
+          :not_specified
+      end
+    end
 end
