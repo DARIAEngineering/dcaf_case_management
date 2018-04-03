@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
-                     skip: [:registrations]
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
@@ -60,6 +58,8 @@ Rails.application.routes.draw do
 
   # Auth routes
   root :to => redirect('/users/sign_in')
+  devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
+                     skip: [:registrations]
   as :user do
     get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
     put '/users' => 'devise/registrations#update', as: 'registration'
