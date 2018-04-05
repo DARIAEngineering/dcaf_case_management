@@ -3,6 +3,7 @@ machine:
     version: 2.5.1
   pre:
     - sudo apt-get install libfontconfig
+    - gem update --system
   services:
     - docker
 
