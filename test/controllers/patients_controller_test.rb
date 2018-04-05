@@ -253,4 +253,45 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'destroy' do
+    describe 'authorization' do
+      it 'should allow admins only' do
+        [@user, @data_volunteer].each do |user|
+          delete destroy_user_session_path
+          sign_in @user
+
+          assert_no_difference 'Patient.count' do
+            delete patient_path(@patient)
+          end
+          assert_redirected_to root_url
+        end
+      end
+    end
+
+    describe 'behavior' do
+      before do
+        delete destroy_user_session_path
+        sign_in @admin
+      end
+
+      it 'should destroy a patient' do
+        assert_difference 'Patient.count', -1 do
+          delete patient_path(@patient)
+        end
+        refute_nil flash[:notice]
+      end
+
+      it 'should prevent a patient from being destroyed under some circumstances' do
+        @patient.update appointment_date: 2.days.from_now,
+                        clinic: (create :clinic),
+                        fund_pledge: 100,
+                        pledge_sent: true
+
+        assert_no_difference 'Patient.count' do
+          delete patient_path(@patient)
+        end
+        refute_nil flash[:alert]
+      end
+    end
+  end
 end

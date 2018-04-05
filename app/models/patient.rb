@@ -29,6 +29,7 @@ class Patient
   before_update :update_pledge_sent_by_sent_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
+  after_destroy :destroy_associated_events
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
@@ -164,6 +165,14 @@ class Patient
       line:          line,
       pledge_amount: fund_pledge
     }
+  end
+
+  def okay_to_destroy?
+    !pledge_sent?
+  end
+
+  def destroy_associated_events
+    Event.where(patient_id: id.to_s).destroy_all
   end
 
   private
