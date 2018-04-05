@@ -1,9 +1,8 @@
 machine:
   ruby:
-    version: 2.5.1
+    version: 2.4.4
   pre:
     - sudo apt-get install libfontconfig
-    - gem update --system
   services:
     - docker
 
