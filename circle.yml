@@ -3,7 +3,7 @@ machine:
     version: 2.4.4
   pre:
     - sudo apt-get install libfontconfig
-    - gem install bundler
+    - gem uninstall bundler && gem install bundler
     - gem update --system
   services:
     - docker
