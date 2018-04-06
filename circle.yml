@@ -22,7 +22,7 @@ deployment:
 
 test:
   pre:
-    - if [ -n $(which bundle) ]; then gem uninstall bundler; fi; gem install bundler
+    - if [ -n $(which bundle) ]; then gem uninstall bundler; fi; gem install bundler -v "1.15.4"
     - gem update --system
 
   override:
