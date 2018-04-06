@@ -1,6 +1,6 @@
 machine:
   ruby:
-    version: 2.4.4
+    version: 2.5.1
   pre:
     - sudo apt-get install libfontconfig
   services:
@@ -22,7 +22,7 @@ deployment:
 
 test:
   pre:
-    - if [ -n $(which bundle) ]; then gem uninstall bundler; fi; gem install bundler -v "1.15.4"
+    - if [ -n $(which bundle) ]; then gem uninstall bundler; fi; gem install bundler
     - gem update --system
 
   override:
