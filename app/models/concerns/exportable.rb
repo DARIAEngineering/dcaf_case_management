@@ -46,7 +46,7 @@ module Exportable
     "Fulfilled" => :fulfilled,
     "Procedure date" => :procedure_date,
     "Gestation at procedure in weeks" => :gestation_at_procedure,
-    "DARIA Fund Expenditure" => :fulfillment_paid_by_DARIA_fund,
+    "DARIA Fund Expenditure" => :fulfillment_paid_by_fund,
     "Check number" => :check_number,
     "Date of Check" => :date_of_check
 
@@ -59,8 +59,8 @@ module Exportable
     fulfillment.try :fulfilled
   end
 
-  def fulfillment_paid_by_DARIA_fund
-    fulfillment.try :fulfillment_paid_by_DARIA_fund
+  def fulfillment_paid_by_fund
+    fulfillment.try :fulfillment_paid_by_fund
   end
 
   def procedure_date

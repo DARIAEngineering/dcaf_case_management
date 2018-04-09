@@ -1,5 +1,5 @@
 <section id="pledge_fulfillment_content">
-  <%= bootstrap_form_for patient, html: { id: 'pledge_fulfillment_form' }, remote: true do |f| %>
+  <%= bootstrap_nested_form_for patient, html: { id: 'pledge_fulfillment_form' }, remote: true do |f| %>
     <div class="col-sm-12">
       <div class="row">
         <div class="col-sm-12">
@@ -25,7 +25,7 @@
         </div>
         <div class="info-form-left col-sm-6">
           <%= f.fields_for @patient.fulfillment do |pt| %>
-            <%= pt.number_field :fulfillment_paid_by_DARIA_fund, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
+            <%= pt.number_field :fulfillment_paid_by_fund, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
             <%= pt.select :gestation_at_procedure,
                           options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
                           label: 'Weeks along at procedure',

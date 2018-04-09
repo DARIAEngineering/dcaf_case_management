@@ -1,6 +1,6 @@
 <td><%= patient.clinic&.name %></td>
 <td><%= link_to patient.initials, edit_patient_path(patient) %></td>
-<td><%= number_to_currency patient.fulfillment&.fulfillment_paid_by_DARIA_fund, precision: 0 %></td>
+<td><%= number_to_currency patient.fulfillment&.fulfillment_paid_by_fund, precision: 0 %></td>
 <td><%= patient.fulfillment&.gestation_at_procedure_display %></td>
 <td><%= patient.pledge_sent_at&.display_date %></td>
 <td><%= patient.fulfillment&.check_number%></td>
