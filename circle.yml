@@ -1,6 +1,6 @@
 machine:
   ruby:
-    version: 2.4.4
+    version: 2.5.1
   pre:
     - sudo apt-get install libfontconfig
   services:
@@ -21,7 +21,7 @@ deployment:
       - docker build -t colinxfleming/dcaf_case_management -f .docker/Dockerfile . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
 
 dependencies:
-  pre:
+  pre: # need to do this to prevent a bundler load error on CircleCI's ruby img
     - gem install bundler
     - gem update --system
 
