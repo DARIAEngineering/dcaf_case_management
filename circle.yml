@@ -20,11 +20,12 @@ deployment:
       - git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
       - docker build -t colinxfleming/dcaf_case_management -f .docker/Dockerfile . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
 
-test:
+dependencies:
   pre:
-    - if [ -n $(which bundle) ]; then gem uninstall bundler; fi; gem install bundler -v "1.15.4"
+    - gem install bundler
     - gem update --system
 
+test:
   override:
     - bundle exec rake knapsack:minitest:
         parallel: true
