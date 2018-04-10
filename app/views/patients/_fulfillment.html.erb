@@ -17,15 +17,15 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <%= f.fields_for patient.fulfillment do |pt| %>
+          <%= f.fields_for @patient.fulfillment do |pt| %>
             <%= pt.form_group :fulfilled do %>
               <%= pt.check_box :fulfilled, label: 'Pledge fulfilled', autocomplete: 'off' %>
             <% end %>
           <% end %>
         </div>
         <div class="info-form-left col-sm-6">
-          <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.number_field :procedure_cost, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
+          <%= f.fields_for @patient.fulfillment do |pt| %>
+            <%= pt.number_field :fulfillment_paid_by_fund, label: 'Abortion care $', autocomplete: 'off', prepend: '$'%>
             <%= pt.select :gestation_at_procedure,
                           options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
                           label: 'Weeks along at procedure',
@@ -36,7 +36,7 @@
           <% end %>
         </div>
         <div class="info-form-right col-sm-6">
-          <%= f.fields_for patient.fulfillment do |pt| %>
+          <%= f.fields_for @patient.fulfillment do |pt| %>
             <%= pt.text_field :check_number, label: 'Check #', autocomplete: 'off'%>
             <%= pt.date_field :date_of_check, label: 'Date of check', autocomplete: 'off' %>
           <% end %>
