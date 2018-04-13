@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients,
-              only: [ :create, :edit, :update, :index ] do
+              only: [ :create, :edit, :update, :index, :destroy ] do
       member do
         get :download, as: 'generate_pledge'
       end
