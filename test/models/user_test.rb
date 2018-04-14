@@ -202,4 +202,17 @@ class UserTest < ActiveSupport::TestCase
       refute create(:user, role: :cm).allowed_data_access?
     end
   end
+
+  describe 'manual account shutoff (disabled_by_fund)' do
+    before { @user = create :user }
+    it 'should default to enabled' do
+      refute @user.disabled_by_fund?
+    end
+
+    it 'is toggleable' do
+      @user.toggle_disabled_by_fund
+      @user.reload
+      assert @user.disabled_by_fund
+    end
+  end
 end
