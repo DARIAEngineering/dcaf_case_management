@@ -9,6 +9,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'nokogiri', '>= 1.8.1'
 gem 'tzinfo-data', require: false
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # Asset pipeline
 gem 'sass-rails', '~> 5.0'
