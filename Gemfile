@@ -38,7 +38,7 @@ gem 'bootstrap_form'
 
 # Security libraries
 gem 'rack-attack', '~> 5.1'
-gem 'secure_headers', '~> 3.6', '>= 3.6.4'
+gem 'secure_headers', '~> 5'
 
 # For pagination
 gem 'kaminari-mongoid', '~> 1.0'
