@@ -1,4 +1,4 @@
-<div id="patient_dashboard_content">
+<div id="`patient_dashboard_content`">
   <%= bootstrap_form_for patient, html: { id: 'patient_dashboard_form' }, remote: true do |f| %>
     <div class="col-sm-4" >
       <%= f.text_field :name, label: 'First and last name', autocomplete: 'off' %>
@@ -26,9 +26,7 @@
         <%= f.date_field :appointment_date, label: 'Appointment date', autocomplete: 'off', help: "Approx gestation at appt: #{patient.last_menstrual_period_at_appt}" %>
       </div>
       <div class="row">
-        <% if false # current_user.admin? -- This is getting triggered when setting appointment date for some reason? %>
-          <%= button_to 'Delete duplicate patient record', patient_path(patient), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure you want to delete #{patient.name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)" } %>
-        <% end %>
+        <%= render 'delete_duplicate_patient_button', patient: patient %>
       </div>
     </div>
   <% end %>
