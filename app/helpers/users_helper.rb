@@ -9,8 +9,10 @@ module UsersHelper
   end
 
   def user_lock_status(user)
-    if user.access_locked?
-      'Locked'
+    if user.disabled_by_fund?
+      'Locked by admin'
+    elsif user.locked_at?
+      'Temporarily locked'
     else
       'Active'
     end
@@ -20,6 +22,14 @@ module UsersHelper
     link_to "Change #{user.name}'s role to #{new_role.titleize}",
             public_send("change_role_to_#{new_role}_path", user),
             method: :patch,
+            class: 'btn btn-warning'
+  end
+
+  def disabled_toggle_button(user)
+    verb = user.disabled_by_fund? ? 'Unlock' : 'Lock'
+    link_to "#{verb} account",
+            toggle_disabled_path(user),
+            method: :post,
             class: 'btn btn-warning'
   end
 end
