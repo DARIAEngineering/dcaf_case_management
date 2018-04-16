@@ -175,6 +175,33 @@ class Patient
     Event.where(patient_id: id.to_s).destroy_all
   end
 
+  # TODO merge with alike export functions 
+  def determine_had_other_contact
+    other_contact.present? || other_phone.present? || other_contact_relationship.present?
+  end
+
+  # TODO merge with alike export functions 
+  def determine_age_range
+    case age
+    when nil, ''
+        :not_specified
+    when 1..17
+        :under18
+    when 18..24
+        :age18_24
+    when 25..34
+        :age25_34
+    when 35..44
+        :age35_44
+    when 45..54
+        :age45_54
+    when 55..150
+        :age65plus
+    else
+        :not_specified
+    end
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -230,30 +257,4 @@ class Patient
     end
   end
 
-    # TODO merge with alike export functions 
-    def determine_had_other_contact
-      other_contact.present? || other_phone.present? || other_contact_relationship.present?
-    end
-
-    # TODO merge with alike export functions 
-    def determine_age_range
-      case age
-      when nil, ''
-          :not_specified
-      when 1..17
-          :under18
-      when 18..24
-          :age18_24
-      when 25..34
-          :age25_34
-      when 35..44
-          :age35_44
-      when 45..54
-          :age45_54
-      when 55..150
-          :age65plus
-      else
-          :not_specified
-      end
-    end
 end

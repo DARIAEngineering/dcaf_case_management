@@ -1,6 +1,7 @@
 class ArchivedPatient
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Userstamp
   extend Enumerize
 
   # Relationships
@@ -15,7 +16,7 @@ class ArchivedPatient
   field :identifier, type: String # UUID, not phone number based!
 
   # Fields generated from initial patient info
-  field :has_other_contact, type: Mongoid::Boolean
+  field :had_other_contact, type: Mongoid::Boolean
   field :age_range
   enumerize :age_range, in: [:under18, :age18_24, :age25_34, :age35_44, :age45_54, :age55plus, :not_specified], default: :not_specified
 
@@ -61,13 +62,7 @@ class ArchivedPatient
 
   validates_associated :fulfillment
 
-  # TODO do we want track history?
-  # History and auditing
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
+
   mongoid_userstamp user_model: 'User'
 
   # Archive & Delete patients who have fallen out of contact
@@ -125,15 +120,18 @@ class ArchivedPatient
       age_range: patient.determine_age_range,
       had_other_contact: patient.determine_had_other_contact,
     )
-    # TODO - making fulfillment, external pledges, and calls polymorphic is a bit bust. Patient relationships seem too strong. Pondering.
-    # TODO copy fulfillment
+    archived_patient.save!
+    # copy fulfillment
+    #patient.fulfillment.attributes.each do |key,val|
+      #archived_patient.fulfillment ${key}: val
+    #end
     #archived_patient.fulfillment = patient.fulfillment
     #archived_patient.fulfillment.check_number = nil; # Erase the check number, if it existed.
-    # TODO copy calls
-    #patient.calls.each do |call|
-    #end
-    # TODO copy external pledges
-    #patient.external_pledges.each do |pledge|
-    #end
+    patient.calls.each do |call|
+      archived_patient.calls.create(call.attributes)
+    end
+    patient.external_pledges.each do |ext_pledge|
+      archived_patient.external_pledges.create(ext_pledge.attributes)
+    end
   end
 end
