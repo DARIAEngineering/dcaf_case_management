@@ -125,7 +125,7 @@ class ArchivedPatient
     #patient.fulfillment.attributes.each do |key,val|
       #archived_patient.fulfillment ${key}: val
     #end
-    #archived_patient.fulfillment = patient.fulfillment
+    archived_patient.fulfillment = patient.fulfillment.clone
     #archived_patient.fulfillment.check_number = nil; # Erase the check number, if it existed.
     patient.calls.each do |call|
       archived_patient.calls.create(call.attributes)
