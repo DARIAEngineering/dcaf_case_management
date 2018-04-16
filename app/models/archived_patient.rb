@@ -133,5 +133,7 @@ class ArchivedPatient
     patient.external_pledges.each do |ext_pledge|
       archived_patient.external_pledges.create(ext_pledge.attributes)
     end
+
+    archived_patient
   end
 end
