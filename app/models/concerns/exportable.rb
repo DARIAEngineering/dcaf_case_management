@@ -11,13 +11,13 @@ module Exportable
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
     "Language" => :preferred_language,
-    "Age" => :age_range,
+    "Age" => :get_age_range,
     "State" => :state,
     "County" => :county,
     "Race or Ethnicity" => :race_ethnicity,
     "Employment Status" => :employment_status,
-    "Minors in Household" => :household_size_children,
-    "Adults in Household" => :household_size_adults,
+    "Minors in Household" => :get_household_size_children,
+    "Adults in Household" => :get_household_size_adults,
     "Insurance" => :insurance,
     "Income" => :income,
     "Referred By" => :referred_by,
@@ -59,6 +59,22 @@ module Exportable
     fulfillment.try :fulfilled
   end
 
+  def get_household_size_children 
+    if is_a?(Patient)
+      household_size_children
+    else
+      nil
+    end
+  end
+
+  def get_household_size_adults
+    if is_a?(Patient)
+      household_size_adults
+    else
+      nil
+    end
+  end
+
   def procedure_date
     fulfillment.try :procedure_date
   end
@@ -97,31 +113,40 @@ module Exportable
   end
 
   def has_alt_contact?
-    other_contact.present? || other_phone.present? || other_contact_relationship.present?
+    if is_a?(Patient)
+      other_contact.present? || other_phone.present? || other_contact_relationship.present?
+    else
+      has_alt_contact
+    end
+
   end
 
   def export_clinic_name
     clinic.try :name
   end
 
-  def age_range
-    case age
-    when nil, ''
-      nil
-    when 1..17
-      'Under 18'
-    when 18..24
-      '18-24'
-    when 25..34
-      '25-34'
-    when 35..44
-      '35-44'
-    when 45..54
-      '45-54'
-    when 55..100
-      '55+'
+  def get_age_range
+    if is_a?(ArchivedPatient)
+      age_range
     else
-      'Bad value'
+      case age
+      when nil, ''
+        nil
+      when 1..17
+        'Under 18'
+      when 18..24
+        '18-24'
+      when 25..34
+        '25-34'
+      when 35..44
+        '35-44'
+      when 45..54
+        '45-54'
+      when 55..100
+        '55+'
+      else
+        'Bad value'
+      end
     end
   end
 

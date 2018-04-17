@@ -55,7 +55,6 @@ Rails.application.routes.draw do
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
-    resources :archived_patients, only: [:index, :show, :destroy]
   end
 
   # Auth routes

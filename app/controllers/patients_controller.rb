@@ -143,7 +143,7 @@ class PatientsController < ApplicationController
 
     response.status = 200
 
-    self.response_body = Patient.to_csv
+    self.response_body = Patient.to_csv.concat(ArchivedPatient.to_csv)
   end
 
   def set_headers(filename)
