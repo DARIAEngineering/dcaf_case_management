@@ -40,6 +40,8 @@ class ArchivedPatient
   field :employment_status, type: String
   field :insurance, type: String
   field :income, type: String
+  field :notes_count, type: Integer
+  field :has_special_circumstances, type: Boolean
   field :referred_by, type: String
   field :referred_to_clinic, type: Boolean
   field :appointment_date, type: Date
@@ -124,6 +126,9 @@ class ArchivedPatient
 
       age_range: patient.determine_age_range,
       has_alt_contact: patient.determine_had_other_contact,
+      notes_count: patient.notes_count,
+      has_special_circumstances: patients.has_special_circumstances,
+
     )
     archived_patient.save! # Do I need this?
 

@@ -175,12 +175,10 @@ class Patient
     Event.where(patient_id: id.to_s).destroy_all
   end
 
-  # TODO merge with alike export functions 
-  def determine_had_other_contact
+  def determine_has_other_contact
     other_contact.present? || other_phone.present? || other_contact_relationship.present?
   end
 
-  # TODO merge with alike export functions 
   def determine_age_range
     case age
     when nil, ''
@@ -200,6 +198,19 @@ class Patient
     else
         :not_specified
     end
+  end
+
+  def notes_count
+    notes.count
+  end
+
+  def has_special_circumstances
+    has_circumstance = 0
+    special_circumstances.each do |cir|
+      has_circumstance = 1 if cir
+      break
+    end
+    has_circumstance
   end
 
   private

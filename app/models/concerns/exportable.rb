@@ -25,7 +25,7 @@ module Exportable
     "Appointment Date" => :appointment_date,
     "Initial Call Date" => :initial_call_date,
     "Urgent?" => :urgent_flag,
-    # "Special Circumstances" => :special_circumstances,
+    "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "Abortion cost" => :procedure_cost,
     "Patient contribution" => :patient_contribution,
@@ -48,7 +48,10 @@ module Exportable
     "Gestation at procedure in weeks" => :gestation_at_procedure,
     "Procedure cost" => :procedure_cost_amount,
     "Check number" => :check_number,
-    "Date of Check" => :date_of_check
+    "Date of Check" => :date_of_check,
+
+    # Notes
+    "Notes Count" => :notes_count,
 
     # TODO clinic stuff
     # TODO external pledges
@@ -114,7 +117,7 @@ module Exportable
 
   def has_alt_contact?
     if is_a?(Patient)
-      other_contact.present? || other_phone.present? || other_contact_relationship.present?
+      determine_has_other_contact
     else
       has_alt_contact
     end
@@ -129,24 +132,7 @@ module Exportable
     if is_a?(ArchivedPatient)
       age_range
     else
-      case age
-      when nil, ''
-        nil
-      when 1..17
-        'Under 18'
-      when 18..24
-        '18-24'
-      when 25..34
-        '25-34'
-      when 35..44
-        '35-44'
-      when 45..54
-        '45-54'
-      when 55..100
-        '55+'
-      else
-        'Bad value'
-      end
+      determine_age_range
     end
   end
 
