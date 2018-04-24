@@ -6,8 +6,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     @patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
 
-    @call = create :call, patient: @patient,
-                          status: 'Reached patient'
+    @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
     create_language_config
     @archived_patient = create :archived_patient, line: 'DC',
                                 initial_call_date: 400.days.ago,
@@ -42,9 +41,20 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                       other_phone: '222-222-4444',
                                       initial_call_date: 600.days.ago
       @patient_fulfilled = create :patient, primary_phone: '222-222-3334',
-                                   other_phone: '222-222-4443'
+                                   other_phone: '222-222-4443',
+                                   initial_call_date: 310.days.ago
+      @patient_fulfilled.fulfillment.fulfilled = true
+      @patient_fulfilled.fulfillment.date_of_check = 300.days.ago
+      @patient_fulfilled.fulfillment.procedure_date = 290.days.ago
+      @patient_fulfilled.fulfillment.check_number = '123'
+
       @patient_fulfilled2 = create :patient, primary_phone: '222-212-3334',
-                                   other_phone: '222-222-4443'
+                                   other_phone: '222-222-4443',
+                                   initial_call_date: 310.days.ago
+      @patient_fulfilled2.fulfillment.fulfilled = true
+      @patient_fulfilled2.fulfillment.date_of_check = 300.days.ago
+      @patient_fulfilled2.fulfillment.procedure_date = 290.days.ago
+      @patient_fulfilled2.fulfillment.check_number = '123'
       @patient4 = create :patient, primary_phone: '222-222-3336',
                                    other_phone: '222-222-4441',
                                    line: 'DC',
@@ -57,27 +67,21 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     it 'Should create an archive copy of a patient' do
       @archived_patient = ArchivedPatient.convert_patient(@patient4)
       @archived_patient.save!
-      assert_equal @archived_patient.line, @patient.line
-      assert_equal @archived_patient.city, @patient.city
-      assert_equal @archived_patient.race_ethnicity, @patient.race_ethnicity
-      assert_equal @archived_patient.appointment_date, @patient.appointment_date
+      assert_equal @archived_patient.line, @patient4.line
+      assert_equal @archived_patient.city, @patient4.city
+      assert_equal @archived_patient.race_ethnicity, @patient4.race_ethnicity
+      assert_equal @archived_patient.appointment_date, @patient4.appointment_date
     end
 
-    it 'Should archive the old patient' do
+    it 'Should archive the old, dropoff patient' do
        assert_difference 'ArchivedPatient.all.count', 1 do
-         ArchivedPatient.process_dropped_off_patients
-       end
-       assert_difference 'Patient.all.count', -1 do
-         ArchivedPatient.process_dropped_off_patients
+         ArchivedPatient.archive_dropped_off_patients!
        end
     end
 
-    it 'Should archive the dropoff patient' do
+    it 'Should archive the fulfilled patients' do
        assert_difference 'ArchivedPatient.all.count', 2 do
-         ArchivedPatient.process_dropped_off_patients
-       end
-       assert_difference 'Patient.all.count', -2 do
-         ArchivedPatient.process_dropped_off_patients
+         ArchivedPatient.archive_fulfilled_patients!
        end
     end
   end

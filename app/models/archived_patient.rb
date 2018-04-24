@@ -40,6 +40,7 @@ class ArchivedPatient
   field :employment_status, type: String
   field :insurance, type: String
   field :income, type: String
+  field :referred_by, type: String
   field :referred_to_clinic, type: Boolean
   field :appointment_date, type: Date
   field :procedure_cost, type: Integer
@@ -94,6 +95,7 @@ class ArchivedPatient
       appointment_date: patient.appointment_date,
 
       urgent_flag: patient.urgent_flag,
+      referred_by: patient.referred_by,
       referred_to_clinic: patient.referred_to_clinic,
 
       last_menstrual_period_weeks: patient.last_menstrual_period_weeks,
