@@ -179,24 +179,24 @@ class Patient
     other_contact.present? || other_phone.present? || other_contact_relationship.present?
   end
 
-  def determine_age_range
+  def age_range
     case age
     when nil, ''
-        :not_specified
+      :not_specified
     when 1..17
-        :under18
+      :under_18
     when 18..24
-        :age18_24
+      :age18_24
     when 25..34
-        :age25_34
+      :age25_34
     when 35..44
-        :age35_44
+      :age35_44
     when 45..54
-        :age45_54
-    when 55..150
-        :age65plus
+      :age45_54
+    when 55..100
+      :age55plus
     else
-        :not_specified
+      :bad_value
     end
   end
 
@@ -232,7 +232,7 @@ class Patient
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
   end
-  
+
   def update_pledge_sent_by_sent_at
     if pledge_sent  && !pledge_sent_by
       self.pledge_sent_at = Time.zone.now
@@ -245,27 +245,6 @@ class Patient
 
   def self.fulfilled_on_or_before(datetime)
     Patient.where( 'fulfillment.date_of_check' => { '$lte' => datetime } )
-  end
-
-  def age_range
-    case age
-    when nil, ''
-      nil
-    when 1..17
-      'Under 18'
-    when 18..24
-      '18-24'
-    when 25..34
-      '25-34'
-    when 35..44
-      '35-44'
-    when 45..54
-      '45-54'
-    when 55..100
-      '55+'
-    else
-      'Bad value'
-    end
   end
 
 end

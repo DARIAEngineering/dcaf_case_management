@@ -21,7 +21,7 @@ class ArchivedPatient
   # Fields generated from initial patient info
   field :has_alt_contact, type: Mongoid::Boolean
   field :age_range
-  enumerize :age_range, in: [:under18, :age18_24, :age25_34, :age35_44, :age45_54, :age55plus, :not_specified], default: :not_specified
+  enumerize :age_range, in: [:not_specified, :under_18, :age18_24, :age25_34, :age35_44, :age45_54, :age55plus, :bad_value], default: :not_specified
 
   # Fields pulled from initial Patient
   field :voicemail_preference
@@ -124,10 +124,10 @@ class ArchivedPatient
       pledge_sent_by: patient.pledge_sent_by,
       created_by_id: patient.created_by_id,
 
-      age_range: patient.determine_age_range,
-      has_alt_contact: patient.determine_had_other_contact,
+      age_range: patient.age_range,
+      has_alt_contact: patient.determine_has_other_contact,
       notes_count: patient.notes_count,
-      has_special_circumstances: patients.has_special_circumstances,
+      has_special_circumstances: patient.has_special_circumstances,
 
     )
     archived_patient.save! # Do I need this?

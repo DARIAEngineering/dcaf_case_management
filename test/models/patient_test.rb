@@ -658,41 +658,41 @@ class PatientTest < ActiveSupport::TestCase
     describe 'age range tests' do
       it 'should return the right age for numbers' do
         @patient.age = nil
-        assert_nil @patient.get_age_range
+        assert_equal @patient.age_range, :not_specified
 
         [15, 17].each do |age|
           @patient.update age: age
-          assert_equal @patient.get_age_range, 'Under 18'
+          assert_equal @patient.age_range, :under_18
         end
 
         [18, 20, 24].each do |age|
           @patient.update age: age
-          assert_equal @patient.get_age_range, '18-24'
+          assert_equal @patient.age_range, :age18_24
         end
 
         [25, 30, 34].each do |age|
           @patient.update age: age
-          assert_equal @patient.get_age_range, '25-34'
+          assert_equal @patient.age_range, :age25_34
         end
 
         [35, 40, 44].each do |age|
           @patient.update age: age
-          assert_equal @patient.get_age_range, '35-44'
+          assert_equal @patient.age_range, :age35_44
         end
 
         [45, 50, 54].each do |age|
           @patient.update age: age
-          assert_equal @patient.get_age_range, '45-54'
+          assert_equal @patient.age_range, :age45_54
         end
 
         [55, 60, 100].each do |age|
           @patient.update age: age
-          assert_equal @patient.get_age_range, '55+'
+          assert_equal @patient.age_range, :age55plus
         end
 
         [101, 'yolo'].each do |bad_age|
           @patient.age = bad_age
-          assert_equal @patient.get_age_range, 'Bad value'
+          assert_equal @patient.age_range, :bad_value
         end
       end
     end
