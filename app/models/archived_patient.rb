@@ -81,7 +81,7 @@ class ArchivedPatient
 
   # Archive & Delete patients who are completely through our process
   def self.archive_fulfilled_patients!
-    Patient.fulfilled_on_or_before(120.days.ago) do |patient| ## TODO get accountant signoff on 120 days?
+    Patient.fulfilled_on_or_before(120.days.ago).each do |patient|
       ArchivedPatient.convert_patient(patient)
       patient.destroy!
     end
