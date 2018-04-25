@@ -175,7 +175,7 @@ class Patient
     Event.where(patient_id: id.to_s).destroy_all
   end
 
-  def determine_has_other_contact
+  def has_alt_contact
     other_contact.present? || other_phone.present? || other_contact_relationship.present?
   end
 
@@ -207,10 +207,10 @@ class Patient
   def has_special_circumstances
     has_circumstance = 0
     special_circumstances.each do |cir|
-      has_circumstance = 1 if cir
+      has_circumstance = 1 if cir.present?
       break
     end
-    has_circumstance
+    !!has_circumstance
   end
 
   private

@@ -43,19 +43,23 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient_fulfilled = create :patient, primary_phone: '222-222-3334',
                                    other_phone: '222-222-4443',
                                    initial_call_date: 310.days.ago
-      @patient_fulfilled.fulfillment.fulfilled = true
-      @patient_fulfilled.fulfillment.date_of_check = 300.days.ago
-      @patient_fulfilled.fulfillment.procedure_date = 290.days.ago
-      @patient_fulfilled.fulfillment.check_number = '123'
+      @patient_fulfilled.update fulfillment: {
+                                  fulfilled: true,
+                                  date_of_check: 300.days.ago,
+                                  procedure_date: 290.days.ago,
+                                  check_number: '123'
+                                }
       @patient_fulfilled.save!
 
       @patient_fulfilled2 = create :patient, primary_phone: '222-212-3334',
                                    other_phone: '222-222-4443',
                                    initial_call_date: 310.days.ago
-      @patient_fulfilled2.fulfillment.fulfilled = true
-      @patient_fulfilled2.fulfillment.date_of_check = 300.days.ago
-      @patient_fulfilled2.fulfillment.procedure_date = 290.days.ago
-      @patient_fulfilled2.fulfillment.check_number = '123'
+      @patient_fulfilled2.update fulfillment: {
+                                  fulfilled: true,
+                                  date_of_check: 300.days.ago,
+                                  procedure_date: 290.days.ago,
+                                  check_number: '123'
+                                }
       @patient_fulfilled2.save!
 
       @patient4 = create :patient, primary_phone: '222-222-3336',
@@ -78,13 +82,17 @@ class ArchivedPatientTest < ActiveSupport::TestCase
 
     it 'Should archive the old, dropoff patient' do
        assert_difference 'ArchivedPatient.all.count', 1 do
-         ArchivedPatient.archive_dropped_off_patients!
+        assert_difference 'Patient.all.count', -1 do
+          ArchivedPatient.archive_dropped_off_patients!
+        end
        end
     end
 
     it 'Should archive the fulfilled patients' do
        assert_difference 'ArchivedPatient.all.count', 2 do
-         ArchivedPatient.archive_fulfilled_patients!
+         assert_difference 'Patient.all.count', -2 do
+           ArchivedPatient.archive_fulfilled_patients!
+         end
        end
     end
   end

@@ -88,7 +88,7 @@ class ArchivedPatient
   end
 
   def self.convert_patient(patient)
-    archived_patient = create(
+    archived_patient = new(
       line: patient.line,
       city: patient.city,
       state: patient.state,
@@ -125,12 +125,12 @@ class ArchivedPatient
       created_by_id: patient.created_by_id,
 
       age_range: patient.age_range,
-      has_alt_contact: patient.determine_has_other_contact,
+      has_alt_contact: patient.has_alt_contact,
       notes_count: patient.notes_count,
       has_special_circumstances: patient.has_special_circumstances,
 
     )
-    archived_patient.save! # Do I need this?
+    archived_patient.save!
 
     archived_patient.fulfillment = patient.fulfillment.clone
     archived_patient.clinic = patient.clinic.clone

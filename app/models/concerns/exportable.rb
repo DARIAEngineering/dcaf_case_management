@@ -7,7 +7,7 @@ module Exportable
   CSV_EXPORT_FIELDS = {
     "BSON ID" => :id,
     # "Identifier" => :identifier,
-    "Has Alt Contact?" => :has_alt_contact?,
+    "Has Alt Contact?" => :has_alt_contact,
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
     "Language" => :preferred_language,
@@ -113,15 +113,6 @@ module Exportable
   def reached_patient_call_count
     reached_calls = calls.select {|call| call.status == "Reached patient"}
     reached_calls.count
-  end
-
-  def has_alt_contact?
-    if is_a?(Patient)
-      determine_has_other_contact
-    else
-      has_alt_contact
-    end
-
   end
 
   def export_clinic_name
