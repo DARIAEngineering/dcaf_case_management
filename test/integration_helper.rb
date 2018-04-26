@@ -67,7 +67,7 @@ module IntegrationHelper
   end
 
   def click_away_from_field
-    find('body').click
+    find('nav').click
     wait_for_ajax
   end
 end

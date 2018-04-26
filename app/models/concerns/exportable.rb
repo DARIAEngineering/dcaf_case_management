@@ -46,7 +46,7 @@ module Exportable
     "Fulfilled" => :fulfilled,
     "Procedure date" => :procedure_date,
     "Gestation at procedure in weeks" => :gestation_at_procedure,
-    "Procedure cost" => :procedure_cost,
+    "Procedure cost" => :procedure_cost_amount,
     "Check number" => :check_number,
     "Date of Check" => :date_of_check
 

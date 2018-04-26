@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-ruby '2.4.3'
+ruby '2.5.1'
 
 # Standard rails
 gem 'rails', '>= 5.1'
 gem 'puma' # roar
-gem 'turbolinks', '~> 5.0.0'
+gem 'turbolinks', '~> 5.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'nokogiri', '>= 1.8.1'
@@ -13,7 +13,7 @@ gem 'tzinfo-data', require: false
 # Asset pipeline
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
-gem 'uglifier', '>= 3.2.0'
+gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -28,7 +28,7 @@ gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.3.0'
+gem 'devise', '~> 4.3'
 gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
 gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 
@@ -36,8 +36,12 @@ gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 gem 'bootstrap_form'
 
 # Security libraries
-gem 'rack-attack', '~> 5.0.1'
+gem 'rack-attack', '~> 5.1'
 gem 'secure_headers', '~> 3.6', '>= 3.6.4'
+
+# For pagination
+gem 'kaminari-mongoid', '~> 1.0'
+gem 'kaminari', '~> 1.0'
 
 # Specific useful stuff
 gem 'render_async', '~> 0.2.3' # load slow partials asynchronously
@@ -51,6 +55,10 @@ gem 'gon', '~> 6.1.0' # render async does this better
 gem 'geokit' # should be included in clinic_finder instead of here
 gem 'js-routes' # Not sure if this is used anymore
 gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
+
+# Stuff we're hardsetting because of security concerns
+gem 'loofah', '>= 2.2.1'
+gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do
   gem 'shog' # makes rails s output color!

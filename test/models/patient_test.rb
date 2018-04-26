@@ -8,8 +8,8 @@ class PatientTest < ActiveSupport::TestCase
 
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
-    @call = create :call, patient: @patient,
-                          status: 'Reached patient'
+    @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+    @call = @patient.calls.first
     create_language_config
   end
 
@@ -144,6 +144,14 @@ class PatientTest < ActiveSupport::TestCase
         end
       end
     end
+
+    describe 'blow away associated events on destroy' do
+      it 'should nuke events in addition to the patient on destroy' do
+        assert_difference 'Event.count', -1 do
+          @patient.destroy
+        end
+      end
+    end
   end
 
   describe 'search method' do
@@ -221,7 +229,8 @@ class PatientTest < ActiveSupport::TestCase
   describe 'other methods' do
     before do
       @patient = create :patient, primary_phone: '111-222-3333',
-                                  other_phone: '111-222-4444'
+                                  other_phone: '111-222-4444',
+                                  name: 'Yolo Goat Bart Simpson'
     end
 
     it 'primary_phone_display -- should be hyphenated phone' do
@@ -232,6 +241,10 @@ class PatientTest < ActiveSupport::TestCase
     it 'secondary_phone_display - should be hyphenated other phone' do
       refute_equal @patient.other_phone, @patient.other_phone_display
       assert_equal '111-222-4444', @patient.other_phone_display
+    end
+
+    it 'initials - creates proper initials' do
+      assert_equal 'YGBS', @patient.initials
     end
   end
 
@@ -351,6 +364,27 @@ class PatientTest < ActiveSupport::TestCase
         datetime = 5.days.ago
         hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
         assert_equal hash, Patient.contacted_since(datetime)
+      end
+    end
+
+    describe 'destroy_associated_events method' do
+      it 'should nuke associated events on patient destroy' do
+        assert_difference 'Event.count', -1 do
+          @patient.destroy_associated_events
+        end
+      end
+    end
+
+    describe 'okay_to_destroy? method' do
+      it 'should return false if pledge is sent' do
+        @patient.update appointment_date: 2.days.from_now,
+                        fund_pledge: 100,
+                        clinic: (create :clinic),
+                        pledge_sent: true
+        refute @patient.okay_to_destroy?
+
+        @patient[:pledge_sent] = false
+        assert @patient.okay_to_destroy?
       end
     end
   end
@@ -543,61 +577,61 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'status method branch 1' do
       it 'should default to "No Contact Made" when a patient has no calls' do
-        assert_equal Patient::STATUSES[:no_contact], @patient.status
+        assert_equal Patient::STATUSES[:no_contact][:key], @patient.status
       end
 
       it 'should default to "No Contact Made" on a patient left voicemail' do
-        create :call, patient: @patient, status: 'Left voicemail'
-        assert_equal Patient::STATUSES[:no_contact], @patient.status
+        @patient.calls.create attributes_for(:call, status: 'Left voicemail')
+        assert_equal Patient::STATUSES[:no_contact][:key], @patient.status
       end
 
       it 'should still say "No Contact Made" if patient leaves voicemail with appointment' do
         @patient.appointment_date = '01/01/2017'
-        assert_equal Patient::STATUSES[:no_contact], @patient.status
+        assert_equal Patient::STATUSES[:no_contact][:key], @patient.status
       end
     end
 
     describe 'status method branch 2' do
       it 'should update to "Needs Appointment" once patient has been reached' do
-        create :call, patient: @patient, status: 'Reached patient'
-        assert_equal Patient::STATUSES[:needs_appt], @patient.status
+        @patient.calls.create attributes_for(:call, status: 'Reached patient')
+        assert_equal Patient::STATUSES[:needs_appt][:key], @patient.status
       end
 
       it 'should update to "Fundraising" once appointment made and patient reached' do
-        create :call, patient: @patient, status: 'Reached patient'
+        @patient.calls.create attributes_for(:call, status: 'Reached patient')
         @patient.appointment_date = '01/01/2017'
-        assert_equal Patient::STATUSES[:fundraising], @patient.status
+        assert_equal Patient::STATUSES[:fundraising][:key], @patient.status
       end
 
       it 'should update to "Sent Pledge" after a pledge has been sent' do
         @patient.pledge_sent = true
-        assert_equal Patient::STATUSES[:pledge_sent], @patient.status
+        assert_equal Patient::STATUSES[:pledge_sent][:key], @patient.status
       end
 
       it 'should update to "Pledge Not Fulfilled" if a pledge has not been fulfilled for 150 days' do
         @patient.pledge_sent = true 
         @patient.pledge_sent_at = (Time.zone.now - 151.days)
-        assert_equal Patient::STATUSES[:pledge_unfulfilled], @patient.status
+        assert_equal Patient::STATUSES[:pledge_unfulfilled][:key], @patient.status
       end
 
       it 'should update to "Pledge Fulfilled" if a pledge has been fulfilled' do
         @patient.fulfillment.fulfilled = true
-        assert_equal Patient::STATUSES[:fulfilled], @patient.status
+        assert_equal Patient::STATUSES[:fulfilled][:key], @patient.status
       end
 
       # it 'should update to "Pledge Paid" after a pledge has been paid' do
       # end
       it 'should update to "No contact in 120 days" after 120ish days of no calls' do
-        create :call, patient: @patient, status: 'Reached patient', created_at: 121.days.ago
-        assert_equal Patient::STATUSES[:dropoff], @patient.status
+        @patient.calls.create attributes_for(:call, status: 'Reached patient', created_at: 121.days.ago)
+        assert_equal Patient::STATUSES[:dropoff][:key], @patient.status
 
-        create :call, patient: @patient, status: 'Left voicemail', created_at: 120.days.ago
-        assert_equal Patient::STATUSES[:needs_appt], @patient.status
+        @patient.calls.create attributes_for(:call, status: 'Reached patient', created_at: 120.days.ago)
+        assert_equal Patient::STATUSES[:needs_appt][:key], @patient.status
       end
 
       it 'should update to "Resolved Without DCAF" if patient is resolved' do
         @patient.resolved_without_fund = true
-        assert_equal Patient::STATUSES[:resolved], @patient.status
+        assert_equal Patient::STATUSES[:resolved][:key], @patient.status
       end
     end
 
@@ -607,12 +641,12 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should return false if an unsuccessful call has been made' do
-        create :call, patient: @patient, status: 'Left voicemail'
+        @patient.calls.create attributes_for(:call, status: 'Left voicemail')
         refute @patient.send :contact_made?
       end
 
       it 'should return true if a successful call has been made' do
-        create :call, patient: @patient, status: 'Reached patient'
+        @patient.calls.create attributes_for(:call, status: 'Reached patient')
         assert @patient.send :contact_made?
       end
     end

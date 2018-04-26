@@ -1,6 +1,6 @@
 # app/mailers/user_mailer.rb
 class UserMailer < Devise::Mailer
-  default from: "no-reply@#{FUND_DOMAIN}.org"
+  default from: "no-reply@#{FUND_DOMAIN}"
 
   def password_changed(id)
     @user = User.find(id)

@@ -3,26 +3,26 @@ module Statusable
   extend ActiveSupport::Concern
 
   STATUSES = {
-    no_contact: 'No Contact Made',
-    needs_appt: 'Needs Appointment',
-    fundraising: 'Fundraising',
-    pledge_sent: 'Pledge Sent',
-    pledge_paid: 'Pledge Paid',
-    pledge_unfulfilled: 'Pledge Not Fulfilled',
-    fulfilled: 'Pledge Fulfilled',
-    dropoff: 'Probable Dropoff',
-    resolved: "Resolved Without #{FUND}"
+    no_contact: { key: 'No Contact Made', help_text: 'A patient has initiated contact, but nobody from the fund has spoken to them yet.' },
+    needs_appt: { key: 'Needs Appointment', help_text: 'The patient has spoken to the fund, but has not yet set an appointment date with a clinic.' },
+    fundraising: { key: 'Fundraising', help_text: 'The patient has an appointment date, and is working on raising funds.' },
+    pledge_sent: { key: 'Pledge Sent', help_text: 'A case manager has sent a pledge to the clinic on behalf of the patient.' },
+    pledge_paid: { key: 'Pledge Paid', help_text: 'Accountant has paid back the clinic for the pledge.' },
+    pledge_unfulfilled: { key: 'Pledge Not Fulfilled', help_text: 'Patient had a pledge sent 150+ days ago but has not cashed it.' },
+    fulfilled: { key: 'Pledge Fulfilled', help_text: 'Patient has been marked fulfilled.' },
+    dropoff: { key: 'Probable Dropoff', help_text: 'Patient has not been heard from in 120+ days.' },
+    resolved: { key: "Resolved Without #{FUND}", help_text: 'Patient has decided to not involve the fund in their plans.'}
   }.freeze
 
   def status
-    return STATUSES[:fulfilled] if fulfillment.fulfilled?
-    return STATUSES[:resolved] if resolved_without_fund?
-    return STATUSES[:pledge_unfulfilled] if days_since_pledge_sent > 150
-    return STATUSES[:pledge_sent] if pledge_sent?
-    return STATUSES[:dropoff] if days_since_last_call > 120
-    return STATUSES[:no_contact] unless contact_made?
-    return STATUSES[:fundraising] if appointment_date
-    STATUSES[:needs_appt]
+    return STATUSES[:fulfilled][:key] if fulfillment.fulfilled?
+    return STATUSES[:resolved][:key] if resolved_without_fund?
+    return STATUSES[:pledge_unfulfilled][:key] if days_since_pledge_sent > 150
+    return STATUSES[:pledge_sent][:key] if pledge_sent?
+    return STATUSES[:dropoff][:key] if days_since_last_call > 120
+    return STATUSES[:no_contact][:key] unless contact_made?
+    return STATUSES[:fundraising][:key] if appointment_date
+    STATUSES[:needs_appt][:key]
   end
 
   private

@@ -6,7 +6,7 @@ jobs:
     parallelism: 3
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.4.3-node-browsers
+      - image: circleci/ruby:2.5.1-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -15,16 +15,14 @@ jobs:
       - image: circleci/mongo:latest
     steps:
       - checkout
-      - run: 
-          name: Which bundler?
-          command: bundle -v
+      - run: sudo apt-get install libfontconfig
+      - run: gem install bundler # Update bundler
+      - run: gem update --system # Update rubygems
       - restore_cache:
           keys:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
             - dcaf_case_management-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
+      - run: bundle check || bundle install
       - save_cache:
           key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
           paths:
@@ -44,6 +42,11 @@ jobs:
 # general:
   # artifacts:
     # - "tmp/screenshots/"
+
+# test:
+#   override:
+#     - bundle exec rake knapsack:minitest:
+#         parallel: true
 
 workflows:
   version: 2
