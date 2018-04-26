@@ -130,7 +130,6 @@ class ArchivedPatient
       has_special_circumstances: patient.has_special_circumstances,
 
     )
-    archived_patient.save!
 
     archived_patient.fulfillment = patient.fulfillment.clone
     archived_patient.clinic = patient.clinic.clone
@@ -141,6 +140,7 @@ class ArchivedPatient
       archived_patient.external_pledges.create(ext_pledge.attributes)
     end
 
+    archived_patient.save!
     archived_patient
   end
 end

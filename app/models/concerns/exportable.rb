@@ -7,6 +7,7 @@ module Exportable
   CSV_EXPORT_FIELDS = {
     "BSON ID" => :id,
     # "Identifier" => :identifier,
+    "Archived?" => :archived?,
     "Has Alt Contact?" => :has_alt_contact,
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
@@ -60,6 +61,14 @@ module Exportable
 
   def fulfilled
     fulfillment.try :fulfilled
+  end
+
+  def archived?
+    if is_a?(Patient)
+      false
+    else
+      true
+    end
   end
 
   def get_household_size_children 
