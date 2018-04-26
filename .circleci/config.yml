@@ -3,7 +3,7 @@ version: 2
 
 jobs:
   build:
-    parallelism: 3
+    parallelism: 4
     working_directory: ~/abortioneering
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
@@ -23,14 +23,21 @@ jobs:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
             - dcaf_case_management-
       - run: bundle check || bundle install
+      - run: gem install --no-rdoc brakeman
+      - run: gem install --no-rdoc ruby_audit
+      - run: gem install --no-rdoc bundler-audit
       - save_cache:
           key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run: bundle exec rake knapsack:minitest
-      - run: gem install --no-rdoc brakeman; bundle exec brakeman --exit-on-warn .
-      - run: gem install --no-rdoc ruby_audit; bundle exec ruby-audit check
-      - run: gem install --no-rdoc bundler-audit; bundle-audit update; bundle-audit check
+  security_build:
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+    steps:
+      - run: bundle exec brakeman --exit-on-warn .
+      - run: bundle exec ruby-audit check
+      - run: bundle-audit update; bundle-audit check
   predeploy:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
@@ -59,16 +66,19 @@ workflows:
   dcaf_workflow_build_test_deploy:
     jobs:
       - build
+      - security_build
       - predeploy:
           filters:
             branches:
               only: master
           requires:
             - build
+            - security_build
       - deploy:
           filters:
             branches:
               only: master
           requires:
             - build
+            - security_build
             - predeploy
