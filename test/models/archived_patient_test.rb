@@ -37,6 +37,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
 
   describe 'Archiving Methods' do
     before do
+      @clinic = create :clinic
       @patient_old = create :patient, primary_phone: '222-222-3333',
                                       other_phone: '222-222-4444',
                                       initial_call_date: 600.days.ago
@@ -65,6 +66,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient4 = create :patient, primary_phone: '222-222-3336',
                                    other_phone: '222-222-4441',
                                    line: 'DC',
+                                   clinic: @clinic,
                                    city: 'Washington',
                                    race_ethnicity: 'Asian',
                                    initial_call_date: 16.days.ago,
@@ -76,6 +78,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @archived_patient.save!
       assert_equal @archived_patient.line, @patient4.line
       assert_equal @archived_patient.city, @patient4.city
+      assert_equal @archived_patient.clinic_id, @patient4.clinic_id
       assert_equal @archived_patient.race_ethnicity, @patient4.race_ethnicity
       assert_equal @archived_patient.appointment_date, @patient4.appointment_date
     end
