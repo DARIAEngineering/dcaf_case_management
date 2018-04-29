@@ -34,8 +34,61 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'Archiving Convert method' do
+    before do
+      @clinic = create :clinic
+      @patient4 = create :patient, primary_phone: '222-222-3336',
+                                   other_phone: '222-222-4441',
+                                   line: 'DC',
+                                   clinic: @clinic,
+                                   city: 'Washington',
+                                   race_ethnicity: 'Asian',
+                                   initial_call_date: 16.days.ago,
+                                   appointment_date: 6.days.ago
+      @patient4.calls.create attributes_for(:call, created_by: @user, status: "Couldn't reach patient")
+      @patient4.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+      @patient4.update fulfillment: {
+                                  fulfilled: true,
+                                  date_of_check: 3.days.ago,
+                                  procedure_date: 6.days.ago,
+                                  check_number: '123'
+                                }
+      @patient4.external_pledges.create source: 'Baltimore Abortion Fund',
+                                     amount: 100,
+                                     created_by: @user
+      @patient4.save!
+      @archived_patient = ArchivedPatient.convert_patient(@patient4)
+      @archived_patient.save!
+    end
 
-  describe 'Archiving Methods' do
+    it 'Patient and Archive Patient data should match' do
+      assert_equal @archived_patient.line, @patient4.line
+      assert_equal @archived_patient.city, @patient4.city
+      assert_equal @archived_patient.race_ethnicity, @patient4.race_ethnicity
+      assert_equal @archived_patient.appointment_date,
+                   @patient4.appointment_date
+    end
+    it 'Patient and Archive Patient share a clinic' do
+      assert_equal @archived_patient.clinic_id, @patient4.clinic_id
+    end
+    it 'Patient and Archive Patient subobject data should match' do
+      assert_equal @archived_patient.calls.count, @patient4.calls.count
+      assert_equal @archived_patient.fulfillment.date_of_check,
+                   @patient4.fulfillment.date_of_check
+      assert_equal @archived_patient.external_pledges.first.source,
+                   @patient4.external_pledges.first.source
+    end
+    it 'Patient and Archive Patient subobjects should be distinct' do
+      assert_not_equal @archived_patient.calls.first.id,
+                       @patient4.calls.first.id
+      assert_not_equal @archived_patient.fulfillment.id,
+                       @patient4.fulfillment.id
+      assert_not_equal @archived_patient.external_pledges.first.id,
+                       @patient4.external_pledges.first.id
+    end
+  end
+
+  describe 'Archiving Fulfilled and Dropped Off Patients' do
     before do
       @clinic = create :clinic
       @patient_old = create :patient, primary_phone: '222-222-3333',
@@ -62,25 +115,6 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                   check_number: '123'
                                 }
       @patient_fulfilled2.save!
-
-      @patient4 = create :patient, primary_phone: '222-222-3336',
-                                   other_phone: '222-222-4441',
-                                   line: 'DC',
-                                   clinic: @clinic,
-                                   city: 'Washington',
-                                   race_ethnicity: 'Asian',
-                                   initial_call_date: 16.days.ago,
-                                   appointment_date: 6.days.ago
-    end
-
-    it 'Should create an archive copy of a patient' do
-      @archived_patient = ArchivedPatient.convert_patient(@patient4)
-      @archived_patient.save!
-      assert_equal @archived_patient.line, @patient4.line
-      assert_equal @archived_patient.city, @patient4.city
-      assert_equal @archived_patient.clinic_id, @patient4.clinic_id
-      assert_equal @archived_patient.race_ethnicity, @patient4.race_ethnicity
-      assert_equal @archived_patient.appointment_date, @patient4.appointment_date
     end
 
     it 'Should archive the old, dropoff patient' do
