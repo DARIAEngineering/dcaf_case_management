@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
-  before_action :authenticate_user!
-  before_action :confirm_user_not_disabled!, unless: :devise_controller?
+  prepend_before_action :authenticate_user!
+  prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
   # whitelists attributes in devise
   def configure_permitted_parameters
