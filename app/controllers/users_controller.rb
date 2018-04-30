@@ -76,13 +76,12 @@ class UsersController < ApplicationController
   def toggle_disabled
     if @user == current_user
       flash[:alert] = "You can't lock your own account. Ask another admin."
-      redirect_to users_path
     else
       @user.toggle_disabled_by_fund
       verb = @user.disabled_by_fund? ? 'Locked' : 'Unlocked'
       flash[:notice] = "#{verb} #{@user.name}'s account."
-      redirect_to users_path
     end
+    redirect_to users_path
   end
 
   # # TODO find_user tweaking.

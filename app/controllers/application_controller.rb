@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
   before_action :authenticate_user!
+  before_action :confirm_user_not_disabled, unless: :devise_controller?
 
   # whitelists attributes in devise
   def configure_permitted_parameters
@@ -31,6 +32,14 @@ class ApplicationController < ActionController::Base
 
   def confirm_admin_user_async
     head :unauthorized unless current_user.admin?
+  end
+
+  def confirm_user_not_disabled
+    if current_user && current_user.disabled_by_fund?
+      flash.now[:danger] = 'Account curently locked, check with your administrator.'
+      sign_out current_user
+      redirect_to root_url
+    end
   end
 
   def redirect_unless_has_data_access
