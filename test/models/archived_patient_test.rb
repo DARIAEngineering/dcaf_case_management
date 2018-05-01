@@ -34,10 +34,10 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'Archiving Convert method' do
+  describe 'The convert_patient method' do
     before do
       @clinic = create :clinic
-      @patient4 = create :patient, primary_phone: '222-222-3336',
+      @patient = create :patient, primary_phone: '222-222-3336',
                                    other_phone: '222-222-4441',
                                    line: 'DC',
                                    clinic: @clinic,
@@ -45,55 +45,68 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                    race_ethnicity: 'Asian',
                                    initial_call_date: 16.days.ago,
                                    appointment_date: 6.days.ago
-      @patient4.calls.create attributes_for(:call, created_by: @user, status: "Couldn't reach patient")
-      @patient4.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
-      @patient4.update fulfillment: {
+      @patient.calls.create attributes_for(:call, created_by: @user, status: "Couldn't reach patient")
+      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+      @patient.update fulfillment: {
                                   fulfilled: true,
                                   date_of_check: 3.days.ago,
                                   procedure_date: 6.days.ago,
                                   check_number: '123'
                                 }
-      @patient4.external_pledges.create source: 'Baltimore Abortion Fund',
+      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
                                      amount: 100,
                                      created_by: @user
-      @patient4.save!
-      @archived_patient = ArchivedPatient.convert_patient(@patient4)
+      @patient.save!
+      @archived_patient = ArchivedPatient.convert_patient(@patient)
       @archived_patient.save!
     end
 
-    it 'Patient and Archive Patient data should match' do
-      assert_equal @archived_patient.line, @patient4.line
-      assert_equal @archived_patient.city, @patient4.city
-      assert_equal @archived_patient.race_ethnicity, @patient4.race_ethnicity
+    it 'should have matching data for Patient and Archive Patient' do
+      assert_equal @archived_patient.line, @patient.line
+      assert_equal @archived_patient.city, @patient.city
+      assert_equal @archived_patient.race_ethnicity, @patient.race_ethnicity
       assert_equal @archived_patient.appointment_date,
-                   @patient4.appointment_date
+                   @patient.appointment_date
     end
-    it 'Patient and Archive Patient share a clinic' do
-      assert_equal @archived_patient.clinic_id, @patient4.clinic_id
+    it 'should have a shared clinic for Patient and Archive Patient' do
+      assert_equal @archived_patient.clinic_id, @patient.clinic_id
     end
-    it 'Patient and Archive Patient subobject data should match' do
-      assert_equal @archived_patient.calls.count, @patient4.calls.count
+    it 'should have matching subobject data Patient and Archive Patient' do
+      assert_equal @archived_patient.calls.count, @patient.calls.count
       assert_equal @archived_patient.fulfillment.date_of_check,
-                   @patient4.fulfillment.date_of_check
+                   @patient.fulfillment.date_of_check
       assert_equal @archived_patient.external_pledges.first.source,
-                   @patient4.external_pledges.first.source
+                   @patient.external_pledges.first.source
     end
-    it 'Patient and Archive Patient subobjects should be distinct' do
+    it 'should have distinct subobjects for Patient and Archive Patient' do
       assert_not_equal @archived_patient.calls.first.id,
-                       @patient4.calls.first.id
+                       @patient.calls.first.id
       assert_not_equal @archived_patient.fulfillment.id,
-                       @patient4.fulfillment.id
+                       @patient.fulfillment.id
       assert_not_equal @archived_patient.external_pledges.first.id,
-                       @patient4.external_pledges.first.id
+                       @patient.external_pledges.first.id
     end
   end
 
-  describe 'Archiving Fulfilled and Dropped Off Patients' do
+  describe 'archive_dropped_off_patients' do
     before do
-      @clinic = create :clinic
       @patient_old = create :patient, primary_phone: '222-222-3333',
                                       other_phone: '222-222-4444',
                                       initial_call_date: 600.days.ago
+    end
+
+    it 'should convert dropped off patient to archive patient' do
+       assert_difference 'ArchivedPatient.all.count', 1 do
+        assert_difference 'Patient.all.count', -1 do
+          ArchivedPatient.archive_dropped_off_patients!
+        end
+       end
+    end
+  end
+
+
+  describe 'archive_fulfilled_patients' do
+    before do
       @patient_fulfilled = create :patient, primary_phone: '222-222-3334',
                                    other_phone: '222-222-4443',
                                    initial_call_date: 310.days.ago
@@ -117,15 +130,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient_fulfilled2.save!
     end
 
-    it 'Should archive the old, dropoff patient' do
-       assert_difference 'ArchivedPatient.all.count', 1 do
-        assert_difference 'Patient.all.count', -1 do
-          ArchivedPatient.archive_dropped_off_patients!
-        end
-       end
-    end
-
-    it 'Should archive the fulfilled patients' do
+    it 'should convert fulfilled patients to archive patients' do
        assert_difference 'ArchivedPatient.all.count', 2 do
          assert_difference 'Patient.all.count', -2 do
            ArchivedPatient.archive_fulfilled_patients!

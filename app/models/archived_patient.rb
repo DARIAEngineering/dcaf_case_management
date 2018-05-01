@@ -134,10 +134,10 @@ class ArchivedPatient
     archived_patient.fulfillment = patient.fulfillment.clone
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
     patient.calls.each do |call|
-      archived_patient.calls.new(call.attributes)
+      archived_patient.calls.new(call.clone.attributes)
     end
     patient.external_pledges.each do |ext_pledge|
-      archived_patient.external_pledges.new(ext_pledge.attributes)
+      archived_patient.external_pledges.new(ext_pledge.clone.attributes)
     end
 
     archived_patient.save!
