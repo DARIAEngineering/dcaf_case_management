@@ -185,16 +185,15 @@ class Patient
     #
     # See https://github.com/DCAFEngineering/dcaf_case_management/issues/825
     ##
-    # phones are unique, so there should be zero or one match
-    match = Patient.where(primary_phone: primary_phone).first
+    phone_match = Patient.where(primary_phone: primary_phone).first
 
-    if match
+    if phone_match
       # skip when an existing patient updates and matches itself
-      if match._id == self._id
+      if phone_match.id == self.id
         return
       end
 
-      patients_line = match[:line]
+      patients_line = phone_match[:line]
       volunteers_line = line
       if volunteers_line == patients_line
         errors.add(:this_phone_number_is_already_taken, "on this line.")
