@@ -11,7 +11,7 @@ module UsersHelper
   def user_lock_status(user)
     if user.disabled_by_fund?
       'Locked by admin'
-    elsif user.locked_at?
+    elsif user.access_locked?
       'Temporarily locked'
     else
       'Active'

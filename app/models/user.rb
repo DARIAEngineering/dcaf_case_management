@@ -73,7 +73,10 @@ class User
   # field :unlock_token,    type: String
   field :locked_at,       type: Time
 
-  # An extra hard shutoff field, since lockable is for failed login attempts
+  # An extra hard shutoff field for when a fund wants to shut off a user acct.
+  # We call this disabling in the app, but users/CMs see this as 'Lock/Unlock'.
+  # We do this because Devise calls a temporary account shutoff because of too
+  # many failed attempts an account lock.
   field :disabled_by_fund, type: Boolean, default: false
 
   # Validations
