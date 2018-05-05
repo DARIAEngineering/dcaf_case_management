@@ -1,10 +1,10 @@
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class AccountLockingsTest < ApplicationSystemTestCase
   before do
     @admin = create :user, role: :admin
     @locked_user = create :user, role: :cm, disabled_by_fund: true
-    @unlocked_user  = create :user, role: :cm
+    @unlocked_user = create :user, role: :cm
   end
 
   describe 'admin locking' do
