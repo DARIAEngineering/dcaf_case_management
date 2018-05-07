@@ -143,7 +143,11 @@ class PatientsController < ApplicationController
 
     response.status = 200
 
-    self.response_body = Patient.to_csv
+    self.response_body = Enumerator.new do |y|
+      Patient.csv_header.each { |e| y << e }
+      Patient.to_csv.each { |e| y << e }
+      ArchivedPatient.to_csv.each { |e| y << e }
+    end
   end
 
   def set_headers(filename)

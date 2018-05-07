@@ -12,7 +12,9 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
-
+    @archived_patient = create :archived_patient,
+                      line: 'DC',
+                      initial_call_date: 400.days.ago
   end
 
   describe 'index method' do
@@ -57,12 +59,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_equal 'text/csv', response.content_type.split(';').first
     end
 
-    it 'should consist of a header line and the patient record' do
+    it 'should consist of a header line, the patient record, and the archived patient record' do
       sign_in @data_volunteer
       get patients_path(format: :csv)
       lines = response.body.split("\n").reject(&:blank?)
-      assert_equal 2, lines.count
+      assert_equal 3, lines.count
       assert_match @patient.id.to_s, lines[1]
+      assert_match @archived_patient.id.to_s, lines[2]
     end
 
     it 'should not contain personally-identifying information' do

@@ -175,6 +175,44 @@ class Patient
     Event.where(patient_id: id.to_s).destroy_all
   end
 
+  def has_alt_contact
+    other_contact.present? || other_phone.present? || other_contact_relationship.present?
+  end
+
+  def age_range
+    case age
+    when nil, ''
+      :not_specified
+    when 1..17
+      :under_18
+    when 18..24
+      :age18_24
+    when 25..34
+      :age25_34
+    when 35..44
+      :age35_44
+    when 45..54
+      :age45_54
+    when 55..100
+      :age55plus
+    else
+      :bad_value
+    end
+  end
+
+  def notes_count
+    notes.count
+  end
+
+  def has_special_circumstances
+    has_circumstance = 0
+    special_circumstances.each do |cir|
+      has_circumstance = 1 if cir.present?
+      break
+    end
+    !!has_circumstance
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -194,7 +232,7 @@ class Patient
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
   end
-  
+
   def update_pledge_sent_by_sent_at
     if pledge_sent  && !pledge_sent_by
       self.pledge_sent_at = Time.zone.now
@@ -204,4 +242,10 @@ class Patient
       self.pledge_sent_at = nil
     end
   end
+
+  def self.fulfilled_on_or_before(datetime)
+    Patient.where( 'fulfillment.fulfilled'=> true,
+      'fulfillment.updated_at' => { '$lte' => datetime } )
+  end
+
 end
