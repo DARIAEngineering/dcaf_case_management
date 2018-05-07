@@ -49,6 +49,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
       @patient.update fulfillment: {
                                   fulfilled: true,
+                                  updated_at: 3.days.ago,
                                   date_of_check: 3.days.ago,
                                   procedure_date: 6.days.ago,
                                   check_number: '123'
@@ -113,6 +114,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient_fulfilled.update fulfillment: {
                                   fulfilled: true,
                                   date_of_check: 300.days.ago,
+                                  updated_at: 290.days.ago,
                                   procedure_date: 290.days.ago,
                                   check_number: '123'
                                 }
@@ -123,6 +125,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                    initial_call_date: 310.days.ago
       @patient_fulfilled2.update fulfillment: {
                                   fulfilled: true,
+                                  updated_at: 291.days.ago,
                                   date_of_check: 300.days.ago,
                                   procedure_date: 290.days.ago,
                                   check_number: '123'
