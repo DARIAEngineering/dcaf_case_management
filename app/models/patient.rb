@@ -110,8 +110,10 @@ class Patient
             :line,
             presence: true
   validates :primary_phone, format: /\d{10}/,
-                            length: { is: 10 },
-                            uniqueness: true
+                            length: { is: 10 }
+
+  validate :confirm_unique_phone_number
+
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -173,6 +175,32 @@ class Patient
 
   def destroy_associated_events
     Event.where(patient_id: id.to_s).destroy_all
+  end
+
+  def confirm_unique_phone_number
+    ##
+    # This method is preferred over Rail's built-in uniqueness validator
+    # so that case managers get a meaningful error message when a patient
+    # exists on a different line than the one the volunteer is serving.
+    #
+    # See https://github.com/DCAFEngineering/dcaf_case_management/issues/825
+    ##
+    phone_match = Patient.where(primary_phone: primary_phone).first
+
+    if phone_match
+      # skip when an existing patient updates and matches itself
+      if phone_match.id == self.id
+        return
+      end
+
+      patients_line = phone_match[:line]
+      volunteers_line = line
+      if volunteers_line == patients_line
+        errors.add(:this_phone_number_is_already_taken, "on this line.")
+      else
+        errors.add(:this_phone_number_is_already_taken, "on the #{patients_line} line. If you need the patient's line changed, please contact the CM directors.")
+      end
+    end
   end
 
   def has_alt_contact

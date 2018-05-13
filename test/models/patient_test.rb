@@ -37,7 +37,7 @@ class PatientTest < ActiveSupport::TestCase
       @new_patient.reload
       refute_nil @new_patient.fulfillment
     end
-    
+
   end
 
   describe 'validations' do
@@ -92,6 +92,40 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should save the identifer' do
       assert_equal @patient.identifier, "#{@patient.line[0]}#{@patient.primary_phone[-5]}-#{@patient.primary_phone[-4..-1]}"
+    end
+
+    it 'should enforce unique phone numbers' do
+      @patient.primary_phone = '111-222-3333'
+      @patient.save
+      assert @patient.valid?
+
+      @patient2.primary_phone = '111-222-3333'
+      refute @patient2.valid?
+    end
+
+    it 'should throw two different error messages for duplicates found on same line versus different line' do
+      marylandPatient = create :patient, name: 'Susan A in MD',
+                                         primary_phone: '777-777-7777',
+                                         line: 'MD'
+      sameLineDuplicate = create :patient, name: 'Susan B in MD',
+                                           line: 'MD'
+      diffLineDuplicate = create :patient, name: 'Susan B in VA',
+                                           line: 'VA'
+
+      sameLineDuplicate.primary_phone = '777-777-7777'
+      diffLineDuplicate.primary_phone = '777-777-7777'
+
+      sameLineDuplicate.save
+      diffLineDuplicate.save
+
+      refute sameLineDuplicate.valid?
+      refute diffLineDuplicate.valid?
+
+      error1 = sameLineDuplicate.errors.messages[:this_phone_number_is_already_taken]
+      error2 = diffLineDuplicate.errors.messages[:this_phone_number_is_already_taken]
+
+      assert_not_equal error1, error2
+
     end
   end
 
@@ -439,7 +473,7 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.pledge_info_present?
       assert_equal ["DCAF pledge field cannot be blank"], @patient.pledge_info_errors
     end
-    
+
     it 'should update sent by and sent at when sending the pledge' do
       @user = create :user
       @patient.fund_pledge = 500
@@ -453,7 +487,7 @@ class PatientTest < ActiveSupport::TestCase
       assert_in_delta Time.zone.now.to_f, @patient.pledge_sent_at.to_f, 15 #used assert_in_delta to account for slight differences in timing. Allows 15 seconds of lag?
       assert_equal @user, @patient.pledge_sent_by
     end
-    
+
     it 'should set pledge sent and sent at to nil if a pledge is cancelled' do
       @patient.pledge_sent = false
       @patient.update
@@ -461,7 +495,7 @@ class PatientTest < ActiveSupport::TestCase
       assert_nil @patient.pledge_sent_by
       assert_nil @patient.pledge_sent_at
     end
-    
+
   end
 
   describe 'last menstrual period calculation concern' do
@@ -609,7 +643,7 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should update to "Pledge Not Fulfilled" if a pledge has not been fulfilled for 150 days' do
-        @patient.pledge_sent = true 
+        @patient.pledge_sent = true
         @patient.pledge_sent_at = (Time.zone.now - 151.days)
         assert_equal Patient::STATUSES[:pledge_unfulfilled][:key], @patient.status
       end

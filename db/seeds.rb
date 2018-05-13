@@ -248,7 +248,7 @@ end
   # initial create data from voicemail
   patient = Patient.create!(
     name: "Archive Dataful Patient #{patient_number}",
-    primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
+    primary_phone: "321-0#{patient_number}0-005#{rand(10)}",
     voicemail_preference: "yes",
     line: 'DC',
     language: "Spanish",
