@@ -10,18 +10,20 @@
       <th>Last Login</th>
       <%= th_autosortable 'Date Created', 'string', local_assigns %>
       <th>Status</th>
+      <th></th>
     </tr>
   </thead>
   <tbody id='user-results'>
     <% if users.present? %>
       <% users.each do |user| %>
-        <tr>
+        <tr id='user-<%= user.id %>'>
           <td><input type="checkbox" id="select-<%= user.id %>"></td>
           <td><%= link_to user.name, edit_user_path(user) %></td>
           <td><%= user.role %>
           <td><%= user.last_sign_in_at %>
           <td><%= user.created_at %>
           <td><%= user_lock_status(user) %>
+          <td><%= disabled_toggle_button(user) %></td>
         </tr>
       <% end %>
     <% end %>
