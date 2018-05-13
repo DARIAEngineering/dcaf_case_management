@@ -15,7 +15,7 @@ module EventLoggable
   private
 
   def call?
-    is_a? Call
+    is_a?(Call) && can_call.is_a?(Patient)
   end
 
   def pledge_was_sent?
