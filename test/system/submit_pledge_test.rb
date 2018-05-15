@@ -47,7 +47,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       wait_for_ajax
       wait_for_element 'Patient information'
 
-      assert has_text? Patient::STATUSES[:pledge_sent]
+      assert has_text? Patient::STATUSES[:pledge_sent][:key]
       assert has_link? 'Fulfillment'
       assert has_link? 'Cancel pledge'
 
@@ -77,7 +77,6 @@ class SubmitPledgeTest < ApplicationSystemTestCase
                       appointment_date: 2.weeks.from_now,
                       fund_pledge: 500
 
-      @fulfillment = create :fulfillment, patient: @patient
       visit edit_patient_path @patient
       wait_for_element 'Patient information'
     end
@@ -104,7 +103,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       wait_for_ajax
 
       assert has_link? 'Submit pledge'
-      assert has_content? Patient::STATUSES[:no_contact]
+      assert has_content? Patient::STATUSES[:no_contact][:key]
       refute has_link? 'Fulfillment'
     end
   end

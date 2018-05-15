@@ -176,34 +176,20 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # TODO test
-  # describe 'toggle_lock method' do
-  #   before do
-  #     @user_2 = create :user, name: 'John Smith', email: 'john@smith.com'
-  #   end
-  #
-  #   it 'should respond successfully' do
-  #     assert_response :redirect
-  #   end
-  #
-  #   it 'should prevent current users from locking themselves' do
-  #     get toggle_lock_path(@user)
-  #     @user.reload
-  #     assert_equal @user.access_locked?, false
-  #   end
-  #
-  #   it 'should toggle locked status from false to true' do
-  #     assert_equal @user_2.access_locked?, false
-  #     get toggle_lock_path(@user_2)
-  #     @user_2.reload
-  #     assert_equal @user_2.access_locked?, true
-  #   end
-  #
-  #   it 'should flash success' do
-  #     get toggle_lock_path(@user_2)
-  #     assert_equal "Successfully locked " + @user_2.email, flash[:notice]
-  #   end
-  # end
+  describe 'toggle_lock method' do
+    it 'should prevent current users from locking themselves' do
+      post toggle_disabled_path(@user)
+      @user.reload
+      refute @user.disabled_by_fund?
+    end
+
+    it 'should toggle locked status from false to true' do
+      refute @user_2.disabled_by_fund?
+      post toggle_disabled_path(@user_2)
+      @user_2.reload
+      assert @user_2.disabled_by_fund?
+    end
+  end
 
   # describe 'reset_password method' do
   #   before do

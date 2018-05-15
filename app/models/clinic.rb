@@ -7,6 +7,7 @@ class Clinic
 
   # Relationships
   has_many :patients
+  has_many :archived_patients
 
   # Fields
   field :name, type: String

@@ -46,10 +46,10 @@ class UserTest < ActiveSupport::TestCase
     it 'should return recently_called_patients accurately' do
       assert_equal 0, @user.recently_called_patients.count
 
-      create :call, patient: @patient, created_by: @user
+      @patient.calls.create attributes_for(:call, created_by: @user)
       assert_equal 1, @user.recently_called_patients.count
 
-      create :call, patient: @md_patient, created_by: @user
+      @md_patient.calls.create attributes_for(:call, created_by: @user)
       assert_equal 2, @user.recently_called_patients.count
       assert_equal 1, @user.recently_called_patients('MD').count
     end
@@ -58,18 +58,17 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 3, @user.call_list_patients.count
       assert_equal 2, @user.call_list_patients('DC').count
 
-      create :call, patient: @patient, created_by: @user
+      @patient.calls.create attributes_for(:call, created_by: @user)
       assert_equal 1, @user.call_list_patients('DC').count
 
-      create :call, patient: @patient_2, created_by: @user_2
+      @patient_2.calls.create attributes_for(:call, created_by: @user_2)
       assert_equal 1, @user.call_list_patients('DC').count
     end
 
     it 'should clean calls when patient has been reached' do
       assert_equal 0, @user.recently_called_patients.count
-      @call = create :call, patient: @patient,
-                            created_by: @user,
-                            status: 'Reached patient'
+      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+      @call = @patient.calls.first
       assert_equal 1, @user.recently_called_patients.count
       @user.clean_call_list_between_shifts
       assert_equal 0, @user.recently_called_patients.count
@@ -77,9 +76,8 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should not clear calls when patient has not been reached' do
       assert_equal 0, @user.recently_called_patients.count
-      @call = create :call, patient: @patient,
-                            created_by: @user,
-                            status: 'Left voicemail'
+      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Left voicemail' )
+      @call = @patient.calls.first
       assert_equal 1, @user.recently_called_patients.count
       @user.clean_call_list_between_shifts
       assert_equal 1, @user.recently_called_patients.count
@@ -202,6 +200,19 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should not allow for CMs' do
       refute create(:user, role: :cm).allowed_data_access?
+    end
+  end
+
+  describe 'manual account shutoff (disabled_by_fund)' do
+    before { @user = create :user }
+    it 'should default to enabled' do
+      refute @user.disabled_by_fund?
+    end
+
+    it 'is toggleable' do
+      @user.toggle_disabled_by_fund
+      @user.reload
+      assert @user.disabled_by_fund
     end
   end
 end

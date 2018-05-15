@@ -73,6 +73,12 @@ class User
   # field :unlock_token,    type: String
   field :locked_at,       type: Time
 
+  # An extra hard shutoff field for when a fund wants to shut off a user acct.
+  # We call this disabling in the app, but users/CMs see this as 'Lock/Unlock'.
+  # We do this because Devise calls a temporary account shutoff because of too
+  # many failed attempts an account lock.
+  field :disabled_by_fund, type: Boolean, default: false
+
   # Validations
   # email presence validated through Devise
   validates :name, presence: true
@@ -95,6 +101,11 @@ class User
     user = User.find_by email: data['email']
 
     user
+  end
+
+  def toggle_disabled_by_fund
+    # Since toggle skips callbacks...
+    update disabled_by_fund: !disabled_by_fund
   end
 
   # ticket 241 recently called criteria:

@@ -76,24 +76,6 @@ class CallListTest < ApplicationSystemTestCase
         assert has_no_text? @patient.name
       end
     end
-
-    # TODO flaky test and I have no idea why
-    # it 'should time a call out after 8 hours' do
-    #   sign_out
-    #   travel(9.hours) do
-    #     log_in_as @user
-    #     wait_for_element 'Your completed calls'
-    #     sleep 5
-
-    #     within :css, '#completed_calls_content' do
-    #       assert has_no_text? @patient.name
-    #     end
-
-    #     within :css, '#call_list_content' do
-    #       assert has_text? @patient.name
-    #     end
-    #   end
-    # end
   end
 
   describe 'patient edit page call log' do

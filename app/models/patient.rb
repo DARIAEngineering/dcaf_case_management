@@ -30,13 +30,14 @@ class Patient
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
+  after_destroy :destroy_associated_events
 
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
-  embeds_one :fulfillment
-  embeds_many :calls
-  embeds_many :external_pledges
+  embeds_one :fulfillment, as: :can_fulfill
+  embeds_many :calls, as: :can_call
+  embeds_many :external_pledges, as: :can_pledge
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
@@ -111,8 +112,10 @@ class Patient
             :line,
             presence: true
   validates :primary_phone, format: /\d{10}/,
-                            length: { is: 10 },
-                            uniqueness: true
+                            length: { is: 10 }
+
+  validate :confirm_unique_phone_number
+
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -168,6 +171,10 @@ class Patient
     self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
+  def initials
+    name.split(' ').map { |part| part[0] }.join('')
+  end
+
   def event_params
     {
       event_type:    'Pledged',
@@ -177,6 +184,78 @@ class Patient
       line:          line,
       pledge_amount: fund_pledge
     }
+  end
+
+  def okay_to_destroy?
+    !pledge_sent?
+  end
+
+  def destroy_associated_events
+    Event.where(patient_id: id.to_s).destroy_all
+  end
+
+  def confirm_unique_phone_number
+    ##
+    # This method is preferred over Rail's built-in uniqueness validator
+    # so that case managers get a meaningful error message when a patient
+    # exists on a different line than the one the volunteer is serving.
+    #
+    # See https://github.com/DCAFEngineering/dcaf_case_management/issues/825
+    ##
+    phone_match = Patient.where(primary_phone: primary_phone).first
+
+    if phone_match
+      # skip when an existing patient updates and matches itself
+      if phone_match.id == self.id
+        return
+      end
+
+      patients_line = phone_match[:line]
+      volunteers_line = line
+      if volunteers_line == patients_line
+        errors.add(:this_phone_number_is_already_taken, "on this line.")
+      else
+        errors.add(:this_phone_number_is_already_taken, "on the #{patients_line} line. If you need the patient's line changed, please contact the CM directors.")
+      end
+    end
+  end
+
+  def has_alt_contact
+    other_contact.present? || other_phone.present? || other_contact_relationship.present?
+  end
+
+  def age_range
+    case age
+    when nil, ''
+      :not_specified
+    when 1..17
+      :under_18
+    when 18..24
+      :age18_24
+    when 25..34
+      :age25_34
+    when 35..44
+      :age35_44
+    when 45..54
+      :age45_54
+    when 55..100
+      :age55plus
+    else
+      :bad_value
+    end
+  end
+
+  def notes_count
+    notes.count
+  end
+
+  def has_special_circumstances
+    has_circumstance = 0
+    special_circumstances.each do |cir|
+      has_circumstance = 1 if cir.present?
+      break
+    end
+    !!has_circumstance
   end
 
   private
@@ -215,5 +294,10 @@ class Patient
     elsif fund_pledge.blank?
       self.fund_pledged_at = nil
     end
+  end
+
+  def self.fulfilled_on_or_before(datetime)
+    Patient.where( 'fulfillment.fulfilled'=> true,
+      'fulfillment.updated_at' => { '$lte' => datetime } )
   end
 end

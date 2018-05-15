@@ -1,6 +1,6 @@
 machine:
   ruby:
-    version: 2.4.3
+    version: 2.5.1
   pre:
     - sudo apt-get install libfontconfig
   services:
@@ -19,6 +19,11 @@ deployment:
       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
       - git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
       - docker build -t colinxfleming/dcaf_case_management -f .docker/Dockerfile . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
+
+dependencies:
+  pre: # need to do this to prevent a bundler load error on CircleCI's ruby img
+    - gem install bundler
+    - gem update --system
 
 test:
   override:

@@ -8,20 +8,23 @@ Rails.application.routes.draw do
     get 'budget_bar', to: 'dashboards#budget_bar', defaults: { format: :js }, as: 'budget_bar'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
-    # User routes behind the authentication wall
+    # For call list management
     patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
     patch 'users/clear_current_user_call_list', to: 'users#clear_current_user_call_list', as: 'clear_current_user_call_list', defaults: { format: :js }
-    resources :users, only: [:new, :create, :index, :edit, :update]
     patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
     patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
+
+    # User REST routes and searching
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
+    resources :users, only: [:new, :create, :index, :edit, :update]
+
+    # For user management
     patch 'users/:id/change_role_to_admin', to: 'users#change_role_to_admin', as: 'change_role_to_admin'
     patch 'users/:id/change_role_to_data_volunteer', to: 'users#change_role_to_data_volunteer', as: 'change_role_to_data_volunteer'
     patch 'users/:id/change_role_to_cm', to: 'users#change_role_to_cm', as: 'change_role_to_cm'
+    post 'users/:id/toggle_disabled', to: 'users#toggle_disabled', as: 'toggle_disabled'
     # TODO reset password
     # get 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
-    # TODO toggle lock route
-    # get 'users/:id/toggle_lock', to: 'users#toggle_lock', as: 'toggle_lock'
 
     # Patient routes
     # /patients/:id/edit
@@ -29,7 +32,7 @@ Rails.application.routes.draw do
     # /patients/:id/notes
     # /patients/:id/external_pledges
     resources :patients,
-              only: [ :create, :edit, :update, :index ] do
+              only: [ :create, :edit, :update, :index, :destroy ] do
       member do
         get :download, as: 'generate_pledge'
       end
@@ -47,9 +50,10 @@ Rails.application.routes.draw do
 
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
-    resources :accountants, only: [:index]
-    get 'accountant', to: 'accountants#index', as: 'accountant'
+
+    resources :accountants, only: [:index, :edit]
     post 'accountant/search', to: 'accountants#search', defaults: { format: :js }
+
     resources :lines, only: [:new, :create]
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js }, as: 'clinicfinder_search'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]

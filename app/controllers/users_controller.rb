@@ -4,11 +4,12 @@ class UsersController < ApplicationController
   before_action :confirm_admin_user, only: [:new, :index, :update,
                                             :change_role_to_admin,
                                             :change_role_to_data_volunteer,
-                                            :change_role_to_cm]
+                                            :change_role_to_cm,
+                                            :toggle_disabled]
   before_action :confirm_admin_user_async, only: [:search]
   before_action :find_user, only: [:update, :edit, :change_role_to_admin,
                                    :change_role_to_data_volunteer,
-                                   :change_role_to_cm]
+                                   :change_role_to_cm, :toggle_disabled]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
@@ -72,21 +73,16 @@ class UsersController < ApplicationController
     render 'edit'
   end
 
-  # def toggle_lock
-  #   # @user = User.find(params[:user_id])
-  #   # if @user == current_user
-  #   #   redirect_to edit_user_path @user
-  #   # else
-  #   #   if @user.access_locked?
-  #   #     flash[:notice] = 'Successfully unlocked ' + @user.email
-  #   #     @user.unlock_access!
-  #   #   else
-  #   #     flash[:notice] = 'Successfully locked ' + @user.email
-  #   #     @user.lock_access!
-  #   #   end
-  #   #   redirect_to edit_user_path @user
-  #   # end
-  # end
+  def toggle_disabled
+    if @user == current_user
+      flash[:alert] = "You can't lock your own account. Ask another admin."
+    else
+      @user.toggle_disabled_by_fund
+      verb = @user.disabled_by_fund? ? 'Locked' : 'Unlocked'
+      flash[:notice] = "#{verb} #{@user.name}'s account."
+    end
+    redirect_to users_path
+  end
 
   # # TODO find_user tweaking.
   # def reset_password

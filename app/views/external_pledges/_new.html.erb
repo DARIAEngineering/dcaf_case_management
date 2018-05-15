@@ -1,4 +1,4 @@
-<h5>Or, record a new external pledge:</h5>
+<h5>Or, record a new external pledge: <%= tooltip_shell record_new_external_pledge_help_text %></h5>
 <%= bootstrap_form_for [patient, new_external_pledge], html: { id: 'new-external-pledge' }, remote: true do |f| %>
 	<%= f.select :source, available_pledge_source_options_for(patient) %>
 	<%= f.number_field :amount %>
