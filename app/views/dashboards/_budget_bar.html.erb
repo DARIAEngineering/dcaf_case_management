@@ -4,12 +4,15 @@
       <% expenditures.each_pair do |type, patient_hashes| %>
         <% patient_hashes.each do |patient| %>
           <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>
-            <div data-toggle='popover' data-content='<%= link_to patient[:identifier], edit_patient_path(patient[:id]) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
+            <div data-toggle='popover' data-content='<%= budget_bar_expenditure_content(patient) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
               <%= number_to_currency patient[:fund_pledge], precision: 0 %> <%= type %>
             </div>
           </div>
         <% end %>
       <% end %>
+      <div class='progress-bar' style='<%= progress_bar_width budget_bar_remaining(expenditures, limit) %>' role='progressbar'>
+        <%= number_to_currency(budget_bar_remaining(expenditures, limit), precision: 0) %> remaining
+      </div>
     </div>
 
     <div class="row" id='budget-report'>
