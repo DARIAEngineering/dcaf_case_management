@@ -8,10 +8,10 @@ Rails.application.routes.draw do
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
     # For call list management
-    patch 'users/reorder_call_list', to: 'users#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
-    patch 'users/clear_current_user_call_list', to: 'users#clear_current_user_call_list', as: 'clear_current_user_call_list', defaults: { format: :js }
-    patch 'users/:user_id/add_patient/:id', to: 'users#add_patient', as: 'add_patient', defaults: { format: :js }
-    patch 'users/:user_id/remove_patient/:id', to: 'users#remove_patient', as: 'remove_patient', defaults: { format: :js }
+    patch 'call_lists/reorder_call_list', to: 'call_lists#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
+    patch 'call_lists/clear_current_user_call_list', to: 'call_lists#clear_current_user_call_list', as: 'clear_current_user_call_list', defaults: { format: :js }
+    patch 'call_lists/add_patient/:id', to: 'call_lists#add_patient', as: 'add_patient', defaults: { format: :js }
+    patch 'call_lists/remove_patient/:id', to: 'call_lists#remove_patient', as: 'remove_patient', defaults: { format: :js }
 
     # User REST routes and searching
     post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
