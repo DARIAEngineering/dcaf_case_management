@@ -29,8 +29,7 @@ gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.4'
-gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
-gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
+gem 'omniauth-google-oauth2', '0.5.3'
 
 # We use `bootstrap_form_for` in views
 gem 'bootstrap_form'
