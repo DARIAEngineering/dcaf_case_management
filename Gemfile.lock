@@ -61,7 +61,7 @@ GEM
     ast (2.3.0)
     autoprefixer-rails (7.1.2.3)
       execjs
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -102,7 +102,7 @@ GEM
     coffee-script-source (1.12.2)
     colored (1.2)
     concurrent-ruby (1.0.5)
-    crass (1.0.3)
+    crass (1.0.4)
     database_cleaner (1.6.2)
     devise (4.4.3)
       bcrypt (~> 3.0)
@@ -138,7 +138,7 @@ GEM
       request_store (>= 1.0)
     hashery (2.1.2)
     hashie (3.5.6)
-    i18n (1.0.0)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -253,7 +253,7 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (3.0.1)
     puma (3.11.3)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-attack (5.1.0)
       rack
     rack-test (0.6.3)
@@ -394,7 +394,7 @@ DEPENDENCIES
   codecov
   coffee-rails (~> 4.2.2)
   database_cleaner
-  devise (~> 4.3)
+  devise (~> 4.4)
   enumerize
   factory_bot_rails
   faker
