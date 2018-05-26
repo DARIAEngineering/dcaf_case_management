@@ -1,0 +1,2 @@
+class CallListsController < ApplicationController
+end
