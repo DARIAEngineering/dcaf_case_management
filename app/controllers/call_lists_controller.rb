@@ -25,9 +25,7 @@ class CallListsController < ApplicationController
   end
 
   def reorder_call_list
-    # TODO: fail if anything is not a BSON id
-    current_user.reorder_call_list params[:order] # TODO: adjust to payload
-    # respond_to { |format| format.js }
+    current_user.reorder_call_list params[:order]
     head :ok
   end
 
