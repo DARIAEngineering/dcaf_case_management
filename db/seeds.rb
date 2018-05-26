@@ -50,21 +50,6 @@ end
 
 # Create associated objects
 Patient.all.each do |patient|
-  # Create calls for patient
-  5.times do
-    patient.calls.create! status: 'Left voicemail',
-                          created_at: 3.days.ago,
-                          created_by: user2 unless patient.name == 'Patient 9'
-  end
-
-  if patient.name == 'Patient 0'
-    10.times do
-      patient.calls.create! status: 'Reached patient',
-                            created_at: 3.days.ago,
-                            created_by: user2
-    end
-  end
-
   # Add example of patient with other contact info
   if patient.name == 'Patient 1'
     patient.update! name: "Other Contact info - 1", other_contact: "Jane Doe",
@@ -104,6 +89,22 @@ Patient.all.each do |patient|
     patient.update! name: "Resolved without DCAF - 5",
                     resolved_without_fund: true
   end
+
+  # Create calls for patient
+  5.times do
+    patient.calls.create! status: 'Left voicemail',
+                          created_at: 3.days.ago,
+                          created_by: user2 unless patient.name == 'Patient 9'
+  end
+
+  if patient.name == 'Patient 0'
+    10.times do
+      patient.calls.create! status: 'Reached patient',
+                            created_at: 3.days.ago,
+                            created_by: user2
+    end
+  end
+
 
   patient.save
 end
