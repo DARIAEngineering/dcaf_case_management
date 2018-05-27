@@ -117,7 +117,7 @@ class User
                                :last_sign_in_at => nil,
                                :created_at.lt => cutoff_date)
     [inactive_no_logins, inactive_has_logged_in].each do |set|
-      set.update_all disabled_by_fund: true
+      set.update disabled_by_fund: true
     end
     fail 'until oauth login updates last_sign_in_at'
   end
