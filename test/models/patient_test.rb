@@ -136,8 +136,15 @@ class PatientTest < ActiveSupport::TestCase
       @patient2.update appointment_date: (Date.today + 8), fund_pledge: 500, pledge_sent: true
       assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary(1).to_s
       assert_equal '{:pledged=>300, :sent=>0}', Patient.pledged_status_summary.to_s
+      fail
       # TODO Timecop this test
       # assert_equal '{:pledged=>300, :sent=>500}', Patient.pledged_status_summary(10).to_s
+    end
+  end
+
+  describe 'to simplified patient' do
+    it 'should turn a patient object into a smaller hash' do
+      fail
     end
   end
 

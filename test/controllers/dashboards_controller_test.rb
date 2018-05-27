@@ -29,4 +29,20 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  describe 'budget bar method' do
+    it 'should return if there are no pledges in the period' do
+      get budget_bar_path, xhr: true
+      assert_response :success
+    end
+
+    it 'should return if there are pledges in the period' do
+      create :clinic
+      @patient.update appointment_date: 3.days.from_now,
+                      clinic_id: Clinic.first.id,
+                      fund_pledge: 50
+      get budget_bar_path, xhr: true
+      assert_response :success
+    end
+  end
 end
