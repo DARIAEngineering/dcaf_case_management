@@ -214,5 +214,15 @@ class UserTest < ActiveSupport::TestCase
       @user.reload
       assert @user.disabled_by_fund
     end
+
+    describe 'nightly cleanup task - disable_inactive_users' do
+      it 'should find inactive users with logins before cutoff and disable' do
+        fail
+      end
+
+      it 'should not disable admins' do
+        fail
+      end
+    end
   end
 end
