@@ -4,7 +4,7 @@ task nightly_cleanup: :environment do
   puts "#{Time.now} -- cleared all recently reached patients from call lists"
 
   User.disable_inactive_users
-  puts "#{Time.now} -- locked accounts of users who have not logged in since #{9.months.ago}"
+  puts "#{Time.now} -- locked accounts of users who have not logged in since #{User::TIME_BEFORE_DISABLED_BY_FUND.ago}"
 
   Patient.trim_urgent_patients
   puts "#{Time.now} -- trimmed urgent patients"

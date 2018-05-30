@@ -233,7 +233,7 @@ class UserTest < ActiveSupport::TestCase
         # No locking admins or users with recent activity
         [@admin, @nondisabled_user].each do |user|
           user.reload
-          refute user.disabled_by_fund?
+          assert_not user.disabled_by_fund?
         end
       end
     end
