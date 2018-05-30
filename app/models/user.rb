@@ -85,6 +85,7 @@ class User
   validate :secure_password
 
   TIME_BEFORE_INACTIVE = 2.weeks
+  TIME_BEFORE_DISABLED_BY_FUND = 9.months
 
   def secure_password
     return true if password.nil?
@@ -106,6 +107,18 @@ class User
   def toggle_disabled_by_fund
     # Since toggle skips callbacks...
     update disabled_by_fund: !disabled_by_fund
+  end
+
+  def self.disable_inactive_users
+    cutoff_date = Time.zone.now - TIME_BEFORE_DISABLED_BY_FUND
+    inactive_has_logged_in = where(:role.nin => [:admin],
+                                   :last_sign_in_at.lt => cutoff_date)
+    inactive_no_logins = where(:role.nin => [:admin],
+                               :last_sign_in_at => nil,
+                               :created_at.lt => cutoff_date)
+    [inactive_no_logins, inactive_has_logged_in].each do |set|
+      set.update disabled_by_fund: true
+    end
   end
 
   # ticket 241 recently called criteria:
