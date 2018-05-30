@@ -116,7 +116,7 @@ class User
     inactive_no_logins = where(:role.nin => [:admin],
                                :last_sign_in_at => nil,
                                :created_at.lt => cutoff_date)
-    (inactive_no_logins | inactive_has_logged_in).each do |set|
+    [inactive_no_logins, inactive_has_logged_in].each do |set|
       set.update disabled_by_fund: true
     end
   end
