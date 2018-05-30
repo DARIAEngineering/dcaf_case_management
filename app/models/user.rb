@@ -119,7 +119,6 @@ class User
     [inactive_no_logins, inactive_has_logged_in].each do |set|
       set.update disabled_by_fund: true
     end
-    fail 'until oauth login updates last_sign_in_at'
   end
 
   # ticket 241 recently called criteria:
