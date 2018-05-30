@@ -216,12 +216,25 @@ class UserTest < ActiveSupport::TestCase
     end
 
     describe 'nightly cleanup task - disable_inactive_users' do
-      it 'should find inactive users with logins before cutoff and disable' do
-        fail
+      before do
+        @disabled_user = create(:user, last_sign_in_at: 10.months.ago)
+        @admin = create(:user, role: :admin, last_sign_in_at: 11.months.ago)
+        @no_login_user = create(:user, created_at: 12.months.ago)
+        @nondisabled_user = create(:user, last_sign_in_at: 8.months.ago)
+        User.disable_inactive_users
       end
 
-      it 'should not disable admins' do
-        fail
+      it 'should find inactive users with logins before cutoff and disable' do
+        [@disabled_user, @no_login_user].each do |user|
+          user.reload
+          assert user.disabled_by_fund?
+        end
+
+        # No locking admins or users with recent activity
+        [@admin, @nondisabled_user].each do |user|
+          user.reload
+          refute user.disabled_by_fund?
+        end
       end
     end
   end
