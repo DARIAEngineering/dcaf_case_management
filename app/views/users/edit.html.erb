@@ -1,12 +1,30 @@
 <div class="col-sm-12">
   <div class="row" id='user-topline'>
     <h1><%= @user.name %></h1>
-    <h4>Role: <%= @user.role.to_s %></h4>
-    <p>Status: <%= user_lock_status(@user) %></p>
-    <p>Last login: <%= @user.last_sign_in_at %></p>
+    <h5>Role: <%= @user.role.to_s %></h5>
+    <h5>Status: <%= user_lock_status(@user) %></h5>
+    <h5>Last login: <%= @user.last_sign_in_at %></h5>
   </div>
 
-  <div class="row">
+  <% if @user != current_user && current_user.admin? %>
+    <div class="row" id='user-panel'>
+      <h3>Admin actions</h3>
+
+      <h5>Authorization actions</h5>
+      <div class="authorization-buttons">
+        <%= disabled_toggle_button(@user) %>
+      </div>
+        
+      <h5>Update this user's role and permissions</h5>
+      <div class="btn-group" role='group'>
+        <%= role_toggle_button @user, 'admin' %>
+        <%= role_toggle_button @user, 'data_volunteer' %>
+        <%= role_toggle_button @user, 'cm' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row" id='user-details-update'>
     <h3>Update details</h3>
     <%= bootstrap_form_for @user, html: { id: 'user-form' } do |f| %>
       <%= f.text_field :name, label: 'Name', autocomplete: 'off' %>
@@ -16,25 +34,4 @@
       <%= f.submit "Save", class: 'btn btn-primary' %>
     <% end %>
   </div>
-
-  <% if @user != current_user %>
-    <div class="row" id='user-panel'>
-      <h3>User panel for administrators</h3>
-      <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
-        <%# if @user.access_locked? %>
-          <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
-          <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-        <%# else %>
-          <!-- <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button> -->
-          <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-        <%# end %>
-      
-      <h4>Update this user's role</h4>
-      <div class="btn-group" role='group'>
-        <%= role_toggle_button @user, 'admin' %>      
-        <%= role_toggle_button @user, 'data_volunteer' %>      
-        <%= role_toggle_button @user, 'cm' %>        
-      </div>
-    </div>
-  <% end %>
 </div>

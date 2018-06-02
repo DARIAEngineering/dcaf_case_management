@@ -1,10 +1,7 @@
-<table class="table border-side">
+<table class="table border-side users-table">
   <thead>
     <tr>
-      <% if local_assigns[:sortable] %>
-        <th><!-- handle --></th>
-      <% end %>
-      <th><input type="checkbox" id="select-all-users"></th>
+      <th><!-- spacer --></th>
       <th>Full Name</th>
       <th>Role</th>
       <th>Last Login</th>
@@ -16,8 +13,8 @@
   <tbody id='user-results'>
     <% if users.present? %>
       <% users.each do |user| %>
-        <tr id='user-<%= user.id %>'>
-          <td><input type="checkbox" id="select-<%= user.id %>"></td>
+        <tr id='user-<%= user.id %>' class='user-row'>
+          <td><!-- spacer --></td>
           <td><%= link_to user.name, edit_user_path(user) %></td>
           <td><%= user.role %>
           <td><%= user.last_sign_in_at %>
