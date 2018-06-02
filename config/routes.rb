@@ -22,7 +22,6 @@ Rails.application.routes.draw do
     patch 'users/:id/change_role_to_data_volunteer', to: 'users#change_role_to_data_volunteer', as: 'change_role_to_data_volunteer'
     patch 'users/:id/change_role_to_cm', to: 'users#change_role_to_cm', as: 'change_role_to_cm'
     post 'users/:id/toggle_disabled', to: 'users#toggle_disabled', as: 'toggle_disabled'
-    post 'users/:id/reset_password', to: 'users#reset_password', as: 'reset_password'
 
     # Patient routes
     # /patients/:id/edit

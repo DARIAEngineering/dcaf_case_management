@@ -9,8 +9,7 @@ class UsersController < ApplicationController
   before_action :confirm_admin_user_async, only: [:search]
   before_action :find_user, only: [:update, :edit, :change_role_to_admin,
                                    :change_role_to_data_volunteer,
-                                   :change_role_to_cm, :toggle_disabled,
-                                   :reset_password]
+                                   :change_role_to_cm, :toggle_disabled]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
@@ -82,13 +81,6 @@ class UsersController < ApplicationController
       verb = @user.disabled_by_fund? ? 'Locked' : 'Unlocked'
       flash[:notice] = "#{verb} #{@user.name}'s account."
     end
-    redirect_to users_path
-  end
-
-  def reset_password
-    @user.send_reset_password_instructions
-
-    flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
     redirect_to users_path
   end
 

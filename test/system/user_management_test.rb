@@ -111,17 +111,15 @@ class UserManagementTest < ApplicationSystemTestCase
       assert_text 'User Management'
       click_link 'User Management'
       wait_for_element 'User Account Management'
-      click_link 'john'
+      click_link @user.name
       wait_for_element 'User details'
     end
 
-    # TODO lock test
-    # it 'allows user locking' do
-    #   assert_text 'Status: Active'
-    #   click_link 'Lock Account'
-    #   wait_for_element 'Unlock Account'
-    #   assert_text 'Status: Locked'
-    # end
+    it 'allows user locking' do
+      click_link 'Lock Account'
+      wait_for_element 'Unlock Account'
+      assert_text 'Status: Locked'
+    end
 
     it 'allows name editing' do
       fill_in 'Name', with: 'johan'
@@ -130,12 +128,11 @@ class UserManagementTest < ApplicationSystemTestCase
       assert_text 'johan'
     end
 
-    # TODO finish test
     it 'allows email editing' do
       fill_in 'Email', with: 'johan@gmail.com'
       click_button 'Save'
       wait_for_element 'Successfully updated user details'
-      click_link 'john'
+      click_link @user.name
       assert has_field? 'Email', with: 'johan@gmail.com'
     end
   end

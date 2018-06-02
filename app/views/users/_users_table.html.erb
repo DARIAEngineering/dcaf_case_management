@@ -8,7 +8,6 @@
       <%= th_autosortable 'Date Created', 'string', local_assigns %>
       <th>Status</th>
       <th><!-- disable user btn --></th>
-      <th><!-- reset password btn --></th>
     </tr>
   </thead>
   <tbody id='user-results'>
@@ -22,7 +21,6 @@
           <td><%= user.created_at %>
           <td><%= user_lock_status(user) %>
           <td><%= disabled_toggle_button(user) %></td>
-          <td><%= reset_password_button(user) %></td>
         </tr>
       <% end %>
     <% end %>

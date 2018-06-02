@@ -3,14 +3,14 @@
     <h1><%= @user.name %></h1>
     <h5>Role: <%= @user.role.to_s %></h5>
     <h5>Status: <%= user_lock_status(@user) %></h5>
-    <h5>Last login: <%= @user.last_sign_in_at %></h5>
+    <h5>Last login: <%= @user.last_sign_in_at&.display_timestamp %></h5>
   </div>
 
   <% if @user != current_user && current_user.admin? %>
     <div class="row" id='user-panel'>
       <h3>Admin actions</h3>
 
-      <h5>Authorization actions</h5>
+      <h5>Lock an account</h5>
       <div class="authorization-buttons">
         <%= disabled_toggle_button(@user) %>
       </div>

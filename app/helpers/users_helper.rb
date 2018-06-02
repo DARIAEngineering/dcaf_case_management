@@ -32,10 +32,4 @@ module UsersHelper
             method: :post,
             class: 'btn btn-warning'
   end
-
-  def reset_password_button(user)
-    link_to 'Reset password', reset_password_path(user),
-                              method: :post,
-                              class: 'btn btn-danger'
-  end
 end
