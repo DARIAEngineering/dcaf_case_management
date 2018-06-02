@@ -9,7 +9,8 @@ class UsersController < ApplicationController
   before_action :confirm_admin_user_async, only: [:search]
   before_action :find_user, only: [:update, :edit, :change_role_to_admin,
                                    :change_role_to_data_volunteer,
-                                   :change_role_to_cm, :toggle_disabled]
+                                   :change_role_to_cm, :toggle_disabled,
+                                   :reset_password]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
@@ -84,16 +85,12 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  # # TODO find_user tweaking.
-  # def reset_password
-  #   # @user = User.find(params[:user_id])
+  def reset_password
+    @user.send_reset_password_instructions
 
-  #   # TODO doesn't work in dev
-  #   @user.send_reset_password_instructions
-
-  #   flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
-  #   redirect_to edit_user_path @user
-  # end
+    flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
+    redirect_to users_path
+  end
 
   def add_patient
     current_user.add_patient @patient
