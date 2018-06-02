@@ -259,4 +259,18 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  # Sqreenable
+  # Block signins if the email or IP is sketchy via the sqreen api
+  if Rails.env.production?
+    config.sqreen_api_token = ENV['SQREEN_TOKEN']
+    config.sqreen_block_sign_in =  -> (email, ip, user)  {ip && (ip['risk_score'] > 40 ||
+                                                                 ip['is_known_attacker'] ||
+                                                                 ip['ip_geo'].country_code != 'USA' ||
+                                                                 ip['is_tor']) }
+    config.sqreen_block_sign_in =  -> (email, ip, user) { email && (email['is_email_harmful'] ||
+                                                                    email['is_known_attacker'] ||
+                                                                    email['security_events_count'] ||
+                                                                    email['is_disposable']) }
+  end
 end

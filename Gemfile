@@ -107,4 +107,5 @@ end
 group :production do
   gem 'skylight' # our newrelic-style efficiency monitoring platform
   gem 'sqreen' # an active security monitoring platform
+  gem 'devise_sqreener' # A sqreen devise plugin
 end

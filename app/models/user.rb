@@ -21,6 +21,7 @@ class User
           :registerable,
           :recoverable,
           :trackable,
+          :sqreenable,
           :validatable,
           :lockable,
           :timeoutable,
@@ -72,6 +73,11 @@ class User
   field :failed_attempts, type: Integer, default: 0
   # field :unlock_token,    type: String
   field :locked_at,       type: Time
+
+  ## Sqreenable
+  field :sqreened_email,              type: String
+  field :current_sqreened_sign_in_ip, type: String
+  field :last_sqreened_sign_in_ip,    type: String
 
   # An extra hard shutoff field for when a fund wants to shut off a user acct.
   # We call this disabling in the app, but users/CMs see this as 'Lock/Unlock'.

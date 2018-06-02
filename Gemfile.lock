@@ -110,6 +110,7 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise_sqreener (0.1.1)
     docile (1.1.5)
     easy_diff (1.0.0)
     enumerize (2.2.2)
@@ -395,6 +396,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2.2)
   database_cleaner
   devise (~> 4.3)
+  devise_sqreener
   enumerize
   factory_bot_rails
   faker
