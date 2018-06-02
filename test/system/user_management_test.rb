@@ -116,9 +116,11 @@ class UserManagementTest < ApplicationSystemTestCase
     end
 
     it 'allows user locking' do
-      click_link 'Lock Account'
-      wait_for_element 'Unlock Account'
-      assert_text 'Status: Locked'
+      click_link 'Lock account'
+      wait_for_element 'Unlock account'
+      within :css, "#user-#{@user.id}" do
+        assert_text 'Locked by admin'
+      end
     end
 
     it 'allows name editing' do
