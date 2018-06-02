@@ -6,6 +6,13 @@ GIT
     clinic_finder (0.0.2pre)
 
 GIT
+  remote: https://github.com/DCAFEngineering/devise_sqreener.git
+  revision: ec6f36d930621c125fa6031c6d4c63936730972d
+  branch: mongoid
+  specs:
+    devise_sqreener (0.1.1)
+
+GIT
   remote: https://github.com/DCAFEngineering/mongoid_userstamp.git
   revision: 057eaea6988da10ac81a6808e6fff1ee4fe55ce5
   branch: master
@@ -110,7 +117,6 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
-    devise_sqreener (0.1.1)
     docile (1.1.5)
     easy_diff (1.0.0)
     enumerize (2.2.2)
@@ -396,7 +402,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2.2)
   database_cleaner
   devise (~> 4.3)
-  devise_sqreener
+  devise_sqreener!
   enumerize
   factory_bot_rails
   faker

@@ -29,6 +29,8 @@ gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.3'
+gem 'devise_sqreener', git: 'https://github.com/DCAFEngineering/devise_sqreener.git',
+                       branch: 'mongoid' # A sqreen devise plugin
 gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
 gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
 
@@ -107,5 +109,4 @@ end
 group :production do
   gem 'skylight' # our newrelic-style efficiency monitoring platform
   gem 'sqreen' # an active security monitoring platform
-  gem 'devise_sqreener' # A sqreen devise plugin
 end
