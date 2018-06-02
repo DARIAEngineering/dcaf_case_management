@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/DCAFEngineering/devise_sqreener.git
-  revision: ec6f36d930621c125fa6031c6d4c63936730972d
-  branch: mongoid
+  revision: 5bd1cb56613218db994fca67522e891f9a474429
+  branch: mongoid-patch
   specs:
     devise_sqreener (0.1.1)
 
