@@ -30,7 +30,7 @@ class TooltipsHelperTest < ActionView::TestCase
     # Everything's okay alarms -- no need to test contents
     %i[your_call_list_help_text your_completed_calls_help_text
        urgent_cases_help_text record_new_external_pledge_help_text
-       resolved_without_fund_help_text].each do |func|
+       resolved_without_fund_help_text referred_to_clinic_help_text].each do |func|
       it "should return a string - #{func}" do
         assert_operator send(func).length, :>, 10
       end
