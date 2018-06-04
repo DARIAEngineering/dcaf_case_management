@@ -1,6 +1,5 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
-  before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   before_action :confirm_admin_user, only: [:new, :index, :update,
                                             :change_role_to_admin,
                                             :change_role_to_data_volunteer,
@@ -84,34 +83,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def add_patient
-    current_user.add_patient @patient
-    respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
-    end
-  end
-
-  def remove_patient
-    current_user.remove_patient @patient
-    respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
-    end
-  end
-
-  def clear_current_user_call_list
-    current_user.clear_call_list
-    respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
-    end
-  end
-
-  def reorder_call_list
-    # TODO: fail if anything is not a BSON id
-    current_user.reorder_call_list params[:order] # TODO: adjust to payload
-    # respond_to { |format| format.js }
-    head :ok
-  end
-
   private
 
   def find_user
@@ -120,11 +91,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email)
-  end
-
-  def retrieve_patients
-    @patient = Patient.find params[:id]
-    @urgent_patient = Patient.where(urgent_flag: true)
   end
 
   def user_not_demoting_themself?(user)

@@ -65,4 +65,11 @@ module TooltipsHelper
     TEXT
     text.strip
   end
+
+  def referred_to_clinic_help_text
+    text = <<-TEXT
+      Check this box if you as a case manager referred the patient to a
+      particular clinic.
+    TEXT
+  end
 end
