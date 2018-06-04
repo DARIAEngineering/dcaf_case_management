@@ -191,20 +191,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # describe 'reset_password method' do
-  #   before do
-  #     get reset_password_path(@user)
-  #   end
-
-  #   it 'should redirect on success' do
-  #     assert_response :redirect
-  #   end
-
-  #   it 'should flash success' do
-  #     assert_equal 'Successfully sent password reset instructions to ' + @user.email, flash[:notice]
-  #   end
-  # end
-
   describe 'devise controller customization' do
     it 'should be the devise controller' do
       assert :devise_controller?

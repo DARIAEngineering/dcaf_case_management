@@ -1,3 +1,8 @@
 #user-list th[data-sort] {
     cursor: pointer;
 }
+
+.user-row:hover {
+    background-color: #f1f1f1;
+    border: 2px solid gray;
+}

@@ -83,17 +83,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  # # TODO find_user tweaking.
-  # def reset_password
-  #   # @user = User.find(params[:user_id])
-
-  #   # TODO doesn't work in dev
-  #   @user.send_reset_password_instructions
-
-  #   flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
-  #   redirect_to edit_user_path @user
-  # end
-
   private
 
   def find_user
