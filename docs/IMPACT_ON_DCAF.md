@@ -3,40 +3,29 @@
 
 ## Feedback from case managers
 
-These are testimonials on how DARIA has impacted the work done by our case
-managers, as expressed by case managers themselves.
+These are testimonials on how DARIA has impacted the work done by our case managers, as expressed by case managers themselves.
 
 ### DARIA makes tracking patient data much simpler.
 
-By making patients searchable and displaying data in a case-manager-friendly
-way, DARIA cuts down on the mental overhead needed to learn or troubleshoot
-a spreadsheet.
+By making patients searchable and displaying data in a case-manager-friendly way, DARIA cuts down on the mental overhead needed to learn or troubleshoot a spreadsheet.
 
 > When I started Case Managing with the DC Abortion Fund (DCAF), my biggest struggle was the learning curve of utilizing CryptoHeaven to record and track patient data. The time it took to troubleshoot, search for missing information, and correct errors took valuable time away from connecting with patients. When DARIA was introduced, those struggles ceased being a barrier.
 
 ### DARIA's simplified interface helps case managers focus on conversations.
 
-Fighting with Excel can hinder the flow of conversation, which can affect
-a case manager's focus and the flow of the conversation. DARIA's simplified
-user interface minimizes thinking about technology, freeing up space for
-conversations.
+Fighting with Excel can hinder the flow of conversation, which can affect a case manager's focus and relationship building with a caller. DARIA's simplified user interface minimizes thinking about technology, freeing up space for conversations.
 
 > The time and energy I had previously spent on technology challenges morphed into time spent speaking with patients, sharing resources, and documenting their shared information. My ability to focus on the task of connecting people with funding for abortion care was renewed and reinvigorated.
 
 ### DARIA safely protects data from loss
 
-Using a shared canonical spreadsheet can result in people accidentally
-overwriting each other's work; DARIA's backing database and patient history
-feature make it so case managers don't have to worry about losing a night's
-work or having their changes overwritten and lost.
+Using a shared canonical spreadsheet can result in people accidentally overwriting each other's work; DARIA's backing database and patient history feature make it so case managers don't have to worry about losing a night's work or having their changes overwritten and lost.
   
 > When we used to use [a shared Excel spreadsheet], I'd find myself up past midnight re-typing into the spreadsheet notes that I'd handwritten while talking to callers that night. I couldn't take notes directly on [the spreadsheet] for fear of it crashing and losing the data. With DARIA in effect, I get to only write down notes one time and go to sleep at a reasonable hour. For this I'm forever grateful.
 
 ### DARIA helps keep track of patients who might get lost in the shuffle
 
-Patients may often need to work with DCAF for an extended period of time.
-DARIA helps keep these more complex cases organized, which enables more
-seamless patient care.
+Patients may often need to work with DCAF for an extended period of time. DARIA helps keep these more complex cases organized, which enables more seamless patient care.
 
 > Before every shift, we get an email from the previous shift manager about calls to look out for and upcoming appointments. Many times it will take several shifts for a patient to get everything they need together in order to make it to an appointment, especially if they are traveling far, so they will work with at least two case managers. They may also not connect with us for multiple shifts, so they won't be in the past case manager's email. Since DARIA, it has been easier to know who these patients are and to reach out to them.
 
