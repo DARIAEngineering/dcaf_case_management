@@ -109,7 +109,7 @@ class DataEntryTest < ApplicationSystemTestCase
       end
 
       it 'should return an error on a duplicate phone' do
-        assert has_text? 'Primary phone is already taken'
+        assert has_text? 'This phone number is already taken'
         assert_equal current_path, data_entry_path
       end
     end

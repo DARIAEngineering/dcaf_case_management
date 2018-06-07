@@ -1,14 +1,14 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
-  before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   before_action :confirm_admin_user, only: [:new, :index, :update,
                                             :change_role_to_admin,
                                             :change_role_to_data_volunteer,
-                                            :change_role_to_cm]
+                                            :change_role_to_cm,
+                                            :toggle_disabled]
   before_action :confirm_admin_user_async, only: [:search]
   before_action :find_user, only: [:update, :edit, :change_role_to_admin,
                                    :change_role_to_data_volunteer,
-                                   :change_role_to_cm]
+                                   :change_role_to_cm, :toggle_disabled]
 
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
@@ -72,59 +72,15 @@ class UsersController < ApplicationController
     render 'edit'
   end
 
-  # def toggle_lock
-  #   # @user = User.find(params[:user_id])
-  #   # if @user == current_user
-  #   #   redirect_to edit_user_path @user
-  #   # else
-  #   #   if @user.access_locked?
-  #   #     flash[:notice] = 'Successfully unlocked ' + @user.email
-  #   #     @user.unlock_access!
-  #   #   else
-  #   #     flash[:notice] = 'Successfully locked ' + @user.email
-  #   #     @user.lock_access!
-  #   #   end
-  #   #   redirect_to edit_user_path @user
-  #   # end
-  # end
-
-  # # TODO find_user tweaking.
-  # def reset_password
-  #   # @user = User.find(params[:user_id])
-
-  #   # TODO doesn't work in dev
-  #   @user.send_reset_password_instructions
-
-  #   flash[:notice] = "Successfully sent password reset instructions to #{@user.email}"
-  #   redirect_to edit_user_path @user
-  # end
-
-  def add_patient
-    current_user.add_patient @patient
-    respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
+  def toggle_disabled
+    if @user == current_user
+      flash[:alert] = "You can't lock your own account. Ask another admin."
+    else
+      @user.toggle_disabled_by_fund
+      verb = @user.disabled_by_fund? ? 'Locked' : 'Unlocked'
+      flash[:notice] = "#{verb} #{@user.name}'s account."
     end
-  end
-
-  def remove_patient
-    current_user.remove_patient @patient
-    respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
-    end
-  end
-
-  def clear_current_user_call_list
-    current_user.clear_call_list
-    respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
-    end
-  end
-
-  def reorder_call_list
-    # TODO: fail if anything is not a BSON id
-    current_user.reorder_call_list params[:order] # TODO: adjust to payload
-    # respond_to { |format| format.js }
-    head :ok
+    redirect_to users_path
   end
 
   private
@@ -135,11 +91,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email)
-  end
-
-  def retrieve_patients
-    @patient = Patient.find params[:id]
-    @urgent_patient = Patient.where(urgent_flag: true)
   end
 
   def user_not_demoting_themself?(user)

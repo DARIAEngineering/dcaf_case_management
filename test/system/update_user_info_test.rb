@@ -20,25 +20,6 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
       refute has_field? 'Email'
     end
 
-    # Currently an actual bug
-    # describe 'changing your password' do
-    #   before do
-    #     fill_in 'Password', with: 'Different_P4ss'
-    #     fill_in 'Password confirmation', with: 'Different_P4ss'
-    #     fill_in 'Current password', with: @user.password
-    #     click_button 'Update info'
-    #     sign_out
-    #   end
-
-    #   it 'should let you change your password' do
-    #     @user.reload
-    #     assert_equal @user.password, 'Different_P4ss' # just checking!
-
-    #     log_in @user
-    #     assert has_text? 'Signed in successfully.'
-    #   end
-    # end
-
     it 'should veto changes without current password' do
       fill_in 'First and last name', with: 'Bad Name'
       click_button 'Update info'
