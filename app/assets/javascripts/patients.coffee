@@ -1,6 +1,4 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+# TODObreak this up
 updateBalance = ->
   if $("#patient_procedure_cost").val()
     $(".outstanding-balance-ctn").removeClass('hidden')
@@ -48,7 +46,6 @@ markFulfilledWhenFieldsChecked = ->
         el.prop 'checked', false
 
 
-
 $(document).on 'turbolinks:load', ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
@@ -81,3 +78,6 @@ $(document).on 'turbolinks:load', ->
 
   if $("#patient_procedure_cost").val()
     updateBalance()
+
+  # select all elements with id ending with "modal"
+  $('[id$=modal]').modalSteps()

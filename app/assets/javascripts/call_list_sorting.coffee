@@ -1,7 +1,4 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
+# Functionality related to sorting the call list on the dashboard.
 # http://stackoverflow.com/questions/1307705/jquery-ui-sortable-with-table-and-tr-width/1372954#1372954
 # http://benw.me/posts/sortable-bootstrap-tables/
 
