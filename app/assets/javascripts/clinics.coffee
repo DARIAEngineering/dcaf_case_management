@@ -1,6 +1,4 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+# Functionality related to filtering clinicsby NAF or Medicaid.
 
 getClinics = ->
   $.get '/clinics', ((data, status) ->
@@ -33,12 +31,6 @@ mapMedicaidToClinic = (data) ->
     $('#patient_clinic_id > option[value=\'' + id + '\']').attr 'data-medicaid', accepts_medicaid
 
 ready = ->
-  $(document).on 'show.bs.collapse', '.collapsible-clinic-details', (event) ->
-    $(event.target).siblings('.clinic-detail-toggle').text('Fewer Details')
-
-  $(document).on 'hide.bs.collapse', '.collapsible-clinic-details', (event) ->
-    $(event.target).siblings('.clinic-detail-toggle').text('More Details')
-
   $(document).on "click", "#naf_filter", ->
     attr = $('#patient_clinic_id > option').last().attr 'data-naf'
     if typeof attr == 'undefined'

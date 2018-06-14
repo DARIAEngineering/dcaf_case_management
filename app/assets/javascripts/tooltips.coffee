@@ -1,4 +1,5 @@
 # Pertaining to tooltips
+
 $(document).on 'turbolinks:load', ->
   # For regular spans
   $('.daria-tooltip').each ->
