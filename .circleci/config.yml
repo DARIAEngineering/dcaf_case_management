@@ -52,11 +52,6 @@ jobs:
   # artifacts:
     # - "tmp/screenshots/"
 
-# test:
-#   override:
-#     - bundle exec rake knapsack:minitest:
-#         parallel: true
-
 workflows:
   version: 2
   dcaf_workflow_build_test_deploy:
