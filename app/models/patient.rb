@@ -110,8 +110,10 @@ class Patient
             :line,
             presence: true
   validates :primary_phone, format: /\d{10}/,
-                            length: { is: 10 },
-                            uniqueness: true
+                            length: { is: 10 }
+
+  validate :confirm_unique_phone_number
+
   validates :other_phone, format: /\d{10}/,
                           length: { is: 10 },
                           allow_blank: true
@@ -175,6 +177,70 @@ class Patient
     Event.where(patient_id: id.to_s).destroy_all
   end
 
+  def confirm_unique_phone_number
+    ##
+    # This method is preferred over Rail's built-in uniqueness validator
+    # so that case managers get a meaningful error message when a patient
+    # exists on a different line than the one the volunteer is serving.
+    #
+    # See https://github.com/DCAFEngineering/dcaf_case_management/issues/825
+    ##
+    phone_match = Patient.where(primary_phone: primary_phone).first
+
+    if phone_match
+      # skip when an existing patient updates and matches itself
+      if phone_match.id == self.id
+        return
+      end
+
+      patients_line = phone_match[:line]
+      volunteers_line = line
+      if volunteers_line == patients_line
+        errors.add(:this_phone_number_is_already_taken, "on this line.")
+      else
+        errors.add(:this_phone_number_is_already_taken, "on the #{patients_line} line. If you need the patient's line changed, please contact the CM directors.")
+      end
+    end
+  end
+
+  def has_alt_contact
+    other_contact.present? || other_phone.present? || other_contact_relationship.present?
+  end
+
+  def age_range
+    case age
+    when nil, ''
+      :not_specified
+    when 1..17
+      :under_18
+    when 18..24
+      :age18_24
+    when 25..34
+      :age25_34
+    when 35..44
+      :age35_44
+    when 45..54
+      :age45_54
+    when 55..100
+      :age55plus
+    else
+      :bad_value
+    end
+  end
+
+  def notes_count
+    notes.count
+  end
+
+  def has_special_circumstances
+    has_circumstance = 0
+    special_circumstances.each do |cir|
+      has_circumstance = 1 if cir.present?
+      break
+    end
+    !!has_circumstance
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -194,7 +260,7 @@ class Patient
   def initialize_fulfillment
     build_fulfillment(created_by_id: created_by_id).save
   end
-  
+
   def update_pledge_sent_by_sent_at
     if pledge_sent  && !pledge_sent_by
       self.pledge_sent_at = Time.zone.now
@@ -204,4 +270,10 @@ class Patient
       self.pledge_sent_at = nil
     end
   end
+
+  def self.fulfilled_on_or_before(datetime)
+    Patient.where( 'fulfillment.fulfilled'=> true,
+      'fulfillment.updated_at' => { '$lte' => datetime } )
+  end
+
 end

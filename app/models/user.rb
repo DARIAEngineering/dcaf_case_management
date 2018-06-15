@@ -8,6 +8,7 @@ class User
   extend Enumerize
 
   include UserSearchable
+  include CallListable
   track_history on: fields.keys + [:updated_by_id],
                   version_field: :version,
                   track_create: true,
@@ -24,8 +25,7 @@ class User
           :validatable,
           :lockable,
           :timeoutable,
-          :omniauthable,
-          :omniauth_providers => [:google_oauth2]
+          :omniauthable, omniauth_providers: [:google_oauth2]
   # :rememberable
   # :confirmable
 
@@ -42,7 +42,7 @@ class User
   field :role
 
   enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: true
-  field :call_order, type: Array
+  field :call_order, type: Array # Manipulated by the call list controller
 
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -73,12 +73,18 @@ class User
   # field :unlock_token,    type: String
   field :locked_at,       type: Time
 
+  # An extra hard shutoff field for when a fund wants to shut off a user acct.
+  # We call this disabling in the app, but users/CMs see this as 'Lock/Unlock'.
+  # We do this because Devise calls a temporary account shutoff because of too
+  # many failed attempts an account lock.
+  field :disabled_by_fund, type: Boolean, default: false
+
   # Validations
   # email presence validated through Devise
   validates :name, presence: true
   validate :secure_password
 
-  TIME_BEFORE_INACTIVE = 2.weeks
+  TIME_BEFORE_DISABLED_BY_FUND = 9.months
 
   def secure_password
     return true if password.nil?
@@ -97,66 +103,21 @@ class User
     user
   end
 
-  # ticket 241 recently called criteria:
-  # someone has a call from the current_user
-  # that is less than 8 hours old,
-  # AND they would otherwise be in the call list
-  # (e.g. assigned to current line and in user.patients)
-
-  def recently_called_patients(lines = LINES)
-    patients.in(line: lines)
-            .select { |patient| recently_called_by_user? patient }
+  def toggle_disabled_by_fund
+    # Since toggle skips callbacks...
+    update disabled_by_fund: !disabled_by_fund
   end
 
-  def call_list_patients(lines = LINES)
-    patients.in(line: lines)
-            .reject { |patient| recently_called_by_user? patient }
-  end
-
-  def add_patient(patient)
-    patients << patient
-    if call_order
-      reorder_call_list(call_order.unshift(patient.id.to_s))
-    else
-      reorder_call_list([patient.id.to_s])
+  def self.disable_inactive_users
+    cutoff_date = Time.zone.now - TIME_BEFORE_DISABLED_BY_FUND
+    inactive_has_logged_in = where(:role.nin => [:admin],
+                                   :last_sign_in_at.lt => cutoff_date)
+    inactive_no_logins = where(:role.nin => [:admin],
+                               :last_sign_in_at => nil,
+                               :created_at.lt => cutoff_date)
+    [inactive_no_logins, inactive_has_logged_in].each do |set|
+      set.update disabled_by_fund: true
     end
-    reload
-  end
-
-  def remove_patient(patient)
-    patients.delete patient
-    reload
-  end
-
-  def reorder_call_list(order)
-    update call_order: order
-    save
-    reload
-  end
-
-  def ordered_patients(lines = LINES)
-    return call_list_patients(lines) unless call_order
-    ordered_patients = call_list_patients(lines).sort_by do |patient|
-      call_order.index(patient.id.to_s) || call_order.length
-    end
-    ordered_patients
-  end
-
-  def clean_call_list_between_shifts
-    if last_sign_in_at.present? &&
-       last_sign_in_at < Time.zone.now - TIME_BEFORE_INACTIVE
-      patients.clear
-    else
-      patients.each do |p|
-        # TODO: reexamine this behavior in awhile
-        patients.delete(p) if recently_reached_by_user?(p)
-      end
-    end
-  end
-
-  def clear_call_list
-    patients.clear
-    save
   end
 
   def admin?
@@ -177,16 +138,6 @@ class User
     # Make sure no bad words are in there
     return false unless password.downcase[/(password|#{FUND})/].nil?
     true
-  end
-
-  def recently_reached_by_user?(patient)
-    patient.calls.any? do |call|
-      call.created_by_id == id && call.recent? && call.reached?
-    end
-  end
-
-  def recently_called_by_user?(patient)
-    patient.calls.any? { |call| call.created_by_id == id && call.recent? }
   end
 
   def needs_password_change_email?

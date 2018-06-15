@@ -7,7 +7,8 @@ module Exportable
   CSV_EXPORT_FIELDS = {
     "BSON ID" => :id,
     # "Identifier" => :identifier,
-    "Has Alt Contact?" => :has_alt_contact?,
+    "Archived?" => :archived?,
+    "Has Alt Contact?" => :has_alt_contact,
     "Voicemail Preference" => :voicemail_preference,
     "Line" => :line,
     "Language" => :preferred_language,
@@ -16,8 +17,8 @@ module Exportable
     "County" => :county,
     "Race or Ethnicity" => :race_ethnicity,
     "Employment Status" => :employment_status,
-    "Minors in Household" => :household_size_children,
-    "Adults in Household" => :household_size_adults,
+    "Minors in Household" => :get_household_size_children,
+    "Adults in Household" => :get_household_size_adults,
     "Insurance" => :insurance,
     "Income" => :income,
     "Referred By" => :referred_by,
@@ -25,7 +26,7 @@ module Exportable
     "Appointment Date" => :appointment_date,
     "Initial Call Date" => :initial_call_date,
     "Urgent?" => :urgent_flag,
-    # "Special Circumstances" => :special_circumstances,
+    "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "Abortion cost" => :procedure_cost,
     "Patient contribution" => :patient_contribution,
@@ -48,7 +49,10 @@ module Exportable
     "Gestation at procedure in weeks" => :gestation_at_procedure,
     "Procedure cost" => :procedure_cost_amount,
     "Check number" => :check_number,
-    "Date of Check" => :date_of_check
+    "Date of Check" => :date_of_check,
+
+    # Notes
+    "Notes Count" => :notes_count,
 
     # TODO clinic stuff
     # TODO external pledges
@@ -57,6 +61,30 @@ module Exportable
 
   def fulfilled
     fulfillment.try :fulfilled
+  end
+
+  def archived?
+    if is_a?(Patient)
+      false
+    else
+      true
+    end
+  end
+
+  def get_household_size_children 
+    if is_a?(Patient)
+      household_size_children
+    else
+      nil
+    end
+  end
+
+  def get_household_size_adults
+    if is_a?(Patient)
+      household_size_adults
+    else
+      nil
+    end
   end
 
   def procedure_date
@@ -96,33 +124,8 @@ module Exportable
     reached_calls.count
   end
 
-  def has_alt_contact?
-    other_contact.present? || other_phone.present? || other_contact_relationship.present?
-  end
-
   def export_clinic_name
     clinic.try :name
-  end
-
-  def age_range
-    case age
-    when nil, ''
-      nil
-    when 1..17
-      'Under 18'
-    when 18..24
-      '18-24'
-    when 25..34
-      '25-34'
-    when 35..44
-      '35-44'
-    when 45..54
-      '45-54'
-    when 55..100
-      '55+'
-    else
-      'Bad value'
-    end
   end
 
   def preferred_language
@@ -145,11 +148,15 @@ module Exportable
   end
 
   class_methods do
-    def to_csv
+    def csv_header
       Enumerator.new do |y|
         y << CSV.generate_line(CSV_EXPORT_FIELDS.keys, encoding: 'utf-8')
-        each do |patient|
-          row = CSV_EXPORT_FIELDS.values.map{ |field| patient.get_field_value_for_serialization(field) }
+      end
+    end
+    def to_csv
+      Enumerator.new do |y|
+        each do |export|
+          row = CSV_EXPORT_FIELDS.values.map{ |field| export.get_field_value_for_serialization(field) }
           y << CSV.generate_line(row, encoding: 'utf-8')
         end
       end
