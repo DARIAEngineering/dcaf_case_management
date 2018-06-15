@@ -12,7 +12,7 @@ jobs:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
-          TESTOPTS: "--ci-dir=$CIRCLE_TEST_REPORTS/test-results"
+          TESTOPTS: "--ci-dir=test-results"
       - image: circleci/mongo:latest
     steps:
       - checkout
