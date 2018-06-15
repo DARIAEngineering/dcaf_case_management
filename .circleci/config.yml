@@ -21,8 +21,8 @@ jobs:
       - run: gem update --system # Update rubygems
       - restore_cache:
           keys:
+            - dcaf_case_management-1 # Increment this to clear the circle cache
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
-            - dcaf_case_management-
       - run: bundle check || bundle install
       - run: gem install --no-rdoc brakeman
       - run: gem install --no-rdoc ruby_audit
@@ -42,7 +42,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
-      - run: yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL; bundle exec brakeman --exit-on-warn .
+      - run: echo yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL; bundle exec brakeman --exit-on-warn .
       - run: bundle exec rake assets:clobber assets:precompile
       - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
   deploy:
