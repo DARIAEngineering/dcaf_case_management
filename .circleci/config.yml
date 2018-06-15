@@ -1,0 +1,76 @@
+# Empty
+version: 2
+
+jobs:
+  build:
+    parallelism: 4
+    working_directory: ~/abortioneering
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+          TESTOPTS: "--ci-dir=test-results"
+      - image: circleci/mongo:latest
+    steps:
+      - checkout
+      - run: sudo apt-get install libfontconfig
+      - run: gem install bundler # Update bundler
+      - run: gem update --system # Update rubygems
+      - restore_cache:
+          keys:
+            - dcaf_case_management-{{ checksum "Gemfile.lock" }}
+            - dcaf_case_management-
+      - run: bundle check || bundle install
+      - run: gem install --no-rdoc brakeman
+      - run: gem install --no-rdoc ruby_audit
+      - run: gem install --no-rdoc bundler-audit
+      - save_cache:
+          key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: bundle exec rake knapsack:minitest
+      - store_test_results:
+          path: test-results
+      - run: 
+          bundle exec brakeman --exit-on-warn .
+      - run: bundle exec ruby-audit check
+      - run: bundle-audit update; bundle-audit check
+  predeploy:
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+    steps:
+      - run: yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL; bundle exec brakeman --exit-on-warn .
+      - run: bundle exec rake assets:clobber assets:precompile
+      - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
+  deploy:
+    docker:
+      - image: circleci/ruby:2.5.1-node-browsers
+    steps:
+      - run: git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
+      - run: docker build -t colinxfleming/dcaf_case_management -f .docker/Dockerfile . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
+
+# general:
+  # artifacts:
+    # - "tmp/screenshots/"
+
+workflows:
+  version: 2
+  dcaf_workflow_build_test_deploy:
+    jobs:
+      - build
+      - predeploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build
+            - predeploy
