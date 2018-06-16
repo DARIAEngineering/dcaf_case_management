@@ -44,7 +44,7 @@ jobs:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: gem install rake
+      - run: bundle i
       - restore_cache:
           keys:
             - dcaf_case_management-{{ epoch }}
