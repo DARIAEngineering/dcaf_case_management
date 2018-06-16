@@ -34,9 +34,8 @@ jobs:
       - run: bundle exec rake knapsack:minitest
       - store_test_results:
           path: test-results
-      - run: 
-          bundle exec brakeman --exit-on-warn .
-      - run: bundle exec ruby-audit check
+      - run: brakeman --exit-on-warn .
+      - run: ruby-audit check
       - run: bundle-audit update; bundle-audit check
   predeploy:
     docker:
