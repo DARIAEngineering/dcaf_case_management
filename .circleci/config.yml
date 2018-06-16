@@ -65,7 +65,7 @@ jobs:
       - restore_cache:
           keys:
             - dcaf_case_management-{{ epoch }}
-      - run: git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
+      - run: echo yes | git push git@heroku.com:dcaf-cmapp-staging.git $CIRCLE_SHA1:master
       - run: docker build -t colinxfleming/dcaf_case_management -f .docker/Dockerfile . && docker login -e "$DOCKEREMAIL" -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
 
 # general:
