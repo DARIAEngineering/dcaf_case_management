@@ -66,8 +66,8 @@ group :development do
 
   # Security scanners that also run in CI
   # gem 'brakeman', require: false
-  # gem 'ruby_audit', require: false
-  # gem 'bundler-audit', require: false
+  gem 'ruby_audit', require: false
+  gem 'bundler-audit', require: false
 end
 
 group :development, :test do
