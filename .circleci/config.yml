@@ -43,12 +43,17 @@ jobs:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
       - checkout
-      - run: bundle install
       - restore_cache:
           keys:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
             - dcaf_case_management-{{ checksum ".circleci/config.yml" }}
-      - run: echo yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL; brakeman-pro --exit-on-warn .
+      - run: bundle install
+      - run: echo yes | gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
+      - save_cache:
+          key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: brakeman-pro --exit-on-warn .
       - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
   deploy:
     docker:
