@@ -35,9 +35,10 @@ jobs:
       - store_test_results:
           path: test-results
       - run: brakeman --exit-on-warn .
-      - run: ruby-audit check
+      - run: bundle exec ruby-audit check
       - run: bundle-audit update; bundle-audit check
   predeploy:
+    working_directory: ~/abortioneering
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
@@ -56,6 +57,7 @@ jobs:
       - run: brakeman-pro --exit-on-warn .
       - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
   deploy:
+    working_directory: ~/abortioneering
     docker:
       - image: circleci/ruby:2.5.1-node-browsers
     steps:
