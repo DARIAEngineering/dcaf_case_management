@@ -49,12 +49,12 @@ jobs:
             - dcaf_case_management-{{ checksum ".circleci/config.yml" }}-predeploy
       - run: bundle check || bundle install
       - run: gem uninstall brakeman
-      - run: gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
+      # - run: gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
       - save_cache:
           key: dcaf_case_management-{{ checksum "Gemfile.lock" }}-predeploy
           paths:
             - vendor/bundle
-      - run: brakeman-pro --exit-on-warn .
+      # - run: brakeman-pro --exit-on-warn .
       - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
   deploy:
     working_directory: ~/abortioneering
