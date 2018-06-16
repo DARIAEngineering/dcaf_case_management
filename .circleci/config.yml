@@ -45,7 +45,7 @@ jobs:
     steps:
       - checkout
       - run: bundle install
-      - run: gem uninstall brakeman
+      - run: echo Y | gem uninstall brakeman
       - restore_cache:
           keys:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
