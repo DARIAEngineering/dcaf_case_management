@@ -1,11 +1,14 @@
 module LayoutsHelper
   def flash_msg(name, msg)
-    btn = content_tag :button, '&times;', type: 'button', class: 'close',
+    close_glyph = tag :span, class: ['glyphicon', 'glyphicon-remove'],
+                aria: { hidden: true }
+    btn = content_tag :button, close_glyph, type: 'button', class: 'close',
                                data: { dismiss: 'alert' }, 
                                aria: { hidden: true }
-    glyph = tag :span, class: ['glyphicon', alert_glyphicon_for(name)],
+
+    glyph = tag :span, class: ['glyphicon', 'flash-glyphicon', alert_glyphicon_for(name)],
                 aria: { hidden: true }
-    body = content_tag :div, msg, id: "flash_#{name}"
+    body = content_tag :span, msg, id: "flash_#{name}"
     content = safe_join [btn, glyph, body], ''
 
     content_tag :div, content, class: ['alert', alert_type_for(name)],
@@ -24,7 +27,7 @@ module LayoutsHelper
   end
 
   def alert_glyphicon_for(name)
-    return 'glyphicon-check' if name.to_s == 'notice'
-    'glyphicon-exclamation'
+    return 'glyphicon-ok-sign' if name.to_s == 'notice'
+    'glyphicon-exclamation-sign'
   end
 end

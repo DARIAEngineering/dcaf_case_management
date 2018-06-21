@@ -52,6 +52,6 @@ if($('#row-<%= @patient.id %>')) {
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
 $('#flash').removeClass().hide().fadeIn('slow');
-setTimeout(function() {
-  $('#flash').hide();
-}, 5000);
+// setTimeout(function() {
+//   $('#flash').hide();
+// }, 5000);
