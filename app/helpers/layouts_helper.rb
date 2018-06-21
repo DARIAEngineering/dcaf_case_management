@@ -11,7 +11,7 @@ module LayoutsHelper
     body = content_tag :span, msg, id: "flash_#{name}"
     content = safe_join [btn, glyph, body], ''
 
-    content_tag :div, content, class: ['alert', alert_type_for(name)],
+    content_tag :div, content, id: 'flash', class: ['alert', alert_type_for(name)],
                                style: alert_style_for(name)
   end
 

@@ -116,16 +116,6 @@ $font-size: 17px;
   padding: 15px 30px;
 }
 
-#flash {
-  position: absolute;
-  width: 100%;
-  z-index: 999;
-  transition-duration: .5s;
-  &:hover {
-    opacity: .5;
-  }
-}
-
 // General styling artifacts
 // make all images responsive by default
 img {
@@ -343,14 +333,25 @@ $daria-color-lt : #825fb9;
   }
 }
 
-#flash {
+/*#flash {
   position: fixed;
 }
-
+*/
 /*Just success rn*/
-.alert {
+.flash {
   border-left: 10px solid #3c763d;
   color: black;
+  /*position: fixed;*/
+}
+
+#flash {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  transition-duration: .5s;
+  &:hover {
+    opacity: .5;
+  }
 }
 
 .flash-glyphicon {
