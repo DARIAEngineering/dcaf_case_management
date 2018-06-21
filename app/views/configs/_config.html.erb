@@ -4,16 +4,21 @@
       <%= f.text_area :options, label: "#{config.config_key.to_s.humanize} options",
                                 value: config.config_value.try(:values_at, 'options')
                                                           .try(:join, ', '),
-                                help: 'Please separate with commas.',
+                                help: 'Please separate with commas if applicable.',
                                 id: "config_options_#{config.config_key}" %>
       <%= f.submit "Update options for #{config.config_key.to_s.humanize}", class: 'btn btn-primary' %>
     <% end %>  
   </div>
 
   <div class="col-md-6" id="<%= config.config_key.to_s %>_options_list">
-    <label>Current options are:</label>
-    <% public_send("#{config.config_key}_options").each do |opt| %>
-      <%= opt %><br />
+    <% if config.help_text_override.present? %>
+      <%= config.help_text_override %>
+    <% else %>
+      <label>Current options are:</label>
+      <br />
+      <% public_send("#{config.config_key}_options").each do |opt| %>
+        <%= opt %><br />
+      <% end %>
     <% end %>
   </div>
 </div>

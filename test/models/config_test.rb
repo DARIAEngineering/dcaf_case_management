@@ -48,6 +48,14 @@ class ConfigTest < ActiveSupport::TestCase
                    ['DC Medicaid', 'No insurance', "Don't know"]
     end
 
+    it 'should retrieve help text if set' do
+      refute @config.help_text_override
+
+      @config.update config_key: 'resources_url'
+      assert_includes @config.help_text_override,
+                      'A link to a Google Drive'
+    end
+
     describe 'autosetup' do
       before { Config.destroy_all }
 
