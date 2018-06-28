@@ -6,11 +6,6 @@
     "postdeploy": "bundle exec rake db:mongoid:create_indexes"
   },
   "env": {
-    "CM_RESOURCES_URL": {
-      "description": "usually a link to the google drive folder with CM resources in it",
-      "value": "",
-      "required": false
-    },
     "CSP_VIOLATION_URI": {
       "description": "from your CSP report endpoint",
       "value": "26d24d139baa52b71da9637b14c7d17b.report-uri.io/r/default"

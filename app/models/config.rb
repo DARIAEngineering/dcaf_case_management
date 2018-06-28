@@ -6,7 +6,17 @@ class Config
   include Mongoid::History::Trackable
   extend Enumerize
 
-  CONFIG_FIELDS = [:insurance, :external_pledge_source, :pledge_limit_help_text, :language].freeze
+  # Comma separated configs
+  CONFIG_FIELDS = [
+    :insurance, :external_pledge_source, :pledge_limit_help_text,
+    :language, :resources_url
+  ].freeze
+
+  # Define overrides for particular config fields
+  HELP_TEXT_OVERRIDES = {
+    resources_url: 'A link to a Google Drive folder with CM resources. ' \
+                   'Ex: https://drive.google.com/drive/my-resource-dir'
+  }.freeze
 
   # Fields
   enumerize :config_key, in: CONFIG_FIELDS
@@ -29,6 +39,13 @@ class Config
   # Methods
   def options
     config_value[:options]
+  end
+
+  def help_text
+    text = HELP_TEXT_OVERRIDES[config_key.to_sym]
+    return text if text
+
+    'Please separate with commas.'
   end
 
   def self.autosetup

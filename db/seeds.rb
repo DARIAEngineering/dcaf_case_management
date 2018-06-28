@@ -10,6 +10,7 @@ fail 'No running seeds in prod' unless [nil, 'Sandbox'].include? ENV['DARIA_FUND
 Patient.destroy_all
 User.destroy_all
 Clinic.destroy_all
+Config.destroy_all
 
 # Create google SSO user
 # puts "Creating user with email #{ARGV[1]}..."
@@ -139,7 +140,6 @@ patient_in_completed_calls.calls.create! status: 'Left voicemail',
                                         created_by: user
 
 # Create insurance and external pledge source keysets
-Config.destroy_all
 Config.create config_key: :insurance,
               config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance']}
 Config.create config_key: :external_pledge_source,
@@ -147,6 +147,8 @@ Config.create config_key: :external_pledge_source,
 Config.create config_key: :pledge_limit_help_text,
               config_value: { options: ['Pledge Limit Guidelines:', '1st trimester (7-12 weeks): $100', '2nd trimester (12-24 weeks): $300', 'Later care (25+ weeks): $600']}
 Config.create config_key: :language,
+              config_value: { options: ['Spanish', 'French', 'Korean']}
+Config.create config_key: :resources_url,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 
 # Reporting fixtures

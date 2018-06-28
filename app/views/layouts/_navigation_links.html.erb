@@ -3,9 +3,7 @@
     <% if session[:line] %>
       <li class="navbar-text-alt"><%= current_line_display %></li>
     <% end %>
-    <% if ENV['CM_RESOURCES_URL'] %>
-      <li><%= link_to 'CM Resources', ENV['CM_RESOURCES_URL'], target: '_blank' %></li>
-    <% end %>
+    <%= cm_resources_link %>
   <% end %>
 </ul>
 
