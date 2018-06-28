@@ -48,8 +48,8 @@ class ConfigTest < ActiveSupport::TestCase
                    ['DC Medicaid', 'No insurance', "Don't know"]
     end
 
-    it 'should retrieve help text if set' do
-      refute @config.help_text
+    it 'should retrieve appropriate help text if set' do
+      assert_equal 'Please separate with commas.', @config.help_text
 
       @config.update config_key: 'resources_url'
       assert_includes @config.help_text,
