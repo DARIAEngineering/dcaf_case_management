@@ -49,10 +49,10 @@ class ConfigTest < ActiveSupport::TestCase
     end
 
     it 'should retrieve help text if set' do
-      refute @config.help_text_override
+      refute @config.help_text
 
       @config.update config_key: 'resources_url'
-      assert_includes @config.help_text_override,
+      assert_includes @config.help_text,
                       'A link to a Google Drive'
     end
 
