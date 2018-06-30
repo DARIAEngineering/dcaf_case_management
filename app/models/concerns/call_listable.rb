@@ -8,13 +8,13 @@ module CallListable
   # AND they would otherwise be in the call list
   # (e.g. assigned to current line and in user.patients)
 
-  def recently_called_patients(lines = LINES)
-    patients.in(line: lines)
+  def recently_called_patients(line)
+    patients.where(line: line)
             .select { |patient| recently_called_by_user? patient }
   end
 
-  def call_list_patients(lines = LINES)
-    patients.in(line: lines)
+  def call_list_patients(line)
+    patients.where(line: line)
             .reject { |patient| recently_called_by_user? patient }
   end
 
