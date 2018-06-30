@@ -136,10 +136,6 @@ class UserTest < ActiveSupport::TestCase
 
       it 'should let you reorder a call list' do
         assert_equal @patient_3, @user.ordered_patients('DC').first
-        assert_equal @patient, @user.ordered_patients('DC')[1]
-        assert_equal @patient_2, @user.ordered_patients('DC')[2]
-
-        # and in line scope
         assert_equal @patient_2, @user.ordered_patients('DC')[1]
       end
 
@@ -147,7 +143,7 @@ class UserTest < ActiveSupport::TestCase
         @patient_4 = create :patient
         @user.add_patient @patient_4
 
-        assert @user.ordered_patients.include? @patient_4
+        assert @user.ordered_patients('DC').include? @patient_4
         assert @user.call_order.index(@patient_4.id.to_s) == 0
       end
     end
