@@ -44,19 +44,18 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should return recently_called_patients accurately' do
-      assert_equal 0, @user.recently_called_patients.count
+      assert_equal 0, @user.recently_called_patients('DC').count
 
       @patient.calls.create attributes_for(:call, created_by: @user)
-      assert_equal 1, @user.recently_called_patients.count
-
+      @patient_2.calls.create attributes_for(:call, created_by: @user)
       @md_patient.calls.create attributes_for(:call, created_by: @user)
-      assert_equal 2, @user.recently_called_patients.count
+      assert_equal 2, @user.recently_called_patients('DC').count
       assert_equal 1, @user.recently_called_patients('MD').count
     end
 
     it 'should return call_list_patients accurately' do
-      assert_equal 3, @user.call_list_patients.count
       assert_equal 2, @user.call_list_patients('DC').count
+      assert_equal 1, @user.call_list_patients('MD').count
 
       @patient.calls.create attributes_for(:call, created_by: @user)
       assert_equal 1, @user.call_list_patients('DC').count
@@ -66,21 +65,21 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should clean calls when patient has been reached' do
-      assert_equal 0, @user.recently_called_patients.count
+      assert_equal 0, @user.recently_called_patients('DC').count
       @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
       @call = @patient.calls.first
-      assert_equal 1, @user.recently_called_patients.count
+      assert_equal 1, @user.recently_called_patients('DC').count
       @user.clean_call_list_between_shifts
-      assert_equal 0, @user.recently_called_patients.count
+      assert_equal 0, @user.recently_called_patients('DC').count
     end
 
     it 'should not clear calls when patient has not been reached' do
-      assert_equal 0, @user.recently_called_patients.count
+      assert_equal 0, @user.recently_called_patients('DC').count
       @patient.calls.create attributes_for(:call, created_by: @user, status: 'Left voicemail' )
       @call = @patient.calls.first
-      assert_equal 1, @user.recently_called_patients.count
+      assert_equal 1, @user.recently_called_patients('DC').count
       @user.clean_call_list_between_shifts
-      assert_equal 1, @user.recently_called_patients.count
+      assert_equal 1, @user.recently_called_patients('DC').count
     end
 
     it 'should clear patient list when user has not logged in' do
@@ -136,9 +135,9 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'should let you reorder a call list' do
-        assert_equal @patient_3, @user.ordered_patients.first
-        assert_equal @patient, @user.ordered_patients[1]
-        assert_equal @patient_2, @user.ordered_patients[2]
+        assert_equal @patient_3, @user.ordered_patients('DC').first
+        assert_equal @patient, @user.ordered_patients('DC')[1]
+        assert_equal @patient_2, @user.ordered_patients('DC')[2]
 
         # and in line scope
         assert_equal @patient_2, @user.ordered_patients('DC')[1]

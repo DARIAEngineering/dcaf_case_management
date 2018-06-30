@@ -323,11 +323,7 @@ class PatientTest < ActiveSupport::TestCase
         create :patient, urgent_flag: true, line: 'MD'
       end
 
-      it 'should return urgent patients' do
-        assert_equal 3, Patient.urgent_patients.count
-      end
-
-      it 'should scope to a line if asked' do
+      it 'should return urgent patients by line' do
         assert_equal 2, Patient.urgent_patients('DC').count
         assert_equal 1, Patient.urgent_patients('MD').count
       end
