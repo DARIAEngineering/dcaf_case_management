@@ -22,6 +22,7 @@ class CreateUserTest < ApplicationSystemTestCase
       fill_in 'Email', with: 'test@example.com'
       fill_in 'Name', with: 'Test User'
       click_button 'Add'
+      wait_for_element 'User Account Management'
       assert has_content? 'Active', count: 2
     end
 
