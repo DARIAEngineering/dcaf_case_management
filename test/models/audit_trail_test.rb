@@ -5,8 +5,8 @@ class AuditTrailTest < ActiveSupport::TestCase
     @user = create :user
     @patient = create :patient, name: 'Susie Everyteen',
                                 primary_phone: '111-222-3333',
-                                appointment_date: DateTime.now.utc + 5.days,
-                                initial_call_date: DateTime.now.utc + 3.days,
+                                appointment_date: Time.zone.now + 5.days,
+                                initial_call_date: Time.zone.now + 3.days,
                                 created_by: @user
   end
 
@@ -25,8 +25,8 @@ class AuditTrailTest < ActiveSupport::TestCase
     before do
       @patient.update_attributes name: 'Yolo',
                                  primary_phone: '123-456-9999',
-                                 appointment_date: DateTime.now.utc + 10.days,
-                                 initial_call_date: DateTime.now.utc + 4.days
+                                 appointment_date: Time.zone.now + 10.days,
+                                 initial_call_date: Time.zone.now + 4.days
       @track = @patient.history_tracks.second
     end
 
@@ -45,8 +45,8 @@ class AuditTrailTest < ActiveSupport::TestCase
       assert_equal @track.changed_from,
                    ["Susie Everyteen",
                      "1112223333",
-                     (DateTime.now.in_time_zone("UTC") + 5.days).display_date,
-                     (DateTime.now.in_time_zone("UTC") + 3.days).display_date,
+                     (Time.zone.now + 5.days).display_date,
+                     (Time.zone.now + 3.days).display_date,
                      "D2-3333"]
     end
 
@@ -54,8 +54,8 @@ class AuditTrailTest < ActiveSupport::TestCase
       assert_equal @track.changed_to,
                   ["Yolo",
                     "1234569999",
-                    (DateTime.now.in_time_zone("UTC") + 10.days).display_date,
-                    (DateTime.now.in_time_zone("UTC") + 4.days).display_date,
+                    (Time.zone.now + 10.days).display_date,
+                    (Time.zone.now + 4.days).display_date,
                     "D6-9999"]
     end
 

@@ -11,6 +11,7 @@ Patient.destroy_all
 User.destroy_all
 Clinic.destroy_all
 Event.destroy_all
+Config.destroy_all
 
 # Create google SSO user
 # puts "Creating user with email #{ARGV[1]}..."
@@ -51,21 +52,6 @@ end
 
 # Create associated objects
 Patient.all.each do |patient|
-  # Create calls for patient
-  5.times do
-    patient.calls.create! status: 'Left voicemail',
-                          created_at: 3.days.ago,
-                          created_by: user2 unless patient.name == 'Patient 9'
-  end
-
-  if patient.name == 'Patient 0'
-    10.times do
-      patient.calls.create! status: 'Reached patient',
-                            created_at: 3.days.ago,
-                            created_by: user2
-    end
-  end
-
   # Add example of patient with other contact info
   if patient.name == 'Patient 1'
     patient.update! name: "Other Contact info - 1", other_contact: "Jane Doe",
@@ -106,6 +92,22 @@ Patient.all.each do |patient|
                     resolved_without_fund: true
   end
 
+  # Create calls for patient
+  5.times do
+    patient.calls.create! status: 'Left voicemail',
+                          created_at: 3.days.ago,
+                          created_by: user2 unless patient.name == 'Patient 9'
+  end
+
+  if patient.name == 'Patient 0'
+    10.times do
+      patient.calls.create! status: 'Reached patient',
+                            created_at: 3.days.ago,
+                            created_by: user2
+    end
+  end
+
+
   patient.save
 end
 
@@ -139,7 +141,6 @@ patient_in_completed_calls.calls.create! status: 'Left voicemail',
                                         created_by: user
 
 # Create insurance and external pledge source keysets
-Config.destroy_all
 Config.create config_key: :insurance,
               config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance']}
 Config.create config_key: :external_pledge_source,
@@ -147,6 +148,8 @@ Config.create config_key: :external_pledge_source,
 Config.create config_key: :pledge_limit_help_text,
               config_value: { options: ['Pledge Limit Guidelines:', '1st trimester (7-12 weeks): $100', '2nd trimester (12-24 weeks): $300', 'Later care (25+ weeks): $600']}
 Config.create config_key: :language,
+              config_value: { options: ['Spanish', 'French', 'Korean']}
+Config.create config_key: :resources_url,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 
 # Reporting fixtures

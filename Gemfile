@@ -28,9 +28,8 @@ gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.3'
-gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
-gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
+gem 'devise', '~> 4.4'
+gem 'omniauth-google-oauth2', '0.5.3'
 
 # We use `bootstrap_form_for` in views
 gem 'bootstrap_form'
@@ -65,9 +64,8 @@ group :development do
   gem 'listen' # used by systemtests
   gem 'rubocop', require: false # our code style / linting system
 
-  # Security scanners that also run in CI
-  gem 'brakeman', require: false
-  gem 'ruby_audit', require: false
+  # Security scanners that also run in CI. They run with bundle exec.
+  gem 'ruby_audit', require: false # 
   gem 'bundler-audit', require: false
 end
 
@@ -81,6 +79,7 @@ end
 group :test do
   # Useful minitest tools
   gem 'minitest-spec-rails'
+  gem 'minitest-ci'
   gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'faker'
