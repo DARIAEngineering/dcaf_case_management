@@ -1,9 +1,6 @@
-require 'yaml'
-require 'geokit'
 require 'ostruct'
 # require_relative './clinic_finder/gestation_helper'
 # require_relative 'clinic_finder/affordability_helper'
-require 'clinic_finder/geocoder'
 
 # Use as follows:
 # pt = Patient.find('123');
