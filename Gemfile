@@ -45,8 +45,6 @@ gem 'kaminari', '~> 1.0'
 # Specific useful stuff
 gem 'render_async', '~> 0.2.3' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
-gem 'clinic_finder', git: 'https://github.com/DCAFEngineering/clinic_finder.git',
-                     branch: 'master' # powers our clinic finder search
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
