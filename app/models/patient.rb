@@ -140,7 +140,7 @@ class Patient
   def self.pledged_status_summary(lines = LINES)
     # return pledge totals for patients with appts in a given week
     start_of_week = Time.zone.today.beginning_of_week(:monday)
-    plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :pledge_sent_at]
+    plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
 
     patients = Patient.in(line: lines)
                       .where(:fund_pledge.nin => [0, nil, ''])
