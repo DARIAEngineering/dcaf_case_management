@@ -7,7 +7,7 @@ gem 'puma' # roar
 gem 'turbolinks', '~> 5.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'nokogiri', '>= 1.8.1'
+gem 'nokogiri', '>= 1.8.3'
 gem 'tzinfo-data', require: false
 
 # Asset pipeline
