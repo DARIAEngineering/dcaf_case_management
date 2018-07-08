@@ -140,10 +140,13 @@ class Patient
   def self.pledged_status_summary(lines = LINES)
     # return pledge totals for patients with appts in a given week
     start_of_week = Time.zone.today.beginning_of_week(:monday)
+    plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :pledge_sent_at]
+
     patients = Patient.in(line: lines)
                       .where(:fund_pledge.nin => [0, nil, ''])
                       .where(:fund_pledged_at.gte => start_of_week)
-                      .map(&:to_simplified_patient)
+                      .pluck(*plucked_attrs)
+                      .map { |att| plucked_attrs.zip(att).to_h }
 
     patients.each_with_object(sent: [], pledged: []) do |patient, summary|
       if patient[:pledge_sent]
@@ -153,18 +156,6 @@ class Patient
       end
       summary
     end
-  end
-
-  def to_simplified_patient
-    {
-      fund_pledge: fund_pledge,
-      pledge_sent: pledge_sent?,
-      id: id,
-      name: name,
-      identifier: identifier,
-      appointment_date: appointment_date,
-      fund_pledged_at: fund_pledged_at
-    }
   end
 
   def save_identifier

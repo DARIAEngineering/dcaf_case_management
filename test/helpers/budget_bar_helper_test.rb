@@ -12,15 +12,31 @@ class BudgetBarHelperTest < ActionView::TestCase
 
   describe 'progress bar width' do
     it 'should accurately percentify width based on budget' do
-      assert_equal 'width: 10%', progress_bar_width(135)
+      assert_equal 'width: 10%', progress_bar_width(100)
     end
   end
 
   describe 'budget bar expenditure content' do
-    before { @patient_hash = create(:patient).to_simplified_patient }
+    before do
+      @patient_hash = {
+        id: 123,
+        appointment_date: 2.days.from_now,
+        fund_pledge: 100,
+        name: 'Friend Ship'
+      }
+    end
 
-    it 'should return ???' do
-      fail
+    it 'should return a link and appointment if set' do
+      content = budget_bar_expenditure_content @patient_hash
+      assert_match @patient_hash[:name], content
+      assert_match @patient_hash[:appointment_date].display_date, content
+    end
+
+    it 'should accommodate no appt date' do
+      @patient_hash[:appointment_date] = nil
+      content = budget_bar_expenditure_content @patient_hash
+      assert_match @patient_hash[:name], content
+      assert_match 'no appt date', content
     end
   end
 

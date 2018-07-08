@@ -5,12 +5,16 @@ module BudgetBarHelper
     "progress-bar-#{color}"
   end
 
-  def progress_bar_width(value, total = nil)
+  def progress_bar_width(value, total = 1000)
     "width: #{to_pct(value, total)}%"
   end
 
   def budget_bar_expenditure_content(patient_hash)
-    link_to patient_hash[:identifier], edit_patient_path(patient_hash[:id])
+    link = link_to patient_hash[:name], edit_patient_path(patient_hash[:id])
+    appt_text = patient_hash[:appointment_date] ?
+      "appt on #{patient_hash[:appointment_date]&.display_date}" :
+      'no appt date'
+    safe_join([link, appt_text], ' - ')
   end
 
   def budget_bar_remaining(expenditures, limit)
@@ -21,7 +25,9 @@ module BudgetBarHelper
 
   private
 
-  def to_pct(value, total)
+  def to_pct(value, total = 0)
+    return '0' if total == 0
+
     pct = (value.to_f / total.to_f) * 100
     pct.round.to_s
   end
