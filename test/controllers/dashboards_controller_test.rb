@@ -34,6 +34,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     it 'should return if there are no pledges in the period' do
       get budget_bar_path, xhr: true
       assert_response :success
+      fail 'until you assert contents'
     end
 
     it 'should return if there are pledges in the period' do
@@ -43,6 +44,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
                       fund_pledge: 50
       get budget_bar_path, xhr: true
       assert_response :success
+      fail 'until you assert contents'
     end
   end
 end

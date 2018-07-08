@@ -5,8 +5,8 @@ module BudgetBarHelper
     "progress-bar-#{color}"
   end
 
-  def progress_bar_width(value, total = 1_000)
-    "width: #{to_pct(value, total)}%"
+  def progress_bar_width(value, cash_ceiling = 1_000)
+    "width: #{to_pct(value, cash_ceiling)}%"
   end
 
   def budget_bar_expenditure_content(patient_hash)
@@ -25,10 +25,10 @@ module BudgetBarHelper
 
   private
 
-  def to_pct(value, total = 1_000)
-    return '0' if total == 0
+  def to_pct(value, cash_ceiling = 1_000)
+    return '0' if cash_ceiling == 0
 
-    pct = (value.to_f / total.to_f) * 100
+    pct = (value.to_f / cash_ceiling.to_f) * 100
     pct.round.to_s
   end
 end
