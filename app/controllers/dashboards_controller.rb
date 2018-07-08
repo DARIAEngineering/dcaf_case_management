@@ -22,7 +22,8 @@ class DashboardsController < ApplicationController
 
   def budget_bar
     expenditures = Patient.pledged_status_summary
-    budget_bar_ceiling = [1350,
+    default_cash_ceiling = 1_000
+    budget_bar_ceiling = [default_cash_ceiling,
                           expenditures.values.flatten.map { |x| x[:fund_pledge] }.inject(:+) || 0].max
 
     render partial: 'dashboards/budget_bar', locals: { expenditures: expenditures,
