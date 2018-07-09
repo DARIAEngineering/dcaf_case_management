@@ -1,6 +1,7 @@
 # Controller for rendering the home view and patient search.
 class DashboardsController < ApplicationController
   include LinesHelper
+  include BudgetBarCalculable
 
   before_action :pick_line_if_not_set, only: [:index, :search]
 
@@ -21,13 +22,8 @@ class DashboardsController < ApplicationController
   end
 
   def budget_bar
-    expenditures = Patient.pledged_status_summary current_line
-    default_cash_ceiling = 1_000
-    budget_bar_ceiling = [default_cash_ceiling,
-                          expenditures.values.flatten.map { |x| x[:fund_pledge] }.inject(:+) || 0].max
-
-    render partial: 'dashboards/budget_bar', locals: { expenditures: expenditures,
-                                                       limit: budget_bar_ceiling }
+    render partial: 'dashboards/budget_bar',
+           locals: budget_bar_calculations(current_line)
   end
 
   private

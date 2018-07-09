@@ -139,9 +139,9 @@ class PatientTest < ActiveSupport::TestCase
 
       # Testing dates is hard, so we use name as a proxy here
       assert_equal shaped_patient[:name],
-                   Patient.pledged_status_summary[:pledged][0][:name]
+                   Patient.pledged_status_summary(:DC)[:pledged][0][:name]
       assert_equal shaped_patient2[:name],
-                   Patient.pledged_status_summary[:sent][0][:name]
+                   Patient.pledged_status_summary(:DC)[:sent][0][:name]
     end
   end
 
