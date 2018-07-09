@@ -1,14 +1,32 @@
-<div id="overview" class="margin-bottom">
-  <h1 class="border-bottom title">Week of <%= week_range %></h1>
+<div class="col-sm-12" id='budget-bar-content'>
+  <div class="row">
+    <div class="progress" id='budget-progress-bar'>
+      <% expenditures.each_pair do |type, patient_hashes| %>
+        <% patient_hashes.each do |patient| %>
+          <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>
+            <div data-toggle='popover' data-content='<%= budget_bar_expenditure_content(patient) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
+              <%= number_to_currency patient[:fund_pledge], precision: 0 %> <%= type %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
 
-  <!-- UNCOMMENT WHEN BUDGET BAR IS READY
-  <div id="budget_bar">
-    <div class="progress">
-      <%# expenditures.each_pair do |type, value| %>
-        <div class="progress-bar progress-bar-striped <%#= progress_bar_color type %>" style="<%#= progress_bar_width value %>">$<%#= value %></div>
-      <%# end %>
+    <div class="row" id='budget-report'>
+      <% expenditures.each_pair do |type, patient_hashes| %>
+        <div class="col-sm-4">
+          <%= number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) || 0, precision: 0)  %> <%= type  %> (<%= expenditures[type].count %> patients)
+        </div>
+      <% end %>
+      <div class="col-sm-4">
+        <%= number_to_currency(budget_bar_remaining(expenditures, limit), precision: 0) %> remaining
+      </div>
     </div>
   </div>
-   -->
-
 </div>
+
+<script nonce='<%= content_security_policy_script_nonce %>'>
+  $(function () {
+    $('.expenditure-item').popover()
+  })
+</script>
