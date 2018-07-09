@@ -41,7 +41,7 @@ class BudgetBarHelperTest < ActionView::TestCase
   end
 
   describe 'budget bar remaining' do
-    before { @expenditures = Patient.pledged_status_summary }
+    before { @expenditures = Patient.pledged_status_summary(:DC) }
 
     it 'should return an int' do
       assert_equal 1000,
