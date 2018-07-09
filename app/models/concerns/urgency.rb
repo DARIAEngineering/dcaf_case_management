@@ -21,7 +21,7 @@ module Urgency
 
   class_methods do
     def urgent_patients(line)
-      Patient.where(line: line).where(urgent_flag: true)
+      Patient.where(line: line, urgent_flag: true)
     end
 
     def trim_urgent_patients
