@@ -97,6 +97,7 @@ group :test do
 
   # Specifics
   gem 'shoulda-context'
+  gem 'minitest-optional_retry' # retry flaky tests 3 times
   gem 'mini_backtrace' # settle down minitest output
   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
   gem 'minitest-stub-const'

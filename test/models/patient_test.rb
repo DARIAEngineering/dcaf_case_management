@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class PatientTest < ActiveSupport::TestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user
     @patient = create :patient, other_phone: '111-222-3333',
