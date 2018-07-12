@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class LoggingCallsTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @patient = create :patient, name: 'Susan Everyteen',
                                 primary_phone: '123-123-1234'

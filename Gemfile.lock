@@ -191,6 +191,8 @@ GEM
     minitest (5.11.3)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
+    minitest-optional_retry (0.0.2)
+      minitest (~> 5.0)
     minitest-spec-rails (5.4.0)
       minitest (~> 5.0)
       rails (>= 4.1)
@@ -416,6 +418,7 @@ DEPENDENCIES
   loofah (>= 2.2.1)
   mini_backtrace
   minitest-ci
+  minitest-optional_retry
   minitest-spec-rails
   minitest-stub-const
   mongo_session_store (>= 3.1.0)
