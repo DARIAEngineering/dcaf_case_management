@@ -18,9 +18,12 @@
           <%= number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) || 0, precision: 0)  %> <%= type  %> (<%= expenditures[type].count %> patients)
         </div>
       <% end %>
+      <%# TODO Commenting out until the config is ready %>
+      <!-- 
       <div class="col-sm-4">
         <%= number_to_currency(budget_bar_remaining(expenditures, limit), precision: 0) %> remaining
       </div>
+      -->
     </div>
   </div>
 </div>
