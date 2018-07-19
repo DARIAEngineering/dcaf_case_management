@@ -65,7 +65,7 @@ group :development do
   gem 'rubocop', require: false # our code style / linting system
 
   # Security scanners that also run in CI. They run with bundle exec.
-  gem 'ruby_audit', require: false # 
+  gem 'ruby_audit', require: false #
   gem 'bundler-audit', require: false
 end
 
