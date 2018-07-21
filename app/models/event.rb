@@ -23,6 +23,9 @@ class Event
   field :patient_id, type: String
   field :pledge_amount, type: Integer
 
+  # Indices
+  index(created_at: 1)
+
   # Validations
   validates :event_type, inclusion: { in: EVENT_TYPES }
   validates :cm_name, :patient_name, :patient_id, :line, presence: true
