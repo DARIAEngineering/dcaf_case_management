@@ -65,7 +65,14 @@ $(document).on 'turbolinks:load', ->
   $(document).on "change", ".edit_external_pledge", ->
     $(this).submit()
 
-  $(document).on "change", "#abortion-information-form input, #external_pledges input", ->
+  balanceFields = '#abortion-information-form input,
+  #external_pledges input,
+  #patient_procedure_cost,
+  #patient_patient_contribution,
+  #patient_naf_pledge,
+  #patient_fund_pledge'
+
+  $(document).on "change", balanceFields, ->
     updateBalance()
 
   $(document).on "submit", "#generate-pledge-form form", ->
