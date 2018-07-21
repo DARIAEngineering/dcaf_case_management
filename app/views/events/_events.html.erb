@@ -6,5 +6,6 @@
         <%= content_tag :p, display_event(event), class: 'event-item' %>
       <% end %>
     <% end %>
+    <%= paginate @events, remote: true %>
   </ul>
 </div>
