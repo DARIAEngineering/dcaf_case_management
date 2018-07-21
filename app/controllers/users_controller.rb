@@ -1,6 +1,6 @@
 # Additional user methods in parallel with Devise -- all pertaining to call list
 class UsersController < ApplicationController
-  before_action :confirm_admin_user, only: [:new, :index, :update,
+  before_action :confirm_admin_user, only: [:new, :index, :update, :edit,
                                             :change_role_to_admin,
                                             :change_role_to_data_volunteer,
                                             :change_role_to_cm,

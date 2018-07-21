@@ -21,6 +21,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
+    it "should redirect if user is not admin - edit_user" do
+      User.role.values.reject { |role| role == :admin }.each do |role|
+        @user_2 = create :user
+        @user.update role: role
+        get edit_user_path(@user)
+        assert_response :redirect
+      end
+    end
+
     %w[admin data_volunteer cm].each do |endpoint|
       it "should redirect if user is not admin - #{endpoint}" do
         User.role.values.reject { |role| role == :admin }.each do |role|
