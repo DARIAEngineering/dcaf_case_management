@@ -34,8 +34,12 @@ class ApplicationController < ActionController::Base
     head :unauthorized unless current_user.admin?
   end
 
-  def redirect_unless_has_data_access
+  def confirm_data_access
     redirect_to root_path unless current_user.allowed_data_access?
+  end
+
+  def confirm_data_access_async
+    head :unauthorized unless current_user.allowed_data_access?
   end
 
   def confirm_user_not_disabled!
