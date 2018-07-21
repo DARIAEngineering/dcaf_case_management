@@ -1,7 +1,7 @@
 # Controller pertaining to accountant functions, usually fulfillments.
 class AccountantsController < ApplicationController
-  before_action :confirm_data_access, only: [:index, :edit]
-  before_action :confirm_data_access_async, only: [:search]
+  before_action :confirm_data_access, only: [:index]
+  before_action :confirm_data_access_async, only: [:search, :edit]
   before_action :find_patient, only: [:edit]
 
   def index
