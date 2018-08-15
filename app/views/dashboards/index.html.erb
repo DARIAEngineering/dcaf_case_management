@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <%= render partial: 'dashboards/budget_bar', locals: { expenditures: @expenditures } %>
+    <%= render partial: 'dashboards/overview' %>
     <%= render partial: 'dashboards/search_form' %>
     <%= render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients(current_line), sortable: true, autosortable: true } %>
     <%= render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients(current_line), autosortable: true } %>

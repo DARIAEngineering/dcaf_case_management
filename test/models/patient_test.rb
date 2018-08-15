@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class PatientTest < ActiveSupport::TestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user
     @patient = create :patient, other_phone: '111-222-3333',
@@ -130,14 +132,18 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'pledge_summary' do
-    # TODO: needs timecopping
     it "should return proper pledge summaries for various timespans" do
-      @patient.update appointment_date: (Date.today + 4), fund_pledge: 300
-      @patient2.update appointment_date: (Date.today + 8), fund_pledge: 500, pledge_sent: true
-      assert_equal '{:pledged=>0, :sent=>0}', Patient.pledged_status_summary(1).to_s
-      assert_equal '{:pledged=>300, :sent=>0}', Patient.pledged_status_summary.to_s
-      # TODO Timecop this test
-      # assert_equal '{:pledged=>300, :sent=>500}', Patient.pledged_status_summary(10).to_s
+      @patient.update appointment_date: 2.days.from_now, fund_pledge: 300
+      @patient2.update appointment_date: 4.days.from_now, fund_pledge: 500,
+                       pledge_sent: true, clinic: create(:clinic)
+      shaped_patient = patient_to_hash @patient
+      shaped_patient2 = patient_to_hash @patient2
+
+      # Testing dates is hard, so we use name as a proxy here
+      assert_equal shaped_patient[:name],
+                   Patient.pledged_status_summary(:DC)[:pledged][0][:name]
+      assert_equal shaped_patient2[:name],
+                   Patient.pledged_status_summary(:DC)[:sent][0][:name]
     end
   end
 
@@ -323,11 +329,7 @@ class PatientTest < ActiveSupport::TestCase
         create :patient, urgent_flag: true, line: 'MD'
       end
 
-      it 'should return urgent patients' do
-        assert_equal 3, Patient.urgent_patients.count
-      end
-
-      it 'should scope to a line if asked' do
+      it 'should return urgent patients by line' do
         assert_equal 2, Patient.urgent_patients('DC').count
         assert_equal 1, Patient.urgent_patients('MD').count
       end
@@ -742,5 +744,16 @@ class PatientTest < ActiveSupport::TestCase
           assert_equal @patient.preferred_language, 'Spanish'
       end
     end
+  end
+
+  def patient_to_hash(patient)
+    {
+      fund_pledge: patient.fund_pledge,
+      pledge_sent: patient.pledge_sent,
+      id: patient.id,
+      name: patient.name,
+      appointment_date: patient.appointment_date,
+      pledge_sent_at: patient.pledge_sent_at
+    }
   end
 end

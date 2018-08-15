@@ -7,7 +7,7 @@ gem 'puma' # roar
 gem 'turbolinks', '~> 5.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'nokogiri', '>= 1.8.1'
+gem 'nokogiri', '>= 1.8.3'
 gem 'tzinfo-data', require: false
 
 # Asset pipeline
@@ -63,7 +63,7 @@ group :development do
   gem 'rubocop', require: false # our code style / linting system
 
   # Security scanners that also run in CI. They run with bundle exec.
-  gem 'ruby_audit', require: false # 
+  gem 'ruby_audit', require: false #
   gem 'bundler-audit', require: false
 end
 
@@ -95,6 +95,7 @@ group :test do
 
   # Specifics
   gem 'shoulda-context'
+  gem 'minitest-optional_retry' # retry flaky tests 3 times
   gem 'mini_backtrace' # settle down minitest output
   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
   gem 'minitest-stub-const'

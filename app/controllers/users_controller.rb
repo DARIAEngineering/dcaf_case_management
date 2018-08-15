@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    session[:return_to] ||= request.referer
+    session[:return_to] ||= users_path
   end
 
   def update

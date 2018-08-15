@@ -191,6 +191,8 @@ GEM
     minitest (5.11.3)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
+    minitest-optional_retry (0.0.2)
+      minitest (~> 5.0)
     minitest-spec-rails (5.4.0)
       minitest (~> 5.0)
       rails (>= 4.1)
@@ -215,7 +217,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (2.3.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
@@ -416,13 +418,14 @@ DEPENDENCIES
   loofah (>= 2.2.1)
   mini_backtrace
   minitest-ci
+  minitest-optional_retry
   minitest-spec-rails
   minitest-stub-const
   mongo_session_store (>= 3.1.0)
   mongoid (>= 6.2.0, < 7)
   mongoid-history (= 0.6.1)
   mongoid_userstamp!
-  nokogiri (>= 1.8.1)
+  nokogiri (>= 1.8.3)
   omniauth-google-oauth2 (= 0.5.3)
   pdf-inspector
   prawn
