@@ -56,7 +56,14 @@ module Exportable
     "Notes Count" => :notes_count,
 
     # TODO clinic stuff
-    # TODO external pledges
+
+    # External Pledges
+    "External Pledge Count" => :external_pledge_count,
+    "External Pledges Sum" => :external_pledge_sum,
+    "Highest External Pledge Source" => :highest_external_pledge_source,
+    "Highest External Pledge Amount" => :highest_external_pledge_amount,
+    "Lowest External Pledge Source" => :lowest_external_pledge_source,
+    "Lowest External Pledge Amount" => :lowest_external_pledge_amount
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
 
@@ -147,6 +154,39 @@ module Exportable
       value
     end
   end
+  
+  def external_pledge_count
+    external_pledges.count
+  end
+  
+  def external_pledge_sum
+    sum = 0
+    all_pledges = external_pledges.all
+    
+    all_pledges.each do |pledge|
+      sum += pledge.try :amount
+    end
+    sum
+  end
+  
+  def highest_external_pledge_amount
+    external_pledges.desc(:amount).first.try :amount
+  end
+  
+  def lowest_external_pledge_amount
+    external_pledges.desc(:amount).last.try :amount
+  end
+  
+  def highest_external_pledge_source
+    external_pledges.desc(:amount).first.try :source
+  end
+  
+  def lowest_external_pledge_source
+    external_pledges.desc(:amount).last.try :source
+  end
+  
+  
+  
 
   class_methods do
     def csv_header
