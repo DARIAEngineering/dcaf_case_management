@@ -34,7 +34,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
   end
 
   describe 'admin wall' do
-    [:cm, :data_volunteer].each do |role|
+    [:cm].each do |role|
       it "should ban nonadmins from accessing accounting page - #{role}" do
         @nonadmin_user = create :user, role: role
         log_out
