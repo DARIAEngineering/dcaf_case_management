@@ -17,7 +17,7 @@ module ClinicFinder
   # * ClinicFinder::Locator#locate_nearest_clinics
   # * ClinicFinder::Locator#locate_cheapest_clinics
   class Locator
-    include ClinicFinder::Geocoder
+    include ClinicFinder::Modules::Geocoder
 
     attr_accessor :clinics
     attr_accessor :clinic_structs # a scratch version of clinics

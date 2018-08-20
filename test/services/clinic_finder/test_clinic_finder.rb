@@ -3,7 +3,29 @@ require_relative '../lib/clinic_finder'
 
 # Test initialization and top level methods.
 class TestClinicFinderLocator < TestClass
-  before { @clinics = load_clinic_fixtures }
+  before do
+    pp_oakland = create :clinic, street_address: '1001 Broadway',
+                                 city: 'Oakland',
+                                 state: 'CA',
+                                 zip: '94607',
+                                 accepts_naf: false,
+                                 accepts_medicaid: false,
+                                 gestational_limit: 139,
+                                 costs_9wks: 425,
+                                 costs_12wks: 475,
+                                 costs_18wks: 975
+    pp_sf = create :clinic, street_address: '2430 Folsom',
+                            city: 'San Francisco',
+                            state: 'CA',
+                            zip: '94110',
+                            accepts_naf: false,
+                            accepts_medicaid: false,
+                            gestational_limit: 111,
+                            costs_9wks: 300,
+                            costs_12wks: 325
+
+    @clinics = load_clinic_fixtures
+  end
 
   describe 'initialization with clinics' do
     before do
