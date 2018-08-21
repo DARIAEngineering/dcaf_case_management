@@ -1,8 +1,7 @@
 require 'test_helper'
-require_relative '../lib/clinic_finder'
 
 # Test initialization and top level methods.
-class TestClinicFinderLocator < TestClass
+class ClinicFinderTest < ActiveSupport::TestCase
   before do
     pp_oakland = create :clinic, street_address: '1001 Broadway',
                                  city: 'Oakland',
@@ -24,11 +23,12 @@ class TestClinicFinderLocator < TestClass
                             costs_9wks: 300,
                             costs_12wks: 325
 
-    @clinics = load_clinic_fixtures
+    @clinics = [pp_oakland, pp_sf] # load_clinic_fixtures
   end
 
   describe 'initialization with clinics' do
     before do
+      raise
       @abortron = ClinicFinder::Locator.new @clinics
     end
 
