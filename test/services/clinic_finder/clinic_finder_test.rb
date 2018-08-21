@@ -3,6 +3,8 @@ require 'test_helper'
 # Test initialization and top level methods.
 class ClinicFinderTest < ActiveSupport::TestCase
   before do
+    # These fixtures are CA in honor of the Abortion Access Hackathon SF team
+    # who originally constructed the clinic finder code, and who are wonderful
     create :clinic, name: 'PP Oakland',
                     street_address: '1001 Broadway',
                     city: 'Oakland',
