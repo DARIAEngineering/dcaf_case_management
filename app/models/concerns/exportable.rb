@@ -60,10 +60,9 @@ module Exportable
     # External Pledges
     "External Pledge Count" => :external_pledge_count,
     "External Pledges Sum" => :external_pledge_sum,
-    "Highest External Pledge Source" => :highest_external_pledge_source,
-    "Highest External Pledge Amount" => :highest_external_pledge_amount,
-    "Lowest External Pledge Source" => :lowest_external_pledge_source,
-    "Lowest External Pledge Amount" => :lowest_external_pledge_amount
+    "All External Pledges" => :all_external_pledges
+    
+    
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
 
@@ -169,20 +168,8 @@ module Exportable
     sum
   end
   
-  def highest_external_pledge_amount
-    external_pledges.desc(:amount).first.try :amount
-  end
-  
-  def lowest_external_pledge_amount
-    external_pledges.desc(:amount).last.try :amount
-  end
-  
-  def highest_external_pledge_source
-    external_pledges.desc(:amount).first.try :source
-  end
-  
-  def lowest_external_pledge_source
-    external_pledges.desc(:amount).last.try :source
+  def all_external_pledges
+    external_pledges.map { |x| "#{x.source} - #{x.amount}" }.join('; ')
   end
   
   
