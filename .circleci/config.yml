@@ -26,7 +26,7 @@ jobs:
       - run: bundle check || bundle install
       - run: gem install --no-rdoc brakeman
       - run: gem install --no-rdoc ruby_audit
-      - run: echo "restore after rubyzip gets fixed" # gem install --no-rdoc bundler-audit
+      - run: gem install --no-rdoc bundler-audit
       - save_cache:
           key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
           paths:
@@ -36,7 +36,7 @@ jobs:
           path: test-results
       - run: brakeman --exit-on-warn .
       - run: bundle exec ruby-audit check
-      - run: bundle-audit update; bundle-audit check
+      - run: bundle-audit update; bundle-audit check --ignore CVE-2018-1000544 # Restore this after rubyzip gets patched
   predeploy:
     working_directory: ~/abortioneering
     docker:
