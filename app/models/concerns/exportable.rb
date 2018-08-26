@@ -56,7 +56,13 @@ module Exportable
     "Notes Count" => :notes_count,
 
     # TODO clinic stuff
-    # TODO external pledges
+
+    # External Pledges
+    "External Pledge Count" => :external_pledge_count,
+    "External Pledges Sum" => :external_pledge_sum,
+    "All External Pledges" => :all_external_pledges
+    
+    
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
 
@@ -147,6 +153,27 @@ module Exportable
       value
     end
   end
+  
+  def external_pledge_count
+    external_pledges.count
+  end
+  
+  def external_pledge_sum
+    sum = 0
+    all_pledges = external_pledges.all
+    
+    all_pledges.each do |pledge|
+      sum += pledge.try :amount
+    end
+    sum
+  end
+  
+  def all_external_pledges
+    external_pledges.map { |x| "#{x.source} - #{x.amount}" }.join('; ')
+  end
+  
+  
+  
 
   class_methods do
     def csv_header
