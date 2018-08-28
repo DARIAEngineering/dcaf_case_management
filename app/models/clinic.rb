@@ -21,6 +21,7 @@ class Clinic
   field :accepts_naf, type: Boolean, default: false
   field :accepts_medicaid, type: Boolean, default: false
   field :gestational_limit, type: Integer
+  field :ll, type: Array
   # costs_5wks, costs_6wks, ..., costs_30wks
   (5..30).each { |i| field "costs_#{i}wks".to_sym, type: Integer }
 

@@ -63,12 +63,7 @@ module ClinicFinder
     # Set up mutable clinic structs.
     def build_clinic_structs
       @clinics.map do |clinic|
-        data = if clinic.is_a? OpenStruct
-                 clinic.marshal_dump
-               else
-                 clinic.attributes # ActiveRecord, Mongoid, etc.
-               end
-        OpenStruct.new data
+        OpenStruct.new clinic.attributes
       end
     end
 

@@ -37,6 +37,8 @@ module ClinicFinder
         @clinic_structs.each do |clinic|
           # The Geocoder is looking for something like this:
           # {name: 'Oakland Clinic', address: '101 Main St, Oakland, CA'}
+          if clinic.ll
+            clinic.coordinates = clinic.ll.
           location = @geocoder.geocode clinic.full_address
           coordinates = location.ll.split(',').map(&:to_f)
 

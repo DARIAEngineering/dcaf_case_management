@@ -45,11 +45,11 @@ gem 'kaminari', '~> 1.0'
 # Specific useful stuff
 gem 'render_async', '~> 0.2.3' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
+gem 'geokit' # clinic_finder service lat-lng
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
 gem 'gon', '~> 6.1.0' # render async does this better
-gem 'geokit' # should be included in clinic_finder instead of here
 gem 'js-routes' # Not sure if this is used anymore
 gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
 
