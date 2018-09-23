@@ -101,7 +101,9 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should clear call list when someone invokes the cleanout' do
       assert_difference '@user.patients.count', -3 do
-        @user.clear_call_list
+        assert_no_difference 'Patient.count' do
+          @user.clear_call_list
+        end
       end
     end
   end
