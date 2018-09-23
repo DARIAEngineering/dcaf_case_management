@@ -50,9 +50,10 @@ module CallListable
   TIME_BEFORE_INACTIVE = 2.weeks
 
   def clean_call_list_between_shifts
-    if last_sign_in_at.present? &&
-       last_sign_in_at < Time.zone.now - TIME_BEFORE_INACTIVE
-      patients.clear
+    last_activity = [last_sign_in_at, current_sign_in_at].reject(&:nil?).max
+    if last_activity.present? &&
+       last_activity < Time.zone.now - TIME_BEFORE_INACTIVE
+      clear_call_list
     else
       patients.each do |p|
         # TODO: reexamine this behavior in awhile
