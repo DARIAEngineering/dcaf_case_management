@@ -50,15 +50,12 @@ module CallListable
   TIME_BEFORE_INACTIVE = 2.weeks
 
   def clean_call_list_between_shifts
-    last_activity = [last_sign_in_at, current_sign_in_at].reject(&:nil?).max
-    if last_activity.present? &&
-       last_activity < Time.zone.now - TIME_BEFORE_INACTIVE
+    # current_sign_in_at is a devise field set to the user's last login
+    if current_sign_in_at.present? &&
+       current_sign_in_at < Time.zone.now - TIME_BEFORE_INACTIVE
       clear_call_list
     else
-      patients.each do |p|
-        # TODO: reexamine this behavior in awhile
-        patients.delete(p) if recently_reached_by_user?(p)
-      end
+      patients.each { patients.delete(p) if recently_reached_by_user?(p) }
     end
   end
 
