@@ -214,10 +214,10 @@ class UserTest < ActiveSupport::TestCase
 
     describe 'nightly cleanup task - disable_inactive_users' do
       before do
-        @disabled_user = create(:user, last_sign_in_at: 10.months.ago)
-        @admin = create(:user, role: :admin, last_sign_in_at: 11.months.ago)
+        @disabled_user = create(:user, current_sign_in_at: 10.months.ago)
+        @admin = create(:user, role: :admin, current_sign_in_at: 11.months.ago)
         @no_login_user = create(:user, created_at: 12.months.ago)
-        @nondisabled_user = create(:user, last_sign_in_at: 8.months.ago)
+        @nondisabled_user = create(:user, current_sign_in_at: 8.months.ago)
         User.disable_inactive_users
       end
 

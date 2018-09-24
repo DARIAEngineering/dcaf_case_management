@@ -17,7 +17,7 @@
           <td><!-- spacer --></td>
           <td><%= link_to user.name, edit_user_path(user) %></td>
           <td><%= user.role %>
-          <td><%= user.last_sign_in_at %>
+          <td><%= user.current_sign_in_at %>
           <td><%= user.created_at %>
           <td><%= user_lock_status(user) %>
           <td><%= disabled_toggle_button(user) %></td>
