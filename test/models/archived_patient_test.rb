@@ -109,38 +109,27 @@ class ArchivedPatientTest < ActiveSupport::TestCase
   describe 'archive_fulfilled_patients' do
     before do
       @patient_fulfilled = create :patient, primary_phone: '222-222-3334',
-                                   other_phone: '222-222-4443',
-                                   initial_call_date: 310.days.ago
-      @patient_fulfilled.update fulfillment: {
-                                  fulfilled: true,
-                                  date_of_check: 300.days.ago,
-                                  updated_at: 290.days.ago,
-                                  procedure_date: 290.days.ago,
-                                  check_number: '123'
-                                }
+                                            other_phone: '222-222-4443',
+                                            initial_call_date: 310.days.ago
+
+      @patient_fulfilled.update updated_at: 290.days.ago,
+                                fulfillment: { fulfilled: true }
       @patient_fulfilled.save!
 
       @patient_fulfilled2 = create :patient, primary_phone: '222-212-3334',
-                                   other_phone: '222-222-4443',
-                                   initial_call_date: 310.days.ago
-      @patient_fulfilled2.update fulfillment: {
-                                  fulfilled: true,
-                                  updated_at: 291.days.ago,
-                                  date_of_check: 300.days.ago,
-                                  procedure_date: 290.days.ago,
-                                  check_number: '123'
-                                }
+                                             other_phone: '222-222-4443',
+                                             initial_call_date: 310.days.ago
+      @patient_fulfilled2.update updated_at: 291.days.ago,
+                                 fulfillment: { fulfilled: true }
       @patient_fulfilled2.save!
     end
 
     it 'should convert fulfilled patients to archive patients' do
-       assert_difference 'ArchivedPatient.all.count', 2 do
-         assert_difference 'Patient.all.count', -2 do
-           ArchivedPatient.archive_fulfilled_patients!
-         end
-       end
+      assert_difference 'ArchivedPatient.all.count', 2 do
+        assert_difference 'Patient.all.count', -2 do
+          ArchivedPatient.archive_fulfilled_patients!
+        end
+      end
     end
   end
-
-
 end
