@@ -55,7 +55,7 @@ module CallListable
        current_sign_in_at < Time.zone.now - TIME_BEFORE_INACTIVE
       clear_call_list
     else
-      patients.each { patients.delete(p) if recently_reached_by_user?(p) }
+      patients.each { |p| patients.delete(p) if recently_reached_by_user?(p) }
     end
   end
 
