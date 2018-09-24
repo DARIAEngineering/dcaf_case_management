@@ -289,7 +289,7 @@ class Patient
   end
 
   def self.fulfilled_on_or_before(datetime)
-    Patient.where( 'fulfillment.fulfilled'=> true,
-      'fulfillment.updated_at' => { '$lte' => datetime } )
+    Patient.where('fulfillment.fulfilled' => true,
+                  updated_at: { '$lte' => datetime })
   end
 end
