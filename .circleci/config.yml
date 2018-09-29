@@ -36,7 +36,7 @@ jobs:
           path: test-results
       - run: brakeman --exit-on-warn .
       - run: bundle exec ruby-audit check
-      - run: bundle-audit update; bundle-audit check --ignore CVE-2018-1000544 # Restore this after rubyzip gets patched
+      - run: bundle-audit update; bundle-audit check
   predeploy:
     working_directory: ~/abortioneering
     docker:

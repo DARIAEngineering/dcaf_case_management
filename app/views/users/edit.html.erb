@@ -3,7 +3,7 @@
     <h1><%= @user.name %></h1>
     <h5>Role: <%= @user.role.to_s %></h5>
     <h5>Status: <%= user_lock_status(@user) %></h5>
-    <h5>Last login: <%= @user.last_sign_in_at&.display_timestamp %></h5>
+    <h5>Last login: <%= @user.current_sign_in_at&.display_timestamp %></h5>
   </div>
 
   <% if @user != current_user && current_user.admin? %>
