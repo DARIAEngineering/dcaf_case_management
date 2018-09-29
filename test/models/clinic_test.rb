@@ -58,4 +58,10 @@ class ClinicTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'callbacks' do
+    describe 'updating coordinates when address changes' do
+
+    end
+  end
 end
