@@ -21,7 +21,7 @@ gem 'jquery-ui-rails'
 # Our database is MongoDB
 gem 'mongoid', '>= 6.2.0', '< 7'
 gem 'bson_ext'
-gem 'mongoid-history', '0.6.1' # gives us object history
+gem 'mongoid-history', '< 1.0' # gives us object history
 gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git',
                          branch: 'master' # adds created_by and updated_by timestamps
 gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
