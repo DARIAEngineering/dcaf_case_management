@@ -351,9 +351,9 @@ GEM
     tilt (2.0.8)
     timecop (0.9.1)
     ttfunk (1.5.1)
-    turbolinks (5.1.0)
-      turbolinks-source (~> 5.1)
-    turbolinks-source (5.1.0)
+    turbolinks (5.2.0)
+      turbolinks-source (~> 5.2)
+    turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.2)
@@ -386,7 +386,7 @@ DEPENDENCIES
   codecov
   coffee-rails (~> 4.2.2)
   database_cleaner
-  devise (< 5.0)
+  devise (~> 4.4)
   enumerize
   factory_bot_rails
   faker
