@@ -20,28 +20,25 @@ module ClinicFinder
     include ClinicFinder::Modules::Geocoder
 
     attr_accessor :clinics
-    attr_accessor :clinic_structs # a scratch version of clinics
     attr_accessor :patient_context # no reason to not assign this to an obj lvl
     attr_accessor :geocoder
 
     def initialize(clinics, gestational_age: 0,
                    naf_only: false, medicaid_only: false)
-      filtered_clinics = filter_by_params clinics,
-                                          gestational_age,
-                                          naf_only,
-                                          medicaid_only
+      @clinics = filter_by_params clinics,
+                                  gestational_age,
+                                  naf_only,
+                                  medicaid_only
 
-      @clinics = filtered_clinics
       @clinic_structs = build_clinic_structs
       @patient_context = OpenStruct.new
       @geocoder = set_geocoder
     end
 
-    # Return a set of the closest clinics and their attributes,
+    # Return a set of the closest clinics as structs and their attributes,
     # distance included, to a patient's zipcode.
-    # TODO: Clinic objects or just structs?
     def locate_nearest_clinics(zipcode, limit: 5)
-      get_patient_coordinates_from_zip zipcode
+      @patient_context.location = patient_coordinates_from_zip zipcode
       add_distances_to_clinic_openstructs
 
       @clinic_structs.sort_by(&:distance).take(limit)
@@ -62,9 +59,7 @@ module ClinicFinder
 
     # Set up mutable clinic structs.
     def build_clinic_structs
-      @clinics.map do |clinic|
-        OpenStruct.new clinic.attributes
-      end
+      @clinics.map { |clinic| OpenStruct.new clinic.attributes }
     end
 
     # Based on initialization fields, narrow the list of clinics to
@@ -80,27 +75,9 @@ module ClinicFinder
 
     def set_geocoder
       geocoder = Geokit::Geocoders::GoogleGeocoder
+      geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
 
-      if ENV['GOOGLE_GEO_API_KEY']
-        geocoder.api_key = ENV['GOOGLE_GEO_API_KEY']
-      end
       geocoder
     end
-
-
-    # This method makes the sorted clinic data more easily traversible by converting the data into a hash of names (keys) and informational attributes (values) rather than leaving them as separate values in a nested array.
-    # def decorate_data(data)
-    #   sorted_clinics = []
-    #   three_cheapest(data).map { |clinic_array| sorted_clinics << { name: clinic_array.first, cost: clinic_array.last[@gestational_tier] } }
-    #   sorted_clinics
-    # end
-
-    # def three_cheapest(data)
-    #   data.sort_by { |name, information| information[@gestational_tier] }.first(3)
-    # end
-
-    # def available_clinics
-    #   @clinics.keep_if { |name, information| information[@gestational_tier] && @helper.within_gestational_limit?(information['gestational_limit']) }
-    # end
   end
 end
