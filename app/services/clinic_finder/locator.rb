@@ -20,6 +20,7 @@ module ClinicFinder
     include ClinicFinder::Modules::Geocoder
 
     attr_accessor :clinics
+    attr_accessor :clinic_structs
     attr_accessor :patient_context # no reason to not assign this to an obj lvl
     attr_accessor :geocoder
 
