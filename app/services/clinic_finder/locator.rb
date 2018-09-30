@@ -31,7 +31,7 @@ module ClinicFinder
                                   naf_only,
                                   medicaid_only
 
-      @clinic_structs = build_clinic_structs
+      @clinic_structs = @clinics.map { |clinic| OpenStruct.new clinic.attributes }
       @patient_context = OpenStruct.new
       @geocoder = set_geocoder
     end
@@ -57,11 +57,6 @@ module ClinicFinder
     end
 
     private
-
-    # Set up mutable clinic structs.
-    def build_clinic_structs
-      @clinics.map { |clinic| OpenStruct.new clinic.attributes }
-    end
 
     # Based on initialization fields, narrow the list of clinics to
     # just what we need.
