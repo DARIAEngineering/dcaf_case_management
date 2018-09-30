@@ -4,7 +4,7 @@ FactoryBot.define do
     sequence :source do |n|
       "Fund #{n}"
     end
-    amount 100
+    amount { 100 }
     created_by { FactoryBot.create(:user) }
   end
 end
