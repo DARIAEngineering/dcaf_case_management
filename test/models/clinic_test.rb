@@ -59,15 +59,34 @@ class ClinicTest < ActiveSupport::TestCase
     end
 
     describe 'full address' do
-      it 'should return an address if both are present' do
-        raise
+      it 'should return an address all fields are present' do
+        [:street_address, :city, :state, :zip].each do |attr|
+          stowed_attribute = @clinic[attr]
+          @clinic[attr] = nil
+          assert_nil @clinic.full_address
+          @clinic[attr] = stowed_attribute
+        end
+
+        assert_equal @clinic.full_address,
+                     '123 Fake Street, Washington, DC 20011'
       end
     end
   end
 
   describe 'callbacks' do
     describe 'updating coordinates when address changes' do
-      raise
+      before { @cached_api_key = ENV['GOOGLE_GEO_API_KEY'] }
+      after { ENV['GOOGLE_GEO_API_KEY'] = @cached_api_key }
+
+      it 'should update coordinates on address change' do
+        geocoder_coordinates = [38.8976633, 77.0365739]
+        geocoder_mock = Minitest::Mock.new
+        Geokit::Geocoders::GoogleGeocoder = geocoder_mock
+        geocoder_mock.expect(:geocode, geocoder_coordinates)
+
+        @clinic.update city: 'Arlington'
+        assert_equal geocoder_coordinates, @clinic.coordinates
+      end
     end
   end
 end
