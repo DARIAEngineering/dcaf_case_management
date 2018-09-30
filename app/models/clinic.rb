@@ -10,7 +10,7 @@ class Clinic
   has_many :archived_patients
 
   # Callbacks
-  after_save :update_coordinates, if: :address_changed?
+  before_save :update_coordinates, if: :address_changed?
 
   # Fields
   field :name, type: String
@@ -58,9 +58,9 @@ class Clinic
 
     geocoder = Geokit::Geocoders::GoogleGeocoder
     geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
-    location = geocoder.geocode clinic.full_address
+    location = geocoder.geocode full_address
     coordinates = location.ll.split(',').map(&:to_f)
-    update coordinates: coordinates
+    self.coordinates = coordinates
   end
 
   def address_changed?
