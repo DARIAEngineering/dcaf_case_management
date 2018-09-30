@@ -47,6 +47,12 @@ class Clinic
     "#{city}, #{state}"
   end
 
+  def full_address
+    return nil if display_location.blank? || street_address.blank? || zip.blank?
+
+    "#{street_address}, #{display_location} #{zip}"
+  end
+
   def update_coordinates
     return unless ENV['GOOGLE_GEO_API_KEY']
 

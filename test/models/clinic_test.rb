@@ -57,11 +57,17 @@ class ClinicTest < ActiveSupport::TestCase
         assert_equal @clinic.display_location, 'Washington, DC'
       end
     end
+
+    describe 'full address' do
+      it 'should return an address if both are present' do
+        raise
+      end
+    end
   end
 
   describe 'callbacks' do
     describe 'updating coordinates when address changes' do
-
+      raise
     end
   end
 end
