@@ -48,7 +48,7 @@ class Clinic
   end
 
   def update_coordinates
-    return if ENV['GOOGLE_GEO_API_KEY']
+    return unless ENV['GOOGLE_GEO_API_KEY']
 
     geocoder = Geokit::Geocoders::GoogleGeocoder
     geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
