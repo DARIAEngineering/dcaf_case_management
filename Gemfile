@@ -43,7 +43,7 @@ gem 'kaminari-mongoid', '~> 1.0'
 gem 'kaminari', '~> 1.0'
 
 # Specific useful stuff
-gem 'render_async', '~> 0.2.3' # load slow partials asynchronously
+gem 'render_async', '< 2.0' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
 
 # Stuff that we're targeting removal of
