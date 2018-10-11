@@ -28,7 +28,7 @@ gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.4'
+gem 'devise', '~> 4.5'
 gem 'omniauth-google-oauth2', '0.5.3'
 
 # We use `bootstrap_form_for` in views
