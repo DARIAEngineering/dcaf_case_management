@@ -399,7 +399,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   js-routes
-  kaminari (~> 1.0)
+  kaminari (~> 1.1)
   kaminari-mongoid (~> 1.0)
   knapsack
   launchy
