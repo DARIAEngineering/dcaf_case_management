@@ -4,10 +4,10 @@ ruby '2.5.1'
 # Standard rails
 gem 'rails', '>= 5.1'
 gem 'puma' # roar
-gem 'turbolinks', '~> 5.0'
+gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'nokogiri', '>= 1.8.3'
+gem 'sdoc', '~> 1.0.0', group: :doc
+gem 'nokogiri', '>= 1.8.5'
 gem 'tzinfo-data', require: false
 
 # Asset pipeline
@@ -35,8 +35,8 @@ gem 'omniauth-google-oauth2', '0.5.3'
 gem 'bootstrap_form'
 
 # Security libraries
-gem 'rack-attack', '~> 5.1'
-gem 'secure_headers', '~> 3.6', '>= 3.6.4'
+gem 'rack-attack', '~> 5.4.1'
+gem 'secure_headers', '~> 6.0.0'
 
 # For pagination
 gem 'kaminari-mongoid', '~> 1.0'
