@@ -120,7 +120,7 @@ GEM
     ffi (1.9.25)
     figaro (1.1.1)
       thor (~> 0.14)
-    geokit (1.11.0)
+    geokit (1.13.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     gon (6.1.0)
@@ -385,7 +385,7 @@ DEPENDENCIES
   codecov
   coffee-rails (~> 4.2.2)
   database_cleaner
-  devise (~> 4.4)
+  devise (~> 4.5)
   enumerize
   factory_bot_rails
   faker
@@ -443,4 +443,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.16.4
