@@ -15,7 +15,8 @@ module DashboardsHelper
   def voicemail_options
     enum_text = { not_specified: 'No instructions; no ID VM',
                   no: 'Do not leave a voicemail',
-                  yes: 'Voicemail OK, ID OK' }
+                  yes: 'Voicemail OK, ID OK',
+                  text: 'Text preferred'}
     vm_options = Patient.voicemail_preference.values
     vm_options.map! { |option| option.to_sym }
 

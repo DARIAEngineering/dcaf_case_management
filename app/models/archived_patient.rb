@@ -25,7 +25,7 @@ class ArchivedPatient
 
   # Fields pulled from initial Patient
   field :voicemail_preference
-  enumerize :voicemail_preference, in: [:not_specified, :no, :yes], default: :not_specified
+  enumerize :voicemail_preference, in: [:not_specified, :no, :yes, :text], default: :not_specified
   field :line
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
   field :language, type: String

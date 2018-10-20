@@ -50,6 +50,7 @@ class Patient
   # Searchable info
   field :name, type: String # strip
   field :primary_phone, type: String
+  field :textable, type: Boolean
   field :other_contact, type: String
   field :other_phone, type: String
   field :other_contact_relationship, type: String
@@ -57,7 +58,7 @@ class Patient
 
   # Contact-related info
   field :voicemail_preference
-  enumerize :voicemail_preference, in: [:not_specified, :no, :yes], default: :not_specified
+  enumerize :voicemail_preference, in: [:not_specified, :no, :yes, :text], default: :not_specified
 
   field :line
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
