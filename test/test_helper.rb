@@ -58,6 +58,13 @@ class ActiveSupport::TestCase
     create :config, config_key: 'language',
                     config_value: { options: language_options }
   end
+
+  def create_referred_by_config
+    referred_by_options = ['Clinic', 'DCAF', 'NAF', 'School', 'Friend', 'Family member', 'Other abortion fund']
+    create :config, config_key: 'referred_by',
+                    config_value: { options: referred_by_options }
+  end
+
 end
 
 # Used by controller tests

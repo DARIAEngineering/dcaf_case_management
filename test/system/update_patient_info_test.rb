@@ -13,6 +13,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     create_external_pledge_source_config
     create_insurance_config
     create_language_config
+    create_referred_by_config
 
     log_in_as @user
     visit edit_patient_path @patient
