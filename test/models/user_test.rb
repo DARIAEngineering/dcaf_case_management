@@ -85,7 +85,7 @@ class UserTest < ActiveSupport::TestCase
     it 'should clear patient list when user has not logged in' do
       assert_not @user.patients.empty?
       last_sign_in = Time.zone.now - User::TIME_BEFORE_INACTIVE - 1.day
-      @user.last_sign_in_at = last_sign_in
+      @user.current_sign_in_at = last_sign_in
       @user.clean_call_list_between_shifts
 
       assert @user.patients.empty?
@@ -93,7 +93,7 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should not clear patient list if user signed in recently' do
       assert_not @user.patients.empty?
-      @user.last_sign_in_at = Time.zone.now
+      @user.current_sign_in_at = Time.zone.now
       @user.clean_call_list_between_shifts
 
       assert_not @user.patients.empty?
@@ -101,7 +101,9 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should clear call list when someone invokes the cleanout' do
       assert_difference '@user.patients.count', -3 do
-        @user.clear_call_list
+        assert_no_difference 'Patient.count' do
+          @user.clear_call_list
+        end
       end
     end
   end
@@ -212,10 +214,10 @@ class UserTest < ActiveSupport::TestCase
 
     describe 'nightly cleanup task - disable_inactive_users' do
       before do
-        @disabled_user = create(:user, last_sign_in_at: 10.months.ago)
-        @admin = create(:user, role: :admin, last_sign_in_at: 11.months.ago)
+        @disabled_user = create(:user, current_sign_in_at: 10.months.ago)
+        @admin = create(:user, role: :admin, current_sign_in_at: 11.months.ago)
         @no_login_user = create(:user, created_at: 12.months.ago)
-        @nondisabled_user = create(:user, last_sign_in_at: 8.months.ago)
+        @nondisabled_user = create(:user, current_sign_in_at: 8.months.ago)
         User.disable_inactive_users
       end
 

@@ -4,10 +4,10 @@ ruby '2.5.1'
 # Standard rails
 gem 'rails', '>= 5.1'
 gem 'puma' # roar
-gem 'turbolinks', '~> 5.0'
+gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'nokogiri', '>= 1.8.3'
+gem 'sdoc', '~> 1.0.0', group: :doc
+gem 'nokogiri', '>= 1.8.5'
 gem 'tzinfo-data', require: false
 
 # Asset pipeline
@@ -21,32 +21,30 @@ gem 'jquery-ui-rails'
 # Our database is MongoDB
 gem 'mongoid', '>= 6.2.0', '< 7'
 gem 'bson_ext'
-gem 'mongoid-history', '0.6.1' # gives us object history
+gem 'mongoid-history', '< 1.0' # gives us object history
 gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git',
                          branch: 'master' # adds created_by and updated_by timestamps
 gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.4'
+gem 'devise', '~> 4.5'
 gem 'omniauth-google-oauth2', '0.5.3'
 
 # We use `bootstrap_form_for` in views
 gem 'bootstrap_form'
 
 # Security libraries
-gem 'rack-attack', '~> 5.1'
-gem 'secure_headers', '~> 3.6', '>= 3.6.4'
+gem 'rack-attack', '~> 5.4.1'
+gem 'secure_headers', '~> 6.0.0'
 
 # For pagination
 gem 'kaminari-mongoid', '~> 1.0'
-gem 'kaminari', '~> 1.0'
+gem 'kaminari', '~> 1.1'
 
 # Specific useful stuff
-gem 'render_async', '~> 0.2.3' # load slow partials asynchronously
+gem 'render_async', '< 2.0' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
-gem 'clinic_finder', git: 'https://github.com/DCAFEngineering/clinic_finder.git',
-                     branch: 'master' # powers our clinic finder search
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now

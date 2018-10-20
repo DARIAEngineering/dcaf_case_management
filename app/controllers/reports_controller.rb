@@ -1,5 +1,8 @@
 # Controller for automatically generated service reporting across lines.
 class ReportsController < ApplicationController
+  before_action :confirm_data_access, only: [:index]
+  before_action :confirm_data_access_async, only: [:report]
+
   def index; end
 
   def report

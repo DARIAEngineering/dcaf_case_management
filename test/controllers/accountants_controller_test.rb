@@ -7,28 +7,64 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
                                 fund_pledge: 50
   end
 
-  describe 'admin use only' do
-    before do
-      @nonadmin_user = create :user, role: :cm
-      sign_in @nonadmin_user
-    end
-
-    describe 'get routes' do
-      it 'should prevent nonadmins from using index' do
-        get accountants_path
-        assert_redirected_to root_path
+  describe 'permissioning' do
+    describe 'index' do
+      [:admin, :data_volunteer].each do |permission|
+        it "should allow data vol or above - #{permission.to_s}" do
+          user = create :user, role: permission
+          sign_in user
+          get accountants_path
+          assert_response :success
+        end
       end
 
-      it 'should prevent nonadmins from using edit' do
-        get edit_accountant_path(@patient), xhr: true
-        assert_redirected_to root_path
+      [:cm].each do |permission|
+        it "should deny CM or below data access - #{permission}" do
+          user = create :user, role: permission
+          sign_in user
+          get accountants_path
+          assert_redirected_to root_url
+        end
       end
     end
 
-    describe 'post routes' do
-      it 'should prevent nonadmins from using search' do
-        post accountant_search_path, params: { search: '' }, xhr: true
-        assert_response :unauthorized
+    describe 'edit' do
+      [:admin, :data_volunteer].each do |permission|
+        it "should allow data vol or above - #{permission.to_s}" do
+          user = create :user, role: permission
+          sign_in user
+          get edit_accountant_path(@patient), xhr: true
+          assert_response :success
+        end
+      end
+
+      [:cm].each do |permission|
+        it "should deny CM or below - #{permission}" do
+          user = create :user, role: permission
+          sign_in user
+          get edit_accountant_path(@patient), xhr: true
+          assert_response :unauthorized
+        end
+      end
+    end
+
+    describe 'search' do
+      [:admin, :data_volunteer].each do |permission|
+        it "should allow data vol or above - #{permission.to_s}" do
+          user = create :user, role: permission
+          sign_in user
+          post accountant_search_path, params: { search: '' }, xhr: true
+          assert_response :success
+        end
+      end
+
+      [:cm].each do |permission|
+        it "should deny CM or below data access - #{permission}" do
+          user = create :user, role: permission
+          sign_in user
+          post accountant_search_path, params: { search: '' }, xhr: true
+          assert_response :unauthorized
+        end
       end
     end
   end

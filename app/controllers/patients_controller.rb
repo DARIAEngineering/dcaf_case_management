@@ -1,7 +1,7 @@
 # Create, edit, and update patients. The main patient view is edit.
 class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
-  before_action :redirect_unless_has_data_access, only: [:index]
+  before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download, :destroy]
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
