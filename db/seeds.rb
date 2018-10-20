@@ -151,6 +151,8 @@ Config.create config_key: :language,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 Config.create config_key: :resources_url,
               config_value: { options: ['Spanish', 'French', 'Korean']}
+Config.create config_key: :fax_service,
+              config_value: { service: 'www.efax.com', number: '222-222-2222' }
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have
@@ -392,7 +394,7 @@ end
   # Patient 1 drops off immediately
   next if patient_number.odd?
 
-  # We reach Patient 2 
+  # We reach Patient 2
   patient.update!(
     # header info - hand filled in
     appointment_date: 630.days.ago,

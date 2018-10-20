@@ -9,7 +9,7 @@ class Config
   # Comma separated configs
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
-    :language, :resources_url
+    :language, :resources_url, :fax_service, :fax_number
   ].freeze
 
   # Define overrides for particular config fields
@@ -39,6 +39,14 @@ class Config
   # Methods
   def options
     config_value[:options]
+  end
+
+  def fax_service
+    config_value[:service]
+  end
+
+  def fax_number
+    config_value[:number]
   end
 
   def help_text
