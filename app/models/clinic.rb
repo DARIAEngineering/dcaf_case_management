@@ -59,7 +59,7 @@ class Clinic
     geocoder = Geokit::Geocoders::GoogleGeocoder
     geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
     location = geocoder.geocode full_address
-    coordinates = location.ll.split(',').map(&:to_f)
+    coordinates = [location.lat, location.lng]
     self.coordinates = coordinates
   end
 

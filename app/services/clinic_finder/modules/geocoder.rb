@@ -8,7 +8,7 @@ module ClinicFinder
       # Get a patient's latitude and longitude.
       def patient_coordinates_from_zip(zipcode)
         patient_location = @geocoder.geocode zipcode
-        patient_location.ll
+        [patient_location.lat, patient_location.lng]
       end
 
       # Attach a distance field to individual clinic_structs for sorting.

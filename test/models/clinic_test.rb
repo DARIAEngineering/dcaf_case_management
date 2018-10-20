@@ -80,13 +80,13 @@ class ClinicTest < ActiveSupport::TestCase
 
       it 'should update coordinates on address change' do
         ENV['GOOGLE_GEO_API_KEY'] = '123'
-        geocoder_coordinates = [38.8976633,77.0365739]
-        fake_lat_lng = OpenStruct.new(ll: geocoder_coordinates.join(','))
-        Geokit::Geocoders::GoogleGeocoder.stub :geocode, fake_lat_lng do
+        fake_geo = OpenStruct.new lat: 38.8976633, lng: 77.0365739
+        Geokit::Geocoders::GoogleGeocoder.stub :geocode, fake_geo do
           @clinic.update city: 'Arlington'
         end
 
-        assert_equal geocoder_coordinates, @clinic.coordinates
+        assert_equal [fake_geo.lat, fake_geo.lng],
+                     @clinic.coordinates
       end
     end
   end
