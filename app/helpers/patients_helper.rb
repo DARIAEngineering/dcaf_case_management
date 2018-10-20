@@ -19,6 +19,11 @@ module PatientsHelper
     standard_options + Config.find_or_create_by(config_key: 'language').options
   end
 
+  def referred_by_options
+    standard_options = [[nil]]
+    standard_options + Config.find_or_create_by(config_key: 'referred_by').options
+  end
+
   def employment_status_options
     [nil, 'Full-time', 'Part-time', 'Unemployed', 'Odd jobs', 'Student']
   end
@@ -43,15 +48,6 @@ module PatientsHelper
      ['$60,000-74,999 ($1154-1441/wk - $5000-6249/mo)', '$60,000-74,999'],
      ['$75,000 or more ($1442+ /wk - $6250+ /mo)', '$75,000 or more']
     ]
-  end
-
-  def referred_by_options
-    [nil, 'Clinic', 'Crime victim advocacy center',
-     "#{FUND} website or social media",
-     'Domestic violence crisis/intervention org', 'Family member', 'Friend',
-     'Google/Web search', 'Homeless shelter', 'Legal clinic', 'NAF', 'NNAF',
-     'Other abortion fund', 'Previous patient', 'School',
-     'Sexual assault crisis org', 'Youth outreach']
   end
 
   def household_size_options
