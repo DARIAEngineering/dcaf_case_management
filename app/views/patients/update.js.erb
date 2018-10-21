@@ -20,6 +20,7 @@ $('#change_log').html(
 
 // Rerack urgent status
 $('#patient_urgent_flag').prop('checked', <%= @patient.urgent_flag? %>);
+$('#patient_textable').prop('checked', <%-@patient.textable? %> );
 
 // if pledge is sent, re-rack fulfillment info
 <% if current_user.allowed_data_access? && @patient.pledge_sent? %>

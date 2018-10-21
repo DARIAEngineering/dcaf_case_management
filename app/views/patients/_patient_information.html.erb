@@ -21,7 +21,7 @@
                                           patient.race_ethnicity),
                                           label: 'Race / Ethnicity',
                                           autocomplete: 'off' %>
-                                          
+
           <%= f.form_group :language do %>
             <%= f.select :language,
                        options_for_select(language_options,
@@ -33,6 +33,9 @@
           <%= f.select :voicemail_preference,
                        options_for_select(voicemail_options,
                                           patient.voicemail_preference) %>
+
+          <%= f.check_box :textable, label: 'Textable', autocomplete: 'off' %>
+
 
           <div class="row">
             <div class="col-sm-8">
