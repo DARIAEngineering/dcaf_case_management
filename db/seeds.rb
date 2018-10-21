@@ -45,6 +45,7 @@ Clinic.create! name: 'Sample Clinic without NAF', street_address: '1811 14th Str
                  primary_phone: "123-123-123#{i}",
                  initial_call_date: 3.days.ago,
                  urgent_flag: flag,
+                 textable: flag,
                  last_menstrual_period_weeks: (i + 1 * 2),
                  last_menstrual_period_days: 3,
                  created_by: user2
@@ -392,7 +393,7 @@ end
   # Patient 1 drops off immediately
   next if patient_number.odd?
 
-  # We reach Patient 2 
+  # We reach Patient 2
   patient.update!(
     # header info - hand filled in
     appointment_date: 630.days.ago,
