@@ -57,5 +57,37 @@ class ClinicTest < ActiveSupport::TestCase
         assert_equal @clinic.display_location, 'Washington, DC'
       end
     end
+
+    describe 'full address' do
+      it 'should return an address all fields are present' do
+        [:street_address, :city, :state, :zip].each do |attr|
+          stowed_attribute = @clinic[attr]
+          @clinic[attr] = nil
+          assert_nil @clinic.full_address
+          @clinic[attr] = stowed_attribute
+        end
+
+        assert_equal @clinic.full_address,
+                     '123 Fake Street, Washington, DC 20011'
+      end
+    end
+  end
+
+  describe 'callbacks' do
+    describe 'updating coordinates when address changes' do
+      before { @cached_api_key = ENV['GOOGLE_GEO_API_KEY'] }
+      after { ENV['GOOGLE_GEO_API_KEY'] = @cached_api_key }
+
+      it 'should update coordinates on address change' do
+        ENV['GOOGLE_GEO_API_KEY'] = '123'
+        fake_geo = OpenStruct.new lat: 38.8976633, lng: 77.0365739
+        Geokit::Geocoders::GoogleGeocoder.stub :geocode, fake_geo do
+          @clinic.update city: 'Arlington'
+        end
+
+        assert_equal [fake_geo.lat, fake_geo.lng],
+                     @clinic.coordinates
+      end
+    end
   end
 end
