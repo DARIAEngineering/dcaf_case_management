@@ -20,7 +20,12 @@ module PatientsHelper
   end
 
   def referred_by_options
-    standard_options = [[nil]]
+    standard_options = [nil, 'Clinic', 'Crime victim advocacy center',
+     "#{FUND} website or social media",
+     'Domestic violence crisis/intervention org', 'Family member', 'Friend',
+     'Google/Web search', 'Homeless shelter', 'Legal clinic', 'NAF', 'NNAF',
+     'Other abortion fund', 'Previous patient', 'School',
+     'Sexual assault crisis org', 'Youth outreach']
     standard_options + Config.find_or_create_by(config_key: 'referred_by').options
   end
 
