@@ -179,7 +179,8 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
-      select 'Text preferred', from: 'patient_voicemail_preference'
+      select 'Voicemail OK', from: 'patient_voicemail_preference'
+      check 'Textable'
       wait_for_ajax
 
       select 'Spanish', from: 'patient_language'
@@ -212,7 +213,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'County', with: 'Wash'
-        assert_equal 'text', find('#patient_voicemail_preference').value
+        assert_equal 'yes', find('#patient_voicemail_preference').value
         assert_equal 'Spanish', find('#patient_language').value
 
         assert_equal 'Part-time', find('#patient_employment_status').value
@@ -225,6 +226,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert_equal 'Spanish', find('#patient_language').value
         assert has_checked_field? 'Homelessness'
         assert has_checked_field? 'Prison'
+        assert has_checked_field? 'Textable'
         assert has_no_css? '#patient_line'
       end
     end
