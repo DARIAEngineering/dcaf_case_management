@@ -84,6 +84,7 @@
           <%= f.select :referred_by,
                        options_for_select(referred_by_options,
                                           patient.referred_by),
+                                          label: "How patient heard about #{FUND}",
                                           autocomplete: 'off' %>
 
 
