@@ -4,15 +4,20 @@
 [![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 
-[A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@test.com, Pass: P4ssword
+To see a demo, please visit [this site](https://sandbox.dcabortionfund.org/)
+
+User: test@test.com
+
+Pass: P4ssword
 
 ## Next major project milestone: Sharing with other funds
 
 Major new feature development on this project has more or less drawn to a close. Our general administration/maintenance plan is [here](docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md). If you are an abortion fund interested in whether this would work for you, hit us up and let us know!
 
-## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
+## Communicating/Interacting with us
 
-[Join via the Code for DC website](https://codefordc.org/resources/slack.html).
+* Come hang out with us on [slack!](https://codefordc.slack.com/messages/dcaf_case_management)
+* Join via the [_Code for DC_](https://codefordc.org/resources/slack.html) website.
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?
 
@@ -23,7 +28,7 @@ This project is a case management system for the [DC Abortion Fund](http://dcabo
 
 Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. This app replaces that with a nice, clean, useable and shareable rails system that ditches spreadsheets forever! This lets DCAF and other funds continue to operate at a fast pace, and prevents volunteers from getting frustrated with shared Excel sheets.
 
-In addition, other abortion funds doing similar work in other places can adopt this system to their use. We have a 
+In addition, other abortion funds doing similar work in other places can adopt this system to their use. We have a
 
 Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](docs/DCAF_101.md), reading the [Code of Conduct](CODE_OF_CONDUCT.md), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files). You can also check out [some of the other buzz](docs/PRESS.md).
 
@@ -48,11 +53,11 @@ Feel free to hit any of us up with questions about the project, we're nice!
 * Post in an issue when you're starting work on something, so @colinxfleming can keep track of it and so we don't duplicate work
 * We <3 new people and beginners
 
-### [If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](docs/YOUR_FIRST_CONTRIBUTION.md)
+### If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions [here](docs/YOUR_FIRST_CONTRIBUTION.md).
 
 ### Setting Stuff Up
 
-[We have detailed instructions on how to get started here!](docs/SETUP.md)
+We have detailed instructions on how to get started [here](docs/SETUP.md)!
 
 If you have any trouble getting things set up, please ping us in Slack!
 
