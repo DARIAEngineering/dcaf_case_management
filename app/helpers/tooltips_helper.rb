@@ -72,4 +72,8 @@ module TooltipsHelper
       particular clinic.
     TEXT
   end
+
+  def mandatory_ultrasound_help_text
+    'State of VA requires since 2012 people seeking abortions to complete ultrasounds!'
+  end
 end

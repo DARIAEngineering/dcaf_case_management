@@ -162,6 +162,21 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
       end
     end
+
+    it 'should toggle visibility of ultrasound checkbox based on state' do
+      click_link 'Patient Information'
+      select 'MD', from: 'patient_line'
+      click_link 'Abortion Information'
+      assert has_no_css? 'Ultrasound completed?'
+
+      click_link 'Patient Information'
+      select 'VA', from: 'patient_line'
+      click_link 'Abortion Information'
+      assert has_unchecked_field? 'Ultrasound completed?'
+
+      check 'Ultrasound completed?'
+      assert has_checked_field? 'Ultrasound completed?'
+    end
   end
 
   describe 'changing patient information' do

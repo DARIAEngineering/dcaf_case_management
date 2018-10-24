@@ -65,6 +65,12 @@
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
           <div class="col-sm-6">
             <%= f.number_field :procedure_cost, label: 'Abortion cost', autocomplete: 'off', prepend: '$' %>
+            <div class="form-group">
+              <%= f.check_box :completed_ultrasound,
+                              label: 'Ultrasound completed?',
+                              label_class: 'tooltip-header-checkbox',
+                              data: { 'tooltip-text': mandatory_ultrasound_help_text } %>
+            </div>
             <div class="info-form-left form-group outstanding-balance-ctn hidden">
               <label class="control-label">Outstanding Balance</label>
               <div id="outstanding-balance"></div>
