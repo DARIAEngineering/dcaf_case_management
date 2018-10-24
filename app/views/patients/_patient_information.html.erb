@@ -21,7 +21,7 @@
                                           patient.race_ethnicity),
                                           label: 'Race / Ethnicity',
                                           autocomplete: 'off' %>
-                                          
+
           <%= f.form_group :language do %>
             <%= f.select :language,
                        options_for_select(language_options,
@@ -109,6 +109,8 @@
                               checked: patient.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>
             </div>
           <% end %>
+
+          <%= f.check_box :audited, label: 'Has patient fulfillment been audited?' %>
         </div>
       </div>
     </div>

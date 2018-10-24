@@ -94,6 +94,7 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
+  field :audited, type: Boolean, default: false
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
@@ -110,6 +111,7 @@ class Patient
             :initial_call_date,
             :created_by_id,
             :line,
+            :audited,
             presence: true
   validates :primary_phone, format: /\d{10}/,
                             length: { is: 10 }
