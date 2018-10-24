@@ -111,6 +111,8 @@
                               checked: patient.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>
             </div>
           <% end %>
+
+          <%= f.check_box :audited, label: 'Has patient fulfillment been audited?' %>
         </div>
       </div>
     </div>

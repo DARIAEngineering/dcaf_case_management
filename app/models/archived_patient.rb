@@ -7,6 +7,8 @@ class ArchivedPatient
   # Concerns
   include Exportable
 
+  before_save :check_if_audited
+
   # Relationships
   belongs_to :clinic
   embeds_one :fulfillment
@@ -142,5 +144,12 @@ class ArchivedPatient
 
     archived_patient.save!
     archived_patient
+  end
+end
+
+# check if a patient has been audited; allow them to be archived if they were NOT audited but were created more than two years ago
+def check_if_audited
+  unless self.audited
+    self.created_at > 2.years.ago ? true : false
   end
 end
