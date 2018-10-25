@@ -8,11 +8,11 @@ jobs:
     docker:
       - image: circleci/ruby:2.5.3-node-browsers
         environment:
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
-          BUNDLE_PATH: vendor/bundle
+          # BUNDLE_JOBS: 3
+          # BUNDLE_RETRY: 3
+          # BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
-          TESTOPTS: "--ci-dir=test-results"
+          # TESTOPTS: "--ci-dir=test-results"
       - image: circleci/mongo:latest
     steps:
       - checkout
