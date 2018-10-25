@@ -94,6 +94,7 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
+  field :textable, type: Boolean
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
