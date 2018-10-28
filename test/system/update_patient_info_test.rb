@@ -122,6 +122,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       select @clinic.name, from: 'patient_clinic_id'
       check 'Resolved without assistance from DCAF'
       check 'Referred to clinic'
+      check 'Ultrasound completed?'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
@@ -154,6 +155,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
         assert has_checked_field?('Resolved without assistance from DCAF')
         assert has_checked_field?('Referred to clinic')
+        assert has_checked_field?('Ultrasound completed?')
 
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
@@ -161,21 +163,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'DCAF pledge', with: '25'
         assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
       end
-    end
-
-    it 'should toggle visibility of ultrasound checkbox based on state' do
-      click_link 'Patient Information'
-      select 'MD', from: 'patient_line'
-      click_link 'Abortion Information'
-      assert has_no_css? 'Ultrasound completed?'
-
-      click_link 'Patient Information'
-      select 'VA', from: 'patient_line'
-      click_link 'Abortion Information'
-      assert has_unchecked_field? 'Ultrasound completed?'
-
-      check 'Ultrasound completed?'
-      assert has_checked_field? 'Ultrasound completed?'
     end
   end
 
