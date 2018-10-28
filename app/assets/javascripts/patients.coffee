@@ -58,11 +58,6 @@ $(document).on 'turbolinks:load', ->
   $(document).on "change", ".edit_patient", ->
     $(this).submit()
 
-  # Toggle visibility of "Ultrasound completed?" checkbox based on selected state
-  $('[href="#abortion_information"]').click ->
-    ultrasoundCheckbox = $('[for="patient_completed_ultrasound"]')
-    if($('#patient_line')[0].value != 'VA') then ultrasoundCheckbox.hide() else ultrasoundCheckbox.show()
-
   $(document).on "change", "#pledge_fulfillment_form", ->
     markFulfilledWhenFieldsChecked()
     $(this).submit()

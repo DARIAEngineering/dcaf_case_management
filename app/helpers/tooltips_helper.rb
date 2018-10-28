@@ -74,6 +74,6 @@ module TooltipsHelper
   end
 
   def mandatory_ultrasound_help_text
-    'State of VA requires since 2012 people seeking abortions to complete ultrasounds!'
+    'If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.'
   end
 end
