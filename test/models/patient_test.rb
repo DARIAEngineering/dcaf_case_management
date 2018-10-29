@@ -746,6 +746,12 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'archived_in_datetime' do
+    it 'returns archvie datetime' do
+      assert_equal @patient.archived_in_datetime, @patient.initial_call_date + 1.year
+    end
+  end
+
   def patient_to_hash(patient)
     {
       fund_pledge: patient.fund_pledge,
