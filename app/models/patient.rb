@@ -252,6 +252,10 @@ class Patient
     !!has_circumstance
   end
 
+  def archived_in_datetime
+    initial_call_date + 1.year
+  end
+
   private
 
   def confirm_appointment_after_initial_call
