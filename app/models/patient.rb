@@ -82,6 +82,7 @@ class Patient
   field :special_circumstances, type: Array, default: []
   field :referred_by, type: String
   field :referred_to_clinic, type: Boolean
+  field :completed_ultrasound, type: Boolean
 
   # Status and pledge related fields
   field :appointment_date, type: Date

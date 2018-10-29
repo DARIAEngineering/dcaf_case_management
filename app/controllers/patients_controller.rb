@@ -118,7 +118,7 @@ class PatientsController < ApplicationController
   ].freeze
 
   ABORTION_INFORMATION_PARAMS = [
-    :clinic_id, :resolved_without_fund, :referred_to_clinic,
+    :clinic_id, :resolved_without_fund, :referred_to_clinic, :completed_ultrasound,
     :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge
   ].freeze
 

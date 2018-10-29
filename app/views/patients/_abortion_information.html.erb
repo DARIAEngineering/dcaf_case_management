@@ -38,6 +38,10 @@
                               label: 'Referred to clinic',
                               label_class: 'tooltip-header-checkbox',
                               data: { 'tooltip-text': referred_to_clinic_help_text } %>
+              <%= f.check_box :completed_ultrasound,
+                              label: 'Ultrasound completed?',
+                              label_class: 'tooltip-header-checkbox',
+                              data: { 'tooltip-text': mandatory_ultrasound_help_text } %>
             </div>
           </div>
         <% end %>
