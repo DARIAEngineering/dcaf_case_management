@@ -232,6 +232,19 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       end
     end
 
+    describe 'persist textable? checkbox' do
+      before do
+        check 'Textable?'
+        click_away_from_field
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
+      end
+
+      it 'should update phone' do
+        assert has_checked_field? 'Homelessness'
+      end
+    end
+
     describe 'changing ADMIN patient information' do
       before do
         @admin = create :user, role: :admin
