@@ -29,7 +29,7 @@ class Patient
   before_update :update_pledge_sent_by_sent_at
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
-  after_create :calculate_date_to_be_archived
+  before_save :calculate_date_to_be_archived
   after_update :confirm_still_urgent, if: :urgent_flag?
   after_destroy :destroy_associated_events
 
@@ -255,6 +255,11 @@ class Patient
     !!has_circumstance
   end
 
+  # check if a patient is long past waiting for audit
+  def obsolete?
+    self.initial_call_date < 2.years.ago ? true : false
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -299,15 +304,7 @@ class Patient
   end
 
   def calculate_date_to_be_archived
-    self.archive_date = self.initial_call_date + 1.year
+    self.archive_date = initial_call_date + 1.year
   end
 
-  # check if a patient has been audited
-  def audited_or_obsolete?
-    unless self.audited
-      # allow them to be archived if they were NOT audited but were created more than two years ago
-      self.initial_call_date < 2.years.ago ? true : false
-    end
-    self.audited # TODO do I need this?
-  end
 end

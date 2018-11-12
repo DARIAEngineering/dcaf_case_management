@@ -112,19 +112,15 @@ class ArchivedPatientTest < ActiveSupport::TestCase
 
   describe 'archive_unaudited_two_year_ago_patients' do
     before do
-      @patient_old = create :patient, primary_phone: '222-222-3333',
-                                      other_phone: '222-222-4444',
-                                      initial_call_date: 600.days.ago,
-                                      audited: true
       @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
                                       initial_call_date: 900.days.ago,
                                       audited: false
     end
 
-    it 'should convert year+ old, audited patient and 2 year+ old unaudited patients to archive patients' do
-       assert_difference 'ArchivedPatient.all.count', 2 do
-        assert_difference 'Patient.all.count', -2 do
+    it 'should convert 2 year+ old unaudited patient to archive patient' do
+       assert_difference 'ArchivedPatient.all.count', 1 do
+        assert_difference 'Patient.all.count', -1 do
           ArchivedPatient.archive_todays_patients!
         end
        end

@@ -75,7 +75,7 @@ class ArchivedPatient
   # from two plus years ago
   def self.archive_todays_patients!
     Patient.where(:archive_date.lte => Date.today).each do |patient|
-      if (patient.audited_or_obsolete?)
+      if (patient.audited? or patient.obsolete?)
         ArchivedPatient.convert_patient(patient)
         patient.destroy!
       end
