@@ -29,6 +29,7 @@ class Patient
   before_update :update_pledge_sent_by_sent_at
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
+  after_create :calculate_date_to_be_archived
   after_update :confirm_still_urgent, if: :urgent_flag?
   after_destroy :destroy_associated_events
 
@@ -97,6 +98,7 @@ class Patient
   field :pledge_sent_at, type: Time
   field :textable, type: Boolean
   field :audited, type: Boolean, default: false
+  field :archive_date, type: Date
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
@@ -113,7 +115,6 @@ class Patient
             :initial_call_date,
             :created_by_id,
             :line,
-            :audited,
             presence: true
   validates :primary_phone, format: /\d{10}/,
                             length: { is: 10 }
@@ -254,10 +255,6 @@ class Patient
     !!has_circumstance
   end
 
-  def archived_in_datetime
-    initial_call_date + 1.year
-  end
-
   private
 
   def confirm_appointment_after_initial_call
@@ -299,5 +296,18 @@ class Patient
   def self.fulfilled_on_or_before(datetime)
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
+  end
+
+  def calculate_date_to_be_archived
+    self.archive_date = self.initial_call_date + 1.year
+  end
+
+  # check if a patient has been audited
+  def audited_or_obsolete?
+    unless self.audited
+      # allow them to be archived if they were NOT audited but were created more than two years ago
+      self.initial_call_date < 2.years.ago ? true : false
+    end
+    self.audited # TODO do I need this?
   end
 end

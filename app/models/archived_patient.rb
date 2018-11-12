@@ -7,8 +7,6 @@ class ArchivedPatient
   # Concerns
   include Exportable
 
-  before_save :check_if_audited
-
   # Relationships
   belongs_to :clinic
   embeds_one :fulfillment
@@ -73,19 +71,14 @@ class ArchivedPatient
 
   mongoid_userstamp user_model: 'User'
 
-  # Archive & Delete patients who have fallen out of contact
-  def self.archive_dropped_off_patients!
-    Patient.where(:initial_call_date.lte => 1.year.ago).each do |patient|
-      ArchivedPatient.convert_patient(patient)
-      patient.destroy!
-    end
-  end
-
-  # Archive & Delete patients who are completely through our process
-  def self.archive_fulfilled_patients!
-    Patient.fulfilled_on_or_before(120.days.ago).each do |patient|
-      ArchivedPatient.convert_patient(patient)
-      patient.destroy!
+  # Archive & delete audited patients who called a year or more ago, or any
+  # from two plus years ago
+  def self.archive_todays_patients!
+    Patient.where(:archive_date.lte => today()).each do |patient|
+      if (patient.audited_or_obsolete?) {
+        ArchivedPatient.convert_patient(patient)
+        patient.destroy!
+      }
     end
   end
 
@@ -144,12 +137,5 @@ class ArchivedPatient
 
     archived_patient.save!
     archived_patient
-  end
-end
-
-# check if a patient has been audited; allow them to be archived if they were NOT audited but were created more than two years ago
-def check_if_audited
-  unless self.audited
-    self.created_at > 2.years.ago ? true : false
   end
 end

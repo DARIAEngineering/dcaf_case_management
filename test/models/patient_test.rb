@@ -40,6 +40,13 @@ class PatientTest < ActiveSupport::TestCase
       refute_nil @new_patient.fulfillment
     end
 
+    it 'should init an archive date after creation' do
+      assert_nil @new_patient.archive_date
+      @new_patient.save
+      @new_patient.reload
+      refute_nil @new_patient.archive_date
+    end
+
   end
 
   describe 'validations' do
@@ -743,12 +750,6 @@ class PatientTest < ActiveSupport::TestCase
         @patient.language = 'Spanish'
           assert_equal @patient.preferred_language, 'Spanish'
       end
-    end
-  end
-
-  describe 'archived_in_datetime' do
-    it 'returns archvie datetime' do
-      assert_equal @patient.archived_in_datetime, @patient.initial_call_date + 1.year
     end
   end
 
