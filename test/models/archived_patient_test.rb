@@ -9,7 +9,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
     create_language_config
     @archived_patient = create :archived_patient, line: 'DC',
-                                initial_call_date: 400.days.ago,
+                                initial_call_date: 200.days.ago,
                                 created_by_id: @user.id
   end
 
