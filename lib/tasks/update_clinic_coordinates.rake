@@ -4,6 +4,7 @@ namespace :clinics do
     raise 'Please set an env var GOOGLE_GEO_API_KEY before you do this' unless ENV['GOOGLE_GEO_API_KEY']
     Clinic.all.each do |clinic|
       clinic.update_coordinates
+      clinic.save
     end
   end
 end
