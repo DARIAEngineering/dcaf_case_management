@@ -110,8 +110,8 @@ class PatientsController < ApplicationController
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
-    :line, :age, :race_ethnicity, :language,
-    :voicemail_preference, :city, :state, :county, :zip, :other_contact, :other_phone,
+    :line, :age, :race_ethnicity, :language, :voicemail_preference, :textable,
+    :city, :state, :county, :zip, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
     special_circumstances: []
