@@ -15,6 +15,7 @@ class Fulfillment
   field :procedure_cost, type: Integer
   field :check_number, type: String
   field :date_of_check, type: Date
+  field :audited, type: Boolean
 
   # Validations
   validates :created_by_id,

@@ -38,7 +38,7 @@ class AuditTrailTest < ActiveSupport::TestCase
 
     it 'should conveniently render changed fields' do
       assert_equal @track.changed_fields,
-                   ["Name", "Primary phone", "Appointment date", "Initial call date", "Identifier", "Archive date"]
+                   ["Name", "Primary phone", "Appointment date", "Initial call date", "Identifier"]
     end
 
     it 'should conveniently render what they were before' do
@@ -47,8 +47,7 @@ class AuditTrailTest < ActiveSupport::TestCase
                      "1112223333",
                      (Time.zone.now + 5.days).display_date,
                      (Time.zone.now + 3.days).display_date,
-                     "D2-3333",
-                     (Time.zone.now + 3.days + 1.year).display_date]
+                     "D2-3333"]
     end
 
     it 'should conveniently render what they are now' do
@@ -57,8 +56,7 @@ class AuditTrailTest < ActiveSupport::TestCase
                     "1234569999",
                     (Time.zone.now + 10.days).display_date,
                     (Time.zone.now + 4.days).display_date,
-                    "D6-9999",
-                     (Time.zone.now + 3.days + 1.year).display_date]
+                    "D6-9999"]
     end
 
     it 'should default to System if it cannot find a user' do

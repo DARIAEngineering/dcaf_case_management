@@ -29,7 +29,6 @@ class Patient
   before_update :update_pledge_sent_by_sent_at
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
-  before_save :calculate_date_to_be_archived
   after_update :confirm_still_urgent, if: :urgent_flag?
   after_destroy :destroy_associated_events
 
@@ -97,8 +96,6 @@ class Patient
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
   field :textable, type: Boolean
-  field :audited, type: Boolean, default: false
-  field :archive_date, type: Date
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
@@ -255,9 +252,12 @@ class Patient
     !!has_circumstance
   end
 
-  # check if a patient is long past waiting for audit
-  def obsolete?
-    self.initial_call_date < 2.years.ago ? true : false
+  def archive_date
+    if fulfillment.audited?
+      initial_call_date + 3.months
+    else
+      initial_call_date + 1.year
+    end
   end
 
   private
@@ -301,10 +301,6 @@ class Patient
   def self.fulfilled_on_or_before(datetime)
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
-  end
-
-  def calculate_date_to_be_archived
-    self.archive_date = initial_call_date + 1.year
   end
 
 end

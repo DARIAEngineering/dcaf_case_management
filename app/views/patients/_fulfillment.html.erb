@@ -42,7 +42,15 @@
           <% end %>
         </div>
       </div>
+      <h3>Auditing</h3>
       <div class="row">
+        <div class="col-sm-12">
+          <%= f.fields_for patient.fulfillment do |pt| %>
+            <%= pt.form_group :audited do %>
+              <%= pt.check_box :audited, label: 'Fulfillment audited?', autocomplete: 'off' %>
+            <% end %>
+          <% end %>
+        </div>
         <div class="col-sm-12">
           <p>Patient will be archived on <%= patient.archive_date %>
         </div>

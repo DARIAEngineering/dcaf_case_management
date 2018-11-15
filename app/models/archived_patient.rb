@@ -74,8 +74,8 @@ class ArchivedPatient
   # Archive & delete audited patients who called a year or more ago, or any
   # from two plus years ago
   def self.archive_todays_patients!
-    Patient.where(:archive_date.lte => Date.today).each do |patient|
-      if (patient.audited? or patient.obsolete?)
+    Patient.all.each do |patient|
+      if ( patient.archive_date < Date.today )
         ArchivedPatient.convert_patient(patient)
         patient.destroy!
       end

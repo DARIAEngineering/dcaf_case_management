@@ -89,16 +89,15 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
   end
 
-  # TODO still valid, revamp for new func, audited + 1-2 yrs old
-  describe 'archive_audited_year_ago_patients' do
+  describe 'archive_audited_under_year_ago_patients' do
     before do
       @patient_old = create :patient, primary_phone: '222-222-3333',
                                       other_phone: '222-222-4444',
-                                      initial_call_date: 600.days.ago,
+                                      initial_call_date: 120.days.ago,
                                       audited: true
       @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
-                                      initial_call_date: 600.days.ago
+                                      initial_call_date: 120.days.ago
     end
 
     it 'should convert year+ old, audited patient to archive patient' do
@@ -110,11 +109,11 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'archive_unaudited_two_year_ago_patients' do
+  describe 'archive_unaudited_year_ago_patients' do
     before do
       @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
-                                      initial_call_date: 900.days.ago,
+                                      initial_call_date: 370.days.ago,
                                       audited: false
     end
 
