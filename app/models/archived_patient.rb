@@ -71,8 +71,8 @@ class ArchivedPatient
 
   mongoid_userstamp user_model: 'User'
 
-  # Archive & delete audited patients who called a year or more ago, or any
-  # from two plus years ago
+  # Archive & delete audited patients who called a seveeral months ago, or any
+  # from a year plus ago
   def self.archive_todays_patients!
     Patient.all.each do |patient|
       if ( patient.archive_date < Date.today )

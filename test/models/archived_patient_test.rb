@@ -89,19 +89,30 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'archive_audited_under_year_ago_patients' do
+  describe 'archive_audited_patients' do
     before do
-      @patient_old = create :patient, primary_phone: '222-222-3333',
+      @patient_audited = create :patient, primary_phone: '222-222-3333',
                                       other_phone: '222-222-4444',
-                                      initial_call_date: 120.days.ago,
-                                      audited: true
-      @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
+                                      initial_call_date: 30.days.ago
+      @patient_audited.update fulfillment: { audited: true }
+      @patient_audited.save!
+
+      @patient_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
                                       initial_call_date: 120.days.ago
     end
 
-    it 'should convert year+ old, audited patient to archive patient' do
-       assert_difference 'ArchivedPatient.all.count', 1 do
+    it 'should not convert thirty day old, audited patient to archive patient' do
+      assert_difference 'ArchivedPatient.all.count', 0 do
+        assert_difference 'Patient.all.count', 0 do
+          ArchivedPatient.archive_todays_patients!
+        end
+      end
+    end
+    it 'should convert four months old, audited patient to archive patient' do
+      @patient_audited.update initial_call_date: 120.days.ago
+      @patient_audited.save!
+      assert_difference 'ArchivedPatient.all.count', 1 do
         assert_difference 'Patient.all.count', -1 do
           ArchivedPatient.archive_todays_patients!
         end
@@ -113,8 +124,9 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     before do
       @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
-                                      initial_call_date: 370.days.ago,
-                                      audited: false
+                                      initial_call_date: 370.days.ago
+      @patient_old_unaudited.update fulfillment: { audited: false }
+      @patient_old_unaudited.save!
     end
 
     it 'should convert 2 year+ old unaudited patient to archive patient' do
