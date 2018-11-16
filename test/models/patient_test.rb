@@ -424,11 +424,11 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     describe 'archive_date method' do
-      it 'should return a year if unadited' do
+      it 'should return a year if unaudited' do
         @patient.fulfillment.update audited: false
         assert_equal @patient.initial_call_date + 1.year, @patient.archive_date
       end
-      it 'should return three months if adited' do
+      it 'should return three months if audited' do
         @patient.fulfillment.update audited: true
         assert_equal @patient.initial_call_date + 3.months, @patient.archive_date
       end

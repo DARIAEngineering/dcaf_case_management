@@ -24,7 +24,7 @@ class AuditTrail
   # "HAHA I WIN" if (fields.all?{|f| f.blank? || (f.flatten.all? &:blank? if f.respond_to?('each'))})
 
   def format_dates(hash)
-    for key in ['appointment_date', 'initial_call_date', 'pledge_generated_at', 'archive_date']
+    for key in ['appointment_date', 'initial_call_date', 'pledge_generated_at']
       if hash.has_key? key
         hash[key] = hash[key].display_date
       end
