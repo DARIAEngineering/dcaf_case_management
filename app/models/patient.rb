@@ -82,6 +82,7 @@ class Patient
   field :special_circumstances, type: Array, default: []
   field :referred_by, type: String
   field :referred_to_clinic, type: Boolean
+  field :completed_ultrasound, type: Boolean
 
   # Status and pledge related fields
   field :appointment_date, type: Date
@@ -94,6 +95,7 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
+  field :textable, type: Boolean
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
