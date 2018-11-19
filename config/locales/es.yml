@@ -1,15 +1,15 @@
 es:
   navigation:
-    admintools:
+    admin_tools:
       label: "Herramientas de Administración"
-      usermanagement: "Gestión de Usuarios"
-      clinicmanagement: "Gestión Clínica"
-      configmanagement: "Gestión de la Configuración"
+      user_management: "Gestión de Usuarios"
+      clinic_management: "Gestión Clínica"
+      config_management: "Gestión de la Configuración"
       accounting: "Contabilidad"
       reporting: "Reportando"
       export: "Exportación anónima de CSV"
-    usertools:
+    user_tools:
       label: ""
-      signin: "Registrarse"
+      sign_in: "Registrarse"
       profile: "Mi Perfil"
-      signout: "Desconectar"
+      sign_out: "Desconectar"

@@ -1,15 +1,15 @@
 en:
   navigation:
-    admintools:
+    admin_tools:
       label: "Admin Tools"
-      usermanagement: "User Management"
-      clinicmanagement: "Clinic Management"
-      configmanagement: "Config Management"
+      user_management: "User Management"
+      clinic_management: "Clinic Management"
+      config_management: "Config Management"
       accounting: "Accounting"
       reporting: "Reporting"
       export: "Export anonymized CSV"
-    usertools:
+    user_tools:
       label: ""
-      signin: "Sign In"
+      sign_in: "Sign In"
       profile: "My Profile"
-      signout: "Sign Out"
+      sign_out: "Sign Out"
