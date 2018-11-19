@@ -1,5 +1,9 @@
 en:
   navigation:
+    cm_resources:
+      label: "CM Resources"
+    current_line:
+      helper: "Your current line"
     admin_tools:
       label: "Admin Tools"
       user_management: "User Management"

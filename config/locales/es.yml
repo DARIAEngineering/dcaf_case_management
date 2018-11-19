@@ -1,5 +1,9 @@
 es:
   navigation:
+    cm_resources:
+      label: "Recursos del Administrador de Casos"
+    current_line:
+      helper: "Tu linea actual"
     admin_tools:
       label: "Herramientas de Administración"
       user_management: "Gestión de Usuarios"
@@ -9,7 +13,6 @@ es:
       reporting: "Reportando"
       export: "Exportación anónima de CSV"
     user_tools:
-      label: ""
       sign_in: "Registrarse"
       profile: "Mi Perfil"
       sign_out: "Desconectar"
