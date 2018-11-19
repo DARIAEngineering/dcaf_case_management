@@ -5,7 +5,7 @@ en:
     current_line:
       helper: "Your current line"
     admin_tools:
-      label: "Admin Tools"
+      label: "Admin tools"
       user_management: "User Management"
       clinic_management: "Clinic Management"
       config_management: "Config Management"
@@ -13,7 +13,6 @@ en:
       reporting: "Reporting"
       export: "Export anonymized CSV"
     user_tools:
-      label: ""
       sign_in: "Sign In"
       profile: "My Profile"
       sign_out: "Sign Out"
