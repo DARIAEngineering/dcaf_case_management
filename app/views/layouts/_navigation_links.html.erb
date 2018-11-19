@@ -9,20 +9,20 @@
 
 <ul class="nav navbar-nav navbar-right">
   <% if !user_signed_in? %>
-    <li><%= link_to 'Sign in', new_user_session_path %></li>
+    <li><%= link_to t('navigation.usertools.signin'), new_user_session_path %></li>
   <% else %>
     <% if current_user.admin? || current_user.data_volunteer? %>
       <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin tools<b class="caret"></b></a>
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= t('navigation.admintools.label') %><b class="caret"></b></a>
         <ul class="dropdown-menu">
           <% if current_user.admin? %>
-            <li><%= link_to 'User Management', users_path %></li>
-            <li><%= link_to 'Clinic Management', clinics_path %></li>
-            <li><%= link_to 'Config Management', configs_path %></li>
+            <li><%= link_to t('navigation.admintools.usermanagement'), users_path %></li>
+            <li><%= link_to t('navigation.admintools.clinicmanagement'), clinics_path %></li>
+            <li><%= link_to t('navigation.admintools.configmanagement'), configs_path %></li>
           <% end %>
-          <li><%= link_to 'Accounting', accountants_path %></li>
-          <li><%= link_to 'Reporting', reports_path %></li>
-          <li><%= link_to 'Export anonymized CSV', patients_path(format: :csv) %></li>
+          <li><%= link_to t('navigation.admintools.accounting'), accountants_path %></li>
+          <li><%= link_to t('navigation.admintools.reporting'), reports_path %></li>
+          <li><%= link_to t('navigation.admintools.export'), patients_path(format: :csv) %></li>
         </ul>
       </li>
     <% end %>
@@ -30,8 +30,8 @@
     <li class="dropdown">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= current_user.name %><b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><%= link_to 'My Profile', edit_user_registration_path %></li>
-        <li><%= link_to 'Sign Out', destroy_user_session_path, method: 'delete' %></li>
+        <li><%= link_to t('navigation.usertools.profile'), edit_user_registration_path %></li>
+        <li><%= link_to t('navigation.usertools.signout'), destroy_user_session_path, method: 'delete' %></li>
       </ul>
     </li>
   <% end %>
