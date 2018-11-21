@@ -4,13 +4,7 @@
       <li class="navbar-text-alt"><%= current_line_display %></li>
     <% end %>
     <%= cm_resources_link %>
-    <li>
-    <% if I18n.locale == I18n.default_locale %>
-      <%= link_to "Espanol", { :locale=>'es' } %>
-    <% else %>
-      <%= link_to "English", { :locale=>'en' } %></li>
-    <% end %>
-    </li>
+    <%= spanish_or_english_link %>
   <% end %>
 </ul>
 
