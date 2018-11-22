@@ -12,6 +12,6 @@ task nightly_cleanup: :environment do
   Event.destroy_old_events
   puts "#{Time.now} -- destroyed old events"
 
-  ArchivedPatient.archive_todays_patients!
+  ArchivedPatient.archive_eligible_patients!
   puts "#{Time.now} -- archived patients for today"
 end

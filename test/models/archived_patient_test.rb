@@ -105,7 +105,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     it 'should not convert thirty day old, audited patient to archived patient' do
       assert_difference 'ArchivedPatient.all.count', 0 do
         assert_difference 'Patient.all.count', 0 do
-          ArchivedPatient.archive_todays_patients!
+          ArchivedPatient.archive_eligible_patients!
         end
       end
     end
@@ -114,7 +114,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient_audited.save!
       assert_difference 'ArchivedPatient.all.count', 1 do
         assert_difference 'Patient.all.count', -1 do
-          ArchivedPatient.archive_todays_patients!
+          ArchivedPatient.archive_eligible_patients!
         end
        end
     end
@@ -132,7 +132,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     it 'should convert year+ old unaudited patient to archived patient' do
        assert_difference 'ArchivedPatient.all.count', 1 do
         assert_difference 'Patient.all.count', -1 do
-          ArchivedPatient.archive_todays_patients!
+          ArchivedPatient.archive_eligible_patients!
         end
        end
     end

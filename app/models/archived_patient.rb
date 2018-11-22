@@ -73,7 +73,7 @@ class ArchivedPatient
 
   # Archive & delete audited patients who called a several months ago, or any
   # from a year plus ago
-  def self.archive_todays_patients!
+  def self.archive_eligible_patients!
     Patient.all.each do |patient|
       if ( patient.archive_date < Date.today )
         ArchivedPatient.convert_patient(patient)
