@@ -7,10 +7,10 @@ es:
     admin_tools:
       label: "Herramientas de Administración"
       user_management: "Manejo de Usuarios"
-      clinic_management: "Gestión Clínica"
-      config_management: "Gestión de la Configuración"
+      clinic_management: "Manejo de Clínica"
+      config_management: "Configuración"
       accounting: "Contabilidad"
-      reporting: "Reportando"
+      reporting: "Reportes"
       export: "Exportación anónima de CSV"
     user_tools:
       sign_in: "Registrarse"
