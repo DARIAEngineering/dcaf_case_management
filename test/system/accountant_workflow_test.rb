@@ -93,7 +93,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
         assert has_content? "Clinic: #{@clinic.name}"
 
         # And should let you update it
-        fill_in 'Abortion care $', with: '999'
+        fill_in 'DCAF payout', with: '999'
         fill_in 'Check #', with: 'BB8'
         find('h2').click # Click the header to get the field to save
         wait_for_ajax
