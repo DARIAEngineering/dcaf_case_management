@@ -48,7 +48,7 @@ module Exportable
     "Fulfilled" => :fulfilled,
     "Procedure date" => :procedure_date,
     "Gestation at procedure in weeks" => :gestation_at_procedure,
-    "Fund payout amount" => :fund_payout_amount,
+    "Fund payout" => :fund_payout,
     "Check number" => :check_number,
     "Date of Check" => :date_of_check,
 

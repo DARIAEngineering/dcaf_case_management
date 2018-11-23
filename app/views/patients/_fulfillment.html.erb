@@ -25,8 +25,8 @@
         </div>
         <div class="info-form-left col-sm-6">
           <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.number_field :fund_payout_amount,
-                                label: "#{FUND} payout amount",
+            <%= pt.number_field :fund_payout,
+                                label: "#{FUND} payout",
                                 autocomplete: 'off',
                                 prepend: '$'%>
             <%= pt.select :gestation_at_procedure,
