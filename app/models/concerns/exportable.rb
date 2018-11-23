@@ -102,8 +102,8 @@ module Exportable
     fulfillment.try :gestation_at_procedure
   end
 
-  def fund_payout_amount
-    fulfillment.try :fund_payout_amount
+  def fund_payout
+    fulfillment.try :fund_payout
   end
 
   def check_number
