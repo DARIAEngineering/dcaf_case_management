@@ -103,7 +103,7 @@ module Exportable
   end
 
   def procedure_cost_amount
-    fulfillment.try :procedure_cost
+    fulfillment.try :fund_payout_amount
   end
 
   def check_number
@@ -153,27 +153,24 @@ module Exportable
       value
     end
   end
-  
+
   def external_pledge_count
     external_pledges.count
   end
-  
+
   def external_pledge_sum
     sum = 0
     all_pledges = external_pledges.all
-    
+
     all_pledges.each do |pledge|
       sum += pledge.try :amount
     end
     sum
   end
-  
+
   def all_external_pledges
     external_pledges.map { |x| "#{x.source} - #{x.amount}" }.join('; ')
   end
-  
-  
-  
 
   class_methods do
     def csv_header
@@ -181,6 +178,7 @@ module Exportable
         y << CSV.generate_line(CSV_EXPORT_FIELDS.keys, encoding: 'utf-8')
       end
     end
+
     def to_csv
       Enumerator.new do |y|
         each do |export|

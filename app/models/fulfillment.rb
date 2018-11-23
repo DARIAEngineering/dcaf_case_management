@@ -12,7 +12,7 @@ class Fulfillment
   field :fulfilled, type: Boolean
   field :procedure_date, type: Date
   field :gestation_at_procedure, type: String
-  field :procedure_cost, type: Integer
+  field :fund_payout_amount, type: Integer
   field :check_number, type: String
   field :date_of_check, type: Date
 

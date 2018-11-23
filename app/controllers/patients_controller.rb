@@ -124,7 +124,7 @@ class PatientsController < ApplicationController
 
   FULFILLMENT_PARAMS = [
     fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :procedure_cost, :check_number, :date_of_check]
+                  :fund_payout_amount, :check_number, :date_of_check]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
