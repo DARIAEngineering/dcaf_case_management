@@ -293,6 +293,10 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       click_away_from_field
       wait_for_ajax
+
+      check 'Fulfillment audited?'
+      wait_for_ajax
+
       reload_page_and_click_link 'Pledge Fulfillment'
     end
 
@@ -306,6 +310,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
                      find('#patient_fulfillment_gestation_at_procedure').value
         assert has_field? 'DCAF payout', with: 100
         assert has_field? 'Check #', with: '444-22'
+        assert has_checked_field? 'Fulfillment audited?'
 
         # There is something deeply, deeply weird about how capybara enters dates.
         # assert has_field? 'Date of check',
