@@ -18,7 +18,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
     @fulfillment_data = attributes_for :fulfillment, fulfilled: true,
                                                      procedure_date: 1.week.ago,
                                                      gestation_at_procedure: '3 weeks',
-                                                     procedure_cost: 350,
+                                                     fund_payout: 350,
                                                      check_number: 'A103',
                                                      date_of_check: 1.day.ago
     @fulfilled_patient = create :patient, name: 'Thorny Zarha',
@@ -93,7 +93,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
         assert has_content? "Clinic: #{@clinic.name}"
 
         # And should let you update it
-        fill_in 'Abortion care $', with: '999'
+        fill_in 'DCAF payout', with: '999'
         fill_in 'Check #', with: 'BB8'
         find('h2').click # Click the header to get the field to save
         wait_for_ajax
