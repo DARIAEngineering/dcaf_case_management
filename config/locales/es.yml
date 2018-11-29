@@ -1,0 +1,18 @@
+es:
+  navigation:
+    cm_resources:
+      label: "Recursos del Administrador de Casos"
+    current_line:
+      helper: "Tu linea actual"
+    admin_tools:
+      label: "Herramientas de Administración"
+      user_management: "Manejo de Usuarios"
+      clinic_management: "Manejo de Clínica"
+      config_management: "Configuración"
+      accounting: "Contabilidad"
+      reporting: "Reportes"
+      export: "Exportación anónima de CSV"
+    user_tools:
+      sign_in: "Registrarse"
+      profile: "Mi Perfil"
+      sign_out: "Desconectar"

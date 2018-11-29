@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
+  before_action :set_locale
   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) do |user|
       user.permit :name, :current_password, :password, :password_confirmation
     end
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
   end
 
   private
