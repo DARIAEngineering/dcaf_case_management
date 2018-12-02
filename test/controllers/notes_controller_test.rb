@@ -35,43 +35,4 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
       assert_response :bad_request
     end
   end
-
-  # Note: Unimplemented from frontend, but available just in case
-  describe 'update method' do
-    before do
-      @note = create :note, patient: @patient, full_text: 'Original text'
-      @note_edits = attributes_for :note, full_text: 'This is edited text'
-      patch patient_note_path(@patient, @note), params: { note: @note_edits }, xhr: true
-      @note.reload
-    end
-
-    it 'should respond with success' do
-      assert_response :success
-    end
-
-    it 'should update the full_text field' do
-      assert_equal @note.full_text, 'This is edited text'
-    end
-
-    it 'should have an audit trail' do
-      assert_equal @note.history_tracks.count, 2
-      @changes = @note.history_tracks.last
-      assert_equal @changes.modified[:updated_by_id], @user.id
-      assert_equal @changes.modified[:full_text], 'This is edited text'
-    end
-
-    it 'should refuse to save note content to blank' do
-      [nil, ''].each do |bad_text|
-        assert_no_difference '@patient.notes
-                                      .find(@note)
-                                      .history_tracks.count' do
-          @note_edits[:full_text] = bad_text
-          patch patient_note_path(@patient, @note), params: { note: @note_edits }, xhr: true
-          assert_response :bad_request
-          @note.reload
-          assert_equal @note.full_text, 'This is edited text'
-        end
-      end
-    end
-  end
 end
