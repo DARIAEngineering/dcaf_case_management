@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 # Standard rails
-gem 'rails', '>= 5.1'
+gem 'rails', '~> 5.1.6'
 gem 'puma' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
@@ -49,7 +49,6 @@ gem 'geokit' # clinic_finder service lat-lng
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
-gem 'gon', '~> 6.1.0' # render async does this better
 gem 'js-routes' # Not sure if this is used anymore
 gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
 

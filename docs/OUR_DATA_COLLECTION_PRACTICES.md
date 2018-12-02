@@ -31,4 +31,4 @@ However, in the unlikely event that an anonymized export were to leak, we wouldn
 
 ## How long we store it
 
-We store anonymized reporting data indefinitely; personally identifiable fields are wiped after. We're hashing out exact rules but see [this issue](https://github.com/DCAFEngineering/dcaf_case_management/issues/812) for progress.
+We store anonymized reporting data indefinitely; personally identifiable fields are wiped three months after fulfillment auditing. If the fulfillment is never audited, those fields are wiped a year after the initial call date. Details of which fields are conserved can be seen [here](https://github.com/DCAFEngineering/dcaf_case_management/blob/master/app/models/archived_patient.rb#L10), as the objects and fields stored on archived patient.
