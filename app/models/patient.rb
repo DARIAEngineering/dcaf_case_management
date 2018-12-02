@@ -82,6 +82,7 @@ class Patient
   field :special_circumstances, type: Array, default: []
   field :referred_by, type: String
   field :referred_to_clinic, type: Boolean
+  field :completed_ultrasound, type: Boolean
 
   # Status and pledge related fields
   field :appointment_date, type: Date
@@ -94,6 +95,7 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
+  field :textable, type: Boolean
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
@@ -250,6 +252,19 @@ class Patient
     !!has_circumstance
   end
 
+  def archive_date
+    if fulfillment.audited?
+      # If a patient fulfillment is ticked off as audited, archive 3 months
+      # after initial call date. If we're already past 3 months later when
+      # the audit happens, it will archive that night
+      initial_call_date + 3.months
+    else
+      # If a patient is waiting for audit they archive a year after their
+      # initial call date
+      initial_call_date + 1.year
+    end
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -292,4 +307,5 @@ class Patient
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
   end
+
 end

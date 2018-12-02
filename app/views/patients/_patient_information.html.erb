@@ -33,6 +33,7 @@
           <%= f.select :voicemail_preference,
                        options_for_select(voicemail_options,
                                           patient.voicemail_preference) %>
+          <%= f.check_box :textable, label: 'Textable?', checked: patient.textable?  %>
 
           <div class="row">
             <div class="col-sm-8">
@@ -84,6 +85,7 @@
           <%= f.select :referred_by,
                        options_for_select(referred_by_options,
                                           patient.referred_by),
+                                          label: "How patient heard about #{FUND}",
                                           autocomplete: 'off' %>
 
 

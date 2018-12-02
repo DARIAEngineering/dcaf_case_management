@@ -17,7 +17,7 @@ module EventsHelper
     )
     add_link = link_to(
       '(Add to call list)',
-      add_patient_path(current_user, event.patient_id),
+      add_patient_path(event.patient_id),
       method: :patch,
       remote: true
     )
