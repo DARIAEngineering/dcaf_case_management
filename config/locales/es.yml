@@ -19,5 +19,5 @@ es:
   lines:
     new:
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
-      what_line: "¿En qué línea estás trabajando?"
+      what_line: "¿En cuál línea estás trabajando?"
       start: "Empezar"
