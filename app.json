@@ -22,11 +22,6 @@
       "description": "Your fund's hotline number, for display in the footer. e.g. 202-452-7464",
       "value": ""
     },
-    "DARIA_FAX_SERVICE": {
-      "description": "URL of your fax service, for display in the footer. e.g. www.efax.com",
-      "value": "",
-      "required": false
-    },
     "DARIA_GOOGLE_KEY": {
       "description": "from google cloud account for oauth/sign on",
       "value": "",
