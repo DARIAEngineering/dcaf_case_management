@@ -61,7 +61,7 @@ class ActiveSupport::TestCase
 
   def create_fax_service_config
     create :config, config_key: 'fax_service',
-                    config_value: { options: 'www.yolofax.com' }
+                    config_value: { options: ['http://www.yolofax.com'] }
   end
 end
 

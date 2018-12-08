@@ -5,7 +5,7 @@ class FooterHelperTest < ActionView::TestCase
 
   describe 'fax service' do
     it 'should return the config' do
-      assert_equal 'www.yolofax.com', fax_service
+      assert_equal 'http://www.yolofax.com', fax_service
     end
   end
 end
