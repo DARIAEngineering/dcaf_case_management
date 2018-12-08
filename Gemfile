@@ -26,6 +26,7 @@ gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userst
                          branch: 'master' # adds created_by and updated_by timestamps
 gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
+gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.5'
