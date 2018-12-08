@@ -43,10 +43,6 @@ class Config
     config_value[:options]
   end
 
-  def fax_service
-    config_value[:service]
-  end
-
   def help_text
     text = HELP_TEXT_OVERRIDES[config_key.to_sym]
     return text if text
