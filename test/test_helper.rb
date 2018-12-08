@@ -58,6 +58,11 @@ class ActiveSupport::TestCase
     create :config, config_key: 'language',
                     config_value: { options: language_options }
   end
+
+  def create_fax_service_config
+    create :config, config_key: 'fax_service',
+                    config_value: { options: 'www.yolofax.com' }
+  end
 end
 
 # Used by controller tests

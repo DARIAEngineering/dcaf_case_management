@@ -10,8 +10,9 @@
 <div id="app_footer" class="container text-center margin-bottom-sm">
   <a href="http://<%= FUND_DOMAIN %>/"><%= FUND_FULL %></a> -- <a href="tel:<%= FUND_PHONE %>"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <%= FUND_PHONE %></a><br>
 	<a href="https://prochoice.org/">National Abortion Federation</a> -- <a href="tel:800-772-9100"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 800-772-9100</a><br>
-	<%= link_to nil, fax_service, target: '_blank', rel: 'noopener nofollow' %>
-
+	<% if fax_service %>
+		<%= link_to fax_service, fax_service, target: '_blank', rel: 'noopener nofollow' %>
+	<% end %>
 </div><!-- end container -->
 
 <div class="container text-center margin-bottom-sm">

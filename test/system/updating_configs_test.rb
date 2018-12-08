@@ -90,5 +90,18 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         # assert has_text? '13 weeks $100'
       end
     end
+
+    describe 'updating a config - fax service' do
+      it 'should update and be available in the footer' do
+        fill_in 'config_options_fax_service', with: 'metallicarules.com'
+        click_button 'Update options for Fax service'
+
+        assert_equal 'metallicarules.com',
+                     find('#config_options_fax_service').value
+        within :css, '#app_footer' do
+          assert content? 'metallicarules.com'
+        end
+      end
+    end
   end
 end

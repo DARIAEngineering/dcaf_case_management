@@ -12,6 +12,7 @@
 
   <div class="col-md-6" id="<%= config.config_key.to_s %>_options_list">
     <% if Config::HELP_TEXT_OVERRIDES[config.config_key.to_sym] %>
+      <%# no right rail example %>
     <% else %>
       <label>Current options are:</label>
       <br />

@@ -152,7 +152,7 @@ Config.create config_key: :language,
 Config.create config_key: :resources_url,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 Config.create config_key: :fax_service,
-              config_value: { service: 'www.efax.com', number: '222-222-2222' }
+              config_value: { options: ['www.yolofax.com'] }
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have
