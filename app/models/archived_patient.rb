@@ -71,19 +71,14 @@ class ArchivedPatient
 
   mongoid_userstamp user_model: 'User'
 
-  # Archive & Delete patients who have fallen out of contact
-  def self.archive_dropped_off_patients!
-    Patient.where(:initial_call_date.lte => 1.year.ago).each do |patient|
-      ArchivedPatient.convert_patient(patient)
-      patient.destroy!
-    end
-  end
-
-  # Archive & Delete patients who are completely through our process
-  def self.archive_fulfilled_patients!
-    Patient.fulfilled_on_or_before(120.days.ago).each do |patient|
-      ArchivedPatient.convert_patient(patient)
-      patient.destroy!
+  # Archive & delete audited patients who called a several months ago, or any
+  # from a year plus ago
+  def self.archive_eligible_patients!
+    Patient.all.each do |patient|
+      if ( patient.archive_date < Date.today )
+        ArchivedPatient.convert_patient(patient)
+        patient.destroy!
+      end
     end
   end
 

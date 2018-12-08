@@ -9,7 +9,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
     create_language_config
     @archived_patient = create :archived_patient, line: 'DC',
-                                initial_call_date: 400.days.ago,
+                                initial_call_date: 200.days.ago,
                                 created_by_id: @user.id
   end
 
@@ -89,47 +89,53 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'archive_dropped_off_patients' do
+  describe 'archive_audited_patients' do
     before do
-      @patient_old = create :patient, primary_phone: '222-222-3333',
+      @patient_audited = create :patient, primary_phone: '222-222-3333',
                                       other_phone: '222-222-4444',
-                                      initial_call_date: 600.days.ago
+                                      initial_call_date: 30.days.ago
+      @patient_audited.update fulfillment: { audited: true }
+      @patient_audited.save!
+
+      @patient_unaudited = create :patient, primary_phone: '564-222-3333',
+                                      other_phone: '222-222-9074',
+                                      initial_call_date: 120.days.ago
     end
 
-    it 'should convert dropped off patient to archive patient' do
-       assert_difference 'ArchivedPatient.all.count', 1 do
+    it 'should not convert thirty day old, audited patient to archived patient' do
+      assert_difference 'ArchivedPatient.all.count', 0 do
+        assert_difference 'Patient.all.count', 0 do
+          ArchivedPatient.archive_eligible_patients!
+        end
+      end
+    end
+    it 'should convert four months old, audited patient to archived patient' do
+      @patient_audited.update initial_call_date: 120.days.ago
+      @patient_audited.save!
+      assert_difference 'ArchivedPatient.all.count', 1 do
         assert_difference 'Patient.all.count', -1 do
-          ArchivedPatient.archive_dropped_off_patients!
+          ArchivedPatient.archive_eligible_patients!
         end
        end
     end
   end
 
-
-  describe 'archive_fulfilled_patients' do
+  describe 'archive_unaudited_year_ago_patients' do
     before do
-      @patient_fulfilled = create :patient, primary_phone: '222-222-3334',
-                                            other_phone: '222-222-4443',
-                                            initial_call_date: 310.days.ago
-
-      @patient_fulfilled.update updated_at: 290.days.ago,
-                                fulfillment: { fulfilled: true }
-      @patient_fulfilled.save!
-
-      @patient_fulfilled2 = create :patient, primary_phone: '222-212-3334',
-                                             other_phone: '222-222-4443',
-                                             initial_call_date: 310.days.ago
-      @patient_fulfilled2.update updated_at: 291.days.ago,
-                                 fulfillment: { fulfilled: true }
-      @patient_fulfilled2.save!
+      @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
+                                      other_phone: '222-222-9074',
+                                      initial_call_date: 370.days.ago
+      @patient_old_unaudited.update fulfillment: { audited: false }
+      @patient_old_unaudited.save!
     end
 
-    it 'should convert fulfilled patients to archive patients' do
-      assert_difference 'ArchivedPatient.all.count', 2 do
-        assert_difference 'Patient.all.count', -2 do
-          ArchivedPatient.archive_fulfilled_patients!
+    it 'should convert year+ old unaudited patient to archived patient' do
+       assert_difference 'ArchivedPatient.all.count', 1 do
+        assert_difference 'Patient.all.count', -1 do
+          ArchivedPatient.archive_eligible_patients!
         end
-      end
+       end
     end
   end
+
 end

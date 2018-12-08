@@ -72,4 +72,8 @@ module TooltipsHelper
       particular clinic.
     TEXT
   end
+
+  def mandatory_ultrasound_help_text
+    'If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.'
+  end
 end

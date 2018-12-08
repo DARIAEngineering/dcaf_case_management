@@ -110,21 +110,21 @@ class PatientsController < ApplicationController
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
-    :line, :age, :race_ethnicity, :language,
-    :voicemail_preference, :city, :state, :county, :zip, :other_contact, :other_phone,
+    :line, :age, :race_ethnicity, :language, :voicemail_preference, :textable,
+    :city, :state, :county, :zip, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
     special_circumstances: []
   ].freeze
 
   ABORTION_INFORMATION_PARAMS = [
-    :clinic_id, :resolved_without_fund, :referred_to_clinic,
+    :clinic_id, :resolved_without_fund, :referred_to_clinic, :completed_ultrasound,
     :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge
   ].freeze
 
   FULFILLMENT_PARAMS = [
     fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :procedure_cost, :check_number, :date_of_check]
+                  :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze

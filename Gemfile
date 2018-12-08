@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.3'
 
 # Standard rails
-gem 'rails', '>= 5.1'
+gem 'rails', '~> 5.1.6'
 gem 'puma' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
@@ -26,6 +26,7 @@ gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userst
                          branch: 'master' # adds created_by and updated_by timestamps
 gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
+gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.5'
@@ -45,16 +46,15 @@ gem 'kaminari', '~> 1.1'
 # Specific useful stuff
 gem 'render_async', '< 2.0' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
+gem 'geokit' # clinic_finder service lat-lng
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
-gem 'gon', '~> 6.1.0' # render async does this better
-gem 'geokit' # should be included in clinic_finder instead of here
 gem 'js-routes' # Not sure if this is used anymore
 gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
-gem 'loofah', '>= 2.2.1'
+gem 'loofah', '>= 2.2.3'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do

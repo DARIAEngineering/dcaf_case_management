@@ -122,6 +122,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       select @clinic.name, from: 'patient_clinic_id'
       check 'Resolved without assistance from DCAF'
       check 'Referred to clinic'
+      check 'Ultrasound completed?'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
@@ -154,6 +155,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
         assert has_checked_field?('Resolved without assistance from DCAF')
         assert has_checked_field?('Referred to clinic')
+        assert has_checked_field?('Ultrasound completed?')
 
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
@@ -180,6 +182,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       fill_in 'State', with: 'DC'
       fill_in 'County', with: 'Wash'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
+      check 'Textable?'
       wait_for_ajax
 
       select 'Spanish', from: 'patient_language'
@@ -213,6 +216,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'State', with: 'DC'
         assert has_field? 'County', with: 'Wash'
         assert_equal 'yes', find('#patient_voicemail_preference').value
+        assert has_checked_field?('Textable?')
         assert_equal 'Spanish', find('#patient_language').value
 
         assert_equal 'Part-time', find('#patient_employment_status').value
@@ -281,7 +285,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       wait_for_ajax
 
       select '12 weeks', from: 'Weeks along at procedure'
-      fill_in 'Abortion care $', with: '100'
+      fill_in 'DCAF payout', with: '100'
       wait_for_ajax
 
       fill_in 'Check #', with: '444-22'
@@ -289,6 +293,10 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       click_away_from_field
       wait_for_ajax
+
+      check 'Fulfillment audited?'
+      wait_for_ajax
+
       reload_page_and_click_link 'Pledge Fulfillment'
     end
 
@@ -300,8 +308,9 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
                           with: 2.days.from_now.strftime('%Y-%m-%d')
         assert_equal '12',
                      find('#patient_fulfillment_gestation_at_procedure').value
-        assert has_field? 'Abortion care $', with: 100
+        assert has_field? 'DCAF payout', with: 100
         assert has_field? 'Check #', with: '444-22'
+        assert has_checked_field? 'Fulfillment audited?'
 
         # There is something deeply, deeply weird about how capybara enters dates.
         # assert has_field? 'Date of check',
