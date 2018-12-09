@@ -16,6 +16,9 @@ es:
       sign_in: "Registrarse"
       profile: "Mi Perfil"
       sign_out: "Desconectar"
+    footer:
+      national_abortion_federation: "Federación Nacional de Abortos"
+      please_send_feedback: "Por favor envíe sus comentarios o ideas al equipo de programación en"
   lines:
     new:
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
