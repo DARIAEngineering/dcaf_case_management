@@ -21,3 +21,11 @@ en:
       welcome_to_daria: "Welcome to DARIA (%{fund} edition)!"
       what_line: "What line are you working on?"
       start: "Get started"
+  devise:
+    sessions:
+      new:
+        google_signin: "Sign in with Google (recommended)"
+        password_signin: "Or, sign in with a password:"
+        password_submit: "Sign in with password"
+        email: "Email"
+        password: "Password"
