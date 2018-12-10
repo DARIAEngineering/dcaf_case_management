@@ -21,3 +21,39 @@ en:
       welcome_to_daria: "Welcome to DARIA (%{fund} edition)!"
       what_line: "What line are you working on?"
       start: "Get started"
+  patient:
+    helper:
+      day: "day"
+      week: "week"
+    dashboard:
+      name: "First and last name"
+      phone: "Phone number"
+      weeks_along: "Weeks along at intake"
+      appt_date: "Appointment date"
+      currently: "Currently: %{LMP}"
+      called_on: "Called on: %{date}"
+      approx_gestation: "Approx gestation at appt:"
+      status: "Status:"
+      delete: "Delete duplicate patient record"
+      confirm_del: "Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)"
+    status:
+      key:
+        no_contact: 'No Contact Made'
+        needs_appt: 'Needs Appointment'
+        fundraising: 'Fundraising'
+        pledge_sent: 'Pledge Sent'
+        pledge_paid: 'Pledge Paid'
+        pledge_unfulfilled: 'Pledge Not Fulfilled'
+        fulfilled: 'Pledge Fulfilled'
+        dropoff: 'Probable Dropoff'
+        resolved: "Resolved Without %{fund}"
+      help:
+        no_contact: 'A patient has initiated contact, but nobody from the fund has spoken to them yet.'
+        needs_appt: 'The patient has spoken to the fund, but has not yet set an appointment date with a clinic.'
+        fundraising: 'The patient has an appointment date, and is working on raising funds.'
+        pledge_sent: 'A case manager has sent a pledge to the clinic on behalf of the patient.'
+        pledge_paid: 'Accountant has paid back the clinic for the pledge.'
+        pledge_unfulfilled: 'Patient had a pledge sent 150+ days ago but has not cashed it.'
+        fulfilled: 'Patient has been marked fulfilled.'
+        dropoff: 'Patient has not been heard from in 120+ days.'
+        resolved: 'Patient has decided to not involve the fund in their plans.'

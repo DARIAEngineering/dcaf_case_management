@@ -21,3 +21,39 @@ es:
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
       start: "Empezar"
+  patient:
+    helper:
+      day: "día"
+      week: "semana"
+    dashboard:
+      name: "Nombre y apellido"
+      phone: "Número de teléfono"
+      weeks_along: "Cuantas semanas en la entrada"
+      appt_date: "Día de la cita"
+      currently: "Actualmente: %{LMP}"
+      called_on: "Llamado en: %{date}"
+      approx_gestation: "Aprox la gestación en la cita: %{gest}"
+      status: "Estado:"
+      delete: "Eliminar registro de paciente duplicado"
+      confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
+    status:
+      key:
+        no_contact: 'Sin Contacto Hecho'
+        needs_appt: 'Necesita Cita'
+        fundraising: 'Recaudación de fondos'
+        pledge_sent: 'Promesa Enviada'
+        pledge_paid: 'Pledge Pagada'
+        pledge_unfulfilled: 'Promesa No Cumplida'
+        fulfilled: 'Promesa Cumplida'
+        dropoff: 'Probable Abandono'
+        resolved: "Resuelto Sin %{fund}"
+      help:
+        no_contact: 'Un paciente ha iniciado el contacto, pero nadie del fondo ha hablado con ellos todavía.'
+        needs_appt: 'El paciente ha hablado con el fondo, pero aún no ha establecido una cita con una clínica.'
+        fundraising: 'El paciente tiene una cita y está trabajando para recaudar fondos.'
+        pledge_sent: 'Un administrador de casos ha enviado una promesa a la clínica en nombre del paciente.'
+        pledge_paid: 'El contador ha pagado la clínica para el compromiso.'
+        pledge_unfulfilled: 'El paciente tenía una promesa enviada hace 150+ días, pero no la ha cobrado.'
+        fulfilled: 'El paciente ha sido marcado cumplido.'
+        dropoff: 'Paciente no ha sido escuchado en 120+ días.'
+        resolved: 'El paciente ha decidido no involucrar al fondo en sus planes.'
