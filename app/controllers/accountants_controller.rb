@@ -5,7 +5,7 @@ class AccountantsController < ApplicationController
   before_action :find_patient, only: [:edit]
 
   def index
-    patients = pledged_patients
+    patients = pledged_patients.includes(:clinic)
     @patients = paginate_results(patients)
   end
 
