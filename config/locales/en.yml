@@ -38,7 +38,7 @@ en:
       appt_date: "Appointment date"
       currently: "Currently: %{LMP}"
       called_on: "Called on: %{date}"
-      approx_gestation: "Approx gestation at appt:"
+      approx_gestation: "Approx gestation at appt: %{gest}"
       delete: "Delete duplicate patient record"
       confirm_del: "Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)"
     status:
