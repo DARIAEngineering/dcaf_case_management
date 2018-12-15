@@ -125,8 +125,19 @@ GEM
       activesupport (>= 4.2.0)
     hashery (2.1.2)
     hashie (3.5.7)
+    highline (2.0.0)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
+    i18n-tasks (0.9.28)
+      activesupport (>= 4.0.2)
+      ast (>= 2.1.0)
+      erubi
+      highline (>= 2.0.0)
+      i18n
+      parser (>= 2.2.3.0)
+      rails-i18n
+      rainbow (>= 2.2.2, < 4.0)
+      terminal-table (>= 1.5.1)
     jaro_winkler (1.5.1)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -273,6 +284,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-i18n (5.1.2)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     railties (5.1.6.1)
       actionpack (= 5.1.6.1)
       activesupport (= 5.1.6.1)
@@ -346,6 +360,8 @@ GEM
     sq_mini_racer (0.2.3.sqreen5)
     sqreen (1.15.7)
       sq_mini_racer (~> 0.2.2.sqreen1)
+    terminal-table (1.8.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -391,6 +407,7 @@ DEPENDENCIES
   faker
   figaro
   geokit
+  i18n-tasks (~> 0.9.28)
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
