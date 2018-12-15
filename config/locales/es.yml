@@ -22,18 +22,23 @@ es:
       what_line: "¿En cuál línea estás trabajando?"
       start: "Empezar"
   patient:
-    helper:
-      day: "día"
-      week: "semana"
-    dashboard:
+    shared:
       name: "Nombre y apellido"
+      status: "Estado:"
+    helper:
+      day:
+        one: "%{count} día"
+        other: "%{count} días"
+      week:
+        one: "%{count} semana"
+        other: "%{count} semanas"
+    dashboard:
       phone: "Número de teléfono"
       weeks_along: "Cuantas semanas en la entrada"
       appt_date: "Día de la cita"
       currently: "Actualmente: %{LMP}"
       called_on: "Llamado en: %{date}"
       approx_gestation: "Aprox la gestación en la cita: %{gest}"
-      status: "Estado:"
       delete: "Eliminar registro de paciente duplicado"
       confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
     status:

@@ -22,18 +22,23 @@ en:
       what_line: "What line are you working on?"
       start: "Get started"
   patient:
-    helper:
-      day: "day"
-      week: "week"
-    dashboard:
+    shared:
       name: "First and last name"
+      status: "Status:"
+    helper:
+      day:
+        one: "%{count} day"
+        other: "%{count} days"
+      week:
+        one: "%{count} week"
+        other: "%{count} weeks"
+    dashboard:
       phone: "Phone number"
       weeks_along: "Weeks along at intake"
       appt_date: "Appointment date"
       currently: "Currently: %{LMP}"
       called_on: "Called on: %{date}"
       approx_gestation: "Approx gestation at appt:"
-      status: "Status:"
       delete: "Delete duplicate patient record"
       confirm_del: "Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)"
     status:
