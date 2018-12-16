@@ -1,28 +1,33 @@
-<div class='col-sm-12 hide' id='clinic-finder-search-form'>
-  <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
-    <div class="row">
-      <div class="col-sm-6 info-form-left">
-        <%= f.text_field :zip, label: "Patient's ZIP code" %>
-      </div>    
+<div class='col-sm-12'>
+  <h5 class='clinic-finder-expand'>
+    Clinic Locator Assistant
+    <span class='glyphicon glyphicon-plus-sign pull-right'></span>
+  </h5>
 
-      <div class="col-sm-6">
-        <div class="info-form-right">
-          <p>NOTE: This is an experimental feature.</p>
-          <%# implement after gem change %>
-          <%#= f.select :approx_gestation_at_appt, weeks_options, label: "Patient's approx. gestation at appt" %>
+  <div class='col-sm-12 hide' id='clinic-finder-search-form'>
+    <h6>A tool for sorting clinics by cost and distance.</h6>
+
+    <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
+      <div class="row">
+        <div class="col-sm-6 info-form-left">
+          <%= f.text_field :zip, label: "Patient's ZIP code" %>
+          <%= f.check_box :naf_only, label: 'Show only NAF clinics' %>
+          <%= f.check_box :medicaid_only, label: 'Show only Medicaid clinics' %>
+        </div>
+
+        <div class="col-sm-6 info-form-right">
+          This is an experimental feature.
+          <%#= f.select :gestation, weeks_options, label: "Patient's approx. gestation at appt" %>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class='col-sm-6'>
-        <%#= f.check_box :naf_only, label: 'Show NAF clinics only' %>  
-        <%#= f.check_box :medicaid_only, label: 'Show Medicaid clinics only' %>
+      <div class="row">
+        <div class='col-sm-6'>
+          <%= f.submit "Search clinics", class: "btn btn-primary" %>
+        </div>    
+      </div>
+    <% end %>
+  </div>
 
-        <%= f.submit "Search clinics", class: "btn btn-primary" %>
-      </div>    
-    </div>
-  <% end %>
+  <div class='col-sm-12' id='clinic-finder-results'></div>
 </div>
-
-<div class='col-sm-12' id='clinic-finder-results'></div>

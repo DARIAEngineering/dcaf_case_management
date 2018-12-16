@@ -9,13 +9,15 @@ class Config
   # Comma separated configs
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
-    :language, :resources_url, :referred_by
+    :language, :resources_url, :fax_service, :referred_by
   ].freeze
 
-  # Define overrides for particular config fields
+  # Define overrides for particular config fields.
+  # Useful if there is no `_options` method.
   HELP_TEXT_OVERRIDES = {
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
-                   'Ex: https://drive.google.com/drive/my-resource-dir'
+                   'Ex: https://drive.google.com/drive/my-resource-dir',
+    fax_service: 'A link to your fax service. ex: https://www.efax.com'
   }.freeze
 
   # Fields

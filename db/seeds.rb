@@ -153,6 +153,8 @@ Config.create config_key: :resources_url,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 Config.create config_key: :referred_by,
               config_value: { options: ['Metal band']}
+Config.create config_key: :fax_service,
+              config_value: { options: ['www.yolofax.com'] }
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have
@@ -181,7 +183,7 @@ Config.create config_key: :referred_by,
     patient.build_fulfillment(
       created_by_id: User.first.id,
       fulfilled: true,
-      procedure_cost: 4000,
+      fund_payout: 4000,
       procedure_date: 10.days.from_now
     ).save
   end
@@ -359,7 +361,7 @@ end
     fulfilled: true,
     procedure_date: 130.days.ago,
     gestation_at_procedure: "11",
-    procedure_cost: 555,
+    fund_payout: 555,
     check_number: 4563,
     date_of_check: 125.days.ago,
     updated_at: 125.days.ago,

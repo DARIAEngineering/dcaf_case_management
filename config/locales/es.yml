@@ -16,3 +16,8 @@ es:
       sign_in: "Registrarse"
       profile: "Mi Perfil"
       sign_out: "Desconectar"
+  lines:
+    new:
+      welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
+      what_line: "¿En cuál línea estás trabajando?"
+      start: "Empezar"

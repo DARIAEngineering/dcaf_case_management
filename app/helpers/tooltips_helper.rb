@@ -24,6 +24,14 @@ module TooltipsHelper
     text.strip
   end
 
+  def budget_bar_help_text
+    text = <<-TEXT
+      The budget bar lists money tentatively set aside for a patient
+      (by entering a value in the #{FUND} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
+    TEXT
+    text.strip
+  end
+
   def your_completed_calls_help_text
     text = <<-TEXT
       This is a list of patients you have called within the last 8 hours.
