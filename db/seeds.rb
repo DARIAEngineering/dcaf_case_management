@@ -152,7 +152,7 @@ Config.create config_key: :language,
 Config.create config_key: :resources_url,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 Config.create config_key: :referred_by,
-              config_value: { options: ['Clinic', 'DCAF', 'NAF', 'School', 'Friend', 'Family member', 'Other abortion fund']}
+              config_value: { options: ['Metal band']}
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have

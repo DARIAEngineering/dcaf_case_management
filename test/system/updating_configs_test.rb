@@ -90,5 +90,19 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         # assert has_text? '13 weeks $100'
       end
     end
+
+    describe 'updating a config - referred by' do
+      it 'should update and be available' do
+        fill_in 'config_options_referred_by', with: 'Metallica'
+        click_button 'Update options for Referred by'
+
+        assert_equal 'Metallica',
+                     find('#config_options_referred_by').value
+        within :css, '#referred_by_options_list' do
+          assert has_content? 'Clinic' # stock option
+          assert has_content? 'Metallica' # custom option
+        end
+      end
+    end
   end
 end
