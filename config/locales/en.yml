@@ -21,3 +21,11 @@ en:
       welcome_to_daria: "Welcome to DARIA (%{fund} edition)!"
       what_line: "What line are you working on?"
       start: "Get started"
+  configs:
+    index:
+      title: "Configs"
+      sub_text: "Use this to set custom insurance, language, external pledge options, and help text for pledge limits."
+    config:
+      update_options_for: "Update options for %{option}"
+      current_options: "Current options are:"
+

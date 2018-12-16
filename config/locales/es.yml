@@ -21,3 +21,10 @@ es:
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
       start: "Empezar"
+  configs:
+    index:
+      title: "Configuraciones"
+      sub_text: "Use esto para configurar el seguro personalizado, el idioma, las opciones de compromiso externo y el texto de ayuda para los límites de compromiso."
+    config:
+      update_options_for: "Opciones de actualización para %{option}"
+      current_options: "Las opciones actuales son:"
