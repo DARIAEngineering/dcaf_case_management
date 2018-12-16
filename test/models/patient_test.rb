@@ -126,23 +126,28 @@ class PatientTest < ActiveSupport::TestCase
       error2 = diffLineDuplicate.errors.messages[:this_phone_number_is_already_taken]
 
       assert_not_equal error1, error2
-
     end
   end
 
   describe 'pledge_summary' do
-    it "should return proper pledge summaries for various timespans" do
+    it 'should return proper pledge summaries for various timespans' do
       @patient.update appointment_date: 2.days.from_now, fund_pledge: 300
       @patient2.update appointment_date: 4.days.from_now, fund_pledge: 500,
                        pledge_sent: true, clinic: create(:clinic)
+      # this pt should be filtered out because we don't worry about resolved without fund
+      create :patient, appointment_date: 2.days.from_now,
+                       fund_pledge: 100, clinic: create(:clinic),
+                       resolved_without_fund: true
       shaped_patient = patient_to_hash @patient
       shaped_patient2 = patient_to_hash @patient2
 
       # Testing dates is hard, so we use name as a proxy here
+      summary = Patient.pledged_status_summary(:DC)
       assert_equal shaped_patient[:name],
-                   Patient.pledged_status_summary(:DC)[:pledged][0][:name]
+                   summary[:pledged][0][:name]
       assert_equal shaped_patient2[:name],
-                   Patient.pledged_status_summary(:DC)[:sent][0][:name]
+                   summary[:sent][0][:name]
+      assert_equal summary[:pledged].count, 1
     end
   end
 
