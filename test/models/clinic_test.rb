@@ -75,11 +75,10 @@ class ClinicTest < ActiveSupport::TestCase
 
   describe 'callbacks' do
     describe 'updating coordinates when address changes' do
-      before { @cached_api_key = ENV['GOOGLE_GEO_API_KEY'] }
-      after { ENV['GOOGLE_GEO_API_KEY'] = @cached_api_key }
+      before { Geokit::Geocoders::GoogleGeocoder.api_key = '123' }
+      after { Geokit::Geocoders::GoogleGeocoder.api_key = nil }
 
       it 'should update coordinates on address change' do
-        ENV['GOOGLE_GEO_API_KEY'] = '123'
         fake_geo = OpenStruct.new lat: 38.8976633, lng: 77.0365739
         Geokit::Geocoders::GoogleGeocoder.stub :geocode, fake_geo do
           @clinic.update city: 'Arlington'
