@@ -34,7 +34,7 @@ es:
         other: "%{count} semanas"
     dashboard:
       phone: "Número de teléfono"
-      weeks_along: "Cuantas semanas en la entrada"
+      weeks_along: "Semanas de embarazo al inicio"
       appt_date: "Día de la cita"
       currently: "Actualmente: %{LMP}"
       called_on: "Llamado en: %{date}"
