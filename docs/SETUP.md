@@ -23,7 +23,7 @@ to go, it should say something like:
     web_1  | [1] * Listening on tcp://0.0.0.0:3000
 
 This runs the app on `localhost:3000` and you can hit it like a regular rails server. The first time you view a page will
-take a minute or two for resources to compile and load, but it should eventually load.
+take a minute or two for resources to compile and load, but it should eventually load. You can log in with the user `test@test.com` and the password `P4ssword`.
 
 Any errors will show up in your terminal in the window you are running the `up` command in.
 
@@ -49,7 +49,7 @@ You'll also need to set up MongoDB, which you can do as follows:
 After that:
 * Once you've confirmed that you have `mongod` running in a separate tab, run `rake db:seed` to populate your database with test data
 * Run the command `rails server` to start the rails server
-* All set! Navigate your browser to `http://localhost:3000`
+* All set! Navigate your browser to `http://localhost:3000`. You can log in with the user `test@test.com` and the password `P4ssword`.
 
 #### Troubleshooting MongoDB
 Use 'Control + C' for both MongoDB and Rails to stop their servers from running. You can also stop MongoDB manually by killing the process running it. On a mac, open Activity Monitor and select 'mongoDB' under Process Name and then force it to quit by clicking the 'x' icon on the task bar above.
