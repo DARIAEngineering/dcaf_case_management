@@ -91,6 +91,20 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
       end
     end
 
+    describe 'updating a config - referred by' do
+      it 'should update and be available' do
+        fill_in 'config_options_referred_by', with: 'Metallica'
+        click_button 'Update options for Referred by'
+
+        assert_equal 'Metallica',
+                     find('#config_options_referred_by').value
+        within :css, '#referred_by_options_list' do
+          assert has_content? 'Clinic' # stock option
+          assert has_content? 'Metallica' # custom option
+        end
+      end
+    end
+
     describe 'updating a config - fax service' do
       it 'should update and be available in the footer' do
         fill_in 'config_options_fax_service', with: 'https://metallicarules.com'

@@ -33,7 +33,7 @@ module ClinicFinder
 
       @clinic_structs = @clinics.map { |clinic| OpenStruct.new clinic.attributes }
       @patient_context = OpenStruct.new
-      @geocoder = set_geocoder
+      @geocoder = Geokit::Geocoders::GoogleGeocoder
     end
 
     # Return a set of the closest clinics as structs and their attributes,
@@ -67,13 +67,6 @@ module ClinicFinder
           (medicaid_only ? clinic.accepts_medicaid : true)
       end
       filtered_clinics
-    end
-
-    def set_geocoder
-      geocoder = Geokit::Geocoders::GoogleGeocoder
-      geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
-
-      geocoder
     end
   end
 end

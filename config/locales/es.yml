@@ -16,6 +16,9 @@ es:
       sign_in: "Registrarse"
       profile: "Mi Perfil"
       sign_out: "Desconectar"
+    footer:
+      national_abortion_federation: "Federación Nacional de Abortos"
+      please_send_feedback: "Por favor envíe sus comentarios o ideas al equipo de programación en"
   lines:
     new:
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
@@ -57,3 +60,11 @@ es:
         fulfilled: 'El paciente ha sido marcado cumplido.'
         dropoff: 'Paciente no ha sido escuchado en 120+ días.'
         resolved: 'El paciente ha decidido no involucrar al fondo en sus planes.'
+  devise:
+    sessions:
+      new:
+        google_signin: "Inicia sesión con Google (recomendado)"
+        password_signin: "O, inicie sesión con una contraseña:"
+        password_submit: "Inicia sesión con contraseña"
+        email: "Email"
+        password: "Contraseña"

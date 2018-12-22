@@ -1,6 +1,6 @@
 # Setting up a new instance of DARIA
 
-These are detailed instructions in spinning up an instance in heroku. These assume some familiarity with the ideas and concepts and don't go into much detail, such as where to click, the mechanics involved, etc.
+These are detailed instructions in spinning up an instance in heroku. These assume some familiarity with the ideas and concepts and don't go into much detail, such as where to click, the mechanics involved, etc. You don't need to do this for routine development.
 
 ## By the way
 
@@ -18,15 +18,13 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 * Click on `Scheduler` and set up the scheduled cleanup job:
 - `$ rake nightly cleanup`, dyno size hobby, frequency daily, 08:00 UTC
 
-Optionally:
+Optionally but recommended:
 
 ## Optional steps
-* Set `SKYLIGHT_AUTH_TOKEN` (get it from Skylight)
 
-* Set `SQREEN_TOKEN` (get it from Sqreen)
-
+* Set `SKYLIGHT_AUTH_TOKEN` (get it from Skylight, this is a performance monitoring service)
+* Set `SQREEN_TOKEN` (get it from Sqreen, this is a security service)
 * if you have a custom domain set up, set up heroku ACM
-
 * If not within DCAF pipeline, in Heroku, add some other app members if there aren't any. Make sure you aren't the only member of your fund with config access!
 
 ## Checklist after setup

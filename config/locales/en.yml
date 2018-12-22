@@ -16,6 +16,9 @@ en:
       sign_in: "Sign In"
       profile: "My Profile"
       sign_out: "Sign Out"
+    footer:
+      national_abortion_federation: "National Abortion Federation"
+      please_send_feedback: "Please send feedback or ideas to the programming team at"
   lines:
     new:
       welcome_to_daria: "Welcome to DARIA (%{fund} edition)!"
@@ -57,3 +60,11 @@ en:
         fulfilled: 'Patient has been marked fulfilled.'
         dropoff: 'Patient has not been heard from in 120+ days.'
         resolved: 'Patient has decided to not involve the fund in their plans.'
+  devise:
+    sessions:
+      new:
+        google_signin: "Sign in with Google (recommended)"
+        password_signin: "Or, sign in with a password:"
+        password_submit: "Sign in with password"
+        email: "Email"
+        password: "Password"
