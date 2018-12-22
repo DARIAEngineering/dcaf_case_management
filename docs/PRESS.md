@@ -2,8 +2,6 @@
 
 2017-08-15 [DC Tech Stories podcast](http://dctechstories.com/posts/cfdc/)
 
-Following our project's participation in an Abortion Access Hackathon in early 2017, the project was featured in several publications.
-
 2017-07-26 [Tech Meets Abortion Access With the Help of the D.C. Abortion Fund and Abortion Access Hackathon](https://www.themarysue.com/tech-meets-abortion-access/) in the Mary Sue
 
 2017-04-26 [Who Can Afford to Have Sex? (aka Babies)](http://panoply.fm/podcasts/badwithmoney/episodes/11ieZsrbNEO6YM8yMACgWu) in the Bad with Money podcast, discusses the fund and how it works
