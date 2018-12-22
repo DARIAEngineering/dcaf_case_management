@@ -1,33 +1,48 @@
+---
 es:
-  navigation:
-    cm_resources:
-      label: "Recursos del Administrador de Casos"
-    current_line:
-      helper: "Tu linea actual"
-    admin_tools:
-      label: "Herramientas de Administración"
-      user_management: "Manejo de Usuarios"
-      clinic_management: "Manejo de Clínica"
-      config_management: "Configuración"
-      accounting: "Contabilidad"
-      reporting: "Reportes"
-      export: "Exportación anónima de CSV"
-    user_tools:
-      sign_in: "Registrarse"
-      profile: "Mi Perfil"
-      sign_out: "Desconectar"
-    footer:
-      national_abortion_federation: "Federación Nacional de Abortos"
-      please_send_feedback: "Por favor envíe sus comentarios o ideas al equipo de programación en"
+  devise:
+    sessions:
+      new:
+        email: Email
+        google_signin: Inicia sesión con Google (recomendado)
+        password: Contraseña
+        password_signin: 'O, inicie sesión con una contraseña:'
+        password_submit: Inicia sesión con contraseña
   lines:
     new:
+      start: Empezar
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
-      start: "Empezar"
+  navigation:
+    admin_tools:
+      accounting: Contabilidad
+      clinic_management: Manejo de Clínica
+      config_management: Configuración
+      export: Exportación anónima de CSV
+      label: Herramientas de Administración
+      reporting: Reportes
+      user_management: Manejo de Usuarios
+    cm_resources:
+      label: Recursos del Administrador de Casos
+    current_line:
+      helper: Tu linea actual
+    footer:
+      national_abortion_federation: Federación Nacional de Abortos
+      please_send_feedback: Por favor envíe sus comentarios o ideas al equipo de programación en
+    user_tools:
+      profile: Mi Perfil
+      sign_in: Registrarse
+      sign_out: Desconectar
   patient:
-    shared:
-      name: "Nombre y apellido"
-      status: "Estado:"
+    dashboard:
+      approx_gestation: 'Aprox la gestación en la cita: %{gest}'
+      appt_date: Día de la cita
+      called_on: 'Llamado en: %{date}'
+      confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
+      currently: 'Actualmente: %{LMP}'
+      delete: Eliminar registro de paciente duplicado
+      phone: Número de teléfono
+      weeks_along: Semanas de embarazo al inicio
     helper:
       day:
         one: "%{count} día"
@@ -35,41 +50,27 @@ es:
       week:
         one: "%{count} semana"
         other: "%{count} semanas"
-    dashboard:
-      phone: "Número de teléfono"
-      weeks_along: "Semanas de embarazo al inicio"
-      appt_date: "Día de la cita"
-      currently: "Actualmente: %{LMP}"
-      called_on: "Llamado en: %{date}"
-      approx_gestation: "Aprox la gestación en la cita: %{gest}"
-      delete: "Eliminar registro de paciente duplicado"
-      confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
+    shared:
+      name: Nombre y apellido
+      status: 'Estado:'
     status:
-      key:
-        no_contact: 'Sin Contacto Hecho'
-        needs_appt: 'Necesita Cita'
-        fundraising: 'Recaudación de fondos'
-        pledge_sent: 'Promesa Enviada'
-        pledge_paid: 'Pledge Pagada'
-        pledge_unfulfilled: 'Promesa No Cumplida'
-        fulfilled: 'Promesa Cumplida'
-        dropoff: 'Probable Abandono'
-        resolved: "Resuelto Sin %{fund}"
       help:
-        no_contact: 'Un paciente ha iniciado el contacto, pero nadie del fondo ha hablado con ellos todavía.'
-        needs_appt: 'El paciente ha hablado con el fondo, pero aún no ha establecido una cita con una clínica.'
-        fundraising: 'El paciente tiene una cita y está trabajando para recaudar fondos.'
-        pledge_sent: 'Un administrador de casos ha enviado una promesa a la clínica en nombre del paciente.'
-        pledge_paid: 'El contador ha pagado la clínica para el compromiso.'
-        pledge_unfulfilled: 'El paciente tenía una promesa enviada hace 150+ días, pero no la ha cobrado.'
-        fulfilled: 'El paciente ha sido marcado cumplido.'
-        dropoff: 'Paciente no ha sido escuchado en 120+ días.'
-        resolved: 'El paciente ha decidido no involucrar al fondo en sus planes.'
-  devise:
-    sessions:
-      new:
-        google_signin: "Inicia sesión con Google (recomendado)"
-        password_signin: "O, inicie sesión con una contraseña:"
-        password_submit: "Inicia sesión con contraseña"
-        email: "Email"
-        password: "Contraseña"
+        dropoff: Paciente no ha sido escuchado en 120+ días.
+        fulfilled: El paciente ha sido marcado cumplido.
+        fundraising: El paciente tiene una cita y está trabajando para recaudar fondos.
+        needs_appt: El paciente ha hablado con el fondo, pero aún no ha establecido una cita con una clínica.
+        no_contact: Un paciente ha iniciado el contacto, pero nadie del fondo ha hablado con ellos todavía.
+        pledge_paid: El contador ha pagado la clínica para el compromiso.
+        pledge_sent: Un administrador de casos ha enviado una promesa a la clínica en nombre del paciente.
+        pledge_unfulfilled: El paciente tenía una promesa enviada hace 150+ días, pero no la ha cobrado.
+        resolved: El paciente ha decidido no involucrar al fondo en sus planes.
+      key:
+        dropoff: Probable Abandono
+        fulfilled: Promesa Cumplida
+        fundraising: Recaudación de fondos
+        needs_appt: Necesita Cita
+        no_contact: Sin Contacto Hecho
+        pledge_paid: Pledge Pagada
+        pledge_sent: Promesa Enviada
+        pledge_unfulfilled: Promesa No Cumplida
+        resolved: Resuelto Sin %{fund}
