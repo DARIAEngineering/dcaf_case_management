@@ -24,3 +24,11 @@ es:
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
       start: "Empezar"
+  devise:
+    sessions:
+      new:
+        google_signin: "Inicia sesión con Google (recomendado)"
+        password_signin: "O, inicie sesión con una contraseña:"
+        password_submit: "Inicia sesión con contraseña"
+        email: "Email"
+        password: "Contraseña"
