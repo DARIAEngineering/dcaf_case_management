@@ -1,6 +1,8 @@
 ---
 en:
   devise:
+    omniauth_callbacks:
+      success: Successfully logged in with %{kind}
     sessions:
       new:
         email: Email

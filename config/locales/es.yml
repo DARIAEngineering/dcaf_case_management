@@ -1,6 +1,8 @@
 ---
 es:
   devise:
+    omniauth_callbacks:
+      success: Iniciar sesión con éxito con %{kind}
     sessions:
       new:
         email: Email
