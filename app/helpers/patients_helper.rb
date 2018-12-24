@@ -1,11 +1,11 @@
 # Functions primarily related to populating selects on patient edit view.
 module PatientsHelper
   def weeks_options
-    (1..30).map { |i| [pluralize(i, 'week'), i] }.unshift [nil, nil]
+    (1..30).map { |i| [t('patient.helper.week', count: i), i] }.unshift [nil, nil]
   end
 
   def days_options
-    (0..6).map { |i| [pluralize(i, 'day'), i] }.unshift [nil, nil]
+    (0..6).map { |i| [t('patient.helper.day', count: i), i] }.unshift [nil, nil]
   end
 
   def race_ethnicity_options

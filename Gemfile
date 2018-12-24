@@ -58,6 +58,7 @@ gem 'loofah', '>= 2.2.3'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do
+  gem 'i18n-tasks', '~> 0.9.28' # check and clean i18n keys
   gem 'shog' # makes rails s output color!
   gem 'listen' # used by systemtests
   gem 'rubocop', require: false # our code style / linting system
