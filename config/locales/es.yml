@@ -24,7 +24,7 @@ es:
   configs:
     index:
       title: "Configuraciones"
-      sub_text: "Use esto para configurar el seguro personalizado, el idioma, las opciones de compromiso externo y el texto de ayuda para los límites de compromiso."
+      sub_text: "Use esto para configurar el seguro medico, el idioma, las opciones de compromiso externo y los límites de compromiso"
     config:
-      update_options_for: "Opciones de actualización para %{option}"
+      update_options_for: "Opciones para el compromiso externo %{option}, (por favor separe con comas)"
       current_options: "Las opciones actuales son:"
