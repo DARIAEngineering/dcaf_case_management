@@ -1,4 +1,4 @@
-FROM ruby:2.5.3-alpine
+FROM ruby:2.6.0-alpine
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable

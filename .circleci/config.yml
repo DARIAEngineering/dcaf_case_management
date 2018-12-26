@@ -6,7 +6,7 @@ jobs:
     parallelism: 4
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.5.3-node-browsers
+      - image: circleci/ruby:2.6.0-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -40,7 +40,7 @@ jobs:
   predeploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.5.3-node-browsers
+      - image: circleci/ruby:2.6.0-node-browsers
     steps:
       - checkout
       # - restore_cache:
@@ -59,7 +59,7 @@ jobs:
   deploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.5.3-node-browsers
+      - image: circleci/ruby:2.6.0-node-browsers
     steps:
       - checkout
       - setup_remote_docker:
