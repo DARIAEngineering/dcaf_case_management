@@ -135,6 +135,9 @@ class PatientTest < ActiveSupport::TestCase
       @patient.update appointment_date: 2.days.from_now, fund_pledge: 300
       @patient2.update appointment_date: 4.days.from_now, fund_pledge: 500,
                        pledge_sent: true, clinic: create(:clinic)
+      @patient3 = create :patient, appointment_date: 3.days.from_now,
+                         fund_pledge: 400, resolved_without_fund: true
+
       shaped_patient = patient_to_hash @patient
       shaped_patient2 = patient_to_hash @patient2
 
@@ -143,6 +146,9 @@ class PatientTest < ActiveSupport::TestCase
                    Patient.pledged_status_summary(:DC)[:pledged][0][:name]
       assert_equal shaped_patient2[:name],
                    Patient.pledged_status_summary(:DC)[:sent][0][:name]
+
+      assert_equal 1, Patient.pledged_status_summary(:DC)[:pledged].count
+      assert_equal 1, Patient.pledged_status_summary(:DC)[:sent].count
     end
   end
 

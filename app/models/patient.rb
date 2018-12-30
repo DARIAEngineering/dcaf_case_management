@@ -138,15 +138,19 @@ class Patient
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
 
+  # Scopes
+  scope :pledged_this_week, ->(line) do
+    where(:fund_pledge.nin => [0, nil, ''])
+      .where(:resolved_without_fund.in => [0, nil, ''])
+      .where(:fund_pledged_at.gte => Time.zone.today.beginning_of_week(:monday))
+      .in(line: line)
+  end
+
   # Methods
   def self.pledged_status_summary(line)
-    start_of_week = Time.zone.today.beginning_of_week(:monday)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
 
-    # Get patients who have been pledged this week, as a simplified hash
-    patients = Patient.in(line: line)
-                      .where(:fund_pledge.nin => [0, nil, ''])
-                      .where(:fund_pledged_at.gte => start_of_week)
+    patients = Patient.pledged_this_week(line)
                       .pluck(*plucked_attrs)
                       .map { |att| plucked_attrs.zip(att).to_h }
 
