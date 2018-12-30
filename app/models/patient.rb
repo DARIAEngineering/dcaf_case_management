@@ -143,6 +143,7 @@ class Patient
     where(:fund_pledge.nin => [0, nil, ''])
       .where(:resolved_without_fund.in => [0, nil, ''])
       .where(:fund_pledged_at.gte => Time.zone.today.beginning_of_week(:monday))
+      .order_by(fund_pledged_at: :asc)
       .in(line: line)
   end
 
