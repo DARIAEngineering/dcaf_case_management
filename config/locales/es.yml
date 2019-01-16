@@ -1,5 +1,12 @@
 ---
 es:
+  configs:
+    config:
+      current_options: 'Las opciones actuales son:'
+      update_options_for: Opciones para el compromiso externo %{option}, (por favor separe con comas)
+    index:
+      sub_text: Use esto para configurar el seguro medico, el idioma, las opciones de compromiso externo y los límites de compromiso
+      title: Configuraciones
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}
@@ -15,13 +22,6 @@ es:
       start: Empezar
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
-  configs:
-    index:
-      title: "Configuraciones"
-      sub_text: "Use esto para configurar el seguro medico, el idioma, las opciones de compromiso externo y los límites de compromiso"
-    config:
-      update_options_for: "Opciones para el compromiso externo %{option}, (por favor separe con comas)"
-      current_options: "Las opciones actuales son:"
   navigation:
     admin_tools:
       accounting: Contabilidad

@@ -1,5 +1,12 @@
 ---
 en:
+  configs:
+    config:
+      current_options: 'Current options are:'
+      update_options_for: Update options for %{option}
+    index:
+      sub_text: Use this to set custom insurance, language, external pledge options, and help text for pledge limits.
+      title: Configs
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}
@@ -32,16 +39,9 @@ en:
       national_abortion_federation: National Abortion Federation
       please_send_feedback: Please send feedback or ideas to the programming team at
     user_tools:
-      sign_in: "Sign In"
-      profile: "My Profile"
-      sign_out: "Sign Out"
-  configs:
-    index:
-      title: "Configs"
-      sub_text: "Use this to set custom insurance, language, external pledge options, and help text for pledge limits."
-    config:
-      update_options_for: "Update options for %{option}"
-      current_options: "Current options are:"
+      profile: My Profile
+      sign_in: Sign In
+      sign_out: Sign Out
   patient:
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
