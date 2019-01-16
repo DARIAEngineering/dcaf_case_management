@@ -1,11 +1,11 @@
 # Functions primarily related to populating selects on patient edit view.
 module PatientsHelper
   def weeks_options
-    (1..30).map { |i| [pluralize(i, 'week'), i] }.unshift [nil, nil]
+    (1..30).map { |i| [t('patient.helper.week', count: i), i] }.unshift [nil, nil]
   end
 
   def days_options
-    (0..6).map { |i| [pluralize(i, 'day'), i] }.unshift [nil, nil]
+    (0..6).map { |i| [t('patient.helper.day', count: i), i] }.unshift [nil, nil]
   end
 
   def race_ethnicity_options
@@ -17,6 +17,16 @@ module PatientsHelper
   def language_options
     standard_options = [['English', nil]]
     standard_options + Config.find_or_create_by(config_key: 'language').options
+  end
+
+  def referred_by_options
+    standard_options = [nil, 'Clinic', 'Crime victim advocacy center',
+     "#{FUND} website or social media",
+     'Domestic violence crisis/intervention org', 'Family member', 'Friend',
+     'Google/Web search', 'Homeless shelter', 'Legal clinic', 'NAF', 'NNAF',
+     'Other abortion fund', 'Previous patient', 'School',
+     'Sexual assault crisis org', 'Youth outreach']
+    standard_options + Config.find_or_create_by(config_key: 'referred_by').options
   end
 
   def employment_status_options
@@ -43,15 +53,6 @@ module PatientsHelper
      ['$60,000-74,999 ($1154-1441/wk - $5000-6249/mo)', '$60,000-74,999'],
      ['$75,000 or more ($1442+ /wk - $6250+ /mo)', '$75,000 or more']
     ]
-  end
-
-  def referred_by_options
-    [nil, 'Clinic', 'Crime victim advocacy center',
-     "#{FUND} website or social media",
-     'Domestic violence crisis/intervention org', 'Family member', 'Friend',
-     'Google/Web search', 'Homeless shelter', 'Legal clinic', 'NAF', 'NNAF',
-     'Other abortion fund', 'Previous patient', 'School',
-     'Sexual assault crisis org', 'Youth outreach']
   end
 
   def household_size_options
