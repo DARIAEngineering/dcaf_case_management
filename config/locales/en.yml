@@ -1,31 +1,85 @@
+---
 en:
-  navigation:
-    cm_resources:
-      label: "CM Resources"
-    current_line:
-      helper: "Your current line"
-    admin_tools:
-      label: "Admin tools"
-      user_management: "User Management"
-      clinic_management: "Clinic Management"
-      config_management: "Config Management"
-      accounting: "Accounting"
-      reporting: "Reporting"
-      export: "Export anonymized CSV"
-    user_tools:
-      sign_in: "Sign In"
-      profile: "My Profile"
-      sign_out: "Sign Out"
+  devise:
+    omniauth_callbacks:
+      success: Successfully logged in with %{kind}
+    sessions:
+      new:
+        email: Email
+        google_signin: Sign in with Google (recommended)
+        password: Password
+        password_signin: 'Or, sign in with a password:'
+        password_submit: Sign in with password
   lines:
     new:
-      welcome_to_daria: "Welcome to DARIA (%{fund} edition)!"
-      what_line: "What line are you working on?"
-      start: "Get started"
+      start: Get started
+      welcome_to_daria: Welcome to DARIA (%{fund} edition)!
+      what_line: What line are you working on?
+  navigation:
+    admin_tools:
+      accounting: Accounting
+      clinic_management: Clinic Management
+      config_management: Config Management
+      export: Export anonymized CSV
+      label: Admin tools
+      reporting: Reporting
+      user_management: User Management
+    cm_resources:
+      label: CM Resources
+    current_line:
+      helper: Your current line
+    footer:
+      national_abortion_federation: National Abortion Federation
+      please_send_feedback: Please send feedback or ideas to the programming team at
+    user_tools:
+      profile: My Profile
+      sign_in: Sign In
+      sign_out: Sign Out
+  patient:
+    dashboard:
+      approx_gestation: 'Approx gestation at appt: %{gest}'
+      appt_date: Appointment date
+      called_on: 'Called on: %{date}'
+      confirm_del: Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)
+      currently: 'Currently: %{LMP}'
+      delete: Delete duplicate patient record
+      phone: Phone number
+      weeks_along: Weeks along at intake
+    helper:
+      day:
+        one: "%{count} day"
+        other: "%{count} days"
+      week:
+        one: "%{count} week"
+        other: "%{count} weeks"
+    shared:
+      name: First and last name
+      status: 'Status:'
+    status:
+      help:
+        dropoff: Patient has not been heard from in 120+ days.
+        fulfilled: Patient has been marked fulfilled.
+        fundraising: The patient has an appointment date, and is working on raising funds.
+        needs_appt: The patient has spoken to the fund, but has not yet set an appointment date with a clinic.
+        no_contact: A patient has initiated contact, but nobody from the fund has spoken to them yet.
+        pledge_paid: Accountant has paid back the clinic for the pledge.
+        pledge_sent: A case manager has sent a pledge to the clinic on behalf of the patient.
+        pledge_unfulfilled: Patient had a pledge sent 150+ days ago but has not cashed it.
+        resolved: Patient has decided to not involve the fund in their plans.
+      key:
+        dropoff: Probable Dropoff
+        fulfilled: Pledge Fulfilled
+        fundraising: Fundraising
+        needs_appt: Needs Appointment
+        no_contact: No Contact Made
+        pledge_paid: Pledge Paid
+        pledge_sent: Pledge Sent
+        pledge_unfulfilled: Pledge Not Fulfilled
+        resolved: Resolved Without %{fund}
   configs:
-    index:
-      title: "Configs"
-      sub_text: "Use this to set custom insurance, language, external pledge options, and help text for pledge limits."
     config:
-      update_options_for: "Update options for %{option}"
-      current_options: "Current options are:"
-
+      current_options: 'Current options are:'
+      update_options_for: Update options for %{option}
+    index:
+      sub_text: Use this to set custom insurance, language, external pledge options, and help text for pledge limits.
+      title: Configs

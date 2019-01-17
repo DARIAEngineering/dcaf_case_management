@@ -1,5 +1,8 @@
 <div id="overview" class="margin-bottom">
-  <h1 class="border-bottom title">Week of <%= week_range %></h1>
+  <h1 class="border-bottom title">
+    Week of <%= week_range %>
+    <%= dashboard_table_content_tooltip_shell "budget_bar" %>
+  </h1>
 
   <div id="budget_bar">
     <%= render_async budget_bar_path, nonce: content_security_policy_script_nonce, 'data-turbolinks-track': 'reload' %>

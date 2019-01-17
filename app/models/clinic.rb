@@ -54,10 +54,9 @@ class Clinic
   end
 
   def update_coordinates
-    return unless ENV['GOOGLE_GEO_API_KEY']
-
     geocoder = Geokit::Geocoders::GoogleGeocoder
-    geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
+    return unless geocoder.try :api_key
+
     location = geocoder.geocode full_address
     coordinates = [location.lat, location.lng]
     self.coordinates = coordinates
