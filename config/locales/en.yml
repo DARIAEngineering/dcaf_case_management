@@ -1,5 +1,12 @@
 ---
 en:
+  configs:
+    config:
+      current_options: 'Current options are:'
+      update_options_for: Update options for %{option}
+    index:
+      sub_text: Use this to set custom insurance, language, external pledge options, and help text for pledge limits.
+      title: Configs
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}
@@ -76,10 +83,3 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
-  configs:
-    config:
-      current_options: 'Current options are:'
-      update_options_for: Update options for %{option}
-    index:
-      sub_text: Use this to set custom insurance, language, external pledge options, and help text for pledge limits.
-      title: Configs
