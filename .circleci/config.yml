@@ -24,9 +24,9 @@ jobs:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
             - dcaf_case_management-{{ checksum ".circleci/config.yml" }}
       - run: bundle check || bundle install
-      - run: gem install --no-rdoc brakeman
-      - run: gem install --no-rdoc ruby_audit
-      - run: gem install --no-rdoc bundler-audit
+      - run: gem install --no-document brakeman
+      - run: gem install --no-document ruby_audit
+      - run: gem install --no-document bundler-audit
       - save_cache:
           key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
           paths:
