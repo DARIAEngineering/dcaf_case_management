@@ -134,10 +134,11 @@ class PatientTest < ActiveSupport::TestCase
       @patient.update appointment_date: 2.days.from_now, fund_pledge: 300
       @patient2.update appointment_date: 4.days.from_now, fund_pledge: 500,
                        pledge_sent: true, clinic: create(:clinic)
-      # this pt should be filtered out because we don't worry about resolved without fund
-      create :patient, appointment_date: 2.days.from_now,
-                       fund_pledge: 100, clinic: create(:clinic),
-                       resolved_without_fund: true
+      # Removed because we don't include resolved_without_fund patients in the summary
+      @filtered_pt = create :patient, name: 'Resolved without fund (filtered out)',
+                                      appointment_date: 2.days.from_now,
+                                      fund_pledge: 100, clinic: create(:clinic),
+                                      resolved_without_fund: true
       shaped_patient = patient_to_hash @patient
       shaped_patient2 = patient_to_hash @patient2
 
@@ -147,7 +148,9 @@ class PatientTest < ActiveSupport::TestCase
                    summary[:pledged][0][:name]
       assert_equal shaped_patient2[:name],
                    summary[:sent][0][:name]
+      assert_nil summary[:pledged].find { |pt| pt[:name] == @filtered_pt.name }
       assert_equal summary[:pledged].count, 1
+      assert_equal summary[:sent].count, 1
     end
   end
 

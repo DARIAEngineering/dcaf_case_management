@@ -147,7 +147,7 @@ class Patient
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
                       .where(:fund_pledged_at.gte => start_of_week)
-                      .where(:resolved_without_fund.nin => [true])
+                      .where(:resolved_without_fund.in => [false, nil])
                       .order_by(fund_pledged_at: :asc)
                       .pluck(*plucked_attrs)
                       .map { |att| plucked_attrs.zip(att).to_h }
