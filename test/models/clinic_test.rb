@@ -71,6 +71,29 @@ class ClinicTest < ActiveSupport::TestCase
                      '123 Fake Street, Washington, DC 20011'
       end
     end
+
+    describe 'updating all coordinates' do
+      it 'should raise if no geocoder api key is set' do
+        assert_raises Exceptions::NoGoogleGeoApiKeyError do
+          Clinic.update_all_coordinates
+        end
+      end
+
+      describe 'having a key' do
+        before { Geokit::Geocoders::GoogleGeocoder.api_key = '123' }
+        after { Geokit::Geocoders::GoogleGeocoder.api_key = nil }
+
+        it 'should call the update' do
+          fake_coordinates = [23, 23]
+          fake_geo = OpenStruct.new lat: fake_coordinates.first, lng: fake_coordinates.last
+          Geokit::Geocoders::GoogleGeocoder.stub :geocode, fake_geo do
+            Clinic.update_all_coordinates
+          end
+          @clinic.reload
+          assert_equal fake_coordinates, @clinic.coordinates
+        end
+      end
+    end
   end
 
   describe 'callbacks' do

@@ -1,5 +1,5 @@
-<h1>Configs</h1>
-<h4>Use this to set custom insurance, language, external pledge options, and help text for pledge limits.</h4>
+<h1><%= t('configs.index.title') %></h1>
+<h4><%= t('configs.index.sub_text') %></h4>
 
 <% @configs.each do |config| %>
   <%= render 'config', config: config %>
