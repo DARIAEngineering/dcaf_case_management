@@ -2,13 +2,14 @@ source 'https://rubygems.org'
 ruby '2.6.0'
 
 # Standard rails
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.0'
 gem 'puma' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem 'nokogiri', '>= 1.8.5'
 gem 'tzinfo-data', require: false
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # Asset pipeline
 gem 'sass-rails', '~> 5.0'
