@@ -19,7 +19,7 @@ RUN apk update && apk upgrade && \
     apk add --no-cache \
     ${BUILD_DEPENDENCIES} \
     ${APP_DEPENDENCIES} && \
-    gem install bundler --no-ri --no-rdoc && \
+    gem install bundler --no-document && \
     cd ${DCAF_DIR} ; bundle install && \
     apk del ${BUILD_DEPENDENCIES}
 
