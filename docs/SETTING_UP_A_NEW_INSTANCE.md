@@ -42,7 +42,7 @@ Follow the directions to fill out necessary environment variables and configurat
 
 * Set `SKYLIGHT_AUTH_TOKEN` (get it from [Skylight](https://www.skylight.io/), this is a performance monitoring service)
 * Set `SQREEN_TOKEN` (get it from [Sqreen](https://www.sqreen.io/), this is a security service)
-* if you have a custom domain set up, set up heroku ACM
+* if you have a custom domain set up, set up heroku ACM ([Automated Certificate Management](https://devcenter.heroku.com/articles/automated-certificate-management))
 * If not within DCAF pipeline, in Heroku, add some other app members if there aren't any. Make sure you aren't the only member of your fund with config access!
 
 ## Checklist after setup
