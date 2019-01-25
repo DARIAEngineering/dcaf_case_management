@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.6.0'
 
 # Standard rails
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0.beta1'
 gem 'puma' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
@@ -101,7 +101,7 @@ group :test do
   gem 'mini_backtrace' # settle down minitest output
   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
   gem 'minitest-stub-const'
-  gem 'rack-test', '~> 0.6.3', require: 'rack/test' # needed to test rack-attack
+  gem 'rack-test', '>= 0.6.3', require: 'rack/test' # needed to test rack-attack
 end
 
 group :production do
