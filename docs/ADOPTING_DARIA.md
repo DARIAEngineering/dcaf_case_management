@@ -40,4 +40,8 @@ We suggest breaking this down as follows:
 
 ## Costs
 
-DARIA costs start at $84 a year ($7 a month for 12 months), paid to DCAF once a year. This covers your share of server fees, and gets your fund its own URL and database. The DARIA engineering team will automatically update your instance with patches and new features. Funds which see a heavy amount of patient traffic (2,000+ new patients per year) may need to invest in a database upgrade at an additional $216 a year after the first year.
+DARIA costs start at $84 a year ($7 a month for 12 months), paid to DCAF once a year. This covers your share of server fees, and gets your fund its own URL and database. Funds which see a heavy amount of patient traffic (2,000+ new patients per year) may need to invest in a database upgrade at an additional $216 a year after the first year.
+
+## Support and Maintenance
+
+The DARIA engineering team will automatically update your instance with patches and new features. App monitoring is in place to alert the engineering team of any major outages.
