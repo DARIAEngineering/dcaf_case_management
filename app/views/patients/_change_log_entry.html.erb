@@ -2,8 +2,8 @@
   <tr>
     <td><%= revision.date_of_change %></td>
     <td><%= safe_join_fields revision.changed_fields %></td>
-    <td><%= safe_join_fields revision.changed_from.map(&:change_or_nil) %></td>
-    <td><%= safe_join_fields revision.changed_to.map(&:change_or_nil) %></td>
+    <td><%= safe_join_fields revision.changed_from.map { |str| change_or_nil(str) } %></td>
+    <td><%= safe_join_fields revision.changed_to.map { |str| change_or_nil(str) } %></td>
     <td><%= revision.changed_by_user %></td>
   </tr>
 <% end %>
