@@ -13,15 +13,46 @@ class AuditTrail
   end
 
   def changed_fields
-    relevant_fields = modified.map do |key, _value|
-      key unless IRRELEVANT_FIELDS.include? key
+    modified.reject { |x| IRRELEVANT_FIELDS.include? x }.present?
+    # relevant_fields = modified.map do |key, _value|
+    #   key unless IRRELEVANT_FIELDS.include? key
+    # end
+    # relevant_fields.compact.map(&:humanize)
+  end
+
+  def shaped_changes
+    orig = original.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
+    mod = modified.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
+    all_fields = orig.keys | mod.keys
+    changeset = {}
+    all_fields.each do |key|
+      changeset[key.humanize] = { original: format_fieldchange(key, orig[key]),
+                                  modified: format_fieldchange(key, modified[key]) }
     end
-    relevant_fields.compact.map(&:humanize)
+    Rails.logger.debug changeset
+    changeset
+    # Next steps: apply format dates, special circumstances, parse clinics
   end
 
   # TODO: properly render null values like in special circumstances
   # Something like this should work:
   # "HAHA I WIN" if (fields.all?{|f| f.blank? || (f.flatten.all? &:blank? if f.respond_to?('each'))})
+
+  def format_fieldchange(key, value)
+    return '(empty)' unless value.present?
+    shaped_value = if %w[appointment_date initial_call_date pledge_generated_at].include? key
+                     value.display_date
+                   elsif value.is_a? Array # special circumstances, for example
+                     value.reject(&:blank?).join(', ')
+                   elsif key == 'clinic_id'
+                     Clinic.where(id: value).first.&name
+                   else
+                     value
+                   end
+    return '(empty)' unless shaped_value.present?
+    shaped_value 
+  end
+
 
   def format_dates(hash)
     for key in ['appointment_date', 'initial_call_date', 'pledge_generated_at']
