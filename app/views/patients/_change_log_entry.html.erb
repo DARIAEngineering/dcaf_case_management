@@ -1,11 +1,9 @@
-<% if revision.changed_fields.present? %>
+<% if revision.has_changed_fields? %>
   <tr>
     <td><%= revision.date_of_change %></td>
-    <% revision.shaped_changes.each_pair do |key, value| %>
-      <td><%= key %></td>
-      <td><%= value[:original] %></td>
-      <td><%= value[:modified] %></td>
-    <% end %>
+    <td><%= safe_join_fields revision.shaped_changes.keys %></td>
+    <td><%= safe_join_fields revision.changed_from %></td>
+    <td><%= safe_join_fields revision.changed_to %></td>
     <td><%= revision.changed_by_user %></td>
   </tr>
 <% end %>

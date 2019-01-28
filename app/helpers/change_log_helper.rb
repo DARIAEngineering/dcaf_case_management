@@ -4,9 +4,4 @@ module ChangeLogHelper
     Rails.logger.debug fields
     safe_join fields, tag('br')
   end
-
-  def change_or_nil(field)
-    return field if field.present?
-    '(empty)'
-  end
 end

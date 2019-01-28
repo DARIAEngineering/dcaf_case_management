@@ -30,6 +30,15 @@ class AuditTrailTest < ActiveSupport::TestCase
       @track = @patient.history_tracks.second
     end
 
+    # date_of_change
+    # has_changed_fields
+    # shaped_changes
+    # changed_from
+    # changed_to
+    # format_fieldchange
+    # changed_by_user
+    # marked_urgent?
+
     it 'should conveniently render the date' do
       assert_equal Time.zone.now.display_date,
                    @track.date_of_change
