@@ -65,4 +65,9 @@ class Clinic
   def address_changed?
     street_address_changed? || city_changed? || state_changed? || zip_changed?
   end
+
+  def self.update_all_coordinates
+    raise Exceptions::NoGoogleGeoApiKeyError.new unless Geokit::Geocoders::GoogleGeocoder.try(:api_key)
+    all.each { |clinic| clinic.update_coordinates && clinic.save }
+  end
 end
