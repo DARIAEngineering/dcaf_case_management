@@ -42,7 +42,6 @@ class AuditTrail
       changeset[key] = { original: format_fieldchange(key, orig[key]),
                                   modified: format_fieldchange(key, modified[key]) }
     end
-    puts(changeset)
     changeset
   end
 
