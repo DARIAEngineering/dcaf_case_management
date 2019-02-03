@@ -1,5 +1,14 @@
 ---
 es:
+  common:
+    add: Añadir
+    appointment_date_short: Día de la cita
+    name: Nombre
+    notes: Notas
+    phone: Teléfono
+    search: Buscar
+    status: Estado
+    weeks_along_short: Semanas a lo largo
   configs:
     config:
       current_options: 'Las opciones actuales son:'
@@ -7,6 +16,18 @@ es:
     index:
       sub_text: Use esto para configurar el seguro medico, el idioma, las opciones de compromiso externo y los límites de compromiso
       title: Configuraciones
+  dashboard:
+    activity_log:
+      label: Actividad de línea de llamada %{current_line}
+    overview:
+      week_of: Semana de %{week_range}
+    search:
+      header: Construye tu lista de llamadas
+      input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
+    table_content:
+      clear_call_list: Borrar su lista de llamadas
+      clear_call_list_confirm: "¿Está seguro de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
+      remove_from_call_list_confirm: "¿Estás seguro de que deseas eliminar a %{name} de tu lista de llamadas?"
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}
@@ -42,18 +63,6 @@ es:
       profile: Mi Perfil
       sign_in: Registrarse
       sign_out: Desconectar
-  dashboard:
-    activity_log:
-      label: Actividad de línea de llamada %{current_line}
-    overview:
-      week_of: Semana de %{week_range}
-    search:
-      header: Construye tu lista de llamadas
-      input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
-    table_content:
-      remove_from_call_list_confirm: "¿Estás seguro de que deseas eliminar a %{name} de tu lista de llamadas?"
-      clear_call_list: Borrar su lista de llamadas
-      clear_call_list_confirm: ¿Está seguro de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas.
   patient:
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{gest}'
@@ -95,12 +104,3 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
-  common:
-    phone: Teléfono
-    name: Nombre
-    weeks_along_short: Semanas a lo largo
-    status: Estado
-    appointment_date_short: Día de la cita
-    notes: Notas
-    add: Añadir
-    search: Buscar
