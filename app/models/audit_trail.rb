@@ -42,6 +42,7 @@ class AuditTrail
       changeset[key] = { original: format_fieldchange(key, orig[key]),
                                   modified: format_fieldchange(key, modified[key]) }
     end
+    puts(changeset)
     changeset
   end
 
@@ -55,7 +56,9 @@ class AuditTrail
                    elsif value.is_a? Array # special circumstances, for example
                      value.reject(&:blank?).join(', ')
                    elsif key == 'clinic_id'
-                     Clinic.find(value).name if value.present?
+                     Clinic.find(value).name
+                   elsif key == 'pledge_generated_by_id'
+                     ::User.find(value).name # Use the User model instead of the Userstamp namespace
                    else
                      value
                    end
