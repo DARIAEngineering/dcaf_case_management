@@ -6,6 +6,7 @@ en:
     name: Name
     notes: Notes
     phone: Phone
+    search: Search
     status: Status
     weeks_along_short: Weeks along
   configs:
@@ -21,7 +22,6 @@ en:
     overview:
       week_of: Week of %{week_range}
     search:
-      button_text: Search
       header: Build your call list
       input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
     table_content:
