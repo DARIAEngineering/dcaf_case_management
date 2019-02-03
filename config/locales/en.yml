@@ -42,6 +42,19 @@ en:
       profile: My Profile
       sign_in: Sign In
       sign_out: Sign Out
+  dashboard:
+    activity_log:
+      label: "%{current_line} Line Activity Log"
+    overview:
+      week_of: Week of %{week_range}
+    search:
+      header: Build your call list
+      input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
+      button_text: Search
+    table_content:
+      remove_from_call_list_confirm: "Are you sure you want to remove %{name} from your call list?"
+      clear_call_list: Clear your call list
+      clear_call_list_confirm: Are you sure you want to clear your current call list? This will also clear completed calls.
   patient:
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
@@ -83,3 +96,11 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+  common:
+    phone: Phone
+    name: Name
+    weeks_along_short: Weeks along
+    status: Status
+    appointment_date_short: Appt date
+    notes: Notes
+    add: Add
