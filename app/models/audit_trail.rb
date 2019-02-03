@@ -6,6 +6,7 @@ class AuditTrail
   mongoid_userstamp user_model: 'User'
 
   IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id].freeze
+  DATE_FIELDS = %w[appointment_date initial_call_date pledge_generated_at pledge_sent_at fund_pledged_at].freeze
 
   # convenience methods for clean view display
   def date_of_change
@@ -13,8 +14,26 @@ class AuditTrail
   end
 
   def has_changed_fields?
-    modified.reject { |x| IRRELEVANT_FIELDS.include? x }.empty?
+    modified.reject { |x| IRRELEVANT_FIELDS.include? x }.present?
   end
+
+  def changed_from
+    shaped_changes.values.map { |field| field[:original] }
+  end
+
+  def changed_to
+    shaped_changes.values.map { |field| field[:modified] }
+  end
+
+  def changed_by_user
+    created_by ? created_by.name : 'System'
+  end
+
+  def marked_urgent?
+    modified.include?('urgent_flag') && modified['urgent_flag'] == true
+  end
+
+  private
 
   def shaped_changes
     orig = original.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
@@ -28,34 +47,18 @@ class AuditTrail
     changeset
   end
 
-  def changed_from
-    shaped_changes.values.map { |field| field[:original] }
-  end
-
-  def changed_to
-    shaped_changes.values.map { |field| field[:modified] }
-  end
-
   def format_fieldchange(key, value)
     return '(empty)' unless value.present?
-    shaped_value = if %w[appointment_date initial_call_date pledge_generated_at].include? key
+    shaped_value = if DATE_FIELDS.include? key
                      value.display_date
                    elsif value.is_a? Array # special circumstances, for example
                      value.reject(&:blank?).join(', ')
                    elsif key == 'clinic_id'
-                     Clinic.where(id: value).first.&name
+                     Clinic.find(value).name if value.present?
                    else
                      value
                    end
     return '(empty)' unless shaped_value.present?
     shaped_value 
-  end
-
-  def changed_by_user
-    created_by ? created_by.name : 'System'
-  end
-
-  def marked_urgent?
-    modified.include?('urgent_flag') && modified['urgent_flag'] == true
   end
 end

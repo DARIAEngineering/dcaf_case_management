@@ -30,24 +30,19 @@ class AuditTrailTest < ActiveSupport::TestCase
       @track = @patient.history_tracks.second
     end
 
-    # date_of_change
-    # has_changed_fields
-    # shaped_changes
-    # changed_from
-    # changed_to
-    # format_fieldchange
-    # changed_by_user
-    # marked_urgent?
-
     it 'should conveniently render the date' do
       assert_equal Time.zone.now.display_date,
                    @track.date_of_change
     end
 
 
-    it 'should conveniently render changed fields' do
-      assert_equal @track.changed_fields,
-                   ["Name", "Primary phone", "Appointment date", "Initial call date", "Identifier"]
+    it 'should indicate whether a revision has relevant changed fields' do
+      assert @track.has_changed_fields?
+
+      # A revision with only changes to fields we don't care about should be false
+      @patient.update last_edited_by: create(:user)
+      last_track = @patient.reload.history_tracks.last
+      refute last_track.has_changed_fields?
     end
 
     it 'should conveniently render what they were before' do
