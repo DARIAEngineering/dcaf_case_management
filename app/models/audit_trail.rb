@@ -33,8 +33,6 @@ class AuditTrail
     modified.include?('urgent_flag') && modified['urgent_flag'] == true
   end
 
-  private
-
   def shaped_changes
     orig = original.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
     mod = modified.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
@@ -46,6 +44,8 @@ class AuditTrail
     end
     changeset
   end
+
+  private
 
   def format_fieldchange(key, value)
     return '(empty)' unless value.present?

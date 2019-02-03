@@ -35,34 +35,6 @@ class AuditTrailTest < ActiveSupport::TestCase
                    @track.date_of_change
     end
 
-
-    it 'should indicate whether a revision has relevant changed fields' do
-      assert @track.has_changed_fields?
-
-      # A revision with only changes to fields we don't care about should be false
-      @patient.update last_edited_by: create(:user)
-      last_track = @patient.reload.history_tracks.last
-      refute last_track.has_changed_fields?
-    end
-
-    it 'should conveniently render what they were before' do
-      assert_equal @track.changed_from,
-                   ["Susie Everyteen",
-                     "1112223333",
-                     (Time.zone.now + 5.days).display_date,
-                     (Time.zone.now + 3.days).display_date,
-                     "D2-3333"]
-    end
-
-    it 'should conveniently render what they are now' do
-      assert_equal @track.changed_to,
-                  ["Yolo",
-                    "1234569999",
-                    (Time.zone.now + 10.days).display_date,
-                    (Time.zone.now + 4.days).display_date,
-                    "D6-9999"]
-    end
-
     it 'should default to System if it cannot find a user' do
       assert_equal @track.changed_by_user, 'System'
     end

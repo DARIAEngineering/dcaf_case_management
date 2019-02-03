@@ -1,9 +1,7 @@
 <% if revision.has_changed_fields? %>
   <tr>
     <td><%= revision.date_of_change %></td>
-    <td><%= safe_join_fields revision.shaped_changes.keys %></td>
-    <td><%= safe_join_fields revision.changed_from %></td>
-    <td><%= safe_join_fields revision.changed_to %></td>
+    <td><%= safe_join_fields revision.shaped_changes %></td>
     <td><%= revision.changed_by_user %></td>
   </tr>
 <% end %>

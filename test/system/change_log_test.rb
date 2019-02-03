@@ -24,8 +24,7 @@ class ChangeLogTest < ApplicationSystemTestCase
 
       within :css, '#change_log' do
         assert has_text? Time.zone.now.display_date
-        assert has_text? 'City'
-        assert has_text? 'Canada'
+        assert has_text? 'City: (empty) -> Canada'
         assert has_text? @user.name
       end
     end
