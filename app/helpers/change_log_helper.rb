@@ -10,7 +10,7 @@ module ChangeLogHelper
   # Map changelog entries to a html string
   def changelog_entry_display(shaped_changes)
     shaped_changes.map do |entry|
-      field = content_tag('strong') { "#{entry[0]}:" }.freeze
+      field = content_tag('strong') { "#{entry[0].humanize}:" }.freeze
       orig = entry[1][:original]
       separator = '->'.freeze
       mod = entry[1][:modified]

@@ -5,7 +5,7 @@ class AuditTrail
   include Mongoid::Userstamp
   mongoid_userstamp user_model: 'User'
 
-  IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id].freeze
+  IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id identifier].freeze
   DATE_FIELDS = %w[appointment_date initial_call_date pledge_generated_at pledge_sent_at fund_pledged_at].freeze
 
   # convenience methods for clean view display
@@ -39,7 +39,7 @@ class AuditTrail
     all_fields = orig.keys | mod.keys
     changeset = {}
     all_fields.each do |key|
-      changeset[key.humanize] = { original: format_fieldchange(key, orig[key]),
+      changeset[key] = { original: format_fieldchange(key, orig[key]),
                                   modified: format_fieldchange(key, modified[key]) }
     end
     changeset
@@ -48,8 +48,9 @@ class AuditTrail
   private
 
   def format_fieldchange(key, value)
-    return '(empty)' unless value.present?
-    shaped_value = if DATE_FIELDS.include? key
+    shaped_value = if value.blank?
+                     '(empty)'
+                   elsif DATE_FIELDS.include? key
                      value.display_date
                    elsif value.is_a? Array # special circumstances, for example
                      value.reject(&:blank?).join(', ')
@@ -58,7 +59,6 @@ class AuditTrail
                    else
                      value
                    end
-    return '(empty)' unless shaped_value.present?
     shaped_value 
   end
 end
