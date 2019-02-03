@@ -2,7 +2,7 @@ $('#search_results_shell').empty();
 $("#search_results_shell").append("<%= escape_javascript(render partial: 'patients/new_patient', locals: { patient: @patient, name: @name, phone: @phone, today: @today }) %>");
 
 <% if @results.any? %>
-  $("#search_results_shell").append("<%= escape_javascript(render partial: 'dashboards/table_content', locals: { title: 'Search results', table_type: 'search_results', patients: @results } ) %>");
+  $("#search_results_shell").append("<%= escape_javascript(render partial: 'dashboards/table_content', locals: { title: t('dashboard.partial_titles.search_results'), table_type: 'search_results', patients: @results } ) %>");
     $(function () {
     $('[data-toggle="popover"]').popover()
   })

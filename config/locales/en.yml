@@ -28,6 +28,16 @@ en:
       clear_call_list: Clear your call list
       clear_call_list_confirm: Are you sure you want to clear your current call list? This will also clear completed calls.
       remove_from_call_list_confirm: Are you sure you want to remove %{name} from your call list?
+    helpers:
+      voicemail_options:
+        not_specified: "No instructions; no ID VM"
+        no: Do not leave a voicemail
+        yes: Voicemail OK, ID OK
+    partial_titles:
+      call_list: Your call list
+      completed_calls: Your completed calls
+      urgent_cases: Urgent cases
+      search_results: Search results
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}

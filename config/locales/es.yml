@@ -28,6 +28,16 @@ es:
       clear_call_list: Borrar su lista de llamadas
       clear_call_list_confirm: "¿Está seguro de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
       remove_from_call_list_confirm: "¿Estás seguro de que deseas eliminar a %{name} de tu lista de llamadas?"
+    helpers:
+      voicemail_options:
+        not_specified: "Sin instrucciones; no ID VM"
+        no: No dejes un correo de voz
+        yes: Correoo de voz bien, ID bien
+    partial_titles:
+      call_list: Tu lista de llamadas
+      completed_calls: Tus llamadas completadas
+      urgent_cases: Casos urgentes
+      search_results: Resultados de la búsqueda
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}

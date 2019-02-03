@@ -8,9 +8,22 @@
   <div class="col-sm-12">
     <%= render partial: 'dashboards/overview' %>
     <%= render partial: 'dashboards/search_form' %>
-    <%= render partial: 'dashboards/table_content', locals: { title: 'Your call list', table_type: 'call_list', patients: current_user.ordered_patients(current_line), sortable: true, autosortable: true } %>
-    <%= render partial: 'dashboards/table_content', locals: { title: 'Your completed calls', table_type: 'completed_calls', patients: current_user.recently_called_patients(current_line), autosortable: true } %>
-    <%= render partial: 'dashboards/table_content', locals: { title: 'Urgent cases', table_type: 'urgent_patients', patients: @urgent_patients, autosortable: true } %>
+    <%= render partial: 'dashboards/table_content',
+               locals: { title: t('dashboard.partial_titles.call_list'),
+                         table_type: 'call_list',
+                         patients: current_user.ordered_patients(current_line),
+                         sortable: true,
+                         autosortable: true } %>
+    <%= render partial: 'dashboards/table_content',
+               locals: { title: t('dashboard.partial_titles.completed_calls'),
+                         table_type: 'completed_calls',
+                         patients: current_user.recently_called_patients(current_line),
+                         autosortable: true } %>
+    <%= render partial: 'dashboards/table_content',
+               locals: { title: t('dashboard.partial_titles.urgent_cases'),
+                         table_type: 'urgent_cases',
+                         patients: @urgent_patients,
+                         autosortable: true } %>
     <%= render partial: 'dashboards/modal' %>
     <%= render partial: 'dashboards/activity_log' %>
   </div>
