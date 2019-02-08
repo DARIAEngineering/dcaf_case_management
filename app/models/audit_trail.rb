@@ -17,14 +17,6 @@ class AuditTrail
     modified.reject { |x| IRRELEVANT_FIELDS.include? x }.present?
   end
 
-  def changed_from
-    shaped_changes.values.map { |field| field[:original] }
-  end
-
-  def changed_to
-    shaped_changes.values.map { |field| field[:modified] }
-  end
-
   def changed_by_user
     created_by ? created_by.name : 'System'
   end
