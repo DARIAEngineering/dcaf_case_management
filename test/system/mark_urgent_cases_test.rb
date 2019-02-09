@@ -19,7 +19,7 @@ class MarkUrgentCasesTest < ApplicationSystemTestCase
     wait_for_ajax
 
     visit dashboard_path
-    within :css, '#urgent_patients' do
+    within :css, '#urgent_cases' do
       assert has_text? @patient.name
     end
   end

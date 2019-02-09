@@ -8,15 +8,15 @@ module TooltipsHelper
     end
   end
 
-  def dashboard_table_content_tooltip_shell(title)
-    return if title == 'Search results'
+  def dashboard_table_content_tooltip_shell(table_type)
+    return if table_type == 'search_results'
 
-    method_name = "#{title.parameterize(separator: '_')}_help_text"
+    method_name = "#{table_type}_help_text"
     help_text = public_send(method_name)
     tooltip_shell help_text
   end
 
-  def your_call_list_help_text
+  def call_list_help_text
     text = <<-TEXT
       This sortable list is used to keep track of patients to call back
       during your shift. Use the search to populate it.
@@ -32,7 +32,7 @@ module TooltipsHelper
     text.strip
   end
 
-  def your_completed_calls_help_text
+  def completed_calls_help_text
     text = <<-TEXT
       This is a list of patients you have called within the last 8 hours.
     TEXT
@@ -79,6 +79,7 @@ module TooltipsHelper
       Check this box if you as a case manager referred the patient to a
       particular clinic.
     TEXT
+    text.strip
   end
 
   def mandatory_ultrasound_help_text

@@ -19,8 +19,18 @@ en:
   dashboard:
     activity_log:
       label: "%{current_line} Line Activity Log"
+    helpers:
+      voicemail_options:
+        'no': Do not leave a voicemail
+        not_specified: No instructions; no ID VM
+        'yes': Voicemail OK, ID OK
     overview:
       week_of: Week of %{week_range}
+    partial_titles:
+      call_list: Your call list
+      completed_calls: Your completed calls
+      search_results: Search results
+      urgent_cases: Urgent cases
     search:
       header: Build your call list
       input_placeholder: Name (Susan Smith) or Phone (555-555-5555)

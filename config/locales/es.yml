@@ -18,9 +18,19 @@ es:
       title: Configuraciones
   dashboard:
     activity_log:
-      label: Actividad de línea de llamada %{current_line}
+      label: Actividad de línea de llamadas %{current_line}
+    helpers:
+      voicemail_options:
+        'no': No dejen mensajes de voz
+        not_specified: Sin instrucciones; no ID VM
+        'yes': Si se permiten mensajes de voz
     overview:
       week_of: Semana de %{week_range}
+    partial_titles:
+      call_list: Tu lista de llamadas
+      completed_calls: Tus llamadas completadas
+      search_results: Resultados de la búsqueda
+      urgent_cases: Casos urgentes
     search:
       header: Construye tu lista de llamadas
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
