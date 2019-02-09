@@ -18,12 +18,12 @@ es:
       title: Configuraciones
   dashboard:
     activity_log:
-      label: Actividad de línea de llamada %{current_line}
+      label: Actividad de línea de llamadas %{current_line}
     helpers:
       voicemail_options:
-        'no': No dejes un correo de voz
+        'no': No dejen mensajes de voz
         not_specified: Sin instrucciones; no ID VM
-        'yes': Correoo de voz bien, ID bien
+        'yes': Si se permiten mensajes de voz
     overview:
       week_of: Semana de %{week_range}
     partial_titles:

@@ -16,10 +16,10 @@ module DashboardsHelper
     enum_text = { not_specified: t('dashboard.helpers.voicemail_options.not_specified'),
                   no: t('dashboard.helpers.voicemail_options.no'),
                   yes: t('dashboard.helpers.voicemail_options.yes') }
+    # Match the voicemail preference set with its string above, for use in a dropdown
     Patient.voicemail_preference
            .values
-           .map { |option| option.to_sym }
-           .map { |option| [enum_text[option], option.to_sym] }
+           .map { |option| [enum_text[option.to_sym], option.to_sym] }
   end
 
   def remove_from_call_list_glyphicon
