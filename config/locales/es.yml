@@ -114,3 +114,10 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
+  events:
+    reached_patient: alcanzado
+    couldnt_reach_patient: llamó, pero no pudo llegar
+    left_voicemail: dejó un mensaje de voz para
+    pledged: envió una promesa de $%{pledge_amount} para
+    unknown_action: interactuado con
+    add_to_call_list: Añadir a la lista de llamadas

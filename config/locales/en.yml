@@ -114,3 +114,10 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+  events:
+    reached_patient: reached
+    couldnt_reach_patient: called, but couldn't reach
+    left_voicemail: left a voicemail for
+    pledged: sent a $%{pledge_amount} pledge for
+    unknown_action: interacted with
+    add_to_call_list: Add to call list

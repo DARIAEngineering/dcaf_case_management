@@ -77,4 +77,12 @@ class EventTest < ActiveSupport::TestCase
       assert_equal 3, Event.count
     end
   end
+
+  describe 'underscored_type' do
+    it 'should translate to type without punctuation, with underscores' do
+      assert_equal 'pledged', create(:event, event_type: 'Pledged', pledge_amount: 100).underscored_type
+      assert_equal 'left_voicemail', create(:event, event_type: 'Left voicemail').underscored_type
+      assert_equal 'reached_patient', create(:event, event_type: 'Reached patient').underscored_type
+    end
+  end
 end
