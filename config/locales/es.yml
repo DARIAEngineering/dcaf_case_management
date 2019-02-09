@@ -48,6 +48,13 @@ es:
         password: Contraseña
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
+  events:
+    add_to_call_list: Añadir a la lista de llamadas
+    couldnt_reach_patient: llamó, pero no pudo llegar
+    left_voicemail: dejó un mensaje de voz para
+    pledged: envió una promesa de $%{pledge_amount} para
+    reached_patient: alcanzado
+    unknown_action: interactuado con
   lines:
     new:
       start: Empezar
@@ -114,10 +121,3 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
-  events:
-    reached_patient: alcanzado
-    couldnt_reach_patient: llamó, pero no pudo llegar
-    left_voicemail: dejó un mensaje de voz para
-    pledged: envió una promesa de $%{pledge_amount} para
-    unknown_action: interactuado con
-    add_to_call_list: Añadir a la lista de llamadas

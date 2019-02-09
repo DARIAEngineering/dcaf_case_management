@@ -38,22 +38,28 @@ class EventTest < ActiveSupport::TestCase
   end
 
   describe 'rendering methods' do
-    it 'should render the correct glyphicon' do
-      @event.event_type = "Couldn't reach patient"
-      assert_equal 'earphone', @event.glyphicon
+    describe 'glyphicon' do
+      it 'should render the correct glyphicon' do
+        @event.event_type = "Couldn't reach patient"
+        assert_equal 'earphone', @event.glyphicon
 
-      @event.event_type = 'Reached patient'
-      assert_equal 'comment', @event.glyphicon
+        @event.event_type = 'Reached patient'
+        assert_equal 'comment', @event.glyphicon
 
-      @event.event_type = 'Pledged'
-      assert_equal 'thumbs-up', @event.glyphicon
+        @event.event_type = 'Pledged'
+        assert_equal 'thumbs-up', @event.glyphicon
 
-      @event.event_type = 'Left voicemail'
-      assert_equal 'earphone', @event.glyphicon
+        @event.event_type = 'Left voicemail'
+        assert_equal 'earphone', @event.glyphicon
+      end
     end
 
-    it 'should do something on event text' do
-      assert @event.event_text
+    describe 'underscored_type' do
+      it 'should translate to type without punctuation, with underscores' do
+        assert_equal 'pledged', create(:event, event_type: 'Pledged', pledge_amount: 100).underscored_type
+        assert_equal 'left_voicemail', create(:event, event_type: 'Left voicemail').underscored_type
+        assert_equal 'reached_patient', create(:event, event_type: 'Reached patient').underscored_type
+      end
     end
   end
 
@@ -75,14 +81,6 @@ class EventTest < ActiveSupport::TestCase
       Event.destroy_old_events
 
       assert_equal 3, Event.count
-    end
-  end
-
-  describe 'underscored_type' do
-    it 'should translate to type without punctuation, with underscores' do
-      assert_equal 'pledged', create(:event, event_type: 'Pledged', pledge_amount: 100).underscored_type
-      assert_equal 'left_voicemail', create(:event, event_type: 'Left voicemail').underscored_type
-      assert_equal 'reached_patient', create(:event, event_type: 'Reached patient').underscored_type
     end
   end
 end
