@@ -1,5 +1,14 @@
 ---
 en:
+  common:
+    add: Add
+    appointment_date_short: Appt date
+    name: Name
+    notes: Notes
+    phone: Phone
+    search: Search
+    status: Status
+    weeks_along_short: Weeks along
   configs:
     config:
       current_options: 'Current options are:'
@@ -7,6 +16,18 @@ en:
     index:
       sub_text: Use this to set custom insurance, language, external pledge options, and help text for pledge limits.
       title: Configs
+  dashboard:
+    activity_log:
+      label: "%{current_line} Line Activity Log"
+    overview:
+      week_of: Week of %{week_range}
+    search:
+      header: Build your call list
+      input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
+    table_content:
+      clear_call_list: Clear your call list
+      clear_call_list_confirm: Are you sure you want to clear your current call list? This will also clear completed calls.
+      remove_from_call_list_confirm: Are you sure you want to remove %{name} from your call list?
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}
