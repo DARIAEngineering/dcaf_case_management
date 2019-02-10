@@ -13,6 +13,11 @@ class Clinic
   has_many :patients
   has_many :archived_patients
 
+  # Scopes
+  # Is gestatiional_limit either nil or above x?
+  scope :gestational_limit_above, ->(gestation){ any_of({:gestational_limit.in => [nil]},
+                                                        {:gestational_limit.gte => gestation})}
+
   # Callbacks
   before_save :update_coordinates, if: :address_changed?
 
@@ -47,13 +52,11 @@ class Clinic
   # Methods
   def display_location
     return nil if city.blank? || state.blank?
-
     "#{city}, #{state}"
   end
 
   def full_address
     return nil if display_location.blank? || street_address.blank? || zip.blank?
-
     "#{street_address}, #{display_location} #{zip}"
   end
 
@@ -68,12 +71,6 @@ class Clinic
 
   def address_changed?
     street_address_changed? || city_changed? || state_changed? || zip_changed?
-  end
-
-  def self.with_zip_and_gestational_limit_above(gestational_limit:, naf_only:, medicaid_only:)
-    where(:zip.nin => [nil, '', EXCLUDED_ZIP])
-      .or({:gestational_limit.in => [nil, '']},
-          {:gestational_limit.gte => gestational_limit})
   end
 
   def self.update_all_coordinates

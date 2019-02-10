@@ -6,6 +6,7 @@ class ClinicfindersController < ApplicationController
 
     gestation = calculate_gestation params
     filtered_clinics = Clinic.where(:zip.nin => [nil, '', Clinic::EXCLUDED_ZIP])
+                             .gestational_limit_above(gestation)
                              .where(:accepts_naf.in => [true, params[:naf_only] == '1'])
                              .where(:accepts_medicaid.in => [true, params[:medicaid_only] == '1'])
 
