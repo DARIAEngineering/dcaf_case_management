@@ -8,8 +8,8 @@ module ClinicfindersHelper
       "#{clinic[field].round(2)} miles"
     when :cost
       number_to_currency clinic[field], precision: 0
-    when :gestation_limit
-      "Goes to #{(gestation_limit / 7).to_i}w"
+    when :gestational_limit
+      clinic.gestational_limit.present? ? "Goes to #{(clinic.gestational_limit / 7).to_i}w" : 'Not specified'
     else
       clinic[field]
     end
