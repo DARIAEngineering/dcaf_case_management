@@ -5,18 +5,11 @@ class ClinicfindersController < ApplicationController
     return head :bad_request if params[:zip].blank?
 
     gestation = calculate_gestation params
-    clinics = Clinic.with_zip_and_gestational_limit_above gestation
-                    .where(accepts_naf: )
-                    .where(:accepts_naf.in =>  true)
+    filtered_clinics = Clinic.where(:zip.nin => [nil, '', Clinic::EXCLUDED_ZIP])
+                             .where(:accepts_naf.in => [true, params[:naf_only] == '1'])
+                             .where(:accepts_medicaid.in => [true, params[:medicaid_only] == '1'])
 
-    # Get all clinics except those with invalid zip codes.
-    clinic_finder = ClinicFinder::Locator.new(
-      clinics,
-      gestational_age: gestation_limit,
-      naf_only: params[:naf_only] == '1',
-      medicaid_only: params[:medicaid_only] == '1'
-    )
-
+    clinic_finder = ClinicFinder::Locator.new filtered_clinics
     @nearest = clinic_finder.locate_nearest_clinics params[:zip]
     @cheapest = nil # clinic_finder.locate_cheapest_clinic
     respond_to { |format| format.js }
