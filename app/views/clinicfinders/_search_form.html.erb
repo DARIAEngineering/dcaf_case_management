@@ -1,11 +1,14 @@
 <div class='col-sm-12'>
   <h5 class='clinic-finder-expand'>
     Clinic Locator Assistant
+    <small>This is an experimental feature.</small>
     <span class='glyphicon glyphicon-plus-sign pull-right'></span>
   </h5>
 
   <div class='col-sm-12 hide' id='clinic-finder-search-form'>
-    <h6>A tool for sorting clinics by cost and distance.</h6>
+    <h6>
+      A tool for sorting clinics by cost and distance.
+    </h6>
 
     <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
       <div class="row">
@@ -15,9 +18,12 @@
           <%= f.check_box :medicaid_only, label: 'Show only Medicaid clinics' %>
         </div>
 
-        <div class="col-sm-6 info-form-right">
-          This is an experimental feature.
-          <%#= f.select :gestation, weeks_options, label: "Patient's approx. gestation at appt" %>
+        <div class="col-sm-3 info-form-right">
+          <%= f.select :gestation_weeks, options_for_select(weeks_options, patient.last_menstrual_period_now_weeks), label: 'Weeks along', autocomplete: 'off', help: t('patient.dashboard.currently', LMP: patient.last_menstrual_period_display_short) %>
+        </div>
+
+        <div class="col-sm-3 info-form-right hide-label">
+          <%= f.select :gestation_days, options_for_select(days_options, patient.last_menstrual_period_now_days), label: '.' %>
         </div>
       </div>
 
