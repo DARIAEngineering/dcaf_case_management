@@ -8,9 +8,10 @@ class ClinicfindersController < ApplicationController
     # e.g. so a fund can have an 'OTHER CLINIC' catchall.
     excluded_zip = '99999'
 
+    clinics = Clinic.where(:zip.nin => [nil, '', excluded_zip])
     # Get all clinics except those with invalid zip codes.
     clinic_finder = ClinicFinder::Locator.new(
-      Clinic.where(:zip.nin => [nil, '', excluded_zip]),
+      clinics,
       gestational_age: (params[:gestation].to_i || 0),
       naf_only: params[:naf_only] == '1',
       medicaid_only: params[:medicaid_only] == '1'

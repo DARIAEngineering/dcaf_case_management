@@ -19,11 +19,19 @@
         </div>
 
         <div class="col-sm-3 info-form-right">
-          <%= f.select :gestation_weeks, options_for_select(weeks_options, patient.last_menstrual_period_now_weeks), label: 'Weeks along', autocomplete: 'off', help: t('patient.dashboard.currently', LMP: patient.last_menstrual_period_display_short) %>
+          <%= f.select :gestation_weeks,
+                       options_for_select(weeks_options, patient.last_menstrual_period_now_weeks),
+                       label: 'Gestation cap',
+                       autocomplete: 'off',
+                       help: t('patient.dashboard.currently',
+                               LMP: patient.last_menstrual_period_display_short) %>
         </div>
 
         <div class="col-sm-3 info-form-right hide-label">
-          <%= f.select :gestation_days, options_for_select(days_options, patient.last_menstrual_period_now_days), label: '.' %>
+          <%= f.select :gestation_days,
+                       options_for_select(days_options, patient.last_menstrual_period_now_days),
+                       label: '.',
+                       autocomplete: 'off' %>
         </div>
       </div>
 
