@@ -5,6 +5,10 @@ class Clinic
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
+  # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.
+  # e.g. so a fund can have an 'OTHER CLINIC' catchall.
+  EXCLUDED_ZIP = '99999'
+
   # Relationships
   has_many :patients
   has_many :archived_patients
