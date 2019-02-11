@@ -1,5 +1,4 @@
 require 'application_system_test_case'
-require 'locale_helper'
 
 class AuthorizationTest < ApplicationSystemTestCase
   before do
