@@ -82,8 +82,4 @@ class ActionDispatch::IntegrationTest
   before { Capybara.reset_sessions! }
 
   # for controllers
-
-  def setup
-    self.default_url_options = { locale: I18n.default_locale }
-  end
 end

@@ -1,6 +1,11 @@
 require 'test_helper'
+require 'locale_helper'
 
 class AccountantsControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    self.default_url_options = { locale: I18n.default_locale }
+  end
+
   before do
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: 4.days.from_now,
