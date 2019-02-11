@@ -15,22 +15,23 @@ class TooltipsHelperTest < ActionView::TestCase
     end
 
     describe 'dashboard table content tooltip shell' do
-      it 'should blank out on Search results' do
-        assert_nil dashboard_table_content_tooltip_shell('Search results')
+      it 'should blank out on search_results' do
+        assert_nil dashboard_table_content_tooltip_shell('search_results')
       end
 
       it 'should return the tooltip shell otherwise' do
-        assert_equal tooltip_shell(your_call_list_help_text),
-                     dashboard_table_content_tooltip_shell('Your call list')
+        assert_equal tooltip_shell(call_list_help_text),
+                     dashboard_table_content_tooltip_shell('call_list')
       end
     end
   end
 
   describe 'help_text functions' do
     # Everything's okay alarms -- no need to test contents
-    %i[your_call_list_help_text your_completed_calls_help_text
+    %i[call_list_help_text completed_calls_help_text
        urgent_cases_help_text record_new_external_pledge_help_text
-       resolved_without_fund_help_text referred_to_clinic_help_text].each do |func|
+       resolved_without_fund_help_text referred_to_clinic_help_text
+        budget_bar_help_text].each do |func|
       it "should return a string - #{func}" do
         assert_operator send(func).length, :>, 10
       end
@@ -44,6 +45,7 @@ class TooltipsHelperTest < ActionView::TestCase
 
     it 'should return a string - status_help_text' do
       assert_match /No Contact Made/, status_help_text(@patient)
+      assert_match /budget bar/, budget_bar_help_text
     end
   end
 end

@@ -1,33 +1,33 @@
 <div id="patient_dashboard_content">
   <%= bootstrap_form_for patient, html: { id: 'patient_dashboard_form' }, remote: true do |f| %>
     <div class="col-sm-4" >
-      <%= f.text_field :name, label: 'First and last name', autocomplete: 'off' %>
-      <%= f.text_field :primary_phone, value: patient.primary_phone_display, label: 'Phone number', autocomplete: 'off' %>
+      <%= f.text_field :name, label: t('patient.shared.name'), autocomplete: 'off' %>
+      <%= f.text_field :primary_phone, value: patient.primary_phone_display, label: t('patient.dashboard.phone'), autocomplete: 'off' %>
     </div>
 
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-6">
-          <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: 'Weeks along at intake', autocomplete: 'off', help: "Currently: #{patient.last_menstrual_period_display_short}" %>
+          <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options, patient.last_menstrual_period_weeks ), label: t('patient.dashboard.weeks_along'), autocomplete: 'off', help: t('patient.dashboard.currently', LMP: patient.last_menstrual_period_display_short) %>
         </div>
         <div class="col-sm-6 hide-label">
-          <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: "Called on: #{patient.initial_call_date.strftime("%m/%d/%Y")}" %>
+          <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), label: '.', autocomplete: 'off', help: t('patient.dashboard.called_on', date: patient.initial_call_date.strftime("%m/%d/%Y")) %>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <p><strong>Status:</strong> <span id='patient_status'><%= patient.status %></span> <%= tooltip_shell status_help_text(patient) %></p>
+          <p><strong><%= t 'patient.shared.status' %></strong> <span id='patient_status'><%= patient.status %></span> <%= tooltip_shell status_help_text(patient) %></p>
         </div>
       </div>
     </div>
 
     <div class="col-sm-4">
       <div class="row">
-        <%= f.date_field :appointment_date, label: 'Appointment date', autocomplete: 'off', help: "Approx gestation at appt: #{patient.last_menstrual_period_at_appt}" %>
+        <%= f.date_field :appointment_date, label: t('patient.dashboard.appt_date'), autocomplete: 'off', help: t('patient.dashboard.approx_gestation', gest: patient.last_menstrual_period_at_appt) %>
       </div>
       <div class="row">
         <% if current_user.admin? %>
-          <%= link_to 'Delete duplicate patient record', patient_path(patient), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure you want to delete #{patient.name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)" }, remote: true %>
+          <%= link_to t('patient.dashboard.delete'), patient_path(patient), class: 'btn btn-danger', method: :delete, data: { confirm: t('patient.dashboard.confirm_del', name: patient.name) }, remote: true %>
         <% end %>
       </div>
     </div>

@@ -4,12 +4,7 @@ require 'ostruct'
 
 # Use as follows:
 # pt = Patient.find('123');
-# finder = ClinicFinder::Locator.new(
-#   Clinic.all,
-#   gestational_age: pt.gestational_age, # in days
-#   naf_only: true, # Limit results to NAF clinics
-#   medicaid_only: true # Limit results to Medicaid clinics
-# )
+# finder = ClinicFinder::Locator.new(Clinic.all)
 # finder.locate_nearest_clinics pt.zip, limit: 5
 # finder.locate_cheapest_clinics limit: 5
 module ClinicFinder
@@ -19,21 +14,14 @@ module ClinicFinder
   class Locator
     include ClinicFinder::Modules::Geocoder
 
-    attr_accessor :clinics
     attr_accessor :clinic_structs
     attr_accessor :patient_context # no reason to not assign this to an obj lvl
     attr_accessor :geocoder
 
-    def initialize(clinics, gestational_age: 0,
-                   naf_only: false, medicaid_only: false)
-      @clinics = filter_by_params clinics,
-                                  gestational_age,
-                                  naf_only,
-                                  medicaid_only
-
-      @clinic_structs = @clinics.map { |clinic| OpenStruct.new clinic.attributes }
+    def initialize(clinics)
+      @clinic_structs = clinics.map { |clinic| OpenStruct.new clinic.attributes }
       @patient_context = OpenStruct.new
-      @geocoder = set_geocoder
+      @geocoder = Geokit::Geocoders::GoogleGeocoder
     end
 
     # Return a set of the closest clinics as structs and their attributes,
@@ -54,26 +42,6 @@ module ClinicFinder
 
       # @gestational_tier = @helper.gestational_tier
       # decorate_data(available_clinics)
-    end
-
-    private
-
-    # Based on initialization fields, narrow the list of clinics to
-    # just what we need.
-    def filter_by_params(clinics, gestational_age, naf_only, medicaid_only)
-      filtered_clinics = clinics.keep_if do |clinic|
-        gestational_age < (clinic.gestational_limit || 1000) &&
-          (naf_only ? clinic.accepts_naf : true) &&
-          (medicaid_only ? clinic.accepts_medicaid : true)
-      end
-      filtered_clinics
-    end
-
-    def set_geocoder
-      geocoder = Geokit::Geocoders::GoogleGeocoder
-      geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
-
-      geocoder
     end
   end
 end

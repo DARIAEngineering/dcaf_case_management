@@ -4,12 +4,11 @@ class ClinicfindersController < ApplicationController
   def search
     return head :bad_request if params[:zip].blank?
 
-    clinic_finder = ClinicFinder::Locator.new(
-      Clinic.where(:zip.nin => [nil, '']),
-      gestational_age: (params[:gestation].to_i || 0),
-      naf_only: false, # (params[:naf_only] || false),
-      medicaid_only: false # (params[:medicaid_only] || false)
-    )
+    filtered_clinics = Clinic.where(:zip.nin => [nil, '', Clinic::EXCLUDED_ZIP])
+                             .where(:accepts_naf.in => [true, params[:naf_only] == '1'])
+                             .where(:accepts_medicaid.in => [true, params[:medicaid_only] == '1'])
+
+    clinic_finder = ClinicFinder::Locator.new filtered_clinics
 
     @nearest = clinic_finder.locate_nearest_clinics params[:zip]
     @cheapest = nil # clinic_finder.locate_cheapest_clinic

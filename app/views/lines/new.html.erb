@@ -1,14 +1,14 @@
 <div class="container">
   <div class="col-sm-12 lines-form">
-    <h1 class="border-bottom title">Welcome to <%= FUND %> Case Manager!</h1>
-    <h4>What line are you working tonight?</h4>
+    <h1 class="border-bottom title"><%= t 'lines.new.welcome_to_daria', fund: FUND %></h1>
+    <h4><%= t 'lines.new.what_line' %></h4>
 
     <%= bootstrap_form_tag url: lines_path do |f| %>
       <% lines.each do |line| %>
         <%= f.radio_button :line, line %>
         <%= f.label :line, line, :value => line %>
       <% end %>
-      <%= f.submit 'Start', class: 'btn-lg btn-primary' %>
+      <%= f.submit t('lines.new.start'), class: 'btn-lg btn-primary' %>
     <% end %>
 
   </div>

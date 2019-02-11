@@ -23,7 +23,7 @@ valueToNumber = (val) ->
 
 markFulfilledWhenFieldsChecked = ->
   pledge_fields = [
-    '#patient_fulfillment_procedure_cost'
+    '#patient_fulfillment_fund_payout'
     '#patient_fulfillment_check_number'
     '#patient_fulfillment_gestation_at_procedure'
     '#patient_fulfillment_date_of_check'

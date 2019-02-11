@@ -58,6 +58,17 @@ class ActiveSupport::TestCase
     create :config, config_key: 'language',
                     config_value: { options: language_options }
   end
+
+  def create_referred_by_config
+    referred_by_options = ['Metal band']
+    create :config, config_key: 'referred_by',
+                    config_value: { options: referred_by_options }
+  end
+
+  def create_fax_service_config
+    create :config, config_key: 'fax_service',
+                    config_value: { options: ['http://www.yolofax.com'] }
+  end
 end
 
 # Used by controller tests

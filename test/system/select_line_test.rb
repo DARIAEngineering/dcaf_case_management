@@ -13,12 +13,12 @@ class SelectLineTest < ApplicationSystemTestCase
       assert has_content? 'DC'
       assert has_content? 'MD'
       assert has_content? 'VA'
-      assert has_button? 'Start'
+      assert has_button? 'Get started'
     end
 
     it 'should redirect to the main dashboard after line set' do
       choose 'DC'
-      click_button 'Start'
+      click_button 'Get started'
       assert_equal current_path, authenticated_root_path
       assert has_content? 'Your current line: DC'
     end

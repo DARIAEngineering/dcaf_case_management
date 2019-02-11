@@ -6,6 +6,7 @@ class DataEntryTest < ApplicationSystemTestCase
     @user = create :user
     @clinic = create :clinic
     create_insurance_config
+    create_referred_by_config
     log_in_as @user
     visit data_entry_path
     has_text? 'PATIENT ENTRY' # wait until load

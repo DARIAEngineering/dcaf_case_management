@@ -49,6 +49,16 @@ if($('#row-<%= @patient.id %>')) {
   );
 }
 
+// Update the archive date on audit
+$('#patient_fulfillment_audited')
+  .parent()
+  .parent()
+  .parent()
+  .parent()
+  .parent()
+  .find('p.archive-note')
+  .text('Patient will be archived on <%= @patient.archive_date %>');
+
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
 $('#flash').removeClass().hide().fadeIn('slow');

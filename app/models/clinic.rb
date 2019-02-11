@@ -5,6 +5,10 @@ class Clinic
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
+  # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.
+  # e.g. so a fund can have an 'OTHER CLINIC' catchall.
+  EXCLUDED_ZIP = '99999'
+
   # Relationships
   has_many :patients
   has_many :archived_patients
@@ -54,10 +58,9 @@ class Clinic
   end
 
   def update_coordinates
-    return unless ENV['GOOGLE_GEO_API_KEY']
-
     geocoder = Geokit::Geocoders::GoogleGeocoder
-    geocoder.api_key = ENV['GOOGLE_GEO_API_KEY'] if ENV['GOOGLE_GEO_API_KEY']
+    return unless geocoder.try :api_key
+
     location = geocoder.geocode full_address
     coordinates = [location.lat, location.lng]
     self.coordinates = coordinates
@@ -65,5 +68,10 @@ class Clinic
 
   def address_changed?
     street_address_changed? || city_changed? || state_changed? || zip_changed?
+  end
+
+  def self.update_all_coordinates
+    raise Exceptions::NoGoogleGeoApiKeyError.new unless Geokit::Geocoders::GoogleGeocoder.try(:api_key)
+    all.each { |clinic| clinic.update_coordinates && clinic.save }
   end
 end

@@ -28,7 +28,7 @@ module IntegrationHelper
 
   def select_line(line = 'DC')
     choose line
-    click_button 'Start'
+    click_button 'Get started'
   end
 
   def wait_for_element(text)

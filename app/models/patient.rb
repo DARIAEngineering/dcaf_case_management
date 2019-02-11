@@ -147,6 +147,8 @@ class Patient
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
                       .where(:fund_pledged_at.gte => start_of_week)
+                      .where(:resolved_without_fund.in => [false, nil])
+                      .order_by(fund_pledged_at: :asc)
                       .pluck(*plucked_attrs)
                       .map { |att| plucked_attrs.zip(att).to_h }
 
@@ -252,6 +254,19 @@ class Patient
     !!has_circumstance
   end
 
+  def archive_date
+    if fulfillment.audited?
+      # If a patient fulfillment is ticked off as audited, archive 3 months
+      # after initial call date. If we're already past 3 months later when
+      # the audit happens, it will archive that night
+      initial_call_date + 3.months
+    else
+      # If a patient is waiting for audit they archive a year after their
+      # initial call date
+      initial_call_date + 1.year
+    end
+  end
+
   private
 
   def confirm_appointment_after_initial_call
@@ -294,4 +309,5 @@ class Patient
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
   end
+
 end

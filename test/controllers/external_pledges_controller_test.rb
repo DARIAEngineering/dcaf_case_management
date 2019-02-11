@@ -37,13 +37,14 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
   describe 'update method' do
     before do
-
       @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                     amount: 100,
-                                     created_by: @user
+                                       amount: 100,
+                                       created_by: @user
       @pledge = @patient.external_pledges.first
       @pledge_edits = { source: 'Edited Pledge' }
-      patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
+      patch patient_external_pledge_path(@patient, @pledge),
+            params: { external_pledge: @pledge_edits },
+            xhr: true
       @pledge.reload
     end
 
@@ -57,9 +58,9 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
     it 'should produce an audit trail' do
       assert_equal @pledge.history_tracks.count, 2
-      @changes = @pledge.history_tracks.last
-      assert_equal @changes.modified[:updated_by_id], @user.id
-      assert_equal @changes.modified[:source], 'Edited Pledge'
+      last_changes = @pledge.history_tracks.last
+      assert_equal last_changes.updated_by_id, @user.id
+      assert_equal last_changes.modified[:source], 'Edited Pledge'
     end
 
     it 'should refuse to save pledge type to blank' do
@@ -80,8 +81,8 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
   describe 'destroy' do
     before do
       @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                     amount: 100,
-                                     created_by: @user
+                                       amount: 100,
+                                       created_by: @user
       @pledge = @patient.external_pledges.first
     end
 
