@@ -10,9 +10,3 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
 end
-
-class ActionDispatch::Routing::RouteSet
-  def default_url_options(options={})
-    { :locale => I18n.default_locale }
-  end
-end
