@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'locale_helper'
 
 # Tests for the clinics controller
 class ClinicsControllerTest < ActionDispatch::IntegrationTest
