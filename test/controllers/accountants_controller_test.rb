@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'locale_helper'
 
 class AccountantsControllerTest < ActionDispatch::IntegrationTest
   def setup

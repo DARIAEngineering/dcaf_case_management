@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'locale_helper'
 
 class ConfigsControllerTest < ActionDispatch::IntegrationTest
   describe 'non-admin redirects' do
