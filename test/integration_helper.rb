@@ -1,9 +1,5 @@
 # Helpers for browser junk
 module IntegrationHelper
-  def setup
-    self.default_url_options = { locale: I18n.default_locale }
-  end
-
   def t(string, options={})
     I18n.t(string, options={})
   end
