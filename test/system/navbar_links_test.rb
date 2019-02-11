@@ -14,8 +14,19 @@ class NavbarLinksTest < ApplicationSystemTestCase
   end
 
   describe 'switch language link' do
-    it 'should display a link to switch to Spanish' do
-      assert has_link? "Español", href: "/?locale=es"
+    describe 'English view' do 
+      it 'should display a link to switch to Spanish' do
+        assert has_link? "Español", href: "/?locale=es"
+      end
+    end
+    describe 'Spanish view' do
+      before do
+        I18n.locale = "es"
+      end
+
+      it 'should display a link to switch to English' do
+        assert has_link? "Español", href: "/?locale=es"
+      end
     end
   end
 
