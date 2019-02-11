@@ -13,6 +13,12 @@ class NavbarLinksTest < ApplicationSystemTestCase
     end
   end
 
+  describe 'switch language link' do
+    it 'should display a link to switch to Spanish' do
+      assert has_link? "Español", href: "/?locale=es"
+    end
+  end
+
   describe 'admin dropdown' do
     describe 'admin view' do
       before { click_link 'Admin' }
