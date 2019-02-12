@@ -19,6 +19,9 @@ es:
   dashboard:
     activity_log:
       label: Actividad de línea de llamadas %{current_line}
+    budget_bar:
+      sent: "%{amount} expedido (%{count} pacientes)"
+      pledged: "%{amount} prometido (%{count} pacientes)"
     helpers:
       voicemail_options:
         'no': No dejen mensajes de voz

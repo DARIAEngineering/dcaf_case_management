@@ -19,6 +19,9 @@ en:
   dashboard:
     activity_log:
       label: "%{current_line} Line Activity Log"
+    budget_bar:
+      sent: "%{amount} sent (%{count} patients)"
+      pledged: "%{amount} sent (%{count} patients)"
     helpers:
       voicemail_options:
         'no': Do not leave a voicemail
