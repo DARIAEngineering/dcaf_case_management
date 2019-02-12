@@ -23,10 +23,13 @@ class AuditTrailTest < ActiveSupport::TestCase
 
   describe 'methods' do
     before do
+      @clinic = create :clinic
       @patient.update_attributes name: 'Yolo',
                                  primary_phone: '123-456-9999',
                                  appointment_date: Time.zone.now + 10.days,
-                                 initial_call_date: Time.zone.now + 4.days
+                                 city: 'Canada',
+                                 clinic: @clinic,
+                                 special_circumstances: ['A', '', 'C', '']
       @track = @patient.history_tracks.second
     end
 
@@ -35,34 +38,20 @@ class AuditTrailTest < ActiveSupport::TestCase
                    @track.date_of_change
     end
 
-
-    it 'should conveniently render changed fields' do
-      assert_equal @track.changed_fields,
-                   ["Name", "Primary phone", "Appointment date", "Initial call date", "Identifier"]
-    end
-
-    it 'should conveniently render what they were before' do
-      assert_equal @track.changed_from,
-                   ["Susie Everyteen",
-                     "1112223333",
-                     (Time.zone.now + 5.days).display_date,
-                     (Time.zone.now + 3.days).display_date,
-                     "D2-3333"]
-    end
-
-    it 'should conveniently render what they are now' do
-      assert_equal @track.changed_to,
-                  ["Yolo",
-                    "1234569999",
-                    (Time.zone.now + 10.days).display_date,
-                    (Time.zone.now + 4.days).display_date,
-                    "D6-9999"]
-    end
-
     it 'should default to System if it cannot find a user' do
       assert_equal @track.changed_by_user, 'System'
     end
 
+    it 'should return shaped changes as a single dict' do
+      assert_equal @track.shaped_changes,
+                   { 'name' => { original: 'Susie Everyteen', modified: 'Yolo' },
+                     'primary_phone' => { original: '1112223333', modified: '1234569999' },
+                     'appointment_date' =>{ original: (Time.zone.now + 5.days).display_date, modified: (Time.zone.now + 10.days).display_date },
+                     'special_circumstances' =>{ original: '(empty)', modified: 'A, C' },
+                     'city' =>{ original: '(empty)', modified: 'Canada' },
+                     'clinic_id' =>{ original: '(empty)', modified: @clinic.name },
+                   }
+    end
   end
 
   describe 'marked urgent' do

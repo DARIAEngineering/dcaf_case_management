@@ -54,18 +54,18 @@ class ClinicFinderTest < ActiveSupport::TestCase
 
   describe 'initialization with clinics' do
     before do
+      @clinics = Clinic.all
       @abortron = ClinicFinder::Locator.new Clinic.all
     end
 
     it 'should initialize with clinics' do
-      assert(@abortron.clinics.find { |c| c.name == 'PP SF' })
-      assert_equal Clinic.all.count, @abortron.clinics.count
-      assert_equal @abortron.clinics.count, @abortron.clinic_structs.count
+      assert @abortron.clinic_structs.find { |c| c.name == 'PP SF' }
+      assert_equal Clinic.all.count, @abortron.clinic_structs.count
     end
 
     it 'should have mirroring clinic and clinic_structs on init' do
       @abortron.clinic_structs.each do |clinic_struct|
-        clinic = @abortron.clinics.find { |c| c._id == clinic_struct._id }
+        clinic = @clinics.find clinic_struct._id
         clinic.attributes.each_pair do |k, _v|
           attr_value = clinic.instance_variable_get("@#{k}")
           assert_equal attr_value, clinic_struct[k] if attr_value
@@ -77,26 +77,6 @@ class ClinicFinderTest < ActiveSupport::TestCase
       assert @abortron.respond_to? :patient_context
       @abortron.patient_context.yolo = 'goat'
       assert_equal 'goat', @abortron.patient_context.yolo
-    end
-  end
-
-  describe 'initializing with filters' do
-    it 'should filter clinics based on patients gestational age' do
-      @abortron = ClinicFinder::Locator.new Clinic.all,
-                                            gestational_age: 150
-      @abortron.clinics.each { |clinic| assert clinic.gestational_limit >= 150 }
-    end
-
-    it 'should filter clinics based on medicaid preference' do
-      @abortron = ClinicFinder::Locator.new Clinic.all,
-                                            medicaid_only: true
-      @abortron.clinics.each { |clinic| assert clinic.accepts_medicaid }
-    end
-
-    it 'should filter clinics based on naf preference' do
-      @abortron = ClinicFinder::Locator.new Clinic.all,
-                                            naf_only: true
-      @abortron.clinics.each { |clinic| assert clinic.accepts_naf }
     end
   end
 
