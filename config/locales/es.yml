@@ -20,12 +20,12 @@ es:
     activity_log:
       label: Actividad de línea de llamadas %{current_line}
     budget_bar:
+      pledged_item: "%{amount} prometido"
+      pledged_report: "%{amount} prometido (%{count} pacientes)"
       pop_content_appt_date: cita en %{date}
       pop_content_no_appt_date: sin cita
       sent_item: "%{amount} expedido"
-      pledged_item: "%{amount} prometido"
       sent_report: "%{amount} expedido (%{count} pacientes)"
-      pledged_report: "%{amount} prometido (%{count} pacientes)"
     helpers:
       voicemail_options:
         'no': No dejen mensajes de voz

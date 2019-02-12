@@ -5,6 +5,8 @@
         <% patient_hashes.each do |patient| %>
           <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>
             <div data-toggle='popover' data-content='<%= budget_bar_expenditure_content(patient) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
+              <%= # i18n-tasks-use t('dashboard.budget_bar.pledged_item') %>
+              <%= # i18n-tasks-use t('dashboard.budget_bar.sent_item') %>
               <%= t "dashboard.budget_bar.#{type}_item",
                     amount: number_to_currency(patient[:fund_pledge],
                                                precision: 0,
@@ -19,6 +21,8 @@
     <div class="row" id='budget-report'>
       <% expenditures.each_pair do |type, patient_hashes| %>
         <div class="col-sm-4">
+          <%= # i18n-tasks-use t('dashboard.budget_bar.pledged_report') %>
+          <%= # i18n-tasks-use t('dashboard.budget_bar.sent_report') %>
           <%= t("dashboard.budget_bar.#{type}_report",
                 amount: number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) || 0,
                                            precision: 0,

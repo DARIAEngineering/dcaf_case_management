@@ -20,12 +20,12 @@ en:
     activity_log:
       label: "%{current_line} Line Activity Log"
     budget_bar:
+      pledged_item: "%{amount} pledged"
+      pledged_report: "%{amount} pledged (%{count} patients)"
       pop_content_appt_date: appt on %{date}
       pop_content_no_appt_date: no appt date
       sent_item: "%{amount} sent"
-      pledged_item: "%{amount} pledged"
       sent_report: "%{amount} sent (%{count} patients)"
-      pledged_report: "%{amount} pledged (%{count} patients)"
     helpers:
       voicemail_options:
         'no': Do not leave a voicemail
