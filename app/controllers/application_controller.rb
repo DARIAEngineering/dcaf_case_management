@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
+  def default_url_options
+    return { :locale => I18n.locale } if I18n.locale != I18n.default_locale
+    {}
+  end
+
   private
 
   # Prevents app from caching pages as a security measure
