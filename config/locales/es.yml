@@ -90,6 +90,37 @@ es:
       week:
         one: "%{count} semana"
         other: "%{count} semanas"
+    information:
+      age: Años
+      city: Ciudad
+      county: Condado
+      employ: Estado de Empleo
+      household_adults: Adultos en el Hogar
+      household_minors: Menores en el Hogar
+      income: Ingresos
+      insurance: Seguro del Paciente
+      lang: Idioma Preferido
+      line: Linea
+      other_contact:
+        name: Nombre de Otro Contacto
+        phone: Teléfono de Otro Contacto
+        relationship: Relación con Otro Contacto
+        title: Otro Contacto
+      race_eth: Raza / Etnicidad
+      referred_by: Cómo escuchó el paciente sobre %{fund}
+      special_circumstances:
+        domestic_violence: Violencia doméstica
+        fetal: Diagnostico fetal
+        homelessness: La falta de vivienda
+        incest: Incesto
+        other_med: Otro problema médico
+        prison: Prisión
+        rape: Violación
+        title: Circunstancias Especiales
+      state: Estado
+      textable: "¿Textable?"
+      title: Información del Paciente
+      voicemail: Preferencias de Mensaje de Voz
     shared:
       name: Nombre y apellido
       status: 'Estado:'

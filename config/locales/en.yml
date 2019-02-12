@@ -90,6 +90,37 @@ en:
       week:
         one: "%{count} week"
         other: "%{count} weeks"
+    information:
+      age: Age
+      city: City
+      county: County
+      employ: Employment Status
+      household_adults: Adults in household
+      household_minors: Minors in household
+      income: Income
+      insurance: Patient insurance
+      lang: Preferred Language
+      line: Line
+      other_contact:
+        name: Other contact name
+        phone: Other phone
+        relationship: Relationship to other contact
+        title: Other Contact
+      race_eth: Race / Ethnicity
+      referred_by: How patient heard about %{fund}
+      special_circumstances:
+        domestic_violence: Domestic violence
+        fetal: Fetal diagnosis
+        homelessness: Homelessness
+        incest: Incest
+        other_med: Other medical issue
+        prison: Prison
+        rape: Rape
+        title: Special Circumstances
+      state: State
+      textable: Textable?
+      title: Patient information
+      voicemail: Voicemail Preference
     shared:
       name: First and last name
       status: 'Status:'
