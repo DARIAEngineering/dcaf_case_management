@@ -114,6 +114,7 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
+  tooltips:
     call_list: >-
       Esta lista clasificable se usa para hacer un seguimiento de los
       pacientes para devolver la llamada durante su turno. Utiliza la
@@ -144,3 +145,4 @@ es:
     mandatory_ultrasound: >-
       Si se encuentra en un estado que requiere ultrasonidos y el paciente
       ha completado uno, puede iniciar sesión aquí.
+    status_definition: Definición de estado

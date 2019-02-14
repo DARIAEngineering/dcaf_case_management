@@ -142,3 +142,4 @@ en:
     mandatory_ultrasound: >-
       If you are in a state that requires ultrasounds and the patient
       has completed one, you can log it here.
+    status_definition: Status definition
