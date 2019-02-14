@@ -115,34 +115,12 @@ es:
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
   tooltips:
-    call_list: >-
-      Esta lista clasificable se usa para hacer un seguimiento de los
-      pacientes para devolver la llamada durante su turno. Utiliza la
-      búsqueda para rellenarla.
-    budget_bar: >-
-      La barra de presupuesto enumera dinero provisionalmente reservado
-      para un paciente (ingresando un valor en el campo de compromiso %{FUND})
-      y el dinero enviado a una clínica para un paciente (marcando la casilla
-      de verificación Enviaré la promesa) durante una semana determinada.
-      Se reinicia los lunes.
-    completed_calls: >-
-      Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
-    urgent_cases: >-
-      Estos son pacientes que requieren un poco más de atención. Esta lista es
-      compartido entre todos los administradores de casos que trabajan en una
-      sola línea. Los pacientes son eliminados de esta lista automáticamente
-      después de que estén marcados como que tienen. Un compromiso enviado,
-      o marcado como resuelto sin ayuda.
-    record_new_external_pledge: >-
-      Promesas externas es nuestro término para promesas hechas por otros
-      fondos de aborto también trabajando con un paciente.
-    resolved_without_fund: >-
-      Esto se utiliza para indicar que un paciente no requiere o quiere
-      nuestros servicios por más tiempo.
-    referred_to_clinic: >-
-      Marque esta casilla si usted, como administrador de casos, refirió al
-      paciente a un clínica particular.
-    mandatory_ultrasound: >-
-      Si se encuentra en un estado que requiere ultrasonidos y el paciente
-      ha completado uno, puede iniciar sesión aquí.
+    budget_bar: La barra de presupuesto enumera dinero provisionalmente reservado para un paciente (ingresando un valor en el campo de compromiso %{fund}) y el dinero enviado a una clínica para un paciente (marcando la casilla de verificación Enviaré la promesa) durante una semana determinada. Se reinicia los lunes.
+    call_list: Esta lista clasificable se usa para hacer un seguimiento de los pacientes para devolver la llamada durante su turno. Utiliza la búsqueda para rellenarla.
+    completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
+    mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede iniciar sesión aquí.
+    record_new_external_pledge: Promesas externas es nuestro término para promesas hechas por otros fondos de aborto también trabajando con un paciente.
+    referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
+    resolved_without_fund: Esto se utiliza para indicar que un paciente no requiere o quiere nuestros servicios por más tiempo.
     status_definition: Definición de estado
+    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados como que tienen. Un compromiso enviado, o marcado como resuelto sin ayuda.

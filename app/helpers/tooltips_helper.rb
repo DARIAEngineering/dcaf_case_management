@@ -21,7 +21,7 @@ module TooltipsHelper
   end
 
   def budget_bar_help_text
-    t('tooltips.completed_calls', fund: FUND).strip
+    t('tooltips.budget_bar', fund: FUND).strip
   end
 
   def completed_calls_help_text
