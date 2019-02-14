@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  support_type: MyString
+  confirmed: false
+  source: MyString
+
+two:
+  support_type: MyString
+  confirmed: false
+  source: MyString
