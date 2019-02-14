@@ -90,6 +90,15 @@ es:
       week:
         one: "%{count} semana"
         other: "%{count} semanas"
+      race:
+        white_caucasian: "Blanca/Caucásica"
+        black_afican_american: "Negra/Afroamericana"
+        hispanic_latino: "Hispana/Latina"
+        asian_south_asian: "Asiática o Sur de Asia"
+        native_hawaiian_pacific_islander: "Hawaiana Nativa o Isleña Pacífica"
+        native_american: "Nativa Americana"
+        mixed_race_ethnicity: "Raza Mixta/Etnicidad"
+        other: "Otra"
     information:
       age: Años
       city: Ciudad

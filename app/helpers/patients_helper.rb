@@ -9,9 +9,15 @@ module PatientsHelper
   end
 
   def race_ethnicity_options
-    [nil, 'White/Caucasian', 'Black/African-American', 'Hispanic/Latino',
-     'Asian or South Asian', 'Native Hawaiian or Pacific Islander',
-     'Native American', 'Mixed Race/Ethnicity', 'Other']
+    [ [ nil ],
+     [ 'White/Caucasian', t('patient.helper.race.white_caucasian') ],
+     [ 'Black/African-American',  t('patient.helper.race.black_afican_american') ],
+     [ 'Hispanic/Latino', t('patient.helper.race.hispanic_latino')],
+     [ 'Asian or South Asian', t('patient.helper.race.asian_south_asian')],
+     [ 'Native Hawaiian or Pacific Islander', t('patient.helper.race.native_hawaiian_pacific_islander')],
+     [ 'Native American', t('patient.helper.race.native_american')],
+     [ 'Mixed Race/Ethnicity', t('patient.helper.race.mixed_race_ethnicity')],
+     [ 'Other', t('patient.helper.race.other')]]
   end
 
   def language_options

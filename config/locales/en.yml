@@ -90,6 +90,15 @@ en:
       week:
         one: "%{count} week"
         other: "%{count} weeks"
+      race:
+        white_caucasian: White/Caucasian
+        black_afican_american: Black/African-American
+        hispanic_latino: Hispanic/Latino
+        asian_south_asian: Asian or South Asian
+        native_hawaiian_pacific_islander: Native Hawaiian or Pacific Islander
+        native_american: Native American
+        mixed_race_ethnicity: Mixed Race/Ethnicity
+        other: Other
     information:
       age: Age
       city: City
