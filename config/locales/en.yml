@@ -114,3 +114,19 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+    clinics:
+      index:
+        header: Clinics
+        add_new: Add a new clinic
+        th:
+          name: Clinic name
+          address: Address
+          city: City
+          state: State
+          zip: ZIP
+          naf: NAF
+          medicaid: Medicaid
+          gest: Gestational Limit (Days)
+        td:
+          yes: Yes
+          no: No
