@@ -87,26 +87,70 @@ en:
       day:
         one: "%{count} day"
         other: "%{count} days"
+      employ:
+        full: Full-time
+        odd: Odd jobs
+        part: Part-time
+        student: Student
+        unemp: Unemployed
+      income:
+        10_to_15: "$10,000-14,999 ($192-287/wk - $834-1250/mo)"
+        15_to_20: "$15,000-19,999 ($288-384/wk - $1251-1666/mo)"
+        20_to_25: "$20,000-24,999 ($385-480/wk - $1667-2083/mo)"
+        25_to_30: "$25,000-29,999 ($481-576/wk - $2084-2499/mo)"
+        30_to_35: "$30,000-34,999 ($577-672/wk - $2500-2916/mo)"
+        35_to_40: "$35,000-39,999 ($673-768/wk - $2917-3333/mo)"
+        40_to_45: "$40,000-44,999 ($769-864/wk - $3334-3749/mo)"
+        45_to_50: "$45,000-49,999 ($865-961/wk - $3750-4165/mo)"
+        50_to_60: "$50,000-59,999 ($962-1153/wk - $4166-4999/mo)"
+        60_to_75: "$60,000-74,999 ($1154-1441/wk - $5000-6249/mo)"
+        75_plus: "$75,000 or more ($1442+ /wk - $6250+ /mo)"
+        under_10: Under $9,999 ($192/wk - $833/mo)
+      insurance:
+        none: No insurance
+        other: Other (add to notes)
+        unknown: Don't know
+      language:
+        English: English
+      race:
+        asian_south_asian: Asian or South Asian
+        black_afican_american: Black/African-American
+        hispanic_latino: Hispanic/Latino
+        mixed_race_ethnicity: Mixed Race/Ethnicity
+        native_american: Native American
+        native_hawaiian_pacific_islander: Native Hawaiian or Pacific Islander
+        other: Other
+        white_caucasian: White/Caucasian
+      refer:
+        clinic: Clinic
+        crisis_org: Sexual assault crisis org
+        cvac: Crime victim advocacy center
+        dv_org: Domestic violence crisis/intervention org
+        family: Family member
+        friend: Friend
+        fund: "%{fund} website or social media"
+        homeless: Homeless shelter
+        legal: Legal clinic
+        naf: NAF
+        nnaf: NNAF
+        other_fund: Other abortion fund
+        prev_patient: Previous patient
+        school: School
+        search: Google/Web search
+        youth: Youth outreach
       week:
         one: "%{count} week"
         other: "%{count} weeks"
-      race:
-        white_caucasian: White/Caucasian
-        black_afican_american: Black/African-American
-        hispanic_latino: Hispanic/Latino
-        asian_south_asian: Asian or South Asian
-        native_hawaiian_pacific_islander: Native Hawaiian or Pacific Islander
-        native_american: Native American
-        mixed_race_ethnicity: Mixed Race/Ethnicity
-        other: Other
     information:
       age: Age
       city: City
       county: County
       employ: Employment Status
       household_adults: Adults in household
+      household_help: "(including patient)"
       household_minors: Minors in household
       income: Income
+      income_help: Employment, Food Stamps, SS, TANF, etc.
       insurance: Patient insurance
       lang: Preferred Language
       line: Line

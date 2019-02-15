@@ -87,26 +87,70 @@ es:
       day:
         one: "%{count} día"
         other: "%{count} días"
+      employ:
+        full: Tiempo completo
+        odd: Trabajos ocasionales
+        part: Medio tiempo
+        student: Estudiante
+        unemp: Desempleados
+      income:
+        10_to_15: "$10,000-14,999 ($192-287/sm - $834-1250/mes)"
+        15_to_20: "$15,000-19,999 ($288-384/sm - $1251-1666/mes)"
+        20_to_25: "$20,000-24,999 ($385-480/sm - $1667-2083/mes)"
+        25_to_30: "$25,000-29,999 ($481-576/sm - $2084-2499/mes)"
+        30_to_35: "$30,000-34,999 ($577-672/sm - $2500-2916/mes)"
+        35_to_40: "$35,000-39,999 ($673-768/sm - $2917-3333/mes)"
+        40_to_45: "$40,000-44,999 ($769-864/sm - $3334-3749/mes)"
+        45_to_50: "$45,000-49,999 ($865-961/sm - $3750-4165/mes)"
+        50_to_60: "$50,000-59,999 ($962-1153/sm - $4166-4999/mes)"
+        60_to_75: "$60,000-74,999 ($1154-1441/sm - $5000-6249/mes)"
+        75_plus: "$75,000 o más ($1442+ /sm - $6250+ /mes)"
+        under_10: Debajo $9,999 ($192/sm - $833/mes)
+      insurance:
+        none: Sin Seguro
+        other: Otro (Añadir a las notas)
+        unknown: No Se
+      language:
+        English: Inglés
+      race:
+        asian_south_asian: Asiática o Sur de Asia
+        black_afican_american: Negra/Afroamericana
+        hispanic_latino: Hispana/Latina
+        mixed_race_ethnicity: Raza Mixta/Etnicidad
+        native_american: Nativa Americana
+        native_hawaiian_pacific_islander: Hawaiana Nativa o Isleña Pacífica
+        other: Otra
+        white_caucasian: Blanca/Caucásica
+      refer:
+        clinic: Clínica
+        crisis_org: Agresión de asalto sexual org
+        cvac: Centro de defensa de víctimas del crimen
+        dv_org: Violencia doméstica crisis / intervención org
+        family: Miembro de la familia
+        friend: Amigo
+        fund: "%{fund} sitio web o redes sociales"
+        homeless: Refugio para indigentes
+        legal: Clínica legal
+        naf: NAF
+        nnaf: NNAF
+        other_fund: Otro fondo de aborto
+        prev_patient: Paciente anterior
+        school: Colegio
+        search: Búsqueda de Google / Web
+        youth: Alcance juvenil
       week:
         one: "%{count} semana"
         other: "%{count} semanas"
-      race:
-        white_caucasian: "Blanca/Caucásica"
-        black_afican_american: "Negra/Afroamericana"
-        hispanic_latino: "Hispana/Latina"
-        asian_south_asian: "Asiática o Sur de Asia"
-        native_hawaiian_pacific_islander: "Hawaiana Nativa o Isleña Pacífica"
-        native_american: "Nativa Americana"
-        mixed_race_ethnicity: "Raza Mixta/Etnicidad"
-        other: "Otra"
     information:
       age: Años
       city: Ciudad
       county: Condado
       employ: Estado de Empleo
       household_adults: Adultos en el Hogar
+      household_help: "(incluyendo paciente)"
       household_minors: Menores en el Hogar
       income: Ingresos
+      income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
       insurance: Seguro del Paciente
       lang: Idioma Preferido
       line: Linea
