@@ -9,9 +9,9 @@ module PatientsHelper
   end
 
   def race_ethnicity_options
-    [ [ nil ],
+    [ nil,
       [ t('patient.helper.race.white_caucasian'),                  'White/Caucasian' ],
-      [ t('patient.helper.race.black_afican_american'),            'Black/African-American' ],
+      [ t('patient.helper.race.black_african_american'),           'Black/African-American' ],
       [ t('patient.helper.race.hispanic_latino'),                  'Hispanic/Latino'],
       [ t('patient.helper.race.asian_south_asian'),                'Asian or South Asian'],
       [ t('patient.helper.race.native_hawaiian_pacific_islander'), 'Native Hawaiian or Pacific Islander'],
@@ -23,40 +23,40 @@ module PatientsHelper
 
   # TODO how to i18n the Config?
   def language_options
-    standard_options = [ nil, [t('patient.helper.language.English'),'English']]
+    standard_options = [ [t('patient.helper.language.English'),nil] ]
     standard_options + Config.find_or_create_by(config_key: 'language').options
   end
 
   def referred_by_options
     standard_options = [
       nil,
-      [ t('patient.helper.refer.clinic'),                 'Clinic' ],
-      [ t('patient.helper.refer.cvac'),                   'Crime victim advocacy center' ],
-      [ t('patient.helper.refer.fund', fund: "#{FUND}"),  "#{FUND} website or social media" ],
-      [ t('patient.helper.refer.dv_org'),                 'Domestic violence crisis/intervention org' ],
-      [ t('patient.helper.refer.family'),                 'Family member' ],
-      [ t('patient.helper.refer.friend'),                 'Friend' ],
-      [ t('patient.helper.refer.search'),                 'Google/Web search' ],
-      [ t('patient.helper.refer.homeless'),               'Homeless shelter' ],
-      [ t('patient.helper.refer.legal'),                  'Legal clinic' ],
-      [ t('patient.helper.refer.naf'),                    'NAF' ],
-      [ t('patient.helper.refer.nnaf'),                   'NNAF' ],
-      [ t('patient.helper.refer.other_fund'),             'Other abortion fund' ],
-      [ t('patient.helper.refer.prev_patient'),           'Previous patient' ],
-      [ t('patient.helper.refer.school'),                 'School' ],
-      [ t('patient.helper.refer.crisis_org'),             'Sexual assault crisis org' ],
-      [ t('patient.helper.refer.youth'),                  'Youth outreach' ], ]
+      [ t('patient.helper.referred_by.clinic'),                       'Clinic' ],
+      [ t('patient.helper.referred_by.crime_victim_advocacy_center'), 'Crime victim advocacy center' ],
+      [ t('patient.helper.referred_by.fund', fund: "#{FUND}"),        "#{FUND} website or social media" ],
+      [ t('patient.helper.referred_by.domestic_violence_org'),        'Domestic violence crisis/intervention org' ],
+      [ t('patient.helper.referred_by.family'),                       'Family member' ],
+      [ t('patient.helper.referred_by.friend'),                       'Friend' ],
+      [ t('patient.helper.referred_by.web_search'),                   'Google/Web search' ],
+      [ t('patient.helper.referred_by.homeless'),                     'Homeless shelter' ],
+      [ t('patient.helper.referred_by.legal_clinic'),                 'Legal clinic' ],
+      [ t('patient.helper.referred_by.naf'),                          'NAF' ],
+      [ t('patient.helper.referred_by.nnaf'),                         'NNAF' ],
+      [ t('patient.helper.referred_by.other_fund'),                   'Other abortion fund' ],
+      [ t('patient.helper.referred_by.prev_patient'),                 'Previous patient' ],
+      [ t('patient.helper.referred_by.school'),                       'School' ],
+      [ t('patient.helper.referred_by.sexual_assault_crisis_org'),    'Sexual assault crisis org' ],
+      [ t('patient.helper.referred_by.youth'),                        'Youth outreach' ], ]
     standard_options + Config.find_or_create_by(config_key: 'referred_by').options
   end
 
   def employment_status_options
     [
       nil,
-      [ t('patient.helper.employ.full'), 'Full-time'],
-      [ t('patient.helper.employ.part'), 'Part-time'],
-      [ t('patient.helper.employ.unemp'), 'Unemployed'],
-      [ t('patient.helper.employ.odd'), 'Odd jobs'],
-      [ t('patient.helper.employ.student'), 'Student'],
+      [ t('patient.helper.employment.full_time'), 'Full-time'],
+      [ t('patient.helper.employment.part_time'), 'Part-time'],
+      [ t('patient.helper.employment.unemployed'), 'Unemployed'],
+      [ t('patient.helper.employment.odd_jobs'), 'Odd jobs'],
+      [ t('patient.helper.employment.student'), 'Student'],
     ]
   end
 
