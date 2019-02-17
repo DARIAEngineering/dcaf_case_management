@@ -1,5 +1,13 @@
 ---
 en:
+  clinic_locator:
+    title: Clinic Locator Assistant
+    description: A tool for sorting clinics by cost and distance.
+    patient_zip_code: Patient ZIP code
+    naf_only_toggle: Show only NAF clinics
+    medicaid_only_toggle: Show only Medicaid clinics
+    experimental_note: This is an experimental feature.
+    search_button: Search clinics
   common:
     add: Add
     appointment_date_short: Appt date

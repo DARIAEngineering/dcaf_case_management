@@ -1,30 +1,30 @@
 <div class='col-sm-12'>
   <h5 class='clinic-finder-expand'>
-    Clinic Locator Assistant
+    <%= t('clinic_locator.title') %>
     <span class='glyphicon glyphicon-plus-sign pull-right'></span>
   </h5>
 
   <div class='col-sm-12 hide' id='clinic-finder-search-form'>
-    <h6>A tool for sorting clinics by cost and distance.</h6>
+    <h6><%= t('clinic_locator.description') %></h6>
 
     <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
       <div class="row">
         <div class="col-sm-6 info-form-left">
-          <%= f.text_field :zip, label: "Patient's ZIP code" %>
-          <%= f.check_box :naf_only, label: 'Show only NAF clinics' %>
-          <%= f.check_box :medicaid_only, label: 'Show only Medicaid clinics' %>
+          <%= f.text_field :zip, label: t('clinic_locator.patient_zip_code') %>
+          <%= f.check_box :naf_only, label: t('clinic_locator.naf_only_toggle') %>
+          <%= f.check_box :medicaid_only, label: t('clinic_locator.medicaid_only_toggle') %>
         </div>
 
         <div class="col-sm-6 info-form-right">
-          This is an experimental feature.
+          <%= t('clinic_locator.experimental_note') %>
           <%#= f.select :gestation, weeks_options, label: "Patient's approx. gestation at appt" %>
         </div>
       </div>
 
       <div class="row">
         <div class='col-sm-6'>
-          <%= f.submit "Search clinics", class: "btn btn-primary" %>
-        </div>    
+          <%= f.submit t('clinic_locator.search_button'), class: "btn btn-primary" %>
+        </div>
       </div>
     <% end %>
   </div>
