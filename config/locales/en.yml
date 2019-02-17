@@ -89,7 +89,7 @@ en:
         title: Clinic details
         ultrasound_completed: Ultrasound completed?
       cost_section:
-        NAF_pledge: National Abortion Federation pledge
+        naf_pledge: National Abortion Federation pledge
         abortion_cost: Abortion cost
         fund_pledge: "%{fund} pledge"
         outstanding_balance: Outstanding Balance

@@ -89,7 +89,7 @@ es:
         title: Detalles de la clínica
         ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:
-        NAF_pledge: Promesa de la Federación Nacional de Aborto
+        naf_pledge: Promesa de la Federación Nacional de Aborto
         abortion_cost: Costo del aborto
         fund_pledge: promesa de %{fund}
         outstanding_balance: Saldo pendiente

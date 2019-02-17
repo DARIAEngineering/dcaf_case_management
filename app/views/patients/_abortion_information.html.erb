@@ -76,7 +76,7 @@
           <div class="col-sm-6">
             <div id="pledge-contributions">
               <%= f.number_field :patient_contribution, label: t('patient.abortion_information.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.NAF_pledge'), autocomplete: 'off', prepend: '$' %>
+              <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.naf_pledge'), autocomplete: 'off', prepend: '$' %>
               <%= f.number_field :fund_pledge, label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"), autocomplete: 'off', prepend: '$', label_class: 'tooltip-header-input', data: { 'tooltip-text' => pledge_limit_help_text_options.join("<br />") } %>
             </div>
           </div>
