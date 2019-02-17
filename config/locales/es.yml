@@ -75,22 +75,22 @@ es:
       sign_out: Desconectar
   patient:
     abortion:
-      title: Informacion de aborto
       clinic_section:
-        title: Detalles de la clínica
         clinic: Clínica
-        naf_only_toggle: Habilitar solo clínicas de la NAF
         medicaid_only_toggle: Habilitar solo las clínicas de Medicaid
-        resolved_without_fund: Resuelto sin ayuda de DCAF
+        naf_only_toggle: Habilitar solo clínicas de la NAF
         referred_to_clinic: Referido a la clínica
-        ultrasound_completed: ¿Ultrasonido completado?
+        resolved_without_fund: Resuelto sin ayuda de %{fund}
+        title: Detalles de la clínica
+        ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:
-        title: Detalles del costo
+        NAF_pledge: Promesa de la Federación Nacional de Aborto
         abortion_cost: Costo del aborto
+        fund_pledge: promesa de %{fund}
         outstanding_balance: Saldo pendiente
         patient_contribution: Contribución del paciente
-        NAF_pledge: Promesa de la Federación Nacional de Aborto
-        fund_pledge: promesa de %{fund}
+        title: Detalles del costo
+      title: Informacion de aborto
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{gest}'
       appt_date: Día de la cita
