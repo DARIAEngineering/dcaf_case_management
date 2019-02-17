@@ -74,6 +74,23 @@ en:
       sign_in: Sign In
       sign_out: Sign Out
   patient:
+    abortion:
+      title: Abortion information
+      clinic_section:
+        title: Clinic details
+        clinic: Clinic
+        naf_only_toggle: Enable only NAF clinics
+        medicaid_only_toggle: Enable only Medicaid clinics
+        resolved_without_fund: Resolved without assistance from %{fund}
+        referred_to_clinic: Referred to clinic
+        ultrasound_completed: Ultrasound completed?
+      cost_section:
+        title: Cost details
+        abortion_cost: Abortion cost
+        outstanding_balance: Outstanding Balance
+        patient_contribution: Patient contribution
+        NAF_pledge: National Abortion Federation pledge
+        fund_pledge: "%{fund} pledge"
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
       appt_date: Appointment date
