@@ -106,6 +106,12 @@ es:
         result: RESULTADO
         time: HORA
       title: Registro de Llamadas
+    change_log:
+      table:
+        case_manager: CM
+        change: Cambiar (de -> a)
+        modified_date: Fecha modificada
+      title: Historia del paciente
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{gest}'
       appt_date: Día de la cita

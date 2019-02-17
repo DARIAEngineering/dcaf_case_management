@@ -106,6 +106,12 @@ en:
         result: RESULT
         time: TIME
       title: Call Log
+    change_log:
+      table:
+        case_manager: CM
+        change: Change (from -> to)
+        modified_date: Modified Date
+      title: Patient history
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
       appt_date: Appointment date
