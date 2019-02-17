@@ -56,6 +56,9 @@ es:
       create_button: Crear promesa externo
       source: Fuente
       title: 'O, grabe un nueva promesa externa:'
+    sources:
+      clinic_discount: Descuento de clinica
+      other_funds: Otros fondos (ver notas)
   lines:
     new:
       start: Empezar

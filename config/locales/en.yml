@@ -56,6 +56,9 @@ en:
       create_button: Create External pledge
       source: Source
       title: 'Or, record a new external pledge:'
+    sources:
+      clinic_discount: Clinic discount
+      other_funds: Other funds (see notes)
   lines:
     new:
       start: Get started
