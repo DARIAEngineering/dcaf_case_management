@@ -1,13 +1,5 @@
 ---
 es:
-  external_pledge:
-    edit:
-      fund_pledge: "%{source} promesa"
-    new:
-      title: "O, grabe un nueva promesa externa:"
-      source: Fuente
-      amount: Cantidad
-      create_button: Crear promesa externo
   common:
     add: Añadir
     appointment_date_short: Día de la cita
@@ -56,6 +48,14 @@ es:
         password: Contraseña
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} promesa"
+    new:
+      amount: Cantidad
+      create_button: Crear promesa externo
+      source: Fuente
+      title: 'O, grabe un nueva promesa externa:'
   lines:
     new:
       start: Empezar

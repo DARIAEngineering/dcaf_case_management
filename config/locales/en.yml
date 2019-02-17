@@ -1,13 +1,5 @@
 ---
 en:
-  external_pledge:
-    edit:
-      fund_pledge: "%{source} pledge"
-    new:
-      title: "Or, record a new external pledge:"
-      source: Source
-      amount: Amount
-      create_button: Create External pledge
   common:
     add: Add
     appointment_date_short: Appt date
@@ -56,6 +48,14 @@ en:
         password: Password
         password_signin: 'Or, sign in with a password:'
         password_submit: Sign in with password
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} pledge"
+    new:
+      amount: Amount
+      create_button: Create External pledge
+      source: Source
+      title: 'Or, record a new external pledge:'
   lines:
     new:
       start: Get started
