@@ -1,13 +1,13 @@
 ---
 es:
   clinic_locator:
-    title: Asistente de localizador de clínicas
     description: Una herramienta para clasificar clínicas por costo y distancia.
-    patient_zip_code: Código postal del paciente
-    naf_only_toggle: Mostrar solo clínicas de la NAF
-    medicaid_only_toggle: Mostrar solo clínicas de Medicaid
     experimental_note: Esta es una característica experimental.
+    medicaid_only_toggle: Mostrar solo clínicas de Medicaid
+    naf_only_toggle: Mostrar solo clínicas de la NAF
+    patient_zip_code: Código postal del paciente
     search_button: Buscar clinicas
+    title: Asistente de localizador de clínicas
   common:
     add: Añadir
     appointment_date_short: Día de la cita
