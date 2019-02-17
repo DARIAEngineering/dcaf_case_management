@@ -1,5 +1,10 @@
 ---
 en:
+  call:
+    status:
+      could_not_reach_patient: Couldn't reach patient
+      left_voicemail: Left voicemail
+      reached_patient: Reached patient
   common:
     add: Add
     appointment_date_short: Appt date
@@ -74,7 +79,7 @@ en:
       sign_in: Sign In
       sign_out: Sign Out
   patient:
-    abortion:
+    abortion_information:
       clinic_section:
         clinic: Clinic
         medicaid_only_toggle: Enable only Medicaid clinics
@@ -91,6 +96,16 @@ en:
         patient_contribution: Patient contribution
         title: Cost details
       title: Abortion information
+    call_log:
+      record_new_call: Record new call
+      table:
+        actions: ACTIONS
+        case_manager: CM
+        date: DATE
+        remove_button: Remove
+        result: RESULT
+        time: TIME
+      title: Call Log
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
       appt_date: Appointment date

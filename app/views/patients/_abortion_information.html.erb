@@ -2,29 +2,29 @@
   <div id="patient_fields" class="col-sm-12">
     <div class="row">
       <div class="col-sm-12">
-        <h2><%= t('patient.abortion.title') %></h2>
+        <h2><%= t('patient.abortion_information.title') %></h2>
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm-12 info-form">
-        <h3><%= t('patient.abortion.clinic_section.title') %></h3>
+        <h3><%= t('patient.abortion_information.clinic_section.title') %></h3>
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-1' }, remote: true do |f| %>
           <div class="col-sm-6">
             <div class="info-form-left">
               <%= f.select :clinic_id,
                 options_for_select(clinic_options, patient.clinic.try(:id)),
-                label: t('patient.abortion.clinic_section.clinic') %>
+                label: t('patient.abortion_information.clinic_section.clinic') %>
               <div class="checkbox">
                 <%= label_tag 'naf_filter' do %>
                   <%= check_box_tag 'naf_filter' %>
-                  <%= t('patient.abortion.clinic_section.naf_only_toggle') %>
+                  <%= t('patient.abortion_information.clinic_section.naf_only_toggle') %>
                 <% end %>
               </div>
               <div class="checkbox">
                 <%= label_tag 'medicaid_filter' do %>
                   <%= check_box_tag 'medicaid_filter' %>
-                  <%= t('patient.abortion.clinic_section.medicaid_only_toggle') %>
+                  <%= t('patient.abortion_information.clinic_section.medicaid_only_toggle') %>
                 <% end %>
               </div>
             </div>
@@ -33,15 +33,15 @@
           <div class="col-sm-6">
             <div class="info-form-right">
               <%= f.check_box :resolved_without_fund, 
-                label: t('patient.abortion.clinic_section.resolved_without_fund', fund: "#{FUND}"),
+                label: t('patient.abortion_information.clinic_section.resolved_without_fund', fund: "#{FUND}"),
                               label_class: 'tooltip-header-checkbox',
                               data: { 'tooltip-text': resolved_without_fund_help_text } %>
               <%= f.check_box :referred_to_clinic,
-                              label: t('patient.abortion.clinic_section.referred_to_clinic'),
+                              label: t('patient.abortion_information.clinic_section.referred_to_clinic'),
                               label_class: 'tooltip-header-checkbox',
                               data: { 'tooltip-text': referred_to_clinic_help_text } %>
               <%= f.check_box :completed_ultrasound,
-                              label: t('patient.abortion.clinic_section.ultrasound_completed'),
+                              label: t('patient.abortion_information.clinic_section.ultrasound_completed'),
                               label_class: 'tooltip-header-checkbox',
                               data: { 'tooltip-text': mandatory_ultrasound_help_text } %>
             </div>
@@ -58,7 +58,7 @@
   <div id="cost_fields" class="col-sm-12">
     <div class="row">
       <div class="col-sm-12">
-        <h3><%= t('patient.abortion.cost_section.title') %></h3>
+        <h3><%= t('patient.abortion_information.cost_section.title') %></h3>
       </div>
     </div>
 
@@ -66,18 +66,18 @@
       <div class="patient_cost_fields">
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
           <div class="col-sm-6">
-            <%= f.number_field :procedure_cost, label: t('patient.abortion.cost_section.abortion_cost'), autocomplete: 'off', prepend: '$' %>
+            <%= f.number_field :procedure_cost, label: t('patient.abortion_information.cost_section.abortion_cost'), autocomplete: 'off', prepend: '$' %>
             <div class="info-form-left form-group outstanding-balance-ctn hidden">
-              <label class="control-label"><%= t('patient.abortion.cost_section.outstanding_balance') %></label>
+              <label class="control-label"><%= t('patient.abortion_information.cost_section.outstanding_balance') %></label>
               <div id="outstanding-balance"></div>
             </div>
           </div>
 
           <div class="col-sm-6">
             <div id="pledge-contributions">
-              <%= f.number_field :patient_contribution, label: t('patient.abortion.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :naf_pledge, label: t('patient.abortion.cost_section.NAF_pledge'), autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :fund_pledge, label: t('patient.abortion.cost_section.fund_pledge', fund: "#{FUND}"), autocomplete: 'off', prepend: '$', label_class: 'tooltip-header-input', data: { 'tooltip-text' => pledge_limit_help_text_options.join("<br />") } %>
+              <%= f.number_field :patient_contribution, label: t('patient.abortion_information.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>
+              <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.NAF_pledge'), autocomplete: 'off', prepend: '$' %>
+              <%= f.number_field :fund_pledge, label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"), autocomplete: 'off', prepend: '$', label_class: 'tooltip-header-input', data: { 'tooltip-text' => pledge_limit_help_text_options.join("<br />") } %>
             </div>
           </div>
         <% end %>
