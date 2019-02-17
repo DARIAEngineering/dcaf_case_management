@@ -1,5 +1,13 @@
 ---
 es:
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} promesa"
+    new:
+      title: "O, grabe un nueva promesa externa:"
+      source: Fuente
+      amount: Cantidad
+      create_button: Crear promesa externo
   common:
     add: Añadir
     appointment_date_short: Día de la cita

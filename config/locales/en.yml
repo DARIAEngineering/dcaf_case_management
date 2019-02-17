@@ -1,5 +1,13 @@
 ---
 en:
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} pledge"
+    new:
+      title: "Or, record a new external pledge:"
+      source: Source
+      amount: Amount
+      create_button: Create External pledge
   common:
     add: Add
     appointment_date_short: Appt date
