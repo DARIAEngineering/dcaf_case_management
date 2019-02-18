@@ -12,6 +12,7 @@ class ArchivedPatient
   embeds_one :fulfillment
   embeds_many :calls
   embeds_many :external_pledges
+  embeds_many :practical_supports, as: :can_support
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
 
