@@ -9,7 +9,9 @@ module ClinicfindersHelper
     when :cost
       number_to_currency clinic[field], precision: 0
     when :gestational_limit
-      clinic.gestational_limit.present? ? "Goes to #{(clinic.gestational_limit / 7).to_i}w" : 'Not specified'
+      weeks = (clinic.gestational_limit / 7).to_i
+      days = (clinic.gestational_limit % 7).to_i
+      clinic.gestational_limit.present? ? "Goes to #{weeks}w#{days}d" : 'Not specified'
     else
       clinic[field]
     end
