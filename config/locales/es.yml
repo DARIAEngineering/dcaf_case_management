@@ -92,7 +92,7 @@ es:
         odd_jobs: Trabajos ocasionales
         part_time: Medio tiempo
         student: Estudiante
-        unemployed: Desempleados
+        unemployed: Desempleada
       income:
         10_to_15: "$10,000-14,999 ($192-287/sm - $834-1250/mes)"
         15_to_20: "$15,000-19,999 ($288-384/sm - $1251-1666/mes)"
@@ -134,7 +134,7 @@ es:
         nnaf: NNAF
         other_fund: Otro fondo de aborto
         prev_patient: Paciente anterior
-        school: Colegio
+        school: Escuela
         sexual_assault_crisis_org: Agresión de asalto sexual org
         web_search: Búsqueda de Google / Web
         youth: Alcance juvenil
@@ -145,13 +145,13 @@ es:
       age: Años
       city: Ciudad
       county: Condado
-      employment_status: Estado de Empleo
+      employment_status: Estatus de Empleo
       household_adults: Adultos en el Hogar
       household_help: "(incluyendo paciente)"
       household_minors: Menores en el Hogar
       income: Ingresos
       income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
-      insurance: Seguro del Paciente
+      insurance: Seguro Médico del Paciente
       language: Idioma Preferido
       line: Linea
       other_contact:
@@ -171,12 +171,12 @@ es:
         rape: Violación
         title: Circunstancias Especiales
       state: Estado
-      textable: "¿Textable?"
+      textable: Se permite enviar mensajes de texto?
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
     shared:
       name: Nombre y apellido
-      status: 'Estado:'
+      status: 'Estatus:'
     status:
       help:
         dropoff: Paciente no ha sido escuchado en 120+ días.
