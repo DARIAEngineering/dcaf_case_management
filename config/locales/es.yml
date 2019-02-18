@@ -48,6 +48,13 @@ es:
         password: Contraseña
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
+  events:
+    add_to_call_list: Añadir a la lista de llamadas
+    couldnt_reach_patient: llamó, paciente no contestó
+    left_voicemail: dejó un mensaje de voz
+    pledged: envió una promesa de $%{pledge_amount}
+    reached_patient: alcanzó el paciente
+    unknown_action: habló o interactuó con
   lines:
     new:
       start: Empezar

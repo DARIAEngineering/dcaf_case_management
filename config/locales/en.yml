@@ -48,6 +48,13 @@ en:
         password: Password
         password_signin: 'Or, sign in with a password:'
         password_submit: Sign in with password
+  events:
+    add_to_call_list: Add to call list
+    couldnt_reach_patient: called, but couldn't reach
+    left_voicemail: left a voicemail for
+    pledged: sent a $%{pledge_amount} pledge for
+    reached_patient: reached
+    unknown_action: interacted with
   lines:
     new:
       start: Get started
