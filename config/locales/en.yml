@@ -48,6 +48,13 @@ en:
         password: Password
         password_signin: 'Or, sign in with a password:'
         password_submit: Sign in with password
+  events:
+    add_to_call_list: Add to call list
+    couldnt_reach_patient: called, but couldn't reach
+    left_voicemail: left a voicemail for
+    pledged: sent a $%{pledge_amount} pledge for
+    reached_patient: reached
+    unknown_action: interacted with
   lines:
     new:
       start: Get started
@@ -87,9 +94,93 @@ en:
       day:
         one: "%{count} day"
         other: "%{count} days"
+      employment:
+        full_time: Full-time
+        odd_jobs: Odd jobs
+        part_time: Part-time
+        student: Student
+        unemployed: Unemployed
+      income:
+        10_to_15: "$10,000-14,999 ($192-287/wk - $834-1250/mo)"
+        15_to_20: "$15,000-19,999 ($288-384/wk - $1251-1666/mo)"
+        20_to_25: "$20,000-24,999 ($385-480/wk - $1667-2083/mo)"
+        25_to_30: "$25,000-29,999 ($481-576/wk - $2084-2499/mo)"
+        30_to_35: "$30,000-34,999 ($577-672/wk - $2500-2916/mo)"
+        35_to_40: "$35,000-39,999 ($673-768/wk - $2917-3333/mo)"
+        40_to_45: "$40,000-44,999 ($769-864/wk - $3334-3749/mo)"
+        45_to_50: "$45,000-49,999 ($865-961/wk - $3750-4165/mo)"
+        50_to_60: "$50,000-59,999 ($962-1153/wk - $4166-4999/mo)"
+        60_to_75: "$60,000-74,999 ($1154-1441/wk - $5000-6249/mo)"
+        75_plus: "$75,000 or more ($1442+ /wk - $6250+ /mo)"
+        under_10: Under $9,999 ($192/wk - $833/mo)
+      insurance:
+        none: No insurance
+        other: Other (add to notes)
+        unknown: Don't know
+      language:
+        English: English
+      race:
+        asian_south_asian: Asian or South Asian
+        black_african_american: Black/African-American
+        hispanic_latino: Hispanic/Latino
+        mixed_race_ethnicity: Mixed Race/Ethnicity
+        native_american: Native American
+        native_hawaiian_pacific_islander: Native Hawaiian or Pacific Islander
+        other: Other
+        white_caucasian: White/Caucasian
+      referred_by:
+        clinic: Clinic
+        crime_victim_advocacy_center: Crime victim advocacy center
+        domestic_violence_org: Domestic violence crisis/intervention org
+        family: Family member
+        friend: Friend
+        fund: "%{fund} website or social media"
+        homeless: Homeless shelter
+        legal_clinic: Legal clinic
+        naf: NAF
+        nnaf: NNAF
+        other_fund: Other abortion fund
+        prev_patient: Previous patient
+        school: School
+        sexual_assault_crisis_org: Sexual assault crisis org
+        web_search: Google/Web search
+        youth: Youth outreach
       week:
         one: "%{count} week"
         other: "%{count} weeks"
+    information:
+      age: Age
+      city: City
+      county: County
+      employment_status: Employment Status
+      household_adults: Adults in household
+      household_help: "(including patient)"
+      household_minors: Minors in household
+      income: Income
+      income_help: Employment, Food Stamps, SS, TANF, etc.
+      insurance: Patient insurance
+      language: Preferred Language
+      line: Line
+      other_contact:
+        name: Other contact name
+        phone: Other phone
+        relationship: Relationship to other contact
+        title: Other Contact
+      race_ethnicity: Race / Ethnicity
+      referred_by: How patient heard about %{fund}
+      special_circumstances:
+        domestic_violence: Domestic violence
+        fetal_diagnosis: Fetal diagnosis
+        homelessness: Homelessness
+        incest: Incest
+        other_medical_issue: Other medical issue
+        prison: Prison
+        rape: Rape
+        title: Special Circumstances
+      state: State
+      textable: Textable?
+      title: Patient information
+      voicemail_preference: Voicemail Preference
     shared:
       name: First and last name
       status: 'Status:'
@@ -114,3 +205,13 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+  tooltips:
+    budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
+    call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
+    completed_calls: This is a list of patients you have called within the last 8 hours.
+    mandatory_ultrasound: If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.
+    record_new_external_pledge: External pledges is our term for pledges by other abortion funds also working with a patient.
+    referred_to_clinic: Check this box if you as a case manager referred the patient to a particular clinic.
+    resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
+    status_definition: Status definition
+    urgent_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as having a sent pledge, or marked as resolved without assistance.

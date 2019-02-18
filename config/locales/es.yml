@@ -48,6 +48,13 @@ es:
         password: Contraseña
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
+  events:
+    add_to_call_list: Añadir a la lista de llamadas
+    couldnt_reach_patient: llamó, paciente no contestó
+    left_voicemail: dejó un mensaje de voz
+    pledged: envió una promesa de $%{pledge_amount}
+    reached_patient: alcanzó el paciente
+    unknown_action: habló o interactuó con
   lines:
     new:
       start: Empezar
@@ -87,12 +94,96 @@ es:
       day:
         one: "%{count} día"
         other: "%{count} días"
+      employment:
+        full_time: Tiempo completo
+        odd_jobs: Trabajos ocasionales
+        part_time: Medio tiempo
+        student: Estudiante
+        unemployed: Desempleada
+      income:
+        10_to_15: "$10,000-14,999 ($192-287/sm - $834-1250/mes)"
+        15_to_20: "$15,000-19,999 ($288-384/sm - $1251-1666/mes)"
+        20_to_25: "$20,000-24,999 ($385-480/sm - $1667-2083/mes)"
+        25_to_30: "$25,000-29,999 ($481-576/sm - $2084-2499/mes)"
+        30_to_35: "$30,000-34,999 ($577-672/sm - $2500-2916/mes)"
+        35_to_40: "$35,000-39,999 ($673-768/sm - $2917-3333/mes)"
+        40_to_45: "$40,000-44,999 ($769-864/sm - $3334-3749/mes)"
+        45_to_50: "$45,000-49,999 ($865-961/sm - $3750-4165/mes)"
+        50_to_60: "$50,000-59,999 ($962-1153/sm - $4166-4999/mes)"
+        60_to_75: "$60,000-74,999 ($1154-1441/sm - $5000-6249/mes)"
+        75_plus: "$75,000 o más ($1442+ /sm - $6250+ /mes)"
+        under_10: Debajo $9,999 ($192/sm - $833/mes)
+      insurance:
+        none: Sin Seguro
+        other: Otro (Añadir a las notas)
+        unknown: No Se
+      language:
+        English: Inglés
+      race:
+        asian_south_asian: Asiática o Sur de Asia
+        black_african_american: Negra/Afroamericana
+        hispanic_latino: Hispana/Latina
+        mixed_race_ethnicity: Raza Mixta/Etnicidad
+        native_american: Nativa Americana
+        native_hawaiian_pacific_islander: Hawaiana Nativa o Isleña Pacífica
+        other: Otra
+        white_caucasian: Blanca/Caucásica
+      referred_by:
+        clinic: Clínica
+        crime_victim_advocacy_center: Centro de defensa de víctimas del crimen
+        domestic_violence_org: Violencia doméstica crisis / intervención org
+        family: Miembro de la familia
+        friend: Amigo
+        fund: "%{fund} sitio web o redes sociales"
+        homeless: Refugio para indigentes
+        legal_clinic: Clínica legal
+        naf: NAF
+        nnaf: NNAF
+        other_fund: Otro fondo de aborto
+        prev_patient: Paciente anterior
+        school: Escuela
+        sexual_assault_crisis_org: Agresión de asalto sexual org
+        web_search: Búsqueda de Google / Web
+        youth: Alcance juvenil
       week:
         one: "%{count} semana"
         other: "%{count} semanas"
+    information:
+      age: Años
+      city: Ciudad
+      county: Condado
+      employment_status: Estatus de Empleo
+      household_adults: Adultos en el Hogar
+      household_help: "(incluyendo paciente)"
+      household_minors: Menores en el Hogar
+      income: Ingresos
+      income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
+      insurance: Seguro Médico del Paciente
+      language: Idioma Preferido
+      line: Linea
+      other_contact:
+        name: Nombre de Otro Contacto
+        phone: Teléfono de Otro Contacto
+        relationship: Relación con Otro Contacto
+        title: Otro Contacto
+      race_ethnicity: Raza / Etnicidad
+      referred_by: Cómo escuchó el paciente sobre %{fund}
+      special_circumstances:
+        domestic_violence: Violencia doméstica
+        fetal_diagnosis: Diagnostico fetal
+        homelessness: La falta de vivienda
+        incest: Incesto
+        other_medical_issue: Otro problema médico
+        prison: Prisión
+        rape: Violación
+        title: Circunstancias Especiales
+      state: Estado
+      textable: Se permite enviar mensajes de texto?
+      title: Información del Paciente
+      voicemail_preference: Preferencias de Mensaje de Voz
     shared:
       name: Nombre y apellido
-      status: 'Estado:'
+      status: 'Estatus:'
     status:
       help:
         dropoff: Paciente no ha sido escuchado en 120+ días.
@@ -114,3 +205,13 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
+  tooltips:
+    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de compromiso %{FUND}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación “enviaré la promesa”) durante una semana determinada. Se reinicia los lunes.
+    call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
+    completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
+    mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
+    record_new_external_pledge: "“Promesas externas” significa las promesas hechas por otros fondos de aborto también trabajando con un paciente."
+    referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
+    resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
+    status_definition: Definición de estado
+    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con “compromiso enviado”, o marcado como “resuelto sin ayuda”.
