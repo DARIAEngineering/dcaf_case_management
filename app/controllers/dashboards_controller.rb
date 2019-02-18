@@ -22,6 +22,10 @@ class DashboardsController < ApplicationController
   end
 
   def budget_bar
+    # i18n-tasks-use t('dashboard.budget_bar.pledged_item')
+    # i18n-tasks-use t('dashboard.budget_bar.sent_item')
+    # i18n-tasks-use t('dashboard.budget_bar.pledged_report')
+    # i18n-tasks-use t('dashboard.budget_bar.sent_report')
     render partial: 'dashboards/budget_bar',
            locals: budget_bar_calculations(current_line)
   end
