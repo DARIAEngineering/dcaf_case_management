@@ -16,7 +16,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should create and save a new support record' do
-      @pledge[:support_type] = 'different'
+      @support[:support_type] = 'different'
       assert_difference 'Patient.find(@patient).practical_supports.count', 1 do
         post patient_practical_supports_path(@patient), params: { practical_support: @support }, xhr: true
       end
@@ -42,7 +42,8 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     before do
       @patient.practical_supports.create support_type: 'Transit',
                                          confirmed: false,
-                                         source: 'Transit'
+                                         source: 'Transit',
+                                         created_by: @user
       @support = @patient.practical_supports.first
       @support_edits = { support_type: 'Lodging' }
       patch patient_practical_support_path(@patient, @support),
@@ -56,7 +57,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should update the support_type field' do
-      assert_equal @support.support_type, 'Transit'
+      assert_equal @support.support_type, 'Lodging'
     end
 
     [:source, :support_type].each do |field|
@@ -70,8 +71,6 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
                   params: { practical_support: @support_edits },
                   xhr: true
             assert_response :bad_request
-            @support.reload
-            assert_equal @support[field], 'Transit'
           end
         end
       end
@@ -82,13 +81,14 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     before do
       @patient.practical_supports.create support_type: 'Transit',
                                          confirmed: false,
-                                         source: 'Transit'
+                                         source: 'Transit',
+                                         created_by: @user
       @support = @patient.practical_supports.first
     end
 
-    it 'should destroy' do
-      assert_difference 'Patient.find(@patient).practical_supports.find(@support).history_tracks.count', -1 do
-        delete patient_practical_support_path(@patient, @support)
+    it 'should destroy a support record' do
+      assert_difference 'Patient.find(@patient).practical_supports.count', -1 do
+        delete patient_practical_support_path(@patient, @support), xhr: true
       end
     end
   end

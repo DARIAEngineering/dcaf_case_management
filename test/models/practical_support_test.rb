@@ -49,7 +49,7 @@ class PracticalSupportTest < ActiveSupport::TestCase
 
       support2 = @patient.practical_supports.new fields
       refute support2.save
-      assert_equal 'is already taken',
+      assert_equal ['is already taken'],
                    support2.errors.messages[:support_type]
     end
   end

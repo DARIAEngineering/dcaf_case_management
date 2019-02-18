@@ -6,10 +6,10 @@ class PracticalSupportsController < ApplicationController
               with: -> { head :not_found }
 
   def create
-    @support = @patient.external_pledges.new external_pledge_params
+    @support = @patient.practical_supports.new practical_support_params
     @support.created_by = current_user
     if @support.save
-      @support = @patient.reload.external_pledges.order_by 'created_at desc'
+      @support = @patient.reload.practical_supports.order_by 'created_at desc'
       respond_to { |format| format.js }
     else
       head :bad_request
@@ -40,8 +40,8 @@ class PracticalSupportsController < ApplicationController
     @patient = Patient.find params[:patient_id]
   end
 
-  def find_pledge
+  def find_support
     find_patient
-    @support = @support.external_pledges.find params[:id]
+    @support = @patient.practical_supports.find params[:id]
   end    
 end
