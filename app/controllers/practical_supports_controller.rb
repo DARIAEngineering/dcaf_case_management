@@ -32,7 +32,8 @@ class PracticalSupportsController < ApplicationController
   private
 
   def practical_support_params
-    params.require(:practical_support).permit(:stuff)
+    params.require(:practical_support)
+          .permit(:confirmed, :source, :support_type)
   end
 
   def find_patient
