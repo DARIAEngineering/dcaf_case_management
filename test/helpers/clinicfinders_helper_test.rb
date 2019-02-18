@@ -28,7 +28,7 @@ class ClinicfindersHelperTest < ActionView::TestCase
 
     it 'should parse gestational_limit specially' do
       @clinic_struct.gestational_limit = 50
-      assert_equal 'Goes to 7w',
+      assert_equal 'Goes to 7w1d',
                    parse_clinicfinder_field(@clinic_struct, :gestational_limit)
 
       @clinic_struct.gestational_limit = nil
