@@ -49,7 +49,8 @@
     </div>
 
     <div class="row col-md-12 clinic_finder_container">
-      <%= render 'clinicfinders/search_form' %>
+      <%= render partial: 'clinicfinders/search_form',
+                 locals: { patient: patient } %>
     </div>
   </div>
 
