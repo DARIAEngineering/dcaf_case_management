@@ -21,7 +21,7 @@ class PatientsController < ApplicationController
     if patient.save
       flash[:notice] = t('flash.new_patient_save')
     else
-      flash[:alert] = t('flash.new_patient_error', error: patient.errors.full_messages.to_sentence)
+      flash[:alert] = t('flash.new_patient_error', error: "Test")
     end
 
     current_user.add_patient patient
