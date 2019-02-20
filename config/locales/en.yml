@@ -67,7 +67,7 @@ en:
     error_saving_clinic: 'Errors prevented this clinic from being saved: %{error}'
     error_saving_clinic_details: 'Error saving clinic details: %{error}'
     locked: Locked
-    new_patient_error: 'Errors prevented this patient from being saved: %{error}'
+    new_patient_error: "Errors prevented this patient from being saved: %{error}"
     new_patient_save: A new patient has been successfully saved
     patient_info_saved: Patient info successfully saved at %{timestamp}
     patient_removed_database: Patient successfully removed from database.
