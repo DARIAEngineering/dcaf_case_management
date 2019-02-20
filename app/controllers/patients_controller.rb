@@ -83,7 +83,7 @@ class PatientsController < ApplicationController
       flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)
       redirect_to edit_patient_path @patient
     else
-      flash[:alert] = @patient.errors.full_messages.to_sentence
+      flash[:alert] = t('flash.patient_save_error', error: @patient.errors.full_messages.to_sentence)
       render 'data_entry'
     end
   end
