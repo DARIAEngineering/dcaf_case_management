@@ -217,6 +217,10 @@ en:
     new_patient_error: "Errors prevented this patient from being saved: %{error}"
     pledge_download_alert: You need to enter your name in the box to sign and download the pledge
     patient_info_saved: "Patient info successfully saved at %{timestamp}"
+    patient_save_success: "%{patient} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the #{fund} pledge amounts are the same, and you're set."
+    patient_save_error: "Errors prevented this patient from being saved: %{error}"
+    patient_removed_database: Patient successfully removed from database.
+    patient_removed_database_error: Can't delete patients with pledges; please correct the patient record and try again.
   tooltips:
     budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.

@@ -80,20 +80,20 @@ class PatientsController < ApplicationController
     @patient.created_by = current_user
 
     if @patient.save
-      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the #{FUND} pledge amounts are the same, and you're set."
+      flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)
       redirect_to edit_patient_path @patient
     else
-      flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
+      flash[:alert] = t('flash.patient_save_error', @patient.errors.full_messages.to_sentence)
       render 'data_entry'
     end
   end
 
   def destroy
     if @patient.okay_to_destroy? && @patient.destroy
-      flash[:notice] = "Patient successfully removed from database."
+      flash[:notice] = t('flash.patient_removed_database')
       redirect_to authenticated_root_path
     else
-      flash[:alert] = "Can't delete patients with pledges; please correct the patient record and try again."
+      flash[:alert] = t('flash.patient_removed_database_error')
       redirect_to edit_patient_path(@patient)
     end
   end
