@@ -3,6 +3,7 @@ en:
   clinic_locator:
     description: Filter out clinics according to accepting NAF/NNAF and their gestation limits; sort by proximity to a ZIP code.
     experimental_note: This is an experimental feature.
+    gestation_above: Gestation above
     medicaid_only_toggle: Show only Medicaid clinics
     naf_only_toggle: Show only NAF clinics
     patient_zip_code: Patient ZIP code

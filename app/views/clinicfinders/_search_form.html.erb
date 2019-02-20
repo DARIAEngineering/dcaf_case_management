@@ -20,7 +20,7 @@
         <div class="col-sm-3 info-form-right">
           <%= f.select :gestation_weeks,
                        options_for_select(weeks_options, patient.last_menstrual_period_now_weeks),
-                       label: 'Gestation above',
+                       label: t('clinic_locator.gestation_above'),
                        autocomplete: 'off' %>
         </div>
 
