@@ -31,7 +31,10 @@ class PatientsHelperTest < ActionView::TestCase
       before { create_insurance_config }
 
       it 'should include the option set' do
-        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 'No insurance', "Don't know", 'Other (add to notes)']
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+                                    [ 'No insurance', 'No insurance' ],
+                                    [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements insurance_options, expected_insurance_options_array
       end
     end
@@ -43,9 +46,9 @@ class PatientsHelperTest < ActionView::TestCase
         end
 
         expected_insurance_array = [nil,
-                                    'No insurance',
-                                    'Don\'t know',
-                                    'Other (add to notes)']
+                                    [ 'No insurance', 'No insurance' ],
+                                    [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements @options, expected_insurance_array
         assert Config.find_by(config_key: 'insurance')
       end

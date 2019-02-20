@@ -1,11 +1,13 @@
 <div class='col-sm-12'>
-  <h5 class='clinic-finder-expand'>
+  <h4 class='clinic-finder-expand'>
     <%= t('clinic_locator.title') %>
+    <small><%= t('clinic_locator.experimental_note') %></small>
     <span class='glyphicon glyphicon-plus-sign pull-right'></span>
-  </h5>
+  </h4>
+
 
   <div class='col-sm-12 hide' id='clinic-finder-search-form'>
-    <h6><%= t('clinic_locator.description') %></h6>
+    <h5><%= t('clinic_locator.description') %></h5>
 
     <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
       <div class="row">
@@ -15,9 +17,18 @@
           <%= f.check_box :medicaid_only, label: t('clinic_locator.medicaid_only_toggle') %>
         </div>
 
-        <div class="col-sm-6 info-form-right">
-          <%= t('clinic_locator.experimental_note') %>
-          <%#= f.select :gestation, weeks_options, label: "Patient's approx. gestation at appt" %>
+        <div class="col-sm-3 info-form-right">
+          <%= f.select :gestation_weeks,
+                       options_for_select(weeks_options, patient.last_menstrual_period_now_weeks),
+                       label: 'Gestation above',
+                       autocomplete: 'off' %>
+        </div>
+
+        <div class="col-sm-3 info-form-right hide-label">
+          <%= f.select :gestation_days,
+                       options_for_select(days_options, patient.last_menstrual_period_now_days),
+                       label: '.',
+                       autocomplete: 'off' %>
         </div>
       </div>
 
