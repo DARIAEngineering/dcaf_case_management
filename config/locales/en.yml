@@ -221,6 +221,14 @@ en:
     patient_save_error: "Errors prevented this patient from being saved: %{error}"
     patient_removed_database: Patient successfully removed from database.
     patient_removed_database_error: Can't delete patients with pledges; please correct the patient record and try again.
+    user_update_success: Successfully updated user details
+    user_update_error: Error saving user details - %{error}
+    user_created: User created!
+    cant_lock_own_account: You can't lock your own account. Ask another admin.
+    locked: Locked
+    unlocked: Unlocked
+    action_on_account: "%{verb} %{name}'s account."
+    demote_own_account_warn: For safety reasons, you are not allowed to change your role from an admin to a not-admin. Ask another admin to demote you.
   tooltips:
     budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
