@@ -64,15 +64,15 @@ en:
     config_failed_update: Config failed to update
     config_update_success: Config updated successfully
     demote_own_account_warn: For safety reasons, you are not allowed to change your role from an admin to a not-admin. Ask another admin to demote you.
-    error_saving_clinic: "Errors prevented this clinic from being saved: %{error}"
+    error_saving_clinic: 'Errors prevented this clinic from being saved: %{error}'
     error_saving_clinic_details: 'Error saving clinic details: %{error}'
     locked: Locked
-    new_patient_error: "Errors prevented this patient from being saved: %{error}"
+    new_patient_error: 'Errors prevented this patient from being saved: %{error}'
     new_patient_save: A new patient has been successfully saved
     patient_info_saved: Patient info successfully saved at %{timestamp}
     patient_removed_database: Patient successfully removed from database.
     patient_removed_database_error: Can't delete patients with pledges; please correct the patient record and try again.
-    patient_save_error: "Errors prevented this patient from being saved: %{error}"
+    patient_save_error: 'Errors prevented this patient from being saved: %{error}'
     patient_save_success: "%{patient} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the #{fund} pledge amounts are the same, and you're set."
     pledge_download_alert: You need to enter your name in the box to sign and download the pledge
     unlocked: Unlocked
