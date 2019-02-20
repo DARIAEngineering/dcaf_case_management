@@ -19,9 +19,9 @@ class PatientsController < ApplicationController
 
     patient.created_by = current_user
     if patient.save
-      flash[:notice] = 'A new patient has been successfully saved'
+      flash[:notice] = t('flash.new_patient_save')
     else
-      flash[:alert] = "Errors prevented this patient from being saved: #{patient.errors.full_messages.to_sentence}"
+      flash[:alert] = t('flash.new_patient_error', error: patient.errors.full_messages.to_sentence)
     end
 
     current_user.add_patient patient
@@ -38,7 +38,7 @@ class PatientsController < ApplicationController
   # download a filled out pledge form based on patient record
   def download
     if params[:case_manager_name].blank?
-      flash[:alert] = "You need to enter your name in the box to sign and download the pledge"
+      flash[:alert] = t('flash.pledge_download_alert')
       redirect_to edit_patient_path @patient
     else
       now = Time.zone.now.strftime('%Y%m%d')
@@ -62,7 +62,7 @@ class PatientsController < ApplicationController
     @patient.last_edited_by = current_user
     if @patient.update_attributes patient_params
       @patient.reload
-      flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.display_timestamp}"
+      flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error

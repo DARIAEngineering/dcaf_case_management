@@ -205,6 +205,18 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+  flash:
+    account_locked: Account currently locked, check with your fund.
+    clinic_created: %{clinic} created!
+    error_saving_clinic: "Errors prevented this clinic from being saved: %{error}"
+    error_saving_clinic_details: "Error saving clinic details: %{error}"
+    clinic_details_updated: Successfully updated clinic details
+    config_update_success: Config updated successfully
+    config_failed_update: Config failed to update 
+    new_patient_save: A new patient has been successfully saved
+    new_patient_error: "Errors prevented this patient from being saved: %{error}"
+    pledge_download_alert: You need to enter your name in the box to sign and download the pledge
+    patient_info_saved: "Patient info successfully saved at %{timestamp}"
   tooltips:
     budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.

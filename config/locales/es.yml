@@ -205,6 +205,18 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
+  flash:
+    account_locked: Cuenta actualmente bloqueada, consulte con su fondo.
+    clinic_created: %{clinic} creado!
+    error_saving_clinic: "Los errores evitaron que esta clínica se guardara: %{error}"
+    error_saving_clinic_details: "Error al guardar los detalles de la clínica: %{error}"
+    clinic_details_updated: Detalles de la clínica exitosamente actualizados
+    config_update_success: Configuración actualizada correctamente
+    config_failed_update: Config no pudo actualizar
+    new_patient_save: Un nuevo paciente ha sido salvado con éxito
+    new_patient_error: "Los errores impidieron salvar a este paciente: %{error}"
+    pledge_download_alert: Debe ingresar su nombre en el cuadro para firmar y descargar el compromiso
+    patient_info_saved: "Información del paciente guardada con éxito en %{timestamp}"
   tooltips:
     budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de compromiso %{FUND}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación “enviaré la promesa”) durante una semana determinada. Se reinicia los lunes.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
