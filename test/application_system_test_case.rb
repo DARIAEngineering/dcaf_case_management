@@ -5,6 +5,7 @@ require 'integration_helper'
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include IntegrationHelper
   include OmniauthMocker
+  include Capybara::RSpecMatchers
 
   before { Capybara.reset_sessions! }
 
