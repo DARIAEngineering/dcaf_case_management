@@ -45,14 +45,14 @@ class EventLogInteractionTest < ApplicationSystemTestCase
 end
 
 def modal_wrapper_id
-  '#123-123-1234'
+  '123-123-1234'
 end
 
 def assert_modal_visible
-  find(:css, modal_wrapper_id).should be_visible
+  find("//div[@id=\"${modal_wrapper_id}\"]").should be_visible
 end
 
 def assert_modal_closed
-  find(:css, modal_wrapper_id).should_not be_visible
+  find("//div[@id=\"${modal_wrapper_id}\"]").should_not be_visible
 end
 
