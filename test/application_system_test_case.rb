@@ -6,7 +6,6 @@ require "capybara/rspec/matchers"
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include IntegrationHelper
   include OmniauthMocker
-  include Capybara::RSpecMatchers
 
   before { Capybara.reset_sessions! }
 
