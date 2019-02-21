@@ -45,14 +45,14 @@ class EventLogInteractionTest < ApplicationSystemTestCase
 end
 
 def modal_wrapper_id
-  '123-123-1234'
+  '#123-123-1234'
 end
 
 def assert_modal_visible
-  expect(find_by_id(modal_wrapper_id).visible?).to be true
+  expect(page).to have_css(modal_wrapper_id)
 end
 
 def assert_modal_closed
-  expect(find_by_id(modal_wrapper_id).visible?).to be false
+  expect(page).not_to have_css(modal_wrapper_id)
 end
 
