@@ -19,10 +19,11 @@ class EventLogInteractionTest < ApplicationSystemTestCase
       wait_for_element 'Call Log'
       click_link 'Call Log'
       click_link 'Record new call'
+      assert_modal_visible
       wait_for_element 'I left a voicemail for the patient'
       click_link 'I left a voicemail for the patient'
       wait_for_ajax
-      wait_for_css '#activity_log_content'
+      assert_modal_hidden
       log_out && log_in_as(@user2)
       wait_for_css '#activity_log_content'
       wait_for_css '#event-item'
@@ -42,3 +43,20 @@ class EventLogInteractionTest < ApplicationSystemTestCase
 
   end
 end
+
+def modal_wrapper_id
+  '#123-123-1234'
+end
+
+def assert_modal_visible
+  expect(page).to have_selector(modal_wrapper_id, visible: true)
+rescue Capybara::TimeoutError
+  flunk 'Expected modal to be visible.'
+end
+
+def assert_modal_closed
+  expect(page).to have_selector(modal_wrapper_id, visible: false)
+rescue Capybara::TimeoutError
+  flunk 'Expected modal to be hidden.'
+end
+
