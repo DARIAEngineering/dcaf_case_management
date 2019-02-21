@@ -49,10 +49,9 @@ def modal_wrapper_id
 end
 
 def assert_modal_visible
-  page.assert_selector('div#123-123-1234')
+  expect(page).to has_css?(modal_wrapper_id)
 end
 
 def assert_modal_closed
-  page.assert_selector('div#123-123-1234')
+  expect(page).to_not has_css?(modal_wrapper_id)
 end
-
