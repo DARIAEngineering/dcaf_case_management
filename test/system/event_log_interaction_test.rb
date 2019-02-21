@@ -49,10 +49,10 @@ def modal_wrapper_id
 end
 
 def assert_modal_visible
-  expect(page).to has_css(modal_wrapper_id)
+  page.should have_css(modal_wrapper_id)
 end
 
 def assert_modal_closed
-  expect(page).not_to has_css(modal_wrapper_id)
+  page.should_not have_css(modal_wrapper_id)
 end
 
