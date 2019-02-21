@@ -49,10 +49,10 @@ def modal_wrapper_id
 end
 
 def assert_modal_visible
-  expect(find_by_id(modal_wrapper_id).visible).to be true
+  expect(find_by_id(modal_wrapper_id).visible?).to be true
 end
 
 def assert_modal_closed
-  expect(find_by_id(modal_wrapper_id).visible).to be false
+  expect(find_by_id(modal_wrapper_id).visible?).to be false
 end
 
