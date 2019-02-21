@@ -45,7 +45,7 @@ class EventLogInteractionTest < ApplicationSystemTestCase
 end
 
 def modal_wrapper_id
-  '#123-123-1234'
+  'div#123-123-1234'
 end
 
 def assert_modal_visible
