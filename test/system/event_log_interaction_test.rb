@@ -49,10 +49,10 @@ def modal_wrapper_id
 end
 
 def assert_modal_visible
-  expect(page).to have_selector(modal_wrapper_id)
+  page.assert_selector('div#123-123-1234')
 end
 
 def assert_modal_closed
-  expect(page).to_not have_selector(modal_wrapper_id)
+  page.assert_selector('div#123-123-1234')
 end
 
