@@ -82,8 +82,8 @@ es:
     abortion_information:
       clinic_section:
         clinic: Clínica
-        medicaid_only_toggle: Habilitar solo las clínicas de Medicaid
-        naf_only_toggle: Habilitar solo clínicas de la NAF
+        medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
+        naf_only_toggle: Enseñar solo clínicas de la NAF
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         title: Detalles de la clínica
@@ -92,14 +92,14 @@ es:
         abortion_cost: Costo del aborto
         fund_pledge: promesa de %{fund}
         naf_pledge: Promesa de la Federación Nacional de Aborto
-        outstanding_balance: Saldo pendiente
+        outstanding_balance: Cantidad pendiente
         patient_contribution: Contribución del paciente
         title: Detalles del costo
       title: Informacion de aborto
     call_log:
       record_new_call: Grabar nueva llamada
       table:
-        actions: COMPORTAMIENTO
+        actions: ACCIONES
         case_manager: CM
         date: FECHA
         remove_button: Retirar
