@@ -22,6 +22,7 @@ class DashboardsController < ApplicationController
   end
 
   def budget_bar
+    # We call these by interpolation in the view; these comments are to let i18n-health know we're using them
     # i18n-tasks-use t('dashboard.budget_bar.pledged_item')
     # i18n-tasks-use t('dashboard.budget_bar.sent_item')
     # i18n-tasks-use t('dashboard.budget_bar.pledged_report')
