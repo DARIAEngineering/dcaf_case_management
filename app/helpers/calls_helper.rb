@@ -40,6 +40,17 @@ module CallsHelper
     end
   end
 
+  def display_call_status(call)
+    case call.status
+    when 'Reached patient'
+      t('call.status.reached_patient')
+    when "Couldn't reach patient"
+      t('call.status.could_not_reach_patient')
+    when 'Left voicemail'
+      t('call.status.left_voicemail')
+    end
+  end
+
   private
 
   def name_display_h4(patient)

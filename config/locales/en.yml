@@ -1,5 +1,10 @@
 ---
 en:
+  call:
+    status:
+      could_not_reach_patient: Couldn't reach patient
+      left_voicemail: Left voicemail
+      reached_patient: Reached patient
   common:
     add: Add
     appointment_date_short: Appt date
@@ -81,6 +86,39 @@ en:
       sign_in: Sign In
       sign_out: Sign Out
   patient:
+    abortion_information:
+      clinic_section:
+        clinic: Clinic
+        medicaid_only_toggle: Enable only Medicaid clinics
+        naf_only_toggle: Enable only NAF clinics
+        referred_to_clinic: Referred to clinic
+        resolved_without_fund: Resolved without assistance from %{fund}
+        title: Clinic details
+        ultrasound_completed: Ultrasound completed?
+      cost_section:
+        abortion_cost: Abortion cost
+        fund_pledge: "%{fund} pledge"
+        naf_pledge: National Abortion Federation pledge
+        outstanding_balance: Outstanding Balance
+        patient_contribution: Patient contribution
+        title: Cost details
+      title: Abortion information
+    call_log:
+      record_new_call: Record new call
+      table:
+        actions: ACTIONS
+        case_manager: CM
+        date: DATE
+        remove_button: Remove
+        result: RESULT
+        time: TIME
+      title: Call Log
+    change_log:
+      table:
+        case_manager: CM
+        change: Change (from -> to)
+        modified_date: Modified Date
+      title: Patient history
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
       appt_date: Appointment date
