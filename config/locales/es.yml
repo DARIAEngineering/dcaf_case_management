@@ -5,6 +5,15 @@ es:
       could_not_reach_patient: No se pudo llegar al paciente
       left_voicemail: Correo de voz izquierdo
       reached_patient: Paciente alcanzado
+  clinic_locator:
+    description: Filtre las clínicas de acuerdo con la aceptación de NAF / NNAF y sus límites de gestación; ordenar por proximidad a un código postal.
+    experimental_note: Esta es una característica experimental.
+    gestation_above: Gestación arriba
+    medicaid_only_toggle: Mostrar solo clínicas de Medicaid
+    naf_only_toggle: Mostrar solo clínicas de NAF
+    patient_zip_code: Código postal del paciente
+    search_button: Buscar clinicas
+    title: Asistente de localizador de clínicas
   common:
     add: Añadir
     appointment_date_short: Día de la cita
