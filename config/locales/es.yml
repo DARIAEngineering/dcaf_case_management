@@ -69,6 +69,17 @@ es:
     pledged: envió una promesa de $%{pledge_amount}
     reached_patient: alcanzó el paciente
     unknown_action: habló o interactuó con
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} promesa"
+    new:
+      amount: Cantidad
+      create_button: Crear promesa externo
+      source: Origen
+      title: 'O, grabe un nueva promesa externa:'
+    sources:
+      clinic_discount: Descuento de clinica
+      other_funds: Otros fondos (ver notas)
   lines:
     new:
       start: Empezar
