@@ -1,5 +1,10 @@
 ---
 es:
+  call:
+    status:
+      could_not_reach_patient: No se pudo llegar al paciente
+      left_voicemail: Correo de voz izquierdo
+      reached_patient: Paciente alcanzado
   common:
     add: Añadir
     appointment_date_short: Día de la cita
@@ -92,6 +97,39 @@ es:
       sign_in: Registrarse
       sign_out: Desconectar
   patient:
+    abortion_information:
+      clinic_section:
+        clinic: Clínica
+        medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
+        naf_only_toggle: Enseñar solo clínicas de la NAF
+        referred_to_clinic: Referido a la clínica
+        resolved_without_fund: Resuelto sin ayuda de %{fund}
+        title: Detalles de la clínica
+        ultrasound_completed: "¿Ultrasonido completado?"
+      cost_section:
+        abortion_cost: Costo del aborto
+        fund_pledge: promesa de %{fund}
+        naf_pledge: Promesa de la Federación Nacional de Aborto
+        outstanding_balance: Cantidad pendiente
+        patient_contribution: Contribución del paciente
+        title: Detalles del costo
+      title: Informacion de aborto
+    call_log:
+      record_new_call: Grabar nueva llamada
+      table:
+        actions: ACCIONES
+        case_manager: CM
+        date: FECHA
+        remove_button: Retirar
+        result: RESULTADO
+        time: HORA
+      title: Registro de Llamadas
+    change_log:
+      table:
+        case_manager: CM
+        change: Cambiar (de -> a)
+        modified_date: Fecha modificada
+      title: Historia del paciente
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{gest}'
       appt_date: Día de la cita
