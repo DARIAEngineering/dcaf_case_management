@@ -11,9 +11,11 @@ module BudgetBarHelper
 
   def budget_bar_expenditure_content(patient_hash)
     link = link_to patient_hash[:name], edit_patient_path(patient_hash[:id])
-    appt_text = patient_hash[:appointment_date] ?
-      "appt on #{patient_hash[:appointment_date]&.display_date}" :
-      'no appt date'
+    appt_text = if patient_hash[:appointment_date]
+                  t 'dashboard.budget_bar.pop_content_appt_date', date: patient_hash[:appointment_date]&.display_date
+                else
+                  t 'dashboard.budget_bar.pop_content_no_appt_date'
+                end
     safe_join([link, appt_text], ' - ')
   end
 
