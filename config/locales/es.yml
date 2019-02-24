@@ -244,6 +244,27 @@ es:
       submit: Crear Nota
       title: Notas
       urgent_flag: Marcar a este paciente como urgente
+    pledge_fulfillment:
+      audit:
+        archive_note: El paciente será archivado el %{date}
+        audited_box: "¿Auditoría de cumplimiento?"
+        title: Auditoría
+      confirmation:
+        clinic: 'Clínica:'
+        confirm_info: 'Por favor, confirme que la clínica y los montos de la promesa son correctos:'
+        fund_pledge_amount: 'Cantidad de promesa de %{fund}:'
+        pledge_generated_at: 'Promesa generada en:'
+        pledge_generated_by: 'Promesa generada por:'
+        pledge_sent_at: 'Promesa enviada a:'
+        pledge_sent_by: 'Promesa enviada por:'
+      form:
+        check_num: 'Cheque #'
+        date_of_check: Fecha del cheque
+        fund_payout: Pago de %{fund}
+        pledge_fulfilled_box: Promesa cumplida
+        procedure_date: Fecha de procedimiento
+        weeks_along_at_procedure: Semanas a lo largo del procedimiento
+      title: Cumplimiento de la promesa
     shared:
       name: Nombre y apellido
       status: 'Estatus:'
