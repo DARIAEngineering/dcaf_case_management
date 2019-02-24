@@ -1,28 +1,26 @@
 <div class='col-sm-12'>
   <h4 class='clinic-finder-expand'>
-    Clinic Locator Assistant
-    <small>This is an experimental feature.</small>
+    <%= t('clinic_locator.title') %>
+    <small><%= t('clinic_locator.experimental_note') %></small>
     <span class='glyphicon glyphicon-plus-sign pull-right'></span>
   </h4>
 
 
   <div class='col-sm-12 hide' id='clinic-finder-search-form'>
-    <h5>
-      Filter out clinics according to accepting NAF/NNAF and their gestation limits; sort by proximity to a ZIP code.
-    </h5>
+    <h5><%= t('clinic_locator.description') %></h5>
 
     <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
       <div class="row">
         <div class="col-sm-6 info-form-left">
-          <%= f.text_field :zip, label: "Patient's ZIP code" %>
-          <%= f.check_box :naf_only, label: 'Show only NAF clinics' %>
-          <%= f.check_box :medicaid_only, label: 'Show only Medicaid clinics' %>
+          <%= f.text_field :zip, label: t('clinic_locator.patient_zip_code') %>
+          <%= f.check_box :naf_only, label: t('clinic_locator.naf_only_toggle') %>
+          <%= f.check_box :medicaid_only, label: t('clinic_locator.medicaid_only_toggle') %>
         </div>
 
         <div class="col-sm-3 info-form-right">
           <%= f.select :gestation_weeks,
                        options_for_select(weeks_options, patient.last_menstrual_period_now_weeks),
-                       label: 'Gestation above',
+                       label: t('clinic_locator.gestation_above'),
                        autocomplete: 'off' %>
         </div>
 
@@ -36,8 +34,8 @@
 
       <div class="row">
         <div class='col-sm-6'>
-          <%= f.submit "Search clinics", class: "btn btn-primary" %>
-        </div>    
+          <%= f.submit t('clinic_locator.search_button'), class: "btn btn-primary" %>
+        </div>
       </div>
     <% end %>
   </div>
