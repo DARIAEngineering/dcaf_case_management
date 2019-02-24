@@ -239,6 +239,11 @@ en:
       textable: Textable?
       title: Patient information
       voicemail_preference: Voicemail Preference
+    notes:
+      placeholder: Enter notes here
+      submit: Create Note
+      title: Notes
+      urgent_flag: Flag this patient as urgent
     shared:
       name: First and last name
       status: 'Status:'
