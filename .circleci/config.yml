@@ -24,6 +24,8 @@ jobs:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
             - dcaf_case_management-{{ checksum ".circleci/config.yml" }}
       - run: bundle check || bundle install
+      - run: yarn install
+      - run: NODE_ENV=test bundle exec rails webpacker:compile
       - run: gem install --no-document brakeman
       - run: gem install --no-document ruby_audit
       - run: gem install --no-document bundler-audit

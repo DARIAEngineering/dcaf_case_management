@@ -12,6 +12,7 @@ gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Asset pipeline
+gem 'webpacker', '~> 3.5'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'uglifier', '~> 4.1'
