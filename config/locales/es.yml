@@ -5,7 +5,7 @@ es:
     experimental_note: Esta es una característica experimental.
     gestation_above: Gestación arriba
     medicaid_only_toggle: Mostrar solo clínicas de Medicaid
-    naf_only_toggle: Mostrar solo clínicas de la NAF
+    naf_only_toggle: Mostrar solo clínicas de NAF
     patient_zip_code: Código postal del paciente
     search_button: Buscar clinicas
     title: Asistente de localizador de clínicas
