@@ -280,3 +280,16 @@ en:
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
     status_definition: Status definition
     urgent_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as having a sent pledge, or marked as resolved without assistance.
+  accountants:
+    title: Accountant dashboard
+    search_cases: Search cases
+    search_placeholder: Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)
+    table_content:
+      pt_initials: PT initials
+      clinic: Clinic
+      fund_payout: "%{fund} payout"
+      weeks_at_procedure: Weeks at procedure
+      pledge_sent: Pledge sent
+      check_number: "Check #"
+      date_of_check: Date of check
+      weeks_at_procedure_display: "%{gestation} weeks"
