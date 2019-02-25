@@ -287,17 +287,18 @@ es:
   clinics:
     index:
       title: Clínicas
-      gestational_limit_days: Límite gestacional (días)
+    new:
+      title: Añadir una nueva clínica
+    edit:
+      title: Editar detalles de la clínica
     form:
-      add_a_new_clinic: Añadir una nueva clínica
-      edit_clinic_details: Editar detalles de la clínica
       save_changes: Guardar cambios
       add_clinic: Añadir clinica
       zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
       active_help: "¿Estamos trabajando activamente con esta clínica?"
       costs_weeks: "Costos en %{week} semanas"
-  helpers:
-    label:
+  mongoid:
+    attributes:
       clinic:
         name: Nombre
         street_address: Dirección

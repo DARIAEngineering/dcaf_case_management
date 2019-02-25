@@ -1,16 +1,16 @@
 <h1><%= t 'clinics.index.title' %></h1>
-<p><%= link_to t('clinics.form.add_a_new_clinic'), new_clinic_path %></p>
+<p><%= link_to t('clinics.new.title'), new_clinic_path %></p>
 
 <table class="table table-hover" id='clinics_table'>
   <tr>
-    <th><%= t 'helpers.label.clinic.name' %></th>
-    <th><%= t 'helpers.label.clinic.address' %></th>
-    <th><%= t 'helpers.label.clinic.city' %></th>
-    <th><%= t 'helpers.label.clinic.state' %></th>
-    <th><%= t 'helpers.label.clinic.zip' %></th>
+    <th><%= t 'mongoid.attributes.clinic.name' %></th>
+    <th><%= t 'mongoid.attributes.clinic.street_address' %></th>
+    <th><%= t 'mongoid.attributes.clinic.city' %></th>
+    <th><%= t 'mongoid.attributes.clinic.state' %></th>
+    <th><%= t 'mongoid.attributes.clinic.zip' %></th>
     <th><%= t 'common.naf' %></th>
     <th><%= t 'common.medicaid' %></th>
-    <th><%= t 'helpers.label.clinic.gestational_limit' %></th>
+    <th><%= t 'mongoid.attributes.clinic.gestational_limit' %></th>
   </tr>
 
   <% @clinics.each do |clinic| %>
