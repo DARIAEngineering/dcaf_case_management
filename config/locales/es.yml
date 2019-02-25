@@ -23,6 +23,10 @@ es:
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
+    'yes': "Sí"
+    'no': "No"
+    naf: NAF
+    medicaid: Medicaid
   configs:
     config:
       current_options: 'Las opciones actuales son:'
@@ -280,3 +284,29 @@ es:
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
     urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con “compromiso enviado”, o marcado como “resuelto sin ayuda”.
+  clinics:
+    index:
+      title: Clínicas
+      gestational_limit_days: Límite gestacional (días)
+    form:
+      add_a_new_clinic: Añadir una nueva clínica
+      edit_clinic_details: Editar detalles de la clínica
+      save_changes: Guardar cambios
+      add_clinic: Añadir clinica
+      zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
+      active_help: "¿Estamos trabajando activamente con esta clínica?"
+      costs_weeks: "Costos en %{week} semanas"
+  helpers:
+    label:
+      clinic:
+        name: Nombre
+        street_address: Dirección
+        city: Ciudad
+        state: Estado
+        zip: ZIP
+        phone: Teléfono
+        fax: Fax
+        accepts_naf: Acepta NAF
+        accepts_medicaid: Acepta Medicaid
+        gestational_limit: Límite gestacional (en días)
+        active: Activo

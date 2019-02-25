@@ -1,3 +1,7 @@
-<h1>Add a New Clinic</h1>
+<h1>
+  <%= t('clinics.form.add_a_new_clinic') %>
+</h1>
 
-<%= render 'clinics/clinic_form', clinic: @clinic, label: 'Add clinic' %>
+<%= render 'clinics/clinic_form',
+           clinic: @clinic,
+           label: t('clinics.form.add_clinic') %>

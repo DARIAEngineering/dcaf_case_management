@@ -1,3 +1,7 @@
-<h1>Edit Clinic Details</h1>
+<h1>
+  <%= t 'clinics.form.edit_clinic_details' %>
+</h1>
 
-<%= render 'clinics/clinic_form', clinic: @clinic, label: 'Save changes' %>
+<%= render 'clinics/clinic_form',
+           clinic: @clinic,
+           label: t('clinics.form.save_changes') %>
