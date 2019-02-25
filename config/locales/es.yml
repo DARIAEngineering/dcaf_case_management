@@ -1,5 +1,18 @@
 ---
 es:
+  accountants:
+    search_cases: Buscar casos
+    search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
+    table_content:
+      check_number: "# de cheque"
+      clinic: Clínica
+      date_of_check: Fecha del cheque
+      fund_payout: Pago de %{fund}
+      pledge_sent: Promesa enviada
+      pt_initials: Iniciales PT
+      weeks_at_procedure: Semanas en el procedimiento
+      weeks_at_procedure_display: "%{gestation} semanas"
+    title: Tablero contable
   call:
     status:
       could_not_reach_patient: No se pudo llegar al paciente
@@ -280,16 +293,3 @@ es:
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
     urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con “compromiso enviado”, o marcado como “resuelto sin ayuda”.
-  accountants:
-    title: Tablero contable
-    search_cases: Buscar casos
-    search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
-    table_content:
-      pt_initials: Iniciales PT
-      clinic: Clínica
-      fund_payout: "Pago de %{fund}"
-      weeks_at_procedure: Semanas en el procedimiento
-      pledge_sent: Promesa enviada
-      check_number: "# de cheque"
-      date_of_check: Fecha del cheque
-      weeks_at_procedure_display: "%{gestation} semanas"
