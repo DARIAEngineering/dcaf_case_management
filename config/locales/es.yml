@@ -141,7 +141,6 @@ es:
       title: Historia del paciente
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{gest}'
-      appt_date: Día de la cita
       called_on: 'Llamado en: %{date}'
       confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
       currently: 'Actualmente: %{LMP}'
@@ -244,6 +243,19 @@ es:
       submit: Crear Nota
       title: Notas
       urgent_flag: Marcar a este paciente como urgente
+    pledge:
+      errors:
+        blank_appt: La fecha de la cita no puede estar en blanco
+        blank_clinic: El nombre de la clínica no puede estar en blanco
+        blank_fund: El campo de promesa %{fund} no puede estar en blanco
+        blank_patient: El nombre del paciente no puede estar en blanco
+        title: 'Información requerida:'
+      step_one:
+        clinic_name: 'Nombre de la clínica:'
+        patient_id: 'ID del paciente:'
+        patient_name: 'Nombre del paciente:'
+        pledge_amount: 'Monto de la promesa:'
+        title: 'Confirme que la siguiente información es correcta:'
     pledge_fulfillment:
       audit:
         archive_note: El paciente será archivado el %{date}
@@ -266,6 +278,7 @@ es:
         weeks_along_at_procedure: Semanas a lo largo del procedimiento
       title: Cumplimiento de la promesa
     shared:
+      appt_date: Día de la cita
       name: Nombre y apellido
       status: 'Estatus:'
     status:
@@ -289,6 +302,10 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
+  shared:
+    cancel: Cancelar
+    next: Siguiente
+    previous: Anterior
   tooltips:
     budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de compromiso %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación “enviaré la promesa”) durante una semana determinada. Se reinicia los lunes.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.

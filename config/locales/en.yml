@@ -141,7 +141,6 @@ en:
       title: Patient history
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
-      appt_date: Appointment date
       called_on: 'Called on: %{date}'
       confirm_del: Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)
       currently: 'Currently: %{LMP}'
@@ -244,6 +243,19 @@ en:
       submit: Create Note
       title: Notes
       urgent_flag: Flag this patient as urgent
+    pledge:
+      errors:
+        blank_appt: Appointment date cannot be blank
+        blank_clinic: Clinic name cannot be blank
+        blank_fund: "%{fund} pledge field cannot be blank"
+        blank_patient: Patient name cannot be blank
+        title: 'Data required:'
+      step_one:
+        clinic_name: 'Clinic name:'
+        patient_id: 'Patient ID:'
+        patient_name: 'Patient name:'
+        pledge_amount: 'Pledge amount:'
+        title: 'Confirm the following information is correct:'
     pledge_fulfillment:
       audit:
         archive_note: Patient will be archived on %{date}
@@ -266,6 +278,7 @@ en:
         weeks_along_at_procedure: Weeks along at procedure
       title: Pledge Fulfillment
     shared:
+      appt_date: Appointment date
       name: First and last name
       status: 'Status:'
     status:
@@ -289,6 +302,10 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+  shared:
+    cancel: Cancel
+    next: Next
+    previous: Previous
   tooltips:
     budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
