@@ -14,19 +14,32 @@ en:
     patient_zip_code: Patient ZIP code
     search_button: Search clinics
     title: Clinic Locator Assistant
+  clinics:
+    edit:
+      title: Edit clinic details
+    form:
+      active_help: Are we actively working with this clinic?
+      add_clinic: Add clinic
+      costs_weeks: Costs at %{week} weeks
+      save_changes: Save changes
+      zip_help: To exclude this clinic from Clinic Finder searches, give it the ZIP code 99999.
+    index:
+      title: Clinics
+    new:
+      title: Add a new clinic
   common:
     add: Add
     appointment_date_short: Appt date
+    medicaid: Medicaid
+    naf: NAF
     name: Name
+    'no': 'No'
     notes: Notes
     phone: Phone
     search: Search
     status: Status
     weeks_along_short: Weeks along
-    'yes': "Yes"
-    'no': "No"
-    naf: NAF
-    medicaid: Medicaid
+    'yes': 'Yes'
   configs:
     config:
       current_options: 'Current options are:'
@@ -96,6 +109,20 @@ en:
       start: Get started
       welcome_to_daria: Welcome to DARIA (%{fund} edition)!
       what_line: What line are you working on?
+  mongoid:
+    attributes:
+      clinic:
+        accepts_medicaid: Accepts Medicaid
+        accepts_naf: Accepts NAF
+        active: Active
+        city: City
+        fax: Fax
+        gestational_limit: Gestational limit (in days)
+        name: Name
+        phone: Phone
+        state: State
+        street_address: Street address
+        zip: ZIP
   navigation:
     admin_tools:
       accounting: Accounting
@@ -284,30 +311,3 @@ en:
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
     status_definition: Status definition
     urgent_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as having a sent pledge, or marked as resolved without assistance.
-  clinics:
-    index:
-      title: Clinics
-    new:
-      title: Add a new clinic
-    edit:
-      title: Edit clinic details
-    form:
-      save_changes: Save changes
-      add_clinic: Add clinic
-      zip_help: To exclude this clinic from Clinic Finder searches, give it the ZIP code 99999.
-      active_help: Are we actively working with this clinic?
-      costs_weeks: "Costs at %{week} weeks"
-  mongoid:
-    attributes:
-      clinic:
-        name: Name
-        street_address: Street address
-        city: City
-        state: State
-        zip: ZIP
-        phone: Phone
-        fax: Fax
-        accepts_naf: Accepts NAF
-        accepts_medicaid: Accepts Medicaid
-        gestational_limit: Gestational limit (in days)
-        active: Active

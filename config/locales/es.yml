@@ -14,19 +14,32 @@ es:
     patient_zip_code: Código postal del paciente
     search_button: Buscar clinicas
     title: Asistente de localizador de clínicas
+  clinics:
+    edit:
+      title: Editar detalles de la clínica
+    form:
+      active_help: "¿Estamos trabajando activamente con esta clínica?"
+      add_clinic: Añadir clinica
+      costs_weeks: Costos en %{week} semanas
+      save_changes: Guardar cambios
+      zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
+    index:
+      title: Clínicas
+    new:
+      title: Añadir una nueva clínica
   common:
     add: Añadir
     appointment_date_short: Día de la cita
+    medicaid: Medicaid
+    naf: NAF
     name: Nombre
+    'no': 'No'
     notes: Notas
     phone: Teléfono
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
-    'yes': "Sí"
-    'no': "No"
-    naf: NAF
-    medicaid: Medicaid
+    'yes': Sí
   configs:
     config:
       current_options: 'Las opciones actuales son:'
@@ -96,6 +109,20 @@ es:
       start: Empezar
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
+  mongoid:
+    attributes:
+      clinic:
+        accepts_medicaid: Acepta Medicaid
+        accepts_naf: Acepta NAF
+        active: Activo
+        city: Ciudad
+        fax: Fax
+        gestational_limit: Límite gestacional (en días)
+        name: Nombre
+        phone: Teléfono
+        state: Estado
+        street_address: Dirección
+        zip: ZIP
   navigation:
     admin_tools:
       accounting: Contabilidad
@@ -284,30 +311,3 @@ es:
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
     urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con “compromiso enviado”, o marcado como “resuelto sin ayuda”.
-  clinics:
-    index:
-      title: Clínicas
-    new:
-      title: Añadir una nueva clínica
-    edit:
-      title: Editar detalles de la clínica
-    form:
-      save_changes: Guardar cambios
-      add_clinic: Añadir clinica
-      zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
-      active_help: "¿Estamos trabajando activamente con esta clínica?"
-      costs_weeks: "Costos en %{week} semanas"
-  mongoid:
-    attributes:
-      clinic:
-        name: Nombre
-        street_address: Dirección
-        city: Ciudad
-        state: Estado
-        zip: ZIP
-        phone: Teléfono
-        fax: Fax
-        accepts_naf: Acepta NAF
-        accepts_medicaid: Acepta Medicaid
-        gestational_limit: Límite gestacional (en días)
-        active: Activo
