@@ -4,7 +4,7 @@ start_server() {
 }
 
 if bundle check; then
-    start_server
+    yarn install && start_server
 else
-    bundle install && start_server
+    bundle install && yarn install && start_server
 fi

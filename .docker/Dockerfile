@@ -5,7 +5,7 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
     BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash openssh fontconfig fontconfig-dev curl" \
-    APP_DEPENDENCIES="nodejs git" \
+    APP_DEPENDENCIES="nodejs git nodejs-npm" \
     FONTCONFIG_PATH=/etc/fonts
 
 # get our gem house in order
@@ -32,5 +32,7 @@ RUN bundle config --global frozen 1
 WORKDIR ${DCAF_DIR}
 
 COPY . ${DCAF_DIR}
+
+RUN npm install -g yarn
 
 EXPOSE 3000
