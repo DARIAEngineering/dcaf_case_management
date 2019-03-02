@@ -22,7 +22,7 @@ es:
     name: Nombre
     notes: Notas
     phone: Teléfono
-    save: Salvar
+    save: Guardar
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
@@ -299,7 +299,7 @@ es:
       update_users_role_permissions: Actualizar la función y los permisos de este usuario
     index:
       add_new_user: Añadir Nuevo Usuario
-      user_account_management: Gestión de Cuentas de Usuario
+      user_account_management: Administración de Cuentas de Usuario
     new:
       create_user: Crear Usuario
     search:
