@@ -88,19 +88,19 @@ es:
       clinic_discount: Descuento de clinica
       other_funds: Otros fondos (ver notas)
   flash:
-    account_locked: Cuenta actualmente bloqueada, consulte con su fondo.
+    account_locked: Cuenta bloqueada, consulte con su fondo.
     action_on_account: Cuenta de %{name} %{verb}
     cant_lock_own_account: No puedes bloquear tu propia cuenta. Pregunte a otro administrador.
     clinic_created: "%{clinic} creado!"
-    clinic_details_updated: Detalles de la clínica exitosamente actualizados
+    clinic_details_updated: Detalles de la clínica fueron exitosamente actualizados
     config_failed_update: Config no pudo actualizar
     config_update_success: Configuración actualizada correctamente
     demote_own_account_warn: Por razones de seguridad, no se le permite cambiar su función de administrador a no administrador. Pídale a otro administrador que lo degraden.
-    error_saving_clinic: Los errores evitaron que esta clínica se guardara - %{error}
+    error_saving_clinic: Algúnos errores evitaron que esta clínica se guardara - %{error}
     error_saving_clinic_details: Error al guardar los detalles de la clínica - %{error}
     locked: Bloqueada
-    new_patient_error: Los errores impidieron salvar a este paciente - %{error}
-    new_patient_save: Un nuevo paciente ha sido salvado con éxito
+    new_patient_error: Algúnos errores impidieron guardar a este paciente - %{error}
+    new_patient_save: Un nuevo paciente ha sido guardado con éxito
     patient_info_saved: Información del paciente guardada con éxito en %{timestamp}
     patient_removed_database: Paciente eliminado exitosamente de la base de datos.
     patient_removed_database_error: No se puede eliminar a los pacientes con promesas; Por favor, corrija el registro del paciente y vuelva a intentarlo.
