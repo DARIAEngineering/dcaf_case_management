@@ -17,9 +17,12 @@ es:
   common:
     add: Añadir
     appointment_date_short: Día de la cita
+    back: Atrás
+    email: Email
     name: Nombre
     notes: Notas
     phone: Teléfono
+    save: Guardar
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
@@ -285,3 +288,23 @@ es:
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
     urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con “compromiso enviado”, o marcado como “resuelto sin ayuda”.
+  user:
+    common:
+      last_login: Último Acceso
+      role: Papel
+    edit:
+      admin_actions: Acciones de Administrador
+      lock_an_account: Bloquear una Cuenta
+      update_details: Actualizar detalles
+      update_users_role_permissions: Actualizar la función y los permisos de este usuario
+    index:
+      add_new_user: Añadir Nuevo Usuario
+      user_account_management: Administración de Cuentas de Usuario
+    new:
+      create_user: Crear Usuario
+    search:
+      button: Buscar
+      text_field: Nombre o Correo Electrónico
+    user_table:
+      date_created: Fecha de Creacion
+      full_name: Nombre Completo
