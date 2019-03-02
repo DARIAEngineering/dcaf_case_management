@@ -18,11 +18,13 @@ es:
     add: Añadir
     appointment_date_short: Día de la cita
     name: Nombre
+    'no': 'No'
     notes: Notas
     phone: Teléfono
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
+    'yes': Sí
   configs:
     config:
       current_options: 'Las opciones actuales son:'
@@ -251,11 +253,15 @@ es:
       title: Notas
       urgent_flag: Marcar a este paciente como urgente
     pledge:
+      cancel:
+        confirm: "¿Seguro que quieres cancelar este promesa?"
+        title: Cancelar promesa
       errors:
         blank_appt: La fecha de la cita no puede estar en blanco
         blank_clinic: El nombre de la clínica no puede estar en blanco
         blank_fund: El campo de promesa %{fund} no puede estar en blanco
         blank_patient: El nombre del paciente no puede estar en blanco
+        data_required: 'Información requerida:'
         title: 'Información requerida:'
       step_one:
         clinic_name: 'Nombre de la clínica:'
@@ -263,6 +269,19 @@ es:
         patient_name: 'Nombre del paciente:'
         pledge_amount: 'Monto de la promesa:'
         title: 'Confirme que la siguiente información es correcta:'
+      step_three:
+        completed: Una vez que haya completado el proceso de compromiso, utilice la casilla de verificación a continuación para indicar que se ha enviado su compromiso.
+        downloads: 'Su promesa debe aparecer en las descargas de su computadora. Encuentre el documento y envíe el compromiso para su cliente aquí:'
+        generated: Impresionante, ¡generaste un compromiso de %{fund}! ¡Gracias!
+        sent_checkbox: Envié el compromiso
+        title: 'Envíe y envíe su promesa:'
+      step_two:
+        blank_name_error: Debe ingresar su nombre en el cuadro para firmar y descargar el compromiso
+        form_disabled: Por favor genere su formulario de compromiso y haga clic en siguiente.
+        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar su formulario para registrar que ha enviado el fax a la clínica.
+        generate_pledge_button: Genera tu promesa
+        sign_pledge: 'Ingrese su nombre en este cuadro para firmar su promesa:'
+        title: 'Genere su forma de compromiso:'
     pledge_fulfillment:
       audit:
         archive_note: El paciente será archivado el %{date}
