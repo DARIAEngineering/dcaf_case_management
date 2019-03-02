@@ -263,6 +263,13 @@ es:
       textable: Se permite enviar mensajes de texto?
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
+    menu:
+      abortion_information: Informacion de Aborto
+      call_log: Registro de Llamadas
+      change_log: Registro de Cambios
+      notes: Notas
+      patient_information: Información del Paciente
+      pledge_fulfillment: Cumplimiento de la Promesa
     shared:
       name: Nombre y apellido
       status: 'Estatus:'

@@ -263,6 +263,13 @@ en:
       textable: Textable?
       title: Patient information
       voicemail_preference: Voicemail Preference
+    menu:
+      abortion_information: Abortion Information
+      call_log: Call Log
+      change_log: Change Log
+      notes: Notes
+      patient_information: Patient Information
+      pledge_fulfillment: Pledge Fulfillment
     shared:
       name: First and last name
       status: 'Status:'
