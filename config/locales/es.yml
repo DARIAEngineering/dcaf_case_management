@@ -1,6 +1,16 @@
 ---
 es:
   call:
+    new:
+      call_now: 'Llame a %{name} ahora:'
+      result:
+        did_not_reach_patient: No pude llegar al paciente
+        left_voicemail: Dejé un correo de voz para el paciente.
+        reached_patient: Llegué al paciente
+      voicemail_instructions:
+        no_voicemail: No deje a este paciente un correo de voz.
+        voicemail_identify: Correo de voz bien; Está bien para identificarse como %{fund}
+        voicemail_no_identify: Correo de voz bien; No identificar como %{fund}
     status:
       could_not_reach_patient: No se pudo llegar al paciente
       left_voicemail: Correo de voz izquierdo
@@ -112,6 +122,8 @@ es:
       profile: Mi Perfil
       sign_in: Registrarse
       sign_out: Desconectar
+  note:
+    most_recent: 'La nota más reciente de %{by} en %{at}:'
   patient:
     abortion_information:
       clinic_section:
