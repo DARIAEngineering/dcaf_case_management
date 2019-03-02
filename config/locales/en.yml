@@ -184,6 +184,11 @@ en:
         unknown: Don't know
       language:
         English: English
+      practical_support:
+        companion: Companion
+        lodging: Lodging
+        travel_inside_area: Travel inside the region
+        travel_to_area: Travel to the region
       race:
         asian_south_asian: Asian or South Asian
         black_african_american: Black/African-American

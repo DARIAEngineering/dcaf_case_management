@@ -184,6 +184,11 @@ es:
         unknown: No Se
       language:
         English: Inglés
+      practical_support:
+        companion: Acompañante
+        lodging: Hospedaje
+        travel_inside_area: Viajar dentro de la región
+        travel_to_area: Viajar a la región
       race:
         asian_south_asian: Asiática o Sur de Asia
         black_african_american: Negra/Afroamericana
