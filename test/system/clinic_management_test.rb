@@ -102,7 +102,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
     check 'Accepts Medicaid'
     fill_in 'Gestational limit (in days)', with: '30'
     (5..30).each do |i|
-      fill_in "Costs #{i}wks", with: i
+      fill_in "Costs at #{i} weeks", with: i
     end
     new_clinic_name
   end
@@ -112,14 +112,14 @@ class ClinicManagementTest < ApplicationSystemTestCase
     assert has_field? 'Street address', with: '123 Fake Street'
     assert has_field? 'City', with: 'Yolo'
     assert has_field? 'State', with: 'TX'
-    assert has_field? 'Zip', with: '12345'
+    assert has_field? 'ZIP', with: '12345'
     assert has_field? 'Phone', with: '281-330-8004'
     assert has_field? 'Fax', with: '222-333-4444'
     assert has_checked_field? 'Accepts NAF'
     assert has_checked_field? 'Accepts Medicaid'
     assert has_field? 'Gestational limit (in days)', with: '30'
     (5..30).each do |i|
-      assert has_field? "Costs #{i}wks", with: i
+      assert has_field? "Costs at #{i} weeks", with: i
     end
   end
 end

@@ -43,10 +43,10 @@ es:
   common:
     add: Añadir
     appointment_date_short: Día de la cita
-    medicaid: Medicaid
-    naf: NAF
     back: Atrás
     email: Email
+    medicaid: Medicaid
+    naf: NAF
     name: Nombre
     'no': 'No'
     notes: Notas
