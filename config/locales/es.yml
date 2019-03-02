@@ -12,7 +12,7 @@ es:
       pt_initials: Iniciales PT
       weeks_at_procedure: Semanas en el procedimiento
       weeks_at_procedure_display: "%{gestation} semanas"
-    title: Tablero contable
+    title: Tablero de contador
   call:
     status:
       could_not_reach_patient: No se pudo llegar al paciente
