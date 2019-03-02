@@ -56,14 +56,14 @@ GEM
     afm (0.2.2)
     arel (9.0.0)
     ast (2.4.0)
-    autoprefixer-rails (7.1.2.3)
+    autoprefixer-rails (9.4.8)
       execjs
     bcrypt (3.1.12)
     bootsnap (1.3.2)
       msgpack (~> 1.0)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     bootstrap_form (2.7.0)
     bootstrap_form-datetimepicker (0.0.1)
       bootstrap_form
@@ -275,6 +275,8 @@ GEM
     rack (2.0.6)
     rack-attack (5.4.1)
       rack (>= 1.0, < 3)
+    rack-proxy (0.6.5)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.2.2)
@@ -340,6 +342,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.0.0)
+      ffi (~> 1.9.6)
+      rake
     sdoc (1.0.0)
       rdoc (>= 5.0)
     secure_headers (6.0.0)
@@ -391,6 +396,10 @@ GEM
     url (0.3.2)
     warden (1.2.7)
       rack (>= 1.0)
+    webpacker (3.5.5)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -402,7 +411,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
-  bootstrap-sass (~> 3.3, >= 3.3.6)
+  bootstrap-sass (~> 3.4.1)
   bootstrap_form
   bootstrap_form-datetimepicker
   bson_ext
@@ -467,6 +476,7 @@ DEPENDENCIES
   turbolinks (~> 5.2.0)
   tzinfo-data
   uglifier (~> 4.1)
+  webpacker (~> 3.5)
 
 RUBY VERSION
    ruby 2.6.0p0

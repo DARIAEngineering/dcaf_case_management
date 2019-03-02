@@ -45,6 +45,12 @@ class ActiveSupport::TestCase
                     config_value: { options: insurance_options }
   end
 
+  def create_practical_support_config
+    practical_support_options = ['Metallica Tickets', 'Clothing']
+    create :config, config_key: 'practical_support',
+                    config_value: { options: practical_support_options }
+  end
+
   def create_external_pledge_source_config
     ext_pledge_options = ['Baltimore Abortion Fund',
                           'Tiller Fund (NNAF)',
