@@ -17,11 +17,14 @@ en:
   common:
     add: Add
     appointment_date_short: Appt date
+    back: Back
     days_along: Days along at intake
+    email: Email
     name: Name
     'no': 'No'
     notes: Notes
     phone: Phone
+    save: Save
     search: Search
     status: Status
     weeks_along_short: Weeks along
@@ -90,6 +93,30 @@ en:
     sources:
       clinic_discount: Clinic discount
       other_funds: Other funds (see notes)
+  flash:
+    account_locked: Account currently locked, check with your fund.
+    action_on_account: "%{verb} %{name}'s account."
+    cant_lock_own_account: You can't lock your own account. Ask another admin.
+    clinic_created: "%{clinic} created!"
+    clinic_details_updated: Successfully updated clinic details
+    config_failed_update: Config failed to update
+    config_update_success: Config updated successfully
+    demote_own_account_warn: For safety reasons, you are not allowed to change your role from an admin to a not-admin. Ask another admin to demote you.
+    error_saving_clinic: Errors prevented this clinic from being saved - %{error}
+    error_saving_clinic_details: Error saving clinic details - %{error}
+    locked: Locked
+    new_patient_error: Errors prevented this patient from being saved - %{error}
+    new_patient_save: A new patient has been successfully saved
+    patient_info_saved: Patient info successfully saved at %{timestamp}
+    patient_removed_database: Patient successfully removed from database.
+    patient_removed_database_error: Can't delete patients with pledges; please correct the patient record and try again.
+    patient_save_error: Errors prevented this patient from being saved - %{error}
+    patient_save_success: "%{patient} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the %{fund} pledge amounts are the same, and you're set."
+    pledge_download_alert: You need to enter your name in the box to sign and download the pledge
+    unlocked: Unlocked
+    user_created: User created!
+    user_update_error: Error saving user details - %{error}
+    user_update_success: Successfully updated user details
   lines:
     new:
       start: Get started
@@ -186,6 +213,11 @@ en:
         unknown: Don't know
       language:
         English: English
+      practical_support:
+        companion: Companion
+        lodging: Lodging
+        travel_inside_area: Travel inside the region
+        travel_to_area: Travel to the region
       race:
         asian_south_asian: Asian or South Asian
         black_african_american: Black/African-American
@@ -342,3 +374,23 @@ en:
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
     status_definition: Status definition
     urgent_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as having a sent pledge, or marked as resolved without assistance.
+  user:
+    common:
+      last_login: Last Login
+      role: Role
+    edit:
+      admin_actions: Admin actions
+      lock_an_account: Lock an account
+      update_details: Update details
+      update_users_role_permissions: Update this user's role and permissions
+    index:
+      add_new_user: Add New User
+      user_account_management: User Account Management
+    new:
+      create_user: Create User
+    search:
+      button: Search
+      text_field: Name or Email
+    user_table:
+      date_created: Date Created
+      full_name: Full Name

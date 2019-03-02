@@ -44,6 +44,31 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
       end
     end
 
+    describe 'updating a config - practical support' do
+      it 'should update and be available' do
+        fill_in 'config_options_practical_support', with: 'Yolo, Goat, Something'
+        click_button 'Update options for Practical support'
+
+        assert_equal 'Yolo, Goat, Something',
+                     find('#config_options_practical_support').value
+        within :css, '#practical_support_options_list' do
+          assert has_content? 'Yolo'
+          assert has_content? 'Goat'
+          assert has_content? 'Something'
+          assert has_content? 'Travel to the region'
+          assert has_content? 'Travel inside the region'
+          assert has_content? "Lodging"
+          assert has_content? 'Companion'
+        end
+
+        # Requires view implementation
+        #visit edit_patient_path(@patient)
+        #assert has_select? 'Patient insurance', options: ['', 'Yolo', 'Goat', 'Something',
+                                                          #'No insurance', "Don't know",
+                                                          #'Other (add to notes)']
+      end
+    end
+
     describe 'updating a config - external pledge' do
       it 'should update and be available' do
         fill_in 'config_options_external_pledge_source', with: 'Yolo, Goat, Something'

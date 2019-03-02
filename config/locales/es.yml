@@ -17,11 +17,14 @@ es:
   common:
     add: Añadir
     appointment_date_short: Día de la cita
+    back: Atrás
     days_along: Días de embarazo al inicio
+    email: Email
     name: Nombre
     'no': 'No'
     notes: Notas
     phone: Teléfono
+    save: Guardar
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
@@ -90,6 +93,30 @@ es:
     sources:
       clinic_discount: Descuento de clinica
       other_funds: Otros fondos (ver notas)
+  flash:
+    account_locked: Cuenta bloqueada, consulte con su fondo.
+    action_on_account: Cuenta de %{name} %{verb}
+    cant_lock_own_account: No puedes bloquear tu propia cuenta. Pregunte a otro administrador.
+    clinic_created: "%{clinic} creado!"
+    clinic_details_updated: Detalles de la clínica fueron exitosamente actualizados
+    config_failed_update: Config no pudo actualizar
+    config_update_success: Configuración actualizada correctamente
+    demote_own_account_warn: Por razones de seguridad, no se le permite cambiar su función de administrador a no administrador. Pídale a otro administrador que lo degraden.
+    error_saving_clinic: Algúnos errores evitaron que esta clínica se guardara - %{error}
+    error_saving_clinic_details: Error al guardar los detalles de la clínica - %{error}
+    locked: Bloqueada
+    new_patient_error: Algúnos errores impidieron guardar a este paciente - %{error}
+    new_patient_save: Un nuevo paciente ha sido guardado con éxito
+    patient_info_saved: Información del paciente guardada con éxito en %{timestamp}
+    patient_removed_database: Paciente eliminado exitosamente de la base de datos.
+    patient_removed_database_error: No se puede eliminar a los pacientes con promesas; Por favor, corrija el registro del paciente y vuelva a intentarlo.
+    patient_save_error: Los errores impidieron salvar a este paciente - %{error}
+    patient_save_success: "%{patient} ha sido salvado con éxito! Agregue notas y compromisos externos, confirme el compromiso duro y los montos del compromiso del %{fund} son los mismos, y está listo."
+    pledge_download_alert: Debe ingresar su nombre en el cuadro para firmar y descargar el compromiso
+    unlocked: Desbloqueado
+    user_created: "¡Usuario creado!"
+    user_update_error: Error al guardar los detalles del usuario - %{error}
+    user_update_success: Detalles de usuario actualizados exitosamente
   lines:
     new:
       start: Empezar
@@ -186,6 +213,11 @@ es:
         unknown: No Se
       language:
         English: Inglés
+      practical_support:
+        companion: Acompañante
+        lodging: Hospedaje
+        travel_inside_area: Viajar dentro de la región
+        travel_to_area: Viajar a la región
       race:
         asian_south_asian: Asiática o Sur de Asia
         black_african_american: Negra/Afroamericana
@@ -342,3 +374,23 @@ es:
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
     urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con “compromiso enviado”, o marcado como “resuelto sin ayuda”.
+  user:
+    common:
+      last_login: Último Acceso
+      role: Papel
+    edit:
+      admin_actions: Acciones de Administrador
+      lock_an_account: Bloquear una Cuenta
+      update_details: Actualizar detalles
+      update_users_role_permissions: Actualizar la función y los permisos de este usuario
+    index:
+      add_new_user: Añadir Nuevo Usuario
+      user_account_management: Administración de Cuentas de Usuario
+    new:
+      create_user: Crear Usuario
+    search:
+      button: Buscar
+      text_field: Nombre o Correo Electrónico
+    user_table:
+      date_created: Fecha de Creacion
+      full_name: Nombre Completo
