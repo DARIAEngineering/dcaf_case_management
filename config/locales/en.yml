@@ -17,6 +17,7 @@ en:
   common:
     add: Add
     appointment_date_short: Appt date
+    days_along: Days along at intake
     name: Name
     'no': 'No'
     notes: Notes
@@ -247,6 +248,10 @@ en:
       textable: Textable?
       title: Patient information
       voicemail_preference: Voicemail Preference
+    new:
+      add_button: Add new patient
+      initial_call_date: Initial Call Date
+      title: 'Your search produced no results, so add a new patient:'
     notes:
       placeholder: Enter notes here
       submit: Create Note
@@ -262,7 +267,6 @@ en:
         blank_fund: "%{fund} pledge field cannot be blank"
         blank_patient: Patient name cannot be blank
         data_required: 'Data required:'
-        title: 'Data required:'
       step_one:
         clinic_name: 'Clinic name:'
         patient_id: 'Patient ID:'

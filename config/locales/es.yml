@@ -17,6 +17,7 @@ es:
   common:
     add: Añadir
     appointment_date_short: Día de la cita
+    days_along: Días de embarazo al inicio
     name: Nombre
     'no': 'No'
     notes: Notas
@@ -247,6 +248,10 @@ es:
       textable: Se permite enviar mensajes de texto?
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
+    new:
+      add_button: Añadir nuevo paciente
+      initial_call_date: Fecha de llamada inicial
+      title: 'Su búsqueda no produjo resultados, así que agregue un nuevo paciente:'
     notes:
       placeholder: Introduce notas aquí
       submit: Crear Nota
@@ -262,7 +267,6 @@ es:
         blank_fund: El campo de promesa %{fund} no puede estar en blanco
         blank_patient: El nombre del paciente no puede estar en blanco
         data_required: 'Información requerida:'
-        title: 'Información requerida:'
       step_one:
         clinic_name: 'Nombre de la clínica:'
         patient_id: 'ID del paciente:'
