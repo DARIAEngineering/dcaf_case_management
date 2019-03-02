@@ -332,10 +332,6 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
-  shared:
-    cancel: Cancel
-    next: Next
-    previous: Previous
   tooltips:
     budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
