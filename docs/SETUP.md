@@ -45,6 +45,11 @@ You'll also need to set up MongoDB, which you can do as follows:
 * Allow for MongoDB read/write permissions by running `sudo chmod 777 /data/db`
 * Open another terminal tab and run `mongod` to start up the database
 
+### Then, JS dependencies
+We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
+* Install Yarn locally (`brew install yarn`, or the [setup instructions](https://yarnpkg.com/en/docs/install)).
+* Install JS packages: `yarn install`
+
 ### Then, showtime
 After that:
 * Once you've confirmed that you have `mongod` running in a separate tab, run `rake db:seed` to populate your database with test data
