@@ -5,6 +5,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "DARIA" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DCAF" %>">
     <meta name='ROBOTS' content='NOINDEX, NOFOLLOW'>
+    <%= javascript_pack_tag 'application' %>
     <%= stylesheet_link_tag :application, media: 'all' %>
     <%= favicon_link_tag %>
     <%= javascript_include_tag :application %>

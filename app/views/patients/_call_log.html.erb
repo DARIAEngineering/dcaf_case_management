@@ -1,30 +1,30 @@
 <section id="call_log_content">
   <div class="margin-bottom col-sm-12">
     <h2>
-      Call Log
+      <%= t('patient.call_log.title') %>
       <span class="pull-right new-call-entry"><small>
-        <%= link_to "Record new call", new_patient_call_path(@patient), class:"call_button call-#{@patient.primary_phone_display}", remote: true %>
+        <%= link_to t('patient.call_log.record_new_call'), new_patient_call_path(@patient), class:"call_button call-#{@patient.primary_phone_display}", remote: true %>
       </small></span>
     </h2>
 
     <table class="table border-side">
       <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Result</th>
-        <th>CM</th>
-        <th>Actions</th>
+        <th><%= t('patient.call_log.table.date') %></th>
+        <th><%= t('patient.call_log.table.time') %></th>
+        <th><%= t('patient.call_log.table.result') %></th>
+        <th><%= t('patient.call_log.table.case_manager') %></th>
+        <th><%= t('patient.call_log.table.actions') %></th>
       </tr>
       <tbody>
         <% @patient.recent_calls.each do |call| %>
           <tr>
             <td><%= call.created_at.display_date %></td>
             <td><%= call.created_at.display_time %></td>
-            <td><%= call.status %></td>
+            <td><%= display_call_status call %></td>
             <td><%= call.created_by.name %></td>
             <td>
               <% if call.created_by == current_user && call.recent? %>
-                <%= button_to 'Remove', patient_call_path(@patient, call), remote: true, method: :delete, data: { confirm: "Are you sure you want to remove this call from the call log?" }, class: "btn btn-danger" %>
+                <%= button_to t('patient.call_log.table.remove_button'), patient_call_path(@patient, call), remote: true, method: :delete, data: { confirm: "Are you sure you want to remove this call from the call log?" }, class: "btn btn-danger" %>
               <% end %>
             </td>
           </tr>

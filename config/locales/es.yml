@@ -1,5 +1,19 @@
 ---
 es:
+  call:
+    status:
+      could_not_reach_patient: No se pudo llegar al paciente
+      left_voicemail: Correo de voz izquierdo
+      reached_patient: Paciente alcanzado
+  clinic_locator:
+    description: Filtre las clínicas de acuerdo con la aceptación de NAF / NNAF y sus límites de gestación; ordenar por proximidad a un código postal.
+    experimental_note: Esta es una característica experimental.
+    gestation_above: Gestación arriba
+    medicaid_only_toggle: Mostrar solo clínicas de Medicaid
+    naf_only_toggle: Mostrar solo clínicas de NAF
+    patient_zip_code: Código postal del paciente
+    search_button: Buscar clinicas
+    title: Asistente de localizador de clínicas
   common:
     add: Añadir
     appointment_date_short: Día de la cita
@@ -22,6 +36,13 @@ es:
   dashboard:
     activity_log:
       label: Actividad de línea de llamadas %{current_line}
+    budget_bar:
+      pledged_item: "%{amount} prometido"
+      pledged_report: "%{amount} prometido (%{count} pacientes)"
+      pop_content_appt_date: cita en %{date}
+      pop_content_no_appt_date: sin cita
+      sent_item: "%{amount} enviado"
+      sent_report: "%{amount} enviado (%{count} pacientes)"
     helpers:
       voicemail_options:
         'no': No dejen mensajes de voz
@@ -58,6 +79,17 @@ es:
     pledged: envió una promesa de $%{pledge_amount}
     reached_patient: alcanzó el paciente
     unknown_action: habló o interactuó con
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} promesa"
+    new:
+      amount: Cantidad
+      create_button: Crear promesa externo
+      source: Origen
+      title: 'O, grabe un nueva promesa externa:'
+    sources:
+      clinic_discount: Descuento de clinica
+      other_funds: Otros fondos (ver notas)
   lines:
     new:
       start: Empezar
@@ -84,6 +116,39 @@ es:
       sign_in: Registrarse
       sign_out: Desconectar
   patient:
+    abortion_information:
+      clinic_section:
+        clinic: Clínica
+        medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
+        naf_only_toggle: Enseñar solo clínicas de la NAF
+        referred_to_clinic: Referido a la clínica
+        resolved_without_fund: Resuelto sin ayuda de %{fund}
+        title: Detalles de la clínica
+        ultrasound_completed: "¿Ultrasonido completado?"
+      cost_section:
+        abortion_cost: Costo del aborto
+        fund_pledge: promesa de %{fund}
+        naf_pledge: Promesa de la Federación Nacional de Aborto
+        outstanding_balance: Cantidad pendiente
+        patient_contribution: Contribución del paciente
+        title: Detalles del costo
+      title: Informacion de aborto
+    call_log:
+      record_new_call: Grabar nueva llamada
+      table:
+        actions: ACCIONES
+        case_manager: CM
+        date: FECHA
+        remove_button: Retirar
+        result: RESULTADO
+        time: HORA
+      title: Registro de Llamadas
+    change_log:
+      table:
+        case_manager: CM
+        change: Cambiar (de -> a)
+        modified_date: Fecha modificada
+      title: Historia del paciente
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{gest}'
       appt_date: Día de la cita
@@ -122,6 +187,11 @@ es:
         unknown: No Se
       language:
         English: Inglés
+      practical_support:
+        companion: Acompañante
+        lodging: Hospedaje
+        travel_inside_area: Viajar dentro de la región
+        travel_to_area: Viajar a la región
       race:
         asian_south_asian: Asiática o Sur de Asia
         black_african_american: Negra/Afroamericana
@@ -209,7 +279,7 @@ es:
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
   tooltips:
-    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de compromiso %{FUND}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación “enviaré la promesa”) durante una semana determinada. Se reinicia los lunes.
+    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de compromiso %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación “enviaré la promesa”) durante una semana determinada. Se reinicia los lunes.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
     completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
     mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
