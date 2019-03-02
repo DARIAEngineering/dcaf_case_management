@@ -67,7 +67,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
     it 'should prevent updates if the payload is bad' do
       fill_in 'Name', with: ''
       click_button 'Save changes'
-      assert has_text? 'Edit Clinic Details'
+      assert has_text? 'Edit clinic details'
       assert has_text? 'Error saving clinic details'
     end
   end
@@ -95,7 +95,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
     fill_in 'Street address', with: '123 Fake Street'
     fill_in 'City', with: 'Yolo'
     fill_in 'State', with: 'TX'
-    fill_in 'Zip', with: '12345'
+    fill_in 'ZIP', with: '12345'
     fill_in 'Phone', with: '281-330-8004'
     fill_in 'Fax', with: '222-333-4444'
     check 'Accepts NAF'
