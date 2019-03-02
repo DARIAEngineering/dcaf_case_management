@@ -12,6 +12,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     @ext_pledge = @patient.external_pledges.first
     create_external_pledge_source_config
     create_insurance_config
+    create_practical_support_config
     create_language_config
     create_referred_by_config
 
