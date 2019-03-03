@@ -14,7 +14,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Asset pipeline
 gem 'webpacker', '~> 3.5'
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.4.1'
+# gem 'bootstrap-sass', '~> 3.4.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
@@ -35,7 +36,7 @@ gem 'devise', '~> 4.5'
 gem 'omniauth-google-oauth2', '~> 0.6.0'
 
 # We use `bootstrap_form_for` in views
-gem 'bootstrap_form'
+gem 'bootstrap_form', '~> 4.1.0'
 
 # Security libraries
 gem 'rack-attack', '~> 5.4.1'
