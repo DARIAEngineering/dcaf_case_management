@@ -203,6 +203,8 @@ h5 {
   /*@extend .well-lg;*/
   @extend .mx-auto;
   padding-top: 20px;
+  border: 1px solid rgb(227, 227, 227);
+  border-radius: 6px;
   /*max-width: 320px;*/
   margin: 0 auto;
 }
