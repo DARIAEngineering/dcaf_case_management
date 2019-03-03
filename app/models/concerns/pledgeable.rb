@@ -18,9 +18,9 @@ module Pledgeable
   end
 
   def pledge_info_presence
-    errors.add(:pledge_sent, "#{FUND} pledge field cannot be blank") if fund_pledge.blank?
-    errors.add(:pledge_sent, 'Patient name cannot be blank') if name.blank?
-    errors.add(:pledge_sent, 'Clinic name cannot be blank') if clinic.blank?
-    errors.add(:pledge_sent, 'Appointment date cannot be blank') if appointment_date.blank?
+    errors.add(:pledge_sent, I18n.t('patient.pledge.errors.blank_fund', fund: "#{FUND}")) if fund_pledge.blank?
+    errors.add(:pledge_sent, I18n.t('patient.pledge.errors.blank_patient')) if name.blank?
+    errors.add(:pledge_sent, I18n.t('patient.pledge.errors.blank_clinic')) if clinic.blank?
+    errors.add(:pledge_sent, I18n.t('patient.pledge.errors.blank_appt')) if appointment_date.blank?
   end
 end
