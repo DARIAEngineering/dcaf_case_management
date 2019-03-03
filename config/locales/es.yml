@@ -106,13 +106,20 @@ es:
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}
+    password:
+      new:
+        send_reset: Enviarme las instrucciones para restablecer la contraseña
+        title: Restablecimiento de contraseña
     sessions:
       new:
-        email: Email
         google_signin: Inicia sesión con Google (recomendado)
+        lock_email_not_received: "¿No recibió instrucciones de desbloqueo?"
         password: Contraseña
+        password_forgot: "¿Olvidaste tu contraseña?"
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
+        reset_email_not_received: "¿No recibió instrucciones de confirmación?"
+        sign_in: Registrarse
   events:
     add_to_call_list: Añadir a la lista de llamadas
     couldnt_reach_patient: llamó, paciente no contestó
@@ -174,6 +181,8 @@ es:
         state: Estado
         street_address: Dirección
         zip: ZIP
+      user:
+        email: Email
   navigation:
     admin_tools:
       accounting: Contabilidad
@@ -334,6 +343,13 @@ es:
       textable: Se permite enviar mensajes de texto?
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
+    menu:
+      abortion_information: Informacion de Aborto
+      call_log: Registro de Llamadas
+      change_log: Registro de Cambios
+      notes: Notas
+      patient_information: Información del Paciente
+      pledge_fulfillment: Cumplimiento de la Promesa
     new:
       add_button: Añadir nuevo paciente
       initial_call_date: Fecha de llamada inicial
@@ -393,13 +409,6 @@ es:
         procedure_date: Fecha de procedimiento
         weeks_along_at_procedure: Semanas a lo largo del procedimiento
       title: Cumplimiento de la promesa
-    menu:
-      abortion_information: Informacion de Aborto
-      call_log: Registro de Llamadas
-      change_log: Registro de Cambios
-      notes: Notas
-      patient_information: Información del Paciente
-      pledge_fulfillment: Cumplimiento de la Promesa
     shared:
       appt_date: Día de la cita
       name: Nombre y apellido

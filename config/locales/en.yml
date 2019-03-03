@@ -106,13 +106,20 @@ en:
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}
+    password:
+      new:
+        send_reset: Send me password reset instructions
+        title: Password Reset
     sessions:
       new:
-        email: Email
         google_signin: Sign in with Google (recommended)
+        lock_email_not_received: Didn't receive unlock instructions?
         password: Password
+        password_forgot: Forgot your password?
         password_signin: 'Or, sign in with a password:'
         password_submit: Sign in with password
+        reset_email_not_received: Didn't receive confirmation instructions?
+        sign_in: Sign in
   events:
     add_to_call_list: Add to call list
     couldnt_reach_patient: called, but couldn't reach
@@ -174,6 +181,8 @@ en:
         state: State
         street_address: Street address
         zip: ZIP
+      user:
+        email: Email
   navigation:
     admin_tools:
       accounting: Accounting
@@ -334,6 +343,13 @@ en:
       textable: Textable?
       title: Patient information
       voicemail_preference: Voicemail Preference
+    menu:
+      abortion_information: Abortion Information
+      call_log: Call Log
+      change_log: Change Log
+      notes: Notes
+      patient_information: Patient Information
+      pledge_fulfillment: Pledge Fulfillment
     new:
       add_button: Add new patient
       initial_call_date: Initial Call Date
@@ -393,13 +409,6 @@ en:
         procedure_date: Procedure date
         weeks_along_at_procedure: Weeks along at procedure
       title: Pledge Fulfillment
-    menu:
-      abortion_information: Abortion Information
-      call_log: Call Log
-      change_log: Change Log
-      notes: Notes
-      patient_information: Patient Information
-      pledge_fulfillment: Pledge Fulfillment
     shared:
       appt_date: Appointment date
       name: First and last name
