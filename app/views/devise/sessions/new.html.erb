@@ -6,6 +6,11 @@
 
     <p><%= t('devise.sessions.new.password_signin') %></p>
 
+    <!-- 
+    Alerts triggerable from this page
+    t('devise.sessions.failure.user.unauthenticated')
+    t('devise.sessions.user.signed_in')
+    -->
     <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
       <%= devise_error_messages! %>
 

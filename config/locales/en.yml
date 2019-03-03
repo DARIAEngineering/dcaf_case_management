@@ -111,6 +111,9 @@ en:
         send_reset: Send me password reset instructions
         title: Password Reset
     sessions:
+      failure:
+        user:
+          unauthenticated: ''
       new:
         google_signin: Sign in with Google (recommended)
         lock_email_not_received: Didn't receive unlock instructions?
@@ -120,6 +123,8 @@ en:
         password_submit: Sign in with password
         reset_email_not_received: Didn't receive confirmation instructions?
         sign_in: Sign in
+      user:
+        signed_in: ''
   events:
     add_to_call_list: Add to call list
     couldnt_reach_patient: called, but couldn't reach

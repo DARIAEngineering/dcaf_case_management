@@ -111,6 +111,9 @@ es:
         send_reset: Enviarme las instrucciones para restablecer la contraseña
         title: Restablecimiento de contraseña
     sessions:
+      failure:
+        user:
+          unauthenticated: ''
       new:
         google_signin: Inicia sesión con Google (recomendado)
         lock_email_not_received: "¿No recibió instrucciones de desbloqueo?"
@@ -120,6 +123,8 @@ es:
         password_submit: Inicia sesión con contraseña
         reset_email_not_received: "¿No recibió instrucciones de confirmación?"
         sign_in: Registrarse
+      user:
+        signed_in: ''
   events:
     add_to_call_list: Añadir a la lista de llamadas
     couldnt_reach_patient: llamó, paciente no contestó
