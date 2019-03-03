@@ -1,5 +1,18 @@
 ---
 es:
+  accountants:
+    search_cases: Buscar casos
+    search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
+    table_content:
+      check_number: "# de cheque"
+      clinic: Clínica
+      date_of_check: Fecha del cheque
+      fund_payout: Pago de %{fund}
+      pledge_sent: Promesa enviada
+      pt_initials: Iniciales PT
+      weeks_at_procedure: Semanas en el procedimiento
+      weeks_at_procedure_display: "%{gestation} semanas"
+    title: Tablero de contador
   call:
     new:
       call_now: 'Llame a %{name} ahora:'
@@ -24,12 +37,27 @@ es:
     patient_zip_code: Código postal del paciente
     search_button: Buscar clinicas
     title: Asistente de localizador de clínicas
+  clinics:
+    edit:
+      title: Editar detalles de la clínica
+    form:
+      active_help: "¿Estamos trabajando activamente con esta clínica?"
+      add_clinic: Añadir clinica
+      costs_weeks: Costos en %{week} semanas
+      save_changes: Guardar cambios
+      zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
+    index:
+      title: Clínicas
+    new:
+      title: Añadir una nueva clínica
   common:
     add: Añadir
     appointment_date_short: Día de la cita
     back: Atrás
     days_along: Días de embarazo al inicio
     email: Email
+    medicaid: Medicaid
+    naf: NAF
     name: Nombre
     'no': 'No'
     notes: Notas
@@ -132,6 +160,20 @@ es:
       start: Empezar
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
+  mongoid:
+    attributes:
+      clinic:
+        accepts_medicaid: Acepta Medicaid
+        accepts_naf: Acepta NAF
+        active: Activo
+        city: Ciudad
+        fax: Fax
+        gestational_limit: Límite gestacional (en días)
+        name: Nombre
+        phone: Teléfono
+        state: Estado
+        street_address: Dirección
+        zip: ZIP
   navigation:
     admin_tools:
       accounting: Contabilidad

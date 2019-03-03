@@ -30,6 +30,6 @@ class Fulfillment
   mongoid_userstamp user_model: 'User'
 
   def gestation_at_procedure_display
-    "#{gestation_at_procedure} weeks" if gestation_at_procedure.present?
+    I18n.t('accountants.table_content.weeks_at_procedure_display', gestation: gestation_at_procedure) if gestation_at_procedure.present?
   end
 end

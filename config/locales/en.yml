@@ -1,5 +1,18 @@
 ---
 en:
+  accountants:
+    search_cases: Search cases
+    search_placeholder: Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)
+    table_content:
+      check_number: 'Check #'
+      clinic: Clinic
+      date_of_check: Date of check
+      fund_payout: "%{fund} payout"
+      pledge_sent: Pledge sent
+      pt_initials: PT initials
+      weeks_at_procedure: Weeks at procedure
+      weeks_at_procedure_display: "%{gestation} weeks"
+    title: Accountant dashboard
   call:
     new:
       call_now: 'Call %{name} now:'
@@ -24,12 +37,27 @@ en:
     patient_zip_code: Patient ZIP code
     search_button: Search clinics
     title: Clinic Locator Assistant
+  clinics:
+    edit:
+      title: Edit clinic details
+    form:
+      active_help: Are we actively working with this clinic?
+      add_clinic: Add clinic
+      costs_weeks: Costs at %{week} weeks
+      save_changes: Save changes
+      zip_help: To exclude this clinic from Clinic Finder searches, give it the ZIP code 99999.
+    index:
+      title: Clinics
+    new:
+      title: Add a new clinic
   common:
     add: Add
     appointment_date_short: Appt date
     back: Back
     days_along: Days along at intake
     email: Email
+    medicaid: Medicaid
+    naf: NAF
     name: Name
     'no': 'No'
     notes: Notes
@@ -132,6 +160,20 @@ en:
       start: Get started
       welcome_to_daria: Welcome to DARIA (%{fund} edition)!
       what_line: What line are you working on?
+  mongoid:
+    attributes:
+      clinic:
+        accepts_medicaid: Accepts Medicaid
+        accepts_naf: Accepts NAF
+        active: Active
+        city: City
+        fax: Fax
+        gestational_limit: Gestational limit (in days)
+        name: Name
+        phone: Phone
+        state: State
+        street_address: Street address
+        zip: ZIP
   navigation:
     admin_tools:
       accounting: Accounting
