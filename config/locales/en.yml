@@ -110,6 +110,8 @@ en:
       new:
         send_reset: Send me password reset instructions
         title: Password Reset
+    passwords:
+      send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
     sessions:
       failure:
         user:

@@ -110,6 +110,8 @@ es:
       new:
         send_reset: Enviarme las instrucciones para restablecer la contraseña
         title: Restablecimiento de contraseña
+    passwords:
+      send_paranoid_instructions: Si su dirección de correo electrónico existe en nuestra base de datos, recibirá un correo electrónico con instrucciones sobre cómo confirmar su dirección de correo electrónico en unos minutos.
     sessions:
       failure:
         user:
