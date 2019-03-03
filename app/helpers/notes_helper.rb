@@ -15,8 +15,7 @@ module NotesHelper
     return nil if note.try(:full_text).blank?
     info = content_tag :p do
       content_tag(:strong) do
-        "Most recent note from #{note.created_by.name} " \
-        "at #{note.created_at.display_timestamp}:"
+        t('note.most_recent', by: "#{note.created_by.name}", at: "#{note.created_at.display_timestamp}")
       end
     end
     text = content_tag(:p) { note.full_text[0..400] }

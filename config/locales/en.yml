@@ -1,6 +1,16 @@
 ---
 en:
   call:
+    new:
+      call_now: 'Call %{name} now:'
+      result:
+        did_not_reach_patient: I couldn't reach the patient
+        left_voicemail: I left a voicemail for the patient
+        reached_patient: I reached the patient
+      voicemail_instructions:
+        no_voicemail: Do not leave this patient a voicemail
+        voicemail_identify: Voicemail OK; Okay to identify as %{fund}
+        voicemail_no_identify: Voicemail OK; Do not identify as %{fund}
     status:
       could_not_reach_patient: Couldn't reach patient
       left_voicemail: Left voicemail
@@ -142,6 +152,8 @@ en:
       profile: My Profile
       sign_in: Sign In
       sign_out: Sign Out
+  note:
+    most_recent: 'Most recent note from %{by} at %{at}:'
   patient:
     abortion_information:
       clinic_section:
@@ -339,6 +351,13 @@ en:
         procedure_date: Procedure date
         weeks_along_at_procedure: Weeks along at procedure
       title: Pledge Fulfillment
+    menu:
+      abortion_information: Abortion Information
+      call_log: Call Log
+      change_log: Change Log
+      notes: Notes
+      patient_information: Patient Information
+      pledge_fulfillment: Pledge Fulfillment
     shared:
       appt_date: Appointment date
       name: First and last name
