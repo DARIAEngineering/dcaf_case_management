@@ -1,5 +1,18 @@
 ---
 es:
+  accountants:
+    search_cases: Buscar casos
+    search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
+    table_content:
+      check_number: "# de cheque"
+      clinic: Clínica
+      date_of_check: Fecha del cheque
+      fund_payout: Pago de %{fund}
+      pledge_sent: Promesa enviada
+      pt_initials: Iniciales PT
+      weeks_at_procedure: Semanas en el procedimiento
+      weeks_at_procedure_display: "%{gestation} semanas"
+    title: Tablero de contador
   call:
     new:
       call_now: 'Llame a %{name} ahora:'

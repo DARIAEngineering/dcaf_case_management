@@ -1,5 +1,18 @@
 ---
 en:
+  accountants:
+    search_cases: Search cases
+    search_placeholder: Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)
+    table_content:
+      check_number: 'Check #'
+      clinic: Clinic
+      date_of_check: Date of check
+      fund_payout: "%{fund} payout"
+      pledge_sent: Pledge sent
+      pt_initials: PT initials
+      weeks_at_procedure: Weeks at procedure
+      weeks_at_procedure_display: "%{gestation} weeks"
+    title: Accountant dashboard
   call:
     new:
       call_now: 'Call %{name} now:'
