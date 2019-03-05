@@ -35,14 +35,14 @@ es:
     medicaid_only_toggle: Mostrar solo clínicas de Medicaid
     naf_only_toggle: Mostrar solo clínicas de NAF
     patient_zip_code: Código postal del paciente
+    result:
+      distance: "%{miles} millas"
+      goes_to: "%{weeks}w%{days}d"
+      location: "%{city}, %{state}"
+      not_specified: No especificado
+      title: Clínicas mas cercanas
     search_button: Buscar clinicas
     title: Asistente de localizador de clínicas
-    result:
-      title: Clínicas mas cercanas
-      location: "%{city}, %{state}"
-      distance: "%{miles} millas"
-      not_specified: No especificado
-      goes_to: "%{weeks}w%{days}d"
   clinics:
     edit:
       title: Editar detalles de la clínica

@@ -35,14 +35,14 @@ en:
     medicaid_only_toggle: Show only Medicaid clinics
     naf_only_toggle: Show only NAF clinics
     patient_zip_code: Patient ZIP code
+    result:
+      distance: "%{miles} miles"
+      goes_to: "%{weeks}w%{days}d"
+      location: "%{city}, %{state}"
+      not_specified: Not specified
+      title: Nearest clinics
     search_button: Search clinics
     title: Clinic Locator Assistant
-    result:
-      title: Nearest clinics
-      location: "%{city}, %{state}"
-      distance: "%{miles} miles"
-      not_specified: Not specified
-      goes_to: "%{weeks}w%{days}d"
   clinics:
     edit:
       title: Edit clinic details
