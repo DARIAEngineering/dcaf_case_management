@@ -162,7 +162,7 @@ es:
         phone: Teléfono
         state: Estado
         street_address: Dirección
-        zip: ZIP
+        zip: Código postal
   navigation:
     admin_tools:
       accounting: Contabilidad
