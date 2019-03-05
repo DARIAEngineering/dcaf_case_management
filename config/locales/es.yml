@@ -17,16 +17,20 @@ es:
     new:
       call_now: 'Llame a %{name} ahora:'
       result:
-        did_not_reach_patient: No pude llegar al paciente
+        did_not_reach_patient: No hablé con el paciente
         left_voicemail: Dejé un correo de voz para el paciente.
-        reached_patient: Llegué al paciente
+        reached_patient: Hablé con el paciente
       voicemail_instructions:
-        no_voicemail: No deje a este paciente un correo de voz.
-        voicemail_identify: Correo de voz bien; Está bien para identificarse como %{fund}
-        voicemail_no_identify: Correo de voz bien; No identificar como %{fund}
+        no_voicemail: No se puede dejar mensaje de voz
+        voicemail_identify: Si se puede dejar mensaje de voz; Y tambien, identificarse como %{fund}
+        voicemail_no_identify: Si se puede dejar mensaje de voz; Pero no identificarse como %{fund}
+    other_contact:
+      number: "%{name}'s numero:"
+      other_contact: "%{name} %{rel} es el contacto principal para este paciente%{punc}"
+      primary: 'Contacto primario:'
     status:
-      could_not_reach_patient: No se pudo llegar al paciente
-      left_voicemail: Correo de voz izquierdo
+      could_not_reach_patient: No hablé con el paciente
+      left_voicemail: Dejé un mensaje de voz
       reached_patient: Paciente alcanzado
   clinic_locator:
     description: Filtre las clínicas de acuerdo con la aceptación de NAF / NNAF y sus límites de gestación; ordenar por proximidad a un código postal.
@@ -106,13 +110,27 @@ es:
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}
-    sessions:
+    password:
       new:
-        email: Email
+        send_reset: Enviarme las instrucciones para restablecer la contraseña
+        title: Restablecimiento de contraseña
+    passwords:
+      send_paranoid_instructions: Si su dirección de correo electrónico existe en nuestra base de datos, recibirá un correo electrónico con instrucciones sobre cómo confirmar su dirección de correo electrónico en unos minutos.
+    sessions:
+      failure:
+        user:
+          unauthenticated: ''
+      new:
         google_signin: Inicia sesión con Google (recomendado)
+        lock_email_not_received: "¿No recibió instrucciones de desbloqueo?"
         password: Contraseña
+        password_forgot: "¿Olvidaste tu contraseña?"
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
+        reset_email_not_received: "¿No recibió instrucciones de confirmación?"
+        sign_in: Registrarse
+      user:
+        signed_in: ''
   events:
     add_to_call_list: Añadir a la lista de llamadas
     couldnt_reach_patient: llamó, paciente no contestó
@@ -174,6 +192,8 @@ es:
         state: Estado
         street_address: Dirección
         zip: ZIP
+      user:
+        email: Email
   navigation:
     admin_tools:
       accounting: Contabilidad
@@ -335,7 +355,7 @@ es:
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
     menu:
-      abortion_information: Informacion de Aborto
+      abortion_information: Información de Aborto
       call_log: Registro de Llamadas
       change_log: Registro de Cambios
       notes: Notas
@@ -346,7 +366,7 @@ es:
       initial_call_date: Fecha de llamada inicial
       title: 'Su búsqueda no produjo resultados, así que agregue un nuevo paciente:'
     notes:
-      placeholder: Introduce notas aquí
+      placeholder: Ingresa notas aquí
       submit: Crear Nota
       title: Notas
       urgent_flag: Marcar a este paciente como urgente
@@ -364,21 +384,21 @@ es:
         clinic_name: 'Nombre de la clínica:'
         patient_id: 'ID del paciente:'
         patient_name: 'Nombre del paciente:'
-        pledge_amount: 'Monto de la promesa:'
+        pledge_amount: 'Cantidad de la promesa:'
         title: 'Confirme que la siguiente información es correcta:'
       step_three:
-        completed: Una vez que haya completado el proceso de compromiso, utilice la casilla de verificación a continuación para indicar que se ha enviado su compromiso.
-        downloads: 'Su promesa debe aparecer en las descargas de su computadora. Encuentre el documento y envíe el compromiso para su cliente aquí:'
+        completed: Una vez que haya completado el proceso de enviar compromiso, indique aquí que se ha enviado el compromiso.
+        downloads: 'Su documento de compromiso aparecerá en las descargas de su computadora. Encuentre el documento y envíe el compromiso para su cliente aquí:'
         generated: Impresionante, ¡generaste un compromiso de %{fund}! ¡Gracias!
-        sent_checkbox: Envié el compromiso
-        title: 'Envíe y envíe su promesa:'
+        sent_checkbox: Yo envié el compromiso
+        title: 'Descarga y envíe su promesa:'
       step_two:
         blank_name_error: Debe ingresar su nombre en el cuadro para firmar y descargar el compromiso
-        form_disabled: Por favor genere su formulario de compromiso y haga clic en siguiente.
-        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar su formulario para registrar que ha enviado el fax a la clínica.
-        generate_pledge_button: Genera tu promesa
+        form_disabled: Por favor genere el documento de compromiso y haga clic en siguiente.
+        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado el fax a la clínica.
+        generate_pledge_button: Genera la promesa
         sign_pledge: 'Ingrese su nombre en este cuadro para firmar su promesa:'
-        title: 'Genere su forma de compromiso:'
+        title: 'Genere el documento de compromiso:'
     pledge_fulfillment:
       audit:
         archive_note: El paciente será archivado el %{date}
@@ -386,7 +406,7 @@ es:
         title: Auditoría
       confirmation:
         clinic: 'Clínica:'
-        confirm_info: 'Por favor, confirme que la clínica y los montos de la promesa son correctos:'
+        confirm_info: 'Por favor, confirme que la clínica y la cantidad de la promesa son correctos:'
         fund_pledge_amount: 'Cantidad de promesa de %{fund}:'
         pledge_generated_at: 'Promesa generada en:'
         pledge_generated_by: 'Promesa generada por:'

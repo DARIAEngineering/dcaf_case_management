@@ -24,6 +24,10 @@ en:
         no_voicemail: Do not leave this patient a voicemail
         voicemail_identify: Voicemail OK; Okay to identify as %{fund}
         voicemail_no_identify: Voicemail OK; Do not identify as %{fund}
+    other_contact:
+      number: "%{name}'s number:"
+      other_contact: "%{name} %{rel} is the primary contact for this patient%{punc}"
+      primary: 'Primary contact:'
     status:
       could_not_reach_patient: Couldn't reach patient
       left_voicemail: Left voicemail
@@ -106,13 +110,27 @@ en:
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}
-    sessions:
+    password:
       new:
-        email: Email
+        send_reset: Send me password reset instructions
+        title: Password Reset
+    passwords:
+      send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
+    sessions:
+      failure:
+        user:
+          unauthenticated: ''
+      new:
         google_signin: Sign in with Google (recommended)
+        lock_email_not_received: Didn't receive unlock instructions?
         password: Password
+        password_forgot: Forgot your password?
         password_signin: 'Or, sign in with a password:'
         password_submit: Sign in with password
+        reset_email_not_received: Didn't receive confirmation instructions?
+        sign_in: Sign in
+      user:
+        signed_in: ''
   events:
     add_to_call_list: Add to call list
     couldnt_reach_patient: called, but couldn't reach
@@ -174,6 +192,8 @@ en:
         state: State
         street_address: Street address
         zip: ZIP
+      user:
+        email: Email
   navigation:
     admin_tools:
       accounting: Accounting

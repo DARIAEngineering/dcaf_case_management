@@ -88,14 +88,11 @@ module CallsHelper
 
   def other_contact_name_display(patient)
     if patient.other_contact?
-      display_block = <<-TEXT
-        #{patient.other_contact} #{other_contact_relationship_display(patient)}
-        is the primary contact for this
-        patient#{patient.other_phone? ? ':' : '.'}
-      TEXT
-      display_block
+      t('call.other_contact.other_contact', name: "#{patient.other_contact}",
+                                            rel: "#{other_contact_relationship_display(patient)}",
+                                            punc: "#{patient.other_phone? ? ':' : '.'}")
     else
-      'Primary contact:'
+      t('call.other_contact.primary')
     end
   end
 
@@ -105,7 +102,7 @@ module CallsHelper
 
   def patient_name_h4(patient)
     content_tag :h4,
-                "#{patient.name}'s number:",
+                t('call.other_contact.number', name: "#{patient.name}"),
                 class: 'modal-title calls-request'
   end
 
