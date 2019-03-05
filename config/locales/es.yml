@@ -17,16 +17,16 @@ es:
     new:
       call_now: 'Llame a %{name} ahora:'
       result:
-        did_not_reach_patient: No pude llegar al paciente
+        did_not_reach_patient: No hablé con el paciente
         left_voicemail: Dejé un correo de voz para el paciente.
-        reached_patient: Llegué al paciente
+        reached_patient: Hablé con el paciente
       voicemail_instructions:
-        no_voicemail: No deje a este paciente un correo de voz.
-        voicemail_identify: Correo de voz bien; Está bien para identificarse como %{fund}
-        voicemail_no_identify: Correo de voz bien; No identificar como %{fund}
+        no_voicemail: No se puede dejar mensaje de voz
+        voicemail_identify: Si se puede dejar mensaje de voz; Y tambien, identificarse como %{fund}
+        voicemail_no_identify: Si se puede dejar mensaje de voz; Pero no identificarse como %{fund}
     status:
-      could_not_reach_patient: No se pudo llegar al paciente
-      left_voicemail: Correo de voz izquierdo
+      could_not_reach_patient: No hablé con el paciente
+      left_voicemail: Dejé un mensaje de voz
       reached_patient: Paciente alcanzado
   clinic_locator:
     description: Filtre las clínicas de acuerdo con la aceptación de NAF / NNAF y sus límites de gestación; ordenar por proximidad a un código postal.
@@ -351,7 +351,7 @@ es:
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
     menu:
-      abortion_information: Informacion de Aborto
+      abortion_information: Información de Aborto
       call_log: Registro de Llamadas
       change_log: Registro de Cambios
       notes: Notas
