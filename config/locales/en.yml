@@ -37,6 +37,12 @@ en:
     patient_zip_code: Patient ZIP code
     search_button: Search clinics
     title: Clinic Locator Assistant
+    result:
+      title: Nearest clinics
+      location: "%{city}, %{state}"
+      distance: "%{miles} miles"
+      not_specified: Not specified
+      goes_to: "%{weeks}w%{days}d"
   clinics:
     edit:
       title: Edit clinic details

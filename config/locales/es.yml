@@ -37,6 +37,12 @@ es:
     patient_zip_code: Código postal del paciente
     search_button: Buscar clinicas
     title: Asistente de localizador de clínicas
+    result:
+      title: Clínicas mas cercanas
+      location: "%{city}, %{state}"
+      distance: "%{miles} millas"
+      not_specified: No especificado
+      goes_to: "%{weeks}w%{days}d"
   clinics:
     edit:
       title: Editar detalles de la clínica
