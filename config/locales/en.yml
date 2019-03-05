@@ -36,11 +36,12 @@ en:
     naf_only_toggle: Show only NAF clinics
     patient_zip_code: Patient ZIP code
     result:
+      affordable_title: Most affordable clinics
       distance: "%{miles} miles"
       goes_to: "%{weeks}w%{days}d"
       location: "%{city}, %{state}"
+      nearest_title: Nearest clinics
       not_specified: Not specified
-      title: Nearest clinics
     search_button: Search clinics
     title: Clinic Locator Assistant
   clinics:
