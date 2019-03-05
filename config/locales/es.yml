@@ -28,6 +28,10 @@ es:
       could_not_reach_patient: No hablé con el paciente
       left_voicemail: Dejé un mensaje de voz
       reached_patient: Paciente alcanzado
+    other_contact:
+      other_contact: "%{name} %{rel} es el contacto principal para este paciente%{punc}"
+      primary: 'Contacto primario:'
+      number: "%{name}'s numero:"
   clinic_locator:
     description: Filtre las clínicas de acuerdo con la aceptación de NAF / NNAF y sus límites de gestación; ordenar por proximidad a un código postal.
     experimental_note: Esta es una característica experimental.
