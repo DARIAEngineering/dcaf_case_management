@@ -8,13 +8,11 @@ module NavbarHelper
   end
 
   def spanish_or_english_link
-    if !Rails.env.production?
-      content_tag :li do
-        if I18n.locale == I18n.default_locale 
-          link_to "Español", { :locale=>'es' }
-        else
-          link_to "English", { :locale=>'en' }
-        end
+    content_tag :li do
+      if I18n.locale == I18n.default_locale 
+        link_to "Español", { :locale=>'es' }
+      else
+        link_to "English", { :locale=>'en' }
       end
     end
   end
