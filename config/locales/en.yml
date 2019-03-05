@@ -24,14 +24,14 @@ en:
         no_voicemail: Do not leave this patient a voicemail
         voicemail_identify: Voicemail OK; Okay to identify as %{fund}
         voicemail_no_identify: Voicemail OK; Do not identify as %{fund}
+    other_contact:
+      number: "%{name}'s number:"
+      other_contact: "%{name} %{rel} is the primary contact for this patient%{punc}"
+      primary: 'Primary contact:'
     status:
       could_not_reach_patient: Couldn't reach patient
       left_voicemail: Left voicemail
       reached_patient: Reached patient
-    other_contact:
-      other_contact: "%{name} %{rel} is the primary contact for this patient%{punc}"
-      primary: 'Primary contact:'
-      number: "%{name}'s number:"
   clinic_locator:
     description: Filter out clinics according to accepting NAF/NNAF and their gestation limits; sort by proximity to a ZIP code.
     experimental_note: This is an experimental feature.

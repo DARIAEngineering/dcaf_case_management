@@ -24,14 +24,14 @@ es:
         no_voicemail: No se puede dejar mensaje de voz
         voicemail_identify: Si se puede dejar mensaje de voz; Y tambien, identificarse como %{fund}
         voicemail_no_identify: Si se puede dejar mensaje de voz; Pero no identificarse como %{fund}
+    other_contact:
+      number: "%{name}'s numero:"
+      other_contact: "%{name} %{rel} es el contacto principal para este paciente%{punc}"
+      primary: 'Contacto primario:'
     status:
       could_not_reach_patient: No hablé con el paciente
       left_voicemail: Dejé un mensaje de voz
       reached_patient: Paciente alcanzado
-    other_contact:
-      other_contact: "%{name} %{rel} es el contacto principal para este paciente%{punc}"
-      primary: 'Contacto primario:'
-      number: "%{name}'s numero:"
   clinic_locator:
     description: Filtre las clínicas de acuerdo con la aceptación de NAF / NNAF y sus límites de gestación; ordenar por proximidad a un código postal.
     experimental_note: Esta es una característica experimental.
