@@ -211,8 +211,8 @@ en:
       sign_in: Sign In
       sign_out: Sign Out
   note:
-    most_recent_no_user: Most recent note
     most_recent: 'Most recent note from %{by} at %{at}:'
+    most_recent_no_user: Most recent note
   patient:
     abortion_information:
       clinic_section:
