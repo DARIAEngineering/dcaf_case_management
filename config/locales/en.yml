@@ -240,6 +240,7 @@ en:
         result: RESULT
         time: TIME
       title: Call Log
+      delete_confirm: "Are you sure you want to remove this call from the call log?"
     change_log:
       table:
         case_manager: CM

@@ -240,6 +240,7 @@ es:
         result: RESULTADO
         time: HORA
       title: Registro de Llamadas
+      delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
     change_log:
       table:
         case_manager: CM
