@@ -1,6 +1,6 @@
 <!-- DATA ENTRY ONLY. DO NOT USE EXCEPT FOR DATA ENTRY. -->
 
-<h1>PATIENT ENTRY</h1>
+<h1><%= t('patient.menu.patient_entry') %></h1>
 
 <%= bootstrap_form_for @patient, url: data_entry_create_path, html: { class: 'mass_entry_form' } do |f| %>
   <%= f.select :line, options_for_select(lines, current_line), label: t('patient.information.line') %>
@@ -61,33 +61,35 @@
 
   <%= f.select :employment_status,
                options_for_select(employment_status_options),
+               label: t('patient.information.employment_status'),
                                   autocomplete: 'off' %>
   <%= f.select :income,
                options_for_select(income_options),
+               label: t('patient.information.income'),
                                   autocomplete: 'off' %>
 
   <%= f.select :referred_by,
-               label: t('patient.helper.referred_by.general'),
                options_for_select(referred_by_options),
+               label: t('patient.helper.referred_by.title'),
                                   autocomplete: 'off' %>
 
     <%= f.number_field :procedure_cost, label: t('patient.pledge_fulfillment.form.procedure_cost') %>
-    <%= f.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
-    <%= f.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :patient_contribution, label: t('patient.abortion_information.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.naf_pledge'), autocomplete: 'off', prepend: '$' %>
 
-    <%= f.check_box :pledge_sent, label: 'Pledge sent' %>
+    <%= f.check_box :pledge_sent, label: t('patient.status.key.pledge_sent') %>
 
-  <p style="font-weight:bold">Special circumstances</p>
+  <p style="font-weight:bold"><%= t('patient.information.special_circumstances.title')%></p>
   <%= f.form_group :special_circumstances do %>
     <div class="col-sm-6">
-      <%= f.check_box :special_circumstances, { label: 'Fetal diagnosis', name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal diagnosis', '' %>
-      <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'patient[special_circumstances][]', namespace: 'Home' }, 'Homelessness', '' %>
-      <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'patient[special_circumstances][]', namespace: 'Domestic' }, 'Domestic violence', '' %>
+      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.fetal_diagnosis'), name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal diagnosis', '' %>
+      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.homelessness'), name: 'patient[special_circumstances][]', namespace: 'Home' }, 'Homelessness', '' %>
+      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.domestic_violence'), name: 'patient[special_circumstances][]', namespace: 'Domestic' }, 'Domestic violence', '' %>
     </div>
     <div class="col-sm-6">
-    <%= f.check_box :special_circumstances, { label: 'Rape', name: 'patient[special_circumstances][]', namespace: 'Rape' }, 'Rape', '' %>
-    <%= f.check_box :special_circumstances, { label: 'Incest', name: 'patient[special_circumstances][]', namespace: 'Incest' }, 'Incest', '' %>
-    <%= f.check_box :special_circumstances, { label: 'Prison', name: 'patient[special_circumstances][]', namespace: 'Prison' }, 'Prison', '' %>
+    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.rape'), name: 'patient[special_circumstances][]', namespace: 'Rape' }, 'Rape', '' %>
+    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.incest'), name: 'patient[special_circumstances][]', namespace: 'Incest' }, 'Incest', '' %>
+    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.prison'), name: 'patient[special_circumstances][]', namespace: 'Prison' }, 'Prison', '' %>
     </div>
   <% end %>
 

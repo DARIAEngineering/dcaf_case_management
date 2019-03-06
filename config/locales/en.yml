@@ -282,7 +282,6 @@ en:
         other: Other
         white_caucasian: White/Caucasian
       referred_by:
-        general: referred_by
         clinic: Clinic
         crime_victim_advocacy_center: Crime victim advocacy center
         domestic_violence_org: Domestic violence crisis/intervention org
@@ -297,6 +296,7 @@ en:
         prev_patient: Previous patient
         school: School
         sexual_assault_crisis_org: Sexual assault crisis org
+        title: Referred by
         web_search: Google/Web search
         youth: Youth outreach
       week:
@@ -340,6 +340,7 @@ en:
       call_log: Call Log
       change_log: Change Log
       notes: Notes
+      patient_entry: Patient Entry
       patient_information: Patient Information
       pledge_fulfillment: Pledge Fulfillment
     new:

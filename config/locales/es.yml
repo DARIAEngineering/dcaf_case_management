@@ -296,6 +296,7 @@ es:
         prev_patient: Paciente anterior
         school: Escuela
         sexual_assault_crisis_org: Agresión de asalto sexual org
+        title: Referido por
         web_search: Búsqueda de Google / Web
         youth: Alcance juvenil
       week:
@@ -339,6 +340,7 @@ es:
       call_log: Registro de Llamadas
       change_log: Registro de Cambios
       notes: Notas
+      patient_entry: Entrada de paciente
       patient_information: Información del Paciente
       pledge_fulfillment: Cumplimiento de la Promesa
     new:
@@ -397,8 +399,8 @@ es:
         date_of_check: Fecha del cheque
         fund_payout: Pago de %{fund}
         pledge_fulfilled_box: Promesa cumplida
-        procedure_date: Fecha de procedimiento
         procedure_cost: Costo del procedimiento
+        procedure_date: Fecha de procedimiento
         weeks_along_at_procedure: Semanas a lo largo del procedimiento
       title: Cumplimiento de la promesa
     shared:
