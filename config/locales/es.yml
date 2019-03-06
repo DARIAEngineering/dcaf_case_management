@@ -36,9 +36,9 @@ es:
     naf_only_toggle: Mostrar solo clínicas de NAF
     patient_zip_code: Código postal del paciente
     result:
-      affordable_title: Most affordable clinics
+      affordable_title: Las clínicas más económicas
       distance: "%{miles} millas"
-      goes_to: "%{weeks}w%{days}d"
+      goes_to: "%{weeks} semanas %{days} días"
       location: "%{city}, %{state}"
       nearest_title: Clínicas mas cercanas
       not_specified: No especificado
