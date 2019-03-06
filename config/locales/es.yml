@@ -39,6 +39,13 @@ es:
     medicaid_only_toggle: Mostrar solo clínicas de Medicaid
     naf_only_toggle: Mostrar solo clínicas de NAF
     patient_zip_code: Código postal del paciente
+    result:
+      affordable_title: Las clínicas más económicas
+      distance: "%{miles} millas"
+      goes_to: "%{weeks} semanas %{days} días"
+      location: "%{city}, %{state}"
+      nearest_title: Clínicas mas cercanas
+      not_specified: No especificado
     search_button: Buscar clinicas
     title: Asistente de localizador de clínicas
   clinics:
