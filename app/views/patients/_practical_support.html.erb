@@ -1,0 +1,40 @@
+<section id="abortion_information_content">
+  <div id="patient_fields" class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Practical Support</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 info-form">
+        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-1' }, remote: true do |f| %>
+          <div class="col-sm-6">
+            <div class="info-form-left">
+              
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="info-form-right">
+              
+
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+<h5>Add new practical support</h5>
+<%= bootstrap_form_for [patient, patient.practical_supports.new], layout: :inline, html: { id: 'new-external-pledge' } do |f| %>
+	<%= f.select :support_type, practical_support_options, label: 'support_type' %>
+	<%= f.select :source, external_pledge_source_options, label: 'source' %>
+	<%= f.check_box :confirmed %>
+	<%= f.submit 'create new support', class: 'btn btn-primary', id: 'create-external-pledge' %>
+<% end %>
+
+  
+  </div>
+
+  
+</section>
