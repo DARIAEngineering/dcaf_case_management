@@ -282,6 +282,7 @@ en:
         other: Other
         white_caucasian: White/Caucasian
       referred_by:
+        general: referred_by
         clinic: Clinic
         crime_victim_advocacy_center: Crime victim advocacy center
         domestic_violence_org: Domestic violence crisis/intervention org
@@ -397,6 +398,7 @@ en:
         date_of_check: Date of check
         fund_payout: "%{fund} payout"
         pledge_fulfilled_box: Pledge fulfilled
+        procedure_cost: Procedure Cost
         procedure_date: Procedure date
         weeks_along_at_procedure: Weeks along at procedure
       title: Pledge Fulfillment

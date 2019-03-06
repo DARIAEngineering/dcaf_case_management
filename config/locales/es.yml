@@ -398,6 +398,7 @@ es:
         fund_payout: Pago de %{fund}
         pledge_fulfilled_box: Promesa cumplida
         procedure_date: Fecha de procedimiento
+        procedure_cost: Costo del procedimiento
         weeks_along_at_procedure: Semanas a lo largo del procedimiento
       title: Cumplimiento de la promesa
     shared:
