@@ -236,6 +236,7 @@ es:
         title: Detalles del costo
       title: Informacion de aborto
     call_log:
+      delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
       record_new_call: Grabar nueva llamada
       table:
         actions: ACCIONES

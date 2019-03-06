@@ -236,6 +236,7 @@ en:
         title: Cost details
       title: Abortion information
     call_log:
+      delete_confirm: Are you sure you want to remove this call from the call log?
       record_new_call: Record new call
       table:
         actions: ACTIONS
