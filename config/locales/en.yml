@@ -62,6 +62,7 @@ en:
     new:
       title: Add a new clinic
   common:
+    weeks_days: "%{weeks} weeks, %{days} days"
     add: Add
     appointment_date_short: Appt date
     back: Back
@@ -370,6 +371,8 @@ en:
       notes: Notes
       patient_information: Patient Information
       pledge_fulfillment: Pledge Fulfillment
+      submit_pledge: Submit pledge
+      cancel_pledge: Cancel pledge
     new:
       add_button: Add new patient
       initial_call_date: Initial Call Date
