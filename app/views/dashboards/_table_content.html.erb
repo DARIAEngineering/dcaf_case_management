@@ -22,6 +22,7 @@
         <th></th>
       </tr>
     </thead>
+
     <tbody id="<%= table_type %>_content">
       <% patients.each do |patient| %>
         <tr class="patient-data" id="<%= patient.id %>">
@@ -34,6 +35,7 @@
           <td><%= patient.status %></td>
           <td><%= patient.appointment_date_display %></td>
           <td><%= patient.most_recent_note_display_text %> <%= plus_sign_glyphicon(patient.most_recent_note) %></td>
+
           <% if table_type == 'completed_calls' || table_type == 'urgent_cases' %>
             <td class="blank-td"></td>
           <% else %>
@@ -43,6 +45,7 @@
               <td><%= link_to t('common.add'), add_patient_path(patient), method: :patch, remote: true %></td>
             <% end %>
           <% end %>
+
           <td>
             <%= link_to call_glyphicon,
                         new_patient_call_path(patient),

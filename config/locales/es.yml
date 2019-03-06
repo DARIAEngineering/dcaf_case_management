@@ -216,6 +216,7 @@ es:
       sign_out: Desconectar
   note:
     most_recent: 'La nota más reciente de %{by} en %{at}:'
+    most_recent_no_user: La nota más reciente
   patient:
     abortion_information:
       clinic_section:
