@@ -62,7 +62,6 @@ es:
     new:
       title: Añadir una nueva clínica
   common:
-    weeks_days: "%{weeks} semanas, %{days} días"
     add: Añadir
     appointment_date_short: Día de la cita
     back: Atrás
@@ -78,6 +77,7 @@ es:
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
+    weeks_days: "%{weeks} semanas, %{days} días"
     'yes': Sí
   configs:
     config:
@@ -367,12 +367,12 @@ es:
     menu:
       abortion_information: Información de Aborto
       call_log: Registro de Llamadas
+      cancel_pledge: Cancelar Promesa
       change_log: Registro de Cambios
       notes: Notas
       patient_information: Información del Paciente
       pledge_fulfillment: Cumplimiento de la Promesa
       submit_pledge: Crear Promesa
-      cancel_pledge: Cancelar Promesa
     new:
       add_button: Añadir nuevo paciente
       initial_call_date: Fecha de llamada inicial
