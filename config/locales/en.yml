@@ -77,6 +77,7 @@ en:
     search: Search
     status: Status
     weeks_along_short: Weeks along
+    weeks_days: "%{weeks} weeks, %{days} days"
     'yes': 'Yes'
   configs:
     config:
@@ -366,10 +367,12 @@ en:
     menu:
       abortion_information: Abortion Information
       call_log: Call Log
+      cancel_pledge: Cancel pledge
       change_log: Change Log
       notes: Notes
       patient_information: Patient Information
       pledge_fulfillment: Pledge Fulfillment
+      submit_pledge: Submit pledge
     new:
       add_button: Add new patient
       initial_call_date: Initial Call Date
