@@ -66,7 +66,7 @@ module PatientsHelper
       [ t('patient.helper.insurance.unknown'), 'Don\'t know' ],
       [ t('patient.helper.insurance.other'), 'Other (add to notes)' ],
     ]
-    full_set = [[nil]] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
+    full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
     # if the current value isn't in the list, push it on.
     # kinda ugly because we're working with a few different datatypes in here.
     if current_value.present? && full_set.map { |opt| opt.is_a?(Array) ? opt[-1] : opt }.exclude?(current_value)
