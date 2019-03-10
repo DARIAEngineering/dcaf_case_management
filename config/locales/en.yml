@@ -201,7 +201,7 @@ en:
         street_address: Street address
         zip: ZIP
       user:
-        current_password: Current Password
+        current_password: Current password
         email: Email
         name: First and last name
         password: Password
