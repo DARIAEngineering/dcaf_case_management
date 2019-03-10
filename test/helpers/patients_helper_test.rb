@@ -37,6 +37,16 @@ class PatientsHelperTest < ActionView::TestCase
                                     [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements insurance_options, expected_insurance_options_array
       end
+
+      it 'should append any non-nil passed options to the end' do
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+                                    [ 'No insurance', 'No insurance' ],
+                                    [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Other (add to notes)', 'Other (add to notes)'],
+                                    'Friendship' ]
+        assert_same_elements expected_insurance_options_array,
+                             insurance_options('Friendship')
+      end
     end
 
     describe 'without a config' do
