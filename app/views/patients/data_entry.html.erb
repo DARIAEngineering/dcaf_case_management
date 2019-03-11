@@ -1,6 +1,6 @@
 <!-- DATA ENTRY ONLY. DO NOT USE EXCEPT FOR DATA ENTRY. -->
 
-<h1><%= t('patient.menu.patient_entry') %></h1>
+<h1><%= t('patient.data_entry.patient_entry') %></h1>
 
 <%= bootstrap_form_for @patient, url: data_entry_create_path, html: { class: 'mass_entry_form' } do |f| %>
   <%= f.select :line, options_for_select(lines, current_line), label: t('patient.information.line') %>
