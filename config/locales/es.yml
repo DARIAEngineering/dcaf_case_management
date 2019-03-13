@@ -199,9 +199,14 @@ es:
         phone: Teléfono
         state: Estado
         street_address: Dirección
-        zip: Código postal```
+        zip: Código postal
       user:
-        email: Email
+        current_password: Contraseña actual
+        email: Correo Electrónico/Email
+        name: Nombre y apellido
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        role: Papel
   navigation:
     admin_tools:
       accounting: Contabilidad
@@ -481,6 +486,12 @@ es:
       user_account_management: Administración de Cuentas de Usuario
     new:
       create_user: Crear Usuario
+    profile_edit:
+      awaiting_confirmation: 'Actualmente en espera de confirmación para: %{email}'
+      change_password: Cambia tu contraseña
+      current_password: Ingrese su contraseña actual para confirmar cualquier cambio
+      update_info_button: Actualizar información
+      user_panel: Panel de usuario para %{email} (%{name})
     search:
       button: Buscar
       text_field: Nombre o Correo Electrónico

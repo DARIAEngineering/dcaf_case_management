@@ -201,7 +201,12 @@ en:
         street_address: Street address
         zip: ZIP
       user:
+        current_password: Current password
         email: Email
+        name: First and last name
+        password: Password
+        password_confirmation: Password confirmation
+        role: Role
   navigation:
     admin_tools:
       accounting: Accounting
@@ -481,6 +486,12 @@ en:
       user_account_management: User Account Management
     new:
       create_user: Create User
+    profile_edit:
+      awaiting_confirmation: 'Currently waiting for confirmation for: %{email}'
+      change_password: Change your password
+      current_password: Enter your current password to confirm any changes
+      update_info_button: Update info
+      user_panel: User panel for %{email} (%{name})
     search:
       button: Search
       text_field: Name or Email
