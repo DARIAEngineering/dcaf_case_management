@@ -82,9 +82,9 @@
           </div>
 
           <%= f.select :insurance,
-                       options_for_select(insurance_options.push(patient.insurance).uniq,
+                       options_for_select(insurance_options(patient.insurance),
                                           patient.insurance),
-                                          label: t('patient.information.insurance')%>
+                                          label: t('patient.information.insurance') %>
           <%= f.select :referred_by,
                        options_for_select(referred_by_options,
                                           patient.referred_by),
