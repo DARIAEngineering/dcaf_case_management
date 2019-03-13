@@ -199,10 +199,10 @@ es:
         phone: Teléfono
         state: Estado
         street_address: Dirección
-        zip: Código postal```
+        zip: Código postal
       user:
         current_password: Contraseña actual
-        email: Email
+        email: Correo Electrónico/Email
         name: Nombre y apellido
         password: Contraseña
         password_confirmation: Confirmación de contraseña
