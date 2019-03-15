@@ -18,7 +18,7 @@ jobs:
       - checkout
       - run: sudo apt-get install libfontconfig
       - run: gem install bundler # Update bundler
-      - run: gem update --system # Update rubygems
+      - run: sudo gem update --system # Update rubygems
       - restore_cache:
           keys:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
