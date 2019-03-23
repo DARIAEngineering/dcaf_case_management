@@ -391,7 +391,7 @@ es:
       urgent_flag: Marcar a este paciente como urgente
     pledge:
       cancel:
-        confirm: "¿Seguro que quieres cancelar este promesa?"
+        confirm: "¿Seguro/a que quieres cancelar esta promesa?"
         title: Cancelar promesa
       errors:
         blank_appt: La fecha de la cita no puede estar en blanco
@@ -406,7 +406,7 @@ es:
         pledge_amount: 'Cantidad de la promesa:'
         title: 'Confirme que la siguiente información es correcta:'
       step_three:
-        completed: Una vez que haya completado el proceso de enviar promesa, indique aquí que se ha enviado la promesa.
+        completed:  Una vez que haya completado el proceso de envio, indique aquí que se ha enviado la promesa.
         downloads: 'Su documento de promesa aparecerá en las descargas de su computadora. Encuentre el documento y envíe la promesa para su cliente aquí:'
         generated: Impresionante, ¡generaste una promesa de %{fund}! ¡Gracias!
         sent_checkbox: Yo envié la promesa
@@ -429,7 +429,7 @@ es:
         fund_pledge_amount: 'Cantidad de promesa de %{fund}:'
         pledge_generated_at: 'Promesa generada en:'
         pledge_generated_by: 'Promesa generada por:'
-        pledge_sent_at: 'Promesa enviada a:'
+        pledge_sent_at: 'Promesa enviada en:'
         pledge_sent_by: 'Promesa enviada por:'
       form:
         check_num: 'Cheque #'
