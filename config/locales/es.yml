@@ -100,7 +100,7 @@ es:
       voicemail_options:
         'no': No dejen mensajes de voz
         not_specified: Sin instrucciones; no ID VM
-        'yes': Si se permiten mensajes de voz
+        'yes': Si se permiten mensajes de voz, ID OK
     overview:
       week_of: Semana de %{week_range}
     partial_titles:
@@ -322,7 +322,7 @@ es:
         domestic_violence_org: Violencia doméstica crisis / intervención org
         family: Miembro de la familia
         friend: Amigo
-        fund: "%{fund} sitio web o redes sociales"
+        fund: "%{fund} sitio de internet o redes sociales"
         homeless: Refugio para indigentes
         legal_clinic: Clínica legal
         naf: NAF
@@ -331,13 +331,13 @@ es:
         prev_patient: Paciente anterior
         school: Escuela
         sexual_assault_crisis_org: Agresión de asalto sexual org
-        web_search: Búsqueda de Google / Web
+        web_search: Búsqueda de Google/internet
         youth: Alcance juvenil
       week:
         one: "%{count} semana"
         other: "%{count} semanas"
     information:
-      age: Años
+      age: Edad
       city: Ciudad
       county: Condado
       employment_status: Estatus de Empleo
@@ -351,7 +351,7 @@ es:
       line: Linea
       other_contact:
         name: Nombre de Otro Contacto
-        phone: Teléfono de Otro Contacto
+        phone: Otro teléfono
         relationship: Relación con Otro Contacto
         title: Otro Contacto
       race_ethnicity: Raza / Etnicidad
