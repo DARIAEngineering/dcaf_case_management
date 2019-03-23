@@ -492,6 +492,7 @@ en:
       current_password: Enter your current password to confirm any changes
       update_info_button: Update info
       user_panel: User panel for %{email} (%{name})
+      new_password: New password
     search:
       button: Search
       text_field: Name or Email
