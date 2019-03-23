@@ -144,7 +144,7 @@ es:
     couldnt_reach_patient: llamó, paciente no contestó
     left_voicemail: dejó un mensaje de voz
     pledged: envió una promesa de $%{pledge_amount}
-    reached_patient: alcanzó el paciente
+    reached_patient: habló con el paciente
     unknown_action: habló o interactuó con
   external_pledge:
     edit:
@@ -234,14 +234,14 @@ es:
     abortion_information:
       clinic_section:
         clinic: Clínica
+        inactive_clinics: Clinícas inactivas
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
         naf_only_toggle: Enseñar solo clínicas de la NAF
+        not_currently_working_with_fund: Actualmente no trabaja con %{fund} - %{clinic_name}
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         title: Detalles de la clínica
         ultrasound_completed: "¿Ultrasonido completado?"
-        inactive_clinics: Clinícas inactivas
-        not_currently_working_with_fund: Actualmente no trabaja con %{fund} - %{clinic_name}
       cost_section:
         abortion_cost: Costo del aborto
         fund_pledge: Promesa de %{fund}
@@ -406,7 +406,7 @@ es:
         pledge_amount: 'Cantidad de la promesa:'
         title: 'Confirme que la siguiente información es correcta:'
       step_three:
-        completed:  Una vez que haya completado el proceso de envio, indique aquí que se ha enviado la promesa.
+        completed: Una vez que haya completado el proceso de envio, indique aquí que se ha enviado la promesa.
         downloads: 'Su documento de promesa aparecerá en las descargas de su computadora. Encuentre el documento y envíe la promesa para su cliente aquí:'
         generated: Impresionante, ¡generaste una promesa de %{fund}! ¡Gracias!
         sent_checkbox: Yo envié la promesa
@@ -469,7 +469,7 @@ es:
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
     completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
     mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
-    record_new_external_pledge: "\"Promesas externas\" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente."
+    record_new_external_pledge: '"Promesas externas" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
@@ -492,9 +492,9 @@ es:
       awaiting_confirmation: 'Actualmente en espera de confirmación para: %{email}'
       change_password: Cambia tu contraseña
       current_password: Ingrese su contraseña actual para confirmar cualquier cambio
+      new_password: Contraseña nueva
       update_info_button: Actualizar información
       user_panel: Panel de usuario para %{email} (%{name})
-      new_password: Contraseña nueva
     search:
       button: Buscar
       text_field: Nombre o Correo Electrónico

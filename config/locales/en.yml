@@ -234,15 +234,14 @@ en:
     abortion_information:
       clinic_section:
         clinic: Clinic
+        inactive_clinics: Inactive clinics
         medicaid_only_toggle: Enable only Medicaid clinics
         naf_only_toggle: Enable only NAF clinics
+        not_currently_working_with_fund: Not currently working with %{fund} - %{clinic_name}
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without assistance from %{fund}
         title: Clinic details
         ultrasound_completed: Ultrasound completed?
-        inactive_clinics: Inactive clinics
-        not_currently_working_with_fund: Not currently working with %{fund} - %{clinic_name}
-      inactive_clinics: Inactive clinics
       cost_section:
         abortion_cost: Abortion cost
         fund_pledge: "%{fund} pledge"
@@ -493,9 +492,9 @@ en:
       awaiting_confirmation: 'Currently waiting for confirmation for: %{email}'
       change_password: Change your password
       current_password: Enter your current password to confirm any changes
+      new_password: New password
       update_info_button: Update info
       user_panel: User panel for %{email} (%{name})
-      new_password: New password
     search:
       button: Search
       text_field: Name or Email
