@@ -237,7 +237,7 @@ en:
         inactive_clinics: Inactive clinics
         medicaid_only_toggle: Enable only Medicaid clinics
         naf_only_toggle: Enable only NAF clinics
-        not_currently_working_with_fund: Not currently working with %{fund} - %{clinic_name}
+        not_currently_working_with_fund: "(Not currently working with %{fund}) - %{clinic_name}"
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without assistance from %{fund}
         title: Clinic details
