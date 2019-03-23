@@ -211,9 +211,9 @@ es:
     admin_tools:
       accounting: Contabilidad
       clinic_management: Manejo de Clínica
-      config_management: Configuración
+      config_management: Manejo de Configuración
       export: Exportación anónima de CSV
-      label: Herramientas de Administración
+      label: Administración
       reporting: Reportes
       user_management: Manejo de Usuarios
     cm_resources:
