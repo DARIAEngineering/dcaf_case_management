@@ -21,7 +21,7 @@ es:
         left_voicemail: Dejé un correo de voz para el paciente.
         reached_patient: Hablé con el paciente
       voicemail_instructions:
-        no_voicemail: No se puede dejar mensaje de voz
+        no_voicemail: No deje un mensaje de voz a este paciente
         voicemail_identify: Si se puede dejar mensaje de voz; Y tambien, identificarse como %{fund}
         voicemail_no_identify: Si se puede dejar mensaje de voz; Pero no identificarse como %{fund}
     other_contact:
@@ -113,8 +113,8 @@ es:
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
     table_content:
       clear_call_list: Borrar su lista de llamadas
-      clear_call_list_confirm: "¿Está seguro de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
-      remove_from_call_list_confirm: "¿Estás seguro de que deseas eliminar a %{name} de tu lista de llamadas?"
+      clear_call_list_confirm: "¿Está seguro/a de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
+      remove_from_call_list_confirm: "¿Está seguro/a de que deseas eliminar a %{name} de tu lista de llamadas?"
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}
