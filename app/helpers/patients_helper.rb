@@ -113,8 +113,8 @@ module PatientsHelper
                             .map { |clinic| [clinic.name, clinic.id] }
                             .unshift nil
     inactive_clinics = clinics.reject(&:active)
-                              .map { |clinic| ["(Not currently working with #{FUND}) - #{clinic.name}", clinic.id] }
-                              .unshift ['--- INACTIVE CLINICS ---', nil]
+                              .map { |clinic| ["(#{t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: FUND, clinic_name: clinic.name)})", clinic.id] }
+                              .unshift ["--- #{t('patient.abortion_information.clinic_section.inactive_clinics').upcase} ---", nil]
     active_clinics | inactive_clinics
   end
 

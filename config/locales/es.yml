@@ -240,6 +240,8 @@ es:
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         title: Detalles de la clínica
         ultrasound_completed: "¿Ultrasonido completado?"
+        inactive_clinics: Clinícas inactivas
+        not_currently_working_with_fund: Actualmente no trabaja con %{fund} - %{clinic_name}
       cost_section:
         abortion_cost: Costo del aborto
         fund_pledge: Promesa de %{fund}
@@ -247,7 +249,7 @@ es:
         outstanding_balance: Cantidad pendiente
         patient_contribution: Contribución del paciente
         title: Detalles del costo
-      title: Informacion de aborto
+      title: Información de aborto
     call_log:
       delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
       record_new_call: Grabar nueva llamada

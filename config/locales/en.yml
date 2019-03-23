@@ -240,6 +240,8 @@ en:
         resolved_without_fund: Resolved without assistance from %{fund}
         title: Clinic details
         ultrasound_completed: Ultrasound completed?
+        not_currently_working_with_fund: Not currently working with %{fund} - %{clinic_name}
+      inactive_clinics: Inactive clinics
       cost_section:
         abortion_cost: Abortion cost
         fund_pledge: "%{fund} pledge"
