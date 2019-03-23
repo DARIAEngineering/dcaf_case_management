@@ -240,6 +240,7 @@ en:
         resolved_without_fund: Resolved without assistance from %{fund}
         title: Clinic details
         ultrasound_completed: Ultrasound completed?
+        inactive_clinics: Inactive clinics
         not_currently_working_with_fund: Not currently working with %{fund} - %{clinic_name}
       inactive_clinics: Inactive clinics
       cost_section:
