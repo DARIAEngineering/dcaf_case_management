@@ -37,6 +37,16 @@ class PatientsHelperTest < ActionView::TestCase
                                     [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements insurance_options, expected_insurance_options_array
       end
+
+      it 'should append any non-nil passed options to the end' do
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+                                    [ 'No insurance', 'No insurance' ],
+                                    [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Other (add to notes)', 'Other (add to notes)'],
+                                    'Friendship' ]
+        assert_same_elements expected_insurance_options_array,
+                             insurance_options('Friendship')
+      end
     end
 
     describe 'without a config' do
@@ -46,28 +56,61 @@ class PatientsHelperTest < ActionView::TestCase
         end
 
         expected_insurance_array = [nil,
-                                    [ 'No insurance', 'No insurance' ],
-                                    [ 'Don\'t know', 'Don\'t know' ],
-                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
+                                   [ 'No insurance', 'No insurance' ],
+                                   [ 'Don\'t know', 'Don\'t know' ],
+                                   [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements @options, expected_insurance_array
         assert Config.find_by(config_key: 'insurance')
       end
     end
+  end
 
-    describe 'clinic options' do
-      before do
-        @active = create :clinic, name: 'active clinic', active: true
-        @inactive = create :clinic, name: 'closed clinic', active: false
+  describe 'practical support options' do
+    describe 'with a config' do
+      before { create_practical_support_config }
+
+      it 'should include the option set' do
+        expected_practical_support_options_array = [ nil,
+                                                     "Metallica Tickets",
+                                                     "Clothing",
+                                                     ["Travel to the region", "travel_to_area"],
+                                                     ["Travel inside the region", "travel_inside_area"],
+                                                     ["Lodging", "lodging"],
+                                                     ["Companion", "companion"]]
+        assert_same_elements practical_support_options, expected_practical_support_options_array
       end
+    end
 
-      it 'should return all clinics' do
-        expected_clinic_array = [nil,
-                                 [@active.name, @active.id],
-                                 ['--- INACTIVE CLINICS ---', nil],
-                                 ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id]]
+    describe 'without a config' do
+      it 'should create a config and return proper options' do
+        assert_difference 'Config.count', 1 do
+          @options = practical_support_options
+        end
 
-        assert_same_elements clinic_options, expected_clinic_array
+        expected_practical_support_array = [ nil,
+                                             ["Travel to the region", "travel_to_area"],
+                                             ["Travel inside the region", "travel_inside_area"],
+                                             ["Lodging", "lodging"],
+                                             ["Companion", "companion"]]
+        assert_same_elements @options, expected_practical_support_array
+        assert Config.find_by(config_key: 'practical_support')
       end
+    end
+  end
+
+  describe 'clinic options' do
+    before do
+      @active = create :clinic, name: 'active clinic', active: true
+      @inactive = create :clinic, name: 'closed clinic', active: false
+    end
+
+    it 'should return all clinics' do
+      expected_clinic_array = [nil,
+                               [@active.name, @active.id],
+                               ['--- INACTIVE CLINICS ---', nil],
+                               ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id]]
+
+      assert_same_elements clinic_options, expected_clinic_array
     end
   end
 

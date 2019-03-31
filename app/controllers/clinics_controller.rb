@@ -15,16 +15,18 @@ class ClinicsController < ApplicationController
   def create
     @clinic = Clinic.new clinic_params
     if @clinic.save
-      flash[:notice] = "#{@clinic.name} created!"
+      flash[:notice] = t('flash.clinic_created', clinic: @clinic.name)
       redirect_to clinics_path
     else
-      flash[:alert] = 'Errors prevented this clinic from being saved: ' \
-                      "#{@clinic.errors.full_messages.to_sentence}"
+      flash[:alert] = t('flash.error_saving_clinic', error: @clinic.errors.full_messages.to_sentence)
       render 'new'
     end
   end
 
   def new
+    # i18n-tasks-use t('mongoid.attributes.clinic.phone')
+    # i18n-tasks-use t('mongoid.attributes.clinic.fax')
+    # i18n-tasks-use t('mongoid.attributes.clinic.active')
     @clinic = Clinic.new
   end
 
@@ -32,11 +34,10 @@ class ClinicsController < ApplicationController
 
   def update
     if @clinic.update_attributes clinic_params
-      flash[:notice] = 'Successfully updated clinic details'
+      flash[:notice] = t('flash.clinic_details_updated')
       redirect_to clinics_path
     else
-      flash[:alert] = 'Error saving clinic details: ' \
-                      "#{@clinic.errors.full_messages.to_sentence}"
+      flash[:alert] = t('flash.error_saving_clinic_details', error: @clinic.errors.full_messages.to_sentence)
       render 'edit'
     end
   end

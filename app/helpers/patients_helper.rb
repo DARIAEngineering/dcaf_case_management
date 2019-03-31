@@ -60,13 +60,30 @@ module PatientsHelper
     ]
   end
 
-  def insurance_options
+  def insurance_options(current_value = nil)
     standard_options = [
       [ t('patient.helper.insurance.none'), 'No insurance' ],
       [ t('patient.helper.insurance.unknown'), 'Don\'t know' ],
       [ t('patient.helper.insurance.other'), 'Other (add to notes)' ],
     ]
-    [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
+    full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
+    # if the current value isn't in the list, push it on.
+    # kinda ugly because we're working with a few different datatypes in here.
+    if current_value.present? && full_set.map { |opt| opt.is_a?(Array) ? opt[-1] : opt }.exclude?(current_value)
+      full_set.push current_value
+    end
+
+    full_set.uniq
+  end
+
+  def practical_support_options
+    standard_options = [
+      [ t('patient.helper.practical_support.travel_to_area'), 'travel_to_area' ],
+      [ t('patient.helper.practical_support.travel_inside_area'), 'travel_inside_area' ],
+      [ t('patient.helper.practical_support.lodging'), 'lodging' ],
+      [ t('patient.helper.practical_support.companion'), 'companion' ],
+    ]
+    [nil] + Config.find_or_create_by(config_key: 'practical_support').options + standard_options
   end
 
   def income_options
@@ -96,8 +113,8 @@ module PatientsHelper
                             .map { |clinic| [clinic.name, clinic.id] }
                             .unshift nil
     inactive_clinics = clinics.reject(&:active)
-                              .map { |clinic| ["(Not currently working with #{FUND}) - #{clinic.name}", clinic.id] }
-                              .unshift ['--- INACTIVE CLINICS ---', nil]
+                              .map { |clinic| [t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: FUND, clinic_name: clinic.name), clinic.id] }
+                              .unshift ["--- #{t('patient.abortion_information.clinic_section.inactive_clinics').upcase} ---", nil]
     active_clinics | inactive_clinics
   end
 

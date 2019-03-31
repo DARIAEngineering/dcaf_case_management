@@ -49,7 +49,6 @@ module LastMenstrualPeriodMeasureable
   end
 
   def _display_as_weeks(num)
-    "#{(num / 7).floor} weeks, " \
-    "#{(num % 7).to_i} days"
+    I18n.t('common.weeks_days', weeks: "#{(num / 7).floor}", days: "#{(num % 7).to_i}")
   end
 end

@@ -1,26 +1,26 @@
 <div class="authform">
-  <h2>User panel for <%= current_user.email %> (<%= current_user.name %>)</h2>
+  <h2> <%= t('user.profile_edit.user_panel', email: current_user.email, name: current_user.name) %></h2>
 
   <%= bootstrap_form_for resource, as: resource_name, url: '/users', html: { method: :put } do |f| %>
     <%= devise_error_messages! %>
 
     <%= f.static_control :email %>
     <%= f.static_control :role %>
-    <%= f.text_field :name, label: 'First and last name' %>
+    <%= f.text_field :name %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <div><%= t('user.profile_edit.awaiting_confirmation', email: resource.unconfirmed_email) %></div>
     <% end %>
 
-    <h3>Change your password</h3>
-    <%= f.password_field :password, autocomplete: 'off' %>
+    <h3><%= t('user.profile_edit.change_password') %></h3>
+    <%= f.password_field :password, label: t('user.profile_edit.new_password'), autocomplete: 'off' %>
     <%= f.password_field :password_confirmation, autocomplete: 'off' %>
 
-    <h3>Enter your current password to confirm any changes</h3>
+    <h3><%= t('user.profile_edit.current_password') %></h3>
     <%= f.password_field :current_password, autocomplete: 'off' %>
 
-    <%= f.submit "Update info", class: 'btn btn-primary' %>
+    <%= f.submit t('user.profile_edit.update_info_button'), class: 'btn btn-primary' %>
   <% end %>
   <br>
-  <%= link_to "Back", :back %>
+  <%= link_to t('common.back'), :back %>
 </div>
