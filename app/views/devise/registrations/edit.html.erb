@@ -13,7 +13,7 @@
     <% end %>
 
     <h3><%= t('user.profile_edit.change_password') %></h3>
-    <%= f.password_field :password, autocomplete: 'off' %>
+    <%= f.password_field :password, label: t('user.profile_edit.new_password'), autocomplete: 'off' %>
     <%= f.password_field :password_confirmation, autocomplete: 'off' %>
 
     <h3><%= t('user.profile_edit.current_password') %></h3>

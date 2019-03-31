@@ -32,7 +32,7 @@
     <div class="row hide" data-step="3" data-title="<%= t('patient.pledge.step_three.title') %>">
       <% unless ENV['DARIA_PLEDGE_GENERATOR_DISABLED'] %>
         <p class="col-sm-12"><%= t('patient.pledge.step_three.generated', fund: "#{FUND}") %></p>
-        <p class="col-sm-12"><%= t('patient.pledge.step_three.downloads') %><%= link_to FUND_FAX_SERVICE, "http://#{FUND_FAX_SERVICE}", target: '_blank', rel: 'noopener nofollow' %></p>
+        <p class="col-sm-12"><%= t('patient.pledge.step_three.downloads') %> <%= link_to FUND_FAX_SERVICE, "http://#{FUND_FAX_SERVICE}", target: '_blank', rel: 'noopener nofollow' %></p>
       <% end %>
 
       <p class="col-sm-12"><strong><%= t('patient.pledge.step_three.completed') %></strong></p>
