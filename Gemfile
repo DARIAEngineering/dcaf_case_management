@@ -17,7 +17,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
-gem 'jquery-rails'
+# gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 # Our database is MongoDB
