@@ -347,7 +347,6 @@ GEM
       rake
     sdoc (1.0.0)
       rdoc (>= 5.0)
-    secure_headers (6.0.0)
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -464,7 +463,6 @@ DEPENDENCIES
   ruby_audit
   sass-rails (~> 5.0)
   sdoc (~> 1.0.0)
-  secure_headers (~> 6.0.0)
   selenium-webdriver
   shog
   shoulda-context
