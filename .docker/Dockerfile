@@ -7,7 +7,8 @@ ENV DCAF_DIR=/usr/src/app \
     BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash openssh fontconfig fontconfig-dev curl" \
     APP_DEPENDENCIES="nodejs git nodejs-npm sassc" \
     FONTCONFIG_PATH=/etc/fonts \
-    NODE_ENV=development
+    NODE_ENV=development \
+    DOCKER=true
 
 # get our gem house in order
 RUN mkdir -p ${DCAF_DIR} && cd ${DCAF_DIR}

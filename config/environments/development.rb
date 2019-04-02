@@ -57,6 +57,6 @@ Rails.application.configure do
 
   Mongo::Logger.logger.level = ::Logger::FATAL
 
-  # Don't check yarn package integrity in dev for now
-  config.webpacker.check_yarn_integrity = false
+  # Don't check yarn package integrity in docker
+  config.webpacker.check_yarn_integrity = !!ENV.fetch('DOCKER', true)
 end
