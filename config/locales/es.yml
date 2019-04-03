@@ -193,8 +193,10 @@ es:
         accepts_naf: Acepta NAF
         active: Activo
         city: Ciudad
+        distance: Distancia
         fax: Fax
         gestational_limit: Límite gestacional (en días)
+        location: Ubicación
         name: Nombre
         phone: Teléfono
         state: Estado
