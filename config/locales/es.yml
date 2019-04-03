@@ -333,6 +333,7 @@ es:
         prev_patient: Paciente anterior
         school: Escuela
         sexual_assault_crisis_org: Agresión de asalto sexual org
+        title: Referido por
         web_search: Búsqueda de Google/internet
         youth: Alcance juvenil
       week:
@@ -436,6 +437,7 @@ es:
         date_of_check: Fecha del cheque
         fund_payout: Pago de %{fund}
         pledge_fulfilled_box: Promesa cumplida
+        procedure_cost: Costo del procedimiento
         procedure_date: Fecha de procedimiento
         weeks_along_at_procedure: Semanas a lo largo del procedimiento
       title: Cumplimiento de la promesa
@@ -464,6 +466,8 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
+    data_entry:
+      patient_entry: Entrada de paciente
   tooltips:
     budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación "envié la promesa") durante una semana determinada. Se reinicia los lunes.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.

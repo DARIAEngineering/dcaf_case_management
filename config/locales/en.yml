@@ -333,6 +333,7 @@ en:
         prev_patient: Previous patient
         school: School
         sexual_assault_crisis_org: Sexual assault crisis org
+        title: Referred by
         web_search: Google/Web search
         youth: Youth outreach
       week:
@@ -436,6 +437,7 @@ en:
         date_of_check: Date of check
         fund_payout: "%{fund} payout"
         pledge_fulfilled_box: Pledge fulfilled
+        procedure_cost: Procedure Cost
         procedure_date: Procedure date
         weeks_along_at_procedure: Weeks along at procedure
       title: Pledge Fulfillment
@@ -464,6 +466,8 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+    data_entry:
+      patient_entry: Patient Entry
   tooltips:
     budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
