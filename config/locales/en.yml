@@ -24,6 +24,10 @@ en:
         no_voicemail: Do not leave this patient a voicemail
         voicemail_identify: Voicemail OK; Okay to identify as %{fund}
         voicemail_no_identify: Voicemail OK; Do not identify as %{fund}
+    other_contact:
+      number: "%{name}'s number:"
+      other_contact: "%{name} %{rel} is the primary contact for this patient%{punc}"
+      primary: 'Primary contact:'
     status:
       could_not_reach_patient: Couldn't reach patient
       left_voicemail: Left voicemail
@@ -35,6 +39,13 @@ en:
     medicaid_only_toggle: Show only Medicaid clinics
     naf_only_toggle: Show only NAF clinics
     patient_zip_code: Patient ZIP code
+    result:
+      affordable_title: Most affordable clinics
+      distance: "%{miles} miles"
+      goes_to: "%{weeks}w%{days}d"
+      location: "%{city}, %{state}"
+      nearest_title: Nearest clinics
+      not_specified: Not specified
     search_button: Search clinics
     title: Clinic Locator Assistant
   clinics:
@@ -66,6 +77,7 @@ en:
     search: Search
     status: Status
     weeks_along_short: Weeks along
+    weeks_days: "%{weeks} weeks, %{days} days"
     'yes': 'Yes'
   configs:
     config:
@@ -106,13 +118,27 @@ en:
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}
-    sessions:
+    password:
       new:
-        email: Email
+        send_reset: Send me password reset instructions
+        title: Password Reset
+    passwords:
+      send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
+    sessions:
+      failure:
+        user:
+          unauthenticated: ''
+      new:
         google_signin: Sign in with Google (recommended)
+        lock_email_not_received: Didn't receive unlock instructions?
         password: Password
+        password_forgot: Forgot your password?
         password_signin: 'Or, sign in with a password:'
         password_submit: Sign in with password
+        reset_email_not_received: Didn't receive confirmation instructions?
+        sign_in: Sign in
+      user:
+        signed_in: ''
   events:
     add_to_call_list: Add to call list
     couldnt_reach_patient: called, but couldn't reach
@@ -174,13 +200,20 @@ en:
         state: State
         street_address: Street address
         zip: ZIP
+      user:
+        current_password: Current password
+        email: Email
+        name: First and last name
+        password: Password
+        password_confirmation: Password confirmation
+        role: Role
   navigation:
     admin_tools:
       accounting: Accounting
       clinic_management: Clinic Management
       config_management: Config Management
       export: Export anonymized CSV
-      label: Admin tools
+      label: Admin
       reporting: Reporting
       user_management: User Management
     cm_resources:
@@ -196,12 +229,15 @@ en:
       sign_out: Sign Out
   note:
     most_recent: 'Most recent note from %{by} at %{at}:'
+    most_recent_no_user: Most recent note
   patient:
     abortion_information:
       clinic_section:
         clinic: Clinic
+        inactive_clinics: Inactive clinics
         medicaid_only_toggle: Enable only Medicaid clinics
         naf_only_toggle: Enable only NAF clinics
+        not_currently_working_with_fund: "(Not currently working with %{fund}) - %{clinic_name}"
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without assistance from %{fund}
         title: Clinic details
@@ -215,6 +251,7 @@ en:
         title: Cost details
       title: Abortion information
     call_log:
+      delete_confirm: Are you sure you want to remove this call from the call log?
       record_new_call: Record new call
       table:
         actions: ACTIONS
@@ -338,10 +375,12 @@ en:
     menu:
       abortion_information: Abortion Information
       call_log: Call Log
+      cancel_pledge: Cancel pledge
       change_log: Change Log
       notes: Notes
       patient_information: Patient Information
       pledge_fulfillment: Pledge Fulfillment
+      submit_pledge: Submit pledge
     new:
       add_button: Add new patient
       initial_call_date: Initial Call Date
@@ -453,6 +492,13 @@ en:
       user_account_management: User Account Management
     new:
       create_user: Create User
+    profile_edit:
+      awaiting_confirmation: 'Currently waiting for confirmation for: %{email}'
+      change_password: Change your password
+      current_password: Enter your current password to confirm any changes
+      new_password: New password
+      update_info_button: Update info
+      user_panel: User panel for %{email} (%{name})
     search:
       button: Search
       text_field: Name or Email

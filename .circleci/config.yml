@@ -6,7 +6,7 @@ jobs:
     parallelism: 4
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers
+      - image: circleci/ruby:2.6.2-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -18,7 +18,7 @@ jobs:
       - checkout
       - run: sudo apt-get install libfontconfig
       - run: gem install bundler # Update bundler
-      - run: gem update --system # Update rubygems
+      - run: sudo gem update --system # Update rubygems
       - restore_cache:
           keys:
             - dcaf_case_management-{{ checksum "Gemfile.lock" }}
@@ -39,7 +39,7 @@ jobs:
       - run: brakeman --exit-on-warn .
       - run: bundle exec ruby-audit check
       - run: bundle-audit update; bundle-audit check
-      - run: yarn audit
+      # - run: yarn audit
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
   predeploy:

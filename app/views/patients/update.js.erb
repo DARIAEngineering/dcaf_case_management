@@ -2,7 +2,7 @@
 $('#patient_appointment_date')
   .parent()
   .find('span.help-block')
-  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
+  .text("<%= t('patient.dashboard.approx_gestation', gest: @patient.last_menstrual_period_at_appt) %>");
 
 // rerack status
 $('#patient_status').text('<%= @patient.status %>');
@@ -11,7 +11,7 @@ $('#patient_status').text('<%= @patient.status %>');
 $('#patient_last_menstrual_period_weeks')
   .parent()
   .find('span.help-block')
-  .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
+  .text("<%= t('patient.dashboard.currently', LMP: @patient.last_menstrual_period_display_short) %>");
 
 // refresh changelog
 $('#change_log').html(
@@ -57,7 +57,7 @@ $('#patient_fulfillment_audited')
   .parent()
   .parent()
   .find('p.archive-note')
-  .text('Patient will be archived on <%= @patient.archive_date %>');
+  .text("<%= t('patient.pledge_fulfillment.audit.archive_note', date: l(@patient.archive_date, format: :medium)) %>");
 
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
