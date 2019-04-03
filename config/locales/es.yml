@@ -275,6 +275,8 @@ es:
       delete: Eliminar registro de paciente duplicado
       phone: Número de teléfono
       weeks_along: Semanas de embarazo al inicio
+    data_entry:
+      patient_entry: Entrada de paciente
     helper:
       day:
         one: "%{count} día"
@@ -466,8 +468,6 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
-    data_entry:
-      patient_entry: Entrada de paciente
   tooltips:
     budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación "envié la promesa") durante una semana determinada. Se reinicia los lunes.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
