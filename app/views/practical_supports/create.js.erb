@@ -1,2 +1,2 @@
-console.log('create');
-$('#existing-practical-supports').empty().append('<%= escape_javascript(render partial: "practical_supports/cool", locals: { patient: @patient } ) %>');
+
+$('#existing-practical-supports').empty().append('<%= escape_javascript(render partial: "practical_supports/entries", locals: { patient: @patient } ) %>');
