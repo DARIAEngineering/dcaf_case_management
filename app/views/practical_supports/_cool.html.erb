@@ -1,6 +1,6 @@
 <% patient.practical_supports.each do |entry| %>
-    <%= entry.support_type %>
+    <%= entry.support_type %> -
+    <%= entry.source %> - 
     <%= entry.confirmed %>
-    <%= entry.source %>
-     
+  <br>   
 <% end %>
