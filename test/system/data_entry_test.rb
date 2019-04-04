@@ -41,7 +41,7 @@ class DataEntryTest < ApplicationSystemTestCase
       fill_in 'Procedure Cost', with: '200'
       fill_in 'Patient contribution', with: '150'
       fill_in 'National Abortion Federation pledge', with: '50'
-      check 'Pledge sent'
+      check 'Pledge Sent'
       check 'Fetal diagnosis'
       check 'Homelessness'
       click_button 'Create Patient'
@@ -121,7 +121,7 @@ class DataEntryTest < ApplicationSystemTestCase
         fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Phone', with: '111-222-3344'
-        check 'Pledge sent'
+        check 'Pledge Sent'
         click_button 'Create Patient'
       end
 
