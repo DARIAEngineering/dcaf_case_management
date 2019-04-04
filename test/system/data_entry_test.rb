@@ -18,7 +18,7 @@ class DataEntryTest < ApplicationSystemTestCase
       select 'DC', from: 'patient_line'
       fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
       fill_in 'Name', with: 'Susie Everyteen'
-      fill_in 'Primary phone', with: '111-222-3344'
+      fill_in 'Phone', with: '111-222-3344'
       fill_in 'Other contact name', with: 'Billy Everyteen'
       fill_in 'Other phone', with: '111-555-9999'
       fill_in 'Relationship to other contact', with: 'Friend'
@@ -38,7 +38,7 @@ class DataEntryTest < ApplicationSystemTestCase
       select 'Student', from: 'patient_employment_status'
       select 'Under $9,999 ($192/wk - $833/mo)', from: 'patient_income'
       select 'Clinic', from: 'patient_referred_by'
-      fill_in 'Full cost / abortion cost', with: '200'
+      fill_in 'Procedure Cost', with: '200'
       fill_in 'Patient contribution', with: '150'
       fill_in 'National Abortion Federation pledge', with: '50'
       check 'Pledge sent'
@@ -105,7 +105,7 @@ class DataEntryTest < ApplicationSystemTestCase
         select 'DC', from: 'patient_line'
         fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
         fill_in 'Name', with: 'Susie Everyteen'
-        fill_in 'Primary phone', with: '111-111-1111'
+        fill_in 'Phone', with: '111-111-1111'
         click_button 'Create Patient'
       end
 
@@ -120,7 +120,7 @@ class DataEntryTest < ApplicationSystemTestCase
         select 'DC', from: 'patient_line'
         fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
         fill_in 'Name', with: 'Susie Everyteen'
-        fill_in 'Primary phone', with: '111-222-3344'
+        fill_in 'Phone', with: '111-222-3344'
         check 'Pledge sent'
         click_button 'Create Patient'
       end
