@@ -37,8 +37,8 @@
   </div>
 </div>
 
-<script nonce='<%= content_security_policy_script_nonce %>'>
+<%= javascript_tag nonce: true do %>
   $(function () {
     $('.expenditure-item').popover()
-  })
-</script>
+  });
+<% end %>
