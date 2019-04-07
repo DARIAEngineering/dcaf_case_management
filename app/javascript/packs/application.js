@@ -9,4 +9,6 @@
 
 // console.log('webpacker is working');
 
-import '../src/rails.js';
+import '../src/rails';
+
+import '../src/clinic_finder';
