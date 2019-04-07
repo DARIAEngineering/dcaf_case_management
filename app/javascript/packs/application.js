@@ -8,3 +8,5 @@
 // layout file, like app/views/layouts/application.html.erb
 
 // console.log('webpacker is working');
+
+import '../src/rails.js';

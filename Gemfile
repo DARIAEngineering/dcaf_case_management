@@ -4,7 +4,7 @@ ruby '2.6.2'
 # Standard rails
 gem 'rails', '~> 5.2.0'
 gem 'puma' # roar
-gem 'turbolinks', '~> 5.2.0'
+# gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem 'nokogiri', '>= 1.8.5'
