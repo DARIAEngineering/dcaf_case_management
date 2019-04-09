@@ -78,6 +78,7 @@ es:
     status: Estatus
     weeks_along_short: Semanas a lo largo
     weeks_days: "%{weeks} semanas, %{days} días"
+    weeks_days_short: "%{weeks}s %{days}d"
     'yes': Sí
   configs:
     config:
@@ -268,10 +269,10 @@ es:
         modified_date: Fecha modificada
       title: Historia del paciente
     dashboard:
-      approx_gestation: 'Aprox la gestación en la cita: %{gest}'
+      approx_gestation: 'Aprox la gestación en la cita: %{weeks} semanas %{days} días'
       called_on: 'Llamado en: %{date}'
       confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
-      currently: 'Actualmente: %{LMP}'
+      currently: 'Actualmente: %{weeks}s %{days}d'
       delete: Eliminar registro de paciente duplicado
       phone: Número de teléfono
       weeks_along: Semanas de embarazo al inicio

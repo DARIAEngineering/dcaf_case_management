@@ -78,6 +78,7 @@ en:
     status: Status
     weeks_along_short: Weeks along
     weeks_days: "%{weeks} weeks, %{days} days"
+    weeks_days_short: "%{weeks}w %{days}d"
     'yes': 'Yes'
   configs:
     config:
@@ -268,10 +269,10 @@ en:
         modified_date: Modified Date
       title: Patient history
     dashboard:
-      approx_gestation: 'Approx gestation at appt: %{gest}'
+      approx_gestation: 'Approx gestation at appt: %{weeks} weeks %{days} days'
       called_on: 'Called on: %{date}'
       confirm_del: Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)
-      currently: 'Currently: %{LMP}'
+      currently: 'Currently: %{weeks}w %{days}d'
       delete: Delete duplicate patient record
       phone: Phone number
       weeks_along: Weeks along at intake
