@@ -94,11 +94,11 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       it 'should update the appointment date counter' do
         assert has_content? 'Currently: 5w 4d'
-        assert has_content? 'Approx gestation at appt: 6 weeks, 2 days'
+        assert has_content? 'Approx gestation at appt: 6 weeks 2 days'
 
         select '1 day', from: 'patient_last_menstrual_period_days'
         assert has_content? 'Currently: 5w 3d'
-        assert has_content? 'Approx gestation at appt: 6 weeks, 1 day'
+        assert has_content? 'Approx gestation at appt: 6 weeks 1 day'
       end
     end
 
