@@ -209,6 +209,44 @@ en:
         password: Password
         password_confirmation: Password confirmation
         role: Role
+      patient:
+        name: Name
+        primary_phone: Primary phone
+        other_contact: Other contact
+        other_phone: Other phone
+        other_contact_relationship: Other contact relationship
+        voicemail_preference: Voicemail preference
+        line: Line
+        language: Language
+        initial_call_date: Initial call date 
+        urgent_flag: Urgent flag
+        last_menstrual_period_weeks: Last menstrual period weeks
+        last_menstrual_period_days: Last menstrual period days
+        age: Age
+        city: City
+        state: State
+        county: County
+        race_ethnicity: Race / Ethnicity
+        employment_status: Employment status
+        household_size_children: Minors in household
+        household_size_adults: Adults in household
+        insurance: Insurance
+        income: Income
+        special_circumstances: Special circumstances
+        referred_by: Referred by
+        referred_to_clinic: Referred to clinic
+        completed_ultrasound: Completed ultrasound?
+        appointment_date: Appointment date
+        procedure_cost: Procedure cost
+        patient_contribution: Patient contribution
+        naf_pledge: NAF pledge
+        fund_pledge: Fund pledge
+        fund_pledged_at: Fund pledged at
+        pledge_sent: Pledge sent
+        resolved_without_fund: Resolved without fund
+        pledge_generated_at: Pledge generated at
+        pledge_sent_at: Pledge sent at
+        textable: Textable
   navigation:
     admin_tools:
       accounting: Accounting
@@ -344,24 +382,15 @@ en:
         one: "%{count} week"
         other: "%{count} weeks"
     information:
-      age: Age
-      city: City
-      county: County
-      employment_status: Employment Status
-      household_adults: Adults in household
       household_help: "(including patient)"
-      household_minors: Minors in household
-      income: Income
       income_help: Employment, Food Stamps, SS, TANF, etc.
       insurance: Patient insurance
       language: Preferred Language
-      line: Line
       other_contact:
         name: Other contact name
         phone: Other phone
         relationship: Relationship to other contact
         title: Other Contact
-      race_ethnicity: Race / Ethnicity
       referred_by: How patient heard about %{fund}
       special_circumstances:
         domestic_violence: Domestic violence
@@ -372,10 +401,9 @@ en:
         prison: Prison
         rape: Rape
         title: Special Circumstances
-      state: State
       textable: Textable?
       title: Patient information
-      voicemail_preference: Voicemail Preference
+      voicemail_preference: Voicemail preference
     menu:
       abortion_information: Abortion Information
       call_log: Call Log

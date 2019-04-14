@@ -209,6 +209,44 @@ es:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
         role: Papel
+      patient:
+        name: Nombre
+        line: Línea
+        primary_phone: Número de teléfono principal
+        other_contact: Otro contacto
+        other_phone: Otro teléfono
+        other_contact_relationship: Otra relacion de contacto
+        voicemail_preference: Preferencia de correo de voz
+        language: Idioma
+        initial_call_date: Fecha de llamada inicial
+        urgent_flag: Bandera urgente
+        last_menstrual_period_weeks: Últimas semanas del período menstrual
+        last_menstrual_period_days: Últimos días del período menstrual
+        age: Edad
+        city: Ciudad
+        state: Estado
+        county: Condado
+        race_ethnicity: Raza / Etnicidad
+        employment_status: Estatus de empleo
+        household_size_children: Menores en el Hogar
+        household_size_adults: Adultos en el Hogar
+        insurance: Seguro médico
+        income: Ingresos
+        special_circumstances: Circunstancias Especiales
+        referred_by: Referido por
+        referred_to_clinic: Referido a la clínica
+        completed_ultrasound: Ultrasonido completado
+        appointment_date: Appointment date
+        procedure_cost: Procedure cost
+        patient_contribution: Patient contribution
+        naf_pledge: NAF pledge
+        fund_pledge: Fund pledge
+        fund_pledged_at: Fund pledged at
+        pledge_sent: Pledge sent
+        resolved_without_fund: Resolved without fund
+        pledge_generated_at: Pledge generated at
+        pledge_sent_at: Pledge sent at
+        textable: Textable
   navigation:
     admin_tools:
       accounting: Contabilidad
@@ -344,24 +382,15 @@ es:
         one: "%{count} semana"
         other: "%{count} semanas"
     information:
-      age: Edad
-      city: Ciudad
-      county: Condado
-      employment_status: Estatus de Empleo
-      household_adults: Adultos en el Hogar
       household_help: "(incluyendo paciente)"
-      household_minors: Menores en el Hogar
-      income: Ingresos
       income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
-      insurance: Seguro Médico del Paciente
-      language: Idioma Preferido
-      line: Linea
+      language: Idioma preferido
+      insurance: Seguro médico del patiente
       other_contact:
         name: Nombre de Otro Contacto
         phone: Otro teléfono
         relationship: Relación con Otro Contacto
         title: Otro Contacto
-      race_ethnicity: Raza / Etnicidad
       referred_by: Cómo escuchó el paciente sobre %{fund}
       special_circumstances:
         domestic_violence: Violencia doméstica
@@ -372,7 +401,6 @@ es:
         prison: Prisión
         rape: Violación
         title: Circunstancias Especiales
-      state: Estado
       textable: Se permite enviar mensajes de texto?
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
