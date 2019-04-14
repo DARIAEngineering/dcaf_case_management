@@ -28,7 +28,7 @@ class TableContentTest < ApplicationSystemTestCase
         assert has_content? @patient.primary_phone_display
         assert has_content? @patient.name
         assert has_content? 3.days.from_now.utc.strftime('%m/%d/%Y')
-        assert has_content? "#{@patient.last_menstrual_period_now_weeks}w #{@patient.last_menstrual_period_days}d"
+        assert has_content? "#{@patient.last_menstrual_period_now_weeks}w #{@patient.last_menstrual_period_now_days}d"
         # TODO: has remove, phone clicky
       end
     end
