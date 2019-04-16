@@ -28,15 +28,15 @@ Follow the directions to fill out necessary environment variables and configurat
 * Set up Google OAuth credentials
   * Set up a google account to administer this app (or choose an existing account you own)
   * Once logged in, navigate to https://console.developers.google.com/apis/dashboard
-  * Add a project (note -- credentials can be set up alongside existing creds for different environments)
-  * Enable the Google+ API (this is necessary to use google for sign in to the app)
-  * Click to "Create OAuth client ID"
+  * Add a project or select an existing project (note -- new credentials can be set up alongside existing ones in the same project for different environments)
+  * Under "Credentials" follow prompts to "Create credentials" for "OAuth client ID"
   * Configure your OAuth Consent screen
     * Make your application type public
-    * Authorized Javascript Origins should be https://your-app.herokuapp.com 
-    * Authorized redirect URIs should be https://your-app.herokuapp.com/users/auth/google_oauth2/callback
+    * Add your app URL as the authorized domain
+    * Select "Web Application" when prompted to choose an application type
+    * Set Authorized redirect URIs to https://your-app.herokuapp.com/users/auth/google_oauth2/callback
   * Fill in the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` env vars with your client id and client secret
-* While still in the google developers console, enable the Geocoding API, create an API key, and set the `GOOGLE_GEO_API_KEY` in heroku to that API key
+* While still in the google developers console, enable the Geocoding API, create an API key, and set the `GOOGLE_GEO_API_KEY` in Heroku to that API key
 
 ## Optional (but recommended) steps
 
