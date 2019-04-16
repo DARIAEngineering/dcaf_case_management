@@ -10,14 +10,14 @@ class UrgentCasesTest < ApplicationSystemTestCase
 
   describe 'urgent cases section' do
     it 'should not let you add urgent cases to call list' do
-      within :css, '#urgent_patients_content' do
+      within :css, '#urgent_cases_content' do
         assert has_text? @patient.name
         refute has_link? 'Add'
       end
     end
 
     it 'should not let you remove urgent cases' do
-      within :css, '#urgent_patients_content' do
+      within :css, '#urgent_cases_content' do
         assert has_text? @patient.name
         refute has_link? 'Remove'
       end

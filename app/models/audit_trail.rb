@@ -5,63 +5,16 @@ class AuditTrail
   include Mongoid::Userstamp
   mongoid_userstamp user_model: 'User'
 
-  IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id].freeze
+  IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id identifier].freeze
+  DATE_FIELDS = %w[appointment_date initial_call_date pledge_generated_at pledge_sent_at fund_pledged_at].freeze
 
   # convenience methods for clean view display
   def date_of_change
     created_at.display_date
   end
 
-  def changed_fields
-    relevant_fields = modified.map do |key, _value|
-      key unless IRRELEVANT_FIELDS.include? key
-    end
-    relevant_fields.compact.map(&:humanize)
-  end
-
-  # TODO: properly render null values like in special circumstances
-  # Something like this should work:
-  # "HAHA I WIN" if (fields.all?{|f| f.blank? || (f.flatten.all? &:blank? if f.respond_to?('each'))})
-
-  def format_dates(hash)
-    for key in ['appointment_date', 'initial_call_date', 'pledge_generated_at']
-      if hash.has_key? key
-        hash[key] = hash[key].display_date
-      end
-    end
-    return hash
-  end
-
-  def format_special_circumstances(hash)
-    hash.each do |key, value|
-      if value.kind_of?(Array)
-        hash[key].reject! { |item| item.blank? }
-        if value.empty?
-          hash[key] = 'not selected'
-        end
-      end
-    end
-    return hash
-  end
-
-  def parse_clinics(hash)
-    if hash.key?('clinic_id')
-      @clinic = Clinic.where(:id => hash["clinic_id"]).first
-      hash["clinic_id"] = @clinic&.name # TODO not having a try here fails the update patient info test for some reason!
-    end
-    return hash
-  end
-
-  def changed_from
-    format_special_circumstances(parse_clinics(format_dates(original))).map do |key, value|
-      value unless IRRELEVANT_FIELDS.include? key
-    end
-  end
-
-  def changed_to
-    format_special_circumstances(parse_clinics(format_dates(modified))).map do |key, value|
-      value unless IRRELEVANT_FIELDS.include? key
-    end
+  def has_changed_fields?
+    modified.reject { |x| IRRELEVANT_FIELDS.include? x }.present?
   end
 
   def changed_by_user
@@ -70,5 +23,36 @@ class AuditTrail
 
   def marked_urgent?
     modified.include?('urgent_flag') && modified['urgent_flag'] == true
+  end
+
+  def shaped_changes
+    orig = original.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
+    mod = modified.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
+    all_fields = orig.keys | mod.keys
+    changeset = {}
+    all_fields.each do |key|
+      changeset[key] = { original: format_fieldchange(key, orig[key]),
+                                  modified: format_fieldchange(key, modified[key]) }
+    end
+    changeset
+  end
+
+  private
+
+  def format_fieldchange(key, value)
+    shaped_value = if value.blank?
+                     '(empty)'
+                   elsif DATE_FIELDS.include? key
+                     value.display_date
+                   elsif value.is_a? Array # special circumstances, for example
+                     value.reject(&:blank?).join(', ')
+                   elsif key == 'clinic_id'
+                     Clinic.find(value).name
+                   elsif key == 'pledge_generated_by_id'
+                     ::User.find(value).name # Use the User model instead of the Userstamp namespace
+                   else
+                     value
+                   end
+    shaped_value 
   end
 end

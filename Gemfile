@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.6.0'
+ruby '2.6.2'
 
 # Standard rails
 gem 'rails', '~> 5.2.0'
@@ -12,8 +12,9 @@ gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Asset pipeline
+gem 'webpacker', '~> 4'
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
@@ -30,15 +31,14 @@ gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.5'
-gem 'omniauth-google-oauth2', '0.5.3'
+gem 'devise', '~> 4.6'
+gem 'omniauth-google-oauth2', '~> 0.6.0'
 
 # We use `bootstrap_form_for` in views
 gem 'bootstrap_form'
 
 # Security libraries
 gem 'rack-attack', '~> 5.4.1'
-gem 'secure_headers', '~> 6.0.0'
 
 # For pagination
 gem 'kaminari-mongoid', '~> 1.0'

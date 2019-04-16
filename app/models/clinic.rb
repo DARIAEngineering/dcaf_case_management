@@ -5,9 +5,18 @@ class Clinic
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
 
+  # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.
+  # e.g. so a fund can have an 'OTHER CLINIC' catchall.
+  EXCLUDED_ZIP = '99999'
+
   # Relationships
   has_many :patients
   has_many :archived_patients
+
+  # Scopes
+  # Is gestatiional_limit either nil or above x?
+  scope :gestational_limit_above, ->(gestation){ any_of({:gestational_limit.in => [nil]},
+                                                        {:gestational_limit.gte => gestation})}
 
   # Callbacks
   before_save :update_coordinates, if: :address_changed?
@@ -43,13 +52,11 @@ class Clinic
   # Methods
   def display_location
     return nil if city.blank? || state.blank?
-
     "#{city}, #{state}"
   end
 
   def full_address
     return nil if display_location.blank? || street_address.blank? || zip.blank?
-
     "#{street_address}, #{display_location} #{zip}"
   end
 

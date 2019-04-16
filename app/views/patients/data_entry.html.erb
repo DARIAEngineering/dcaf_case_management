@@ -1,92 +1,95 @@
 <!-- DATA ENTRY ONLY. DO NOT USE EXCEPT FOR DATA ENTRY. -->
 
-<h1>PATIENT ENTRY</h1>
+<h1><%= t('patient.data_entry.patient_entry') %></h1>
 
 <%= bootstrap_form_for @patient, url: data_entry_create_path, html: { class: 'mass_entry_form' } do |f| %>
-  <%= f.select :line, options_for_select(lines, current_line) %>
+  <%= f.select :line, options_for_select(lines, current_line), label: t('patient.information.line') %>
 
-  <%= f.date_field :initial_call_date %>
+  <%= f.date_field :initial_call_date, label: t('patient.new.initial_call_date') %>
 
-  <%= f.text_field :name, autocomplete: 'off' %>
+  <%= f.text_field :name, label: t('common.name'), autocomplete: 'off' %>
 
-  <%= f.text_field :primary_phone, autocomplete: 'off' %>
+  <%= f.text_field :primary_phone, label: t('common.phone'), autocomplete: 'off' %>
 
-  <%= f.text_field :other_contact, autocomplete: 'off', label: 'Other contact name' %>
-  <%= f.text_field :other_phone, autocomplete: 'off', label: 'Other phone' %>
-  <%= f.text_field :other_contact_relationship, autocomplete: 'off', label: 'Relationship to other contact' %>
+  <%= f.text_field :other_contact, label: t('patient.information.other_contact.name'), autocomplete: 'off' %>
+  <%= f.text_field :other_phone, label: t('patient.information.other_contact.phone'), autocomplete: 'off' %>
+  <%= f.text_field :other_contact_relationship, label: t('patient.information.other_contact.relationship'), autocomplete: 'off'%>
 
   <div class="row">
     <div class="col-sm-6">
-      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options), label: 'Weeks along at intake', autocomplete: 'off' %>
+      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options), label: t('patient.dashboard.weeks_along'), autocomplete: 'off' %>
     </div>
     <div class="col-sm-6 hide-label">
       <%= f.select :last_menstrual_period_days, options_for_select(days_options), label: '.', autocomplete: 'off' %>
     </div>
   </div>
 
-  <%= f.text_field :city, autocomplete: 'off' %>
-  <%= f.text_field :state, autocomplete: 'off' %>
-  <%= f.text_field :county, label: 'County', autocomplete: 'off' %>
+  <%= f.text_field :city,  label: t('patient.information.city'), autocomplete: 'off' %>
+  <%= f.text_field :state, label: t('patient.information.state'), autocomplete: 'off' %>
+  <%= f.text_field :county, label: t('patient.information.county'), autocomplete: 'off' %>
 
   <!-- Notes doesn't work because strong params :( -->
   <%#= f.fields_for @patient.notes.new do |notes| %>
     <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
   <%# end %>
 
-  <%= f.number_field :fund_pledge, label: "#{FUND} pledge" %>
+  <%= f.number_field :fund_pledge, label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"), autocomplete: 'off' %>
 
-  <%= f.number_field :age, autocomplete: 'off' %>
-  <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: 'Race / Ethnicity', autocomplete: 'off' %>
-  <%= f.select :clinic_id, options_for_select(clinic_options) %>
+  <%= f.number_field :age, label: t('patient.information.age'), autocomplete: 'off' %>
+  <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: t('patient.information.race_ethnicity'), autocomplete: 'off' %>
+  <%= f.select :clinic_id, options_for_select(clinic_options), label: t('patient.pledge_fulfillment.confirmation.clinic') %>
 
-  <%= f.date_field :appointment_date, label: 'Appointment date', autocomplete: 'off' %>
+  <%= f.date_field :appointment_date, label: t('patient.shared.appt_date'), autocomplete: 'off' %>
 
   <%= f.select :insurance,
                options_for_select(insurance_options),
-                                  label: 'Patient insurance' %>
+                                  label: t('patient.information.insurance') %>
 
   <div class="row">
     <div class="col-sm-6">
       <%= f.select :household_size_adults,
                     options_for_select(household_size_options),
-                                       label: 'Adults in household',
-                                       help: '(including patient)' %>
+                                       label: t('patient.information.household_adults'),
+                                       help: t('patient.information.household_help') %>
     </div>
     <div class="col-sm-6">
       <%= f.select :household_size_children,
                     options_for_select(household_size_options),
-                                       label: 'Minors in household' %>
+                                       label: t('patient.information.household_minors') %>
     </div>
   </div>
 
   <%= f.select :employment_status,
                options_for_select(employment_status_options),
+               label: t('patient.information.employment_status'),
                                   autocomplete: 'off' %>
   <%= f.select :income,
                options_for_select(income_options),
+               label: t('patient.information.income'),
                                   autocomplete: 'off' %>
 
   <%= f.select :referred_by,
                options_for_select(referred_by_options),
+               label: t('patient.helper.referred_by.title'),
                                   autocomplete: 'off' %>
 
-    <%= f.number_field :procedure_cost, label: 'Full cost / abortion cost' %>
-    <%= f.number_field :patient_contribution, label: 'Patient contribution', autocomplete: 'off', prepend: '$' %>
-    <%= f.number_field :naf_pledge, label: 'National Abortion Federation pledge', autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :procedure_cost, label: t('patient.pledge_fulfillment.form.procedure_cost') %>
+    <%= f.number_field :patient_contribution, label: t('patient.abortion_information.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>
+    <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.naf_pledge'), autocomplete: 'off', prepend: '$' %>
 
-    <%= f.check_box :pledge_sent, label: 'Pledge sent' %>
+    <%= f.check_box :pledge_sent, label: t('patient.status.key.pledge_sent') %>
 
-  <p style="font-weight:bold">Special circumstances</p>
+  <p style="font-weight:bold"><%= t('patient.information.special_circumstances.title')%></p>
   <%= f.form_group :special_circumstances do %>
     <div class="col-sm-6">
-      <%= f.check_box :special_circumstances, { label: 'Fetal diagnosis', name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal diagnosis', '' %>
-      <%= f.check_box :special_circumstances, { label: 'Homelessness', name: 'patient[special_circumstances][]', namespace: 'Home' }, 'Homelessness', '' %>
-      <%= f.check_box :special_circumstances, { label: 'Domestic violence', name: 'patient[special_circumstances][]', namespace: 'Domestic' }, 'Domestic violence', '' %>
+      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.fetal_diagnosis'), name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal diagnosis', '' %>
+      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.homelessness'), name: 'patient[special_circumstances][]', namespace: 'Home' }, 'Homelessness', '' %>
+      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.domestic_violence'), name: 'patient[special_circumstances][]', namespace: 'Domestic' }, 'Domestic violence', '' %>
     </div>
     <div class="col-sm-6">
-    <%= f.check_box :special_circumstances, { label: 'Rape', name: 'patient[special_circumstances][]', namespace: 'Rape' }, 'Rape', '' %>
-    <%= f.check_box :special_circumstances, { label: 'Incest', name: 'patient[special_circumstances][]', namespace: 'Incest' }, 'Incest', '' %>
-    <%= f.check_box :special_circumstances, { label: 'Prison', name: 'patient[special_circumstances][]', namespace: 'Prison' }, 'Prison', '' %>
+    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.rape'), name: 'patient[special_circumstances][]', namespace: 'Rape' }, 'Rape', '' %>
+    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.incest'), name: 'patient[special_circumstances][]', namespace: 'Incest' }, 'Incest', '' %>
+    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.prison'), name: 'patient[special_circumstances][]', namespace: 'Prison' }, 'Prison', '' %>
     </div>
   <% end %>
 

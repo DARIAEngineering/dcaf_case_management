@@ -67,7 +67,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
     it 'should prevent updates if the payload is bad' do
       fill_in 'Name', with: ''
       click_button 'Save changes'
-      assert has_text? 'Edit Clinic Details'
+      assert has_text? 'Edit clinic details'
       assert has_text? 'Error saving clinic details'
     end
   end
@@ -95,14 +95,14 @@ class ClinicManagementTest < ApplicationSystemTestCase
     fill_in 'Street address', with: '123 Fake Street'
     fill_in 'City', with: 'Yolo'
     fill_in 'State', with: 'TX'
-    fill_in 'Zip', with: '12345'
+    fill_in 'ZIP', with: '12345'
     fill_in 'Phone', with: '281-330-8004'
     fill_in 'Fax', with: '222-333-4444'
     check 'Accepts NAF'
     check 'Accepts Medicaid'
     fill_in 'Gestational limit (in days)', with: '30'
     (5..30).each do |i|
-      fill_in "Costs #{i}wks", with: i
+      fill_in "Costs at #{i} weeks", with: i
     end
     new_clinic_name
   end
@@ -112,14 +112,14 @@ class ClinicManagementTest < ApplicationSystemTestCase
     assert has_field? 'Street address', with: '123 Fake Street'
     assert has_field? 'City', with: 'Yolo'
     assert has_field? 'State', with: 'TX'
-    assert has_field? 'Zip', with: '12345'
+    assert has_field? 'ZIP', with: '12345'
     assert has_field? 'Phone', with: '281-330-8004'
     assert has_field? 'Fax', with: '222-333-4444'
     assert has_checked_field? 'Accepts NAF'
     assert has_checked_field? 'Accepts Medicaid'
     assert has_field? 'Gestational limit (in days)', with: '30'
     (5..30).each do |i|
-      assert has_field? "Costs #{i}wks", with: i
+      assert has_field? "Costs at #{i} weeks", with: i
     end
   end
 end

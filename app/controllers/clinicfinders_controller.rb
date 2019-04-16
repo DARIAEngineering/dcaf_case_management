@@ -4,20 +4,23 @@ class ClinicfindersController < ApplicationController
   def search
     return head :bad_request if params[:zip].blank?
 
-    # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.
-    # e.g. so a fund can have an 'OTHER CLINIC' catchall.
-    excluded_zip = '99999'
+    gestation = calculate_gestation params
+    filtered_clinics = Clinic.where(:zip.nin => [nil, '', Clinic::EXCLUDED_ZIP])
+                             .gestational_limit_above(gestation)
+                             .where(:accepts_naf.in => [true, params[:naf_only] == '1'])
+                             .where(:accepts_medicaid.in => [true, params[:medicaid_only] == '1'])
 
-    # Get all clinics except those with invalid zip codes.
-    clinic_finder = ClinicFinder::Locator.new(
-      Clinic.where(:zip.nin => [nil, '', excluded_zip]),
-      gestational_age: (params[:gestation].to_i || 0),
-      naf_only: params[:naf_only] == '1',
-      medicaid_only: params[:medicaid_only] == '1'
-    )
-
+    clinic_finder = ClinicFinder::Locator.new filtered_clinics
     @nearest = clinic_finder.locate_nearest_clinics params[:zip]
     @cheapest = nil # clinic_finder.locate_cheapest_clinic
     respond_to { |format| format.js }
+  end
+
+  private
+
+  def calculate_gestation(params)
+    weeks = params[:gestation_weeks].present? ? params[:gestation_weeks].to_i * 7 : 0
+    days = params[:gestation_days].present? ? params[:gestation_days].to_i : 0
+    (weeks + days).to_i
   end
 end

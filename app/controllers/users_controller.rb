@@ -34,12 +34,17 @@ class UsersController < ApplicationController
   end
 
   def update
+    # i18n-tasks-use t('mongoid.attributes.user.current_password')
+    # i18n-tasks-use t('mongoid.attributes.user.name')
+    # i18n-tasks-use t('mongoid.attributes.user.password')
+    # i18n-tasks-use t('mongoid.attributes.user.password_confirmation')
+    # i18n-tasks-use t('mongoid.attributes.user.role')
     if @user.update_attributes(user_params)
-      flash[:notice] = 'Successfully updated user details'
+      flash[:notice] = t('flash.user_update_success')
       redirect_to users_path
     else
       error_content = @user.errors.full_messages.to_sentence
-      flash[:alert] = "Error saving user details - #{error_content}" unless flash[:alert]
+      flash[:alert] = t('flash.user_update_error', error: error_content) unless flash[:alert]
       render 'edit'
     end
   end
@@ -50,7 +55,7 @@ class UsersController < ApplicationController
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
     if @user.save
-      flash[:notice] = 'User created!'
+      flash[:notice] = t('flash.user_created')
       redirect_to users_path
     else
       render 'new'
@@ -74,11 +79,11 @@ class UsersController < ApplicationController
 
   def toggle_disabled
     if @user == current_user
-      flash[:alert] = "You can't lock your own account. Ask another admin."
+      flash[:alert] = t('flash.cant_lock_own_account')
     else
       @user.toggle_disabled_by_fund
-      verb = @user.disabled_by_fund? ? 'Locked' : 'Unlocked'
-      flash[:notice] = "#{verb} #{@user.name}'s account."
+      verb = @user.disabled_by_fund? ? t('flash.locked') : t('flash.unlocked')
+      flash[:notice] = t('flash.action_on_account', verb: verb, name: @user.name)
     end
     redirect_to users_path
   end
@@ -95,9 +100,7 @@ class UsersController < ApplicationController
 
   def user_not_demoting_themself?(user)
     if user.id == current_user.id && current_user.role == 'admin'
-      flash[:alert] = 'For safety reasons, you are not allowed to change ' \
-                      'your role from an admin to a not-admin. Ask another '\
-                      'admin to demote you.'
+      flash[:alert] = t('flash.demote_own_account_warn')
       return false
     end
     true

@@ -18,6 +18,16 @@ module LastMenstrualPeriodMeasureable
     _display_as_weeks lmp
   end
 
+  def last_menstrual_period_now_weeks
+    return nil unless _last_menstrual_period_now
+    (_last_menstrual_period_now / 7).to_i
+  end
+
+  def last_menstrual_period_now_days
+    return nil unless _last_menstrual_period_now
+    (_last_menstrual_period_now % 7).to_i
+  end
+
   def _last_menstrual_period_now
     if appointment_date && appointment_date < Time.zone.today
       _last_menstrual_period_on_date appointment_date
@@ -39,7 +49,6 @@ module LastMenstrualPeriodMeasureable
   end
 
   def _display_as_weeks(num)
-    "#{(num / 7).floor} weeks, " \
-    "#{(num % 7).to_i} days"
+    I18n.t('common.weeks_days', weeks: "#{(num / 7).floor}", days: "#{(num % 7).to_i}")
   end
 end

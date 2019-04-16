@@ -23,7 +23,7 @@
 
     <div class="col-sm-4">
       <div class="row">
-        <%= f.date_field :appointment_date, label: t('patient.dashboard.appt_date'), autocomplete: 'off', help: t('patient.dashboard.approx_gestation', gest: patient.last_menstrual_period_at_appt) %>
+        <%= f.date_field :appointment_date, label: t('patient.shared.appt_date'), autocomplete: 'off', help: t('patient.dashboard.approx_gestation', gest: patient.last_menstrual_period_at_appt) %>
       </div>
       <div class="row">
         <% if current_user.admin? %>

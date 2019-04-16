@@ -1,5 +1,84 @@
 ---
 en:
+  accountants:
+    search_cases: Search cases
+    search_placeholder: Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)
+    table_content:
+      check_number: 'Check #'
+      clinic: Clinic
+      date_of_check: Date of check
+      fund_payout: "%{fund} payout"
+      pledge_sent: Pledge sent
+      pt_initials: PT initials
+      weeks_at_procedure: Weeks at procedure
+      weeks_at_procedure_display: "%{gestation} weeks"
+    title: Accountant dashboard
+  call:
+    new:
+      call_now: 'Call %{name} now:'
+      result:
+        did_not_reach_patient: I couldn't reach the patient
+        left_voicemail: I left a voicemail for the patient
+        reached_patient: I reached the patient
+      voicemail_instructions:
+        no_voicemail: Do not leave this patient a voicemail
+        voicemail_identify: Voicemail OK; Okay to identify as %{fund}
+        voicemail_no_identify: Voicemail OK; Do not identify as %{fund}
+    other_contact:
+      number: "%{name}'s number:"
+      other_contact: "%{name} %{rel} is the primary contact for this patient%{punc}"
+      primary: 'Primary contact:'
+    status:
+      could_not_reach_patient: Couldn't reach patient
+      left_voicemail: Left voicemail
+      reached_patient: Reached patient
+  clinic_locator:
+    description: Filter out clinics according to accepting NAF/NNAF and their gestation limits; sort by proximity to a ZIP code.
+    experimental_note: This is an experimental feature.
+    gestation_above: Gestation above
+    medicaid_only_toggle: Show only Medicaid clinics
+    naf_only_toggle: Show only NAF clinics
+    patient_zip_code: Patient ZIP code
+    result:
+      affordable_title: Most affordable clinics
+      distance: "%{miles} miles"
+      goes_to: "%{weeks}w%{days}d"
+      location: "%{city}, %{state}"
+      nearest_title: Nearest clinics
+      not_specified: Not specified
+    search_button: Search clinics
+    title: Clinic Locator Assistant
+  clinics:
+    edit:
+      title: Edit clinic details
+    form:
+      active_help: Are we actively working with this clinic?
+      add_clinic: Add clinic
+      costs_weeks: Costs at %{week} weeks
+      save_changes: Save changes
+      zip_help: To exclude this clinic from Clinic Finder searches, give it the ZIP code 99999.
+    index:
+      title: Clinics
+    new:
+      title: Add a new clinic
+  common:
+    add: Add
+    appointment_date_short: Appt date
+    back: Back
+    days_along: Days along at intake
+    email: Email
+    medicaid: Medicaid
+    naf: NAF
+    name: Name
+    'no': 'No'
+    notes: Notes
+    phone: Phone
+    save: Save
+    search: Search
+    status: Status
+    weeks_along_short: Weeks along
+    weeks_days: "%{weeks} weeks, %{days} days"
+    'yes': 'Yes'
   configs:
     config:
       current_options: 'Current options are:'
@@ -7,28 +86,136 @@ en:
     index:
       sub_text: Use this to set custom insurance, language, external pledge options, and help text for pledge limits.
       title: Configs
+  dashboard:
+    activity_log:
+      label: "%{current_line} Line Activity Log"
+    budget_bar:
+      pledged_item: "%{amount} pledged"
+      pledged_report: "%{amount} pledged (%{count} patients)"
+      pop_content_appt_date: appt on %{date}
+      pop_content_no_appt_date: no appt date
+      sent_item: "%{amount} sent"
+      sent_report: "%{amount} sent (%{count} patients)"
+    helpers:
+      voicemail_options:
+        'no': Do not leave a voicemail
+        not_specified: No instructions; no ID VM
+        'yes': Voicemail OK, ID OK
+    overview:
+      week_of: Week of %{week_range}
+    partial_titles:
+      call_list: Your call list
+      completed_calls: Your completed calls
+      search_results: Search results
+      urgent_cases: Urgent cases
+    search:
+      header: Build your call list
+      input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
+    table_content:
+      clear_call_list: Clear your call list
+      clear_call_list_confirm: Are you sure you want to clear your current call list? This will also clear completed calls.
+      remove_from_call_list_confirm: Are you sure you want to remove %{name} from your call list?
   devise:
     omniauth_callbacks:
       success: Successfully logged in with %{kind}
-    sessions:
+    password:
       new:
-        email: Email
+        send_reset: Send me password reset instructions
+        title: Password Reset
+    passwords:
+      send_paranoid_instructions: If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.
+    sessions:
+      failure:
+        user:
+          unauthenticated: ''
+      new:
         google_signin: Sign in with Google (recommended)
+        lock_email_not_received: Didn't receive unlock instructions?
         password: Password
+        password_forgot: Forgot your password?
         password_signin: 'Or, sign in with a password:'
         password_submit: Sign in with password
+        reset_email_not_received: Didn't receive confirmation instructions?
+        sign_in: Sign in
+      user:
+        signed_in: ''
+  events:
+    add_to_call_list: Add to call list
+    couldnt_reach_patient: called, but couldn't reach
+    left_voicemail: left a voicemail for
+    pledged: sent a $%{pledge_amount} pledge for
+    reached_patient: reached
+    unknown_action: interacted with
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} pledge"
+    new:
+      amount: Amount
+      create_button: Create External pledge
+      source: Source
+      title: 'Or, record a new external pledge:'
+    sources:
+      clinic_discount: Clinic discount
+      other_funds: Other funds (see notes)
+  flash:
+    account_locked: Account currently locked, check with your fund.
+    action_on_account: "%{verb} %{name}'s account."
+    cant_lock_own_account: You can't lock your own account. Ask another admin.
+    clinic_created: "%{clinic} created!"
+    clinic_details_updated: Successfully updated clinic details
+    config_failed_update: Config failed to update
+    config_update_success: Config updated successfully
+    demote_own_account_warn: For safety reasons, you are not allowed to change your role from an admin to a not-admin. Ask another admin to demote you.
+    error_saving_clinic: Errors prevented this clinic from being saved - %{error}
+    error_saving_clinic_details: Error saving clinic details - %{error}
+    locked: Locked
+    new_patient_error: Errors prevented this patient from being saved - %{error}
+    new_patient_save: A new patient has been successfully saved
+    patient_info_saved: Patient info successfully saved at %{timestamp}
+    patient_removed_database: Patient successfully removed from database.
+    patient_removed_database_error: Can't delete patients with pledges; please correct the patient record and try again.
+    patient_save_error: Errors prevented this patient from being saved - %{error}
+    patient_save_success: "%{patient} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the %{fund} pledge amounts are the same, and you're set."
+    pledge_download_alert: You need to enter your name in the box to sign and download the pledge
+    unlocked: Unlocked
+    user_created: User created!
+    user_update_error: Error saving user details - %{error}
+    user_update_success: Successfully updated user details
   lines:
     new:
       start: Get started
       welcome_to_daria: Welcome to DARIA (%{fund} edition)!
       what_line: What line are you working on?
+  mongoid:
+    attributes:
+      clinic:
+        accepts_medicaid: Accepts Medicaid
+        accepts_naf: Accepts NAF
+        active: Active
+        city: City
+        distance: Distance
+        fax: Fax
+        gestational_limit: Gestational limit (in days)
+        location: Location
+        name: Name
+        phone: Phone
+        state: State
+        street_address: Street address
+        zip: ZIP
+      user:
+        current_password: Current password
+        email: Email
+        name: First and last name
+        password: Password
+        password_confirmation: Password confirmation
+        role: Role
   navigation:
     admin_tools:
       accounting: Accounting
       clinic_management: Clinic Management
       config_management: Config Management
       export: Export anonymized CSV
-      label: Admin tools
+      label: Admin
       reporting: Reporting
       user_management: User Management
     cm_resources:
@@ -42,24 +229,224 @@ en:
       profile: My Profile
       sign_in: Sign In
       sign_out: Sign Out
+  note:
+    most_recent: 'Most recent note from %{by} at %{at}:'
+    most_recent_no_user: Most recent note
   patient:
+    abortion_information:
+      clinic_section:
+        clinic: Clinic
+        inactive_clinics: Inactive clinics
+        medicaid_only_toggle: Enable only Medicaid clinics
+        naf_only_toggle: Enable only NAF clinics
+        not_currently_working_with_fund: "(Not currently working with %{fund}) - %{clinic_name}"
+        referred_to_clinic: Referred to clinic
+        resolved_without_fund: Resolved without assistance from %{fund}
+        title: Clinic details
+        ultrasound_completed: Ultrasound completed?
+      cost_section:
+        abortion_cost: Abortion cost
+        fund_pledge: "%{fund} pledge"
+        naf_pledge: National Abortion Federation pledge
+        outstanding_balance: Outstanding Balance
+        patient_contribution: Patient contribution
+        title: Cost details
+      title: Abortion information
+    call_log:
+      delete_confirm: Are you sure you want to remove this call from the call log?
+      record_new_call: Record new call
+      table:
+        actions: ACTIONS
+        case_manager: CM
+        date: DATE
+        remove_button: Remove
+        result: RESULT
+        time: TIME
+      title: Call Log
+    change_log:
+      table:
+        case_manager: CM
+        change: Change (from -> to)
+        modified_date: Modified Date
+      title: Patient history
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{gest}'
-      appt_date: Appointment date
       called_on: 'Called on: %{date}'
       confirm_del: Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)
       currently: 'Currently: %{LMP}'
       delete: Delete duplicate patient record
       phone: Phone number
       weeks_along: Weeks along at intake
+    data_entry:
+      patient_entry: Patient Entry
     helper:
       day:
         one: "%{count} day"
         other: "%{count} days"
+      employment:
+        full_time: Full-time
+        odd_jobs: Odd jobs
+        part_time: Part-time
+        student: Student
+        unemployed: Unemployed
+      income:
+        10_to_15: "$10,000-14,999 ($192-287/wk - $834-1250/mo)"
+        15_to_20: "$15,000-19,999 ($288-384/wk - $1251-1666/mo)"
+        20_to_25: "$20,000-24,999 ($385-480/wk - $1667-2083/mo)"
+        25_to_30: "$25,000-29,999 ($481-576/wk - $2084-2499/mo)"
+        30_to_35: "$30,000-34,999 ($577-672/wk - $2500-2916/mo)"
+        35_to_40: "$35,000-39,999 ($673-768/wk - $2917-3333/mo)"
+        40_to_45: "$40,000-44,999 ($769-864/wk - $3334-3749/mo)"
+        45_to_50: "$45,000-49,999 ($865-961/wk - $3750-4165/mo)"
+        50_to_60: "$50,000-59,999 ($962-1153/wk - $4166-4999/mo)"
+        60_to_75: "$60,000-74,999 ($1154-1441/wk - $5000-6249/mo)"
+        75_plus: "$75,000 or more ($1442+ /wk - $6250+ /mo)"
+        under_10: Under $9,999 ($192/wk - $833/mo)
+      insurance:
+        none: No insurance
+        other: Other (add to notes)
+        unknown: Don't know
+      language:
+        English: English
+      practical_support:
+        companion: Companion
+        lodging: Lodging
+        travel_inside_area: Travel inside the region
+        travel_to_area: Travel to the region
+      race:
+        asian_south_asian: Asian or South Asian
+        black_african_american: Black/African-American
+        hispanic_latino: Hispanic/Latino
+        mixed_race_ethnicity: Mixed Race/Ethnicity
+        native_american: Native American
+        native_hawaiian_pacific_islander: Native Hawaiian or Pacific Islander
+        other: Other
+        white_caucasian: White/Caucasian
+      referred_by:
+        clinic: Clinic
+        crime_victim_advocacy_center: Crime victim advocacy center
+        domestic_violence_org: Domestic violence crisis/intervention org
+        family: Family member
+        friend: Friend
+        fund: "%{fund} website or social media"
+        homeless: Homeless shelter
+        legal_clinic: Legal clinic
+        naf: NAF
+        nnaf: NNAF
+        other_fund: Other abortion fund
+        prev_patient: Previous patient
+        school: School
+        sexual_assault_crisis_org: Sexual assault crisis org
+        title: Referred by
+        web_search: Google/Web search
+        youth: Youth outreach
       week:
         one: "%{count} week"
         other: "%{count} weeks"
+    information:
+      age: Age
+      city: City
+      county: County
+      employment_status: Employment Status
+      household_adults: Adults in household
+      household_help: "(including patient)"
+      household_minors: Minors in household
+      income: Income
+      income_help: Employment, Food Stamps, SS, TANF, etc.
+      insurance: Patient insurance
+      language: Preferred Language
+      line: Line
+      other_contact:
+        name: Other contact name
+        phone: Other phone
+        relationship: Relationship to other contact
+        title: Other Contact
+      race_ethnicity: Race / Ethnicity
+      referred_by: How patient heard about %{fund}
+      special_circumstances:
+        domestic_violence: Domestic violence
+        fetal_diagnosis: Fetal diagnosis
+        homelessness: Homelessness
+        incest: Incest
+        other_medical_issue: Other medical issue
+        prison: Prison
+        rape: Rape
+        title: Special Circumstances
+      state: State
+      textable: Textable?
+      title: Patient information
+      voicemail_preference: Voicemail Preference
+    menu:
+      abortion_information: Abortion Information
+      call_log: Call Log
+      cancel_pledge: Cancel pledge
+      change_log: Change Log
+      notes: Notes
+      patient_information: Patient Information
+      pledge_fulfillment: Pledge Fulfillment
+      submit_pledge: Submit pledge
+    new:
+      add_button: Add new patient
+      initial_call_date: Initial Call Date
+      title: 'Your search produced no results, so add a new patient:'
+    notes:
+      placeholder: Enter notes here
+      submit: Create Note
+      title: Notes
+      urgent_flag: Flag this patient as urgent
+    pledge:
+      cancel:
+        confirm: Are you sure you want to cancel this pledge?
+        title: Cancel Pledge
+      errors:
+        blank_appt: Appointment date cannot be blank
+        blank_clinic: Clinic name cannot be blank
+        blank_fund: "%{fund} pledge field cannot be blank"
+        blank_patient: Patient name cannot be blank
+        data_required: 'Data required:'
+      step_one:
+        clinic_name: 'Clinic name:'
+        patient_id: 'Patient ID:'
+        patient_name: 'Patient name:'
+        pledge_amount: 'Pledge amount:'
+        title: 'Confirm the following information is correct:'
+      step_three:
+        completed: Once you've completed the pledging process, please use the check box below to indicate your pledge has been sent.
+        downloads: 'Your pledge should appear in your computer''s downloads. Find the document and  submit the pledge for your client here:'
+        generated: Awesome, you generated a %{fund} Pledge! Thanks!
+        sent_checkbox: I sent the pledge
+        title: 'Submit and send your pledge:'
+      step_two:
+        blank_name_error: You need to enter your name in the box to sign and download the pledge
+        form_disabled: Please generate your pledge form and click next.
+        generate_note: Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.
+        generate_pledge_button: Generate your pledge
+        sign_pledge: 'Enter your name in this box to sign your pledge:'
+        title: 'Generate your pledge form:'
+    pledge_fulfillment:
+      audit:
+        archive_note: Patient will be archived on %{date}
+        audited_box: Fulfillment audited?
+        title: Auditing
+      confirmation:
+        clinic: 'Clinic:'
+        confirm_info: 'Please confirm that the clinic and pledge amounts are correct:'
+        fund_pledge_amount: "%{fund} Pledge Amount:"
+        pledge_generated_at: 'Pledge generated at:'
+        pledge_generated_by: 'Pledge generated by:'
+        pledge_sent_at: 'Pledge sent at:'
+        pledge_sent_by: 'Pledge sent by:'
+      form:
+        check_num: 'Check #'
+        date_of_check: Date of check
+        fund_payout: "%{fund} payout"
+        pledge_fulfilled_box: Pledge fulfilled
+        procedure_cost: Procedure Cost
+        procedure_date: Procedure date
+        weeks_along_at_procedure: Weeks along at procedure
+      title: Pledge Fulfillment
     shared:
+      appt_date: Appointment date
       name: First and last name
       status: 'Status:'
     status:
@@ -83,3 +470,40 @@ en:
         pledge_sent: Pledge Sent
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
+  tooltips:
+    budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week. It resets on Mondays.
+    call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
+    completed_calls: This is a list of patients you have called within the last 8 hours.
+    mandatory_ultrasound: If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.
+    record_new_external_pledge: External pledges is our term for pledges by other abortion funds also working with a patient.
+    referred_to_clinic: Check this box if you as a case manager referred the patient to a particular clinic.
+    resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
+    status_definition: Status definition
+    urgent_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as having a sent pledge, or marked as resolved without assistance.
+  user:
+    common:
+      last_login: Last Login
+      role: Role
+    edit:
+      admin_actions: Admin actions
+      lock_an_account: Lock an account
+      update_details: Update details
+      update_users_role_permissions: Update this user's role and permissions
+    index:
+      add_new_user: Add New User
+      user_account_management: User Account Management
+    new:
+      create_user: Create User
+    profile_edit:
+      awaiting_confirmation: 'Currently waiting for confirmation for: %{email}'
+      change_password: Change your password
+      current_password: Enter your current password to confirm any changes
+      new_password: New password
+      update_info_button: Update info
+      user_panel: User panel for %{email} (%{name})
+    search:
+      button: Search
+      text_field: Name or Email
+    user_table:
+      date_created: Date Created
+      full_name: Full Name

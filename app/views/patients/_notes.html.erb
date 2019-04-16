@@ -3,17 +3,17 @@
     <div class="row">
 			<%= bootstrap_form_for [patient, note], html: { id: 'notes-form' }, remote: true do |f| %>
       <div class="info-form-left col-sm-12">
-        <h2>Notes</h2>
-        <%= f.text_area :full_text, size: '20x5', placeholder: 'Enter notes here', hide_label: true %>
+        <h2><%= t('patient.notes.title') %></h2>
+        <%= f.text_area :full_text, size: '20x5', placeholder: t('patient.notes.placeholder'), hide_label: true %>
       </div>
 			<div class="info-form-left col-sm-6">
-				<%= f.submit class: "btn btn-primary"  %>
+				<%= f.submit t('patient.notes.submit'), class: "btn btn-primary"  %>
 			</div>
 			<% end %>
 
 	    <div class="info-form-right col-sm-6">
 	      <%= bootstrap_form_for patient, html: { id: 'urgents-form', class: 'text-right text-danger edit_patient' }, remote: true do |u| %>
-	        <%= u.check_box :urgent_flag, label: 'Flag this patient as urgent' %>
+	        <%= u.check_box :urgent_flag, label: t('patient.notes.urgent_flag') %>
 	      <% end %>
 	    </div>
 		</div>
