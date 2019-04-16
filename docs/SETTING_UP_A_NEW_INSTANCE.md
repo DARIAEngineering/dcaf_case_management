@@ -34,6 +34,7 @@ Follow the directions to fill out necessary environment variables and configurat
     * Make your application type public
     * Add your app URL as the authorized domain
     * Select "Web Application" when prompted to choose an application type
+    * Leave Authorized Javascript origins blank
     * Set Authorized redirect URIs to https://your-app.herokuapp.com/users/auth/google_oauth2/callback
   * Fill in the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` env vars with your client id and client secret
 * While still in the google developers console, enable the Geocoding API, create an API key, and set the `GOOGLE_GEO_API_KEY` in Heroku to that API key
