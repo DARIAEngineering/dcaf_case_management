@@ -47,22 +47,14 @@ markFulfilledWhenFieldsChecked = ->
   if empty == true
         el.prop 'checked', false
 
-
-
 $(document).on 'turbolinks:load', ->
   $(document).on "click", "#toggle-call-log", ->
     $(".old-calls").toggleClass("hidden")
     html = if $(".old-calls").hasClass("hidden") then "View all calls" else "Limit list"
     $("#toggle-call-log").html(html)
 
-  $(document).on "change", ".edit_patient", ->
-    $(this).submit()
-
   $(document).on "change", "#pledge_fulfillment_form", ->
     markFulfilledWhenFieldsChecked()
-    $(this).submit()
-
-  $(document).on "change", ".edit_external_pledge", ->
     $(this).submit()
 
   balanceFields = '#abortion-information-form input,
