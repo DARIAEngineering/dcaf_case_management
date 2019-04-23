@@ -2,7 +2,7 @@
 $('#patient_appointment_date')
   .parent()
   .find('span.help-block')
-  .text("<%= t('patient.dashboard.approx_gestation', gest: @patient.last_menstrual_period_at_appt) %>");
+  .text("<%= t('patient.dashboard.approx_gestation', weeks: @patient.last_menstrual_period_at_appt_weeks, days: @patient.last_menstrual_period_at_appt_days) %>");
 
 // rerack status
 $('#patient_status').text('<%= @patient.status %>');
@@ -11,7 +11,7 @@ $('#patient_status').text('<%= @patient.status %>');
 $('#patient_last_menstrual_period_weeks')
   .parent()
   .find('span.help-block')
-  .text("<%= t('patient.dashboard.currently', LMP: @patient.last_menstrual_period_display_short) %>");
+  .text("<%= t('patient.dashboard.currently', weeks: @patient.last_menstrual_period_now_weeks, days: @patient.last_menstrual_period_now_days) %>");
 
 // refresh changelog
 $('#change_log').html(

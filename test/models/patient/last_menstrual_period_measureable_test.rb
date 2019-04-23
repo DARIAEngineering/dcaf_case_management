@@ -12,96 +12,68 @@ class PatientTest::LastMenstrualPeriodMeasureable < PatientTest
                                   appointment_date: 2.days.from_now
     end
 
-    describe 'last_menstrual_period_display' do
-      it 'should return nil if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.last_menstrual_period_display
-      end
-
-      it 'should return LMP in weeks and days' do
-        assert_equal '9 weeks, 4 days',
-                     @patient.last_menstrual_period_display
+    describe 'last_menstrual_period_now_weeks' do
+      it 'should return LMP weeks' do
+        assert_equal 9, @patient.last_menstrual_period_now_weeks
       end
     end
 
-    describe 'last_menstrual_period_display_short' do
-      it 'should return nil if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.last_menstrual_period_display_short
-      end
-
-      it 'should return shorter LMP in weeks and days' do
-        assert_equal @patient.last_menstrual_period_display_short, '9w 4d'
+    describe 'last_menstrual_period_now_days' do
+      it 'should return LMP days' do
+        assert_equal 4, @patient.last_menstrual_period_now_days
       end
     end
 
-    describe 'last_menstrual_period_at_appt' do
+    describe 'last_menstrual_period_at_appt_weeks' do
       it 'should return nil unless appt date is set' do
         @patient.appointment_date = nil
-        assert_nil @patient.last_menstrual_period_at_appt
+        assert_nil @patient.last_menstrual_period_at_appt_weeks
       end
 
-      it 'should return a calculated LMP on date of appointment' do
-        assert_equal '9 weeks, 6 days',
-                     @patient.last_menstrual_period_at_appt
-      end
-    end
-
-    describe 'last_menstrual_period_now' do
-      it 'should return nil if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.send(:_last_menstrual_period_now)
-      end
-
-      it 'should be equivalent to LMP on date - Time.zone.today' do
-        assert_equal  @patient.send(:_last_menstrual_period_now),
-                      @patient.send(:_last_menstrual_period_on_date,
-                                    Time.zone.today)
-      end
-
-      it 'should be LMP on date of appointment if appointment is in the past' do
-        @patient.appointment_date = 1.day.ago
-        assert_equal  @patient.send(:_last_menstrual_period_now),
-                      @patient.send(:_last_menstrual_period_on_date, 1.day.ago.to_date)
+      it 'should return a calculated LMP weeks on date of appointment' do
+        assert_equal 9, @patient.last_menstrual_period_at_appt_weeks
       end
     end
 
-    describe 'last_menstrual_period_on_date' do
-      it 'should nil out if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.send(:_last_menstrual_period_on_date,
-                                 Time.zone.today)
+    describe 'last_menstrual_period_at_appt_days' do
+      it 'should return nil unless appt date is set' do
+        @patient.appointment_date = nil
+        assert_nil @patient.last_menstrual_period_at_appt_days
       end
 
-      it 'should accurately calculate LMP on a given date' do
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 67
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   5.days.from_now.to_date), 72
+      it 'should return a calculated LMP days on date of appointment' do
+        assert_equal 6, @patient.last_menstrual_period_at_appt_days
+      end
+    end
 
-        @patient.initial_call_date = 4.days.ago
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                    Time.zone.today), 69
+    describe "last_menstrual_period common features" do
+      it 'should cap at appointment date if appointment date is set' do
+        @patient.appointment_date = 8.days.ago
+        assert_equal 8, @patient.last_menstrual_period_at_appt_weeks
+        assert_equal 3, @patient.last_menstrual_period_at_appt_days
 
-        @patient.last_menstrual_period_weeks = 10
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 76
-
-        @patient.last_menstrual_period_days = 6
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 80
+        assert_equal 8, @patient.last_menstrual_period_now_weeks
+        assert_equal 3, @patient.last_menstrual_period_now_days
       end
 
       it 'should cap at 280 days' do
-        @patient.last_menstrual_period_weeks = 52
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 280
-      end
-    end
+        @patient.initial_call_date = 300.days.ago
 
-    describe '_display_as_weeks' do
-      it 'should return a value of weeks and days' do
-        assert_equal '3 weeks, 3 days', @patient.send(:_display_as_weeks, 24)
+        assert_equal 40, @patient.last_menstrual_period_at_appt_weeks
+        assert_equal 0, @patient.last_menstrual_period_at_appt_days
+
+        assert_equal 40, @patient.last_menstrual_period_now_weeks
+        assert_equal 0, @patient.last_menstrual_period_now_days
+      end
+
+      it 'should be nil if last_menstrual_period_weeks is not set' do
+        @patient.last_menstrual_period_weeks = nil
+
+        assert_nil @patient.last_menstrual_period_at_appt_weeks
+        assert_nil @patient.last_menstrual_period_at_appt_days
+
+        assert_nil @patient.last_menstrual_period_now_weeks
+        assert_nil @patient.last_menstrual_period_now_days
       end
     end
   end
