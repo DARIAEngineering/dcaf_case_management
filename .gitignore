@@ -90,3 +90,4 @@ config/initializers/secret_token.rb
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+yarn-error.log
