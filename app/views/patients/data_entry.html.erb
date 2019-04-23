@@ -3,7 +3,7 @@
 <h1><%= t('patient.data_entry.patient_entry') %></h1>
 
 <%= bootstrap_form_for @patient, url: data_entry_create_path, html: { class: 'mass_entry_form' } do |f| %>
-  <%= f.select :line, options_for_select(lines, current_line), label: t('patient.information.line') %>
+  <%= f.select :line, options_for_select(lines, current_line) %>
 
   <%= f.date_field :initial_call_date, label: t('patient.new.initial_call_date') %>
 
@@ -24,9 +24,9 @@
     </div>
   </div>
 
-  <%= f.text_field :city,  label: t('patient.information.city'), autocomplete: 'off' %>
-  <%= f.text_field :state, label: t('patient.information.state'), autocomplete: 'off' %>
-  <%= f.text_field :county, label: t('patient.information.county'), autocomplete: 'off' %>
+  <%= f.text_field :city, autocomplete: 'off' %>
+  <%= f.text_field :state, autocomplete: 'off' %>
+  <%= f.text_field :county, autocomplete: 'off' %>
 
   <!-- Notes doesn't work because strong params :( -->
   <%#= f.fields_for @patient.notes.new do |notes| %>
@@ -35,8 +35,8 @@
 
   <%= f.number_field :fund_pledge, label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"), autocomplete: 'off' %>
 
-  <%= f.number_field :age, label: t('patient.information.age'), autocomplete: 'off' %>
-  <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), label: t('patient.information.race_ethnicity'), autocomplete: 'off' %>
+  <%= f.number_field :age, autocomplete: 'off' %>
+  <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), autocomplete: 'off' %>
   <%= f.select :clinic_id, options_for_select(clinic_options), label: t('patient.pledge_fulfillment.confirmation.clinic') %>
 
   <%= f.date_field :appointment_date, label: t('patient.shared.appt_date'), autocomplete: 'off' %>
@@ -49,29 +49,25 @@
     <div class="col-sm-6">
       <%= f.select :household_size_adults,
                     options_for_select(household_size_options),
-                                       label: t('patient.information.household_adults'),
-                                       help: t('patient.information.household_help') %>
+                    help: t('patient.information.household_help') %>
     </div>
     <div class="col-sm-6">
       <%= f.select :household_size_children,
-                    options_for_select(household_size_options),
-                                       label: t('patient.information.household_minors') %>
+                    options_for_select(household_size_options) %>
     </div>
   </div>
 
   <%= f.select :employment_status,
                options_for_select(employment_status_options),
-               label: t('patient.information.employment_status'),
-                                  autocomplete: 'off' %>
+               autocomplete: 'off' %>
   <%= f.select :income,
                options_for_select(income_options),
-               label: t('patient.information.income'),
-                                  autocomplete: 'off' %>
+               autocomplete: 'off' %>
 
   <%= f.select :referred_by,
                options_for_select(referred_by_options),
                label: t('patient.helper.referred_by.title'),
-                                  autocomplete: 'off' %>
+               autocomplete: 'off' %>
 
     <%= f.number_field :procedure_cost, label: t('patient.pledge_fulfillment.form.procedure_cost') %>
     <%= f.number_field :patient_contribution, label: t('patient.abortion_information.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>

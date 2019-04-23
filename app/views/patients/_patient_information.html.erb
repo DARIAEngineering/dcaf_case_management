@@ -12,14 +12,12 @@
           <% if current_user.admin? %>
             <%= f.select :line,
                        options_for_select(lines,
-                                          patient.line),
-                                          label: t('patient.information.line') %>
+                                          patient.line) %>
           <% end %>
-          <%= f.number_field :age, label: t('patient.information.age'), autocomplete: 'off' %>
+          <%= f.number_field :age, autocomplete: 'off' %>
           <%= f.select :race_ethnicity,
                        options_for_select(race_ethnicity_options,
                                           patient.race_ethnicity),
-                                          label: t('patient.information.race_ethnicity'),
                                           autocomplete: 'off' %>
 
           <%= f.form_group :language do %>
@@ -38,14 +36,14 @@
 
           <div class="row">
             <div class="col-sm-8">
-              <%= f.text_field :city, label: t('patient.information.city'), autocomplete: 'off' %>
+              <%= f.text_field :city, autocomplete: 'off' %>
             </div>
             <div class="col-sm-4">
-              <%= f.text_field :state, label: t('patient.information.state'), autocomplete: 'off' %>
+              <%= f.text_field :state, autocomplete: 'off' %>
             </div>
           </div>
 
-          <%= f.text_field :county, label: t('patient.information.county'), autocomplete: 'off' %>
+          <%= f.text_field :county, autocomplete: 'off' %>
 
           <h3><%= t 'patient.information.other_contact.title' %></h3>
             <%= f.text_field :other_contact, autocomplete: 'off', label: t('patient.information.other_contact.name') %>
@@ -57,27 +55,23 @@
           <%= f.select :employment_status,
                        options_for_select(employment_status_options,
                                           patient.employment_status),
-                                          autocomplete: 'off',
-                                          label: t('patient.information.employment_status')%>
+                                          autocomplete: 'off' %>
           <%= f.select :income,
                        options_for_select(income_options,
                                           patient.income),
                                           help: t('patient.information.income_help'),
-                                          autocomplete: 'off',
-                                          label: t('patient.information.income')%>
+                                          autocomplete: 'off' %>
           <div class="row">
             <div class="col-sm-6">
               <%= f.select :household_size_adults,
                             options_for_select(household_size_options,
                                                patient.household_size_adults),
-                                               label: t('patient.information.household_adults'),
                                                help: t('patient.information.household_help') %>
             </div>
             <div class="col-sm-6">
               <%= f.select :household_size_children,
                             options_for_select(household_size_options,
-                                               patient.household_size_children),
-                                               label: t('patient.information.household_minors') %>
+                                               patient.household_size_children) %>
             </div>
           </div>
 
