@@ -8,3 +8,4 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import '../src/clinic_finder';
+import '../src/table_sorting';
