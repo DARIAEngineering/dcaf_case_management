@@ -8,4 +8,4 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import '../src/clinic_finder';
-import './clinic';
+import '../src/clinics';
