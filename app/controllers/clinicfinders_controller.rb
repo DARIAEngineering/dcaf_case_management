@@ -1,14 +1,26 @@
 # Controller for use with clinic_finder gem; locates nearest clinic
 # based on certain info.
 class ClinicfindersController < ApplicationController
-  def index; end
-
   def search
-    @abortron = Abortron::ClinicFinder.new("#{Rails.root}/clinics.yml")
-    @nearest = @abortron.locate_nearest_clinic patient_zipcode: params[:zip].to_i.to_s,
-                                               gestational_age: params[:gestation].to_i
-    @cheapest = @abortron.locate_cheapest_clinic(gestational_age: params[:gestation].to_i)
+    return head :bad_request if params[:zip].blank?
 
+    gestation = calculate_gestation params
+    filtered_clinics = Clinic.where(:zip.nin => [nil, '', Clinic::EXCLUDED_ZIP])
+                             .gestational_limit_above(gestation)
+                             .where(:accepts_naf.in => [true, params[:naf_only] == '1'])
+                             .where(:accepts_medicaid.in => [true, params[:medicaid_only] == '1'])
+
+    clinic_finder = ClinicFinder::Locator.new filtered_clinics
+    @nearest = clinic_finder.locate_nearest_clinics params[:zip]
+    @cheapest = nil # clinic_finder.locate_cheapest_clinic
     respond_to { |format| format.js }
+  end
+
+  private
+
+  def calculate_gestation(params)
+    weeks = params[:gestation_weeks].present? ? params[:gestation_weeks].to_i * 7 : 0
+    days = params[:gestation_days].present? ? params[:gestation_days].to_i : 0
+    (weeks + days).to_i
   end
 end

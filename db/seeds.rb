@@ -1,4 +1,4 @@
-fail 'No running seeds in prod' unless [nil, 'Test Sandbox'].include? ENV['FUND']
+fail 'No running seeds in prod' unless [nil, 'Sandbox'].include? ENV['DARIA_FUND']
 
 # if ARGV[1].blank?
 #   puts "\n****SEED FAILED, but it's easy to fix****\n" \
@@ -10,6 +10,8 @@ fail 'No running seeds in prod' unless [nil, 'Test Sandbox'].include? ENV['FUND'
 Patient.destroy_all
 User.destroy_all
 Clinic.destroy_all
+Event.destroy_all
+Config.destroy_all
 
 # Create google SSO user
 # puts "Creating user with email #{ARGV[1]}..."
@@ -26,14 +28,14 @@ user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Seed a pair of clinics, Sample 1 and Sample 2
-Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '123 Fake Street',
-               city: 'Washington', state: 'DC', zip: '20011'
-Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '123 Fake Street',
-               city: 'Arlington', state: 'VA', zip: '22204'
-Clinic.create! name: 'Sample Clinic with NAF', street_address: '123 Fake Street',
-              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: true
-Clinic.create! name: 'Sample Clinic without NAF', street_address: '123 Fake Street',
-              city: 'Washington', state: 'DC', zip: '20011', accepts_naf: false, accepts_medicaid: true
+Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '1600 Pennsylvania Ave',
+               city: 'Washington', state: 'DC', zip: '20500'
+Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '1400 Defense',
+               city: 'Arlington', state: 'VA', zip: '20301'
+Clinic.create! name: 'Sample Clinic with NAF', street_address: '815 V Street NW',
+              city: 'Washington', state: 'DC', zip: '20001', accepts_naf: true
+Clinic.create! name: 'Sample Clinic without NAF', street_address: '1811 14th Street NW',
+              city: 'Washington', state: 'DC', zip: '20009', accepts_naf: false, accepts_medicaid: true
 
 
 # Create ten patients
@@ -50,6 +52,46 @@ end
 
 # Create associated objects
 Patient.all.each do |patient|
+  # Add example of patient with other contact info
+  if patient.name == 'Patient 1'
+    patient.update! name: "Other Contact info - 1", other_contact: "Jane Doe",
+                   other_phone: "234-456-6789", other_contact_relationship: "Sister"
+    patient.calls.create! status: 'Reached patient',
+                          created_at: 14.hours.ago,
+                          created_by: user
+  end
+
+  # Add example of patient with appointment one week from today && clinic selected
+  if patient.name == 'Patient 2'
+    patient.update! name: "Clinic and Appt - 2",
+                    clinic: Clinic.first,
+                    appointment_date: (2.days.from_now)
+  end
+
+  # Add example of patient with a pledge submitted
+  if patient.name == 'Patient 3'
+    patient.update! clinic: Clinic.first,
+                    appointment_date: 3.days.from_now,
+                    naf_pledge: 200,
+                    procedure_cost: 400,
+                    fund_pledge: 100,
+                    pledge_sent: true,
+                    patient_contribution: 100,
+                    name: "Pledge submitted - 3"
+  end
+
+  # Add example of patient should have special circumstances
+  if patient.name == 'Patient 4'
+    patient.update! name: "Special Circumstances - 4",
+                    special_circumstances: ["Prison", "Fetal anomaly"]
+  end
+
+  # Add example of patient should be marked resolved without DCAF
+  if patient.name == 'Patient 5'
+    patient.update! name: "Resolved without DCAF - 5",
+                    resolved_without_fund: true
+  end
+
   # Create calls for patient
   5.times do
     patient.calls.create! status: 'Left voicemail',
@@ -65,45 +107,6 @@ Patient.all.each do |patient|
     end
   end
 
-  # Add example of patient with other contact info
-  if patient.name == 'Patient 1'
-    patient.update! name: "Other Contact info - 1", other_contact: "Jane Doe",
-                   other_phone: "234-456-6789", other_contact_relationship: "Sister"
-    patient.calls.create! status: 'Reached patient',
-                          created_at: 14.hours.ago,
-                          created_by: user
-  end
-
-  # Add example of patient with appointment one week from today && clinic selected
-  if patient.name == 'Patient 2'
-    patient.update! name: "Clinic and Appt - 2",
-                    clinic: Clinic.first,
-                    appointment_date: (1.week.from_now)
-  end
-
-  # Add example of patient with a pledge submitted
-  if patient.name == 'Patient 3'
-    patient.update! clinic: Clinic.first,
-                    appointment_date: 10.days.from_now,
-                    naf_pledge: 2000,
-                    procedure_cost: 4000,
-                    fund_pledge: 1000,
-                    pledge_sent: true,
-                    patient_contribution: 1000,
-                    name: "Pledge submitted - 3"
-  end
-
-  # Add example of patient should have special circumstances
-  if patient.name == 'Patient 4'
-    patient.update! name: "Special Circumstances - 4",
-                    special_circumstances: ["Prison", "Fetal anomaly"]
-  end
-
-  # Add example of patient should be marked resolved without DCAF
-  if patient.name == 'Patient 5'
-    patient.update! name: "Resolved without DCAF - 5",
-                    resolved_without_fund: true
-  end
 
   patient.save
 end
@@ -138,13 +141,20 @@ patient_in_completed_calls.calls.create! status: 'Left voicemail',
                                         created_by: user
 
 # Create insurance and external pledge source keysets
-Config.destroy_all
 Config.create config_key: :insurance,
               config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance']}
 Config.create config_key: :external_pledge_source,
               config_value: { options: ['Baltimore Abortion Fund', 'Metallica Abortion Fund']}
 Config.create config_key: :pledge_limit_help_text,
               config_value: { options: ['Pledge Limit Guidelines:', '1st trimester (7-12 weeks): $100', '2nd trimester (12-24 weeks): $300', 'Later care (25+ weeks): $600']}
+Config.create config_key: :language,
+              config_value: { options: ['Spanish', 'French', 'Korean']}
+Config.create config_key: :resources_url,
+              config_value: { options: ['Spanish', 'French', 'Korean']}
+Config.create config_key: :referred_by,
+              config_value: { options: ['Metal band']}
+Config.create config_key: :fax_service,
+              config_value: { options: ['www.yolofax.com'] }
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have
@@ -164,7 +174,7 @@ Config.create config_key: :pledge_limit_help_text,
     last_menstrual_period_weeks: 7,
     last_menstrual_period_days: 7,
     naf_pledge: 300,
-    fund_pledge: 200,
+    fund_pledge: 50,
     procedure_cost: 600,
     pledge_sent: true,
     patient_contribution: 100)
@@ -173,7 +183,7 @@ Config.create config_key: :pledge_limit_help_text,
     patient.build_fulfillment(
       created_by_id: User.first.id,
       fulfilled: true,
-      procedure_cost: 4000,
+      fund_payout: 4000,
       procedure_date: 10.days.from_now
     ).save
   end
@@ -194,19 +204,15 @@ lines = ['DC', 'VA', 'MD']
 
   # reached calls this month
   5.times do
-    Call.create!(
-      patient: patient,
-      status: 'Reached patient',
+    patient.calls.create! status: 'Reached patient',
       created_by: User.first,
-      created_at: (Time.now - rand(10).days))
+      created_at: (Time.now - rand(10).days)
   end
 
   5.times do
-    Call.create!(
-      patient: patient,
-      status: 'Reached patient',
+    patient.calls.create! status: 'Reached patient',
       created_by: User.first,
-      created_at: (Time.now - rand(10).days - 10.days))
+      created_at: (Time.now - rand(10).days - 10.days)
   end
 end
 
@@ -224,11 +230,9 @@ end
 
   # rcalls this year
   5.times do
-    Call.create!(
-      patient: patient,
-      status: 'Reached patient',
+    patient.calls.create! status: 'Reached patient',
       created_by: User.first,
-      created_at: (Time.now - rand(10).days - 6.months))
+      created_at: (Time.now - rand(10).days - 6.months)
   end
 end
 
@@ -244,8 +248,202 @@ end
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now,
     pledge_sent: true,
-    fund_pledge: 1000)
+    fund_pledge: 50)
 end
+
+# create patients with ALL THE INFO to play with archiving
+(1..2).each do |patient_number|
+  # initial create data from voicemail
+  patient = Patient.create!(
+    name: "Archive Dataful Patient #{patient_number}",
+    primary_phone: "321-0#{patient_number}0-005#{rand(10)}",
+    voicemail_preference: "yes",
+    line: 'DC',
+    language: "Spanish",
+    initial_call_date: 140.days.ago,
+    last_menstrual_period_weeks: 6,
+    last_menstrual_period_days: 5,
+    created_by: User.first,
+    created_at: 140.days.ago,
+  )
+
+  # Call, but no answer. leave a VM.
+
+  patient.calls.create status: 'Left voicemail', created_by: User.first, created_at: 139.days.ago
+
+  # Call, which updates patient info, maybe flags urgent, make a note.
+  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 138.days.ago
+
+  patient.update!(
+    # header info - hand filled in
+    appointment_date: 130.days.ago,
+
+    # patient info - hand filled in
+    age: 24,
+    race_ethnicity: "Hispanic/Latino",
+    city: "Washington",
+    state: "DC",
+    county: "Washington",
+    other_contact: "Susie Q.",
+    other_phone: "555-0#{patient_number}0-0053",
+    other_contact_relationship: "Mother",
+
+    employment_status: "Student",
+    income: "$10,000-14,999",
+    household_size_adults: 3,
+    household_size_children: 2,
+    insurance: "Other Insurance",
+    referred_by: "Clinic",
+    special_circumstances: ["", "", "Homelessness", "", "", "Other medical issue", "", "", ""],
+
+    # abortion info - hand filled in
+    clinic: Clinic.all.sample,
+    referred_to_clinic:  patient_number.odd? ? true : false,
+    resolved_without_fund:  patient_number.even? ? true : false,
+
+    updated_at: 138.days.ago, #not sure if this even works?
+  )
+
+  # notes tab
+  # toggle urgent, maybe
+  patient.update!(
+    urgent_flag: patient_number.odd? ? true : false,
+    updated_at: 137.days.ago,
+  )
+  # generate notes
+  patient.notes.create!(
+    full_text: "One note, with iffy PII! This one was from the first call!",
+    created_by: user,
+    created_at: 137.days.ago,
+  )
+
+  # only continue for the unresolved patient(s)
+  next if patient.resolved_without_fund?
+
+  # another call. get abortion information, create pledges, a note.
+  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 136.days.ago
+
+  # abortion info - pledges - hand filled in
+  patient.update!(
+    procedure_cost: 555,
+    patient_contribution: 120,
+    naf_pledge: 120,
+    fund_pledge: 115,
+    pledge_sent: true,
+    pledge_generated_at: 133.days.ago,
+    pledge_generated_by: User.first,
+    updated_at: 133.days.ago,
+  )
+  # generate external pledges
+  patient.external_pledges.create!(
+    source: 'Metallica Abortion Fund',
+    amount: 100,
+    created_by: user,
+    created_at: 133.days.ago,
+  );
+  patient.external_pledges.create!(
+    source: 'Baltimore Abortion Fund',
+    amount: 100,
+    created_by: user,
+    created_at: 133.days.ago,
+  );
+
+  # notes tab
+  patient.notes.create!(
+    full_text: "Two note, maybe with iffy PII! From the second call.",
+    created_by: user2,
+    created_at: 133.days.ago,
+  )
+
+  # fulfillment
+
+  patient.fulfillment.update!(
+    fulfilled: true,
+    procedure_date: 130.days.ago,
+    gestation_at_procedure: "11",
+    fund_payout: 555,
+    check_number: 4563,
+    date_of_check: 125.days.ago,
+    updated_at: 125.days.ago,
+  )
+
+end
+
+
+# create patients who dropped off
+(1..2).each do |patient_number|
+  # initial create data from voicemail
+  patient = Patient.create!(
+    name: "Archive Dropoff Patient #{patient_number}",
+    primary_phone: "867-9#{patient_number}0-004#{rand(10)}",
+    voicemail_preference: "yes",
+    line: 'DC',
+    language: "Spanish",
+    initial_call_date: 640.days.ago,
+    last_menstrual_period_weeks: 6,
+    last_menstrual_period_days: 5,
+    created_by: User.first,
+    created_at: 640.days.ago,
+  )
+
+  # Call, but no answer. leave a VM.
+
+  patient.calls.create status: 'Left voicemail', created_by: User.first, created_at: 639.days.ago
+
+  # Call, which updates patient info, maybe flags urgent, make a note.
+  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 138.days.ago
+
+  # Patient 1 drops off immediately
+  next if patient_number.odd?
+
+  # We reach Patient 2
+  patient.update!(
+    # header info - hand filled in
+    appointment_date: 630.days.ago,
+
+    # patient info - hand filled in
+    age: 24,
+    race_ethnicity: "Hispanic/Latino",
+    city: "Washington",
+    state: "DC",
+    county: "Washington",
+    other_contact: "Susie Q.",
+    other_phone: "555-6#{patient_number}0-0053",
+    other_contact_relationship: "Mother",
+
+    employment_status: "Student",
+    income: "$10,000-14,999",
+    household_size_adults: 3,
+    household_size_children: 2,
+    insurance: "Other Insurance",
+    referred_by: "Clinic",
+    special_circumstances: ["", "", "Homelessness", "", "", "Other medical issue", "", "", ""],
+
+    # abortion info - hand filled in
+    clinic: Clinic.all.sample,
+    referred_to_clinic:  patient_number.odd? ? true : false,
+    resolved_without_fund:  patient_number.even? ? true : false,
+
+    updated_at: 638.days.ago, #not sure if this even works?
+  )
+
+  # notes tab
+  # toggle urgent, maybe
+  patient.update!(
+    urgent_flag: patient_number.odd? ? true : false,
+    updated_at: 637.days.ago,
+  )
+  # generate notes
+  patient.notes.create!(
+    full_text: "One note, with iffy PII! This one was from the first call!",
+    created_by: user,
+    created_at: 637.days.ago,
+  )
+
+  # Patient 2 drops off
+end
+
+
 
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \

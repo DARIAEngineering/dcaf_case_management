@@ -8,7 +8,7 @@ module LinesHelper
   end
 
   def current_line_display
-    "Your current line: #{session[:line]}" if session[:line]
+    t('navigation.current_line.helper') + ": #{session[:line]}" if session[:line]
   end
 
   def current_line

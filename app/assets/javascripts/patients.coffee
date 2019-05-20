@@ -23,7 +23,7 @@ valueToNumber = (val) ->
 
 markFulfilledWhenFieldsChecked = ->
   pledge_fields = [
-    '#patient_fulfillment_procedure_cost'
+    '#patient_fulfillment_fund_payout'
     '#patient_fulfillment_check_number'
     '#patient_fulfillment_gestation_at_procedure'
     '#patient_fulfillment_date_of_check'
@@ -58,14 +58,21 @@ $(document).on 'turbolinks:load', ->
   $(document).on "change", ".edit_patient", ->
     $(this).submit()
 
-  $(document).on "change", "#fulfillment", ->
+  $(document).on "change", "#pledge_fulfillment_form", ->
     markFulfilledWhenFieldsChecked()
     $(this).submit()
 
   $(document).on "change", ".edit_external_pledge", ->
     $(this).submit()
 
-  $(document).on "change", "#abortion-information-form input, #external_pledges input", ->
+  balanceFields = '#abortion-information-form input,
+  #external_pledges input,
+  #patient_procedure_cost,
+  #patient_patient_contribution,
+  #patient_naf_pledge,
+  #patient_fund_pledge'
+
+  $(document).on "change", balanceFields, ->
     updateBalance()
 
   $(document).on "submit", "#generate-pledge-form form", ->
@@ -81,13 +88,3 @@ $(document).on 'turbolinks:load', ->
 
   if $("#patient_procedure_cost").val()
     updateBalance()
-
-  # put a help icon next to form field labels that have the "tooltip-header" class
-  # the text that shows up in the tooltip is from the label's corresponding form field's "data-tooltip-text" attribute
-  $( '.tooltip-header' ).append( ' <span class="tooltip-header-help">(?)</span>' )
-  $( '.tooltip-header' ).parent( '.form-group' ).find( '.form-control' ).each ->
-    $(@).parents( '.form-group' ).find( '.tooltip-header-help' ).tooltip( {
-      html: true,
-      placement: 'top',
-      title: $(@).data( 'tooltip-text' )
-    } )

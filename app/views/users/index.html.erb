@@ -1,9 +1,7 @@
-<h1>User Account Management</h1>
+<h1><%= t('user.index.user_account_management') %></h1>
 <div class="row" style="padding-top: 10px; padding-bottom: 20px;">
   <div class="col-md-12">
-    <%= link_to "Add New User", new_user_path, class: "btn btn-primary" %>
-    <%= link_to "Reset Password (WIP)", "#", class: "btn btn-default", disabled: true %>
-    <%= link_to "Toggle Lock (WIP)", "#", class: "btn btn-default", disabled: true %>
+    <%= link_to t('user.index.add_new_user'), new_user_path, class: "btn btn-primary" %>
     <div style="float: right;">
       <%= render partial: 'users/search_form', locals: { autosortable: true } %>
     </div>

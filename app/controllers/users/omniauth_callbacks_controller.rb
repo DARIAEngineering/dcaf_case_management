@@ -3,7 +3,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   rescue_from Mongoid::Errors::DocumentNotFound,
               with: -> { redirect_to root_path }
 
+  # i18n-tasks-use  t('devise.sessions.failure.user.unauthenticated')
+  # i18n-tasks-use t('devise.sessions.user.signed_in')
+  # i18n-tasks-use t('devise.passwords.send_paranoid_instructions')
+  #
   def google_oauth2
+    response.headers['Content-Type'] = 'text/html'
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted?
@@ -18,7 +23,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def log_in_user_via_google
     flash[:notice] = I18n.t 'devise.omniauth_callbacks.success',
                             kind: 'Google'
-    sign_in_and_redirect @user, event: :authentication
+    sign_in @user, event: :authentication
+    redirect_to root_path
   end
 
   def reject_login

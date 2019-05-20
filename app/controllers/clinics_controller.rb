@@ -1,7 +1,7 @@
 # Clinic-related functionality.
 class ClinicsController < ApplicationController
   before_action :confirm_admin_user, except: [:index]
-  before_action :find_clinic, only: [:update, :edit, :destroy]
+  before_action :find_clinic, only: [:update, :edit]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
   def index
@@ -15,16 +15,18 @@ class ClinicsController < ApplicationController
   def create
     @clinic = Clinic.new clinic_params
     if @clinic.save
-      flash[:notice] = "#{@clinic.name} created!"
+      flash[:notice] = t('flash.clinic_created', clinic: @clinic.name)
       redirect_to clinics_path
     else
-      flash[:alert] = 'Errors prevented this clinic from being saved: ' \
-                      "#{@clinic.errors.full_messages.to_sentence}"
+      flash[:alert] = t('flash.error_saving_clinic', error: @clinic.errors.full_messages.to_sentence)
       render 'new'
     end
   end
 
   def new
+    # i18n-tasks-use t('mongoid.attributes.clinic.phone')
+    # i18n-tasks-use t('mongoid.attributes.clinic.fax')
+    # i18n-tasks-use t('mongoid.attributes.clinic.active')
     @clinic = Clinic.new
   end
 
@@ -32,14 +34,13 @@ class ClinicsController < ApplicationController
 
   def update
     if @clinic.update_attributes clinic_params
-      flash[:notice] = 'Successfully updated clinic details'
+      flash[:notice] = t('flash.clinic_details_updated')
+      redirect_to clinics_path
     else
-      flash[:alert] = 'Error saving clinic details'
+      flash[:alert] = t('flash.error_saving_clinic_details', error: @clinic.errors.full_messages.to_sentence)
+      render 'edit'
     end
-    redirect_to clinics_path
   end
-
-  # def destroy; end
 
   private
 
@@ -49,7 +50,8 @@ class ClinicsController < ApplicationController
 
   def clinic_params
     clinic_params = [:name, :street_address, :city, :state, :zip,
-                     :phone, :fax, :active, :accepts_naf, :accepts_medicaid, :gestational_limit]
+                     :phone, :fax, :active, :accepts_naf, :accepts_medicaid,
+                     :gestational_limit]
     cost_params = (5..30).map { |i| "costs_#{i}wks".to_sym }
 
     params.require(:clinic).permit(

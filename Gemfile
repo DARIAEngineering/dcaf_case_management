@@ -1,80 +1,110 @@
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.6.2'
 
-gem 'rails', '>= 5.0.0', '< 5.1'
+# Standard rails
+gem 'rails', '~> 5.2.0'
+gem 'puma' # roar
+gem 'turbolinks', '~> 5.2.0'
+gem 'jbuilder', '~> 2.0'
+gem 'sdoc', '~> 1.0.0', group: :doc
+gem 'nokogiri', '>= 1.10.3'
+gem 'tzinfo-data', require: false
+gem 'bootsnap', '>= 1.1.0', require: false
+
+# Asset pipeline
+gem 'webpacker', '~> 4'
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 3.2.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'uglifier', '~> 4.1'
+gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks', '~> 5.0.0'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'prawn'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
-gem 'bootstrap_form'
-gem 'bootstrap_form-datetimepicker'
-gem 'devise', '~> 4.2.1'
-gem 'omniauth-google-oauth2', '0.2.1' # TODO upgrade
-gem 'omniauth-oauth2', '1.3.1' # TODO remove this pin
-gem 'mongoid', '6.1.0'
-gem 'mongoid-history', '0.6.1'
-gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git', branch: 'master'
-gem 'mongo_session_store', '>= 3.1.0'
-gem 'enumerize'
+
+# Our database is MongoDB
+gem 'mongoid', '>= 6.2.0', '< 7'
 gem 'bson_ext'
-gem 'figaro'
-gem 'render_async', '~> 0.2.3'
-gem 'gon', '~> 6.1.0'
-gem 'nokogiri', '>= 1.7.2'
-gem 'tzinfo-data', require: false
-gem 'js-routes'
-gem 'rack-attack', '~> 5.0.1'
-gem 'rack-test', '~> 0.6.3', require: 'rack/test'
-gem 'clinic_finder', '~> 0.0.1'
-gem 'geokit'
-gem 'secure_headers', '~> 3.6', '>= 3.6.4'
+gem 'mongoid-history', '< 1.0' # gives us object history
+gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git',
+                         branch: 'master' # adds created_by and updated_by timestamps
+gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
+gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
+gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
+
+# Our authentication library is devise, with oauth2 for google signin
+gem 'devise', '~> 4.6'
+gem 'omniauth-google-oauth2', '~> 0.6.0'
+
+# We use `bootstrap_form_for` in views
+gem 'bootstrap_form'
+
+# Security libraries
+gem 'rack-attack', '~> 5.4.1'
+
+# For pagination
+gem 'kaminari-mongoid', '~> 1.0'
+gem 'kaminari', '~> 1.1'
+
+# Specific useful stuff
+gem 'render_async', '< 2.0' # load slow partials asynchronously
+gem 'prawn' # pledge pdf generation
+gem 'geokit' # clinic_finder service lat-lng
+
+# Stuff that we're targeting removal of
+gem 'figaro' # we handle secrets differently now
+gem 'js-routes' # Not sure if this is used anymore
+gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
+
+# Stuff we're hardsetting because of security concerns
+gem 'loofah', '>= 2.2.3'
+gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do
-  gem 'pry'
-  gem 'rubocop', require: false
-  gem 'brakeman', require: false
-  gem 'ruby_audit', require: false
+  gem 'i18n-tasks', '~> 0.9.28' # check and clean i18n keys
+  gem 'shog' # makes rails s output color!
+  gem 'listen' # used by systemtests
+  gem 'rubocop', require: false # our code style / linting system
+
+  # Security scanners that also run in CI. They run with bundle exec.
+  gem 'ruby_audit', require: false #
   gem 'bundler-audit', require: false
-  # gem 'dawnscanner', require: false # disable until dawnscanner fixes CD prob
 end
 
 group :development, :test do
-  gem 'byebug'
+  gem 'pry' # pop `pry` in controller code to open up an IRB terminal
+  gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
   gem 'spring'
-  gem 'knapsack'
-
-  # better error handling
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  gem 'knapsack' # lets us split up our tets so they run faster in CI
 end
 
 group :test do
-  gem 'shoulda-context'
-  gem 'minitest-reporters'
-  gem 'mini_backtrace'
+  # Useful minitest tools
   gem 'minitest-spec-rails'
-  gem 'factory_girl_rails'
-  gem 'faker'
-  gem 'database_cleaner'
-  gem 'capybara'
-  gem 'poltergeist'
-  gem 'simplecov', require: false
-  gem 'launchy'
-  gem 'codecov', require: false
-  gem 'timecop'
-  gem 'capybara-screenshot'
   gem 'minitest-ci'
-  gem 'pdf-inspector', require: "pdf/inspector"
+  gem 'factory_bot_rails'
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'timecop'
+
+  # Systemtest related tools
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'capybara-screenshot'
+  gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
+
+  # Test coverage related libraries
+  gem 'simplecov', require: false
+  gem 'codecov', require: false
+
+  # Specifics
+  gem 'shoulda-context'
+  gem 'minitest-optional_retry' # retry flaky tests 3 times
+  gem 'mini_backtrace' # settle down minitest output
+  gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
+  gem 'minitest-stub-const'
+  gem 'rack-test', '~> 0.6.3', require: 'rack/test' # needed to test rack-attack
 end
 
 group :production do
-  gem 'puma'
-  gem 'skylight'
-  gem 'sqreen'
+  gem 'skylight' # our newrelic-style efficiency monitoring platform
+  gem 'sqreen' # an active security monitoring platform
 end

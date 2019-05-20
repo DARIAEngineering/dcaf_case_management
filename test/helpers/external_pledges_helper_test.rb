@@ -17,16 +17,20 @@ class ExternalPledgesHelperTest < ActionView::TestCase
       expected_external_pledges_array = ["Baltimore Abortion Fund",
         "Tiller Fund (NNAF)",
         "NYAAF (New York)",
-        "Clinic discount",
-        "Other funds (see notes)"]
+        ["Clinic discount", "Clinic discount"],
+        ["Other funds (see notes)","Other funds (see notes)"]]
       assert_same_elements @options, expected_external_pledges_array
     end
 
     it 'should remove preselected options' do
       @patient = create :patient
-      create :external_pledge, source: 'Baltimore Abortion Fund',
-                               amount: 100,
-                               patient: @patient
+
+      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                       amount: 100,
+                                       created_by: @user
+      #create :external_pledge, source: 'Baltimore Abortion Fund',
+      #                         amount: 100,
+      #                         patient: @patient
 
       refute_includes available_pledge_source_options_for(@patient),
                       'Baltimore Abortion Fund'
@@ -41,8 +45,8 @@ class ExternalPledgesHelperTest < ActionView::TestCase
         @options = external_pledge_source_options
       end
 
-      expected_external_pledges_array = ['Clinic discount',
-                                         'Other funds (see notes)']
+      expected_external_pledges_array = [["Clinic discount", "Clinic discount"],
+                                         ["Other funds (see notes)","Other funds (see notes)"]]
       assert_same_elements @options, expected_external_pledges_array
 
       assert Config.find_by(config_key: 'external_pledge_source')

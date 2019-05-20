@@ -13,7 +13,11 @@ Lint/AmbiguousRegexpLiteral:
 Rails:
   Enabled: true
 
+Bundler/OrderedGems:
+  Enabled: false
+
 AllCops:
+  TargetRubyVersion: 2.6.2
   Exclude: 
     - db/**/*
     - bin/**/*

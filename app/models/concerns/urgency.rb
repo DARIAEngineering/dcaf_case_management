@@ -4,7 +4,7 @@ module Urgency
 
   def still_urgent?
     # Verify that a pregnancy has not been marked urgent in the past six days
-    return false if recent_history_tracks.count == 0
+    return false if recent_history_tracks.count.zero?
     return false if pledge_sent || resolved_without_fund
     recent_history_tracks.sort.reverse.each do |history|
       return true if history.marked_urgent?
@@ -12,18 +12,21 @@ module Urgency
     false
   end
 
+  def confirm_still_urgent
+    if urgent_flag
+      update urgent_flag: false unless still_urgent?
+    end
+    true
+  end
+
   class_methods do
-    def urgent_patients(lines = LINES)
-      Patient.in(line: lines).where(urgent_flag: true)
+    def urgent_patients(line)
+      Patient.where(line: line, urgent_flag: true)
     end
 
     def trim_urgent_patients
-      Patient.all do |patient|
-        unless patient.still_urgent?
-          patient.urgent_flag = false
-          patient.save
-        end
-      end
+      Patient.where(urgent_flag: true)
+             .each(&:confirm_still_urgent)
     end
   end
 

@@ -3,7 +3,7 @@ module NotesHelper
   def plus_sign_glyphicon(note)
     return nil unless note && note.try(:full_text).length > 31
     note = tag(:span, class: 'glyphicon glyphicon-plus-sign',
-                      title: 'Most recent note',
+                      title: t('note.most_recent_no_user'),
                       aria: { hidden: true },
                       data: { toggle: 'popover', placement: 'bottom',
                               content: note.full_text })
@@ -15,8 +15,7 @@ module NotesHelper
     return nil if note.try(:full_text).blank?
     info = content_tag :p do
       content_tag(:strong) do
-        "Most recent note from #{note.created_by.name} " \
-        "at #{note.created_at.display_timestamp}:"
+        t('note.most_recent', by: "#{note.created_by.name}", at: "#{note.created_at.display_timestamp}")
       end
     end
     text = content_tag(:p) { note.full_text[0..400] }

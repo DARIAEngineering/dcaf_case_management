@@ -1,0 +1,9 @@
+<div id='activity_log' class='margin-bottom'>
+  <h1 class='border-bottom title'>
+    <%= t 'dashboard.activity_log.label', current_line: current_line %>
+  </h1>
+
+  <div id="activity_log_content">
+    <%= render_async events_path, nonce: true, 'data-turbolinks-track': 'reload' %>
+  </div>
+</div>

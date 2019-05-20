@@ -1,0 +1,5 @@
+<% if not patient.pledge_sent? %>
+  <%= link_to submit_pledge_button, submit_pledge_path(patient), class:'submit-pledge-button', remote: true %>
+<% else %>
+  <%= link_to cancel_pledge_button, submit_pledge_path(patient), class:'submit-pledge-button', remote: true %>
+<% end %>

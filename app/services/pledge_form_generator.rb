@@ -77,9 +77,9 @@ class PledgeFormGenerator
       pdf.text case_manager_name
       pdf.text 'DC Abortion Fund'
       pdf.text 'P.O. Box 65061'
-      pdf.text 'Tel: 202-452-7464'
-      pdf.text 'E-mail: info@dcabortionfund.org'
-      pdf.text 'Web: www.dcabortionfund.org'
+      pdf.text "Tel: #{FUND_PHONE}"
+      pdf.text "E-mail: info@#{FUND_DOMAIN}"
+      pdf.text "Web: #{FUND_DOMAIN}"
     end
   end
 

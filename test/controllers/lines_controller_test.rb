@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Test lines setting behavior
 class LinesControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
@@ -11,12 +12,21 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'new' do
-    before do
-      get new_line_path
+    describe 'instance with multiple lines' do
+      it 'should return success' do
+        get new_line_path
+        assert_response :success
+      end
     end
 
-    it 'should return success' do
-      assert_response :success
+    describe 'instance with one line' do
+      it 'should redirect to patient dashboard' do
+        Object.stub_const(:LINES, ['DC']) do
+          get new_line_path
+          assert_equal 'DC', session[:line]
+          assert_redirected_to authenticated_root_path
+        end
+      end
     end
   end
 

@@ -1,44 +1,37 @@
-<div class="row">
-  <h1><%= @user.name %></h1>
-</div>
-<div class="row">
-  <div class="col-sm-12">
-    <h3> Status: <%= user_lock_status(@user) %></h3>
-    <h3> Last login: <%= @user.last_sign_in_at %> </h3>
+<div class="col-sm-12">
+  <div class="row" id='user-topline'>
+    <h1><%= @user.name %></h1>
+    <h5><%= t('user.common.role') %>: <%= @user.role.to_s %></h5>
+    <h5><%= t('common.status') %>: <%= user_lock_status(@user) %></h5>
+    <h5><%= t('user.common.last_login') %>: <%= @user.current_sign_in_at&.display_timestamp %></h5>
   </div>
-</row>
-<div class="row">
-  <div class="col-sm-12">
-    <%#= link_to "Reset Password", reset_password_path(@user), class: "btn btn-primary" %>
-    <% if @user != current_user %>
-      <% if @user.access_locked? %>
-        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
-        <%#= link_to "Unlock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-      <% else %>
-        <button type="button" class="btn btn-primary">Toggle Lock (WIP)</button>
-        <%#= link_to "Lock Account", toggle_lock_path(@user), class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-  </div>
-</row>
-<div class="row">
-  <div class="col-sm-12">
-    <h3> User details </h3>
-    <%= bootstrap_form_for @user, html: { id: 'user-form' } do |f| %>
 
-      <div class="col-sm-6">
-        <%= f.text_field :name, label: 'Name', autocomplete: 'off' %>
+  <% if @user != current_user && current_user.admin? %>
+    <div class="row" id='user-panel'>
+      <h3><%= t('user.edit.admin_actions') %></h3>
 
-        <%= f.text_field :email, label: 'Email', autocomplete: 'off' %>
-
-        <%= f.select :role,
-                   options_for_select(user_role_options,
-                                      @user.role),
-                                      label: 'Role' %>
-
-        <%= f.submit "Save", class: 'btn btn-primary' %>
-        <%= link_to "Cancel", users_path %>
+      <h5><%= t('user.edit.lock_an_account') %></h5>
+      <div class="authorization-buttons">
+        <%= disabled_toggle_button(@user) %>
       </div>
+        
+      <h5><%= t('user.edit.update_users_role_permissions') %></h5>
+      <div class="btn-group" role='group'>
+        <%= role_toggle_button @user, 'admin' %>
+        <%= role_toggle_button @user, 'data_volunteer' %>
+        <%= role_toggle_button @user, 'cm' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row" id='user-details-update'>
+    <h3><%= t('user.edit.update_details') %></h3>
+    <%= bootstrap_form_for @user, html: { id: 'user-form' } do |f| %>
+      <%= f.text_field :name, label: t('common.name'), autocomplete: 'off' %>
+
+      <%= f.text_field :email, label: t('common.email'), autocomplete: 'off' %>
+
+      <%= f.submit t('common.save'), class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>

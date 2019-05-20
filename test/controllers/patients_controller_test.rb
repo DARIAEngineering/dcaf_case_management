@@ -7,11 +7,14 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     @data_volunteer = create :user, role: :data_volunteer
 
     sign_in @user
+    @clinic = create :clinic
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
-    @clinic = create :clinic
+    @archived_patient = create :archived_patient,
+                      line: 'DC',
+                      initial_call_date: 400.days.ago
   end
 
   describe 'index method' do
@@ -33,8 +36,9 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should not serve html' do
       sign_in @data_volunteer
-      get patients_path
-      assert_response :not_acceptable
+      assert_raise ActionController::UnknownFormat do
+        get patients_path
+      end
     end
 
     it 'should get csv when user is admin' do
@@ -55,12 +59,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       assert_equal 'text/csv', response.content_type.split(';').first
     end
 
-    it 'should consist of a header line and the patient record' do
+    it 'should consist of a header line, the patient record, and the archived patient record' do
       sign_in @data_volunteer
       get patients_path(format: :csv)
       lines = response.body.split("\n").reject(&:blank?)
-      assert_equal 2, lines.count
+      assert_equal 3, lines.count
       assert_match @patient.id.to_s, lines[1]
+      assert_match @archived_patient.id.to_s, lines[2]
     end
 
     it 'should not contain personally-identifying information' do
@@ -135,11 +140,25 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       @payload = {
         appointment_date: @date.strftime('%Y-%m-%d'),
         name: 'Susie Everyteen 2',
-        resolved_without_fund: true
+        resolved_without_fund: true,
+        fund_pledge: 100,
+        clinic_id: @clinic.id
       }
 
-      patch patient_path(@patient), params: { patient: @payload }
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
       @patient.reload
+    end
+
+    it 'should update pledge fields' do
+      @payload[:pledge_sent] = true
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      @patient.reload
+      assert_kind_of Time, @patient.pledge_sent_at
+      assert_kind_of Object, @patient.pledge_sent_by
+    end
+
+    it 'should update last edited by' do
+      assert_equal @user, @patient.last_edited_by
     end
 
     it 'should respond success on completion' do
@@ -149,7 +168,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should respond not acceptable error on failure' do
       @payload[:primary_phone] = nil
-      patch patient_path(@patient), params: { patient: @payload }
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
       assert_response :not_acceptable
     end
 
@@ -237,4 +256,45 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'destroy' do
+    describe 'authorization' do
+      it 'should allow admins only' do
+        [@user, @data_volunteer].each do |user|
+          delete destroy_user_session_path
+          sign_in @user
+
+          assert_no_difference 'Patient.count' do
+            delete patient_path(@patient)
+          end
+          assert_redirected_to root_url
+        end
+      end
+    end
+
+    describe 'behavior' do
+      before do
+        delete destroy_user_session_path
+        sign_in @admin
+      end
+
+      it 'should destroy a patient' do
+        assert_difference 'Patient.count', -1 do
+          delete patient_path(@patient)
+        end
+        refute_nil flash[:notice]
+      end
+
+      it 'should prevent a patient from being destroyed under some circumstances' do
+        @patient.update appointment_date: 2.days.from_now,
+                        clinic: (create :clinic),
+                        fund_pledge: 100,
+                        pledge_sent: true
+
+        assert_no_difference 'Patient.count' do
+          delete patient_path(@patient)
+        end
+        refute_nil flash[:alert]
+      end
+    end
+  end
 end

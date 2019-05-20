@@ -1,5 +1,10 @@
-$('#search_results_shell').empty();
+$('#accounting-list').empty();
 
 <% if @results.any? %>
-  $("#search_results_shell").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { title: 'Search Results', table_type: 'search_results', patients: @results } ) %>");
+  // Nuke pagination div on search for simplicity's sake
+  $('#pagination-entries').empty();
+  $('nav.pagination').empty();
+
+  // And refresh the table content
+  $("#accounting-list").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @results, autosortable: true } ) %>");
 <% end %>

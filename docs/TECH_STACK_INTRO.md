@@ -8,7 +8,7 @@ If you're new to programming or Rails, RailsBridge is a non-profit that has writ
 * The full documentation of Rails is at http://api.rubyonrails.org, which you'll usually get to if you Google a Rails method.
 
 ### MongoDB
-MongoDB is a NoSQL database that stores data as collections and documents (rather than rows and columns that you be familiar with from more SQL-ish databases). 
+MongoDB is a NoSQL database that stores data as collections and documents (rather than rows and columns that you be familiar with from more SQL-ish databases). The important difference to understand is that everything is stored in database as JSON instead of columns.
 
 * Here are [the MongoDB docs](https://docs.mongodb.com/manual/)!
 * Since this is a Rails app, you'll be interacting with Mongo primarily through [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html), so you won't have to write Mongo-specific queries immediately, depending on the feature you're working on.
@@ -27,7 +27,6 @@ We love tests! All the tests can be found in the test directory, and it's a grea
 
 * [Capybara](http://teamcapybara.github.io/capybara/) is a Ruby integration testing library that can uses browser (in our case, a headless one, meaning you don't see it) to fill in forms, click buttons, and generally interact with the app, and then verifies that things worked as we expected!
 * Here are [the Capybara docs](http://www.rubydoc.info/github/teamcapybara/capybara/master)
-* [PhantomJS](http://phantomjs.org/) is the driver that we use to run these tests -- it's the technology that actually spins up the browser that the Capybara tests run against. If everything goes as planned, you won't have to interact directly with PhantomJS at all! :ghost:
 
 ---
 
@@ -35,7 +34,6 @@ We love tests! All the tests can be found in the test directory, and it's a grea
 We love our case managers and the UX team that figures out how we can help them be more happy and more efficient. Check out these resources for more context about the hows and whys of this app:
 * [The DCAF website](http://dcabortionfund.org)
 * [DCAF 101](DCAF-101.md), and explanation of how case managers use the app
-* Our design team's [InVision prototype](https://projects.invisionapp.com/share/6757W6WFJ)
 * Join and read through the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/)
 * Read this [blog post about how we're using agile-ish](http://codefordc.org/blog/2016/09/12/code-for-dcaf.html)
 * Read [the README](https://github.com/DCAFEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:

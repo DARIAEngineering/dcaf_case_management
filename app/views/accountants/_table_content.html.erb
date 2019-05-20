@@ -1,27 +1,22 @@
-<!-- locals: -->
+<table class="table border-side">
+  <thead>
+    <tr>
+      <th><%= t 'accountants.table_content.clinic' %></th>
+      <th><%= t 'accountants.table_content.pt_initials' %></th>
+      <th><%= t 'accountants.table_content.fund_payout', fund: FUND %></th>
+      <th><%= t 'accountants.table_content.weeks_at_procedure' %></th>
+      <th><%= t 'accountants.table_content.pledge_sent' %></th>
+      <th><%= t 'accountants.table_content.check_number' %></th>
+      <th><%= t 'accountants.table_content.date_of_check' %></th>
+      <th></th>
+    </tr>
+  </thead>
 
-<div id="<%= table_type %>" class="margin-bottom">
-  <h1 class="border-bottom title"><%= title %></h1>
-  <table class="table border-side">
-    <thead>
-      <tr>
-        <th>Patient ID</th>
-        <th>Name</th>
-        <th>Pledge Sent Date</th>
-        <th>Clinic Name</th>
-        <th>Clinic Location</th>
+  <tbody id="patient_information_form">
+    <% patients.each do |patient| %>
+      <tr id='row-<%= patient.id %>'>
+        <%= render 'accountants/table_content_row', patient: patient %>
       </tr>
-    </thead>
-    <tbody id="<%= table_type %>_content">
-      <% patients.each do |patient| %>
-        <tr class="pregnancy-data" id="<%= patient.id %>">
-          <td><%= patient.identifier %></td>
-          <td><%= link_to patient.name, edit_patient_path(patient) %></td>
-          <td><!-- patient.most_recent_pledge_display_date --></td>
-          <td><%= patient.clinic.try :name %></td>
-          <td></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  </tbody>
+</table>

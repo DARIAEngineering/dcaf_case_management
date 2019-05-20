@@ -5,8 +5,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery prepend: true, with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :prevent_caching_via_headers, unless: :devise_controller?
-  before_action :authenticate_user!
+  before_action :prevent_caching_via_headers
+  before_action :set_locale
+  prepend_before_action :authenticate_user!
+  prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
   # whitelists attributes in devise
   def configure_permitted_parameters
@@ -14,6 +16,19 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) do |user|
       user.permit :name, :current_password, :password, :password_confirmation
     end
+  end
+
+  def set_locale
+    I18n.locale = if params[:locale].present?
+                    params[:locale]
+                  else
+                    I18n.default_locale
+                  end
+  end
+
+  def default_url_options
+    return { :locale => I18n.locale } if I18n.locale != I18n.default_locale
+    {}
   end
 
   private
@@ -29,7 +44,22 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user.admin?
   end
 
-  def redirect_unless_has_data_access
-    redirect_to root_url unless current_user.allowed_data_access?
+  def confirm_admin_user_async
+    head :unauthorized unless current_user.admin?
+  end
+
+  def confirm_data_access
+    redirect_to root_path unless current_user.allowed_data_access?
+  end
+
+  def confirm_data_access_async
+    head :unauthorized unless current_user.allowed_data_access?
+  end
+
+  def confirm_user_not_disabled!
+    if current_user.disabled_by_fund?
+      flash[:danger] = t('flash.account_locked')
+      sign_out current_user
+    end
   end
 end

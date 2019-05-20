@@ -44,62 +44,67 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should return recently_called_patients accurately' do
-      assert_equal 0, @user.recently_called_patients.count
+      assert_equal 0, @user.recently_called_patients('DC').count
 
-      create :call, patient: @patient, created_by: @user
-      assert_equal 1, @user.recently_called_patients.count
-
-      create :call, patient: @md_patient, created_by: @user
-      assert_equal 2, @user.recently_called_patients.count
+      @patient.calls.create attributes_for(:call, created_by: @user)
+      @patient_2.calls.create attributes_for(:call, created_by: @user)
+      @md_patient.calls.create attributes_for(:call, created_by: @user)
+      assert_equal 2, @user.recently_called_patients('DC').count
       assert_equal 1, @user.recently_called_patients('MD').count
     end
 
     it 'should return call_list_patients accurately' do
-      assert_equal 3, @user.call_list_patients.count
       assert_equal 2, @user.call_list_patients('DC').count
+      assert_equal 1, @user.call_list_patients('MD').count
 
-      create :call, patient: @patient, created_by: @user
+      @patient.calls.create attributes_for(:call, created_by: @user)
       assert_equal 1, @user.call_list_patients('DC').count
 
-      create :call, patient: @patient_2, created_by: @user_2
+      @patient_2.calls.create attributes_for(:call, created_by: @user_2)
       assert_equal 1, @user.call_list_patients('DC').count
     end
 
-    it 'should clear calls when patient has been reached' do
-      assert_equal 0, @user.recently_called_patients.count
-      @call = create :call, patient: @patient,
-                            created_by: @user,
-                            status: 'Reached patient'
-      assert_equal 1, @user.recently_called_patients.count
-      @user.clear_call_list
-      assert_equal 0, @user.recently_called_patients.count
+    it 'should clean calls when patient has been reached' do
+      assert_equal 0, @user.recently_called_patients('DC').count
+      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+      @call = @patient.calls.first
+      assert_equal 1, @user.recently_called_patients('DC').count
+      @user.clean_call_list_between_shifts
+      assert_equal 0, @user.recently_called_patients('DC').count
     end
 
     it 'should not clear calls when patient has not been reached' do
-      assert_equal 0, @user.recently_called_patients.count
-      @call = create :call, patient: @patient,
-                            created_by: @user,
-                            status: 'Left voicemail'
-      assert_equal 1, @user.recently_called_patients.count
-      @user.clear_call_list
-      assert_equal 1, @user.recently_called_patients.count
+      assert_equal 0, @user.recently_called_patients('DC').count
+      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Left voicemail' )
+      @call = @patient.calls.first
+      assert_equal 1, @user.recently_called_patients('DC').count
+      @user.clean_call_list_between_shifts
+      assert_equal 1, @user.recently_called_patients('DC').count
     end
 
     it 'should clear patient list when user has not logged in' do
       assert_not @user.patients.empty?
       last_sign_in = Time.zone.now - User::TIME_BEFORE_INACTIVE - 1.day
-      @user.last_sign_in_at = last_sign_in
-      @user.clear_call_list
+      @user.current_sign_in_at = last_sign_in
+      @user.clean_call_list_between_shifts
 
       assert @user.patients.empty?
     end
 
     it 'should not clear patient list if user signed in recently' do
       assert_not @user.patients.empty?
-      @user.last_sign_in_at = Time.zone.now
-      @user.clear_call_list
+      @user.current_sign_in_at = Time.zone.now
+      @user.clean_call_list_between_shifts
 
       assert_not @user.patients.empty?
+    end
+
+    it 'should clear call list when someone invokes the cleanout' do
+      assert_difference '@user.patients.count', -3 do
+        assert_no_difference 'Patient.count' do
+          @user.clear_call_list
+        end
+      end
     end
   end
 
@@ -132,11 +137,7 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'should let you reorder a call list' do
-        assert_equal @patient_3, @user.ordered_patients.first
-        assert_equal @patient, @user.ordered_patients[1]
-        assert_equal @patient_2, @user.ordered_patients[2]
-
-        # and in line scope
+        assert_equal @patient_3, @user.ordered_patients('DC').first
         assert_equal @patient_2, @user.ordered_patients('DC')[1]
       end
 
@@ -144,7 +145,7 @@ class UserTest < ActiveSupport::TestCase
         @patient_4 = create :patient
         @user.add_patient @patient_4
 
-        assert @user.ordered_patients.include? @patient_4
+        assert @user.ordered_patients('DC').include? @patient_4
         assert @user.call_order.index(@patient_4.id.to_s) == 0
       end
     end
@@ -196,6 +197,42 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should not allow for CMs' do
       refute create(:user, role: :cm).allowed_data_access?
+    end
+  end
+
+  describe 'manual account shutoff (disabled_by_fund)' do
+    before { @user = create :user }
+    it 'should default to enabled' do
+      refute @user.disabled_by_fund?
+    end
+
+    it 'is toggleable' do
+      @user.toggle_disabled_by_fund
+      @user.reload
+      assert @user.disabled_by_fund
+    end
+
+    describe 'nightly cleanup task - disable_inactive_users' do
+      before do
+        @disabled_user = create(:user, current_sign_in_at: 10.months.ago)
+        @admin = create(:user, role: :admin, current_sign_in_at: 11.months.ago)
+        @no_login_user = create(:user, created_at: 12.months.ago)
+        @nondisabled_user = create(:user, current_sign_in_at: 8.months.ago)
+        User.disable_inactive_users
+      end
+
+      it 'should find inactive users with logins before cutoff and disable' do
+        [@disabled_user, @no_login_user].each do |user|
+          user.reload
+          assert user.disabled_by_fund?
+        end
+
+        # No locking admins or users with recent activity
+        [@admin, @nondisabled_user].each do |user|
+          user.reload
+          assert_not user.disabled_by_fund?
+        end
+      end
     end
   end
 end

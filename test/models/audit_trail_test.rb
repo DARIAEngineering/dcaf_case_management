@@ -5,8 +5,8 @@ class AuditTrailTest < ActiveSupport::TestCase
     @user = create :user
     @patient = create :patient, name: 'Susie Everyteen',
                                 primary_phone: '111-222-3333',
-                                appointment_date: 5.days.from_now,
-                                initial_call_date: 3.days.ago,
+                                appointment_date: Time.zone.now + 5.days,
+                                initial_call_date: Time.zone.now + 3.days,
                                 created_by: @user
   end
 
@@ -23,10 +23,13 @@ class AuditTrailTest < ActiveSupport::TestCase
 
   describe 'methods' do
     before do
+      @clinic = create :clinic
       @patient.update_attributes name: 'Yolo',
                                  primary_phone: '123-456-9999',
-                                 appointment_date: 10.days.from_now,
-                                 initial_call_date: 4.days.ago
+                                 appointment_date: Time.zone.now + 10.days,
+                                 city: 'Canada',
+                                 clinic: @clinic,
+                                 special_circumstances: ['A', '', 'C', '']
       @track = @patient.history_tracks.second
     end
 
@@ -35,34 +38,20 @@ class AuditTrailTest < ActiveSupport::TestCase
                    @track.date_of_change
     end
 
-
-    it 'should conveniently render changed fields' do
-      assert_equal @track.changed_fields,
-                   ["Name", "Primary phone", "Appointment date", "Initial call date", "Identifier"]
-    end
-
-    it 'should conveniently render what they were before' do
-      assert_equal @track.changed_from,
-                   ["Susie Everyteen",
-                     "1112223333",
-                     5.days.from_now.strftime('%m/%d/%Y'),
-                     3.days.ago.strftime('%m/%d/%Y'),
-                     "D2-3333"]
-    end
-
-    it 'should conveniently render what they are now' do
-      assert_equal @track.changed_to,
-                  ["Yolo",
-                    "1234569999",
-                    10.days.from_now.strftime('%m/%d/%Y'),
-                    4.days.ago.strftime('%m/%d/%Y'),
-                    "D6-9999"]
-    end
-
     it 'should default to System if it cannot find a user' do
       assert_equal @track.changed_by_user, 'System'
     end
 
+    it 'should return shaped changes as a single dict' do
+      assert_equal @track.shaped_changes,
+                   { 'name' => { original: 'Susie Everyteen', modified: 'Yolo' },
+                     'primary_phone' => { original: '1112223333', modified: '1234569999' },
+                     'appointment_date' =>{ original: (Time.zone.now + 5.days).display_date, modified: (Time.zone.now + 10.days).display_date },
+                     'special_circumstances' =>{ original: '(empty)', modified: 'A, C' },
+                     'city' =>{ original: '(empty)', modified: 'Canada' },
+                     'clinic_id' =>{ original: '(empty)', modified: @clinic.name },
+                   }
+    end
   end
 
   describe 'marked urgent' do

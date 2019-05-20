@@ -1,3 +1,23 @@
 // Place all the styles related to the clinicfinders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.clinic_finder_container {
+  background-color: #ccc;
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
+
+
+  .button-right {
+    float: right;
+  }
+  .display_button {
+    color:black;
+    text-decoration: none;
+  }
+}
+
+#clinic-finder-results {
+  z-index: 999;
+}

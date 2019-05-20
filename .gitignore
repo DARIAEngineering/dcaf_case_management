@@ -77,8 +77,17 @@ config/initializers/secret_token.rb
 # Ignore application configuration
 /config/application.yml
 
+# VS Code
+.vscode/
+
 .sass-cache
 .jekyll-metadata
 .byebug_history
 .ruby-version
 /test/reports/
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
+yarn-error.log

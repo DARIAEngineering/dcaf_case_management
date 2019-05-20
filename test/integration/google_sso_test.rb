@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# Test oauth sign in behavior
 class GoogleSSOTest < ActionDispatch::IntegrationTest
   describe 'access top page' do
     before do
@@ -11,6 +12,7 @@ class GoogleSSOTest < ActionDispatch::IntegrationTest
       visit root_path
       wait_for_element 'Sign in with Google'
       click_button 'Sign in with Google'
+      wait_for_no_element 'Sign in with Google'
 
       assert has_content? @user.name
     end
