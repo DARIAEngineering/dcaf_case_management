@@ -346,3 +346,19 @@ $daria-color-lt : #825fb9;
 #flash {
   position: fixed;
 }
+
+.input-group-prepend {
+  @extend .input-group-addon;
+}
+
+.form-check label{
+  min-height: 20px;
+  padding-left: 5px;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.form-check-label{
+  display: inline;
+}
