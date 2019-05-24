@@ -87,27 +87,29 @@
 
 
 
-          <p style="font-weight:bold"><%= t 'patient.information.special_circumstances.title' %></p>
-          <%= f.form_group :special_circumstances do %>
-            <div class="col-sm-6">
-              <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.fetal_diagnosis'), name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Fetal diagnosis'), namespace: 'Fetal' }, 'Fetal diagnosis', '' %>
-              <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.homelessness'), name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Homelessness'), namespace: 'Home' }, 'Homelessness', '' %>
-              <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.domestic_violence'), name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Domestic violence'), namespace: 'Domestic' }, 'Domestic violence', '' %>
-              <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.other_medical_issue'), name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Other medical issue'), namespace: 'Other' }, 'Other medical issue', '' %>
-            </div>
-            <div class="col-sm-6">
-            <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.rape'), name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Rape'), namespace: 'Rape' }, 'Rape', '' %>
-            <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.incest'), name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Incest'), namespace: 'Incest' }, 'Incest', '' %>
-            <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.prison'), name: 'patient[special_circumstances][]',
-                              checked: patient.special_circumstances.include?('Prison'), namespace: 'Prison' }, 'Prison', '' %>
-            </div>
-          <% end %>
+          <fieldset>
+            <legend style="font-weight:bold" id="special_circumstances_label"><%= t 'patient.information.special_circumstances.title' %></legend>
+            <%= f.form_group :special_circumstances do %>
+              <div class="col-sm-6">
+                <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.fetal_diagnosis'), name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Fetal diagnosis'), id: 'Fetal_patient_special_circumstances' }, 'Fetal diagnosis', '' %>
+                <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.homelessness'), name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Homelessness'), id: 'Home_patient_special_circumstances' }, 'Homelessness', '' %>
+                <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.domestic_violence'), name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Domestic violence'), id: 'Domestic_patient_special_circumstances' }, 'Domestic violence', '' %>
+                <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.other_medical_issue'), name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Other medical issue'), id: 'Other_patient_special_circumstances' }, 'Other medical issue', '' %>
+              </div>
+              <div class="col-sm-6">
+              <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.rape'), name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Rape'), id: 'Rape_patient_special_circumstances' }, 'Rape', '' %>
+              <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.incest'), name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Incest'), id: 'Incest_patient_special_circumstances' }, 'Incest', '' %>
+              <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.prison'), name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Prison'), id: 'Prison_patient_special_circumstances' }, 'Prison', '' %>
+              </div>
+            <% end %>
+          </fieldset>
         </div>
       </div>
     </div>

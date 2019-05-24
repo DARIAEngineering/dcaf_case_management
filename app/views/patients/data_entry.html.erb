@@ -20,7 +20,8 @@
       <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options), label: t('patient.dashboard.weeks_along'), autocomplete: 'off' %>
     </div>
     <div class="col-sm-6 hide-label">
-      <%= f.select :last_menstrual_period_days, options_for_select(days_options), label: '.', autocomplete: 'off' %>
+      <%= f.select :last_menstrual_period_days, options_for_select(days_options, patient.last_menstrual_period_days ), autocomplete: 'off', skip_label: true, help: t('patient.dashboard.called_on', date: patient.initial_call_date.strftime("%m/%d/%Y")) %>
+      <%= f.label :last_menstrual_period_days, t('common.days_along'), class: "sr-only" %>
     </div>
   </div>
 
