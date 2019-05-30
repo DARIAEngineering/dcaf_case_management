@@ -3,7 +3,7 @@
 <div id="<%= table_type %>" class="margin-bottom">
   <h1 class="border-bottom title">
     <%= title %>
-    <%= dashboard_table_content_tooltip_shell table_type %>    
+    <%= dashboard_table_content_tooltip_shell table_type %>
   </h1>
 
   <table class="table border-side" id="<%= table_type %>_table">
@@ -32,7 +32,7 @@
           <td class="pt-spacer"><%= patient.primary_phone_display %></td>
           <td class="pt-spacer"><%= link_to patient.name, edit_patient_path(patient) %></td>
           <td class="pt-spacer">
-            <%= t 'common.weeks_days_short',  
+            <%= t 'common.weeks_days_short',
                   weeks: patient.last_menstrual_period_now_weeks,
                   days: patient.last_menstrual_period_now_days %>
           </td>
@@ -44,7 +44,7 @@
             <td class="blank-td"></td>
           <% else %>
             <% if current_user.patient_ids.include?(patient.id) %>
-              <td><%= link_to remove_from_call_list_glyphicon, remove_patient_path(patient), method: :patch, data: { confirm: t('dashboard.table_content.remove_from_call_list_confirm', name: patient.name) },  remote: true %></td>
+              <td><%= link_to remove_from_call_list_glyphicon, remove_patient_path(patient), method: :patch, data: { confirm: t('dashboard.table_content.remove_from_call_list_confirm', name: patient.name) }, aria: {label: t('dashboard.table_content.remove_from_call_list_confirm', name: patient.name)},  remote: true %></td>
             <% else %>
               <td><%= link_to t('common.add'), add_patient_path(patient), method: :patch, remote: true %></td>
             <% end %>
@@ -54,6 +54,7 @@
             <%= link_to call_glyphicon,
                         new_patient_call_path(patient),
                         class: "call_button call-#{patient.primary_phone_display}",
+                        aria: {label: "Call #{patient.primary_phone_display}"},
                         remote: true %>
           </td>
         </tr>
