@@ -13,7 +13,7 @@ const filterClinicsByNAF = () => {
 };
 
 const mapNAFtoClinic = (clinics) => {
-  clinics.forEeach((clinic) => {
+  clinics.forEach((clinic) => {
     // eslint-disable-next-line no-underscore-dangle
     const id = clinic._id.$oid;
     const acceptsNAF = clinic.accepts_naf;
@@ -69,4 +69,4 @@ const ready = () => {
   });
 };
 
-$(document).on('ready page:load', ready);
+$(document).on('turbolinks:load', ready);
