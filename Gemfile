@@ -72,7 +72,6 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  gem 'spring'
   gem 'knapsack' # lets us split up our tets so they run faster in CI
 end
 
