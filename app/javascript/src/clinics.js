@@ -41,18 +41,6 @@ const mapMedicaidToClinic = (clinics) => {
 };
 
 const ready = () => {
-  $(document).on(
-    'show.bs.collapse',
-    '.collapsible-clinic-details',
-    event => $(event.target).siblings('.clinic-detail-toggle').text('Fewer Details')
-  );
-
-  $(document).on(
-    'hide.bs.collapse',
-    '.collapsible-clinic-details',
-    event => $(event.target).siblings('.clinic-detail-toggle').text('More Details')
-  );
-
   $(document).on('click', '#naf_filter', () => {
     const attr = $('#patient_clinic_id > option').last().attr('data-naf');
     if (typeof attr === 'undefined') {
