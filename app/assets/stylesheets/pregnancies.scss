@@ -11,8 +11,8 @@ $font-size: 17px;
 }
 
 .hide-label{
-  label{
-    visibility: hidden;
+  select{
+    margin-top: 28px;
   }
 }
 
@@ -60,7 +60,7 @@ $font-size: 17px;
       margin-left: -1.5em;
       padding-right: .5em;
       color: #5D3E8D;
-      
+
     }
   }
   a.submit-btn, a.cancel-btn {

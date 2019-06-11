@@ -9,3 +9,4 @@
 
 import '../src/clinic_finder';
 import '../src/clinics';
+import '../src/table_sorting';
