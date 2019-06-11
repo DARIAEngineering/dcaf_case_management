@@ -35,6 +35,9 @@ $(document).on('turbolinks:load', () => {
             xhr.setRequestHeader('X-CSRF-Token', token)
         },
         data: { order },
+        // error: function(req, status, err) {
+        //   console.error(req, status, err);
+        // },
       });
     },
   });
