@@ -2,7 +2,7 @@
 // http://benw.me/posts/sortable-bootstrap-tables/
 
 import 'jquery-ui/ui/widgets/sortable';
-import 'jquery-ui/ui/effect';
+import 'jquery-ui/ui/effects/effect-highlight';
 
 $(document).on('turbolinks:load', () => {
   $('#call_list td').each((index, element) => $(element).css('width', $(element).width()));
@@ -16,9 +16,9 @@ $(document).on('turbolinks:load', () => {
       return ui.item.addClass('active-item-shadow');
     },
     stop(e, ui) {
-      return ui.item.removeClass('active-item-shadow');
+      ui.item.removeClass('active-item-shadow');
       // highlight the row on drop to indicate an update
-      // return ui.item.children('td').effect('highlight', { backgroundColor: '#ece0ff' }, 500);
+      return ui.item.children('td').effect('highlight', { color: '#ece0ff' }, 500);
     },
     update(e, ui) {
       const itemId = ui.item[0].id;
