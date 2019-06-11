@@ -3,6 +3,7 @@ const getClinics = () => $.get('/clinics', (data, status) => {
     $.when(data);
   }
 }, 'json');
+
 const filterClinicsByNAF = () => {
   const checked = $('#naf_filter').prop('checked');
   $('#patient_clinic_id > option').each((_index, element) => {
@@ -17,7 +18,7 @@ const mapNAFtoClinic = (clinics) => {
     // eslint-disable-next-line no-underscore-dangle
     const id = clinic._id.$oid;
     const acceptsNAF = clinic.accepts_naf;
-    $(`#patient_clinic_id > option[value='${id}]`).attr('data-naf', acceptsNAF);
+    $(`#patient_clinic_id > option[value='${id}']`).attr('data-naf', acceptsNAF);
   });
 };
 
@@ -35,7 +36,7 @@ const mapMedicaidToClinic = (clinics) => {
     // eslint-disable-next-line no-underscore-dangle
     const id = clinic._id.$oid;
     const acceptsMedicaid = clinic.accepts_medicaid;
-    $(`#patient_clinic_id > option[value='${id}]`, acceptsMedicaid);
+    $(`#patient_clinic_id > option[value='${id}']`).attr('data-medicaid', acceptsMedicaid);
   });
 };
 
