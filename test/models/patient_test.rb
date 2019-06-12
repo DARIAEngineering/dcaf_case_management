@@ -152,6 +152,18 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal summary[:pledged].count, 1
       assert_equal summary[:sent].count, 1
     end
+
+    it "should support a different start of week" do
+      # if the week did NOT start on thursday then patients would not be counted
+      Config.create config_key: :start_of_week,
+                    config_value: {options: ['Wednesday']}
+      @patient.update fund_pledged_at: Date.parse("January 20, 1973"), fund_pledge: 300
+        shaped_patient = patient_to_hash @patient
+      Timecop.freeze("January 22, 1973") do
+        summary = Patient.pledged_status_summary(:DC)
+        assert_equal summary[:pledged].count, 1
+      end
+    end
   end
 
   describe 'callbacks' do
