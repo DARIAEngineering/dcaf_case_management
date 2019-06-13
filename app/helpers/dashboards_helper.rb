@@ -2,7 +2,7 @@
 module DashboardsHelper
   def week_range(date: Time.zone.now)
     week_start = date.beginning_of_week Config.start_day
-    week_end = date.end_of_week start_day
+    week_end = date.end_of_week Config.start_day
     week_start_string = l week_start, format: '%B %-d'
     week_end_string = if week_start.month == week_end.month
                         l week_end, format: '%-d'
