@@ -7,5 +7,8 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import '../src/call_list_drag_and_drop';
 import '../src/clinic_finder';
+import '../src/clinics';
 import '../src/pledge_calculator'
+import '../src/table_sorting';
