@@ -45,15 +45,8 @@ $(document).on 'turbolinks:load', ->
     $(this).submit()
 
   $(document).on "submit", "#generate-pledge-form form", ->
-  if($("#case_manager_name").val())
-    true
-  else
-    $("#generate-pledge-form .alert").show()
-    false
-
-  $(document).on "click", "#create-external-pledge", ->
-# timeout to handle mongo updating and rails appending new field
-    setTimeout(updateBalance, 500)
-
-  if $("#patient_procedure_cost").val()
-    updateBalance()
+    if($("#case_manager_name").val())
+      true
+    else
+      $("#generate-pledge-form .alert").show()
+      false

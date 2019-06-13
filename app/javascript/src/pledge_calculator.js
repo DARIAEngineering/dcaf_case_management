@@ -19,7 +19,7 @@ const updateBalance = () => {
   if ($('#patient_procedure_cost').val()) {
     // Show remainder if patient procedure cost is known.
     $('.outstanding-balance-ctn').removeClass('hidden');
-    return $('#outstanding-balance').text(`${calculateRemainder()}`);
+    return $('#outstanding-balance').text(`$${calculateRemainder()}`);
   }
   // Hide if there isn't a procedure cost.
   return $('.outstanding-balance-ctn').addClass('hidden');
@@ -34,8 +34,15 @@ const balanceFields = '#abortion-information-form input, '
                       + '#patient_naf_pledge, '
                       + '#patient_fund_pledge';
 
-$(document).on('turblinks:load', () => {
-  $(balanceFields).on('change', () => {
+$(document).on('turbolinks:load', () => {
+  // Listen for changes on balancefields and update balance.
+  $(balanceFields).on('change', updateBalance);
+
+  // Set a timeout on adding new ext pledge to handle mongo updating and rails appending new field.
+  $('#create-external-pledge').on('click', () => setTimeout(updateBalance, 500));
+
+  // Show the balance on load if patient has a procedure cost.
+  if ($('#patient_procedure_cost').val()) {
     updateBalance();
-  });
+  }
 });
