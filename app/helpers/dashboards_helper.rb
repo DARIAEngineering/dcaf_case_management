@@ -1,7 +1,7 @@
 # Convenience methods consumed in the dashboards controller index view
 module DashboardsHelper
   def week_range(date: Time.zone.now)
-    week_start = date.beginning_of_week start_day
+    week_start = date.beginning_of_week Config.start_day
     week_end = date.end_of_week start_day
     week_start_string = l week_start, format: '%B %-d'
     week_end_string = if week_start.month == week_end.month
@@ -36,11 +36,5 @@ module DashboardsHelper
                  aria: { hidden: true }),
       tag(:span, class: ['sr-only'], text: 'Call')
     ]
-  end
-
-  def start_day
-    start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
-    start ||= "monday"
-    start.downcase.to_sym
   end
 end

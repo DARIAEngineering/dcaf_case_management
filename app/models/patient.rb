@@ -142,7 +142,7 @@ class Patient
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
-
+    start_of_week = Time.zone.today.beginning_of_week(Config.start_day)
     # Get patients who have been pledged this week, as a simplified hash
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
@@ -309,11 +309,4 @@ class Patient
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
   end
-
-  def self.start_of_week
-      start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
-      start ||= "monday"
-      Time.zone.today.beginning_of_week(start.downcase.to_sym)
-  end
-
 end

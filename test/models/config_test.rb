@@ -81,5 +81,18 @@ class ConfigTest < ActiveSupport::TestCase
         end
       end
     end
+
+    describe '#start_day' do
+      it 'should return the day of week as a symbol' do
+        assert(Config.start_day.equal? :monday)
+      end
+
+      it 'should return another day of the week if configured' do
+        c = Config.find_or_create_by(config_key: 'start_of_week')
+        c.config_value = { options: ["Tuesday"] }
+        c.save!
+        assert(Config.start_day.equal? :tuesday)
+      end
+    end
   end
 end

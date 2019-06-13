@@ -59,4 +59,10 @@ class Config
       end
     end
   end
+
+  def self.start_day
+    start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
+    start ||= "monday"
+    start.downcase.to_sym
+  end
 end
