@@ -4,6 +4,7 @@
     <%= f.select :support_type, practical_support_options %>
     <%= f.select :source, external_pledge_source_options %>
     <%= f.check_box :confirmed %>
+    <br>
     <%= f.submit 'Create new practical support', class: 'btn btn-primary', id: 'create-practical-support' %>
   <% end %>
 </div>
