@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.6.2'
 
 # Standard rails
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0.beta1'
 gem 'puma' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
