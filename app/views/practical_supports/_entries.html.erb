@@ -1,6 +1,24 @@
+<div class="row">
+  <div class="col-sm-4"><h5>Category of support</h5></div>
+  <div class="col-sm-4"><h5>Provided by</h5></div>
+  <div class="col-sm-4"></div>
+</div>
+
 <% patient.practical_supports.each do |entry| %>
-    <%= entry.support_type %> -
-    <%= entry.source %> - 
-    <%= entry.confirmed %>
-  <br>   
+  <div class="row">
+    <%= bootstrap_form_for entry, url: patient_practical_support_path(patient, entry), html: { class: 'edit_practical_support' }, layout: :inline, remote: true do |f| %>
+      <div class="col-sm-4">
+        <%= f.select :support_type, options_for_select(practical_support_options, entry.support_type), hide_label: true %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.select :source, options_for_select(external_pledge_source_options, entry.source), hide_label: true %>
+      </div>
+        
+      <div class="col-sm-4">
+        <%= f.check_box :confirmed, id: "practical_support_confirmed_#{entry.id}",label: 'Confirmed?' %>
+      </div>
+      
+    <% end %>
+  </div>
+  <br>
 <% end %>
