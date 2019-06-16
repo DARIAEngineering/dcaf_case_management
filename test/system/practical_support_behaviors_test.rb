@@ -37,9 +37,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         click_button 'Create new practical support'
       end
 
-      within :css, '#flash' do
-        assert has_text? "Practical support failed to save: Support type can't be blank"
-      end
+      assert has_text? "Practical support failed to save: Support type can't be blank"
 
       within :css, '#existing-practical-supports' do
         refute has_selector? '#practical_support_support_type'
@@ -53,20 +51,18 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
                                          source: 'Other funds (see notes)',
                                          created_by: @user
 
-       # binding.pry
+                                        # binding.pry
       go_to_practical_support_tab
     end
 
     it 'should save if valid and changed' do
       within :css, '#existing-practical-supports' do
-        select 'companion', from: '#practical_support_support_type'
-        select 'Clinic discount', from: '#practical_support_source'
+        select 'Companion', from: 'practical_support_support_type'
+        select 'Clinic discount', from: 'practical_support_source'
         check 'Confirmed'
       end
 
-      within :css, '#flash' do
-        assert has_text? "Patient info successfully saved"
-      end
+      assert has_text? "Patient info successfully saved"
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#existing-practical-supports' do
@@ -81,9 +77,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         select '', from: 'practical_support_support_type'
       end
 
-      within :css, '#flash' do
-        assert has_text? "Practical support failed to save: Support type can't be blank"
-      end
+      assert has_text? "Practical support failed to save: Support type can't be blank"
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#existing-practical-supports' do
@@ -95,7 +89,8 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'destroying a practical support entry' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other funds (see notes)'
+                                         source: 'Other funds (see notes)',
+                                         created_by: @user
       go_to_practical_support_tab
     end
 
@@ -118,4 +113,11 @@ def go_to_practical_support_tab
   visit edit_patient_path @patient
   has_text? 'First and last name' # wait for element
   click_link 'Practical Support'
+end
+
+def reload_page_and_click_link(link_text)
+  click_away_from_field
+  visit authenticated_root_path
+  visit edit_patient_path @patient
+  click_link link_text
 end
