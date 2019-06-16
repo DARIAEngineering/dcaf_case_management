@@ -53,6 +53,4 @@ class PracticalSupportTest < ActiveSupport::TestCase
                    support2.errors.messages[:support_type]
     end
   end
-
-
 end
