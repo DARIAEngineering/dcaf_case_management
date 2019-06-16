@@ -49,15 +49,18 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
   describe 'updating practical support entries' do
     before do
-      @patient.practical_supports.create support_type: 'Lodging',
-                                         source: 'Other funds (see notes)'
+      @patient.practical_supports.create support_type: 'lodging',
+                                         source: 'Other funds (see notes)',
+                                         created_by: @user
+
+       # binding.pry
       go_to_practical_support_tab
     end
 
     it 'should save if valid and changed' do
       within :css, '#existing-practical-supports' do
-        select 'Companion', from: 'practical_support_support_type'
-        select 'Clinic discount', from: 'practical_support_source'
+        select 'companion', from: '#practical_support_support_type'
+        select 'Clinic discount', from: '#practical_support_source'
         check 'Confirmed'
       end
 
@@ -91,7 +94,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
   describe 'destroying a practical support entry' do
     before do
-      @patient.practical_supports.create support_type: 'Lodging',
+      @patient.practical_supports.create support_type: 'lodging',
                                          source: 'Other funds (see notes)'
       go_to_practical_support_tab
     end
