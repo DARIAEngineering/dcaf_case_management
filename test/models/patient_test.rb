@@ -161,11 +161,11 @@ class PatientTest < ActiveSupport::TestCase
       Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 300  }
       Timecop.freeze("January 22, 1973") do
         summary = Patient.pledged_status_summary(:DC)
-        assert_equal 1, summary[:pledged].count,
+        assert_equal 1, summary[:pledged].count
       end
     end
 
-    it "should disclude pledges based off of the configured week start" do
+    it "should exclude pledges based off of the configured week start" do
       # The week starts on Wednesday, and there's a fund pledge from Monday Jan 22
       # If the week started on Monday, the pledge from monday would be included
       Config.create config_key: :start_of_week,
