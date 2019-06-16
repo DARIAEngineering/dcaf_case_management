@@ -67,7 +67,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       reload_page_and_click_link 'Practical Support'
       within :css, '#existing-practical-supports' do
         assert_equal 'companion', find('#practical_support_support_type').value
-        assert_equal 'Other funds (see notes)', find('#practical_support_source').value
+        assert_equal 'Clinic discount', find('#practical_support_source').value
         assert has_checked_field? 'Confirmed'
       end
     end
@@ -95,12 +95,11 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     end
 
     it 'destroy practical supports if you click the big red button' do
-      assert_difference '@patient.practical_supports.count', -1 do
-        within :css, '#existing-practical-supports' do 
-          accept_confirm { click_button 'Delete' }
-        end
+      within :css, '#existing-practical-supports' do 
+        accept_confirm { click_button 'Delete' }
       end
 
+      reload_page_and_click_link 'Practical Support'
       within :css, '#existing-practical-supports' do
         refute has_selector? '#practical_support_support_type'
       end
