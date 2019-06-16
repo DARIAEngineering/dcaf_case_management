@@ -19,7 +19,7 @@ class Config
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
                    'Ex: https://drive.google.com/drive/my-resource-dir',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
-    start_of_week: 'The start day of your budget week, if it doesn't start on Monday. ex: Sunday.
+    start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday."
   }.freeze
 
   # Fields
