@@ -1,6 +1,7 @@
 # Convenience methods consumed in the dashboards controller index view
 module DashboardsHelper
-  def week_range(date: Time.zone.now, start_day: :monday)
+  def week_range(date: Time.zone.now)
+    start_day = Config.start_day
     week_start = date.beginning_of_week start_day
     week_end = date.end_of_week start_day
     week_start_string = l week_start, format: '%B %-d'
