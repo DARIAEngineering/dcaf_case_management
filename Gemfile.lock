@@ -352,6 +352,8 @@ GEM
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    sentry-raven (2.9.0)
+      faraday (>= 0.7.6, < 1.0)
     shog (0.1.9)
       colored (~> 1.2)
       rails (>= 4)
@@ -464,6 +466,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 1.0.0)
   selenium-webdriver
+  sentry-raven
   shog
   shoulda-context
   simplecov
