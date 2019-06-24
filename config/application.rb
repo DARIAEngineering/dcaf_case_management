@@ -39,6 +39,6 @@ module DcafCaseManagement
     # Raise errors in transactional callbacks. We have this turned off because
     # we are using Mongoid instead of Rails' built in ActiveRecord. -CF
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    # config.active_record.raise_in_transactional_callbacks = true 
+    # config.active_record.raise_in_transactional_callbacks = true
   end
 end
