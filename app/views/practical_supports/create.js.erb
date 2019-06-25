@@ -1,4 +1,4 @@
-$('#existing-practical-supports').empty().append('<%= escape_javascript(render partial: "practical_supports/entries", locals: { patient: @patient } ) %>');
+$('#practical-support-entries').empty().append('<%= escape_javascript(render partial: "practical_supports/entries", locals: { patient: @patient } ) %>');
 $('#practical-support-new-form').empty().append('<%= escape_javascript(render partial: "practical_supports/new", locals: { patient: @patient } ) %>');
 
 // flash the result
