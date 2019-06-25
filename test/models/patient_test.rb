@@ -152,6 +152,30 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal summary[:pledged].count, 1
       assert_equal summary[:sent].count, 1
     end
+
+    it "should include pledges based off of the configured week start" do
+      # Here the week starts on Wednesday, and there's a fund pledge from Saturday Jan 20
+      # If the week started on Monday (default behavior) then the pledge from Saturday would not be included
+      Config.create config_key: :start_of_week,
+                    config_value: {options: ['Wednesday']}
+      Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 300  }
+      Timecop.freeze("January 22, 1973") do
+        summary = Patient.pledged_status_summary(:DC)
+        assert_equal 1, summary[:pledged].count
+      end
+    end
+
+    it "should exclude pledges based off of the configured week start" do
+      # The week starts on Wednesday, and there's a fund pledge from Monday Jan 22
+      # If the week started on Monday, the pledge from monday would be included
+      Config.create config_key: :start_of_week,
+                    config_value: {options: ['Wednesday']}
+      Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 300  }
+      Timecop.freeze("January 24, 1973") do
+        summary = Patient.pledged_status_summary(:DC)
+        assert_equal 0,summary[:pledged].count
+      end
+    end
   end
 
   describe 'callbacks' do

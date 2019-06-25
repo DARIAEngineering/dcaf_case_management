@@ -150,11 +150,13 @@ Config.create config_key: :pledge_limit_help_text,
 Config.create config_key: :language,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 Config.create config_key: :resources_url,
-              config_value: { options: ['Spanish', 'French', 'Korean']}
+              config_value: { options: ['https://www.petfinder.com/cats/']}
 Config.create config_key: :referred_by,
               config_value: { options: ['Metal band']}
 Config.create config_key: :fax_service,
               config_value: { options: ['www.yolofax.com'] }
+Config.create config_key: :start_of_week,
+              config_value: {options: ['Monday']}
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have

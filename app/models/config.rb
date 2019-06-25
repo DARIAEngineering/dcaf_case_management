@@ -10,7 +10,7 @@ class Config
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
     :language, :resources_url, :fax_service, :referred_by,
-    :practical_support
+    :practical_support, :start_of_week
   ].freeze
 
   # Define overrides for particular config fields.
@@ -18,7 +18,8 @@ class Config
   HELP_TEXT_OVERRIDES = {
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
                    'Ex: https://drive.google.com/drive/my-resource-dir',
-    fax_service: 'A link to your fax service. ex: https://www.efax.com'
+    fax_service: 'A link to your fax service. ex: https://www.efax.com',
+    start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday."
   }.freeze
 
   # Fields
@@ -57,5 +58,11 @@ class Config
         Config.create config_key: field
       end
     end
+  end
+
+  def self.start_day
+    start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
+    start ||= "monday"
+    start.downcase.to_sym
   end
 end
