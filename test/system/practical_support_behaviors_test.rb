@@ -11,8 +11,8 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
     it 'should start empty' do
       within :css, '#existing-practical-supports' do
-        refute has_text? 'Category of support'
-        refute has_selector? '#practical_support_support_type'
+        assert has_no_text? 'Category of support'
+        assert has_no_selector? '#practical_support_support_type'
       end
     end
 
@@ -40,7 +40,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       assert has_text? "Practical support failed to save: Support type can't be blank"
 
       within :css, '#existing-practical-supports' do
-        refute has_selector? '#practical_support_support_type'
+        assert has_no_selector? '#practical_support_support_type'
       end
     end
   end
@@ -101,7 +101,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#existing-practical-supports' do
-        refute has_selector? '#practical_support_support_type'
+        assert has_no_selector? '#practical_support_support_type'
       end
     end
   end
