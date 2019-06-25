@@ -6,24 +6,14 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-12 info-form">
-        <div id="existing-practical-supports"> 
-          <%= render 'practical_supports/entries', patient: patient %>
-        </div>
-      </div>
+    <div class="row" id="practical-support-entries">
+      <%= render 'practical_supports/entries',
+                 patient: patient %>
     </div>
 
-    <div class="row">
-      <div class="col-sm-12 info-form">
-        <h5>Or, record new practical support info: </h5>
-        <%= bootstrap_form_for [patient, patient.practical_supports.new], html: { id: 'new-practical-support' }, remote: true do |f| %>
-          <%= f.select :support_type, practical_support_options %>
-          <%= f.select :source, external_pledge_source_options %>
-          <%= f.check_box :confirmed %>
-          <%= f.submit 'Create new practical support', class: 'btn btn-primary', id: 'create-practical-support' %>
-        <% end %>
-      </div>
+    <div class="row" id="practical-support-new-form">
+      <%= render 'practical_supports/new',
+                 patient: patient %>
     </div>
   </div>
 </section>

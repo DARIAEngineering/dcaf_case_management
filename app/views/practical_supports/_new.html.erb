@@ -1,0 +1,10 @@
+<div class="col-sm-12 info-form">
+  <h5>Or, record new practical support info: </h5>
+  <%= bootstrap_form_for [patient, patient.practical_supports.new], html: { id: 'new-practical-support' }, remote: true do |f| %>
+    <%= f.select :support_type, practical_support_options %>
+    <%= f.select :source, external_pledge_source_options %>
+    <%= f.check_box :confirmed %>
+    <br>
+    <%= f.submit 'Create new practical support', class: 'btn btn-primary', id: 'create-practical-support' %>
+  <% end %>
+</div>

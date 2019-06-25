@@ -1,6 +1,15 @@
-<% patient.practical_supports.each do |entry| %>
-    <%= entry.support_type %> -
-    <%= entry.source %> - 
-    <%= entry.confirmed %>
-  <br>   
-<% end %>
+<div class="col-sm-12 info-form">
+  <div id="existing-practical-supports"> 
+    <div class="row">
+      <div class="col-sm-4"><h5>Category of support</h5></div>
+      <div class="col-sm-4"><h5>Provided by</h5></div>
+      <div class="col-sm-4"><!-- Where confirmation would go --></div>
+    </div>
+
+    <% patient.practical_supports.each do |entry| %>
+      <%= render 'practical_supports/show',
+                 patient: patient,
+                 practical_support: entry %>
+    <% end %>
+  </div>
+</div>

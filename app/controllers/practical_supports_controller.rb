@@ -9,6 +9,7 @@ class PracticalSupportsController < ApplicationController
     @support = @patient.practical_supports.new practical_support_params
     @support.created_by = current_user
     if @support.save
+      flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
       @support = @patient.reload.practical_supports.order_by 'created_at desc'
       respond_to { |format| format.js }
     else
@@ -18,6 +19,7 @@ class PracticalSupportsController < ApplicationController
 
   def update
     if @support.update practical_support_params
+      flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
       respond_to { |format| format.js }
     else
       head :bad_request
