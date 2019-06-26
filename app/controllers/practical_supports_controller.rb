@@ -13,7 +13,10 @@ class PracticalSupportsController < ApplicationController
       @support = @patient.reload.practical_supports.order_by 'created_at desc'
       respond_to { |format| format.js }
     else
-      head :bad_request
+      flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
+      respond_to do |format|
+        format.js { render partial: 'layouts/flash_messages', status: :bad_request }
+      end
     end
   end
 
@@ -22,7 +25,10 @@ class PracticalSupportsController < ApplicationController
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
       respond_to { |format| format.js }
     else
-      head :bad_request
+      flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
+      respond_to do |format|
+        format.js { render partial: 'layouts/flash_messages', status: :bad_request }
+      end
     end
   end
 
