@@ -1,4 +1,4 @@
-<div class="row" class="practical-support-item" id="practical-support-item-<%= practical_support.id %>">
+<div class="row practical-support-item" id="practical-support-item-<%= practical_support.id %>">
   <%= bootstrap_form_for practical_support, url: patient_practical_support_path(patient, practical_support), html: { class: 'edit_practical_support' },  remote: true do |f| %>
     <div class="col-sm-4">
       <%= f.select :support_type, options_for_select(practical_support_options, practical_support.support_type), hide_label: true %>
