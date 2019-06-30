@@ -69,7 +69,7 @@ class Config
 
   def self.show_practical_support?
     show_value = Config.find_or_create_by(config_key: 'show_practical_support').options.try :last
-    show_value ||= :yes
+    show_value ||= "Yes"
     show_value.downcase.strip.to_sym != :no
   end
 end
