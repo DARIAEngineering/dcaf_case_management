@@ -10,7 +10,7 @@ class Config
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
     :language, :resources_url, :fax_service, :referred_by,
-    :practical_support, :start_of_week
+    :practical_support, :show_practical_support, :start_of_week
   ].freeze
 
   # Define overrides for particular config fields.
@@ -19,7 +19,8 @@ class Config
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
                    'Ex: https://drive.google.com/drive/my-resource-dir',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
-    start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday."
+    start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday.",
+    show_practical_support: 'Toggle the visibility of practical support information. Enter "No" to hide this view. Note: This will not remove any existing data.'
   }.freeze
 
   # Fields
@@ -64,5 +65,10 @@ class Config
     start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
     start ||= "monday"
     start.downcase.to_sym
+  end
+
+  def self.show_practical_support?
+    show_value = Config.find_or_create_by(config_key: 'show_practical_support').options.try :last
+    return show_value.downcase.strip.to_sym != :no
   end
 end
