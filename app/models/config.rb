@@ -20,7 +20,7 @@ class Config
                    'Ex: https://drive.google.com/drive/my-resource-dir',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
     start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday.",
-    show_practical_support: 'Toggle the visibility of practical support information. Enter "No" to hide this view. Note: This will not remove any existing data.'
+    show_practical_support: 'Toggle the visibility of practical support information. Enter "Yes" to show or "No" to hide. Note: This will not remove any existing data.'
   }.freeze
 
   # Fields
