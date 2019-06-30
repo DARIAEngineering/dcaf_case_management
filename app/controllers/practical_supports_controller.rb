@@ -1,5 +1,6 @@
 # Create a non-monetary assistance record for a patient.
 class PracticalSupportsController < ApplicationController
+  before_action :ensure_showing_practical_support
   before_action :find_patient, only: [:create]
   before_action :find_support, only: [:update, :destroy]
   rescue_from Mongoid::Errors::DocumentNotFound,
@@ -51,5 +52,9 @@ class PracticalSupportsController < ApplicationController
   def find_support
     find_patient
     @support = @patient.practical_supports.find params[:id]
-  end    
+  end
+
+  def ensure_showing_practical_support
+    Config.show_practical_support?
+  end
 end
