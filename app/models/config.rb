@@ -10,7 +10,7 @@ class Config
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
     :language, :resources_url, :fax_service, :referred_by,
-    :practical_support, :show_practical_support, :start_of_week
+    :practical_support, :hide_practical_support, :start_of_week
   ].freeze
 
   # Define overrides for particular config fields.
@@ -20,7 +20,7 @@ class Config
                    'Ex: https://drive.google.com/drive/my-resource-dir',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
     start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday.",
-    show_practical_support: 'Enter "no" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
+    hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
   # Fields
@@ -67,9 +67,8 @@ class Config
     start.downcase.to_sym
   end
 
-  def self.show_practical_support?
-    show_value = Config.find_or_create_by(config_key: 'show_practical_support').options.try :last
-    show_value ||= "Yes"
-    show_value.downcase.strip.to_sym != :no
+  def self.hide_practical_support?
+    hide_value = Config.find_or_create_by(config_key: 'hide_practical_support').options.try(:last).to_s
+    hide_value =~ /yes/i
   end
 end

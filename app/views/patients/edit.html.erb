@@ -33,7 +33,7 @@
     </div>
 
 
-    <% if Config.show_practical_support? %>
+    <% unless Config.hide_practical_support? %>
     <div id="practical_support" class="practical_support tab-pane">
       <%= render 'patients/practical_support', patient: @patient, note: @note %>
     </div>

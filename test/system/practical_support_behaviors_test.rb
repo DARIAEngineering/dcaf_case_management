@@ -95,7 +95,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     end
 
     it 'destroy practical supports if you click the big red button' do
-      within :css, '#existing-practical-supports' do 
+      within :css, '#existing-practical-supports' do
         accept_confirm { click_button 'Delete' }
       end
 
@@ -105,6 +105,29 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       end
     end
   end
+
+  describe 'hiding practical support' do
+    before do
+      @patient.practical_supports.create support_type: 'lodging',
+                                         source: 'Other funds (see notes)',
+                                         created_by: @user
+      go_to_practical_support_tab
+    end
+
+    it 'toggles the showing of the practical support tab' do
+      assert has_text? /Practical Support/i
+      c = Config.find_or_create_by(config_key: 'hide_practical_support')
+      c.config_value = { options: ["Yes"] }
+      c.save!
+      page.refresh
+      assert has_no_text? /Practical Support/i
+      c.config_value = { options: ["No"] }
+      c.save!
+      page.refresh
+      assert has_text? /Practical Support/i
+    end
+  end
+
 end
 
 def go_to_practical_support_tab
