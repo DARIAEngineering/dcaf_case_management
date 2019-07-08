@@ -111,30 +111,30 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       @patient.practical_supports.create support_type: 'lodging',
                                          source: 'Other funds (see notes)',
                                          created_by: @user
-      go_to_practical_support_tab
     end
 
-    it 'toggles the showing of the practical support tab' do
-      assert has_text? /Practical Support/i
-      c = Config.find_or_create_by(config_key: 'hide_practical_support')
-      c.config_value = { options: ["Yes"] }
-      c.save!
-      page.refresh
+    it 'can hide the practical support tab' do
+      @config = Config.find_or_create_by(config_key: 'hide_practical_support', config_value: { options: ["Yes"] })
+      go_to_edit_page
       assert has_no_text? /Practical Support/i
-      c.config_value = { options: ["No"] }
-      c.save!
-      page.refresh
+    end
+
+    it 'shows the practical support tab by default' do
+      go_to_edit_page
       assert has_text? /Practical Support/i
     end
   end
-
 end
 
 def go_to_practical_support_tab
+  go_to_edit_page
+  click_link 'Practical Support'
+end
+
+def go_to_edit_page
   log_in_as @user
   visit edit_patient_path @patient
   has_text? 'First and last name' # wait for element
-  click_link 'Practical Support'
 end
 
 def reload_page_and_click_link(link_text)

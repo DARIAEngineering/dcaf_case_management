@@ -94,5 +94,25 @@ class ConfigTest < ActiveSupport::TestCase
         assert(Config.start_day.equal? :tuesday)
       end
     end
+
+    describe '#hide_practical_support?' do
+      it 'can return true' do
+        c = Config.find_or_create_by(config_key: 'hide_practical_support')
+        c.config_value = { options: ["Yes"] }
+        c.save!
+        assert(Config.hide_practical_support? == true)
+      end
+
+      it 'can return false' do
+        c = Config.find_or_create_by(config_key: 'hide_practical_support')
+        c.config_value = { options: ["No"] }
+        c.save!
+        assert(Config.hide_practical_support? == false)
+      end
+
+      it "returns false by default" do
+        assert(Config.hide_practical_support? == false)
+      end
+    end
   end
 end

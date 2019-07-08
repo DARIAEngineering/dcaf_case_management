@@ -68,6 +68,6 @@ class Config
   end
 
   def self.hide_practical_support?
-    Config.find_or_create_by(config_key: 'hide_practical_support').options.try(:last).to_s =~ /yes/i
+    Config.find_or_create_by(config_key: 'hide_practical_support').options.try(:last).to_s =~ /yes/i ? true : false
   end
 end
