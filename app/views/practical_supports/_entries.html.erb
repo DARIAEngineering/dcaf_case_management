@@ -8,7 +8,7 @@
       </div>
 
       <% patient.practical_supports.each do |entry| %>
-        <%= render 'practical_supports/show',
+        <%= render 'practical_supports/edit',
                    patient: patient,
                    practical_support: entry %>
       <% end %>
