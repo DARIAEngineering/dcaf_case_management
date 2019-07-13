@@ -76,22 +76,6 @@ module PatientsHelper
     full_set.uniq
   end
 
-  def practical_support_options
-    standard_options = [
-      [ t('patient.helper.practical_support.travel_to_area'), 'Travel to area' ],
-      [ t('patient.helper.practical_support.travel_inside_area'), 'Travel inside area' ],
-      [ t('patient.helper.practical_support.lodging'), 'Lodging' ],
-      [ t('patient.helper.practical_support.companion'), 'Companion' ],
-    ]
-    [nil] + Config.find_or_create_by(config_key: 'practical_support').options + standard_options
-  end
-
-  def practical_support_source_options(current_value = nil)
-    full_set = [nil, FUND_FULL] + Config.find_or_create_by(config_key: 'external_pledge_source').options + ['Clinic']
-    full_set.push current_value if full_set.exclude? current_value
-    full_set.uniq
-  end
-
   def income_options
     [nil,
      [ t('patient.helper.income.under_10'), 'Under $9,999'],

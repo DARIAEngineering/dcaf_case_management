@@ -2,13 +2,15 @@
   <%= bootstrap_form_for practical_support, url: patient_practical_support_path(patient, practical_support), html: { class: 'edit_practical_support' }, remote: true do |f| %>
     <div class="col-sm-4">
       <%= f.select :support_type,
-                   options_for_select(practical_support_options, practical_support.support_type),
+                   options_for_select(practical_support_options(practical_support.support_type),
+                                      practical_support.support_type),
                    hide_label: true %>
     </div>
 
     <div class="col-sm-3">
       <%= f.select :source,
-                   options_for_select(practical_support_source_options, practical_support.source),
+                   options_for_select(practical_support_source_options(practical_support.source),
+                                      practical_support.source),
                    hide_label: true %>
     </div>
       
