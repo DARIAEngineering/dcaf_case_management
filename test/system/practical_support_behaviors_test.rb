@@ -37,7 +37,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         click_button 'Create new practical support'
       end
 
-      assert has_text? "Practical support failed to save: Support type can't be blank"
+      assert has_text? "Practical support failed to save: Source can't be blank and Support type can't be blank"
 
       within :css, '#existing-practical-supports' do
         assert has_no_selector? '#practical_support_support_type'
