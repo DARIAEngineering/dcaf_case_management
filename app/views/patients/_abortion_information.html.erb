@@ -3,12 +3,17 @@
     <div class="row">
       <div class="col-sm-12">
         <h2><%= t('patient.abortion_information.title') %></h2>
+
+        <% if patient.practical_supports.any? %>
+          <h5 class="text-danger">This patient requires practical support. See Practical Support tab.</h5>
+        <% end %>
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm-12 info-form">
         <h3><%= t('patient.abortion_information.clinic_section.title') %></h3>
+
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-1' }, remote: true do |f| %>
           <div class="col-sm-6">
             <div class="info-form-left">
@@ -68,6 +73,7 @@
         <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
           <div class="col-sm-6">
             <%= f.number_field :procedure_cost, label: t('patient.abortion_information.cost_section.abortion_cost'), autocomplete: 'off', prepend: '$' %>
+
             <div class="info-form-left form-group outstanding-balance-ctn hidden">
               <label class="control-label"><%= t('patient.abortion_information.cost_section.outstanding_balance') %></label>
               <div id="outstanding-balance"></div>
