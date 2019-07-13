@@ -51,5 +51,5 @@ class PracticalSupportsController < ApplicationController
   def find_support
     find_patient
     @support = @patient.practical_supports.find params[:id]
-  end    
+  end
 end
