@@ -63,7 +63,8 @@ class PracticalSupportsHelperTest < ActionView::TestCase
           'Baltimore Abortion Fund',
           'Tiller Fund (NNAF)',
           'NYAAF (New York)',
-          'Clinic'
+          'Clinic',
+          'Other (see notes)'
         ]
         assert_same_elements expected, practical_support_source_options
       end
@@ -79,6 +80,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
           nil,
           'DC Abortion Fund',
           'Clinic',
+          'Other (see notes)'
         ]
         assert_same_elements expected, @options
         assert Config.find_by(config_key: 'external_pledge_source')
@@ -91,6 +93,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
           nil,
           'DC Abortion Fund',
           'Clinic',
+          'Other (see notes)',
           'yolo'
         ]
         assert_same_elements expected, practical_support_source_options('yolo')

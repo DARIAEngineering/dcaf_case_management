@@ -19,14 +19,14 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     it 'should log a new practical support' do
       within :css, '#practical-support-new-form' do
         select 'Companion', from: 'practical_support_support_type'
-        select 'Other funds (see notes)', from: 'practical_support_source'
+        select 'Other (see notes)', from: 'practical_support_source'
         check 'Confirmed'
         click_button 'Create new practical support'
       end
 
       within :css, '#existing-practical-supports' do
-        assert_equal 'companion', find('#practical_support_support_type').value
-        assert_equal 'Other funds (see notes)', find('#practical_support_source').value
+        assert_equal 'Companion', find('#practical_support_support_type').value
+        assert_equal 'Other (see notes)', find('#practical_support_source').value
         assert has_checked_field? 'Confirmed'
       end
     end
@@ -48,17 +48,15 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'updating practical support entries' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other funds (see notes)',
+                                         source: 'Other (see notes)',
                                          created_by: @user
-
-                                        # binding.pry
       go_to_practical_support_tab
     end
 
     it 'should save if valid and changed' do
       within :css, '#existing-practical-supports' do
         select 'Companion', from: 'practical_support_support_type'
-        select 'Clinic discount', from: 'practical_support_source'
+        select 'DC Abortion Fund', from: 'practical_support_source'
         check 'Confirmed'
       end
 
@@ -66,8 +64,8 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#existing-practical-supports' do
-        assert_equal 'companion', find('#practical_support_support_type').value
-        assert_equal 'Clinic discount', find('#practical_support_source').value
+        assert_equal 'Companion', find('#practical_support_support_type').value
+        assert_equal 'DC Abortion Fund', find('#practical_support_source').value
         assert has_checked_field? 'Confirmed'
       end
     end
@@ -89,7 +87,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'destroying a practical support entry' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other funds (see notes)',
+                                         source: 'Other (see notes)',
                                          created_by: @user
       go_to_practical_support_tab
     end
@@ -109,7 +107,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'hiding practical support' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other funds (see notes)',
+                                         source: 'Other (see notes)',
                                          created_by: @user
     end
 
