@@ -10,10 +10,10 @@ class PracticalSupportsHelperTest < ActionView::TestCase
            nil,
           "Metallica Tickets",
           "Clothing",
-          ["Travel to the region", "Travel to area"],
-          ["Travel inside the region", "Travel inside area"],
-          ["Lodging", "Lodging"],
-          ["Companion", "Companion"]
+          "Travel to the region",
+          "Travel inside the region",
+          "Lodging",
+          "Companion"
         ]
         assert_same_elements expected, practical_support_options
       end
@@ -27,10 +27,10 @@ class PracticalSupportsHelperTest < ActionView::TestCase
 
         expected = [
           nil,
-          ["Travel to the region", "Travel to area"],
-          ["Travel inside the region", "Travel inside area"],
-          ["Lodging", "Lodging"],
-          ["Companion", "Companion"]
+          "Travel to the region",
+          "Travel inside the region",
+          "Lodging",
+          "Companion"
         ]
         assert_same_elements expected, @options
         assert Config.find_by(config_key: 'practical_support')
@@ -41,10 +41,10 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       it 'should push onto the end' do
         expected = [
           nil,
-          ["Travel to the region", "Travel to area"],
-          ["Travel inside the region", "Travel inside area"],
-          ["Lodging", "Lodging"],
-          ["Companion", "Companion"],
+          "Travel to the region",
+          "Travel inside the region",
+          "Lodging",
+          "Companion",
           'bandmates'
         ]
         assert_same_elements expected, practical_support_options('bandmates')
