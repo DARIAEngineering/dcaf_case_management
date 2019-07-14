@@ -1,0 +1,33 @@
+<div class="row practical-support-item" id="practical-support-item-<%= practical_support.id %>">
+  <%= bootstrap_form_for practical_support, url: patient_practical_support_path(patient, practical_support), html: { class: 'edit_practical_support' }, remote: true do |f| %>
+    <div class="col-sm-4">
+      <%= f.select :support_type,
+                   options_for_select(practical_support_options(practical_support.support_type),
+                                      practical_support.support_type),
+                   hide_label: true %>
+    </div>
+
+    <div class="col-sm-3">
+      <%= f.select :source,
+                   options_for_select(practical_support_source_options(practical_support.source),
+                                      practical_support.source),
+                   hide_label: true %>
+    </div>
+      
+    <div class="col-sm-3">
+      <%= f.check_box :confirmed,
+                      id: "practical_support_confirmed_#{practical_support.id}",
+                      label: 'Confirmed?' %>
+    </div>
+  <% end %>
+
+  <div class="col-sm-2">
+    <%= button_to 'Delete',
+                  patient_practical_support_path(patient, practical_support),
+                  remote: true,
+                  method: :delete,
+                  data: { confirm: 'Are you sure you want to delete this practical support entry?' },
+                  class: "btn btn-danger" %>
+  </div>
+  <br />
+</div>

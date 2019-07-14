@@ -65,39 +65,6 @@ class PatientsHelperTest < ActionView::TestCase
     end
   end
 
-  describe 'practical support options' do
-    describe 'with a config' do
-      before { create_practical_support_config }
-
-      it 'should include the option set' do
-        expected_practical_support_options_array = [ nil,
-                                                     "Metallica Tickets",
-                                                     "Clothing",
-                                                     ["Travel to the region", "travel_to_area"],
-                                                     ["Travel inside the region", "travel_inside_area"],
-                                                     ["Lodging", "lodging"],
-                                                     ["Companion", "companion"]]
-        assert_same_elements practical_support_options, expected_practical_support_options_array
-      end
-    end
-
-    describe 'without a config' do
-      it 'should create a config and return proper options' do
-        assert_difference 'Config.count', 1 do
-          @options = practical_support_options
-        end
-
-        expected_practical_support_array = [ nil,
-                                             ["Travel to the region", "travel_to_area"],
-                                             ["Travel inside the region", "travel_inside_area"],
-                                             ["Lodging", "lodging"],
-                                             ["Companion", "companion"]]
-        assert_same_elements @options, expected_practical_support_array
-        assert Config.find_by(config_key: 'practical_support')
-      end
-    end
-  end
-
   describe 'clinic options' do
     before do
       @active = create :clinic, name: 'active clinic', active: true
