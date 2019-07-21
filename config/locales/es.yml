@@ -248,6 +248,10 @@ es:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
         role: Papel
+      practical_support:
+        confirmed: Confirmado
+        support_type: Tipo de apoyo
+        source: Fuente
   navigation:
     admin_tools:
       accounting: Contabilidad
@@ -413,6 +417,7 @@ es:
       notes: Notas
       patient_information: Información del Paciente
       pledge_fulfillment: Cumplimiento de la Promesa
+      practical_support: Apoyo Practico
       submit_pledge: Crear Promesa
     new:
       add_button: Añadir nuevo paciente
@@ -474,6 +479,14 @@ es:
         procedure_date: Fecha de procedimiento
         weeks_along_at_procedure: Semanas a lo largo del procedimiento
       title: Cumplimiento de la promesa
+    practical_support:
+      delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
+      support_needed: Soporte Necesarios
+      point_of_contact: Punto de contacto
+      create: Crear una nueva entrada de soporte práctico
+      title: Apoyo practico
+      remove: Quita
+      new: 'Grabar nueva información de soporte práctico:'
     shared:
       appt_date: Día de la cita
       name: Nombre y apellido
