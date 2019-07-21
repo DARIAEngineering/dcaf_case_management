@@ -65,6 +65,7 @@ es:
     add: Añadir
     appointment_date_short: Día de la cita
     back: Atrás
+    clinic: Clínica
     days_along: Días de embarazo al inicio
     email: Email
     medicaid: Medicaid
@@ -72,6 +73,7 @@ es:
     name: Nombre
     'no': 'No'
     notes: Notas
+    patient: Patiente
     phone: Teléfono
     save: Guardar
     search: Buscar
@@ -354,8 +356,10 @@ es:
       practical_support:
         companion: Acompañante
         lodging: Hospedaje
-        travel_inside_area: Viajar dentro de la región
-        travel_to_area: Viajar a la región
+        travel_inside_region: Viajar dentro de la región
+        travel_to_region: Viajar a la región
+        other: Otro (ver notas)
+        not_sure_yet: No estamos seguro (ver notas)
       race:
         asian_south_asian: Asiática o Sur de Asia
         black_african_american: Negra/Afroamericana

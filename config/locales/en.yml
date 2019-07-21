@@ -65,6 +65,7 @@ en:
     add: Add
     appointment_date_short: Appt date
     back: Back
+    clinic: Clinic
     days_along: Days along at intake
     email: Email
     medicaid: Medicaid
@@ -72,6 +73,7 @@ en:
     name: Name
     'no': 'No'
     notes: Notes
+    patient: Patient
     phone: Phone
     save: Save
     search: Search
@@ -356,6 +358,8 @@ en:
         lodging: Lodging
         travel_inside_area: Travel inside the region
         travel_to_area: Travel to the region
+        other: Other (see notes)
+        not_sure_yet: Not sure yet (see notes)
       race:
         asian_south_asian: Asian or South Asian
         black_african_american: Black/African-American
