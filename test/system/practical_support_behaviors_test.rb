@@ -94,7 +94,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
     it 'destroy practical supports if you click the big red button' do
       within :css, '#existing-practical-supports' do
-        accept_confirm { click_button 'Delete' }
+        accept_confirm { click_button 'Remove' }
       end
 
       reload_page_and_click_link 'Practical Support'
