@@ -54,6 +54,9 @@ class PatientsController < ApplicationController
   end
 
   def edit
+    # i18n-tasks-use t('mongoid.attributes.practical_support.confirmed')
+    # i18n-tasks-use t('mongoid.attributes.practical_support.source')
+    # i18n-tasks-use t('mongoid.attributes.practical_support.support_type')
     @note = @patient.notes.new
     @external_pledge = @patient.external_pledges.new
   end
