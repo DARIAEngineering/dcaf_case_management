@@ -2,8 +2,8 @@ module PracticalSupportsHelper
   def practical_support_options(current_value = nil)
     options = [
       nil,
-      [ t('patient.helper.practical_support.travel_to_region'), 'Travel to region' ],
-      [ t('patient.helper.practical_support.travel_inside_region'), 'Travel inside region' ],
+      [ t('patient.helper.practical_support.travel_to_region'), 'Travel to the region' ],
+      [ t('patient.helper.practical_support.travel_inside_region'), 'Travel inside the region' ],
       [ t('patient.helper.practical_support.lodging'), 'Lodging' ],
       [ t('patient.helper.practical_support.companion'), 'Companion' ],
     ] + Config.find_or_create_by(config_key: 'practical_support').options +

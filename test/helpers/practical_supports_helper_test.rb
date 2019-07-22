@@ -10,11 +10,11 @@ class PracticalSupportsHelperTest < ActionView::TestCase
            nil,
           "Metallica Tickets",
           "Clothing",
-          "Travel to the region",
-          "Travel inside the region",
-          "Lodging",
-          "Companion",
-          'Other (see notes)'
+          ["Travel to the region", "Travel to the region"],
+          ["Travel inside the region", "Travel inside the region"],
+          ["Lodging", "Lodging"],
+          ["Companion", "Companion"],
+          ['Other (see notes)', 'Other (see notes)']
         ]
         assert_same_elements expected, practical_support_options
       end
@@ -28,11 +28,11 @@ class PracticalSupportsHelperTest < ActionView::TestCase
 
         expected = [
           nil,
-          "Travel to the region",
-          "Travel inside the region",
-          "Lodging",
-          "Companion",
-          'Other (see notes)'
+          ["Travel to the region", "Travel to the region"],
+          ["Travel inside the region", "Travel inside the region"],
+          ["Lodging", "Lodging"],
+          ["Companion", "Companion"],
+          ['Other (see notes)', 'Other (see notes)']
         ]
         assert_same_elements expected, @options
         assert Config.find_by(config_key: 'practical_support')
@@ -43,11 +43,11 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       it 'should push onto the end' do
         expected = [
           nil,
-          "Travel to the region",
-          "Travel inside the region",
-          "Lodging",
-          "Companion",
-          'Other (see notes)',
+          ["Travel to the region", "Travel to the region"],
+          ["Travel inside the region", "Travel inside the region"],
+          ["Lodging", "Lodging"],
+          ["Companion", "Companion"],
+          ['Other (see notes)', 'Other (see notes)'],
           'bandmates'
         ]
         assert_same_elements expected, practical_support_options('bandmates')
@@ -66,10 +66,10 @@ class PracticalSupportsHelperTest < ActionView::TestCase
           'Baltimore Abortion Fund',
           'Tiller Fund (NNAF)',
           'NYAAF (New York)',
-          'Patient',
-          'Clinic',
-          'Other (see notes)',
-          'Not sure yet (see notes)'
+          ['Patient', 'Patient'],
+          ['Clinic', 'Clinic'],
+          ['Other (see notes)', 'Other (see notes)'],
+          ['Not sure yet (see notes)', 'Not sure yet (see notes)']
         ]
         assert_same_elements expected, practical_support_source_options
       end
@@ -84,10 +84,10 @@ class PracticalSupportsHelperTest < ActionView::TestCase
         expected = [
           nil,
           'DC Abortion Fund',
-          'Patient',
-          'Clinic',
-          'Other (see notes)',
-          'Not sure yet (see notes)'
+          ['Patient', 'Patient'],
+          ['Clinic', 'Clinic'],
+          ['Other (see notes)', 'Other (see notes)'],
+          ['Not sure yet (see notes)', 'Not sure yet (see notes)']
         ]
         assert_same_elements expected, @options
         assert Config.find_by(config_key: 'external_pledge_source')
@@ -99,10 +99,10 @@ class PracticalSupportsHelperTest < ActionView::TestCase
         expected = [
           nil,
           'DC Abortion Fund',
-          'Patient',
-          'Clinic',
-          'Other (see notes)',
-          'Not sure yet (see notes)',
+          ['Patient', 'Patient'],
+          ['Clinic', 'Clinic'],
+          ['Other (see notes)', 'Other (see notes)'],
+          ['Not sure yet (see notes)', 'Not sure yet (see notes)'],
           'yolo'
         ]
         assert_same_elements expected, practical_support_source_options('yolo')
