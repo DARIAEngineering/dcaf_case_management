@@ -65,6 +65,7 @@ en:
     add: Add
     appointment_date_short: Appt date
     back: Back
+    clinic: Clinic
     days_along: Days along at intake
     email: Email
     medicaid: Medicaid
@@ -72,6 +73,7 @@ en:
     name: Name
     'no': 'No'
     notes: Notes
+    patient: Patient
     phone: Phone
     save: Save
     search: Search
@@ -241,6 +243,10 @@ en:
         textable: Textable
         urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
+      practical_support:
+        confirmed: Confirmed
+        source: Source
+        support_type: Support type
       user:
         current_password: Current password
         email: Email
@@ -350,8 +356,10 @@ en:
       practical_support:
         companion: Companion
         lodging: Lodging
-        travel_inside_area: Travel inside the region
-        travel_to_area: Travel to the region
+        not_sure_yet: Not sure yet (see notes)
+        other: Other (see notes)
+        travel_inside_region: Travel inside the region
+        travel_to_region: Travel to the region
       race:
         asian_south_asian: Asian or South Asian
         black_african_american: Black/African-American
@@ -413,6 +421,7 @@ en:
       notes: Notes
       patient_information: Patient Information
       pledge_fulfillment: Pledge Fulfillment
+      practical_support: Practical Support
       submit_pledge: Submit pledge
     new:
       add_button: Add new patient
@@ -474,6 +483,14 @@ en:
         procedure_date: Procedure date
         weeks_along_at_procedure: Weeks along at procedure
       title: Pledge Fulfillment
+    practical_support:
+      create: Create new practical support entry
+      delete_confirm: Are you sure you want to delete this practical support entry?
+      new: 'Record new practical support info:'
+      point_of_contact: Point of contact
+      remove: Remove
+      support_needed: Support needed
+      title: Practical support
     shared:
       appt_date: Appointment date
       name: First and last name

@@ -65,6 +65,7 @@ es:
     add: Añadir
     appointment_date_short: Día de la cita
     back: Atrás
+    clinic: Clínica
     days_along: Días de embarazo al inicio
     email: Email
     medicaid: Medicaid
@@ -72,6 +73,7 @@ es:
     name: Nombre
     'no': 'No'
     notes: Notas
+    patient: Patiente
     phone: Teléfono
     save: Guardar
     search: Buscar
@@ -241,6 +243,10 @@ es:
         textable: Textable
         urgent_flag: Bandera urgente
         voicemail_preference: Preferencia de correo de voz
+      practical_support:
+        confirmed: Confirmado
+        source: Fuente
+        support_type: Tipo de apoyo
       user:
         current_password: Contraseña actual
         email: Correo Electrónico/Email
@@ -350,8 +356,10 @@ es:
       practical_support:
         companion: Acompañante
         lodging: Hospedaje
-        travel_inside_area: Viajar dentro de la región
-        travel_to_area: Viajar a la región
+        not_sure_yet: No estamos seguro (ver notas)
+        other: Otro (ver notas)
+        travel_inside_region: Viajar dentro de la región
+        travel_to_region: Viajar a la región
       race:
         asian_south_asian: Asiática o Sur de Asia
         black_african_american: Negra/Afroamericana
@@ -413,6 +421,7 @@ es:
       notes: Notas
       patient_information: Información del Paciente
       pledge_fulfillment: Cumplimiento de la Promesa
+      practical_support: Apoyo Practico
       submit_pledge: Crear Promesa
     new:
       add_button: Añadir nuevo paciente
@@ -474,6 +483,14 @@ es:
         procedure_date: Fecha de procedimiento
         weeks_along_at_procedure: Semanas a lo largo del procedimiento
       title: Cumplimiento de la promesa
+    practical_support:
+      create: Crear una nueva entrada de soporte práctico
+      delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
+      new: 'Grabar nueva información de soporte práctico:'
+      point_of_contact: Punto de contacto
+      remove: Elimina
+      support_needed: Soporte Necesarios
+      title: Apoyo practico
     shared:
       appt_date: Día de la cita
       name: Nombre y apellido
