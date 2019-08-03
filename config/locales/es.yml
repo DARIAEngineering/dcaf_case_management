@@ -488,7 +488,7 @@ es:
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       new: 'Grabar nueva información de soporte práctico:'
       point_of_contact: Punto de contacto
-      remove: Quita
+      remove: Elimina
       support_needed: Soporte Necesarios
       title: Apoyo practico
     shared:
