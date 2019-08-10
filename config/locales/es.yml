@@ -270,8 +270,6 @@ es:
     footer:
       national_abortion_federation: Federación Nacional de Abortos
       please_send_feedback: Por favor envíe sus comentarios o ideas al equipo de programación en
-    practical_support_guidance:
-      label: Recursos de Apoyo Práctico
     user_tools:
       profile: Mi Perfil
       sign_in: Registrarse
@@ -488,7 +486,7 @@ es:
     practical_support:
       create: Crear una nueva entrada de soporte práctico
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
-      guidance_link: "Orientacíon de soporte práctico de %{fund}"
+      guidance_link: Orientacíon de soporte práctico de %{fund}
       new: 'Grabar nueva información de soporte práctico:'
       point_of_contact: Punto de contacto
       remove: Elimina

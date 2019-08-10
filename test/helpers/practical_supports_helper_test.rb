@@ -112,7 +112,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
 
   describe 'practical_support_guidance_link' do
     before do
-      @config = create :config, config_key: :practical_support_url,
+      @config = create :config, config_key: :practical_support_guidance_url,
                                 config_value: { options: ['https://www.yahoo.com'] }
     end
 
