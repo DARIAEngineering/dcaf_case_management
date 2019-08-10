@@ -32,7 +32,7 @@ module PracticalSupportsHelper
   def practical_support_guidance_link
     url = Config.find_or_create_by(config_key: 'practical_support_url').options.first
 
-    content_tag :span do
+    content_tag :small do
       link_to t('patient.practical_support.guidance_link', fund: FUND), url, target: '_blank'
     end if url.present?
   end

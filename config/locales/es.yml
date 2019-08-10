@@ -488,7 +488,7 @@ es:
     practical_support:
       create: Crear una nueva entrada de soporte práctico
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
-      guidance_link: Orientacíon de soporte práctico de %{FUND}
+      guidance_link: "Orientacíon de soporte práctico de %{fund}"
       new: 'Grabar nueva información de soporte práctico:'
       point_of_contact: Punto de contacto
       remove: Elimina

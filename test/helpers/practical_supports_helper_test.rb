@@ -122,7 +122,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       end
 
     it 'should return a link if config set' do
-      expected_link = '<li><a target="_blank" href="https://www.yahoo.com">DCAF pratical support guidance</a></li>'
+      expected_link = '<small><a target="_blank" href="https://www.yahoo.com">DCAF pratical support guidance</a></small>'
       assert_equal expected_link, practical_support_link
     end
   end
