@@ -9,7 +9,7 @@ class Config
   # Comma separated configs
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
-    :language, :resources_url, :practical_support_url, :fax_service, :referred_by,
+    :language, :resources_url, :practical_support_guidance_url, :fax_service, :referred_by,
     :practical_support, :hide_practical_support, :start_of_week
   ].freeze
 
@@ -18,7 +18,7 @@ class Config
   HELP_TEXT_OVERRIDES = {
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
                    'Ex: https://drive.google.com/drive/my-resource-dir',
-    practical_support_url: 'A link to a Google Drive folder with Practical Support resources. ' \
+    practical_support_guidance_url: 'A link to a Google Drive folder with Practical Support resources. ' \
                    'Ex: https://drive.google.com/drive/my-practical_support',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
     start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday.",
