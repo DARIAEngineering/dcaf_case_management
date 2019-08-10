@@ -492,7 +492,7 @@ en:
       remove: Remove
       support_needed: Support needed
       title: Practical support
-   shared:
+    shared:
       appt_date: Appointment date
       name: First and last name
       status: 'Status:'
