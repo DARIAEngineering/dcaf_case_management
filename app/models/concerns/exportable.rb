@@ -174,7 +174,7 @@ module Exportable
   end
 
   def all_practical_supports
-    practical_supports.map {|ps| "Type: #{ ps.support_type}, Source: #{ps.source}, Confirmed: #{ps.confirmed?}"}.join('; ')
+    practical_supports.map { |ps| "#{ps.source} - #{ps.support_type} - #{ps.confirmed? ? 'Confirmed' : 'Unconfirmed'}" }.join('; ')
   end
 
   class_methods do
