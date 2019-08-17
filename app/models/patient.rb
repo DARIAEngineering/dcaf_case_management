@@ -38,6 +38,7 @@ class Patient
   embeds_one :fulfillment, as: :can_fulfill
   embeds_many :calls, as: :can_call
   embeds_many :external_pledges, as: :can_pledge
+  embeds_many :practical_supports, as: :can_support
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
@@ -140,9 +141,8 @@ class Patient
 
   # Methods
   def self.pledged_status_summary(line)
-    start_of_week = Time.zone.today.beginning_of_week(:monday)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
-
+    start_of_week = Time.zone.today.beginning_of_week(Config.start_day).in_time_zone
     # Get patients who have been pledged this week, as a simplified hash
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
@@ -309,5 +309,4 @@ class Patient
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
   end
-
 end

@@ -1,10 +1,12 @@
 <h3><%= title %></h3>
+
 <table class="table">
   <thead>
     <% clinic_fields.each do |label| %>
-      <th><%= label.to_s.humanize %></th>
+      <th><%= t "mongoid.attributes.clinic.#{label}" %></th>
     <% end %>
   </thead>
+
   <tbody>
     <% clinics.each do |clinic| %>
       <tr>

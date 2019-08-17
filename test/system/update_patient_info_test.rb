@@ -12,6 +12,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     @ext_pledge = @patient.external_pledges.first
     create_external_pledge_source_config
     create_insurance_config
+    create_practical_support_config
     create_language_config
     create_referred_by_config
 
@@ -93,11 +94,11 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       it 'should update the appointment date counter' do
         assert has_content? 'Currently: 5w 4d'
-        assert has_content? 'Approx gestation at appt: 6 weeks, 2 days'
+        assert has_content? 'Approx gestation at appt: 6 weeks 2 days'
 
         select '1 day', from: 'patient_last_menstrual_period_days'
         assert has_content? 'Currently: 5w 3d'
-        assert has_content? 'Approx gestation at appt: 6 weeks, 1 day'
+        assert has_content? 'Approx gestation at appt: 6 weeks 1 day'
       end
     end
 

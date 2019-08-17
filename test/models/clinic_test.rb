@@ -112,4 +112,23 @@ class ClinicTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'scopes' do
+    describe 'gestational_limit_above' do
+      before { Clinic.destroy_all }
+
+      it 'should filter out clinics unless the gestational_limit is above the cutoff in days' do
+        no_gl_clinic = create :clinic
+        gl_filtered_clinic = create :clinic, gestational_limit: 100
+        gl_kept_clinic = create :clinic, gestational_limit: 240
+        # Should return the clinics with no specified GL and a GL above 150
+        gl_above_clinics = Clinic.gestational_limit_above 150
+
+        assert_equal 2, gl_above_clinics.count
+        assert_includes gl_above_clinics, no_gl_clinic
+        assert_includes gl_above_clinics, gl_kept_clinic
+        assert_not_includes gl_above_clinics, gl_filtered_clinic
+      end
+    end
+  end
 end

@@ -152,6 +152,30 @@ class PatientTest < ActiveSupport::TestCase
       assert_equal summary[:pledged].count, 1
       assert_equal summary[:sent].count, 1
     end
+
+    it "should include pledges based off of the configured week start" do
+      # Here the week starts on Wednesday, and there's a fund pledge from Saturday Jan 20
+      # If the week started on Monday (default behavior) then the pledge from Saturday would not be included
+      Config.create config_key: :start_of_week,
+                    config_value: {options: ['Wednesday']}
+      Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 300  }
+      Timecop.freeze("January 22, 1973") do
+        summary = Patient.pledged_status_summary(:DC)
+        assert_equal 1, summary[:pledged].count
+      end
+    end
+
+    it "should exclude pledges based off of the configured week start" do
+      # The week starts on Wednesday, and there's a fund pledge from Monday Jan 22
+      # If the week started on Monday, the pledge from monday would be included
+      Config.create config_key: :start_of_week,
+                    config_value: {options: ['Wednesday']}
+      Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 300  }
+      Timecop.freeze("January 24, 1973") do
+        summary = Patient.pledged_status_summary(:DC)
+        assert_equal 0,summary[:pledged].count
+      end
+    end
   end
 
   describe 'callbacks' do
@@ -198,78 +222,6 @@ class PatientTest < ActiveSupport::TestCase
           @patient.destroy
         end
       end
-    end
-  end
-
-  describe 'search method' do
-    before do
-      @pt_1 = create :patient, name: 'Susan Sher',
-                               primary_phone: '124-456-6789'
-      @pt_2 = create :patient, name: 'Susan E',
-                               primary_phone: '124-567-7890',
-                               other_contact: 'Friend Ship'
-      @pt_3 = create :patient, name: 'Susan A',
-                               primary_phone: '555-555-5555',
-                               other_phone: '999-999-9999'
-      @pt_4 = create :patient, name: 'Susan A in MD',
-                               primary_phone: '777-777-7777',
-                               other_phone: '999-111-9888',
-                               line: 'MD'
-    end
-
-    it 'should find a patient on name or other name' do
-      assert_equal 1, Patient.search('Susan Sher').count
-      assert_equal 1, Patient.search('Friend Ship').count
-    end
-
-    it 'can find multiple patients off an identifier' do
-      assert_same_elements [@pt_1, @pt_2], Patient.search('D1-24')
-    end
-
-    # it 'should find multiple patients if there are multiple' do
-    #   assert_equal 2, Patient.search('124-456-6789').count
-    # end
-
-    describe 'order' do
-      before do
-        Timecop.freeze Date.new(2014,4,4)
-        @pt_4.update! name: 'Laila C.'
-        Timecop.freeze Date.new(2014,4,5)
-        @pt_3.update! name: 'Laila B.'
-      end
-
-      after do
-        Timecop.return
-      end
-
-      it 'should return patients in order of last modified' do
-        assert_equal [@pt_3, @pt_4], Patient.search('Laila')
-      end
-
-      it 'should limit the number of patients returned' do
-        16.times do |num|
-          create :patient, primary_phone: "124-567-78#{num+10}"
-        end
-        assert_equal 15, Patient.search('124').count
-      end
-    end
-
-    it 'should be able to find based on secondary phones too' do
-      assert_equal 1, Patient.search('999-999-9999').count
-    end
-
-    # spotty test?
-    it 'should be able to find based on phone patterns' do
-      assert_equal 2, Patient.search('124').count
-    end
-
-    it 'should be able to narrow on line' do
-      assert_equal 2, Patient.search('Susan A').count
-      assert_equal 1, Patient.search('Susan A', 'MD').count
-    end
-
-    it 'should not choke if it does not find anything' do
-      assert_equal 0, Patient.search('no entries with this').count
     end
   end
 
@@ -514,253 +466,6 @@ class PatientTest < ActiveSupport::TestCase
       @patient.reload
       assert_nil @patient.pledge_sent_by
       assert_nil @patient.pledge_sent_at
-    end
-
-  end
-
-  describe 'last menstrual period calculation concern' do
-    before do
-      @user = create :user
-      @patient = create :patient, created_by: @user,
-                                  initial_call_date: 2.days.ago,
-                                  last_menstrual_period_weeks: 9,
-                                  last_menstrual_period_days: 2,
-                                  appointment_date: 2.days.from_now
-    end
-
-    describe 'last_menstrual_period_display' do
-      it 'should return nil if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.last_menstrual_period_display
-      end
-
-      it 'should return LMP in weeks and days' do
-        assert_equal '9 weeks, 4 days',
-                     @patient.last_menstrual_period_display
-      end
-    end
-
-    describe 'last_menstrual_period_display_short' do
-      it 'should return nil if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.last_menstrual_period_display_short
-      end
-
-      it 'should return shorter LMP in weeks and days' do
-        assert_equal @patient.last_menstrual_period_display_short, '9w 4d'
-      end
-    end
-
-    describe 'last_menstrual_period_at_appt' do
-      it 'should return nil unless appt date is set' do
-        @patient.appointment_date = nil
-        assert_nil @patient.last_menstrual_period_at_appt
-      end
-
-      it 'should return a calculated LMP on date of appointment' do
-        assert_equal '9 weeks, 6 days',
-                     @patient.last_menstrual_period_at_appt
-      end
-    end
-
-    describe 'last_menstrual_period_now' do
-      it 'should return nil if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.send(:_last_menstrual_period_now)
-      end
-
-      it 'should be equivalent to LMP on date - Time.zone.today' do
-        assert_equal  @patient.send(:_last_menstrual_period_now),
-                      @patient.send(:_last_menstrual_period_on_date,
-                                    Time.zone.today)
-      end
-
-      it 'should be LMP on date of appointment if appointment is in the past' do
-        @patient.appointment_date = 1.day.ago
-        assert_equal  @patient.send(:_last_menstrual_period_now),
-                      @patient.send(:_last_menstrual_period_on_date, 1.day.ago.to_date)
-      end
-    end
-
-    describe 'last_menstrual_period_on_date' do
-      it 'should nil out if LMP weeks is not set' do
-        @patient.last_menstrual_period_weeks = nil
-        assert_nil @patient.send(:_last_menstrual_period_on_date,
-                                 Time.zone.today)
-      end
-
-      it 'should accurately calculate LMP on a given date' do
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 67
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   5.days.from_now.to_date), 72
-
-        @patient.initial_call_date = 4.days.ago
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                    Time.zone.today), 69
-
-        @patient.last_menstrual_period_weeks = 10
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 76
-
-        @patient.last_menstrual_period_days = 6
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 80
-      end
-
-      it 'should cap at 280 days' do
-        @patient.last_menstrual_period_weeks = 52
-        assert_equal @patient.send(:_last_menstrual_period_on_date,
-                                   Time.zone.today), 280
-      end
-    end
-
-    describe '_display_as_weeks' do
-      it 'should return a value of weeks and days' do
-        assert_equal '3 weeks, 3 days', @patient.send(:_display_as_weeks, 24)
-      end
-    end
-  end
-
-  describe 'status concern methods' do
-    before do
-      @user = create :user
-      @patient = create :patient, other_phone: '111-222-3333',
-                                  other_contact: 'Yolo'
-    end
-
-    describe 'status method branch 1' do
-      it 'should default to "No Contact Made" when a patient has no calls' do
-        assert_equal Patient::STATUSES[:no_contact][:key], @patient.status
-      end
-
-      it 'should default to "No Contact Made" on a patient left voicemail' do
-        @patient.calls.create attributes_for(:call, status: 'Left voicemail')
-        assert_equal Patient::STATUSES[:no_contact][:key], @patient.status
-      end
-
-      it 'should still say "No Contact Made" if patient leaves voicemail with appointment' do
-        @patient.appointment_date = '01/01/2017'
-        assert_equal Patient::STATUSES[:no_contact][:key], @patient.status
-      end
-    end
-
-    describe 'status method branch 2' do
-      it 'should update to "Needs Appointment" once patient has been reached' do
-        @patient.calls.create attributes_for(:call, status: 'Reached patient')
-        assert_equal Patient::STATUSES[:needs_appt][:key], @patient.status
-      end
-
-      it 'should update to "Fundraising" once appointment made and patient reached' do
-        @patient.calls.create attributes_for(:call, status: 'Reached patient')
-        @patient.appointment_date = '01/01/2017'
-        assert_equal Patient::STATUSES[:fundraising][:key], @patient.status
-      end
-
-      it 'should update to "Sent Pledge" after a pledge has been sent' do
-        @patient.pledge_sent = true
-        assert_equal Patient::STATUSES[:pledge_sent][:key], @patient.status
-      end
-
-      it 'should update to "Pledge Not Fulfilled" if a pledge has not been fulfilled for 150 days' do
-        @patient.pledge_sent = true
-        @patient.pledge_sent_at = (Time.zone.now - 151.days)
-        assert_equal Patient::STATUSES[:pledge_unfulfilled][:key], @patient.status
-      end
-
-      it 'should update to "Pledge Fulfilled" if a pledge has been fulfilled' do
-        @patient.fulfillment.fulfilled = true
-        assert_equal Patient::STATUSES[:fulfilled][:key], @patient.status
-      end
-
-      # it 'should update to "Pledge Paid" after a pledge has been paid' do
-      # end
-      it 'should update to "No contact in 120 days" after 120ish days of no calls' do
-        @patient.calls.create attributes_for(:call, status: 'Reached patient', created_at: 121.days.ago)
-        assert_equal Patient::STATUSES[:dropoff][:key], @patient.status
-
-        @patient.calls.create attributes_for(:call, status: 'Reached patient', created_at: 120.days.ago)
-        assert_equal Patient::STATUSES[:needs_appt][:key], @patient.status
-      end
-
-      it 'should update to "Resolved Without DCAF" if patient is resolved' do
-        @patient.resolved_without_fund = true
-        assert_equal Patient::STATUSES[:resolved][:key], @patient.status
-      end
-    end
-
-    describe 'contact_made? method' do
-      it 'should return false if no calls have been made' do
-        refute @patient.send :contact_made?
-      end
-
-      it 'should return false if an unsuccessful call has been made' do
-        @patient.calls.create attributes_for(:call, status: 'Left voicemail')
-        refute @patient.send :contact_made?
-      end
-
-      it 'should return true if a successful call has been made' do
-        @patient.calls.create attributes_for(:call, status: 'Reached patient')
-        assert @patient.send :contact_made?
-      end
-    end
-  end
-
-  describe 'export concern methods' do
-    before { @patient = create :patient }
-
-    describe 'age range tests' do
-      it 'should return the right age for numbers' do
-        @patient.age = nil
-        assert_equal @patient.age_range, :not_specified
-
-        [15, 17].each do |age|
-          @patient.update age: age
-          assert_equal @patient.age_range, :under_18
-        end
-
-        [18, 20, 24].each do |age|
-          @patient.update age: age
-          assert_equal @patient.age_range, :age18_24
-        end
-
-        [25, 30, 34].each do |age|
-          @patient.update age: age
-          assert_equal @patient.age_range, :age25_34
-        end
-
-        [35, 40, 44].each do |age|
-          @patient.update age: age
-          assert_equal @patient.age_range, :age35_44
-        end
-
-        [45, 50, 54].each do |age|
-          @patient.update age: age
-          assert_equal @patient.age_range, :age45_54
-        end
-
-        [55, 60, 100].each do |age|
-          @patient.update age: age
-          assert_equal @patient.age_range, :age55plus
-        end
-
-        [101, 'yolo'].each do |bad_age|
-          @patient.age = bad_age
-          assert_equal @patient.age_range, :bad_value
-        end
-      end
-    end
-
-    describe 'preferred language tests' do
-      it 'should return the right language' do
-        ['', nil].each do |language|
-          @patient.update language: language
-          assert_equal @patient.preferred_language, 'English'
-        end
-
-        @patient.language = 'Spanish'
-          assert_equal @patient.preferred_language, 'Spanish'
-      end
     end
   end
 

@@ -1,29 +1,109 @@
 ---
 es:
+  accountants:
+    search_cases: Buscar casos
+    search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
+    table_content:
+      check_number: "# de cheque"
+      clinic: Clínica
+      date_of_check: Fecha del cheque
+      fund_payout: Pago de %{fund}
+      pledge_sent: Promesa enviada
+      pt_initials: Iniciales PT
+      weeks_at_procedure: Semanas en el procedimiento
+      weeks_at_procedure_display: "%{gestation} semanas"
+    title: Tablero de contador
+  call:
+    new:
+      call_now: 'Llame a %{name} ahora:'
+      result:
+        did_not_reach_patient: No hablé con el paciente
+        left_voicemail: Dejé un correo de voz para el paciente.
+        reached_patient: Hablé con el paciente
+      voicemail_instructions:
+        no_voicemail: No deje un mensaje de voz a este paciente
+        voicemail_identify: Si se puede dejar mensaje de voz; Y tambien, identificarse como %{fund}
+        voicemail_no_identify: Si se puede dejar mensaje de voz; Pero no identificarse como %{fund}
+    other_contact:
+      number: "%{name}'s numero:"
+      other_contact: "%{name} %{rel} es el contacto principal para este paciente%{punc}"
+      primary: 'Contacto primario:'
+    status:
+      could_not_reach_patient: No hablé con el paciente
+      left_voicemail: Dejé un mensaje de voz
+      reached_patient: Paciente alcanzado
+  clinic_locator:
+    description: Filtre las clínicas de acuerdo con la aceptación de NAF / NNAF y sus límites de gestación; ordenar por proximidad a un código postal.
+    experimental_note: Esta es una característica experimental.
+    gestation_above: Gestación arriba
+    medicaid_only_toggle: Mostrar solo clínicas de Medicaid
+    naf_only_toggle: Mostrar solo clínicas de NAF
+    patient_zip_code: Código postal del paciente
+    result:
+      affordable_title: Las clínicas más económicas
+      distance: "%{miles} millas"
+      goes_to: "%{weeks} semanas %{days} días"
+      location: "%{city}, %{state}"
+      nearest_title: Clínicas mas cercanas
+      not_specified: No especificado
+    search_button: Buscar clinicas
+    title: Asistente de localizador de clínicas
+  clinics:
+    edit:
+      title: Editar detalles de la clínica
+    form:
+      active_help: "¿Estamos trabajando activamente con esta clínica?"
+      add_clinic: Añadir clinica
+      costs_weeks: Costos en %{week} semanas
+      save_changes: Guardar cambios
+      zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
+    index:
+      title: Clínicas
+    new:
+      title: Añadir una nueva clínica
   common:
     add: Añadir
     appointment_date_short: Día de la cita
+    back: Atrás
+    clinic: Clínica
+    days_along: Días de embarazo al inicio
+    email: Email
+    medicaid: Medicaid
+    naf: NAF
     name: Nombre
+    'no': 'No'
     notes: Notas
+    patient: Patiente
     phone: Teléfono
+    save: Guardar
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
+    weeks_days: "%{weeks} semanas, %{days} días"
+    weeks_days_short: "%{weeks}s %{days}d"
+    'yes': Sí
   configs:
     config:
       current_options: 'Las opciones actuales son:'
-      update_options_for: Opciones para el compromiso externo %{option}, (por favor separe con comas)
+      update_options_for: Opciones para la promesa externa %{option}, (por favor separe con comas)
     index:
-      sub_text: Use esto para configurar el seguro medico, el idioma, las opciones de compromiso externo y los límites de compromiso
+      sub_text: Use esto para configurar el seguro medico, el idioma, las opciones de promesa externa y los límites de promesa
       title: Configuraciones
   dashboard:
     activity_log:
       label: Actividad de línea de llamadas %{current_line}
+    budget_bar:
+      pledged_item: "%{amount} prometido"
+      pledged_report: "%{amount} prometido (%{count} pacientes)"
+      pop_content_appt_date: cita en %{date}
+      pop_content_no_appt_date: sin cita
+      sent_item: "%{amount} enviado"
+      sent_report: "%{amount} enviado (%{count} pacientes)"
     helpers:
       voicemail_options:
         'no': No dejen mensajes de voz
         not_specified: Sin instrucciones; no ID VM
-        'yes': Si se permiten mensajes de voz
+        'yes': Si se permiten mensajes de voz, ID OK
     overview:
       week_of: Semana de %{week_range}
     partial_titles:
@@ -36,30 +116,151 @@ es:
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
     table_content:
       clear_call_list: Borrar su lista de llamadas
-      clear_call_list_confirm: "¿Está seguro de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
-      remove_from_call_list_confirm: "¿Estás seguro de que deseas eliminar a %{name} de tu lista de llamadas?"
+      clear_call_list_confirm: "¿Está seguro/a de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
+      remove_from_call_list_confirm: "¿Está seguro/a de que deseas eliminar a %{name} de tu lista de llamadas?"
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}
-    sessions:
+    password:
       new:
-        email: Email
+        send_reset: Enviame las instrucciones para restablecer mi contraseña
+        title: Restablecimiento de contraseña
+    passwords:
+      send_paranoid_instructions: Si su dirección de correo electrónico existe en nuestra base de datos, recibirá un correo electrónico con instrucciones sobre cómo confirmar su dirección de correo electrónico en unos minutos.
+    sessions:
+      failure:
+        user:
+          unauthenticated: ''
+      new:
         google_signin: Inicia sesión con Google (recomendado)
+        lock_email_not_received: "¿No recibió instrucciones de desbloqueo?"
         password: Contraseña
+        password_forgot: "¿Olvidaste tu contraseña?"
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
+        reset_email_not_received: "¿No recibió instrucciones de confirmación?"
+        sign_in: Regresar a registre
+      user:
+        signed_in: ''
+  events:
+    add_to_call_list: Añadir a la lista de llamadas
+    couldnt_reach_patient: llamó, paciente no contestó
+    left_voicemail: dejó un mensaje de voz
+    pledged: envió una promesa de $%{pledge_amount}
+    reached_patient: habló con el paciente
+    unknown_action: habló o interactuó con
+  external_pledge:
+    edit:
+      fund_pledge: "%{source} promesa"
+    new:
+      amount: Cantidad
+      create_button: Crear promesa externo
+      source: Origen
+      title: 'O, grabe un nueva promesa externa:'
+    sources:
+      clinic_discount: Descuento de clinica
+      other_funds: Otros fondos (ver notas)
+  flash:
+    account_locked: Cuenta bloqueada, consulte con su fondo.
+    action_on_account: Cuenta de %{name} %{verb}
+    cant_lock_own_account: No puedes bloquear tu propia cuenta. Pregunte a otro administrador.
+    clinic_created: "%{clinic} creado!"
+    clinic_details_updated: Detalles de la clínica fueron exitosamente actualizados
+    config_failed_update: Config no pudo actualizar
+    config_update_success: Configuración actualizada correctamente
+    demote_own_account_warn: Por razones de seguridad, no se le permite cambiar su función de administrador a no administrador. Pídale a otro administrador que lo degraden.
+    error_saving_clinic: Algúnos errores evitaron que esta clínica se guardara - %{error}
+    error_saving_clinic_details: Error al guardar los detalles de la clínica - %{error}
+    locked: Bloqueada
+    new_patient_error: Algúnos errores impidieron guardar a este paciente - %{error}
+    new_patient_save: Un nuevo paciente ha sido guardado con éxito
+    patient_info_saved: Información del paciente guardada con éxito en %{timestamp}
+    patient_removed_database: Paciente eliminado exitosamente de la base de datos.
+    patient_removed_database_error: No se puede eliminar a los pacientes con promesas; Por favor, corrija el registro del paciente y vuelva a intentarlo.
+    patient_save_error: Los errores impidieron salvar a este paciente - %{error}
+    patient_save_success: "%{patient} ha sido salvado con éxito! Agregue notas y promesas externos, confirme al promesa dura y los montos de la promesa del %{fund} son las mismas, y está listo."
+    pledge_download_alert: Debe ingresar su nombre en el cuadro para firmar y descargar la promesa
+    unlocked: Desbloqueado
+    user_created: "¡Usuario creado!"
+    user_update_error: Error al guardar los detalles del usuario - %{error}
+    user_update_success: Detalles de usuario actualizados exitosamente
   lines:
     new:
       start: Empezar
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
+  mongoid:
+    attributes:
+      clinic:
+        accepts_medicaid: Acepta Medicaid
+        accepts_naf: Acepta NAF
+        active: Activo
+        city: Ciudad
+        distance: Distancia
+        fax: Fax
+        gestational_limit: Límite gestacional (en días)
+        location: Ubicación
+        name: Nombre
+        phone: Teléfono
+        state: Estado
+        street_address: Dirección
+        zip: Código postal
+      patient:
+        age: Edad
+        appointment_date: Día de la cita
+        city: Ciudad
+        completed_ultrasound: Ultrasonido completado
+        county: Condado
+        employment_status: Estatus de empleo
+        fund_pledge: Promesa de fondos
+        fund_pledged_at: Fondo prometido en
+        household_size_adults: Adultos en el Hogar
+        household_size_children: Menores en el Hogar
+        income: Ingresos
+        initial_call_date: Fecha de llamada inicial
+        insurance: Seguro médico
+        language: Idioma
+        last_menstrual_period_days: Últimos días del período menstrual
+        last_menstrual_period_weeks: Últimas semanas del período menstrual
+        line: Línea
+        naf_pledge: Promesa de la NAF
+        name: Nombre
+        other_contact: Otro contacto
+        other_contact_relationship: Otra relacion de contacto
+        other_phone: Otro teléfono
+        patient_contribution: Contribución del paciente
+        pledge_generated_at: Promesa generada en
+        pledge_sent: Promeso enviada
+        pledge_sent_at: Promesa enviada en
+        primary_phone: Número de teléfono principal
+        procedure_cost: Costo del procedimiento
+        race_ethnicity: Raza / Etnicidad
+        referred_by: Referido por
+        referred_to_clinic: Referido a la clínica
+        resolved_without_fund: Resuelto sin ayuda de fondo
+        special_circumstances: Circunstancias Especiales
+        state: Estado
+        textable: Textable
+        urgent_flag: Bandera urgente
+        voicemail_preference: Preferencia de correo de voz
+      practical_support:
+        confirmed: Confirmado
+        source: Fuente
+        support_type: Tipo de apoyo
+      user:
+        current_password: Contraseña actual
+        email: Correo Electrónico/Email
+        name: Nombre y apellido
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        role: Papel
   navigation:
     admin_tools:
       accounting: Contabilidad
       clinic_management: Manejo de Clínica
-      config_management: Configuración
+      config_management: Manejo de Configuración
       export: Exportación anónima de CSV
-      label: Herramientas de Administración
+      label: Administración
       reporting: Reportes
       user_management: Manejo de Usuarios
     cm_resources:
@@ -73,26 +274,228 @@ es:
       profile: Mi Perfil
       sign_in: Registrarse
       sign_out: Desconectar
+  note:
+    most_recent: 'La nota más reciente de %{by} en %{at}:'
+    most_recent_no_user: La nota más reciente
   patient:
+    abortion_information:
+      clinic_section:
+        clinic: Clínica
+        inactive_clinics: Clinícas inactivas
+        medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
+        naf_only_toggle: Enseñar solo clínicas de la NAF
+        not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
+        referred_to_clinic: Referido a la clínica
+        resolved_without_fund: Resuelto sin ayuda de %{fund}
+        title: Detalles de la clínica
+        ultrasound_completed: "¿Ultrasonido completado?"
+      cost_section:
+        abortion_cost: Costo del aborto
+        fund_pledge: Promesa de %{fund}
+        naf_pledge: Promesa de la Federación Nacional de Aborto
+        outstanding_balance: Cantidad pendiente
+        patient_contribution: Contribución del paciente
+        title: Detalles del costo
+      title: Información de aborto
+    call_log:
+      delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
+      record_new_call: Grabar nueva llamada
+      table:
+        actions: ACCIONES
+        case_manager: CM
+        date: FECHA
+        remove_button: Retirar
+        result: RESULTADO
+        time: HORA
+      title: Registro de Llamadas
+    change_log:
+      table:
+        case_manager: CM
+        change: Cambiar (de -> a)
+        modified_date: Fecha modificada
+      title: Historia del paciente
     dashboard:
-      approx_gestation: 'Aprox la gestación en la cita: %{gest}'
-      appt_date: Día de la cita
+      approx_gestation: 'Aprox la gestación en la cita: %{weeks} semanas %{days} días'
       called_on: 'Llamado en: %{date}'
       confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
-      currently: 'Actualmente: %{LMP}'
+      currently: 'Actualmente: %{weeks}s %{days}d'
       delete: Eliminar registro de paciente duplicado
       phone: Número de teléfono
       weeks_along: Semanas de embarazo al inicio
+    data_entry:
+      patient_entry: Entrada de paciente
     helper:
       day:
         one: "%{count} día"
         other: "%{count} días"
+      employment:
+        full_time: Tiempo completo
+        odd_jobs: Trabajos ocasionales
+        part_time: Medio tiempo
+        student: Estudiante
+        unemployed: Desempleada
+      income:
+        10_to_15: "$10,000-14,999 ($192-287/sm - $834-1250/mes)"
+        15_to_20: "$15,000-19,999 ($288-384/sm - $1251-1666/mes)"
+        20_to_25: "$20,000-24,999 ($385-480/sm - $1667-2083/mes)"
+        25_to_30: "$25,000-29,999 ($481-576/sm - $2084-2499/mes)"
+        30_to_35: "$30,000-34,999 ($577-672/sm - $2500-2916/mes)"
+        35_to_40: "$35,000-39,999 ($673-768/sm - $2917-3333/mes)"
+        40_to_45: "$40,000-44,999 ($769-864/sm - $3334-3749/mes)"
+        45_to_50: "$45,000-49,999 ($865-961/sm - $3750-4165/mes)"
+        50_to_60: "$50,000-59,999 ($962-1153/sm - $4166-4999/mes)"
+        60_to_75: "$60,000-74,999 ($1154-1441/sm - $5000-6249/mes)"
+        75_plus: "$75,000 o más ($1442+ /sm - $6250+ /mes)"
+        under_10: Debajo $9,999 ($192/sm - $833/mes)
+      insurance:
+        none: Sin Seguro
+        other: Otro (Añadir a las notas)
+        unknown: No Se
+      language:
+        English: Inglés
+      practical_support:
+        companion: Acompañante
+        lodging: Hospedaje
+        not_sure_yet: No estamos seguro (ver notas)
+        other: Otro (ver notas)
+        travel_inside_region: Viajar dentro de la región
+        travel_to_region: Viajar a la región
+      race:
+        asian_south_asian: Asiática o Sur de Asia
+        black_african_american: Negra/Afroamericana
+        hispanic_latino: Hispana/Latina
+        mixed_race_ethnicity: Raza Mixta/Etnicidad
+        native_american: Nativa Americana
+        native_hawaiian_pacific_islander: Hawaiana Nativa o Isleña Pacífica
+        other: Otra
+        white_caucasian: Blanca/Caucásica
+      referred_by:
+        clinic: Clínica
+        crime_victim_advocacy_center: Centro de defensa de víctimas del crimen
+        domestic_violence_org: Violencia doméstica crisis / intervención org
+        family: Miembro de la familia
+        friend: Amigo
+        fund: "%{fund} sitio de internet o redes sociales"
+        homeless: Refugio para indigentes
+        legal_clinic: Clínica legal
+        naf: NAF
+        nnaf: NNAF
+        other_fund: Otro fondo de aborto
+        prev_patient: Paciente anterior
+        school: Escuela
+        sexual_assault_crisis_org: Agresión de asalto sexual org
+        title: Referido por
+        web_search: Búsqueda de Google/internet
+        youth: Alcance juvenil
       week:
         one: "%{count} semana"
         other: "%{count} semanas"
+    information:
+      household_help: "(incluyendo paciente)"
+      income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
+      insurance: Seguro médico del patiente
+      language: Idioma preferido
+      other_contact:
+        name: Nombre de Otro Contacto
+        phone: Otro teléfono
+        relationship: Relación con Otro Contacto
+        title: Otro Contacto
+      referred_by: Cómo escuchó el paciente sobre %{fund}
+      special_circumstances:
+        domestic_violence: Violencia doméstica
+        fetal_diagnosis: Diagnostico fetal
+        homelessness: La falta de vivienda
+        incest: Incesto
+        other_medical_issue: Otro problema médico
+        prison: Prisión
+        rape: Violación
+        title: Circunstancias Especiales
+      textable: Se permite enviar mensajes de texto?
+      title: Información del Paciente
+      voicemail_preference: Preferencias de Mensaje de Voz
+    menu:
+      abortion_information: Información de Aborto
+      call_log: Registro de Llamadas
+      cancel_pledge: Cancelar Promesa
+      change_log: Registro de Cambios
+      notes: Notas
+      patient_information: Información del Paciente
+      pledge_fulfillment: Cumplimiento de la Promesa
+      practical_support: Apoyo Practico
+      submit_pledge: Crear Promesa
+    new:
+      add_button: Añadir nuevo paciente
+      initial_call_date: Fecha de llamada inicial
+      title: 'Su búsqueda no produjo resultados, así que agregue un nuevo paciente:'
+    notes:
+      placeholder: Ingresa notas aquí
+      submit: Crear Nota
+      title: Notas
+      urgent_flag: Marcar a este paciente como urgente
+    pledge:
+      cancel:
+        confirm: "¿Seguro/a que quieres cancelar esta promesa?"
+        title: Cancelar promesa
+      errors:
+        blank_appt: La fecha de la cita no puede estar en blanco
+        blank_clinic: El nombre de la clínica no puede estar en blanco
+        blank_fund: El campo de promesa %{fund} no puede estar en blanco
+        blank_patient: El nombre del paciente no puede estar en blanco
+        data_required: 'Información requerida:'
+      step_one:
+        clinic_name: 'Nombre de la clínica:'
+        patient_id: 'ID del paciente:'
+        patient_name: 'Nombre del paciente:'
+        pledge_amount: 'Cantidad de la promesa:'
+        title: 'Confirme que la siguiente información es correcta:'
+      step_three:
+        completed: Una vez que haya completado el proceso de envio, indique aquí que se ha enviado la promesa.
+        downloads: 'Su documento de promesa aparecerá en las descargas de su computadora. Encuentre el documento y envíe la promesa para su cliente aquí:'
+        generated: Impresionante, ¡generaste una promesa de %{fund}! ¡Gracias!
+        sent_checkbox: Yo envié la promesa
+        title: 'Descarga y envíe su promesa:'
+      step_two:
+        blank_name_error: Debe ingresar su nombre en el cuadro para firmar y descargar la promesa
+        form_disabled: Por favor genere el documento de promesa y haga clic en siguiente.
+        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado el fax a la clínica.
+        generate_pledge_button: Genera la promesa
+        sign_pledge: 'Ingrese su nombre en este cuadro para firmar su promesa:'
+        title: 'Genere el documento de promesa:'
+    pledge_fulfillment:
+      audit:
+        archive_note: El paciente será archivado el %{date}
+        audited_box: "¿Auditoría de cumplimiento?"
+        title: Auditoría
+      confirmation:
+        clinic: 'Clínica:'
+        confirm_info: 'Por favor, confirme que la clínica y la cantidad de la promesa son correctos:'
+        fund_pledge_amount: 'Cantidad de promesa de %{fund}:'
+        pledge_generated_at: 'Promesa generada en:'
+        pledge_generated_by: 'Promesa generada por:'
+        pledge_sent_at: 'Promesa enviada en:'
+        pledge_sent_by: 'Promesa enviada por:'
+      form:
+        check_num: 'Cheque #'
+        date_of_check: Fecha del cheque
+        fund_payout: Pago de %{fund}
+        pledge_fulfilled_box: Promesa cumplida
+        procedure_cost: Costo del procedimiento
+        procedure_date: Fecha de procedimiento
+        weeks_along_at_procedure: Semanas a lo largo del procedimiento
+      title: Cumplimiento de la promesa
+    practical_support:
+      create: Crear una nueva entrada de soporte práctico
+      delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
+      guidance_link: Orientacíon de soporte práctico de %{fund}
+      new: 'Grabar nueva información de soporte práctico:'
+      point_of_contact: Punto de contacto
+      remove: Elimina
+      support_needed: Soporte Necesarios
+      title: Apoyo practico
     shared:
+      appt_date: Día de la cita
       name: Nombre y apellido
-      status: 'Estado:'
+      status: 'Estatus:'
     status:
       help:
         dropoff: Paciente no ha sido escuchado en 120+ días.
@@ -100,7 +503,7 @@ es:
         fundraising: El paciente tiene una cita y está trabajando para recaudar fondos.
         needs_appt: El paciente ha hablado con el fondo, pero aún no ha establecido una cita con una clínica.
         no_contact: Un paciente ha iniciado el contacto, pero nadie del fondo ha hablado con ellos todavía.
-        pledge_paid: El contador ha pagado la clínica para el compromiso.
+        pledge_paid: El contador ha pagado la clínica para la promesa.
         pledge_sent: Un administrador de casos ha enviado una promesa a la clínica en nombre del paciente.
         pledge_unfulfilled: El paciente tenía una promesa enviada hace 150+ días, pero no la ha cobrado.
         resolved: El paciente ha decidido no involucrar al fondo en sus planes.
@@ -114,3 +517,40 @@ es:
         pledge_sent: Promesa Enviada
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
+  tooltips:
+    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación "envié la promesa") durante una semana determinada.
+    call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
+    completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
+    mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
+    record_new_external_pledge: '"Promesas externas" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
+    referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
+    resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
+    status_definition: Definición de estado
+    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con "promesa enviada", o marcado como "resuelto sin ayuda".
+  user:
+    common:
+      last_login: Último Acceso
+      role: Papel
+    edit:
+      admin_actions: Acciones de Administrador
+      lock_an_account: Bloquear una Cuenta
+      update_details: Actualizar detalles
+      update_users_role_permissions: Actualizar la función y los permisos de este usuario
+    index:
+      add_new_user: Añadir Nuevo Usuario
+      user_account_management: Administración de Cuentas de Usuario
+    new:
+      create_user: Crear Usuario
+    profile_edit:
+      awaiting_confirmation: 'Actualmente en espera de confirmación para: %{email}'
+      change_password: Cambia tu contraseña
+      current_password: Ingrese su contraseña actual para confirmar cualquier cambio
+      new_password: Contraseña nueva
+      update_info_button: Actualizar información
+      user_panel: Panel de usuario para %{email} (%{name})
+    search:
+      button: Buscar
+      text_field: Nombre o Correo Electrónico
+    user_table:
+      date_created: Fecha de Creacion
+      full_name: Nombre Completo

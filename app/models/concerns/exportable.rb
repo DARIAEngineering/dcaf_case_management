@@ -60,9 +60,10 @@ module Exportable
     # External Pledges
     "External Pledge Count" => :external_pledge_count,
     "External Pledges Sum" => :external_pledge_sum,
-    "All External Pledges" => :all_external_pledges
-    
-    
+    "All External Pledges" => :all_external_pledges,
+    "Practical Supports" => :all_practical_supports
+
+
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
 
@@ -78,7 +79,7 @@ module Exportable
     end
   end
 
-  def get_household_size_children 
+  def get_household_size_children
     if is_a?(Patient)
       household_size_children
     else
@@ -170,6 +171,10 @@ module Exportable
 
   def all_external_pledges
     external_pledges.map { |x| "#{x.source} - #{x.amount}" }.join('; ')
+  end
+
+  def all_practical_supports
+    practical_supports.map { |ps| "#{ps.source} - #{ps.support_type} - #{ps.confirmed? ? 'Confirmed' : 'Unconfirmed'}" }.join('; ')
   end
 
   class_methods do

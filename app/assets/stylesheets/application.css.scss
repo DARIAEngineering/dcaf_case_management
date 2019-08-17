@@ -65,7 +65,6 @@ $font-size: 17px;
 }
 
 .btn-primary:hover {
-  @extend .btn-primary:hover;
   background-color: lighten($daria-color,15%);
 }
 
@@ -298,10 +297,9 @@ $daria-color-lt : #825fb9;
     background-color: $daria-color-lt;
     }
   }
-
 }
 
-.btn-success[disabled] {
+@mixin disabled-button {
   color: white;
   background-color: gray;
   border-color: $daria-color;
@@ -317,11 +315,14 @@ $daria-color-lt : #825fb9;
       border-color: $daria-color;
     }
   }
+}
 
+.btn-success[disabled] {
+  @include disabled-button;
 }
 
 .btn-warning[disabled] {
-  @extend .btn-success[disabled];
+  @include disabled-button;
 }
 
 .label-success {
@@ -345,4 +346,24 @@ $daria-color-lt : #825fb9;
 
 #flash {
   position: fixed;
+}
+
+.input-group-prepend {
+  @extend .input-group-addon;
+}
+
+.form-check label{
+  min-height: 20px;
+  padding-left: 5px;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.form-check-label{
+  display: inline;
+}
+
+#event-list{
+  list-style: none;
 }

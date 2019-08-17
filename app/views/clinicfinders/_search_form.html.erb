@@ -1,30 +1,43 @@
 <div class='col-sm-12'>
-  <h5 class='clinic-finder-expand'>
-    Clinic Locator Assistant
+  <h4 class='clinic-finder-expand'>
+    <%= t('clinic_locator.title') %>
+    <small><%= t('clinic_locator.experimental_note') %></small>
     <span class='glyphicon glyphicon-plus-sign pull-right'></span>
-  </h5>
+  </h4>
+
 
   <div class='col-sm-12 hide' id='clinic-finder-search-form'>
-    <h6>A tool for sorting clinics by cost and distance.</h6>
+    <h5><%= t('clinic_locator.description') %></h5>
 
     <%= bootstrap_form_tag url: clinicfinder_search_path, remote: true do |f| %>
+      <%= f.hidden_field :locale, value: params[:locale] %>
       <div class="row">
         <div class="col-sm-6 info-form-left">
-          <%= f.text_field :zip, label: "Patient's ZIP code" %>
-          <%= f.check_box :naf_only, label: 'Show only NAF clinics' %>
-          <%= f.check_box :medicaid_only, label: 'Show only Medicaid clinics' %>
+          <%= f.text_field :zip, label: t('clinic_locator.patient_zip_code') %>
+          <%= f.check_box :naf_only, label: t('clinic_locator.naf_only_toggle') %>
+          <%= f.check_box :medicaid_only, label: t('clinic_locator.medicaid_only_toggle') %>
         </div>
 
-        <div class="col-sm-6 info-form-right">
-          This is an experimental feature.
-          <%#= f.select :gestation, weeks_options, label: "Patient's approx. gestation at appt" %>
+        <div class="col-sm-3 info-form-right">
+          <%= f.select :gestation_weeks,
+                       options_for_select(weeks_options, patient.last_menstrual_period_now_weeks),
+                       label: t('clinic_locator.gestation_above'),
+                       autocomplete: 'off' %>
+        </div>
+
+        <div class="col-sm-3 info-form-right hide-label">
+          <%= f.select :gestation_days,
+                       options_for_select(days_options, patient.last_menstrual_period_now_days),
+                       skip_label: true,
+                       autocomplete: 'off' %>
+          <%= f.label :last_menstrual_period_days, t('common.days_along'), class: "sr-only" %>
         </div>
       </div>
 
       <div class="row">
         <div class='col-sm-6'>
-          <%= f.submit "Search clinics", class: "btn btn-primary" %>
-        </div>    
+          <%= f.submit t('clinic_locator.search_button'), class: "btn btn-primary" %>
+        </div>
       </div>
     <% end %>
   </div>
