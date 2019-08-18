@@ -5,7 +5,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.object_src  :none
   policy.font_src    :self, 'fonts.gstatic.com'
   policy.connect_src :self
-  policy.script_src  :self, :unsafe_eval
+  policy.script_src  :self, :unsafe_eval, :unsafe_inline
   policy.style_src   :self, :unsafe_inline
   policy.report_uri  "https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
 
@@ -14,4 +14,4 @@ Rails.application.config.content_security_policy do |policy|
   end
 end
 
-Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
+# Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
