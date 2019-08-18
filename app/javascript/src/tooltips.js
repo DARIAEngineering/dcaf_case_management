@@ -11,8 +11,8 @@ $(document).on('turbolinks:load', () => {
 
   // Some evil magic for things attached to labels with rails-bootstrap-form
   $('.tooltip-header-input').append(' <span class="tooltip-header-help">(?)</span>');
-  $('.tooltip-header-input').parent('.form-group' ).find('.form-control').each(() => {
-    return $(this).parents( '.form-group' ).find( '.tooltip-header-help' ).tooltip({
+  $('.tooltip-header-input').parent('.form-group').find('.form-control').each(() => {
+    return $(this).parents('.form-group').find('.tooltip-header-help').tooltip({
       html: true,
       placement: 'bottom',
       title: $(this).data('tooltip-text'),
