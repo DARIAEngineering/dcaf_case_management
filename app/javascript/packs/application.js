@@ -13,5 +13,4 @@ import '../src/clinics';
 import '../src/pledge_calculator';
 import '../src/table_sorting';
 import '../src/external_pledges';
-import '../src/patients';
 import '../src/tooltips';
