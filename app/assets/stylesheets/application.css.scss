@@ -28,24 +28,14 @@ $font-size: 17px;
     }
   }
 
-  .navbar-text{
-    color: $daria-color;
-    padding:15px;
-    margin:0px;
-    line-height:20px;
-  }
-
-  .navbar-text-alt{
+  .navbar-text-alt {
     color: $grey-color;
-    padding:15px;
-    margin:0px;
-    line-height:20px;
   }
 }
 
 
 /* GENERAL GLOBAL STYLING */
-.container {
+body {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: $font-size;
 }
@@ -133,7 +123,7 @@ img {
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
-  }
+}
 
 .column {
   @extend .col-md-6;
