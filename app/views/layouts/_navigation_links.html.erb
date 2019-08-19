@@ -1,21 +1,4 @@
-<!--   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-  </div>
- -->
-<ul class="navbar-nav">
+<ul class="navbar-nav mr-auto">
   <% if current_user %>
     <%= current_line_display %>
     <%= cm_resources_link %>
@@ -23,32 +6,33 @@
   <% end %>
 </ul>
 
-<ul class="navbar-nav">
-  <% if !user_signed_in? %>
-    <li><%= link_to t('navigation.user_tools.sign_in'), new_user_session_path %></li>
-  <% else %>
-    <% if current_user.admin? || current_user.data_volunteer? %>
-      <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= t('navigation.admin_tools.label') %><b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <% if current_user.admin? %>
-            <li><%= link_to t('navigation.admin_tools.user_management'), users_path %></li>
-            <li><%= link_to t('navigation.admin_tools.clinic_management'), clinics_path %></li>
-            <li><%= link_to t('navigation.admin_tools.config_management'), configs_path %></li>
-          <% end %>
-          <li><%= link_to t('navigation.admin_tools.accounting'), accountants_path %></li>
-          <li><%= link_to t('navigation.admin_tools.reporting'), reports_path %></li>
-          <li><%= link_to t('navigation.admin_tools.export'), patients_path(format: :csv) %></li>
-        </ul>
-      </li>
-    <% end %>
 
-    <li class="dropdown">
-    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><%= current_user.name %><b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li><%= link_to t('navigation.user_tools.profile'), edit_user_registration_path %></li>
-        <li><%= link_to t('navigation.user_tools.sign_out'), destroy_user_session_path, method: 'delete' %></li>
-      </ul>
-    </li>
-  <% end %>
-</ul>
+<% if current_user.admin? || current_user.data_volunteer? %>
+  <div class="dropdown">
+    <button href="#" data-toggle="dropdown" class="btn dropdown-toggle" id="admin-dropdown" aria-haspopup="true" aria-expanded="false">
+      <%= t('navigation.admin_tools.label') %> 
+    </button>
+
+    <div class="dropdown-menu" aria-labelledby="admin-dropdown">
+      <% if current_user.admin? %>
+        <%= link_to t('navigation.admin_tools.user_management'), users_path, class: 'dropdown-item' %>
+        <%= link_to t('navigation.admin_tools.clinic_management'), clinics_path, class: 'dropdown-item' %>
+        <%= link_to t('navigation.admin_tools.config_management'), configs_path, class: 'dropdown-item' %>
+      <% end %>
+      <%= link_to t('navigation.admin_tools.accounting'), accountants_path, class: 'dropdown-item' %>
+      <%= link_to t('navigation.admin_tools.reporting'), reports_path, class: 'dropdown-item' %>
+      <%= link_to t('navigation.admin_tools.export'), patients_path(format: :csv), class: 'dropdown-item' %>
+    </div>
+  </div>
+<% end %>
+
+<div class="dropdown">
+  <button href="#" data-toggle="dropdown" class="btn dropdown-toggle" id="user-dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= current_user.name %>
+  </button>
+
+  <div class="dropdown-menu" aria-labelledby="admin-dropdown">
+    <%= link_to t('navigation.user_tools.profile'), edit_user_registration_path, class: 'dropdown-item' %>
+    <%= link_to t('navigation.user_tools.sign_out'), destroy_user_session_path, method: 'delete', class: 'dropdown-item' %>
+  </div>
+</div>
