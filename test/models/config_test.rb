@@ -55,7 +55,7 @@ class ConfigTest < ActiveSupport::TestCase
       assert_includes @config.help_text,
                       'A link to a Google Drive'
     end
-
+    
     describe 'autosetup' do
       before { Config.destroy_all }
 
