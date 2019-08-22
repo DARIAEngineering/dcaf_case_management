@@ -1,6 +1,10 @@
 # Empty
 version: 2
 
+machine:
+  node:
+    version: 8.10.0
+
 jobs:
   build:
     parallelism: 4
