@@ -9,7 +9,7 @@
 
 <% if current_user.admin? || current_user.data_volunteer? %>
   <div class="dropdown">
-    <button href="#" data-toggle="dropdown" class="btn dropdown-toggle" id="admin-dropdown" aria-haspopup="true" aria-expanded="false">
+    <button href="#" data-toggle="dropdown" class="btn dropdown-toggle navbar-text" id="admin-dropdown" aria-haspopup="true" aria-expanded="false">
       <%= t('navigation.admin_tools.label') %> 
     </button>
 
@@ -27,7 +27,7 @@
 <% end %>
 
 <div class="dropdown">
-  <button href="#" data-toggle="dropdown" class="btn dropdown-toggle" id="user-dropdown" aria-haspopup="true" aria-expanded="false">
+  <button href="#" data-toggle="dropdown" class="btn dropdown-toggle navbar-text" id="user-dropdown" aria-haspopup="true" aria-expanded="false">
     <%= current_user.name %>
   </button>
 
