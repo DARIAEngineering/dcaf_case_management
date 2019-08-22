@@ -51,7 +51,6 @@ class UsersController < ApplicationController
 
   def create
     raise Exceptions::UnauthorizedError unless current_user.admin?
-    binding.pry
     @user = User.new(user_params.merge(role: :cm))
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
