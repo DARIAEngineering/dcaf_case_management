@@ -7,7 +7,7 @@ development:
 test:
   clients:
     default:
-      uri: mongodb://<%= ENV['mongohost'] || 'localhost' %>:<%= ENV['mongoport'] || 27017 %>/dcaf_case_management_test
+      uri: mongodb://<%= ENV['mongohost'] || '127.0.0.1' %>:<%= ENV['mongoport'] || 27017 %>/dcaf_case_management_test
       options:
         read:
           mode: :primary
