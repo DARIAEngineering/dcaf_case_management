@@ -2,7 +2,7 @@
   <h2> <%= t('user.profile_edit.user_panel', email: current_user.email, name: current_user.name) %></h2>
 
   <%= bootstrap_form_for resource, as: resource_name, url: '/users', html: { method: :put } do |f| %>
-    <%= devise_error_messages! %>
+    <%= render "devise/shared/error_messages" %>
 
     <%= f.text_field :email, disabled: true, readonly: true %>
     <%= f.text_field :role, disabled: true, readonly: true %>
