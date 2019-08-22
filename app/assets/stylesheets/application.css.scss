@@ -37,7 +37,6 @@ $font-size: 17px;
   }
 }
 
-
 /* GENERAL GLOBAL STYLING */
 body {
   font-family: 'Source Sans Pro', sans-serif;
@@ -348,7 +347,7 @@ $daria-color-lt : #825fb9;
 
 .form-check label{
   min-height: 20px;
-  padding-left: 5px;
+  padding-left: 2em;
   margin-bottom: 0;
   font-weight: 400;
   cursor: pointer;
