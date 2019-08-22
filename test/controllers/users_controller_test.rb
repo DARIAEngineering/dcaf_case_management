@@ -101,12 +101,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'create method' do
-    it 'should create a user' do
+    it 'should create a user with the role cm' do
       attributes = attributes_for(:user)
       attributes.delete :role
       assert_difference 'User.count', 1 do
         post users_path, params: { user: attributes }
       end
+      assert(User.last.role == :cm)
     end
 
     it 'should show errors if creation fails' do
