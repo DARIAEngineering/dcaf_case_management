@@ -473,7 +473,7 @@ DEPENDENCIES
   turbolinks (~> 5.2.0)
   tzinfo-data
   uglifier (~> 4.1)
-  webpacker (~> 4)
+  webpacker (~> 4.x)
 
 RUBY VERSION
    ruby 2.6.2p47
