@@ -34,7 +34,8 @@ module WelcomeMessageHelper
       "Mantener el Trabajo Duro",
       "Another case, another human being helped. Keep it up!",
       "Merci beaucoup!",
-      "Thank you for taking the time to be the most thoughtful CM that you can be! <3"
+      "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
+      "Você é demais!"
     ]
   end
 end
