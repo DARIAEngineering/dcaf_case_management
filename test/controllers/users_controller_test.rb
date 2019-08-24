@@ -101,7 +101,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'create method' do
-    it 'can create a user with the role cm' do
+    it 'should create a user with the role cm' do
       attributes = attributes_for(:user)
       assert_difference 'User.count', 1 do
         post users_path, params: { user: attributes }
@@ -109,14 +109,6 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert(User.last.role == :cm)
     end
 
-    it 'can create a user with the role data_volunteer' do
-      attributes = attributes_for(:user)
-      attributes[:role] = :data_volunteer
-      assert_difference 'User.count', 1 do
-        post users_path, params: { user: attributes }
-      end
-      assert(User.last.role == :data_volunteer)
-    end
 
     it 'should show errors if creation fails' do
       attributes = attributes_for(:user)

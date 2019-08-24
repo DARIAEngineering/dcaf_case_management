@@ -3,7 +3,6 @@
     <%= bootstrap_form_for @user do |f| %>
         <%= f.email_field :email, label: t('common.email') %>
         <%= f.text_field :name, label: t('common.name') %>
-        <%= f.select :role, options_for_select(user_role_options), label: t('user.common.role') %>
         <%= f.submit t('common.add'), class: 'btn btn-primary' %>
     <% end %>
     <br>

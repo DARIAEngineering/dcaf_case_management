@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
   def create
     raise Exceptions::UnauthorizedError unless current_user.admin?
-    @user = User.new(user_params)
+    @user = User.new(user_params.merge(role: :cm))
     hex = SecureRandom.urlsafe_base64
     @user.password, @user.password_confirmation = hex
     if @user.save
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :role)
+    params.require(:user).permit(:name, :email)
   end
 
   def user_not_demoting_themself?(user)
