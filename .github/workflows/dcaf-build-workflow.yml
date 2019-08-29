@@ -11,7 +11,7 @@ jobs:
           fetch-depth: 1
       - uses: actions/setup-ruby@v1
         with:
-          ruby-version: '2.6'
+          ruby-version: '2.6.2'
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
