@@ -52,7 +52,6 @@ gem 'geokit' # clinic_finder service lat-lng
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
 gem 'js-routes' # Not sure if this is used anymore
-gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.2.3'
