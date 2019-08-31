@@ -18,13 +18,11 @@
         <%= render 'layouts/navigation' %>
       </header>
     <% end %>
-    <main role="main">
-      <div class="container">
-        <%= render 'layouts/messages' %>
+    <main class="container" role="main">
+      <%= render 'layouts/messages' %>
 
-        <br>
-        <%= yield %>
-      </div>
+      <br>
+      <%= yield %>
     </main>
     <% if current_user.present? %>
       <footer>

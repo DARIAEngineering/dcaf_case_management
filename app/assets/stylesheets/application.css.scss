@@ -164,7 +164,6 @@ html {
   font-size: $font-size;
 }
 main {
-  @extend .container;
   background-color: #ffffff;
   padding-bottom: 80px;
   width: 100%;
@@ -380,4 +379,13 @@ $daria-color-lt : #825fb9;
 
 #budget-progress-bar {
   margin-bottom: 1em;
+}
+
+// Form styling
+label {
+  font-weight: 700;
+}
+
+form {
+  line-height: 1.0;
 }
