@@ -8,5 +8,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   before { Capybara.reset_sessions! }
 
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  # if in CI, run system tests headlessly.
+  browser = ENV['GITHUB_WORKFLOW'] ? :headless_chrome : :chrome
+  driven_by :selenium, using: browser
 end
