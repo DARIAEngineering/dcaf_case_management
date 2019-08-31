@@ -1,40 +1,30 @@
-<div class="col-sm-12" id='budget-bar-content'>
-  <div class="row">
-    <div class="progress" id='budget-progress-bar'>
-      <% expenditures.each_pair do |type, patient_hashes| %>
-        <% patient_hashes.each do |patient| %>
-          <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>
-            <div data-toggle='popover' data-content='<%= budget_bar_expenditure_content(patient) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
-              <%= t "dashboard.budget_bar.#{type}_item",
-                    amount: number_to_currency(patient[:fund_pledge],
-                                               precision: 0,
-                                               unit: '$',
-                                               format: '%u%n') %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-
-    <div class="row" id='budget-report'>
-      <% expenditures.each_pair do |type, patient_hashes| %>
-        <div class="col-sm-4">
-          <%= t("dashboard.budget_bar.#{type}_report",
-                amount: number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) || 0,
+<div class="progress" id='budget-progress-bar'>
+  <% expenditures.each_pair do |type, patient_hashes| %>
+    <% patient_hashes.each do |patient| %>
+      <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>
+        <div data-toggle='popover' data-content='<%= budget_bar_expenditure_content(patient) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
+          <%= t "dashboard.budget_bar.#{type}_item",
+                amount: number_to_currency(patient[:fund_pledge],
                                            precision: 0,
                                            unit: '$',
-                                           format: '%u%n'),
-                count: expenditures[type].count) %>
+                                           format: '%u%n') %>
         </div>
-      <% end %>
-      <%# TODO Commenting out until the config is ready %>
-      <!-- 
-      <div class="col-sm-4">
-        <%#= number_to_currency(budget_bar_remaining(expenditures, limit), precision: 0) %> remaining
       </div>
-      -->
+    <% end %>
+  <% end %>
+</div>
+
+<div class="row" id='budget-report'>
+  <% expenditures.each_pair do |type, patient_hashes| %>
+    <div class="col-sm-4">
+      <%= t("dashboard.budget_bar.#{type}_report",
+            amount: number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) || 0,
+                                       precision: 0,
+                                       unit: '$',
+                                       format: '%u%n'),
+            count: expenditures[type].count) %>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <%= javascript_tag nonce: true do %>
