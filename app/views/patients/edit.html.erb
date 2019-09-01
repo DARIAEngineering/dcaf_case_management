@@ -5,13 +5,11 @@
 </div>
 
 <div id="patient_detail" class="row">
-  <div>
-    <div id="menu" class="col-sm-3">
-      <%= render 'patients/menu', patient: @patient %>
-    </div>
+  <div id="menu" class="col-3">
+    <%= render 'patients/menu', patient: @patient %>
   </div>
 
-  <div id="sections" class="col-sm-9 tab-content">
+  <div id="sections" class="col tab-content">
     <div id="patient_information" class="patient-info tab-pane active">
       <%= render 'patients/patient_information', patient: @patient %>
     </div>
