@@ -59,6 +59,12 @@ class PatientsController < ApplicationController
     # i18n-tasks-use t('mongoid.attributes.practical_support.support_type')
     @note = @patient.notes.new
     @external_pledge = @patient.external_pledges.new
+    @patient = @patient
+    render component: 'patient', props: {
+      patient: @patient
+    }, tag: 'div', prerender: false
+    # render component: 'TodoList', props: { todos: @todos }, tag: 'span', class: 'todo'
+
   end
 
   def update
