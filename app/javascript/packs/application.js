@@ -12,3 +12,7 @@ import '../src/clinic_finder';
 import '../src/clinics';
 import '../src/pledge_calculator';
 import '../src/table_sorting';
+// Support component names relative to this directory:
+var componentRequireContext = require.context("components", false);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);
