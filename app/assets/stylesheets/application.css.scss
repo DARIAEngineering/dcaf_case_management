@@ -356,12 +356,11 @@ $daria-color-lt : #825fb9;
 //   @extend .input-group-addon;
 // }
 
-.form-check label{
+.form-check label {
   min-height: 20px;
-  padding-left: 2em;
-  margin-bottom: 0;
   font-weight: 400;
   cursor: pointer;
+  line-height: 1.5;
 }
 
 .form-check-label{
@@ -376,6 +375,8 @@ $daria-color-lt : #825fb9;
 .tooltip-inner {
   font-size: 12px;
 }
+
+
 
 #budget-progress-bar {
   margin-bottom: 1em;
@@ -392,4 +393,8 @@ form {
 
 .patient-section-title {
   margin-top: .5em;
+}
+
+.top-spacer {
+  margin-top: .75em;
 }

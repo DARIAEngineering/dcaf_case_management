@@ -1,9 +1,7 @@
 <div id="patient_information_content">
-
   <h2 class="patient-section-title"><%= t 'patient.information.title' %></h2>
 
   <%= bootstrap_form_with model: patient, html: { id: 'patient_information_form' }, remote: true do |f| %>
-
     <div class="row">
       <div class="col info-form-left">
         <% if current_user.admin? %>
@@ -13,23 +11,139 @@
         <% end %>
 
         <%= f.number_field :age, autocomplete: 'off' %>
-
         <%= f.select :race_ethnicity,
                      options_for_select(race_ethnicity_options,
                                         patient.race_ethnicity),
                      autocomplete: 'off' %>
+        <%= f.select :language,
+                     options_for_select(language_options,
+                                       patient.language),
+                     label: t('patient.information.language'),
+                     autocomplete: 'off' %>
+        <%= f.select :voicemail_preference,
+                     options_for_select(voicemail_options,
+                                        patient.voicemail_preference),
+                     label: t('patient.information.voicemail_preference') %>
+        <%= f.check_box :textable,
+                        label: t('patient.information.textable'),
+                        checked: patient.textable? %>
 
-        REST OF IT
-        
+        <div class="row top-spacer">
+          <div class="col-8">
+            <%= f.text_field :city, autocomplete: 'off' %>
+          </div>
+          <div class="col-4">
+            <%= f.text_field :state, autocomplete: 'off' %>
+          </div>
+        </div>
+
+        <%= f.text_field :county, autocomplete: 'off' %>
+
+        <h3><%= t 'patient.information.other_contact.title' %></h3>
+        <%= f.text_field :other_contact,
+                         autocomplete: 'off',
+                         label: t('patient.information.other_contact.name') %>
+        <%= f.text_field :other_phone,
+                         value: patient.other_phone_display,
+                         autocomplete: 'off',
+                         label: t('patient.information.other_contact.phone') %>
+        <%= f.text_field :other_contact_relationship,
+                         autocomplete: 'off',
+                         label: t('patient.information.other_contact.relationship')%>
       </div>
 
       <div class="col info-form-right">
-        THE WHOLE RIGHT SIDE
+        <%= f.select :employment_status,
+                     options_for_select(employment_status_options,
+                                        patient.employment_status),
+                     autocomplete: 'off' %>
+        <%= f.select :income,
+                     options_for_select(income_options,
+                                        patient.income),
+                     help: t('patient.information.income_help'),
+                     autocomplete: 'off' %>
 
+        <div class="row">
+          <div class="col">
+            <%= f.select :household_size_adults,
+                          options_for_select(household_size_options,
+                                             patient.household_size_adults),
+                                             help: t('patient.information.household_help') %>
+          </div>
+          <div class="col">
+            <%= f.select :household_size_children,
+                          options_for_select(household_size_options,
+                                             patient.household_size_children) %>
+          </div>
+        </div>
 
+        <%= f.select :insurance,
+                     options_for_select(insurance_options(patient.insurance),
+                                        patient.insurance),
+                     label: t('patient.information.insurance') %>
+        <%= f.select :referred_by,
+                     options_for_select(referred_by_options,
+                                        patient.referred_by),
+                     label: t('patient.information.referred_by', fund: "#{FUND}"),
+                     autocomplete: 'off' %>
+
+        <fieldset>
+          <legend class="font-weight-bold" id="special_circumstances_label">
+            <%= t 'patient.information.special_circumstances.title' %>    
+          </legend>
+
+          <%= f.form_group :special_circumstances do %>
+            <div class="row">
+              <div class="col">
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.fetal_diagnosis'), 
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Fetal diagnosis'), 
+                                id: 'fetal_patient_special_circumstances' },
+                                'Fetal diagnosis', '' %>
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.homelessness'),
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Homelessness'),
+                                id: 'home_patient_special_circumstances' },
+                                'Homelessness', '' %>
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.domestic_violence'),
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Domestic violence'),
+                                id: 'domestic_patient_special_circumstances' },
+                                'Domestic violence', '' %>
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.other_medical_issue'),
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Other medical issue'),
+                                id: 'other_patient_special_circumstances' },
+                                'Other medical issue', '' %>
+              </div>
+              <div class="col">
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.rape'),
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Rape'),
+                                id: 'rape_patient_special_circumstances' },
+                                'Rape', '' %>
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.incest'),
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Incest'),
+                                id: 'incest_patient_special_circumstances' },
+                                'Incest', '' %>
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.prison'),
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Prison'),
+                                id: 'prison_patient_special_circumstances' },
+                                'Prison', '' %>
+              </div>
+            </div>
+          <% end %>
+        </fieldset>
       </div>
-
     </div>
   <% end %>
-
 </div>
