@@ -1,4 +1,6 @@
 const { environment } = require('@rails/webpacker');
+const erb = require('./loaders/erb');
+
 
 const webpack = require('webpack');
 
@@ -17,4 +19,5 @@ config.resolve.alias = {
 }
 
 // export the updated config
+environment.loaders.prepend('erb', erb)
 module.exports = environment;
