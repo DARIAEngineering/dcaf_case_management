@@ -19,10 +19,10 @@ Config.destroy_all
 #                         password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Create two test users
-user = User.create! name: 'testuser (admin)', email: 'test@test.com',
+user = User.create! name: 'testuser (admin)', email: 'test@example.com',
                    password: 'P4ssword', password_confirmation: 'P4ssword',
                    role: :admin
-user2 = User.create! name: 'testuser2', email: 'test2@test.com',
+user2 = User.create! name: 'testuser2', email: 'test2@example.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword'
 user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword'
