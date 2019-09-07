@@ -1,7 +1,9 @@
 <%= render partial: "patients/modal" %>
 
 <div id="patient_dashboard" class="row">
-  <%= render 'patients/patient_dashboard', patient: @patient %>
+  <%# <%= render 'patients/patient_dashboard', patient: @patient %> %>
+  <%= react_component("patientDashboard", { patient: @patient, current_user: @current_user }) %>
+
 </div>
 
 <div id="patient_detail" class="row">

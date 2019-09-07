@@ -4,10 +4,12 @@ import PatientDashboard from './patientDashboard';
 class Patient extends React.Component {
     render() {
         return (
-            <React.Fragment>
+            <>
               <h1>Patient Page</h1>
-              <PatientDashboard patient={this.props.patient}/>
-          </React.Fragment>
+              <PatientDashboard 
+              patient={this.props.patient} 
+              current_user={this.props.current_user}/>
+          </>
         );
     }
 }

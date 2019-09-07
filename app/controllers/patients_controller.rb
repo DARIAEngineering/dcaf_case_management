@@ -61,9 +61,10 @@ class PatientsController < ApplicationController
     @external_pledge = @patient.external_pledges.new
     @patient = @patient
     render component: 'patient', props: {
-      patient: @patient
+      patient: @patient,
+      current_user: current_user
+
     }, tag: 'div', prerender: false
-    # render component: 'TodoList', props: { todos: @todos }, tag: 'span', class: 'todo'
 
   end
 
