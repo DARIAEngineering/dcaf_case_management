@@ -39,7 +39,7 @@ class User
   # Non-devise generated
   field :name, type: String
   field :line, type: String
-  field :role
+  field :role, default: :cm
 
   enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: true
   field :call_order, type: Array # Manipulated by the call list controller
