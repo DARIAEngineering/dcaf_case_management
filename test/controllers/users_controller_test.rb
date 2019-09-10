@@ -106,7 +106,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       assert_difference 'User.count', 1 do
         post users_path, params: { user: attributes }
       end
-      assert_equal :cm, User.last.role
+      assert_equal "cm", User.last.role
     end
 
 
