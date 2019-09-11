@@ -541,6 +541,7 @@ es:
       user_account_management: Administración de Cuentas de Usuario
     new:
       create_user: Crear Usuario
+      edit_role_after_creating: Los nuevos usuarios por defecto tienen permisos CM, lo que les permite usar el flujo de trabajo de administración de casos. Para dar a alguien acceso a datos o permisos de administrador, edítelos después de crear sus cuentas aquí.
     profile_edit:
       awaiting_confirmation: 'Actualmente en espera de confirmación para: %{email}'
       change_password: Cambia tu contraseña
