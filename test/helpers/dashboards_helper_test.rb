@@ -7,6 +7,7 @@ class DashboardsHelperTest < ActionView::TestCase
     @date_1 = DateTime.new(2016, 5, 21).in_time_zone
     @date_2 = DateTime.new(2016, 5, 31).in_time_zone
     @monday_start = :monday
+    # TODO test date_range, monday start, and month_range
   end
 
   describe 'week_range method' do

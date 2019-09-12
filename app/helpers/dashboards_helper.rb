@@ -1,6 +1,22 @@
 # Convenience methods consumed in the dashboards controller index view
 module DashboardsHelper
-  def week_range(date: Time.zone.now)
+  def date_range(date: Time.zone.now)
+    if (Config.start_day.downcase == :monthly )
+      month_range(date)
+    else
+      week_range(date)
+    end
+  end
+
+  def month_range(date)
+    month_start = date.beginning_of_month
+    month_end = date.end_of_month
+    month_start_string = l month_start, format: '%B %-d'
+    month_end_string = l month_end, format: '%-d'
+    "#{month_start_string} - #{month_end_string}"
+  end
+
+  def week_range(date)
     start_day = Config.start_day
     week_start = date.beginning_of_week start_day
     week_end = date.end_of_week start_day
