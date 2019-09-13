@@ -1,64 +1,51 @@
-<section id="abortion_information_content">
-  <div id="patient_fields" class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2><%= t('patient.abortion_information.title') %></h2>
+<div id="abortion_information_content">
+  <h2 class="patient-section-title"><%= t('patient.abortion_information.title') %></h2>
 
-        <% if patient.practical_supports.any? %>
-          <h5 class="text-danger">This patient requires practical support. See Practical Support tab.</h5>
+  <div class="practical-support-flag">
+    <% if patient.practical_supports.any? %>
+      <h5 class="text-danger">This patient requires practical support. See Practical Support tab.</h5>
+    <% end %>
+  </div>
+
+  <h3><%= t('patient.abortion_information.clinic_section.title') %></h3>
+
+  <%= bootstrap_form_with model: patient,
+                          html: { id: 'abortion-information-form-1' },
+                          remote: true do |f| %>
+    <div class="row info-form">
+      <div class="col info-form-left">
+        <%= f.select :clinic_id,
+                     options_for_select(clinic_options, patient.clinic.try(:id)),
+                     label: t('patient.abortion_information.clinic_section.clinic') %>
+
+        <%= f.form_group :clinic_filters do %>
+          <%= f.check_box :naf_filter, label: t('patient.abortion_information.clinic_section.naf_only_toggle') %>
+          <%= f.check_box :medicaid_filter, label: t('patient.abortion_information.clinic_section.medicaid_only_toggle') %>
+        <% end %>
+      </div>
+
+      <div class="col info-form-right">
+        <%= f.form_group :abortion_info_checkboxes do %>
+          <%= f.check_box :resolved_without_fund, 
+                          label: t('patient.abortion_information.clinic_section.resolved_without_fund', fund: "#{FUND}"),
+                          label_class: 'tooltip-header-checkbox',
+                          data: { 'tooltip-text': resolved_without_fund_help_text } %>
+          <%= f.check_box :referred_to_clinic,
+                          label: t('patient.abortion_information.clinic_section.referred_to_clinic'),
+                          label_class: 'tooltip-header-checkbox',
+                          data: { 'tooltip-text': referred_to_clinic_help_text } %>
+          <%= f.check_box :completed_ultrasound,
+                          label: t('patient.abortion_information.clinic_section.ultrasound_completed'),
+                          label_class: 'tooltip-header-checkbox',
+                          data: { 'tooltip-text': mandatory_ultrasound_help_text } %>
         <% end %>
       </div>
     </div>
+  <% end %>
 
-    <div class="row">
-      <div class="col-sm-12 info-form">
-        <h3><%= t('patient.abortion_information.clinic_section.title') %></h3>
-
-        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-1' }, remote: true do |f| %>
-          <div class="col-sm-6">
-            <div class="info-form-left">
-              <%= f.select :clinic_id,
-                options_for_select(clinic_options, patient.clinic.try(:id)),
-                label: t('patient.abortion_information.clinic_section.clinic') %>
-              <div class="checkbox">
-                <%= label_tag 'naf_filter' do %>
-                  <%= check_box_tag 'naf_filter' %>
-                  <%= t('patient.abortion_information.clinic_section.naf_only_toggle') %>
-                <% end %>
-              </div>
-              <div class="checkbox">
-                <%= label_tag 'medicaid_filter' do %>
-                  <%= check_box_tag 'medicaid_filter' %>
-                  <%= t('patient.abortion_information.clinic_section.medicaid_only_toggle') %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <div class="info-form-right">
-              <%= f.check_box :resolved_without_fund, 
-                label: t('patient.abortion_information.clinic_section.resolved_without_fund', fund: "#{FUND}"),
-                              label_class: 'tooltip-header-checkbox',
-                              data: { 'tooltip-text': resolved_without_fund_help_text } %>
-              <%= f.check_box :referred_to_clinic,
-                              label: t('patient.abortion_information.clinic_section.referred_to_clinic'),
-                              label_class: 'tooltip-header-checkbox',
-                              data: { 'tooltip-text': referred_to_clinic_help_text } %>
-              <%= f.check_box :completed_ultrasound,
-                              label: t('patient.abortion_information.clinic_section.ultrasound_completed'),
-                              label_class: 'tooltip-header-checkbox',
-                              data: { 'tooltip-text': mandatory_ultrasound_help_text } %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="row col-md-12 clinic_finder_container">
-      <%= render partial: 'clinicfinders/search_form',
-                 locals: { patient: patient } %>
-    </div>
+  <div class="row col clinic_finder_container">
+    <%= render partial: 'clinicfinders/search_form',
+               locals: { patient: patient } %>
   </div>
 
   <div id="cost_fields" class="col-sm-12">
