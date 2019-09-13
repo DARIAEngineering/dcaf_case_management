@@ -43,55 +43,62 @@
     </div>
   <% end %>
 
-  <div class="row col clinic_finder_container">
-    <%= render partial: 'clinicfinders/search_form',
-               locals: { patient: patient } %>
-  </div>
+  <%= render partial: 'clinicfinders/search_form',
+             locals: { patient: patient } %>
 
-  <div id="cost_fields" class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-12">
-        <h3><%= t('patient.abortion_information.cost_section.title') %></h3>
+  <h3 class="patient-section-title"><%= t('patient.abortion_information.cost_section.title') %></h3>
+
+
+  <%= bootstrap_form_with model: patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
+    <div class="row patient-cost-fields">
+      <div class="col">
+        <%= f.number_field :procedure_cost,
+                           label: t('patient.abortion_information.cost_section.abortion_cost'),
+                           autocomplete: 'off',
+                           prepend: '$' %>
+
+        <div class="info-form-left form-group outstanding-balance-ctn hidden">
+          <label class="col-form-label"><%= t('patient.abortion_information.cost_section.outstanding_balance') %></label>
+          <div id="outstanding-balance"></div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div id="pledge-contributions">
+          <%= f.number_field :patient_contribution,
+                             label: t('patient.abortion_information.cost_section.patient_contribution'),
+                             autocomplete: 'off',
+                             prepend: '$' %>
+          <%= f.number_field :naf_pledge,
+                             label: t('patient.abortion_information.cost_section.naf_pledge'),
+                             autocomplete: 'off',
+                             prepend: '$' %>
+          <%= f.number_field :fund_pledge,
+                             label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"),
+                             autocomplete: 'off',
+                             prepend: '$',
+                             label_class: 'tooltip-header-input',
+                             data: { 'tooltip-text' => pledge_limit_help_text_options.join("<br />") } %>
+        </div>
       </div>
     </div>
-
-    <div class="row col-sm-12" >
-      <div class="patient_cost_fields">
-        <%= bootstrap_form_for patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
-          <div class="col-sm-6">
-            <%= f.number_field :procedure_cost, label: t('patient.abortion_information.cost_section.abortion_cost'), autocomplete: 'off', prepend: '$' %>
-
-            <div class="info-form-left form-group outstanding-balance-ctn hidden">
-              <label class="col-form-label"><%= t('patient.abortion_information.cost_section.outstanding_balance') %></label>
-              <div id="outstanding-balance"></div>
-            </div>
-          </div>
-
-          <div class="col-sm-6">
-            <div id="pledge-contributions">
-              <%= f.number_field :patient_contribution, label: t('patient.abortion_information.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.naf_pledge'), autocomplete: 'off', prepend: '$' %>
-              <%= f.number_field :fund_pledge, label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"), autocomplete: 'off', prepend: '$', label_class: 'tooltip-header-input', data: { 'tooltip-text' => pledge_limit_help_text_options.join("<br />") } %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
+  <% end %>
 
   <div id="external_pledges" class="col-sm-12">
-    <div class="row col-sm-12">
-      <div class="col-sm-6">
-        <!-- Future right of math -->
-      </div>
+    <div class="row external-pledge-fields">
+      <div class="col"><!-- intentionally empty --></div>
 
-      <div class="col-sm-6">
-        <%= render partial: 'external_pledges/external_pledges_table', locals: { patient: patient, external_pledges: patient.external_pledges.order_by('created_at desc') } %>
+      <div class="col">
+        <%= render partial: 'external_pledges/external_pledges_table',
+                   locals: { patient: patient,
+                             external_pledges: patient.external_pledges.order_by('created_at desc') } %>
 
         <div id="new-external-pledge">
-          <%= render partial: 'external_pledges/new', locals: { patient: patient, new_external_pledge: new_external_pledge } %>
+          <%= render partial: 'external_pledges/new',
+                     locals: { patient: patient,
+                               new_external_pledge: new_external_pledge } %>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
