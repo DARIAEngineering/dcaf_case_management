@@ -1,19 +1,10 @@
-<section id="practical_support_content">
-  <div id="patient_fields" class="col-sm-12">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2><%= t 'patient.practical_support.title' %> <%= practical_support_guidance_link %></h2>
-      </div>
-    </div>
+<div id="practical_support_content">
+  <h2 class="patient-section-title"><%= t 'patient.practical_support.title' %> <%= practical_support_guidance_link %></h2>
 
-    <div class="row" id="practical-support-entries">
-      <%= render 'practical_supports/entries',
-                 patient: patient %>
-    </div>
+  <%= render 'practical_supports/entries',
+             patient: patient %>
 
-    <div class="row" id="practical-support-new-form">
-      <%= render 'practical_supports/new',
-                 patient: patient %>
-    </div>
+  <%= render 'practical_supports/new',
+             patient: patient %>
   </div>
-</section>
+</div>
