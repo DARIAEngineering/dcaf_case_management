@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $daria-color: #5D3E8D;
+$soft-blue: #337ab7;
 $font-size: 17px;
 
 #patient_dashboard {
@@ -22,15 +23,15 @@ $font-size: 17px;
 }
 
 .abortion-left-menu.nav-pills {
-  font-size: 22px;
+  font-size: 1rem;
 
   .nav-link {
-    color: #337ab7;
+    color: $soft-blue;
     background-color: white;
   }
 
   a.nav-link.active {
-    color: #5D3E8D;
+    color: $daria-color;
     background-color: white;
 
     &:before {
@@ -38,12 +39,12 @@ $font-size: 17px;
       content: "\e080";
       margin-left: -1.5em;
       padding-right: .85em;
-      color: #5D3E8D;      
+      color: $daria-color;
     }
   }
 
   a.submit-btn, a.cancel-btn {
-    font-size: 22px;
+    font-size: 1rem;
   }
 }
 
@@ -65,7 +66,7 @@ $font-size: 17px;
 }
 
 #submit-pledge-button, #cancel-pledge-button {
-  font-size: 22px;
+  font-size: 1rem;
   font-weight: bold;
 }
 
