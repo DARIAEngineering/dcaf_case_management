@@ -752,6 +752,11 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
+"@fortawesome/fontawesome-free@^5.10.2":
+  version "5.10.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.2.tgz#27e02da1e34b50c9869179d364fb46627b521130"
+  integrity sha512-9pw+Nsnunl9unstGEHQ+u41wBEQue6XPBsILXtJF/4fNN1L3avJcMF/gGF86rIjeTAgfLjTY9ndm68/X4f4idQ==
+
 "@rails/webpacker@4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-4.0.7.tgz#268571bf974e78ce57eca9fa478f5bd97fd5182c"
@@ -6646,6 +6651,16 @@ set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
   integrity sha1-BF+XgtARrppoA93TgrJDkrPYkPc=
+
+set-value@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/set-value/-/set-value-2.0.1.tgz#a18d40530e6f07de4228c7defe4227af8cad005b"
+  integrity sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==
+  dependencies:
+    extend-shallow "^2.0.1"
+    is-extendable "^0.1.1"
+    is-plain-object "^2.0.3"
+    split-string "^3.0.1"
 
 set-value@^0.4.3:
   version "0.4.3"
