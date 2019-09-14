@@ -5,6 +5,24 @@
  *= require_tree .
 */
 
+$spacer: .5rem !default;
+
+$spacers: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$spacers: map-merge(
+  (
+    0: 0,
+    1: ($spacer * .25), //.125 rem
+    2: ($spacer * .5), //.25 rem
+    3: $spacer, //.5 rem
+    4: ($spacer * 1.5), //.75rem
+    5: ($spacer * 2), //1rem
+    6: ($spacer * 3) //1.5rem
+
+  ),
+  $spacers
+);
+
 @import "bootstrap";
 @charset "utf-8";
 
@@ -239,10 +257,6 @@ h5 {
   @extend .btn-sm;
 }
 
-.btn-space {
-   margin-top:25px;
-}
-
 .info-form .checkbox label {
   font-weight: bold;
 }
@@ -376,12 +390,6 @@ $daria-color-lt : #825fb9;
   font-size: 12px;
 }
 
-
-
-#budget-progress-bar {
-  margin-bottom: 1em;
-}
-
 // Form styling
 label {
   font-weight: 700;
@@ -391,18 +399,9 @@ form {
   line-height: 1.0;
 }
 
-.patient-section-title {
-  margin-top: .5em;
-}
-
-.top-spacer {
-  margin-top: .75em;
-}
-
 .hidden {
   display: none;
 }
-
 .bottom-spacer {
   margin-bottom: .75em;
 }
