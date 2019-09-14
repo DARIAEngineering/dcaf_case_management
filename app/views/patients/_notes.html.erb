@@ -1,23 +1,32 @@
-<section id="notes_content">
-  <div class="col-sm-12 margin-bottom-sm">
+<div id="notes_content">
+  <h2 class="patient-section-title"><%= t('patient.notes.title') %></h2>
+
+  <%# this has a confusing doc structure; the urgent checkbox needs to be same row as submit btn. %>
+  <%= bootstrap_form_with model: [patient, note],
+                          html: { id: 'notes-form' },
+                          remote: true do |f| %>
+    <%= f.text_area :full_text,
+                    size: '20x5',
+                    placeholder: t('patient.notes.placeholder'),
+                    hide_label: true,
+                    class: 'col' %>
+
     <div class="row">
-			<%= bootstrap_form_for [patient, note], html: { id: 'notes-form' }, remote: true do |f| %>
-      <div class="info-form-left col-sm-12">
-        <h2><%= t('patient.notes.title') %></h2>
-        <%= f.text_area :full_text, size: '20x5', placeholder: t('patient.notes.placeholder'), hide_label: true %>
+      <div class="col info-form-left">
+        <%= f.submit t('patient.notes.submit'), class: "btn btn-primary" %>
       </div>
-			<div class="info-form-left col-sm-6">
-				<%= f.submit t('patient.notes.submit'), class: "btn btn-primary"  %>
-			</div>
-			<% end %>
+    
+  <% end %>
 
-	    <div class="info-form-right col-sm-6">
-	      <%= bootstrap_form_for patient, html: { id: 'urgents-form', class: 'text-right text-danger edit_patient' }, remote: true do |u| %>
-	        <%= u.check_box :urgent_flag, label: t('patient.notes.urgent_flag') %>
-	      <% end %>
-	    </div>
-		</div>
-  </div>
+      <%= bootstrap_form_for patient, html: { id: 'urgents-form', class: 'text-right text-danger edit_patient' }, remote: true do |f| %>
+        <div class="col">
+          <%= f.form_group :urgent_flag do %>
+            <%= f.check_box :urgent_flag, label: t('patient.notes.urgent_flag') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
-  <%= render partial: 'notes/notes_table', locals: { notes: patient.notes.includes(:created_by).order_by('created_at desc') } %>
-</section>
+  <%= render partial: 'notes/notes_table',
+             locals: { notes: patient.notes.includes(:created_by).order_by('created_at desc') } %>
+</div>
