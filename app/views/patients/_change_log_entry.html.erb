@@ -1,5 +1,5 @@
 <% if revision.has_changed_fields? %>
-  <tr>
+  <tr class="patient-change-log-entry">
     <td><%= revision.date_of_change %></td>
     <td><%= safe_join_fields revision.shaped_changes %></td>
     <td><%= revision.changed_by_user %></td>
