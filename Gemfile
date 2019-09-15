@@ -32,7 +32,7 @@ gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.6'
+gem 'devise', '~> 4.7'
 gem 'omniauth-google-oauth2', '~> 0.6.0'
 
 # We use `bootstrap_form_for` in views
@@ -52,7 +52,6 @@ gem 'geokit' # clinic_finder service lat-lng
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
 gem 'js-routes' # Not sure if this is used anymore
-gem 'bootstrap_form-datetimepicker' # not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.2.3'
