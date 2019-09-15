@@ -21,52 +21,30 @@ $font-size: 17px;
   padding-left: 9.5%;
 }
 
-#menu {
-  height: 70vh;
-  ul{
-    li{
-      a{
-      &:hover{
-        color: lighten(#337ab7, 20%)
-        }
-      }
-    }
-  }
-}
-
-.abortion-left-menu {
+.abortion-left-menu.nav-pills {
   font-size: 22px;
 
-  li {
-    // padding-left: 10px;
+  .nav-link {
+    color: #337ab7;
     background-color: white;
-
-    a:hover {
-      color: #337ab7;
-      background-color: white;
-    }
   }
 
-  li.active {
+  a.nav-link.active {
+    color: #5D3E8D;
+    background-color: white;
 
-    a, a:hover, a:active, a:focus {
-      color: #5D3E8D;
-      background-color: white;
-    }
-
-    a:before {
+    &:before {
       font-family: 'Glyphicons Halflings';
       content: "\e080";
       margin-left: -1.5em;
-      padding-right: .5em;
-      color: #5D3E8D;
-
+      padding-right: .85em;
+      color: #5D3E8D;      
     }
   }
+
   a.submit-btn, a.cancel-btn {
     font-size: 22px;
   }
-
 }
 
 .border-side {
