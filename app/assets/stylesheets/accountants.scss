@@ -2,16 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.pagination-entries {
-  font-size: .5em;
-  display: inline-block;
-}
-
-nav.pagination {
-  // font-size: 100%;
-  display: inline-block;
-
-  span {
+.accountants-pagination {
+  .pagination-entries {
     font-size: .5em;
+    display: inline-block;
   }
+
+  nav.pagination {
+    // font-size: 100%;
+    display: inline-block;
+
+    span {
+      font-size: .5em;
+    }
+  }  
 }
