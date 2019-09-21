@@ -1,19 +1,19 @@
-<section id="change_log_content">
-  <div class="col-sm-12">
-    <h2><%= t('patient.change_log.title') %></h2>
-    <table class="table border-side">
-      <thead>
-        <tr>
-          <th><%= t('patient.change_log.table.modified_date') %></th>
-          <th><%= t('patient.change_log.table.change') %></th>
-          <th><%= t('patient.change_log.table.case_manager') %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% patient.assemble_audit_trails.each do |revision| %>
-          <%= render 'patients/change_log_entry', revision: revision %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</section>
+<div id="change_log_content">
+  <h2 class="patient-section-title"><%= t('patient.change_log.title') %></h2>
+
+  <table class="table border-side" id="change-log-table">
+    <thead>
+      <tr>
+        <th><%= t('patient.change_log.table.modified_date') %></th>
+        <th><%= t('patient.change_log.table.change') %></th>
+        <th><%= t('patient.change_log.table.case_manager') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% patient.assemble_audit_trails.each do |revision| %>
+        <%= render 'patients/change_log_entry', revision: revision %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
