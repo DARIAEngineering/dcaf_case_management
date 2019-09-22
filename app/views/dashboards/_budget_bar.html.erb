@@ -1,4 +1,4 @@
-<div class="progress" id='budget-progress-bar'>
+<div class="progress mb-5" id='budget-progress-bar'>
   <% expenditures.each_pair do |type, patient_hashes| %>
     <% patient_hashes.each do |patient| %>
       <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>

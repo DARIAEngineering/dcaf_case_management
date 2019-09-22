@@ -1,5 +1,5 @@
 <div id="abortion_information_content">
-  <h2 class="patient-section-title"><%= t('patient.abortion_information.title') %></h2>
+  <h2 class="mt-5"><%= t('patient.abortion_information.title') %></h2>
 
   <div class="practical-support-flag">
     <% if patient.practical_supports.any? %>
@@ -46,7 +46,7 @@
   <%= render partial: 'clinicfinders/search_form',
              locals: { patient: patient } %>
 
-  <h3 class="patient-section-title"><%= t('patient.abortion_information.cost_section.title') %></h3>
+  <h3 class="mt-5"><%= t('patient.abortion_information.cost_section.title') %></h3>
 
   <%= bootstrap_form_with model: patient, html: { id: 'abortion-information-form-2' }, remote: true do |f| %>
     <div class="row patient-cost-fields">
