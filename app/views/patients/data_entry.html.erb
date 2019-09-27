@@ -2,26 +2,43 @@
 
 <h1><%= t('patient.data_entry.patient_entry') %></h1>
 
-<%= bootstrap_form_for @patient, url: data_entry_create_path, html: { class: 'mass_entry_form' } do |f| %>
+<%= bootstrap_form_with model: @patient,
+                        url: data_entry_create_path,
+                        html: { class: 'mass_entry_form' } do |f| %>
   <%= f.select :line, options_for_select(lines, current_line) %>
 
-  <%= f.date_field :initial_call_date, label: t('patient.new.initial_call_date') %>
+  <%= f.date_field :initial_call_date,
+                   label: t('patient.new.initial_call_date') %>
 
-  <%= f.text_field :name, label: t('common.name'), autocomplete: 'off' %>
+  <%= f.text_field :name,
+                   label: t('common.name'), autocomplete: 'off' %>
 
-  <%= f.text_field :primary_phone, label: t('common.phone'), autocomplete: 'off' %>
+  <%= f.text_field :primary_phone,
+                   label: t('common.phone'),
+                   autocomplete: 'off' %>
 
-  <%= f.text_field :other_contact, label: t('patient.information.other_contact.name'), autocomplete: 'off' %>
-  <%= f.text_field :other_phone, label: t('patient.information.other_contact.phone'), autocomplete: 'off' %>
-  <%= f.text_field :other_contact_relationship, label: t('patient.information.other_contact.relationship'), autocomplete: 'off'%>
+  <%= f.text_field :other_contact,
+                   label: t('patient.information.other_contact.name'),
+                   autocomplete: 'off' %>
+  <%= f.text_field :other_phone,
+                   label: t('patient.information.other_contact.phone'),
+                   autocomplete: 'off' %>
+  <%= f.text_field :other_contact_relationship,
+                   label: t('patient.information.other_contact.relationship'),
+                   autocomplete: 'off'%>
 
   <div class="row">
-    <div class="col-sm-6">
-      <%= f.select :last_menstrual_period_weeks, options_for_select(weeks_options), label: t('patient.dashboard.weeks_along'), autocomplete: 'off' %>
+    <div class="col">
+      <%= f.select :last_menstrual_period_weeks,
+                   options_for_select(weeks_options),
+                   label: t('patient.dashboard.weeks_along'),
+                   autocomplete: 'off' %>
     </div>
-    <div class="col-sm-6 hide-label">
-      <%= f.select :last_menstrual_period_days, options_for_select(days_options, @patient.last_menstrual_period_days ), autocomplete: 'off', skip_label: true %>
-      <%= f.label :last_menstrual_period_days, t('common.days_along'), class: "sr-only" %>
+    <div class="col">
+      <%= f.select :last_menstrual_period_days,
+                   options_for_select(days_options, @patient.last_menstrual_period_days),
+                   autocomplete: 'off',
+                   label: t('common.days_along') %>
     </div>
   </div>
 
@@ -34,25 +51,34 @@
     <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
   <%# end %>
 
-  <%= f.number_field :fund_pledge, label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"), autocomplete: 'off' %>
+  <%= f.number_field :fund_pledge,
+                     label: t('patient.abortion_information.cost_section.fund_pledge',
+                     fund: "#{FUND}"),
+                     autocomplete: 'off' %>
 
   <%= f.number_field :age, autocomplete: 'off' %>
-  <%= f.select :race_ethnicity, options_for_select(race_ethnicity_options), autocomplete: 'off' %>
-  <%= f.select :clinic_id, options_for_select(clinic_options), label: t('patient.pledge_fulfillment.confirmation.clinic') %>
+  <%= f.select :race_ethnicity,
+               options_for_select(race_ethnicity_options),
+               autocomplete: 'off' %>
+  <%= f.select :clinic_id,
+               options_for_select(clinic_options),
+               label: t('patient.pledge_fulfillment.confirmation.clinic') %>
 
-  <%= f.date_field :appointment_date, label: t('patient.shared.appt_date'), autocomplete: 'off' %>
+  <%= f.date_field :appointment_date,
+                   label: t('patient.shared.appt_date'),
+                   autocomplete: 'off' %>
 
   <%= f.select :insurance,
                options_for_select(insurance_options),
-                                  label: t('patient.information.insurance') %>
+               label: t('patient.information.insurance') %>
 
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col">
       <%= f.select :household_size_adults,
                     options_for_select(household_size_options),
                     help: t('patient.information.household_help') %>
     </div>
-    <div class="col-sm-6">
+    <div class="col">
       <%= f.select :household_size_children,
                     options_for_select(household_size_options) %>
     </div>
@@ -70,25 +96,69 @@
                label: t('patient.helper.referred_by.title'),
                autocomplete: 'off' %>
 
-    <%= f.number_field :procedure_cost, label: t('patient.pledge_fulfillment.form.procedure_cost') %>
-    <%= f.number_field :patient_contribution, label: t('patient.abortion_information.cost_section.patient_contribution'), autocomplete: 'off', prepend: '$' %>
-    <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.naf_pledge'), autocomplete: 'off', prepend: '$' %>
+  <%= f.number_field :procedure_cost,
+                     label: t('patient.pledge_fulfillment.form.procedure_cost') %>
+  <%= f.number_field :patient_contribution,
+                     label: t('patient.abortion_information.cost_section.patient_contribution'),
+                     autocomplete: 'off',
+                     prepend: '$' %>
+  <%= f.number_field :naf_pledge,
+                     label: t('patient.abortion_information.cost_section.naf_pledge'),
+                     autocomplete: 'off',
+                     prepend: '$' %>
 
-    <%= f.check_box :pledge_sent, label: t('patient.status.key.pledge_sent') %>
+  <%= f.check_box :pledge_sent, label: t('patient.status.key.pledge_sent') %>
 
-  <p style="font-weight:bold"><%= t('patient.information.special_circumstances.title')%></p>
-  <%= f.form_group :special_circumstances do %>
-    <div class="col-sm-6">
-      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.fetal_diagnosis'), name: 'patient[special_circumstances][]', namespace: 'Fetal' }, 'Fetal diagnosis', '' %>
-      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.homelessness'), name: 'patient[special_circumstances][]', namespace: 'Home' }, 'Homelessness', '' %>
-      <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.domestic_violence'), name: 'patient[special_circumstances][]', namespace: 'Domestic' }, 'Domestic violence', '' %>
-    </div>
-    <div class="col-sm-6">
-    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.rape'), name: 'patient[special_circumstances][]', namespace: 'Rape' }, 'Rape', '' %>
-    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.incest'), name: 'patient[special_circumstances][]', namespace: 'Incest' }, 'Incest', '' %>
-    <%= f.check_box :special_circumstances, { label: t('patient.information.special_circumstances.prison'), name: 'patient[special_circumstances][]', namespace: 'Prison' }, 'Prison', '' %>
-    </div>
-  <% end %>
+  <fieldset class="mt-5">
+    <legend class="font-weight-bold" id="special_circumstances_label">
+      <%= t 'patient.information.special_circumstances.title' %>    
+    </legend>
+
+    <%= f.form_group :special_circumstances do %>
+      <div class="row">
+        <div class="col">
+          <%= f.check_box :special_circumstances, {
+                          label: t('patient.information.special_circumstances.fetal_diagnosis'), 
+                          name: 'patient[special_circumstances][]',
+                          id: 'fetal_patient_special_circumstances' },
+                          'Fetal diagnosis', '' %>
+          <%= f.check_box :special_circumstances, {
+                          label: t('patient.information.special_circumstances.homelessness'),
+                          name: 'patient[special_circumstances][]',
+                          id: 'home_patient_special_circumstances' },
+                          'Homelessness', '' %>
+          <%= f.check_box :special_circumstances, {
+                          label: t('patient.information.special_circumstances.domestic_violence'),
+                          name: 'patient[special_circumstances][]',
+                          id: 'domestic_patient_special_circumstances' },
+                          'Domestic violence', '' %>
+          <%= f.check_box :special_circumstances, {
+                          label: t('patient.information.special_circumstances.other_medical_issue'),
+                          name: 'patient[special_circumstances][]',
+                          id: 'other_patient_special_circumstances' },
+                          'Other medical issue', '' %>
+        </div>
+        <div class="col">
+          <%= f.check_box :special_circumstances, {
+                          label: t('patient.information.special_circumstances.rape'),
+                          name: 'patient[special_circumstances][]',
+                          id: 'rape_patient_special_circumstances' },
+                          'Rape', '' %>
+          <%= f.check_box :special_circumstances, {
+                          label: t('patient.information.special_circumstances.incest'),
+                          name: 'patient[special_circumstances][]',
+                          id: 'incest_patient_special_circumstances' },
+                          'Incest', '' %>
+          <%= f.check_box :special_circumstances, {
+                          label: t('patient.information.special_circumstances.prison'),
+                          name: 'patient[special_circumstances][]',
+                          id: 'prison_patient_special_circumstances' },
+                          'Prison', '' %>
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
+
 
   <%= f.submit class: 'btn-lg btn-primary' %>
 <% end %>
