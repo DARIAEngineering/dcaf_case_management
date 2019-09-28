@@ -2,13 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.event-item {
-  padding: 5px;
+svg.event-item {
   border-radius: 50%;
-  font-size: 12px;
-  margin-right: 3px;
-  &.glyphicon-thumbs-up {
+  margin-right: 1em;
+  color: white;
+  padding: 4px;
+  background-color: #337ab7;
+  font-size: 1.25em;
+  
+  &.fa-thumbs-up {
     background-color: green;
+  }
+
+  &.fa-comment {
+    background-color: #f8f9fa; // TODO replace with $light;
+    color: black;
   }
 }
 
