@@ -38,19 +38,19 @@ class EventTest < ActiveSupport::TestCase
   end
 
   describe 'rendering methods' do
-    describe 'glyphicon' do
-      it 'should render the correct glyphicon' do
+    describe 'icon' do
+      it 'should render the correct icon' do
         @event.event_type = "Couldn't reach patient"
-        assert_equal 'earphone', @event.glyphicon
+        assert_equal 'phone-alt', @event.icon
 
         @event.event_type = 'Reached patient'
-        assert_equal 'comment', @event.glyphicon
+        assert_equal 'comment', @event.icon
 
         @event.event_type = 'Pledged'
-        assert_equal 'thumbs-up', @event.glyphicon
+        assert_equal 'thumbs-up', @event.icon
 
         @event.event_type = 'Left voicemail'
-        assert_equal 'earphone', @event.glyphicon
+        assert_equal 'phone-alt', @event.icon
       end
     end
 
