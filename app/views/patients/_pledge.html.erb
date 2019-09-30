@@ -1,27 +1,27 @@
 <% if not patient.pledge_sent %>
   <%= render '/shared/multi_modal', disable_next: disable_continue?(patient), :captured => capture { %>
-    <div class="row hide" data-step="1" data-title="<%= t('patient.pledge.step_one.title')%>">
+    <div class="hide" data-step="1" data-title="<%= t('patient.pledge.step_one.title')%>">
       <% if patient.pledge_info_present? %>
         <% patient.pledge_info_errors.each do |error| %>
-          <div class="form-error col-sm-12"><%= t('patient.pledge.errors.data_required') %> <%= error %></div>
+          <div class="form-error row"><%= t('patient.pledge.errors.data_required') %> <%= error %></div>
         <% end %>
       <% end %>
-      <div class='col-sm-12'><span class="pledge_modal_category"><%= t('patient.pledge.step_one.patient_name') %></span> <%= patient.name %></div>
-      <div class='col-sm-12'><span class="pledge_modal_category"><%= t('patient.pledge.step_one.patient_id') %></span> <%= patient.identifier %></div>
-      <div class='col-sm-12'><span class="pledge_modal_category"><%= t('patient.pledge.step_one.pledge_amount') %></span> $<%= patient.fund_pledge %> </div>
-      <div class='col-sm-12'><span class="pledge_modal_category"><%= t('patient.shared.appt_date') %>:</span> <%= patient.appointment_date_display %></div>
-      <div class='col-sm-12'><span class="pledge_modal_category"><%= t('patient.pledge.step_one.clinic_name') %></span> <%= patient.clinic.try :name %></div>
+      <div class="row"><%= t('patient.pledge.step_one.patient_name') %> <%= patient.name %></div>
+      <div class="row"><%= t('patient.pledge.step_one.patient_id') %> <%= patient.identifier %></div>
+      <div class="row"><%= t('patient.pledge.step_one.pledge_amount') %> $<%= patient.fund_pledge %> </div>
+      <div class="row"><%= t('patient.shared.appt_date') %>: <%= patient.appointment_date_display %></div>
+      <div class="row"><%= t('patient.pledge.step_one.clinic_name') %> <%= patient.clinic.try :name %></div>
     </div>
 
-    <div class="row hide" data-step="2" data-title="<%= t('patient.pledge.step_two.title') %>" id="generate-pledge-form">
+    <div class="hide" data-step="2" data-title="<%= t('patient.pledge.step_two.title') %>" id="generate-pledge-form">
       <% if ENV['DARIA_PLEDGE_GENERATOR_DISABLED'] %>
         <p><%= t('patient.pledge.step_two.form_disabled') %></p>
       <% else %>
         <div class="alert alert-danger" style="display:none;"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
-        <p class="col-sm-12"><strong><%= t('patient.pledge.step_two.generate_note') %></strong></p>
+        <p class="row"><strong><%= t('patient.pledge.step_two.generate_note') %></strong></p>
 
-        <div class="col-sm-12">
-          <%= bootstrap_form_tag url: generate_pledge_patient_path(patient), method: 'get' do |f| %>
+        <div class="row">
+          <%= bootstrap_form_with url: generate_pledge_patient_path(patient), method: 'get' do |f| %>
             <%= f.text_field :case_manager_name, label: t('patient.pledge.step_two.sign_pledge') %>
             <%= f.submit t('patient.pledge.step_two.generate_pledge_button'), class: 'btn btn-large btn-primary' %>
           <% end %>
@@ -29,15 +29,17 @@
       <% end %>
     </div>
 
-    <div class="row hide" data-step="3" data-title="<%= t('patient.pledge.step_three.title') %>">
+    <div class="hide" data-step="3" data-title="<%= t('patient.pledge.step_three.title') %>">
       <% unless ENV['DARIA_PLEDGE_GENERATOR_DISABLED'] %>
-        <p class="col-sm-12"><%= t('patient.pledge.step_three.generated', fund: "#{FUND}") %></p>
-        <p class="col-sm-12"><%= t('patient.pledge.step_three.downloads') %> <%= link_to FUND_FAX_SERVICE, "http://#{FUND_FAX_SERVICE}", target: '_blank', rel: 'noopener nofollow' %></p>
+        <p class="row"><%= t('patient.pledge.step_three.generated', fund: "#{FUND}") %></p>
+        <p class="row">
+          <%= t('patient.pledge.step_three.downloads') %> <%= link_to FUND_FAX_SERVICE, "http://#{FUND_FAX_SERVICE}", target: '_blank', rel: 'noopener nofollow' %>
+        </p>
       <% end %>
 
-      <p class="col-sm-12"><strong><%= t('patient.pledge.step_three.completed') %></strong></p>
+      <p class="row"><strong><%= t('patient.pledge.step_three.completed') %></strong></p>
 
-      <div class="col-sm-12">
+      <div class="row">
         <%= bootstrap_form_for patient, id: 'pledge-create-modal-form', remote: true do |f| %>
           <%= f.check_box :pledge_sent, label: t('patient.pledge.step_three.sent_checkbox') %>
         <% end %>
@@ -48,19 +50,23 @@
   <div class="modal-header">
     <h4 class="modal-title"><%= t('patient.pledge.cancel.title') %></h4>
   </div>
+
   <div class="modal-body">
     <div class="row">
-      <div class="col-sm-12">
-        <p><%= t('patient.pledge.cancel.confirm') %></p>
-      </div>
+      <p><%= t('patient.pledge.cancel.confirm') %></p>
     </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default js-btn-step pull-left" style="color:red;" data-dismiss="modal"><%= t('common.no') %></button>
 
-    <%= bootstrap_form_for @patient, html: { id:'cancel-pledge-form' }, remote: true do |f|%>    
-      <%= f.hidden_field :pledge_sent, value: false %>
-      <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step", id: 'cancel-pledge-submit'%>
-    <% end %>
+  <div class="modal-footer">
+    <div class="col">
+      <button type="button" class="btn btn-outline-secondary js-btn-step float-left" style="color:red;" data-dismiss="modal"><%= t('common.no') %></button>
+    </div>
+
+    <div class="col">
+      <%= bootstrap_form_with model: @patient, html: { id: 'cancel-pledge-form' }, remote: true do |f|%>    
+        <%= f.hidden_field :pledge_sent, value: false %>
+        <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step float-right", id: 'cancel-pledge-submit'%>
+      <% end %>
+    </div>
   </div>
 <% end %>

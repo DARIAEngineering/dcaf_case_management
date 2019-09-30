@@ -405,3 +405,8 @@ form {
 .bottom-spacer {
   margin-bottom: .75em;
 }
+
+// This is necessary because of a vendored multimodal plugin that we should aim to deprecate
+.hide {
+  @extend .d-none;
+}
