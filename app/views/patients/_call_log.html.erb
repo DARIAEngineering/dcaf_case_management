@@ -35,7 +35,7 @@
           </tr>
         <% end %>
         <% @patient.old_calls.each do |call| %>
-          <tr class="old-calls hidden">
+          <tr class="old-calls d-none">
             <td><%= call.created_at.display_date %></td>
             <td><%= call.created_at.display_time %></td>
             <td><%= call.status %></td>
