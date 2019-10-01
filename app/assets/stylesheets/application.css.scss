@@ -410,3 +410,8 @@ form {
 .hide {
   @extend .d-none;
 }
+
+// widen default modal from bootstrap default
+.modal-dialog {
+  max-width: 60%;
+}
