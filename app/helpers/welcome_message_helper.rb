@@ -35,7 +35,8 @@ module WelcomeMessageHelper
       "Another case, another human being helped. Keep it up!",
       "Merci beaucoup!",
       "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
-      "Você é demais!"
+      "Você é demais!",
+      "Your work is so valuable and you're doing a wonderful job! <3"
     ]
   end
 end
