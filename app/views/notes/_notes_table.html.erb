@@ -1,11 +1,13 @@
-<table class="table border-side" id='notes_log'>
+<table class="table border-side top-spacer" id="notes_log">
   <tbody>
     <% notes.each do |note| %>
       <% unless note.new_record? %>
-        <tr>
-          <th><%= note.created_by.name %> <%= note.created_at.display_date %> <%= note.created_at.display_time %></th>
+        <tr class="note-header">
+          <th>
+            <%= note.created_by.name %> <%= note.created_at.display_date %> <%= note.created_at.display_time %>    
+          </th>
         </tr>
-        <tr>
+        <tr class="note-body">
           <td><%= note.full_text %></td>
         </tr>
       <% end %>

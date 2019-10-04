@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><%= content_for?(:title) ? yield(:title) : "DARIA" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DCAF" %>">
     <meta name='ROBOTS' content='NOINDEX, NOFOLLOW'>
@@ -18,13 +18,11 @@
         <%= render 'layouts/navigation' %>
       </header>
     <% end %>
-    <main role="main">
-      <div class="container">
-        <%= render 'layouts/messages' %>
+    <main class="container" role="main">
+      <%= render 'layouts/messages' %>
 
-        <br>
-        <%= yield %>
-      </div>
+      <br>
+      <%= yield %>
     </main>
     <% if current_user.present? %>
       <footer>

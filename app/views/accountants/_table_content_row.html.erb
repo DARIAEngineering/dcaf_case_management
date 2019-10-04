@@ -1,3 +1,4 @@
+<td><!-- spacer --></td>
 <td><%= patient.clinic&.name %></td>
 <td><%= link_to patient.initials, edit_patient_path(patient) %></td>
 <td><%= number_to_currency patient.fulfillment&.fund_payout, precision: 0, unit: '$', format: '%u%n' %></td>
@@ -7,6 +8,6 @@
 <td><%= patient.fulfillment&.date_of_check %></td>
 <td>
   <%= link_to edit_accountant_path(patient), id: "edit-#{patient.id}", remote: true do %>
-    <i class="glyphicon glyphicon-pencil"></i>
+    <i class="glyphicon glyphicon-pencil"></i>edit
   <% end %>
 </td>

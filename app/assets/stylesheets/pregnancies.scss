@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $daria-color: #5D3E8D;
+$soft-blue: #337ab7;
 $font-size: 17px;
 
 #patient_dashboard {
@@ -16,57 +17,36 @@ $font-size: 17px;
   }
 }
 
+// TODO This should be a class!
 #sections {
   border-left: 1px solid black;
   padding-left: 9.5%;
 }
 
-#menu {
-  height: 70vh;
-  ul{
-    li{
-      a{
-      &:hover{
-        color: lighten(#337ab7, 20%)
-        }
-      }
-    }
+.abortion-left-menu.nav-pills {
+  font-size: 1rem;
+
+  .nav-link {
+    color: $soft-blue;
+    background-color: white;
   }
-}
 
-.abortion-left-menu {
-  font-size: 22px;
-
-  li {
-    // padding-left: 10px;
+  a.nav-link.active {
+    color: $daria-color;
     background-color: white;
 
-    a:hover {
-      color: #337ab7;
-      background-color: white;
-    }
-  }
-
-  li.active {
-
-    a, a:hover, a:active, a:focus {
-      color: #5D3E8D;
-      background-color: white;
-    }
-
-    a:before {
+    &:before {
       font-family: 'Glyphicons Halflings';
       content: "\e080";
       margin-left: -1.5em;
-      padding-right: .5em;
-      color: #5D3E8D;
-
+      padding-right: .85em;
+      color: $daria-color;
     }
   }
-  a.submit-btn, a.cancel-btn {
-    font-size: 22px;
-  }
 
+  a.submit-btn, a.cancel-btn {
+    font-size: 1rem;
+  }
 }
 
 .border-side {
@@ -87,7 +67,7 @@ $font-size: 17px;
 }
 
 #submit-pledge-button, #cancel-pledge-button {
-  font-size: 22px;
+  font-size: 1rem;
   font-weight: bold;
 }
 

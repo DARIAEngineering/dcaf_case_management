@@ -15,7 +15,7 @@ class NavbarHelperTest < ActionView::TestCase
     end
 
     it 'should return a link if config set' do
-      expected_link = '<li><a target="_blank" href="https://www.google.com">CM Resources</a></li>'
+      expected_link = '<li><a target="_blank" class="nav-link" href="https://www.google.com">CM Resources</a></li>'
       assert_equal expected_link, cm_resources_link
     end
   end
