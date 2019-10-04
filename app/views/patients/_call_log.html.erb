@@ -1,7 +1,6 @@
 <div id="call_log_content">
   <h2 class="mt-5">
     <%= t('patient.call_log.title') %>
-
     <small class="float-right"> 
       <%= link_to t('patient.call_log.record_new_call'),
                   new_patient_call_path(@patient),
@@ -39,7 +38,7 @@
       <% end %>
 
       <% @patient.old_calls.each do |call| %>
-        <tr class="old-calls hidden">
+        <tr class="old-calls d-none">
           <td><%= call.created_at.display_date %></td>
           <td><%= call.created_at.display_time %></td>
           <td><%= call.status %></td>
