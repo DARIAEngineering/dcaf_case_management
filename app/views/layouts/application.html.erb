@@ -23,11 +23,12 @@
 
       <br>
       <%= yield %>
+
+      <% if current_user.present? %>
+        <footer>
+          <%= render 'layouts/footer' %>
+        </footer>
+      <% end %>
     </main>
-    <% if current_user.present? %>
-      <footer>
-        <%= render 'layouts/footer' %>
-      </footer>
-    <% end %>
   </body>
 </html>
