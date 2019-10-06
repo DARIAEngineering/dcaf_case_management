@@ -36,8 +36,10 @@ $font-size: 17px;
     background-color: white;
 
     &:before {
-      font-family: 'Glyphicons Halflings';
-      content: "\e080";
+      display: none;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f054";
       margin-left: -1.5em;
       padding-right: .85em;
       color: $daria-color;
@@ -47,6 +49,11 @@ $font-size: 17px;
   a.submit-btn, a.cancel-btn {
     font-size: 1rem;
   }
+}
+
+.svg-inline--fa {
+  margin-left: -1.5em;
+  margin-right: .85em;
 }
 
 .border-side {
