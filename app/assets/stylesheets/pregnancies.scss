@@ -44,16 +44,16 @@ $font-size: 17px;
       padding-right: .85em;
       color: $daria-color;
     }
+
+    .svg-inline--fa {
+      margin-left: -1.5em;
+      margin-right: .85em;
+    }
   }
 
   a.submit-btn, a.cancel-btn {
     font-size: 1rem;
   }
-}
-
-.svg-inline--fa {
-  margin-left: -1.5em;
-  margin-right: .85em;
 }
 
 .border-side {
