@@ -7,7 +7,7 @@
 
       <p><%= t('devise.sessions.new.password_signin') %></p>
 
-      <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
+      <%= bootstrap_form_with model: resource, as: resource_name, url: session_path(resource_name) do |f| %>
         <%= render "devise/shared/error_messages" %>
 
         <%- if devise_mapping.registerable? %>
