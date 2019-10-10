@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="col-sm-12 lines-form">
+<div class="row">
+  <div class="col lines-form">
     <h1 class="border-bottom title"><%= t 'lines.new.welcome_to_daria', fund: FUND %></h1>
 
     <%= bootstrap_form_tag url: lines_path, class: 'line-select-form' do |f| %>
@@ -10,6 +10,5 @@
       <% end %>
       <%= f.submit t('lines.new.start'), class: 'btn-lg btn-primary' %>
     <% end %>
-
   </div>
 </div>
