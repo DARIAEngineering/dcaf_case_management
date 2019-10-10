@@ -541,6 +541,7 @@ en:
       user_account_management: User Account Management
     new:
       create_user: Create User
+      edit_role_after_creating: New users by default have CM permissions, which let them use the case management workflow. To give someone data access or admin permissions, edit them after you create their accounts here.
     profile_edit:
       awaiting_confirmation: 'Currently waiting for confirmation for: %{email}'
       change_password: Change your password
