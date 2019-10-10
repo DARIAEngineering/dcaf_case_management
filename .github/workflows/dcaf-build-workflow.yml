@@ -1,0 +1,34 @@
+name: DCAF Build Pipeline
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+    name: Build
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
+      - run: echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+      - run: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+      - run: echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y mongodb-org google-chrome-stable chromium-chromedriver libgconf-2-4 --allow-unauthenticated
+      - run: sudo systemctl start mongod
+      - run: bundle check || bundle install
+      - run: yarn install
+      - run: NODE_ENV=test bundle exec rails webpacker:compile
+      - run: gem install --no-document brakeman
+      - run: gem install --no-document ruby_audit
+      - run: gem install --no-document bundler-audit
+      - run: bundle exec rake knapsack:minitest
+      - run: brakeman --exit-on-warn .
+      - run: bundle exec ruby-audit check
+      - run: bundle-audit update; bundle-audit check --ignore CVE-2015-9284
