@@ -6,6 +6,6 @@ FactoryBot.define do
     end
     password { 'FCZCidQP4C8GTz' }
     password_confirmation { 'FCZCidQP4C8GTz' }
-    role "cm"
+    role { 'cm' }
   end
 end
