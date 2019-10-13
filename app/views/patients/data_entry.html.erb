@@ -4,7 +4,8 @@
 
 <%= bootstrap_form_with model: @patient,
                         url: data_entry_create_path,
-                        html: { class: 'mass_entry_form' } do |f| %>
+                        html: { class: 'mass_entry_form' },
+                        local: true do |f| %>
   <%= f.select :line, options_for_select(lines, current_line) %>
 
   <%= f.date_field :initial_call_date,

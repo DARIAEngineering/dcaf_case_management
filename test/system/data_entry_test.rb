@@ -42,8 +42,8 @@ class DataEntryTest < ApplicationSystemTestCase
       fill_in 'Patient contribution', with: '150'
       fill_in 'National Abortion Federation pledge', with: '50'
       check 'Pledge Sent'
-      check 'Fetal_patient_special_circumstances'
-      check 'Home_patient_special_circumstances'
+      check 'fetal_patient_special_circumstances'
+      check 'home_patient_special_circumstances'
       click_button 'Create Patient'
       has_text? 'Patient information' # wait for redirect
     end
