@@ -37,7 +37,7 @@ class UserManagementTest < ApplicationSystemTestCase
     end
 
     it 'should not be able to access user management' do
-      click_link 'Admin'
+      click_button 'Admin'
       assert_no_text 'User Account Management'
     end
   end
@@ -48,7 +48,7 @@ class UserManagementTest < ApplicationSystemTestCase
     end
 
     it 'should be able to access user management' do
-      click_link 'Admin'
+      click_button 'Admin'
       assert has_content? 'User Management'
       assert_text 'User Management'
       click_link 'User Management'
@@ -61,7 +61,7 @@ class UserManagementTest < ApplicationSystemTestCase
   describe 'user management' do
     before do
       log_in @admin
-      click_link 'Admin'
+      click_button 'Admin'
       assert_text 'User Management'
       click_link 'User Management'
       wait_for_element 'User Account Management'
@@ -107,7 +107,7 @@ class UserManagementTest < ApplicationSystemTestCase
   describe 'editing a user' do
     before do
       log_in_as @admin
-      click_link 'Admin'
+      click_button 'Admin'
       assert_text 'User Management'
       click_link 'User Management'
       wait_for_element 'User Account Management'
