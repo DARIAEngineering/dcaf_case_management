@@ -7,7 +7,7 @@ class NavbarLinksTest < ApplicationSystemTestCase
   end
 
   describe 'user dropdown' do
-    before { click_button @user.name }
+    before { click_on @user.name }
     it 'should display the profile link' do
       assert has_link? t('navigation.user_tools.profile'), href: edit_user_registration_path
     end
@@ -15,7 +15,7 @@ class NavbarLinksTest < ApplicationSystemTestCase
 
   describe 'admin dropdown' do
     describe 'admin view' do
-      before { click_button 'Admin' }
+      before { click_on 'Admin' }
 
       it 'should display User management link' do
         assert has_link? t('navigation.admin_tools.user_management'), href: users_path
@@ -48,7 +48,7 @@ class NavbarLinksTest < ApplicationSystemTestCase
         @user2 = create :user, role: :data_volunteer
         log_in_as @user2
         visit authenticated_root_path
-        click_button t('navigation.admin_tools.label')
+        click_on t('navigation.admin_tools.label')
       end
 
       it 'should not display the new user link' do

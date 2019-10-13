@@ -37,7 +37,7 @@ class UserManagementTest < ApplicationSystemTestCase
     end
 
     it 'should not be able to access user management' do
-      click_button 'Admin'
+      click_on 'Admin'
       assert_no_text 'User Account Management'
     end
   end
@@ -48,22 +48,22 @@ class UserManagementTest < ApplicationSystemTestCase
     end
 
     it 'should be able to access user management' do
-      click_button 'Admin'
+      click_on 'Admin'
       assert has_content? 'User Management'
       assert_text 'User Management'
-      click_link 'User Management'
+      click_on 'User Management'
       wait_for_element 'User Account Management'
       assert has_content? 'User Account Management'
-      click_link 'Add New User'
+      click_on 'Add New User'
     end
   end
 
   describe 'user management' do
     before do
       log_in @admin
-      click_button 'Admin'
+      click_on 'Admin'
       assert_text 'User Management'
-      click_link 'User Management'
+      click_on 'User Management'
       wait_for_element 'User Account Management'
     end
 
@@ -107,16 +107,16 @@ class UserManagementTest < ApplicationSystemTestCase
   describe 'editing a user' do
     before do
       log_in_as @admin
-      click_button 'Admin'
+      click_on 'Admin'
       assert_text 'User Management'
-      click_link 'User Management'
+      click_on 'User Management'
       wait_for_element 'User Account Management'
-      click_link @user.name
+      click_on @user.name
       wait_for_element 'User details'
     end
 
     it 'allows user locking' do
-      click_link 'Lock account'
+      click_on 'Lock account'
       wait_for_element 'Unlock account'
       within :css, "#user-#{@user.id}" do
         assert_text 'Locked by admin'
@@ -125,16 +125,16 @@ class UserManagementTest < ApplicationSystemTestCase
 
     it 'allows name editing' do
       fill_in 'Name', with: 'johan'
-      click_button 'Save'
+      click_on 'Save'
       wait_for_element 'Successfully updated user details'
       assert_text 'johan'
     end
 
     it 'allows email editing' do
       fill_in 'Email', with: 'johan@gmail.com'
-      click_button 'Save'
+      click_on 'Save'
       wait_for_element 'Successfully updated user details'
-      click_link @user.name
+      click_on @user.name
       assert has_field? 'Email', with: 'johan@gmail.com'
     end
   end

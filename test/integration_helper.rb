@@ -23,13 +23,13 @@ module IntegrationHelper
     visit root_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    click_button 'Sign in with password'
+    click_on 'Sign in with password'
   end
 
   def select_line(line = 'DC')
     wait_for_element line
     choose line
-    click_button 'Get started'
+    click_on 'Get started'
   end
 
   def wait_for_element(text)
@@ -50,7 +50,7 @@ module IntegrationHelper
 
   def sign_out
     click_button @user.name
-    click_link 'Sign Out'
+    click_on 'Sign Out'
   end
 
   def log_out
@@ -68,7 +68,7 @@ module IntegrationHelper
   end
 
   def go_to_dashboard
-    click_link "DARIA - #{FUND_FULL}"
+    click_on "DARIA - #{FUND_FULL}"
   end
 
   def click_away_from_field
