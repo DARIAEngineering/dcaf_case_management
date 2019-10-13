@@ -1,9 +1,13 @@
 <div id="practical_support_content">
   <h2 class="mt-5"><%= t 'patient.practical_support.title' %> <%= practical_support_guidance_link %></h2>
 
-  <%= render 'practical_supports/entries',
-             patient: patient %>
+  <div id="practical-support-entries">
+    <%= render 'practical_supports/entries',
+               patient: patient %>    
+  </div>
 
-  <%= render 'practical_supports/new',
-             patient: patient %>
+  <div id="practical-support-new-form">
+    <%= render 'practical_supports/new',
+               patient: patient %>    
+  </div>
 </div>

@@ -12,7 +12,9 @@
   </small>
 </h1>
 
-<%= render partial: 'accountants/table_content',
-           locals: { patients: @patients, autosortable: true } %>
+<div id="accounting-list">
+  <%= render partial: 'accountants/table_content',
+             locals: { patients: @patients, autosortable: true } %>
+</div>
 
 <%= render partial: "patients/modal" %>
