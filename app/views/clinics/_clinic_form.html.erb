@@ -1,4 +1,4 @@
-<%= bootstrap_form_with model: @clinic do |f| %>
+<%= bootstrap_form_with model: @clinic, local: true do |f| %>
   <div class="row">
     <div class="info-form-left col">
       <%= f.text_field :name, autocomplete: 'off' %>
