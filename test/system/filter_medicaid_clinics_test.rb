@@ -18,7 +18,7 @@ class FilterMedicaidClinicsTest < ApplicationSystemTestCase
       assert has_select? 'patient_clinic_id', with_options: [@medicaid_clinic.name,
                                                              @non_medicaid_clinic.name]
 
-      check 'medicaid_filter'
+      check 'Enable only Medicaid clinics'
       wait_for_ajax
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }

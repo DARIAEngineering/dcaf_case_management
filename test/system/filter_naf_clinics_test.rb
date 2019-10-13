@@ -18,7 +18,7 @@ class FilterNafClinicsTest < ApplicationSystemTestCase
       assert has_select? 'patient_clinic_id', with_options: [@naf_clinic.name,
                                                              @nonnaf_clinic.name]
 
-      check 'naf_filter'
+      check 'Enable only NAF clinics'
       wait_for_ajax
       options_with_filter = find('#patient_clinic_id').all('option')
                                                       .map { |opt| { name: opt.text, disabled: opt['disabled'] } }
