@@ -49,7 +49,7 @@ module IntegrationHelper
   end
 
   def sign_out
-    click_link @user.name
+    click_button @user.name
     click_link 'Sign Out'
   end
 
