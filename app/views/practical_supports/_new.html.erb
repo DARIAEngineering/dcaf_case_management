@@ -1,11 +1,9 @@
-<div id="practical-support-new-form">
-  <h4><%= t 'patient.practical_support.new' %></h4>
+<h4><%= t 'patient.practical_support.new' %></h4>
 
-  <%= bootstrap_form_for [patient, patient.practical_supports.new], html: { id: 'new-practical-support' }, remote: true do |f| %>
-    <%= f.select :support_type, practical_support_options %>
-    <%= f.select :source, practical_support_source_options %>
-    <%= f.check_box :confirmed %>
-    <br />
-    <%= f.submit t('patient.practical_support.create'), class: 'btn btn-primary', id: 'create-practical-support' %>
-  <% end %>
-</div>
+<%= bootstrap_form_for [patient, patient.practical_supports.new], html: { id: 'new-practical-support' }, remote: true do |f| %>
+  <%= f.select :support_type, practical_support_options %>
+  <%= f.select :source, practical_support_source_options %>
+  <%= f.check_box :confirmed %>
+  <br />
+  <%= f.submit t('patient.practical_support.create'), class: 'btn btn-primary', id: 'create-practical-support' %>
+<% end %>
