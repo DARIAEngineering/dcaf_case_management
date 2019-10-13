@@ -30,7 +30,7 @@ class CallListTest < ApplicationSystemTestCase
     it 'should let you remove people from the call list roll' do
       within :css, '#call_list_content' do
         wait_for_element @patient.name
-        accept_confirm { find('.glyphicon-remove').click }
+        accept_confirm { find('.fa-times').click }
         assert has_no_text? @patient.name
       end
     end
