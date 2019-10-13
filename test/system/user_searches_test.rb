@@ -14,7 +14,7 @@ class UserSearchesTest < ApplicationSystemTestCase
 
   describe 'searching for users' do
     it 'should return matching users on name' do
-      fill_in 'Search', with: 'Metallica'
+      fill_in 'search_field', with: 'Metallica'
       click_button 'Search'
 
       within '#user-results' do
@@ -23,7 +23,7 @@ class UserSearchesTest < ApplicationSystemTestCase
     end
 
     it 'should return matching users on email' do
-      fill_in 'Search', with: 'example.com'
+      fill_in 'search_field', with: 'example.com'
       click_button 'Search'
 
       within '#user-results' do
