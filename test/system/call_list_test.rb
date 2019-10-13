@@ -2,6 +2,7 @@ require 'application_system_test_case'
 
 class CallListTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
+
   before do
     @patient = create :patient, name: 'Susan Everyteen'
     @patient_2 = create :patient, name: 'Thorny'
@@ -121,7 +122,7 @@ class CallListTest < ApplicationSystemTestCase
     wait_for_element 'Build your call list'
     fill_in 'search', with: patient.name
     wait_for_element 'Search results'
-    click_button 'Search' && wait_for_ajax
+    click_button('Search', title: 'Search') && wait_for_ajax
     find('a', text: 'Add', wait: 5).click
     wait_for_ajax
   end
