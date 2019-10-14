@@ -279,7 +279,8 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
                                   fund_pledge: 100,
                                   pledge_sent: true
 
-      log_out && log_in_as(@admin)
+      log_out
+      log_in_as @admin
       visit edit_patient_path @patient
 
       click_link 'Pledge Fulfillment'

@@ -1,7 +1,10 @@
 <div id="patient_information_content">
   <h2 class="mt-5"><%= t 'patient.information.title' %></h2>
 
-  <%= bootstrap_form_with model: patient, html: { id: 'patient_information_form' }, remote: true do |f| %>
+  <%= bootstrap_form_with model: patient,
+                          html: { id: 'patient_information_form' },
+                          remote: true,
+                          class: 'edit_patient' do |f| %>
     <div class="row">
       <div class="col info-form-left">
         <% if current_user.admin? %>
