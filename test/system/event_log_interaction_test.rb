@@ -22,7 +22,9 @@ class EventLogInteractionTest < ApplicationSystemTestCase
       wait_for_element 'I left a voicemail for the patient'
       click_link 'I left a voicemail for the patient'
       wait_for_ajax
-      log_out && log_in_as(@user2)
+      log_out
+
+      log_in_as @user2
       wait_for_css '#activity_log_content'
       wait_for_css '#event-item'
       wait_for_ajax
