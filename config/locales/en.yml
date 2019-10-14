@@ -390,6 +390,10 @@ en:
       week:
         one: "%{count} week"
         other: "%{count} weeks"
+      voicemail_preference:
+        yes: "Yes"
+        no: "No"
+        not_specified: "Not Specified"
     information:
       household_help: "(including patient)"
       income_help: Employment, Food Stamps, SS, TANF, etc.

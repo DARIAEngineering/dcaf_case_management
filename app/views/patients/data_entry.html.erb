@@ -29,6 +29,9 @@
   <%= f.text_field :state, autocomplete: 'off' %>
   <%= f.text_field :county, autocomplete: 'off' %>
 
+   <%= f.select :language, options_for_select(language_options), autocomplete: 'off' %>
+   <%= f.select :voicemail_preference, options_for_select(voicemail_preference_options), autocomplete: 'off' %>
+
   <!-- Notes doesn't work because strong params :( -->
   <%#= f.fields_for @patient.notes.new do |notes| %>
     <%#= notes.text_area :full_text, size: '20x5', placeholder: 'Enter notes here' %>
@@ -75,6 +78,10 @@
     <%= f.number_field :naf_pledge, label: t('patient.abortion_information.cost_section.naf_pledge'), autocomplete: 'off', prepend: '$' %>
 
     <%= f.check_box :pledge_sent, label: t('patient.status.key.pledge_sent') %>
+    <%= f.check_box :referred_to_clinic, label: t('patient.status.key.referred_to_clinic') %>
+    <%= f.check_box :completed_ultrasound, label: t('patient.status.key.completed_ultrasound') %>
+    <%= f.check_box :resolved_without_fund, label: t('patient.status.key.completed_ultrasound') %>
+
 
   <p style="font-weight:bold"><%= t('patient.information.special_circumstances.title')%></p>
   <%= f.form_group :special_circumstances do %>
