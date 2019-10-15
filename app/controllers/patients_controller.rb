@@ -79,7 +79,6 @@ class PatientsController < ApplicationController
   end
 
   def data_entry_create
-    puts params
     @patient = Patient.new patient_params
     @patient.created_by = current_user
 
