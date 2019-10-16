@@ -17,12 +17,15 @@ class EventLogInteractionTest < ApplicationSystemTestCase
   describe 'logging phone calls' do
     it 'should log a phone call into the activity log' do
       wait_for_element 'Call Log'
-      click_link 'Call Log'
-      click_link 'Record new call'
+      click_on 'Call Log'
+      click_on 'Record new call'
       wait_for_element 'I left a voicemail for the patient'
-      click_link 'I left a voicemail for the patient'
-      wait_for_ajax
-      log_out && log_in_as(@user2)
+      click_on 'I left a voicemail for the patient'
+      wait_for_no_element 'I left a voicemail for the patient'
+      sign_out
+
+      wait_for_element 'Sign in with password'
+      log_in_as @user2
       wait_for_css '#activity_log_content'
       wait_for_css '#event-item'
       wait_for_ajax
@@ -33,7 +36,7 @@ class EventLogInteractionTest < ApplicationSystemTestCase
           assert has_content? "#{@user.name} left a voicemail for " \
                               "#{@patient.name}"
         end
-        click_link '(Add to call list)'
+        click_on '(Add to call list)'
         wait_for_ajax
         @user2.reload
       end

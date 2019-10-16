@@ -1,5 +1,8 @@
 <div id="patient_dashboard_content">
-  <%= bootstrap_form_for patient, html: { id: 'patient_dashboard_form' }, remote: true do |f| %>
+  <%= bootstrap_form_for patient,
+                         html: { id: 'patient_dashboard_form' },
+                         remote: true,
+                         class: 'edit_patient' do |f| %>
     <div class="row">
 
       <div class="col-4">

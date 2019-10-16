@@ -11,7 +11,9 @@
     <li><%= t('patient.pledge_fulfillment.confirmation.pledge_sent_at') %> <%= @patient.pledge_sent_at.try(:display_date) || 'N/A'%></li>
   </ul>
 
-  <%= bootstrap_form_with model: patient, html: { id: 'pledge_fulfillment_form' }, remote: true do |f| %>
+  <%= bootstrap_form_with model: patient,
+                          html: { id: 'pledge_fulfillment_form' },
+                          remote: true do |f| %>
     <div class="row">
       <div class="col">
         <%= f.fields_for patient.fulfillment do |pt| %>

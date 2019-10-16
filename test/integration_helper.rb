@@ -49,8 +49,10 @@ module IntegrationHelper
   end
 
   def sign_out
-    click_button @user.name
+    click_on @user.name
+    wait_for_element 'Sign Out'
     click_on 'Sign Out'
+    wait_for_element 'Sign in with password' # a short wait for safety
   end
 
   def log_out

@@ -63,7 +63,10 @@
     </div>
 
     <div class="col">
-      <%= bootstrap_form_with model: @patient, html: { id: 'cancel-pledge-form' }, remote: true do |f|%>    
+      <%= bootstrap_form_with model: @patient,
+                              html: { id: 'cancel-pledge-form' },
+                              remote: true,
+                              class: 'edit_patient' do |f| %>
         <%= f.hidden_field :pledge_sent, value: false %>
         <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step float-right", id: 'cancel-pledge-submit'%>
       <% end %>
