@@ -11,7 +11,6 @@ class EventLogInteractionTest < ApplicationSystemTestCase
                                 city: 'Washington'
     log_in_as @user
     visit edit_patient_path @patient
-
   end
 
   describe 'logging phone calls' do
@@ -22,6 +21,7 @@ class EventLogInteractionTest < ApplicationSystemTestCase
       wait_for_element 'I left a voicemail for the patient'
       click_on 'I left a voicemail for the patient'
       wait_for_no_element 'I left a voicemail for the patient'
+      wait_for_element @user.name
       sign_out
 
       wait_for_element 'Sign in with password'
@@ -41,6 +41,5 @@ class EventLogInteractionTest < ApplicationSystemTestCase
         @user2.reload
       end
     end
-
   end
 end
