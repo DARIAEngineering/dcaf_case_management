@@ -387,10 +387,6 @@ en:
         title: Referred by
         web_search: Google/Web search
         youth: Youth outreach
-      voicemail_preference:
-        'false': 'No'
-        not_specified: Not Specified
-        'true': 'Yes'
       week:
         one: "%{count} week"
         other: "%{count} weeks"

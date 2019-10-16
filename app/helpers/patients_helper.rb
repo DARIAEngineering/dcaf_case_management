@@ -115,13 +115,4 @@ module PatientsHelper
   def pledge_limit_help_text_options
     Config.find_or_create_by(config_key: 'pledge_limit_help_text').options
   end
-
-  def voicemail_preference_options
-    [
-      nil,
-      [ t('patient.helper.voicemail.yes'), 'yes'],
-      [ t('patient.helper.voicemail.no'), 'no'],
-      [ t('patient.helper.voicemail.not_specified'), 'not specified'],
-    ]
-  end
 end
