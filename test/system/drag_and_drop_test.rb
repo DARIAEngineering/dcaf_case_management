@@ -1,3 +1,6 @@
+# This still works, but for some reason the test is failing.
+# I think it’s because drag_to takes it to the middle of an element, and for some reason if you move it to the EXACT middle it doesn’t know whether to go up or down, so it goes to neither.
+
 # require 'application_system_test_case'
 
 # # Test drag and drop call list behavior
