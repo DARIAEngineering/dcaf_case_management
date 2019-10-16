@@ -36,7 +36,7 @@
 <div class="report-section">
   <% case timeframe
   when 'weekly' %>
-  <h2 class="border-bottom">Week of <%= week_range %></h2>
+  <h2 class="border-bottom">Week of <%= week_range(date: Time.zone.now) %></h2>
   <% when 'monthly' %>
   <h2 class="border-bottom">Past 30 days</h2>
   <% when 'yearly' %>

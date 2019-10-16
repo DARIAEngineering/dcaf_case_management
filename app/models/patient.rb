@@ -142,16 +142,16 @@ class Patient
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
-    start_of_week = Time.zone.today.beginning_of_week(Config.start_day).in_time_zone
+    start_of_period = Config.start_day.downcase.to_s == "monthly" ? Time.zone.today.beginning_of_month.in_time_zone
+                                                                  : Time.zone.today.beginning_of_week(Config.start_day).in_time_zone
     # Get patients who have been pledged this week, as a simplified hash
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
-                      .where(:fund_pledged_at.gte => start_of_week)
+                      .where(:fund_pledged_at.gte => start_of_period)
                       .where(:resolved_without_fund.in => [false, nil])
                       .order_by(fund_pledged_at: :asc)
                       .pluck(*plucked_attrs)
                       .map { |att| plucked_attrs.zip(att).to_h }
-
     # Divide people up based on whether pledges have been sent or not
     patients.each_with_object(sent: [], pledged: []) do |patient, summary|
       if patient[:pledge_sent]
