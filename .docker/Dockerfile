@@ -4,7 +4,7 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash openssh fontconfig fontconfig-dev curl" \
+    BUILD_DEPENDENCIES="build-base libxml2-dev libxslt-dev linux-headers bash openssh fontconfig fontconfig-dev curl ruby-dev alpine-sdk" \
     APP_DEPENDENCIES="nodejs git nodejs-npm sassc" \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
