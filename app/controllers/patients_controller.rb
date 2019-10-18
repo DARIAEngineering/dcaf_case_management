@@ -19,9 +19,9 @@ class PatientsController < ApplicationController
 
     patient.created_by = current_user
     if patient.save
-      flash[:notice] = 'A new patient has been successfully saved'
+      flash[:notice] = t('flash.new_patient_save')
     else
-      flash[:alert] = "Errors prevented this patient from being saved: #{patient.errors.full_messages.to_sentence}"
+      flash[:alert] = t('flash.new_patient_error', error: patient.errors.full_messages.to_sentence)
     end
 
     current_user.add_patient patient
@@ -38,7 +38,7 @@ class PatientsController < ApplicationController
   # download a filled out pledge form based on patient record
   def download
     if params[:case_manager_name].blank?
-      flash[:alert] = "You need to enter your name in the box to sign and download the pledge"
+      flash[:alert] = t('flash.pledge_download_alert')
       redirect_to edit_patient_path @patient
     else
       now = Time.zone.now.strftime('%Y%m%d')
@@ -54,6 +54,9 @@ class PatientsController < ApplicationController
   end
 
   def edit
+    # i18n-tasks-use t('mongoid.attributes.practical_support.confirmed')
+    # i18n-tasks-use t('mongoid.attributes.practical_support.source')
+    # i18n-tasks-use t('mongoid.attributes.practical_support.support_type')
     @note = @patient.notes.new
     @external_pledge = @patient.external_pledges.new
   end
@@ -62,7 +65,7 @@ class PatientsController < ApplicationController
     @patient.last_edited_by = current_user
     if @patient.update_attributes patient_params
       @patient.reload
-      flash.now[:notice] = "Patient info successfully saved at #{Time.zone.now.display_timestamp}"
+      flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error
@@ -80,20 +83,20 @@ class PatientsController < ApplicationController
     @patient.created_by = current_user
 
     if @patient.save
-      flash[:notice] = "#{@patient.name} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the #{FUND} pledge amounts are the same, and you're set."
+      flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)
       redirect_to edit_patient_path @patient
     else
-      flash[:alert] = "Errors prevented this patient from being saved: #{@patient.errors.full_messages.to_sentence}"
+      flash[:alert] = t('flash.patient_save_error', error: @patient.errors.full_messages.to_sentence)
       render 'data_entry'
     end
   end
 
   def destroy
     if @patient.okay_to_destroy? && @patient.destroy
-      flash[:notice] = "Patient successfully removed from database."
+      flash[:notice] = t('flash.patient_removed_database')
       redirect_to authenticated_root_path
     else
-      flash[:alert] = "Can't delete patients with pledges; please correct the patient record and try again."
+      flash[:alert] = t('flash.patient_removed_database_error')
       redirect_to edit_patient_path(@patient)
     end
   end
@@ -110,21 +113,21 @@ class PatientsController < ApplicationController
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
-    :line, :age, :race_ethnicity, :language,
-    :voicemail_preference, :city, :state, :county, :zip, :other_contact, :other_phone,
+    :line, :age, :race_ethnicity, :language, :voicemail_preference, :textable,
+    :city, :state, :county, :zip, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
     special_circumstances: []
   ].freeze
 
   ABORTION_INFORMATION_PARAMS = [
-    :clinic_id, :resolved_without_fund, :referred_to_clinic,
+    :clinic_id, :resolved_without_fund, :referred_to_clinic, :completed_ultrasound,
     :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge
   ].freeze
 
   FULFILLMENT_PARAMS = [
     fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :procedure_cost, :check_number, :date_of_check]
+                  :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze

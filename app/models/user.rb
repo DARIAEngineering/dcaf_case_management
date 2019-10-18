@@ -39,7 +39,7 @@ class User
   # Non-devise generated
   field :name, type: String
   field :line, type: String
-  field :role
+  field :role, default: :cm
 
   enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: true
   field :call_order, type: Array # Manipulated by the call list controller
@@ -82,6 +82,7 @@ class User
   # Validations
   # email presence validated through Devise
   validates :name, presence: true
+  validates :role, presence: true
   validate :secure_password
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months

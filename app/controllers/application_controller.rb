@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
+  before_action :set_locale
   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
@@ -15,6 +16,19 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) do |user|
       user.permit :name, :current_password, :password, :password_confirmation
     end
+  end
+
+  def set_locale
+    I18n.locale = if params[:locale].present?
+                    params[:locale]
+                  else
+                    I18n.default_locale
+                  end
+  end
+
+  def default_url_options
+    return { :locale => I18n.locale } if I18n.locale != I18n.default_locale
+    {}
   end
 
   private
@@ -44,7 +58,7 @@ class ApplicationController < ActionController::Base
 
   def confirm_user_not_disabled!
     if current_user.disabled_by_fund?
-      flash[:danger] = 'Account currently locked, check with your fund.'
+      flash[:danger] = t('flash.account_locked')
       sign_out current_user
     end
   end

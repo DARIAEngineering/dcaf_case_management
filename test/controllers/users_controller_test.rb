@@ -101,13 +101,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'create method' do
-    it 'should create a user' do
+    it 'should create a user with the role cm' do
       attributes = attributes_for(:user)
-      attributes.delete :role
       assert_difference 'User.count', 1 do
         post users_path, params: { user: attributes }
       end
+      assert_equal "cm", User.last.role
     end
+
 
     it 'should show errors if creation fails' do
       attributes = attributes_for(:user)
@@ -156,7 +157,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
 
       it 'should flash an error' do
-        assert_equal "Error saving user details - Name can't be blank",
+        assert_equal "Error saving user details - First and last name can't be blank",
                      flash[:alert]
       end
     end

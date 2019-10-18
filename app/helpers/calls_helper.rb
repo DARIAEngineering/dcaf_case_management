@@ -22,7 +22,7 @@ module CallsHelper
 
   def display_reached_patient_link(patient)
     content_tag :p do
-      link_to 'I reached the patient',
+      link_to t('call.new.result.reached_patient'),
               patient_calls_path(patient,
                                  call: { status: 'Reached patient' }),
               method: :post,
@@ -32,11 +32,22 @@ module CallsHelper
 
   def display_couldnt_reach_patient_link(patient)
     content_tag :p do
-      link_to "I couldn't reach the patient",
+      link_to t('call.new.result.did_not_reach_patient'),
               patient_calls_path(patient,
                                  call: { status: "Couldn't reach patient" }),
               method: :post, remote: true,
               class: 'calls-response'
+    end
+  end
+
+  def display_call_status(call)
+    case call.status
+    when 'Reached patient'
+      t('call.status.reached_patient')
+    when "Couldn't reach patient"
+      t('call.status.could_not_reach_patient')
+    when 'Left voicemail'
+      t('call.status.left_voicemail')
     end
   end
 
@@ -49,7 +60,7 @@ module CallsHelper
   end
 
   def leave_a_voicemail_link(patient)
-    link_to 'I left a voicemail for the patient',
+    link_to t('call.new.result.left_voicemail'),
             patient_calls_path(patient,
                                call: { status: 'Left voicemail' }),
             method: :post,
@@ -59,32 +70,29 @@ module CallsHelper
 
   def no_voicemail_notifier
     content_tag :p, class: 'text-danger' do
-      content_tag :strong, 'Do not leave this patient a voicemail'
+      content_tag :strong, t('call.new.voicemail_instructions.no_voicemail')
     end
   end
 
   def voicemail_ok_notifier
     content_tag :p, class: 'text-success' do
-      content_tag :strong, "Voicemail OK; Okay to identify as #{FUND}"
+      content_tag :strong, t('call.new.voicemail_instructions.voicemail_identify', fund: "#{FUND}")
     end
   end
 
   def voicemail_not_specified_notifier
     content_tag :p, class: 'text-warning' do
-      content_tag :strong, "Voicemail OK; Do not identify as #{FUND}"
+      content_tag :strong, t('call.new.voicemail_instructions.voicemail_no_identify', fund: "#{FUND}")
     end
   end
 
   def other_contact_name_display(patient)
     if patient.other_contact?
-      display_block = <<-TEXT
-        #{patient.other_contact} #{other_contact_relationship_display(patient)}
-        is the primary contact for this
-        patient#{patient.other_phone? ? ':' : '.'}
-      TEXT
-      display_block
+      t('call.other_contact.other_contact', name: "#{patient.other_contact}",
+                                            rel: "#{other_contact_relationship_display(patient)}",
+                                            punc: "#{patient.other_phone? ? ':' : '.'}")
     else
-      'Primary contact:'
+      t('call.other_contact.primary')
     end
   end
 
@@ -94,7 +102,7 @@ module CallsHelper
 
   def patient_name_h4(patient)
     content_tag :h4,
-                "#{patient.name}'s number:",
+                t('call.other_contact.number', name: "#{patient.name}"),
                 class: 'modal-title calls-request'
   end
 

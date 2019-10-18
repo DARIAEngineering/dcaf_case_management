@@ -1,22 +1,22 @@
 <table class="table border-side">
-  <table class="table border-side">
-    <thead>
-      <tr>
-        <th>Clinic Name</th>
-        <th>PT initials</th>
-        <th>Abortion Care $</th>
-        <th>Weeks at Procedure</th>
-        <th>Pledge Sent Date</th>
-        <th>Check #</th>
-        <th>Date of Check</th>
-        <th></th>
+  <thead>
+    <tr>
+      <th><%= t 'accountants.table_content.clinic' %></th>
+      <th><%= t 'accountants.table_content.pt_initials' %></th>
+      <th><%= t 'accountants.table_content.fund_payout', fund: FUND %></th>
+      <th><%= t 'accountants.table_content.weeks_at_procedure' %></th>
+      <th><%= t 'accountants.table_content.pledge_sent' %></th>
+      <th><%= t 'accountants.table_content.check_number' %></th>
+      <th><%= t 'accountants.table_content.date_of_check' %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody id="patient_information_form">
+    <% patients.each do |patient| %>
+      <tr id='row-<%= patient.id %>'>
+        <%= render 'accountants/table_content_row', patient: patient %>
       </tr>
-    </thead>
-    <tbody id="patient_information_form">
-      <% patients.each do |patient| %>
-        <tr id='row-<%= patient.id %>'>
-          <%= render 'accountants/table_content_row', patient: patient %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>

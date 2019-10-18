@@ -1,6 +1,6 @@
 # Setting up a new instance of DARIA
 
-These are detailed instructions in spinning up an instance in heroku. These assume some familiarity with the ideas and concepts and don't go into much detail, such as where to click, the mechanics involved, etc.
+These are detailed instructions in spinning up an instance in heroku. These assume some familiarity with the ideas and concepts and don't go into much detail, such as where to click, the mechanics involved, etc. You don't need to do this for routine development.
 
 ## By the way
 
@@ -10,23 +10,40 @@ DCAF has a lot of the surrounding infrastructure set up in such a way that it's 
 
 ### Create a new heroku app
 
-[Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). Follow the directions to fill out environment variables and configuration. (Ask our slack channel if you have questions.)
+[Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). By deploying using this link, the following accounts will be automatically provisioned and managed via Heroku (as heroku add-ons). This means that each individual app deployed with this link will have its own unique accounts with the following:
+
+* mLabs -- this is a mongodb data service
+* Sendgrid -- this is used as the email service
+* Logentries -- used for application logging
+* Scheduler -- used to run tasks on a cron schedule
+
+*Note -- if you choose to deploy this app manually rather than via the link provided above, you will need to handle your own set up for your mongodb, email, logging, and cron services.*
+
+Follow the directions to fill out necessary environment variables and configuration for your DARIA instance. (Ask our slack channel if you have questions.)
 
 * Go into logentries and add anyone who needs to be added to the alerts. This should be just people who need to know about application errors, pretty much.
-* Set up a google cloud account and generate OAuth credentials (Google Cloud Platform -> API Manager -> Credentials -> Create Credentials, can be set up alongside existing creds for different environments)
 * Set up an uptime monitor (we recommend StatusCake!)
 * Click on `Scheduler` and set up the scheduled cleanup job:
 - `$ rake nightly cleanup`, dyno size hobby, frequency daily, 08:00 UTC
+* Set up Google OAuth credentials
+  * Set up a google account to administer this app (or choose an existing account you own)
+  * Once logged in, navigate to https://console.developers.google.com/apis/dashboard
+  * Add a project or select an existing project (note -- new credentials can be set up alongside existing ones in the same project for different environments)
+  * Under "Credentials" follow prompts to "Create credentials" for "OAuth client ID"
+  * Configure your OAuth Consent screen
+    * Make your application type public
+    * Add your app URL as the authorized domain
+    * Select "Web Application" when prompted to choose an application type
+    * Leave Authorized Javascript origins blank
+    * Set Authorized redirect URIs to https://your-app.herokuapp.com/users/auth/google_oauth2/callback
+  * Fill in the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` env vars with your client id and client secret
+* While still in the google developers console, enable the Geocoding API, create an API key, and set the `GOOGLE_GEO_API_KEY` in Heroku to that API key
 
-Optionally:
+## Optional (but recommended) steps
 
-## Optional steps
-* Set `SKYLIGHT_AUTH_TOKEN` (get it from Skylight)
-
-* Set `SQREEN_TOKEN` (get it from Sqreen)
-
-* if you have a custom domain set up, set up heroku ACM
-
+* Set `SKYLIGHT_AUTH_TOKEN` (get it from [Skylight](https://www.skylight.io/), this is a performance monitoring service)
+* Set `SQREEN_TOKEN` (get it from [Sqreen](https://www.sqreen.io/), this is a security service)
+* if you have a custom domain set up, set up heroku ACM ([Automated Certificate Management](https://devcenter.heroku.com/articles/automated-certificate-management))
 * If not within DCAF pipeline, in Heroku, add some other app members if there aren't any. Make sure you aren't the only member of your fund with config access!
 
 ## Checklist after setup

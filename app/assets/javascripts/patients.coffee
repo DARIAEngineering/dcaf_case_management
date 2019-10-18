@@ -1,29 +1,10 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-updateBalance = ->
-  if $("#patient_procedure_cost").val()
-    $(".outstanding-balance-ctn").removeClass('hidden')
-    $("#outstanding-balance").text('$' + calculateRemainder())
-  else
-    $(".outstanding-balance-ctn").addClass('hidden')
-
-calculateRemainder = ->
-  total = valueToNumber $("#patient_procedure_cost").val()
-  contributions = valueToNumber($("#patient_patient_contribution").val()) +
-                  valueToNumber($("#patient_naf_pledge").val()) +
-                  valueToNumber($("#patient_fund_pledge").val()) +
-                  valueToNumber($(".external_pledge_amount").toArray().reduce (acc, next) ->
-                    acc + valueToNumber($(next).val())
-                  , 0)
-  total - contributions
-
-valueToNumber = (val) ->
-  +val || 0
 
 markFulfilledWhenFieldsChecked = ->
   pledge_fields = [
-    '#patient_fulfillment_procedure_cost'
+    '#patient_fulfillment_fund_payout'
     '#patient_fulfillment_check_number'
     '#patient_fulfillment_gestation_at_procedure'
     '#patient_fulfillment_date_of_check'
@@ -45,9 +26,7 @@ markFulfilledWhenFieldsChecked = ->
     else
       i++
   if empty == true
-        el.prop 'checked', false
-
-
+    el.prop 'checked', false
 
 $(document).on 'turbolinks:load', ->
   $(document).on "click", "#toggle-call-log", ->
@@ -58,6 +37,9 @@ $(document).on 'turbolinks:load', ->
   $(document).on "change", ".edit_patient", ->
     $(this).submit()
 
+  $(document).on "change", ".edit_practical_support", ->
+    $(this).submit()
+
   $(document).on "change", "#pledge_fulfillment_form", ->
     markFulfilledWhenFieldsChecked()
     $(this).submit()
@@ -65,26 +47,9 @@ $(document).on 'turbolinks:load', ->
   $(document).on "change", ".edit_external_pledge", ->
     $(this).submit()
 
-  balanceFields = '#abortion-information-form input,
-  #external_pledges input,
-  #patient_procedure_cost,
-  #patient_patient_contribution,
-  #patient_naf_pledge,
-  #patient_fund_pledge'
-
-  $(document).on "change", balanceFields, ->
-    updateBalance()
-
   $(document).on "submit", "#generate-pledge-form form", ->
     if($("#case_manager_name").val())
       true
     else
       $("#generate-pledge-form .alert").show()
       false
-
-  $(document).on "click", "#create-external-pledge", ->
-    # timeout to handle mongo updating and rails appending new field
-    setTimeout(updateBalance, 500)
-
-  if $("#patient_procedure_cost").val()
-    updateBalance()

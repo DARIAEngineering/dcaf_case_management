@@ -3,15 +3,24 @@ module Statusable
   extend ActiveSupport::Concern
 
   STATUSES = {
-    no_contact: { key: 'No Contact Made', help_text: 'A patient has initiated contact, but nobody from the fund has spoken to them yet.' },
-    needs_appt: { key: 'Needs Appointment', help_text: 'The patient has spoken to the fund, but has not yet set an appointment date with a clinic.' },
-    fundraising: { key: 'Fundraising', help_text: 'The patient has an appointment date, and is working on raising funds.' },
-    pledge_sent: { key: 'Pledge Sent', help_text: 'A case manager has sent a pledge to the clinic on behalf of the patient.' },
-    pledge_paid: { key: 'Pledge Paid', help_text: 'Accountant has paid back the clinic for the pledge.' },
-    pledge_unfulfilled: { key: 'Pledge Not Fulfilled', help_text: 'Patient had a pledge sent 150+ days ago but has not cashed it.' },
-    fulfilled: { key: 'Pledge Fulfilled', help_text: 'Patient has been marked fulfilled.' },
-    dropoff: { key: 'Probable Dropoff', help_text: 'Patient has not been heard from in 120+ days.' },
-    resolved: { key: "Resolved Without #{FUND}", help_text: 'Patient has decided to not involve the fund in their plans.'}
+    no_contact: { key: I18n.t('patient.status.key.no_contact'),
+                  help_text: I18n.t('patient.status.help.no_contact')},
+    needs_appt: { key: I18n.t('patient.status.key.needs_appt'),
+                  help_text: I18n.t('patient.status.help.needs_appt')},
+    fundraising: { key: I18n.t('patient.status.key.fundraising'),
+                   help_text: I18n.t('patient.status.help.fundraising')},
+    pledge_sent: { key: I18n.t('patient.status.key.pledge_sent'),
+                   help_text: I18n.t('patient.status.help.pledge_sent')},
+    pledge_paid: { key: I18n.t('patient.status.key.pledge_paid'),
+                   help_text: I18n.t('patient.status.help.pledge_paid')},
+    pledge_unfulfilled: { key: I18n.t('patient.status.key.pledge_unfulfilled'),
+                          help_text: I18n.t('patient.status.help.pledge_unfulfilled')},
+    fulfilled: { key: I18n.t('patient.status.key.fulfilled'),
+                 help_text: I18n.t('patient.status.help.fulfilled')},
+    dropoff: { key: I18n.t('patient.status.key.dropoff'),
+               help_text: I18n.t('patient.status.help.dropoff')},
+    resolved: { key: I18n.t('patient.status.key.resolved', fund: FUND),
+                help_text: I18n.t('patient.status.help.resolved')}
   }.freeze
 
   def status

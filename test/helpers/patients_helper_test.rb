@@ -31,8 +31,21 @@ class PatientsHelperTest < ActionView::TestCase
       before { create_insurance_config }
 
       it 'should include the option set' do
-        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 'No insurance', "Don't know", 'Other (add to notes)']
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+                                    [ 'No insurance', 'No insurance' ],
+                                    [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements insurance_options, expected_insurance_options_array
+      end
+
+      it 'should append any non-nil passed options to the end' do
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+                                    [ 'No insurance', 'No insurance' ],
+                                    [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Other (add to notes)', 'Other (add to notes)'],
+                                    'Friendship' ]
+        assert_same_elements expected_insurance_options_array,
+                             insurance_options('Friendship')
       end
     end
 
@@ -43,28 +56,28 @@ class PatientsHelperTest < ActionView::TestCase
         end
 
         expected_insurance_array = [nil,
-                                    'No insurance',
-                                    'Don\'t know',
-                                    'Other (add to notes)']
+                                   [ 'No insurance', 'No insurance' ],
+                                   [ 'Don\'t know', 'Don\'t know' ],
+                                   [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements @options, expected_insurance_array
         assert Config.find_by(config_key: 'insurance')
       end
     end
+  end
 
-    describe 'clinic options' do
-      before do
-        @active = create :clinic, name: 'active clinic', active: true
-        @inactive = create :clinic, name: 'closed clinic', active: false
-      end
+  describe 'clinic options' do
+    before do
+      @active = create :clinic, name: 'active clinic', active: true
+      @inactive = create :clinic, name: 'closed clinic', active: false
+    end
 
-      it 'should return all clinics' do
-        expected_clinic_array = [nil,
-                                 [@active.name, @active.id],
-                                 ['--- INACTIVE CLINICS ---', nil],
-                                 ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id]]
+    it 'should return all clinics' do
+      expected_clinic_array = [nil,
+                               [@active.name, @active.id],
+                               ['--- INACTIVE CLINICS ---', nil],
+                               ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id]]
 
-        assert_same_elements clinic_options, expected_clinic_array
-      end
+      assert_same_elements clinic_options, expected_clinic_array
     end
   end
 

@@ -44,6 +44,31 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
       end
     end
 
+    describe 'updating a config - practical support' do
+      it 'should update and be available' do
+        fill_in 'config_options_practical_support', with: 'Yolo, Goat, Something'
+        click_button 'Update options for Practical support'
+
+        assert_equal 'Yolo, Goat, Something',
+                     find('#config_options_practical_support').value
+        within :css, '#practical_support_options_list' do
+          assert has_content? 'Yolo'
+          assert has_content? 'Goat'
+          assert has_content? 'Something'
+          assert has_content? 'Travel to the region'
+          assert has_content? 'Travel inside the region'
+          assert has_content? "Lodging"
+          assert has_content? 'Companion'
+        end
+
+        # Requires view implementation
+        #visit edit_patient_path(@patient)
+        #assert has_select? 'Patient insurance', options: ['', 'Yolo', 'Goat', 'Something',
+                                                          #'No insurance', "Don't know",
+                                                          #'Other (add to notes)']
+      end
+    end
+
     describe 'updating a config - external pledge' do
       it 'should update and be available' do
         fill_in 'config_options_external_pledge_source', with: 'Yolo, Goat, Something'
@@ -88,6 +113,33 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         # end
         # assert has_text? 'Pledge guidelines'
         # assert has_text? '13 weeks $100'
+      end
+    end
+
+    describe 'updating a config - referred by' do
+      it 'should update and be available' do
+        fill_in 'config_options_referred_by', with: 'Metallica'
+        click_button 'Update options for Referred by'
+
+        assert_equal 'Metallica',
+                     find('#config_options_referred_by').value
+        within :css, '#referred_by_options_list' do
+          assert has_content? 'Clinic' # stock option
+          assert has_content? 'Metallica' # custom option
+        end
+      end
+    end
+
+    describe 'updating a config - fax service' do
+      it 'should update and be available in the footer' do
+        fill_in 'config_options_fax_service', with: 'https://metallicarules.com'
+        click_button 'Update options for Fax service'
+
+        assert_equal 'https://metallicarules.com',
+                     find('#config_options_fax_service').value
+        within :css, '#app_footer' do
+          assert has_content? 'https://metallicarules.com'
+        end
       end
     end
   end

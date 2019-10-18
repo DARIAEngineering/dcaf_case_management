@@ -55,7 +55,7 @@ class ConfigTest < ActiveSupport::TestCase
       assert_includes @config.help_text,
                       'A link to a Google Drive'
     end
-
+    
     describe 'autosetup' do
       before { Config.destroy_all }
 
@@ -79,6 +79,39 @@ class ConfigTest < ActiveSupport::TestCase
         Config::CONFIG_FIELDS.each do |field|
           assert Config.find_by(config_key: field.to_s)
         end
+      end
+    end
+
+    describe '#start_day' do
+      it 'should return the day of week as a symbol' do
+        assert(Config.start_day.equal? :monday)
+      end
+
+      it 'should return another day of the week if configured' do
+        c = Config.find_or_create_by(config_key: 'start_of_week')
+        c.config_value = { options: ["Tuesday"] }
+        c.save!
+        assert(Config.start_day.equal? :tuesday)
+      end
+    end
+
+    describe '#hide_practical_support?' do
+      it 'can return true' do
+        c = Config.find_or_create_by(config_key: 'hide_practical_support')
+        c.config_value = { options: ["Yes"] }
+        c.save!
+        assert(Config.hide_practical_support? == true)
+      end
+
+      it 'can return false' do
+        c = Config.find_or_create_by(config_key: 'hide_practical_support')
+        c.config_value = { options: ["No"] }
+        c.save!
+        assert(Config.hide_practical_support? == false)
+      end
+
+      it "returns false by default" do
+        assert(Config.hide_practical_support? == false)
       end
     end
   end

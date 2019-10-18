@@ -12,6 +12,7 @@ class ArchivedPatient
   embeds_one :fulfillment
   embeds_many :calls
   embeds_many :external_pledges
+  embeds_many :practical_supports, as: :can_support
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
 
@@ -71,19 +72,14 @@ class ArchivedPatient
 
   mongoid_userstamp user_model: 'User'
 
-  # Archive & Delete patients who have fallen out of contact
-  def self.archive_dropped_off_patients!
-    Patient.where(:initial_call_date.lte => 1.year.ago).each do |patient|
-      ArchivedPatient.convert_patient(patient)
-      patient.destroy!
-    end
-  end
-
-  # Archive & Delete patients who are completely through our process
-  def self.archive_fulfilled_patients!
-    Patient.fulfilled_on_or_before(120.days.ago).each do |patient|
-      ArchivedPatient.convert_patient(patient)
-      patient.destroy!
+  # Archive & delete audited patients who called a several months ago, or any
+  # from a year plus ago
+  def self.archive_eligible_patients!
+    Patient.all.each do |patient|
+      if ( patient.archive_date < Date.today )
+        ArchivedPatient.convert_patient(patient)
+        patient.destroy!
+      end
     end
   end
 

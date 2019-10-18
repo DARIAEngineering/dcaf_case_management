@@ -19,13 +19,15 @@ Config.destroy_all
 #                         password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Create two test users
-user = User.create! name: 'testuser (admin)', email: 'test@test.com',
+user = User.create! name: 'testuser (admin)', email: 'test@example.com',
                    password: 'P4ssword', password_confirmation: 'P4ssword',
                    role: :admin
-user2 = User.create! name: 'testuser2', email: 'test2@test.com',
-                    password: 'P4ssword', password_confirmation: 'P4ssword'
+user2 = User.create! name: 'testuser2', email: 'test2@example.com',
+                    password: 'P4ssword', password_confirmation: 'P4ssword',
+                    role: :cm
 user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
-                    password: 'P4ssword', password_confirmation: 'P4ssword'
+                    password: 'P4ssword', password_confirmation: 'P4ssword',
+                    role: :cm
 
 # Seed a pair of clinics, Sample 1 and Sample 2
 Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '1600 Pennsylvania Ave',
@@ -150,7 +152,15 @@ Config.create config_key: :pledge_limit_help_text,
 Config.create config_key: :language,
               config_value: { options: ['Spanish', 'French', 'Korean']}
 Config.create config_key: :resources_url,
-              config_value: { options: ['Spanish', 'French', 'Korean']}
+              config_value: { options: ['https://www.petfinder.com/cats/']}
+Config.create config_key: :practical_support_guidance_url,
+              config_value: { options: ['https://www.petfinder.com/dogs/']}
+Config.create config_key: :referred_by,
+              config_value: { options: ['Metal band']}
+Config.create config_key: :fax_service,
+              config_value: { options: ['www.yolofax.com'] }
+Config.create config_key: :start_of_week,
+              config_value: {options: ['Monday']}
 
 # Reporting fixtures
 # Add some patients with pledges some of whom have
@@ -179,7 +189,7 @@ Config.create config_key: :resources_url,
     patient.build_fulfillment(
       created_by_id: User.first.id,
       fulfilled: true,
-      procedure_cost: 4000,
+      fund_payout: 4000,
       procedure_date: 10.days.from_now
     ).save
   end
@@ -357,7 +367,7 @@ end
     fulfilled: true,
     procedure_date: 130.days.ago,
     gestation_at_procedure: "11",
-    procedure_cost: 555,
+    fund_payout: 555,
     check_number: 4563,
     date_of_check: 125.days.ago,
     updated_at: 125.days.ago,
@@ -392,7 +402,7 @@ end
   # Patient 1 drops off immediately
   next if patient_number.odd?
 
-  # We reach Patient 2 
+  # We reach Patient 2
   patient.update!(
     # header info - hand filled in
     appointment_date: 630.days.ago,

@@ -1,0 +1,9 @@
+$('#practical-support-entries').empty().append('<%= escape_javascript(render partial: "practical_supports/entries", locals: { patient: @patient } ) %>');
+$('#practical-support-new-form').empty().append('<%= escape_javascript(render partial: "practical_supports/new", locals: { patient: @patient } ) %>');
+
+// flash the result
+$('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
+$('#flash').removeClass().hide().fadeIn('slow');
+setTimeout(function() {
+  $('#flash').hide();
+}, 5000);

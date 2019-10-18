@@ -2,19 +2,21 @@
 	<hr class="hr_gradient">
 	<div class="row">
 		<div class="col-sm-12 text-center">
-			<small>Please send feedback or ideas for this case management app to <a href="mailto:DCAF.CMapp@gmail.com">DCAF.CMapp@gmail.com</a></small>
+			<small><%= t 'navigation.footer.please_send_feedback' %> <%= link_to 'DCAF.CMapp@gmail.com', mailto: 'DCAF.CMapp@gmail.com' %>.</small>
 		</div>
 	</div><!-- end row -->
 </div><!-- end container -->
-	  
+
 <div id="app_footer" class="container text-center margin-bottom-sm">
-  <a href="http://<%= FUND_DOMAIN %>/"><%= FUND_FULL %></a> -- <a href="tel:<%= FUND_PHONE %>"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <%= FUND_PHONE %></a><br>
-	<a href="https://prochoice.org/">National Abortion Federation</a> -- <a href="tel:800-772-9100"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 800-772-9100</a><br>
-	<%= link_to FUND_FAX_SERVICE, "http://#{FUND_FAX_SERVICE}", target: '_blank', rel: 'noopener nofollow' %>
+  <a href="http://<%= FUND_DOMAIN %>/"><%= FUND_FULL %></a> --<a href="tel:<%= FUND_PHONE %>"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <%= FUND_PHONE %></a><br>
+
+  <%= link_to t('navigation.footer.national_abortion_federation'), 'https://prochoice.org' %> -- <a href="tel:800-772-9100"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 800-772-9100</a><br>
+
+	<%= fax_service %>
 </div><!-- end container -->
 
 <div class="container text-center margin-bottom-sm">
-	<%= image_tag('dcaf-letter-blocks.svg', class: 'logo') %>
-	<%= image_tag('c4dc-logo-master.svg', class: 'logo') %>
+	<%= image_tag('dcaf-letter-blocks.svg', class: 'logo', alt: 'DC Abortion Fund Logo') %>
+	<%= image_tag('c4dc-logo-master.svg', class: 'logo', alt: 'Code for DC Logo') %>
 	<a title="Realtime application protection" href="https://sqreen.io/?utm_source=badge"><%= image_tag 'sqreen-badgeDark2x.png', alt: 'Sqreen | Runtime Application Protection', style: 'width:109px;height:36px', class: 'logo' %></a>
 </div>

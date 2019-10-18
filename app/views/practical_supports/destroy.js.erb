@@ -1,0 +1,6 @@
+$('#practical-support-item-<%= @support.id %>').empty().remove();
+
+// If there aren't any practical support entries left, empty out the list
+if ($('.practical-support-item').length == 0) {
+  $('#practical-support-entries').empty();
+}

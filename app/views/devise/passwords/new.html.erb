@@ -1,10 +1,10 @@
 <div class="authform">
   <%= bootstrap_form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post } do |f| %>
-    <h3>Password Reset</h3>
-    <%= devise_error_messages! %>
+    <h3><%= t('devise.password.new.title') %></h3>
+    <%= render "devise/shared/error_messages" %>
 
     <%= f.email_field :email %>
-    <%= f.submit 'Send me password reset instructions', class: 'btn btn-primary' %>
+    <%= f.submit t('devise.password.new.send_reset'), class: 'btn btn-primary' %>
   <% end %>
 
   <%= render "devise/shared/links" %>

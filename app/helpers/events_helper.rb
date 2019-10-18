@@ -4,24 +4,28 @@ module EventsHelper
     safe_join [
       tag(:span,
           class: ['glyphicon', "glyphicon-#{event.glyphicon}", 'event-item']),
-      log_entry(event)
+      entry_text(event)
     ], ' '
   end
 
-  def log_entry(event)
-    time = event.created_at.display_time.to_s
-    str = "-- #{event.cm_name} #{event.event_text}"
-    pt_link = link_to(
-      "#{event.patient_name}.",
-      edit_patient_path(event.patient_id)
-    )
-    add_link = link_to(
-      '(Add to call list)',
-      add_patient_path(current_user, event.patient_id),
-      method: :patch,
-      remote: true
-    )
+  private
 
-    safe_join [time, str, pt_link, add_link], ' '
+  def entry_text(event)
+    time = event.created_at.display_time.to_s
+    cm = event.cm_name
+    event_text = event_string(event)
+    pt_link = link_to event.patient_name,
+                      edit_patient_path(event.patient_id)
+    call_list_link = link_to "(#{t('events.add_to_call_list')})",
+                             add_patient_path(event.patient_id),
+                             method: :patch,
+                             remote: true
+
+    safe_join [time, '--', cm, event_text, pt_link, call_list_link], ' '
+  end
+
+  def event_string(event)
+    return t('events.pledged', pledge_amount: event.pledge_amount) if event.event_type == 'Pledged'
+    t("events.#{event.underscored_type}")
   end
 end

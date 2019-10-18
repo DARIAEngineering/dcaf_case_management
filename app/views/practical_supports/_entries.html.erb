@@ -1,0 +1,17 @@
+<div class="col-sm-12 info-form">
+  <div id="existing-practical-supports"> 
+    <% if patient.practical_supports.present? %>
+      <div class="row">
+        <div class="col-sm-4"><h5><%= t 'patient.practical_support.support_needed' %></h5></div>
+        <div class="col-sm-4"><h5><%= t 'patient.practical_support.point_of_contact' %></h5></div>
+        <div class="col-sm-4"><!-- Where confirmation would go --></div>
+      </div>
+
+      <% patient.practical_supports.each do |entry| %>
+        <%= render 'practical_supports/edit',
+                   patient: patient,
+                   practical_support: entry %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

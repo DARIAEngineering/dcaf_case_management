@@ -1,5 +1,9 @@
 # Helpers for browser junk
 module IntegrationHelper
+  def t(string, options={})
+    I18n.t(string, options={})
+  end
+  
   def sign_in(user)
     post user_session_path \
       'user[email]' => user.email,
@@ -24,7 +28,7 @@ module IntegrationHelper
 
   def select_line(line = 'DC')
     choose line
-    click_button 'Start'
+    click_button 'Get started'
   end
 
   def wait_for_element(text)

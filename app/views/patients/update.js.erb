@@ -1,8 +1,8 @@
 // rerack LMP calculation
 $('#patient_appointment_date')
   .parent()
-  .find('span.help-block')
-  .text('Approx gestation at appt: <%= @patient.last_menstrual_period_at_appt %>');
+  .find('small.form-text')
+  .text("<%= t('patient.dashboard.approx_gestation', weeks: @patient.last_menstrual_period_at_appt_weeks, days: @patient.last_menstrual_period_at_appt_days) %>");
 
 // rerack status
 $('#patient_status').text('<%= @patient.status %>');
@@ -10,8 +10,8 @@ $('#patient_status').text('<%= @patient.status %>');
 // rerack current LMP
 $('#patient_last_menstrual_period_weeks')
   .parent()
-  .find('span.help-block')
-  .text('Currently: <%= @patient.last_menstrual_period_display_short %>');
+  .find('small.form-text')
+  .text("<%= t('patient.dashboard.currently', weeks: @patient.last_menstrual_period_now_weeks, days: @patient.last_menstrual_period_now_days) %>");
 
 // refresh changelog
 $('#change_log').html(
@@ -48,6 +48,16 @@ if($('#row-<%= @patient.id %>')) {
     '<%= escape_javascript(render "accountants/table_content_row", patient: @patient) %>'
   );
 }
+
+// Update the archive date on audit
+$('#patient_fulfillment_audited')
+  .parent()
+  .parent()
+  .parent()
+  .parent()
+  .parent()
+  .find('p.archive-note')
+  .text("<%= t('patient.pledge_fulfillment.audit.archive_note', date: l(@patient.archive_date, format: :medium)) %>");
 
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');

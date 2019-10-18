@@ -45,6 +45,12 @@ class ActiveSupport::TestCase
                     config_value: { options: insurance_options }
   end
 
+  def create_practical_support_config
+    practical_support_options = ['Metallica Tickets', 'Clothing']
+    create :config, config_key: 'practical_support',
+                    config_value: { options: practical_support_options }
+  end
+
   def create_external_pledge_source_config
     ext_pledge_options = ['Baltimore Abortion Fund',
                           'Tiller Fund (NNAF)',
@@ -57,6 +63,17 @@ class ActiveSupport::TestCase
     language_options = %w[Spanish French Korean]
     create :config, config_key: 'language',
                     config_value: { options: language_options }
+  end
+
+  def create_referred_by_config
+    referred_by_options = ['Metal band']
+    create :config, config_key: 'referred_by',
+                    config_value: { options: referred_by_options }
+  end
+
+  def create_fax_service_config
+    create :config, config_key: 'fax_service',
+                    config_value: { options: ['http://www.yolofax.com'] }
   end
 end
 

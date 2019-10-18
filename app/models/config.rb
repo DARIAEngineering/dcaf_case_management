@@ -9,13 +9,20 @@ class Config
   # Comma separated configs
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
-    :language, :resources_url
+    :language, :resources_url, :practical_support_guidance_url, :fax_service, :referred_by,
+    :practical_support, :hide_practical_support, :start_of_week
   ].freeze
 
-  # Define overrides for particular config fields
+  # Define overrides for particular config fields.
+  # Useful if there is no `_options` method.
   HELP_TEXT_OVERRIDES = {
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
-                   'Ex: https://drive.google.com/drive/my-resource-dir'
+                   'Ex: https://drive.google.com/drive/my-resource-dir',
+    practical_support_guidance_url: 'A link to a Google Drive folder with Practical Support resources. ' \
+                   'Ex: https://drive.google.com/drive/my-practical_support',
+    fax_service: 'A link to your fax service. ex: https://www.efax.com',
+    start_of_week: "How to render your budget bar. Default is weekly starting on Monday. Enter \"Sunday\" for weekly budget starting on Sunday, or \"Monthly\" for a calendar month based budget.",
+    hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
   # Fields
@@ -54,5 +61,15 @@ class Config
         Config.create config_key: field
       end
     end
+  end
+
+  def self.start_day
+    start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
+    start ||= "monday"
+    start.downcase.to_sym
+  end
+
+  def self.hide_practical_support?
+    Config.find_or_create_by(config_key: 'hide_practical_support').options.try(:last).to_s =~ /yes/i ? true : false
   end
 end

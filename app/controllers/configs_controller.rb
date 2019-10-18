@@ -10,10 +10,10 @@ class ConfigsController < ApplicationController
     @config = Config.find params[:id]
     @config.config_value = format_config_params(config_params)
     if @config.save
-      flash[:notice] = 'Config updated successfully'
+      flash[:notice] = t('flash.config_update_success')
       redirect_to configs_path
     else
-      flash[:danger] = 'Config failed to update'
+      flash[:danger] = t('flash.config_failed_update')
       render 'index'
     end
   end

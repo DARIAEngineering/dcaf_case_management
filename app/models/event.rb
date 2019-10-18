@@ -42,17 +42,9 @@ class Event
     end
   end
 
-  def event_text
-    case event_type
-    when 'Pledged'
-      "sent a $#{pledge_amount} pledge for"
-    when 'Left voicemail'
-      'left a voicemail for'
-    when "Couldn't reach patient"
-      "called, but couldn't reach"
-    when 'Reached patient'
-      'reached'
-    end
+  # remove spaces and punctuation. A sin method because we did this as strs not syms.
+  def underscored_type
+    event_type.gsub(' ', '_').gsub(/\W/, '').downcase
   end
 
   # Clean events older than three weeks

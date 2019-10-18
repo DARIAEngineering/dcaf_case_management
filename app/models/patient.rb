@@ -38,6 +38,7 @@ class Patient
   embeds_one :fulfillment, as: :can_fulfill
   embeds_many :calls, as: :can_call
   embeds_many :external_pledges, as: :can_pledge
+  embeds_many :practical_supports, as: :can_support
   embeds_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
@@ -82,6 +83,7 @@ class Patient
   field :special_circumstances, type: Array, default: []
   field :referred_by, type: String
   field :referred_to_clinic, type: Boolean
+  field :completed_ultrasound, type: Boolean
 
   # Status and pledge related fields
   field :appointment_date, type: Date
@@ -94,6 +96,7 @@ class Patient
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
+  field :textable, type: Boolean
 
   # Indices
   index({ primary_phone: 1 }, unique: true)
@@ -138,16 +141,17 @@ class Patient
 
   # Methods
   def self.pledged_status_summary(line)
-    start_of_week = Time.zone.today.beginning_of_week(:monday)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
-
+    start_of_period = Config.start_day.downcase.to_s == "monthly" ? Time.zone.today.beginning_of_month.in_time_zone
+                                                                  : Time.zone.today.beginning_of_week(Config.start_day).in_time_zone
     # Get patients who have been pledged this week, as a simplified hash
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
-                      .where(:fund_pledged_at.gte => start_of_week)
+                      .where(:fund_pledged_at.gte => start_of_period)
+                      .where(:resolved_without_fund.in => [false, nil])
+                      .order_by(fund_pledged_at: :asc)
                       .pluck(*plucked_attrs)
                       .map { |att| plucked_attrs.zip(att).to_h }
-
     # Divide people up based on whether pledges have been sent or not
     patients.each_with_object(sent: [], pledged: []) do |patient, summary|
       if patient[:pledge_sent]
@@ -248,6 +252,19 @@ class Patient
       break
     end
     !!has_circumstance
+  end
+
+  def archive_date
+    if fulfillment.audited?
+      # If a patient fulfillment is ticked off as audited, archive 3 months
+      # after initial call date. If we're already past 3 months later when
+      # the audit happens, it will archive that night
+      initial_call_date + 3.months
+    else
+      # If a patient is waiting for audit they archive a year after their
+      # initial call date
+      initial_call_date + 1.year
+    end
   end
 
   private

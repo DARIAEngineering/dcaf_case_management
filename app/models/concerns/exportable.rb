@@ -48,7 +48,7 @@ module Exportable
     "Fulfilled" => :fulfilled,
     "Procedure date" => :procedure_date,
     "Gestation at procedure in weeks" => :gestation_at_procedure,
-    "Procedure cost" => :procedure_cost_amount,
+    "Fund payout" => :fund_payout,
     "Check number" => :check_number,
     "Date of Check" => :date_of_check,
 
@@ -60,9 +60,10 @@ module Exportable
     # External Pledges
     "External Pledge Count" => :external_pledge_count,
     "External Pledges Sum" => :external_pledge_sum,
-    "All External Pledges" => :all_external_pledges
-    
-    
+    "All External Pledges" => :all_external_pledges,
+    "Practical Supports" => :all_practical_supports
+
+
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
 
@@ -78,7 +79,7 @@ module Exportable
     end
   end
 
-  def get_household_size_children 
+  def get_household_size_children
     if is_a?(Patient)
       household_size_children
     else
@@ -102,8 +103,8 @@ module Exportable
     fulfillment.try :gestation_at_procedure
   end
 
-  def procedure_cost_amount
-    fulfillment.try :procedure_cost
+  def fund_payout
+    fulfillment.try :fund_payout
   end
 
   def check_number
@@ -153,27 +154,28 @@ module Exportable
       value
     end
   end
-  
+
   def external_pledge_count
     external_pledges.count
   end
-  
+
   def external_pledge_sum
     sum = 0
     all_pledges = external_pledges.all
-    
+
     all_pledges.each do |pledge|
       sum += pledge.try :amount
     end
     sum
   end
-  
+
   def all_external_pledges
     external_pledges.map { |x| "#{x.source} - #{x.amount}" }.join('; ')
   end
-  
-  
-  
+
+  def all_practical_supports
+    practical_supports.map { |ps| "#{ps.source} - #{ps.support_type} - #{ps.confirmed? ? 'Confirmed' : 'Unconfirmed'}" }.join('; ')
+  end
 
   class_methods do
     def csv_header
@@ -181,6 +183,7 @@ module Exportable
         y << CSV.generate_line(CSV_EXPORT_FIELDS.keys, encoding: 'utf-8')
       end
     end
+
     def to_csv
       Enumerator.new do |y|
         each do |export|
