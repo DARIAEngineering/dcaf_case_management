@@ -246,9 +246,9 @@ class Patient
   end
 
   def has_special_circumstances
-    has_circumstance = 0
+    has_circumstance = false
     special_circumstances.each do |cir|
-      has_circumstance = 1 if cir.present?
+      has_circumstance = true if cir.present?
       break
     end
     !!has_circumstance

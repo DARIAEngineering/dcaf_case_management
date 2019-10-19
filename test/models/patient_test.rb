@@ -393,6 +393,18 @@ class PatientTest < ActiveSupport::TestCase
         assert_equal @patient.initial_call_date + 3.months, @patient.archive_date
       end
     end
+
+    describe 'has_special_circumstances' do
+      it 'should return false if there are no special circumstances' do
+        @patient.update special_circumstances: []
+        assert_equal @patient.has_special_circumstances, false
+      end
+
+      it 'should return true if there are special circumstances' do
+        @patient.update special_circumstances: ['special', 'circumstances']
+        assert_equal @patient.has_special_circumstances, true
+      end
+    end
   end
 
   describe 'pledge_sent validation' do
