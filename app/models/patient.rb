@@ -246,12 +246,7 @@ class Patient
   end
 
   def has_special_circumstances
-    has_circumstance = false
-    special_circumstances.each do |cir|
-      has_circumstance = true if cir.present?
-      break
-    end
-    !!has_circumstance
+    special_circumstances.map { |circumstance| circumstance.present? }.any?
   end
 
   def archive_date

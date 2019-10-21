@@ -395,13 +395,23 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     describe 'has_special_circumstances' do
-      it 'should return false if there are no special circumstances' do
+      it 'should return false if there is an empty array' do
         @patient.update special_circumstances: []
+        assert_equal @patient.has_special_circumstances, false
+      end
+
+      it 'should return false if there are no special circumstances' do
+        @patient.update special_circumstances: [nil, nil]
         assert_equal @patient.has_special_circumstances, false
       end
 
       it 'should return true if there are special circumstances' do
         @patient.update special_circumstances: ['special', 'circumstances']
+        assert_equal @patient.has_special_circumstances, true
+      end
+
+      it 'should return true if there are special circumstances and nils' do
+        @patient.update special_circumstances: [nil, 'circumstances']
         assert_equal @patient.has_special_circumstances, true
       end
     end
