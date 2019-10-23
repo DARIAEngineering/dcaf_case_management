@@ -41,6 +41,10 @@ class DataEntryTest < ApplicationSystemTestCase
       fill_in 'Procedure Cost', with: '200'
       fill_in 'Patient contribution', with: '150'
       fill_in 'National Abortion Federation pledge', with: '50'
+      select 'English', from: 'patient_language'
+      select 'Do not leave a voicemail', from: 'patient_voicemail_preference'
+      check 'patient_referred_to_clinic'
+      check 'patient_completed_ultasound'
       check 'Pledge Sent'
       check 'Fetal_patient_special_circumstances'
       check 'Home_patient_special_circumstances'
@@ -72,7 +76,8 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'County', with: 'Wash'
-
+        assert_equal 'English', find('#patient_language').value
+        assert_equal 'Do not leave a voicemail', find('#patient_voicemail_preference').value
         assert_equal 'Student', find('#patient_employment_status').value
         assert_equal 'Under $9,999',
                      find('#patient_income').value
@@ -93,6 +98,9 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'Patient contribution', with: '150'
         assert has_field? 'National Abortion Federation pledge', with: '50'
         assert has_field? 'DCAF pledge', with: '100'
+        assert has_checked_field? 'Referred to clinic'
+        assert has_checked_field? 'Ultrasound completed?'
+        assert has_unchecked_field? 'Resolved without assistance from DCAF'
       end
     end
   end
