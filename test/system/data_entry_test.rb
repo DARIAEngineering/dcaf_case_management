@@ -45,6 +45,7 @@ class DataEntryTest < ApplicationSystemTestCase
       select 'Do not leave a voicemail', from: 'patient_voicemail_preference'
       check 'patient_referred_to_clinic'
       check 'patient_completed_ultasound'
+      check 'patient_resolved_without_fund'
       check 'Pledge Sent'
       check 'Fetal_patient_special_circumstances'
       check 'Home_patient_special_circumstances'
@@ -100,7 +101,7 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'DCAF pledge', with: '100'
         assert has_checked_field? 'Referred to clinic'
         assert has_checked_field? 'Ultrasound completed?'
-        assert has_unchecked_field? 'Resolved without assistance from DCAF'
+        assert has_checked_field? 'Resolved without assistance from DCAF'
       end
     end
   end
