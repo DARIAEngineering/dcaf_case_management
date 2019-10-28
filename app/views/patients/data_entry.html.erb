@@ -80,7 +80,7 @@
     <%= f.check_box :pledge_sent, label: t('patient.status.key.pledge_sent') %>
     <%= f.check_box :referred_to_clinic, label: t('patient.abortion_information.clinic_section.referred_to_clinic') %>
     <%= f.check_box :completed_ultrasound, label: t('patient.abortion_information.clinic_section.ultrasound_completed') %>
-    <%= f.check_box :resolved_without_fund, label: t('patient.status.key.resolved') %>
+    <%= f.check_box :resolved_without_fund, label: t('patient.status.key.resolved', fund: "#{FUND}") %>
 
 
   <p style="font-weight:bold"><%= t('patient.information.special_circumstances.title')%></p>
