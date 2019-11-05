@@ -5,7 +5,13 @@ $('#patient_appointment_date')
   .text("<%= t('patient.dashboard.approx_gestation', weeks: @patient.last_menstrual_period_at_appt_weeks, days: @patient.last_menstrual_period_at_appt_days) %>");
 
 // rerack status
-$('#patient_status').text('<%= @patient.status %>');
+$('#patient_status')
+  .text('<%= @patient.status %>');
+
+// rerack tooltip content 
+$('.daria-tooltip.tooltip-header-help')
+                  .attr('title', "<%= status_help_text(@patient)%>")
+                  .tooltip('fixTitle')
 
 // rerack current LMP
 $('#patient_last_menstrual_period_weeks')
