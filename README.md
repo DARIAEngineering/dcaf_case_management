@@ -30,9 +30,9 @@ Get started with the how-and-why of the project by [checking out DCAF](http://dc
 ## Who's in charge here?
 The team leads are:
 
-* @colinxfleming (rails and technical lead)
+* @colinxfleming & @lomky (rails and technical lead)
 * @mebates (design and UI lead)
-* @alisonnjones (data lead)
+* @alisonnjones & @mdworkn (data lead)
 * @nerdygirl573 (DARIA manager)
 * @lwaldsc (DCAF liaison)
 
@@ -82,6 +82,8 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @ian.norris
 * @tingaloo
 * @colinmcglynn
+* @mdworkn
+* @rudietuesdays
 
 ## Special thanks
 
