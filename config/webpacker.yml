@@ -6,6 +6,9 @@ default: &default
   public_output_path: packs
   cache_path: tmp/cache/webpacker
 
+  # Extract and emit a css file
+  extract_css: true
+
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
   resolved_paths: []
@@ -49,7 +52,6 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: /node_modules/
-
 
 test:
   <<: *default

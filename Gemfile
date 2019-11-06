@@ -19,6 +19,7 @@ gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'sass-globbing'
 
 # Our database is MongoDB
 gem 'mongoid', '>= 6.2.0', '< 7'
