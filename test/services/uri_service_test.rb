@@ -6,6 +6,11 @@ class URIServiceTest < ActiveSupport::TestCase
       uri = URIService.new("some yolo test uri").uri
       assert uri.is_a?(URI)
     end
+    
+    it 'instantiates nil on invalidURIs' do
+      uri = URIService.new(":::::::::::").uri
+      assert_nil uri
+    end
 
     it 'can force the scheme to use https' do
       u = URIService.new("http://www.someyolourl.com")
