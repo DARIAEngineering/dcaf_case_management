@@ -37,7 +37,10 @@ module WelcomeMessageHelper
       "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
       "Você é demais!",
       "Your work is so valuable and you're doing a wonderful job! <3",
-      "Thank you to be using your time to help the others. Your work is precious."
+      "Thank you to be using your time to help the others. Your work is precious.",
+      "Challenging but rewarding at the same time. Keep it up!!!",
+      "Thank you for the good work! We appreciate all your efforts.",
+      "Love, all the good people you have helped."
     ]
   end
 end
