@@ -32,7 +32,7 @@ The team leads are:
 
 * @colinxfleming & @lomky (rails and technical lead)
 * @mebates (design and UI lead)
-* @alisonnjones & @mdworkn (data lead)
+* @alisonnjones & @mdworken (data lead)
 * @nerdygirl573 (DARIA manager)
 * @lwaldsc (DCAF liaison)
 
@@ -82,7 +82,7 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @ian.norris
 * @tingaloo
 * @colinmcglynn
-* @mdworkn
+* @mdworken
 * @rudietuesdays
 
 ## Special thanks
