@@ -90,6 +90,12 @@ body {
   background-color: lighten($daria-color,15%);
 }
 
+.btn-primary:focus {
+  background-color: lighten($daria-color,15%);
+  color: white;
+  text-decoration: none;
+}
+
 .border-bottom {
   border-bottom: 1px solid black;
   padding-bottom: 10px;
