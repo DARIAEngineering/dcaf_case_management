@@ -5,8 +5,8 @@ class BudgetBarHelperTest < ActionView::TestCase
 
   describe 'progress bar color' do
     it 'should spit out correct color class based on type' do
-      assert_equal 'progress-bar-warning', progress_bar_color(:pledged)
-      assert_equal 'progress-bar-success', progress_bar_color(:sent)
+      assert_equal 'bg-warning', progress_bar_color(:pledged)
+      assert_equal 'bg-success', progress_bar_color(:sent)
     end
   end
 

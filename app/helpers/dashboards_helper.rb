@@ -38,20 +38,4 @@ module DashboardsHelper
            .values
            .map { |option| [enum_text[option.to_sym], option.to_sym] }
   end
-
-  def remove_from_call_list_glyphicon
-    safe_join [
-      tag(:span, class: ['glyphicon', 'glyphicon-remove'],
-                 aria: { hidden: true }),
-      tag(:span, class: ['sr-only'], text: 'Remove call')
-    ]
-  end
-
-  def call_glyphicon
-    safe_join [
-      tag(:span, class: ['glyphicon', 'glyphicon-earphone'],
-                 aria: { hidden: true }),
-      tag(:span, class: ['sr-only'], text: 'Call')
-    ]
-  end
 end

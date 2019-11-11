@@ -1,53 +1,55 @@
-<section id="call_log_content">
-  <div class="margin-bottom col-sm-12">
-    <h2>
-      <%= t('patient.call_log.title') %>
-      <span class="pull-right new-call-entry"><small>
-        <%= link_to t('patient.call_log.record_new_call'), new_patient_call_path(@patient), class:"call_button call-#{@patient.primary_phone_display}", remote: true %>
-      </small></span>
-    </h2>
+<div id="call_log_content">
+  <h2 class="mt-5">
+    <%= t('patient.call_log.title') %>
+    <small class="float-right"> 
+      <%= link_to t('patient.call_log.record_new_call'),
+                  new_patient_call_path(@patient),
+                  class: "call_button call-#{@patient.primary_phone_display}",
+                  remote: true %>
+    </small>
+  </h2>
 
-    <table class="table border-side">
-      <tr>
-        <th><%= t('patient.call_log.table.date') %></th>
-        <th><%= t('patient.call_log.table.time') %></th>
-        <th><%= t('patient.call_log.table.result') %></th>
-        <th><%= t('patient.call_log.table.case_manager') %></th>
-        <th><%= t('patient.call_log.table.actions') %></th>
-      </tr>
-      <tbody>
-        <% @patient.recent_calls.each do |call| %>
-          <tr>
-            <td><%= call.created_at.display_date %></td>
-            <td><%= call.created_at.display_time %></td>
-            <td><%= display_call_status call %></td>
-            <td><%= call.created_by.name %></td>
-            <td>
-              <% if call.created_by == current_user && call.recent? %>
-                <%= button_to t('patient.call_log.table.remove_button'),
-                              patient_call_path(@patient, call), 
-                              remote: true,
-                              method: :delete,
-                              data: { confirm: t('patient.call_log.delete_confirm') },
-                              class: "btn btn-danger" %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-        <% @patient.old_calls.each do |call| %>
-          <tr class="old-calls hidden">
-            <td><%= call.created_at.display_date %></td>
-            <td><%= call.created_at.display_time %></td>
-            <td><%= call.status %></td>
-            <td><%= call.created_by.name %></td>
-            <td></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <table class="table border-side" id="call-table">
+    <tr class="call-log-header">
+      <th><%= t('patient.call_log.table.date') %></th>
+      <th><%= t('patient.call_log.table.time') %></th>
+      <th><%= t('patient.call_log.table.result') %></th>
+      <th><%= t('patient.call_log.table.case_manager') %></th>
+      <th><%= t('patient.call_log.table.actions') %></th>
+    </tr>
+    <tbody>
+      <% @patient.recent_calls.each do |call| %>
+        <tr class="call-log-row">
+          <td><%= call.created_at.display_date %></td>
+          <td><%= call.created_at.display_time %></td>
+          <td><%= display_call_status call %></td>
+          <td><%= call.created_by.name %></td>
+          <td>
+            <% if call.created_by == current_user && call.recent? %>
+              <%= button_to t('patient.call_log.table.remove_button'),
+                            patient_call_path(@patient, call), 
+                            remote: true,
+                            method: :delete,
+                            data: { confirm: t('patient.call_log.delete_confirm') },
+                            class: "btn btn-danger" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
 
-    <% if @patient.old_calls.count > 0 %>
-      <div id="toggle-call-log">View all calls</div>
-    <% end %>
-  </div>
-</section>
+      <% @patient.old_calls.each do |call| %>
+        <tr class="old-calls d-none">
+          <td><%= call.created_at.display_date %></td>
+          <td><%= call.created_at.display_time %></td>
+          <td><%= call.status %></td>
+          <td><%= call.created_by.name %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @patient.old_calls.count > 0 %>
+    <div id="toggle-call-log">View all calls</div>
+  <% end %>
+</div>

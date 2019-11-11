@@ -1,25 +1,20 @@
-<div class="container">
-  <div class="col-sm-12">
-    <div class="row">
-      <%= render partial: 'accountants/search_form' %>    
-    </div>
+<h1 class="border-bottom title"><%= t 'accountants.search_cases' %></h1>
 
-    <div class="row">
-      <h1 class='border-bottom title'>
-        <%= t 'accountants.title' %>
-        <small class='pull-right'>
-          <span id='pagination-entries' class='pagination'>
-            <%= page_entries_info @patients, entry_name: 'patient' %>
-          </span>
-          <%= paginate @patients %> 
-        </small>
-      </h1>
-    </div>
+<%= render partial: 'accountants/search_form' %>    
 
-    <div class="row" id='accounting-list'>
-      <%= render partial: 'accountants/table_content', locals: { patients: @patients, autosortable: true } %>
-    </div>
-  </div>
+<h1 class='border-bottom title'>
+  <%= t 'accountants.title' %>
+  <small class='float-right accountants-pagination'>
+    <span class='pagination-entries'>
+      <%= page_entries_info @patients, entry_name: 'patient' %>
+    </span>
+    <%= paginate @patients %> 
+  </small>
+</h1>
 
-  <%= render partial: "patients/modal" %>
+<div id="accounting-list">
+  <%= render partial: 'accountants/table_content',
+             locals: { patients: @patients, autosortable: true } %>
 </div>
+
+<%= render partial: "patients/modal" %>

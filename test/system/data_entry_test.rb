@@ -47,8 +47,8 @@ class DataEntryTest < ApplicationSystemTestCase
       check 'patient_completed_ultasound'
       check 'patient_resolved_without_fund'
       check 'Pledge Sent'
-      check 'Fetal_patient_special_circumstances'
-      check 'Home_patient_special_circumstances'
+      check 'fetal_patient_special_circumstances'
+      check 'home_patient_special_circumstances'
       click_button 'Create Patient'
       has_text? 'Patient information' # wait for redirect
     end
