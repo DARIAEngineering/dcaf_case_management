@@ -44,7 +44,7 @@ class DataEntryTest < ApplicationSystemTestCase
       select 'English', from: 'patient_language'
       select 'Do not leave a voicemail', from: 'patient_voicemail_preference'
       check 'patient_referred_to_clinic'
-      check 'patient_completed_ultasound'
+      check 'patient_completed_ultrasound'
       check 'patient_resolved_without_fund'
       check 'Pledge Sent'
       check 'fetal_patient_special_circumstances'
@@ -77,8 +77,8 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'County', with: 'Wash'
-        assert_equal 'English', find('#patient_language').value
-        assert_equal 'Do not leave a voicemail', find('#patient_voicemail_preference').value
+        assert_equal 'English', find('#patient_language').text
+        assert_equal 'no', find('#patient_voicemail_preference').value
         assert_equal 'Student', find('#patient_employment_status').value
         assert_equal 'Under $9,999',
                      find('#patient_income').value

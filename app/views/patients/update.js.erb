@@ -11,7 +11,8 @@ $('#patient_status')
 // rerack tooltip content 
 $('.daria-tooltip.tooltip-header-help')
                   .attr('title', "<%= status_help_text(@patient)%>")
-                  .tooltip('fixTitle')
+                  .attr('data-original-title', "<%= status_help_text(@patient)%>")
+                  .tooltip('update');
 
 // rerack current LMP
 $('#patient_last_menstrual_period_weeks')
