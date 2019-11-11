@@ -22,6 +22,7 @@ class EventLogInteractionTest < ApplicationSystemTestCase
       click_on 'I left a voicemail for the patient'
       wait_for_ajax
       wait_for_no_element 'I left a voicemail for the patient'
+      visit authenticated_root_path
       sign_out
 
       wait_for_element 'Sign in with password'

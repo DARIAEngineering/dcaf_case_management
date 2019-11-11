@@ -49,7 +49,6 @@ module IntegrationHelper
   end
 
   def sign_out
-    find('.container').click
     wait_for_element @user.name
     click_on @user.name
     wait_for_element 'Sign Out'
