@@ -77,8 +77,8 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'City', with: 'Washington'
         assert has_field? 'State', with: 'DC'
         assert has_field? 'County', with: 'Wash'
-        assert_equal 'English', find('#patient_language').value
-        assert_equal 'Do not leave a voicemail', find('#patient_voicemail_preference').value
+        assert_equal 'English', find('#patient_language').text
+        assert_equal 'no', find('#patient_voicemail_preference').value
         assert_equal 'Student', find('#patient_employment_status').value
         assert_equal 'Under $9,999',
                      find('#patient_income').value
