@@ -44,7 +44,7 @@ class DataEntryTest < ApplicationSystemTestCase
       select 'English', from: 'patient_language'
       select 'Do not leave a voicemail', from: 'patient_voicemail_preference'
       check 'patient_referred_to_clinic'
-      check 'patient_completed_ultasound'
+      check 'patient_completed_ultrasound'
       check 'patient_resolved_without_fund'
       check 'Pledge Sent'
       check 'fetal_patient_special_circumstances'
