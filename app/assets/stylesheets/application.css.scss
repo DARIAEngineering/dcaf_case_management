@@ -195,11 +195,6 @@ main {
   margin-top: 51px; // accommodate the navbar
 }
 
-section {
-  @extend .row;
-  margin-top: 20px;
-}
-
 h1.title {
   font-weight: 100;
   margin-bottom: 20px;
