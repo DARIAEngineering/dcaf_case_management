@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.6.5'
 
 # Standard rails
-gem 'rails', '~> 6.0.0.beta1'
+gem 'rails', '~> 6.0.1'
 gem 'puma' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
@@ -13,7 +13,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # Asset pipeline
 gem 'webpacker', '~> 4'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.1.0'
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap_form', '~> 4.2.0'
 gem 'uglifier', '~> 4.1'
@@ -22,7 +22,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 # Our database is MongoDB
-gem 'mongoid', '>= 6.2.0', '< 7'
+gem 'mongoid', '~> 7.0.0', '< 8'
 gem 'bson_ext'
 gem 'mongoid-history', '< 1.0' # gives us object history
 gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git',
@@ -58,7 +58,8 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do
-  gem 'i18n-tasks', '~> 0.9.28' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys
+  gem 'rails-i18n', '~> 6.0' # dependency of i18n-tasks, hardset to a rails-6-compat version
   gem 'shog' # makes rails s output color!
   gem 'listen' # used by systemtests
   gem 'rubocop', require: false # our code style / linting system
