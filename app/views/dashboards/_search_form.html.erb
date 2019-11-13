@@ -3,11 +3,16 @@
     <%= t 'dashboard.search.header' %>
   </h1>
 
-  <%= bootstrap_form_tag url: '/search', remote: true, layout: :inline do |p| %>
+  <%= bootstrap_form_with url: '/search', layout: :inline do |p| %>
     <%= p.hidden_field :locale, value: params[:locale] %>
 
-    <%= p.text_field :search, placeholder: t('dashboard.search.input_placeholder'), hide_label: true, class: 'search_form_input' %>
-    <%= p.button class: 'btn btn-primary', title: t('common.search'), aria: {label: t('common.search') } do %>
+    <%= p.text_field :search,
+                     placeholder: t('dashboard.search.input_placeholder'),
+                     hide_label: true,
+                     class: 'search_form_input' %>
+    <%= p.button class: 'btn btn-primary ml-5',
+                 title: t('common.search'),
+                 aria: { label: t('common.search') } do %>
       <i class="fas fa-search"></i>
     <% end %>
   <% end %>

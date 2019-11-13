@@ -17,7 +17,7 @@ Bundler/OrderedGems:
   Enabled: false
 
 AllCops:
-  TargetRubyVersion: 2.6.2
+  TargetRubyVersion: 2.6.5
   Exclude: 
     - db/**/*
     - bin/**/*

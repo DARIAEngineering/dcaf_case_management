@@ -2,7 +2,7 @@
 module BudgetBarHelper
   def progress_bar_color(type)
     color = type == :pledged ? 'warning' : 'success'
-    "progress-bar-#{color}"
+    "bg-#{color}"
   end
 
   def progress_bar_width(value, cash_ceiling = 1_000)

@@ -2,8 +2,10 @@
 module TooltipsHelper
   def tooltip_shell(help_text)
     content_tag :span, class: 'daria-tooltip tooltip-header-help',
-                       title: help_text,
-                       data: { toggle: 'tooltip' } do
+                       data: { toggle: 'tooltip',
+                               html: true,
+                               placement: 'bottom',
+                               title: help_text } do
       '(?)'
     end
   end

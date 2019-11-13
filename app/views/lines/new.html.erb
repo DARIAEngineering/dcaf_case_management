@@ -1,15 +1,14 @@
-<div class="container">
-  <div class="col-sm-12 lines-form">
+<div class="row">
+  <div class="col lines-form">
     <h1 class="border-bottom title"><%= t 'lines.new.welcome_to_daria', fund: FUND %></h1>
 
-    <%= bootstrap_form_tag url: lines_path do |f| %>
-      <%= f.form_group :line, label: {text: t('lines.new.what_line') } do %>
+    <%= bootstrap_form_tag url: lines_path, class: 'line-select-form' do |f| %>
+      <%= f.form_group :line, label: { text: t('lines.new.what_line') } do %>
         <% lines.each do |line| %>
           <%= f.radio_button :line, line, label: line %>
         <% end %>
       <% end %>
       <%= f.submit t('lines.new.start'), class: 'btn-lg btn-primary' %>
     <% end %>
-
   </div>
 </div>

@@ -1,42 +1,50 @@
-<div class="col-sm-6">
-  <div class="authform">
-    <h3>
-      <%= button_to t('devise.sessions.new.google_signin'), user_google_oauth2_omniauth_authorize_path, class: 'btn btn-primary' %>
-    </h3>
+<div class="row">
+  <div class="col-6">
+    <div class="authform">
+      <h3>
+        <%= button_to t('devise.sessions.new.google_signin'), user_google_oauth2_omniauth_authorize_path, class: 'btn btn-primary btn-lg' %>
+      </h3>
 
-    <p><%= t('devise.sessions.new.password_signin') %></p>
+      <p><%= t('devise.sessions.new.password_signin') %></p>
 
-    <%= bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f| %>
-      <%= render "devise/shared/error_messages" %>
+      <%= bootstrap_form_with model: resource, as: resource_name, url: session_path(resource_name), local: true do |f| %>
+        <%= render "devise/shared/error_messages" %>
 
-      <%- if devise_mapping.registerable? %>
-        <%#= link_to 'Sign up', new_registration_path(resource_name), class: 'right' %>
-      <% end -%>
-      <%= f.email_field :email, label: t('mongoid.attributes.user.email'), :autofocus => true, autocorrect: 'off', autocapitalize: 'off', autocomplete: 'off', class: 'form-control' %>
+        <%- if devise_mapping.registerable? %>
+          <%#= link_to 'Sign up', new_registration_path(resource_name), class: 'right' %>
+        <% end -%>
+        <%= f.email_field :email,
+                          label: t('mongoid.attributes.user.email'),
+                          autofocus: true,
+                          autocorrect: 'off',
+                          autocapitalize: 'off',
+                          autocomplete: 'off',
+                          class: 'form-control' %>
 
-      <%- if devise_mapping.recoverable? %>
-        <%#= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
-      <% end -%>
-      <%= f.password_field :password, label: t('devise.sessions.new.password'), autocomplete: 'off' %>
+        <%- if devise_mapping.recoverable? %>
+          <%#= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
+        <% end -%>
+        <%= f.password_field :password,
+                             label: t('devise.sessions.new.password'),
+                             autocomplete: 'off' %>
 
-      <% if devise_mapping.rememberable? -%>
-        <%= f.check_box :remember_me %>
-      <% end -%>
+        <% if devise_mapping.rememberable? -%>
+          <%#= f.check_box :remember_me %>
+        <% end -%>
 
-      <%= f.submit t('devise.sessions.new.password_submit'), class: 'btn btn-default' %>
-    <% end %>
+        <%= f.submit t('devise.sessions.new.password_submit'), class: 'btn btn-outline-secondary' %>
+      <% end %>
 
-    <%= render "devise/shared/links" %>
+      <%= render "devise/shared/links" %>
+    </div>
+    <div class="navbar">
+      <ul class="nav navbar-nav navbar-left">
+        <%= spanish_or_english_link %>
+      </ul>
+    </div>
   </div>
-  <div class="navbar">
-    <ul class="nav navbar-nav navbar-left">
-      <%= spanish_or_english_link %>
-    </ul>
+
+  <div class="col">
+    <h2><%= random_welcome_message %></h2>
   </div>
 </div>
-
-
-<div class="col-sm-6">
-  <h2><%= random_welcome_message %></h2>
-</div>
-

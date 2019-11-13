@@ -11,7 +11,7 @@ AxeReports.createCsvReportHeaderRow();
 
 driver.get('http://localhost:3000');
 AXE_BUILDER.analyze(function (results) {AxeReports.createCsvReportRow(results);});
-driver.findElement(By.id('user_email')).sendKeys('test@test.com');
+driver.findElement(By.id('user_email')).sendKeys('test@example.com');
 driver.findElement(By.id('user_password')).sendKeys('P4ssword');
 driver.findElement(By.name('commit')).click();
 AXE_BUILDER.analyze(function (results) {AxeReports.createCsvReportRow(results);});

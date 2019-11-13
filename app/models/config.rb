@@ -21,7 +21,7 @@ class Config
     practical_support_guidance_url: 'A link to a Google Drive folder with Practical Support resources. ' \
                    'Ex: https://drive.google.com/drive/my-practical_support',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
-    start_of_week: "The start day of your budget week, if it doesn't start on Monday. ex: Sunday.",
+    start_of_week: "How to render your budget bar. Default is weekly starting on Monday. Enter \"Sunday\" for weekly budget starting on Sunday, or \"Monthly\" for a calendar month based budget.",
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 

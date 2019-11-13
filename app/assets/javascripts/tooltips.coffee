@@ -1,12 +1,7 @@
 # Pertaining to tooltips
 $(document).on 'turbolinks:load', ->
   # For regular spans
-  $('.daria-tooltip').each ->
-    $(@).tooltip({
-      html: true,
-      placement: 'bottom',
-      title: $(@).data('tooltip-text')
-    })
+  $('.daria-tooltip').tooltip()
 
   # Some evil magic for things attached to labels with rails-bootstrap-form
   $('.tooltip-header-input').append(' <span class="tooltip-header-help">(?)</span>')

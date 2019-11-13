@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 
-[A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@test.com, Pass: P4ssword
+[A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@example.com, Pass: P4ssword
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?
 Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let us know!
@@ -30,9 +30,9 @@ Get started with the how-and-why of the project by [checking out DCAF](http://dc
 ## Who's in charge here?
 The team leads are:
 
-* @colinxfleming (rails and technical lead)
+* @colinxfleming & @lomky (rails and technical lead)
 * @mebates (design and UI lead)
-* @alisonnjones (data lead)
+* @alisonnjones & @mdworken (data lead)
 * @nerdygirl573 (DARIA manager)
 * @lwaldsc (DCAF liaison)
 
@@ -82,6 +82,8 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @ian.norris
 * @tingaloo
 * @colinmcglynn
+* @mdworken
+* @rudietuesdays
 
 ## Special thanks
 

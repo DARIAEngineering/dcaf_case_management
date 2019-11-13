@@ -18,11 +18,11 @@ const calculateRemainder = () => {
 const updateBalance = () => {
   if ($('#patient_procedure_cost').val()) {
     // Show remainder if patient procedure cost is known.
-    $('.outstanding-balance-ctn').removeClass('hidden');
+    $('.outstanding-balance-ctn').removeClass('d-none');
     return $('#outstanding-balance').text(`$${calculateRemainder()}`);
   }
   // Hide if there isn't a procedure cost.
-  return $('.outstanding-balance-ctn').addClass('hidden');
+  return $('.outstanding-balance-ctn').addClass('d-none');
 };
 
 
