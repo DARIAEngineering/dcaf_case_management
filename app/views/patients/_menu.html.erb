@@ -1,4 +1,4 @@
-<section id='menu-content'>
+<div id='menu-content' class="row mt-5">
   <div class="nav nav-pills flex-column abortion-left-menu" id='menu-list' role='tablist' aria-orientation="vertical">
     <%= render 'menu_item', link_for: 'patient_information', active: true %>
     <%= render 'menu_item', link_for: 'abortion_information', active: false %>
@@ -11,7 +11,7 @@
       <%= render 'menu_item', link_for: 'pledge_fulfillment', active: false %>
     <% end %>
   </div>
-</section>
+</div>
 
 <div id="menu-pledge-button">
   <%= render 'menu_pledge_button', patient: patient %>
