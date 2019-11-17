@@ -3,11 +3,6 @@ require File.expand_path('../boot', __FILE__)
 # We require individual items instead of rails/all because 
 # we don't need ActiveRecord, and ActiveRecord freaks out
 # if there's no connection pool. -CF
-# require 'rails/all'
-# require 'action_controller/railtie'
-# require 'action_mailer/railtie'
-# require 'sprockets/railtie'
-# require 'rails/test_unit/railtie'
 
 require "rails"
 # Pick the frameworks you want:
