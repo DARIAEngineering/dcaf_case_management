@@ -272,7 +272,6 @@ es:
       please_send_feedback: Por favor envíe sus comentarios o ideas al equipo de programación en
     user_tools:
       profile: Mi Perfil
-      sign_in: Registrarse
       sign_out: Desconectar
   note:
     most_recent: 'La nota más reciente de %{by} en %{at}:'

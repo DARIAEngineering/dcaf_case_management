@@ -1,3 +1,7 @@
-<li class='<%= "active" if active %>' id='<%= link_for %>-menu-item'>
-  <%= link_to t("patient.menu.#{link_for}"), "##{link_for}", data: { toggle: 'tab' } %>
-</li>
+<%= link_to t("patient.menu.#{link_for}"),
+            "##{link_for}",
+            data: { toggle: 'pill' },
+            aria: { controls: link_for, selected: active },
+            role: 'tab',
+            class: "nav-link #{'active' if active}",
+            id: "#{link_for}-menu-item" %>

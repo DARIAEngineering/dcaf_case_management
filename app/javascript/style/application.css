@@ -1,6 +1,1 @@
-/* @import '../assets/stylesheets/*' */
-
-body {
-  background-color: #000;
-  color: #fff;
-}
+@import '../../assets/stylesheets/application.css.scss'

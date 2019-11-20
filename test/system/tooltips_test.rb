@@ -15,8 +15,8 @@ class TooltipsTest < ApplicationSystemTestCase
 
       within :css, '#call_list' do
         find('.daria-tooltip').hover
-        assert has_content? 'This sortable list is used'
       end
+      assert has_content? 'This sortable list is used'
     end
   end
 
@@ -28,8 +28,8 @@ class TooltipsTest < ApplicationSystemTestCase
 
       within :css, '.tooltip-header-checkbox[for=patient_resolved_without_fund]' do
         find('.tooltip-header-help').hover
-        assert has_content? 'This is used to indicate that'
       end
+      assert has_content? 'This is used to indicate that'
     end
   end
 

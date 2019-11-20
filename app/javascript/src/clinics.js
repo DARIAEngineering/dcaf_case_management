@@ -5,7 +5,7 @@ const getClinics = () => $.get('/clinics', (data, status) => {
 }, 'json');
 
 const filterClinicsByNAF = () => {
-  const checked = $('#naf_filter').prop('checked');
+  const checked = $('#patient_naf_filter').prop('checked');
   $('#patient_clinic_id > option').each((_index, element) => {
     if ($(element).attr('data-naf') === 'false') {
       $(element).attr('disabled', checked);
@@ -23,7 +23,7 @@ const mapNAFtoClinic = (clinics) => {
 };
 
 const filterClinicsByMedicaid = () => {
-  const checked = $('#medicaid_filter').prop('checked');
+  const checked = $('#patient_medicaid_filter').prop('checked');
   $('#patient_clinic_id > option').each((_index, element) => {
     if ($(element).attr('data-medicaid') === 'false') {
       $(element).attr('disabled', checked);
@@ -41,7 +41,7 @@ const mapMedicaidToClinic = (clinics) => {
 };
 
 const ready = () => {
-  $(document).on('click', '#naf_filter', () => {
+  $(document).on('click', '#patient_naf_filter', () => {
     const attr = $('#patient_clinic_id > option').last().attr('data-naf');
     if (typeof attr === 'undefined') {
       return getClinics().then(mapNAFtoClinic).then(filterClinicsByNAF);
@@ -49,7 +49,7 @@ const ready = () => {
     return filterClinicsByNAF();
   });
 
-  $(document).on('click', '#medicaid_filter', () => {
+  $(document).on('click', '#patient_medicaid_filter', () => {
     const attr = $('#patient_clinic_id > option').last().attr('data-medicaid');
     if (typeof attr === 'undefined') {
       return getClinics().then(mapMedicaidToClinic).then(filterClinicsByMedicaid);

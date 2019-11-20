@@ -1,6 +1,7 @@
 <table class="table border-side">
   <thead>
-    <tr>
+    <tr class="accountants-table-header">
+      <th><!-- spacer --></th>
       <th><%= t 'accountants.table_content.clinic' %></th>
       <th><%= t 'accountants.table_content.pt_initials' %></th>
       <th><%= t 'accountants.table_content.fund_payout', fund: FUND %></th>
@@ -12,7 +13,7 @@
     </tr>
   </thead>
 
-  <tbody id="patient_information_form">
+  <tbody id="accountants-table-content">
     <% patients.each do |patient| %>
       <tr id='row-<%= patient.id %>'>
         <%= render 'accountants/table_content_row', patient: patient %>
