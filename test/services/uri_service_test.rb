@@ -12,6 +12,11 @@ class URIServiceTest < ActiveSupport::TestCase
       assert_nil uri
     end
 
+    it 'instantiates nil on nil' do
+      uri = URIService.new(nil).uri
+      assert_nil uri
+    end
+
     it 'can force the scheme to use https' do
       u = URIService.new("http://www.someyolourl.com")
       assert_equal u.uri.scheme, "http"
