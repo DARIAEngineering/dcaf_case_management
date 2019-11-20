@@ -105,7 +105,7 @@ es:
         not_specified: Sin instrucciones; no ID VM
         'yes': Si se permiten mensajes de voz, ID OK
     overview:
-      week_of: Semana de %{week_range}
+      budget_for: Presupuesto para %{date_range}
     partial_titles:
       call_list: Tu lista de llamadas
       completed_calls: Tus llamadas completadas
@@ -517,7 +517,7 @@ es:
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
   tooltips:
-    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación "envié la promesa") durante una semana determinada.
+    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación "envié la promesa") durante un período determinado.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
     completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
     mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.

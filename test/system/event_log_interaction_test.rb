@@ -20,8 +20,9 @@ class EventLogInteractionTest < ApplicationSystemTestCase
       click_on 'Record new call'
       wait_for_element 'I left a voicemail for the patient'
       click_on 'I left a voicemail for the patient'
+      wait_for_ajax
       wait_for_no_element 'I left a voicemail for the patient'
-      wait_for_element @user.name
+      visit authenticated_root_path
       sign_out
 
       wait_for_element 'Sign in with password'

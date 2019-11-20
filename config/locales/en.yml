@@ -105,7 +105,7 @@ en:
         not_specified: No instructions; no ID VM
         'yes': Voicemail OK, ID OK
     overview:
-      week_of: Week of %{week_range}
+      budget_for: Budget for %{date_range}
     partial_titles:
       call_list: Your call list
       completed_calls: Your completed calls
@@ -517,7 +517,7 @@ en:
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
   tooltips:
-    budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week.
+    budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given period.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
     completed_calls: This is a list of patients you have called within the last 8 hours.
     mandatory_ultrasound: If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.

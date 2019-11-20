@@ -27,7 +27,7 @@ $spacers: map-merge(
 @charset "utf-8";
 
 $daria-color: #5D3E8D;
-$grey-color: #828282;
+$grey-color: #525252;
 $font-size: 17px;
 
 
@@ -82,12 +82,19 @@ body {
   @extend .btn-primary;
   background-color: $daria-color;
   border: none;
+  color: white;
   margin-bottom: 2px;
   font-size: $font-size;
 }
 
 .btn-primary:hover {
   background-color: lighten($daria-color,15%);
+}
+
+.btn-primary:focus {
+  background-color: lighten($daria-color,15%);
+  color: white;
+  text-decoration: none;
 }
 
 .border-bottom {
@@ -186,11 +193,6 @@ main {
   padding-bottom: 80px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
-}
-
-section {
-  @extend .row;
-  margin-top: 20px;
 }
 
 h1.title {

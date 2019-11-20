@@ -1,6 +1,6 @@
 <h1><%= t 'clinics.index.title' %></h1>
 
-<%= link_to t('clinics.new.title'), new_clinic_path, class: 'btn btn-primary' %>
+<%= button_to t('clinics.new.title'), new_clinic_path, method: :get, class: 'btn btn-primary' %>
 
 <div class="clinic-list">
   <table class="table border-side table-hover top-spacer" id="clinics_table">
