@@ -272,7 +272,6 @@ en:
       please_send_feedback: Please send feedback or ideas to the programming team at
     user_tools:
       profile: My Profile
-      sign_in: Sign In
       sign_out: Sign Out
   note:
     most_recent: 'Most recent note from %{by} at %{at}:'

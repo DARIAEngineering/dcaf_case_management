@@ -10,7 +10,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     before { go_to_practical_support_tab }
 
     it 'should start empty' do
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         assert has_no_text? 'Category of support'
         assert has_no_selector? '#practical_support_support_type'
       end
@@ -24,7 +24,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         click_button 'Create new practical support'
       end
 
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         assert_equal 'Companion', find('#practical_support_support_type').value
         assert_equal 'Other (see notes)', find('#practical_support_source').value
         assert has_checked_field? 'Confirmed'
@@ -39,7 +39,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
       assert has_text? "Practical support failed to save: Source can't be blank and Support type can't be blank"
 
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         assert has_no_selector? '#practical_support_support_type'
       end
     end
@@ -54,7 +54,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     end
 
     it 'should save if valid and changed' do
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         select 'Companion', from: 'practical_support_support_type'
         select 'DC Abortion Fund', from: 'practical_support_source'
         check 'Confirmed'
@@ -63,7 +63,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       assert has_text? "Patient info successfully saved"
 
       reload_page_and_click_link 'Practical Support'
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         assert_equal 'Companion', find('#practical_support_support_type').value
         assert_equal 'DC Abortion Fund', find('#practical_support_source').value
         assert has_checked_field? 'Confirmed'
@@ -71,14 +71,14 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     end
 
     it 'should fail if changed to invalid' do
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         select '', from: 'practical_support_support_type'
       end
 
       assert has_text? "Practical support failed to save: Support type can't be blank"
 
       reload_page_and_click_link 'Practical Support'
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         assert_equal 'lodging', find('#practical_support_support_type').value
       end
     end
@@ -93,12 +93,12 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     end
 
     it 'destroy practical supports if you click the big red button' do
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         accept_confirm { click_button 'Remove' }
       end
 
       reload_page_and_click_link 'Practical Support'
-      within :css, '#existing-practical-supports' do
+      within :css, '#practical-support-entries' do
         assert has_no_selector? '#practical_support_support_type'
       end
     end

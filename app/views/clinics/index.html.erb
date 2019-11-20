@@ -1,46 +1,55 @@
 <h1><%= t 'clinics.index.title' %></h1>
-<p><%= link_to t('clinics.new.title'), new_clinic_path %></p>
 
-<table class="table table-hover" id='clinics_table'>
-  <tr>
-    <th><%= t 'mongoid.attributes.clinic.name' %></th>
-    <th><%= t 'mongoid.attributes.clinic.street_address' %></th>
-    <th><%= t 'mongoid.attributes.clinic.city' %></th>
-    <th><%= t 'mongoid.attributes.clinic.state' %></th>
-    <th><%= t 'mongoid.attributes.clinic.zip' %></th>
-    <th><%= t 'common.naf' %></th>
-    <th><%= t 'common.medicaid' %></th>
-    <th><%= t 'mongoid.attributes.clinic.gestational_limit' %></th>
-  </tr>
+<%= button_to t('clinics.new.title'), new_clinic_path, method: :get, class: 'btn btn-primary' %>
 
-  <% @clinics.each do |clinic| %>
-    <tr>
-      <td><%= link_to clinic.name, edit_clinic_path(clinic) %></td>
-      <td><%= clinic.street_address %></td>
-      <td><%= clinic.city %></td>
-      <td><%= clinic.state %></td>
-      <td><%= clinic.zip %></td>
-      <td>
-        <div class="accepts-naf clinic-detail-group">
-          <p class="blush">
-            <%= clinic.accepts_naf ? t('common.yes')
-                                   : t('common.no') %>
-          </p>
-        </div>
-      </td>
-      <td>
-        <div class="accepts_medicaid clinic-detail-group">
-          <p class="blush">
-            <%= clinic.accepts_medicaid ? t('common.yes')
-                                        : t('common.no') %>
-          </p>
-        </div>
-      </td>
-      <td>
-        <div class="gestational-limit clinic-detail-group">
-          <p class="blush"><%= clinic.gestational_limit %></p>
-        </div>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<div class="clinic-list">
+  <table class="table border-side table-hover top-spacer" id="clinics_table">
+    <thead>
+      <tr class="clinics-table-header">
+        <th><!-- spacer --></th>
+        <th><%= t 'mongoid.attributes.clinic.name' %></th>
+        <th><%= t 'mongoid.attributes.clinic.street_address' %></th>
+        <th><%= t 'mongoid.attributes.clinic.city' %></th>
+        <th><%= t 'mongoid.attributes.clinic.state' %></th>
+        <th><%= t 'mongoid.attributes.clinic.zip' %></th>
+        <th><%= t 'common.naf' %></th>
+        <th><%= t 'common.medicaid' %></th>
+        <th><%= t 'mongoid.attributes.clinic.gestational_limit' %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @clinics.each do |clinic| %>
+        <tr class="clinics-table-row">
+          <td><!-- spacer --></td>
+          <td><%= link_to clinic.name, edit_clinic_path(clinic) %></td>
+          <td><%= clinic.street_address %></td>
+          <td><%= clinic.city %></td>
+          <td><%= clinic.state %></td>
+          <td><%= clinic.zip %></td>
+          <td>
+            <div class="accepts-naf clinic-detail-group">
+              <p class="blush">
+                <%= clinic.accepts_naf ? t('common.yes')
+                                       : t('common.no') %>
+              </p>
+            </div>
+          </td>
+          <td>
+            <div class="accepts_medicaid clinic-detail-group">
+              <p class="blush">
+                <%= clinic.accepts_medicaid ? t('common.yes')
+                                            : t('common.no') %>
+              </p>
+            </div>
+          </td>
+          <td>
+            <div class="gestational-limit clinic-detail-group">
+              <p class="blush"><%= clinic.gestational_limit %></p>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -14,7 +14,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Asset pipeline
 gem 'webpacker', '~> 4'
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.4.1'
+gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap_form', '~> 4.2.0'
 gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
@@ -35,7 +36,6 @@ gem 'devise', '~> 4.7'
 gem 'omniauth-google-oauth2', '~> 0.6.0'
 
 # We use `bootstrap_form_for` in views
-gem 'bootstrap_form'
 
 # Security libraries
 gem 'rack-attack', '~> 5.4.1'
@@ -54,7 +54,7 @@ gem 'figaro' # we handle secrets differently now
 gem 'js-routes' # Not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
-gem 'loofah', '>= 2.2.3'
+gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do

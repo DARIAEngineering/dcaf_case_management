@@ -1,63 +1,69 @@
-<section id="pledge_fulfillment_content">
-  <%= bootstrap_form_for patient, html: { id: 'pledge_fulfillment_form' }, remote: true do |f| %>
-    <div class="col-sm-12">
-      <div class="row">
-        <div class="col-sm-12">
-          <h2><%= t('patient.pledge_fulfillment.title') %></h2>
-          <p><%= t('patient.pledge_fulfillment.confirmation.confirm_info') %></p>
-          <ul>
-            <li><%= t('patient.pledge_fulfillment.confirmation.clinic') %>  <%= @patient.clinic.try(:name) %></li>
-            <li><%= t('patient.pledge_fulfillment.confirmation.fund_pledge_amount', fund: "#{FUND}") %> $<%= @patient.fund_pledge %></li>
-            <li><%= t('patient.pledge_fulfillment.confirmation.pledge_generated_by') %> <%= @patient.pledge_generated_by.try(:name) || 'N/A' %></li>
-            <li><%= t('patient.pledge_fulfillment.confirmation.pledge_generated_at') %> <%= @patient.pledge_generated_at.try(:display_date) || 'N/A' %></li>
-            <li><%= t('patient.pledge_fulfillment.confirmation.pledge_sent_by') %> <%= @patient.pledge_sent_by.try(:name) ||  'N/A' %></li>
-            <li><%= t('patient.pledge_fulfillment.confirmation.pledge_sent_at') %> <%= @patient.pledge_sent_at.try(:display_date) || 'N/A'%></li>
-          </ul>
-        </div>
+<div id="pledge_fulfillment_content">
+  <h2 class="mt-5"><%= t('patient.pledge_fulfillment.title') %></h2>
+
+  <h5 class="mt-4"><%= t('patient.pledge_fulfillment.confirmation.confirm_info') %></h5>
+  <ul class="fulfillment-list">
+    <li><%= t('patient.pledge_fulfillment.confirmation.clinic') %> <%= @patient.clinic.try(:name) %></li>
+    <li><%= t('patient.pledge_fulfillment.confirmation.fund_pledge_amount', fund: "#{FUND}") %> $<%= @patient.fund_pledge %></li>
+    <li><%= t('patient.pledge_fulfillment.confirmation.pledge_generated_by') %> <%= @patient.pledge_generated_by.try(:name) || 'N/A' %></li>
+    <li><%= t('patient.pledge_fulfillment.confirmation.pledge_generated_at') %> <%= @patient.pledge_generated_at.try(:display_date) || 'N/A' %></li>
+    <li><%= t('patient.pledge_fulfillment.confirmation.pledge_sent_by') %> <%= @patient.pledge_sent_by.try(:name) ||  'N/A' %></li>
+    <li><%= t('patient.pledge_fulfillment.confirmation.pledge_sent_at') %> <%= @patient.pledge_sent_at.try(:display_date) || 'N/A'%></li>
+  </ul>
+
+  <%= bootstrap_form_with model: patient,
+                          html: { id: 'pledge_fulfillment_form' },
+                          remote: true do |f| %>
+    <div class="row">
+      <div class="col">
+        <%= f.fields_for patient.fulfillment do |pt| %>
+          <%= pt.form_group :fulfilled do %>
+            <%= pt.check_box :fulfilled, label: t('patient.pledge_fulfillment.form.pledge_fulfilled_box'), autocomplete: 'off' %>
+          <% end %>
+        <% end %>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.form_group :fulfilled do %>
-              <%= pt.check_box :fulfilled, label: t('patient.pledge_fulfillment.form.pledge_fulfilled_box'), autocomplete: 'off' %>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="info-form-left col-sm-6">
-          <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.number_field :fund_payout,
-                                label: t('patient.pledge_fulfillment.form.fund_payout', fund: "#{FUND}"),
-                                autocomplete: 'off',
-                                prepend: '$'%>
-            <%= pt.select :gestation_at_procedure,
-                          options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
-                          label: t('patient.pledge_fulfillment.form.weeks_along_at_procedure'),
-                          autocomplete: 'off' %>
-            <%= pt.date_field :procedure_date,
-                                  label: t('patient.pledge_fulfillment.form.procedure_date'),
-                                  autocomplete: 'off' %>
-          <% end %>
-        </div>
-        <div class="info-form-right col-sm-6">
-          <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.text_field :check_number, label: t('patient.pledge_fulfillment.form.check_num'), autocomplete: 'off'%>
-            <%= pt.date_field :date_of_check, label: t('patient.pledge_fulfillment.form.date_of_check'), autocomplete: 'off' %>
-          <% end %>
-        </div>
+    </div>
+
+    <div class="row">
+      <div class="info-form-left col-6">
+        <%= f.fields_for patient.fulfillment do |pt| %>
+          <%= pt.number_field :fund_payout,
+                              label: t('patient.pledge_fulfillment.form.fund_payout', fund: "#{FUND}"),
+                              autocomplete: 'off',
+                              prepend: '$'%>
+          <%= pt.select :gestation_at_procedure,
+                        options_for_select(weeks_options, patient.fulfillment.gestation_at_procedure),
+                        label: t('patient.pledge_fulfillment.form.weeks_along_at_procedure'),
+                        autocomplete: 'off' %>
+          <%= pt.date_field :procedure_date,
+                                label: t('patient.pledge_fulfillment.form.procedure_date'),
+                                autocomplete: 'off' %>
+        <% end %>
       </div>
-      <h3><%= t('patient.pledge_fulfillment.audit.title')%></h3>
-      <div class="row">
-        <div class="col-sm-12">
-          <%= f.fields_for patient.fulfillment do |pt| %>
-            <%= pt.form_group :audited do %>
-              <%= pt.check_box :audited, label: t('patient.pledge_fulfillment.audit.audited_box'), autocomplete: 'off' %>
-            <% end %>
+
+      <div class="info-form-right col-6">
+        <%= f.fields_for patient.fulfillment do |pt| %>
+          <%= pt.text_field :check_number, label: t('patient.pledge_fulfillment.form.check_num'), autocomplete: 'off'%>
+          <%= pt.date_field :date_of_check, label: t('patient.pledge_fulfillment.form.date_of_check'), autocomplete: 'off' %>
+        <% end %>
+      </div>
+    </div>
+
+    <h3><%= t('patient.pledge_fulfillment.audit.title')%></h3>
+
+    <div class="row">
+      <div class="col">
+        <%= f.fields_for patient.fulfillment do |pt| %>
+          <%= pt.form_group :audited do %>
+            <%= pt.check_box :audited, label: t('patient.pledge_fulfillment.audit.audited_box'), autocomplete: 'off' %>
           <% end %>
-        </div>
-        <div class="col-sm-12">
-          <p class="archive-note"><%= t('patient.pledge_fulfillment.audit.archive_note', date: l(patient.archive_date, format: :medium)) %></p>
-        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="archive-note"><%= t('patient.pledge_fulfillment.audit.archive_note', date: l(patient.archive_date, format: :medium)) %></p>
       </div>
     </div>
   <% end %>
-</section>
+</div>

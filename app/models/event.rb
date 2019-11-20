@@ -31,14 +31,14 @@ class Event
   validates :cm_name, :patient_name, :patient_id, :line, presence: true
   validates :pledge_amount, presence: true, if: :pledged_type?
 
-  def glyphicon
+  def icon
     case event_type
     when 'Pledged'
       'thumbs-up'
     when 'Reached patient'
       'comment'
     else
-      'earphone'
+      'phone-alt'
     end
   end
 

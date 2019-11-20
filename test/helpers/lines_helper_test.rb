@@ -14,7 +14,8 @@ class LinesHelperTest < ActionView::TestCase
 
       %w(DC MD VA).each do |state|
         session[:line] = state
-        assert_equal current_line_display, "Your current line: #{state}"
+        assert_equal current_line_display,
+                     "<li><span class=\"nav-link navbar-text-alt\">Your current line: #{state}</span></li>"
         assert_equal current_line, state.to_s
       end
     end

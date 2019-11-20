@@ -1,16 +1,13 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to "DARIA - " + (ENV['DARIA_FUND_FULL'] || Rails.env), root_path, class: 'navbar-brand' %>
-    </div>
-    <div class="collapse navbar-collapse">
-      <%= render 'layouts/navigation_links' %>
-    </div>
+<nav class="navbar navbar-inverse fixed-top navbar-expand-lg">
+  <div class="navbar-header">
+    <%= link_to "DARIA - " + (ENV['DARIA_FUND_FULL'] || Rails.env), root_path, class: 'navbar-brand' %>
+
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" aria-controls="navbar-collapse" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </div>
+  <div class="collapse navbar-collapse">
+    <%= render 'layouts/navigation_links' %>
   </div>
 </nav>

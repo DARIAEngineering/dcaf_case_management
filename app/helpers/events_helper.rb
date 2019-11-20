@@ -1,9 +1,10 @@
 # Functions to display events for activity feed
 module EventsHelper
   def display_event(event)
+    fontawesome_kit = event.icon == 'thumbs-up' ? 'far' : 'fas'
     safe_join [
       tag(:span,
-          class: ['glyphicon', "glyphicon-#{event.glyphicon}", 'event-item']),
+          class: [fontawesome_kit, "fa-#{event.icon}", 'event-item']),
       entry_text(event)
     ], ' '
   end
