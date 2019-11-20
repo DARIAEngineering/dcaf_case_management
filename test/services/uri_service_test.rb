@@ -19,9 +19,10 @@ class URIServiceTest < ActiveSupport::TestCase
 
     it 'can force the scheme to use https' do
       u = URIService.new("http://www.someyolourl.com")
+     
       assert_equal u.uri.scheme, "http"
-      u.secure_scheme!
-      assert_equal u.secure_scheme!, "https"
+      assert_equal u.secure_scheme_uri!.to_s, "https://www.someyolourl.com"
+      assert_equal u.uri.scheme, "https"
     end
   end
 end

@@ -11,7 +11,8 @@ class URIService
     end
   end
 
-  def secure_scheme!
+  def secure_scheme_uri!
     @uri.scheme = "https"
+    @uri
   end
 end
