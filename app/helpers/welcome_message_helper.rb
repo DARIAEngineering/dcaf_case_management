@@ -38,6 +38,7 @@ module WelcomeMessageHelper
       "Você é demais!",
       "Your work is so valuable and you're doing a wonderful job! <3",
       "Thank you to be using your time to help the others. Your work is precious."
+      "Your work empowers women to make decisions about their own bodies. Bravo!"
     ]
   end
 end
