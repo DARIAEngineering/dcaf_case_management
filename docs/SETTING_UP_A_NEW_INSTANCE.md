@@ -4,7 +4,7 @@ These are detailed instructions in spinning up an instance in heroku. These assu
 
 ## By the way
 
-If you an abortion fund and NOT interested in worrying about servers, maintenance, and patching: DCAF manages the infrastructure (what's referred to in this document as the `DCAF pipeline`) for several abortion funds, and for your share of server costs they will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here.
+If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, DCAF already manages the infrastructure (what's referred to in this document as the `DCAF pipeline`) for several abortion funds. For your share of server costs they will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here.
 
 ## Main steps
 
@@ -13,7 +13,7 @@ If you an abortion fund and NOT interested in worrying about servers, maintenanc
 First, we generate some API tokens from services that DARIA uses.
 
 * Generate Google OAuth configuration (for Login with Google):
-  * If youd don't have one, set up a google project to administer this app (or choose an existing account you own - DCAF has one)
+  * If you don't have one, set up a google project to administer this app (or choose an existing account you own - DCAF has one)
   * Once logged in, navigate to https://console.developers.google.com/apis/dashboard and select your project
   * Under "Credentials" follow prompts to "Create credentials" for "OAuth client ID"
   * Configure your OAuth Consent screen:
