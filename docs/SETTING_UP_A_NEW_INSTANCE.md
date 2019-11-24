@@ -4,64 +4,66 @@ These are detailed instructions in spinning up an instance in heroku. These assu
 
 ## By the way
 
-DCAF has a lot of the surrounding infrastructure set up in such a way that it's easy to add new instances to our set (what's referred to in this document as the `DCAF pipeline`). So please reach out to us if you're interested in skipping a lot of the tedious technical setup here.
+If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, DCAF already manages the infrastructure (what's referred to in this document as the `DCAF pipeline`) for several abortion funds. For your share of server costs they will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here.
 
 ## Main steps
 
+### Preparation and gathering API tokens
+
+First, we generate some API tokens from services that DARIA uses.
+
+* Generate Google OAuth configuration (for Login with Google):
+  * If you don't have one, set up a google project to administer this app (or choose an existing account you own - DCAF has one)
+  * Once logged in, navigate to https://console.developers.google.com/apis/dashboard and select your project
+  * Under "Credentials" follow prompts to "Create credentials" for "OAuth client ID"
+  * Configure your OAuth Consent screen:
+    * Make your application type public
+    * Add your app URL (`https://daria-FUND.herokuapp.com`) as the authorized domain
+    * Select "Web Application" when prompted to choose an application type
+    * Leave Authorized Javascript origins blank
+    * Set Authorized redirect URIs to https://daria-FUND.herokuapp.com/users/auth/google_oauth2/callback
+  * Generate a `GOOGLE_KEY` and a `GOOGLE_SECRET` - these values are `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` respectively
+* Generate a Google API token (for the Clinic Finder):
+  * Enable the Geocoding API
+  * Create a Google API key, named `FUND Geocoding API Key`; restrict it to just the Geocoding API
+* Optional but recommended: Generate a [Skylight](https://www.skylight.io/) API token -- this is a performance monitoring service
+* Optional but recommended: Generate a [Sqreen](https://www.sqreen.io/) API token -- this is a security service
+
 ### Create a new heroku app
 
-[Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). By deploying using this link, the following accounts will be automatically provisioned and managed via Heroku (as heroku add-ons). This means that each individual app deployed with this link will have its own unique accounts with the following:
+[Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). This vastly simplifies new instance setup and automatically provisions the necessary Heroku add-ons for you:
 
-* mLabs -- this is a mongodb data service
-* Sendgrid -- this is used as the email service
+* mLabs -- this is a mongodb data service (our database!)
+* Sendgrid -- this is used as the email service (our emailer!)
 * Logentries -- used for application logging
 * Scheduler -- used to run tasks on a cron schedule
 
-*Note -- if you choose to deploy this app manually rather than via the link provided above, you will need to handle your own set up for your mongodb, email, logging, and cron services.*
+Follow the directions to fill out necessary environment variables and configuration for your DARIA instance. (Ask our slack channel if you have questions.) Clicking Deploy App will launch your DARIA instance! You now have an instance running, but there are still some followup tasks.
 
-Follow the directions to fill out necessary environment variables and configuration for your DARIA instance. (Ask our slack channel if you have questions.)
+### If not within the DCAF pipeline
 
-* Go into logentries and add anyone who needs to be added to the alerts. This should be just people who need to know about application errors, pretty much.
-* Set up an uptime monitor (we recommend StatusCake!)
-* Click on `Scheduler` and set up the scheduled cleanup job:
-- `$ rake nightly cleanup`, dyno size hobby, frequency daily, 08:00 UTC
-* Set up Google OAuth credentials
-  * Set up a google account to administer this app (or choose an existing account you own)
-  * Once logged in, navigate to https://console.developers.google.com/apis/dashboard
-  * Add a project or select an existing project (note -- new credentials can be set up alongside existing ones in the same project for different environments)
-  * Under "Credentials" follow prompts to "Create credentials" for "OAuth client ID"
-  * Configure your OAuth Consent screen
-    * Make your application type public
-    * Add your app URL as the authorized domain
-    * Select "Web Application" when prompted to choose an application type
-    * Leave Authorized Javascript origins blank
-    * Set Authorized redirect URIs to https://your-app.herokuapp.com/users/auth/google_oauth2/callback
-  * Fill in the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` env vars with your client id and client secret
-* While still in the google developers console, enable the Geocoding API, create an API key, and set the `GOOGLE_GEO_API_KEY` in Heroku to that API key
+- [ ] In Heroku, make sure someone other than you has access to the instance -- make sure you aren't the only member of your fund with Heroku panel access!
+- [ ] Confirm that you are using HTTPS with heroku ACM ([Automated Certificate Management](https://devcenter.heroku.com/articles/automated-certificate-management)). Note that this may require a paid heroku dyno. (For the love of god, do not enter real data into DARIA unless you have HTTPS set up.)
 
-## Optional (but recommended) steps
+### Finish up service setup
 
-* Set `SKYLIGHT_AUTH_TOKEN` (get it from [Skylight](https://www.skylight.io/), this is a performance monitoring service)
-* Set `SQREEN_TOKEN` (get it from [Sqreen](https://www.sqreen.io/), this is a security service)
-* if you have a custom domain set up, set up heroku ACM ([Automated Certificate Management](https://devcenter.heroku.com/articles/automated-certificate-management))
-* If not within DCAF pipeline, in Heroku, add some other app members if there aren't any. Make sure you aren't the only member of your fund with config access!
+- [ ] Set up an uptime monitor (we recommend StatusCake!)
+- [ ] Go to Heroku, click on `Scheduler`, and add the nightly cleanup job: `$ rake nightly cleanup`, dyno size hobby, frequency daily, 08:00 UTC
 
-## Checklist after setup
+### Smoke test to confirm everything is working right 
 
-### Smoke test
-
-- [ ] Go to root url
+- [ ] Go to the root url at `http://daria-FUND.herokuapp.com`. Confirm that this loads, and redirects you to `https://...`
 - [ ] Create yourself an admin account from the rails console. Confirm that this sends an email to you
 - [ ] After you get that email, log in with google to confirm the oauth signin flow works. (This should use the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` creds. If something's jacked up, make sure you have these set properly.)
-- [ ] Confirm that the lines are properly set and show up right
+- [ ] Confirm that the lines are properly set and show up right (if you have just one line, this will send you straight to the call list)
 - [ ] Confirm that the top left badge name (`DARIA - full fund name`) is set properly
 - [ ] Confirm that you can create and update a patient. Delete it afterwards in the rails console
 
-### Before you start entering data
+### In-app configuration before you start entering data
 
 - [ ] Go to Admin Tools -> Clinic Management and enter info about clinics you work with
 - [ ] Go to Admin Tools -> Config Management and enter info about other funds your work with, insurance options you want to track, etc.
-- [ ] Create any other admin or user accounts by going to Admin Tools -> User Management and following the workflow there
+- [ ] Go to Admin Tools -> User Management and create any other admin or user accounts
 
 ### When you start entering data
 
