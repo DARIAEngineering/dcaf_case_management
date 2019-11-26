@@ -18,9 +18,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.report_uri  "https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
 
   # If you are using webpack-dev-server then specify webpack-dev-server host
-  if Rails.env.development?
-    policy.connect_src :self, "http://localhost:3035", "ws://localhost:3035"
-  end
+  policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
 end
 
 # If you are using UJS then enable automatic nonce generation
