@@ -126,14 +126,6 @@ body {
   padding-right: 2px;
 }
 
-// add spacing
-.margin-bottom {
-  margin-bottom: 3em;
-}
-.margin-bottom-sm {
-  margin-bottom: 1.5em;
-}
-
 // increase size of text in form fields
 .form-control {
   font-size: $font-size;
@@ -403,9 +395,6 @@ form {
 
 .hidden {
   display: none;
-}
-.bottom-spacer {
-  margin-bottom: .75em;
 }
 
 // This is necessary because of a vendored multimodal plugin that we should aim to deprecate
