@@ -393,10 +393,6 @@ form {
   line-height: 1.0;
 }
 
-.hidden {
-  display: none;
-}
-
 // This is necessary because of a vendored multimodal plugin that we should aim to deprecate
 .hide {
   @extend .d-none;
