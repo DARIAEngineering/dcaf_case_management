@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import './application';
+
 .lines-form {
     input[type="radio"] {
         -ms-transform: scale(2); /* IE 9 */
@@ -15,8 +17,7 @@
     }
 
     .form-check-label {
-        // Keeping this because it needs more space than our ml-6
-        margin-left: 2em;
+        @extend .ml-8;
     }
 
     .btn-primary {
