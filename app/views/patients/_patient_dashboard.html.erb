@@ -19,7 +19,7 @@
                      help: t('patient.dashboard.currently', weeks: patient.last_menstrual_period_now_weeks, days: patient.last_menstrual_period_now_days) %>
       </div>
 
-      <div class="col hide-label">
+      <div class="col mt-6">
         <%= f.select :last_menstrual_period_days,
                      options_for_select(days_options, patient.last_menstrual_period_days),
                      autocomplete: 'off',
