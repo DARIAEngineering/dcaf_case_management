@@ -17,8 +17,9 @@ $spacers: map-merge(
     3: $spacer, //.5 rem
     4: ($spacer * 1.5), //.75rem
     5: ($spacer * 2), //1rem
-    6: ($spacer * 3) //1.5rem
-
+    6: ($spacer * 3), //1.5rem
+    7: ($spacer * 4), // 2rem;
+    8: ($spacer * 5) // 2.5rem;
   ),
   $spacers
 );
@@ -126,14 +127,6 @@ body {
   padding-right: 2px;
 }
 
-// add spacing
-.margin-bottom {
-  margin-bottom: 3em;
-}
-.margin-bottom-sm {
-  margin-bottom: 1.5em;
-}
-
 // increase size of text in form fields
 .form-control {
   font-size: $font-size;
@@ -193,11 +186,6 @@ main {
   padding-bottom: 80px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
-}
-
-section {
-  @extend .row;
-  margin-top: 20px;
 }
 
 h1.title {
@@ -404,13 +392,6 @@ label {
 
 form {
   line-height: 1.0;
-}
-
-.hidden {
-  display: none;
-}
-.bottom-spacer {
-  margin-bottom: .75em;
 }
 
 // This is necessary because of a vendored multimodal plugin that we should aim to deprecate
