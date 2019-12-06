@@ -40,7 +40,8 @@ module WelcomeMessageHelper
       "Thank you to be using your time to help the others. Your work is precious.",
       "Challenging but rewarding at the same time. Keep it up!!!",
       "Thank you for the good work! We appreciate all your efforts.",
-      "Love, all the good people you have helped."
+      "Love, all the good people you have helped.",
+      "Hang in there! You're an inspiration to us all.",
     ]
   end
 end
