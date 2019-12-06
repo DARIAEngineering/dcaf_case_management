@@ -465,7 +465,7 @@ DEPENDENCIES
   mongoid-history (< 1.0)
   mongoid_rails_migrations
   mongoid_userstamp!
-  nokogiri (>= 1.10.3)
+  nokogiri (>= 1.10.5)
   omniauth-google-oauth2 (~> 0.6.0)
   pdf-inspector
   prawn
@@ -492,7 +492,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (~> 4.1)
   webdrivers
-  webpacker (~> 4)
+  webpacker (~> 4.2.0)
 
 RUBY VERSION
    ruby 2.6.5p114
