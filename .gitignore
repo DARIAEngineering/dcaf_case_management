@@ -7,7 +7,21 @@
 db/*.sqlite3
 /db/*.sqlite3-journal
 /log/*
-/tmp/*
+!/log/.keep
+
+/tmp/cache/*
+/tmp/capybara/*
+/tmp/pids/*
+/tmp/screenshots/*
+/tmp/sockets/*
+/tmp/*.txt
+!/tmp/.keep
+!/tmp/pids/.keep
+!/tmp/cache/.keep
+!/tmp/capybara/.keep
+!/tmp/pids/.keep
+!/tmp/screenshots/.keep
+!/tmp/sockets/.keep
 
 # cert file
 cacert.pem
