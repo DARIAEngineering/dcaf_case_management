@@ -3,7 +3,7 @@ ruby '2.6.5'
 
 # Standard rails
 gem 'rails', '~> 6.0.1'
-gem 'puma', '~> 4.1' # roar
+gem 'puma', '~> 4.3' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 1.0.0', group: :doc

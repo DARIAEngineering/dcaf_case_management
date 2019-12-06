@@ -470,7 +470,7 @@ DEPENDENCIES
   pdf-inspector
   prawn
   pry
-  puma (~> 4.1)
+  puma (~> 4.3)
   rack-attack (~> 5.4.1)
   rack-test (>= 0.6.3)
   rails (~> 6.0.1)
