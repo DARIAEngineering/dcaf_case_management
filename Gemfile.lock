@@ -402,8 +402,6 @@ GEM
       thread_safe (~> 0.1)
     tzinfo-data (1.2018.5)
       tzinfo (>= 1.0.0)
-    uglifier (4.1.19)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (1.6.0)
     url (0.3.2)
     warden (1.2.8)
@@ -490,7 +488,6 @@ DEPENDENCIES
   timecop
   turbolinks (~> 5.2.0)
   tzinfo-data
-  uglifier (~> 4.1)
   webdrivers
   webpacker (~> 4.2.0)
 
