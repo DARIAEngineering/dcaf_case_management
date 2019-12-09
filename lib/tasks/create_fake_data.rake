@@ -6,7 +6,7 @@ namespace :db do
         users = User.all
         clinics = Clinic.all
 
-        50.times do |idx|
+        25.times do |idx|
           flag = (rand(10) % 5 == 0)
 
           initial_call = Date.today - rand(1000)
@@ -35,7 +35,7 @@ namespace :db do
           )
 
           # create external_pledges
-          if i.odd? && has_appt
+          if idx.odd? && has_appt
             patient.external_pledges.create!(
             source: 'Metallica Abortion Fund',
             amount: 100,
@@ -44,23 +44,40 @@ namespace :db do
           end
 
           # create calls
+          call_status = ["Left voicemail", "Reached patient", "Couldn't reach patient"]
 
-          # create practical_supports 
- 
+          if idx.odd? && !has_appt
+            rand(1..5).times do 
+              patient.calls.create status: call_status[rand(1..4)%3], created_by: User.first
+            end 
+          elsif idx.even? && has_appt
+            rand(1..7).times do
+              patient.calls.create status: call_status[rand(1..4)%3], created_by: User.first
+          end
           
-          # create pledge fulfillments
-          if i.even? && patient.pledge_sent 
+          # create practical_support
+          if 
+          
+          # create pledge fulfillments 
+          if idx.even? && patient.pledge_sent 
             patient.build_fulfillment(
               created_by_id: User.first.id,
               fulfilled: true,
               fund_payout: patient.fund_pledge,
-              procedure_date: 10.days.from_now
+              procedure_date: patient.appointment_date
             ).save
           end 
-
-  
+        
         end
 
     end   
   end
 end
+
+=begin
+  
+ # leaving the created_at attribute of each call blank, is that going to cause problems? 
+ # should we figure out how to emulate the 75-80% fulfillment rate? 
+ # if a pledge has been sent, might be good for at least one call to have been made - but i'm not sure if this is important for the 
+
+=end
