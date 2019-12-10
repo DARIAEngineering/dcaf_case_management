@@ -6,7 +6,7 @@ namespace :db do
         users = User.all
         clinics = Clinic.all
 
-        25.times do |idx|
+        5000.times do |idx|
           flag = (rand(10) % 5 == 0)
 
           initial_call = Date.today - rand(1000)
@@ -48,15 +48,29 @@ namespace :db do
 
           if idx.odd? && !has_appt
             rand(1..5).times do 
-              patient.calls.create status: call_status[rand(1..4)%3], created_by: User.first
+              patient.calls.create status: call_status[rand(3)], created_by: User.first
             end 
           elsif idx.even? && has_appt
             rand(1..7).times do
-              patient.calls.create status: call_status[rand(1..4)%3], created_by: User.first
+              patient.calls.create status: call_status[rand(3)], created_by: User.first
+            end
           end
           
           # create practical_support
-          if 
+          support_types = [
+            'Companion', 
+            'Lodging', 
+            'Travel to the region', 
+            'Travel inside the region', 
+            'Other (see notes)']
+          
+          if has_appt && patient.procedure_cost > 350 && has_pledge
+            patient.practical_supports.create!(
+              source: 'Metallica Abortion Fund',
+              support_type: support_types[rand(5)],
+              created_by: User.first
+            )
+          end 
           
           # create pledge fulfillments 
           if idx.even? && patient.pledge_sent 
@@ -73,11 +87,3 @@ namespace :db do
     end   
   end
 end
-
-=begin
-  
- # leaving the created_at attribute of each call blank, is that going to cause problems? 
- # should we figure out how to emulate the 75-80% fulfillment rate? 
- # if a pledge has been sent, might be good for at least one call to have been made - but i'm not sure if this is important for the 
-
-=end
