@@ -2,27 +2,26 @@ source 'https://rubygems.org'
 ruby '2.6.5'
 
 # Standard rails
-gem 'rails', '~> 5.2.0'
-gem 'puma' # roar
+gem 'rails', '~> 6.0.1'
+gem 'puma', '~> 4.3' # roar
 gem 'turbolinks', '~> 5.2.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem 'nokogiri', '>= 1.10.5'
 gem 'tzinfo-data', require: false
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.2', require: false
 
 # Asset pipeline
 gem 'webpacker', '~> 4.2.0'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap_form', '~> 4.2.0'
-gem 'uglifier', '~> 4.1'
 gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 # Our database is MongoDB
-gem 'mongoid', '>= 6.2.0', '< 7'
+gem 'mongoid', '~> 7.0.0', '< 8'
 gem 'bson_ext'
 gem 'mongoid-history', '< 1.0' # gives us object history
 gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git',
@@ -58,9 +57,10 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do
-  gem 'i18n-tasks', '~> 0.9.28' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys
+  gem 'rails-i18n', '~> 6.0' # dependency of i18n-tasks, hardset to a rails-6-compat version
   gem 'shog' # makes rails s output color!
-  gem 'listen' # used by systemtests
+  gem 'listen', '>= 3.0.5', '< 3.2' # used by systemtests, hardset rails 6 compat
   gem 'rubocop', require: false # our code style / linting system
 
   # Security scanners that also run in CI. They run with bundle exec.
@@ -88,6 +88,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
+  gem 'webdrivers'
 
   # Test coverage related libraries
   gem 'simplecov', require: false
@@ -99,7 +100,7 @@ group :test do
   gem 'mini_backtrace' # settle down minitest output
   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
   gem 'minitest-stub-const'
-  gem 'rack-test', '~> 0.6.3', require: 'rack/test' # needed to test rack-attack
+  gem 'rack-test', '>= 0.6.3', require: 'rack/test' # needed to test rack-attack
 end
 
 group :production do
