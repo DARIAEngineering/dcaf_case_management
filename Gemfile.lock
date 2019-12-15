@@ -81,6 +81,7 @@ GEM
     bootstrap_form (4.2.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
+    brakeman (4.7.2)
     bson (4.6.0)
     bson_ext (1.5.1)
     builder (3.2.3)
@@ -428,6 +429,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.3.1)
   bootstrap_form (~> 4.2.0)
+  brakeman
   bson_ext
   bundler-audit
   byebug
