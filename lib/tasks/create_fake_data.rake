@@ -19,7 +19,7 @@ namespace :db do
 
           patient = Patient.create!(
             name: 'Randomized Patient',
-            primary_phone: SecureRandom.random_number(10**10).to_s.rjust(10, "#{idx}"),
+            primary_phone: "#{idx}".rjust(10, "0"),
             initial_call_date: initial_call,
             created_by: users.sample(1).first,
             urgent_flag: flag,
