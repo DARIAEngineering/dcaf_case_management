@@ -10,7 +10,7 @@ class Config
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
     :language, :resources_url, :practical_support_guidance_url, :fax_service, :referred_by,
-    :practical_support, :hide_practical_support, :start_of_week
+    :practical_support, :hide_practical_support, :start_of_week, :budget_bar_max
   ].freeze
 
   # Define overrides for particular config fields.
@@ -22,6 +22,7 @@ class Config
                    'Ex: https://drive.google.com/drive/my-practical_support',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
     start_of_week: "How to render your budget bar. Default is weekly starting on Monday. Enter \"Sunday\" for weekly budget starting on Sunday, or \"Monthly\" for a calendar month based budget.",
+    budget_bar_max: "The maximum for the budget bar. Default $1,000",
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
@@ -63,13 +64,19 @@ class Config
     end
   end
 
-  def self.start_day
-    start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
-    start ||= "monday"
-    start.downcase.to_sym
+  def self.budget_bar_max
+    budget_max = Config.find_or_create_by(config_key: 'budget_bar_max').options.try :last
+    budget_max ||= 1_000
+    budget_max.to_i
   end
 
   def self.hide_practical_support?
     Config.find_or_create_by(config_key: 'hide_practical_support').options.try(:last).to_s =~ /yes/i ? true : false
+  end
+
+  def self.start_day
+    start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
+    start ||= "monday"
+    start.downcase.to_sym
   end
 end
