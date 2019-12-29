@@ -124,7 +124,7 @@ class ConfigTest < ActiveSupport::TestCase
         c = Config.find_or_create_by(config_key: 'start_of_week')
         c.config_value = { options: ["Tuesday"] }
         c.save!
-        assert(Config.start_day.equal? :tuesday)
+        assert_equal :tuesday, Config.start_day
       end
     end
   end
