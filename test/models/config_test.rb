@@ -84,7 +84,7 @@ class ConfigTest < ActiveSupport::TestCase
 
     describe '#budget_bar_max' do
       it 'should return an integer of 1_000 if unconfigured' do
-        assert(Config.budget_bar_max == 1_000)
+        assert_equal 1_000, Config.budget_bar_max
       end
 
       it 'should return another amount if configured' do
