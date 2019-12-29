@@ -117,7 +117,7 @@ class ConfigTest < ActiveSupport::TestCase
 
     describe '#start_day' do
       it 'should return the day of week as a symbol' do
-        assert(Config.start_day.equal? :monday)
+        assert_equal :monday, Config.start_day
       end
 
       it 'should return another day of the week if configured' do
