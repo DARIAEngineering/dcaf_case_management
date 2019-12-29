@@ -22,7 +22,7 @@ class Config
                    'Ex: https://drive.google.com/drive/my-practical_support',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
     start_of_week: "How to render your budget bar. Default is weekly starting on Monday. Enter \"Sunday\" for weekly budget starting on Sunday, or \"Monthly\" for a calendar month based budget.",
-    budget_bar_max: "The maximum for the budget bar. Default $1,000",
+    budget_bar_max: "The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.",
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
