@@ -16,7 +16,7 @@ gem 'webpacker', '~> 4.2.0'
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap_form', '~> 4.2.0'
-gem 'coffee-rails', '~> 4.2.2'
+gem 'coffee-rails', '~> 5.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
