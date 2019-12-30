@@ -44,7 +44,7 @@ gem 'kaminari-mongoid', '~> 1.0'
 gem 'kaminari', '~> 1.1'
 
 # Specific useful stuff
-gem 'render_async', '< 2.0' # load slow partials asynchronously
+gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
 
