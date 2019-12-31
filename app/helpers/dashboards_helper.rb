@@ -1,7 +1,7 @@
 # Convenience methods consumed in the dashboards controller index view
 module DashboardsHelper
   def date_range(date: Time.zone.now)
-    if (Config.start_day.downcase == :monthly )
+    if (Config.start_day == :monthly )
       month_range(date: date)
     else
       week_range(date: date)

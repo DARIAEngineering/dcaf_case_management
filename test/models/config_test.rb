@@ -82,16 +82,16 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
-    describe '#start_day' do
-      it 'should return the day of week as a symbol' do
-        assert(Config.start_day.equal? :monday)
+    describe '#budget_bar_max' do
+      it 'should return an integer of 1_000 if unconfigured' do
+        assert_equal 1_000, Config.budget_bar_max
       end
 
-      it 'should return another day of the week if configured' do
-        c = Config.find_or_create_by(config_key: 'start_of_week')
-        c.config_value = { options: ["Tuesday"] }
+      it 'should return another amount if configured' do
+        c = Config.find_or_create_by(config_key: 'budget_bar_max')
+        c.config_value = { options: [2000] }
         c.save!
-        assert(Config.start_day.equal? :tuesday)
+        assert_equal 2_000, Config.budget_bar_max
       end
     end
 
@@ -112,6 +112,19 @@ class ConfigTest < ActiveSupport::TestCase
 
       it "returns false by default" do
         assert(Config.hide_practical_support? == false)
+      end
+    end
+
+    describe '#start_day' do
+      it 'should return the day of week as a symbol' do
+        assert_equal :monday, Config.start_day
+      end
+
+      it 'should return another day of the week if configured' do
+        c = Config.find_or_create_by(config_key: 'start_of_week')
+        c.config_value = { options: ["Tuesday"] }
+        c.save!
+        assert_equal :tuesday, Config.start_day
       end
     end
   end
