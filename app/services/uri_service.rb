@@ -1,4 +1,4 @@
-class URIService
+class UriService
   attr_accessor :uri
 
   def initialize(uri)
