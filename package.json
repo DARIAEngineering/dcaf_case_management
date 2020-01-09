@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
-    "@rails/webpacker": "4.0.7",
+    "@rails/webpacker": "4.2.0",
     "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1",
     "set-value": "^3.0.1",
@@ -11,7 +11,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "webpack-dev-server": "^3.4.1"
+    "webpack-dev-server": "^3.9.0"
   },
   "resolutions": {
     "lodash": "^4.17.12",

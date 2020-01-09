@@ -1,6 +1,6 @@
 <h1><%= t('user.index.user_account_management') %></h1>
 
-<div class="row top-spacer bottom-spacer">
+<div class="row top-spacer mb-4">
   <div class="col">
     <%= button_to t('user.index.add_new_user'), new_user_path, method: :get, class: "btn btn-primary" %>
   </div>
@@ -10,6 +10,6 @@
   </div>
 </div>
 
-<div id="user-list" class="margin-bottom">
+<div id="user-list" class="mb-6">
   <%= render partial: 'users/users_table', locals: { users: @users, autosortable: true } %>
 </div>

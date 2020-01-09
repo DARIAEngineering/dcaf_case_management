@@ -5,6 +5,6 @@
   </h1>
 
   <div id="budget_bar">
-    <%= render_async budget_bar_path, nonce: true, 'data-turbolinks-track': 'reload' %>
+    <%= render_async budget_bar_path, html_options: { nonce: true, 'data-turbolinks-track': 'reload' }  %>
   </div>
 </div>
