@@ -2,7 +2,7 @@
 
 The directions below get you to a point where you can run the app with a test-seeded database.
 
-[If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](docs/YOUR_FIRST_CONTRIBUTION.md). If you have any trouble getting things set up, please ping us in Slack!
+[If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](YOUR_FIRST_CONTRIBUTION.md). If you have any trouble getting things set up, please ping us in Slack!
 
 If you see a spot in the docs that's confusing or could be improved, please pay it forward by making a pull request!
 
