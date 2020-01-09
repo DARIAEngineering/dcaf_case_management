@@ -12,7 +12,15 @@ class URIService
   end
 
   def secure_scheme_uri!
+    fix_leading_slashes
     @uri.scheme = "https"
     @uri
+  end
+
+  def fix_leading_slashes
+    if @uri.scheme.nil? && @uri.host.nil? && @uri.path.present?
+      @uri.host = @uri.path
+      @uri.path = ""
+    end
   end
 end
