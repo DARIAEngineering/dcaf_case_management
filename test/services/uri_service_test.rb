@@ -25,7 +25,7 @@ class URIServiceTest < ActiveSupport::TestCase
       assert_equal u.uri.scheme, "https"
     end
 
-    it 'can force the scheme to use https' do
+    it 'can enforce leading slashes while enforcing scheme' do
       u = URIService.new("www.noleadingslashesurl.com")
      
       assert_equal u.secure_scheme_uri!.to_s, "https://www.noleadingslashesurl.com"
