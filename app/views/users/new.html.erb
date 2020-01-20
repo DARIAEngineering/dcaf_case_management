@@ -1,6 +1,6 @@
 <div class='authform'>
   <h3><%= t('user.new.create_user') %></h3>
-    <%= bootstrap_form_for @user do |f| %>
+    <%= bootstrap_form_with model: @user, local: true do |f| %>
         <%= f.email_field :email, label: t('common.email') %>
         <%= f.text_field :name, label: t('common.name') %>
         <%= f.submit t('common.add'), class: 'btn btn-primary' %>
