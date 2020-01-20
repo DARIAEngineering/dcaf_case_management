@@ -28,6 +28,7 @@ module WelcomeMessageHelper
       "¡Gracias por pelear la buena pelea!",
       'You rock!',
       "You are invaluable - keep it up!!",
+      "Thank you so much for everyone you help!",
       "Outstanding job! Keep up the hard work!",
       "¡Trabajo destacado! ¡Mantener el trabajo duro!",
       "Keep up the Good Work",
