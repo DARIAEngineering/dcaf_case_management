@@ -1,5 +1,5 @@
 <div class="authform">
-  <%= bootstrap_form_with model: resource, as: resource_name, url: password_path(resource_name), html: { method: :post } do |f| %>
+  <%= bootstrap_form_with model: resource, local: true, as: resource_name, url: password_path(resource_name), html: { method: :post } do |f| %>
     <h3><%= t('devise.password.new.title') %></h3>
     <%= render "devise/shared/error_messages" %>
 
