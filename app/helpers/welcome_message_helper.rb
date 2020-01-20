@@ -44,7 +44,8 @@ module WelcomeMessageHelper
       "Love, all the good people you have helped.",
       "Hang in there! You're an inspiration to us all.",
       "Keep on keepin' on!",
-      "Thank you for all that you do!"
+      "Thank you for all that you do!",
+      "Thank you for being awesome!"
     ]
   end
 end
