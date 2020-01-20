@@ -1,6 +1,6 @@
 <h4><%= t 'patient.practical_support.new' %></h4>
 
-<%= bootstrap_form_for [patient, patient.practical_supports.new], html: { id: 'new-practical-support' }, remote: true do |f| %>
+<%= bootstrap_form_with model: [patient, patient.practical_supports.new], html: { id: 'new-practical-support' }, remote: true do |f| %>
   <%= f.select :support_type, practical_support_options %>
   <%= f.select :source, practical_support_source_options %>
   <%= f.check_box :confirmed %>
