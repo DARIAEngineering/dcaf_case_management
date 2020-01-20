@@ -1,2 +1,2 @@
 #Set default behavior to use Unix line endings so Docker on Windows doesn't fail
-* teolf=lf
+* text eol=lf
