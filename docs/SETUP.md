@@ -42,7 +42,7 @@ To fix this, you need to enable experimental features for Docker:
 1. Right click Docker icon in the Windows System Tray
 2. Go to Settings
 3. Go to Daemon
-4.Check Experimental features
+4. Check Experimental features
 5. Hit Apply
 
 
