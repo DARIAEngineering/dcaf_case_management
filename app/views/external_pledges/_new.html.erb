@@ -1,5 +1,5 @@
 <h5><%= t('external_pledge.new.title') %><%= tooltip_shell record_new_external_pledge_help_text %></h5>
-<%= bootstrap_form_for [patient, new_external_pledge], html: { id: 'new-external-pledge' }, remote: true do |f| %>
+<%= bootstrap_form_with model: [patient, new_external_pledge], html: { id: 'new-external-pledge' }, remote: true do |f| %>
 	<%= f.select :source, available_pledge_source_options_for(patient), label: t('external_pledge.new.source') %>
 	<%= f.number_field :amount, label: t('external_pledge.new.amount') %>
 	<%= f.submit t('external_pledge.new.create_button'), class: 'btn btn-primary', id: 'create-external-pledge' %>
