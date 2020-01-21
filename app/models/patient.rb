@@ -25,6 +25,7 @@ class Patient
   end
 
   before_validation :clean_fields
+  before_create :create_random_pin
   before_save :save_identifier
   before_update :update_pledge_sent_by_sent_at
   before_save :update_fund_pledged_at
@@ -55,6 +56,7 @@ class Patient
   field :other_phone, type: String
   field :other_contact_relationship, type: String
   field :identifier, type: String
+  field :random_pin, type: Integer
 
   # Contact-related info
   field :voicemail_preference
@@ -114,6 +116,7 @@ class Patient
             :created_by_id,
             :line,
             presence: true
+  validates :random_pin, uniqueness: true
   validates :primary_phone, format: /\d{10}/,
                             length: { is: 10 }
 
@@ -268,6 +271,15 @@ class Patient
     if appointment_date.present? && initial_call_date > appointment_date
       errors.add(:appointment_date, 'must be after date of initial call')
     end
+  end
+
+  def create_random_pin
+    return if random_pin
+    25.times do
+      self.random_pin = rand(100000..999999)
+      return if self.valid?
+    end
+    raise "Had trouble generating a random pin - please contact tech support"
   end
 
   def clean_fields

@@ -223,6 +223,21 @@ class PatientTest < ActiveSupport::TestCase
         end
       end
     end
+
+    describe 'create random pin' do
+      it 'should create a random pin on creation' do
+        refute_nil @patient.random_pin
+      end
+
+      it 'should force the random pin to be unique' do
+        @patient_2 = create :patient, name: 'Susan A in MD',
+                                      primary_phone: '777-777-7777',
+                                      line: 'MD'
+        assert @patient_2.valid?
+        @patient_2.random_pin = @patient.random_pin
+        refute @patient_2.valid?
+      end
+    end
   end
 
   describe 'other methods' do
