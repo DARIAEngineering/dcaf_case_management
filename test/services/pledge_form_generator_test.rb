@@ -8,7 +8,8 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
                                 other_contact: 'Yolo', clinic: clinic,
                                 initial_call_date: Date.new(2015, 12, 1),
                                 appointment_date: Date.new(2016, 1, 1),
-                                fund_pledge: 300, naf_pledge: 200
+                                fund_pledge: 300, naf_pledge: 200,
+                                random_pin: 654321
                                 
     @case_manager_name = 'Angela Davis'
   end
@@ -24,6 +25,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
         assert_includes @pdf_text, 'Angela Davis'
         assert_includes @pdf_text, 'Da Clinic'
         assert_includes @pdf_text, 'Morgantown, WV'
+        assert_includes @pdf_text, 'Sarah (D6-1111) [654321]'
       end
     end
 
@@ -46,5 +48,9 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
     it 'should get the current user name' do
       assert_equal(@pledge_form_generator.case_manager_name, 'Angela Davis')
     end
+
+    it 'should get the patient random pin' do
+      assert_equal(@pledge_form_generator.patient_random_pin, "[654321]")
+    end 
   end
 end
