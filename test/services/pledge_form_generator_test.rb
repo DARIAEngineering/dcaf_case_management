@@ -9,7 +9,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
                                 initial_call_date: Date.new(2015, 12, 1),
                                 appointment_date: Date.new(2016, 1, 1),
                                 fund_pledge: 300, naf_pledge: 200,
-                                random_pin: 654321
+                                random_pin: 654321, primary_phone: '123-456-1111'
                                 
     @case_manager_name = 'Angela Davis'
   end
