@@ -276,7 +276,7 @@ class Patient
   def create_random_pin
     return if random_pin
     25.times do
-      self.random_pin = FUND + rand(100000..999999).to_s
+      self.random_pin = "#{FUND}-#{rand(100000..999999)}"
       return if self.valid?
     end
     raise "Had trouble generating a random pin - please contact tech support"

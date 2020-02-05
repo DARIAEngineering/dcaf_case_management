@@ -34,7 +34,7 @@ class PledgeFormGenerator
   end
 
   def formatted_random_pin
-    "[#{patient.random_pin}]"
+    "[#{patient.random_pin}]" if patient.random_pin
   end 
 
   def generate_pledge_pdf
