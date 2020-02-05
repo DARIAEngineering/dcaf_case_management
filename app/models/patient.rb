@@ -56,7 +56,7 @@ class Patient
   field :other_phone, type: String
   field :other_contact_relationship, type: String
   field :identifier, type: String
-  field :random_pin, type: Integer
+  field :random_pin, type: String
 
   # Contact-related info
   field :voicemail_preference
@@ -276,7 +276,7 @@ class Patient
   def create_random_pin
     return if random_pin
     25.times do
-      self.random_pin = rand(100000..999999)
+      self.random_pin = FUND + rand(100000..999999).to_s
       return if self.valid?
     end
     raise "Had trouble generating a random pin - please contact tech support"
