@@ -33,7 +33,6 @@ gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of th
 gem 'devise', '~> 4.7'
 gem 'omniauth-google-oauth2', '~> 0.6.0'
 
-# We use `bootstrap_form_for` in views
 
 # Security libraries
 gem 'rack-attack', '~> 5.4.1'
