@@ -176,6 +176,24 @@ class PatientTest < ActiveSupport::TestCase
         assert_equal 0,summary[:pledged].count
       end
     end
+
+    it "should include pledges sent on the current week, even when the soft pledged was entered in a previous week" do
+      # The week starts on Monday Jan 22, there's a soft pledge entered on Jan 20, the week before
+      # Update pledge_sent to true on Jan 23, the current week, so it should show up on the week's pledge_status_summary as sent
+      Config.create config_key: :start_of_week,
+                    config_value: {options: ['Monday']}
+      Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 250 }                      
+      Timecop.freeze("January 23, 1973") { @patient.update! pledge_sent: true, 
+                                                            appointment_date: @patient.initial_call_date + 1, 
+                                                            clinic: create(:clinic) }
+
+      Timecop.freeze("January 25, 1973") do
+        summary = Patient.pledged_status_summary(:DC)
+        assert_equal 1, summary[:sent].count
+      end 
+
+    end
+
   end
 
   describe 'callbacks' do
