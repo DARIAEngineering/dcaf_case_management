@@ -12,11 +12,24 @@ class UriServiceTest < ActiveSupport::TestCase
       assert_nil uri
     end
 
+    it 'instantiates nil on nil' do
+      uri = UriService.new(nil).uri
+      assert_nil uri
+    end
+
     it 'can force the scheme to use https' do
       u = UriService.new("http://www.someyolourl.com")
+
       assert_equal u.uri.scheme, "http"
-      u.secure_scheme!
-      assert_equal u.secure_scheme!, "https"
+      assert_equal u.secure_scheme_uri!.to_s, "https://www.someyolourl.com"
+      assert_equal u.uri.scheme, "https"
+    end
+
+    it 'can enforce leading slashes while enforcing scheme' do
+      u = UriService.new("www.noleadingslashesurl.com")
+     
+      assert_equal u.secure_scheme_uri!.to_s, "https://www.noleadingslashesurl.com"
+      assert_equal u.uri.scheme, "https"
     end
   end
 end

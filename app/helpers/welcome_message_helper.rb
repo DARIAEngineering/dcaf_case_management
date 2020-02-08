@@ -43,7 +43,11 @@ module WelcomeMessageHelper
       "Thank you for the good work! We appreciate all your efforts.",
       "Love, all the good people you have helped.",
       "Hang in there! You're an inspiration to us all.",
-      "Keep on keepin' on!"
+      "Keep on keepin' on!",
+      "Thank you for all that you do!",
+      "Not all superheroes wear capes, some are DCAF case managers! <3",
+      "Thank you for being awesome!",
+      "You are doing wonderful things! Thank you so much for your support and help during these trying times."
     ]
   end
 end
