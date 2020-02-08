@@ -549,8 +549,8 @@ en:
       update_info_button: Update info
       user_panel: User panel for %{email} (%{name})
     roles:
+      admin: 'The admin role is for people who are managing their fund''s DARIA instance or case manager corps. This gives access to what CMs and Data Volunteers have, plus the following: user management tools, clinic management tools, DARIA instance configuration tools, and the ability to delete patients from the individual patient record page (such as in the case of a duplicate entry).'
       cm: The Case Manager role is for people doing patient intake and making calls. This gives access to the main call list dashboard, the individual patient record page (minus the ability to edit fulfillment info), and the data entry page.
-      admin: "The admin role is for people who are managing their fund's DARIA instance or case manager corps. This gives access to what CMs and Data Volunteers have, plus the following: user management tools, clinic management tools, DARIA instance configuration tools, and the ability to delete patients from the individual patient record page (such as in the case of a duplicate entry)."
       data_volunteer: 'The Data Volunteer role is for people who require access to data or accounting tools. This gives access to what CMs have, plus the following: accounting tools for pledge reconcilling, reporting tools with summary data on patient intake, the fulfillment tab on the individual patient record page (for marking pledges as paid out), and the ability to download an anonymized spreadsheet of data for analysis.'
     search:
       button: Search
