@@ -184,7 +184,7 @@ class PatientTest < ActiveSupport::TestCase
                     config_value: {options: ['Monday']}
       Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 250 }                      
       Timecop.freeze("January 23, 1973") { @patient.update! pledge_sent: true, 
-                                                            appointment_date: @patient.initial_call_date + 1, 
+                                                            appointment_date: @patient.initial_call_date + 1.day, 
                                                             clinic: create(:clinic) }
 
       Timecop.freeze("January 25, 1973") do
