@@ -1,3 +1,17 @@
+ require 'ostruct'
+
+# Currently defining this as a placeholder to keep the autoloader happy.
+# Actual code for the old gem is commented out below. Comment it it in
+# someday.
+module ClinicFinder
+  # Functionality pertaining to gestation age calculation
+  module Modules
+    # Nesting due to rails autoload
+    module GestationHelper; end
+  end
+end
+
+# Old code from gem 
 # class ClinicFinder
 #   class GestationHelper
 #     attr_reader :gestational_age, :gestational_weeks
