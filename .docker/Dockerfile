@@ -20,7 +20,7 @@ COPY package.json ${DCAF_DIR}/package.json
 COPY yarn.lock ${DCAF_DIR}/yarn.lock
 
 # install packages
-RUN apt-get update && apt-get upgrade && \
+RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
     ${BUILD_DEPENDENCIES} \
     ${APP_DEPENDENCIES} \
