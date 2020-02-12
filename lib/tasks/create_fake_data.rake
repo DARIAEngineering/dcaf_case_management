@@ -3,17 +3,21 @@ namespace :db do
     desc 'Generate fake patient entries for data wranglers'
     task :create_fake_data => :environment do
 
+        Patient.destroy_all
+
         users = User.all
         clinics = Clinic.all
 
+        gen = Random.new(2020) # our random number generator: https://ruby-doc.org/core-2.7.0/Random.html
+
         5000.times do |idx|
-          flag = idx % 5 == 0
+          flag = gen.rand < 0.05 # gen.rand will always return a float between 0 and 1 
 
-          initial_call = Date.today - rand(300)
+          initial_call = Date.today - gen.rand(300)
           
-          has_appt = idx % 2 == 0
+          has_appt = gen.rand < 0.8
 
-          has_pledge = idx % 3 == 0
+          has_pledge = gen.rand < 0.5
 
           lines = ['DC', 'VA', 'MD'] # need to add Spanish maybe? 
 
@@ -21,22 +25,22 @@ namespace :db do
             name: 'Randomized Patient',
             primary_phone: "#{idx}".rjust(10, "0"),
             initial_call_date: initial_call,
-            created_by: users.sample(1).first,
+            created_by: users.sample,
             urgent_flag: flag,
-            line: lines[idx%3], # thank you seeds.rb! 
-            clinic: has_appt ? clinics.sample(1).first : nil,
-            appointment_date: has_appt ? initial_call + rand(15) : nil,
-            last_menstrual_period_weeks: rand(15) + 3,
-            last_menstrual_period_days: rand(7),
-            procedure_cost: has_appt ? rand(600) : nil,
+            line: lines[gen.rand(3)], # thank you seeds.rb! 
+            clinic: has_appt ? clinics.sample : nil,
+            appointment_date: has_appt ? initial_call + gen.rand(15) : nil,
+            last_menstrual_period_weeks: gen.rand(15) + 3,
+            last_menstrual_period_days: gen.rand(7),
+            procedure_cost: has_appt ? gen.rand(600) : nil,
             pledge_sent: has_appt && has_pledge,
-            patient_contribution: rand(400),
-            fund_pledge: has_appt ? rand(300) : nil
+            patient_contribution: gen.rand(400),
+            fund_pledge: has_appt ? gen.rand(300) : nil
           )
 
           # create external_pledges, the conditional below simply attempts to 
           # maintain that not all callers will have an external pledge 
-          if idx.odd? && has_appt
+          if gen.rand < 0.3 && has_appt
             patient.external_pledges.create!(
             source: 'Metallica Abortion Fund',
             amount: 100,
@@ -47,8 +51,8 @@ namespace :db do
           # create calls, where every patient will have at least one call made
           call_status = ["Left voicemail", "Reached patient", "Couldn't reach patient"]
 
-          rand(1..7).times do
-            patient.calls.create status: call_status[rand(3)], created_by: users.sample
+          gen.rand(1..7).times do
+            patient.calls.create status: call_status[gen.rand(3)], created_by: users.sample
           end
           
           # create practical_support
@@ -62,13 +66,13 @@ namespace :db do
           if has_appt && patient.procedure_cost > 500 && has_pledge
             patient.practical_supports.create!(
               source: 'Metallica Abortion Fund',
-              support_type: support_types[rand(5)],
+              support_type: support_types[gen.rand(5)],
               created_by: users.sample
             )
           end 
           
-          # create pledge fulfillments 
-          if idx.even? && patient.pledge_sent 
+          # create pledge fulfillments, with 75 percent probability!?
+          if gen.rand < 0.75 && patient.pledge_sent 
             patient.build_fulfillment(
               created_by_id: User.first.id,
               fulfilled: true,
@@ -78,11 +82,7 @@ namespace :db do
           end 
 
           # removing urgent flag if pledge sent, as I think this is what CMs typically do 
-          if patient.pledge_sent
-            patient.update(
-              urgent_flag: false
-            )
-          end 
+          patient.update(urgent_flag: false) unless !patient.pledge_sent
         
         end
 
