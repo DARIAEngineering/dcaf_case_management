@@ -41,6 +41,8 @@ jobs:
       - run: yarn run scan
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
+      - store_artifacts:
+          path: /home/circleci/abortioneering/test/reports/
   predeploy:
     working_directory: ~/abortioneering
     docker:
