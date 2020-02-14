@@ -43,6 +43,8 @@ jobs:
           path: /home/circleci/abortioneering/tmp/capybara/
       - store_artifacts:
           path: /home/circleci/abortioneering/test/reports/
+      - store_test_results:
+          path: /home/circleci/abortioneering/test/reports/
   predeploy:
     working_directory: ~/abortioneering
     docker:
