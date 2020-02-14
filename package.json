@@ -8,6 +8,7 @@
     "stupid-table-plugin": "^1.1.3"
   },
   "devDependencies": {
+    "auditjs": "^4.0.1-beta.29",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
@@ -16,5 +17,8 @@
   "resolutions": {
     "lodash": "^4.17.12",
     "eslint-utils": "^1.4.1"
+  },
+  "scripts": {
+    "scan": "auditjs ossi --dev --xml > reports/dependencies.xml"
   }
 }

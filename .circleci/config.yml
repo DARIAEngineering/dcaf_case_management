@@ -38,7 +38,7 @@ jobs:
       - run: bundle exec ruby-audit check
       - run: bundle-audit update; bundle-audit check --ignore CVE-2015-9284
       - run: bundle exec rails zeitwerk:check
-      # - run: yarn audit
+      - run: yarn run scan
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
   predeploy:
