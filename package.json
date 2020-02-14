@@ -19,6 +19,6 @@
     "eslint-utils": "^1.4.1"
   },
   "scripts": {
-    "scan": "auditjs ossi --dev --xml > reports/dependencies.xml"
+    "scan": "auditjs ossi --dev --xml > test/reports/dependencies.xml"
   }
 }
