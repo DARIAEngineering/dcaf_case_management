@@ -21,6 +21,10 @@
       <%= role_toggle_button @user, 'data_volunteer' %>
       <%= role_toggle_button @user, 'cm' %>
     </div>
+    <br /><br />
+    <% User.role.values.each do |r| %>
+      <p><%= t("user.roles.#{r}") %></p>
+    <% end %>
   <% end %>
 
   <div id='user-details-update' class="top-spacer">

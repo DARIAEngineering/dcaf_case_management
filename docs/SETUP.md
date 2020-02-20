@@ -33,6 +33,19 @@ Any errors will show up in your terminal in the window you are running the `up` 
 
 If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
 
+* On Windows 10, you may run into an error related to no matching manifest for Windows:
+ex: Step 1/21 : FROM ruby:2.6.5-slim-buster
+2.6.5-slim-buster: Pulling from library/ruby
+Service 'web' failed to build: no matching manifest for windows/amd64 10.0.18363 in the manifest list entries
+
+To fix this, you need to enable experimental features for Docker:
+1. Right click Docker icon in the Windows System Tray
+2. Go to Settings
+3. Go to Daemon
+4. Check Experimental features
+5. Hit Apply
+
+
 ## Local environment
 
 If you prefer a local environment, totally cool! We recommend the following:
