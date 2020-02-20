@@ -61,11 +61,6 @@
       "description": "The app name you just selected plus .herokuapp.com . e.g. myfund.herokuapp.com",
       "value": ""
     },
-    "SKYLIGHT_AUTH_TOKEN": {
-      "description": "get it from Skylight",
-      "value": "",
-      "required": false
-    },
     "SQREEN_TOKEN": {
       "description": "get it from Sqreen",
       "value": "",
