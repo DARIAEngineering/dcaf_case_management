@@ -102,6 +102,5 @@ group :test do
 end
 
 group :production do
-  gem 'skylight' # our newrelic-style efficiency monitoring platform
   gem 'sqreen' # an active security monitoring platform
 end

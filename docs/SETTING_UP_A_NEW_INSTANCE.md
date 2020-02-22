@@ -26,7 +26,6 @@ First, we generate some API tokens from services that DARIA uses.
 * Generate a Google API token (for the Clinic Finder):
   * Enable the Geocoding API
   * Create a Google API key, named `FUND Geocoding API Key`; restrict it to just the Geocoding API
-* Optional but recommended: Generate a [Skylight](https://www.skylight.io/) API token -- this is a performance monitoring service
 * Optional but recommended: Generate a [Sqreen](https://www.sqreen.io/) API token -- this is a security service
 
 ### Create a new heroku app
