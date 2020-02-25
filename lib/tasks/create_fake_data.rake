@@ -10,6 +10,7 @@ namespace :db do
         gen = Random.new(2020) # our random number generator: https://ruby-doc.org/core-2.7.0/Random.html
 
         5000.times do |idx|
+          idx % 10 == 0 ? print("\nMaking fake pt #{idx} of 5000") : print('.')
           flag = gen.rand < 0.05 # gen.rand will always return a float between 0 and 1 
 
           initial_call = Date.today - gen.rand(300)
