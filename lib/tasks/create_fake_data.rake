@@ -3,7 +3,6 @@ namespace :db do
     desc 'Generate fake patient entries for data wranglers'
     task :create_fake_data => :environment do
 
-        Patient.destroy_all
 
         users = User.all
         clinics = Clinic.all
