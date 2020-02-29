@@ -261,7 +261,6 @@ en:
       config_management: Config Management
       export: Export anonymized CSV
       label: Admin
-      reporting: Reporting
       user_management: User Management
     cm_resources:
       label: CM Resources

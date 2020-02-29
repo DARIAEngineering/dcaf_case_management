@@ -261,7 +261,6 @@ es:
       config_management: Manejo de Configuración
       export: Exportación anónima de CSV
       label: Administración
-      reporting: Reportes
       user_management: Manejo de Usuarios
     cm_resources:
       label: Recursos del Administrador de Casos
