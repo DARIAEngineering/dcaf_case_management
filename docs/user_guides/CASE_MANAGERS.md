@@ -10,7 +10,7 @@ When you log in and pick your line, and see a header of `Build your call list`, 
 
 ### Build your call list
 
-You use this utility to populate your call list for the evening. Entering either a phone number, part of a phone number, or a name will search patients for a match and return any matches it finds that aren't already in your call list. You can add people to your call list by clicking the `Add` link after searching for them.
+You use this utility to populate your call list for the day. Entering either a phone number, part of a phone number, or a name will search patients for a match and return any matches it finds that aren't already in your call list. You can add people to your call list by clicking the `Add` link after searching for them.
 
 Generally your shift will start by using this utility to find everyone you need to call that day, and then adding people as necessary, but you can use it for single patient lookups as well.
 
@@ -18,7 +18,7 @@ Your call list is unique to you as a case manager, and other case managers can't
 
 #### Creating a new patient
 
-If a search doesn't find any results, instead of a list of patients, you will get a small form to create a new patient. Completing this form will save the patient in DARIA add the patient to your call list.
+If a search doesn't find any results, instead of a list of patients, you will get a small form to create a new patient. Completing this form will save the patient in DARIA and add the patient to your call list.
 
 DARIA won't let you save a patient unless the phone number is unique. Refer to your fund on guidance for how to handle duplicate phone numbers.
 
@@ -71,4 +71,4 @@ DARIA will now prompt you to send the pledge to the clinic. Note that DARIA does
 
 Finally, click next again, and check the box to indicate that you sent the pledge.
 
-To withdraw a sent pledge, click the `Cancel pledge` button, click next, and uncheck the box.
+If changes are needed, you can withdraw the pledge in DARIA by clicking the `Cancel pledge` button, then `Next`, and uncheck the box. Ask your fund for guidance on contacting the clinic to inform them of any changes to a pledge that was already sent.
