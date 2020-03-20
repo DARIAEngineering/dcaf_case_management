@@ -168,7 +168,7 @@ GEM
     js-routes (1.4.4)
       railties (>= 3.2)
       sprockets-rails
-    json (2.1.0)
+    json (2.3.0)
     jwt (2.1.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
