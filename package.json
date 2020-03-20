@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
-    "@rails/webpacker": "4.2.0",
+    "@rails/webpacker": "4.2.2",
     "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1",
     "set-value": "^3.0.1",
@@ -11,10 +11,11 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.10.3"
   },
   "resolutions": {
     "lodash": "^4.17.12",
-    "eslint-utils": "^1.4.1"
+    "eslint-utils": "^1.4.1",
+    "serialize-javascript": "^2.1.1"
   }
 }
