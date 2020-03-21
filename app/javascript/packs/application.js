@@ -13,3 +13,4 @@ import '../src/clinics';
 import '../src/fontawesome';
 import '../src/pledge_calculator';
 import '../src/table_sorting';
+import '../src/turbolinks';
