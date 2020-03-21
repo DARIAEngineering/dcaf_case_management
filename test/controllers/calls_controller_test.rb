@@ -16,7 +16,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     before do
-      @call = attributes_for :call
+      @call = attributes_for :call, status: 'Reached patient'
       post patient_calls_path(@patient), params: { call: @call }, xhr: true
     end
 
@@ -35,14 +35,14 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should redirect to the edit patient path if patient is reached' do
-      assert_response :success
+      assert_redirected_to edit_patient_path(@patient)
     end
 
     it 'should not save and flash an error if status is blank or bad' do
       [nil, 'not a real status'].each do |bad_status|
-        @call[:status] = bad_status
+        call = attributes_for :call, status: bad_status
         assert_no_difference 'Patient.find(@patient).calls.count' do
-          post patient_calls_path(@patient), params: { call: @call }, xhr: true
+          post patient_calls_path(@patient), params: { call: call }, xhr: true
         end
         assert_response :bad_request
       end
