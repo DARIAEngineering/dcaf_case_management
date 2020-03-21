@@ -1,6 +1,6 @@
 <h3 class="mt-5 mb-5"><small><%= t('patient.new.title') %></small></h3>
 
-<%= bootstrap_form_with model: patient do |f| %>
+<%= bootstrap_form_with model: patient, local: true do |f| %>
   <div class="row">
     <div class="col">
       <%= f.text_field :primary_phone,
