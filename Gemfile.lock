@@ -387,9 +387,6 @@ GEM
     tilt (2.0.10)
     timecop (0.9.1)
     ttfunk (1.5.1)
-    turbolinks (5.2.0)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     tzinfo-data (1.2018.5)
@@ -476,7 +473,6 @@ DEPENDENCIES
   simplecov
   sqreen
   timecop
-  turbolinks (~> 5.2.0)
   tzinfo-data
   webdrivers
   webpacker (~> 4.2.0)
