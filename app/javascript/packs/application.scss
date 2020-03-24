@@ -1,0 +1,4 @@
+// Webpack styles. This gets gets compiled and dropped into
+// <%= stylesheet_pack_tag 'application' %> in the main layout.
+
+@import '../styles/users';
