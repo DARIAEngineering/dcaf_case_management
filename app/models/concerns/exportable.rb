@@ -37,6 +37,8 @@ module Exportable
     "Pledge sent" => :pledge_sent,
     "Resolved without fund assistance" => :resolved_without_fund,
     "Pledge generated time" => :pledge_generated_at,
+    "Pledge sent at" => :pledge_sent_at, 
+    "Fund pledged at" => :fund_pledged_at,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,
