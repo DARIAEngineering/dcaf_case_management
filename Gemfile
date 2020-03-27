@@ -10,7 +10,7 @@ gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Asset pipeline
-gem 'webpacker', '~> 4.2.0'
+gem 'webpacker', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap_form', '~> 4.2.0'
