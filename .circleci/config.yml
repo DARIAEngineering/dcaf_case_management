@@ -37,9 +37,12 @@ jobs:
       - run: brakeman --exit-on-warn .
       - run: bundle exec ruby-audit check
       - run: bundle-audit update; bundle-audit check --ignore CVE-2015-9284
+      # - run: bundle exec rails zeitwerk:check # Restore in rails 6.0.3 https://github.com/rails/rails/issues/37966
       # - run: yarn audit
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
+      - store_test_results:
+          path: test-results/
   predeploy:
     #working_directory: ~/abortioneering
     #docker:

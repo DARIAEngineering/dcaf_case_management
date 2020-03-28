@@ -10,7 +10,9 @@
     <%= favicon_link_tag %>
 
     <%= stylesheet_link_tag :application, media: 'all' %>
-    <%= javascript_pack_tag 'application', 'data-search-pseudo-elements': true %>
+
+    <%= stylesheet_pack_tag 'application', 'data-search-pseudo-elements': true, 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-search-pseudo-elements': true, 'data-turbolinks-track': 'reload' %>
 
     <%= javascript_include_tag :application %>
     <%= content_for :render_async %>

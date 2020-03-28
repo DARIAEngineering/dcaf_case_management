@@ -147,7 +147,7 @@ class Patient
     # Get patients who have been pledged this week, as a simplified hash
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
-                      .where(:fund_pledged_at.gte => start_of_period)
+                      .or({:pledge_sent_at.gte => start_of_period}, {:fund_pledged_at.gte => start_of_period})
                       .where(:resolved_without_fund.in => [false, nil])
                       .order_by(fund_pledged_at: :asc)
                       .pluck(*plucked_attrs)

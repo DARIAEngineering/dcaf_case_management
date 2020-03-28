@@ -2,16 +2,15 @@ source 'https://rubygems.org'
 ruby '2.6.5'
 
 # Standard rails
-gem 'rails', '~> 6.0.1'
+gem 'rails', '~> 6.0.2'
 gem 'puma', '~> 4.3' # roar
-gem 'turbolinks', '~> 5.2.0'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem 'nokogiri', '>= 1.10.5'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Asset pipeline
-gem 'webpacker', '~> 4.2.0'
+gem 'webpacker', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap_form', '~> 4.2.0'
@@ -102,6 +101,5 @@ group :test do
 end
 
 group :production do
-  gem 'skylight' # our newrelic-style efficiency monitoring platform
   gem 'sqreen' # an active security monitoring platform
 end

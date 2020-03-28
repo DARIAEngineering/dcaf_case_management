@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <%= bootstrap_form_with model: config, inline: true do |f| %>
+    <%= bootstrap_form_with model: config, inline: true, local: true do |f| %>
       <%= f.text_area :options, label: "#{config.config_key.to_s.humanize} options",
                                 value: config.config_value.try(:values_at, 'options')
                                                           .try(:join, ', '),

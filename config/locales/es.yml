@@ -261,7 +261,6 @@ es:
       config_management: Manejo de Configuración
       export: Exportación anónima de CSV
       label: Administración
-      reporting: Reportes
       user_management: Manejo de Usuarios
     cm_resources:
       label: Recursos del Administrador de Casos
@@ -548,6 +547,10 @@ es:
       new_password: Contraseña nueva
       update_info_button: Actualizar información
       user_panel: Panel de usuario para %{email} (%{name})
+    roles:
+      admin: 'El rol de administrador es para las personas que administran la instancia DARIA de su fondo o el cuerpo de administrador de casos. Esto da acceso a lo que tienen los CM y los voluntarios de datos, además de lo siguiente: herramientas de administración de usuarios, herramientas de administración de clínicas, herramientas de configuración de instancias DARIA y la capacidad de eliminar pacientes de la página de registro de pacientes individuales (como en el caso de una entrada duplicada).'
+      cm: El rol de administrador de casos es para las personas que ingresan pacientes y hacen llamadas. Esto le da acceso al panel principal de la lista de llamadas, la página de registro individual del paciente (menos la capacidad de editar la información de cumplimiento) y la página de entrada de datos.
+      data_volunteer: 'El rol del voluntario de datos es para las personas que requieren acceso a datos o herramientas de contabilidad. Esto da acceso a lo que tienen los CM, además de lo siguiente: herramientas de contabilidad para la conciliación de compromisos, herramientas de informes con datos resumidos sobre la admisión del paciente, la pestaña de cumplimiento en la página de registro individual del paciente (para marcar compromisos como pagados) y la capacidad de descargar Una hoja de cálculo anónima de datos para el análisis.'
     search:
       button: Buscar
       text_field: Nombre o Correo Electrónico
