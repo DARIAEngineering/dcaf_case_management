@@ -6,6 +6,7 @@ class ArchivedPatient
 
   # Concerns
   include Exportable
+  include LastMenstrualPeriodMeasureable
 
   # Relationships
   belongs_to :clinic
