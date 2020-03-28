@@ -41,9 +41,9 @@ jobs:
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
   predeploy:
-    working_directory: ~/abortioneering
-    docker:
-      - image: circleci/ruby:2.6.0-node-browsers
+    #working_directory: ~/abortioneering
+    #docker:
+     - image: circleci/ruby:2.6.0-node-browsers
     steps:
       - checkout
       # - restore_cache:
