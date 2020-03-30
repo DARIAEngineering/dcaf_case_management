@@ -29,6 +29,7 @@ module Exportable
     "Urgent?" => :urgent_flag,
     "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
+    "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
     "Abortion cost" => :procedure_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
