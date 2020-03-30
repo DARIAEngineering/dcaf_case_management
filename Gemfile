@@ -37,6 +37,9 @@ gem 'omniauth-google-oauth2', '~> 0.6.0'
 # We report errors with sentry
 gem 'sentry-raven'
 
+# We report errors with sentry
+gem 'sentry-raven'
+
 # Security libraries
 gem 'rack-attack', '~> 5.4.1'
 
