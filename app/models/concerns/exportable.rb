@@ -189,7 +189,7 @@ module Exportable
 
     def to_csv
       Enumerator.new do |y|
-        each do |export|
+        includes(:clinic).each do |export|
           row = CSV_EXPORT_FIELDS.values.map{ |field| export.get_field_value_for_serialization(field) }
           y << CSV.generate_line(row, encoding: 'utf-8')
         end
