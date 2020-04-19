@@ -1,4 +1,4 @@
-FROM ruby:2.6.5-slim-buster
+FROM ruby:2.7.1-slim-buster
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
