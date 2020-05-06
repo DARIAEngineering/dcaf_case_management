@@ -189,6 +189,7 @@ GEM
       rake
     launchy (2.4.3)
       addressable (~> 2.3)
+    libsqreen (0.3.0.0.3)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -380,8 +381,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sq_mini_racer (0.2.4.sqreen3)
-    sqreen (1.17.0)
+    sq_mini_racer (0.2.5.0.1.beta3)
+    sqreen (1.18.6)
+      libsqreen (~> 0.3.0.0)
       sq_mini_racer (~> 0.2.4.sqreen2)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
@@ -483,7 +485,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.6.5p114
+   ruby 2.6.6p146
 
 BUNDLED WITH
    2.1.4
