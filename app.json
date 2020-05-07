@@ -57,6 +57,11 @@
       "description": "set to true",
       "value": "true"
     },
+    "SENTRY_DSN": {
+      "description": "get it from Sentry",
+      "value": "",
+      "required": false
+    },
     "SITE_URL": {
       "description": "The app name you just selected plus .herokuapp.com . e.g. myfund.herokuapp.com",
       "value": ""
