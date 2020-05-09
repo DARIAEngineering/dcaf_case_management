@@ -158,6 +158,7 @@ class PatientsController < ApplicationController
     headers["Content-disposition"] = "attachment; filename=\"#{filename}\""
     headers['X-Accel-Buffering'] = 'no'
     headers["Cache-Control"] = "no-cache"
+    headers["Transfer-Encoding"] = "chunked"
     headers.delete("Content-Length")
   end
 end
