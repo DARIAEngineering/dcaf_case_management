@@ -48,7 +48,7 @@ a:hover, a:active, a:visited, a:focus {
 .navbar-inverse{
   background-color: #f5f5f5;
   border: none;
-  .navbar-header > a, .navbar-nav > li > a, .navbar-link{
+  .navbar-header > a, .navbar-nav > li > a {
     color: $daria-color;
     &:hover{
       color: lighten($daria-color, 20%);
@@ -357,10 +357,6 @@ $daria-color-lt : #825fb9;
 #flash {
   position: fixed;
 }
-
-// .input-group-prepend {
-//   @extend .input-group-addon;
-// }
 
 .form-check label {
   min-height: 20px;
