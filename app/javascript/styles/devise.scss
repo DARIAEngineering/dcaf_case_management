@@ -1,0 +1,21 @@
+// Styles pertaining to the login form or other devise-related views.
+
+@import './colors';
+
+.authform {
+  @extend .card-header;
+  @extend .mx-auto;
+  padding-top: 20px;
+  border: 1px solid $light-gray;
+  border-radius: 6px;
+  margin: 0 auto;
+}
+
+.authform form {
+  padding-bottom: 20px;
+}
+
+.authform .button {
+  @extend .btn;
+  @extend .btn-primary;
+}
