@@ -29,6 +29,7 @@ module Exportable
     "Urgent?" => :urgent_flag,
     "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
+    "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
     "Abortion cost" => :procedure_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
@@ -188,7 +189,7 @@ module Exportable
 
     def to_csv
       Enumerator.new do |y|
-        each do |export|
+        includes(:clinic).each do |export|
           row = CSV_EXPORT_FIELDS.values.map{ |field| export.get_field_value_for_serialization(field) }
           y << CSV.generate_line(row, encoding: 'utf-8')
         end

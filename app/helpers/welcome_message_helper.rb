@@ -48,7 +48,9 @@ module WelcomeMessageHelper
       "Thank you for all that you do!",
       "Not all superheroes wear capes, some are DCAF case managers! <3",
       "Thank you for being awesome!",
-      "You are doing wonderful things! Thank you so much for your support and help during these trying times."
+      "You are doing wonderful things! Thank you so much for your support and help during these trying times.",
+      "We appreciate all that you're doing. Keep up the good work!",
+      "Thank you so much. If you're ok with hugs and if I could hug you in real life, I would hug you! Your work is so important."
     ]
   end
 end

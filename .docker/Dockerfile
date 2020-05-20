@@ -1,4 +1,4 @@
-FROM ruby:2.6.5-slim-buster
+FROM ruby:2.6.6-slim-buster
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
@@ -41,6 +41,10 @@ RUN yarn install
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
+# get version 12 of nodejs
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - && \
+    apt-get install nodejs -y
+
 # remove unnecessary build dependencies
 RUN apt-get purge -y ${BUILD_DEPENDENCIES} && apt-get autoremove -y 
 
@@ -54,8 +58,10 @@ RUN mkdir /tmp/ahab && \
     rm ahab && \
     cd -
 
-# remove unnecessary ahab dependencies
-RUN apt-get purge -y ${AHAB_DEPENDENCIES} && apt-get autoremove -y 
+# remove unnecessary ahab dependencies except ca-certificates, which is needed for nodejs
+RUN ahab_dep=${AHAB_DEPENDENCIES} && \
+    ahab_updated=${ahab_dep##ca-certificates} && \
+    apt-get purge -y ${ahab_updated} && apt-get autoremove -y
 
 # Move the rest of the app over
 COPY . ${DCAF_DIR}
