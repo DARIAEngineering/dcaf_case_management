@@ -41,11 +41,11 @@ jobs:
       # - run: yarn audit
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
-      - store_test_results:
-          path: test-results/
+      #- store_test_results:
+      #   path: test-results/
   predeploy:
-    #working_directory: ~/abortioneering
-    #docker:
+    working_directory: ~/abortioneering
+    docker:
      - image: circleci/ruby:2.6.0-node-browsers
     steps:
       - checkout
