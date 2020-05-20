@@ -10,8 +10,6 @@ class AccountantsController < ApplicationController
   end
 
   def search
-    # We're doing it janky because we implemented search to return an array,
-    # not an activerecord object. some room for improvement.
     @results = if params[:search].present?
                  Patient.where(pledge_sent: true)
                         .order_by(pledge_sent_at: :desc)
