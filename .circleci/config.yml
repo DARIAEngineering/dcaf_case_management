@@ -46,11 +46,7 @@ jobs:
   predeploy:
     working_directory: ~/abortioneering
     docker:
-<<<<<<< HEAD
-     - image: circleci/ruby:2.6.0-node-browsers
-=======
       - image: circleci/ruby:2.6.6-node-browsers
->>>>>>> 128cd61ccfb62ff05c6c6750128f1e6598fb2285
     steps:
       - checkout
       # - restore_cache:
