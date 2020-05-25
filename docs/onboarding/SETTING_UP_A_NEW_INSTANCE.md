@@ -1,47 +1,46 @@
 # Setting up a new instance of DARIA
 
-These are detailed instructions in spinning up an instance in heroku on the DCAF pipeline. It assumes that you already have access set up and permissions on the following resources:
-
-* Heroku pipeline (for provisioning)
-* Google Cloud (for oauth and key)
-* Sentry (for keys)
-* Sqreen (for keys)
+These are detailed instructions in spinning up an instance in heroku on the DCAF pipeline. It assumes that you already have access set up and permissions on the resources we use.
 
 ## By the way
 
-If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, DCAF already manages the infrastructure (what's referred to in this document as the `DCAF pipeline`) for several abortion funds. For your share of server costs (generally $25/month) our team will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here.
+If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, DCAF already manages the infrastructure (what's referred to in this document as the `DCAF pipeline`) for several abortion funds. For your share of server costs (generally $25/month) our team will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here. If you are trying to use this, you'll likely need to make some on-the-fly adjustments as this guide assumes you have access to all the resources in here.
 
 ## Main steps
 
 ### Information gathering
 
-To provision an app, we'll need the following information. The DARIA team member requesting the provisioning should have all this information.
+To provision an app, we'll need the following information. The DARIA team member requesting the provisioning should provide all this information to you.
 
-* Short abbreviation of the fund (e.g. DCAF) - referred to as FUND
-* Name of the fund (e.g. DC Abortion Fund) - referred to as FUND_FULL
-* Phone number of the abortion fund (e.g. 202-000-1111) - referred to as FUND_PHONE
+* Short abbreviation of the fund (e.g. DCAF) - referred to as `FUND`
+* Name of the fund (e.g. DC Abortion Fund) - referred to as `FUND_FULL`
+* Phone number of the abortion fund (e.g. 202-000-1111) - referred to as `FUND_PHONE`
+* Website of the fund (e.g. dcabortionfund.org) - referred to as `FUND_DOMAIN`
 * Name and email of the fund admins (e.g. Susan Everyteen - susan@example.com) - we create initial admin accounts for these people
-* Website of the fund (e.g. dcabortionfund.org) - referred to as FUND_DOMAIN
 
 ### Gathering API tokens and secrets
 
-First, we generate some API tokens from services that DARIA uses.
+We also need to have some API tokens and such that we generate or dig up when we provision.
 
 * Generate Google OAuth configuration (for Login with Google):
-  * If you don't have one, set up a google project to administer this app (or choose an existing account you own - DCAF has one)
-  * Once logged in, navigate to https://console.developers.google.com/apis/dashboard and select your project
-  * Under "Credentials" follow prompts to "Create credentials" for "OAuth client ID"
-  * Configure your OAuth Consent screen:
-    * Make your application type public
-    * Add your app URL (`https://daria-FUND.herokuapp.com`) as the authorized domain
-    * Select "Web Application" when prompted to choose an application type
-    * Leave Authorized Javascript origins blank
-    * Set Authorized redirect URIs to https://daria-FUND.herokuapp.com/users/auth/google_oauth2/callback
-  * Generate a `GOOGLE_KEY` and a `GOOGLE_SECRET` - these values are `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` respectively
-* Generate a Google API token (for the Clinic Finder):
-  * Enable the Geocoding API
-  * Create a Google API key, named `FUND Geocoding API Key`; restrict it to just the Geocoding API
-* Generate a [Sqreen](https://www.sqreen.io/) API token
+  * Go to our [GCP project](https://console.cloud.google.com/home/dashboard?project=dcaf-single-sign-on-production)
+  * On the left menu, `APIs & Services > Credentials > Create Credentials > OAuth Client ID` to create a new set of OAuth credentials
+  * Fill in the form as follows: Application type: Web Application, Name: FUND_FULL from above, Authorized Javascript origins: (leave blank), Authorized redirect URIs: https://daria-FUND.herokuapp.com/users/auth/google_oauth2/callback, then click Create
+  * Keep tabs on the generated the Client ID and Client secret; these are `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET`
+
+* Grab our Google API token:
+  * Go to our [GCP project](https://console.cloud.google.com/home/dashboard?project=dcaf-single-sign-on-production)
+  * On the left menu, `APIs & Services > Credentials`
+  * Copy the Key value of the `Google Geo API Key`; this is `GOOGLE_GEO_API_KEY`
+
+* Get the Sentry DSN key we use:
+  * Head to our [Sentry client keys](https://sentry.io/settings/dcaf-engineering/projects/daria/keys) and get the DSN value. This is `SENTRY_DSN`
+
+* Grab a Sqreen API token:
+  * Log in to [Sqreen](https://www.sqreen.io/)
+  * Near the top left, where it says `App Inventory`, click the dropdown and click `Connect a new application`
+  * Fill out as follows: Application name: daria-FUND, Language of the application: Ruby, Environment: production'. Click the `Show instructions` button
+  * Look for the value of `token` on the right side. `daria-FUND` is `SQREEN_APP_NAME` and the token is `SQREEN_TOKEN`
 
 ### Provision the instance in the heroku pipeline
 
@@ -94,8 +93,6 @@ When they do so, they should do the following to start:
 * Go to Admin > Clinic Management and enter info about clinics they work with
 * Go to Admin > Config Management and enter info about other funds they work with, insurance options they track, etc
 * Go to Admin > User Management and create other accounts.
-
-Please let us know if there's anything else to do on this front.
 ```
 
 ## All set!

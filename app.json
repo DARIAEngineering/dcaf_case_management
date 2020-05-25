@@ -70,6 +70,11 @@
       "description": "The app name you just selected plus .herokuapp.com. e.g. daria-xaf.herokuapp.com",
       "value": ""
     },
+    "SQREEN_APP_NAME": {
+      "description": "daria-FUND, like in your site URL",
+      "value": "",
+      "required": false
+    },
     "SQREEN_TOKEN": {
       "description": "get it from Sqreen",
       "value": "",
