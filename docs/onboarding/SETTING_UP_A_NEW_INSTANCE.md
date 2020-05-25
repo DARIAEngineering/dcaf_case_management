@@ -56,28 +56,46 @@ Fill in the form as follows (stuff in caps are variables you should have on hand
 
 Clicking Deploy App will launch the new DARIA instance! We should now have an instance running, but there are still some followup tasks to handle.
 
-### Finish up service setup
+### Complete service setup
 
 * Set up an uptime monitor for the new domain. (We generally use StatusCake for right now but will switch to a team monitor soon; use an existing monitor as a guide to configure.)
 * Go to the new app in Heroku, click on `Scheduler`, and add the nightly cleanup job: `$ rake nightly_cleanup`, dyno size hobby, frequency daily, 08:00 UTC
 
 ### Smoke test to confirm everything is working right 
 
-- [ ] Go to the root url at `http://daria-FUND.herokuapp.com`. Confirm that this loads, and redirects you to `https://...`
-- [ ] Create yourself an admin account from the rails console. Confirm that this sends an email to you
-- [ ] After you get that email, log in with google to confirm the oauth signin flow works. (This should use the `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` creds. If something's jacked up, make sure you have these set properly.)
-- [ ] Confirm that the lines are properly set and show up right (if you have just one line, this will send you straight to the call list)
-- [ ] Confirm that the top left badge name (`DARIA - full fund name`) is set properly
-- [ ] Confirm that you can create and update a patient. Delete it afterwards in the rails console
+With the instance set up, we want to make sure it's properly configured and working before we let users in.
 
-### In-app configuration before you start entering data
+You should be able to access the rails console via this snippet: `heroku run rails c -a daria-FUND`
 
-- [ ] Go to Admin Tools -> Clinic Management and enter info about clinics you work with
-- [ ] Go to Admin Tools -> Config Management and enter info about other funds your work with, insurance options you want to track, etc.
-- [ ] Go to Admin Tools -> User Management and create any other admin or user accounts
+* Create yourself an admin account from the rails console. Confirm that this sends an email to you notifying you of account creation. You can use this snippet: `User.create email: 'your@email.org', name: 'Your Name', role: :admin, password: 'random string', password_confirmation: 'same random string as in password'`. Throw out the password after generating it as you won't need it again. This confirms we can save new users to the database and that the mailer is properly configured. If an email doesn't send, check that the Sendgrid Heroku addon is working right and that the sendgrid env vars are properly set.
+* Go to the url at `http://daria-FUND.herokuapp.com`. Confirm that this loads, and redirects you to `https://...`
+* Confirm the oauth signin flow works by clicking the `Sign in with Google` button. This confirms that oauth is properly set up. If something is weird here, check that `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` are properly set and configured.
+* Confirm that the lines are properly set and show up right. For most funds, this means after logging in you will go straight to the call list. For funds with more than one line, you'll go to a line selection screen instead. If this is does not behave as expected, check that the `DARIA_LINES` environment variable is properly set.
+* Confirm that the top left badge name (`DARIA - full fund name`) is showing properly. If this is weird, check that the `DARIA_FUND_FULL` environment variable is set right.
+* Confirm that you can create and update a patient in the UI. Click the Magnifying Glass icon below `Build Your Call List` and fill in the new patient partial that appears below as follows: Phone: 000-000-0000, Name: DB Test. Click the `Add new patient` button to create the patient. Delete the patient you made in the rails console with this snippet: `Patient.find_by(name: 'DB Test').destroy`. If this acts weird, notify the slack channel and start looking at the logs/stack trace to investigate.
 
-### When you start entering data
+### Clean up our mess
 
-* There's a specialized endpoint for bulk data entry at `/data_entry` not linked from the main dashboards. This has most of the info in one form and helps speed the data entry process up if you are entering patients en masse, for example.
+We've confirmed everything is working as expected, so we'll want to make accounts for handoff and clean up some of our mess.
 
-## gl hf
+* Create new users for the fund's admins. You can do this via the UI or in the rails console with this snippet: `User.create email: 'your@email.org', name: 'Your Name', role: :admin, password: 'random string', password_confirmation: 'same random string as in password'`. Throw away the password after generating it.
+* Destroy the user you made to log in and smoke test: `User.find_by(email: 'your@email.org').destroy`
+* Create an email for the support contractor test account: `User.create email: 'daria-user@opentechstrategies.com', name: 'OpenTechStrategies Monitor', role: :admin, password: 'random string', password_confirmation: 'same random string as in password'`
+
+### Let people know things are ready
+
+Send this email to the DARIA team member that requested provisioning, subbing the all caps variables:
+
+```
+Hi, we've provisioned the requested instance. Please let them know they can log in at SITE_URL when they're ready.
+
+When they do so, they should do the following to start:
+* Log in with Google (or reset their passwords and log in)
+* Go to Admin > Clinic Management and enter info about clinics they work with
+* Go to Admin > Config Management and enter info about other funds they work with, insurance options they track, etc
+* Go to Admin > User Management and create other accounts.
+
+Please let us know if there's anything else to do on this front.
+```
+
+## All set!
