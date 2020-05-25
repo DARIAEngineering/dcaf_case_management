@@ -1,14 +1,29 @@
 # Setting up a new instance of DARIA
 
-These are detailed instructions in spinning up an instance in heroku. These assume some familiarity with the ideas and concepts and don't go into much detail, such as where to click, the mechanics involved, etc. You don't need to do this for routine development.
+These are detailed instructions in spinning up an instance in heroku on the DCAF pipeline. It assumes that you already have access set up and permissions on the following resources:
+
+* Heroku pipeline (for provisioning)
+* Google Cloud (for oauth and key)
+* Sentry (for keys)
+* Sqreen (for keys)
 
 ## By the way
 
-If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, DCAF already manages the infrastructure (what's referred to in this document as the `DCAF pipeline`) for several abortion funds. For your share of server costs they will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here.
+If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, DCAF already manages the infrastructure (what's referred to in this document as the `DCAF pipeline`) for several abortion funds. For your share of server costs (generally $25/month) our team will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here.
 
 ## Main steps
 
-### Preparation and gathering API tokens
+### Information gathering
+
+To provision an app, we'll need the following information. The DARIA team member requesting the provisioning should have all this information.
+
+* Name of the fund (e.g. DC Abortion Fund)
+* Short abbreviation of the fund (e.g. DCAF)
+* Phone number of the abortion fund (e.g. 202-000-1111)
+* Name and email of the fund admins (e.g. Susan Everyteen - susan@example.com) - we create initial admin accounts for these people
+* Website of the fund (e.g. dcabortionfund.org)
+
+### Gathering API tokens and secrets
 
 First, we generate some API tokens from services that DARIA uses.
 
