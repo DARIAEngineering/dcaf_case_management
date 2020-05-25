@@ -17,11 +17,11 @@ If you're an abortion fund and NOT interested in worrying about servers, mainten
 
 To provision an app, we'll need the following information. The DARIA team member requesting the provisioning should have all this information.
 
-* Name of the fund (e.g. DC Abortion Fund)
-* Short abbreviation of the fund (e.g. DCAF)
-* Phone number of the abortion fund (e.g. 202-000-1111)
+* Short abbreviation of the fund (e.g. DCAF) - referred to as FUND
+* Name of the fund (e.g. DC Abortion Fund) - referred to as FUND_FULL
+* Phone number of the abortion fund (e.g. 202-000-1111) - referred to as FUND_PHONE
 * Name and email of the fund admins (e.g. Susan Everyteen - susan@example.com) - we create initial admin accounts for these people
-* Website of the fund (e.g. dcabortionfund.org)
+* Website of the fund (e.g. dcabortionfund.org) - referred to as FUND_DOMAIN
 
 ### Gathering API tokens and secrets
 
@@ -41,28 +41,25 @@ First, we generate some API tokens from services that DARIA uses.
 * Generate a Google API token (for the Clinic Finder):
   * Enable the Geocoding API
   * Create a Google API key, named `FUND Geocoding API Key`; restrict it to just the Geocoding API
-* Optional but recommended: Generate a [Sqreen](https://www.sqreen.io/) API token -- this is a security service
+* Generate a [Sqreen](https://www.sqreen.io/) API token
 
-### Create a new heroku app
+### Provision the instance in the heroku pipeline
 
-[Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). This vastly simplifies new instance setup and automatically provisions the necessary Heroku add-ons for you:
+[Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). This vastly simplifies new instance setup and automatically provisions the necessary Heroku add-ons for you.
 
-* mLabs -- this is a mongodb data service (our database!)
-* Sendgrid -- this is used as the email service (our emailer!)
-* Logentries -- used for application logging
-* Scheduler -- used to run tasks on a cron schedule
+Fill in the form as follows (stuff in caps are variables you should have on hand):
 
-Follow the directions to fill out necessary environment variables and configuration for your DARIA instance. (Ask our slack channel if you have questions.) Clicking Deploy App will launch your DARIA instance! You now have an instance running, but there are still some followup tasks.
+* App name should be `daria-FUND`
+* App owner should be the `casemanager` team
+* Click `Add this app to a pipeline` and select `casemanager-pipeline`, then `production`
+* In the config vars section, fill in config variables based on what you have. Use defaults where applicable for fields like `CSP_VIOLATION_URI` and `DARIA_LINES`; the DARIA team member leading the onboarding will tell you if you need to change a default value. You should have the resour
 
-### If not within the DCAF pipeline
-
-- [ ] In Heroku, make sure someone other than you has access to the instance -- make sure you aren't the only member of your fund with Heroku panel access!
-- [ ] Confirm that you are using HTTPS with heroku ACM ([Automated Certificate Management](https://devcenter.heroku.com/articles/automated-certificate-management)). Note that this may require a paid heroku dyno. (For the love of god, do not enter real data into DARIA unless you have HTTPS set up.)
+Clicking Deploy App will launch the new DARIA instance! We should now have an instance running, but there are still some followup tasks to handle.
 
 ### Finish up service setup
 
-- [ ] Set up an uptime monitor (we recommend StatusCake!)
-- [ ] Go to Heroku, click on `Scheduler`, and add the nightly cleanup job: `$ rake nightly cleanup`, dyno size hobby, frequency daily, 08:00 UTC
+* Set up an uptime monitor for the new domain. (We generally use StatusCake for right now but will switch to a team monitor soon; use an existing monitor as a guide to configure.)
+* Go to the new app in Heroku, click on `Scheduler`, and add the nightly cleanup job: `$ rake nightly_cleanup`, dyno size hobby, frequency daily, 08:00 UTC
 
 ### Smoke test to confirm everything is working right 
 
