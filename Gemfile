@@ -41,7 +41,7 @@ gem 'rack-attack', '~> 5.4.1'
 
 # For pagination
 gem 'kaminari-mongoid', '~> 1.0'
-gem 'kaminari', '~> 1.1'
+gem 'kaminari', '~> 1.2'
 
 # Specific useful stuff
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
