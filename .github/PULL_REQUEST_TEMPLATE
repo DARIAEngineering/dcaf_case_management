@@ -12,3 +12,8 @@ This pull request makes the following changes:
 It relates to the following issue #s: 
 * Fixes #X
 * Bumps #Y
+
+For reviewer:
+* Tag this PR `feature` if it contains a feature, fix, or similar; adjust the title to explain what it does for the notification email to the listserv.
+* Tag this PR `dependencies` if it contains library upgrades or similar
+* If it contains neither, no need to tag this PR
