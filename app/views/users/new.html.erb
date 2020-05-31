@@ -1,11 +1,14 @@
 <div class='authform'>
   <h3><%= t('user.new.create_user') %></h3>
-    <%= bootstrap_form_for @user do |f| %>
+    <%= bootstrap_form_with model: @user, local: true do |f| %>
         <%= f.email_field :email, label: t('common.email') %>
         <%= f.text_field :name, label: t('common.name') %>
-        <%= f.select :role, options_for_select(user_role_options), label: t('user.common.role') %>
         <%= f.submit t('common.add'), class: 'btn btn-primary' %>
     <% end %>
     <br>
+    <p><%= I18n.t('user.new.edit_role_after_creating') %></p>
+    <% User.role.values.each do |r| %>
+      <p><%= t("user.roles.#{r}") %></p>
+    <% end %>
     <%= link_to t('common.back'), :back %>
 </div>

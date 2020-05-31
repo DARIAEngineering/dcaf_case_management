@@ -29,6 +29,7 @@ module Exportable
     "Urgent?" => :urgent_flag,
     "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
+    "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
     "Abortion cost" => :procedure_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
@@ -37,6 +38,8 @@ module Exportable
     "Pledge sent" => :pledge_sent,
     "Resolved without fund assistance" => :resolved_without_fund,
     "Pledge generated time" => :pledge_generated_at,
+    "Pledge sent at" => :pledge_sent_at, 
+    "Fund pledged at" => :fund_pledged_at,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,
@@ -186,7 +189,7 @@ module Exportable
 
     def to_csv
       Enumerator.new do |y|
-        each do |export|
+        includes(:clinic).each do |export|
           row = CSV_EXPORT_FIELDS.values.map{ |field| export.get_field_value_for_serialization(field) }
           y << CSV.generate_line(row, encoding: 'utf-8')
         end

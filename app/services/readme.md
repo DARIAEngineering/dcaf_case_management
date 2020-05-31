@@ -1,0 +1,1 @@
+The services directory here is for utilty standalone service classes that are not coupled directly to the rails MVC

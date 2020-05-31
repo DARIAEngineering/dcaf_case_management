@@ -18,7 +18,7 @@ class AuthorizationTest < ApplicationSystemTestCase
     end
 
     it 'should have a sign out link' do
-      click_link "#{@user.name}"
+      click_on "#{@user.name}"
       assert has_link? 'Sign Out', href: destroy_user_session_path
     end
   end

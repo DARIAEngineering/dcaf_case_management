@@ -176,6 +176,24 @@ class PatientTest < ActiveSupport::TestCase
         assert_equal 0,summary[:pledged].count
       end
     end
+
+    it "should include pledges sent on the current week, even when the soft pledged was entered in a previous week" do
+      # The week starts on Monday Jan 22, there's a soft pledge entered on Jan 20, the week before
+      # Update pledge_sent to true on Jan 23, the current week, so it should show up on the week's pledge_status_summary as sent
+      Config.create config_key: :start_of_week,
+                    config_value: {options: ['Monday']}
+      Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 250 }                      
+      Timecop.freeze("January 23, 1973") { @patient.update! pledge_sent: true, 
+                                                            appointment_date: @patient.initial_call_date + 1.day, 
+                                                            clinic: create(:clinic) }
+
+      Timecop.freeze("January 25, 1973") do
+        summary = Patient.pledged_status_summary(:DC)
+        assert_equal 1, summary[:sent].count
+      end 
+
+    end
+
   end
 
   describe 'callbacks' do
@@ -391,6 +409,28 @@ class PatientTest < ActiveSupport::TestCase
       it 'should return three months if audited' do
         @patient.fulfillment.update audited: true
         assert_equal @patient.initial_call_date + 3.months, @patient.archive_date
+      end
+    end
+
+    describe 'has_special_circumstances' do
+      it 'should return false if there is an empty array' do
+        @patient.update special_circumstances: []
+        assert_equal @patient.has_special_circumstances, false
+      end
+
+      it 'should return false if there are no special circumstances' do
+        @patient.update special_circumstances: [nil, nil]
+        assert_equal @patient.has_special_circumstances, false
+      end
+
+      it 'should return true if there are special circumstances' do
+        @patient.update special_circumstances: ['special', 'circumstances']
+        assert_equal @patient.has_special_circumstances, true
+      end
+
+      it 'should return true if there are special circumstances and nils' do
+        @patient.update special_circumstances: [nil, 'circumstances']
+        assert_equal @patient.has_special_circumstances, true
       end
     end
   end

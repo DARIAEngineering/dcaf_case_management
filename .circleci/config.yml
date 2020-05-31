@@ -6,7 +6,7 @@ jobs:
     parallelism: 4
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.6.2-node-browsers
+      - image: circleci/ruby:2.6.6-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -37,13 +37,16 @@ jobs:
       - run: brakeman --exit-on-warn .
       - run: bundle exec ruby-audit check
       - run: bundle-audit update; bundle-audit check --ignore CVE-2015-9284
+      # - run: bundle exec rails zeitwerk:check # Restore in rails 6.0.3 https://github.com/rails/rails/issues/37966
       # - run: yarn audit
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
+      - store_test_results:
+          path: test-results/
   predeploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers
+      - image: circleci/ruby:2.6.6-node-browsers
     steps:
       - checkout
       # - restore_cache:
@@ -62,11 +65,11 @@ jobs:
   deploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers
+      - image: circleci/ruby:2.6.6-node-browsers
     steps:
       - checkout
       - setup_remote_docker:
-          docker_layer_caching: true
+          docker_layer_caching: false
       - restore_cache:
           keys:
             - dcaf_case_management-{{ epoch }}

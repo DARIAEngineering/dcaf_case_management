@@ -30,8 +30,8 @@ markFulfilledWhenFieldsChecked = ->
 
 $(document).on 'turbolinks:load', ->
   $(document).on "click", "#toggle-call-log", ->
-    $(".old-calls").toggleClass("hidden")
-    html = if $(".old-calls").hasClass("hidden") then "View all calls" else "Limit list"
+    $(".old-calls").toggleClass("d-none")
+    html = if $(".old-calls").hasClass("d-none") then "View all calls" else "Limit list"
     $("#toggle-call-log").html(html)
 
   $(document).on "change", ".edit_patient", ->

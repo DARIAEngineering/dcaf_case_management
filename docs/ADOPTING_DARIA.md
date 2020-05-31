@@ -1,6 +1,6 @@
 # Adopting DARIA
 
-If you are a fund considering adopting DARIA as your case management system of record, this may answer common questions about how things work. We also have a sandbox/training app where no actual patient data lives for experimenting. You can check out the sandbox [here](https://sandbox.dcabortionfund.org) with username `test@test.com`, password `P4ssword`. Be sure to check out the 'Admin Tools' section to understand how DARIA can be customized to your organization.
+If you are a fund considering adopting DARIA as your case management system of record, this may answer common questions about how things work. We also have a sandbox/training app where no actual patient data lives for experimenting. You can check out the sandbox [here](https://sandbox.dcabortionfund.org) with username `test@example.com`, password `P4ssword`. Be sure to check out the 'Admin Tools' section to understand how DARIA can be customized to your organization.
 
 If after reading below, you feel that DARIA's a good fit for your organization, just reach out to us on the Code4DC Slack -- [sign up here](https://codefordc.org/resources/slack.html) -- in the #dcaf_case_management channel.
 
@@ -34,15 +34,11 @@ https://github.com/DCAFEngineering/dcaf_case_management/blob/master/docs/SECURIT
 
 Data migration is a manual process using a custom data entry form within DARIA. Funds should migrate data as close to the go-live date as possible. Plan to have a team of volunteers in your fund complete the migration. One person should be able to migrate approximately 200 patients over a weekend.
 
-We suggest breaking this down as follows:
-
-* Determine how much data to migrate (suggestion: current fiscal year or calendar year)
-* Recruit data entry volunteers, planning for 1 volunteer per 200 patients for 2 days of data entry
-* Break out data by volunteer to ensure no patient duplication
+We have a more comprehensive guide located at: https://github.com/DCAFEngineering/dcaf_case_management/blob/master/docs/MIGRATING_YOUR_DATA.md
 
 ## Costs
 
-DARIA costs start at $84 a year ($7 a month for 12 months), paid to DCAF once a year. This covers your share of server fees, and gets your fund its own URL and database. Funds which see a heavy amount of patient traffic (2,000+ new patients per year) may need to invest in a database upgrade at an additional $216 a year after the first year.
+DARIA costs start at $84 a year ($7 a month for 12 months), paid to DCAF once a year. This covers your share of server fees, and gets your fund its own URL and managed database. Funds which see a heavy amount of patient traffic (2,000+ new patients per year) may need to invest in a database upgrade at an additional $216 a year after the first year.
 
 ## Support and Maintenance
 

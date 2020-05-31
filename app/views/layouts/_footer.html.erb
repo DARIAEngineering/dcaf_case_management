@@ -1,22 +1,25 @@
-<div class="container">
-	<hr class="hr_gradient">
-	<div class="row">
-		<div class="col-sm-12 text-center">
-			<small><%= t 'navigation.footer.please_send_feedback' %> <%= link_to 'DCAF.CMapp@gmail.com', mailto: 'DCAF.CMapp@gmail.com' %>.</small>
-		</div>
-	</div><!-- end row -->
-</div><!-- end container -->
+<hr class="hr_gradient">
 
-<div id="app_footer" class="container text-center margin-bottom-sm">
-  <a href="http://<%= FUND_DOMAIN %>/"><%= FUND_FULL %></a> --<a href="tel:<%= FUND_PHONE %>"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> <%= FUND_PHONE %></a><br>
+<div class="row">
+	<div class="col text-center">
+		<small><%= t 'navigation.footer.please_send_feedback' %> <%= link_to 'DCAF.CMapp@gmail.com', mailto: 'DCAF.CMapp@gmail.com' %>.</small>
+	</div>
+</div>
 
-  <%= link_to t('navigation.footer.national_abortion_federation'), 'https://prochoice.org' %> -- <a href="tel:800-772-9100"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 800-772-9100</a><br>
+<div class="row mb-6">
+	<div id="app_footer" class="col text-center">
+	  <a href="http://<%= FUND_DOMAIN %>/"><%= FUND_FULL %></a> -- <a href="tel:<%= FUND_PHONE %>"><i class="fas fa-phone-alt fa-sm" aria-hidden="true"></i> <%= FUND_PHONE %></a><br>
 
-	<%= fax_service %>
-</div><!-- end container -->
+	  <%= link_to t('navigation.footer.national_abortion_federation'), 'https://prochoice.org' %> -- <a href="tel:800-772-9100"><i class="fas fa-phone-alt fa-sm" aria-hidden="true"></i> 800-772-9100</a><br>
 
-<div class="container text-center margin-bottom-sm">
-	<%= image_tag('dcaf-letter-blocks.svg', class: 'logo', alt: 'DC Abortion Fund Logo') %>
-	<%= image_tag('c4dc-logo-master.svg', class: 'logo', alt: 'Code for DC Logo') %>
-	<a title="Realtime application protection" href="https://sqreen.io/?utm_source=badge"><%= image_tag 'sqreen-badgeDark2x.png', alt: 'Sqreen | Runtime Application Protection', style: 'width:109px;height:36px', class: 'logo' %></a>
+		<%= fax_service %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col text-center">
+		<%= image_tag('dcaf-letter-blocks.svg', class: 'logo', alt: 'DC Abortion Fund Logo') %>
+		<%= image_tag('c4dc-logo-master.svg', class: 'logo', alt: 'Code for DC Logo') %>
+		<a title="Realtime application protection" href="https://sqreen.io/?utm_source=badge"><%= image_tag 'sqreen-badgeDark2x.png', alt: 'Sqreen | Runtime Application Protection', style: 'width:109px;height:36px', class: 'logo' %></a>		
+	</div>
 </div>

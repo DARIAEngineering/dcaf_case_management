@@ -23,17 +23,17 @@ class ClinicManagementTest < ApplicationSystemTestCase
   end
 
   describe 'adding a clinic' do
-    before { click_link 'Add a new clinic' }
+    before { click_on 'Add a new clinic' }
 
     it 'should add a clinic' do
       new_clinic_name = fill_in_all_clinic_fields
-      click_button 'Add clinic'
+      click_on 'Add clinic'
 
       assert has_text? "#{new_clinic_name} created!"
       within :css, '#clinics_table' do
         assert has_text? new_clinic_name
       end
-      click_link new_clinic_name
+      click_on new_clinic_name
 
       assert_fields_have_proper_content
     end

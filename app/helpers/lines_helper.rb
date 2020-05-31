@@ -8,7 +8,10 @@ module LinesHelper
   end
 
   def current_line_display
-    t('navigation.current_line.helper') + ": #{session[:line]}" if session[:line]
+    content_tag :li do
+      content_tag :span, t('navigation.current_line.helper') + ": #{session[:line]}",
+                         class: 'nav-link navbar-text-alt'
+    end if session[:line]
   end
 
   def current_line

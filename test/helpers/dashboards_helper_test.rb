@@ -9,6 +9,31 @@ class DashboardsHelperTest < ActionView::TestCase
     @monday_start = :monday
   end
 
+  describe 'date_range method' do
+    it 'should return correct default date range' do
+      expected = 'May 16 - 22'
+      assert_equal expected, date_range(date: @date_1)
+    end
+
+    it 'should return correct date range for Monthly' do
+      c = Config.find_or_create_by(config_key: 'start_of_week')
+      c.config_value = { options: ["Monthly"] }
+      c.save!
+
+      expected = 'May 1 - 31'
+      assert_equal expected, date_range(date: @date_1)
+    end
+  end
+
+
+  describe 'month_range method' do
+    it 'should return correct date range when start and end months are same' do
+      expected = 'May 1 - 31'
+      assert_equal expected, month_range(date: @date_1)
+    end
+  end
+
+
   describe 'week_range method' do
     it 'should return correct date range when start and end months are same' do
       expected = 'May 16 - 22'
@@ -28,21 +53,4 @@ class DashboardsHelperTest < ActionView::TestCase
       end
     end
   end
-
-  describe 'remove_from_call_list_glyphicon' do
-    it 'should return span tags' do
-      assert_match /span/, remove_from_call_list_glyphicon
-      assert_match /glyphicon-remove/, remove_from_call_list_glyphicon
-      assert_match /Remove call/, remove_from_call_list_glyphicon
-    end
-  end
-
-  describe 'call_glyphicon' do
-    it 'should return span tags' do
-      assert_match /span/, call_glyphicon
-      assert_match /glyphicon-earphone/, call_glyphicon
-      assert_match /Call/, call_glyphicon
-    end
-  end
-
 end

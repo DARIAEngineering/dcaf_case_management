@@ -1,10 +1,10 @@
 <div id="overview" class="margin-bottom">
   <h1 class="border-bottom title">
-    <%= t 'dashboard.overview.week_of', week_range: week_range %>
+    <%= t 'dashboard.overview.budget_for', date_range: date_range %>
     <%= dashboard_table_content_tooltip_shell "budget_bar" %>
   </h1>
 
   <div id="budget_bar">
-    <%= render_async budget_bar_path, nonce: true, 'data-turbolinks-track': 'reload' %>
+    <%= render_async budget_bar_path, html_options: { nonce: true, 'data-turbolinks-track': 'reload' }  %>
   </div>
 </div>

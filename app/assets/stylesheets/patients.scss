@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import './application';
+
 .tooltip-header-help {
     color: #737373;
     border-bottom: 1px dotted #737373;
@@ -10,4 +12,24 @@
 
 .partial_fulfillment_modal {
   padding: 5%;
+}
+
+.pledge_modal_category {
+  margin-left: 1em;
+}
+
+// This is necessary because of a vendored multimodal plugin that we should aim to deprecate
+.js-title-step {
+  .label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+  }
 }

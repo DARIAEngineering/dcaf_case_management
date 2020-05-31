@@ -4,19 +4,18 @@
 [![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 
-[A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@test.com, Pass: P4ssword
+[A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@example.com, Pass: P4ssword
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?
 Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let us know!
 
-## Next major project milestone: Thinning out the backlog
-Major new feature development on this project has more or less drawn to a close. Every 4-6 months the DARIA team releases a few things (tagged `Future Features` in the issues list) into active development. Other than that, we're mostly applying security patches, library updates, and hanging out.
-
-Our general administration/maintenance plan is [here](docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md).
-
 ## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
 
 [Join via the Code for DC website](https://codefordc.org/resources/slack.html).
+
+## I'm new, how do I set stuff up?
+
+[We have detailed instructions on how to get started here!](docs/SETUP.md)
 
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/) (DCAF), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Its primary goal is to simplify routine case management processes, such as keeping track of patient data, pledges, and contact information.
@@ -27,12 +26,14 @@ In addition, other abortion funds doing similar work in other places can adopt t
 
 Get started with the how-and-why of the project by [checking out DCAF](http://dcabortionfund.org), checking out [DCAF Case Manager Lisa's explanation of DCAF's business logic](docs/DCAF_101.md), reading the [Code of Conduct](CODE_OF_CONDUCT.md), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files). You can also check out [some of the other buzz](docs/PRESS.md) or [read about how it's impacted DCAF](docs/IMPACT_ON_DCAF.md).
 
+There's still work to do, but generally we're pretty stable these days. Our general administration/maintenance plan is [here](docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md).
+
 ## Who's in charge here?
 The team leads are:
 
-* @colinxfleming (rails and technical lead)
+* @colinxfleming & @lomky (rails and technical lead)
 * @mebates (design and UI lead)
-* @alisonnjones (data lead)
+* @alisonnjones & @mdworken (data lead)
 * @nerdygirl573 (DARIA manager)
 * @lwaldsc (DCAF liaison)
 
@@ -46,14 +47,6 @@ Feel free to hit any of us up with questions about the project, we're nice!
 * Our [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) is our project's remaining TODO list
 * Post in an issue when you're starting work on something, so @colinxfleming can keep track of it and so we don't duplicate work
 * We <3 new people and beginners
-
-### Setting Stuff Up
-
-[We have detailed instructions on how to get started here!](docs/SETUP.md)
-
-[If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](docs/YOUR_FIRST_CONTRIBUTION.md). If you have any trouble getting things set up, please ping us in Slack!
-
-If you see a spot in the docs that's confusing or could be improved, please pay it forward by making a pull request!
 
 ### We <3 new people and beginners!
 We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
@@ -82,6 +75,8 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
 * @ian.norris
 * @tingaloo
 * @colinmcglynn
+* @mdworken
+* @rudietuesdays
 
 ## Special thanks
 

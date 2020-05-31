@@ -105,7 +105,7 @@ en:
         not_specified: No instructions; no ID VM
         'yes': Voicemail OK, ID OK
     overview:
-      week_of: Week of %{week_range}
+      budget_for: Budget for %{date_range}
     partial_titles:
       call_list: Your call list
       completed_calls: Your completed calls
@@ -261,7 +261,6 @@ en:
       config_management: Config Management
       export: Export anonymized CSV
       label: Admin
-      reporting: Reporting
       user_management: User Management
     cm_resources:
       label: CM Resources
@@ -272,7 +271,6 @@ en:
       please_send_feedback: Please send feedback or ideas to the programming team at
     user_tools:
       profile: My Profile
-      sign_in: Sign In
       sign_out: Sign Out
   note:
     most_recent: 'Most recent note from %{by} at %{at}:'
@@ -518,7 +516,7 @@ en:
         pledge_unfulfilled: Pledge Not Fulfilled
         resolved: Resolved Without %{fund}
   tooltips:
-    budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given week.
+    budget_bar: The budget bar lists money tentatively set aside for a patient (by entering a value in the %{fund} pledge field) and money sent to a clinic for a patient (by checking the I sent the pledge checkbox) over a given period.
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
     completed_calls: This is a list of patients you have called within the last 8 hours.
     mandatory_ultrasound: If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.
@@ -541,6 +539,7 @@ en:
       user_account_management: User Account Management
     new:
       create_user: Create User
+      edit_role_after_creating: New users by default have CM permissions, which let them use the case management workflow. To give someone data access or admin permissions, edit them after you create their accounts here.
     profile_edit:
       awaiting_confirmation: 'Currently waiting for confirmation for: %{email}'
       change_password: Change your password
@@ -548,6 +547,10 @@ en:
       new_password: New password
       update_info_button: Update info
       user_panel: User panel for %{email} (%{name})
+    roles:
+      admin: 'The admin role is for people who are managing their fund''s DARIA instance or case manager corps. This gives access to what CMs and Data Volunteers have, plus the following: user management tools, clinic management tools, DARIA instance configuration tools, and the ability to delete patients from the individual patient record page (such as in the case of a duplicate entry).'
+      cm: The Case Manager role is for people doing patient intake and making calls. This gives access to the main call list dashboard, the individual patient record page (minus the ability to edit fulfillment info), and the data entry page.
+      data_volunteer: 'The Data Volunteer role is for people who require access to data or accounting tools. This gives access to what CMs have, plus the following: accounting tools for pledge reconcilling, reporting tools with summary data on patient intake, the fulfillment tab on the individual patient record page (for marking pledges as paid out), and the ability to download an anonymized spreadsheet of data for analysis.'
     search:
       button: Search
       text_field: Name or Email

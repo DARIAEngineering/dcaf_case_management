@@ -2,17 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.glyphicon-earphone {
+.call-icon {
   color: white;
   background-color: #337ab7;
   padding: 5px;
   border-radius: 50%;
-  font-size: 12px;
-  vertical-align: top;
-}
-
-.search_bar {
-  max-width: 35%;
 }
 
 #search_form {
@@ -23,13 +17,4 @@
 
 .bootstrap_toggle_spacing .checkbox {
   margin-top: 0px;
-}
-
-.pt-spacer {
-  padding-right: 5px;
-}
-
-.glyphicon-remove {
-  color: red;
-  padding: 0px 10px 0px 10px;
 }

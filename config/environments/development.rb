@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's package.json
-  config.webpacker.check_yarn_integrity = true
+  config.webpacker.check_yarn_integrity = false
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -15,12 +15,14 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
-  if Rails.root.join('tmp/caching-dev.txt').exist?
+  # Run rails dev:cache to toggle caching.
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
+      'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false
@@ -48,7 +50,7 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  # Raises error for missing translations
+  # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
@@ -56,7 +58,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   Mongo::Logger.logger.level = ::Logger::FATAL
-
-  # Don't check yarn package integrity in docker
-  config.webpacker.check_yarn_integrity = ENV['DOCKER'] ? false : true
 end

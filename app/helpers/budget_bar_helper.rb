@@ -2,10 +2,10 @@
 module BudgetBarHelper
   def progress_bar_color(type)
     color = type == :pledged ? 'warning' : 'success'
-    "progress-bar-#{color}"
+    "bg-#{color}"
   end
 
-  def progress_bar_width(value, cash_ceiling = 1_000)
+  def progress_bar_width(value, cash_ceiling = Config.budget_bar_max)
     "width: #{to_pct(value, cash_ceiling)}%"
   end
 
@@ -27,10 +27,11 @@ module BudgetBarHelper
 
   private
 
-  def to_pct(value, cash_ceiling = 1_000)
+  def to_pct(value, cash_ceiling = Config.budget_bar_max)
     return '0' if cash_ceiling == 0
 
     pct = (value.to_f / cash_ceiling.to_f) * 100
     pct.round.to_s
   end
+
 end

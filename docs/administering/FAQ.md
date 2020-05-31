@@ -1,5 +1,7 @@
 # FAQ
 
+A place to log common questions related to administering DARIA.
+
 ## Administration
 
 ### How do I restart an application?

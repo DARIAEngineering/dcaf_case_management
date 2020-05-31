@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><%= content_for?(:title) ? yield(:title) : "DARIA" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DCAF" %>">
     <meta name='ROBOTS' content='NOINDEX, NOFOLLOW'>
-    <%= javascript_pack_tag 'application' %>
-    <%= stylesheet_link_tag :application, media: 'all' %>
-    <%= favicon_link_tag %>
-    <%= javascript_include_tag :application %>
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= favicon_link_tag %>
+
+    <%= stylesheet_pack_tag 'application', 'data-search-pseudo-elements': true, 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag :application, media: 'all' %>
+
+    <%= javascript_pack_tag 'application', 'data-search-pseudo-elements': true, 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag :application %>
+
     <%= content_for :render_async %>
   </head>
   <body>
@@ -18,18 +23,17 @@
         <%= render 'layouts/navigation' %>
       </header>
     <% end %>
-    <main role="main">
-      <div class="container">
-        <%= render 'layouts/messages' %>
+    <main class="container" role="main">
+      <%= render 'layouts/messages' %>
 
-        <br>
-        <%= yield %>
-      </div>
+      <br>
+      <%= yield %>
+
+      <% if current_user.present? %>
+        <footer>
+          <%= render 'layouts/footer' %>
+        </footer>
+      <% end %>
     </main>
-    <% if current_user.present? %>
-      <footer>
-        <%= render 'layouts/footer' %>
-      </footer>
-    <% end %>
   </body>
 </html>

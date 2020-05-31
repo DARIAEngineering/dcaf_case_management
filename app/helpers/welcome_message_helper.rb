@@ -28,13 +28,29 @@ module WelcomeMessageHelper
       "¡Gracias por pelear la buena pelea!",
       'You rock!',
       "You are invaluable - keep it up!!",
+      "Thank you so much for everyone you help!",
       "Outstanding job! Keep up the hard work!",
       "¡Trabajo destacado! ¡Mantener el trabajo duro!",
       "Keep up the Good Work",
       "Mantener el Trabajo Duro",
       "Another case, another human being helped. Keep it up!",
       "Merci beaucoup!",
-      "Thank you for taking the time to be the most thoughtful CM that you can be! <3"
+      "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
+      "Você é demais!",
+      "Your work is so valuable and you're doing a wonderful job! <3",
+      "Your work empowers people to make decisions about their own bodies. Bravo!",
+      "Thank you to be using your time to help the others. Your work is precious.",
+      "Challenging but rewarding at the same time. Keep it up!!!",
+      "Thank you for the good work! We appreciate all your efforts.",
+      "Love, all the good people you have helped.",
+      "Hang in there! You're an inspiration to us all.",
+      "Keep on keepin' on!",
+      "Thank you for all that you do!",
+      "Not all superheroes wear capes, some are DCAF case managers! <3",
+      "Thank you for being awesome!",
+      "You are doing wonderful things! Thank you so much for your support and help during these trying times.",
+      "We appreciate all that you're doing. Keep up the good work!",
+      "Thank you so much. If you're ok with hugs and if I could hug you in real life, I would hug you! Your work is so important."
     ]
   end
 end
