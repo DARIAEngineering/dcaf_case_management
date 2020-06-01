@@ -9,6 +9,8 @@
 
 import '../src/turbolinks';
 
+import 'bootstrap';
+
 import '../src/call_list_drag_and_drop';
 import '../src/clinic_finder';
 import '../src/clinics';

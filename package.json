@@ -5,6 +5,7 @@
     "bootstrap": "4.4.1",
     "jquery": "^3.5.0",
     "jquery-ui": "^1.12.1",
+    "popper.js": "^1.16.1",
     "set-value": "^3.0.1",
     "stupid-table-plugin": "^1.1.3",
     "turbolinks": "^5.2.0"
