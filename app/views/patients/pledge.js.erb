@@ -1,10 +1,7 @@
 $('.modal-content').html('')
-$('.modal').attr('id', 'pledge-modal')
 $('.modal-content').append(
   '<%= escape_javascript(render partial: "patients/pledge", locals: { patient: @patient, disable_next: disable_continue?(@patient) })%>'
 );
-
-$('.modal').modal('toggle');
 
 <% if (!@patient.pledge_sent) %>
 
@@ -15,10 +12,17 @@ $('.modal').modal('toggle');
     el.slice(2,el.length).remove();
   }
 
-  $('#pledge-modal').modalSteps();
+  $('.modal').modalSteps({
+    completeCallback: function() {
+      console.log(':)');
+      $('.modal-content').html('');
+    },
+  });
 
 <% else %>
   $('#cancel-pledge-form').on('submit', function() {
     $('.modal').modal('hide');
   })
 <% end %>
+
+$('.modal').modal('toggle');
