@@ -42,6 +42,12 @@ We also need to have some API tokens and such that we generate or dig up when we
   * Fill out as follows: Application name: daria-FUND, Language of the application: Ruby, Environment: production'. Click the `Show instructions` button
   * Look for the value of `token` on the right side. `daria-FUND` is `SQREEN_APP_NAME` and the token is `SQREEN_TOKEN`
 
+* Grab a Sendgrid API token:
+  * NOTE: Only two people have access to this, @colinxfleming and @xmunoz for the time being. This may expand in the future. If you can't get ahold of them when you're setting this up, use a `SENDGRID_PASSWORD` env var from an existing instance and file a github ticket to fix later.
+  * Log in to [SendGrid](https://www.sendgrid.com/)
+  * Go to Settings > API Keys > Create API Key
+  * Create a new API key named `daria-FUND` with full access and save it. This is your `SENDGRID_PASSWORD`.
+
 ### Provision the instance in the heroku pipeline
 
 [Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). This vastly simplifies new instance setup and automatically provisions the necessary Heroku add-ons for you.
