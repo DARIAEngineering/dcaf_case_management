@@ -7,15 +7,13 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import '../src/turbolinks';
+// Yarn globals that don't require much beyond an import should live in here.
+import '../src/core_dependencies';
 
-import 'bootstrap';
-
+// Custom JS should be put into individual modules.
 import '../src/call_list_drag_and_drop';
 import '../src/clinic_finder';
 import '../src/clinics';
-import '../src/fontawesome';
 import '../src/pledge_calculator';
 import '../src/table_sorting';
-// import '../src/modals';
 import '../src/tooltips';

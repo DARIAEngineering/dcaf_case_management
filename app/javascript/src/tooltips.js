@@ -5,7 +5,6 @@ $(document).on('turbolinks:load', () => {
   $('.daria-tooltip').tooltip();
 
   // Some evil magic for things attached to labels with rails-bootstrap-form
-  // $('.tooltip-header-input').append(' <span class="tooltip-header-help">(?)</span>');
   $('.tooltip-header-input').each(function() {
     $(this).append(tooltipSpan);
     const text = $(this).parent().find('input')[0].dataset.tooltipText;
