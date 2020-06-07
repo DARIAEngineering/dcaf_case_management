@@ -18,6 +18,11 @@
   margin-left: 1em;
 }
 
+// This dupes a bootstrap style; target for removal
+.modal-content {
+  padding: 30px;
+}
+
 // This is necessary because of a vendored multimodal plugin that we should aim to deprecate
 .js-title-step {
   .label {

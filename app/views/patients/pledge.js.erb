@@ -1,15 +1,10 @@
 $('.modal-content').html(
-  '<%= escape_javascript(render partial: "patients/pledge", locals: { patient: @patient, disable_next: disable_continue?(@patient) })%>'
+  '<%= escape_javascript(render partial: "patients/pledge",
+                                locals: { patient: @patient,
+                                          disable_next: disable_continue?(@patient) }) %>'
 );
 
 <% if (!@patient.pledge_sent) %>
-  $('.js-title-step span').slice(1).remove();
-  var el = $(".js-title-step").contents()
-
-  if (el.length > 2) {
-    el.slice(2,el.length).remove();
-  }
-
   $('.modal').modalSteps();
 <% else %>
   $('#cancel-pledge-form').on('submit', function() {
@@ -18,3 +13,7 @@ $('.modal-content').html(
 <% end %>
 
 $('.modal').modal('toggle');
+
+// This is a small hack to prevent the js-title-step
+// from repeating in the modal on multiple toggles.
+$('.js-title-step').contents().slice(2).remove();
