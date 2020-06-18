@@ -78,7 +78,7 @@ class PledgeFormGenerator
       pdf.text 'DC Abortion Fund'
       pdf.text 'P.O. Box 65061'
       pdf.text "Tel: #{FUND_PHONE}"
-      pdf.text "E-mail: info@#{FUND_DOMAIN}"
+      pdf.text "E-mail: info@#{FUND_MAILER_DOMAIN}"
       pdf.text "Web: #{FUND_DOMAIN}"
     end
   end
