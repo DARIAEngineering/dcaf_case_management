@@ -126,6 +126,13 @@ class ConfigTest < ActiveSupport::TestCase
         c.save!
         assert_equal :tuesday, Config.start_day
       end
+
+      it "should fail if input isn't a day or 'monthly'" do
+        c = Config.find_or_create_by(config_key: 'start_of_week')
+        c.config_value = { options: ["Tomato"] }
+        refute c.valid?
+        assert @dupe_config.errors.messages[:config_key].include? 'Config failed to update'
+      end
     end
   end
 end

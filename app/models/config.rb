@@ -26,6 +26,12 @@ class Config
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
+
+  VALIDATIONS = {
+    start_of_week: -> { return }
+    #start_of_week: -> { errors.add(:options, 'test fail') unless options[0] == "Monday" }
+  }
+
   # Fields
   enumerize :config_key, in: CONFIG_FIELDS
   field :config_value, type: Hash, default: { options: [] }
@@ -35,6 +41,7 @@ class Config
 
   # Validations
   validates :config_key, uniqueness: true, presence: true
+  validate :validate_config
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -79,4 +86,12 @@ class Config
     start ||= "monday"
     start.downcase.to_sym
   end
+
+  private
+
+    def validate_config
+      return unless VALIDATIONS[:config_key]
+
+      VALIDATIONS[:config_key].()
+    end
 end
