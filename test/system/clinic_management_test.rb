@@ -94,7 +94,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
     fill_in 'Name', with: new_clinic_name
     fill_in 'Street address', with: '123 Fake Street'
     fill_in 'City', with: 'Yolo'
-    fill_in 'State', with: 'TX'
+    select 'TX', from: 'clinic_state'
     fill_in 'ZIP', with: '12345'
     fill_in 'Phone', with: '281-330-8004'
     fill_in 'Fax', with: '222-333-4444'
@@ -111,6 +111,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
     assert has_field? 'Name', with: 'Games Done Quick Throw a Benefit for DCAF'
     assert has_field? 'Street address', with: '123 Fake Street'
     assert has_field? 'City', with: 'Yolo'
+    assert_equal 'TX', find('#clinic_state').value
     assert has_field? 'State', with: 'TX'
     assert has_field? 'ZIP', with: '12345'
     assert has_field? 'Phone', with: '281-330-8004'
