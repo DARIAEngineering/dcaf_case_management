@@ -4,7 +4,8 @@
       <%= f.text_field :name, autocomplete: 'off' %>
       <%= f.text_field :street_address, autocomplete: 'off' %>
       <%= f.text_field :city, autocomplete: 'off' %>
-      <%= f.text_field :state, autocomplete: 'off' %>
+      <%= f.select :state, options_for_select(state_options,
+                                        state_options), autocomplete: 'off' %>
       <%= f.text_field :zip, autocomplete: 'off', help: t('clinics.form.zip_help') %>
       <%= f.text_field :phone,
                        autocomplete: 'off',
