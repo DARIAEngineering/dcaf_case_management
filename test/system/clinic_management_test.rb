@@ -112,7 +112,6 @@ class ClinicManagementTest < ApplicationSystemTestCase
     assert has_field? 'Street address', with: '123 Fake Street'
     assert has_field? 'City', with: 'Yolo'
     assert_equal 'TX', find('#clinic_state').value
-    assert has_field? 'State', with: 'TX'
     assert has_field? 'ZIP', with: '12345'
     assert has_field? 'Phone', with: '281-330-8004'
     assert has_field? 'Fax', with: '222-333-4444'
