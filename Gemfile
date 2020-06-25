@@ -47,6 +47,7 @@ gem 'kaminari', '~> 1.2'
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
+gem 'state_geo_tools' # state list 
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
