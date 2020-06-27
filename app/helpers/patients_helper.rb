@@ -116,7 +116,8 @@ module PatientsHelper
   def pledge_limit_help_text_options
     Config.find_or_create_by(config_key: 'pledge_limit_help_text').options
   end
-  def state_options
-    StateGeoTools.state_codes.map { |code| [code,code] }.unshift [nil, nil]
+  def state_options(current_state)
+    StateGeoTools.state_codes.map{ |code| [code,code] }.unshift( [nil, nil] )
+      .push( [current_state,current_state] ).uniq
   end
 end

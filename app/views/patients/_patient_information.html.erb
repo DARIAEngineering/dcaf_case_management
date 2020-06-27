@@ -36,7 +36,7 @@
             <%= f.text_field :city, autocomplete: 'off' %>
           </div>
           <div class="col-4">
-            <%= f.select :state, options_for_select(state_options,
+            <%= f.select :state, options_for_select(state_options(patient.state),
                                         patient.state), autocomplete: 'off' %>
           </div>
         </div>

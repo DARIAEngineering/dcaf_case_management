@@ -44,7 +44,7 @@
   </div>
 
   <%= f.text_field :city, autocomplete: 'off' %>
-  <%= f.select :state, options_for_select(state_options), autocomplete: 'off' %>
+  <%= f.select :state, options_for_select(state_options(nil)), autocomplete: 'off' %>
   <%= f.text_field :county, autocomplete: 'off' %>
 
    <%= f.select :language, options_for_select(language_options), autocomplete: 'off' %>
