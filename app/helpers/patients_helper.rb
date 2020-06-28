@@ -1,4 +1,5 @@
 # Functions primarily related to populating selects on patient edit view.
+require 'state_geo_tools'
 module PatientsHelper
   def weeks_options
     (1..30).map { |i| [t('patient.helper.week', count: i), i] }.unshift [nil, nil]
@@ -114,5 +115,9 @@ module PatientsHelper
 
   def pledge_limit_help_text_options
     Config.find_or_create_by(config_key: 'pledge_limit_help_text').options
+  end
+  def state_options(current_state)
+    StateGeoTools.state_codes.map{ |code| [code,code] }.unshift( [nil, nil] )
+      .push( [current_state,current_state] ).uniq
   end
 end

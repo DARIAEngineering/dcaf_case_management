@@ -25,7 +25,7 @@ class DataEntryTest < ApplicationSystemTestCase
       select '1 week', from: 'patient_last_menstrual_period_weeks'
       select '2 days', from: 'patient_last_menstrual_period_days'
       fill_in 'City', with: 'Washington'
-      fill_in 'State', with: 'DC'
+      select 'DC', from: 'patient_state'
       fill_in 'County', with: 'Wash'
       fill_in 'DCAF pledge', with: '100'
       fill_in 'Age', with: '30'
@@ -75,7 +75,7 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'Age', with: '30'
         assert_equal 'Other', find('#patient_race_ethnicity').value
         assert has_field? 'City', with: 'Washington'
-        assert has_field? 'State', with: 'DC'
+        assert_equal 'DC', find('#patient_state').value
         assert has_field? 'County', with: 'Wash'
         assert_equal 'English', find('#patient_language').text
         assert_equal 'no', find('#patient_voicemail_preference').value
