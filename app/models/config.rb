@@ -26,6 +26,16 @@ class Config
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
+  VALID_START_OF_WEEK = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+    "monthly"
+  ].freeze
 
   VALIDATIONS = {
     start_of_week: -> { return }
@@ -90,8 +100,14 @@ class Config
   private
 
     def validate_config
-      return unless VALIDATIONS[:config_key]
+      #return unless VALIDATIONS[:config_key]
 
-      VALIDATIONS[:config_key].()
+      #VALIDATIONS[:config_key].()
+      # proof of concept - working on validation for Start of week
+      if (config_key == "start_of_week")
+        return if VALID_START_OF_WEEK.include?(config_value["options"].first.downcase)
+        #errors.add(:this_phone_number_is_already_taken, "on this line.")
+        #byebug
+      end
     end
 end

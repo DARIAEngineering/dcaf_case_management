@@ -1,5 +1,7 @@
 class ConfigsController < ApplicationController
   before_action :confirm_admin_user
+  #rescue_from Mongoid::Errors::DocumentNotFound,
+              #with: -> { redirect_to root_path }
 
   def index
     Config.autosetup
@@ -13,7 +15,7 @@ class ConfigsController < ApplicationController
       flash[:notice] = t('flash.config_update_success')
       redirect_to configs_path
     else
-      flash[:danger] = t('flash.config_failed_update')
+      flash[:alert] = t('flash.config_failed_update')
       render 'index'
     end
   end
