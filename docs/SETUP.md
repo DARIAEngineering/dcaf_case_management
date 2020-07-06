@@ -9,7 +9,6 @@ If you see a spot in the docs that's confusing or could be improved, please pay 
 * **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/DCAFEngineering/dcaf_case_management and hit the `fork` button up in the top right.
 * **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system. Use `cd dcaf_case_management` to change directory to where you saved the clone.
 * **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/DCAFEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
-* **Fourth things fourth**: Make the source repo fetch-only by unsetting the URL: `git remote set-url --push upstream no-pushing-to-upstream`. This will prevent mistakenly pushing to upstream if you get push access down the road.
 
 For the rest of the setup, you have two options: Docker, or installing everything locally. We recommend Docker if you're comfortable with its ecosystem.
 
