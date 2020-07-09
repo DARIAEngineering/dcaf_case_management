@@ -3,7 +3,9 @@
 class AuditTrail
   include Mongoid::History::Tracker
   include Mongoid::Userstamp
-  mongoid_userstamp user_model: 'User'
+  mongoid_userstamp user_model: 'Mongo::User'
+
+  store_in collection: 'audit_trails'
 
   IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id identifier].freeze
   DATE_FIELDS = %w[appointment_date initial_call_date pledge_generated_at pledge_sent_at fund_pledged_at].freeze
