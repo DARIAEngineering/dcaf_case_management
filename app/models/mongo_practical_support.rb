@@ -14,10 +14,6 @@ class MongoPracticalSupport
   field :confirmed, type: Mongoid::Boolean
   field :source, type: String # Name of outside organization or fund
 
-  # Validations
-  validates :created_by_id, :source, :support_type, presence: true
-  validates :support_type, uniqueness: true
-
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,

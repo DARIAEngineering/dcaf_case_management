@@ -4,7 +4,6 @@ class MongoCall
   include Mongoid::Timestamps
   include Mongoid::History::Trackable
   include Mongoid::Userstamp
-  include EventLoggable
 
   store_in collection: 'calls'
 
@@ -14,13 +13,6 @@ class MongoCall
   # Fields
   field :status, type: String
 
-  # Validations
-  allowed_statuses = ['Reached patient',
-                      'Left voicemail',
-                      "Couldn't reach patient"]
-  validates :status,  presence: true,
-                      inclusion: { in: allowed_statuses }
-  validates :created_by_id, presence: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -29,22 +21,4 @@ class MongoCall
                 track_update: true,
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
-
-  def recent?
-    updated_at > 8.hours.ago ? true : false
-  end
-
-  def reached?
-    status == 'Reached patient'
-  end
-
-  def event_params
-    {
-      event_type:   status,
-      cm_name:      created_by&.name || 'System',
-      patient_name: can_call.name,
-      patient_id:   can_call.id,
-      line:         can_call.line
-    }
-  end
 end

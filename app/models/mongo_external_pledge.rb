@@ -11,17 +11,10 @@ class MongoExternalPledge
   # Relationships
   embedded_in :can_pledge, polymorphic: true
 
-  default_scope -> { where(active: true) }
-  scope :active, -> { where(active: true) }
-
   # Fields
   field :source, type: String # Name of outside organization or fund
   field :amount, type: Integer
   field :active, type: Boolean, default: true
-
-  # Validations
-  validates :created_by_id, :source, :amount, presence: true
-  validates :source, uniqueness: { scope: :active }
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],

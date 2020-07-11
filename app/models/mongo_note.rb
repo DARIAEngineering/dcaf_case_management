@@ -14,9 +14,6 @@ class MongoNote
   # Fields
   field :full_text, type: String
 
-  # Validations
-  validates :created_by_id, :full_text, presence: true
-
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,

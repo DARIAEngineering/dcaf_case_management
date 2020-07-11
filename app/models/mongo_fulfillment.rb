@@ -19,10 +19,6 @@ class MongoFulfillment
   field :date_of_check, type: Date
   field :audited, type: Boolean
 
-  # Validations
-  validates :created_by_id,
-            presence: true
-
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -31,7 +27,4 @@ class MongoFulfillment
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
 
-  def gestation_at_procedure_display
-    I18n.t('accountants.table_content.weeks_at_procedure_display', gestation: gestation_at_procedure) if gestation_at_procedure.present?
-  end
 end
