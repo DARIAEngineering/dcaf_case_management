@@ -28,6 +28,9 @@ gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
 
+# Our database is postgres
+gem 'pg', '~> 1.2'
+
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.7'
 gem 'omniauth-google-oauth2', '~> 0.6.0'

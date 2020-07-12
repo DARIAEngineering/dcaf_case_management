@@ -275,6 +275,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
+    pg (1.2.3)
     popper_js (1.16.0)
     powerpack (0.1.2)
     prawn (2.2.2)
@@ -460,6 +461,7 @@ DEPENDENCIES
   nokogiri (>= 1.10.5)
   omniauth-google-oauth2 (~> 0.6.0)
   pdf-inspector
+  pg (~> 1.2)
   prawn
   pry
   puma (~> 4.3)
