@@ -293,7 +293,7 @@ class Patient
   end
 
   def update_fund_pledged_at
-    if fund_pledge_changed? && fund_pledge
+    if fund_pledge_changed? && fund_pledge && !fund_pledged_at
       self.fund_pledged_at = Time.zone.now
     elsif fund_pledge.blank?
       self.fund_pledged_at = nil
