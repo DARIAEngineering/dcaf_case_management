@@ -43,7 +43,7 @@ module DcafCaseManagement
     # config.i18n.default_locale = :de
 
     config.generators do |g|
-      g.orm :mongoid
+      g.orm :active_record
     end
 
     # Throttling protection

@@ -1,6 +1,8 @@
 # Object representing a case manager.
 # Fields are all devise settings; most of the methods relate to call list mgmt.
-class User < MongoUser
+
+# TODO ENUMS
+class User < ApplicationRecord
   # Concerns
   include UserSearchable
   include CallListable
@@ -24,6 +26,8 @@ class User < MongoUser
   validates :name, presence: true
   validates :role, presence: true
   validate :secure_password
+
+  enum role: { cm: 0, admin: 1, data_volunteer: 2 }
 
   # Methods
   def secure_password
