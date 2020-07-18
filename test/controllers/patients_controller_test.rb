@@ -247,12 +247,22 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       @test_patient[:primary_phone] = ''
       assert_no_difference 'Patient.count' do
         post data_entry_create_path, params: { patient: @test_patient }
+        assert_response :success
       end
     end
 
     it 'should create an associated fulfillment object' do
       post data_entry_create_path, params: { patient: @test_patient }
       assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
+    end
+
+    it 'should fail to save if initial call date is nil' do
+      @test_patient[:initial_call_date] = nil
+      @test_patient[:appointment_date] = Date.tomorrow
+      assert_no_difference 'Patient.count' do
+        post data_entry_create_path, params: { patient: @test_patient }
+        assert_response :success
+      end
     end
   end
 
