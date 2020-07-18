@@ -12,7 +12,6 @@ services:
       context: .
       dockerfile: .docker/Dockerfile
     command: ["./scripts/start_rails.sh"]
-    image: colinxfleming/dcaf_case_management:latest
     volumes:
       - .:/usr/src/app
     ports:
