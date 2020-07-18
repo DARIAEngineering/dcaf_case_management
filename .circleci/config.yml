@@ -68,11 +68,6 @@ jobs:
       - image: circleci/ruby:2.6.6-node-browsers
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: false
-      - restore_cache:
-          keys:
-            - dcaf_case_management-{{ epoch }}
       - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dcaf-cmapp-staging.git master
 
 # general:
