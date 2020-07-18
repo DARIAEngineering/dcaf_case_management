@@ -1,5 +1,5 @@
 # Object representing a clinic that a patient is going to.
-class Clinic < MongoClinic
+class Clinic < ApplicationRecord
   # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.
   # e.g. so a fund can have an 'OTHER CLINIC' catchall.
   EXCLUDED_ZIP = '99999'
