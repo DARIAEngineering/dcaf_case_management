@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_18_064744) do
+ActiveRecord::Schema.define(version: 2020_07_19_062912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 2020_07_18_064744) do
     t.boolean "accepts_medicaid"
     t.integer "gestational_limit"
     t.decimal "coordinates", array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "cm_name"
+    t.integer "event_type"
+    t.integer "line"
+    t.string "patient_name"
+    t.string "patient_id"
+    t.integer "pledge_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
