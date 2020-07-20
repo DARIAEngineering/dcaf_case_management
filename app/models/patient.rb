@@ -1,5 +1,5 @@
 # Object representing core patient information and demographic data.
-class Patient < MongoPatient
+class Patient < ApplicationRecord
   # Concerns
   include Urgency
   include Callable
@@ -28,7 +28,7 @@ class Patient < MongoPatient
   after_destroy :destroy_associated_events
 
   # Enable mass posting in forms
-  accepts_nested_attributes_for :fulfillment
+  # accepts_nested_attributes_for :fulfillment
 
   # Validations
   validates :name,
@@ -47,7 +47,7 @@ class Patient < MongoPatient
                                allow_blank: true
   validate :confirm_appointment_after_initial_call
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
-  validates_associated :fulfillment
+  # validates_associated :fulfillment
 
   # Methods
   def self.pledged_status_summary(line)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_062912) do
+ActiveRecord::Schema.define(version: 2020_07_20_055629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,55 @@ ActiveRecord::Schema.define(version: 2020_07_19_062912) do
     t.integer "pledge_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "name"
+    t.string "primary_phone"
+    t.string "other_contact"
+    t.string "other_phone"
+    t.string "other_contact_relationship"
+    t.string "identifier"
+    t.integer "voicemail_preference"
+    t.integer "line"
+    t.string "language"
+    t.date "initial_call_date"
+    t.boolean "urgent_flag"
+    t.integer "last_menstrual_period_weeks"
+    t.integer "last_menstrual_period_days"
+    t.integer "age"
+    t.string "city"
+    t.string "state"
+    t.string "county"
+    t.string "race_ethnicity"
+    t.string "employment_status"
+    t.integer "household_size_children"
+    t.integer "household_size_adults"
+    t.string "insurance"
+    t.string "income"
+    t.string "special_circumstances", default: [], array: true
+    t.string "referred_by"
+    t.boolean "referred_to_clinic"
+    t.boolean "completed_ultrasound"
+    t.date "appointment_date"
+    t.integer "procedure_cost"
+    t.integer "patient_contribution"
+    t.integer "naf_pledge"
+    t.integer "fund_pledge"
+    t.datetime "fund_pledged_at"
+    t.boolean "pledge_sent"
+    t.boolean "resolved_without_fund"
+    t.datetime "pledge_generated_at"
+    t.datetime "pledge_sent_at"
+    t.boolean "textable"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["identifier"], name: "index_patients_on_identifier"
+    t.index ["line"], name: "index_patients_on_line"
+    t.index ["name"], name: "index_patients_on_name"
+    t.index ["other_phone"], name: "index_patients_on_other_phone"
+    t.index ["primary_phone"], name: "index_patients_on_primary_phone", unique: true
+    t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
   end
 
   create_table "sessions", force: :cascade do |t|
