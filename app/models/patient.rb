@@ -20,6 +20,7 @@ class Patient < ApplicationRecord
 
   # Relationships
   has_many :calls, as: :can_call
+  has_many :external_pledges, as: :can_pledge
 
   # Callbacks
   before_validation :clean_fields
@@ -218,3 +219,4 @@ class Patient < ApplicationRecord
                   updated_at: { '$lte' => datetime })
   end
 end
+# PORTED

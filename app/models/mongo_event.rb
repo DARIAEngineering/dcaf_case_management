@@ -28,3 +28,4 @@ class MongoEvent
   # Indices
   index(created_at: 1)
 end
+# PORTED

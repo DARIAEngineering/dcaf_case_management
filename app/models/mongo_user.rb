@@ -79,3 +79,4 @@ class MongoUser
   # many failed attempts an account lock.
   field :disabled_by_fund, type: Boolean, default: false
 end
+# PORTED

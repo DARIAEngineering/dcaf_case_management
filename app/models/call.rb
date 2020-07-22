@@ -6,6 +6,7 @@ class Call < ApplicationRecord
   belongs_to :can_call, polymorphic: true
 
   # Validations
+  # TODO make status an enum
   allowed_statuses = ['Reached patient',
                       'Left voicemail',
                       "Couldn't reach patient"]
