@@ -1,6 +1,9 @@
 # Object representing a case manager dialing a patient.
-class Call < MongoCall
+class Call < ApplicationRecord
   include EventLoggable
+
+  # Relationships
+  belongs_to :can_call, polymorphic: true
 
   # Validations
   allowed_statuses = ['Reached patient',
@@ -21,7 +24,7 @@ class Call < MongoCall
   def event_params
     {
       event_type:   status,
-      cm_name:      created_by&.name || 'System',
+      cm_name:      'System', # created_by&.name || 'System',
       patient_name: can_call.name,
       patient_id:   can_call.id,
       line:         can_call.line

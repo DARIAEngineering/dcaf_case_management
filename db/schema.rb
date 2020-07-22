@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_055629) do
+ActiveRecord::Schema.define(version: 2020_07_22_055255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "calls", force: :cascade do |t|
+    t.string "status"
+    t.bigint "can_call_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["can_call_id"], name: "index_calls_on_can_call_id"
+  end
 
   create_table "clinics", force: :cascade do |t|
     t.string "name"
@@ -28,6 +36,32 @@ ActiveRecord::Schema.define(version: 2020_07_20_055629) do
     t.boolean "accepts_medicaid"
     t.integer "gestational_limit"
     t.decimal "coordinates", array: true
+    t.integer "costs_5wks"
+    t.integer "costs_6wks"
+    t.integer "costs_7wks"
+    t.integer "costs_8wks"
+    t.integer "costs_9wks"
+    t.integer "costs_10wks"
+    t.integer "costs_11wks"
+    t.integer "costs_12wks"
+    t.integer "costs_13wks"
+    t.integer "costs_14wks"
+    t.integer "costs_15wks"
+    t.integer "costs_16wks"
+    t.integer "costs_17wks"
+    t.integer "costs_18wks"
+    t.integer "costs_19wks"
+    t.integer "costs_20wks"
+    t.integer "costs_21wks"
+    t.integer "costs_22wks"
+    t.integer "costs_23wks"
+    t.integer "costs_24wks"
+    t.integer "costs_25wks"
+    t.integer "costs_26wks"
+    t.integer "costs_27wks"
+    t.integer "costs_28wks"
+    t.integer "costs_29wks"
+    t.integer "costs_30wks"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -41,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_07_20_055629) do
     t.integer "pledge_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_events_on_created_at"
   end
 
   create_table "patients", force: :cascade do |t|

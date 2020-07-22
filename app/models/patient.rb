@@ -18,6 +18,9 @@ class Patient < ApplicationRecord
     scope line.downcase.to_sym, -> { where(:line.in => [line]) }
   end
 
+  # Relationships
+  has_many :calls, as: :can_call
+
   # Callbacks
   before_validation :clean_fields
   before_save :save_identifier
