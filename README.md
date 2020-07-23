@@ -17,6 +17,19 @@ Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let u
 
 [We have detailed instructions on how to get started here!](docs/SETUP.md)
 
+## I'm not new, what's changed?
+
+We renamed our primary branch to `main` in 2020-July. Either re-clone the repo or do these steps:
+
+```shell
+git checkout master
+git branch -m master main
+git fetch
+git branch --unset-upstream
+git branch -u origin/main
+git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+```
+
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/) (DCAF), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Its primary goal is to simplify routine case management processes, such as keeping track of patient data, pledges, and contact information.
 
