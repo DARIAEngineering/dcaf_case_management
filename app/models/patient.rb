@@ -21,6 +21,9 @@ class Patient < ApplicationRecord
   # Relationships
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
+  has_many :practical_supports, as: :can_support
+  has_many :notes
+  has_one :fulfillment, as: :can_fulfill
 
   # Callbacks
   before_validation :clean_fields

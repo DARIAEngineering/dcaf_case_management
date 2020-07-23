@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_054941) do
+ActiveRecord::Schema.define(version: 2020_07_23_062049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,21 @@ ActiveRecord::Schema.define(version: 2020_07_23_054941) do
     t.index ["can_pledge_type", "can_pledge_id"], name: "index_external_pledges_on_can_pledge_type_and_can_pledge_id"
   end
 
+  create_table "fulfillments", force: :cascade do |t|
+    t.boolean "fulfilled"
+    t.date "procedure_date"
+    t.string "gestation_at_procedure"
+    t.integer "fund_payout"
+    t.string "check_number"
+    t.string "date_of_check"
+    t.boolean "audited"
+    t.string "can_fulfill_type", null: false
+    t.bigint "can_fulfill_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["can_fulfill_type", "can_fulfill_id"], name: "index_fulfillments_on_can_fulfill_type_and_can_fulfill_id"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.text "full_text"
     t.bigint "patients_id", null: false
@@ -144,6 +159,17 @@ ActiveRecord::Schema.define(version: 2020_07_23_054941) do
     t.index ["other_phone"], name: "index_patients_on_other_phone"
     t.index ["primary_phone"], name: "index_patients_on_primary_phone", unique: true
     t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
+  end
+
+  create_table "practical_supports", force: :cascade do |t|
+    t.string "support_type"
+    t.boolean "confirmed"
+    t.string "source"
+    t.string "can_support_type", null: false
+    t.bigint "can_support_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
   end
 
   create_table "sessions", force: :cascade do |t|
