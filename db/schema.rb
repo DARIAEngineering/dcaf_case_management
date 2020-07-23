@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_055255) do
+ActiveRecord::Schema.define(version: 2020_07_23_054941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,25 @@ ActiveRecord::Schema.define(version: 2020_07_22_055255) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_events_on_created_at"
+  end
+
+  create_table "external_pledges", force: :cascade do |t|
+    t.string "source"
+    t.integer "amount"
+    t.boolean "active"
+    t.string "can_pledge_type"
+    t.bigint "can_pledge_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["can_pledge_type", "can_pledge_id"], name: "index_external_pledges_on_can_pledge_type_and_can_pledge_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.text "full_text"
+    t.bigint "patients_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patients_id"], name: "index_notes_on_patients_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -160,4 +179,5 @@ ActiveRecord::Schema.define(version: 2020_07_22_055255) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "notes", "patients", column: "patients_id"
 end

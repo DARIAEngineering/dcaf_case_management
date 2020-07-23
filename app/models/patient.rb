@@ -219,4 +219,3 @@ class Patient < ApplicationRecord
                   updated_at: { '$lte' => datetime })
   end
 end
-# PORTED

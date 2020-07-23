@@ -4,7 +4,7 @@ class CreateExternalPledges < ActiveRecord::Migration[6.0]
       t.string :source
       t.integer :amount
       t.boolean :active
-      t.references :can_pledge, polymorphic: true
+      t.references :can_pledge, polymorphic: true, null: false
 
       t.timestamps
     end
