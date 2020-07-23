@@ -1,10 +1,10 @@
 # DARIA (DCAF Case Manager)
 
 [![CircleCI](https://circleci.com/gh/DCAFEngineering/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/DCAFEngineering/dcaf_case_management)
-[![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/master/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
+[![codecov](https://codecov.io/gh/DCAFEngineering/dcaf_case_management/branch/main/graph/badge.svg)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 
-[A deployed demo version of what's in the master branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@example.com, Pass: P4ssword
+[A deployed demo version of what's in the main branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/) User: test@example.com, Pass: P4ssword
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?
 Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let us know!
@@ -16,6 +16,19 @@ Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let u
 ## I'm new, how do I set stuff up?
 
 [We have detailed instructions on how to get started here!](docs/SETUP.md)
+
+## I'm not new, what's changed?
+
+We renamed our primary branch to `main` in 2020-July. Either re-clone the repo or do these steps:
+
+```shell
+git checkout master
+git branch -m master main
+git fetch
+git branch --unset-upstream
+git branch -u origin/main
+git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+```
 
 ## Project description
 This project is a case management system for the [DC Abortion Fund](http://dcabortionfund.org/) (DCAF), an all-volunteer, 501(c)(3) non-profit organization that gives grants to people in DC, Maryland, and Virginia who cannot afford the full cost of abortion care. Its primary goal is to simplify routine case management processes, such as keeping track of patient data, pledges, and contact information.
