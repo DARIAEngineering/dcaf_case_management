@@ -1,5 +1,5 @@
 # Class so that funds can set their own dropdown lists of things
-class Config < MongoConfig
+class Config < ApplicationRecord
   # Define overrides for particular config fields.
   # Useful if there is no `_options` method.
   HELP_TEXT_OVERRIDES = {
@@ -12,6 +12,22 @@ class Config < MongoConfig
     budget_bar_max: "The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.",
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
+
+  # Fields
+  enum config_key: {
+    insurance: 0,
+    external_pledge_source: 1,
+    pledge_limit_help_text: 2,
+    language: 3,
+    resources_url: 4,
+    practical_support_guidance_url: 5,
+    fax_service: 6,
+    referred_by: 7,
+    practical_support: 8,
+    hide_practical_support: 9,
+    start_of_week: 10,
+    budget_bar_max: 11,
+  }
 
   # Methods
   def options
@@ -48,5 +64,4 @@ class Config < MongoConfig
     start ||= "monday"
     start.downcase.to_sym
   end
-
 end

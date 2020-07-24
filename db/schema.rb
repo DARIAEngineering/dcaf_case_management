@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_062049) do
+ActiveRecord::Schema.define(version: 2020_07_24_070113) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "calls", force: :cascade do |t|
     t.string "status"
-    t.bigint "can_call_id"
+    t.string "can_call_type", null: false
+    t.bigint "can_call_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["can_call_id"], name: "index_calls_on_can_call_id"
+    t.index ["can_call_type", "can_call_id"], name: "index_calls_on_can_call_type_and_can_call_id"
   end
 
   create_table "clinics", force: :cascade do |t|
@@ -66,6 +68,14 @@ ActiveRecord::Schema.define(version: 2020_07_23_062049) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "configs", force: :cascade do |t|
+    t.integer "config_key", null: false
+    t.hstore "config_value", default: {"options"=>"[]"}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["config_key"], name: "index_configs_on_config_key"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "cm_name"
     t.integer "event_type"
@@ -82,8 +92,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_062049) do
     t.string "source"
     t.integer "amount"
     t.boolean "active"
-    t.string "can_pledge_type"
-    t.bigint "can_pledge_id"
+    t.string "can_pledge_type", null: false
+    t.bigint "can_pledge_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["can_pledge_type", "can_pledge_id"], name: "index_external_pledges_on_can_pledge_type_and_can_pledge_id"
