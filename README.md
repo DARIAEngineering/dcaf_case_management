@@ -22,12 +22,8 @@ Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let u
 We renamed our primary branch to `main` in 2020-July. Either re-clone the repo or do these steps:
 
 ```shell
-git checkout master
 git branch -m master main
-git fetch
-git branch --unset-upstream
-git branch -u origin/main
-git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+git push -u origin main
 ```
 
 ## Project description
