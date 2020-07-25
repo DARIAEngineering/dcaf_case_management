@@ -5,7 +5,7 @@
 [![](https://images.microbadger.com/badges/image/colinxfleming/dcaf_case_management.svg)](https://microbadger.com/images/colinxfleming/dcaf_case_management "Get your own image badge on microbadger.com")
 
 [A deployed demo version of what's in the main branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/)  
-User: test@example.com, Pass: P4ssword
+User: test@example.com, Password: P4ssword
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?
 Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let us know!
