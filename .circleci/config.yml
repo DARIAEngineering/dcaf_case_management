@@ -73,7 +73,7 @@ jobs:
       - restore_cache:
           keys:
             - dcaf_case_management-{{ epoch }}
-      - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dcaf-cmapp-staging.git main:master
+      - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dcaf-cmapp-staging.git main
 
 # general:
   # artifacts:
