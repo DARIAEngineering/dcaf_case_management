@@ -19,6 +19,7 @@ class Patient < ApplicationRecord
   end
 
   # Relationships
+  belongs_to :clinic
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
   has_many :practical_supports, as: :can_support

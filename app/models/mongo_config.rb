@@ -34,3 +34,4 @@ class MongoConfig
   mongoid_userstamp user_model: 'User'
 
 end
+# PORTED

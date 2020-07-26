@@ -12,5 +12,8 @@ class CreateFulfillments < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
+    add_index :fulfillments, :fulfilled
+    add_index :fulfillments, :audited
   end
 end

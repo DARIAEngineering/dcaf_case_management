@@ -48,7 +48,18 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.datetime :pledge_sent_at
       t.boolean :textable
 
+      t.references :clinic, foreign_key: true
+
       t.timestamps
     end
+
+    add_index :patients, :primary_phone, unique: true
+    add_index :patients, :other_contact_phone
+    add_index :patients, :other_contact
+    add_index :patients, :name
+    add_index :patients, :line
+    add_index :patients, :urgent_flag
+    add_index :patients, :identifier
+    add_index :patients, :pledge_sent
   end
 end

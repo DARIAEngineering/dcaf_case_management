@@ -12,5 +12,6 @@ class CreateEvents < ActiveRecord::Migration[6.0]
     end
 
     add_index :events, :created_at
+    add_index :events, :line
   end
 end

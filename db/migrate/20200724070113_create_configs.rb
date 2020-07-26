@@ -6,6 +6,7 @@ class CreateConfigs < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+
     add_index :configs, :config_key
   end
 end

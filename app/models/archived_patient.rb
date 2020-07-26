@@ -3,6 +3,16 @@ class ArchivedPatient < ApplicationRecord
   include Exportable
   include LastMenstrualPeriodMeasureable
 
+  # Relationships
+  belongs_to :clinic
+  has_many :calls, as: :can_call
+  has_many :external_pledges, as: :external_pledges
+  has_many :practical_supports, as: :can_support
+  has_one :fulfillment, as: :can_fulfill
+
+  # belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
+  # belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
+
   # Validations
   validates :initial_call_date,
             :created_by_id,

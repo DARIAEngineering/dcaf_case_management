@@ -33,7 +33,12 @@ class CreateArchivedPatients < ActiveRecord::Migration[6.0]
       t.timestamp :pledge_generated_at
       t.boolean :textable
 
+      t.references :clinic, foreign_key: true
+
       t.timestamps
     end
+
+    add_index :archived_patients, :line
+    add_index :archived_patients, :identifier
   end
 end
