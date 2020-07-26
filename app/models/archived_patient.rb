@@ -1,4 +1,5 @@
-class ArchivedPatient < MongoArchivedPatient
+# Patient record with PII stripped.
+class ArchivedPatient < ApplicationRecord
   include Exportable
   include LastMenstrualPeriodMeasureable
 

@@ -10,11 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_24_070113) do
+ActiveRecord::Schema.define(version: 2020_07_26_012831) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "hstore"
   enable_extension "plpgsql"
+
+  create_table "archived_patients", force: :cascade do |t|
+    t.string "identifier"
+    t.boolean "has_alt_contact"
+    t.integer "age_range"
+    t.integer "voicemail_preference"
+    t.integer "line"
+    t.string "language"
+    t.date "initial_call_date"
+    t.boolean "urgent_flag"
+    t.integer "last_menstrual_period_weeks"
+    t.integer "last_menstrual_period_days"
+    t.string "city"
+    t.string "state"
+    t.string "county"
+    t.string "race_ethnicity"
+    t.string "employment_status"
+    t.string "insurance"
+    t.string "income"
+    t.integer "notes_count"
+    t.boolean "has_special_circumstances"
+    t.string "referred_by"
+    t.boolean "referred_to_clinic"
+    t.date "appointment_date"
+    t.integer "procedure_cost"
+    t.integer "patient_contribution"
+    t.integer "naf_pledge"
+    t.integer "fund_pledge"
+    t.datetime "fund_pledged_at"
+    t.boolean "pledge_sent"
+    t.boolean "resolved_without_fund"
+    t.datetime "pledge_generated_at"
+    t.boolean "textable"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "calls", force: :cascade do |t|
     t.string "status"
@@ -70,7 +105,7 @@ ActiveRecord::Schema.define(version: 2020_07_24_070113) do
 
   create_table "configs", force: :cascade do |t|
     t.integer "config_key", null: false
-    t.hstore "config_value", default: {"options"=>"[]"}, null: false
+    t.jsonb "config_value", default: {"options"=>[]}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["config_key"], name: "index_configs_on_config_key"
