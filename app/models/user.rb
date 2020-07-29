@@ -3,6 +3,8 @@
 
 # TODO ENUMS
 class User < ApplicationRecord
+  has_paper_trail
+
   # Concerns
   include UserSearchable
   include CallListable

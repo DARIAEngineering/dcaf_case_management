@@ -1,5 +1,7 @@
 # Class so that funds can set their own dropdown lists of things
 class Config < ApplicationRecord
+  has_paper_trail
+
   # Define overrides for particular config fields.
   # Useful if there is no `_options` method.
   HELP_TEXT_OVERRIDES = {

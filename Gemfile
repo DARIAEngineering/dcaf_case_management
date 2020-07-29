@@ -31,6 +31,8 @@ gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of th
 # Our database is postgres
 gem 'pg', '~> 1.2'
 gem 'activerecord-session_store', '~> 1.1'
+gem 'paper_trail', '~> 10.3'
+gem 'paper_trail-globalid'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.7'

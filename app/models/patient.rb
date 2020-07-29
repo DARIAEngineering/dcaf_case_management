@@ -1,5 +1,7 @@
 # Object representing core patient information and demographic data.
 class Patient < ApplicationRecord
+  has_paper_trail
+
   # Concerns
   include Urgency
   include Callable
