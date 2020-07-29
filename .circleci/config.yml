@@ -41,6 +41,8 @@ jobs:
       # - run: yarn audit
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
+      - store_artifacts:
+          path: coverage
       - store_test_results:
           path: test-results/
   predeploy:
