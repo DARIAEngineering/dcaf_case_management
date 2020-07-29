@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
   enable_extension "plpgsql"
 
   create_table "archived_patients", force: :cascade do |t|
-    t.string "identifier"
+    t.string "identifier", null: false
     t.boolean "has_alt_contact"
     t.integer "age_range"
     t.integer "voicemail_preference"
-    t.integer "line"
+    t.integer "line", null: false
     t.string "language"
     t.date "initial_call_date"
     t.boolean "urgent_flag"
@@ -47,8 +47,12 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.boolean "resolved_without_fund"
     t.datetime "pledge_generated_at"
     t.boolean "textable"
+    t.bigint "clinic_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
+    t.index ["identifier"], name: "index_archived_patients_on_identifier"
+    t.index ["line"], name: "index_archived_patients_on_line"
   end
 
   create_table "calls", force: :cascade do |t|
@@ -61,14 +65,14 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
   end
 
   create_table "clinics", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "street_address"
     t.string "city"
     t.string "state"
     t.string "zip"
     t.string "phone"
     t.string "fax"
-    t.boolean "active"
+    t.boolean "active", default: true, null: false
     t.boolean "accepts_naf"
     t.boolean "accepts_medicaid"
     t.integer "gestational_limit"
@@ -121,10 +125,11 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_events_on_created_at"
+    t.index ["line"], name: "index_events_on_line"
   end
 
   create_table "external_pledges", force: :cascade do |t|
-    t.string "source"
+    t.string "source", null: false
     t.integer "amount"
     t.boolean "active"
     t.string "can_pledge_type", null: false
@@ -146,7 +151,9 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.bigint "can_fulfill_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["audited"], name: "index_fulfillments_on_audited"
     t.index ["can_fulfill_type", "can_fulfill_id"], name: "index_fulfillments_on_can_fulfill_type_and_can_fulfill_id"
+    t.index ["fulfilled"], name: "index_fulfillments_on_fulfilled"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -158,8 +165,8 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
   end
 
   create_table "patients", force: :cascade do |t|
-    t.string "name"
-    t.string "primary_phone"
+    t.string "name", null: false
+    t.string "primary_phone", null: false
     t.string "other_contact"
     t.string "other_phone"
     t.string "other_contact_relationship"
@@ -167,7 +174,7 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.integer "voicemail_preference"
     t.integer "line"
     t.string "language"
-    t.date "initial_call_date"
+    t.date "initial_call_date", null: false
     t.boolean "urgent_flag"
     t.integer "last_menstrual_period_weeks"
     t.integer "last_menstrual_period_days"
@@ -196,18 +203,22 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.datetime "pledge_generated_at"
     t.datetime "pledge_sent_at"
     t.boolean "textable"
+    t.bigint "clinic_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
     t.index ["line"], name: "index_patients_on_line"
     t.index ["name"], name: "index_patients_on_name"
+    t.index ["other_contact"], name: "index_patients_on_other_contact"
     t.index ["other_phone"], name: "index_patients_on_other_phone"
+    t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
     t.index ["primary_phone"], name: "index_patients_on_primary_phone", unique: true
     t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
   end
 
   create_table "practical_supports", force: :cascade do |t|
-    t.string "support_type"
+    t.string "support_type", null: false
     t.boolean "confirmed"
     t.string "source"
     t.string "can_support_type", null: false
@@ -227,11 +238,11 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "line"
     t.boolean "disabled_by_fund"
     t.string "call_order", array: true
-    t.integer "role", default: 0
+    t.integer "role", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false
@@ -247,6 +258,7 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["name"], name: "index_users_on_name"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -255,10 +267,12 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.bigint "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object"
+    t.json "object"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "archived_patients", "clinics"
   add_foreign_key "notes", "patients", column: "patients_id"
+  add_foreign_key "patients", "clinics"
 end

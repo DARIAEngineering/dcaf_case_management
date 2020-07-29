@@ -1,11 +1,11 @@
 class CreateArchivedPatients < ActiveRecord::Migration[6.0]
   def change
     create_table :archived_patients do |t|
-      t.string :identifier
+      t.string :identifier, null: false
       t.boolean :has_alt_contact
       t.integer :age_range
       t.integer :voicemail_preference
-      t.integer :line
+      t.integer :line, null: false
       t.string :language
       t.date :initial_call_date
       t.boolean :urgent_flag

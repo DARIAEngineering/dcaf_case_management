@@ -1,14 +1,14 @@
 class CreateClinics < ActiveRecord::Migration[6.0]
   def change
     create_table :clinics do |t|
-      t.string :name
+      t.string :name, null: false
       t.string :street_address
       t.string :city
       t.string :state
       t.string :zip
       t.string :phone
       t.string :fax
-      t.boolean :active
+      t.boolean :active, null: false, default: true
       t.boolean :accepts_naf
       t.boolean :accepts_medicaid
       t.integer :gestational_limit

@@ -2,19 +2,19 @@ class CreatePatients < ActiveRecord::Migration[6.0]
   def change
     create_table :patients do |t|
       # Searchable info
-      t.string :name, index: true
-      t.string :primary_phone, index: { unique: true }
+      t.string :name, null: false
+      t.string :primary_phone, null: false
       t.string :other_contact
-      t.string :other_phone, index: true
+      t.string :other_phone
       t.string :other_contact_relationship
-      t.string :identifier, index: true
+      t.string :identifier
 
       # Contact-related info
       t.integer :voicemail_preference
-      t.integer :line, index: true
+      t.integer :line
       t.string :language
-      t.date :initial_call_date
-      t.boolean :urgent_flag, index: true
+      t.date :initial_call_date, null: false
+      t.boolean :urgent_flag
 
       t.integer :last_menstrual_period_weeks
       t.integer :last_menstrual_period_days
@@ -54,7 +54,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
     end
 
     add_index :patients, :primary_phone, unique: true
-    add_index :patients, :other_contact_phone
+    add_index :patients, :other_phone
     add_index :patients, :other_contact
     add_index :patients, :name
     add_index :patients, :line
