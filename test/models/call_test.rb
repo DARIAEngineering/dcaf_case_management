@@ -4,7 +4,7 @@ class CallTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @patient = create :patient
-    @patient.calls.create attributes_for(:call, created_by: @user)
+    @patient.calls.create attributes_for :call
     @call = @patient.calls.first
   end
 
@@ -26,10 +26,10 @@ class CallTest < ActiveSupport::TestCase
       end
     end
 
-    it 'should require a user id' do
-      @call.created_by = nil
-      refute @call.valid?
-    end
+    # it 'should require a user id' do
+    #   @call.created_by = nil
+    #   refute @call.valid?
+    # end
   end
 
   describe 'relationships' do
@@ -42,17 +42,10 @@ class CallTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @call.respond_to? field
-        assert @call[field]
-      end
-    end
-
+  describe 'pg attachments' do
     it 'should respond to history methods' do
-      assert @call.respond_to? :history_tracks
-      assert @call.history_tracks.count > 0
+      assert @call.respond_to? :versions
+      assert @call.versions.count > 0
     end
 
     it 'should have accessible userstamp methods' do

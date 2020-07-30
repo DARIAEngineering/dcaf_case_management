@@ -3,7 +3,7 @@ module HistoryTrackable
   extend ActiveSupport::Concern
 
   def assemble_audit_trails
-    versions.order_by(created_at: :desc)
+    versions.order(created_at: :desc)
   end
 
   def recent_history_tracks
@@ -11,7 +11,7 @@ module HistoryTrackable
   end
 
   def created_by
-    versions.order_by(created_at: :asc).first.whodunnit
+    versions.order(created_at: :asc).first&.whodunnit
   end
 
   def created_by_id
