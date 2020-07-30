@@ -15,6 +15,6 @@ module HistoryTrackable
   end
 
   def created_by_id
-    created_by.id
+    created_by&.id
   end
 end
