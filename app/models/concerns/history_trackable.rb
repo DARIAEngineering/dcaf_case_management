@@ -3,18 +3,18 @@ module HistoryTrackable
   extend ActiveSupport::Concern
 
   def assemble_audit_trails
-    history_tracks.sort_by(&:created_at).reverse
+    versions.order_by(created_at: :desc)
   end
 
   def recent_history_tracks
-    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
+    versions.where updated_at: 6.days.ago..
   end
 
   def created_by
-    versions.first.whodunnit
+    versions.order_by(created_at: :asc).first.whodunnit
   end
 
-  def updated_by
-    paper_trail.originator
+  def created_by_id
+    created_by.id
   end
 end

@@ -2,6 +2,7 @@
 class Call < ApplicationRecord
   has_paper_trail
   include EventLoggable
+  include HistoryTrackable
 
   # Relationships
   belongs_to :can_call, polymorphic: true
@@ -13,7 +14,6 @@ class Call < ApplicationRecord
                       "Couldn't reach patient"]
   validates :status,  presence: true,
                       inclusion: { in: allowed_statuses }
-  validates :created_by_id, presence: true
 
   def recent?
     updated_at > 8.hours.ago ? true : false

@@ -44,7 +44,6 @@ class Patient < ApplicationRecord
   validates :name,
             :primary_phone,
             :initial_call_date,
-            :created_by_id,
             :line,
             presence: true
   validates :primary_phone, format: /\d{10}/,
@@ -199,7 +198,7 @@ class Patient < ApplicationRecord
   end
 
   def initialize_fulfillment
-    build_fulfillment(created_by_id: created_by_id).save
+    build_fulfillment.save
   end
 
   def update_pledge_sent_by_sent_at
