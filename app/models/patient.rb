@@ -58,6 +58,9 @@ class Patient < ApplicationRecord
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
   # validates_associated :fulfillment
 
+  # Enums
+  enum line: LINES.map { |x| [x, LINES.index(x)] }.to_h
+
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]

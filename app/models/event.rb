@@ -1,7 +1,6 @@
 # Object representing relevant actions taken by a case  manager
 class Event < ApplicationRecord
   # Validations
-  validates :event_type, inclusion: { in: EVENT_TYPES }
   validates :cm_name, :patient_name, :patient_id, :line, presence: true
   validates :pledge_amount, presence: true, if: :pledged_type?
 

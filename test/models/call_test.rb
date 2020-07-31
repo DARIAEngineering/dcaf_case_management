@@ -2,9 +2,8 @@ require 'test_helper'
 
 class CallTest < ActiveSupport::TestCase
   before do
-    @user = create :user
     @patient = create :patient
-    @patient.calls.create attributes_for :call
+    @patient.calls.create! attributes_for(:call, status: 'Left voicemail')
     @call = @patient.calls.first
   end
 
@@ -25,32 +24,48 @@ class CallTest < ActiveSupport::TestCase
         assert @call.valid?
       end
     end
-
-    # it 'should require a user id' do
-    #   @call.created_by = nil
-    #   refute @call.valid?
-    # end
   end
 
   describe 'relationships' do
     it 'should be linkable to a patient' do
       assert_equal @call.can_call, @patient
     end
+  end
 
-    it 'should be linkable to a user' do
-      assert_equal @call.created_by, @user
+  describe 'attachments' do
+    it 'should respond to paper trail methods' do
+      assert @call.respond_to? :versions
+      assert @call.respond_to? :created_by
+      assert @call.respond_to? :created_by_id
     end
   end
 
-  describe 'pg attachments' do
-    it 'should respond to history methods' do
-      assert @call.respond_to? :versions
-      assert @call.versions.count > 0
+  describe 'methods' do
+    it 'should know if it is recent' do
+      assert @call.recent?
+      @call.updated_at = 9.hours.ago
+      refute @call.recent?
     end
 
-    it 'should have accessible userstamp methods' do
-      assert @call.respond_to? :created_by
-      assert @call.created_by
+    it 'should know if it resulted in reached' do
+      assert_not @call.reached?
+      @call.update status: 'Reached patient'
+      assert @call.reached?
+    end
+  end
+
+  describe 'callbacks' do
+    it 'should create an event after' do
+      assert_difference 'Event.count', 1 do
+        @patient.calls.create attributes_for(:call)
+      end
+      last_event = Event.last
+      last_call = @patient.calls.last
+
+      assert_equal last_call.status, last_event.event_type
+      assert_equal @patient.name, last_event.patient_name
+      assert_equal @patient.id.to_s, last_event.patient_id
+      assert_equal @patient.line, last_event.line
     end
   end
 end
