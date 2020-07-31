@@ -1,6 +1,7 @@
 # Object representing a clinic that a patient is going to.
 class Clinic < ApplicationRecord
   has_paper_trail
+  include HistoryTrackable
 
   # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.
   # e.g. so a fund can have an 'OTHER CLINIC' catchall.
@@ -8,8 +9,9 @@ class Clinic < ApplicationRecord
 
   # Scopes
   # Is gestatiional_limit either nil or above x?
-  scope :gestational_limit_above, ->(gestation){ any_of({:gestational_limit.in => [nil]},
-                                                        {:gestational_limit.gte => gestation})}
+  scope :gestational_limit_above, ->(gestation) {
+    where(gestational_limit: nil).or(where(gestational_limit: gestation..))
+  }
 
   # Callbacks
   before_save :update_coordinates, if: :address_changed?

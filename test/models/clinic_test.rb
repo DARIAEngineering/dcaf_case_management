@@ -1,10 +1,7 @@
 require 'test_helper'
 
 class ClinicTest < ActiveSupport::TestCase
-  before do
-    @user = create :user
-    @clinic = create :clinic, created_by: @user
-  end
+  before { @clinic = create :clinic }
 
   describe 'validations' do
     it 'should build' do
@@ -20,27 +17,16 @@ class ClinicTest < ActiveSupport::TestCase
 
     it 'should be unique on name' do
       clinic_name = @clinic.name
-      dupe_clinic = build :clinic, name: clinic_name, created_by: @user
+      dupe_clinic = build :clinic, name: clinic_name
       refute dupe_clinic.valid?
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @clinic.respond_to? field
-        assert @clinic[field]
-      end
-    end
-
+  describe 'attachments' do
     it 'should respond to history methods' do
-      assert @clinic.respond_to? :history_tracks
-      assert @clinic.history_tracks.count > 0
-    end
-
-    it 'should have accessible userstamp methods' do
+      assert @clinic.respond_to? :versions
       assert @clinic.respond_to? :created_by
-      assert @clinic.created_by
+      assert @clinic.respond_to? :created_by_id
     end
   end
 
