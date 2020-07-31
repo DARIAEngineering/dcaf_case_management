@@ -44,7 +44,7 @@ class Config < ApplicationRecord
   end
 
   def self.autosetup
-    CONFIG_FIELDS.map(&:to_s).each do |field|
+    config_keys.map(&:to_s).each do |field|
       if Config.where(config_key: field).count != 1
         Config.create config_key: field
       end

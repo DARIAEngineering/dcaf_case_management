@@ -1,9 +1,7 @@
 require 'test_helper'
 
 class ConfigTest < ActiveSupport::TestCase
-  before do
-    @config = create :config
-  end
+  before { @config = create :config }
 
   describe 'validations' do
     it 'should build' do
@@ -23,22 +21,11 @@ class ConfigTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @config.respond_to? field
-        assert @config[field]
-      end
-    end
-
+  describe 'attachments' do
     it 'should respond to history methods' do
       assert @config.respond_to? :history_tracks
-      assert @config.history_tracks.count > 0
-    end
-
-    it 'should have accessible userstamp methods' do
       assert @config.respond_to? :created_by
-      assert @config.created_by
+      assert @config.respond_to? :created_by_id
     end
   end
 
@@ -60,11 +47,11 @@ class ConfigTest < ActiveSupport::TestCase
       before { Config.destroy_all }
 
       it 'should create any missing config objects' do
-        assert_difference 'Config.count', Config::CONFIG_FIELDS.count do
+        assert_difference 'Config.count', Config.config_keys.count do
           Config.autosetup
         end
 
-        Config::CONFIG_FIELDS.each do |field|
+        config_keys.each do |field|
           assert Config.find_by(config_key: field.to_s)
         end
       end
@@ -72,11 +59,11 @@ class ConfigTest < ActiveSupport::TestCase
       it 'should only create necessary missing config objects' do
         create_insurance_config
 
-        assert_difference 'Config.count', (Config::CONFIG_FIELDS.count - 1) do
+        assert_difference 'Config.count', (Config.config_keys.count - 1) do
           Config.autosetup
         end
 
-        Config::CONFIG_FIELDS.each do |field|
+        Config.config_keys.keys.each do |field|
           assert Config.find_by(config_key: field.to_s)
         end
       end
