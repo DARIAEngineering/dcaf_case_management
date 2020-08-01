@@ -1,6 +1,7 @@
 # Class so that funds can set their own dropdown lists of things
 class Config < ApplicationRecord
   has_paper_trail
+  include HistoryTrackable
 
   # Define overrides for particular config fields.
   # Useful if there is no `_options` method.
@@ -15,7 +16,7 @@ class Config < ApplicationRecord
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
-  # Fields
+  # Enums
   enum config_key: {
     insurance: 0,
     external_pledge_source: 1,
@@ -31,9 +32,12 @@ class Config < ApplicationRecord
     budget_bar_max: 11,
   }
 
+  # Validations
+  validates :config_key, uniqueness: true, presence: true
+
   # Methods
   def options
-    config_value[:options]
+    config_value['options']
   end
 
   def help_text
