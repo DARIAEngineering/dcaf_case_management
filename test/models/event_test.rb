@@ -9,9 +9,12 @@ class EventTest < ActiveSupport::TestCase
     end
 
     it 'should only allow certain statuses' do
-      [nil, 'not a status'].each do |bad_status|
-        @event.event_type = bad_status
-        refute @event.valid?
+      # binding.pry
+      @event.event_type = nil
+      refute @event.valid?
+
+      assert_raises ArgumentError do
+        @event.event_type = 'not a status'
       end
 
       valid_types = ['Reached patient', "Couldn't reach patient",

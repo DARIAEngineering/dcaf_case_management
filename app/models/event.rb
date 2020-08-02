@@ -1,7 +1,7 @@
 # Object representing relevant actions taken by a case  manager
 class Event < ApplicationRecord
   # Validations
-  validates :cm_name, :patient_name, :patient_id, :line, presence: true
+  validates :event_type, :cm_name, :patient_name, :patient_id, :line, presence: true
   validates :pledge_amount, presence: true, if: :pledged_type?
 
   # Enum values
@@ -34,7 +34,7 @@ class Event < ApplicationRecord
 
   # Clean events older than three weeks
   def self.destroy_old_events
-    Event.where(:created_at.lte => 3.weeks.ago)
+    Event.where('created_at < ?', 3.weeks.ago)
          .destroy_all
   end
 
