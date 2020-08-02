@@ -2,6 +2,7 @@
 # For primary fund pledges or NAF pledges, see the patient model.
 class ExternalPledge < ApplicationRecord
   has_paper_trail
+  include HistoryTrackable
 
   # Relationships
   belongs_to :can_pledge, polymorphic: true
@@ -12,6 +13,6 @@ class ExternalPledge < ApplicationRecord
   scope :active, -> { where(active: true) }
 
   # Validations
-  validates :created_by_id, :source, :amount, presence: true
-  validates :source, uniqueness: { scope: :active }
+  validates :source, :amount, presence: true
+  validates :source, uniqueness: { scope: [:active, :can_pledge] }
 end
