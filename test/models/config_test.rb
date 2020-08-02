@@ -51,7 +51,7 @@ class ConfigTest < ActiveSupport::TestCase
           Config.autosetup
         end
 
-        config_keys.each do |field|
+        Config.config_keys.keys.each do |field|
           assert Config.find_by(config_key: field.to_s)
         end
       end
