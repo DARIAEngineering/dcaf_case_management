@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
   create_table "fulfillments", force: :cascade do |t|
     t.boolean "fulfilled"
     t.date "procedure_date"
-    t.string "gestation_at_procedure"
+    t.integer "gestation_at_procedure"
     t.integer "fund_payout"
     t.string "check_number"
     t.string "date_of_check"
@@ -158,10 +158,10 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
 
   create_table "notes", force: :cascade do |t|
     t.text "full_text"
-    t.bigint "patients_id", null: false
+    t.bigint "patient_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["patients_id"], name: "index_notes_on_patients_id"
+    t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -273,6 +273,6 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
   end
 
   add_foreign_key "archived_patients", "clinics"
-  add_foreign_key "notes", "patients", column: "patients_id"
+  add_foreign_key "notes", "patients"
   add_foreign_key "patients", "clinics"
 end

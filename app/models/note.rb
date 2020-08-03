@@ -4,7 +4,7 @@ class Note < ApplicationRecord
   include HistoryTrackable
 
   # Relationships
-  belongs_to :patients
+  belongs_to :patient
 
   # Validations
   validates :full_text, presence: true
