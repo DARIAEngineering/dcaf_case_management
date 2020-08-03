@@ -2,6 +2,7 @@
 # which in turn indicates that the patient used our pledged money.
 class Fulfillment < ApplicationRecord
   has_paper_trail
+  include HistoryTrackable
 
   # Relationships
   belongs_to :can_fulfill, polymorphic: true
