@@ -22,6 +22,9 @@ class Patient < ApplicationRecord
 
   # Relationships
   belongs_to :clinic, optional: true
+  belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil, optional: true
+  belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
+  belongs_to :last_edited_by, class_name: 'User', inverse_of: nil, optional: true
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
   has_many :practical_supports, as: :can_support
@@ -67,13 +70,15 @@ class Patient < ApplicationRecord
     start_of_period = Config.start_day.downcase.to_s == "monthly" ? Time.zone.today.beginning_of_month.in_time_zone
                                                                   : Time.zone.today.beginning_of_week(Config.start_day).in_time_zone
     # Get patients who have been pledged this week, as a simplified hash
-    patients = Patient.in(line: line)
-                      .where(:fund_pledge.nin => [0, nil, ''])
-                      .or({:pledge_sent_at.gte => start_of_period}, {:fund_pledged_at.gte => start_of_period})
-                      .where(:resolved_without_fund.in => [false, nil])
-                      .order_by(fund_pledged_at: :asc)
-                      .pluck(*plucked_attrs)
-                      .map { |att| plucked_attrs.zip(att).to_h }
+    base = Patient.where(line: line,
+                         resolved_without_fund: [false, nil])
+                  .where.not(fund_pledge: [0, nil, ''])
+    patients = base.where(pledge_sent_at: start_of_period..)
+                   .or(base.where(fund_pledged_at: start_of_period..))
+                   .order(fund_pledged_at: :asc)
+                   .select(*plucked_attrs)
+                   .map { |att| plucked_attrs.zip(att).to_h }
+
     # Divide people up based on whether pledges have been sent or not
     patients.each_with_object(sent: [], pledged: []) do |patient, summary|
       if patient[:pledge_sent]

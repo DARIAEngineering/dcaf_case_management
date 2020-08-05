@@ -50,6 +50,10 @@ class CreatePatients < ActiveRecord::Migration[6.0]
 
       t.references :clinic, foreign_key: true
 
+      t.references :pledge_generated_by, foreign_key: { to_table: :users }
+      t.references :pledge_sent_by, foreign_key: { to_table: :users }
+      t.references :last_edited_by, foreign_key: { to_table: :users }
+
       t.timestamps
     end
 

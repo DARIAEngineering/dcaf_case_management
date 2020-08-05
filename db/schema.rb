@@ -204,15 +204,21 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.datetime "pledge_sent_at"
     t.boolean "textable"
     t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
+    t.bigint "last_edited_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
+    t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
     t.index ["line"], name: "index_patients_on_line"
     t.index ["name"], name: "index_patients_on_name"
     t.index ["other_contact"], name: "index_patients_on_other_contact"
     t.index ["other_phone"], name: "index_patients_on_other_phone"
+    t.index ["pledge_generated_by_id"], name: "index_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
+    t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
     t.index ["primary_phone"], name: "index_patients_on_primary_phone", unique: true
     t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
   end
@@ -275,4 +281,7 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
   add_foreign_key "archived_patients", "clinics"
   add_foreign_key "notes", "patients"
   add_foreign_key "patients", "clinics"
+  add_foreign_key "patients", "users", column: "last_edited_by_id"
+  add_foreign_key "patients", "users", column: "pledge_generated_by_id"
+  add_foreign_key "patients", "users", column: "pledge_sent_by_id"
 end

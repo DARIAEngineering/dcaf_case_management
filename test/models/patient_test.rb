@@ -4,7 +4,6 @@ class PatientTest < ActiveSupport::TestCase
   extend Minitest::OptionalRetry
 
   before do
-    @user = create :user
     @patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
 
@@ -56,11 +55,6 @@ class PatientTest < ActiveSupport::TestCase
       refute @patient.valid?
     end
 
-    it 'requires a logged creating user' do
-      @patient.created_by_id = nil
-      refute @patient.valid?
-    end
-
     %w(primary_phone other_phone).each do |phone|
       it "should enforce a max length of 10 for #{phone}" do
         @patient[phone] = '123-456-789022'
@@ -74,7 +68,7 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    %w(initial_call_date name primary_phone created_by).each do |field|
+    %w(initial_call_date name primary_phone).each do |field|
       it "should enforce presence of #{field}" do
         @patient[field.to_sym] = nil
         refute @patient.valid?
@@ -265,22 +259,11 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @patient.respond_to? field
-        assert @patient[field]
-      end
-    end
-
+  describe 'attachments' do
     it 'should respond to history methods' do
-      assert @patient.respond_to? :history_tracks
-      assert @patient.history_tracks.count > 0
-    end
-
-    it 'should have accessible userstamp methods' do
+      assert @patient.respond_to? :versions
       assert @patient.respond_to? :created_by
-      assert @patient.created_by
+      assert @patient.respond_to? :created_by_id
     end
   end
 
@@ -494,7 +477,7 @@ class PatientTest < ActiveSupport::TestCase
       @patient.last_edited_by = @user
       @patient.fund_pledge = true
       @patient.pledge_sent = true
-      @patient.update
+      @patient.save
       @patient.reload
       assert_in_delta Time.zone.now.to_f, @patient.pledge_sent_at.to_f, 15 #used assert_in_delta to account for slight differences in timing. Allows 15 seconds of lag?
       assert_equal @user, @patient.pledge_sent_by
@@ -502,7 +485,7 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should set pledge sent and sent at to nil if a pledge is cancelled' do
       @patient.pledge_sent = false
-      @patient.update
+      @patient.save
       @patient.reload
       assert_nil @patient.pledge_sent_by
       assert_nil @patient.pledge_sent_at
