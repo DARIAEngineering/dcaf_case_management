@@ -6,9 +6,8 @@ module Urgency
     # Verify that a pregnancy has not been marked urgent in the past six days
     return false if recent_history_tracks.count.zero?
     return false if pledge_sent || resolved_without_fund
-    recent_history_tracks.order(created_at: :desc).each do |version|
-      # uh oh.
-      return true if version.marked_urgent?
+    versions.order(created_at: :desc).each do |version|
+      return true if version.urgent_flag_changed? && urgent_flag?
     end
     false
   end

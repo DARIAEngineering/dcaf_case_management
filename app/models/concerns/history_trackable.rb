@@ -6,10 +6,6 @@ module HistoryTrackable
     versions.order(created_at: :desc)
   end
 
-  def recent_history_tracks
-    versions.where updated_at: 6.days.ago..
-  end
-
   def created_by
     versions.order(created_at: :asc).first&.whodunnit
   end

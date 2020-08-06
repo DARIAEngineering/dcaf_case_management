@@ -317,10 +317,13 @@ class PatientTest < ActiveSupport::TestCase
     describe 'history check methods' do
       it 'should say whether a patient is still urgent' do
         # TODO: TIMECOP
-        @patient.urgent_flag = true
-        @patient.save
+        with_versioning do
+          @patient.urgent_flag = true
+          @patient.save
 
-        assert @patient.still_urgent?
+          # binding.pry
+          assert @patient.still_urgent?
+        end
       end
 
       it 'should trim pregnancies after they have been urgent for five days' do
@@ -330,28 +333,36 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'still urgent method' do
       it 'should return true if marked urgent in last 6 days' do
-        @patient.update urgent_flag: true
-        assert @patient.still_urgent?
+        with_versioning do
+          @patient.update urgent_flag: true
+          assert @patient.still_urgent?
+        end
       end
 
       it 'should return false if pledge sent' do
-        @patient.update urgent_flag: true
-        @patient.update pledge_sent: true
-        assert_not @patient.still_urgent?
+        with_versioning do
+          @patient.update urgent_flag: true
+          @patient.update pledge_sent: true
+          assert_not @patient.still_urgent?
+        end
       end
 
       it 'should return false if resolved without fund' do
-        @patient.update urgent_flag: true
-        @patient.update resolved_without_fund: true
-        assert_not @patient.still_urgent?
+        with_versioning do
+          @patient.update urgent_flag: true
+          @patient.update resolved_without_fund: true
+          assert_not @patient.still_urgent?
+        end
       end
 
       it 'should return false if not updated for more than 6 days' do
-        Timecop.freeze(Time.zone.now - 7.days) do
-          @patient.update urgent_flag: true
-        end
+        with_versioning do
+          Timecop.freeze(Time.zone.now - 7.days) do
+            @patient.update urgent_flag: true
+          end
 
-        assert_not @patient.still_urgent?
+          assert_not @patient.still_urgent?
+        end
       end
     end
 
