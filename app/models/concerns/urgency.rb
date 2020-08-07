@@ -7,7 +7,7 @@ module Urgency
     return false if recent_history_tracks.count.zero?
     return false if pledge_sent || resolved_without_fund
     versions.order(created_at: :desc).each do |version|
-      return true if version.urgent_flag_changed? && urgent_flag?
+      return true if version.changeset[:urgent_flag].present? && version.changeset[:urgent_flag][1]
     end
     false
   end

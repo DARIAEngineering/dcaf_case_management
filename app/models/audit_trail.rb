@@ -23,10 +23,6 @@ class AuditTrail
     created_by ? created_by.name : 'System'
   end
 
-  def marked_urgent?
-    modified.include?('urgent_flag') && modified['urgent_flag'] == true
-  end
-
   def shaped_changes
     orig = original.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
     mod = modified.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }

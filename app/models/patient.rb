@@ -72,16 +72,15 @@ class Patient < ApplicationRecord
     # Get patients who have been pledged this week, as a simplified hash
     base = Patient.where(line: line,
                          resolved_without_fund: [false, nil])
-                  .where.not(fund_pledge: [0, nil, ''])
+                  .where.not(fund_pledge: [0, nil])
     patients = base.where(pledge_sent_at: start_of_period..)
                    .or(base.where(fund_pledged_at: start_of_period..))
                    .order(fund_pledged_at: :asc)
                    .select(*plucked_attrs)
-                   .map { |att| plucked_attrs.zip(att).to_h }
 
     # Divide people up based on whether pledges have been sent or not
     patients.each_with_object(sent: [], pledged: []) do |patient, summary|
-      if patient[:pledge_sent]
+      if patient.pledge_sent?
         summary[:sent] << patient
       else
         summary[:pledged] << patient
