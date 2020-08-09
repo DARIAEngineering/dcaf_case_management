@@ -30,7 +30,7 @@ gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of th
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.7'
-gem 'omniauth-google-oauth2', '~> 0.6.0'
+gem 'omniauth-google-oauth2', '~> 0.8.0'
 
 
 # We report errors with sentry
