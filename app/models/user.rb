@@ -23,6 +23,10 @@ class User < ApplicationRecord
   # :rememberable
   # :confirmable
 
+  # Relations
+  has_many :call_lists
+  has_many :patients, through: :call_lists
+
   # Validations
   # email presence validated through Devise
   validates :name, presence: true
