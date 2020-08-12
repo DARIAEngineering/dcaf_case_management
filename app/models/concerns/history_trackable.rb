@@ -7,7 +7,7 @@ module HistoryTrackable
   end
 
   def created_by
-    versions.order(created_at: :asc).first&.whodunnit
+    versions.order(created_at: :asc).first&.actor
   end
 
   def created_by_id

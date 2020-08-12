@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_26_071422) do
+ActiveRecord::Schema.define(version: 2020_08_11_061117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 2020_07_26_071422) do
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["identifier"], name: "index_archived_patients_on_identifier"
     t.index ["line"], name: "index_archived_patients_on_line"
+  end
+
+  create_table "call_lists", force: :cascade do |t|
+    t.bigint "patient_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_call_lists_on_patient_id"
+    t.index ["user_id"], name: "index_call_lists_on_user_id"
   end
 
   create_table "calls", force: :cascade do |t|
