@@ -60,11 +60,14 @@ class User < ApplicationRecord
 
   def self.disable_inactive_users
     cutoff_date = Time.zone.now - TIME_BEFORE_DISABLED_BY_FUND
-    inactive_has_logged_in = where(:role.nin => [:admin],
-                                   :current_sign_in_at.lt => cutoff_date)
-    inactive_no_logins = where(:role.nin => [:admin],
-                               :current_sign_in_at => nil,
-                               :created_at.lt => cutoff_date)
+
+    inactive_has_logged_in = where('current_sign_in_at < ?', cutoff_date)
+                              .where.not(role: [:admin])
+                                  
+    inactive_no_logins = where('created_at < ?', cutoff_date)
+                          .where(current_sign_in_at: nil)
+                          .where.not(role: [:admin])
+
     [inactive_no_logins, inactive_has_logged_in].each do |set|
       set.update disabled_by_fund: true
     end

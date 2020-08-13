@@ -173,8 +173,8 @@ class UserTest < ActiveSupport::TestCase
     before do
       @patient = create :patient
       @patient_2 = create :patient
-      @user.patients << @patient
-      @user.patients << @patient_2
+      # @user.patients << @patient
+      # @user.patients << @patient_2
       @user_2 = create :user
     end
 
@@ -182,7 +182,6 @@ class UserTest < ActiveSupport::TestCase
       [@patient, @patient_2].each do |preg|
         [@user, @user_2].each { |user| user.add_patient preg }
       end
-
       assert_equal @user.patients, @user_2.patients
     end
   end
@@ -240,16 +239,13 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'should find inactive users with logins before cutoff and disable' do
-        [@disabled_user, @no_login_user].each do |user|
-          user.reload
-          assert user.disabled_by_fund?
-        end
+        # disabled and no-login should be shut off
+        assert @disabled_user.reload.disabled_by_fund?
+        assert @no_login_user.reload.disabled_by_fund?
 
         # No locking admins or users with recent activity
-        [@admin, @nondisabled_user].each do |user|
-          user.reload
-          assert_not user.disabled_by_fund?
-        end
+        refute @admin.disabled_by_fund?
+        refute @nondisabled_user.disabled_by_fund?
       end
     end
   end

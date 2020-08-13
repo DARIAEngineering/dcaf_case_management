@@ -21,6 +21,8 @@ class Patient < ApplicationRecord
   end
 
   # Relationships
+  has_many :call_lists
+  has_many :users, through: :call_lists
   belongs_to :clinic, optional: true
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil, optional: true
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
