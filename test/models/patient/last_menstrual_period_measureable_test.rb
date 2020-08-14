@@ -4,9 +4,7 @@ require_relative '../patient_test'
 class PatientTest::LastMenstrualPeriodMeasureable < PatientTest
   describe 'last menstrual period calculation concern' do
     before do
-      @user = create :user
-      @patient = create :patient, created_by: @user,
-                                  initial_call_date: 2.days.ago,
+      @patient = create :patient, initial_call_date: 2.days.ago,
                                   last_menstrual_period_weeks: 9,
                                   last_menstrual_period_days: 2,
                                   appointment_date: 2.days.from_now

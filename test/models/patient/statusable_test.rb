@@ -4,7 +4,6 @@ require_relative '../patient_test'
 class PatientTest::Statusable < PatientTest
   describe 'status concern methods' do
     before do
-      @user = create :user
       @patient = create :patient, other_phone: '111-222-3333',
                                   other_contact: 'Yolo'
     end
