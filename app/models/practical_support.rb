@@ -1,7 +1,7 @@
 # An object representing non-monetary assistance to patients,
 # either by this fund or other stakeholders.
 class PracticalSupport < ApplicationRecord
-  has_paper_trail
+  # Concerns
   include HistoryTrackable
 
   # Relationships

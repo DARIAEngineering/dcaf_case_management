@@ -1,6 +1,6 @@
 # Object representing a case manager dialing a patient.
 class Call < ApplicationRecord
-  has_paper_trail
+  # Concerns
   include EventLoggable
   include HistoryTrackable
 

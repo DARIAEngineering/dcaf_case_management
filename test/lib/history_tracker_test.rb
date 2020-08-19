@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class AuditTrailTest < ActiveSupport::TestCase
+class HistoryTrackerTest < ActiveSupport::TestCase
   before do
-    @user = create :user
-    @patient = create :patient, name: 'Susie Everyteen',
-                                primary_phone: '111-222-3333',
-                                appointment_date: Time.zone.now + 5.days,
-                                initial_call_date: Time.zone.now + 3.days,
-                                created_by: @user
+    something_whodunnit do
+      @patient = create :patient, name: 'Susie Everyteen',
+                                  primary_phone: '111-222-3333',
+                                  appointment_date: Time.zone.now + 5.days,
+                                  initial_call_date: Time.zone.now + 3.days
+    end
   end
 
   describe 'natural initializing - everything okay alarm' do

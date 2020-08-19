@@ -1,6 +1,6 @@
 # Class so that funds can set their own dropdown lists of things
 class Config < ApplicationRecord
-  has_paper_trail
+  # Concerns
   include HistoryTrackable
 
   # Define overrides for particular config fields.

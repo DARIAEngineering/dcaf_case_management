@@ -1,6 +1,6 @@
 # A case manager's log of their interactions with a patient.
 class Note < ApplicationRecord
-  has_paper_trail
+  # Concerns
   include HistoryTrackable
 
   # Relationships

@@ -1,6 +1,6 @@
 # Object representing a clinic that a patient is going to.
 class Clinic < ApplicationRecord
-  has_paper_trail
+  # Concerns
   include HistoryTrackable
 
   # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.

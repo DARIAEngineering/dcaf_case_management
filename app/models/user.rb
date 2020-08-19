@@ -3,11 +3,10 @@
 
 # TODO ENUMS
 class User < ApplicationRecord
-  has_paper_trail
-
   # Concerns
   include UserSearchable
   include CallListable
+  include HistoryTrackable
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months
 

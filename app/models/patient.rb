@@ -1,8 +1,7 @@
 # Object representing core patient information and demographic data.
 class Patient < ApplicationRecord
-  has_paper_trail
-
   # Concerns
+  include HistoryTrackable
   include Urgency
   include Callable
   include Notetakeable
@@ -10,7 +9,6 @@ class Patient < ApplicationRecord
   include AttributeDisplayable
   include LastMenstrualPeriodMeasureable
   include Pledgeable
-  include HistoryTrackable
   include Statusable
   include Exportable
   include EventLoggable

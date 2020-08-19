@@ -2,12 +2,17 @@
 module HistoryTrackable
   extend ActiveSupport::Concern
 
+  included do
+    has_paper_trail versions: { class_name: 'HistoryTracker' },
+                    scope: -> { order(id: :desc) }
+  end
+
   def assemble_audit_trails
-    versions.order(created_at: :desc)
+    versions # mark for deprecation
   end
 
   def created_by
-    versions.order(created_at: :asc).first&.actor
+    versions.first&.actor
   end
 
   def created_by_id
