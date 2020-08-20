@@ -209,6 +209,7 @@ en:
         age: Age
         appointment_date: Appointment date
         city: City
+        clinic_id: Clinic_Id
         completed_ultrasound: Completed ultrasound?
         county: County
         employment_status: Employment status
