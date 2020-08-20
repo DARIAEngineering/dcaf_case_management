@@ -52,7 +52,7 @@ module WelcomeMessageHelper
       "We appreciate all that you're doing. Keep up the good work!",
       "Thank you so much. If you're ok with hugs and if I could hug you in real life, I would hug you! Your work is so important.",
       "Proud to be a part of this incredible project - keep up the great work!",
-      "Thank you for contributing your time and energy in doing this important work."
+      "Thank you for contributing your time and energy in doing this important work!"
     ]
   end
 end
