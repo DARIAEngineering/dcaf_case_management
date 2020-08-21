@@ -209,6 +209,7 @@ es:
         age: Edad
         appointment_date: Día de la cita
         city: Ciudad
+        clinic_id: ID de la clínica
         completed_ultrasound: Ultrasonido completado
         county: Condado
         employment_status: Estatus de empleo
