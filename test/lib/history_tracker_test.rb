@@ -2,18 +2,21 @@ require 'test_helper'
 
 class HistoryTrackerTest < ActiveSupport::TestCase
   before do
-    something_whodunnit do
-      @patient = create :patient, name: 'Susie Everyteen',
-                                  primary_phone: '111-222-3333',
-                                  appointment_date: Time.zone.now + 5.days,
-                                  initial_call_date: Time.zone.now + 3.days
+    @user = create :user
+    with_versioning do
+      PaperTrail.request(whodunnit: @user) do
+        @patient = create :patient, name: 'Susie Everyteen',
+                                    primary_phone: '111-222-3333',
+                                    appointment_date: Time.zone.now + 5.days,
+                                    initial_call_date: Time.zone.now + 3.days
+      end
     end
   end
 
   describe 'natural initializing - everything okay alarm' do
     it 'should be available on a patient creation' do
-      assert_not_nil @patient.history_tracks
-      assert_kind_of AuditTrail, @patient.history_tracks.first
+      assert_not_nil @patient.versions
+      assert_kind_of HistoryTracker, @patient.versions.first
     end
 
     it 'should record the creating user' do
@@ -23,14 +26,16 @@ class HistoryTrackerTest < ActiveSupport::TestCase
 
   describe 'methods' do
     before do
-      @clinic = create :clinic
-      @patient.update_attributes name: 'Yolo',
-                                 primary_phone: '123-456-9999',
-                                 appointment_date: Time.zone.now + 10.days,
-                                 city: 'Canada',
-                                 clinic: @clinic,
-                                 special_circumstances: ['A', '', 'C', '']
-      @track = @patient.history_tracks.second
+      with_versioning do
+        @clinic = create :clinic
+        @patient.update name: 'Yolo',
+                        primary_phone: '123-456-9999',
+                        appointment_date: Time.zone.now + 10.days,
+                        city: 'Canada',
+                        clinic: @clinic,
+                        special_circumstances: ['A', '', 'C', '']
+        @track = @patient.versions.first
+      end
     end
 
     it 'should conveniently render the date' do
@@ -42,6 +47,9 @@ class HistoryTrackerTest < ActiveSupport::TestCase
       assert_equal @track.changed_by_user, 'System'
     end
 
+    # TODO test has_changed_fields?
+    # TODO test date_of_change
+
     it 'should return shaped changes as a single dict' do
       assert_equal @track.shaped_changes,
                    { 'name' => { original: 'Susie Everyteen', modified: 'Yolo' },
@@ -51,16 +59,6 @@ class HistoryTrackerTest < ActiveSupport::TestCase
                      'city' =>{ original: '(empty)', modified: 'Canada' },
                      'clinic_id' =>{ original: '(empty)', modified: @clinic.name },
                    }
-    end
-  end
-
-  describe 'marked urgent' do
-    it 'should return true if urgent flag was changed to true' do
-      @patient = create :patient
-      @patient.urgent_flag = true
-      @patient.save
-
-      assert @patient.history_tracks.second.marked_urgent?
     end
   end
 end

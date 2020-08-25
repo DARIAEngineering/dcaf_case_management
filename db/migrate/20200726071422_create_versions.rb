@@ -15,7 +15,7 @@ class CreateVersions < ActiveRecord::Migration[6.0]
       t.string   :event,     null: false
       t.string   :whodunnit
       t.json     :object
-      t.text     :object_changes
+      t.json     :object_changes
 
       # Known issue in MySQL: fractional second precision
       # -------------------------------------------------

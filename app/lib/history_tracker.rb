@@ -9,25 +9,26 @@ class HistoryTracker < PaperTrail::Version
     created_at.display_date
   end
 
-  # def has_changed_fields?
-  #   modified.reject { |x| IRRELEVANT_FIELDS.include? x }.present?
-  # end
+  def has_changed_fields?
+    modified.reject { |x| IRRELEVANT_FIELDS.include? x }.present?
+  end
 
-  # def changed_by_user
-  #   created_by ? created_by.name : 'System'
-  # end
+  def changed_by_user
+    actor&.name || 'System'
+  end
 
-  # def shaped_changes
-  #   orig = original.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
-  #   mod = modified.reject { |field| AuditTrail::IRRELEVANT_FIELDS.include? field }
-  #   all_fields = orig.keys | mod.keys
-  #   changeset = {}
-  #   all_fields.each do |key|
-  #     changeset[key] = { original: format_fieldchange(key, orig[key]),
-  #                                 modified: format_fieldchange(key, modified[key]) }
-  #   end
-  #   changeset
-  # end
+  def shaped_changes
+    binding.pry
+    orig = original.reject { |field| HistoryTracker::IRRELEVANT_FIELDS.include? field }
+    mod = modified.reject { |field| HistoryTracker::IRRELEVANT_FIELDS.include? field }
+    all_fields = orig.keys | mod.keys
+    changeset = {}
+    all_fields.each do |key|
+      changeset[key] = { original: format_fieldchange(key, orig[key]),
+                                  modified: format_fieldchange(key, modified[key]) }
+    end
+    changeset
+  end
 
   # private
 

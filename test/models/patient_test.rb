@@ -1,4 +1,5 @@
 require 'test_helper'
+# TODO REMAKE URGENCY TEST?
 
 class PatientTest < ActiveSupport::TestCase
   extend Minitest::OptionalRetry
@@ -321,7 +322,6 @@ class PatientTest < ActiveSupport::TestCase
           @patient.urgent_flag = true
           @patient.save
 
-          # binding.pry
           assert @patient.still_urgent?
         end
       end

@@ -3,8 +3,8 @@ module HistoryTrackable
   extend ActiveSupport::Concern
 
   included do
-    has_paper_trail versions: { class_name: 'HistoryTracker' },
-                    scope: -> { order(id: :desc) }
+    has_paper_trail versions: { class_name: 'HistoryTracker',
+                                scope: -> { order(id: :desc) } }
   end
 
   def assemble_audit_trails
