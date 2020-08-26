@@ -8,8 +8,8 @@ class PatientsHelperTest < ActionView::TestCase
       assert_equal 1, weeks_options.select { |x| /week$/.match x[0] }.count
     end
 
-    it 'should have 30 entries' do
-      assert_equal 31, weeks_options.count
+    it 'should have 40 entries' do
+      assert_equal 41, weeks_options.count
     end
   end
 
