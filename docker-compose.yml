@@ -19,6 +19,7 @@ services:
       - "3000:3000"
     links:
       - db
+      - webpacker
     environment:
       mongohost: db
     env_file:
