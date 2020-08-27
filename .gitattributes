@@ -2,7 +2,7 @@
 * text eol=lf
 
 # Don't normalize images and other binary files
-# more info: https://www.git-scm.com/docs/gitattributes
+# more info: https://www.git-scm.com/docs/gitattributes#_text
 *.ai -text
 *.png -text
 *.ttf -text
