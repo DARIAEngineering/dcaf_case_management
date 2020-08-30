@@ -8,3 +8,4 @@
 *.pdf binary
 *.ttf binary
 *.ico binary
+bin/qgtunnel binary
