@@ -94,7 +94,7 @@ class ClinicTest < ActiveSupport::TestCase
         end
 
         assert_equal [fake_geo.lat, fake_geo.lng],
-                     @clinic.coordinates
+                     @clinic.display_coordinates
       end
     end
   end

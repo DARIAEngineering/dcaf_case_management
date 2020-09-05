@@ -40,6 +40,10 @@ class Clinic < ApplicationRecord
     self.coordinates = coordinates
   end
 
+  def display_coordinates
+    coordinates.map(&:to_f)
+  end
+
   def address_changed?
     street_address_changed? || city_changed? || state_changed? || zip_changed?
   end
