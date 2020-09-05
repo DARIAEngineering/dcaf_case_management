@@ -22,7 +22,7 @@ class HistoryTracker < PaperTrail::Version
              .reduce({}) do |acc, x|
                key = x[0]
                acc.merge({ key => { original: format_fieldchange(key, x[1][0]),
-                                           modified: format_fieldchange(key, x[1][1]) }})
+                                    modified: format_fieldchange(key, x[1][1]) }})
              end
   end
 

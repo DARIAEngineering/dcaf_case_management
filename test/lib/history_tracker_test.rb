@@ -30,7 +30,7 @@ class HistoryTrackerTest < ActiveSupport::TestCase
         @clinic = create :clinic
         @patient.update name: 'Yolo',
                         primary_phone: '123-456-9999',
-                        appointment_date: Time.zone.now + 10.days,
+                        appointment_date: Date.today + 10.days,
                         city: 'Canada',
                         clinic: @clinic,
                         special_circumstances: ['A', '', 'C', '']
@@ -54,10 +54,10 @@ class HistoryTrackerTest < ActiveSupport::TestCase
       assert_equal @track.shaped_changes,
                    { 'name' => { original: 'Susie Everyteen', modified: 'Yolo' },
                      'primary_phone' => { original: '1112223333', modified: '1234569999' },
-                     'appointment_date' =>{ original: (Time.zone.now + 5.days).display_date, modified: (Time.zone.now + 10.days).display_date },
-                     'special_circumstances' =>{ original: '(empty)', modified: 'A, C' },
-                     'city' =>{ original: '(empty)', modified: 'Canada' },
-                     'clinic_id' =>{ original: '(empty)', modified: @clinic.name },
+                     'appointment_date' => { original: (Date.today + 5.days).display_date, modified: (Date.today + 10.days).display_date },
+                     'special_circumstances' => { original: '(empty)', modified: 'A, C' },
+                     'city' => { original: '(empty)', modified: 'Canada' },
+                     'clinic_id' => { original: '(empty)', modified: @clinic.name },
                    }
     end
   end
