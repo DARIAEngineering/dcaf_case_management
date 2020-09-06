@@ -2,7 +2,7 @@
 require 'state_geo_tools'
 module PatientsHelper
   def weeks_options
-    (1..30).map { |i| [t('patient.helper.week', count: i), i] }.unshift [nil, nil]
+    (1..40).map { |i| [t('patient.helper.week', count: i), i] }.unshift [nil, nil]
   end
 
   def days_options
