@@ -54,7 +54,8 @@ module WelcomeMessageHelper
       "Thank you so much. If you're ok with hugs and if I could hug you in real life, I would hug you! Your work is so important.",
       "Proud to be a part of this incredible project - keep up the great work!",
       "You are a complete and total UNICORN! 🦄✨",
-      "You guys rock! Proud to be working on this project."
+      "You guys rock! Proud to be working on this project.",
+      "Thank you for contributing your time and energy in doing this important work."
     ]
   end
 end
