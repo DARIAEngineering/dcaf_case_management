@@ -30,18 +30,27 @@ $spacers: map-merge(
 $daria-color: #5D3E8D;
 $grey-color: #525252;
 $font-size: 17px;
-
+$soft-blue: #23527c;
+$dark-blue: #142B43;
 
 // Override to the global link style.
 // TODO do this with a bootstrap global, or move it to general styling.
 a {
-  color: #337ab7;
+  color: $soft-blue;
   text-decoration: none;
 }
 
 a:hover, a:active, a:visited, a:focus {
-  color: #23527c;
+  color: $dark-blue;
   text-decoration: underline;
+}
+
+//override the bootstrap form-text and btn-danger defaults for accessible color contrast
+.form-text {
+  color: #595959 !important;
+}
+.btn-danger {
+  background-color: #A42823 !important;
 }
 
 /* NAVBAR */
