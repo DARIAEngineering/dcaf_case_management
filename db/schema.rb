@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 2020_08_11_061117) do
   enable_extension "plpgsql"
 
   create_table "archived_patients", force: :cascade do |t|
-    t.string "identifier", null: false
     t.boolean "has_alt_contact"
     t.integer "age_range"
     t.integer "voicemail_preference"
@@ -46,13 +45,17 @@ ActiveRecord::Schema.define(version: 2020_08_11_061117) do
     t.boolean "pledge_sent"
     t.boolean "resolved_without_fund"
     t.datetime "pledge_generated_at"
+    t.datetime "pledge_sent_at"
     t.boolean "textable"
     t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
-    t.index ["identifier"], name: "index_archived_patients_on_identifier"
     t.index ["line"], name: "index_archived_patients_on_line"
+    t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
+    t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
   end
 
   create_table "call_lists", force: :cascade do |t|
@@ -283,12 +286,14 @@ ActiveRecord::Schema.define(version: 2020_08_11_061117) do
     t.string "event", null: false
     t.string "whodunnit"
     t.json "object"
-    t.text "object_changes"
+    t.json "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "archived_patients", "clinics"
+  add_foreign_key "archived_patients", "users", column: "pledge_generated_by_id"
+  add_foreign_key "archived_patients", "users", column: "pledge_sent_by_id"
   add_foreign_key "notes", "patients"
   add_foreign_key "patients", "clinics"
   add_foreign_key "patients", "users", column: "last_edited_by_id"

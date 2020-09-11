@@ -4,7 +4,7 @@ class ArchivedPatient < ApplicationRecord
   include LastMenstrualPeriodMeasureable
 
   # Relationships
-  belongs_to :clinic
+  belongs_to :clinic, optional: true
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :external_pledges
   has_many :practical_supports, as: :can_support
@@ -15,7 +15,6 @@ class ArchivedPatient < ApplicationRecord
 
   # Validations
   validates :initial_call_date,
-            :created_by_id,
             :line,
             presence: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,

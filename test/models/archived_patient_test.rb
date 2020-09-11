@@ -6,11 +6,14 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     @patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
 
-    @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+    with_versioning do
+      PaperTrail.request(whodunnit: @user) do
+        @patient.calls.create attributes_for(:call, status: 'Reached patient')
+      end
+    end
     create_language_config
     @archived_patient = create :archived_patient, line: 'DC',
-                                initial_call_date: 200.days.ago,
-                                created_by_id: @user.id
+                                initial_call_date: 200.days.ago
   end
 
   describe 'validations' do
@@ -27,11 +30,6 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @archived_patient.initial_call_date = nil
       refute @archived_patient.valid?
     end
-
-    it 'requires a logged creating user' do
-      @archived_patient.created_by_id = nil
-      refute @archived_patient.valid?
-    end
   end
 
   describe 'The convert_patient method' do
@@ -45,18 +43,15 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                    race_ethnicity: 'Asian',
                                    initial_call_date: 16.days.ago,
                                    appointment_date: 6.days.ago
-      @patient.calls.create attributes_for(:call, created_by: @user, status: "Couldn't reach patient")
-      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
-      @patient.update fulfillment: {
-                                  fulfilled: true,
+      @patient.calls.create attributes_for(:call, status: "Couldn't reach patient")
+      @patient.calls.create attributes_for(:call, status: 'Reached patient')
+      @patient.fulfillment.update fulfilled: true,
                                   updated_at: 3.days.ago,
                                   date_of_check: 3.days.ago,
                                   procedure_date: 6.days.ago,
                                   check_number: '123'
-                                }
       @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                     amount: 100,
-                                     created_by: @user
+                                       amount: 100
       @patient.save!
       @archived_patient = ArchivedPatient.convert_patient(@patient)
       @archived_patient.save!

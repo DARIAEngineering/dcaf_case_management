@@ -1,7 +1,6 @@
 class CreateArchivedPatients < ActiveRecord::Migration[6.0]
   def change
     create_table :archived_patients do |t|
-      t.string :identifier, null: false
       t.boolean :has_alt_contact
       t.integer :age_range
       t.integer :voicemail_preference
@@ -31,14 +30,16 @@ class CreateArchivedPatients < ActiveRecord::Migration[6.0]
       t.boolean :pledge_sent
       t.boolean :resolved_without_fund
       t.timestamp :pledge_generated_at
+      t.timestamp :pledge_sent_at
       t.boolean :textable
 
       t.references :clinic, foreign_key: true
+      t.references :pledge_generated_by, foreign_key: { to_table: :users }
+      t.references :pledge_sent_by, foreign_key: { to_table: :users }
 
       t.timestamps
     end
 
     add_index :archived_patients, :line
-    add_index :archived_patients, :identifier
   end
 end
