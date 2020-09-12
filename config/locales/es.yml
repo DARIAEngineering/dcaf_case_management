@@ -221,6 +221,7 @@ es:
         initial_call_date: Fecha de llamada inicial
         insurance: Seguro médico
         language: Idioma
+        pronouns: Pronombres
         last_menstrual_period_days: Últimos días del período menstrual
         last_menstrual_period_weeks: Últimas semanas del período menstrual
         line: Línea
