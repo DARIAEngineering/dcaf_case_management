@@ -221,7 +221,6 @@ es:
         initial_call_date: Fecha de llamada inicial
         insurance: Seguro médico
         language: Idioma
-        pronouns: Pronombres
         last_menstrual_period_days: Últimos días del período menstrual
         last_menstrual_period_weeks: Últimas semanas del período menstrual
         line: Línea
@@ -236,6 +235,7 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
+        pronouns: Pronombres
         race_ethnicity: Raza / Etnicidad
         referred_by: Referido por
         referred_to_clinic: Referido a la clínica
