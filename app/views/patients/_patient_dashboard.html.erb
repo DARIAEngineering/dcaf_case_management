@@ -45,6 +45,12 @@
       </div>
 
       <div class="col">
+        <%= f.text_field :pronouns,
+                         value: patient.pronouns,
+                         autocomplete: 'off' %>
+      </div>
+
+      <div class="col mt-6">
         <p><strong><%= t 'patient.shared.status' %></strong> <span id='patient_status'><%= patient.status %></span> <%= tooltip_shell status_help_text(patient) %></p>
       </div>
 
