@@ -4,14 +4,14 @@ es:
     search_cases: Buscar casos
     search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
     table_content:
-      check_number: '# de cheque'
+      check_number: "# de cheque"
       clinic: Clínica
       date_of_check: Fecha del cheque
       fund_payout: Pago de %{fund}
       pledge_sent: Promesa enviada
       pt_initials: Iniciales PT
       weeks_at_procedure: Semanas en el procedimiento
-      weeks_at_procedure_display: '%{gestation} semanas'
+      weeks_at_procedure_display: "%{gestation} semanas"
     title: Tablero de contador
   call:
     new:
@@ -25,8 +25,8 @@ es:
         voicemail_identify: Si se puede dejar mensaje de voz; Y tambien, identificarse como %{fund}
         voicemail_no_identify: Si se puede dejar mensaje de voz; Pero no identificarse como %{fund}
     other_contact:
-      number: '%{name}'s numero:'
-      other_contact: '%{name} %{rel} es el contacto principal para este paciente%{punc}'
+      number: "%{name}'s numero:"
+      other_contact: "%{name} %{rel} es el contacto principal para este paciente%{punc}"
       primary: 'Contacto primario:'
     status:
       could_not_reach_patient: No hablé con el paciente
@@ -41,9 +41,9 @@ es:
     patient_zip_code: Código postal del paciente
     result:
       affordable_title: Las clínicas más económicas
-      distance: '%{miles} millas'
-      goes_to: '%{weeks} semanas %{days} días'
-      location: '%{city}, %{state}'
+      distance: "%{miles} millas"
+      goes_to: "%{weeks} semanas %{days} días"
+      location: "%{city}, %{state}"
       nearest_title: Clínicas mas cercanas
       not_specified: No especificado
     search_button: Buscar clinicas
@@ -52,7 +52,7 @@ es:
     edit:
       title: Editar detalles de la clínica
     form:
-      active_help: '¿Estamos trabajando activamente con esta clínica?'
+      active_help: "¿Estamos trabajando activamente con esta clínica?"
       add_clinic: Añadir clinica
       costs_weeks: Costos en %{week} semanas
       save_changes: Guardar cambios
@@ -79,8 +79,8 @@ es:
     search: Buscar
     status: Estatus
     weeks_along_short: Semanas a lo largo
-    weeks_days: '%{weeks} semanas, %{days} días'
-    weeks_days_short: '%{weeks}s %{days}d'
+    weeks_days: "%{weeks} semanas, %{days} días"
+    weeks_days_short: "%{weeks}s %{days}d"
     'yes': Sí
   configs:
     config:
@@ -93,12 +93,12 @@ es:
     activity_log:
       label: Actividad de línea de llamadas %{current_line}
     budget_bar:
-      pledged_item: '%{amount} prometido'
-      pledged_report: '%{amount} prometido (%{count} pacientes)'
+      pledged_item: "%{amount} prometido"
+      pledged_report: "%{amount} prometido (%{count} pacientes)"
       pop_content_appt_date: cita en %{date}
       pop_content_no_appt_date: sin cita
-      sent_item: '%{amount} enviado'
-      sent_report: '%{amount} enviado (%{count} pacientes)'
+      sent_item: "%{amount} enviado"
+      sent_report: "%{amount} enviado (%{count} pacientes)"
     helpers:
       voicemail_options:
         'no': No dejen mensajes de voz
@@ -116,8 +116,8 @@ es:
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
     table_content:
       clear_call_list: Borrar su lista de llamadas
-      clear_call_list_confirm: '¿Está seguro/a de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas.'
-      remove_from_call_list_confirm: '¿Está seguro/a de que deseas eliminar a %{name} de tu lista de llamadas?'
+      clear_call_list_confirm: "¿Está seguro/a de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
+      remove_from_call_list_confirm: "¿Está seguro/a de que deseas eliminar a %{name} de tu lista de llamadas?"
   devise:
     omniauth_callbacks:
       success: Iniciar sesión con éxito con %{kind}
@@ -133,12 +133,12 @@ es:
           unauthenticated: ''
       new:
         google_signin: Inicia sesión con Google (recomendado)
-        lock_email_not_received: '¿No recibió instrucciones de desbloqueo?'
+        lock_email_not_received: "¿No recibió instrucciones de desbloqueo?"
         password: Contraseña
-        password_forgot: '¿Olvidaste tu contraseña?'
+        password_forgot: "¿Olvidaste tu contraseña?"
         password_signin: 'O, inicie sesión con una contraseña:'
         password_submit: Inicia sesión con contraseña
-        reset_email_not_received: '¿No recibió instrucciones de confirmación?'
+        reset_email_not_received: "¿No recibió instrucciones de confirmación?"
         sign_in: Regresar a registre
       user:
         signed_in: ''
@@ -151,7 +151,7 @@ es:
     unknown_action: habló o interactuó con
   external_pledge:
     edit:
-      fund_pledge: '%{source} promesa'
+      fund_pledge: "%{source} promesa"
     new:
       amount: Cantidad
       create_button: Crear promesa externo
@@ -164,7 +164,7 @@ es:
     account_locked: Cuenta bloqueada, consulte con su fondo.
     action_on_account: Cuenta de %{name} %{verb}
     cant_lock_own_account: No puedes bloquear tu propia cuenta. Pregunte a otro administrador.
-    clinic_created: '%{clinic} creado!'
+    clinic_created: "%{clinic} creado!"
     clinic_details_updated: Detalles de la clínica fueron exitosamente actualizados
     config_failed_update: Config no pudo actualizar
     config_update_success: Configuración actualizada correctamente
@@ -178,17 +178,17 @@ es:
     patient_removed_database: Paciente eliminado exitosamente de la base de datos.
     patient_removed_database_error: No se puede eliminar a los pacientes con promesas; Por favor, corrija el registro del paciente y vuelva a intentarlo.
     patient_save_error: Los errores impidieron salvar a este paciente - %{error}
-    patient_save_success: '%{patient} ha sido salvado con éxito! Agregue notas y promesas externos, confirme al promesa dura y los montos de la promesa del %{fund} son las mismas, y está listo.'
+    patient_save_success: "%{patient} ha sido salvado con éxito! Agregue notas y promesas externos, confirme al promesa dura y los montos de la promesa del %{fund} son las mismas, y está listo."
     pledge_download_alert: Debe ingresar su nombre en el cuadro para firmar y descargar la promesa
     unlocked: Desbloqueado
-    user_created: '¡Usuario creado!'
+    user_created: "¡Usuario creado!"
     user_update_error: Error al guardar los detalles del usuario - %{error}
     user_update_success: Detalles de usuario actualizados exitosamente
   lines:
     new:
       start: Empezar
-      welcome_to_daria: '¡Bienvenido a DARIA (edición de %{fund})!'
-      what_line: '¿En cuál línea estás trabajando?'
+      welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
+      what_line: "¿En cuál línea estás trabajando?"
   mongoid:
     attributes:
       clinic:
@@ -284,11 +284,11 @@ es:
         inactive_clinics: Clinícas inactivas
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
         naf_only_toggle: Enseñar solo clínicas de la NAF
-        not_currently_working_with_fund: '(Actualmente no trabaja con %{fund}) - %{clinic_name}'
+        not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         title: Detalles de la clínica
-        ultrasound_completed: '¿Ultrasonido completado?'
+        ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:
         abortion_cost: Costo del aborto
         fund_pledge: Promesa de %{fund}
@@ -298,7 +298,7 @@ es:
         title: Detalles del costo
       title: Información de aborto
     call_log:
-      delete_confirm: '¿Está seguro de que desea eliminar esta llamada del registro de llamadas?'
+      delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
       record_new_call: Grabar nueva llamada
       table:
         actions: ACCIONES
@@ -317,7 +317,7 @@ es:
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{weeks} semanas %{days} días'
       called_on: 'Llamado en: %{date}'
-      confirm_del: '¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)'
+      confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
       currently: 'Actualmente: %{weeks}s %{days}d'
       delete: Eliminar registro de paciente duplicado
       phone: Número de teléfono
@@ -326,8 +326,8 @@ es:
       patient_entry: Entrada de paciente
     helper:
       day:
-        one: '%{count} día'
-        other: '%{count} días'
+        one: "%{count} día"
+        other: "%{count} días"
       employment:
         full_time: Tiempo completo
         odd_jobs: Trabajos ocasionales
@@ -335,17 +335,17 @@ es:
         student: Estudiante
         unemployed: Desempleada
       income:
-        10_to_15: '$10,000-14,999 ($192-287/sm - $834-1250/mes)'
-        15_to_20: '$15,000-19,999 ($288-384/sm - $1251-1666/mes)'
-        20_to_25: '$20,000-24,999 ($385-480/sm - $1667-2083/mes)'
-        25_to_30: '$25,000-29,999 ($481-576/sm - $2084-2499/mes)'
-        30_to_35: '$30,000-34,999 ($577-672/sm - $2500-2916/mes)'
-        35_to_40: '$35,000-39,999 ($673-768/sm - $2917-3333/mes)'
-        40_to_45: '$40,000-44,999 ($769-864/sm - $3334-3749/mes)'
-        45_to_50: '$45,000-49,999 ($865-961/sm - $3750-4165/mes)'
-        50_to_60: '$50,000-59,999 ($962-1153/sm - $4166-4999/mes)'
-        60_to_75: '$60,000-74,999 ($1154-1441/sm - $5000-6249/mes)'
-        75_plus: '$75,000 o más ($1442+ /sm - $6250+ /mes)'
+        10_to_15: "$10,000-14,999 ($192-287/sm - $834-1250/mes)"
+        15_to_20: "$15,000-19,999 ($288-384/sm - $1251-1666/mes)"
+        20_to_25: "$20,000-24,999 ($385-480/sm - $1667-2083/mes)"
+        25_to_30: "$25,000-29,999 ($481-576/sm - $2084-2499/mes)"
+        30_to_35: "$30,000-34,999 ($577-672/sm - $2500-2916/mes)"
+        35_to_40: "$35,000-39,999 ($673-768/sm - $2917-3333/mes)"
+        40_to_45: "$40,000-44,999 ($769-864/sm - $3334-3749/mes)"
+        45_to_50: "$45,000-49,999 ($865-961/sm - $3750-4165/mes)"
+        50_to_60: "$50,000-59,999 ($962-1153/sm - $4166-4999/mes)"
+        60_to_75: "$60,000-74,999 ($1154-1441/sm - $5000-6249/mes)"
+        75_plus: "$75,000 o más ($1442+ /sm - $6250+ /mes)"
         under_10: Debajo $9,999 ($192/sm - $833/mes)
       insurance:
         none: Sin Seguro
@@ -375,7 +375,7 @@ es:
         domestic_violence_org: Violencia doméstica crisis / intervención org
         family: Miembro de la familia
         friend: Amigo
-        fund: '%{fund} sitio de internet o redes sociales'
+        fund: "%{fund} sitio de internet o redes sociales"
         homeless: Refugio para indigentes
         legal_clinic: Clínica legal
         naf: NAF
@@ -388,10 +388,10 @@ es:
         web_search: Búsqueda de Google/internet
         youth: Alcance juvenil
       week:
-        one: '%{count} semana'
-        other: '%{count} semanas'
+        one: "%{count} semana"
+        other: "%{count} semanas"
     information:
-      household_help: '(incluyendo paciente)'
+      household_help: "(incluyendo paciente)"
       income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
       insurance: Seguro médico del patiente
       language: Idioma preferido
@@ -434,7 +434,7 @@ es:
       urgent_flag: Marcar a este paciente como urgente
     pledge:
       cancel:
-        confirm: '¿Seguro/a que quieres cancelar esta promesa?'
+        confirm: "¿Seguro/a que quieres cancelar esta promesa?"
         title: Cancelar promesa
       errors:
         blank_appt: La fecha de la cita no puede estar en blanco
@@ -464,7 +464,7 @@ es:
     pledge_fulfillment:
       audit:
         archive_note: El paciente será archivado el %{date}
-        audited_box: '¿Auditoría de cumplimiento?'
+        audited_box: "¿Auditoría de cumplimiento?"
         title: Auditoría
       confirmation:
         clinic: 'Clínica:'
@@ -485,7 +485,7 @@ es:
       title: Cumplimiento de la promesa
     practical_support:
       create: Crear una nueva entrada de soporte práctico
-      delete_confirm: '¿Está seguro de que desea eliminar esta entrada de soporte práctico?'
+      delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       guidance_link: Orientacíon de soporte práctico de %{fund}
       new: 'Grabar nueva información de soporte práctico:'
       point_of_contact: Punto de contacto
@@ -518,15 +518,15 @@ es:
         pledge_unfulfilled: Promesa No Cumplida
         resolved: Resuelto Sin %{fund}
   tooltips:
-    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación 'envié la promesa') durante un período determinado.
+    budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación "envié la promesa") durante un período determinado.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
     completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
     mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
-    record_new_external_pledge: ''Promesas externas' significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
+    record_new_external_pledge: '"Promesas externas" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
-    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con 'promesa enviada', o marcado como 'resuelto sin ayuda'.
+    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcados con "promesa enviada", o marcado como "resuelto sin ayuda".
   user:
     common:
       last_login: Último Acceso
