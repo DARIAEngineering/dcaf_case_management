@@ -16,11 +16,12 @@
     "webpack-dev-server": "^3.10.3"
   },
   "resolutions": {
-    "lodash": "^4.17.12",
-    "eslint-utils": "^1.4.1",
-    "serialize-javascript": "^3.1.0",
     "dot-prop": "^5.1.1",
+    "eslint-utils": "^1.4.1",
     "kind-of": "^6.0.3",
+    "lodash": "^4.17.12",
+    "node-forge": "^0.10.0",
+    "serialize-javascript": "^3.1.0",
     "yargs-parser": "^13.1.2"
   }
 }
