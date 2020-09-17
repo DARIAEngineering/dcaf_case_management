@@ -8,7 +8,7 @@ module DashboardsHelper
     end
   end
 
-  def month_range(date: date)
+  def month_range(date: Time.zone.now)
     month_start = date.beginning_of_month
     month_end = date.end_of_month
     month_start_string = l month_start, format: '%B %-d'
@@ -16,7 +16,7 @@ module DashboardsHelper
     "#{month_start_string} - #{month_end_string}"
   end
 
-  def week_range(date: date)
+  def week_range(date: Time.zone.now)
     start_day = Config.start_day
     week_start = date.beginning_of_week start_day
     week_end = date.end_of_week start_day
