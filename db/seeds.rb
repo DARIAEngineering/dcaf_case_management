@@ -416,7 +416,7 @@ end
     city: "Washington",
     state: "DC",
     county: "Washington",
-    zipcode: "20009",
+    zipcode: 20009,
     other_contact: "Susie Q.",
     other_phone: "555-6#{patient_number}0-0053",
     other_contact_relationship: "Mother",
