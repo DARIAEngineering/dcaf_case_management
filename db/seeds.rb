@@ -67,7 +67,7 @@ Patient.all.each do |patient|
   if patient.name == 'Patient 2'
     patient.update! name: "Clinic and Appt - 2",
                    
-    zipcode: 20009
+    zipcode: 20009,
                     clinic: Clinic.first,
                     appointment_date: (2.days.from_now)
   end
@@ -81,7 +81,7 @@ Patient.all.each do |patient|
                     fund_pledge: 100,
                     pledge_sent: true,
                     patient_contribution: 100,
-                    zipcode: 20005
+                    zipcode: 20005,
                     name: "Pledge submitted - 3"
   end
 
@@ -416,7 +416,7 @@ end
     city: "Washington",
     state: "DC",
     county: "Washington",
-    zipcode: "20009"
+    zipcode: "20009",
     other_contact: "Susie Q.",
     other_phone: "555-6#{patient_number}0-0053",
     other_contact_relationship: "Mother",
