@@ -66,7 +66,8 @@ Patient.all.each do |patient|
   # Add example of patient with appointment one week from today && clinic selected
   if patient.name == 'Patient 2'
     patient.update! name: "Clinic and Appt - 2",
-                    zipcode: 20009
+                   
+    zipcode: 20009
                     clinic: Clinic.first,
                     appointment_date: (2.days.from_now)
   end
