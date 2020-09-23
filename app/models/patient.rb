@@ -64,6 +64,7 @@ class Patient
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
 
   field :language, type: String
+  field :pronouns, type: String
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean
   field :last_menstrual_period_weeks, type: Integer
@@ -265,7 +266,7 @@ class Patient
   private
 
   def confirm_appointment_after_initial_call
-    if appointment_date.present? && initial_call_date > appointment_date
+    if appointment_date.present? && initial_call_date&.send(:>, appointment_date)
       errors.add(:appointment_date, 'must be after date of initial call')
     end
   end
@@ -293,7 +294,7 @@ class Patient
   end
 
   def update_fund_pledged_at
-    if fund_pledge_changed? && fund_pledge
+    if fund_pledge_changed? && fund_pledge && !fund_pledged_at
       self.fund_pledged_at = Time.zone.now
     elsif fund_pledge.blank?
       self.fund_pledged_at = nil

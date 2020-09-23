@@ -209,6 +209,7 @@ es:
         age: Edad
         appointment_date: Día de la cita
         city: Ciudad
+        clinic_id: ID de la clínica
         completed_ultrasound: Ultrasonido completado
         county: Condado
         employment_status: Estatus de empleo
@@ -234,6 +235,7 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
+        pronouns: Pronombres
         race_ethnicity: Raza / Etnicidad
         referred_by: Referido por
         referred_to_clinic: Referido a la clínica

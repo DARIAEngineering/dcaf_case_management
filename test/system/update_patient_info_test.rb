@@ -116,6 +116,21 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         end
       end
     end
+
+    describe 'updating pronouns' do
+      before do
+        fill_in 'Pronouns', with: 'they/them'
+        click_away_from_field
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
+      end
+
+      it 'should update pronouns' do
+        within :css, '#patient_dashboard' do
+          assert has_field? 'Pronouns', with: 'they/them'
+        end
+      end
+    end
   end
 
   describe 'changing abortion information' do

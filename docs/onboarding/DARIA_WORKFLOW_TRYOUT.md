@@ -68,6 +68,6 @@ These functions are not available to regular case managers and require elevated 
 ## Further reading
 
 * A complete data dictionary of what the DARIA app collects can be found here:
-https://github.com/DCAFEngineering/dcaf_case_management/blob/master/docs/DATA_DICTIONARY.md
+https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/DATA_DICTIONARY.md
 * More information about the data collection principles of the DARIA engineering team are here:
-https://github.com/DCAFEngineering/dcaf_case_management/blob/master/docs/OUR_DATA_COLLECTION_PRACTICES.md
+https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/OUR_DATA_COLLECTION_PRACTICES.md

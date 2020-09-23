@@ -109,7 +109,7 @@ class PatientsController < ApplicationController
 
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
-    :appointment_date, :primary_phone
+    :appointment_date, :primary_phone, :pronouns
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
@@ -122,7 +122,8 @@ class PatientsController < ApplicationController
 
   ABORTION_INFORMATION_PARAMS = [
     :clinic_id, :resolved_without_fund, :referred_to_clinic, :completed_ultrasound,
-    :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge
+    :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge,
+    :fund_pledged_at, :pledge_sent_at
   ].freeze
 
   FULFILLMENT_PARAMS = [
