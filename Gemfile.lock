@@ -69,7 +69,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
     ast (2.4.1)
-    autoprefixer-rails (9.8.6.1)
+    autoprefixer-rails (10.0.1.0)
       execjs
     bcrypt (3.1.15)
     bootsnap (1.4.7)
