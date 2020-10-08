@@ -19,14 +19,14 @@ Config.destroy_all
 #                         password: 'P4ssword', password_confirmation: 'P4ssword'
 
 # Create two test users
-user = User.create! name: 'testuser (admin)', email: 'test@example.com',
-                   password: 'P4ssword', password_confirmation: 'P4ssword',
+user = User.create! name: 'testuser (admin)', email: 'test4@example.com',
+                   password: 'P4ssword$', password_confirmation: 'P4ssword$',
                    role: :admin
 user2 = User.create! name: 'testuser2', email: 'test2@example.com',
-                    password: 'P4ssword', password_confirmation: 'P4ssword',
+                    password: 'P4ssword$', password_confirmation: 'P4ssword$',
                     role: :cm
 user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
-                    password: 'P4ssword', password_confirmation: 'P4ssword',
+                    password: 'P4ssword$', password_confirmation: 'P4ssword$',
                     role: :cm
 
 # Seed a pair of clinics, Sample 1 and Sample 2

@@ -391,6 +391,7 @@ GEM
     sqreen-kit (0.2.2)
       sqreen-backport (~> 0.1.0)
     state_geo_tools (1.0.0)
+    strong_password (0.0.9)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thor (1.0.1)
@@ -485,6 +486,7 @@ DEPENDENCIES
   simplecov
   sqreen
   state_geo_tools
+  strong_password (~> 0.0.9)
   timecop
   tzinfo-data
   webdrivers

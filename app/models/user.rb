@@ -9,6 +9,7 @@ class User
 
   include UserSearchable
   include CallListable
+
   track_history on: fields.keys + [:updated_by_id],
                   version_field: :version,
                   track_create: true,
@@ -84,6 +85,8 @@ class User
   validates :name, presence: true
   validates :role, presence: true
   validate :secure_password
+  validates :password, password_strength: {min_entropy: 40, use_dictionary: true, min_word_length: 8}
+
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months
 
