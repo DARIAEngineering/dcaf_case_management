@@ -32,10 +32,8 @@ Any errors will show up in your terminal in the window you are running the `up` 
 
 If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
 
-* On Windows 10, you may run into an error related to no matching manifest for Windows:
-ex: Step 1/21 : FROM ruby:2.6.5-slim-buster
-2.6.5-slim-buster: Pulling from library/ruby
-Service 'web' failed to build: no matching manifest for windows/amd64 10.0.18363 in the manifest list entries
+If you're using a Windows 10 machine to run docker, we strongly suggest downloading and using [Docker-Desktop](https://www.docker.com/products/docker-desktop).
+The Docker-Desktop experience on Windows 10 is mostly very smooth these days, but there are a couple common "gotchas" we've seen while developing this (and other) apps. One of our core maintainers keeps additional info on this [here](https://github.com/mdworken/MKD-Docker-Windows-Rails). If you run into issues that are not covered there, or if you have suggestions to improve the readability of the repo, please let us know! We're happy to help debug, and once we understand the issues you've seen, you'll have helped future users who may encounter the same issue.
 
 To fix this, you need to enable experimental features for Docker:
 1. Right click Docker icon in the Windows System Tray
