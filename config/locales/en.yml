@@ -212,7 +212,6 @@ en:
         clinic_id: Clinic_Id
         completed_ultrasound: Completed ultrasound?
         county: County
-        zipcode: Zipcode
         employment_status: Employment status
         fund_pledge: Fund pledge
         fund_pledged_at: Fund pledged at
@@ -245,6 +244,7 @@ en:
         textable: Textable
         urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
+        zipcode: Zipcode
       practical_support:
         confirmed: Confirmed
         source: Source

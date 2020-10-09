@@ -212,7 +212,6 @@ es:
         clinic_id: ID de la clínica
         completed_ultrasound: Ultrasonido completado
         county: Condado
-        zipcode: Código postal
         employment_status: Estatus de empleo
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
@@ -245,6 +244,7 @@ es:
         textable: Textable
         urgent_flag: Bandera urgente
         voicemail_preference: Preferencia de correo de voz
+        zipcode: Código postal
       practical_support:
         confirmed: Confirmado
         source: Fuente
