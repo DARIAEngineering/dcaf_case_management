@@ -16,17 +16,17 @@ Config.destroy_all
 # Create google SSO user
 # puts "Creating user with email #{ARGV[1]}..."
 # sso_user = User.create! email: ARGV[1], name: 'Development user',
-#                         password: 'P4ssword', password_confirmation: 'P4ssword'
+#                         password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1'
 
 # Create two test users
-user = User.create! name: 'testuser (admin)', email: 'test4@example.com',
-                   password: 'P4ssword$', password_confirmation: 'P4ssword$',
+user = User.create! name: 'testuser (admin)', email: 'test@example.com',
+                   password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
                    role: :admin
 user2 = User.create! name: 'testuser2', email: 'test2@example.com',
-                    password: 'P4ssword$', password_confirmation: 'P4ssword$',
+                    password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
                     role: :cm
 user3 = User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
-                    password: 'P4ssword$', password_confirmation: 'P4ssword$',
+                    password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
                     role: :cm
 
 # Seed a pair of clinics, Sample 1 and Sample 2
@@ -455,7 +455,7 @@ end
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "Inserted #{Clinic.count} clinic objects. \n" \
      "User created! Credentials are as follows: " \
-     "EMAIL: #{user.email} PASSWORD: P4ssword"
+     "EMAIL: #{user.email} PASSWORD: AbortionsAreAHumanRight1"
      # "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
 
 # exit # so it doesn't try to run other rake tasks
