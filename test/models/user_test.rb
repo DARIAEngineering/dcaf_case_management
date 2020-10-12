@@ -3,6 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   # Since this is a devise install, devise is handling
   # general stuff like creation timestamps etc.
+
   before do
     @user = create :user
   end
@@ -30,8 +31,17 @@ class UserTest < ActiveSupport::TestCase
                    'include DCAF and password.',
                    @user.errors.messages[:password].first
     end
+    
+    it 'should require a complex password' do
+      @user.password = 'Hello#2020'
+      @user.password_confirmation = 'Hello#2020'
+      assert_not @user.valid?
+      assert_equal 'Passwords need to be stronger than that. ' \
+                   'Try a longer or more complicated password please',
+                   @user.errors.messages[:password].first
+    end
   end
-
+  
   describe 'call list methods' do
     before do
       @patient = create :patient, line: 'DC'

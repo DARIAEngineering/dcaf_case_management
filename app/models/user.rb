@@ -84,8 +84,9 @@ class User
   # email presence validated through Devise
   validates :name, presence: true
   validates :role, presence: true
-  validate :secure_password
-  validates :password, password_strength: {min_entropy: 40, use_dictionary: true, min_word_length: 8}
+  validate  :secure_password
+  # i18n-tasks-use t('errors.messages.password.password_strength')
+  validates :password, password_strength: {use_dictionary: true}
 
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months
