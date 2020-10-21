@@ -31,7 +31,7 @@ class PatientsHelperTest < ActionView::TestCase
       before { create_insurance_config }
 
       it 'should include the option set' do
-        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
                                     [ 'Other (add to notes)', 'Other (add to notes)'] ]
@@ -39,7 +39,7 @@ class PatientsHelperTest < ActionView::TestCase
       end
 
       it 'should append any non-nil passed options to the end' do
-        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
                                     [ 'Other (add to notes)', 'Other (add to notes)'],
@@ -105,6 +105,15 @@ class PatientsHelperTest < ActionView::TestCase
         ["VA", "VA"], ["WA", "WA"], ["WV", "WV"], ["WI", "WI"], ["WY", "WY"], ["virginia","virginia"]]
 
       assert_same_elements state_options("virginia"), expected_state_array
+    end
+  end
+
+  # moved from dashboards
+  describe 'voicemail_options' do
+    it 'should return an array based on patient voicemail_options' do
+      ['no', 'yes', 'not_specified'].each do |pref|
+        refute_empty voicemail_options.select { |opt| opt[1] == pref }
+      end
     end
   end
 end

@@ -5,7 +5,7 @@ class CallsHelperTest < ActionView::TestCase
 
   describe 'voicemail link with warning' do
     it 'returns no voicemail notifier text if vm pref is set to no' do
-      @patient.voicemail_preference = :no
+      @patient.voicemail_preference = 'no'
       assert_match(/Do not leave this patient a voicemail/,
                    display_voicemail_link_with_warning(@patient))
       refute_match(/I left a voicemail for the patient/,
@@ -13,7 +13,7 @@ class CallsHelperTest < ActionView::TestCase
     end
 
     it 'returns voicemail ok notifier text if vm pref is set to no' do
-      @patient.voicemail_preference = :yes
+      @patient.voicemail_preference = 'yes'
       assert_match(/Okay to identify as DCAF/,
                    display_voicemail_link_with_warning(@patient))
       assert_match(/I left a voicemail for the patient/,
@@ -21,7 +21,7 @@ class CallsHelperTest < ActionView::TestCase
     end
 
     it 'returns voicemail not specified text if vm pref is set not spec' do
-      @patient.voicemail_preference = :not_specified
+      @patient.voicemail_preference = 'not_specified'
       assert_match(/Do not identify as DCAF/,
                    display_voicemail_link_with_warning(@patient))
       assert_match(/I left a voicemail for the patient/,

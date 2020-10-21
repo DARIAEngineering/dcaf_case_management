@@ -28,6 +28,15 @@ module PatientsHelper
     standard_options + Config.find_or_create_by(config_key: 'language').options
   end
 
+  def voicemail_options
+    standard_options = [
+        [t('dashboard.helpers.voicemail_options.not_specified'), 'not_specified'],
+        [t('dashboard.helpers.voicemail_options.no'), 'no'],
+        [t('dashboard.helpers.voicemail_options.yes'), 'yes'],
+    ]
+    standard_options + Config.find_or_create_by(config_key: 'voicemail').options
+  end
+
   def referred_by_options
     standard_options = [
       nil,
