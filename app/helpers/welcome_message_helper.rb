@@ -58,7 +58,8 @@ module WelcomeMessageHelper
       "You guys rock! Proud to be working on this project.",
       "Thank you for contributing your time and energy in doing this important work.",
       "HOWDY! Thanks for the amazing work you do!",
-      "We're so grateful for you and all you do!"
+      "We're so grateful for you and all you do!",
+      "Thank you for all the great work that you do! Hang in there!" 
     ]
   end
 end
