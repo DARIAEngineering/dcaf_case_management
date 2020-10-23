@@ -59,7 +59,8 @@ module WelcomeMessageHelper
       "Thank you for contributing your time and energy in doing this important work.",
       "HOWDY! Thanks for the amazing work you do!",
       "We're so grateful for you and all you do!",
-      "Thank you for all the great work that you do! Hang in there!" 
+      "Thank you for all the great work that you do! Hang in there!",
+      "You are appreciated, you are loved, your work makes a differnces! Thank you for all you do! 👏👏👏"
     ]
   end
 end
