@@ -166,7 +166,7 @@ es:
     cant_lock_own_account: No puedes bloquear tu propia cuenta. Pregunte a otro administrador.
     clinic_created: "%{clinic} creado!"
     clinic_details_updated: Detalles de la clínica fueron exitosamente actualizados
-    config_failed_update: Config no pudo actualizar
+    config_failed_update: Config no pudo actualizar - %{error}
     config_update_success: Configuración actualizada correctamente
     demote_own_account_warn: Por razones de seguridad, no se le permite cambiar su función de administrador a no administrador. Pídale a otro administrador que lo degraden.
     error_saving_clinic: Algúnos errores evitaron que esta clínica se guardara - %{error}

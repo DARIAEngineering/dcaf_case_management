@@ -27,6 +27,7 @@ class Config
   }.freeze
 
   VALID_START_OF_WEEK = [
+    "",
     "monday",
     "tuesday",
     "wednesday",
@@ -105,9 +106,9 @@ class Config
       #VALIDATIONS[:config_key].()
       # proof of concept - working on validation for Start of week
       if (config_key == "start_of_week")
-        return if VALID_START_OF_WEEK.include?(config_value["options"].first.downcase)
-        #errors.add(:this_phone_number_is_already_taken, "on this line.")
-        #byebug
+        new_value = config_value[:options].first.downcase
+        return if VALID_START_OF_WEEK.include?(new_value)
+        errors.add(:invalid_value_for, "#{config_key}: '#{new_value}'.")
       end
     end
 end
