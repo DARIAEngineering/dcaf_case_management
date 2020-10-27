@@ -39,7 +39,7 @@ class Config
   ].freeze
 
   VALIDATIONS = {
-    start_of_week: -> { return }
+    start_of_week: -> { validate_start_of_date }
     #start_of_week: -> { errors.add(:options, 'test fail') unless options[0] == "Monday" }
   }
 
@@ -103,12 +103,20 @@ class Config
     def validate_config
       #return unless VALIDATIONS[:config_key]
 
-      #VALIDATIONS[:config_key].()
+      byebug
+      VALIDATIONS[config_key].()
       # proof of concept - working on validation for Start of week
-      if (config_key == "start_of_week")
-        new_value = config_value[:options].first.downcase
-        return if VALID_START_OF_WEEK.include?(new_value)
-        errors.add(:invalid_value_for, "#{config_key}: '#{new_value}'.")
-      end
+      #if (config_key == "start_of_week")
+      #  new_value = config_value[:options].first.downcase
+      #  return if VALID_START_OF_WEEK.include?(new_value)
+      #  errors.add(:invalid_value_for, "#{config_key}: '#{new_value}'.")
+      #end
+    end
+
+    def validate_start_of_date
+      byebug
+      new_value = config_value[:options].first.downcase
+      return if VALID_START_OF_WEEK.include?(new_value)
+      errors.add(:invalid_value_for, "#{config_key}: '#{new_value}'.")
     end
 end
