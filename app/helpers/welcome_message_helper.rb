@@ -57,7 +57,8 @@ module WelcomeMessageHelper
       "You are a complete and total UNICORN! 🦄✨",
       "You guys rock! Proud to be working on this project.",
       "Thank you for contributing your time and energy in doing this important work.",
-      "HOWDY! Thanks for the amazing work you do!"
+      "HOWDY! Thanks for the amazing work you do!",
+      "We're so grateful for you and all you do!"
     ]
   end
 end
