@@ -42,6 +42,7 @@
         </div>
 
         <%= f.text_field :county, autocomplete: 'off' %>
+        <%= f.number_field :zipcode, autocomplete: 'off' %>
 
         <h3><%= t 'patient.information.other_contact.title' %></h3>
         <%= f.text_field :other_contact,

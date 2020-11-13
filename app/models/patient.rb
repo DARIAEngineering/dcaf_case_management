@@ -75,6 +75,7 @@ class Patient
   field :city, type: String
   field :state, type: String
   field :county, type: String
+  field :zipcode, type: Integer
   field :race_ethnicity, type: String
   field :employment_status, type: String
   field :household_size_children, type: Integer

@@ -245,6 +245,7 @@ en:
         textable: Textable
         urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
+        zipcode: Zipcode
       practical_support:
         confirmed: Confirmed
         source: Source

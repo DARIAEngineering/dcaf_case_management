@@ -66,6 +66,7 @@ Patient.all.each do |patient|
   # Add example of patient with appointment one week from today && clinic selected
   if patient.name == 'Patient 2'
     patient.update! name: "Clinic and Appt - 2",
+                    zipcode: 20009,
                     pronouns: "she/they",
                     clinic: Clinic.first,
                     appointment_date: (2.days.from_now)
@@ -80,6 +81,7 @@ Patient.all.each do |patient|
                     fund_pledge: 100,
                     pledge_sent: true,
                     patient_contribution: 100,
+                    zipcode: 20005,
                     pronouns: "ze/zir",
                     name: "Pledge submitted - 3"
   end
@@ -415,6 +417,7 @@ end
     city: "Washington",
     state: "DC",
     county: "Washington",
+    zipcode: 20009,
     pronouns: "they/them",
     other_contact: "Susie Q.",
     other_phone: "555-6#{patient_number}0-0053",
