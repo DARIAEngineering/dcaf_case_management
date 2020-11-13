@@ -33,6 +33,7 @@ module WelcomeMessageHelper
       "¡Trabajo destacado! ¡Mantener el trabajo duro!",
       "Keep up the Good Work",
       "Mantener el Trabajo Duro",
+      "You're a 🌟! You're awesome! Muchas Gracias!", 
       "Another case, another human being helped. Keep it up!",
       "Merci beaucoup!",
       "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
@@ -56,7 +57,10 @@ module WelcomeMessageHelper
       "You are a complete and total UNICORN! 🦄✨",
       "You guys rock! Proud to be working on this project.",
       "Thank you for contributing your time and energy in doing this important work.",
-      "HOWDY! Thanks for the amazing work you do!"
+      "HOWDY! Thanks for the amazing work you do!",
+      "We're so grateful for you and all you do!",
+      "Thank you for all the great work that you do! Hang in there!",
+      "You are appreciated, you are loved, your work makes a differnces! Thank you for all you do! 👏👏👏"
     ]
   end
 end

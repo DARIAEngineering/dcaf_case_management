@@ -19,6 +19,7 @@ class DataEntryTest < ApplicationSystemTestCase
       fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
       fill_in 'Name', with: 'Susie Everyteen'
       fill_in 'Phone', with: '111-222-3344'
+      fill_in 'Pronouns', with: 'she/they'
       fill_in 'Other contact name', with: 'Billy Everyteen'
       fill_in 'Other phone', with: '111-555-9999'
       fill_in 'Relationship to other contact', with: 'Friend'
@@ -60,6 +61,7 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'First and last name', with: 'Susie Everyteen'
         assert_equal '1', lmp_weeks.value
         assert_equal '2', lmp_days.value
+        assert has_field? 'Pronouns', with: 'she/they'
         assert has_text? "Called on: #{2.days.ago.strftime('%m/%d/%Y')}"
         assert has_field?('Appointment date',
                           with: 1.day.ago.strftime('%Y-%m-%d'))

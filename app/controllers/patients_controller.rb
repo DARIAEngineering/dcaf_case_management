@@ -109,7 +109,7 @@ class PatientsController < ApplicationController
 
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
-    :appointment_date, :primary_phone
+    :appointment_date, :primary_phone, :pronouns
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
