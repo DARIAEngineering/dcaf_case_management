@@ -103,7 +103,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       fill_in 'patient_fulfillment_check_number', with: ''
       assert has_checked_field? 'Pledge fulfilled'
 
-      fill_in 'patient_fulfillment_procedure_date', with: 'mm/dd/yyyy'
+      fill_in 'patient_fulfillment_procedure_date', with: ''
       select '', from: 'patient_fulfillment_gestation_at_procedure'
       assert has_no_checked_field? 'Pledge fulfilled'
     end
