@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   webpacker:
-    image: colinxfleming/dcaf_case_management:latest
+    image: dcafengineering/dcaf_case_management
     command: ["./scripts/start_webpack_dev.sh"]
     volumes:
       - .:/usr/src/app
@@ -11,6 +11,7 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile
+    image: dcafengineering/dcaf_case_management
     command: ["./scripts/start_rails.sh"]
     volumes:
       - .:/usr/src/app
