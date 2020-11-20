@@ -6,9 +6,9 @@ require File.expand_path('../boot', __FILE__)
 
 require "rails"
 # Pick the frameworks you want:
-# require "active_model/railtie"
+require "active_model/railtie"
 # require "active_job/railtie"
-# require "active_record/railtie"
+require "active_record/railtie"
 # require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
@@ -43,7 +43,8 @@ module DcafCaseManagement
     # config.i18n.default_locale = :de
 
     config.generators do |g|
-      g.orm :mongoid
+      # g.orm :mongoid
+      g.orm :active_record
     end
 
     # Throttling protection

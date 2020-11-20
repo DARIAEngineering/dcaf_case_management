@@ -153,4 +153,7 @@ class User
   def send_account_created_email
     UserMailer.account_created(id).deliver_now
   end
+
+  def will_save_change_to_email?
+  end
 end
