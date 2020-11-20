@@ -22,11 +22,11 @@ class ConfigTest < ActiveSupport::TestCase
   end
 
   describe 'mongoid attachments' do
-    # it 'should respond to history methods' do
-    #   assert @config.respond_to? :versions
-    #   assert @config.respond_to? :created_by
-    #   assert @config.respond_to? :created_by_id
-    # end
+    it 'should respond to history methods' do
+      assert @config.respond_to? :versions
+      assert @config.respond_to? :created_by
+      assert @config.respond_to? :created_by_id
+    end
   end
 
   describe 'methods' do
