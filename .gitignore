@@ -34,7 +34,6 @@ cacert.pem
 .redcar/
 .sass-cache
 /config/config.yml
-/config/database.yml
 /coverage.data
 /coverage/
 /db/*.javadb/
