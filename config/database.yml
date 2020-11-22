@@ -2,17 +2,19 @@
 development:
   adapter: postgresql
   encoding: unicode
+  url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
   database: dcaf_case_management_development
   pool: 5
 
 test:
   adapter: postgresql
   encoding: unicode
+  url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
   database: dcaf_case_management_test
   pool: 5
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: dcaf_case_management_production
-  pool: 5
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: 10

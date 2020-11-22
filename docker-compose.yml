@@ -22,7 +22,7 @@ services:
       - pg
     environment:
       mongohost: db
-      postgreshost: pg
+      pg_url: postgres://postgres:postgres@pg
     env_file:
       - .docker/web-variables.env
   db:
@@ -33,3 +33,6 @@ services:
     image: postgres
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
