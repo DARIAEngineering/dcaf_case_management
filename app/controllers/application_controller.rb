@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :prevent_caching_via_headers
   before_action :set_locale
   before_action :set_raven_context
-  prepend_before_action :authenticate_user!
+   # before_action :set_paper_trail_whodunnit # Turn on when user model is in pg 
+   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
   # whitelists attributes in devise
