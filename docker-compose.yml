@@ -19,11 +19,20 @@ services:
       - "3000:3000"
     links:
       - db
+      - pg
     environment:
       mongohost: db
+      pg_url: postgres://postgres:postgres@pg
     env_file:
       - .docker/web-variables.env
   db:
     image: mongo
     ports:
       - "27017:27017"
+  pg:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
