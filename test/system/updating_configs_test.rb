@@ -53,7 +53,7 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         # make sure they persist
         assert_equal 'Text, Code, Business',
                      find('#config_options_voicemail').value
-        within :css, '#insurance_options_list' do
+        within :css, '#voicemail_options_list' do
           assert has_content? 'Text'
           assert has_content? 'Code'
           assert has_content? 'Business'
