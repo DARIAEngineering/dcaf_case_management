@@ -41,9 +41,9 @@ There's still work to do, but generally we're pretty stable these days. Our gene
 ## Who's in charge here?
 The team leads are:
 
-* @lomky (rails and technical lead) & @colinxfleming (on 2020 Sabbatical)
+* @colinxfleming & @lomky (rails and technical leads)
 * @mebates (design and UI lead)
-* @alisonnjones & @mdworken (data lead)
+* @alisonnjones & @mdworken (data leads)
 * @nerdygirl573 (DARIA manager)
 * @lwaldsc (DCAF liaison)
 
