@@ -57,7 +57,7 @@ class Patient
   field :identifier, type: String
 
   # Contact-related info
-  field :voicemail_preference, type: String
+  field :voicemail_preference, type: String, default: 'not_specified'
 
   field :line
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
