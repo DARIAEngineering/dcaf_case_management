@@ -44,6 +44,34 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
       end
     end
 
+    describe 'updating voicemail config' do
+      it 'should update and be available' do
+        # add the options
+        fill_in 'config_options_voicemail', with: 'Text, Code, Business'
+        click_button 'Update options for Voicemail'
+
+        # make sure they persist
+        assert_equal 'Text, Code, Business',
+                     find('#config_options_insurance').value
+        within :css, '#insurance_options_list' do
+          assert has_content? 'Text'
+          assert has_content? 'Code'
+          assert has_content? 'Business'
+        end
+
+        # make sure they're available in the dropdown
+        visit edit_patient_path(@patient)
+        assert has_select? 'Voicemail preference', options:
+          ['No instructions; no ID VM',
+           'Do not leave a voicemail',
+           'Voicemail OK, ID OK',
+           'Text',
+           'Code',
+           'Business'
+          ]
+      end
+    end
+
     describe 'updating a config - practical support' do
       it 'should update and be available' do
         fill_in 'config_options_practical_support', with: 'Yolo, Goat, Something'

@@ -28,6 +28,8 @@ module PatientsHelper
     standard_options + Config.find_or_create_by(config_key: 'language').options
   end
 
+  # TODO: do we want to do something similar to insurance here, to add new
+  # options to list if not already?
   def voicemail_options
     standard_options = [
         [t('dashboard.helpers.voicemail_options.not_specified'), 'not_specified'],

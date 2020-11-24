@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class CallsHelperTest < ActionView::TestCase
-  before { @patient = create :patient }
+  before do
+    @patient = create :patient
+    create_voicemail_config
+  end
 
   describe 'voicemail link with warning' do
     it 'returns no voicemail notifier text if vm pref is set to no' do
@@ -26,6 +29,23 @@ class CallsHelperTest < ActionView::TestCase
                    display_voicemail_link_with_warning(@patient))
       assert_match(/I left a voicemail for the patient/,
                    display_voicemail_link_with_warning(@patient))
+    end
+
+    it 'returns custom text if vm pref has a custom value' do
+      @patient.voicemail_preference = 'Text Message Only'
+      display_content = display_voicemail_link_with_warning(@patient)
+      assert_match(/Text Message Only/, display_content)
+      assert_match(/I left a voicemail for the patient/, display_content)
+    end
+
+    # this scenario will arise if an option is removed from the config
+    # we want to keep the deleted config value with the patient (instead of
+    # defaulting to a remaining config), and allow them to be updated as needed.
+    it 'invalid voicemail preference is still displayed' do
+      @patient.voicemail_preference = 'Unknown Voicemail Preference'
+      display_content = display_voicemail_link_with_warning(@patient)
+      assert_match(/Unknown Voicemail Preference/, display_content)
+      assert_match(/I left a voicemail for the patient/, display_content)
     end
   end
 

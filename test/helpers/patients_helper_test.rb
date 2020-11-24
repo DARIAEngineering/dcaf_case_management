@@ -108,12 +108,19 @@ class PatientsHelperTest < ActionView::TestCase
     end
   end
 
-  # moved from dashboards
   describe 'voicemail_options' do
+    # stock options
     it 'should return an array based on patient voicemail_options' do
       ['no', 'yes', 'not_specified'].each do |pref|
         refute_empty voicemail_options.select { |opt| opt[1] == pref }
       end
+    end
+
+    # with custom options
+    it 'should load custom options' do
+      create_voicemail_config
+      assert_includes voicemail_options, 'Use Codename'
+      assert_includes voicemail_options, 'Only During Business Hours'
     end
   end
 end
