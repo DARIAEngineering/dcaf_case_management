@@ -327,7 +327,7 @@ GEM
       ffi (~> 1.0)
     rdoc (6.2.1)
     regexp_parser (1.7.1)
-    render_async (2.1.7)
+    render_async (2.1.8)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
