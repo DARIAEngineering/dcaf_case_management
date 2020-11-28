@@ -1,8 +1,10 @@
-Hi <%= @user.name %> -- A DARIA account has been created for you!
+Hi <%= @user.name %> --
+
+A DARIA account has been created for you! You can head here to log in: <%= ENV.fetch('SITE_URL', 'https://www.google.com/?q=cats' %>
 
 We recommend logging in with Google. If you don't log in with Google, you will need to reset your password.
 
-If you don't know what website to go to, or if you experience any other difficulties, please reach out to your case management director or volunteer contact.
+If you experience any difficulties, please reach out to your case management director or volunteer contact.
 
 Thanks for your service!
 
