@@ -1,24 +1,19 @@
+# Set up fixtures and database seeds to simulate a production environment.
 raise 'No running seeds in prod' unless [nil, 'Sandbox'].include? ENV['DARIA_FUND']
 
-# if ARGV[1].blank?
-#   puts "\n****SEED FAILED, but it's easy to fix****\n" \
-#        "Rerun with your google account as an argument to create a Google SSO user\n" \
-#        "Ex: `rake db:seed colin@gmail.com\n"
-#   raise
-# end
-
+# Clear out existing DB
 Patient.destroy_all
 User.destroy_all
 Clinic.destroy_all
 Event.destroy_all
 Config.destroy_all
 
-# Create google SSO user
-# puts "Creating user with email #{ARGV[1]}..."
-# sso_user = User.create! email: ARGV[1], name: 'Development user',
-#                         password: 'P4ssword', password_confirmation: 'P4ssword'
+# Set a few config constants
+lines = %w[DC VA MD]
+note_text = 'This is a note ' * 10
+additional_note_text = 'Additional note ' * 10
 
-# Create two test users
+# Create test users
 user = User.create! name: 'testuser (admin)', email: 'test@example.com',
                     password: 'P4ssword', password_confirmation: 'P4ssword',
                     role: :admin
@@ -29,7 +24,7 @@ User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
              password: 'P4ssword', password_confirmation: 'P4ssword',
              role: :cm
 
-# Seed a pair of clinics, Sample 1 and Sample 2
+# Create a few clinics
 Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '1600 Pennsylvania Ave',
                city: 'Washington', state: 'DC', zip: '20500'
 Clinic.create! name: 'Sample Clinic 2 - VA', street_address: '1400 Defense',
@@ -39,114 +34,7 @@ Clinic.create! name: 'Sample Clinic with NAF', street_address: '815 V Street NW'
 Clinic.create! name: 'Sample Clinic without NAF', street_address: '1811 14th Street NW',
                city: 'Washington', state: 'DC', zip: '20009', accepts_naf: false, accepts_medicaid: true
 
-# Create ten patients
-10.times do |i|
-  flag = i.even? ? true : false
-  Patient.create! name: "Patient #{i}",
-                  primary_phone: "123-123-123#{i}",
-                  initial_call_date: 3.days.ago,
-                  urgent_flag: flag,
-                  last_menstrual_period_weeks: (i + 1 * 2),
-                  last_menstrual_period_days: 3,
-                  created_by: user2
-end
-
-# Create associated objects
-Patient.all.each do |patient|
-  # Add example of patient with other contact info
-  if patient.name == 'Patient 1'
-    patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
-                    other_phone: '234-456-6789', other_contact_relationship: 'Sister'
-    patient.calls.create! status: 'Reached patient',
-                          created_at: 14.hours.ago,
-                          created_by: user
-  end
-
-  # Add example of patient with appointment one week from today && clinic selected
-  if patient.name == 'Patient 2'
-    patient.update! name: 'Clinic and Appt - 2',
-                    zipcode: 20_009,
-                    pronouns: 'she/they',
-                    clinic: Clinic.first,
-                    appointment_date: 2.days.from_now
-  end
-
-  # Add example of patient with a pledge submitted
-  if patient.name == 'Patient 3'
-    patient.update! clinic: Clinic.first,
-                    appointment_date: 3.days.from_now,
-                    naf_pledge: 200,
-                    procedure_cost: 400,
-                    fund_pledge: 100,
-                    pledge_sent: true,
-                    patient_contribution: 100,
-                    zipcode: 20_005,
-                    pronouns: 'ze/zir',
-                    name: 'Pledge submitted - 3'
-  end
-
-  # Add example of patient should have special circumstances
-  if patient.name == 'Patient 4'
-    patient.update! name: 'Special Circumstances - 4',
-                    special_circumstances: ['Prison', 'Fetal anomaly']
-  end
-
-  # Add example of patient should be marked resolved without DCAF
-  if patient.name == 'Patient 5'
-    patient.update! name: 'Resolved without DCAF - 5',
-                    resolved_without_fund: true
-  end
-
-  # Create calls for patient
-  5.times do
-    next if patient.name == 'Patient 9'
-
-    patient.calls.create! status: 'Left voicemail',
-                          created_at: 3.days.ago,
-                          created_by: user2
-  end
-
-  if patient.name == 'Patient 0'
-    10.times do
-      patient.calls.create! status: 'Reached patient',
-                            created_at: 3.days.ago,
-                            created_by: user2
-    end
-  end
-
-  patient.save
-end
-
-# All patients except one or two should have notes, even numbered patients have two notes
-note_text = 'This is a note ' * 10
-additional_note_text = 'Additional note ' * 10
-Patient.all.each do |patient|
-  unless patient.name == 'Patient 0' || patient.name == 'Other Contact info - 1'
-    patient.notes.create! full_text: note_text,
-                          created_by: user2
-  end
-  if patient.name[-1, 1].to_i.even?
-    patient.notes.create! full_text: additional_note_text,
-                          created_by: user2
-  end
-end
-
-# Adds 5 Patients to regular call list
-['Patient 0', 'Other Contact info - 1',
- 'Clinic and Appt - 2',
- 'Pledge submitted - 3',
- 'Resolved without DCAF - 5'].each do |patient_name|
-  user.add_patient Patient.find_by name: patient_name
-end
-
-# Add Patient to completed calls list
-patient_in_completed_calls =
-  Patient.find_by name: 'Special Circumstances - 4'
-user.add_patient patient_in_completed_calls
-patient_in_completed_calls.calls.create! status: 'Left voicemail',
-                                         created_by: user
-
-# Create insurance and external pledge source keysets
+# Create user-settable configuration
 Config.create config_key: :insurance,
               config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance'] }
 Config.create config_key: :external_pledge_source,
@@ -166,19 +54,96 @@ Config.create config_key: :fax_service,
 Config.create config_key: :start_of_week,
               config_value: { options: ['Monday'] }
 
-# Reporting fixtures
-# Add some patients with pledges some of whom have
-# fulfillments for reporting testing for fulfillments
+# Create ten active patients with generic info.
 10.times do |i|
-  flag = i.even? ? true : false
+  patient = Patient.create! name: "Patient #{i}",
+                            primary_phone: "123-123-123#{i}",
+                            initial_call_date: 3.days.ago,
+                            urgent_flag: i.even?,
+                            last_menstrual_period_weeks: (i + 1 * 2),
+                            last_menstrual_period_days: 3,
+                            created_by: user2
 
+  # Create associated objects
+  case i
+  when 0
+    10.times do
+      patient.calls.create! status: 'Reached patient',
+                            created_at: 3.days.ago,
+                            created_by: user2
+    end
+  when 1
+    patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
+                    other_phone: '234-456-6789', other_contact_relationship: 'Sister'
+    patient.calls.create! status: 'Reached patient',
+                          created_at: 14.hours.ago,
+                          created_by: user
+  when 2
+    # appointment one week from today && clinic selected
+    patient.update! name: 'Clinic and Appt - 2',
+                    zipcode: 20_009,
+                    pronouns: 'she/they',
+                    clinic: Clinic.first,
+                    appointment_date: 2.days.from_now
+  when 3
+    # pledge submitted
+    patient.update! clinic: Clinic.first,
+                    appointment_date: 3.days.from_now,
+                    naf_pledge: 200,
+                    procedure_cost: 400,
+                    fund_pledge: 100,
+                    pledge_sent: true,
+                    patient_contribution: 100,
+                    zipcode: 20_005,
+                    pronouns: 'ze/zir',
+                    name: 'Pledge submitted - 3'
+  when 4
+    # With special circumstances
+    patient.update! name: 'Special Circumstances - 4',
+                    special_circumstances: ['Prison', 'Fetal anomaly']
+    # And a recent call on file
+    patient.calls.create! status: 'Left voicemail',
+                          created_by: user
+  when 5
+    # Resolved without DCAF
+    patient.update! name: 'Resolved without DCAF - 5',
+                    resolved_without_fund: true
+  end
+
+  if i != 9
+    5.times do
+      patient.calls.create! status: 'Left voicemail',
+                            created_at: 3.days.ago,
+                            created_by: user2
+    end
+  end
+
+  # Add notes for most patients
+  unless [0, 1].include? i
+    patient.notes.create! full_text: note_text,
+                          created_by: user2
+  end
+
+  if i.even?
+    patient.notes.create! full_text: additional_note_text,
+                          created_by: user2
+  end
+
+  # Add select patients to call list for user
+  user.add_patient patient if [0, 1, 2, 3, 4, 5].include? i
+
+  patient.save
+end
+
+# Add patients for reporting purposes - CSV exports, fulfillments, etc.
+10.times do |i|
   patient = Patient.create!(
     name: "Reporting Patient #{i}",
     primary_phone: "321-0#{i}0-001#{rand(10)}",
     initial_call_date: 3.days.ago,
-    urgent_flag: flag,
+    urgent_flag: i.even?,
     line: i.even? ? 'DC' : 'MD',
-    created_by: User.first,
+    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now,
     last_menstrual_period_weeks: 7,
@@ -193,71 +158,63 @@ Config.create config_key: :start_of_week,
   next unless i.even?
 
   patient.build_fulfillment(
-    created_by_id: User.first.id,
+    created_by_id: user.id,
     fulfilled: true,
     fund_payout: 4000,
     procedure_date: 10.days.from_now
   ).save
 end
 
-# Add some patients with calls for call reporting
-lines = %w[DC VA MD]
 (1..5).each do |patient_number|
   patient = Patient.create!(
     name: "Reporting Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-002#{rand(10)}",
     initial_call_date: 3.days.ago,
-    urgent_flag: patient_number.even? ? true : false,
+    urgent_flag: patient_number.even?,
     line: lines[patient_number % 3],
-    created_by: User.first,
+    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now
   )
 
-  # reached calls this month
+  # reached within the past 30 days
   5.times do
     patient.calls.create! status: 'Reached patient',
-                          created_by: User.first,
+                          created_by: user,
                           created_at: (Time.now - rand(10).days)
-  end
-
-  5.times do
     patient.calls.create! status: 'Reached patient',
-                          created_by: User.first,
+                          created_by: user,
                           created_at: (Time.now - rand(10).days - 10.days)
   end
 end
 
-# we'll create 5 patients with calls this year
 (1..5).each do |patient_number|
   patient = Patient.create!(
     name: "Old Reporting Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-003#{rand(10)}",
     initial_call_date: 3.days.ago,
-    urgent_flag: patient_number.even? ? true : false,
+    urgent_flag: patient_number.even?,
     line: lines[patient_number % 3],
-    created_by: User.first,
+    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now
   )
 
-  # rcalls this year
   5.times do
     patient.calls.create! status: 'Reached patient',
-                          created_by: User.first,
+                          created_by: user,
                           created_at: (Time.now - rand(10).days - 6.months)
   end
 end
 
-# we'll create 5 patients with pledges at different times
 (1..5).each do |patient_number|
   Patient.create!(
     name: "Pledge Reporting Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
     initial_call_date: 3.days.ago,
-    urgent_flag: patient_number.even? ? true : false,
+    urgent_flag: patient_number.even?,
     line: lines[patient_number % 3],
-    created_by: User.first,
+    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now,
     pledge_sent: true,
@@ -265,7 +222,7 @@ end
   )
 end
 
-# create patients with ALL THE INFO to play with archiving
+# Add patients for archiving purposes with ALL THE INFO
 (1..2).each do |patient_number|
   # initial create data from voicemail
   patient = Patient.create!(
@@ -277,16 +234,15 @@ end
     initial_call_date: 140.days.ago,
     last_menstrual_period_weeks: 6,
     last_menstrual_period_days: 5,
-    created_by: User.first,
+    created_by: user,
     created_at: 140.days.ago
   )
 
   # Call, but no answer. leave a VM.
-
-  patient.calls.create status: 'Left voicemail', created_by: User.first, created_at: 139.days.ago
+  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 139.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 138.days.ago
+  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
 
   patient.update!(
     # header info - hand filled in
@@ -301,7 +257,6 @@ end
     other_contact: 'Susie Q.',
     other_phone: "555-0#{patient_number}0-0053",
     other_contact_relationship: 'Mother',
-
     employment_status: 'Student',
     income: '$10,000-14,999',
     household_size_adults: 3,
@@ -312,18 +267,18 @@ end
 
     # abortion info - hand filled in
     clinic: Clinic.all.sample,
-    referred_to_clinic: patient_number.odd? ? true : false,
-    resolved_without_fund: patient_number.even? ? true : false,
+    referred_to_clinic: patient_number.odd?,
+    resolved_without_fund: patient_number.even?,
 
     updated_at: 138.days.ago # not sure if this even works?
   )
 
-  # notes tab
   # toggle urgent, maybe
   patient.update!(
-    urgent_flag: patient_number.odd? ? true : false,
+    urgent_flag: patient_number.odd?,
     updated_at: 137.days.ago
   )
+
   # generate notes
   patient.notes.create!(
     full_text: 'One note, with iffy PII! This one was from the first call!',
@@ -335,7 +290,7 @@ end
   next if patient.resolved_without_fund?
 
   # another call. get abortion information, create pledges, a note.
-  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 136.days.ago
+  patient.calls.create! status: 'Reached patient', created_by: user, created_at: 136.days.ago
 
   # abortion info - pledges - hand filled in
   patient.update!(
@@ -345,7 +300,7 @@ end
     fund_pledge: 115,
     pledge_sent: true,
     pledge_generated_at: 133.days.ago,
-    pledge_generated_by: User.first,
+    pledge_generated_by: user,
     updated_at: 133.days.ago
   )
   # generate external pledges
@@ -370,7 +325,6 @@ end
   )
 
   # fulfillment
-
   patient.fulfillment.update!(
     fulfilled: true,
     procedure_date: 130.days.ago,
@@ -382,9 +336,8 @@ end
   )
 end
 
-# create patients who dropped off
 (1..2).each do |patient_number|
-  # initial create data from voicemail
+  # Create dropoff patients
   patient = Patient.create!(
     name: "Archive Dropoff Patient #{patient_number}",
     primary_phone: "867-9#{patient_number}0-004#{rand(10)}",
@@ -394,15 +347,15 @@ end
     initial_call_date: 640.days.ago,
     last_menstrual_period_weeks: 6,
     last_menstrual_period_days: 5,
-    created_by: User.first,
+    created_by: user,
     created_at: 640.days.ago
   )
 
   # Call, but no answer. leave a VM.
-  patient.calls.create status: 'Left voicemail', created_by: User.first, created_at: 639.days.ago
+  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 639.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: User.first, created_at: 138.days.ago
+  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
 
   # Patient 1 drops off immediately
   next if patient_number.odd?
@@ -434,33 +387,29 @@ end
 
     # abortion info - hand filled in
     clinic: Clinic.all.sample,
-    referred_to_clinic: patient_number.odd? ? true : false,
-    resolved_without_fund: patient_number.even? ? true : false,
-
-    updated_at: 638.days.ago # not sure if this even works?
+    referred_to_clinic: patient_number.odd?,
+    resolved_without_fund: patient_number.even?
   )
 
-  # notes tab
   # toggle urgent, maybe
   patient.update!(
-    urgent_flag: patient_number.odd? ? true : false,
+    urgent_flag: patient_number.odd?,
     updated_at: 637.days.ago
   )
+
   # generate notes
   patient.notes.create!(
     full_text: 'One note, with iffy PII! This one was from the first call!',
     created_by: user,
     created_at: 637.days.ago
   )
-
-  # Patient 2 drops off
 end
 
 # Log results
 puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "Inserted #{Clinic.count} clinic objects. \n" \
-     'User created! Credentials are as follows: ' \
+     "Inserted #{User.count} user objects. \n" \
+     "Inserted #{Config.count} config objects. \n" \
+     "Inserted #{Event.count} event objects. \n" \
+     'User credentials are as follows: ' \
      "EMAIL: #{user.email} PASSWORD: P4ssword"
-# "GOOGLE ACCOUNT: #{sso_user.email}" # We're depreciating password in favor of SSO
-
-# exit # so it doesn't try to run other rake tasks
