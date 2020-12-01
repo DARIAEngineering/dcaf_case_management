@@ -30,13 +30,22 @@ module PatientsHelper
 
   # TODO: do we want to do something similar to insurance here, to add new
   # options to list if not already?
-  def voicemail_options
+  def voicemail_options(current_value = nil)
     standard_options = [
         [t('dashboard.helpers.voicemail_options.not_specified'), 'not_specified'],
         [t('dashboard.helpers.voicemail_options.no'), 'no'],
         [t('dashboard.helpers.voicemail_options.yes'), 'yes'],
     ]
-    standard_options + Config.find_or_create_by(config_key: 'voicemail').options
+    full_set = standard_options + Config.find_or_create_by(config_key: 'voicemail').options
+
+    # full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
+    # if the current value isn't in the list, push it on.
+    # kinda ugly because we're working with a few different datatypes in here.
+    if current_value.present? && full_set.map { |opt| opt.is_a?(Array) ? opt[-1] : opt }.exclude?(current_value)
+      full_set.push current_value
+    end
+
+    full_set.uniq
   end
 
   def referred_by_options

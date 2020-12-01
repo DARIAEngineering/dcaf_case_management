@@ -24,7 +24,7 @@
                      label: t('patient.information.language'),
                      autocomplete: 'off' %>
         <%= f.select :voicemail_preference,
-                     options_for_select(voicemail_options,
+                     options_for_select(voicemail_options(patient.voicemail_preference),
                                         patient.voicemail_preference),
                      label: t('patient.information.voicemail_preference') %>
         <%= f.check_box :textable,
@@ -93,16 +93,16 @@
 
         <fieldset>
           <legend class="font-weight-bold" id="special_circumstances_label">
-            <%= t 'patient.information.special_circumstances.title' %>    
+            <%= t 'patient.information.special_circumstances.title' %>
           </legend>
 
           <%= f.form_group :special_circumstances do %>
             <div class="row">
               <div class="col">
                 <%= f.check_box :special_circumstances, {
-                                label: t('patient.information.special_circumstances.fetal_diagnosis'), 
+                                label: t('patient.information.special_circumstances.fetal_diagnosis'),
                                 name: 'patient[special_circumstances][]',
-                                checked: patient.special_circumstances.include?('Fetal diagnosis'), 
+                                checked: patient.special_circumstances.include?('Fetal diagnosis'),
                                 id: 'fetal_patient_special_circumstances' },
                                 'Fetal diagnosis', '' %>
                 <%= f.check_box :special_circumstances, {
