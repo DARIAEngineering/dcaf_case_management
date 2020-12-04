@@ -45,12 +45,4 @@ class DashboardsHelperTest < ActionView::TestCase
       assert_equal expected, week_range(date: @date_2)
     end
   end
-
-  describe 'voicemail_options' do
-    it 'should return an array based on patient voicemail_options' do
-      Patient.voicemail_preference.values do |pref|
-        refute_empty voicemail_options.select { |opt| opt[1] == pref }
-      end
-    end
-  end
 end

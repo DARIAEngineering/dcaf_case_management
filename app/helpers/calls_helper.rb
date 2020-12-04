@@ -1,12 +1,15 @@
 # Functions to display call-related items.
 module CallsHelper
   def display_voicemail_link_with_warning(patient)
-    if patient.voicemail_preference == :no
+    if patient.voicemail_preference == 'no'
       no_voicemail_notifier
-    elsif patient.voicemail_preference == :yes
+    elsif patient.voicemail_preference == 'yes'
       voicemail_ok_notifier + leave_a_voicemail_link(patient)
-    elsif patient.voicemail_preference == :not_specified
+    elsif patient.voicemail_preference == 'not_specified'
       voicemail_not_specified_notifier + leave_a_voicemail_link(patient)
+    else
+      # custom value for voicemail 
+      voicemail_custom_notifier(patient) + leave_a_voicemail_link(patient)
     end
   end
 
@@ -84,6 +87,12 @@ module CallsHelper
     content_tag :p, class: 'text-warning' do
       content_tag :strong, t('call.new.voicemail_instructions.voicemail_no_identify', fund: "#{FUND}")
     end
+  end
+
+  def voicemail_custom_notifier(patient)
+      content_tag :p, class: 'text-warning' do
+          content_tag :strong, patient.voicemail_preference
+      end
   end
 
   def other_contact_name_display(patient)

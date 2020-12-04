@@ -28,14 +28,4 @@ module DashboardsHelper
                       end
     "#{week_start_string} - #{week_end_string}"
   end
-
-  def voicemail_options
-    enum_text = { not_specified: t('dashboard.helpers.voicemail_options.not_specified'),
-                  no: t('dashboard.helpers.voicemail_options.no'),
-                  yes: t('dashboard.helpers.voicemail_options.yes') }
-    # Match the voicemail preference set with its string above, for use in a dropdown
-    Patient.voicemail_preference
-           .values
-           .map { |option| [enum_text[option.to_sym], option.to_sym] }
-  end
 end

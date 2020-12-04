@@ -65,6 +65,12 @@ class ActiveSupport::TestCase
                     config_value: { options: language_options }
   end
 
+  def create_voicemail_config
+      vm_options = ['Text Message Only', 'Use Codename', 'Only During Business Hours']
+      create :config, config_key: 'voicemail',
+                      config_value: { options: vm_options }
+  end
+
   def create_referred_by_config
     referred_by_options = ['Metal band']
     create :config, config_key: 'referred_by',
