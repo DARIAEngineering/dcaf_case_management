@@ -12,7 +12,7 @@ require 'integration_helper'
 require 'rack/test'
 
 # CI only
-if ENV['CIRCLE_ARTIFACTS']
+if ENV['CIRCLECI']
   # Use knapsack to split up tests on CI nodes
   # To rerack the test divider, run:
   # KNAPSACK_GENERATE_REPORT=true bundle exec rake test test:system
@@ -24,10 +24,8 @@ if ENV['CIRCLE_ARTIFACTS']
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
-  # Save screenshots if integration tests fail
-  circle_path = ENV.fetch('CIRCLE_ARTIFACTS',
-                          Rails.root.join('tmp', 'capybara'))
-  Capybara.save_path = circle_path
+  # Save screenshots if system tests fail
+  Capybara.save_path = Rails.root.join('tmp', 'capybara')
 end
 
 DatabaseCleaner.clean_with :truncation
