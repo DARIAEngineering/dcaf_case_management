@@ -12,10 +12,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require popper
 //= require jquery_ujs
 //= require jquery-ui
 //= require js-routes
-//= require bootstrap-sprockets
 //= require_tree .
 //= require_tree ../../../vendor/assets/javascripts/.
