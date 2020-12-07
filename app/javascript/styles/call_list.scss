@@ -1,0 +1,20 @@
+// Styling related to the call list and patient search.
+
+@import './_variables';
+
+.call-icon {
+  color: $white;
+  background-color: $phone-icon-blue;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+#search_form {
+  .search_form_input {
+    width: 350px;
+  }
+}
+
+.bootstrap_toggle_spacing .checkbox {
+  margin-top: 0px;
+}
