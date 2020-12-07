@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_043849) do
+ActiveRecord::Schema.define(version: 2020_12_07_043840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "configs", force: :cascade do |t|
+    t.integer "config_key", null: false
+    t.jsonb "config_value", default: {"options"=>[]}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["config_key"], name: "index_configs_on_config_key"
+  end
 
   create_table "versions", force: :cascade do |t|
     t.string "item_type", null: false
