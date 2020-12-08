@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class PaperTrailVersionTest < ActiveSupport::TestCase
+  # Most of this behavior is related to user/patient behavior, leaving it commented out for now
   # before do
-  #   @user = create :user
+  #   @user = create :user # Can't do this until
   #   with_versioning do
   #     PaperTrail.request(whodunnit: @user) do
   #       @patient = create :patient, name: 'Susie Everyteen',
@@ -61,4 +62,20 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
   #                  }
   #   end
   # end
+
+  # ensure that paper trail is versioning properly
+  describe 'attachments to objects in general' do
+    before do
+      with_versioning do
+        @config = create :config
+      end
+    end
+
+    it "should attach versions to config" do
+      assert @config.versions.count == 1
+      assert_difference '@config.versions.count', 1 do
+        @config.update config_value: ['Metallica']
+      end
+    end
+  end
 end
