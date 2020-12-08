@@ -64,7 +64,10 @@ We're on Webpacker, which requires an additional setup step, but which lets us w
 ### Then, Postgres dependencies
 We use Postgres around these parts. Installation will differ based on your OS.
 
-* Install Postgres (`brew install postgres` on MacOS, or [linux instructions](https://www.postgresql.org/download/)
+* Install Postgres
+  * MacOS: `brew install postgres`
+  * Ubuntu: install `postgresql`, `libpq-dev`, and `postgresql-client`
+  * Other [linux instructions](https://www.postgresql.org/download/) (server and developer libraries needed)
 * Run the command `rails db:create && rails db:migrate` to set up the tables
 
 ### Then, showtime
