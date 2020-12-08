@@ -1,0 +1,11 @@
+// Styling related to the budget bar utility.
+
+@import './_variables';
+
+$budget-bar-font-size: 14px;
+
+.expenditure-block {
+  border-right: 1px solid $black;
+  color: $black;
+  font-size: $budget-bar-font-size;
+}
