@@ -6,6 +6,6 @@ $budget-bar-font-size: 14px;
 
 .expenditure-block {
   border-right: 1px solid $black;
-  color: $black;
+  color: $black !important;
   font-size: $budget-bar-font-size;
 }
