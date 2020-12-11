@@ -260,3 +260,11 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 end
+
+# Hack to prevent some devise goofiness around having both activerecord
+# and mongoid. Removable when we move user class to pg.
+Devise.module_eval do 
+  def self.activerecord51?
+    false
+  end
+end
