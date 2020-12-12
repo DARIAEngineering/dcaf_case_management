@@ -1,41 +1,24 @@
-# Object representing relevant actions taken by a case  manager
-class Event
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  extend Enumerize
-
-  EVENT_TYPES = [
-    'Reached patient',
-    "Couldn't reach patient",
-    'Left voicemail',
-    'Pledged',
-    'Unknown action'
-  ].freeze
-
-  # Fields
-  field :cm_name, type: String
-  enumerize :event_type,
-            in:      EVENT_TYPES.map(&:to_sym),
-            default: 'Unknown action'.to_sym
-  # See config/initializers/env_var_contants.rb
-  enumerize :line, in: LINES, default: LINES[0]
-  field :patient_name, type: String
-  field :patient_id, type: String
-  field :pledge_amount, type: Integer
-
-  # Indices
-  index(created_at: 1)
+# Object representing relevant actions taken by a case manager.
+class Event < ApplicationRecord
+  # Enums
+  enum event_type: {
+    reached_patient: 0,
+    couldnt_reach_patient: 1,
+    left_voicemail: 2,
+    pledged: 3,
+    unknown_action: 4
+  }
+  enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
 
   # Validations
-  validates :event_type, inclusion: { in: EVENT_TYPES }
-  validates :cm_name, :patient_name, :patient_id, :line, presence: true
-  validates :pledge_amount, presence: true, if: :pledged_type?
+  validates :event_type, :cm_name, :patient_name, :patient_id, :line, presence: true
+  validates :pledge_amount, presence: true, if: :pledged?
 
   def icon
     case event_type
-    when 'Pledged'
+    when 'pledged'
       'thumbs-up'
-    when 'Reached patient'
+    when 'reached_patient'
       'comment'
     else
       'phone-alt'
@@ -49,13 +32,7 @@ class Event
 
   # Clean events older than three weeks
   def self.destroy_old_events
-    Event.where(:created_at.lte => 3.weeks.ago)
+    Event.where('created_at < ?', 3.weeks.ago)
          .destroy_all
-  end
-
-  private
-
-  def pledged_type?
-    event_type == 'Pledged'
   end
 end
