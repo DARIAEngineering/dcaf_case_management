@@ -4,6 +4,8 @@ class MongoEvent
   include Mongoid::Timestamps
   extend Enumerize
 
+  store_in collection: 'events'
+
   EVENT_TYPES = [
     'Reached patient',
     "Couldn't reach patient",
