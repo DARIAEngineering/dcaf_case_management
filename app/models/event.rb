@@ -25,11 +25,6 @@ class Event < ApplicationRecord
     end
   end
 
-  # remove spaces and punctuation. A sin method because we did this as strs not syms.
-  def underscored_type
-    event_type.gsub(' ', '_').gsub(/\W/, '').downcase
-  end
-
   # Clean events older than three weeks
   def self.destroy_old_events
     Event.where('created_at < ?', 3.weeks.ago)

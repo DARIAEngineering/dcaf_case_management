@@ -27,6 +27,6 @@ module EventsHelper
 
   def event_string(event)
     return t('events.pledged', pledge_amount: event.pledge_amount) if event.event_type == 'pledged'
-    t("events.#{event.underscored_type}")
+    t("events.#{event.event_type}")
   end
 end
