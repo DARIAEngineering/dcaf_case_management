@@ -100,7 +100,7 @@
       "plan": "logentries"
     },
     {
-      "plan": "mongolab"
+      "plan": "heroku-postgresql:hobby-basic"
     },
     {
       "plan": "scheduler"
