@@ -4,7 +4,7 @@ class EventsController < ApplicationController
 
   def index
     events = Event.where(line: current_line)
-                   .order_by(created_at: :desc)
+                  .order(created_at: :desc)
 
     @events = paginate_results(events)
     respond_to do |format|

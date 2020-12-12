@@ -175,7 +175,7 @@ class Patient
 
   def event_params
     {
-      event_type:    'Pledged',
+      event_type:    :pledged,
       cm_name:       updated_by&.name || 'System',
       patient_name:  name,
       patient_id:    id,
