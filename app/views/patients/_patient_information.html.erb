@@ -19,7 +19,7 @@
                                         patient.race_ethnicity),
                      autocomplete: 'off' %>
         <%= f.select :language,
-                     options_for_select(language_options,
+                     options_for_select(language_options(patient.language),
                                        patient.language),
                      label: t('patient.information.language'),
                      autocomplete: 'off' %>
