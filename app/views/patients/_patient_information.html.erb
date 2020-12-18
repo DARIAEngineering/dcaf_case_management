@@ -87,7 +87,7 @@
                                         patient.insurance),
                      label: t('patient.information.insurance') %>
         <%= f.select :referred_by,
-                     options_for_select(referred_by_options,
+                     options_for_select(referred_by_options(patient.referred_by),
                                         patient.referred_by),
                      label: t('patient.information.referred_by', fund: "#{FUND}"),
                      autocomplete: 'off' %>
