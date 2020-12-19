@@ -10,7 +10,7 @@ namespace :migrate_to_pg do
     pg = Event
     mongo = MongoEvent
 
-    extra_transform = Proc.new do |attrs|
+    extra_transform = Proc.new do |attrs, obj|
       event_type_mapping = {
         "Reached patient" => :reached_patient,
         "Couldn't reach patient" => :couldnt_reach_patient,
@@ -29,8 +29,24 @@ namespace :migrate_to_pg do
     pg = Clinic
     mongo = MongoClinic
 
-    extra_transform = Proc.new do |attrs|
-      attrs['mongo_id'] = attrs['id'] # Save Mongo UUID
+    extra_transform = Proc.new do |attrs, obj|
+      attrs['mongo_id'] = obj['id'].to_s # Save Mongo UUID
+      attrs
+    end
+
+    migrate_model(pg, mongo, extra_transform)
+  end
+
+  task user: :environment do
+    pg = User
+    mongo = MongoUser
+
+    # This doesn't seem to port over passwords.
+    extra_transform = Proc.new do |attrs, obj|
+      attrs['mongo_id'] = obj['_id'].to_s # Save Mongo UUID
+      attrs['password'] = obj['encrypted_password'].to_s
+      attrs['password_confirmation'] = obj['encrypted_password'].to_s
+      # attrs['encrypted_password'] = obj['encrypted_password'].to_s
       attrs
     end
 
@@ -46,7 +62,7 @@ def migrate_model(pg_model, mongo_model, transform = nil)
       pg_attrs = obj.slice(*attributes)
 
       # If a model specific transform is required, do it here
-      pg_attrs = transform.call(pg_attrs) if transform.present?
+      pg_attrs = transform.call(pg_attrs, obj) if transform.present?
 
       pg_model.create! pg_attrs
     end

@@ -3,9 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   # Since this is a devise install, devise is handling
   # general stuff like creation timestamps etc.
-  before do
-    @user = create :user
-  end
+  before { @user = create :user }
 
   describe 'basic validations' do
     it 'should be able to build an object' do
@@ -44,42 +42,58 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should return recently_called_patients accurately' do
-      assert_equal 0, @user.recently_called_patients('DC').count
+      with_versioning do
+        PaperTrail.request(whodunnit: @user) do
+          assert_equal 0, @user.recently_called_patients('DC').count
 
-      @patient.calls.create attributes_for(:call, created_by: @user)
-      @patient_2.calls.create attributes_for(:call, created_by: @user)
-      @md_patient.calls.create attributes_for(:call, created_by: @user)
-      assert_equal 2, @user.recently_called_patients('DC').count
-      assert_equal 1, @user.recently_called_patients('MD').count
+          @patient.calls.create attributes_for(:call, created_by: @user)
+          @patient_2.calls.create attributes_for(:call, created_by: @user)
+          @md_patient.calls.create attributes_for(:call, created_by: @user)
+          assert_equal 2, @user.recently_called_patients('DC').count
+          assert_equal 1, @user.recently_called_patients('MD').count
+        end
+      end
     end
 
     it 'should return call_list_patients accurately' do
-      assert_equal 2, @user.call_list_patients('DC').count
-      assert_equal 1, @user.call_list_patients('MD').count
+      with_versioning do
+        PaperTrail.request(whodunnit: @user) do
+          assert_equal 2, @user.call_list_patients('DC').count
+          assert_equal 1, @user.call_list_patients('MD').count
 
-      @patient.calls.create attributes_for(:call, created_by: @user)
-      assert_equal 1, @user.call_list_patients('DC').count
+          @patient.calls.create attributes_for(:call, created_by: @user)
+          assert_equal 1, @user.call_list_patients('DC').count
 
-      @patient_2.calls.create attributes_for(:call, created_by: @user_2)
-      assert_equal 1, @user.call_list_patients('DC').count
+          @patient_2.calls.create attributes_for(:call, created_by: @user_2)
+          assert_equal 1, @user.call_list_patients('DC').count
+        end
+      end
     end
 
     it 'should clean calls when patient has been reached' do
-      assert_equal 0, @user.recently_called_patients('DC').count
-      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
-      @call = @patient.calls.first
-      assert_equal 1, @user.recently_called_patients('DC').count
-      @user.clean_call_list_between_shifts
-      assert_equal 0, @user.recently_called_patients('DC').count
+      with_versioning do
+        PaperTrail.request(whodunnit: @user) do
+          assert_equal 0, @user.recently_called_patients('DC').count
+          @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+          @call = @patient.calls.first
+          assert_equal 1, @user.recently_called_patients('DC').count
+          @user.clean_call_list_between_shifts
+          assert_equal 0, @user.recently_called_patients('DC').count
+        end
+      end
     end
 
     it 'should not clear calls when patient has not been reached' do
-      assert_equal 0, @user.recently_called_patients('DC').count
-      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Left voicemail' )
-      @call = @patient.calls.first
-      assert_equal 1, @user.recently_called_patients('DC').count
-      @user.clean_call_list_between_shifts
-      assert_equal 1, @user.recently_called_patients('DC').count
+      with_versioning do
+        PaperTrail.request(whodunnit: @user) do
+          assert_equal 0, @user.recently_called_patients('DC').count
+          @patient.calls.create attributes_for(:call, created_by: @user, status: 'Left voicemail' )
+          @call = @patient.calls.first
+          assert_equal 1, @user.recently_called_patients('DC').count
+          @user.clean_call_list_between_shifts
+          assert_equal 1, @user.recently_called_patients('DC').count
+        end
+      end
     end
 
     it 'should clear patient list when user has not logged in' do
@@ -180,7 +194,7 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should error on no user' do
       @user.destroy
-      assert_raises Mongoid::Errors::DocumentNotFound do
+      assert_raises ActiveRecord::RecordNotFound do
         User.from_omniauth(@token)
       end
     end
@@ -222,16 +236,13 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'should find inactive users with logins before cutoff and disable' do
-        [@disabled_user, @no_login_user].each do |user|
-          user.reload
-          assert user.disabled_by_fund?
-        end
+        # disabled and no-login should be shut off
+        assert @disabled_user.reload.disabled_by_fund?
+        assert @no_login_user.reload.disabled_by_fund?
 
         # No locking admins or users with recent activity
-        [@admin, @nondisabled_user].each do |user|
-          user.reload
-          assert_not user.disabled_by_fund?
-        end
+        refute @admin.disabled_by_fund?
+        refute @nondisabled_user.disabled_by_fund?
       end
     end
   end
