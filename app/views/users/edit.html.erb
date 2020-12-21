@@ -21,11 +21,15 @@
       <%= role_toggle_button @user, 'data_volunteer' %>
       <%= role_toggle_button @user, 'cm' %>
     </div>
+    <br /><br />
+    <% User.role.values.each do |r| %>
+      <p><%= t("user.roles.#{r}") %></p>
+    <% end %>
   <% end %>
 
   <div id='user-details-update' class="top-spacer">
     <h3><%= t('user.edit.update_details') %></h3>
-    <%= bootstrap_form_with model: @user do |f| %>
+    <%= bootstrap_form_with model: @user, local: true do |f| %>
       <%= f.text_field :name, label: t('common.name'), autocomplete: 'off' %>
 
       <%= f.text_field :email, label: t('common.email'), autocomplete: 'off' %>

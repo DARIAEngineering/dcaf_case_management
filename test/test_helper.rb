@@ -12,7 +12,7 @@ require 'integration_helper'
 require 'rack/test'
 
 # CI only
-if ENV['CIRCLE_ARTIFACTS']
+if ENV['CIRCLECI']
   # Use knapsack to split up tests on CI nodes
   # To rerack the test divider, run:
   # KNAPSACK_GENERATE_REPORT=true bundle exec rake test test:system
@@ -24,13 +24,12 @@ if ENV['CIRCLE_ARTIFACTS']
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
-  # Save screenshots if integration tests fail
-  circle_path = ENV.fetch('CIRCLE_ARTIFACTS',
-                          Rails.root.join('tmp', 'capybara'))
-  Capybara.save_path = circle_path
+  # Save screenshots if system tests fail
+  Capybara.save_path = Rails.root.join('tmp', 'capybara')
 end
 
 DatabaseCleaner.clean_with :truncation
+ DatabaseCleaner[:mongoid].clean_with :truncation
 
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
@@ -65,6 +64,12 @@ class ActiveSupport::TestCase
                     config_value: { options: language_options }
   end
 
+  def create_voicemail_config
+      vm_options = ['Text Message Only', 'Use Codename', 'Only During Business Hours']
+      create :config, config_key: 'voicemail',
+                      config_value: { options: vm_options }
+  end
+
   def create_referred_by_config
     referred_by_options = ['Metal band']
     create :config, config_key: 'referred_by',
@@ -74,6 +79,19 @@ class ActiveSupport::TestCase
   def create_fax_service_config
     create :config, config_key: 'fax_service',
                     config_value: { options: ['http://www.yolofax.com'] }
+  end
+
+  def with_versioning
+    was_enabled = PaperTrail.enabled?
+    was_enabled_for_request = PaperTrail.request.enabled?
+    PaperTrail.enabled = true
+    PaperTrail.request.enabled = true
+    begin
+      yield
+    ensure
+      PaperTrail.enabled = was_enabled
+      PaperTrail.request.enabled = was_enabled_for_request
+    end
   end
 end
 

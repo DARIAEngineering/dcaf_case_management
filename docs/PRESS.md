@@ -1,5 +1,7 @@
 # DCAF Case Manager Press Coverage
 
+2020-10-20 [Reproductive Rights Groups Go High-Tech With ‘Uber for Abortion’ and Encryption](https://www.thedailybeast.com/reproductive-rights-groups-go-high-tech-with-uber-for-abortion-and-encryption) at the Daily Beast
+
 2017-08-15 [DC Tech Stories podcast](http://dctechstories.com/posts/cfdc/)
 
 2017-07-26 [Tech Meets Abortion Access With the Help of the D.C. Abortion Fund and Abortion Access Hackathon](https://www.themarysue.com/tech-meets-abortion-access/) in the Mary Sue

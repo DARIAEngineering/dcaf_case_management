@@ -59,13 +59,13 @@ class Patient
   field :random_pin, type: String
 
   # Contact-related info
-  field :voicemail_preference
-  enumerize :voicemail_preference, in: [:not_specified, :no, :yes], default: :not_specified
+  field :voicemail_preference, type: String, default: 'not_specified'
 
   field :line
   enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
 
   field :language, type: String
+  field :pronouns, type: String
   field :initial_call_date, type: Date
   field :urgent_flag, type: Boolean
   field :last_menstrual_period_weeks, type: Integer
@@ -76,6 +76,7 @@ class Patient
   field :city, type: String
   field :state, type: String
   field :county, type: String
+  field :zipcode, type: Integer
   field :race_ethnicity, type: String
   field :employment_status, type: String
   field :household_size_children, type: Integer
@@ -150,7 +151,7 @@ class Patient
     # Get patients who have been pledged this week, as a simplified hash
     patients = Patient.in(line: line)
                       .where(:fund_pledge.nin => [0, nil, ''])
-                      .where(:fund_pledged_at.gte => start_of_period)
+                      .or({:pledge_sent_at.gte => start_of_period}, {:fund_pledged_at.gte => start_of_period})
                       .where(:resolved_without_fund.in => [false, nil])
                       .order_by(fund_pledged_at: :asc)
                       .pluck(*plucked_attrs)
@@ -268,7 +269,7 @@ class Patient
   private
 
   def confirm_appointment_after_initial_call
-    if appointment_date.present? && initial_call_date > appointment_date
+    if appointment_date.present? && initial_call_date&.send(:>, appointment_date)
       errors.add(:appointment_date, 'must be after date of initial call')
     end
   end
@@ -305,7 +306,7 @@ class Patient
   end
 
   def update_fund_pledged_at
-    if fund_pledge_changed? && fund_pledge
+    if fund_pledge_changed? && fund_pledge && !fund_pledged_at
       self.fund_pledged_at = Time.zone.now
     elsif fund_pledge.blank?
       self.fund_pledged_at = nil

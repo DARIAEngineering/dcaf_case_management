@@ -8,8 +8,7 @@ If you see a spot in the docs that's confusing or could be improved, please pay 
 
 * **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/DCAFEngineering/dcaf_case_management and hit the `fork` button up in the top right.
 * **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system. Use `cd dcaf_case_management` to change directory to where you saved the clone.
-* **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/DCAFEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream master`.
-* **Fourth things fourth**: Make the source repo fetch-only by unsetting the URL: `git remote set-url --push upstream no-pushing-to-upstream`. This will prevent mistakenly pushing to upstream if you get push access down the road.
+* **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/DCAFEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream main`.
 
 For the rest of the setup, you have two options: Docker, or installing everything locally. We recommend Docker if you're comfortable with its ecosystem.
 
@@ -18,7 +17,7 @@ For the rest of the setup, you have two options: Docker, or installing everythin
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
 * `docker-compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
-* `docker-compose run --rm web rake db:seed # to populate the database`
+* `docker-compose run --rm web rails db:create db:migrate db:seed # to populate the database`
 * `docker-compose up`
 
 The last command will take a moment and should print a number of things. When it's ready
@@ -32,6 +31,17 @@ take a minute or two for resources to compile and load, but it should eventually
 Any errors will show up in your terminal in the window you are running the `up` command in.
 
 If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
+
+If you're using a Windows 10 machine to run docker, we strongly suggest downloading and using [Docker-Desktop](https://www.docker.com/products/docker-desktop).
+The Docker-Desktop experience on Windows 10 is mostly very smooth these days, but there are a couple common "gotchas" we've seen while developing this (and other) apps. One of our core maintainers keeps additional info on this [here](https://github.com/mdworken/MKD-Docker-Windows-Rails). If you run into issues that are not covered there, or if you have suggestions to improve the readability of the repo, please let us know! We're happy to help debug, and once we understand the issues you've seen, you'll have helped future users who may encounter the same issue.
+
+To fix this, you need to enable experimental features for Docker:
+1. Right click Docker icon in the Windows System Tray
+2. Go to Settings
+3. Go to Daemon
+4. Check Experimental features
+5. Hit Apply
+
 
 ## Local environment
 
@@ -50,6 +60,15 @@ You'll also need to set up MongoDB. This will differ based on your OS.
 We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
 * Install Yarn locally (`brew install yarn`, or the [setup instructions](https://yarnpkg.com/en/docs/install)).
 * Install JS packages: `yarn install`
+
+### Then, Postgres dependencies
+We use Postgres around these parts. Installation will differ based on your OS.
+
+* Install Postgres
+  * MacOS: `brew install postgres`
+  * Ubuntu: install `postgresql`, `libpq-dev`, and `postgresql-client`
+  * Other [linux instructions](https://www.postgresql.org/download/) (server and developer libraries needed)
+* Run the command `rails db:create && rails db:migrate` to set up the tables
 
 ### Then, showtime
 After that:

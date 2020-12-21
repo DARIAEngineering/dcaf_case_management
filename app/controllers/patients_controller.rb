@@ -109,12 +109,12 @@ class PatientsController < ApplicationController
 
   PATIENT_DASHBOARD_PARAMS = [
     :name, :last_menstrual_period_days, :last_menstrual_period_weeks,
-    :appointment_date, :primary_phone
+    :appointment_date, :primary_phone, :pronouns
   ].freeze
 
   PATIENT_INFORMATION_PARAMS = [
     :line, :age, :race_ethnicity, :language, :voicemail_preference, :textable,
-    :city, :state, :county, :zip, :other_contact, :other_phone,
+    :city, :state, :county, :zipcode, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
     special_circumstances: []
@@ -122,7 +122,8 @@ class PatientsController < ApplicationController
 
   ABORTION_INFORMATION_PARAMS = [
     :clinic_id, :resolved_without_fund, :referred_to_clinic, :completed_ultrasound,
-    :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge
+    :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge,
+    :fund_pledged_at, :pledge_sent_at
   ].freeze
 
   FULFILLMENT_PARAMS = [
@@ -158,6 +159,7 @@ class PatientsController < ApplicationController
     headers["Content-disposition"] = "attachment; filename=\"#{filename}\""
     headers['X-Accel-Buffering'] = 'no'
     headers["Cache-Control"] = "no-cache"
+    headers[Rack::ETAG] = nil # Without this, data doesn't stream
     headers.delete("Content-Length")
   end
 end

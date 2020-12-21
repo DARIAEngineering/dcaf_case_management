@@ -38,7 +38,11 @@
       "required": false
     },
     "FUND_MAILER_DOMAIN": {
-      "description": "domain you want emails to come from. Should be your fund's domain. e.g. dcabortionfund.org for DCAF",
+      "description": "domain you want emails to come from. Should be the domain configured with sendgrid. Usually dariaservices.com.",
+      "value": "dariaservices.com"
+    },
+    "FUND_DOMAIN": {
+      "description": "Abortion fund's public site domain, no https or www. e.g. dcabortionfund.org for DCAF",
       "value": ""
     },
     "DARIA_LINES": {
@@ -57,12 +61,25 @@
       "description": "set to true",
       "value": "true"
     },
+    "SENTRY_DSN": {
+      "description": "get it from Sentry",
+      "value": "",
+      "required": false
+    },
     "SITE_URL": {
-      "description": "The app name you just selected plus .herokuapp.com . e.g. myfund.herokuapp.com",
+      "description": "The app name you just selected plus .herokuapp.com. e.g. daria-xaf.herokuapp.com",
       "value": ""
     },
-    "SKYLIGHT_AUTH_TOKEN": {
-      "description": "get it from Skylight",
+    "SENDGRID_USERNAME": {
+      "description": "the sendgrid username for auth. Should always be `apikey`",
+      "value": "apikey"
+    },
+    "SENDGRID_PASSWORD": {
+      "description": "get it from Sendgrid",
+      "value": ""
+    },
+    "SQREEN_APP_NAME": {
+      "description": "daria-FUND, like in your site URL",
       "value": "",
       "required": false
     },
@@ -83,13 +100,10 @@
       "plan": "logentries"
     },
     {
-      "plan": "mongolab"
+      "plan": "heroku-postgresql:hobby-basic"
     },
     {
       "plan": "scheduler"
-    },
-    {
-      "plan": "sendgrid"
     }
   ],
   "buildpacks": [

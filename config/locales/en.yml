@@ -209,6 +209,7 @@ en:
         age: Age
         appointment_date: Appointment date
         city: City
+        clinic_id: Clinic_Id
         completed_ultrasound: Completed ultrasound?
         county: County
         employment_status: Employment status
@@ -234,6 +235,7 @@ en:
         pledge_sent_at: Pledge sent at
         primary_phone: Primary phone
         procedure_cost: Procedure cost
+        pronouns: Pronouns
         race_ethnicity: Race / Ethnicity
         referred_by: Referred by
         referred_to_clinic: Referred to clinic
@@ -243,6 +245,7 @@ en:
         textable: Textable
         urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
+        zipcode: Zipcode
       practical_support:
         confirmed: Confirmed
         source: Source
@@ -261,7 +264,6 @@ en:
       config_management: Config Management
       export: Export anonymized CSV
       label: Admin
-      reporting: Reporting
       user_management: User Management
     cm_resources:
       label: CM Resources
@@ -548,6 +550,10 @@ en:
       new_password: New password
       update_info_button: Update info
       user_panel: User panel for %{email} (%{name})
+    roles:
+      admin: 'The admin role is for people who are managing their fund''s DARIA instance or case manager corps. This gives access to what CMs and Data Volunteers have, plus the following: user management tools, clinic management tools, DARIA instance configuration tools, and the ability to delete patients from the individual patient record page (such as in the case of a duplicate entry).'
+      cm: The Case Manager role is for people doing patient intake and making calls. This gives access to the main call list dashboard, the individual patient record page (minus the ability to edit fulfillment info), and the data entry page.
+      data_volunteer: 'The Data Volunteer role is for people who require access to data or accounting tools. This gives access to what CMs have, plus the following: accounting tools for pledge reconcilling, reporting tools with summary data on patient intake, the fulfillment tab on the individual patient record page (for marking pledges as paid out), and the ability to download an anonymized spreadsheet of data for analysis.'
     search:
       button: Search
       text_field: Name or Email

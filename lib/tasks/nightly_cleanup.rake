@@ -16,6 +16,9 @@ task nightly_cleanup: :environment do
   ArchivedPatient.archive_eligible_patients!
   puts "#{Time.now} -- archived patients for today"
 
+  MongoidStore::Session.where(:updated_at.lte => 30.days.ago).delete_all  
+  puts "#{Time.now} - removed old sessions"
+
   if Time.zone.now.monday?
     # Run these events weekly
     Clinic.update_all_coordinates

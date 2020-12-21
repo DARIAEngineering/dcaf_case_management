@@ -12,3 +12,10 @@ This pull request makes the following changes:
 It relates to the following issue #s: 
 * Fixes #X
 * Bumps #Y
+
+For reviewer:
+* Adjust the title to explain what it does for the notification email to the listserv.
+* Tag this PR:
+  * `feature` if it contains a feature, fix, or similar. This is anything that contains a user-facing fix in some way, such as frontend changes, alterations to backend behavior, or bug fixes.
+  * `dependencies` if it contains library upgrades or similar. This is anything that upgrades any dependency, such as a Gemfile update or npm package upgrade.
+* If it contains neither, no need to tag this PR.

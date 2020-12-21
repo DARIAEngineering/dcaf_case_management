@@ -11,7 +11,7 @@ DARIA's case management workflow was designed to mirror existing practices used 
 The workflow is similar to many Customer Relationship Manager (CRM) systems. After patients leave a voicemail, the case managers return their calls and assist patients in navigating the process of scheduling an appointment and raising funds. If the patient is short on money, after a series of phone calls we issue a pledge to support their visit to a clinic. If a patient takes advantage of the pledge and complete their abortion, our accounting team logs that as a fulfillment.
 
 Read more about our workflow at: 
-https://github.com/DCAFEngineering/dcaf_case_management/blob/master/docs/DCAF_101.md
+https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/DCAF_101.md
 
 ## Administration toolkit
 
@@ -28,21 +28,17 @@ By reaching out to a fund, a patient is implicitly trusting us to be discreet an
 Additionally, we know any tech is only as secure as the people using it. A fund should also maintain secure data collection and usage practices at the individual case manager level, including deploying two factor authentication on their google accounts and using DARIA's features rather than using potentially compromising patient information in email communications.
 
 Find our complete security review at:
-https://github.com/DCAFEngineering/dcaf_case_management/blob/master/docs/SECURITY.md
+https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/SECURITY.md
 
 ## How to migrate
 
 Data migration is a manual process using a custom data entry form within DARIA. Funds should migrate data as close to the go-live date as possible. Plan to have a team of volunteers in your fund complete the migration. One person should be able to migrate approximately 200 patients over a weekend.
 
-We suggest breaking this down as follows:
-
-* Determine how much data to migrate (suggestion: current fiscal year or calendar year)
-* Recruit data entry volunteers, planning for 1 volunteer per 200 patients for 2 days of data entry
-* Break out data by volunteer to ensure no patient duplication
+We have a more comprehensive guide located at: https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/MIGRATING_YOUR_DATA.md
 
 ## Costs
 
-DARIA costs start at $84 a year ($7 a month for 12 months), paid to DCAF once a year. This covers your share of server fees, and gets your fund its own URL and database. Funds which see a heavy amount of patient traffic (2,000+ new patients per year) may need to invest in a database upgrade at an additional $216 a year after the first year.
+DARIA costs start at $84 a year ($7 a month for 12 months), paid to DCAF once a year. This covers your share of server fees, and gets your fund its own URL and managed database. Funds which see a heavy amount of patient traffic (2,000+ new patients per year) may need to invest in a database upgrade at an additional $216 a year after the first year.
 
 ## Support and Maintenance
 

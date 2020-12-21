@@ -1,0 +1,11 @@
+#Set default behavior to use Unix line endings so Docker on Windows doesn't fail
+* text eol=lf
+
+# Denote all files that are truly binary and should not be modified.
+# https://www.git-scm.com/docs/gitattributes
+*.png binary
+*.jpg binary
+*.ai binary
+*.pdf binary
+*.ttf binary
+*.ico binary

@@ -6,6 +6,7 @@ class ArchivedPatient
 
   # Concerns
   include Exportable
+  include LastMenstrualPeriodMeasureable
 
   # Relationships
   belongs_to :clinic
@@ -50,10 +51,12 @@ class ArchivedPatient
   field :patient_contribution, type: Integer
   field :naf_pledge, type: Integer
   field :fund_pledge, type: Integer
+  field :fund_pledged_at, type: Time
   field :pledge_sent, type: Boolean
   field :resolved_without_fund, type: Boolean
   field :pledge_generated_at, type: Time
   field :pledge_sent_at, type: Time
+  field :textable, type: Boolean
 
   # Indices
   index(line: 1)
@@ -110,11 +113,13 @@ class ArchivedPatient
       patient_contribution: patient.patient_contribution,
       naf_pledge: patient.naf_pledge,
       fund_pledge: patient.fund_pledge,
+      fund_pledged_at: patient.fund_pledged_at,
 
       pledge_sent: patient.pledge_sent,
       resolved_without_fund: patient.resolved_without_fund,
       pledge_generated_at: patient.pledge_generated_at,
       pledge_sent_at: patient.pledge_sent_at,
+      textable: patient.textable,
 
       pledge_generated_by: patient.pledge_generated_by,
       pledge_sent_by: patient.pledge_sent_by,

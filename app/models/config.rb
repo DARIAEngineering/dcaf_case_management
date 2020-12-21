@@ -10,7 +10,8 @@ class Config
   CONFIG_FIELDS = [
     :insurance, :external_pledge_source, :pledge_limit_help_text,
     :language, :resources_url, :practical_support_guidance_url, :fax_service, :referred_by,
-    :practical_support, :hide_practical_support, :start_of_week, :budget_bar_max
+    :practical_support, :hide_practical_support, :start_of_week, :budget_bar_max,
+    :voicemail
   ].freeze
 
   # Define overrides for particular config fields.

@@ -8,8 +8,8 @@ class PatientsHelperTest < ActionView::TestCase
       assert_equal 1, weeks_options.select { |x| /week$/.match x[0] }.count
     end
 
-    it 'should have 30 entries' do
-      assert_equal 31, weeks_options.count
+    it 'should have 40 entries' do
+      assert_equal 41, weeks_options.count
     end
   end
 
@@ -31,7 +31,7 @@ class PatientsHelperTest < ActionView::TestCase
       before { create_insurance_config }
 
       it 'should include the option set' do
-        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
                                     [ 'Other (add to notes)', 'Other (add to notes)'] ]
@@ -39,7 +39,7 @@ class PatientsHelperTest < ActionView::TestCase
       end
 
       it 'should append any non-nil passed options to the end' do
-        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid', 
+        expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
                                     [ 'Other (add to notes)', 'Other (add to notes)'],
@@ -89,6 +89,52 @@ class PatientsHelperTest < ActionView::TestCase
         assert options_array.class == Array
         assert options_array.count > 1
       end
+    end
+  end
+
+  describe 'state options' do
+    it 'should return all states and current value' do
+      expected_state_array = [[nil, nil], ["AL", "AL"], ["AK", "AK"], ["AZ", "AZ"], ["AR", "AR"],
+        ["CA", "CA"], ["CO", "CO"], ["CT", "CT"], ["DE", "DE"], ["DC", "DC"], ["FL", "FL"],
+        ["GA", "GA"], ["HI", "HI"], ["ID", "ID"], ["IL", "IL"], ["IN", "IN"], ["IA", "IA"],
+        ["KS", "KS"], ["KY", "KY"], ["LA", "LA"], ["ME", "ME"], ["MD", "MD"], ["MA", "MA"],
+        ["MI", "MI"], ["MN", "MN"], ["MS", "MS"], ["MO", "MO"], ["MT", "MT"], ["NE", "NE"],
+        ["NV", "NV"], ["NH", "NH"], ["NJ", "NJ"], ["NM", "NM"], ["NY", "NY"], ["NC", "NC"],
+        ["ND", "ND"], ["OH", "OH"], ["OK", "OK"], ["OR", "OR"], ["PA", "PA"], ["RI", "RI"],
+        ["SC", "SC"], ["SD", "SD"], ["TN", "TN"], ["TX", "TX"], ["UT", "UT"], ["VT", "VT"],
+        ["VA", "VA"], ["WA", "WA"], ["WV", "WV"], ["WI", "WI"], ["WY", "WY"], ["virginia","virginia"]]
+
+      assert_same_elements state_options("virginia"), expected_state_array
+    end
+  end
+
+  describe 'voicemail_options' do
+    before { create_voicemail_config }
+    # stock options
+    it 'should return an array based on patient voicemail_options' do
+      ['no', 'yes', 'not_specified'].each do |pref|
+        refute_empty voicemail_options.select { |opt| opt[1] == pref }
+      end
+    end
+
+    # with custom options
+    it 'should load custom options' do
+      assert_includes voicemail_options, 'Use Codename'
+      assert_includes voicemail_options, 'Only During Business Hours'
+      assert_includes voicemail_options, 'Text Message Only'
+    end
+
+    # if option has been removed, should stick around until changed
+    it 'should append any non-nil passed options to the end' do
+      expected_vm_options_array =
+        ['Use Codename', 'Only During Business Hours', 'Text Message Only',
+         ['Do not leave a voicemail', 'no'],
+         ['Voicemail OK, ID OK', 'yes'],
+         ['No instructions; no ID VM', 'not_specified'],
+          'ID as coworker'
+        ]
+      assert_same_elements expected_vm_options_array,
+                           voicemail_options('ID as coworker')
     end
   end
 end

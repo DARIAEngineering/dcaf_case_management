@@ -7,7 +7,9 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
   before_action :set_locale
-  prepend_before_action :authenticate_user!
+  before_action :set_raven_context
+   # before_action :set_paper_trail_whodunnit # Turn on when user model is in pg 
+   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
   # whitelists attributes in devise
@@ -61,5 +63,10 @@ class ApplicationController < ActionController::Base
       flash[:danger] = t('flash.account_locked')
       sign_out current_user
     end
+  end
+
+  def set_raven_context
+    Raven.user_context(id: current_user&.id)
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

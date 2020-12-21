@@ -1,10 +1,10 @@
-FROM ruby:2.6.5-slim-buster
+FROM ruby:2.7.2-slim-buster
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig" \
+    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev" \
     APP_DEPENDENCIES="nodejs yarn git sudo sassc" \
     AHAB_DEPENDENCIES="ca-certificates curl" \
     FONTCONFIG_PATH=/etc/fonts \
@@ -20,7 +20,7 @@ COPY package.json ${DCAF_DIR}/package.json
 COPY yarn.lock ${DCAF_DIR}/yarn.lock
 
 # install packages
-RUN apt-get update && apt-get upgrade && \
+RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
     ${BUILD_DEPENDENCIES} \
     ${APP_DEPENDENCIES} \
@@ -41,6 +41,10 @@ RUN yarn install
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
 
+# get version 12 of nodejs
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - && \
+    apt-get install nodejs -y
+
 # remove unnecessary build dependencies
 RUN apt-get purge -y ${BUILD_DEPENDENCIES} && apt-get autoremove -y 
 
@@ -54,8 +58,10 @@ RUN mkdir /tmp/ahab && \
     rm ahab && \
     cd -
 
-# remove unnecessary ahab dependencies
-RUN apt-get purge -y ${AHAB_DEPENDENCIES} && apt-get autoremove -y 
+# remove unnecessary ahab dependencies except ca-certificates, which is needed for nodejs
+RUN ahab_dep=${AHAB_DEPENDENCIES} && \
+    ahab_updated=${ahab_dep##ca-certificates} && \
+    apt-get purge -y ${ahab_updated} && apt-get autoremove -y
 
 # Move the rest of the app over
 COPY . ${DCAF_DIR}

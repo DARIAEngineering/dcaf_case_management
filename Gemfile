@@ -1,22 +1,21 @@
 source 'https://rubygems.org'
-ruby '2.6.5'
+ruby '2.7.2'
 
 # Standard rails
-gem 'rails', '~> 6.0.1'
+gem 'rails', '~> 6.0.3.4'
 gem 'puma', '~> 4.3' # roar
-gem 'turbolinks', '~> 5.2.0'
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem 'nokogiri', '>= 1.10.5'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Asset pipeline
-gem 'webpacker', '~> 4.2.0'
+gem 'webpacker', '~> 5.0'
 gem 'sass-rails', '>= 6'
-gem 'bootstrap', '~> 4.3.1'
-gem 'bootstrap_form', '~> 4.2.0'
+gem 'bootstrap', '~> 4.5.0'
+gem 'bootstrap_form', '~> 4.5.0'
 gem 'coffee-rails', '~> 5.0.0'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.4'
 gem 'jquery-ui-rails'
 
 # Our database is MongoDB
@@ -27,24 +26,33 @@ gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userst
                          branch: 'master' # adds created_by and updated_by timestamps
 gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
-gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
+# gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
+
+# ...but hopefully soon it will be postgres
+gem 'pg', '~> 1.2'
+gem 'paper_trail', '~> 10.3'
+gem 'paper_trail-globalid'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.7'
-gem 'omniauth-google-oauth2', '~> 0.6.0'
+gem 'omniauth-google-oauth2', '~> 0.8.0'
 
+
+# We report errors with sentry
+gem 'sentry-raven'
 
 # Security libraries
 gem 'rack-attack', '~> 5.4.1'
 
 # For pagination
 gem 'kaminari-mongoid', '~> 1.0'
-gem 'kaminari', '~> 1.1'
+gem 'kaminari', '~> 1.2'
 
 # Specific useful stuff
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
+gem 'state_geo_tools' # state list 
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
@@ -102,6 +110,5 @@ group :test do
 end
 
 group :production do
-  gem 'skylight' # our newrelic-style efficiency monitoring platform
   gem 'sqreen' # an active security monitoring platform
 end

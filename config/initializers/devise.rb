@@ -12,7 +12,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "no-reply@#{ENV['FUND_DOMAIN']}" || 'no-reply@dcabortionfund.org'
+  config.mailer_sender = "no-reply@#{FUND_MAILER_DOMAIN}"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -259,4 +259,12 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+end
+
+# Hack to prevent some devise goofiness around having both activerecord
+# and mongoid. Removable when we move user class to pg.
+Devise.module_eval do 
+  def self.activerecord51?
+    false
+  end
 end

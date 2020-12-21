@@ -11,7 +11,7 @@ class VoicemailPreferenceInCallModalTest < ApplicationSystemTestCase
   describe 'different voicemail preferences and links' do
     describe 'no voicemail' do
       before do
-        @patient.voicemail_preference = :no
+        @patient.voicemail_preference = 'no'
         @patient.save
         open_call_modal_for @patient
       end
@@ -35,7 +35,7 @@ class VoicemailPreferenceInCallModalTest < ApplicationSystemTestCase
 
     describe 'voicemail ok' do
       before do
-        @patient.voicemail_preference = :yes
+        @patient.voicemail_preference = 'yes'
         @patient.save
         open_call_modal_for @patient
       end
@@ -44,6 +44,20 @@ class VoicemailPreferenceInCallModalTest < ApplicationSystemTestCase
         assert has_text? 'Voicemail OK; Okay to identify as DCAF'
         assert has_link? 'I left a voicemail for the patient'
       end
+    end
+
+    describe 'custom voicemail' do
+        before do
+            create_voicemail_config
+            @patient.voicemail_preference = 'Use Codename'
+            @patient.save
+            open_call_modal_for @patient
+        end
+
+        it 'should have custom text and link' do
+            assert has_text? 'Use Codename'
+            assert has_link? 'I left a voicemail for the patient'
+        end
     end
   end
 

@@ -66,6 +66,25 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
           assert_response :unauthorized
         end
       end
+
+      it 'should account for edge cases around empty times' do
+        create :patient, name: 'susan everyteen',
+                         appointment_date: 4.days.from_now,
+                         fund_pledge: 500,
+                         pledge_sent: true,
+                         pledge_sent_at: nil,
+                         clinic: create(:clinic)
+        create :patient, name: 'susan everyteen 2',
+                         appointment_date: 4.days.from_now,
+                         fund_pledge: 500,
+                         pledge_sent: true,
+                         pledge_sent_at: 4.days.from_now,
+                         clinic: create(:clinic)
+        user = create :user, role: :data_volunteer
+        sign_in user
+        post accountant_search_path, params: { search: 'susan' }, xhr: true
+        assert_response :success
+      end
     end
   end
 

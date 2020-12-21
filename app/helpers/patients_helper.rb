@@ -1,7 +1,8 @@
 # Functions primarily related to populating selects on patient edit view.
+require 'state_geo_tools'
 module PatientsHelper
   def weeks_options
-    (1..30).map { |i| [t('patient.helper.week', count: i), i] }.unshift [nil, nil]
+    (1..40).map { |i| [t('patient.helper.week', count: i), i] }.unshift [nil, nil]
   end
 
   def days_options
@@ -25,6 +26,26 @@ module PatientsHelper
   def language_options
     standard_options = [ [t('patient.helper.language.English'),nil] ]
     standard_options + Config.find_or_create_by(config_key: 'language').options
+  end
+
+  # TODO: do we want to do something similar to insurance here, to add new
+  # options to list if not already?
+  def voicemail_options(current_value = nil)
+    standard_options = [
+        [t('dashboard.helpers.voicemail_options.not_specified'), 'not_specified'],
+        [t('dashboard.helpers.voicemail_options.no'), 'no'],
+        [t('dashboard.helpers.voicemail_options.yes'), 'yes'],
+    ]
+    full_set = standard_options + Config.find_or_create_by(config_key: 'voicemail').options
+
+    # full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
+    # if the current value isn't in the list, push it on.
+    # kinda ugly because we're working with a few different datatypes in here.
+    if current_value.present? && full_set.map { |opt| opt.is_a?(Array) ? opt[-1] : opt }.exclude?(current_value)
+      full_set.push current_value
+    end
+
+    full_set.uniq
   end
 
   def referred_by_options
@@ -114,5 +135,9 @@ module PatientsHelper
 
   def pledge_limit_help_text_options
     Config.find_or_create_by(config_key: 'pledge_limit_help_text').options
+  end
+  def state_options(current_state)
+    StateGeoTools.state_codes.map{ |code| [code,code] }.unshift( [nil, nil] )
+      .push( [current_state,current_state] ).uniq
   end
 end

@@ -6,17 +6,25 @@ jobs:
     parallelism: 4
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.2-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           TESTOPTS: "--ci-dir=test-results"
+          PGUSER: circleci
+          PGHOST: localhost
+          PGDATABASE: dcaf_case_management_test
       - image: circleci/mongo:latest
+      - image: circleci/postgres:latest
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_DB: dcaf_case_management_test
+          POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - checkout
-      - run: sudo apt-get install libfontconfig
+      - run: sudo apt-get install libfontconfig postgresql-client
       - run: gem install bundler # Update bundler
       - run: sudo gem update --system # Update rubygems
       - restore_cache:
@@ -26,6 +34,7 @@ jobs:
       - run: bundle check || bundle install
       - run: yarn install
       - run: NODE_ENV=test bundle exec rails webpacker:compile
+      - run: RAILS_ENV=test bundle exec rails db:create db:migrate
       - run: gem install --no-document brakeman
       - run: gem install --no-document ruby_audit
       - run: gem install --no-document bundler-audit
@@ -37,13 +46,18 @@ jobs:
       - run: brakeman --exit-on-warn .
       - run: bundle exec ruby-audit check
       - run: bundle-audit update; bundle-audit check --ignore CVE-2015-9284
+      # - run: bundle exec rails zeitwerk:check # Restore in rails 6.0.3 https://github.com/rails/rails/issues/37966
       # - run: yarn audit
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
+      - store_artifacts:
+          path: coverage
+      - store_test_results:
+          path: test-results/
   predeploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.6.0-node-browsers
+      - image: circleci/ruby:2.7.2-node-browsers
     steps:
       - checkout
       # - restore_cache:
@@ -62,7 +76,7 @@ jobs:
   deploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.2-node-browsers
     steps:
       - checkout
       - setup_remote_docker:
@@ -70,8 +84,7 @@ jobs:
       - restore_cache:
           keys:
             - dcaf_case_management-{{ epoch }}
-      - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dcaf-cmapp-staging.git master
-      - run: docker build -t colinxfleming/dcaf_case_management -f .docker/Dockerfile . && docker login -u "$DOCKERLOGIN" -p "$DOCKERPASS" && docker push colinxfleming/dcaf_case_management
+      - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dcaf-cmapp-staging.git main
 
 # general:
   # artifacts:
@@ -85,13 +98,13 @@ workflows:
       - predeploy:
           filters:
             branches:
-              only: master
+              only: main
           requires:
             - build
       - deploy:
           filters:
             branches:
-              only: master
+              only: main
           requires:
             - build
             - predeploy

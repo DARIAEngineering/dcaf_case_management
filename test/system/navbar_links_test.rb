@@ -33,10 +33,6 @@ class NavbarLinksTest < ApplicationSystemTestCase
         assert has_link? t('navigation.admin_tools.accounting'), href: accountants_path
       end
 
-      it 'should display the Reporting link' do
-        assert has_link? t('navigation.admin_tools.reporting'), href: reports_path
-      end
-
       it 'should display the export link' do
         assert has_link? t('navigation.admin_tools.export'), href: patients_path(format: :csv)
       end
@@ -67,9 +63,6 @@ class NavbarLinksTest < ApplicationSystemTestCase
         assert has_link? t('navigation.admin_tools.accounting'), href: accountants_path
       end
 
-      it 'should display the Reporting link' do
-        assert has_link? t('navigation.admin_tools.reporting'), href: reports_path
-      end
 
       it 'should display the export link' do
         assert has_link? t('navigation.admin_tools.export'), href: patients_path(format: :csv)
