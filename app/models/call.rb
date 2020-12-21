@@ -1,35 +1,24 @@
 # Object representing a case manager dialing a patient.
-class Call
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::History::Trackable
-  include Mongoid::Userstamp
+class Call < ApplicationRecord
+  # Concerns
   include EventLoggable
+  include PaperTrailable
+
+  # Enums
+  enum status: {
+    reached_patient: 0,
+    left_voicemail: 1,
+    couldnt_reach_patient: 2
+  }
 
   # Relationships
-  embedded_in :can_call, polymorphic: true
-
-  # Fields
-  field :status, type: String
+  belongs_to :can_call, polymorphic: true
 
   # Validations
-  ALLOWED_STATUSES = {
-    'Reached patient' => :reached_patient,
-    'Left voicemail' => :left_voicemail,
-    "Couldn't reach patient" => :couldnt_reach_patient
-  }
-  validates :status,  presence: true,
-                      inclusion: { in: ALLOWED_STATUSES.keys }
-  validates :created_by_id, presence: true
+  validates :status, presence: true,
+                    inclusion: { in: ALLOWED_STATUSES.keys }
 
-  # History and auditing
-  track_history on: fields.keys + [:updated_by_id],
-                version_field: :version,
-                track_create: true,
-                track_update: true,
-                track_destroy: true
-  mongoid_userstamp user_model: 'User'
-
+  # Methods
   def recent?
     updated_at > 8.hours.ago ? true : false
   end
@@ -47,4 +36,8 @@ class Call
       line:         can_call.line
     }
   end
+
+
+
+
 end
