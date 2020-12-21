@@ -5,7 +5,7 @@ class Fulfillment < ApplicationRecord
   include PaperTrailable
 
   # Relationships
-  embedded_in :can_fulfill, polymorphic: true
+  belongs_to :can_fulfill, polymorphic: true
 
   # Validations
   validates :created_by_id,

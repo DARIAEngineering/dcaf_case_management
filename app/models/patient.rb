@@ -15,12 +15,7 @@ class Patient < ApplicationRecord
   include EventLoggable
 
   # Enums
-  enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
-
-  # Scopes
-  LINES.each do |line|
-    scope line.downcase.to_sym, -> { where(:line.in => [line]) }
-  end
+  # enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
 
   # Callbacks
   before_validation :clean_fields
@@ -34,11 +29,11 @@ class Patient < ApplicationRecord
   # Relationships
   has_and_belongs_to_many :users, inverse_of: :patients
   belongs_to :clinic
-  # embeds_one :fulfillment, as: :can_fulfill
-  # embeds_many :calls, as: :can_call
-  # embeds_many :external_pledges, as: :can_pledge
-  # embeds_many :practical_supports, as: :can_support
-  # embeds_many :notes
+  has_one :fulfillment, as: :can_fulfill
+  has_many :calls, as: :can_call
+  has_many :external_pledges, as: :can_pledge
+  has_many :practical_supports, as: :can_support
+  has_many :notes
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
   belongs_to :last_edited_by, class_name: 'User', inverse_of: nil
@@ -50,7 +45,6 @@ class Patient < ApplicationRecord
   validates :name,
             :primary_phone,
             :initial_call_date,
-            :created_by_id,
             :line,
             presence: true
   validates :primary_phone, format: /\d{10}/,

@@ -9,7 +9,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.string :identifier
 
       t.string :voicemail_preference, default: 'not_specified'
-      t.integer :line
+      t.string :line, null: false
 
       t.integer :language
       t.integer :pronouns
