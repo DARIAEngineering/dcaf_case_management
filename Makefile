@@ -27,6 +27,33 @@ RUN_ARGS := $(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
 # If nothing is passed, show the help
 .DEFAULT_GOAL := help
 
+###Rails-Commands: ## .
+run-console:
+	bundle exec rails console
+c: run-console ## Starts a rails console
+
+run-generate:
+	bundle exec rails generate $(RUN_ARGS)
+g: run-generate ## Runs the rails generator
+
+run-rails:
+	bundle exec rails server
+s: run-rails ## Starts the rails server
+
+run-tests:
+	rails test $(RUN_ARGS)
+t: run-tests ## Runs the provided test(s)
+
+docker-run:
+	docker-compose up
+
+ds: docker-run ## Run the docker server
+
+docker-restart: ## stop and start the docker server
+	docker-compose down
+	docker-compose up
+
+###: ## .
 ###Database-Commands: ## .
 db: ## Connect to the rails postgres db
 	rails db
@@ -55,33 +82,6 @@ lint-audit: ## Run ruby security checks
 	brakeman
 	bundle exec ruby-audit check
 	bundle-audit update; bundle-audit check
-
-###: ## .
-###Rails-Commands: ## .
-run-console:
-	bundle exec rails console
-c: run-console ## Starts a rails console
-
-run-generate:
-	bundle exec rails generate $(RUN_ARGS)
-g: run-generate ## Runs the rails generator
-
-run-rails:
-	bundle exec rails server
-s: run-rails ## Starts the rails server
-
-run-tests:
-	rails test $(RUN_ARGS)
-t: run-tests ## Runs the provided test(s)
-
-docker-run:
-	docker-compose up
-
-ds: docker-run ## Run the docker server
-
-docker-restart: ## stop and start the docker server
-	docker-compose down
-	docker-compose up
 
 ###: ## .
 ###Dependency-Commands: ## .
