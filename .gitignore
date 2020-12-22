@@ -81,6 +81,7 @@ TODO
 **.swp
 
 # Environment files that may contain sensitive data
+.env
 .powenv
 
 # Comment out these rules if you are OK with secrets being uploaded to the repo

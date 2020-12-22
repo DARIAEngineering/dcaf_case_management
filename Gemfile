@@ -68,7 +68,6 @@ group :development do
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5', '< 3.2' # used by systemtests, hardset rails 6 compat
   gem 'rubocop', require: false # our code style / linting system
-  gem 'dotenv-rails' #used to set up our db ENV values
 
   # Security scanners that also run in CI. They run with bundle exec.
   gem 'ruby_audit', require: false #
