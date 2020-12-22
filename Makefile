@@ -1,17 +1,12 @@
-# Example Makefile for developer convenience
 # Based on https://gist.github.com/gambala/4874e2b41a52ac043a274a61f5d7726b
 #
 # There's nothing here you can't do the long way. This is just a collection of (hopefully intuitive) shortcuts
-# to ease common development tasks.
+# to ease common development tasks and serve as a reference.
 #
 # To use this file:
 #
-#   $ ln -s Makefile.example Makefile
-#   $ make <target command>
+#   $ make <target command> <any arguments>
 #
-# Examples:
-#
-# TODO
 #
 #
 # RUN_ARGS
@@ -33,6 +28,9 @@ RUN_ARGS := $(wordlist 2, $(words $(MAKECMDGOALS)), $(MAKECMDGOALS))
 .DEFAULT_GOAL := help
 
 ###Database-Commands: ## .
+db: ## Connect to the rails postgres db
+	rails db
+
 migrate: ## Run any outstanding rails migrations
 	bundle exec rails db:migrate
 
@@ -41,6 +39,9 @@ rollback: ## Rollback the most recent rails migration
 
 seed: ## Populate the dev database with fresh data
 	bundle exec rails db:seed
+
+docker-seed: ## Seed or reseed your docker instance
+	docker-compose run --rm web rails db:create db:migrate db:seed
 
 add-migration: ## Generate a rails migration
 	bundle exec rails g migration $(RUN_ARGS)
@@ -68,6 +69,19 @@ g: run-generate ## Runs the rails generator
 run-rails:
 	bundle exec rails server
 s: run-rails ## Starts the rails server
+
+run-tests:
+	rails test $(RUN_ARGS)
+t: run-tests ## Runs the provided test(s)
+
+docker-run:
+	docker-compose up
+
+ds: docker-run ## Run the docker server
+
+docker-restart: ## stop and start the docker server
+	docker-compose down
+	docker-compose up
 
 ###: ## .
 ###Dependency-Commands: ## .
@@ -106,6 +120,11 @@ lint-ruby-setup: ## Setup ruby linting
 
 lint-setup-audits: ## Setup ruby auditors
 	gem install brakeman ruby_audit bundler-audit
+
+docker-build:
+	docker-compose build
+
+docker-install: docker-build docker-seed ## Setup the docker instance from scratch
 
 ###: ## .
 # Self-documented makefile from https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
