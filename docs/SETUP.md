@@ -73,21 +73,13 @@ We use Postgres around these parts. Installation will differ based on your OS.
 * Configure Postgres
  * Setup your user; the suggested password is `postgres` if you only use this machine for development purposes
    ```
-   sudo -u postgres createuser -s `whoami`
+   sudo -u postgres createuser -P -s `whoami`
    ```
  * Set your env variables:
-   * Mac:
-     ```
-     echo "export POSTGRES_USER=`whoami`" >>~/.bashrc
-     echo "export POSTGRES_PASSWORD=postgres" >>~/.bashrc
-     echo "export PGDATABASE=dcaf_case_management_development" >>~/.bashrc
-     ```
-   * Ubuntu:
-     ```
-     echo "export POSTGRES_USER=`whoami`" >>~/.bashrc
-     echo "export POSTGRES_PASSWORD=postgres" >>~/.bashrc
-     echo "export PGDATABASE=dcaf_case_management_development" >>~/.bashrc
-     ```
+   ```
+   echo "POSTGRES_USER=`whoami`" >>.env
+   echo "POSTGRES_PASSWORD=postgres" >>.env
+   ```
 
 ### Then, showtime
 After that:
