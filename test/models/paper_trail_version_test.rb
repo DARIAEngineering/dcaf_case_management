@@ -3,7 +3,7 @@ require 'test_helper'
 class PaperTrailVersionTest < ActiveSupport::TestCase
   # Most of this behavior is related to user/patient behavior, leaving it commented out for now
   # before do
-  #   @user = create :user # Can't do this until
+  #   @user = create :user # Can't do this until we port over the user model, for example
   #   with_versioning do
   #     PaperTrail.request(whodunnit: @user) do
   #       @patient = create :patient, name: 'Susie Everyteen',
