@@ -15,8 +15,8 @@ class Call < ApplicationRecord
   belongs_to :can_call, polymorphic: true
 
   # Validations
-  validates :status, presence: true,
-                    inclusion: { in: ALLOWED_STATUSES.keys }
+  validates :status, presence: true
+  #                    inclusion: { in: ALLOWED_STATUSES.values }
 
   # Methods
   def recent?
@@ -29,15 +29,11 @@ class Call < ApplicationRecord
 
   def event_params
     {
-      event_type:   ALLOWED_STATUSES[status],
+      event_type:   Call.statuses[status],
       cm_name:      created_by&.name || 'System',
       patient_name: can_call.name,
       patient_id:   can_call.id,
       line:         can_call.line
     }
   end
-
-
-
-
 end

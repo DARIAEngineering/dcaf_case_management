@@ -10,7 +10,12 @@ class PatientTest < ActiveSupport::TestCase
 
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
-    @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+    with_versioning do
+      PaperTrail.request(whodunnit: @user) do
+        @patient.calls.create attributes_for(:call, status: :reached_patient)
+      end
+    end
+    
     @call = @patient.calls.first
     create_language_config
   end

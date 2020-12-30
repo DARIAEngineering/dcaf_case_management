@@ -29,7 +29,8 @@ class User < ApplicationRecord
   after_create :send_account_created_email, if: :persisted?
 
   # Relationships
-  # has_and_belongs_to_many :patients, inverse_of: :users
+  has_many :call_lists
+  has_many :patients, through: :call_lists
 
   # Validations
   # email presence validated through Devise
@@ -50,7 +51,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.find_by email: data['email']
+    user = User.find_by! email: data['email']
 
     user
   end
@@ -62,11 +63,13 @@ class User < ApplicationRecord
 
   def self.disable_inactive_users
     cutoff_date = Time.zone.now - TIME_BEFORE_DISABLED_BY_FUND
-    inactive_has_logged_in = where(:role.nin => [:admin],
-                                   :current_sign_in_at.lt => cutoff_date)
-    inactive_no_logins = where(:role.nin => [:admin],
-                               :current_sign_in_at => nil,
-                               :created_at.lt => cutoff_date)
+
+    inactive_has_logged_in = where('current_sign_in_at < ?', cutoff_date)
+                              .where.not(role: [:admin])
+    inactive_no_logins = where('created_at < ?', cutoff_date)
+                          .where(current_sign_in_at: nil)
+                          .where.not(role: [:admin]) 
+
     [inactive_no_logins, inactive_has_logged_in].each do |set|
       set.update disabled_by_fund: true
     end
