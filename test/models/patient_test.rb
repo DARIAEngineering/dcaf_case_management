@@ -61,11 +61,6 @@ class PatientTest < ActiveSupport::TestCase
       refute @patient.valid?
     end
 
-    it 'requires a logged creating user' do
-      @patient.created_by_id = nil
-      refute @patient.valid?
-    end
-
     %w(primary_phone other_phone).each do |phone|
       it "should enforce a max length of 10 for #{phone}" do
         @patient[phone] = '123-456-789022'
@@ -79,7 +74,7 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    %w(initial_call_date name primary_phone created_by).each do |field|
+    %w(initial_call_date name primary_phone).each do |field|
       it "should enforce presence of #{field}" do
         @patient[field.to_sym] = nil
         refute @patient.valid?
@@ -276,22 +271,11 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @patient.respond_to? field
-        assert @patient[field]
-      end
-    end
-
+  describe 'concerns' do
     it 'should respond to history methods' do
-      assert @patient.respond_to? :history_tracks
-      assert @patient.history_tracks.count > 0
-    end
-
-    it 'should have accessible userstamp methods' do
-      assert @patient.respond_to? :created_by
-      assert @patient.created_by
+      assert @clinic.respond_to? :versions
+      assert @clinic.respond_to? :created_by
+      assert @clinic.respond_to? :created_by_id
     end
   end
 

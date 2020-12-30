@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_075535) do
   create_table "call_lists", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "patient_id", null: false
+    t.integer "order_key", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_call_lists_on_patient_id"
@@ -143,7 +144,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_075535) do
     t.string "other_contact_relationship"
     t.string "identifier"
     t.string "voicemail_preference", default: "not_specified"
-    t.integer "line"
+    t.string "line", null: false
     t.integer "language"
     t.integer "pronouns"
     t.date "initial_call_date", null: false
