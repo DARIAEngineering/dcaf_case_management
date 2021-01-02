@@ -1,0 +1,27 @@
+// Styling related to log-a-call modals.
+
+@import './_variables';
+
+// Core new call modal
+.calls-layout {
+  padding: 1rem .5rem 1rem 2rem;
+
+  .calls-request {
+    font-size: $font-size-large;
+  }
+
+  .calls-phone {
+    font-size: $font-size-xlarge;
+    font-weight: 900;
+  }
+
+  .calls-response {
+    font-size: $font-size;
+    text-decoration: underline;
+  }
+
+  .calls-btn {
+    font-size: $font-size;
+    padding: 10px 40px;
+  }
+}
