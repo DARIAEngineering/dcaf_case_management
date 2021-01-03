@@ -1,0 +1,8 @@
+// Styling for Kaminari pagination
+
+@import './_variables';
+
+span.page, span.next, span.last {
+  font-size: 12px;
+  margin-right: 5px;
+}
