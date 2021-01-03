@@ -29,7 +29,7 @@ module CallsHelper
               patient_calls_path(patient,
                                  call: { status: 'Reached patient' }),
               method: :post,
-              class: 'btn btn-primary', id: 'calls-btn'
+              class: 'btn btn-primary calls-btn'
     end
   end
 
