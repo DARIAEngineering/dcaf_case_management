@@ -467,7 +467,7 @@ DEPENDENCIES
   mongoid (~> 7.0.0, < 8)
   mongoid-history (< 1.0)
   mongoid_userstamp!
-  nokogiri (>= 1.10.5)
+  nokogiri (>= 1.11.1)
   omniauth-google-oauth2 (~> 0.8.0)
   paper_trail (~> 10.3)
   paper_trail-globalid
