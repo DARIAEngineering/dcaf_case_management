@@ -98,7 +98,7 @@ class PledgeFormGenerator
                 height: CONFIG_DATA[FUND][:height]
     end
 
-    pdf.bounding_box([250, y_position], width: 200, height: 100) do
+    pdf.bounding_box([250, y_position], width: 400, height: 100) do
       pdf.text case_manager_name
       CONFIG_DATA[FUND][:addr].each do |i|
         pdf.text i
