@@ -5,7 +5,7 @@ ruby '2.7.2'
 gem 'rails', '~> 6.0.3.4'
 gem 'puma', '~> 4.3' # roar
 gem 'sdoc', '~> 1.0.0', group: :doc
-gem 'nokogiri', '>= 1.10.5'
+gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -26,7 +26,12 @@ gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userst
                          branch: 'master' # adds created_by and updated_by timestamps
 gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
-gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
+# gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
+
+# ...but hopefully soon it will be postgres
+gem 'pg', '~> 1.2'
+gem 'paper_trail', '~> 10.3'
+gem 'paper_trail-globalid'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.7'

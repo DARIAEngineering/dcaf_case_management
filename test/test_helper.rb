@@ -29,6 +29,7 @@ if ENV['CIRCLECI']
 end
 
 DatabaseCleaner.clean_with :truncation
+ DatabaseCleaner[:mongoid].clean_with :truncation
 
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
@@ -78,6 +79,19 @@ class ActiveSupport::TestCase
   def create_fax_service_config
     create :config, config_key: 'fax_service',
                     config_value: { options: ['http://www.yolofax.com'] }
+  end
+
+  def with_versioning
+    was_enabled = PaperTrail.enabled?
+    was_enabled_for_request = PaperTrail.request.enabled?
+    PaperTrail.enabled = true
+    PaperTrail.request.enabled = true
+    begin
+      yield
+    ensure
+      PaperTrail.enabled = was_enabled
+      PaperTrail.request.enabled = was_enabled_for_request
+    end
   end
 end
 

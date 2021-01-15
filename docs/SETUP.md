@@ -17,7 +17,7 @@ For the rest of the setup, you have two options: Docker, or installing everythin
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
 * `docker-compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
-* `docker-compose run --rm web rake db:seed # to populate the database`
+* `docker-compose run --rm web rails db:create db:migrate db:seed # to populate the database`
 * `docker-compose up`
 
 The last command will take a moment and should print a number of things. When it's ready
@@ -60,6 +60,15 @@ You'll also need to set up MongoDB. This will differ based on your OS.
 We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
 * Install Yarn locally (`brew install yarn`, or the [setup instructions](https://yarnpkg.com/en/docs/install)).
 * Install JS packages: `yarn install`
+
+### Then, Postgres dependencies
+We use Postgres around these parts. Installation will differ based on your OS.
+
+* Install Postgres
+  * MacOS: `brew install postgres`
+  * Ubuntu: install `postgresql`, `libpq-dev`, and `postgresql-client`
+  * Other [linux instructions](https://www.postgresql.org/download/) (server and developer libraries needed)
+* Run the command `rails db:create && rails db:migrate` to set up the tables
 
 ### Then, showtime
 After that:
