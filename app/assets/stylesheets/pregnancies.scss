@@ -17,39 +17,6 @@ $font-size: 17px;
   padding-left: 9.5%;
 }
 
-.abortion-left-menu.nav-pills {
-  font-size: 1rem;
-
-  .nav-link {
-    color: $soft-blue;
-    background-color: white;
-  }
-
-  a.nav-link.active {
-    color: $daria-color;
-    background-color: white;
-
-    &:before {
-      display: none;
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      content: "\f054";
-      margin-left: -1.5em;
-      padding-right: .85em;
-      color: $daria-color;
-    }
-
-    .svg-inline--fa {
-      margin-left: -1.5em;
-      margin-right: .85em;
-    }
-  }
-
-  a.submit-btn, a.cancel-btn {
-    font-size: 1rem;
-  }
-}
-
 .border-side {
   th {
     font-size: 14px;
@@ -65,13 +32,4 @@ $font-size: 17px;
       padding: 10px 0 !important;
     }
   }
-}
-
-#submit-pledge-button, #cancel-pledge-button {
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-a.submit-pledge-button, a.cancel-pledge-button {
-  text-decoration: none;
 }
