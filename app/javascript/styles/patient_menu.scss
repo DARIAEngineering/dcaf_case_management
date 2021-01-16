@@ -3,16 +3,16 @@
 @import './_variables';
 
 .abortion-left-menu.nav-pills {
-  font-size: 1rem;
+  font-size: $font-size;
 
   .nav-link {
     color: $soft-blue;
-    background-color: white;
+    background-color: $white;
   }
 
   a.nav-link.active {
     color: $daria-color;
-    background-color: white;
+    background-color: $white;
 
     // This adds the arrow icon to mark selected status
     &:before {
@@ -36,7 +36,7 @@ a.submit-pledge-button {
   text-decoration: none;
 
   .submit-btn, .cancel-btn {
-    font-size: 1rem;
+    font-size: $font-size;
     font-weight: bold;    
   }
 }
