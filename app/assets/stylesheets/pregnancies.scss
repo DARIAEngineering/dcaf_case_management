@@ -16,20 +16,3 @@ $font-size: 17px;
   border-left: 1px solid black;
   padding-left: 9.5%;
 }
-
-.border-side {
-  th {
-    font-size: 14px;
-    color: #323a45;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    background: #f1f1f1;
-    padding-left: 0px !important;
-  }
-  tr {
-    td {
-      font-size: 17px;
-      padding: 10px 0 !important;
-    }
-  }
-}
