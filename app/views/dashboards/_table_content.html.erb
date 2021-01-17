@@ -48,7 +48,7 @@
           <% if table_type == 'completed_calls' || table_type == 'urgent_cases' %>
             <td class="blank-td"></td>
           <% else %>
-            <% if current_user.patient_ids.include?(patient.id) %>
+            <% if current_user.call_lists.map(&:patient_id).include?(patient.id) %>
               <td>
                 <%= link_to remove_patient_path(patient),
                             method: :patch,
@@ -85,7 +85,7 @@
     </tbody>
   </table>
 
-  <% if table_type == 'call_list' && current_user.patients.count.nonzero? %>
+  <% if table_type == 'call_list' && current_user.call_lists.count.nonzero? %>
     <%= link_to t('dashboard.table_content.clear_call_list'),
                 clear_current_user_call_list_path,
                 class: "float-right text-danger",

@@ -30,6 +30,7 @@ class Patient
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
+  after_update :update_call_list_lines, if: :line_changed?
   after_destroy :destroy_associated_events
 
   # Relationships
@@ -189,6 +190,12 @@ class Patient
 
   def destroy_associated_events
     Event.where(patient_id: id.to_s).destroy_all
+    CallList.where(patient_id: id.to_s).destroy_all
+  end
+
+  def update_call_list_lines
+    CallList.where(patient: self)
+            .update(line: self.line, order_key: 999)
   end
 
   def confirm_unique_phone_number

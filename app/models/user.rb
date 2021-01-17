@@ -33,7 +33,7 @@ class User
   after_update :send_password_change_email, if: :needs_password_change_email?
 
   # Relationships
-  has_and_belongs_to_many :patients, inverse_of: :users
+  has_many :call_lists
 
   # Fields
   # Non-devise generated
@@ -42,7 +42,6 @@ class User
   field :role, default: :cm
 
   enumerize :role, in: [:cm, :admin, :data_volunteer], predicates: true
-  field :call_order, type: Array # Manipulated by the call list controller
 
   ## Database authenticatable
   field :email,              type: String, default: ''

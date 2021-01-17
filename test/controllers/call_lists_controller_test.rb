@@ -8,6 +8,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
     @patient_2 = create :patient, name: 'Yolo Goat'
 
     sign_in @user
+    choose_line 'DC'
   end
 
   describe 'add_patient method' do
@@ -21,16 +22,16 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should add a patient to a users call list' do
       @user.reload
-      assert_equal @user.patients.count, 1
-      assert_difference '@user.patients.count', 1 do
+      assert_equal @user.call_lists.count, 1
+      assert_difference '@user.call_lists.count', 1 do
         patch add_patient_path(@patient_2), xhr: true
         @user.reload
       end
-      assert_equal @user.patients.count, 2
+      assert_equal @user.call_lists.count, 2
     end
 
     it 'should not adjust the count if a patient is already in the list' do
-      assert_no_difference '@user.patients.count' do
+      assert_no_difference '@user.call_lists.count' do
         patch add_patient_path(@patient_1), xhr: true
       end
     end
@@ -54,14 +55,14 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should remove a patient' do
-      assert_difference '@user.patients.count', -1 do
+      assert_difference '@user.call_lists.count', -1 do
         patch remove_patient_path(@patient_2), xhr: true
         @user.reload
       end
     end
 
     it 'should do nothing if the patient is not currently in the call list' do
-      assert_no_difference '@user.patients.count' do
+      assert_no_difference '@user.call_lists.count' do
         patch remove_patient_path(@patient_1), xhr: true
       end
       assert_response :success
@@ -85,8 +86,8 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
-    it 'should clear all patients for a user' do
-      assert_difference '@user.patients.count', -2 do
+    it 'should clear all call list patients for a user' do
+      assert_difference '@user.call_lists.count', -2 do
         patch clear_current_user_call_list_path, xhr: true
         @user.reload
       end
@@ -105,7 +106,8 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
       4.times { @ids << create(:patient)._id.to_s }
       @ids.shuffle!
 
-      patch reorder_call_list_path, params: { order: @ids }, xhr: true
+      patch reorder_call_list_path, params: { order: @ids },
+                                    xhr: true
       @user.reload
     end
 
@@ -114,8 +116,8 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should populate the user call order field' do
-      assert_not_nil @user.call_order
-      assert_equal @ids, @user.call_order
+      assert_not_nil @user.call_lists
+      assert_equal @user.call_lists.map { |x| x.patient_id.to_s }, @ids
     end
   end
 end
