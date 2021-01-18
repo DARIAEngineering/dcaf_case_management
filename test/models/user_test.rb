@@ -132,7 +132,7 @@ class UserTest < ActiveSupport::TestCase
 
     describe 'reorder call list' do
       before do
-        [@patient, @patient_2, @patient_3].each { |preg| @user.add_patient preg }
+        [@patient, @patient_2, @patient_3].each { |patient| @user.add_patient patient }
         new_order = [@patient_3, @patient_2].map { |x| x.id.to_s }
         @user.reorder_call_list new_order, 'DC'
       end
