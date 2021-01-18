@@ -1,5 +1,5 @@
 # Object representing a patient's call list.
-class CallList
+class CallListEntry
   include Mongoid::Document
   include Mongoid::Timestamps
 

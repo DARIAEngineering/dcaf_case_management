@@ -9,10 +9,10 @@ module CallListable
   # (e.g. assigned to current line and in user.patients)
 
   def ordered_patients(line)
-    call_lists.includes(:patient)
-              .in(line: line)
-              .order_by(order_key: :asc)
-              .map(&:patient)
+    call_list_entries.includes(:patient)
+                     .in(line: line)
+                     .order_by(order_key: :asc)
+                     .map(&:patient)
   end
 
   def call_list_patients(line)
@@ -28,33 +28,33 @@ module CallListable
   end
 
   def add_patient(patient)
-    present_calls = call_lists.includes(:patient).where(line: patient.line).to_a
+    present_calls = call_list_entries.includes(:patient).where(line: patient.line).to_a
     return if present_calls.map { |x| x.patient.id.to_s }.include? patient.id.to_s
-    call_lists.where(line: patient.line).destroy_all
+    call_list_entries.where(line: patient.line).destroy_all
     reload
 
     # Rebuild the call list by putting the new pt in front,
     # and then recreating the pieces after it
-    call_lists.create! patient: patient,
-                       line: patient.line,
-                       order_key: 0
+    call_list_entries.create! patient: patient,
+                              line: patient.line,
+                              order_key: 0
     present_calls.each do |entry|
-      call_lists.create! patient: entry.patient,
-                         line: entry.patient.line,
-                         order_key: entry.order_key + 1
+      call_list_entries.create! patient: entry.patient,
+                                line: entry.patient.line,
+                                order_key: entry.order_key + 1
     end
   end
 
   def remove_patient(patient)
-    call_lists.find_by(patient_id: patient.id).destroy
+    call_list_entries.find_by(patient_id: patient.id).destroy
     reload
   rescue Mongoid::Errors::DocumentNotFound
   end
 
   def reorder_call_list(order, line)
-    call_lists.destroy_all
+    call_list_entries.destroy_all
     order.each_with_index do |pt, i|
-      call_lists.create patient_id: pt,
+      call_list_entries.create patient_id: pt,
                         line: line,
                         order_key: i
     end
@@ -70,13 +70,13 @@ module CallListable
       clear_call_list(LINES)
     else
       ids_for_destroy = recently_reached_patients(LINES).map { |x| x.id.to_s }
-      call_lists.in(patient_id: ids_for_destroy).destroy_all
+      call_list_entries.in(patient_id: ids_for_destroy).destroy_all
     end
     reload
   end
 
   def clear_call_list(line)
-    call_lists.in(line: line).destroy_all
+    call_list_entries.in(line: line).destroy_all
   end
 
   private

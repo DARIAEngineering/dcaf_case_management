@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :call_list do
+  factory :call_list_entry do
     user
     patient
     line { 'DC' }

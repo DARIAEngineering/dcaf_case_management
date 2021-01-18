@@ -33,7 +33,7 @@ class User
   after_update :send_password_change_email, if: :needs_password_change_email?
 
   # Relationships
-  has_many :call_lists
+  has_many :call_list_entries
 
   # Fields
   # Non-devise generated

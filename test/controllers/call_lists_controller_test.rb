@@ -22,16 +22,16 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should add a patient to a users call list' do
       @user.reload
-      assert_equal @user.call_lists.count, 1
-      assert_difference '@user.call_lists.count', 1 do
+      assert_equal @user.call_list_entries.count, 1
+      assert_difference '@user.call_list_entries.count', 1 do
         patch add_patient_path(@patient_2), xhr: true
         @user.reload
       end
-      assert_equal @user.call_lists.count, 2
+      assert_equal @user.call_list_entries.count, 2
     end
 
     it 'should not adjust the count if a patient is already in the list' do
-      assert_no_difference '@user.call_lists.count' do
+      assert_no_difference '@user.call_list_entries.count' do
         patch add_patient_path(@patient_1), xhr: true
       end
     end
@@ -55,14 +55,14 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should remove a patient' do
-      assert_difference '@user.call_lists.count', -1 do
+      assert_difference '@user.call_list_entries.count', -1 do
         patch remove_patient_path(@patient_2), xhr: true
         @user.reload
       end
     end
 
     it 'should do nothing if the patient is not currently in the call list' do
-      assert_no_difference '@user.call_lists.count' do
+      assert_no_difference '@user.call_list_entries.count' do
         patch remove_patient_path(@patient_1), xhr: true
       end
       assert_response :success
@@ -87,7 +87,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should clear all call list patients for a user' do
-      assert_difference '@user.call_lists.count', -2 do
+      assert_difference '@user.call_list_entries.count', -2 do
         patch clear_current_user_call_list_path, xhr: true
         @user.reload
       end
@@ -116,8 +116,8 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should populate the user call order field' do
-      assert_not_nil @user.call_lists
-      assert_equal @user.call_lists.map { |x| x.patient_id.to_s }, @ids
+      assert_not_nil @user.call_list_entries
+      assert_equal @user.call_list_entries.map { |x| x.patient_id.to_s }, @ids
     end
   end
 end

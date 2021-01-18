@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class CallListTest < ActiveSupport::TestCase
+class CallListEntryTest < ActiveSupport::TestCase
   before do
-    @call_list_entry = create :call_list
+    @call_list_entry = create :call_list_entry
   end
 
   describe 'validations' do
@@ -21,7 +21,8 @@ class CallListTest < ActiveSupport::TestCase
       call_list_pt = @call_list_entry.patient_id
       call_list_user = @call_list_entry.user_id
 
-      bad_entry = build :call_list, patient_id: call_list_pt, user_id: call_list_user
+      bad_entry = build :call_list_entry, patient_id: call_list_pt,
+                                          user_id: call_list_user
       refute bad_entry.valid?
       assert_equal 'Patient is already taken',
                    bad_entry.errors.full_messages.first
