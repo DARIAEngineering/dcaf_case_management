@@ -25,16 +25,24 @@ $spacers: map-merge(
 );
 
 @import "bootstrap";
-@charset "utf-8";
+
 
 $daria-color: #5D3E8D;
 $grey-color: #525252;
 $font-size: 17px;
 $soft-blue: #23527c;
 $dark-blue: #142B43;
+ 
+// Have to duplicate these globals until we take bootstrap out because of some 
+html {
+  font-size: $font-size;
+}
 
-// Override to the global link style.
-// TODO do this with a bootstrap global, or move it to general styling.
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: $font-size;
+}
+
 a {
   color: $soft-blue;
   text-decoration: none;
@@ -44,6 +52,7 @@ a:hover, a:active, a:visited, a:focus {
   color: $dark-blue;
   text-decoration: underline;
 }
+// End duplicated styles
 
 //override the bootstrap form-text and btn-danger defaults for accessible color contrast
 .form-text {
@@ -76,12 +85,6 @@ a:hover, a:active, a:visited, a:focus {
   .navbar-text-alt {
     color: $grey-color;
   }
-}
-
-/* GENERAL GLOBAL STYLING */
-body {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: $font-size;
 }
 
 .form-error {
@@ -154,12 +157,6 @@ body {
   transition-duration: .5s;
 }
 
-// General styling artifacts
-// make all images responsive by default
-img {
-  @extend .img-fluid;
-  margin: 0 auto;
-  }
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
@@ -185,37 +182,8 @@ img {
 // apply styles to HTML elements
 // to make views framework-neutral
 
-html {
-  font-size: $font-size;
-}
-main {
-  background-color: #ffffff;
-  padding-bottom: 80px;
-  width: 100%;
-  margin-top: 51px; // accommodate the navbar
-}
 
-h1.title {
-  font-weight: 100;
-  margin-bottom: 20px;
-  letter-spacing: 1.5px;
-  font-size: 3rem;
-  span {
-    letter-spacing: .25px;
-  }
-}
-h2 {
-  font-size: 2.215rem;
-}
-h3 {
-  font-size: 1.625rem;
-}
-h4 {
-  font-size: 1.375rem;
-}
-h5 {
-  font-size: 1.125rem;
-}
+
 
 
 // Styles for form views
@@ -270,11 +238,7 @@ $daria-color-lt : #825fb9;
     background-color: $daria-color-lt;
     }
   }
-
 }
-
-
-
 
 .btn-warning {
   color: black;
@@ -362,15 +326,6 @@ $daria-color-lt : #825fb9;
 // TOOLTIPS
 .tooltip-inner {
   font-size: 12px;
-}
-
-// Form styling
-label {
-  font-weight: 700;
-}
-
-form {
-  line-height: 1.0;
 }
 
 // This is necessary because of a vendored multimodal plugin that we should aim to deprecate

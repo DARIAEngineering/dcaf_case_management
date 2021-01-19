@@ -1,0 +1,74 @@
+// Global styling patterns.
+
+@import './_variables';
+
+@charset "utf-8";
+
+html {
+  font-size: $font-size;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: $font-size;
+}
+
+main {
+  background-color: #ffffff;
+  padding-bottom: 80px;
+  width: 100%;
+  margin-top: 51px; // accommodate the navbar
+}
+
+// Make all images responsive by default
+img {
+  @extend .img-fluid;
+  margin: 0 auto;
+}
+
+// Headers
+h1.title {
+  font-weight: 100;
+  margin-bottom: 20px;
+  letter-spacing: 1.5px;
+  font-size: 3rem;
+  span {
+    letter-spacing: .25px;
+  }
+}
+
+h2 {
+  font-size: 2.215rem;
+}
+
+h3 {
+  font-size: 1.625rem;
+}
+
+h4 {
+  font-size: 1.375rem;
+}
+
+h5 {
+  font-size: 1.125rem;
+}
+
+// Forms
+form {
+  line-height: 1.0;
+}
+
+label {
+  font-weight: 700;
+}
+
+// Links
+a {
+  color: $link-blue;
+  text-decoration: none;
+}
+
+a:hover, a:active, a:visited, a:focus {
+  color: $dark-blue;
+  text-decoration: underline;
+}
