@@ -103,7 +103,11 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
   describe 'reorder call list' do
     before do
       @ids = []
-      4.times { @ids << create(:patient)._id.to_s }
+      4.times do
+        pt = create :patient
+        @ids << pt.id.to_s
+        @user.add_patient pt
+      end
       @ids.shuffle!
 
       patch reorder_call_list_path, params: { order: @ids },
@@ -115,9 +119,9 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
-    it 'should populate the user call order field' do
+    it 'should rerack order keys' do
       assert_not_nil @user.call_list_entries
-      assert_equal @user.call_list_entries.map { |x| x.patient_id.to_s }, @ids
+      assert_equal @user.ordered_patients('DC').map { |x| x.id.to_s }, @ids
     end
   end
 end

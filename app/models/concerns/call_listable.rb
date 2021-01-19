@@ -28,21 +28,17 @@ module CallListable
   end
 
   def add_patient(patient)
-    present_calls = call_list_entries.includes(:patient).where(line: patient.line).to_a
-    return if present_calls.map { |x| x.patient.id.to_s }.include? patient.id.to_s
-    call_list_entries.where(line: patient.line).destroy_all
-    reload
+    present_calls = call_list_entries.where(line: patient.line).to_a
+    return if present_calls.map { |x| x.patient_id.to_s }.include? patient.id.to_s
 
-    # Rebuild the call list by putting the new pt in front,
-    # and then recreating the pieces after it
+    # Increment existing call list entries and then insert the new one.
+    present_calls.each do |entry|
+      entry.update order_key: entry.order_key + 1
+    end
     call_list_entries.create! patient: patient,
                               line: patient.line,
                               order_key: 0
-    present_calls.each do |entry|
-      call_list_entries.create! patient: entry.patient,
-                                line: entry.patient.line,
-                                order_key: entry.order_key + 1
-    end
+    reload
   end
 
   def remove_patient(patient)
@@ -52,11 +48,10 @@ module CallListable
   end
 
   def reorder_call_list(order, line)
-    call_list_entries.destroy_all
+    current_entries = call_list_entries.where(line: line).to_a
     order.each_with_index do |pt, i|
-      call_list_entries.create patient_id: pt,
-                        line: line,
-                        order_key: i
+      current = current_entries.find { |x| x.patient_id.to_s == pt }
+      current.update order_key: i
     end
     reload
   end

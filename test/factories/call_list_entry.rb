@@ -3,8 +3,6 @@ FactoryBot.define do
     user
     patient
     line { 'DC' }
-    sequence :order_key do |n|
-      n
-    end
+    sequence :order_key
   end
 end
