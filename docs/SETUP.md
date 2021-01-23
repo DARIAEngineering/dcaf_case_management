@@ -47,6 +47,11 @@ To fix this, you need to enable experimental features for Docker:
 
 If you prefer a local environment, totally cool! We recommend the following:
 
+### Zeroth, system dependencies
+* Install:
+  * Git, python2, & openssl-dev
+  * Ubuntu: `sudo apt install git python2 openssl libssl-dev`
+
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).
 * Install our version of Ruby! You can see our current version of ruby in the `Gemfile`. Install it with `rbenv install VERSION` or `rvm install VERSION`, depending on what you're using.
