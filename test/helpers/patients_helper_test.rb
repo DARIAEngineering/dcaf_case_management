@@ -94,15 +94,59 @@ class PatientsHelperTest < ActionView::TestCase
 
   describe 'state options' do
     it 'should return all states and current value' do
-      expected_state_array = [[nil, nil], ["AL", "AL"], ["AK", "AK"], ["AZ", "AZ"], ["AR", "AR"],
-        ["CA", "CA"], ["CO", "CO"], ["CT", "CT"], ["DE", "DE"], ["DC", "DC"], ["FL", "FL"],
-        ["GA", "GA"], ["HI", "HI"], ["ID", "ID"], ["IL", "IL"], ["IN", "IN"], ["IA", "IA"],
-        ["KS", "KS"], ["KY", "KY"], ["LA", "LA"], ["ME", "ME"], ["MD", "MD"], ["MA", "MA"],
-        ["MI", "MI"], ["MN", "MN"], ["MS", "MS"], ["MO", "MO"], ["MT", "MT"], ["NE", "NE"],
-        ["NV", "NV"], ["NH", "NH"], ["NJ", "NJ"], ["NM", "NM"], ["NY", "NY"], ["NC", "NC"],
-        ["ND", "ND"], ["OH", "OH"], ["OK", "OK"], ["OR", "OR"], ["PA", "PA"], ["RI", "RI"],
-        ["SC", "SC"], ["SD", "SD"], ["TN", "TN"], ["TX", "TX"], ["UT", "UT"], ["VT", "VT"],
-        ["VA", "VA"], ["WA", "WA"], ["WV", "WV"], ["WI", "WI"], ["WY", "WY"], ["virginia","virginia"]]
+      expected_state_array = [[nil, nil],
+	["AL", "AL"],
+	["AK", "AK"],
+	["AZ", "AZ"],
+	["AR", "AR"],
+        ["CA", "CA"],
+	["CO", "CO"],
+	["CT", "CT"],
+	["DE", "DE"],
+	["DC", "DC"],
+	["FL", "FL"],
+        ["GA", "GA"],
+	["HI", "HI"],
+	["ID", "ID"],
+	["IL", "IL"],
+	["IN", "IN"],
+	["IA", "IA"],
+        ["KS", "KS"],
+	["KY", "KY"],
+	["LA", "LA"],
+	["ME", "ME"],
+	["MD", "MD"],
+	["MA", "MA"],
+        ["MI", "MI"],
+	["MN", "MN"],
+	["MS", "MS"],
+	["MO", "MO"],
+	["MT", "MT"],
+	["NE", "NE"],
+        ["NV", "NV"],
+	["NH", "NH"],
+	["NJ", "NJ"],
+	["NM", "NM"],
+	["NY", "NY"],
+	["NC", "NC"],
+        ["ND", "ND"],
+	["OH", "OH"],
+	["OK", "OK"],
+	["OR", "OR"],
+	["PA", "PA"],
+	["RI", "RI"],
+        ["SC", "SC"],
+	["SD", "SD"],
+	["TN", "TN"],
+	["TX", "TX"],
+	["UT", "UT"],
+	["VT", "VT"],
+        ["VA", "VA"],
+	["WA", "WA"],
+	["WV", "WV"],
+	["WI", "WI"],
+	["WY", "WY"],
+	["virginia","virginia"]]
 
       assert_same_elements state_options("virginia"), expected_state_array
     end
@@ -137,4 +181,67 @@ class PatientsHelperTest < ActionView::TestCase
                            voicemail_options('ID as coworker')
     end
   end
+
+  describe 'language_options' do
+    before { create_language_config }
+
+    it 'should return default languages' do
+      expected_lang_options = [
+        ['English', nil],
+        'Spanish',
+        'French',
+        'Korean'
+      ]
+      assert_same_elements expected_lang_options, language_options()
+    end
+
+    it 'should append extra options' do
+      expected_lang_options = [
+        ['English', nil],
+        'Spanish',
+        'French',
+        'Korean',
+        'Esperanto'
+      ]
+      assert_same_elements expected_lang_options, language_options('Esperanto')
+    end
+  end
+
+  describe 'referred_by_options' do
+    before { create_referred_by_config }
+
+    # base options come from patients_helper
+    # Metal band is added by create_referred_by_config
+    expected_referrals_base = [
+      nil,
+      ["Clinic", "Clinic"],
+      ["Crime victim advocacy center", "Crime victim advocacy center"],
+      ["DCAF website or social media", "DCAF website or social media"],
+      ["Domestic violence crisis/intervention org", "Domestic violence crisis/intervention org"],
+      ["Family member", "Family member"],
+      ["Friend", "Friend"],
+      ["Google/Web search", "Google/Web search"],
+      ["Homeless shelter", "Homeless shelter"],
+      ["Legal clinic", "Legal clinic"],
+      ["NAF", "NAF"],
+      ["NNAF", "NNAF"],
+      ["Other abortion fund", "Other abortion fund"],
+      ["Previous patient", "Previous patient"],
+      ["School", "School"],
+      ["Sexual assault crisis org", "Sexual assault crisis org"],
+      ["Youth outreach", "Youth outreach"],
+      "Metal band"
+    ]
+
+    it 'should return default referral options' do
+      assert_same_elements expected_referrals_base, referred_by_options()
+    end
+
+    it 'should append extra options' do
+      expected_referrals = expected_referrals_base + ['Social Worker']
+
+      assert_same_elements expected_referrals, referred_by_options('Social Worker')
+    end
+  end
+
 end
