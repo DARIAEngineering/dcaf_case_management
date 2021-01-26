@@ -37,6 +37,8 @@ gem 'paper_trail-globalid'
 gem 'devise', '~> 4.7'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 
+# Strong Password for user password validation for folks not on oauth
+gem 'strong_password', '~> 0.0.9'
 
 # We report errors with sentry
 gem 'sentry-raven'
@@ -47,7 +49,7 @@ gem 'rack-attack', '~> 5.4.1'
 # For pagination
 gem 'kaminari-mongoid', '~> 1.0'
 gem 'kaminari', '~> 1.2'
-gem 'strong_password', '~> 0.0.9'
+
 # Specific useful stuff
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
