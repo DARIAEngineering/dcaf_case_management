@@ -84,6 +84,9 @@ class User
   validates :name, presence: true
   validates :role, presence: true
   validate :secure_password
+  # i18n-tasks-use t('errors.messages.password.password_strength')
+  validates :password, password_strength: {use_dictionary: true}
+
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months
 
@@ -137,7 +140,8 @@ class User
     return false if (password =~ /[A-Z]/).nil? # at least one uppercase
     return false if (password =~ /[0-9]/).nil? # at least one digit
     # Make sure no bad words are in there
-    return false unless password.downcase[/(password|#{FUND})/].nil?
+    fund = FUND.downcase
+    return false unless password.downcase[/(password|#{fund})/].nil?
     true
   end
 

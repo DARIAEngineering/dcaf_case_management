@@ -30,6 +30,31 @@ class UserTest < ActiveSupport::TestCase
                    'include DCAF and password.',
                    @user.errors.messages[:password].first
     end
+
+    it 'should require a strong password' do
+      @user.password = 'Hello#2020'
+      @user.password_confirmation = 'Hello#2020'
+      assert_not @user.valid?
+      assert_equal 'Passwords need to be stronger than that. ' \
+                   'Try a longer or more complicated password please',
+                   @user.errors.messages[:password].first
+    end
+
+    it 'should not allow the name of the fund' do
+      @user.password = 'AbortionsAreAHumanRight1DCAF'
+      @user.password_confirmation = 'AbortionsAreAHumanRight1DCAF'
+      assert_not @user.valid?
+      assert_equal 'Password must include at least one lowercase letter, ' \
+                   'one uppercase letter, and one digit. Forbidden words ' \
+                   'include DCAF and password.',
+                   @user.errors.messages[:password].first
+    end
+
+    it 'should allow a strong password' do
+      @user.password = 'AbortionsAreAHumanRight1'
+      @user.password_confirmation = 'AbortionsAreAHumanRight1'
+      assert @user.valid?
+    end
   end
 
   describe 'call list methods' do

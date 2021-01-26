@@ -142,6 +142,10 @@ es:
         sign_in: Regresar a registre
       user:
         signed_in: ''
+  errors:
+    messages:
+      password:
+        password_strength: Las contraseñas deben ser más seguras. Pruebe con una contraseña más larga o más complicada
   events:
     add_to_call_list: Añadir a la lista de llamadas
     couldnt_reach_patient: llamó, paciente no contestó

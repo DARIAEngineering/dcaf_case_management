@@ -8,8 +8,8 @@ namespace :db do
       20.times do |i|
         User.create! name: "Training Account #{i}",
                      email: "training-account-#{i}@example.com",
-                     password: "P4ssword",
-                     password_confirmation: "P4ssword"
+                     password: "AbortionsAreAHumanRight1",
+                     password_confirmation: "AbortionsAreAHumanRight1"
       end 
     end
   end
