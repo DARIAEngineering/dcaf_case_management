@@ -47,10 +47,14 @@ To fix this, you need to enable experimental features for Docker:
 
 If you prefer a local environment, totally cool! We recommend the following:
 
+### Zeroth, system dependencies
+* Install:
+  * Git, python2, & openssl-dev
+  * Ubuntu: `sudo apt install git python2 openssl libssl-dev`
+
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).
 * Install our version of Ruby! You can see our current version of ruby in the `Gemfile`. Install it with `rbenv install VERSION` or `rvm install VERSION`, depending on what you're using.
-* Run the command `gem install bundler && bundle install` to install dependencies, including `rails`.
 
 ### Then, MongoDB dependencies
 You'll also need to set up MongoDB. This will differ based on your OS.
@@ -68,7 +72,19 @@ We use Postgres around these parts. Installation will differ based on your OS.
   * MacOS: `brew install postgres`
   * Ubuntu: install `postgresql`, `libpq-dev`, and `postgresql-client`
   * Other [linux instructions](https://www.postgresql.org/download/) (server and developer libraries needed)
-* Run the command `rails db:create && rails db:migrate` to set up the tables
+
+* Configure Postgres
+  * Setup your user; the suggested password is `postgres` if you only use this machine for development purposes
+    ```
+    sudo -u postgres createuser -P -s `whoami`
+    ```
+  * Set your env variables:
+    ```
+    echo "POSTGRES_USER=`whoami`" >>.env
+    echo "POSTGRES_PASSWORD=postgres" >>.env
+    ```
+  * Run the command `gem install bundler && bundle install` to install dependencies, including `rails`.
+  * Run the command `rails db:create && rails db:migrate` to set up the tables
 
 ### Then, showtime
 After that:
