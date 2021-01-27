@@ -33,7 +33,8 @@ $font-size: 17px;
 $soft-blue: #23527c;
 $dark-blue: #142B43;
  
-// Have to duplicate these globals until we take bootstrap out because of some 
+// Have to duplicate these globals until we take bootstrap out of sprockets
+// because of some styling clash
 html {
   font-size: $font-size;
 }
