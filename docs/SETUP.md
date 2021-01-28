@@ -59,6 +59,7 @@ If you prefer a local environment, totally cool! We recommend the following:
 ### Then, MongoDB dependencies
 You'll also need to set up MongoDB. This will differ based on your OS.
 * Install MongoDB locally (here's the [MacOS instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) and [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
+* Set the daemon to run automatically, if needed
 
 ### Then, JS dependencies
 We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
@@ -72,6 +73,7 @@ We use Postgres around these parts. Installation will differ based on your OS.
   * MacOS: `brew install postgres`
   * Ubuntu: install `postgresql`, `libpq-dev`, and `postgresql-client`
   * Other [linux instructions](https://www.postgresql.org/download/) (server and developer libraries needed)
+  * Set the daemon to run automatically, if needed
 
 * Configure Postgres
   * Setup your user; the suggested password is `postgres` if you only use this machine for development purposes
