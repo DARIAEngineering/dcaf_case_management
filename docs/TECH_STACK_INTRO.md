@@ -32,8 +32,8 @@ We love tests! All the tests can be found in the test directory, and it's a grea
 
 ## Intro to DCAF!!
 We love our case managers and the UX team that figures out how we can help them be more happy and more efficient. Check out these resources for more context about the hows and whys of this app:
-* [The DCAF website](http://dcabortionfund.org)
-* [DCAF 101](DCAF-101.md), and explanation of how case managers use the app
+* [The DCAF website](https://dcabortionfund.org)
+* [DCAF 101](DCAF_101.md), and explanation of how case managers use the app
 * Join and read through the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/)
-* Read this [blog post about how we're using agile-ish](http://codefordc.org/blog/2016/09/12/code-for-dcaf.html)
+* Read this [blog post about how we're using agile-ish](https://codefordc.github.io/blog/2016/09/12/code-for-dcaf.html).
 * Read [the README](https://github.com/DCAFEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:
