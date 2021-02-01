@@ -48,6 +48,10 @@ We also need to have some API tokens and such that we generate or dig up when we
   * Go to Settings > API Keys > Create API Key
   * Create a new API key named `daria-FUND` with full access and save it. This is your `SENDGRID_PASSWORD`.
 
+### Create a MongoDB Cluster
+
+Log in to [MongoDB Cloud](https://cloud.mongodb.com), and then go [here](https://cloud.mongodb.com/v2#/org/5f209c37ccd50f07da42c3a9/projects/create), and create a new project. The project name should be `production-FUND`. Add @lomky and @colinxfleming as owners of the project. Then create a shared cluster in the project. Leave the default provider settings, which should be AWS in the us-east-1 region. Change the cluster tier to **M2**. Leave all the other settings as the default and confirm the cluster creation. Once the cluster is spun up, click **connect**. Autogenerate a username and password, and get a connection string for your application, which will be input into the `MONGODB_URI` config var.
+
 ### Provision the instance in the heroku pipeline
 
 [Click this here link to spin up a new app](https://heroku.com/deploy?template=https://github.com/DCAFEngineering/dcaf_case_management). This vastly simplifies new instance setup and automatically provisions the necessary Heroku add-ons for you.
