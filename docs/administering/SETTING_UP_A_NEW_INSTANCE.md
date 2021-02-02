@@ -37,9 +37,8 @@ We also need to have some API tokens and such that we generate or dig up when we
   * Head to our [Sentry client keys](https://sentry.io/settings/dcaf-engineering/projects/daria/keys) and get the DSN value. This is `SENTRY_DSN`
 
 * Grab a Sqreen API token:
-  * Log in to [Sqreen](https://www.sqreen.io/)
-  * Near the top left, where it says `App Inventory`, click the dropdown and click `Connect a new application`
-  * Fill out as follows: Application name: daria-FUND, Language of the application: Ruby, Environment: production'. Click the `Show instructions` button
+  * Log in to [Sqreen](https://www.sqreen.io/), then click [here](https://my.sqreen.com/new-application) to create a new application.
+  * Fill out as follows: Application name: daria-FUND, Language of the application: Ruby, Environment: 'production'. Click the `Show instructions` button
   * Look for the value of `token` on the right side. `daria-FUND` is `SQREEN_APP_NAME` and the token is `SQREEN_TOKEN`
 
 * Grab a Sendgrid API token:
