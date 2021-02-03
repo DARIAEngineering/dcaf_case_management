@@ -36,11 +36,11 @@ class ConfigsControllerTest < ActionDispatch::IntegrationTest
       it 'should create any missing configs on load' do
         Config.destroy_all
 
-        assert_difference 'Config.count', Config::CONFIG_FIELDS.count do
+        assert_difference 'Config.count', Config.config_keys.keys.count do
           get configs_path
         end
 
-        Config::CONFIG_FIELDS.each do |field|
+        Config.config_keys.keys.each do |field|
           assert Config.find_by(config_key: field.to_s)
         end
       end

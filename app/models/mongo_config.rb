@@ -1,7 +1,21 @@
 # Class so that funds can set their own dropdown lists of things
-class Config < ApplicationRecord
-  # Concerns
-  include PaperTrailable
+# Marked for deletion after migration
+class MongoConfig
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Userstamp
+  include Mongoid::History::Trackable
+  extend Enumerize
+
+  store_in collection: 'configs'
+
+  # Comma separated configs
+  CONFIG_FIELDS = [
+    :insurance, :external_pledge_source, :pledge_limit_help_text,
+    :language, :resources_url, :practical_support_guidance_url, :fax_service, :referred_by,
+    :practical_support, :hide_practical_support, :start_of_week, :budget_bar_max,
+    :voicemail
+  ].freeze
 
   # Define overrides for particular config fields.
   # Useful if there is no `_options` method.
@@ -16,28 +30,27 @@ class Config < ApplicationRecord
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
   }.freeze
 
-  enum config_key: {
-    insurance: 0,
-    external_pledge_source: 1,
-    pledge_limit_help_text: 2,
-    language: 3,
-    resources_url: 4,
-    practical_support_guidance_url: 5,
-    fax_service: 6,
-    referred_by: 7,
-    practical_support: 8,
-    hide_practical_support: 9,
-    start_of_week: 10,
-    budget_bar_max: 11,
-    voicemail: 12,
-  }
+  # Fields
+  enumerize :config_key, in: CONFIG_FIELDS
+  field :config_value, type: Hash, default: { options: [] }
+
+  # Indices
+  index({ config_key: 1 }, unique: true)
 
   # Validations
   validates :config_key, uniqueness: true, presence: true
 
+  # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
+
   # Methods
   def options
-    config_value['options']
+    config_value[:options]
   end
 
   def help_text
@@ -48,7 +61,7 @@ class Config < ApplicationRecord
   end
 
   def self.autosetup
-    config_keys.keys.each do |field|
+    CONFIG_FIELDS.map(&:to_s).each do |field|
       if Config.where(config_key: field).count != 1
         Config.create config_key: field
       end
