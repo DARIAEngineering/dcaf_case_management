@@ -11,7 +11,7 @@
     <%= render partial: 'dashboards/table_content',
                locals: { title: t('dashboard.partial_titles.call_list'),
                          table_type: 'call_list',
-                         patients: current_user.ordered_patients(current_line),
+                         patients: current_user.call_list_patients(current_line),
                          sortable: true,
                          autosortable: true } %>
     <%= render partial: 'dashboards/table_content',

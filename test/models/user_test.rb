@@ -138,16 +138,16 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'should let you reorder a call list' do
-        assert_equal @patient_3, @user.ordered_patients('DC').first
-        assert_equal @patient_2, @user.ordered_patients('DC')[1]
+        assert_equal @patient_3, @user.send(:ordered_patients, 'DC').first
+        assert_equal @patient_2, @user.send(:ordered_patients, 'DC')[1]
       end
 
       it 'should always add new patients to the front of the call order' do
         @patient_4 = create :patient
         @user.add_patient @patient_4
 
-        assert @user.ordered_patients('DC').include? @patient_4
-        assert_equal @user.ordered_patients('DC').map { |x| x.id.to_s }.index(@patient_4.id.to_s), 0
+        assert @user.send(:ordered_patients, 'DC').include? @patient_4
+        assert_equal @user.send(:ordered_patients, 'DC').map { |x| x.id.to_s }.index(@patient_4.id.to_s), 0
       end
     end
   end

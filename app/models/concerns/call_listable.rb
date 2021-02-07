@@ -7,14 +7,6 @@ module CallListable
   # that is less than 8 hours old,
   # AND they would otherwise be in the call list
   # (e.g. assigned to current line and in user.patients)
-
-  def ordered_patients(line)
-    call_list_entries.includes(:patient)
-                     .in(line: line)
-                     .order_by(order_key: :asc)
-                     .map(&:patient)
-  end
-
   def call_list_patients(line)
     ordered_patients(line).reject { |x| recently_called_by_user? x }
   end
@@ -75,6 +67,13 @@ module CallListable
   end
 
   private
+
+  def ordered_patients(line)
+    call_list_entries.includes(:patient)
+                     .in(line: line)
+                     .order_by(order_key: :asc)
+                     .map(&:patient)
+  end
 
   def recently_reached_by_user?(patient)
     patient.calls.any? do |call|

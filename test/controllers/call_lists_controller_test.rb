@@ -121,7 +121,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should rerack order keys' do
       assert_not_nil @user.call_list_entries
-      assert_equal @user.ordered_patients('DC').map { |x| x.id.to_s }, @ids
+      assert_equal @user.send(:ordered_patients, 'DC').map { |x| x.id.to_s }, @ids
     end
   end
 end
