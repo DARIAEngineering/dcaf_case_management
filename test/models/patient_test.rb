@@ -240,11 +240,33 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'blow away associated events on destroy' do
-      it 'should nuke events in addition to the patient on destroy' do
+    describe 'blow away associated objects on destroy' do
+      it 'should nuke associated events in addition to the patient on destroy' do
+        create :call_list_entry, patient: @patient
         assert_difference 'Event.count', -1 do
-          @patient.destroy
+          assert_difference 'CallListEntry.count', -1 do
+            @patient.destroy
+          end
         end
+      end
+    end
+
+    describe 'update lines for call list entries on patient change' do
+      it 'should update call list entries to push them to the very end' do
+        @user = create :user
+        create :call_list_entry, patient: @patient, user: @user
+        create :call_list_entry, patient: create(:patient, line: 'MD'),
+                                 user: @user,
+                                 line: 'MD'
+
+        assert_difference "@user.call_list_entries.where(line: 'DC').count", -1 do
+          assert_difference "@user.call_list_entries.where(line: 'MD').count", 1 do
+            @patient.update line: 'MD'
+            @user.reload
+          end
+        end
+        entry = @user.call_list_entries.where(patient: @patient, line: 'MD').first
+        assert_equal entry.order_key, 999
       end
     end
   end

@@ -37,9 +37,9 @@ class UserTest < ActiveSupport::TestCase
       @patient = create :patient, line: 'DC'
       @patient_2 = create :patient, line: 'DC'
       @md_patient = create :patient, line: 'MD'
-      @user.patients << @patient
-      @user.patients << @patient_2
-      @user.patients << @md_patient
+      @user.add_patient @patient
+      @user.add_patient @patient_2
+      @user.add_patient @md_patient
       @user_2 = create :user
     end
 
@@ -83,26 +83,28 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should clear patient list when user has not logged in' do
-      assert_not @user.patients.empty?
+      assert_not @user.call_list_entries.empty?
       last_sign_in = Time.zone.now - User::TIME_BEFORE_INACTIVE - 1.day
-      @user.current_sign_in_at = last_sign_in
+      @user.update current_sign_in_at: last_sign_in
       @user.clean_call_list_between_shifts
 
-      assert @user.patients.empty?
+      assert @user.call_list_entries.empty?
     end
 
     it 'should not clear patient list if user signed in recently' do
-      assert_not @user.patients.empty?
+      assert_not @user.call_list_entries.empty?
       @user.current_sign_in_at = Time.zone.now
       @user.clean_call_list_between_shifts
 
-      assert_not @user.patients.empty?
+      assert_not @user.call_list_entries.empty?
     end
 
     it 'should clear call list when someone invokes the cleanout' do
-      assert_difference '@user.patients.count', -3 do
-        assert_no_difference 'Patient.count' do
-          @user.clear_call_list
+      assert_difference '@user.call_list_entries.count', -2 do
+        assert_no_difference '@user.call_list_entries.where(line: "MD").count' do
+          assert_no_difference 'Patient.count' do
+            @user.clear_call_list 'DC'
+          end
         end
       end
     end
@@ -116,37 +118,36 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'add patient - should add a patient to a set' do
-      assert_difference '@user.patients.count', 1 do
+      assert_difference '@user.call_list_entries.count', 1 do
         @user.add_patient @patient
       end
     end
 
     it 'remove patient - should remove a patient from a set' do
       @user.add_patient @patient
-      assert_difference '@user.patients.count', -1 do
+      assert_difference '@user.call_list_entries.count', -1 do
         @user.remove_patient @patient
       end
     end
 
     describe 'reorder call list' do
       before do
-        set_of_patients = [@patient, @patient_2, @patient_3]
-        set_of_patients.each { |preg| @user.add_patient preg }
-        @new_order = [@patient_3.id.to_s, @patient.id.to_s, @patient_2.id.to_s]
-        @user.reorder_call_list @new_order
+        [@patient, @patient_2, @patient_3].each { |patient| @user.add_patient patient }
+        new_order = [@patient_3, @patient_2].map { |x| x.id.to_s }
+        @user.reorder_call_list new_order, 'DC'
       end
 
       it 'should let you reorder a call list' do
-        assert_equal @patient_3, @user.ordered_patients('DC').first
-        assert_equal @patient_2, @user.ordered_patients('DC')[1]
+        assert_equal @patient_3, @user.call_list_patients('DC').first
+        assert_equal @patient_2, @user.call_list_patients('DC')[1]
       end
 
       it 'should always add new patients to the front of the call order' do
         @patient_4 = create :patient
         @user.add_patient @patient_4
 
-        assert @user.ordered_patients('DC').include? @patient_4
-        assert @user.call_order.index(@patient_4.id.to_s) == 0
+        assert @user.call_list_patients('DC').include? @patient_4
+        assert_equal @user.call_list_patients('DC').map { |x| x.id.to_s }.index(@patient_4.id.to_s), 0
       end
     end
   end
@@ -155,8 +156,8 @@ class UserTest < ActiveSupport::TestCase
     before do
       @patient = create :patient
       @patient_2 = create :patient
-      @user.patients << @patient
-      @user.patients << @patient_2
+      @user.add_patient @patient
+      @user.add_patient @patient_2
       @user_2 = create :user
     end
 
@@ -165,7 +166,8 @@ class UserTest < ActiveSupport::TestCase
         [@user, @user_2].each { |user| user.add_patient preg }
       end
 
-      assert_equal @user.patients, @user_2.patients
+      assert_equal @user.call_list_entries.pluck(:patient_id, :line, :order_key),
+                   @user_2.call_list_entries.pluck(:patient_id, :line, :order_key)
     end
   end
 

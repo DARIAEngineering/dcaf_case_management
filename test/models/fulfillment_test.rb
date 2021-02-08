@@ -41,7 +41,6 @@ class FulfillmentTest < ActiveSupport::TestCase
     end
   end
 
-
   describe 'methods' do
     it 'should cleanly display gestation at procedure date if present' do
       @fulfillment.gestation_at_procedure = nil
