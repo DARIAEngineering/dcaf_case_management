@@ -30,7 +30,7 @@ class ExternalPledgeTest < ActiveSupport::TestCase
   end
 
   describe 'validations' do
-    [:created_by, :source].each do |field|
+    [:created_by, :source, :amount].each do |field|
       it "should enforce presence of #{field}" do
         @pledge[field.to_sym] = nil
         refute @pledge.valid?
@@ -38,20 +38,20 @@ class ExternalPledgeTest < ActiveSupport::TestCase
     end
 
     it 'should scope source uniqueness to a particular document' do
-      patient = create :patient
-      other_patient = create :patient
-      patients = [patient, other_patient]
+      pledge = @patient.external_pledges
+                       .create attributes_for(:external_pledge,
+                                              amount: 200,
+                                              source: 'BWAH')
+      refute pledge.valid?
 
-      pledge = attributes_for :external_pledge, source: 'Same Fund'
-      other_pledge = attributes_for :external_pledge, source: 'Same Fund', amount: 123
+      pledge.source = 'Other Fund'
+      assert pledge.valid?
 
-      patients.each { |pt| pt.external_pledges.create pledge }
-      patients.each { |pt| assert_equal 1, pt.external_pledges.count }
-
-      invalid_pledge = patient.external_pledges.create other_pledge
-      patient.reload
-      refute patient.external_pledges.include? invalid_pledge
-      assert_equal 1, patient.external_pledges.count
+      pt_2 = create :patient
+      pledge2 = pt_2.external_pledges
+                    .create attributes_for(:external_pledge,
+                                           source: 'BWAH')
+      assert pledge2.valid?
     end
   end
 
