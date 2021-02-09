@@ -29,8 +29,7 @@ class User < ApplicationRecord
   after_create :send_account_created_email, if: :persisted?
 
   # Relationships
-  has_many :call_lists
-  has_many :patients, through: :call_lists
+  has_many :call_list_entries
 
   # Validations
   # email presence validated through Devise

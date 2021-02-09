@@ -47,14 +47,19 @@ To fix this, you need to enable experimental features for Docker:
 
 If you prefer a local environment, totally cool! We recommend the following:
 
+### Zeroth, system dependencies
+* Install:
+  * Git, python2, & openssl-dev
+  * Ubuntu: `sudo apt install git python2 openssl libssl-dev`
+
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).
 * Install our version of Ruby! You can see our current version of ruby in the `Gemfile`. Install it with `rbenv install VERSION` or `rvm install VERSION`, depending on what you're using.
-* Run the command `gem install bundler && bundle install` to install dependencies, including `rails`.
 
 ### Then, MongoDB dependencies
 You'll also need to set up MongoDB. This will differ based on your OS.
 * Install MongoDB locally (here's the [MacOS instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) and [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
+* Set the daemon to run automatically, if needed
 
 ### Then, JS dependencies
 We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
@@ -68,7 +73,20 @@ We use Postgres around these parts. Installation will differ based on your OS.
   * MacOS: `brew install postgres`
   * Ubuntu: install `postgresql`, `libpq-dev`, and `postgresql-client`
   * Other [linux instructions](https://www.postgresql.org/download/) (server and developer libraries needed)
-* Run the command `rails db:create && rails db:migrate` to set up the tables
+  * Set the daemon to run automatically, if needed
+
+* Configure Postgres
+  * Setup your user; the suggested password is `postgres` if you only use this machine for development purposes
+    ```
+    sudo -u postgres createuser -P -s `whoami`
+    ```
+  * Set your env variables:
+    ```
+    echo "POSTGRES_USER=`whoami`" >>.env
+    echo "POSTGRES_PASSWORD=postgres" >>.env
+    ```
+  * Run the command `gem install bundler && bundle install` to install dependencies, including `rails`.
+  * Run the command `rails db:create && rails db:migrate` to set up the tables
 
 ### Then, showtime
 After that:
@@ -78,4 +96,4 @@ After that:
 
 ## Security
 
-Check out [this document](https://github.com/DCAFEngineering/dcaf_case_management/docs/SECURITY_INTRO.md) on Ruby on Rails security, which contains some guidelines on developing safely. (Note that we review code before merging, so a second human will be checking that things are safe, not just you!)
+Check out [this document](https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/SECURITY_INTRO.md) on Ruby on Rails security, which contains some guidelines on developing safely. (Note that we review code before merging, so a second human will be checking that things are safe, not just you!)

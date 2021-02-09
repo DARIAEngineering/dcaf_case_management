@@ -5,7 +5,7 @@ ruby '2.7.2'
 gem 'rails', '~> 6.0.3.4'
 gem 'puma', '~> 4.3' # roar
 gem 'sdoc', '~> 1.0.0', group: :doc
-gem 'nokogiri', '>= 1.10.5'
+gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -78,6 +78,7 @@ group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
   gem 'knapsack' # lets us split up our tets so they run faster in CI
+  gem 'dotenv-rails' #used to set up our db ENV values
 end
 
 group :test do

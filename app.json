@@ -53,6 +53,10 @@
       "description": "The PDF Pledge generator only works for DCAF for now",
       "value": "true"
     },
+    "MONGODB_URI": {
+      "description": "Connection string for the MongoDB cluster",
+      "value": ""
+    },
     "RAILS_LOG_TO_STDOUT": {
       "description": "set to true",
       "value": "true"
@@ -100,7 +104,7 @@
       "plan": "logentries"
     },
     {
-      "plan": "mongolab"
+      "plan": "heroku-postgresql:hobby-basic"
     },
     {
       "plan": "scheduler"

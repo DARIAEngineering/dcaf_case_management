@@ -19,7 +19,7 @@
                                         patient.race_ethnicity),
                      autocomplete: 'off' %>
         <%= f.select :language,
-                     options_for_select(language_options,
+                     options_for_select(language_options(patient.language),
                                        patient.language),
                      label: t('patient.information.language'),
                      autocomplete: 'off' %>
@@ -87,7 +87,7 @@
                                         patient.insurance),
                      label: t('patient.information.insurance') %>
         <%= f.select :referred_by,
-                     options_for_select(referred_by_options,
+                     options_for_select(referred_by_options(patient.referred_by),
                                         patient.referred_by),
                      label: t('patient.information.referred_by', fund: "#{FUND}"),
                      autocomplete: 'off' %>

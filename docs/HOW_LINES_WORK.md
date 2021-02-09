@@ -23,7 +23,7 @@ Note that this requires an engineer or someone with heroku access to complete.
 
 ## What this means for engineers
 
-In [config/initializers/env_var_constants.rb](../config/initializers/env_var_constants.rb),
+In [config/initializers/_env_var_constants.rb](../config/initializers/_env_var_constants.rb),
 we set an array of the lines `LINES`. (We default it to the DCAF use case, which operates
 lines for DC, MD, and VA.) It reads from the environment variable `DARIA_LINES` -- this
 value defines the lines for an instance.

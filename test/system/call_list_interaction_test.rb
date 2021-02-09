@@ -1,6 +1,6 @@
 require 'application_system_test_case'
 
-class CallListTest < ApplicationSystemTestCase
+class CallListInteractionTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
 
   before do
@@ -62,6 +62,7 @@ class CallListTest < ApplicationSystemTestCase
       within :css, '#call_list_content' do
         find("a.call-#{@patient.primary_phone_display}").click
       end
+      wait_for_element 'I left a voicemail for the patient'
       find('a', text: 'I left a voicemail for the patient').click
       wait_for_no_element "Call #{@patient.name} now:"
       wait_for_ajax
@@ -112,6 +113,27 @@ class CallListTest < ApplicationSystemTestCase
       wait_for_ajax
       within :css, '#call_list_content' do
         refute has_text? @patient_2.name
+      end
+    end
+  end
+
+  describe 'line switching' do
+    before { @user.update role: :admin }
+
+    it 'should move patients on call lists when switching lines' do
+      visit edit_patient_path @patient
+      select 'VA', from: 'patient_line'
+      wait_for_ajax
+
+      visit authenticated_root_path
+      within :css, '#call_list_content' do
+        refute has_text? @patient.name
+      end
+      log_out
+
+      log_in_as @user, 'VA'
+      within :css, '#call_list_content' do
+        assert has_text? @patient.name
       end
     end
   end
