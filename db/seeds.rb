@@ -56,28 +56,31 @@ Config.create config_key: :start_of_week,
 
 # Create ten active patients with generic info.
 10.times do |i|
-  patient = Patient.create! name: "Patient #{i}",
-                            primary_phone: "123-123-123#{i}",
-                            initial_call_date: 3.days.ago,
-                            urgent_flag: i.even?,
-                            last_menstrual_period_weeks: (i + 1 * 2),
-                            last_menstrual_period_days: 3,
-                            created_by: user2
+  PaperTrail.request(whodunnit: user2) do
+    patient = Patient.create! name: "Patient #{i}",
+                              primary_phone: "123-123-123#{i}",
+                              initial_call_date: 3.days.ago,
+                              urgent_flag: i.even?,
+                              last_menstrual_period_weeks: (i + 1 * 2),
+                              last_menstrual_period_days: 3
+  end
 
   # Create associated objects
   case i
   when 0
-    10.times do
-      patient.calls.create! status: 'Reached patient',
-                            created_at: 3.days.ago,
-                            created_by: user2
+    PaperTrail.request(whodunnit: user2) do
+      10.times do
+        patient.calls.create! status: 'Reached patient',
+                              created_at: 3.days.ago
+      end
     end
   when 1
-    patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
-                    other_phone: '234-456-6789', other_contact_relationship: 'Sister'
-    patient.calls.create! status: 'Reached patient',
-                          created_at: 14.hours.ago,
-                          created_by: user
+    PaperTrail.request(whodunnit: user) do
+      patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
+                      other_phone: '234-456-6789', other_contact_relationship: 'Sister'
+      patient.calls.create! status: 'Reached patient',
+                            created_at: 14.hours.ago
+    end
   when 2
     # appointment one week from today && clinic selected
     patient.update! name: 'Clinic and Appt - 2',
@@ -98,12 +101,13 @@ Config.create config_key: :start_of_week,
                     pronouns: 'ze/zir',
                     name: 'Pledge submitted - 3'
   when 4
-    # With special circumstances
-    patient.update! name: 'Special Circumstances - 4',
-                    special_circumstances: ['Prison', 'Fetal anomaly']
-    # And a recent call on file
-    patient.calls.create! status: 'Left voicemail',
-                          created_by: user
+    PaperTrail.whodunnit(user: user) do
+      # With special circumstances
+      patient.update! name: 'Special Circumstances - 4',
+                      special_circumstances: ['Prison', 'Fetal anomaly']
+      # And a recent call on file
+      patient.calls.create! status: 'Left voicemail'
+    end
   when 5
     # Resolved without DCAF
     patient.update! name: 'Resolved without DCAF - 5',
@@ -111,22 +115,25 @@ Config.create config_key: :start_of_week,
   end
 
   if i != 9
-    5.times do
-      patient.calls.create! status: 'Left voicemail',
-                            created_at: 3.days.ago,
-                            created_by: user2
+    PaperTrail.whodunnit(user: user2) do
+      5.times do
+        patient.calls.create! status: 'Left voicemail',
+                              created_at: 3.days.ago
+      end
     end
   end
 
   # Add notes for most patients
   unless [0, 1].include? i
-    patient.notes.create! full_text: note_text,
-                          created_by: user2
+    PaperTrail.whodunnit(user: user2) do
+      patient.notes.create! full_text: note_text
+    end
   end
 
   if i.even?
-    patient.notes.create! full_text: additional_note_text,
-                          created_by: user2
+    PaperTrail.whodunnit(user: user2) do
+      patient.notes.create! full_text: additional_note_text
+    end
   end
 
   # Add select patients to call list for user

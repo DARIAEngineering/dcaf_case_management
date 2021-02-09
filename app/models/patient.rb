@@ -67,16 +67,18 @@ class Patient < ApplicationRecord
     start_of_period = Config.start_day.downcase.to_s == "monthly" ? Time.zone.today.beginning_of_month.in_time_zone
                                                                   : Time.zone.today.beginning_of_week(Config.start_day).in_time_zone
     # Get patients who have been pledged this week, as a simplified hash
-    patients = Patient.in(line: line)
-                      .where(:fund_pledge.nin => [0, nil, ''])
-                      .or({:pledge_sent_at.gte => start_of_period}, {:fund_pledged_at.gte => start_of_period})
-                      .where(:resolved_without_fund.in => [false, nil])
-                      .order_by(fund_pledged_at: :asc)
-                      .pluck(*plucked_attrs)
-                      .map { |att| plucked_attrs.zip(att).to_h }
+    base = Patient.where(line: line,
+                         resolved_without_fund: [false, nil])
+                  .where.not(fund_pledge: [0, nil])
+
+    patients = base.where(pledge_sent_at: start_of_period..)
+                   .or(base.where(fund_pledged_at: start_of_period..))
+                   .order(fund_pledged_at: :asc)
+                   .select(*plucked_attrs)
+
     # Divide people up based on whether pledges have been sent or not
     patients.each_with_object(sent: [], pledged: []) do |patient, summary|
-      if patient[:pledge_sent]
+      if patient.pledge_sent?
         summary[:sent] << patient
       else
         summary[:pledged] << patient
@@ -109,8 +111,8 @@ class Patient < ApplicationRecord
   end
 
   def destroy_associated_events
-    Event.where(patient_id: id.to_s).destroy_all
-    CallListEntry.where(patient_id: id.to_s).destroy_all
+    Event.where(patient_id: id).destroy_all
+    CallListEntry.where(patient_id: id).destroy_all
   end
 
   def update_call_list_lines

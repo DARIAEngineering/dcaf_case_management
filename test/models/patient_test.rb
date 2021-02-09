@@ -9,7 +9,7 @@ class PatientTest < ActiveSupport::TestCase
                                 other_contact: 'Yolo'
 
     @patient2 = create :patient, other_phone: '333-222-3333',
-                                other_contact: 'Foobar'
+                                 other_contact: 'Foobar'
     with_versioning do
       PaperTrail.request(whodunnit: @user) do
         @patient.calls.create attributes_for(:call, status: :reached_patient)
@@ -23,7 +23,7 @@ class PatientTest < ActiveSupport::TestCase
   describe 'callbacks' do
     before do
       @new_patient = build :patient, name: '  Name With Whitespace  ',
-                                     other_contact: '  name with whitespace ',
+                                     other_contact: '  also name with whitespace ',
                                      other_contact_relationship: '  something ',
                                      primary_phone: '111-222-3333',
                                      other_phone: '999-888-7777'
@@ -32,7 +32,7 @@ class PatientTest < ActiveSupport::TestCase
     it 'should clean fields before save' do
       @new_patient.save
       assert_equal 'Name With Whitespace', @new_patient.name
-      assert_equal 'name with whitespace', @new_patient.other_contact
+      assert_equal 'also name with whitespace', @new_patient.other_contact
       assert_equal 'something', @new_patient.other_contact_relationship
       assert_equal '1112223333', @new_patient.primary_phone
       assert_equal '9998887777', @new_patient.other_phone
@@ -295,23 +295,9 @@ class PatientTest < ActiveSupport::TestCase
 
   describe 'concerns' do
     it 'should respond to history methods' do
-      assert @clinic.respond_to? :versions
-      assert @clinic.respond_to? :created_by
-      assert @clinic.respond_to? :created_by_id
-    end
-  end
-
-  describe 'scopes' do
-    before do
-      # DC patients created in initial before block
-      create :patient, line: 'MD'
-      create :patient, line: 'VA'
-    end
-
-    it 'should allow scoping for each line' do
-      assert_equal 2, Patient.dc.count
-      assert_equal 1, Patient.va.count
-      assert_equal 1, Patient.md.count
+      assert @patient.respond_to? :versions
+      assert @patient.respond_to? :created_by
+      assert @patient.respond_to? :created_by_id
     end
   end
 
@@ -386,14 +372,6 @@ class PatientTest < ActiveSupport::TestCase
         end
 
         assert_not @patient.still_urgent?
-      end
-    end
-
-    describe 'contacted_since method' do
-      it 'should return a hash' do
-        datetime = 5.days.ago
-        hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
-        assert_equal hash, Patient.contacted_since(datetime)
       end
     end
 

@@ -34,7 +34,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.boolean :referred_to_clinic
       t.boolean :completed_ultrasound
 
-      t.datetime :appointment_date
+      t.date :appointment_date
       t.integer :procedure_cost
       t.integer :patient_contribution
       t.integer :naf_pledge

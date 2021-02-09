@@ -13,22 +13,4 @@ module Callable
   def last_call
     calls.order(created_at: :desc).first
   end
-
-  class_methods do
-    def contacted_since(datetime)
-      patients_reached = []
-      all.each do |patient|
-        calls = patient.calls.select { |call| call.status == 'Reached patient' &&
-                                              call.created_at >= datetime }
-        patients_reached << patient if calls.present?
-      end
-
-      # Should we use this or first call?
-      first_contact = patients_reached.select { |patient| patient.initial_call_date >= datetime }
-
-      # hard coding in first_contacts and pledges_sent for now
-      { since: datetime, contacts: patients_reached.length,
-        first_contacts: first_contact.length, pledges_sent: 20 }
-    end
-  end
 end
