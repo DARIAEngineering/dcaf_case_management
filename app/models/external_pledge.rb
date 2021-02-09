@@ -2,10 +2,10 @@
 # For primary fund pledges or NAF pledges, see the patient model.
 class ExternalPledge < ApplicationRecord
   # Concerns
-  PaperTrailable
+  include PaperTrailable
 
   # Relationships
-  embedded_in :can_pledge, polymorphic: true
+  belongs_to :can_pledge, polymorphic: true
 
   default_scope -> { where(active: true) }
   scope :active, -> { where(active: true) }
