@@ -2,10 +2,14 @@ require 'test_helper'
 
 class CallTest < ActiveSupport::TestCase
   before do
-    @user = create :user
-    @patient = create :patient
-    @patient.calls.create attributes_for(:call, created_by: @user)
-    @call = @patient.calls.first
+    with_versioning do
+      @user = create :user
+      PaperTrail.request(whodunnit: @user) do
+        @patient = create :patient
+        @patient.calls.create attributes_for(:call)
+      end
+      @call = @patient.calls.first
+    end
   end
 
   describe 'basic validations' do
@@ -14,21 +18,15 @@ class CallTest < ActiveSupport::TestCase
     end
 
     it 'should only allow certain statuses' do
-      [nil, 'not a status'].each do |bad_status|
-        @call.status = bad_status
-        refute @call.valid?
-      end
+      @call.status = nil
+      refute @call.valid?
+
       valid_call_statuses =
-        ['Left voicemail', "Couldn't reach patient", 'Reached patient']
+        [:left_voicemail, :couldnt_reach_patient, :reached_patient]
       valid_call_statuses.each do |status|
         @call.status = status
         assert @call.valid?
       end
-    end
-
-    it 'should require a user id' do
-      @call.created_by = nil
-      refute @call.valid?
     end
   end
 
@@ -42,22 +40,11 @@ class CallTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @call.respond_to? field
-        assert @call[field]
-      end
-    end
-
+  describe 'concerns' do
     it 'should respond to history methods' do
-      assert @call.respond_to? :history_tracks
-      assert @call.history_tracks.count > 0
-    end
-
-    it 'should have accessible userstamp methods' do
+      assert @call.respond_to? :versions
       assert @call.respond_to? :created_by
-      assert @call.created_by
+      assert @call.respond_to? :created_by_id
     end
   end
 end
