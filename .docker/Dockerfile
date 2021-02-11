@@ -38,9 +38,6 @@ RUN apt-get update && apt-get install yarn -y
 RUN bundle install
 RUN yarn install
 
-# throw errors if Gemfile has been modified since Gemfile.lock
-RUN bundle config --global frozen 1
-
 # get version 12 of nodejs
 RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - && \
     apt-get install nodejs -y
@@ -51,7 +48,7 @@ RUN apt-get purge -y ${BUILD_DEPENDENCIES} && apt-get autoremove -y
 # Check docker base image for vulnerable packages, ignore non zero exit code (just informative)
 RUN mkdir /tmp/ahab && \
     cd /tmp/ahab && \
-    curl -o ahab -O -L https://github.com/sonatype-nexus-community/ahab/releases/download/v0.0.8/ahab-linux.amd64-v0.0.8 && \ 
+    curl -o ahab -O -L https://github.com/sonatype-nexus-community/ahab/releases/download/v0.2.3/ahab-linux.amd64-v0.2.3 && \ 
     chmod +x ahab && \
     update-ca-certificates && \
     dpkg-query --show --showformat='${Package} ${Version}\n' | ./ahab chase || true && \
