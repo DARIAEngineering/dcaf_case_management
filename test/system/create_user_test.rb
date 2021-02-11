@@ -2,6 +2,8 @@ require 'application_system_test_case'
 
 # Behavior and permissioning around creating new users
 class CreateUserTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+  
   describe 'nonadmin user' do
     before { visit root_path }
 
@@ -17,6 +19,7 @@ class CreateUserTest < ApplicationSystemTestCase
       visit new_user_path
     end
 
+    # unreliable test. OptionalRetry should help.
     it 'should be able to create user' do
       assert has_field? 'Email'
       fill_in 'Email', with: 'test@example.com'

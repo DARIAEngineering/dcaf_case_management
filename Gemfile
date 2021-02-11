@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.7.2'
 
 # Standard rails
-gem 'rails', '~> 6.0.3.4'
+gem 'rails', '~> 6.0.3.5'
 gem 'puma', '~> 4.3' # roar
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
