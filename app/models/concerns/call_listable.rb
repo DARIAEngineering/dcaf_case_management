@@ -73,6 +73,7 @@ module CallListable
                      .in(line: line)
                      .order_by(order_key: :asc)
                      .map(&:patient)
+                     .reject(&:nil?)
   end
 
   def recently_reached_by_user?(patient)

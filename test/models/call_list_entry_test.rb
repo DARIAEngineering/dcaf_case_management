@@ -37,4 +37,13 @@ class CallListEntryTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'methods' do
+    it 'should nuke call list entries that do not have a patient associated' do
+      @call_list_entry.update patient: nil
+      assert_difference 'CallListEntry.count', -1 do
+        CallListEntry.destroy_orphaned_entries
+      end
+    end
+  end
 end
