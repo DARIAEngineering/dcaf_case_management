@@ -64,6 +64,11 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 1, @user.call_list_patients('DC').count
     end
 
+    it 'should not fail if a patient gets unattached from the call list' do
+      @user.call_list_entries.where(line: 'DC').first.update patient: nil
+      assert_equal 1, @user.call_list_patients('DC').count
+    end
+
     it 'should clean calls when patient has been reached' do
       assert_equal 0, @user.recently_called_patients('DC').count
       @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')

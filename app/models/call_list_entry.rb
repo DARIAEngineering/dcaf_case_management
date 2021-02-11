@@ -17,4 +17,9 @@ class CallListEntry
 
   # Indices
   index line: 1
+
+  def self.destroy_orphaned_entries
+    includes(:patient).reject(&:patient)
+                      .each { |x| x.destroy }
+  end
 end
