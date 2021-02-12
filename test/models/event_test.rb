@@ -14,11 +14,15 @@ class EventTest < ActiveSupport::TestCase
         @event.valid?
       end
 
-      valid_types = [:reached_patient, :couldnt_reach_patient, :left_voicemail]
-      valid_types.each do |status|
+      [
+        :reached_patient, :couldnt_reach_patient,
+        :left_voicemail, :unknown_action
+      ].each do |status|
         @event.event_type = status
         assert @event.valid?
       end
+      @event.update event_type: :pledged, pledge_amount: 100
+      assert @event.valid?
     end
 
     it 'should only allow certain lines' do
@@ -47,11 +51,8 @@ class EventTest < ActiveSupport::TestCase
     describe 'icon' do
       it 'should render the correct icon' do
         assert_equal 'phone-alt', build(:event, event_type: :couldnt_reach_patient).icon
-
         assert_equal 'comment', build(:event, event_type: :reached_patient).icon
-
         assert_equal 'thumbs-up', build(:event, event_type: :pledged).icon
-
         assert_equal 'phone-alt', build(:event, event_type: :left_voicemail).icon
       end
     end

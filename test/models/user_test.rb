@@ -70,6 +70,11 @@ class UserTest < ActiveSupport::TestCase
       end
     end
 
+    it 'should not fail if a patient gets unattached from the call list' do
+      @user.call_list_entries.where(line: 'DC').first.update patient: nil
+      assert_equal 1, @user.call_list_patients('DC').count
+    end
+
     it 'should clean calls when patient has been reached' do
       with_versioning do
         PaperTrail.request(whodunnit: @user) do

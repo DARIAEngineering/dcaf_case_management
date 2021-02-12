@@ -19,6 +19,9 @@ task nightly_cleanup: :environment do
   MongoidStore::Session.where(:updated_at.lte => 30.days.ago).delete_all  
   puts "#{Time.now} - removed old sessions"
 
+  CallListEntry.destroy_orphaned_entries
+  puts "#{Time.now} - removed orphaned call list entries"
+
   if Time.zone.now.monday?
     # Run these events weekly
     Clinic.update_all_coordinates

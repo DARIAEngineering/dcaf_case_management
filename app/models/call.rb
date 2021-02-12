@@ -15,8 +15,6 @@ class Call < ApplicationRecord
   belongs_to :can_call, polymorphic: true
 
   # Validations
-  validates :status, presence: true
-  #                    inclusion: { in: ALLOWED_STATUSES.values }
 
   # Methods
   def recent?
