@@ -16,11 +16,13 @@ class EventTest < ActiveSupport::TestCase
 
       [
         :reached_patient, :couldnt_reach_patient,
-        :left_voicemail, :pledged, :unknown_action
+        :left_voicemail, :unknown_action
       ].each do |status|
         @event.event_type = status
         assert @event.valid?
       end
+      @event.update event_type: :pledged, pledge_amount: 100
+      assert @event.valid?
     end
 
     it 'should only allow certain lines' do
