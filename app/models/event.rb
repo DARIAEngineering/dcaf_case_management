@@ -8,6 +8,7 @@ class Event < ApplicationRecord
     pledged: 3,
     unknown_action: 4
   }
+  # See config/initializers/_env_var_contants.rb
   enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
 
   # Validations

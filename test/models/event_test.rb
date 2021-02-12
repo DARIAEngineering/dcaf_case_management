@@ -14,8 +14,10 @@ class EventTest < ActiveSupport::TestCase
         @event.valid?
       end
 
-      valid_types = [:reached_patient, :couldnt_reach_patient, :left_voicemail]
-      valid_types.each do |status|
+      [
+        :reached_patient, :couldnt_reach_patient,
+        :left_voicemail, :pledged, :unknown_action
+      ].each do |status|
         @event.event_type = status
         assert @event.valid?
       end
