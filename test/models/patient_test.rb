@@ -133,6 +133,20 @@ class PatientTest < ActiveSupport::TestCase
 
       assert_not_equal error1, error2
     end
+
+    it 'should validate zipcode format' do
+      # wrong len
+      @patient.zipcode = '000'
+      refute @patient.valid?
+
+      # disallowed characters
+      @patient.zipcode = 'Z6B 1A7'
+      refute @patient.valid?
+
+      @patient.zipcode = '12345'
+      @patient.save
+      assert @patient.valid?
+    end
   end
 
   describe 'pledge_summary' do
