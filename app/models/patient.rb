@@ -28,8 +28,8 @@ class Patient < ApplicationRecord
   after_destroy :destroy_associated_events
 
   # Relationships
-  has_many :call_lists
-  has_many :users, through: :call_lists
+  has_many :call_list_entries
+  has_many :users, through: :call_list_entries
   belongs_to :clinic, optional: true
   has_one :fulfillment, as: :can_fulfill
   has_many :calls, as: :can_call

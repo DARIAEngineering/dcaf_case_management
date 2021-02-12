@@ -7,6 +7,14 @@ User.destroy_all
 Clinic.destroy_all
 Event.destroy_all
 Config.destroy_all
+CallListEntry.destroy_all
+Note.destroy_all
+ExternalPledge.destroy_all
+Fulfillment.destroy_all
+Call.destroy_all
+
+# Do versioning
+PaperTrail.enabled = true
 
 # Set a few config constants
 lines = %w[DC VA MD]
@@ -54,97 +62,91 @@ Config.create config_key: :fax_service,
 Config.create config_key: :start_of_week,
               config_value: { options: ['Monday'] }
 
+# Default to user2 as the actor
+PaperTrail.request.whodunnit = user2
+
 # Create ten active patients with generic info.
 10.times do |i|
-  PaperTrail.request(whodunnit: user2) do
-    patient = Patient.create! name: "Patient #{i}",
-                              primary_phone: "123-123-123#{i}",
-                              initial_call_date: 3.days.ago,
-                              urgent_flag: i.even?,
-                              last_menstrual_period_weeks: (i + 1 * 2),
-                              last_menstrual_period_days: 3
-  end
+  @patient = Patient.create! name: "Patient #{i}",
+                             primary_phone: "123-123-123#{i}",
+                             initial_call_date: 3.days.ago,
+                             urgent_flag: i.even?,
+                             last_menstrual_period_weeks: (i + 1 * 2),
+                             last_menstrual_period_days: 3,
+                             line: 'DC'
 
   # Create associated objects
   case i
   when 0
-    PaperTrail.request(whodunnit: user2) do
-      10.times do
-        patient.calls.create! status: 'Reached patient',
-                              created_at: 3.days.ago
-      end
+    10.times do
+      @patient.calls.create! status: :reached_patient,
+                             created_at: 3.days.ago
     end
   when 1
     PaperTrail.request(whodunnit: user) do
-      patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
-                      other_phone: '234-456-6789', other_contact_relationship: 'Sister'
-      patient.calls.create! status: 'Reached patient',
-                            created_at: 14.hours.ago
+      @patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
+                       other_phone: '234-456-6789', other_contact_relationship: 'Sister'
+      @patient.calls.create! status: :reached_patient,
+                             created_at: 14.hours.ago
     end
   when 2
     # appointment one week from today && clinic selected
-    patient.update! name: 'Clinic and Appt - 2',
-                    zipcode: 20_009,
-                    pronouns: 'she/they',
-                    clinic: Clinic.first,
-                    appointment_date: 2.days.from_now
+    @patient.update! name: 'Clinic and Appt - 2',
+                     zipcode: 20_009,
+                     pronouns: 'she/they',
+                     clinic: Clinic.first,
+                     appointment_date: 2.days.from_now
   when 3
     # pledge submitted
-    patient.update! clinic: Clinic.first,
-                    appointment_date: 3.days.from_now,
-                    naf_pledge: 200,
-                    procedure_cost: 400,
-                    fund_pledge: 100,
-                    pledge_sent: true,
-                    patient_contribution: 100,
-                    zipcode: 20_005,
-                    pronouns: 'ze/zir',
-                    name: 'Pledge submitted - 3'
+    @patient.update! clinic: Clinic.first,
+                     appointment_date: 3.days.from_now,
+                     naf_pledge: 200,
+                     procedure_cost: 400,
+                     fund_pledge: 100,
+                     pledge_sent: true,
+                     patient_contribution: 100,
+                     zipcode: 20_005,
+                     pronouns: 'ze/zir',
+                     name: 'Pledge submitted - 3'
   when 4
     PaperTrail.whodunnit(user: user) do
       # With special circumstances
-      patient.update! name: 'Special Circumstances - 4',
-                      special_circumstances: ['Prison', 'Fetal anomaly']
+      @patient.update! name: 'Special Circumstances - 4',
+                       special_circumstances: ['Prison', 'Fetal anomaly']
       # And a recent call on file
-      patient.calls.create! status: 'Left voicemail'
+      @patient.calls.create! status: :left_voicemail
     end
   when 5
     # Resolved without DCAF
-    patient.update! name: 'Resolved without DCAF - 5',
-                    resolved_without_fund: true
+    @patient.update! name: 'Resolved without DCAF - 5',
+                     resolved_without_fund: true
   end
 
   if i != 9
-    PaperTrail.whodunnit(user: user2) do
-      5.times do
-        patient.calls.create! status: 'Left voicemail',
-                              created_at: 3.days.ago
-      end
+    5.times do
+      @patient.calls.create! status: :left_voicemail,
+                             created_at: 3.days.ago
     end
   end
 
   # Add notes for most patients
   unless [0, 1].include? i
-    PaperTrail.whodunnit(user: user2) do
-      patient.notes.create! full_text: note_text
-    end
+    @patient.notes.create! full_text: note_text
   end
 
   if i.even?
-    PaperTrail.whodunnit(user: user2) do
-      patient.notes.create! full_text: additional_note_text
-    end
+    @patient.notes.create! full_text: additional_note_text
   end
 
   # Add select patients to call list for user
-  user.add_patient patient if [0, 1, 2, 3, 4, 5].include? i
+  user.add_patient @patient if [0, 1, 2, 3, 4, 5].include? i
 
-  patient.save
+  @patient.save
 end
 
 # Add patients for reporting purposes - CSV exports, fulfillments, etc.
 10.times do |i|
-  patient = Patient.create!(
+  @patient = Patient.create!(
     name: "Reporting Patient #{i}",
     primary_phone: "321-0#{i}0-001#{rand(10)}",
     initial_call_date: 3.days.ago,
@@ -164,16 +166,17 @@ end
 
   next unless i.even?
 
-  patient.build_fulfillment(
-    created_by_id: user.id,
-    fulfilled: true,
-    fund_payout: 4000,
-    procedure_date: 10.days.from_now
-  ).save
+  PaperTrail.request(whodunnit: user) do
+    @patient.build_fulfillment(
+      fulfilled: true,
+      fund_payout: 4000,
+      procedure_date: 10.days.from_now
+    ).save
+  end
 end
 
 (1..5).each do |patient_number|
-  patient = Patient.create!(
+  @patient = Patient.create!(
     name: "Reporting Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-002#{rand(10)}",
     initial_call_date: 3.days.ago,
@@ -185,32 +188,34 @@ end
   )
 
   # reached within the past 30 days
-  5.times do
-    patient.calls.create! status: 'Reached patient',
-                          created_by: user,
-                          created_at: (Time.now - rand(10).days)
-    patient.calls.create! status: 'Reached patient',
-                          created_by: user,
-                          created_at: (Time.now - rand(10).days - 10.days)
+  PaperTrail.request(whodunnit: user) do
+    5.times do
+      @patient.calls.create! status: :reached_patient,
+                             created_by: user,
+                             created_at: (Time.now - rand(10).days)
+      @patient.calls.create! status: :reached_patient,
+                             created_by: user,
+                             created_at: (Time.now - rand(10).days - 10.days)
+    end
   end
 end
 
 (1..5).each do |patient_number|
-  patient = Patient.create!(
-    name: "Old Reporting Patient #{patient_number}",
-    primary_phone: "321-0#{patient_number}0-003#{rand(10)}",
-    initial_call_date: 3.days.ago,
-    urgent_flag: patient_number.even?,
-    line: lines[patient_number % 3],
-    created_by: user,
-    clinic: Clinic.all.sample,
-    appointment_date: 10.days.from_now
+  @patient = Patient.create!(
+     name: "Old Reporting Patient #{patient_number}",
+     primary_phone: "321-0#{patient_number}0-003#{rand(10)}",
+     initial_call_date: 3.days.ago,
+     urgent_flag: patient_number.even?,
+     line: lines[patient_number % 3],
+     created_by: user,
+     clinic: Clinic.all.sample,
+     appointment_date: 10.days.from_now
   )
 
   5.times do
-    patient.calls.create! status: 'Reached patient',
-                          created_by: user,
-                          created_at: (Time.now - rand(10).days - 6.months)
+    @patient.calls.create! status: :reached_patient,
+                           created_by: user,
+                           created_at: (Time.now - rand(10).days - 6.months)
   end
 end
 
@@ -232,7 +237,7 @@ end
 # Add patients for archiving purposes with ALL THE INFO
 (1..2).each do |patient_number|
   # initial create data from voicemail
-  patient = Patient.create!(
+  @patient = Patient.create!(
     name: "Archive Dataful Patient #{patient_number}",
     primary_phone: "321-0#{patient_number}0-005#{rand(10)}",
     voicemail_preference: 'yes',
@@ -246,12 +251,12 @@ end
   )
 
   # Call, but no answer. leave a VM.
-  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 139.days.ago
+  @patient.calls.create status: :left_voicemail, created_by: user, created_at: 139.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
+  @patient.calls.create status: :reached_patient, created_by: user, created_at: 138.days.ago
 
-  patient.update!(
+  @patient.update!(
     # header info - hand filled in
     appointment_date: 130.days.ago,
 
@@ -281,26 +286,26 @@ end
   )
 
   # toggle urgent, maybe
-  patient.update!(
+  @patient.update!(
     urgent_flag: patient_number.odd?,
     updated_at: 137.days.ago
   )
 
   # generate notes
-  patient.notes.create!(
+  @patient.notes.create!(
     full_text: 'One note, with iffy PII! This one was from the first call!',
     created_by: user,
     created_at: 137.days.ago
   )
 
   # only continue for the unresolved patient(s)
-  next if patient.resolved_without_fund?
+  next if @patient.resolved_without_fund?
 
   # another call. get abortion information, create pledges, a note.
-  patient.calls.create! status: 'Reached patient', created_by: user, created_at: 136.days.ago
+  @patient.calls.create! status: :reached_patient, created_by: user, created_at: 136.days.ago
 
   # abortion info - pledges - hand filled in
-  patient.update!(
+  @patient.update!(
     procedure_cost: 555,
     patient_contribution: 120,
     naf_pledge: 120,
@@ -311,13 +316,13 @@ end
     updated_at: 133.days.ago
   )
   # generate external pledges
-  patient.external_pledges.create!(
+  @patient.external_pledges.create!(
     source: 'Metallica Abortion Fund',
     amount: 100,
     created_by: user,
     created_at: 133.days.ago
   )
-  patient.external_pledges.create!(
+  @patient.external_pledges.create!(
     source: 'Baltimore Abortion Fund',
     amount: 100,
     created_by: user,
@@ -325,14 +330,14 @@ end
   )
 
   # notes tab
-  patient.notes.create!(
+  @patient.notes.create!(
     full_text: 'Two note, maybe with iffy PII! From the second call.',
     created_by: user2,
     created_at: 133.days.ago
   )
 
   # fulfillment
-  patient.fulfillment.update!(
+  @patient.fulfillment.update!(
     fulfilled: true,
     procedure_date: 130.days.ago,
     gestation_at_procedure: '11',
@@ -345,7 +350,7 @@ end
 
 (1..2).each do |patient_number|
   # Create dropoff patients
-  patient = Patient.create!(
+  @patient = Patient.create!(
     name: "Archive Dropoff Patient #{patient_number}",
     primary_phone: "867-9#{patient_number}0-004#{rand(10)}",
     voicemail_preference: 'yes',
@@ -359,16 +364,16 @@ end
   )
 
   # Call, but no answer. leave a VM.
-  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 639.days.ago
+  @patient.calls.create status: :left_voicemail, created_by: user, created_at: 639.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
+  @patient.calls.create status: :reached_patient, created_by: user, created_at: 138.days.ago
 
   # Patient 1 drops off immediately
   next if patient_number.odd?
 
   # We reach Patient 2
-  patient.update!(
+  @patient.update!(
     # header info - hand filled in
     appointment_date: 630.days.ago,
 
@@ -399,13 +404,13 @@ end
   )
 
   # toggle urgent, maybe
-  patient.update!(
+  @patient.update!(
     urgent_flag: patient_number.odd?,
     updated_at: 637.days.ago
   )
 
   # generate notes
-  patient.notes.create!(
+  @patient.notes.create!(
     full_text: 'One note, with iffy PII! This one was from the first call!',
     created_by: user,
     created_at: 637.days.ago
