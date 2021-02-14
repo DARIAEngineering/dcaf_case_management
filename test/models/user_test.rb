@@ -46,9 +46,9 @@ class UserTest < ActiveSupport::TestCase
         PaperTrail.request(whodunnit: @user) do
           assert_equal 0, @user.recently_called_patients('DC').count
 
-          @patient.calls.create attributes_for(:call, created_by: @user)
-          @patient_2.calls.create attributes_for(:call, created_by: @user)
-          @md_patient.calls.create attributes_for(:call, created_by: @user)
+          @patient.calls.create attributes_for(:call)
+          @patient_2.calls.create attributes_for(:call)
+          @md_patient.calls.create attributes_for(:call)
           assert_equal 2, @user.recently_called_patients('DC').count
           assert_equal 1, @user.recently_called_patients('MD').count
         end
@@ -56,15 +56,17 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should return call_list_patients accurately' do
+      assert_equal 2, @user.call_list_patients('DC').count
+      assert_equal 1, @user.call_list_patients('MD').count
+
       with_versioning do
         PaperTrail.request(whodunnit: @user) do
-          assert_equal 2, @user.call_list_patients('DC').count
-          assert_equal 1, @user.call_list_patients('MD').count
-
-          @patient.calls.create attributes_for(:call, created_by: @user)
+          @patient.calls.create attributes_for(:call)
           assert_equal 1, @user.call_list_patients('DC').count
+        end
 
-          @patient_2.calls.create attributes_for(:call, created_by: @user_2)
+        PaperTrail.request(whodunnit: @user2) do
+          @patient_2.calls.create attributes_for(:call)
           assert_equal 1, @user.call_list_patients('DC').count
         end
       end
@@ -76,15 +78,17 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should clean calls when patient has been reached' do
+      assert_equal 0, @user.recently_called_patients('DC').count
+
       with_versioning do
         PaperTrail.request(whodunnit: @user) do
-          assert_equal 0, @user.recently_called_patients('DC').count
-          @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
-          @call = @patient.calls.first
-          assert_equal 1, @user.recently_called_patients('DC').count
-          @user.clean_call_list_between_shifts
-          assert_equal 0, @user.recently_called_patients('DC').count
+          @patient.calls.create attributes_for(:call, status: :reached_patient)
         end
+      end
+
+      assert_equal 1, @user.recently_called_patients('DC').count
+      assert_difference '@user.recently_called_patients("DC").count', -1 do
+        @user.clean_call_list_between_shifts
       end
     end
 
@@ -92,7 +96,7 @@ class UserTest < ActiveSupport::TestCase
       with_versioning do
         PaperTrail.request(whodunnit: @user) do
           assert_equal 0, @user.recently_called_patients('DC').count
-          @patient.calls.create attributes_for(:call, created_by: @user, status: 'Left voicemail' )
+          @patient.calls.create attributes_for(:call, status: :left_voicemail)
           @call = @patient.calls.first
           assert_equal 1, @user.recently_called_patients('DC').count
           @user.clean_call_list_between_shifts

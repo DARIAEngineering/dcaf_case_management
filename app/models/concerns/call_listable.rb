@@ -57,21 +57,21 @@ module CallListable
       clear_call_list(LINES)
     else
       ids_for_destroy = recently_reached_patients(LINES).map { |x| x.id.to_s }
-      call_list_entries.in(patient_id: ids_for_destroy).destroy_all
+      call_list_entries.where(patient_id: ids_for_destroy).destroy_all
     end
     reload
   end
 
   def clear_call_list(line)
-    call_list_entries.in(line: line).destroy_all
+    call_list_entries.where(line: line).destroy_all
   end
 
   private
 
   def ordered_patients(line)
     call_list_entries.includes(:patient)
-                     .in(line: line)
-                     .order_by(order_key: :asc)
+                     .where(line: line)
+                     .order(order_key: :asc)
                      .map(&:patient)
                      .reject(&:nil?)
   end
