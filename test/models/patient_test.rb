@@ -483,21 +483,19 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should update sent by and sent at when sending the pledge' do
       @user = create :user
-      @patient.fund_pledge = 500
-      @patient.clinic = @clinic
-      @patient.appointment_date = 14.days.from_now
-      @patient.last_edited_by = @user
-      @patient.fund_pledge = true
-      @patient.pledge_sent = true
-      @patient.update
+      @patient.update fund_pledge: 500,
+                      clinic: @clinic,
+                      appointment_date: 14.days.from_now,
+                      last_edited_by: @user,
+                      fund_pledge: true,
+                      pledge_sent: true
       @patient.reload
       assert_in_delta Time.zone.now.to_f, @patient.pledge_sent_at.to_f, 15 #used assert_in_delta to account for slight differences in timing. Allows 15 seconds of lag?
       assert_equal @user, @patient.pledge_sent_by
     end
 
     it 'should set pledge sent and sent at to nil if a pledge is cancelled' do
-      @patient.pledge_sent = false
-      @patient.update
+      @patient.update pledge_sent: false
       @patient.reload
       assert_nil @patient.pledge_sent_by
       assert_nil @patient.pledge_sent_at

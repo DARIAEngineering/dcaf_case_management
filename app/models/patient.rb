@@ -24,11 +24,11 @@ class Patient < ApplicationRecord
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
-  after_update :update_call_list_lines, if: :line_changed?
+  after_update :update_call_list_lines, if: :saved_change_to_line?
   after_destroy :destroy_associated_events
 
   # Relationships
-  has_many :call_list_entries
+  has_many :call_list_entries, dependent: :destroy
   has_many :users, through: :call_list_entries
   belongs_to :clinic, optional: true
   has_one :fulfillment, as: :can_fulfill
