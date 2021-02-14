@@ -23,7 +23,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     before { @new_clinic = attributes_for :clinic }
 
     it 'should redirect if user is not admin' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
 
         assert_no_difference 'Clinic.count' do
@@ -50,7 +50,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'new' do
     it 'should redirect if not admin' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
         get new_clinic_path
         assert_redirected_to root_path
@@ -68,7 +68,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     before { @clinic = create :clinic }
 
     it 'should redirect if not admin' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
         get edit_clinic_path @clinic
         assert_redirected_to root_path
@@ -89,7 +89,7 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should redirect if not admin' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
         patch clinic_path(@clinic), params: { clinic: @clinic_attrs }
         @clinic.reload

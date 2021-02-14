@@ -10,7 +10,7 @@ class UsersController < ApplicationController
                                    :change_role_to_data_volunteer,
                                    :change_role_to_cm, :toggle_disabled]
 
-  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
+  rescue_from ActiveRecord::RecordNotFound, with: -> { head :not_found }
   rescue_from Exceptions::UnauthorizedError, with: -> { head :unauthorized }
 
   def index
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     # i18n-tasks-use t('mongoid.attributes.user.password')
     # i18n-tasks-use t('mongoid.attributes.user.password_confirmation')
     # i18n-tasks-use t('mongoid.attributes.user.role')
-    if @user.update_attributes(user_params)
+    if @user.update user_params
       flash[:notice] = t('flash.user_update_success')
       redirect_to users_path
     else
