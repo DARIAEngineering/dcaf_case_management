@@ -38,7 +38,7 @@ module Statusable
 
   def contact_made?
     calls.each do |call|
-      return true if call.status == 'Reached patient'
+      return true if call.reached_patient?
     end
     false
   end

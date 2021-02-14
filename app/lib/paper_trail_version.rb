@@ -51,7 +51,8 @@ class PaperTrailVersion < PaperTrail::Version
     shaped_value = if value.blank?
                      '(empty)'
                    elsif DATE_FIELDS.include? key
-                     value.display_date
+                     parts = value.split('-')
+                     "#{parts[1].rjust(2, '0')}/#{parts[2]}/#{parts[0]}"
                    elsif value.is_a? Array # special circumstances, for example
                      value.reject(&:blank?).join(', ')
                    elsif key == 'clinic_id'

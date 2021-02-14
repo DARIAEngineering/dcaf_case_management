@@ -15,14 +15,11 @@ class Call < ApplicationRecord
   belongs_to :can_call, polymorphic: true
 
   # Validations
+  validates :status, presence: true
 
   # Methods
   def recent?
     updated_at > 8.hours.ago ? true : false
-  end
-
-  def reached?
-    status == 'Reached patient'
   end
 
   def event_params

@@ -78,7 +78,7 @@ module CallListable
 
   def recently_reached_by_user?(patient)
     patient.calls.any? do |call|
-      call.created_by_id == id && call.recent? && call.reached?
+      call.created_by_id == id && call.recent? && call.reached_patient?
     end
   end
 

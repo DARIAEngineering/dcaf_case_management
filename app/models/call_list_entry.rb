@@ -7,9 +7,4 @@ class CallListEntry < ApplicationRecord
   # Validations
   validates :order_key, :line, presence: true
   validates :patient, uniqueness: { scope: :user }
-
-  def self.destroy_orphaned_entries
-    includes(:patient).reject(&:patient)
-                      .each { |x| x.destroy }
-  end
 end
