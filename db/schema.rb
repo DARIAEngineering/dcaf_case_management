@@ -10,11 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_30_075535) do
+ActiveRecord::Schema.define(version: 2021_02_14_070442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "archived_patients", force: :cascade do |t|
+    t.string "identifier"
+    t.string "age_range", default: "not_specified"
+    t.boolean "has_alt_contact"
+    t.string "voicemail_preference", default: "not_specified"
+    t.string "line", null: false
+    t.string "language"
+    t.date "initial_call_date"
+    t.boolean "urgent_flag"
+    t.integer "last_menstrual_period_weeks"
+    t.integer "last_menstrual_period_days"
+    t.string "city"
+    t.string "state"
+    t.string "county"
+    t.string "race_ethnicity"
+    t.string "employment_status"
+    t.string "insurance"
+    t.string "income"
+    t.integer "notes_count"
+    t.boolean "has_special_circumstances"
+    t.string "referred_by"
+    t.boolean "referred_to_clinic"
+    t.date "appointment_date"
+    t.integer "procedure_cost"
+    t.integer "patient_contribution"
+    t.integer "naf_pledge"
+    t.integer "fund_pledge"
+    t.datetime "fund_pledged_at"
+    t.boolean "pledge_sent"
+    t.boolean "resolved_without_fund"
+    t.datetime "pledge_generated_at"
+    t.datetime "pledge_sent_at"
+    t.boolean "textable"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["line"], name: "index_archived_patients_on_line"
+  end
 
   create_table "call_list_entries", force: :cascade do |t|
     t.bigint "user_id", null: false
