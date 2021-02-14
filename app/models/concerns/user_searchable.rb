@@ -7,12 +7,11 @@ module UserSearchable
 
   class_methods do
     def search(name_or_email_str)
-      regexp = /#{Regexp.escape(name_or_email_str)}/i
-
-      all_matching_names = find_name_matches regexp
-      all_matching_emails = find_email_matches regexp
-
-      sort_and_limit_user_matches(all_matching_names, all_matching_emails)
+      return if name_or_email_str.blank?
+      User.where('name ilike ?', name_or_email_str)
+          .or(User.where('email ilike ?', name_or_email_str))
+          .order(updated_at: :desc)
+          .limit(SEARCH_LIMIT)
     end
 
     private
