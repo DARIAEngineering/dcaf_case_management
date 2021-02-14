@@ -16,7 +16,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     before do
-      @call = attributes_for :call, status: 'Reached patient'
+      @call = attributes_for :call, status: :reached_patient
       post patient_calls_path(@patient), params: { call: @call }, xhr: true
     end
 
@@ -27,7 +27,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond success if patient is not reached' do
-      ['Left voicemail', "Couldn't reach patient"].each do |status|
+      [:left_voicemail, :couldnt_reach_patient].each do |status|
         call = attributes_for :call, status: status
         post patient_calls_path(@patient), params: { call: call }, xhr: true
         assert_response :success

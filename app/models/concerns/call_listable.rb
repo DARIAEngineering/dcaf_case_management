@@ -34,9 +34,8 @@ module CallListable
   end
 
   def remove_patient(patient)
-    call_list_entries.find_by(patient_id: patient.id).destroy
+    call_list_entries.find_by!(patient_id: patient.id).destroy
     reload
-  rescue Mongoid::Errors::DocumentNotFound
   end
 
   def reorder_call_list(order, line)

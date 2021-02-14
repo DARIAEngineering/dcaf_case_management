@@ -12,7 +12,7 @@ class AccountantsController < ApplicationController
   def search
     @results = if params[:search].present?
                  Patient.where(pledge_sent: true)
-                        .order_by(pledge_sent_at: :desc)
+                        .order(pledge_sent_at: :desc)
                         .search(params[:search])
                else
                  pledged_patients
