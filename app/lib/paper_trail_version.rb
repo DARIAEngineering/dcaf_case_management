@@ -38,7 +38,7 @@ class PaperTrailVersion < PaperTrail::Version
                     acc.merge({ key => { original: format_fieldchange(key, x[1][0]),
                                          modified: format_fieldchange(key, x[1][1]) }
                              })
-             end
+                  end
   end
 
   def marked_urgent?
