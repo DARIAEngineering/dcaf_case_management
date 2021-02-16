@@ -11,8 +11,8 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.string :voicemail_preference, default: 'not_specified'
       t.string :line, null: false
 
-      t.integer :language
-      t.integer :pronouns
+      t.string :language
+      t.string :pronouns
       t.date :initial_call_date, null: false
       t.boolean :urgent_flag
       t.integer :last_menstrual_period_weeks

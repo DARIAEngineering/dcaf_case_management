@@ -16,6 +16,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       reject_login
     end
+  rescue ActiveRecord::RecordNotFound
+    reject_login
   end
 
   private

@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.string "identifier"
     t.string "voicemail_preference", default: "not_specified"
     t.string "line", null: false
-    t.integer "language"
+    t.string "language"
     t.integer "pronouns"
     t.date "initial_call_date", null: false
     t.boolean "urgent_flag"

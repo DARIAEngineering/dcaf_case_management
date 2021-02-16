@@ -3,7 +3,7 @@ class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download, :destroy]
-  rescue_from Mongoid::Errors::DocumentNotFound,
+  rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
   def index
@@ -17,14 +17,13 @@ class PatientsController < ApplicationController
   def create
     patient = Patient.new patient_params
 
-    patient.created_by = current_user
     if patient.save
       flash[:notice] = t('flash.new_patient_save')
+      current_user.add_patient patient
     else
       flash[:alert] = t('flash.new_patient_error', error: patient.errors.full_messages.to_sentence)
     end
 
-    current_user.add_patient patient
     redirect_to root_path
   end
 
@@ -63,7 +62,7 @@ class PatientsController < ApplicationController
 
   def update
     @patient.last_edited_by = current_user
-    if @patient.update_attributes patient_params
+    if @patient.update patient_params
       @patient.reload
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
     else
@@ -80,7 +79,6 @@ class PatientsController < ApplicationController
 
   def data_entry_create
     @patient = Patient.new patient_params
-    @patient.created_by = current_user
 
     if @patient.save
       flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)

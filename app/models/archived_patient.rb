@@ -1,22 +1,19 @@
 class ArchivedPatient < ApplicationRecord
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Userstamp
-  extend Enumerize
-
   # Concerns
+  include PaperTrailable
   include Exportable
   include LastMenstrualPeriodMeasureable
 
   # Relationships
-  belongs_to :clinic
-  embeds_one :fulfillment
+  belongs_to :clinic, optional: true
+  has_one :fulfillment, as: :can_fulfill
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
   has_many :practical_supports, as: :can_support
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil, optional: true
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
 
+  # Enums
   enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
   enum age_range: {
     not_specified: :not_specified,
@@ -31,16 +28,12 @@ class ArchivedPatient < ApplicationRecord
 
   # Validations
   validates :initial_call_date,
-            :created_by_id,
             :line,
             presence: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
 
   validates_associated :fulfillment
-
-
-  mongoid_userstamp user_model: 'User'
 
   # Archive & delete audited patients who called a several months ago, or any
   # from a year plus ago
