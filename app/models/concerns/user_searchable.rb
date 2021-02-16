@@ -8,8 +8,9 @@ module UserSearchable
   class_methods do
     def search(name_or_email_str)
       return if name_or_email_str.blank?
-      User.where('name ilike ?', name_or_email_str)
-          .or(User.where('email ilike ?', name_or_email_str))
+      wildcard = "%#{name_or_email_str}%"
+      User.where('name ilike ?', wildcard)
+          .or(User.where('email ilike ?', wildcard))
           .order(updated_at: :desc)
           .limit(SEARCH_LIMIT)
     end
