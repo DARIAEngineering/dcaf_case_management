@@ -7,7 +7,6 @@ class EventLogInteractionTest < ApplicationSystemTestCase
 
     @patient = create :patient, name: 'tester',
                                 primary_phone: '1231231234',
-                                created_by: @user,
                                 city: 'Washington'
     log_in_as @user
     visit edit_patient_path @patient
@@ -32,11 +31,12 @@ class EventLogInteractionTest < ApplicationSystemTestCase
       wait_for_ajax
       wait_for_no_css '.sk-spinner'
 
+      within :css, '#activity_log_content' do
+        assert has_content? "#{@user.name} left a voicemail for " \
+                            "#{@patient.name}"
+      end
+
       assert_difference '@user2.call_list_entries.count', 1 do
-        within :css, '#activity_log_content' do
-          assert has_content? "#{@user.name} left a voicemail for " \
-                              "#{@patient.name}"
-        end
         click_on '(Add to call list)'
         wait_for_ajax
         @user2.reload

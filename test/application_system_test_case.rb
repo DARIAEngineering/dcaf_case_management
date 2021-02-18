@@ -6,16 +6,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include IntegrationHelper
   include OmniauthMocker
 
-  before do
-    Capybara.reset_sessions!
-    PaperTrail.enabled = true
-    PaperTrail.request.enabled = true
-  end
-
-  after do
-    PaperTrail.enabled = false
-    PaperTrail.request.enabled = false
-  end
+  before { Capybara.reset_sessions! }
 
   # if in CI, run system tests headlessly.
   browser = ENV['GITHUB_WORKFLOW'] ? :headless_chrome : :chrome

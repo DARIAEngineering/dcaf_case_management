@@ -24,7 +24,7 @@ class Call < ApplicationRecord
 
   def event_params
     {
-      event_type:   Call.statuses[status],
+      event_type:   status.to_s,
       cm_name:      created_by&.name || 'System',
       patient_name: can_call.name,
       patient_id:   can_call.id,

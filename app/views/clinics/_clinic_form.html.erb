@@ -5,7 +5,10 @@
       <%= f.text_field :street_address, autocomplete: 'off' %>
       <%= f.text_field :city, autocomplete: 'off' %>
       <%= f.select :state, options_for_select(state_options(clinic.state), clinic.state), autocomplete: 'off' %>
-      <%= f.text_field :zip, autocomplete: 'off', help: t('clinics.form.zip_help') %>
+      <%= f.text_field :zip,
+                       autocomplete: 'off',
+                       help: t('clinics.form.zip_help'),
+                       label: t('mongoid.attributes.clinic.zip') %>
       <%= f.text_field :phone,
                        autocomplete: 'off',
                        pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
@@ -24,7 +27,7 @@
     </div>
 
     <div class="info-form-right col">
-      <%= f.number_field :gestational_limit, autocomplete: 'off' %>
+      <%= f.number_field :gestational_limit, autocomplete: 'off', label: t('mongoid.attributes.clinic.gestational_limit') %>
       <% (5..30).each do |week| %>
         <%= f.number_field "costs_#{week}wks".to_sym,
                            autocomplete: 'off',

@@ -8,14 +8,16 @@ class TableContentTest < ApplicationSystemTestCase
     @patient = create :patient, initial_call_date: 3.days.ago,
                                 appointment_date: 3.days.from_now.utc,
                                 urgent_flag: true,
-                                created_by: @user,
                                 last_menstrual_period_weeks: 6,
                                 last_menstrual_period_days: 3
 
-    @patient.calls.create status: 'Left voicemail',
-                          created_at: 3.days.ago,
-                          updated_at: 3.days.ago,
-                          created_by: @user
+    with_versioning do
+      PaperTrail.request(whodunnit: @user) do
+        @patient.calls.create status: :left_voicemail,
+                              created_at: 3.days.ago,
+                              updated_at: 3.days.ago
+      end
+    end
 
     @user.add_patient @patient
     log_in_as @user
