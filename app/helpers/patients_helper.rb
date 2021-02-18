@@ -111,11 +111,11 @@ module PatientsHelper
   def clinic_options
     clinics = Clinic.all.sort_by(&:name)
     active_clinics = clinics.select(&:active)
-                            .map { |clinic| [clinic.name, clinic.id] }
+                            .map { |clinic| [clinic.name, clinic.id, { data: { naf: !!clinic.accepts_naf, medicaid: !!clinic.accepts_medicaid } }] }
                             .unshift nil
     inactive_clinics = clinics.reject(&:active)
-                              .map { |clinic| [t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: FUND, clinic_name: clinic.name), clinic.id] }
-                              .unshift ["--- #{t('patient.abortion_information.clinic_section.inactive_clinics').upcase} ---", nil]
+                              .map { |clinic| [t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: FUND, clinic_name: clinic.name), clinic.id, { data: { naf: !!clinic.accepts_naf, medicaid: !!clinic.accepts_medicaid } }] }
+                              .unshift ["--- #{t('patient.abortion_information.clinic_section.inactive_clinics').upcase} ---", nil, { disabled: true }]
     active_clinics | inactive_clinics
   end
 
