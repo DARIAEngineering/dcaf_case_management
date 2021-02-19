@@ -1,5 +1,7 @@
 # Extensions to base class of PaperTrail.
 class PaperTrailVersion < PaperTrail::Version
+  # Relations
+  belongs_to :user, foreign_key: :whodunnit, optional: true
 
   IRRELEVANT_FIELDS = %w[
     id
