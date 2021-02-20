@@ -29,7 +29,7 @@ es:
       other_contact: "%{name} %{rel} es el contacto principal para este paciente%{punc}"
       primary: 'Contacto primario:'
     status:
-      could_not_reach_patient: No hablé con el paciente
+      couldnt_reach_patient: No hablé con el paciente
       left_voicemail: Dejé un mensaje de voz
       reached_patient: Paciente alcanzado
   clinic_locator:

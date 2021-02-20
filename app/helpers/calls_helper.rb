@@ -45,11 +45,11 @@ module CallsHelper
 
   def display_call_status(call)
     case call.status
-    when :reached_patient
+    when 'reached_patient'
       t('call.status.reached_patient')
-    when :couldnt_reach_patient
-      t('call.status.could_not_reach_patient')
-    when :left_voicemail
+    when 'couldnt_reach_patient'
+      t('call.status.couldnt_reach_patient')
+    when 'left_voicemail'
       t('call.status.left_voicemail')
     end
   end
