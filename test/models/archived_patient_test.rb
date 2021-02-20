@@ -3,6 +3,7 @@ require 'test_helper'
 class ArchivedPatientTest < ActiveSupport::TestCase
   before do
     @user = create :user
+    @user2 = create :user
     with_versioning do
       PaperTrail.request(whodunnit: @user.id) do
         @patient = create :patient, other_phone: '111-222-3333',
@@ -46,19 +47,26 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                        initial_call_date: 16.days.ago,
                                        appointment_date: 6.days.ago
           @patient.calls.create attributes_for(:call, status: :couldnt_reach_patient)
-          @patient.calls.create attributes_for(:call, status: :reached_patient)
+          @patient.external_pledges.create source: 'Friendship Abortion Fund',
+                                           amount: 100
           @patient.fulfillment.update fulfilled: true,
                                       updated_at: 3.days.ago,
                                       date_of_check: 3.days.ago,
                                       procedure_date: 6.days.ago,
                                       check_number: '123'
-          @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                         amount: 100
           @patient.save!
         end
+
+        PaperTrail.request(whodunnit: @user2.id) do
+          @patient.calls.create attributes_for(:call, status: :reached_patient)
+          @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                           amount: 100
+        end
+
         @archived_patient = ArchivedPatient.convert_patient(@patient)
         @archived_patient.save!
       end
+
     end
 
     it 'should have matching data for Patient and Archive Patient' do
@@ -68,24 +76,30 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       assert_equal @archived_patient.appointment_date,
                    @patient.appointment_date
     end
+
     it 'should have a shared clinic for Patient and Archive Patient' do
       assert_equal @archived_patient.clinic_id, @patient.clinic_id
     end
+
     it 'should have matching subobject data Patient and Archive Patient' do
-      assert_equal @archived_patient.calls.count, @patient.calls.count
-      assert_equal @archived_patient.calls.first.user, @patient.calls.first.user
+      assert_equal 2, @archived_patient.calls.count
+      assert_equal @user, @archived_patient.calls.first.created_by
+      assert_equal @user2, @archived_patient.calls.last.created_by
+
       assert_equal @archived_patient.fulfillment.date_of_check,
                    @patient.fulfillment.date_of_check
-      assert_equal @archived_patient.external_pledges.first.source,
-                   @patient.external_pledges.first.source
+
+      assert_equal 2, @archived_patient.external_pledges.count
+      assert_equal @user, @archived_patient.external_pledges.first.created_by
+      assert_equal @user2, @archived_patient.external_pledges.last.created_by
     end
+
     it 'should have distinct subobjects for Patient and Archive Patient' do
-      assert_not_equal @archived_patient.calls.first.id,
-                       @patient.calls.first.id
+      assert_equal 0, @patient.calls.count
+      assert_equal 0, @patient.external_pledges.count
+
       assert_not_equal @archived_patient.fulfillment.id,
                        @patient.fulfillment.id
-      assert_not_equal @archived_patient.external_pledges.first.id,
-                       @patient.external_pledges.first.id
     end
   end
 

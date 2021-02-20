@@ -42,6 +42,8 @@ class ArchivedPatient < ApplicationRecord
       if ( patient.archive_date < Date.today )
         ActiveRecord::Base.transaction do
           ArchivedPatient.convert_patient(patient)
+          # ArchivedPatient.convert_calls(archived_pt, patient)
+          # ArchivedPatient.convert_external_pledges(archived_pt, patient)
           patient.destroy!
         end
       end
@@ -94,22 +96,38 @@ class ArchivedPatient < ApplicationRecord
 
     )
 
-    archived_patient.fulfillment = patient.fulfillment.clone
+    archived_patient.build_fulfillment dup_with_context(patient.fulfillment)
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
-    patient.calls.each do |call|
-      PaperTrail.request(whodunnit: call.created_by_id) do
-        archived_patient.calls.new(call.clone.attributes)
-      end
-    end
-    patient.external_pledges.each do |ext_pledge|
-      archived_patient.external_pledges.new(ext_pledge.clone.attributes)
-    end
 
     PaperTrail.request(whodunnit: patient.created_by_id) do
-      # archived_patient.valid?
-      # binding.pry
       archived_patient.save!
     end
+
+    patient.calls.each do |call|
+      call.update can_call: archived_patient
+    end
+
+    patient.external_pledges.each do |ext_pledge|
+      ext_pledge.update can_pledge: archived_patient
+    end
+
     archived_patient
+  end
+
+  def self.convert_calls
+
+  end
+
+  def self.convert_external_pledges
+
+  end
+
+  private
+
+  def self.dup_with_context(obj)
+    new_obj = obj.dup.attributes.except('id')
+    new_obj['created_at'] = obj.created_by_id
+    new_obj['updated_at'] = obj.updated_at
+    new_obj
   end
 end
