@@ -49,9 +49,15 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.datetime "pledge_generated_at"
     t.datetime "pledge_sent_at"
     t.boolean "textable"
+    t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["line"], name: "index_archived_patients_on_line"
+    t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
+    t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
   end
 
   create_table "call_list_entries", force: :cascade do |t|
@@ -186,7 +192,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.string "voicemail_preference", default: "not_specified"
     t.string "line", null: false
     t.string "language"
-    t.integer "pronouns"
+    t.string "pronouns"
     t.date "initial_call_date", null: false
     t.boolean "urgent_flag"
     t.integer "last_menstrual_period_weeks"
@@ -283,6 +289,9 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "archived_patients", "clinics"
+  add_foreign_key "archived_patients", "users", column: "pledge_generated_by_id"
+  add_foreign_key "archived_patients", "users", column: "pledge_sent_by_id"
   add_foreign_key "call_list_entries", "patients"
   add_foreign_key "call_list_entries", "users"
   add_foreign_key "patients", "clinics"

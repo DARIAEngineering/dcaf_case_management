@@ -38,6 +38,11 @@ class CreateArchivedPatients < ActiveRecord::Migration[6.0]
       t.datetime :pledge_sent_at
       t.boolean :textable
 
+      t.references :clinic, foreign_key: true
+
+      t.references :pledge_generated_by, foreign_key: { to_table: :users }
+      t.references :pledge_sent_by, foreign_key: { to_table: :users }
+
       t.timestamps
     end
 

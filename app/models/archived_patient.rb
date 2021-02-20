@@ -85,7 +85,7 @@ class ArchivedPatient < ApplicationRecord
 
       pledge_generated_by: patient.pledge_generated_by,
       pledge_sent_by: patient.pledge_sent_by,
-      created_by_id: patient.created_by_id,
+      # created_by_id: patient.created_by_id,
 
       age_range: patient.age_range,
       has_alt_contact: patient.has_alt_contact,
@@ -97,13 +97,19 @@ class ArchivedPatient < ApplicationRecord
     archived_patient.fulfillment = patient.fulfillment.clone
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
     patient.calls.each do |call|
-      archived_patient.calls.create(call.clone.attributes)
+      PaperTrail.request(whodunnit: call.created_by_id) do
+        archived_patient.calls.new(call.clone.attributes)
+      end
     end
     patient.external_pledges.each do |ext_pledge|
-      archived_patient.external_pledges.create(ext_pledge.clone.attributes)
+      archived_patient.external_pledges.new(ext_pledge.clone.attributes)
     end
 
-    archived_patient.save!
+    PaperTrail.request(whodunnit: patient.created_by_id) do
+      # archived_patient.valid?
+      # binding.pry
+      archived_patient.save!
+    end
     archived_patient
   end
 end

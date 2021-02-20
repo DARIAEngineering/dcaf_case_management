@@ -4,7 +4,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
   before do
     @user = create :user
     with_versioning do
-      PaperTrail.request(whodunnit: @user) do
+      PaperTrail.request(whodunnit: @user.id) do
         @patient = create :patient, other_phone: '111-222-3333',
                                     other_contact: 'Yolo'
 
@@ -35,7 +35,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
   describe 'The convert_patient method' do
     before do
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           @clinic = create :clinic
           @patient = create :patient, primary_phone: '222-222-3336',
                                        other_phone: '222-222-4441',
@@ -47,19 +47,17 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                        appointment_date: 6.days.ago
           @patient.calls.create attributes_for(:call, status: :couldnt_reach_patient)
           @patient.calls.create attributes_for(:call, status: :reached_patient)
-          @patient.update fulfillment: {
-                                      fulfilled: true,
+          @patient.fulfillment.update fulfilled: true,
                                       updated_at: 3.days.ago,
                                       date_of_check: 3.days.ago,
                                       procedure_date: 6.days.ago,
                                       check_number: '123'
-                                    }
           @patient.external_pledges.create source: 'Baltimore Abortion Fund',
                                          amount: 100
           @patient.save!
-          @archived_patient = ArchivedPatient.convert_patient(@patient)
-          @archived_patient.save!
         end
+        @archived_patient = ArchivedPatient.convert_patient(@patient)
+        @archived_patient.save!
       end
     end
 
@@ -75,6 +73,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
     it 'should have matching subobject data Patient and Archive Patient' do
       assert_equal @archived_patient.calls.count, @patient.calls.count
+      assert_equal @archived_patient.calls.first.user, @patient.calls.first.user
       assert_equal @archived_patient.fulfillment.date_of_check,
                    @patient.fulfillment.date_of_check
       assert_equal @archived_patient.external_pledges.first.source,
@@ -95,7 +94,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient_audited = create :patient, primary_phone: '222-222-3333',
                                       other_phone: '222-222-4444',
                                       initial_call_date: 30.days.ago
-      @patient_audited.update fulfillment: { audited: true }
+      @patient_audited.fulfillment.update audited: true
       @patient_audited.save!
 
       @patient_unaudited = create :patient, primary_phone: '564-222-3333',
@@ -126,7 +125,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
                                       initial_call_date: 370.days.ago
-      @patient_old_unaudited.update fulfillment: { audited: false }
+      @patient_old_unaudited.fulfillment.update audited: false
       @patient_old_unaudited.save!
     end
 

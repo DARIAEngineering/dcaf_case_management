@@ -12,5 +12,5 @@ class ExternalPledge < ApplicationRecord
 
   # Validations
   validates :source, :amount, presence: true
-  validates :source, uniqueness: { scope: :active }
+  validates :source, uniqueness: { scope: [:active, :can_pledge] }
 end
