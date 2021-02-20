@@ -3,7 +3,7 @@ module EventLoggable
   extend ActiveSupport::Concern
 
   included do
-    after_create -> { log_event(event_params) }, if: :call?
+    after_save -> { log_event(event_params) }, if: :call?
 
     after_save -> { log_event(event_params) }, if: :pledge_was_sent?
   end
