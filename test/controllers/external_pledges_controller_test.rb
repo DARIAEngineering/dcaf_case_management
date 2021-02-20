@@ -67,7 +67,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     it 'should produce an audit trail' do
       assert_equal @pledge.versions.count, 2
       last_changes = @pledge.versions.first
-      assert_equal last_changes.actor, @user
+      assert_equal last_changes.user, @user
       assert_equal last_changes.object_changes['source'][1], 'Edited Pledge'
     end
 

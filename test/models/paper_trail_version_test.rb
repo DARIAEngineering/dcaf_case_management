@@ -5,7 +5,7 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
   before do
     @user = create :user # Can't do this until we port over the user model, for example
     with_versioning do
-      PaperTrail.request(whodunnit: @user) do
+      PaperTrail.request(whodunnit: @user.id) do
         @patient = create :patient, name: 'Susie Everyteen',
                                     primary_phone: '111-222-3333',
                                     appointment_date: Time.zone.now + 5.days,

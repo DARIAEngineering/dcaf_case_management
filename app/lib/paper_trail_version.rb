@@ -30,7 +30,7 @@ class PaperTrailVersion < PaperTrail::Version
   end
 
   def changed_by_user
-    actor&.name || 'System'
+    user&.name || 'System'
   end
 
   def shaped_changes

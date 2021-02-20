@@ -43,7 +43,7 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should return recently_called_patients accurately' do
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           assert_equal 0, @user.recently_called_patients('DC').count
 
           @patient.calls.create attributes_for(:call)
@@ -60,12 +60,12 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 1, @user.call_list_patients('MD').count
 
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           @patient.calls.create attributes_for(:call)
           assert_equal 1, @user.call_list_patients('DC').count
         end
 
-        PaperTrail.request(whodunnit: @user2) do
+        PaperTrail.request(whodunnit: create(:user).id) do
           @patient_2.calls.create attributes_for(:call)
           assert_equal 1, @user.call_list_patients('DC').count
         end
@@ -76,7 +76,7 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 0, @user.recently_called_patients('DC').count
 
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           @patient.calls.create attributes_for(:call, status: :reached_patient)
         end
       end
@@ -89,7 +89,7 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should not clear calls when patient has not been reached' do
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           assert_equal 0, @user.recently_called_patients('DC').count
           @patient.calls.create attributes_for(:call, status: :left_voicemail)
           @call = @patient.calls.first

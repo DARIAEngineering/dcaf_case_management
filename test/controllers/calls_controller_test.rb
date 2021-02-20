@@ -17,10 +17,8 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
   describe 'create method' do
     before do
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
-          @call = attributes_for :call, status: :reached_patient
-          post patient_calls_path(@patient), params: { call: @call }, xhr: true
-        end
+        @call = attributes_for :call, status: :reached_patient
+        post patient_calls_path(@patient), params: { call: @call }, xhr: true
       end
     end
 
@@ -61,7 +59,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
   describe 'destroy method' do
     it 'should destroy a call' do
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           @patient.calls.create attributes_for(:call)
         end
       end
