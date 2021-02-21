@@ -1,8 +1,22 @@
 # Extensions to base class of PaperTrail.
 class PaperTrailVersion < PaperTrail::Version
 
-  IRRELEVANT_FIELDS = %w[user_ids updated_by_id pledge_sent_by_id last_edited_by_id identifier updated_at].freeze
-  DATE_FIELDS = %w[appointment_date initial_call_date pledge_generated_at pledge_sent_at fund_pledged_at].freeze
+  IRRELEVANT_FIELDS = %w[
+    id
+    user_ids
+    updated_by_id
+    pledge_sent_by_id
+    last_edited_by_id
+    identifier
+    updated_at
+  ].freeze
+  DATE_FIELDS = %w[
+    appointment_date
+    initial_call_date
+    pledge_generated_at
+    pledge_sent_at
+    fund_pledged_at
+  ].freeze
 
   # convenience methods for clean view display
   # def date_of_change
