@@ -34,11 +34,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    # i18n-tasks-use t('mongoid.attributes.user.current_password')
-    # i18n-tasks-use t('mongoid.attributes.user.name')
-    # i18n-tasks-use t('mongoid.attributes.user.password')
-    # i18n-tasks-use t('mongoid.attributes.user.password_confirmation')
-    # i18n-tasks-use t('mongoid.attributes.user.role')
+    # i18n-tasks-use t('activerecord.attributes.user.current_password')
+    # i18n-tasks-use t('activerecord.attributes.user.name')
+    # i18n-tasks-use t('activerecord.attributes.user.password')
+    # i18n-tasks-use t('activerecord.attributes.user.password_confirmation')
+    # i18n-tasks-use t('activerecord.attributes.user.role')
     if @user.update user_params
       flash[:notice] = t('flash.user_update_success')
       redirect_to users_path

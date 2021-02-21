@@ -24,9 +24,9 @@ class ClinicsController < ApplicationController
   end
 
   def new
-    # i18n-tasks-use t('mongoid.attributes.clinic.phone')
-    # i18n-tasks-use t('mongoid.attributes.clinic.fax')
-    # i18n-tasks-use t('mongoid.attributes.clinic.active')
+    # i18n-tasks-use t('activerecord.attributes.clinic.phone')
+    # i18n-tasks-use t('activerecord.attributes.clinic.fax')
+    # i18n-tasks-use t('activerecord.attributes.clinic.active')
     @clinic = Clinic.new
   end
 
