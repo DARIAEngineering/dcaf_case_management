@@ -51,11 +51,8 @@ class EventTest < ActiveSupport::TestCase
     describe 'icon' do
       it 'should render the correct icon' do
         assert_equal 'phone-alt', build(:event, event_type: :couldnt_reach_patient).icon
-
         assert_equal 'comment', build(:event, event_type: :reached_patient).icon
-
         assert_equal 'thumbs-up', build(:event, event_type: :pledged).icon
-
         assert_equal 'phone-alt', build(:event, event_type: :left_voicemail).icon
       end
     end

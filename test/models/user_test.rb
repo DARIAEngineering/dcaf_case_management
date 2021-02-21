@@ -3,9 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   # Since this is a devise install, devise is handling
   # general stuff like creation timestamps etc.
-  before do
-    @user = create :user
-  end
+  before { @user = create :user }
 
   describe 'basic validations' do
     it 'should be able to build an object' do
@@ -229,16 +227,13 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'should find inactive users with logins before cutoff and disable' do
-        [@disabled_user, @no_login_user].each do |user|
-          user.reload
-          assert user.disabled_by_fund?
-        end
+        # disabled and no-login should be shut off
+        assert @disabled_user.reload.disabled_by_fund?
+        assert @no_login_user.reload.disabled_by_fund?
 
         # No locking admins or users with recent activity
-        [@admin, @nondisabled_user].each do |user|
-          user.reload
-          assert_not user.disabled_by_fund?
-        end
+        refute @admin.disabled_by_fund?
+        refute @nondisabled_user.disabled_by_fund?
       end
     end
   end
