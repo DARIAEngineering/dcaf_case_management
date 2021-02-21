@@ -63,7 +63,7 @@ class PatientsController < ApplicationController
 
   def update
     @patient.last_edited_by = current_user
-    if @patient.update_attributes patient_params
+    if @patient.update patient_params
       @patient.reload
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
     else

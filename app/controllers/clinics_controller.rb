@@ -33,7 +33,7 @@ class ClinicsController < ApplicationController
   def edit; end
 
   def update
-    if @clinic.update_attributes clinic_params
+    if @clinic.update clinic_params
       flash[:notice] = t('flash.clinic_details_updated')
       redirect_to clinics_path
     else
