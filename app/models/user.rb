@@ -34,6 +34,7 @@ class User < ApplicationRecord
   # Validations
   # email presence validated through Devise
   validates :name, :role, presence: true
+  validates_format_of :email, with: Devise::email_regexp
   validate :secure_password
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months
