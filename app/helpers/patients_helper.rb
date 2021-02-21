@@ -117,13 +117,17 @@ module PatientsHelper
                               { data: { naf: !!clinic.accepts_naf, medicaid: !!clinic.accepts_medicaid } }
                             ]}
                             .unshift nil
-    inactive_clinics = clinics.reject(&:active)
-                              .map { |clinic| [
-                                t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: FUND, clinic_name: clinic.name),
-                                clinic.id,
-                                { data: { naf: !!clinic.accepts_naf, medicaid: !!clinic.accepts_medicaid } }
-                              ]}
-                              .unshift ["--- #{t('patient.abortion_information.clinic_section.inactive_clinics').upcase} ---", nil, { disabled: true }]
+    inactive_clinics = if clinics.reject(&:active).count > 0
+                         clinics.reject(&:active)
+                           .map { |clinic| [
+                             t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: FUND, clinic_name: clinic.name),
+                             clinic.id,
+                             { data: { naf: !!clinic.accepts_naf, medicaid: !!clinic.accepts_medicaid } }
+                           ]}
+                           .unshift ["--- #{t('patient.abortion_information.clinic_section.inactive_clinics').upcase} ---", nil, { disabled: true }]
+                       else
+                         []
+                       end
     active_clinics | inactive_clinics
   end
 
