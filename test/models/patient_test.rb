@@ -400,14 +400,6 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'contacted_since method' do
-      it 'should return a hash' do
-        datetime = 5.days.ago
-        hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
-        assert_equal hash, Patient.contacted_since(datetime)
-      end
-    end
-
     describe 'destroy_associated_events method' do
       it 'should nuke associated events on patient destroy' do
         assert_difference 'Event.count', -1 do
