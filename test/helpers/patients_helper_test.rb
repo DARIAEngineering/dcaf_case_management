@@ -72,10 +72,12 @@ class PatientsHelperTest < ActionView::TestCase
     end
 
     it 'should return all clinics' do
-      expected_clinic_array = [nil,
-                               [@active.name, @active.id],
-                               ['--- INACTIVE CLINICS ---', nil],
-                               ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id]]
+      expected_clinic_array = [
+        nil,
+       [@active.name, @active.id, { data: { naf: false, medicaid: false }}],
+       ['--- INACTIVE CLINICS ---', nil, { disabled: true }],
+       ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
+     ]
 
       assert_same_elements clinic_options, expected_clinic_array
     end
