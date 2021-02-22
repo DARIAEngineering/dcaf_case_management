@@ -157,7 +157,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
 
       it 'should flash an error' do
-        assert_equal "Error saving user details - Name can't be blank",
+        assert_equal "Error saving user details - First and last name can't be blank",
                      flash[:alert]
       end
     end

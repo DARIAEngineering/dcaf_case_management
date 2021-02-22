@@ -487,7 +487,6 @@ class PatientTest < ActiveSupport::TestCase
                       clinic: @clinic,
                       appointment_date: 14.days.from_now,
                       last_edited_by: @user,
-                      fund_pledge: true,
                       pledge_sent: true
       @patient.reload
       assert_in_delta Time.zone.now.to_f, @patient.pledge_sent_at.to_f, 15 #used assert_in_delta to account for slight differences in timing. Allows 15 seconds of lag?
