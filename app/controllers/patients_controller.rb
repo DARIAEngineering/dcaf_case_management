@@ -125,7 +125,7 @@ class PatientsController < ApplicationController
   ].freeze
 
   FULFILLMENT_PARAMS = [
-    fulfillment_attributes: [:fulfilled, :procedure_date, :gestation_at_procedure,
+    fulfillment_attributes: [:id, :fulfilled, :procedure_date, :gestation_at_procedure,
                              :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 

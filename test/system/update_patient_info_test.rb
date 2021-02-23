@@ -326,7 +326,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'Procedure date',
                           with: 2.days.from_now.strftime('%Y-%m-%d')
         assert_equal '12',
-                     find('#patient_fulfillment_gestation_at_procedure').value
+                     find('#patient_fulfillment_attributes_gestation_at_procedure').value
         assert has_field? 'DCAF payout', with: 100
         assert has_field? 'Check #', with: '444-22'
         assert has_checked_field? 'Fulfillment audited?'
