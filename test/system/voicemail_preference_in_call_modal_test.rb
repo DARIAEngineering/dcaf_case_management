@@ -2,12 +2,15 @@ require 'application_system_test_case'
 
 # Confirm display behavior around whether a patient should receive VMs
 class VoicemailPreferenceInCallModalTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @patient = create :patient, name: 'Susan Everyteen'
     @user = create :user
     log_in_as @user
   end
 
+  # this test is flaky
   describe 'different voicemail preferences and links' do
     describe 'no voicemail' do
       before do
