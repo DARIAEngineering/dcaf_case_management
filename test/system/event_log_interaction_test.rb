@@ -69,7 +69,7 @@ class EventLogInteractionTest < ApplicationSystemTestCase
 
         visit authenticated_root_path
         within :css, '#activity_log_content' do
-          assert has_content? "#{@user.name} sent a pledge for " \
+          assert has_content? "#{@user.name} sent a $100 pledge for " \
                               "#{@patient.name}"
         end
       end
