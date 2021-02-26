@@ -94,18 +94,18 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
     # end
 
     it 'should uncheck when all fields are empty' do
-      fill_in 'patient_fulfillment_fund_payout', with: '10'
-      fill_in 'patient_fulfillment_check_number', with: '10340'
-      fill_in 'patient_fulfillment_procedure_date', with: '2017/05/25'
-      select '1 week', from: 'patient_fulfillment_gestation_at_procedure'
+      fill_in 'patient_fulfillment_attributes_fund_payout', with: '10'
+      fill_in 'patient_fulfillment_attributes_check_number', with: '10340'
+      fill_in 'patient_fulfillment_attributes_procedure_date', with: '2017/05/25'
+      select '1 week', from: 'patient_fulfillment_attributes_gestation_at_procedure'
       assert has_checked_field? 'Pledge fulfilled'
 
-      fill_in 'patient_fulfillment_fund_payout', with: ''
-      fill_in 'patient_fulfillment_check_number', with: ''
+      fill_in 'patient_fulfillment_attributes_fund_payout', with: ''
+      fill_in 'patient_fulfillment_attributes_check_number', with: ''
       assert has_checked_field? 'Pledge fulfilled'
 
-      fill_in 'patient_fulfillment_procedure_date', with: ''
-      select '', from: 'patient_fulfillment_gestation_at_procedure'
+      fill_in 'patient_fulfillment_attributes_procedure_date', with: ''
+      select '', from: 'patient_fulfillment_attributes_gestation_at_procedure'
       assert has_no_checked_field? 'Pledge fulfilled'
     end
   end
