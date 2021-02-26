@@ -5,13 +5,13 @@ class PatientTest < ActiveSupport::TestCase
 
   before do
     @user = create :user
-    @patient = create :patient, other_phone: '111-222-3333',
-                                other_contact: 'Yolo'
 
-    @patient2 = create :patient, other_phone: '333-222-3333',
-                                 other_contact: 'Foobar'
     with_versioning do
       PaperTrail.request(whodunnit: @user) do
+      @patient = create :patient, other_phone: '111-222-3333',
+                                  other_contact: 'Yolo'
+      @patient2 = create :patient, other_phone: '333-222-3333',
+                                 other_contact: 'Foobar'
         @patient.calls.create attributes_for(:call, status: :reached_patient)
       end
     end
@@ -304,9 +304,11 @@ class PatientTest < ActiveSupport::TestCase
   describe 'methods' do
     describe 'urgent patients class method' do
       before do
-        create :patient
-        2.times { create :patient, urgent_flag: true }
-        create :patient, urgent_flag: true, line: 'MD'
+        with_versioning do
+          create :patient
+          2.times { create :patient, urgent_flag: true }
+          create :patient, urgent_flag: true, line: 'MD'
+        end
       end
 
       it 'should return urgent patients by line' do
@@ -350,7 +352,10 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'still urgent method' do
       it 'should return true if marked urgent in last 6 days' do
-        @patient.update urgent_flag: true
+        with_versioning do
+          @patient.update urgent_flag: true
+          @patient.reload
+        end
         assert @patient.still_urgent?
       end
 
