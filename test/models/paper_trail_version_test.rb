@@ -80,9 +80,10 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
     end
 
     it "should attach versions to config" do
-      assert @config.versions.count == 1
+      assert_equal 1, @config.versions.count
       assert_difference '@config.versions.count', 1 do
         @config.update config_value: ['Metallica']
+        @config.reload
       end
     end
   end
