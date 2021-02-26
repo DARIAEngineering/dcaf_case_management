@@ -82,6 +82,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       wait_for_element 'Patient information'
       assert has_link? 'Pledge Fulfillment'
       click_link 'Pledge Fulfillment'
+      wait_for_element 'Please confirm that the clinic and pledge amounts are correct'
     end
 
     # FLAKY TEST 2018-10-20
