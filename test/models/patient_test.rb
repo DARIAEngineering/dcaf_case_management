@@ -339,8 +339,10 @@ class PatientTest < ActiveSupport::TestCase
     describe 'history check methods' do
       it 'should say whether a patient is still urgent' do
         # TODO: TIMECOP
-        @patient.urgent_flag = true
-        @patient.save
+        with_versioning do
+          @patient.update urgent_flag: true
+          @patient.reload
+        end
 
         assert @patient.still_urgent?
       end
