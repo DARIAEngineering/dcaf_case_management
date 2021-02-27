@@ -43,12 +43,12 @@ class PracticalSupportTest < ActiveSupport::TestCase
     end
 
     it 'should enforce uniqueness of support_type' do
-      fields = attributes_for :practical_support
-      support1 = @patient.practical_supports.new fields
-      assert support1.save
+      fields = attributes_for :practical_support, support_type: 'hello'
+      support1 = @patient.practical_supports.create fields
+      assert support1.valid?
 
       support2 = @patient.practical_supports.new fields
-      refute support2.save
+      refute support2.valid?
       assert_equal ['is already taken'],
                    support2.errors.messages[:support_type]
     end

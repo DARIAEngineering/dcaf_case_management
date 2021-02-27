@@ -1,3 +1,4 @@
+# Representation of non-monetary assistance coordinated for a patient.
 class PracticalSupport
   include Mongoid::Document
   include Mongoid::Timestamps

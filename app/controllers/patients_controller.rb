@@ -20,11 +20,11 @@ class PatientsController < ApplicationController
     patient.created_by = current_user
     if patient.save
       flash[:notice] = t('flash.new_patient_save')
+      current_user.add_patient patient
     else
       flash[:alert] = t('flash.new_patient_error', error: patient.errors.full_messages.to_sentence)
     end
 
-    current_user.add_patient patient
     redirect_to root_path
   end
 
