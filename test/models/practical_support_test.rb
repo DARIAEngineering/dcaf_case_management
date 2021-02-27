@@ -26,7 +26,7 @@ class PracticalSupportTest < ActiveSupport::TestCase
     end
 
     it 'should enforce uniqueness of support_type' do
-      fields = attributes_for :practical_support, support_type: 'what'
+      fields = attributes_for :practical_support, support_type: 'hello'
       support1 = @patient.practical_supports.create fields
       assert support1.valid?
 

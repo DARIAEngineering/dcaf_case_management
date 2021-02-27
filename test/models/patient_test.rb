@@ -23,7 +23,7 @@ class PatientTest < ActiveSupport::TestCase
   describe 'callbacks' do
     before do
       @new_patient = build :patient, name: '  Name With Whitespace  ',
-                                     other_contact: '  also name with whitespace ',
+                                     other_contact: ' also name with whitespace ',
                                      other_contact_relationship: '  something ',
                                      primary_phone: '111-222-3333',
                                      other_phone: '999-888-7777'
