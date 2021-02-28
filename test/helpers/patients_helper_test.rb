@@ -68,14 +68,25 @@ class PatientsHelperTest < ActionView::TestCase
   describe 'clinic options' do
     before do
       @active = create :clinic, name: 'active clinic', active: true
-      @inactive = create :clinic, name: 'closed clinic', active: false
     end
 
     it 'should return all clinics' do
-      expected_clinic_array = [nil,
-                               [@active.name, @active.id],
-                               ['--- INACTIVE CLINICS ---', nil],
-                               ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id]]
+      @inactive = create :clinic, name: 'closed clinic', active: false
+      expected_clinic_array = [
+        nil,
+        [@active.name, @active.id, { data: { naf: false, medicaid: false }}],
+        ['--- INACTIVE CLINICS ---', nil, { disabled: true }],
+        ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
+      ]
+
+      assert_same_elements clinic_options, expected_clinic_array
+    end
+
+    it 'should skip inactive clinics section if there are not any' do
+      expected_clinic_array = [
+        nil,
+        [@active.name, @active.id, { data: { naf: false, medicaid: false }}]
+      ]
 
       assert_same_elements clinic_options, expected_clinic_array
     end
