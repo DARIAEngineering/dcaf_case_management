@@ -1,4 +1,6 @@
-// Filter clinics to just whether they accept medicaid when checking boxes in patient edit view.
+// Filter clinics to just whether they accept medicaid/naf
+// when checking boxes in patient edit view, by graying out
+// select options.
 const filterClinicsByNAF = () => {
   const checked = $('#patient_naf_filter').prop('checked');
   $('#patient_clinic_id > option').each((_index, element) => {

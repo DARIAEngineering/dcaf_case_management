@@ -1,6 +1,6 @@
 # Clinic-related functionality.
 class ClinicsController < ApplicationController
-  before_action :confirm_admin_user, except: [:index]
+  before_action :confirm_admin_user
   before_action :find_clinic, only: [:update, :edit]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
 
@@ -8,7 +8,6 @@ class ClinicsController < ApplicationController
     @clinics = Clinic.all.sort_by { |c| [c.name] }
     respond_to do |format|
       format.html
-      format.json { render json: @clinics }
     end
   end
 
