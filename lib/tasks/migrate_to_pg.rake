@@ -52,6 +52,18 @@ namespace :migrate_to_pg do
 
     migrate_model(pg, mongo, extra_transform)
   end
+
+  task patient: :environment do
+    pg = Patient
+    mongo = MongoPatient
+
+    extra_transform = Proc.new do |attrs, obj|
+      attrs['mongo_id'] = obj['_id'].to_s
+      attrs
+    end
+
+    migrate_model(pg, mongo, extra_transform)
+  end
 end
 
 # Convenience function to slice attributes

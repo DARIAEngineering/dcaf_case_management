@@ -5,6 +5,9 @@ class CreateNotes < ActiveRecord::Migration[6.0]
 
       t.references :patient
 
+      # Scratch field - temporary BSON ID from Mongo so we can link things back
+      t.string :mongo_id
+
       t.timestamps
     end
   end

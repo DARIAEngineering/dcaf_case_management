@@ -7,6 +7,9 @@ class CreateCallListEntries < ActiveRecord::Migration[6.0]
       t.string :line, null: false
       t.integer :order_key, null: false
 
+      # Scratch field - temporary BSON ID from Mongo so we can link things back
+      t.string :mongo_id
+
       t.timestamps
     end
 

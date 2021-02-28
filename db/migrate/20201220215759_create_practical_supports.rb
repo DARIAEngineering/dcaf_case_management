@@ -7,6 +7,9 @@ class CreatePracticalSupports < ActiveRecord::Migration[6.0]
 
       t.references :can_support, polymorphic: true
 
+      # Scratch field - temporary BSON ID from Mongo so we can link things back
+      t.string :mongo_id
+
       t.timestamps
     end
   end

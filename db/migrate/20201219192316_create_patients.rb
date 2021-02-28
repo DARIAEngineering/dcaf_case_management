@@ -51,6 +51,9 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.references :pledge_sent_by, foreign_key: { to_table: :users }
       t.references :last_edited_by, foreign_key: { to_table: :users }
 
+      # Scratch field - temporary BSON ID from Mongo so we can link things back
+      t.string :mongo_id
+
       t.timestamps
     end
 

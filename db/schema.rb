@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.bigint "clinic_id"
     t.bigint "pledge_generated_by_id"
     t.bigint "pledge_sent_by_id"
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.bigint "patient_id", null: false
     t.string "line", null: false
     t.integer "order_key", null: false
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["line"], name: "index_call_list_entries_on_line"
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.integer "status", null: false
     t.string "can_call_type", null: false
     t.bigint "can_call_id", null: false
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["can_call_type", "can_call_id"], name: "index_calls_on_can_call_type_and_can_call_id"
@@ -152,6 +155,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.boolean "active"
     t.string "can_pledge_type", null: false
     t.bigint "can_pledge_id", null: false
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["can_pledge_type", "can_pledge_id"], name: "index_external_pledges_on_can_pledge_type_and_can_pledge_id"
@@ -167,6 +171,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.boolean "audited"
     t.string "can_fulfill_type", null: false
     t.bigint "can_fulfill_id", null: false
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["audited"], name: "index_fulfillments_on_audited"
@@ -177,6 +182,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
     t.bigint "patient_id"
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_notes_on_patient_id"
@@ -227,6 +233,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.bigint "pledge_generated_by_id"
     t.bigint "pledge_sent_by_id"
     t.bigint "last_edited_by_id"
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
@@ -249,6 +256,7 @@ ActiveRecord::Schema.define(version: 2021_02_14_070442) do
     t.string "source"
     t.string "can_support_type"
     t.bigint "can_support_id"
+    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
