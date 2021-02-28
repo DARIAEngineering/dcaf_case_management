@@ -4,6 +4,8 @@ class MongoArchivedPatient
   include Mongoid::Userstamp
   extend Enumerize
 
+  store_in collection: 'archived_patients'
+
   # Concerns
   include Exportable
   include LastMenstrualPeriodMeasureable
