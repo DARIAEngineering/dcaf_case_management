@@ -79,14 +79,59 @@ namespace :migrate_to_pg do
       # Then calls
       pg = Call
       mongo = MongoCall
-
       extra_transform = Proc.new do |attrs, obj, doc|
         attrs['can_call'] = Patient.find_by! mongo_id: doc['_id'].to_s
         attrs['status'] = MongoCall::ALLOWED_STATUSES[obj['status']]
         attrs
       end
+      migrate_submodel(pg, MongoPatient, mongo, 'calls', 'can_call', extra_transform)
 
-      migrate_submodel(Call, MongoPatient, MongoCall, 'calls', extra_transform)
+      # Then ext pledges
+      pg = ExternalPledge
+      mongo = MongoExternalPledge
+      extra_transform = Proc.new do |attrs, obj, doc|
+        attrs['can_pledge'] = Patient.find_by! mongo_id: doc['_id'].to_s
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'external_pledges', 'can_pledge', extra_transform)
+
+      # Then psupports
+      pg = PracticalSupport
+      mongo = MongoPracticalSupport
+      extra_transform = Proc.new do |attrs, obj, doc|
+        attrs['can_support'] = Patient.find_by! mongo_id: doc['_id'].to_s
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'practical_supports', 'can_support', extra_transform)
+
+      # Then notes
+      pg = Note
+      mongo = MongoNote
+      extra_transform = Proc.new do |attrs, obj, doc|
+        attrs['patient_id'] = Patient.find_by!(mongo_id: doc['_id'].to_s).id
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'notes', 'patient_id', extra_transform)
+
+      # # Then call list entries
+      # pg = Note
+      # mongo = MongoNote
+      # extra_transform = Proc.new do |attrs, obj, doc|
+      #   attrs['patient_id'] = Patient.find_by!(mongo_id: obj['patient_id'].to_s).id
+      #   attrs['user_id'] = User.find_by!(mongo_id: obj['user_id'].to_s).id
+      #   attrs
+      # end
+      # migrate_submodel(pg, MongoPatient, mongo, 'call_list_entries', 'patient_id', extra_transform)
+
+      # Then fulfillment
+      pg = Fulfillment
+      mongo = MongoFulfillment
+      extra_transform = Proc.new do |attrs, obj, doc|
+        binding.pry
+        attrs['patient_id'] = Patient.find_by!(mongo_id: obj['patient_id'].to_s).id
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'fulfillment', 'can_fulfill', extra_transform)
     end
   end
 end
@@ -100,7 +145,11 @@ def migrate_model(pg_model, mongo_model, transform = nil)
     # If a model specific transform is required, do it here
     pg_attrs = transform.call(pg_attrs, obj) if transform.present?
 
-    pg_model.create! pg_attrs
+    pg_obj = pg_model.create! pg_attrs
+
+    if obj['created_by_id'].present?
+      pg_obj.versions.first.update whodunnit: User.find_by!(mongo_id: obj['created_by_id'].to_s).id
+    end
   end
 
   if pg_model.count != mongo_model.count
@@ -110,7 +159,7 @@ def migrate_model(pg_model, mongo_model, transform = nil)
   puts "#{pg_model.count} migrated to pg"
 end
 
-def migrate_submodel(pg_model, mongo_origin, mongo_submodel, relation, transform = nil)
+def migrate_submodel(pg_model, mongo_origin, mongo_submodel, relation, parent_relation, transform = nil)
   attributes = pg_model.attribute_names
   mongo_origin.collection.find.batch_size(100).each do |doc|
     mongo_objs = doc[relation] || []
@@ -126,8 +175,8 @@ def migrate_submodel(pg_model, mongo_origin, mongo_submodel, relation, transform
       end
     end
 
-    if pg_model.where("can_#{relation.singularize}".to_sym => Patient.find_by!(mongo_id: doc['_id'].to_s)).count != mongo_objs.count
-      raise 'PG and mongo counts are in disagreement; aborting'
+    if pg_model.where(parent_relation.to_sym => Patient.find_by!(mongo_id: doc['_id'].to_s)).count != mongo_objs.count
+      raise "PG and mongo counts for #{relation} are in disagreement; aborting"
     end
   end
   puts "#{pg_model.count} #{relation} migrated to pg"
