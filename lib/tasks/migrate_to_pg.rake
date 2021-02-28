@@ -30,7 +30,7 @@ namespace :migrate_to_pg do
     mongo = MongoClinic
 
     extra_transform = Proc.new do |attrs, obj|
-      attrs['mongo_id'] = obj['id'].to_s # Save Mongo UUID
+      attrs['mongo_id'] = obj['_id'].to_s # Save Mongo UUID
       attrs
     end
 
