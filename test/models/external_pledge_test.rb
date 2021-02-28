@@ -37,7 +37,7 @@ class ExternalPledgeTest < ActiveSupport::TestCase
       end
     end
 
-    it 'should scope source uniqueness to a particular document' do
+    it 'should scope source uniqueness to a patient' do
       pledge = @patient.external_pledges
                        .create attributes_for(:external_pledge,
                                               amount: 200,

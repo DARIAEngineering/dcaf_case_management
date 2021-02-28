@@ -22,7 +22,7 @@ class CallListEntryTest < ActiveSupport::TestCase
       call_list_user = @call_list_entry.user_id
 
       entry = build :call_list_entry, patient_id: call_list_pt,
-                                          user_id: call_list_user
+                                      user_id: call_list_user
       refute entry.valid?
       assert_equal 'Patient is already taken',
                    entry.errors.full_messages.first

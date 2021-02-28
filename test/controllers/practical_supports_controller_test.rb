@@ -17,7 +17,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should create and save a new support record' do
       @support[:support_type] = 'different'
-      assert_difference 'Patient.find(@patient).practical_supports.count', 1 do
+      assert_difference 'Patient.find(@patient.id).practical_supports.count', 1 do
         post patient_practical_supports_path(@patient), params: { practical_support: @support }, xhr: true
       end
     end
@@ -33,7 +33,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should log the creating user' do
-      assert_equal Patient.find(@patient).practical_supports.last.created_by,
+      assert_equal Patient.find(@patient.id).practical_supports.last.created_by,
                    @user
     end
   end
@@ -87,7 +87,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should destroy a support record' do
-      assert_difference 'Patient.find(@patient).practical_supports.count', -1 do
+      assert_difference 'Patient.find(@patient.id).practical_supports.count', -1 do
         delete patient_practical_support_path(@patient, @support), xhr: true
       end
     end

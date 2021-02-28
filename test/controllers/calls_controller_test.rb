@@ -21,7 +21,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should create and save a new call' do
-      assert_difference 'Patient.find(@patient).calls.count', 1 do
+      assert_difference 'Patient.find(@patient.id).calls.count', 1 do
         post patient_calls_path(@patient), params: { call: @call }, xhr: true
       end
     end
@@ -41,7 +41,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     it 'should not save and flash an error if status is blank or bad' do
       [nil, 'not a real status'].each do |bad_status|
         call = attributes_for :call, status: bad_status
-        assert_no_difference 'Patient.find(@patient).calls.count' do
+        assert_no_difference 'Patient.find(@patient.id).calls.count' do
           post patient_calls_path(@patient), params: { call: call }, xhr: true
         end
         assert_response :bad_request
@@ -49,7 +49,8 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should log the creating user' do
-      assert_equal Patient.find(@patient).calls.last.created_by, @user
+      assert_equal Patient.find(@patient.id).calls.last.created_by,
+                   @user
     end
   end
 
@@ -57,7 +58,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     it 'should destroy a call' do
       @patient.calls.create attributes_for(:call, created_by: @user)
       call = @patient.calls.first
-      assert_difference 'Patient.find(@patient).calls.count', -1 do
+      assert_difference 'Patient.find(@patient.id).calls.count', -1 do
         delete patient_call_path(@patient, call), params: { id: call.id },
                                                   xhr: true
       end
@@ -66,7 +67,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     it 'should not allow user to destroy calls created by others' do
       @patient.calls.create attributes_for(:call, created_by: create(:user))
       call = @patient.calls.first
-      assert_no_difference 'Patient.find(@patient).calls.count' do
+      assert_no_difference 'Patient.find(@patient.id).calls.count' do
         delete patient_call_path(@patient, call), params: { id: call.id },
                                                   xhr: true
       end
@@ -77,7 +78,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
       @patient.calls.create attributes_for(:call, created_by: @user,updated_at: Time.zone.now - 1.day)
       call = @patient.calls.first
 
-      assert_no_difference 'Patient.find(@patient).calls.count' do
+      assert_no_difference 'Patient.find(@patient.id).calls.count' do
         delete patient_call_path(@patient, call), params: { id: call.id },
                                                   xhr: true
       end

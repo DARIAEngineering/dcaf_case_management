@@ -14,7 +14,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should create and save a new note' do
-      assert_difference 'Patient.find(@patient).notes.count', 1 do
+      assert_difference 'Patient.find(@patient.id).notes.count', 1 do
         post patient_notes_path(@patient), params: { note: @note }, xhr: true
       end
     end
@@ -24,12 +24,12 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should log the creating user' do
-      assert_equal Patient.find(@patient).notes.first.created_by, @user
+      assert_equal Patient.find(@patient.id).notes.first.created_by, @user
     end
 
     it 'should alert failure if there is not text or an associated patient' do
       @note[:full_text] = nil
-      assert_no_difference 'Patient.find(@patient).notes.count' do
+      assert_no_difference 'Patient.find(@patient.id).notes.count' do
         post patient_notes_path(@patient), params: { note: @note }, xhr: true
       end
       assert_response :bad_request
