@@ -60,20 +60,18 @@ namespace :migrate_to_pg do
   end
 
   task patient: :environment do
-    # First, patient
-    pg = Patient
-    mongo = MongoPatient
-
-    extra_transform = Proc.new do |attrs, obj|
-      attrs['mongo_id'] = obj['_id'].to_s
-      attrs['clinic_id'] = Clinic.find_by(mongo_id: obj['clinic_id'].to_s)&.id
-      attrs['pledge_generated_by_id'] = User.find_by(mongo_id: obj['pledge_generated_by_id'].to_s)&.id
-      attrs['pledge_sent_by_id'] = User.find_by(mongo_id: obj['pledge_sent_by_id'].to_s)&.id
-      attrs['last_edited_by_id'] = User.find_by(mongo_id: obj['last_edited_by_id'].to_s)&.id
-      attrs
-    end
-
     ActiveRecord::Base.transaction do
+      # First, patient
+      pg = Patient
+      mongo = MongoPatient
+      extra_transform = Proc.new do |attrs, obj|
+        attrs['mongo_id'] = obj['_id'].to_s
+        attrs['clinic_id'] = Clinic.find_by(mongo_id: obj['clinic_id'].to_s)&.id
+        attrs['pledge_generated_by_id'] = User.find_by(mongo_id: obj['pledge_generated_by_id'].to_s)&.id
+        attrs['pledge_sent_by_id'] = User.find_by(mongo_id: obj['pledge_sent_by_id'].to_s)&.id
+        attrs['last_edited_by_id'] = User.find_by(mongo_id: obj['last_edited_by_id'].to_s)&.id
+        attrs
+      end
       migrate_model(pg, mongo, extra_transform)
       Fulfillment.destroy_all
 
@@ -135,6 +133,60 @@ namespace :migrate_to_pg do
       migrate_model(pg, mongo, extra_transform)
     end
   end
+
+  task archived_patient: :environment do
+    ActiveRecord::Base.transaction do
+      # First, patient
+      pg = ArchivedPatient
+      mongo = MongoArchivedPatient
+      extra_transform = Proc.new do |attrs, obj|
+        attrs['mongo_id'] = obj['_id'].to_s
+        attrs['clinic_id'] = Clinic.find_by(mongo_id: obj['clinic_id'].to_s)&.id
+        attrs['pledge_generated_by_id'] = User.find_by(mongo_id: obj['pledge_generated_by_id'].to_s)&.id
+        attrs['pledge_sent_by_id'] = User.find_by(mongo_id: obj['pledge_sent_by_id'].to_s)&.id
+        attrs
+      end
+      migrate_model(pg, mongo, extra_transform)
+      Fulfillment.destroy_all
+
+      # Then calls
+      pg = Call
+      mongo = MongoCall
+      extra_transform = Proc.new do |attrs, obj, doc|
+        attrs['can_call'] = ArchivedPatient.find_by! mongo_id: doc['_id'].to_s
+        attrs['status'] = MongoCall::ALLOWED_STATUSES[obj['status']]
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'calls', 'can_call', extra_transform)
+
+      # Then ext pledges
+      pg = ExternalPledge
+      mongo = MongoExternalPledge
+      extra_transform = Proc.new do |attrs, obj, doc|
+        attrs['can_pledge'] = ArchivedPatient.find_by! mongo_id: doc['_id'].to_s
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'external_pledges', 'can_pledge', extra_transform)
+
+      # Then psupports
+      pg = PracticalSupport
+      mongo = MongoPracticalSupport
+      extra_transform = Proc.new do |attrs, obj, doc|
+        attrs['can_support'] = ArchivedPatient.find_by! mongo_id: doc['_id'].to_s
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'practical_supports', 'can_support', extra_transform)
+
+      # Then fulfillment
+      pg = Fulfillment
+      mongo = MongoFulfillment
+      extra_transform = Proc.new do |attrs, obj, doc|
+        attrs['can_fulfill'] = ArchivedPatient.find_by! mongo_id: doc['_id'].to_s
+        attrs
+      end
+      migrate_submodel(pg, MongoPatient, mongo, 'fulfillment', 'can_fulfill', extra_transform)
+    end
+  end
 end
 
 # Convenience function to slice attributes
@@ -148,9 +200,13 @@ def migrate_model(pg_model, mongo_model, transform = nil)
 
     pg_obj = pg_model.create! pg_attrs
 
-    if obj['created_by_id'].present?
-      pg_obj.versions.first.update whodunnit: User.find_by!(mongo_id: obj['created_by_id'].to_s).id
-    end
+    # begin
+      if obj['created_by_id'].present?
+        pg_obj.versions.first.update whodunnit: User.find_by!(mongo_id: obj['created_by_id'].to_s).id
+      end
+    # rescue ActiveRecord::RecordNotFound
+    #   binding.pry
+    # end
   end
 
   if pg_model.count != mongo_model.count
@@ -183,7 +239,6 @@ def migrate_submodel(pg_model, mongo_origin, mongo_submodel, relation, parent_re
       # If a model specific transform is required, do it here
       pg_attrs = transform.call(pg_attrs, mongo_objs, doc) if transform.present?
 
-
       pg_obj = pg_model.create! pg_attrs
       if mongo_objs['created_by_id'].present?
         pg_obj.versions.first.update whodunnit: User.find_by!(mongo_id: mongo_objs['created_by_id'].to_s).id
@@ -197,7 +252,7 @@ def migrate_submodel(pg_model, mongo_origin, mongo_submodel, relation, parent_re
       end
     else
       if obj_count > 1
-        raise '???'
+        raise '??? better msg here'
       end
     end
   end
