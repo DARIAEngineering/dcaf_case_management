@@ -65,7 +65,7 @@ class ClinicFinderTest < ActiveSupport::TestCase
 
     it 'should have mirroring clinic and clinic_structs on init' do
       @abortron.clinic_structs.each do |clinic_struct|
-        clinic = @clinics.find clinic_struct._id
+        clinic = @clinics.find clinic_struct.id
         clinic.attributes.each_pair do |k, _v|
           attr_value = clinic.instance_variable_get("@#{k}")
           assert_equal attr_value, clinic_struct[k] if attr_value

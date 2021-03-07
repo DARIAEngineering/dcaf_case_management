@@ -13,6 +13,22 @@ es:
       weeks_at_procedure: Semanas en el procedimiento
       weeks_at_procedure_display: "%{gestation} semanas"
     title: Tablero de contador
+  activerecord:
+    attributes:
+      clinic:
+        accepts_medicaid: Acepta Medicaid
+        accepts_naf: Acepta NAF
+        active: Activo
+        city: Ciudad
+        distance: Distancia
+        fax: Fax
+        gestational_limit: Límite gestacional (en días)
+        location: Ubicación
+        name: Nombre
+        phone: Teléfono
+        state: Estado
+        street_address: Dirección
+        zip: Código postal
   call:
     new:
       call_now: 'Llame a %{name} ahora:'
@@ -191,20 +207,6 @@ es:
       what_line: "¿En cuál línea estás trabajando?"
   mongoid:
     attributes:
-      clinic:
-        accepts_medicaid: Acepta Medicaid
-        accepts_naf: Acepta NAF
-        active: Activo
-        city: Ciudad
-        distance: Distancia
-        fax: Fax
-        gestational_limit: Límite gestacional (en días)
-        location: Ubicación
-        name: Nombre
-        phone: Teléfono
-        state: Estado
-        street_address: Dirección
-        zip: Código postal
       patient:
         age: Edad
         appointment_date: Día de la cita
