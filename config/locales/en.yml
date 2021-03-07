@@ -13,6 +13,22 @@ en:
       weeks_at_procedure: Weeks at procedure
       weeks_at_procedure_display: "%{gestation} weeks"
     title: Accountant dashboard
+  activerecord:
+    attributes:
+      clinic:
+        accepts_medicaid: Accepts Medicaid
+        accepts_naf: Accepts NAF
+        active: Active
+        city: City
+        distance: Distance
+        fax: Fax
+        gestational_limit: Gestational limit (in days)
+        location: Location
+        name: Name
+        phone: Phone
+        state: State
+        street_address: Street address
+        zip: ZIP        
   call:
     new:
       call_now: 'Call %{name} now:'
@@ -195,20 +211,6 @@ en:
       what_line: What line are you working on?
   mongoid:
     attributes:
-      clinic:
-        accepts_medicaid: Accepts Medicaid
-        accepts_naf: Accepts NAF
-        active: Active
-        city: City
-        distance: Distance
-        fax: Fax
-        gestational_limit: Gestational limit (in days)
-        location: Location
-        name: Name
-        phone: Phone
-        state: State
-        street_address: Street address
-        zip: ZIP
       patient:
         age: Age
         appointment_date: Appointment date
