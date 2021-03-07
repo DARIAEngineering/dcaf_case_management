@@ -157,7 +157,7 @@ end
 
 def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, parent_relation, transform = nil)
   attributes = pg_model.attribute_names
-  mongo_model.collection.find.batch_size(100).each do |doc|
+  mongo_pt_model.collection.find.batch_size(100).each do |doc|
     mongo_objs = doc[relation] || []
 
     if mongo_objs.is_a? Array
