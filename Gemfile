@@ -34,7 +34,9 @@ gem 'paper_trail', '~> 10.3'
 gem 'paper_trail-globalid'
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.7.3'
+# This is a temporary solution until the new version of devise gets published (current version: 4.7.3)
+# https://github.com/heartcombo/devise/pull/5327
+gem 'devise', github: 'heartcombo/devise', branch: 'master'
 gem 'omniauth-google-oauth2', '~> 0.8.1'
 
 # We report errors with sentry
