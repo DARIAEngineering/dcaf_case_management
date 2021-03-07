@@ -4,13 +4,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery prepend: true, with: :exception
 
+  prepend_before_action :authenticate_user!
+  prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
   before_action :set_locale
   before_action :set_raven_context
-   # before_action :set_paper_trail_whodunnit # Turn on when user model is in pg 
-   prepend_before_action :authenticate_user!
-  prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
+  # before_action :set_paper_trail_whodunnit # Turn on when user model is in pg 
 
   # whitelists attributes in devise
   def configure_permitted_parameters
