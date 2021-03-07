@@ -34,8 +34,8 @@ gem 'paper_trail', '~> 10.3'
 gem 'paper_trail-globalid'
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.7'
-gem 'omniauth-google-oauth2', '~> 0.8.0'
+gem 'devise', '~> 4.7.3'
+gem 'omniauth-google-oauth2', '~> 0.8.1'
 
 # We report errors with sentry
 gem 'sentry-raven'
