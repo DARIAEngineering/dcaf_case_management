@@ -1,33 +1,60 @@
 # Object representing a clinic that a patient is going to.
-class Clinic < ApplicationRecord
-  # Concerns
-  include PaperTrailable
+class MongoClinic
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::History::Trackable
+  include Mongoid::Userstamp
 
   # Clinics intentionally excluded from ClinicFinder are assigned the zip 99999.
   # e.g. so a fund can have an 'OTHER CLINIC' catchall.
   EXCLUDED_ZIP = '99999'
 
+  # Relationships
+  has_many :patients
+  has_many :archived_patients
+
   # Scopes
-  # Is gestational_limit either nil or above x?
+  # Is gestatiional_limit either nil or above x?
   scope :gestational_limit_above, ->(gestation) {
-    where(gestational_limit: nil).or(where(gestational_limit: gestation..))
+    any_of({:gestational_limit.in => [nil]},
+           {:gestational_limit.gte => gestation})
   }
 
   # Callbacks
   before_save :update_coordinates, if: :address_changed?
 
+  # Fields
+  field :name, type: String
+  field :street_address, type: String
+  field :city, type: String
+  field :state, type: String
+  field :zip, type: String
+  field :phone, type: String
+  field :fax, type: String
+  field :active, type: Boolean, default: true
+  field :accepts_naf, type: Boolean, default: false
+  field :accepts_medicaid, type: Boolean, default: false
+  field :gestational_limit, type: Integer
+  field :coordinates, type: Array
+  # costs_5wks, costs_6wks, ..., costs_30wks
+  (5..30).each { |i| field "costs_#{i}wks".to_sym, type: Integer }
+
   # Validations
   validates :name, :street_address, :city, :state, :zip, presence: true
   validates :name, uniqueness: true
+
+  # History and auditing
+  track_history on: fields.keys + [:updated_by_id],
+                version_field: :version,
+                track_create: true,
+                track_update: true,
+                track_destroy: true
+  mongoid_userstamp user_model: 'User'
 
   # Methods
   def display_location
     return nil if city.blank? || state.blank?
     "#{city}, #{state}"
-  end
-
-  def display_coordinates
-    coordinates.map(&:to_f)
   end
 
   def full_address
