@@ -14,7 +14,10 @@
     <% if Config::HELP_TEXT_OVERRIDES[config.config_key.to_sym] %>
     <% else %>
       <%= bootstrap_form_with model: config, inline: true, local: true do |f| %>
-        <%= f.select t('configs.config.current_options'), public_send("#{config.config_key}_options").compact %>
+        <%= f.select :current, 
+              public_send("#{config.config_key}_options").compact,
+              { label: t('configs.config.current_options') },
+              { id: "current_options_#{config.config_key}" }  %>
       <% end %>
     <% end %>
   </div>
