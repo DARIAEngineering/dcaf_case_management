@@ -13,13 +13,9 @@
   <div class="col" id="<%= config.config_key.to_s %>_options_list">
     <% if Config::HELP_TEXT_OVERRIDES[config.config_key.to_sym] %>
     <% else %>
-      <label><%= t('configs.config.current_options') %></label>
-      <br />
-      <select>
-        <% public_send("#{config.config_key}_options").compact.each do |opt| %>
-          <option><%= opt.is_a?(Array) ? opt[0] : opt %></option>
-        <% end %>
-      </select>
+      <%= bootstrap_form_with model: config, inline: true, local: true do |f| %>
+        <%= f.select t('configs.config.current_options'), public_send("#{config.config_key}_options").compact %>
+      <% end %>
     <% end %>
   </div>
 </div>
