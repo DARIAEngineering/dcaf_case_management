@@ -15,9 +15,11 @@
     <% else %>
       <label><%= t('configs.config.current_options') %></label>
       <br />
-      <% public_send("#{config.config_key}_options").each do |opt| %>
-        <%= opt %><br />
-      <% end %>
+      <select>
+        <% public_send("#{config.config_key}_options").compact.each do |opt| %>
+          <option><%= opt.is_a?(Array) ? opt[0] : opt %></option>
+        <% end %>
+      </select>
     <% end %>
   </div>
 </div>
