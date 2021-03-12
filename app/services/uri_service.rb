@@ -5,7 +5,7 @@ class UriService
     return nil if uri.nil?
 
     begin 
-      @uri = URI.parse(URI.encode(uri))
+      @uri = URI.parse(uri)
     rescue URI::InvalidURIError
       nil
     end

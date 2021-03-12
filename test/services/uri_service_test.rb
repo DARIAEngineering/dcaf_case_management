@@ -2,10 +2,12 @@ require 'test_helper'
 
 class UriServiceTest < ActiveSupport::TestCase
   describe 'URI service utility' do
-    it 'instantiates a uri from string' do
-      uri = UriService.new("some yolo test uri").uri
-      assert uri.is_a?(URI)
-    end
+    ## this is an invalid URL
+    # it 'instantiates a uri from string' do
+    #   uri = UriService.new("some yolo test uri").uri
+    #   puts uri
+    #   assert uri.is_a?(URI)
+    # end
     
     it 'instantiates nil on invalidURIs' do
       uri = UriService.new(":::::::::::").uri
