@@ -14,7 +14,6 @@ class ConfigsController < ApplicationController
       flash[:notice] = t('flash.config_update_success')
       redirect_to configs_path
     else
-      logger.info("@@@@ bad url; error: #{@config.errors.full_messages.to_sentence}")
       flash[:danger] = t('flash.config_failed_update', error: @config.errors.full_messages.to_sentence)
       redirect_to configs_path
     end
