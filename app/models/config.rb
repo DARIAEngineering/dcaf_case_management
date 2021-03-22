@@ -32,15 +32,13 @@ class Config < ApplicationRecord
     voicemail: 12,
   }
 
-  # which fields are URLs
+  # which fields are URLs (run special validation only on those)
   Config_URLs = %w[fax_service practical_support_guidance_url resources_url]
 
-
   # Validations
-  # before_validation :clean_urls
-
   validates :config_key, uniqueness: true, presence: true
 
+  before_validation :clean_urls, if: -> { Config_URLs.include? config_key }
   validate :validate_urls, if: -> { Config_URLs.include? config_key }
 
   # Methods
@@ -82,8 +80,6 @@ class Config < ApplicationRecord
 
   def validate_urls
     url = options.try :last
-    logger.info("==== RUNNING VALIDATE ===== ")
-    logger.info(url)
 
     if not url =~ /\A#{URI::regexp(['https'])}\z/
       errors.add :base, "\"#{url}\" is not a valid URL for #{config_key.humanize}."
@@ -92,35 +88,22 @@ class Config < ApplicationRecord
 
 
   def clean_urls
-    # only run this for URL configs, above
-    return unless Config_URLs.include? config_key
-
-    logger.info("===== RUNNING CLEAN URLS =======")
-
-    logger.info("#{config_key}: #{options.try :last}")
-    logger.info("full val #{config_value}")
-
     url = options.try :last
 
     # don't have to do anything
     return if url.start_with? 'https://'
 
+    # convert http or // to https://
+    if url.start_with? /(http:)?\/\//
+        url = url.sub /^(http:)?\/\//, 'https://'
 
-    return false
+    # convert no scheme to https:// (i.e. example.com -> https://example.com)
+    elsif not url.start_with? '/'
+        url = 'https://' + url
+    end
 
-    # # convert http or // to https://
-    # if url.start_with? /(http:)?\/\//
-    #     url = url.sub /(http:)?\/\//, 'https://'
-
-    # # convert no scheme to https://
-    # elsif not url.start_with? '/'
-    #     url = 'https://' + s
-    # end
-
-    # # set config back to what it was
-    # config_value['options'] = [url]
-
-    logger.info("===== END CLEAN URLS ===========")
+    # set config back to what it was
+    config_value['options'] = [url]
   end
 
 end
