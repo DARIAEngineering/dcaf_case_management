@@ -9,12 +9,14 @@ class ConfigsController < ApplicationController
   def update
     @config = Config.find params[:id]
     @config.config_value = format_config_params(config_params)
+
     if @config.save
       flash[:notice] = t('flash.config_update_success')
       redirect_to configs_path
     else
-      flash[:danger] = t('flash.config_failed_update')
-      render 'index'
+      logger.info("@@@@ bad url; error: #{@config.errors.full_messages.to_sentence}")
+      flash[:danger] = t('flash.config_failed_update', error: @config.errors.full_messages.to_sentence)
+      redirect_to configs_path
     end
   end
 
