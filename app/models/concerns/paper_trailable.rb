@@ -8,10 +8,18 @@ module PaperTrailable
   end
 
   def created_by
-    versions.first&.actor
+    versions.last&.user
   end
 
   def created_by_id
     created_by&.id
+  end
+
+  def updated_by
+    versions.last&.user
+  end
+
+  def updated_by_id
+    updated_by&.id
   end
 end
