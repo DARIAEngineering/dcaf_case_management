@@ -3,6 +3,31 @@ require 'test_helper'
 class ConfigTest < ActiveSupport::TestCase
   before { @config = create :config }
 
+  describe 'callbacks' do
+    it 'should clean URLs before save' do
+      # doesn't touch https
+      c = Config.find_or_create_by(config_key: 'resources_url')
+      c.config_value = { options: ["https://good.com"] }
+      c.save
+      assert_equal "https://good.com", c.options.last
+
+      # doesn't touch empty
+      c.config_value = { options: [] }
+      c.save
+      assert_nil c.options.last
+
+      # adds scheme if left off
+      c.config_value = { options: ["www.needs-scheme.net"] }
+      c.save
+      assert_equal "https://www.needs-scheme.net", c.options.last
+
+      # converts http to https
+      c.config_value = { options: ["http://not-very-safe.biz/path"]}
+      c.save
+      assert_equal "https://not-very-safe.biz/path", c.options.last
+    end
+  end
+
   describe 'validations' do
     it 'should build' do
       assert @config.valid?
@@ -18,6 +43,26 @@ class ConfigTest < ActiveSupport::TestCase
       @bad_config = build :config, config_key: nil
       refute @bad_config.valid?
       assert @bad_config.errors.messages[:config_key].include? "can't be blank"
+    end
+
+    it 'should validate URLs' do
+      c = Config.find_or_create_by(config_key: 'fax_service')
+      
+      # good
+      c.config_value = { options: ["https://good.com"] }
+      assert c.valid?
+
+      # good but needs cleanup
+      c.config_value = { options: ["www.efax.com/path"] }
+      assert c.valid?
+
+      # bad
+      c.config_value = { options: ["bad url"] }
+      refute c.valid?
+
+      # allow no URL
+      c.config_value = { options: [] }
+      assert c.valid?
     end
   end
 

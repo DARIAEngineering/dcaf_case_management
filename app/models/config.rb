@@ -82,7 +82,7 @@ class Config < ApplicationRecord
     url = options.try :last
 
     # empty url is allowed
-    return if url.nil?
+    return if url.blank?
 
     if not url =~ /\A#{URI::regexp(['https'])}\z/
       errors.add :base, "\"#{url}\" is not a valid URL for #{config_key.humanize}."
@@ -94,7 +94,7 @@ class Config < ApplicationRecord
     url = options.try :last
 
     # don't try to clean empty url
-    return if url.nil?
+    return if url.blank?
 
     # don't have to do anything, already https
     return if url.start_with? 'https://'

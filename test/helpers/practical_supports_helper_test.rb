@@ -113,7 +113,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
   describe 'practical_support_guidance_link' do
     before do
       @config = create :config, config_key: :practical_support_guidance_url,
-                                config_value: { options: ['https://www.yahoo.com'] }
+                                config_value: { options: ['www.yahoo.com'] }
     end
 
     it 'should return nil if config is not set' do
