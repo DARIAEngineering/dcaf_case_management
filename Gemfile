@@ -62,6 +62,9 @@ gem 'js-routes' # Not sure if this is used anymore
 gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
+# Stuff hardsetting because of a rails dependency mess
+gem 'mimemagic', '>= 0.3.7'
+
 group :development do
   gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys
   gem 'rails-i18n', '~> 6.0' # dependency of i18n-tasks, hardset to a rails-6-compat version
