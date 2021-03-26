@@ -62,7 +62,7 @@ module WelcomeMessageHelper
       "Thank you for all the great work that you do! Hang in there!",
       "You are appreciated, you are loved, your work makes a differnces! Thank you for all you do! 👏👏👏",
       "Thank you for the critical, wonderful work you do. You're awesome!",
-      "Keep on crushing it! You are awesome.",
+      "Keep on crushing it! You are awesome."
     ]
   end
 end
