@@ -4,8 +4,8 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DCAF_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev shared-mime-info" \
-    APP_DEPENDENCIES="nodejs yarn git sudo sassc" \
+    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev" \
+    APP_DEPENDENCIES="nodejs yarn git sudo sassc shared-mime-info" \
     AHAB_DEPENDENCIES="ca-certificates curl" \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
