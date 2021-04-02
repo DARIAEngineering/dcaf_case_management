@@ -50,7 +50,7 @@ class Config < ApplicationRecord
 
   # run `clean_url` before validating a url. this is checked based on validation
   # function. not the cleanest but prevents code duplication
-  before_validation :clean_url, if: -> { VALIDATIONS[config_key] == :validate_url }
+  before_validation :clean_url, if: -> { VALIDATIONS[config_key.to_sym] == :validate_url }
   validate :validate_config
 
   # Methods
@@ -96,29 +96,41 @@ class Config < ApplicationRecord
   # parent function. will handle errors; child validators should return true
   # if value is valid for key, and false otherwise.
   def validate_config
-    val_f = VALIDATIONS[config_key]
+    val_f = method(VALIDATIONS[config_key.to_sym])
 
-    # no validation for this field
+    logger.info("VALIDATE_CONFIG #{config_key}: #{config_value} func #{val_f}")
+
+    # no validation for this field, ignore
     return if val_f.nil?
 
+    # allow empty config
+    return if options.last.nil?
+
     # run the validator and get a boolean
-    return if VALIDATIONS[config_key].()
+    return if val_f.()
 
-    val = options.try :last
-
-    errors.add(:invalid_value_for, "#{config_key.humanize}: '#{val}'.")
+    errors.add(:invalid_value_for, "#{config_key.humanize}: '#{options.last}'.")
   end
 
+  START_OF_WEEK = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+    "monthly"
+  ]
+
   def validate_start_of_week
-    return true
-    # check list
+    return START_OF_WEEK.include?(options.last.downcase)
   end
 
   def validate_url
-    url = options.try :last
+    url = options.last
 
-    # empty url is allowed
-    if url.blank? || url =~ /\A#{URI::regexp(['https'])}\z/
+    if url =~ /\A#{URI::regexp(['https'])}\z/
       return true
     end
 
@@ -127,7 +139,7 @@ class Config < ApplicationRecord
 
 
   def clean_url
-    url = options.try :last
+    url = options.last
 
     # don't try to clean empty url
     return if url.blank?
