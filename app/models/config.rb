@@ -32,14 +32,26 @@ class Config < ApplicationRecord
     voicemail: 12,
   }
 
-  # which fields are URLs (run special validation only on those)
-  Config_URLs = %w[fax_service practical_support_guidance_url resources_url]
+
+  VALIDATIONS = {
+    start_of_week: :validate_start_of_week,
+
+    # hide_practical_support: validate_hide_practical_support,
+
+    # budget_bar_max: validate_number,
+    
+    resources_url: :validate_url,
+    fax_service: :validate_url,
+    practical_support_guidance_url: :validate_url
+  }
 
   # Validations
   validates :config_key, uniqueness: true, presence: true
 
-  before_validation :clean_urls, if: -> { Config_URLs.include? config_key }
-  validate :validate_urls, if: -> { Config_URLs.include? config_key }
+  # run `clean_url` before validating a url. this is checked based on validation
+  # function. not the cleanest but prevents code duplication
+  before_validation :clean_url, if: -> { VALIDATIONS[config_key] == :validate_url }
+  validate :validate_config
 
   # Methods
   def options
@@ -78,19 +90,43 @@ class Config < ApplicationRecord
   end
 
 
-  def validate_urls
+  ## private?
+
+
+  # parent function. will handle errors; child validators should return true
+  # if value is valid for key, and false otherwise.
+  def validate_config
+    val_f = VALIDATIONS[config_key]
+
+    # no validation for this field
+    return if val_f.nil?
+
+    # run the validator and get a boolean
+    return if VALIDATIONS[config_key].()
+
+    val = options.try :last
+
+    errors.add(:invalid_value_for, "#{config_key.humanize}: '#{val}'.")
+  end
+
+  def validate_start_of_week
+    return true
+    # check list
+  end
+
+  def validate_url
     url = options.try :last
 
     # empty url is allowed
-    return if url.blank?
-
-    if not url =~ /\A#{URI::regexp(['https'])}\z/
-      errors.add :base, "\"#{url}\" is not a valid URL for #{config_key.humanize}."
+    if url.blank? || url =~ /\A#{URI::regexp(['https'])}\z/
+      return true
     end
+
+    return false    
   end
 
 
-  def clean_urls
+  def clean_url
     url = options.try :last
 
     # don't try to clean empty url
