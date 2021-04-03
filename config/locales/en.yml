@@ -28,7 +28,14 @@ en:
         phone: Phone
         state: State
         street_address: Street address
-        zip: ZIP        
+        zip: ZIP
+      user:
+        current_password: Current password
+        email: Email
+        name: First and last name
+        password: Password
+        password_confirmation: Password confirmation
+        role: Role
   call:
     new:
       call_now: 'Call %{name} now:'
@@ -256,13 +263,6 @@ en:
         confirmed: Confirmed
         source: Source
         support_type: Support type
-      user:
-        current_password: Current password
-        email: Email
-        name: First and last name
-        password: Password
-        password_confirmation: Password confirmation
-        role: Role
   navigation:
     admin_tools:
       accounting: Accounting
