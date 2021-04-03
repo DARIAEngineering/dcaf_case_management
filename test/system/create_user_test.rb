@@ -32,9 +32,12 @@ class CreateUserTest < ApplicationSystemTestCase
     it 'should validate form correctly' do
       click_button 'Add'
       assert_text "can't be blank"
+      fill_in 'Name', with: 'whatev'
 
-      fill_in 'Email', with: 'test@test'
-      click_button 'Add'
+      fill_in 'Email', with: 'cats'
+      assert_no_difference 'User.count' do
+        click_button 'Add'
+      end
       assert_text 'is invalid'
     end
   end

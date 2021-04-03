@@ -1,7 +1,7 @@
 # Controller allowing authentication via google oauth.
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  rescue_from Mongoid::Errors::DocumentNotFound,
-              with: -> { redirect_to root_path }
+  rescue_from ActiveRecord::RecordNotFound,
+              with: -> { reject_login }
 
   # i18n-tasks-use  t('devise.sessions.failure.user.unauthenticated')
   # i18n-tasks-use t('devise.sessions.user.signed_in')
