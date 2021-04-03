@@ -61,23 +61,20 @@ Config.create config_key: :start_of_week,
                             initial_call_date: 3.days.ago,
                             urgent_flag: i.even?,
                             last_menstrual_period_weeks: (i + 1 * 2),
-                            last_menstrual_period_days: 3,
-                            created_by: user2
+                            last_menstrual_period_days: 3
 
   # Create associated objects
   case i
   when 0
     10.times do
       patient.calls.create! status: 'Reached patient',
-                            created_at: 3.days.ago,
-                            created_by: user2
+                            created_at: 3.days.ago
     end
   when 1
     patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
                     other_phone: '234-456-6789', other_contact_relationship: 'Sister'
     patient.calls.create! status: 'Reached patient',
-                          created_at: 14.hours.ago,
-                          created_by: user
+                          created_at: 14.hours.ago
   when 2
     # appointment one week from today && clinic selected
     patient.update! name: 'Clinic and Appt - 2',
@@ -102,8 +99,7 @@ Config.create config_key: :start_of_week,
     patient.update! name: 'Special Circumstances - 4',
                     special_circumstances: ['Prison', 'Fetal anomaly']
     # And a recent call on file
-    patient.calls.create! status: 'Left voicemail',
-                          created_by: user
+    patient.calls.create! status: 'Left voicemail'
   when 5
     # Resolved without DCAF
     patient.update! name: 'Resolved without DCAF - 5',
@@ -113,20 +109,17 @@ Config.create config_key: :start_of_week,
   if i != 9
     5.times do
       patient.calls.create! status: 'Left voicemail',
-                            created_at: 3.days.ago,
-                            created_by: user2
+                            created_at: 3.days.ago
     end
   end
 
   # Add notes for most patients
   unless [0, 1].include? i
-    patient.notes.create! full_text: note_text,
-                          created_by: user2
+    patient.notes.create! full_text: note_text
   end
 
   if i.even?
-    patient.notes.create! full_text: additional_note_text,
-                          created_by: user2
+    patient.notes.create! full_text: additional_note_text
   end
 
   # Add select patients to call list for user
