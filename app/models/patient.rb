@@ -290,6 +290,9 @@ class Patient
     name.strip! if name
     other_contact.strip! if other_contact
     other_contact_relationship.strip! if other_contact_relationship
+
+    # add dash if needed
+    zipcode.gsub!(/(\d{5})(\d{4})/, '\1-\2') if zipcode
   end
 
   def initialize_fulfillment
