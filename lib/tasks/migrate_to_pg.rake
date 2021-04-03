@@ -39,6 +39,18 @@ namespace :migrate_to_pg do
         attrs
       end
       migrate_model pg, mongo, extra_transform
+
+      # Next, users
+      pg = User
+      mongo = MongoUser
+      # This doesn't seem to port over passwords, maybe because encryptor changed?
+      extra_transform = Proc.new do |attrs, obj|
+        attrs['mongo_id'] = obj['_id'].to_s
+        attrs['password'] = obj['encrypted_password'].to_s
+        attrs['password_confirmation'] = obj['encrypted_password'].to_s
+        attrs
+      end
+      migrate_model pg, mongo, extra_transform
     end
   end
 end
@@ -50,9 +62,13 @@ def migrate_model(pg_model, mongo_model, transform = nil)
     pg_attrs = obj.slice(*attributes)
 
     # If a model specific transform is required, do it here
-    pg_attrs = transform.call(pg_attrs) if transform.present?
+    pg_attrs = transform.call(pg_attrs, obj) if transform.present?
 
-    pg_model.create! pg_attrs
+    pg_obj = pg_model.create! pg_attrs
+
+    if obj['created_by_id'].present?
+      pg_obj.versions.first.update whodunnit: User.find_by(mongo_id: obj['created_by_id'].to_s)&.id
+    end
   end
 
   if pg_model.count != mongo_model.count

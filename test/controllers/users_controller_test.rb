@@ -13,7 +13,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   describe 'authentication for restricted endpoints' do
     %w[users_path new_user_path].each do |endpoint|
       it "should redirect if user is not admin - #{endpoint}" do
-        User.role.values.reject { |role| role == :admin }.each do |role|
+        User.roles.keys.reject { |role| role == 'admin' }.each do |role|
           @user.update role: role
           get send(endpoint.to_sym)
           assert_response :redirect
@@ -22,7 +22,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it "should redirect if user is not admin - edit_user" do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user_2 = create :user
         @user.update role: role
         get edit_user_path(@user)
@@ -32,7 +32,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     %w[admin data_volunteer cm].each do |endpoint|
       it "should redirect if user is not admin - #{endpoint}" do
-        User.role.values.reject { |role| role == :admin }.each do |role|
+        User.roles.keys.reject { |role| role == 'admin' }.each do |role|
           @user.update role: role
           patch send("change_role_to_#{endpoint}_path".to_sym, @user_2)
           assert_response :redirect
@@ -41,7 +41,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond unauthorized if user is not admin - users_search' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
         post users_search_path, params: { search: '' }, xhr: true
         assert_response :unauthorized
@@ -49,7 +49,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should redirect if user is not admin - user update' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
         patch user_path(@user_2), params: { user: {} }
         assert_response :redirect
@@ -57,7 +57,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond unauthorized if user is not admin - user update' do
-      User.role.values.reject { |role| role == :admin }.each do |role|
+      User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
         assert_no_difference 'User.count' do
           post users_path, params: { user: attributes_for(:user) }
