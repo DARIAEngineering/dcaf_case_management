@@ -1,6 +1,6 @@
 # DARIA (DCAF Case Manager)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![CircleCI](https://circleci.com/gh/DCAFEngineering/dcaf_case_management.svg?style=shield)](https://circleci.com/gh/DCAFEngineering/dcaf_case_management)
@@ -114,6 +114,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="http://www.simpsonsworld.com/video/436278339668"><img src="https://avatars.githubusercontent.com/u/3866868?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Colin</b></sub></a><br /><a href="#maintenance-colinxfleming" title="Maintenance">🚧</a> <a href="#projectManagement-colinxfleming" title="Project Management">📆</a> <a href="#eventOrganizing-colinxfleming" title="Event Organizing">📋</a> <a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=colinxfleming" title="Code">💻</a> <a href="#infra-colinxfleming" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#mentoring-colinxfleming" title="Mentoring">🧑‍🏫</a> <a href="https://github.com/DCAFEngineering/dcaf_case_management/pulls?q=is%3Apr+reviewed-by%3Acolinxfleming" title="Reviewed Pull Requests">👀</a> <a href="#question-colinxfleming" title="Answering Questions">💬</a></td>
     <td align="center"><a href="https://github.com/verbingthenoun"><img src="https://avatars.githubusercontent.com/u/19561734?v=4?s=50" width="50px;" alt=""/><br /><sub><b>alexa silverman</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/issues?q=author%3Averbingthenoun" title="Bug reports">🐛</a> <a href="#ideas-verbingthenoun" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-verbingthenoun" title="Answering Questions">💬</a></td>
+    <td align="center"><a href="https://github.com/xmunoz"><img src="https://avatars.githubusercontent.com/u/1065196?v=4?s=50" width="50px;" alt=""/><br /><sub><b>Cristina</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=xmunoz" title="Code">💻</a> <a href="#infra-xmunoz" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
 </table>
 

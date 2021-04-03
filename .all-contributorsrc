@@ -36,6 +36,16 @@
         "ideas",
         "question"
       ]
+    },
+    {
+      "login": "xmunoz",
+      "name": "Cristina",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1065196?v=4",
+      "profile": "https://github.com/xmunoz",
+      "contributions": [
+        "code",
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7
