@@ -41,7 +41,6 @@ class User < ApplicationRecord
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months
   SEARCH_LIMIT = 15
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   def updating_password?
     return !password.nil?

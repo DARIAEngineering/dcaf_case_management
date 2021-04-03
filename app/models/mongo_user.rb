@@ -1,6 +1,6 @@
 # Object representing a case manager.
 # Fields are all devise settings; most of the methods relate to call list mgmt.
-class User
+class MongoUser
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Userstamp::User
