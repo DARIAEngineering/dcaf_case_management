@@ -33,24 +33,31 @@ class Config < ApplicationRecord
   }
 
 
+  CLEAN_PRE_VALIDATION = {
+    start_of_week: :fix_capitalization,
+    hide_practical_support: :fix_capitalization,
+
+    resources_url: :clean_url,
+    fax_service: :clean_url,
+    practical_support_guidance_url: :clean_url
+  }
+
+  before_validation :clean_config_value
+
+
   VALIDATIONS = {
     start_of_week: :validate_start_of_week,
 
-    # hide_practical_support: validate_hide_practical_support,
+    hide_practical_support: :validate_hide_practical_support,
 
-    # budget_bar_max: validate_number,
+    budget_bar_max: :validate_number,
     
     resources_url: :validate_url,
     fax_service: :validate_url,
     practical_support_guidance_url: :validate_url
   }
 
-  # Validations
   validates :config_key, uniqueness: true, presence: true
-
-  # run `clean_url` before validating a url. this is checked based on validation
-  # function. not the cleanest but prevents code duplication
-  before_validation :clean_url, if: -> { VALIDATIONS[config_key.to_sym] == :validate_url }
   validate :validate_config
 
   # Methods
@@ -89,75 +96,97 @@ class Config < ApplicationRecord
     start.downcase.to_sym
   end
 
+  private
+    ### Pre-validation cleanup
 
-  ## private?
+    def clean_config_value
+      # do nothing if empty
+      return if options.last.nil?
 
+      clean_f = CLEAN_PRE_VALIDATION[config_key.to_sym]
 
-  # parent function. will handle errors; child validators should return true
-  # if value is valid for key, and false otherwise.
-  def validate_config
-    val_f = method(VALIDATIONS[config_key.to_sym])
+      return if clean_f.nil?
 
-    logger.info("VALIDATE_CONFIG #{config_key}: #{config_value} func #{val_f}")
-
-    # no validation for this field, ignore
-    return if val_f.nil?
-
-    # allow empty config
-    return if options.last.nil?
-
-    # run the validator and get a boolean
-    return if val_f.()
-
-    errors.add(:invalid_value_for, "#{config_key.humanize}: '#{options.last}'.")
-  end
-
-  START_OF_WEEK = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-    "monthly"
-  ]
-
-  def validate_start_of_week
-    return START_OF_WEEK.include?(options.last.downcase)
-  end
-
-  def validate_url
-    url = options.last
-
-    if url =~ /\A#{URI::regexp(['https'])}\z/
-      return true
+      method(clean_f).()
     end
 
-    return false    
-  end
+    def clean_url
+      url = options.last
 
+      # don't try to clean empty url
+      return if url.blank?
 
-  def clean_url
-    url = options.last
+      # don't have to do anything, already https
+      return if url.start_with? 'https://'
 
-    # don't try to clean empty url
-    return if url.blank?
+      # convert http or // to https://
+      if url.start_with? /(http:)?\/\//
+          url = url.sub /^(http:)?\/\//, 'https://'
 
-    # don't have to do anything, already https
-    return if url.start_with? 'https://'
+      # convert no scheme to https:// (i.e. example.com -> https://example.com)
+      elsif not url.start_with? '/'
+          url = 'https://' + url
+      end
 
-    # convert http or // to https://
-    if url.start_with? /(http:)?\/\//
-        url = url.sub /^(http:)?\/\//, 'https://'
-
-    # convert no scheme to https:// (i.e. example.com -> https://example.com)
-    elsif not url.start_with? '/'
-        url = 'https://' + url
+      # set config back to what it was
+      config_value['options'] = [url]
     end
 
-    # set config back to what it was
-    config_value['options'] = [url]
-  end
+    def fix_capitalization
+      config_value['options'] = [options.last.capitalize]
+    end
+
+    ### Validation
+
+    # parent function. will handle errors; child validators should return true
+    # if value is valid for key, and false otherwise.
+    def validate_config
+      val_f = VALIDATIONS[config_key.to_sym]
+
+      logger.info("VALIDATE_CONFIG #{config_key}: #{config_value} func #{val_f}")
+
+      # no validation for this field, ignore
+      return if val_f.nil?
+
+      # allow empty config
+      return if options.last.nil?
+
+      # run the validator and get a boolean
+      return if method(val_f).()
+
+      errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
+    end
+
+    START_OF_WEEK = [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+      "sunday",
+      "monthly"
+    ].freeze
+
+    def validate_start_of_week
+      return START_OF_WEEK.include?(options.last.downcase)
+    end
+
+    def validate_url
+      url = options.last
+
+      # handle special case that URI regex forgets
+      return false if url == 'https://'
+
+      return url =~ /\A#{URI::regexp(['https'])}\z/  
+    end
+
+    def validate_hide_practical_support
+      return options.last =~ /\Ayes\z/i
+    end
+
+    def validate_number
+      return options.last =~ /\A\d+\z/
+    end
 
 end
