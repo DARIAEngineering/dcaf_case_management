@@ -1,0 +1,31 @@
+{
+  "projectName": "dcaf_case_management",
+  "projectOwner": "DCAFEngineering",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 50,
+  "commit": true,
+  "commitConvention": "atom",
+  "contributors": [
+    {
+      "login": "colinxfleming",
+      "name": "Colin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3866868?v=4",
+      "profile": "http://www.simpsonsworld.com/video/436278339668",
+      "contributions": [
+        "maintenance",
+        "projectManagement",
+        "eventOrganizing",
+        "code",
+        "infra",
+        "mentoring",
+        "review",
+        "question"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
