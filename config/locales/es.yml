@@ -29,6 +29,13 @@ es:
         state: Estado
         street_address: Dirección
         zip: Código postal
+      user:
+        current_password: Contraseña actual
+        email: Correo Electrónico/Email
+        name: Nombre y apellido
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        role: Papel
   call:
     new:
       call_now: 'Llame a %{name} ahora:'
@@ -252,13 +259,6 @@ es:
         confirmed: Confirmado
         source: Fuente
         support_type: Tipo de apoyo
-      user:
-        current_password: Contraseña actual
-        email: Correo Electrónico/Email
-        name: Nombre y apellido
-        password: Contraseña
-        password_confirmation: Confirmación de contraseña
-        role: Papel
   navigation:
     admin_tools:
       accounting: Contabilidad

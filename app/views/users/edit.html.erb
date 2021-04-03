@@ -22,7 +22,7 @@
       <%= role_toggle_button @user, 'cm' %>
     </div>
     <br /><br />
-    <% User.role.values.each do |r| %>
+    <% User.roles.keys.each do |r| %>
       <p><%= t("user.roles.#{r}") %></p>
     <% end %>
   <% end %>
