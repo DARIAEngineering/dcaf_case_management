@@ -46,7 +46,7 @@ es:
       locked: Tu cuenta está bloqueada.
       not_found_in_database: "%{authentication_keys} o contraseña inválidos."
       timeout: Tu sesión expiró. Por favor, inicia sesión nuevamente para continuar.
-      unauthenticated: Tienes que iniciar sesión o registrarte para poder continuar.
+      unauthenticated: "" # Don't want to display this msg on redirect
       unconfirmed: Tienes que confirmar tu cuenta para poder continuar.
     mailer:
       confirmation_instructions:
