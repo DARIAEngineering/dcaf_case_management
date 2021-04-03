@@ -42,7 +42,8 @@
         </div>
 
         <%= f.text_field :county, autocomplete: 'off' %>
-        <%= f.text_field :zipcode, autocomplete: 'off', pattern: '\d{5}'%>
+        <%= f.text_field :zipcode, autocomplete: 'off',
+                          pattern: '^\d{5}(-?\d{4})?$'%>
 
         <h3><%= t 'patient.information.other_contact.title' %></h3>
         <%= f.text_field :other_contact,
