@@ -25,6 +25,17 @@
         "review",
         "question"
       ]
+    },
+    {
+      "login": "verbingthenoun",
+      "name": "alexa silverman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19561734?v=4",
+      "profile": "https://github.com/verbingthenoun",
+      "contributions": [
+        "bug",
+        "ideas",
+        "question"
+      ]
     }
   ],
   "contributorsPerLine": 7
