@@ -8,7 +8,7 @@ module PaperTrailable
   end
 
   def created_by
-    versions.last&.user
+    versions.first&.user
   end
 
   def created_by_id
