@@ -10,7 +10,7 @@ gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Asset pipeline
-gem 'webpacker', '~> 5.0'
+gem 'webpacker', '~> 5.2'
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.5.0'
 gem 'bootstrap_form', '~> 4.5.0'
@@ -61,6 +61,9 @@ gem 'js-routes' # Not sure if this is used anymore
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
+
+# Stuff hardsetting because of a rails dependency mess
+gem 'mimemagic', '>= 0.3.7'
 
 group :development do
   gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys

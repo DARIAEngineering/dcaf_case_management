@@ -50,7 +50,8 @@ If you prefer a local environment, totally cool! We recommend the following:
 ### Zeroth, system dependencies
 * Install:
   * Git, python2, & openssl-dev
-  * Ubuntu: `sudo apt install git python2 openssl libssl-dev`
+  * Ubuntu: `sudo apt install git python2 openssl libssl-dev shared-mime-info`
+  * Mac: `brew install git python2 openssl shared-mime-info`
 
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).

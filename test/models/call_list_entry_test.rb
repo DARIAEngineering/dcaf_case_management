@@ -21,11 +21,14 @@ class CallListEntryTest < ActiveSupport::TestCase
       call_list_pt = @call_list_entry.patient_id
       call_list_user = @call_list_entry.user_id
 
-      bad_entry = build :call_list_entry, patient_id: call_list_pt,
+      entry = build :call_list_entry, patient_id: call_list_pt,
                                           user_id: call_list_user
-      refute bad_entry.valid?
+      refute entry.valid?
       assert_equal 'Patient is already taken',
-                   bad_entry.errors.full_messages.first
+                   entry.errors.full_messages.first
+
+      entry.user = create :user
+      assert entry.valid?
     end
   end
 

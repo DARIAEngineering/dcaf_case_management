@@ -29,6 +29,7 @@ class Fulfillment
                 track_destroy: true
   mongoid_userstamp user_model: 'User'
 
+  # Methods
   def gestation_at_procedure_display
     I18n.t('accountants.table_content.weeks_at_procedure_display', gestation: gestation_at_procedure) if gestation_at_procedure.present?
   end

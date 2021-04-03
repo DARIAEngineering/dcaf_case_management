@@ -24,12 +24,12 @@ class AuditTrailTest < ActiveSupport::TestCase
   describe 'methods' do
     before do
       @clinic = create :clinic
-      @patient.update_attributes name: 'Yolo',
-                                 primary_phone: '123-456-9999',
-                                 appointment_date: Time.zone.now + 10.days,
-                                 city: 'Canada',
-                                 clinic: @clinic,
-                                 special_circumstances: ['A', '', 'C', '']
+      @patient.update name: 'Yolo',
+                      primary_phone: '123-456-9999',
+                      appointment_date: Time.zone.now + 10.days,
+                      city: 'Canada',
+                      clinic: @clinic,
+                      special_circumstances: ['A', '', 'C', '']
       @track = @patient.history_tracks.second
     end
 

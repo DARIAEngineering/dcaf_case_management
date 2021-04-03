@@ -15,8 +15,10 @@ class Clinic
 
   # Scopes
   # Is gestatiional_limit either nil or above x?
-  scope :gestational_limit_above, ->(gestation){ any_of({:gestational_limit.in => [nil]},
-                                                        {:gestational_limit.gte => gestation})}
+  scope :gestational_limit_above, ->(gestation) {
+    any_of({:gestational_limit.in => [nil]},
+           {:gestational_limit.gte => gestation})
+  }
 
   # Callbacks
   before_save :update_coordinates, if: :address_changed?

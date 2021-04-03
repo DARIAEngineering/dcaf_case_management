@@ -13,11 +13,13 @@ class Call
   field :status, type: String
 
   # Validations
-  allowed_statuses = ['Reached patient',
-                      'Left voicemail',
-                      "Couldn't reach patient"]
+  ALLOWED_STATUSES = {
+    'Reached patient' => :reached_patient,
+    'Left voicemail' => :left_voicemail,
+    "Couldn't reach patient" => :couldnt_reach_patient
+  }
   validates :status,  presence: true,
-                      inclusion: { in: allowed_statuses }
+                      inclusion: { in: ALLOWED_STATUSES.keys }
   validates :created_by_id, presence: true
 
   # History and auditing
@@ -38,7 +40,7 @@ class Call
 
   def event_params
     {
-      event_type:   status,
+      event_type:   ALLOWED_STATUSES[status],
       cm_name:      created_by&.name || 'System',
       patient_name: can_call.name,
       patient_id:   can_call.id,
