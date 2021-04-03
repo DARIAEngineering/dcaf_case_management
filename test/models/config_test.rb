@@ -59,7 +59,8 @@ class ConfigTest < ActiveSupport::TestCase
       # bad
       c.config_value = { options: ["bad url"] }
       refute c.valid?
-
+      assert c.errors.messages[:invalid_value_for].include? "fax service: 'https://bad url'"
+      
       # allow no URL
       c.config_value = { options: [] }
       assert c.valid?
@@ -121,9 +122,19 @@ class ConfigTest < ActiveSupport::TestCase
 
       it 'should return another amount if configured' do
         c = Config.find_or_create_by(config_key: 'budget_bar_max')
-        c.config_value = { options: [2000] }
+        c.config_value = { options: [ "2000" ] }
         c.save!
         assert_equal 2_000, Config.budget_bar_max
+      end
+
+      it 'should validate' do
+        c = Config.find_or_create_by(config_key: 'budget_bar_max')
+
+        c.config_value = { options: [ "2000" ] }
+        assert c.valid?
+
+        c.config_value = { options: [ "ten" ] }
+        refute c.valid?
       end
     end
 
@@ -145,6 +156,15 @@ class ConfigTest < ActiveSupport::TestCase
       it "returns false by default" do
         assert(Config.hide_practical_support? == false)
       end
+
+      it 'refuses anything besides yes or no' do
+        c = Config.find_or_create_by(config_key: 'hide_practical_support')
+        c.config_value = { options: [ "yEs" ] }
+        assert c.valid?
+
+        c.config_value = { options: [ "maybe" ] }
+        refute c.valid?
+      end
     end
 
     describe '#start_day' do
@@ -157,6 +177,17 @@ class ConfigTest < ActiveSupport::TestCase
         c.config_value = { options: ["Tuesday"] }
         c.save!
         assert_equal :tuesday, Config.start_day
+      end
+
+
+      it "should fail if input isn't a day or 'monthly'" do
+        @config.config_key = :start_of_week
+        @config.config_value = { options: ["Tomato"] }
+        refute @config.valid?
+        assert @config.errors.messages[:invalid_value_for].include? "start of week: 'Tomato'"
+
+        @config.config_value = { options: [ "monthly" ] }
+        assert @config.valid?
       end
     end
   end

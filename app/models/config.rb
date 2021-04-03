@@ -101,10 +101,11 @@ class Config < ApplicationRecord
 
     def clean_config_value
       # do nothing if empty
-      return if options.last.nil?
+      return if config_key.nil? || options.last.nil?
 
       clean_f = CLEAN_PRE_VALIDATION[config_key.to_sym]
 
+      # no clean function, return
       return if clean_f.nil?
 
       method(clean_f).()
@@ -141,6 +142,9 @@ class Config < ApplicationRecord
     # parent function. will handle errors; child validators should return true
     # if value is valid for key, and false otherwise.
     def validate_config
+      # don't try to validate if no key or no value
+      return if config_key.nil? || options.last.nil?
+
       val_f = VALIDATIONS[config_key.to_sym]
 
       logger.info("VALIDATE_CONFIG #{config_key}: #{config_value} func #{val_f}")
@@ -148,10 +152,7 @@ class Config < ApplicationRecord
       # no validation for this field, ignore
       return if val_f.nil?
 
-      # allow empty config
-      return if options.last.nil?
-
-      # run the validator and get a boolean
+      # run the validator and get a boolean, exit if true
       return if method(val_f).()
 
       errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
@@ -182,7 +183,8 @@ class Config < ApplicationRecord
     end
 
     def validate_hide_practical_support
-      return options.last =~ /\Ayes\z/i
+      # allow yes or no, to be nice (technically only yes is considered)
+      return options.last =~ /\A(yes|no)\z/i
     end
 
     def validate_number
