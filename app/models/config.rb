@@ -33,7 +33,7 @@ class Config < ApplicationRecord
   }
 
   # which fields are URLs (run special validation only on those)
-  Config_URLs = %w[fax_service practical_support_guidance_url resources_url]
+  CONFIG_URLS = %w[fax_service practical_support_guidance_url resources_url]
 
   # Validations
   validates :config_key, uniqueness: true, presence: true
@@ -76,8 +76,6 @@ class Config < ApplicationRecord
     start ||= "monday"
     start.downcase.to_sym
   end
-
-
   def validate_urls
     url = options.try :last
 
