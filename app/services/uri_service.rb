@@ -9,7 +9,6 @@ class UriService
 
       if @uri.class == URI::Generic
         # probably missing https. raise error so we can try again
-        @uri = nil
         raise URI::InvalidURIError
       end
 

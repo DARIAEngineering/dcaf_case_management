@@ -5,26 +5,19 @@ class ConfigTest < ActiveSupport::TestCase
 
   describe 'callbacks' do
     it 'should clean URLs before save' do
-      # doesn't touch https
-      c = Config.find_or_create_by(config_key: 'resources_url')
-      c.config_value = { options: ["https://good.com"] }
-      c.save
-      assert_equal "https://good.com", c.options.last
+      Config::CONFIG_URLS.each do |url_field|
+        c = Config.find_or_create_by(config_key: url_field)
+        
+        # confirm that scheme-less URLs are given one
+        c.config_value = { options: ["www.needs-scheme.net"] }
+        c.save
+        assert_equal "https://www.needs-scheme.net", c.options.last
 
-      # doesn't touch empty
-      c.config_value = { options: [] }
-      c.save
-      assert_nil c.options.last
-
-      # adds scheme if left off
-      c.config_value = { options: ["www.needs-scheme.net"] }
-      c.save
-      assert_equal "https://www.needs-scheme.net", c.options.last
-
-      # converts http to https
-      c.config_value = { options: ["http://not-very-safe.biz/path"]}
-      c.save
-      assert_equal "https://not-very-safe.biz/path", c.options.last
+        # doesn't touch empty config
+        c.config_value = { options: [] }
+        c.save
+        assert_nil c.options.last
+      end
     end
   end
 
@@ -46,23 +39,21 @@ class ConfigTest < ActiveSupport::TestCase
     end
 
     it 'should validate URLs' do
-      c = Config.find_or_create_by(config_key: 'fax_service')
-      
-      # good
-      c.config_value = { options: ["https://good.com"] }
-      assert c.valid?
+      Config::CONFIG_URLS.each do |url_field|
+        c = Config.find_or_create_by(config_key: url_field)
+        
+        # confirm cleanup cleanup
+        c.config_value = { options: ["www.efax.com/path"] }
+        assert c.valid?
 
-      # good but needs cleanup
-      c.config_value = { options: ["www.efax.com/path"] }
-      assert c.valid?
+        # bad
+        c.config_value = { options: ["bad url"] }
+        refute c.valid?
 
-      # bad
-      c.config_value = { options: ["bad url"] }
-      refute c.valid?
-
-      # allow no URL
-      c.config_value = { options: [] }
-      assert c.valid?
+        # allow no URL
+        c.config_value = { options: [] }
+        assert c.valid?
+      end
     end
   end
 

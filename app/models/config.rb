@@ -78,6 +78,8 @@ class Config < ApplicationRecord
 
   def validate_urls
     maybe_url = options.last
+    return if maybe_url.blank?
+    
     url = UriService.new(maybe_url).uri
 
     if not url
