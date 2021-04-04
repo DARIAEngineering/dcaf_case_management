@@ -38,8 +38,7 @@ class Config < ApplicationRecord
   # Validations
   validates :config_key, uniqueness: true, presence: true
 
-  before_validation :clean_urls, if: -> { Config_URLs.include? config_key }
-  validate :validate_urls, if: -> { Config_URLs.include? config_key }
+  validate :validate_urls, if: -> { CONFIG_URLS.include? config_key }
 
   # Methods
   def options
@@ -76,38 +75,15 @@ class Config < ApplicationRecord
     start ||= "monday"
     start.downcase.to_sym
   end
+
   def validate_urls
-    url = options.try :last
+    maybe_url = options.last
+    url = UriService.new(maybe_url).uri
 
-    # empty url is allowed
-    return if url.blank?
-
-    if not url =~ /\A#{URI::regexp(['https'])}\z/
-      errors.add :base, "\"#{url}\" is not a valid URL for #{config_key.humanize}."
+    if not url
+      errors.add :base, "\"#{maybe_url}\" is not a valid URL for #{config_key.humanize}."
+    else
+      config_value['options'] = [url]
     end
   end
-
-
-  def clean_urls
-    url = options.try :last
-
-    # don't try to clean empty url
-    return if url.blank?
-
-    # don't have to do anything, already https
-    return if url.start_with? 'https://'
-
-    # convert http or // to https://
-    if url.start_with? /(http:)?\/\//
-        url = url.sub /^(http:)?\/\//, 'https://'
-
-    # convert no scheme to https:// (i.e. example.com -> https://example.com)
-    elsif not url.start_with? '/'
-        url = 'https://' + url
-    end
-
-    # set config back to what it was
-    config_value['options'] = [url]
-  end
-
 end
