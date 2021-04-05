@@ -46,8 +46,7 @@ jobs:
       - run: brakeman --exit-on-warn .
       - run: bundle exec ruby-audit check
       - run: bundle-audit update; bundle-audit check --ignore CVE-2015-9284
-      # - run: bundle exec rails zeitwerk:check # Restore in rails 6.0.3 https://github.com/rails/rails/issues/37966
-      # - run: yarn audit
+      - run: bundle exec rails zeitwerk:check
       - store_artifacts:
           path: /home/circleci/abortioneering/tmp/capybara/
       - store_artifacts:
@@ -60,18 +59,6 @@ jobs:
       - image: circleci/ruby:2.7.2-node-browsers
     steps:
       - checkout
-      # - restore_cache:
-      #     keys:
-      #       - dcaf_case_management-{{ checksum "Gemfile.lock" }}-predeploy
-      #       - dcaf_case_management-{{ checksum ".circleci/config.yml" }}-predeploy
-      # - run: bundle check || bundle install
-      # - run: gem uninstall brakeman
-      # - run: gem install --no-rdoc brakeman-pro --source $BRAKEMAN_PRO_URL
-      # - save_cache:
-      #     key: dcaf_case_management-{{ checksum "Gemfile.lock" }}-predeploy
-      #     paths:
-      #       - vendor/bundle
-      # - run: brakeman-pro --exit-on-warn .
       - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
   deploy:
     working_directory: ~/abortioneering
@@ -85,10 +72,6 @@ jobs:
           keys:
             - dcaf_case_management-{{ epoch }}
       - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dcaf-cmapp-staging.git main
-
-# general:
-  # artifacts:
-    # - "tmp/screenshots/"
 
 workflows:
   version: 2
