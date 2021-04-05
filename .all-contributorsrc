@@ -16,14 +16,14 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/3866868?v=4",
       "profile": "http://www.simpsonsworld.com/video/436278339668",
       "contributions": [
-        "maintenance",
-        "projectManagement",
-        "eventOrganizing",
         "code",
+        "eventOrganizing",
         "infra",
+        "maintenance",
         "mentoring",
-        "review",
-        "question"
+        "projectManagement",
+        "question",
+        "review"
       ]
     },
     {
@@ -32,9 +32,9 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/6223901?v=4",
       "profile": "https://github.com/mebates",
       "contributions": [
+        "design",
         "eventOrganizing",
-        "ideas",
-        "design"
+        "ideas"
       ]
     },
     {
@@ -63,8 +63,8 @@
       "profile": "https://github.com/charleshuang80",
       "contributions": [
         "code",
-        "security",
-        "ideas"
+        "ideas",
+        "security"
       ]
     },
     {
@@ -73,9 +73,9 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/10578608?v=4",
       "profile": "https://github.com/lwaldsc",
       "contributions": [
-        "ideas",
-        "design",
         "content",
+        "design",
+        "ideas",
         "question"
       ]
     },
@@ -141,8 +141,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/30691?v=4",
       "profile": "https://twitter.com/mchelen",
       "contributions": [
-        "code",
-        "bug"
+        "bug",
+        "code"
       ]
     },
     {
@@ -172,9 +172,9 @@
       "contributions": [
         "code",
         "infra",
-        "review",
         "maintenance",
-        "mentoring"
+        "mentoring",
+        "review"
       ]
     },
     {
@@ -183,13 +183,13 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/6129479?v=4",
       "profile": "https://github.com/lomky",
       "contributions": [
-        "maintenance",
-        "review",
-        "projectManagement",
-        "eventOrganizing",
         "code",
+        "eventOrganizing",
+        "maintenance",
         "mentoring",
-        "question"
+        "projectManagement",
+        "question",
+        "review"
       ]
     },
     {
@@ -228,9 +228,9 @@
       "profile": "https://github.com/mdworken",
       "contributions": [
         "code",
-        "review",
         "mentoring",
-        "question"
+        "question",
+        "review"
       ]
     },
     {
@@ -249,8 +249,8 @@
       "profile": "https://github.com/harumhelmy",
       "contributions": [
         "code",
-        "translation",
-        "design"
+        "design",
+        "translation"
       ]
     },
     {
@@ -268,8 +268,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/5728859?v=4",
       "profile": "https://github.com/BintLopez",
       "contributions": [
-        "code",
-        "bug"
+        "bug",
+        "code"
       ]
     },
     {
@@ -278,8 +278,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/7085805?v=4",
       "profile": "https://github.com/elimbaum",
       "contributions": [
-        "code",
-        "bug"
+        "bug",
+        "code"
       ]
     },
     {
