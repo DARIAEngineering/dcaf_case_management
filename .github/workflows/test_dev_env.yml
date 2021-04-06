@@ -1,7 +1,7 @@
 name: Build development enviroment
 
 on:
-  pull-requests:
+  pull_request:
     branches:
       - main
 
