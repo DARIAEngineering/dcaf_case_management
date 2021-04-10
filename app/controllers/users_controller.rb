@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     # i18n-tasks-use t('mongoid.attributes.user.password')
     # i18n-tasks-use t('mongoid.attributes.user.password_confirmation')
     # i18n-tasks-use t('mongoid.attributes.user.role')
-    if @user.update_attributes(user_params)
+    if @user.update user_params
       flash[:notice] = t('flash.user_update_success')
       redirect_to users_path
     else

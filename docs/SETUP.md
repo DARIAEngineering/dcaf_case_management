@@ -51,6 +51,7 @@ If you prefer a local environment, totally cool! We recommend the following:
 * Install:
   * Git, python2, & openssl-dev
   * Ubuntu: `sudo apt install git python2 openssl libssl-dev`
+  * Mac: `brew install git python2 openssl`
 
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).
@@ -98,4 +99,4 @@ After that:
 
 ## Security
 
-Check out [this document](https://github.com/DCAFEngineering/dcaf_case_management/docs/SECURITY_INTRO.md) on Ruby on Rails security, which contains some guidelines on developing safely. (Note that we review code before merging, so a second human will be checking that things are safe, not just you!)
+Check out [this document](https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/SECURITY_INTRO.md) on Ruby on Rails security, which contains some guidelines on developing safely. (Note that we review code before merging, so a second human will be checking that things are safe, not just you!)

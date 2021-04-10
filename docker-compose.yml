@@ -20,6 +20,7 @@ services:
     links:
       - db
       - pg
+      - webpacker
     environment:
       mongohost: db
       pg_url: postgres://postgres:postgres@pg

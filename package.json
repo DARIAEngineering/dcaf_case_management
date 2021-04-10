@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
-    "@rails/webpacker": "5.0.1",
+    "@rails/webpacker": "5.2.1",
     "bootstrap": "4.4.1",
     "jquery": "^3.5.0",
     "jquery-ui": "^1.12.1",
@@ -10,6 +10,7 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
+    "all-contributors-cli": "^6.20.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20",
@@ -24,6 +25,8 @@
     "serialize-javascript": "^3.1.0",
     "yargs-parser": "^13.1.2",
     "popper.js": "^1.16.0",
-    "webpack": "^4.0.0"
+    "webpack": "^4.0.0",
+    "y18n": "^4.0.1",
+    "is-svg": "^4.2.2"
   }
 }

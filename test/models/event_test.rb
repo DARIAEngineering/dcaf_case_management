@@ -9,20 +9,30 @@ class EventTest < ActiveSupport::TestCase
     end
 
     it 'should only allow certain statuses' do
-      [nil, 'not a status'].each do |bad_status|
-        @event.event_type = bad_status
-        refute @event.valid?
+      assert_raises ArgumentError do
+        @event.event_type = :notatype
+        @event.valid?
       end
 
-      valid_types = ['Reached patient', "Couldn't reach patient",
-                     'Left voicemail']
-      valid_types.each do |status|
+      [
+        :reached_patient, :couldnt_reach_patient,
+        :left_voicemail, :unknown_action
+      ].each do |status|
         @event.event_type = status
         assert @event.valid?
       end
+      @event.update event_type: :pledged, pledge_amount: 100
+      assert @event.valid?
     end
 
-    [:patient_name, :patient_id, :cm_name].each do |req_field|
+    it 'should only allow certain lines' do
+      assert_raises ArgumentError do
+        @event.line = :notaline
+        @event.valid?
+      end
+    end
+
+    [:patient_name, :patient_id, :cm_name, :event_type].each do |req_field|
       it "requires #{req_field}" do
         @event[req_field] = nil
         refute @event.valid?
@@ -30,7 +40,7 @@ class EventTest < ActiveSupport::TestCase
     end
 
     it 'requires a pledge amount if pledged type' do
-      @event.event_type = 'Pledged'
+      @event.event_type = :pledged
       refute @event.valid?
       @event.pledge_amount = 100
       assert @event.valid?
@@ -40,25 +50,10 @@ class EventTest < ActiveSupport::TestCase
   describe 'rendering methods' do
     describe 'icon' do
       it 'should render the correct icon' do
-        @event.event_type = "Couldn't reach patient"
-        assert_equal 'phone-alt', @event.icon
-
-        @event.event_type = 'Reached patient'
-        assert_equal 'comment', @event.icon
-
-        @event.event_type = 'Pledged'
-        assert_equal 'thumbs-up', @event.icon
-
-        @event.event_type = 'Left voicemail'
-        assert_equal 'phone-alt', @event.icon
-      end
-    end
-
-    describe 'underscored_type' do
-      it 'should translate to type without punctuation, with underscores' do
-        assert_equal 'pledged', create(:event, event_type: 'Pledged', pledge_amount: 100).underscored_type
-        assert_equal 'left_voicemail', create(:event, event_type: 'Left voicemail').underscored_type
-        assert_equal 'reached_patient', create(:event, event_type: 'Reached patient').underscored_type
+        assert_equal 'phone-alt', build(:event, event_type: :couldnt_reach_patient).icon
+        assert_equal 'comment', build(:event, event_type: :reached_patient).icon
+        assert_equal 'thumbs-up', build(:event, event_type: :pledged).icon
+        assert_equal 'phone-alt', build(:event, event_type: :left_voicemail).icon
       end
     end
   end

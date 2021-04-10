@@ -18,7 +18,7 @@ class PatientTest < ActiveSupport::TestCase
   describe 'callbacks' do
     before do
       @new_patient = build :patient, name: '  Name With Whitespace  ',
-                                     other_contact: '  name with whitespace ',
+                                     other_contact: ' also name with whitespace ',
                                      other_contact_relationship: '  something ',
                                      primary_phone: '111-222-3333',
                                      other_phone: '999-888-7777'
@@ -27,7 +27,7 @@ class PatientTest < ActiveSupport::TestCase
     it 'should clean fields before save' do
       @new_patient.save
       assert_equal 'Name With Whitespace', @new_patient.name
-      assert_equal 'name with whitespace', @new_patient.other_contact
+      assert_equal 'also name with whitespace', @new_patient.other_contact
       assert_equal 'something', @new_patient.other_contact_relationship
       assert_equal '1112223333', @new_patient.primary_phone
       assert_equal '9998887777', @new_patient.other_phone
@@ -132,6 +132,34 @@ class PatientTest < ActiveSupport::TestCase
       error2 = diffLineDuplicate.errors.messages[:this_phone_number_is_already_taken]
 
       assert_not_equal error1, error2
+    end
+
+    it 'should validate zipcode format' do
+      # wrong len
+      @patient.zipcode = '000'
+      refute @patient.valid?
+
+      # disallowed characters
+      @patient.zipcode = 'Z6B 1A7'
+      refute @patient.valid?
+
+      ## zip +4
+      @patient.zipcode = '00000-1111'
+      assert @patient.valid?
+
+      @patient.zipcode = '123456789'
+      assert @patient.valid?
+      assert_equal '12345-6789', @patient.zipcode
+
+      @patient.zipcode = '00000-111'
+      refute @patient.valid?
+
+      @patient.zipcode = '00000-11111'
+      refute @patient.valid?
+
+      @patient.zipcode = '12345'
+      @patient.save
+      assert @patient.valid?
     end
   end
 
@@ -240,11 +268,33 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'blow away associated events on destroy' do
-      it 'should nuke events in addition to the patient on destroy' do
+    describe 'blow away associated objects on destroy' do
+      it 'should nuke associated events in addition to the patient on destroy' do
+        create :call_list_entry, patient: @patient
         assert_difference 'Event.count', -1 do
-          @patient.destroy
+          assert_difference 'CallListEntry.count', -1 do
+            @patient.destroy
+          end
         end
+      end
+    end
+
+    describe 'update lines for call list entries on patient change' do
+      it 'should update call list entries to push them to the very end' do
+        @user = create :user
+        create :call_list_entry, patient: @patient, user: @user
+        create :call_list_entry, patient: create(:patient, line: 'MD'),
+                                 user: @user,
+                                 line: 'MD'
+
+        assert_difference "@user.call_list_entries.where(line: 'DC').count", -1 do
+          assert_difference "@user.call_list_entries.where(line: 'MD').count", 1 do
+            @patient.update line: 'MD'
+            @user.reload
+          end
+        end
+        entry = @user.call_list_entries.where(patient: @patient, line: 'MD').first
+        assert_equal entry.order_key, 999
       end
     end
   end
@@ -287,20 +337,6 @@ class PatientTest < ActiveSupport::TestCase
     it 'should have accessible userstamp methods' do
       assert @patient.respond_to? :created_by
       assert @patient.created_by
-    end
-  end
-
-  describe 'scopes' do
-    before do
-      # DC patients created in initial before block
-      create :patient, line: 'MD'
-      create :patient, line: 'VA'
-    end
-
-    it 'should allow scoping for each line' do
-      assert_equal 2, Patient.dc.count
-      assert_equal 1, Patient.va.count
-      assert_equal 1, Patient.md.count
     end
   end
 
@@ -375,14 +411,6 @@ class PatientTest < ActiveSupport::TestCase
         end
 
         assert_not @patient.still_urgent?
-      end
-    end
-
-    describe 'contacted_since method' do
-      it 'should return a hash' do
-        datetime = 5.days.ago
-        hash = { since: datetime, contacts: 1, first_contacts: 1, pledges_sent: 20 }
-        assert_equal hash, Patient.contacted_since(datetime)
       end
     end
 
@@ -507,8 +535,7 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should set pledge sent and sent at to nil if a pledge is cancelled' do
-      @patient.pledge_sent = false
-      @patient.update
+      @patient.update pledge_sent: false
       @patient.reload
       assert_nil @patient.pledge_sent_by
       assert_nil @patient.pledge_sent_at

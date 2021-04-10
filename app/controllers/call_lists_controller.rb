@@ -1,5 +1,7 @@
 # Controller for managing a user's call list.
 class CallListsController < ApplicationController
+  include LinesHelper
+
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
   rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
 
@@ -18,14 +20,14 @@ class CallListsController < ApplicationController
   end
 
   def clear_current_user_call_list
-    current_user.clear_call_list
+    current_user.clear_call_list current_line
     respond_to do |format|
       format.js { render template: 'users/refresh_patients', layout: false }
     end
   end
 
   def reorder_call_list
-    current_user.reorder_call_list params[:order]
+    current_user.reorder_call_list params[:order], current_line
     head :ok
   end
 
@@ -33,6 +35,5 @@ class CallListsController < ApplicationController
 
   def retrieve_patients
     @patient = Patient.find params[:id]
-    @urgent_patient = Patient.where(urgent_flag: true)
   end
 end

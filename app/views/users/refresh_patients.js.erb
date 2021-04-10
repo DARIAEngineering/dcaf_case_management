@@ -4,7 +4,7 @@ $('#call_list').append(
   '<%= escape_javascript(render partial: "dashboards/table_content",
                                 locals: { title: t("dashboard.partial_titles.call_list"),
                                           table_type: "call_list",
-                                          patients: current_user.ordered_patients(current_line),
+                                          patients: current_user.call_list_patients(current_line),
                                           sortable: true,
                                           autosortable: true }) %>'
 );
@@ -14,7 +14,7 @@ $('#completed_calls').append(
                                 locals: { title: t('dashboard.partial_titles.completed_calls'),
                                           table_type: 'completed_calls',
                                           patients: current_user.recently_called_patients(current_line), 
-                                          utosortable: true }) %>'
+                                          autosortable: true }) %>'
 );
 
 $("#urgent_patients").append(

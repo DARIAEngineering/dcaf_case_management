@@ -30,6 +30,7 @@ class Patient
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
+  after_update :update_call_list_lines, if: :line_changed?
   after_destroy :destroy_associated_events
 
   # Relationships
@@ -74,7 +75,7 @@ class Patient
   field :city, type: String
   field :state, type: String
   field :county, type: String
-  field :zipcode, type: Integer
+  field :zipcode, type: String
   field :race_ethnicity, type: String
   field :employment_status, type: String
   field :household_size_children, type: Integer
@@ -132,6 +133,12 @@ class Patient
 
   validates_associated :fulfillment
 
+  # validation for standard US zipcodes
+  # allow ZIP (NNNNN) or ZIP+4 (NNNNN-NNNN)
+  validates :zipcode, format: /\A\d{5}(-\d{4})?\z/,
+            length: {minimum: 5, maximum: 10},
+            allow_blank: true
+
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
                 version_field: :version,
@@ -174,7 +181,7 @@ class Patient
 
   def event_params
     {
-      event_type:    'Pledged',
+      event_type:    :pledged,
       cm_name:       updated_by&.name || 'System',
       patient_name:  name,
       patient_id:    id,
@@ -189,6 +196,12 @@ class Patient
 
   def destroy_associated_events
     Event.where(patient_id: id.to_s).destroy_all
+    CallListEntry.where(patient_id: id.to_s).destroy_all
+  end
+
+  def update_call_list_lines
+    CallListEntry.where(patient: self)
+                 .update(line: self.line, order_key: 999)
   end
 
   def confirm_unique_phone_number
@@ -277,6 +290,9 @@ class Patient
     name.strip! if name
     other_contact.strip! if other_contact
     other_contact_relationship.strip! if other_contact_relationship
+
+    # add dash if needed
+    zipcode.gsub!(/(\d{5})(\d{4})/, '\1-\2') if zipcode
   end
 
   def initialize_fulfillment

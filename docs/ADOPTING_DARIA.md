@@ -34,7 +34,7 @@ https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/SECURITY.
 
 Data migration is a manual process using a custom data entry form within DARIA. Funds should migrate data as close to the go-live date as possible. Plan to have a team of volunteers in your fund complete the migration. One person should be able to migrate approximately 200 patients over a weekend.
 
-We have a more comprehensive guide located at: https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/MIGRATING_YOUR_DATA.md
+We have a more comprehensive guide located at: https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/onboarding/MIGRATING_YOUR_DATA.md
 
 ## Costs
 

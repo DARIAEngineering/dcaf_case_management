@@ -10,11 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_043849) do
+ActiveRecord::Schema.define(version: 2020_12_12_010730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "configs", force: :cascade do |t|
+    t.integer "config_key", null: false
+    t.jsonb "config_value", default: {"options"=>[]}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["config_key"], name: "index_configs_on_config_key"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "cm_name"
+    t.integer "event_type"
+    t.string "line"
+    t.string "patient_name"
+    t.string "patient_id"
+    t.integer "pledge_amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_at"], name: "index_events_on_created_at"
+    t.index ["line"], name: "index_events_on_line"
+  end
 
   create_table "versions", force: :cascade do |t|
     t.string "item_type", null: false
