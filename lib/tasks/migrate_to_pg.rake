@@ -51,6 +51,21 @@ namespace :migrate_to_pg do
         attrs
       end
       migrate_model pg, mongo, extra_transform
+
+      # Then patients
+      pt_model_pair = [[Patient, MongoPatient]]
+      pt_model_pair.each do |pair|
+        pg, mongo = pair
+        extra_transform = Proc.new do |attrs, obj|
+          attrs['mongo_id'] = obj['_id'].to_s
+          attrs['clinic_id'] = Clinic.find_by(mongo_id: obj['clinic_id'].to_s)&.id
+          attrs['pledge_generated_by_id'] = User.find_by(mongo_id: obj['pledge_generated_by_id'].to_s)&.id
+          attrs['pledge_sent_by_id'] = User.find_by(mongo_id: obj['pledge_sent_by_id'].to_s)&.id
+          attrs['last_edited_by_id'] = User.find_by(mongo_id: obj['last_edited_by_id'].to_s)&.id
+          attrs
+        end
+        migrate_model(pg, mongo, extra_transform)
+      end
     end
   end
 end
