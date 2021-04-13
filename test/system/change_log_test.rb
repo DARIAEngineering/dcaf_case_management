@@ -4,10 +4,11 @@ require 'application_system_test_case'
 class ChangeLogTest < ApplicationSystemTestCase
   before do
     @user = create :user, email: 'first_user@email.com'
-    @patient = create :patient, name: 'tester',
-                                primary_phone: '1231231234',
-                                created_by: @user,
-                                city: 'Washington'
+    PaperTrail.request(whodunnit: @user.id) do
+      @patient = create :patient, name: 'tester',
+                                  primary_phone: '1231231234',
+                                  city: 'Washington'
+    end
 
     log_in_as @user
     visit edit_patient_path(@patient)
