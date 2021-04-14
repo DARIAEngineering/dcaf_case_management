@@ -13,7 +13,7 @@ module PatientSearchable
       base = Patient.where(line: lines)
       matches = base.where('name ilike ?', wildcard_name)
                     .or(base.where('other_contact ilike ?', wildcard_name))
-                    .or(base.where('identifier ilike ?'), wildcard_name)
+                    .or(base.where('identifier ilike ?', wildcard_name))
       if clean_phone.present?
         clean_phone = "%#{clean_phone}%"
         matches = matches.or(base.where('primary_phone like ?', clean_phone))
