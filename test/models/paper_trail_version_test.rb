@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PaperTrailVersionTest < ActiveSupport::TestCase
   before do
-    @user = create :user # Can't do this until we port over the user model, for example
+    @user = create :user
     with_versioning do
       PaperTrail.request(whodunnit: @user.id) do
         @patient = create :patient, name: 'Susie Everyteen',
