@@ -3,7 +3,7 @@ class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download, :destroy]
-  rescue_from Mongoid::Errors::DocumentNotFound,
+  rescue_from ActiveRecord::DocumentNotFound,
               with: -> { redirect_to root_path }
 
   def index
@@ -54,9 +54,9 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    # i18n-tasks-use t('mongoid.attributes.practical_support.confirmed')
-    # i18n-tasks-use t('mongoid.attributes.practical_support.source')
-    # i18n-tasks-use t('mongoid.attributes.practical_support.support_type')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.confirmed')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.source')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.support_type')
     @note = @patient.notes.new
     @external_pledge = @patient.external_pledges.new
   end
@@ -80,7 +80,6 @@ class PatientsController < ApplicationController
 
   def data_entry_create
     @patient = Patient.new patient_params
-    @patient.created_by = current_user
 
     if @patient.save
       flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)
