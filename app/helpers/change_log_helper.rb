@@ -10,7 +10,7 @@ module ChangeLogHelper
   # Map changelog entries to a html string
   def changelog_entry_display(shaped_changes)
     shaped_changes.map do |entry|
-      field = t("mongoid.attributes.patient.#{entry[0]}")
+      field = t("activerecord.attributes.patient.#{entry[0]}")
       field = content_tag('strong') { "#{field}:" }.freeze
       orig = entry[1][:original]
       separator = '->'.freeze

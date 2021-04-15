@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_03_213437) do
+ActiveRecord::Schema.define(version: 2021_04_10_151149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -81,6 +81,68 @@ ActiveRecord::Schema.define(version: 2021_04_03_213437) do
     t.index ["line"], name: "index_events_on_line"
   end
 
+  create_table "patients", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "primary_phone", null: false
+    t.string "other_contact"
+    t.string "other_phone"
+    t.string "other_contact_relationship"
+    t.string "identifier"
+    t.string "voicemail_preference", default: "not_specified"
+    t.string "line", null: false
+    t.string "language"
+    t.string "pronouns"
+    t.date "initial_call_date", null: false
+    t.boolean "urgent_flag"
+    t.integer "last_menstrual_period_weeks"
+    t.integer "last_menstrual_period_days"
+    t.integer "age"
+    t.string "city"
+    t.string "state"
+    t.string "county"
+    t.integer "zipcode"
+    t.string "race_ethnicity"
+    t.string "employment_status"
+    t.integer "household_size_children"
+    t.integer "household_size_adults"
+    t.string "insurance"
+    t.string "income"
+    t.string "special_circumstances", default: [], array: true
+    t.string "referred_by"
+    t.boolean "referred_to_clinic"
+    t.boolean "completed_ultrasound"
+    t.date "appointment_date"
+    t.integer "procedure_cost"
+    t.integer "patient_contribution"
+    t.integer "naf_pledge"
+    t.integer "fund_pledge"
+    t.datetime "fund_pledged_at"
+    t.boolean "pledge_sent"
+    t.boolean "resolved_without_fund"
+    t.datetime "pledge_generated_at"
+    t.datetime "pledge_sent_at"
+    t.boolean "textable"
+    t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
+    t.bigint "last_edited_by_id"
+    t.string "mongo_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["clinic_id"], name: "index_patients_on_clinic_id"
+    t.index ["identifier"], name: "index_patients_on_identifier"
+    t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
+    t.index ["line"], name: "index_patients_on_line"
+    t.index ["name"], name: "index_patients_on_name"
+    t.index ["other_contact"], name: "index_patients_on_other_contact"
+    t.index ["other_phone"], name: "index_patients_on_other_phone"
+    t.index ["pledge_generated_by_id"], name: "index_patients_on_pledge_generated_by_id"
+    t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
+    t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
+    t.index ["primary_phone"], name: "index_patients_on_primary_phone", unique: true
+    t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "line"
@@ -116,4 +178,8 @@ ActiveRecord::Schema.define(version: 2021_04_03_213437) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "patients", "clinics"
+  add_foreign_key "patients", "users", column: "last_edited_by_id"
+  add_foreign_key "patients", "users", column: "pledge_generated_by_id"
+  add_foreign_key "patients", "users", column: "pledge_sent_by_id"
 end
