@@ -55,7 +55,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         @patient.update language: 'Spanish'
-          assert_equal @patient.preferred_language, 'Spanish'
+        assert_equal @patient.preferred_language, 'Spanish'
       end
     end
   end
