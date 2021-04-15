@@ -15,6 +15,7 @@ class Patient < ApplicationRecord
   include EventLoggable
 
   # Enums
+  # turns the LINES env array into the DB friendly structure: { :line1 => "line1", :line2 => "line2", ... }
   enum line: LINES.map { |x| {x.to_sym => x.to_s} }.inject(&:merge)
 
   # Callbacks
