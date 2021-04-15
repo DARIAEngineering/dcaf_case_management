@@ -66,6 +66,21 @@ namespace :migrate_to_pg do
         end
         migrate_model(pg, mongo, extra_transform)
       end
+      Fulfillment.destroy_all # these get made by callback and we want to copy them instead
+
+      # Then, we loop through shared objects
+      pt_model_pair.each do |pair|
+        pt, mongo_pt = pair
+
+        # First, fulfillment
+        pg = Fulfillment
+        mongo = MongoFulfillment
+        extra_transform = Proc.new do |attrs, obj, doc|
+          attrs['can_fulfill'] = pt.find_by! mongo_id: doc['_id'].to_s
+          attrs
+        end
+        migrate_fulfillment(pt, mongo_pt, pg, mongo, 'fulfillment', 'can_fulfill', extra_transform)
+      end
     end
   end
 end
@@ -91,4 +106,25 @@ def migrate_model(pg_model, mongo_model, transform = nil)
   end
 
   puts "#{pg_model.count} #{pg_model} migrated to pg"
+end
+
+def migrate_fulfillment(pt_model, mongo_pt_model, pg_model, mongo_model, relation, parent_relation, transform)
+  attributes = pg_model.attribute_names
+  mongo_pt_model.collection.find.batch_size(100).each do |doc|
+    mongo_obj = doc[relation]
+
+    pg_attrs = transform.call(mongo_obj.slice(*attributes), mongo_obj, doc)
+    pg_obj = pg_model.create! pg_attrs
+    if mongo_obj['created_by_id'].present?
+      pg_obj.versions.first.update whodunnit: User.find_by(mongo_id: mongo_obj['created_by_id'].to_s)&.id
+    end
+
+    # Check
+    if pg_model.count != mongo_model.count
+      'PG and mongo counts are in disagreement, aborting'
+    end
+    if pg_model.count != Patient.count
+      'Every patient not associated with only one fulfillment'
+    end
+  end
 end
