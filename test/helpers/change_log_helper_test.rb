@@ -3,9 +3,11 @@ require 'test_helper'
 class ChangeLogHelperTest < ActionView::TestCase
   describe 'safe_join_fields convenience method' do
     before do
-      pt = create :patient, name: 'Old name'
-      pt.update name: 'New name', city: 'Canada'
-      @changeset = pt.history_tracks.last
+      with_versioning do
+        patient = create :patient, name: 'Old name'
+        patient.update name: 'New name', city: 'Canada'
+        @changeset = patient.versions.first
+      end
     end
 
     it 'should work' do

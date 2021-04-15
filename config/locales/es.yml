@@ -29,6 +29,47 @@ es:
         state: Estado
         street_address: Dirección
         zip: Código postal
+      patient:
+        age: Edad
+        appointment_date: Día de la cita
+        city: Ciudad
+        clinic_id: ID de la clínica
+        completed_ultrasound: Ultrasonido completado
+        county: Condado
+        employment_status: Estatus de empleo
+        fund_pledge: Promesa de fondos
+        fund_pledged_at: Fondo prometido en
+        household_size_adults: Adultos en el Hogar
+        household_size_children: Menores en el Hogar
+        income: Ingresos
+        initial_call_date: Fecha de llamada inicial
+        insurance: Seguro médico
+        language: Idioma
+        last_menstrual_period_days: Últimos días del período menstrual
+        last_menstrual_period_weeks: Últimas semanas del período menstrual
+        line: Línea
+        naf_pledge: Promesa de la NAF
+        name: Nombre
+        other_contact: Otro contacto
+        other_contact_relationship: Otra relacion de contacto
+        other_phone: Otro teléfono
+        patient_contribution: Contribución del paciente
+        pledge_generated_at: Promesa generada en
+        pledge_sent: Promeso enviada
+        pledge_sent_at: Promesa enviada en
+        primary_phone: Número de teléfono principal
+        procedure_cost: Costo del procedimiento
+        pronouns: Pronombres
+        race_ethnicity: Raza / Etnicidad
+        referred_by: Referido por
+        referred_to_clinic: Referido a la clínica
+        resolved_without_fund: Resuelto sin ayuda de fondo
+        special_circumstances: Circunstancias Especiales
+        state: Estado
+        textable: Textable
+        urgent_flag: Bandera urgente
+        voicemail_preference: Preferencia de correo de voz
+        zipcode: Código postal
       user:
         current_password: Contraseña actual
         email: Correo Electrónico/Email
@@ -214,47 +255,6 @@ es:
       what_line: "¿En cuál línea estás trabajando?"
   mongoid:
     attributes:
-      patient:
-        age: Edad
-        appointment_date: Día de la cita
-        city: Ciudad
-        clinic_id: ID de la clínica
-        completed_ultrasound: Ultrasonido completado
-        county: Condado
-        employment_status: Estatus de empleo
-        fund_pledge: Promesa de fondos
-        fund_pledged_at: Fondo prometido en
-        household_size_adults: Adultos en el Hogar
-        household_size_children: Menores en el Hogar
-        income: Ingresos
-        initial_call_date: Fecha de llamada inicial
-        insurance: Seguro médico
-        language: Idioma
-        last_menstrual_period_days: Últimos días del período menstrual
-        last_menstrual_period_weeks: Últimas semanas del período menstrual
-        line: Línea
-        naf_pledge: Promesa de la NAF
-        name: Nombre
-        other_contact: Otro contacto
-        other_contact_relationship: Otra relacion de contacto
-        other_phone: Otro teléfono
-        patient_contribution: Contribución del paciente
-        pledge_generated_at: Promesa generada en
-        pledge_sent: Promeso enviada
-        pledge_sent_at: Promesa enviada en
-        primary_phone: Número de teléfono principal
-        procedure_cost: Costo del procedimiento
-        pronouns: Pronombres
-        race_ethnicity: Raza / Etnicidad
-        referred_by: Referido por
-        referred_to_clinic: Referido a la clínica
-        resolved_without_fund: Resuelto sin ayuda de fondo
-        special_circumstances: Circunstancias Especiales
-        state: Estado
-        textable: Textable
-        urgent_flag: Bandera urgente
-        voicemail_preference: Preferencia de correo de voz
-        zipcode: Código postal
       practical_support:
         confirmed: Confirmado
         source: Fuente
