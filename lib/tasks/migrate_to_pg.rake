@@ -121,7 +121,7 @@ def migrate_fulfillment(pt_model, mongo_pt_model, pg_model, mongo_model, relatio
 
     # Check
     if pg_model.count != mongo_model.count
-      'PG and mongo counts are in disagreement, aborting'
+      raise 'PG and mongo counts are in disagreement, aborting'
     end
     if pg_model.count != Patient.count
       'Every patient not associated with only one fulfillment'
