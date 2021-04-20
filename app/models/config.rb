@@ -82,7 +82,7 @@ class Config < ApplicationRecord
     
     url = UriService.new(maybe_url).uri
 
-    if not url
+    if !url
       errors.add :base, "\"#{maybe_url}\" is not a valid URL for #{config_key.humanize}."
     else
       config_value['options'] = [url]
