@@ -5,26 +5,33 @@ class ConfigTest < ActiveSupport::TestCase
 
   describe 'callbacks' do
     it 'should clean URLs before save' do
-      # doesn't touch https
-      c = Config.find_or_create_by(config_key: 'resources_url')
-      c.config_value = { options: ["https://good.com"] }
-      c.save
-      assert_equal "https://good.com", c.options.last
+      Config::CLEAN_PRE_VALIDATION
+        .select{ |field, cleaner| cleaner == :clean_url }
+        .each do |url_field, cleaner|
+          c = Config.find_or_create_by(config_key: url_field)
+          
+          # confirm that scheme-less URLs are given one
+          c.config_value = { options: ["www.needs-scheme.net"] }
+          c.save
+          assert_equal "https://www.needs-scheme.net", c.options.last
 
-      # doesn't touch empty
-      c.config_value = { options: [] }
-      c.save
-      assert_nil c.options.last
+          # doesn't touch empty config
+          c.config_value = { options: [] }
+          c.save
+          assert_nil c.options.last
+      end
+    end
 
-      # adds scheme if left off
-      c.config_value = { options: ["www.needs-scheme.net"] }
-      c.save
-      assert_equal "https://www.needs-scheme.net", c.options.last
+    it 'should capitalize words before save' do
+      c = Config.find_or_create_by(config_key: :start_of_week)
+      c.config_value= { options: ["wednesday"] }
+      assert c.valid?
+      assert_equal "Wednesday", c.options.last
 
-      # converts http to https
-      c.config_value = { options: ["http://not-very-safe.biz/path"]}
-      c.save
-      assert_equal "https://not-very-safe.biz/path", c.options.last
+      c = Config.find_or_create_by(config_key: :hide_practical_support)
+      c.config_value = { options: ["no"] }
+      assert c.valid?
+      assert_equal "No", c.options.last
     end
   end
 
@@ -46,24 +53,23 @@ class ConfigTest < ActiveSupport::TestCase
     end
 
     it 'should validate URLs' do
-      c = Config.find_or_create_by(config_key: 'fax_service')
-      
-      # good
-      c.config_value = { options: ["https://good.com"] }
-      assert c.valid?
+      Config::CLEAN_PRE_VALIDATION
+        .select{ |field, cleaner| cleaner == :clean_url }
+        .each do |url_field, cleaner|
+          c = Config.find_or_create_by(config_key: url_field)
+          
+          # confirm cleanup cleanup
+          c.config_value = { options: ["www.efax.com/path"] }
+          assert c.valid?
 
-      # good but needs cleanup
-      c.config_value = { options: ["www.efax.com/path"] }
-      assert c.valid?
+          # bad
+          c.config_value = { options: ["bad url"] }
+          refute c.valid?
 
-      # bad
-      c.config_value = { options: ["bad url"] }
-      refute c.valid?
-      assert c.errors.messages[:invalid_value_for].include? "fax service: 'https://bad url'"
-      
-      # allow no URL
-      c.config_value = { options: [] }
-      assert c.valid?
+          # allow no URL
+          c.config_value = { options: [] }
+          assert c.valid?
+      end
     end
   end
 
@@ -122,19 +128,9 @@ class ConfigTest < ActiveSupport::TestCase
 
       it 'should return another amount if configured' do
         c = Config.find_or_create_by(config_key: 'budget_bar_max')
-        c.config_value = { options: [ "2000" ] }
+        c.config_value = { options: ["2000"] }
         c.save!
         assert_equal 2_000, Config.budget_bar_max
-      end
-
-      it 'should validate' do
-        c = Config.find_or_create_by(config_key: 'budget_bar_max')
-
-        c.config_value = { options: [ "2000" ] }
-        assert c.valid?
-
-        c.config_value = { options: [ "ten" ] }
-        refute c.valid?
       end
     end
 
@@ -156,15 +152,6 @@ class ConfigTest < ActiveSupport::TestCase
       it "returns false by default" do
         assert(Config.hide_practical_support? == false)
       end
-
-      it 'refuses anything besides yes or no' do
-        c = Config.find_or_create_by(config_key: 'hide_practical_support')
-        c.config_value = { options: [ "yEs" ] }
-        assert c.valid?
-
-        c.config_value = { options: [ "maybe" ] }
-        refute c.valid?
-      end
     end
 
     describe '#start_day' do
@@ -177,17 +164,6 @@ class ConfigTest < ActiveSupport::TestCase
         c.config_value = { options: ["Tuesday"] }
         c.save!
         assert_equal :tuesday, Config.start_day
-      end
-
-
-      it "should fail if input isn't a day or 'monthly'" do
-        @config.config_key = :start_of_week
-        @config.config_value = { options: ["Tomato"] }
-        refute @config.valid?
-        assert @config.errors.messages[:invalid_value_for].include? "start of week: 'Tomato'"
-
-        @config.config_value = { options: [ "monthly" ] }
-        assert @config.valid?
       end
     end
   end

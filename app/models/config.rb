@@ -33,6 +33,7 @@ class Config < ApplicationRecord
   }
 
 
+  # symbols are required here because functions are not objects in rails :)
   CLEAN_PRE_VALIDATION = {
     start_of_week: :fix_capitalization,
     hide_practical_support: :fix_capitalization,
@@ -41,9 +42,6 @@ class Config < ApplicationRecord
     fax_service: :clean_url,
     practical_support_guidance_url: :clean_url
   }
-
-  before_validation :clean_config_value
-
 
   VALIDATIONS = {
     start_of_week: :validate_start_of_week,
@@ -56,6 +54,19 @@ class Config < ApplicationRecord
     fax_service: :validate_url,
     practical_support_guidance_url: :validate_url
   }
+
+    START_OF_WEEK = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "Monthly"
+    ].freeze
+
+  before_validation :clean_config_value
 
   validates :config_key, uniqueness: true, presence: true
   validate :validate_config
@@ -103,12 +114,15 @@ class Config < ApplicationRecord
       # do nothing if empty
       return if config_key.nil? || options.last.nil?
 
-      clean_f = CLEAN_PRE_VALIDATION[config_key.to_sym]
+      cleaner = CLEAN_PRE_VALIDATION[config_key.to_sym]
 
       # no clean function, return
-      return if clean_f.nil?
+      return if cleaner.nil?
 
-      method(clean_f).()
+      # we need to use `method` because `cleaner` is a symbol... this converts
+      # the symbol into a Method object, which we can then `call`...
+      # See https://ruby-doc.org/core/Object.html#method-i-method
+      method(cleaner).call
     end
 
     def clean_url
@@ -145,32 +159,20 @@ class Config < ApplicationRecord
       # don't try to validate if no key or no value
       return if config_key.nil? || options.last.nil?
 
-      val_f = VALIDATIONS[config_key.to_sym]
-
-      logger.info("VALIDATE_CONFIG #{config_key}: #{config_value} func #{val_f}")
+      validator = VALIDATIONS[config_key.to_sym]
 
       # no validation for this field, ignore
-      return if val_f.nil?
+      return if validator.nil?
 
       # run the validator and get a boolean, exit if true
-      return if method(val_f).()
+      # (see comment above in `clean_config_value` for an explainer)
+      return if method(validator).call
 
       errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
     end
 
-    START_OF_WEEK = [
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "sunday",
-      "monthly"
-    ].freeze
-
     def validate_start_of_week
-      return START_OF_WEEK.include?(options.last.downcase)
+      return START_OF_WEEK.include?(options.last.capitalize)
     end
 
     def validate_url
