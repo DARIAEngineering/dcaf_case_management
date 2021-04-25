@@ -3,7 +3,7 @@ class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download, :destroy]
-  rescue_from ActiveRecord::DocumentNotFound,
+  rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
   def index
@@ -17,7 +17,6 @@ class PatientsController < ApplicationController
   def create
     patient = Patient.new patient_params
 
-    patient.created_by = current_user
     if patient.save
       flash[:notice] = t('flash.new_patient_save')
       current_user.add_patient patient
@@ -126,8 +125,8 @@ class PatientsController < ApplicationController
   ].freeze
 
   FULFILLMENT_PARAMS = [
-    fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :fund_payout, :check_number, :date_of_check, :audited]
+    fulfillment_attributes: [:id, :fulfilled, :procedure_date, :gestation_at_procedure,
+                             :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
