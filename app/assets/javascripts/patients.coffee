@@ -4,16 +4,16 @@
 
 markFulfilledWhenFieldsChecked = ->
   pledge_fields = [
-    '#patient_fulfillment_fund_payout'
-    '#patient_fulfillment_check_number'
-    '#patient_fulfillment_gestation_at_procedure'
-    '#patient_fulfillment_date_of_check'
-    '#patient_fulfillment_procedure_date'
+    '#patient_fulfillment_attributes_fund_payout'
+    '#patient_fulfillment_attributes_check_number'
+    '#patient_fulfillment_attributes_gestation_at_procedure'
+    '#patient_fulfillment_attributes_date_of_check'
+    '#patient_fulfillment_attributes_procedure_date'
   ]
 
   i = 0
   empty = true
-  el = $('#patient_fulfillment_fulfilled')
+  el = $('#patient_fulfillment_attributes_fulfilled')
 
   while i < pledge_fields.length
     if $(pledge_fields[i]).val().length > 0

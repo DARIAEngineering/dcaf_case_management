@@ -22,7 +22,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.string :city
       t.string :state
       t.string :county
-      t.integer :zipcode
+      t.string :zipcode
       t.string :race_ethnicity
       t.string :employment_status
       t.integer :household_size_children

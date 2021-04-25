@@ -16,7 +16,7 @@
                           remote: true do |f| %>
     <div class="row">
       <div class="col">
-        <%= f.fields_for patient.fulfillment do |pt| %>
+        <%= f.fields_for :fulfillment do |pt| %>
           <%= pt.form_group :fulfilled do %>
             <%= pt.check_box :fulfilled, label: t('patient.pledge_fulfillment.form.pledge_fulfilled_box'), autocomplete: 'off' %>
           <% end %>
@@ -26,7 +26,7 @@
 
     <div class="row">
       <div class="info-form-left col-6">
-        <%= f.fields_for patient.fulfillment do |pt| %>
+        <%= f.fields_for :fulfillment do |pt| %>
           <%= pt.number_field :fund_payout,
                               label: t('patient.pledge_fulfillment.form.fund_payout', fund: "#{FUND}"),
                               autocomplete: 'off',
@@ -42,7 +42,7 @@
       </div>
 
       <div class="info-form-right col-6">
-        <%= f.fields_for patient.fulfillment do |pt| %>
+        <%= f.fields_for :fulfillment do |pt| %>
           <%= pt.text_field :check_number, label: t('patient.pledge_fulfillment.form.check_num'), autocomplete: 'off'%>
           <%= pt.date_field :date_of_check, label: t('patient.pledge_fulfillment.form.date_of_check'), autocomplete: 'off' %>
         <% end %>
@@ -53,7 +53,7 @@
 
     <div class="row">
       <div class="col">
-        <%= f.fields_for patient.fulfillment do |pt| %>
+        <%= f.fields_for :fulfillment do |pt| %>
           <%= pt.form_group :audited do %>
             <%= pt.check_box :audited, label: t('patient.pledge_fulfillment.audit.audited_box'), autocomplete: 'off' %>
           <% end %>
