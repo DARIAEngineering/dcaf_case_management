@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_151149) do
+ActiveRecord::Schema.define(version: 2021_04_15_015227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -81,6 +81,23 @@ ActiveRecord::Schema.define(version: 2021_04_10_151149) do
     t.index ["line"], name: "index_events_on_line"
   end
 
+  create_table "fulfillments", force: :cascade do |t|
+    t.boolean "fulfilled", default: false, null: false
+    t.date "procedure_date"
+    t.integer "gestation_at_procedure"
+    t.integer "fund_payout"
+    t.string "check_number"
+    t.string "date_of_check"
+    t.boolean "audited"
+    t.string "can_fulfill_type", null: false
+    t.bigint "can_fulfill_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["audited"], name: "index_fulfillments_on_audited"
+    t.index ["can_fulfill_type", "can_fulfill_id"], name: "index_fulfillments_on_can_fulfill_type_and_can_fulfill_id"
+    t.index ["fulfilled"], name: "index_fulfillments_on_fulfilled"
+  end
+
   create_table "patients", force: :cascade do |t|
     t.string "name", null: false
     t.string "primary_phone", null: false
@@ -100,7 +117,7 @@ ActiveRecord::Schema.define(version: 2021_04_10_151149) do
     t.string "city"
     t.string "state"
     t.string "county"
-    t.integer "zipcode"
+    t.string "zipcode"
     t.string "race_ethnicity"
     t.string "employment_status"
     t.integer "household_size_children"
