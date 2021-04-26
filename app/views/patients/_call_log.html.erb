@@ -17,13 +17,14 @@
       <th><%= t('patient.call_log.table.case_manager') %></th>
       <th><%= t('patient.call_log.table.actions') %></th>
     </tr>
+
     <tbody>
       <% @patient.recent_calls.each do |call| %>
         <tr class="call-log-row">
           <td><%= call.created_at.display_date %></td>
           <td><%= call.created_at.display_time %></td>
-          <td><%= display_call_status call %></td>
-          <td><%= call.created_by.name %></td>
+          <td><%= t("call.status.#{call.status}") call %></td>
+          <td><%= call.created_by&.name || 'System' %></td>
           <td>
             <% if call.created_by == current_user && call.recent? %>
               <%= button_to t('patient.call_log.table.remove_button'),
@@ -41,8 +42,8 @@
         <tr class="old-calls d-none">
           <td><%= call.created_at.display_date %></td>
           <td><%= call.created_at.display_time %></td>
-          <td><%= call.status %></td>
-          <td><%= call.created_by.name %></td>
+          <td><%= t("call.status.#{call.status}") call %></td>
+          <td><%= call.created_by&.name || 'System' %></td>
           <td></td>
         </tr>
       <% end %>

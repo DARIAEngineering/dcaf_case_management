@@ -27,7 +27,7 @@ module CallsHelper
     content_tag :p do
       link_to t('call.new.result.reached_patient'),
               patient_calls_path(patient,
-                                 call: { status: 'Reached patient' }),
+                                 call: { status: :reached_patient }),
               method: :post,
               class: 'btn btn-primary calls-btn'
     end
@@ -37,20 +37,9 @@ module CallsHelper
     content_tag :p do
       link_to t('call.new.result.did_not_reach_patient'),
               patient_calls_path(patient,
-                                 call: { status: "Couldn't reach patient" }),
+                                 call: { status: :couldnt_reach_patient }),
               method: :post, remote: true,
               class: 'calls-response'
-    end
-  end
-
-  def display_call_status(call)
-    case call.status
-    when 'Reached patient'
-      t('call.status.reached_patient')
-    when "Couldn't reach patient"
-      t('call.status.could_not_reach_patient')
-    when 'Left voicemail'
-      t('call.status.left_voicemail')
     end
   end
 
@@ -65,7 +54,7 @@ module CallsHelper
   def leave_a_voicemail_link(patient)
     link_to t('call.new.result.left_voicemail'),
             patient_calls_path(patient,
-                               call: { status: 'Left voicemail' }),
+                               call: { status: :left_voicemail }),
             method: :post,
             remote: true,
             class: 'calls-response'

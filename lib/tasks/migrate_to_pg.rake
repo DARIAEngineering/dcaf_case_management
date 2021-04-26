@@ -80,6 +80,14 @@ namespace :migrate_to_pg do
           attrs
         end
         migrate_fulfillment(pt, mongo_pt, pg, mongo, 'fulfillment', 'can_fulfill', extra_transform)
+
+        # Next, calls
+        pg = Call
+        mongo = MongoCall
+        extra_transform = Proc.new do |attrs, obj, doc|
+          attrs['can_call'] = pt.find_by! mongo_id: doc['_id'].to_s
+          attrs['status'] = MongoCall::ALLOWED_STATUSES[obj['status']]
+        end
       end
     end
   end
@@ -127,4 +135,28 @@ def migrate_fulfillment(pt_model, mongo_pt_model, pg_model, mongo_model, relatio
       raise 'Every patient not associated with only one fulfillment'
     end
   end
+end
+
+def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, parent_relation, transform)
+  attributes = pg_model.attribute_names
+  mongo_pt_model.colleciton.find.batch_size(100).each do |doc|
+    mongo_objs = doc[relation] || []
+    mongo_objs.each do |obj|
+      pg_attrs = obj.slice(*attributes)
+      pg_attrs = transform.call(pg_attrs, obj, doc)
+      pg_obj = pg_model.create! pg_attrs
+
+      if obj['created_by_id'].present?
+        pg_obj.versions.first.update whodunnit: User.find_by(mongo_id: obj['created_by_id'].to_s)&.id
+      end
+    end
+
+    # Check
+    obj_count = pg_model.where(parent_relation.to_sym => pt_model.find_by!(mongo_id: doc['_id'].to_s)).count
+    if obj_count != mongo_objs.count
+      raise "PG and mongo counts for #{relation} are in disagreement; aborting"
+    end
+  end
+
+  puts "#{pg_model.count} #{relation} migrated to pg"
 end
