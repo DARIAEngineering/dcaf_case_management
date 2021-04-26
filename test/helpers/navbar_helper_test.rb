@@ -6,7 +6,7 @@ class NavbarHelperTest < ActionView::TestCase
   describe 'cm_resources_link' do
     before do
       @config = create :config, config_key: 'resources_url',
-                                config_value: { options: ['https://www.google.com'] }
+                                config_value: { options: ['http://www.google.com'] }
     end
 
     it 'should return nil if config is not set' do

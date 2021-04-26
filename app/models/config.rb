@@ -32,8 +32,13 @@ class Config < ApplicationRecord
     voicemail: 12,
   }
 
+  # which fields are URLs (run special validation only on those)
+  CONFIG_URLS = %w[fax_service practical_support_guidance_url resources_url]
+
   # Validations
   validates :config_key, uniqueness: true, presence: true
+
+  validate :validate_urls, if: -> { CONFIG_URLS.include? config_key }
 
   # Methods
   def options
@@ -69,5 +74,18 @@ class Config < ApplicationRecord
     start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
     start ||= "monday"
     start.downcase.to_sym
+  end
+
+  def validate_urls
+    maybe_url = options.last
+    return if maybe_url.blank?
+    
+    url = UriService.new(maybe_url).uri
+
+    if !url
+      errors.add :base, "\"#{maybe_url}\" is not a valid URL for #{config_key.humanize}."
+    else
+      config_value['options'] = [url]
+    end
   end
 end
