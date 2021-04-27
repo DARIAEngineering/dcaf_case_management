@@ -88,6 +88,7 @@ namespace :migrate_to_pg do
           attrs['can_call'] = pt.find_by! mongo_id: doc['_id'].to_s
           attrs['status'] = MongoCall::ALLOWED_STATUSES[obj['status']]
         end
+        migrate_fulfillment(pt, mongo_pt, pg, mongo, 'calls', 'can_call', extra_transform)
       end
     end
   end
@@ -110,7 +111,7 @@ def migrate_model(pg_model, mongo_model, transform = nil)
   end
 
   if pg_model.count != mongo_model.count
-    raise "PG and Mongo counts are in disagreement; aborting"
+    raise "PG and Mongo counts are in disagreement (#{pg_model.count} and #{mongo_model.count}); aborting"
   end
 
   puts "#{pg_model.count} #{pg_model} migrated to pg"
@@ -126,15 +127,14 @@ def migrate_fulfillment(pt_model, mongo_pt_model, pg_model, mongo_model, relatio
     if mongo_obj['created_by_id'].present?
       pg_obj.versions.first.update whodunnit: User.find_by(mongo_id: mongo_obj['created_by_id'].to_s)&.id
     end
-
-    # Check
-    if pg_model.count != mongo_model.count
-      raise 'PG and mongo counts are in disagreement, aborting'
-    end
-    if pg_model.count != Patient.count
-      raise 'Every patient not associated with only one fulfillment'
-    end
   end
+
+  # Check
+  if pg_model.count != Patient.count
+    raise 'Every patient not associated with only one fulfillment'
+  end
+
+  puts "#{pg_model.count} Fulfillment migrated to pg"
 end
 
 def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, parent_relation, transform)
