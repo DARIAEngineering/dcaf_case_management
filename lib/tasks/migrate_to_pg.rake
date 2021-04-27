@@ -87,8 +87,9 @@ namespace :migrate_to_pg do
         extra_transform = Proc.new do |attrs, obj, doc|
           attrs['can_call'] = pt.find_by! mongo_id: doc['_id'].to_s
           attrs['status'] = MongoCall::ALLOWED_STATUSES[obj['status']]
+          attrs
         end
-        migrate_fulfillment(pt, mongo_pt, pg, mongo, 'calls', 'can_call', extra_transform)
+        migrate_submodel(pt, mongo_pt, pg, mongo, 'calls', 'can_call', extra_transform)
       end
     end
   end
@@ -139,7 +140,7 @@ end
 
 def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, parent_relation, transform)
   attributes = pg_model.attribute_names
-  mongo_pt_model.colleciton.find.batch_size(100).each do |doc|
+  mongo_pt_model.collection.find.batch_size(100).each do |doc|
     mongo_objs = doc[relation] || []
     mongo_objs.each do |obj|
       pg_attrs = obj.slice(*attributes)
