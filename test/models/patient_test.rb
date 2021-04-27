@@ -10,7 +10,7 @@ class PatientTest < ActiveSupport::TestCase
 
     @patient2 = create :patient, other_phone: '333-222-3333',
                                 other_contact: 'Foobar'
-    @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+    @patient.calls.create attributes_for(:call, status: :reached_patient)
     @call = @patient.calls.first
     create_language_config
   end
@@ -56,11 +56,6 @@ class PatientTest < ActiveSupport::TestCase
       refute @patient.valid?
     end
 
-    it 'requires a logged creating user' do
-      @patient.created_by_id = nil
-      refute @patient.valid?
-    end
-
     %w(primary_phone other_phone).each do |phone|
       it "should enforce a max length of 10 for #{phone}" do
         @patient[phone] = '123-456-789022'
@@ -74,7 +69,7 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    %w(initial_call_date name primary_phone created_by).each do |field|
+    %w(initial_call_date name primary_phone).each do |field|
       it "should enforce presence of #{field}" do
         @patient[field.to_sym] = nil
         refute @patient.valid?
@@ -321,31 +316,22 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @patient.respond_to? field
-        assert @patient[field]
-      end
-    end
-
+  describe 'concerns' do
     it 'should respond to history methods' do
-      assert @patient.respond_to? :history_tracks
-      assert @patient.history_tracks.count > 0
-    end
-
-    it 'should have accessible userstamp methods' do
+      assert @patient.respond_to? :versions
       assert @patient.respond_to? :created_by
-      assert @patient.created_by
+      assert @patient.respond_to? :created_by_id
     end
   end
 
   describe 'methods' do
     describe 'urgent patients class method' do
       before do
-        create :patient
-        2.times { create :patient, urgent_flag: true }
-        create :patient, urgent_flag: true, line: 'MD'
+        with_versioning do
+          create :patient
+          2.times { create :patient, urgent_flag: true }
+          create :patient, urgent_flag: true, line: 'MD'
+        end
       end
 
       it 'should return urgent patients by line' do
@@ -374,14 +360,6 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     describe 'history check methods' do
-      it 'should say whether a patient is still urgent' do
-        # TODO: TIMECOP
-        @patient.urgent_flag = true
-        @patient.save
-
-        assert @patient.still_urgent?
-      end
-
       it 'should trim pregnancies after they have been urgent for five days' do
         # TODO: TEST patient#trim_urgent_pregnancies
       end
@@ -389,7 +367,10 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'still urgent method' do
       it 'should return true if marked urgent in last 6 days' do
-        @patient.update urgent_flag: true
+        with_versioning do
+          @patient.update urgent_flag: true
+          @patient.reload
+        end
         assert @patient.still_urgent?
       end
 
@@ -522,13 +503,11 @@ class PatientTest < ActiveSupport::TestCase
 
     it 'should update sent by and sent at when sending the pledge' do
       @user = create :user
-      @patient.fund_pledge = 500
-      @patient.clinic = @clinic
-      @patient.appointment_date = 14.days.from_now
-      @patient.last_edited_by = @user
-      @patient.fund_pledge = true
-      @patient.pledge_sent = true
-      @patient.update
+      @patient.update fund_pledge: 500,
+                      clinic: @clinic,
+                      appointment_date: 14.days.from_now,
+                      last_edited_by: @user,
+                      pledge_sent: true
       @patient.reload
       assert_in_delta Time.zone.now.to_f, @patient.pledge_sent_at.to_f, 15 #used assert_in_delta to account for slight differences in timing. Allows 15 seconds of lag?
       assert_equal @user, @patient.pledge_sent_by
