@@ -131,8 +131,7 @@ module Exportable
   end
 
   def reached_patient_call_count
-    reached_calls = calls.select {|call| call.status == "Reached patient"}
-    reached_calls.count
+    calls.select { |call| call.reached_patient? }.count
   end
 
   def export_clinic_name
