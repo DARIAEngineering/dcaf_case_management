@@ -17,7 +17,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
   describe 'create method' do
     before do
       with_versioning do
-        @call = attributes_for :call, status: 'Reached patient'
+        @call = attributes_for :call, status: :reached_patient
         post patient_calls_path(@patient), params: { call: @call }, xhr: true
       end
     end

@@ -138,6 +138,7 @@ def migrate_fulfillment(pt_model, mongo_pt_model, pg_model, mongo_model, relatio
   puts "#{pg_model.count} Fulfillment migrated to pg"
 end
 
+# handles patient has_many submodels
 def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, parent_relation, transform)
   attributes = pg_model.attribute_names
   mongo_pt_model.collection.find.batch_size(100).each do |doc|
@@ -155,7 +156,7 @@ def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, 
     # Check
     obj_count = pg_model.where(parent_relation.to_sym => pt_model.find_by!(mongo_id: doc['_id'].to_s)).count
     if obj_count != mongo_objs.count
-      raise "PG and mongo counts for #{relation} are in disagreement; aborting"
+      raise "PG and mongo counts for #{relation} are in disagreement (#{obj_count} and #{mongo_objs.count}); aborting"
     end
   end
 
