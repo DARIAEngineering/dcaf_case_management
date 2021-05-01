@@ -32,6 +32,8 @@ class Config < ApplicationRecord
     voicemail: 12,
   }
 
+  # which fields are URLs (run special validation only on those)
+  # CONFIG_URLS = %w[fax_service practical_support_guidance_url resources_url]
 
   # symbols are required here because functions are not objects in rails :)
   CLEAN_PRE_VALIDATION = {
@@ -55,21 +57,23 @@ class Config < ApplicationRecord
     practical_support_guidance_url: :validate_url
   }
 
-    START_OF_WEEK = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-      "Monthly"
-    ].freeze
+  START_OF_WEEK = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+    "Monthly"
+  ].freeze
 
   before_validation :clean_config_value
 
   validates :config_key, uniqueness: true, presence: true
   validate :validate_config
+
+  # validate :validate_urls, if: -> { CONFIG_URLS.include? config_key }
 
   # Methods
   def options
@@ -175,13 +179,26 @@ class Config < ApplicationRecord
       return START_OF_WEEK.include?(options.last.capitalize)
     end
 
+    # def validate_url
+    #   url = options.last
+
+    #   # handle special case that URI regex forgets
+    #   return false if url == 'https://'
+
+    #   return url =~ /\A#{URI::regexp(['https'])}\z/  
+    # end
+
     def validate_url
-      url = options.last
+      maybe_url = options.last
+      return if maybe_url.blank?
+      
+      url = UriService.new(maybe_url).uri
 
-      # handle special case that URI regex forgets
-      return false if url == 'https://'
-
-      return url =~ /\A#{URI::regexp(['https'])}\z/  
+      if !url
+        errors.add :base, "\"#{maybe_url}\" is not a valid URL for #{config_key.humanize}."
+      else
+        config_value['options'] = [url]
+      end
     end
 
     def validate_hide_practical_support
@@ -192,5 +209,4 @@ class Config < ApplicationRecord
     def validate_number
       return options.last =~ /\A\d+\z/
     end
-
 end

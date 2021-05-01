@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.7.2'
 
 # Standard rails
-gem 'rails', '~> 6.0.3.5'
+gem 'rails', '~> 6.0.3.6'
 gem 'puma', '~> 4.3' # roar
 gem 'sdoc', '~> 1.0.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
@@ -37,7 +37,6 @@ gem 'paper_trail-globalid'
 gem 'devise', '~> 4.7'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 
-
 # We report errors with sentry
 gem 'sentry-raven'
 
@@ -61,9 +60,6 @@ gem 'js-routes' # Not sure if this is used anymore
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
-
-# Stuff hardsetting because of a rails dependency mess
-gem 'mimemagic', '>= 0.3.7'
 
 group :development do
   gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys

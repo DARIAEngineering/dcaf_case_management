@@ -81,7 +81,7 @@ Config.create config_key: :start_of_week,
   when 2
     # appointment one week from today && clinic selected
     patient.update! name: 'Clinic and Appt - 2',
-                    zipcode: 20_009,
+                    zipcode: "20009",
                     pronouns: 'she/they',
                     clinic: Clinic.first,
                     appointment_date: 2.days.from_now
@@ -94,7 +94,7 @@ Config.create config_key: :start_of_week,
                     fund_pledge: 100,
                     pledge_sent: true,
                     patient_contribution: 100,
-                    zipcode: 20_005,
+                    zipcode: "06222",
                     pronouns: 'ze/zir',
                     name: 'Pledge submitted - 3'
   when 4
@@ -371,7 +371,7 @@ end
     city: 'Washington',
     state: 'DC',
     county: 'Washington',
-    zipcode: 20_009,
+    zipcode: "20009",
     pronouns: 'they/them',
     other_contact: 'Susie Q.',
     other_phone: "555-6#{patient_number}0-0053",

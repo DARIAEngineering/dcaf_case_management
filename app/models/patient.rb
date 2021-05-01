@@ -75,7 +75,7 @@ class Patient
   field :city, type: String
   field :state, type: String
   field :county, type: String
-  field :zipcode, type: Integer
+  field :zipcode, type: String
   field :race_ethnicity, type: String
   field :employment_status, type: String
   field :household_size_children, type: Integer
@@ -132,6 +132,12 @@ class Patient
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
 
   validates_associated :fulfillment
+
+  # validation for standard US zipcodes
+  # allow ZIP (NNNNN) or ZIP+4 (NNNNN-NNNN)
+  validates :zipcode, format: /\A\d{5}(-\d{4})?\z/,
+            length: {minimum: 5, maximum: 10},
+            allow_blank: true
 
   # History and auditing
   track_history on: fields.keys + [:updated_by_id],
@@ -284,6 +290,9 @@ class Patient
     name.strip! if name
     other_contact.strip! if other_contact
     other_contact_relationship.strip! if other_contact_relationship
+
+    # add dash if needed
+    zipcode.gsub!(/(\d{5})(\d{4})/, '\1-\2') if zipcode
   end
 
   def initialize_fulfillment

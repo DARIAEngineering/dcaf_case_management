@@ -5,6 +5,8 @@
     <title><%= content_for?(:title) ? yield(:title) : "DARIA" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DCAF" %>">
     <meta name='ROBOTS' content='NOINDEX, NOFOLLOW'>
+    <meta name="google-site-verification" content="<%= ENV['GOOGLE_SITE_VERIFICATION'] %>" />
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= favicon_link_tag %>
