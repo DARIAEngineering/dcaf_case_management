@@ -186,7 +186,7 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         click_button 'Update options for Fax service'
 
         within :css, '#flash_alert' do
-          assert has_content? 'Config failed to update - Invalid value for fax service'
+          assert has_content? 'is not a valid URL for Fax service'
         end
 
         # confirm no change
