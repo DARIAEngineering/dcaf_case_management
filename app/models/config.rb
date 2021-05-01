@@ -33,16 +33,11 @@ class Config < ApplicationRecord
   }
 
   # which fields are URLs (run special validation only on those)
-  # CONFIG_URLS = %w[fax_service practical_support_guidance_url resources_url]
 
   # symbols are required here because functions are not objects in rails :)
   CLEAN_PRE_VALIDATION = {
     start_of_week: :fix_capitalization,
     hide_practical_support: :fix_capitalization,
-
-    # resources_url: :clean_url,
-    # fax_service: :clean_url,
-    # practical_support_guidance_url: :clean_url
   }
 
   VALIDATIONS = {
@@ -134,8 +129,7 @@ class Config < ApplicationRecord
       errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
     end
 
-    # clean function for config fields that use english words - just so we have
-    # canonical values
+    # generic validator for words (so we have standardized capitalization)
     def fix_capitalization
       config_value['options'] = [options.last.capitalize]
     end
@@ -146,29 +140,7 @@ class Config < ApplicationRecord
     end
 
 
-    ### URL
-
-    def clean_url
-      url = options.last
-
-      # don't try to clean empty url
-      return if url.blank?
-
-      # don't have to do anything, already https
-      return if url.start_with? 'https://'
-
-      # convert http or // to https://
-      if url.start_with? /(http:)?\/\//
-          url = url.sub /^(http:)?\/\//, 'https://'
-
-      # convert no scheme to https:// (i.e. example.com -> https://example.com)
-      elsif not url.start_with? '/'
-          url = 'https://' + url
-      end
-
-      # set config back to what it was
-      config_value['options'] = [url]
-    end
+    ### URL fields
 
     def validate_url
       maybe_url = options.last
@@ -176,11 +148,11 @@ class Config < ApplicationRecord
       
       url = UriService.new(maybe_url).uri
 
-      if !url
-        errors.add :base, "\"#{maybe_url}\" is not a valid URL for #{config_key.humanize}."
-      else
-        config_value['options'] = [url]
-      end
+      # uriservice returns nil if there's a problem.
+      return false if !url
+
+      config_value['options'] = [url]
+      return true
     end
 
     ### Start of Week
