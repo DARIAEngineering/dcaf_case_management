@@ -40,9 +40,9 @@ class Config < ApplicationRecord
     start_of_week: :fix_capitalization,
     hide_practical_support: :fix_capitalization,
 
-    resources_url: :clean_url,
-    fax_service: :clean_url,
-    practical_support_guidance_url: :clean_url
+    # resources_url: :clean_url,
+    # fax_service: :clean_url,
+    # practical_support_guidance_url: :clean_url
   }
 
   VALIDATIONS = {
@@ -57,23 +57,10 @@ class Config < ApplicationRecord
     practical_support_guidance_url: :validate_url
   }
 
-  START_OF_WEEK = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-    "Monthly"
-  ].freeze
-
   before_validation :clean_config_value
 
   validates :config_key, uniqueness: true, presence: true
   validate :validate_config
-
-  # validate :validate_urls, if: -> { CONFIG_URLS.include? config_key }
 
   # Methods
   def options
@@ -112,7 +99,7 @@ class Config < ApplicationRecord
   end
 
   private
-    ### Pre-validation cleanup
+    ### Generic Functions
 
     def clean_config_value
       # do nothing if empty
@@ -128,6 +115,38 @@ class Config < ApplicationRecord
       # See https://ruby-doc.org/core/Object.html#method-i-method
       method(cleaner).call
     end
+
+    # parent function. will handle errors; child validators should return true
+    # if value is valid for key, and false otherwise.
+    def validate_config
+      # don't try to validate if no key or no value
+      return if config_key.nil? || options.last.nil?
+
+      validator = VALIDATIONS[config_key.to_sym]
+
+      # no validation for this field, ignore
+      return if validator.nil?
+
+      # run the validator and get a boolean, exit if true
+      # (see comment above in `clean_config_value` for an explainer)
+      return if method(validator).call
+
+      errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
+    end
+
+    # clean function for config fields that use english words - just so we have
+    # canonical values
+    def fix_capitalization
+      config_value['options'] = [options.last.capitalize]
+    end
+
+    # generic validator for numerics
+    def validate_number
+      return options.last =~ /\A\d+\z/
+    end
+
+
+    ### URL
 
     def clean_url
       url = options.last
@@ -151,43 +170,6 @@ class Config < ApplicationRecord
       config_value['options'] = [url]
     end
 
-    def fix_capitalization
-      config_value['options'] = [options.last.capitalize]
-    end
-
-    ### Validation
-
-    # parent function. will handle errors; child validators should return true
-    # if value is valid for key, and false otherwise.
-    def validate_config
-      # don't try to validate if no key or no value
-      return if config_key.nil? || options.last.nil?
-
-      validator = VALIDATIONS[config_key.to_sym]
-
-      # no validation for this field, ignore
-      return if validator.nil?
-
-      # run the validator and get a boolean, exit if true
-      # (see comment above in `clean_config_value` for an explainer)
-      return if method(validator).call
-
-      errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
-    end
-
-    def validate_start_of_week
-      return START_OF_WEEK.include?(options.last.capitalize)
-    end
-
-    # def validate_url
-    #   url = options.last
-
-    #   # handle special case that URI regex forgets
-    #   return false if url == 'https://'
-
-    #   return url =~ /\A#{URI::regexp(['https'])}\z/  
-    # end
-
     def validate_url
       maybe_url = options.last
       return if maybe_url.blank?
@@ -201,12 +183,27 @@ class Config < ApplicationRecord
       end
     end
 
+    ### Start of Week
+
+    START_OF_WEEK = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "Monthly"
+    ].freeze
+
+    def validate_start_of_week
+      return START_OF_WEEK.include?(options.last.capitalize)
+    end
+
+    ### Practical support
+
     def validate_hide_practical_support
       # allow yes or no, to be nice (technically only yes is considered)
       return options.last =~ /\A(yes|no)\z/i
-    end
-
-    def validate_number
-      return options.last =~ /\A\d+\z/
     end
 end
