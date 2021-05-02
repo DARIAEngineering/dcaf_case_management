@@ -3,11 +3,11 @@ module Callable
   extend ActiveSupport::Concern
 
   def recent_calls
-    calls.includes(:created_by).order('created_at DESC').limit(10)
+    calls.includes(:versions).order('created_at DESC').limit(10)
   end
 
   def old_calls
-    calls.includes(:created_by).order('created_at DESC').offset(10)
+    calls.includes(:versions).order('created_at DESC').offset(10)
   end
 
   def last_call

@@ -6,7 +6,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     @patient = create :patient, other_phone: '111-222-3333',
                                 other_contact: 'Yolo'
 
-    @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+    @patient.calls.create attributes_for(:call, created_by: @user, status: :reached_patient)
     create_language_config
     @archived_patient = create :archived_patient, line: 'DC',
                                 initial_call_date: 200.days.ago,
@@ -45,8 +45,8 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                    race_ethnicity: 'Asian',
                                    initial_call_date: 16.days.ago,
                                    appointment_date: 6.days.ago
-      @patient.calls.create attributes_for(:call, created_by: @user, status: "Couldn't reach patient")
-      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+      @patient.calls.create attributes_for(:call, created_by: @user, status: :couldnt_reach_patient)
+      @patient.calls.create attributes_for(:call, created_by: @user, status: :reached_patient)
       @patient.update fulfillment: {
                                   fulfilled: true,
                                   updated_at: 3.days.ago,
