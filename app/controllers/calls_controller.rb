@@ -4,7 +4,6 @@ class CallsController < ApplicationController
 
   def create
     @call = @patient.calls.new call_params
-    @call.created_by = current_user
     if call_saved_and_patient_reached @call, params
       redirect_to edit_patient_path @patient
     elsif @call.save
@@ -12,6 +11,8 @@ class CallsController < ApplicationController
     else
       head :bad_request
     end
+  rescue ArgumentError
+    head :bad_request
   end
 
   def new
@@ -43,6 +44,6 @@ class CallsController < ApplicationController
   end
 
   def call_saved_and_patient_reached(call, params)
-    call.save && params[:call][:status] == 'Reached patient'
+    call.save && params[:call][:status] == 'reached_patient'
   end
 end

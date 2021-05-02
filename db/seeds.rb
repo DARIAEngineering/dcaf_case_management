@@ -2,11 +2,19 @@
 raise 'No running seeds in prod' unless [nil, 'Sandbox'].include? ENV['DARIA_FUND']
 
 # Clear out existing DB
+Config.destroy_all
+Event.destroy_all
+Call.destroy_all
+# CallListEntry.destroy_all
+# ExternalPledge.destroy_all
+# Fulfillment.destroy_all
+# Note.destroy_all
 Patient.destroy_all
 User.destroy_all
 Clinic.destroy_all
-Event.destroy_all
-Config.destroy_all
+
+# Do versioning
+PaperTrail.enabled = true
 
 # Set a few config constants
 lines = %w[DC VA MD]
@@ -23,6 +31,9 @@ user2 = User.create! name: 'testuser2', email: 'test2@example.com',
 User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
              password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
              role: :cm
+
+# Default to user2 as the actor
+PaperTrail.request.whodunnit = user2
 
 # Create a few clinics
 Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '1600 Pennsylvania Ave',
@@ -67,13 +78,13 @@ Config.create config_key: :start_of_week,
   case i
   when 0
     10.times do
-      patient.calls.create! status: 'Reached patient',
+      patient.calls.create! status: :reached_patient,
                             created_at: 3.days.ago
     end
   when 1
     patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
                     other_phone: '234-456-6789', other_contact_relationship: 'Sister'
-    patient.calls.create! status: 'Reached patient',
+    patient.calls.create! status: :reached_patient,
                           created_at: 14.hours.ago
   when 2
     # appointment one week from today && clinic selected
@@ -99,7 +110,7 @@ Config.create config_key: :start_of_week,
     patient.update! name: 'Special Circumstances - 4',
                     special_circumstances: ['Prison', 'Fetal anomaly']
     # And a recent call on file
-    patient.calls.create! status: 'Left voicemail'
+    patient.calls.create! status: :left_voicemail
   when 5
     # Resolved without DCAF
     patient.update! name: 'Resolved without DCAF - 5',
@@ -108,7 +119,7 @@ Config.create config_key: :start_of_week,
 
   if i != 9
     5.times do
-      patient.calls.create! status: 'Left voicemail',
+      patient.calls.create! status: :left_voicemail,
                             created_at: 3.days.ago
     end
   end
@@ -172,10 +183,10 @@ end
 
   # reached within the past 30 days
   5.times do
-    patient.calls.create! status: 'Reached patient',
+    patient.calls.create! status: :reached_patient,
                           created_by: user,
                           created_at: (Time.now - rand(10).days)
-    patient.calls.create! status: 'Reached patient',
+    patient.calls.create! status: :reached_patient,
                           created_by: user,
                           created_at: (Time.now - rand(10).days - 10.days)
   end
@@ -194,7 +205,7 @@ end
   )
 
   5.times do
-    patient.calls.create! status: 'Reached patient',
+    patient.calls.create! status: :reached_patient,
                           created_by: user,
                           created_at: (Time.now - rand(10).days - 6.months)
   end
@@ -232,10 +243,10 @@ end
   )
 
   # Call, but no answer. leave a VM.
-  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 139.days.ago
+  patient.calls.create status: :left_voicemail, created_by: user, created_at: 139.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
+  patient.calls.create status: :reached_patient, created_by: user, created_at: 138.days.ago
 
   patient.update!(
     # header info - hand filled in
@@ -283,7 +294,7 @@ end
   next if patient.resolved_without_fund?
 
   # another call. get abortion information, create pledges, a note.
-  patient.calls.create! status: 'Reached patient', created_by: user, created_at: 136.days.ago
+  patient.calls.create! status: :reached_patient, created_by: user, created_at: 136.days.ago
 
   # abortion info - pledges - hand filled in
   patient.update!(
@@ -345,10 +356,10 @@ end
   )
 
   # Call, but no answer. leave a VM.
-  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 639.days.ago
+  patient.calls.create status: :left_voicemail, created_by: user, created_at: 639.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
+  patient.calls.create status: :reached_patient, created_by: user, created_at: 138.days.ago
 
   # Patient 1 drops off immediately
   next if patient_number.odd?
