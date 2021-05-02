@@ -230,7 +230,7 @@ en:
     cant_lock_own_account: You can't lock your own account. Ask another admin.
     clinic_created: "%{clinic} created!"
     clinic_details_updated: Successfully updated clinic details
-    config_failed_update: Config failed to update
+    config_failed_update: Config failed to update - %{error}
     config_update_success: Config updated successfully
     demote_own_account_warn: For safety reasons, you are not allowed to change your role from an admin to a not-admin. Ask another admin to demote you.
     error_saving_clinic: Errors prevented this clinic from being saved - %{error}
