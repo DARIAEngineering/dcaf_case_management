@@ -94,7 +94,7 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should clean calls when patient has been reached' do
       assert_equal 0, @user.recently_called_patients('DC').count
-      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Reached patient')
+      @patient.calls.create attributes_for(:call, created_by: @user, status: :reached_patient)
       @call = @patient.calls.first
       assert_equal 1, @user.recently_called_patients('DC').count
       @user.clean_call_list_between_shifts
@@ -103,7 +103,7 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should not clear calls when patient has not been reached' do
       assert_equal 0, @user.recently_called_patients('DC').count
-      @patient.calls.create attributes_for(:call, created_by: @user, status: 'Left voicemail' )
+      @patient.calls.create attributes_for(:call, created_by: @user, status: :left_voicemail)
       @call = @patient.calls.first
       assert_equal 1, @user.recently_called_patients('DC').count
       @user.clean_call_list_between_shifts

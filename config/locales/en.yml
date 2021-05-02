@@ -93,7 +93,7 @@ en:
       other_contact: "%{name} %{rel} is the primary contact for this patient%{punc}"
       primary: 'Primary contact:'
     status:
-      could_not_reach_patient: Couldn't reach patient
+      couldnt_reach_patient: Couldn't reach patient
       left_voicemail: Left voicemail
       reached_patient: Reached patient
   clinic_locator:
