@@ -3,6 +3,8 @@ class MongoCallListEntry
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  store_in collection: 'call_list_entries'
+
   # Relationships
   belongs_to :user
   belongs_to :patient
