@@ -6,7 +6,7 @@ module Reporting
           eligible_calls = patient
             .calls
             .where(created_at: (start_date..end_date))
-            .where(status: 'Reached patient')
+            .where(status: :reached_patient)
             .count
 
           if eligible_calls > 0
@@ -19,7 +19,7 @@ module Reporting
 
       def new_contacted_for_line(line, start_date, end_date)
         ::Patient.where(line: line).inject(0) do |count, patient|
-          first_reached_call = patient.calls.where(status: 'Reached patient').order(created_at: 'asc').first
+          first_reached_call = patient.calls.where(status: :reached_patient).order(created_at: 'asc').first
 
           if first_reached_call && first_reached_call.created_at >= start_date && first_reached_call.created_at <= end_date
             count += 1
