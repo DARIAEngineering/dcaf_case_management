@@ -3,7 +3,7 @@ class CallListsController < ApplicationController
   include LinesHelper
 
   before_action :retrieve_patients, only: [:add_patient, :remove_patient]
-  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :not_found }
+  rescue_from ActiveRecord::RecordNotFound, with: -> { head :not_found }
 
   def add_patient
     current_user.add_patient @patient

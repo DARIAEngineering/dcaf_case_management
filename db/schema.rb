@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_033002) do
+ActiveRecord::Schema.define(version: 2021_05_02_050214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "call_list_entries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "patient_id", null: false
+    t.string "line", null: false
+    t.integer "order_key", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["line"], name: "index_call_list_entries_on_line"
+    t.index ["patient_id"], name: "index_call_list_entries_on_patient_id"
+    t.index ["user_id"], name: "index_call_list_entries_on_user_id"
+  end
 
   create_table "calls", force: :cascade do |t|
     t.integer "status", null: false
@@ -204,6 +216,8 @@ ActiveRecord::Schema.define(version: 2021_04_26_033002) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "call_list_entries", "patients"
+  add_foreign_key "call_list_entries", "users"
   add_foreign_key "patients", "clinics"
   add_foreign_key "patients", "users", column: "last_edited_by_id"
   add_foreign_key "patients", "users", column: "pledge_generated_by_id"
