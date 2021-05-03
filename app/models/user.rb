@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   # Concerns
   include PaperTrailable
-  # include CallListable # Soon
+  include CallListable
 
   # Devise modules
   devise  :database_authenticatable,
@@ -29,7 +29,7 @@ class User < ApplicationRecord
   after_create :send_account_created_email, if: :persisted?
 
   # Relationships
-  # has_many :call_list_entries # Soon
+  has_many :call_list_entries
 
   # Validations
   # email presence validated through Devise

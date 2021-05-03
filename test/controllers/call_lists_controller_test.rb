@@ -65,7 +65,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
       assert_no_difference '@user.call_list_entries.count' do
         patch remove_patient_path(@patient_1), xhr: true
       end
-      assert_response :success
+      assert_response :not_found
     end
 
     it 'should should return bad request on sketch ids' do
