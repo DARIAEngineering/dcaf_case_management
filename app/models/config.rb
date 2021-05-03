@@ -38,7 +38,7 @@ class Config < ApplicationRecord
   CLEAN_PRE_VALIDATION = {
     start_of_week: :fix_capitalization,
     hide_practical_support: :fix_capitalization,
-  }
+  }.freeze
 
   VALIDATIONS = {
     start_of_week: :validate_start_of_week,
@@ -50,7 +50,7 @@ class Config < ApplicationRecord
     resources_url: :validate_url,
     fax_service: :validate_url,
     practical_support_guidance_url: :validate_url
-  }
+  }.freeze
 
   before_validation :clean_config_value
 

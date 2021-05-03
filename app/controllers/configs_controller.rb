@@ -15,7 +15,7 @@ class ConfigsController < ApplicationController
       redirect_to configs_path
     else
       error_content = @config.errors.full_messages.to_sentence
-      flash[:alert] = t('flash.config_failed_update', error: error_content) unless flash[:alert]
+      flash[:alert] ||= t('flash.config_failed_update', error: error_content)
       redirect_to configs_path
     end
   end
