@@ -22,31 +22,13 @@ class CallListEntryTest < ActiveSupport::TestCase
       call_list_user = @call_list_entry.user_id
 
       entry = build :call_list_entry, patient_id: call_list_pt,
-                                          user_id: call_list_user
+                                      user_id: call_list_user
       refute entry.valid?
-      assert_equal 'Patient is already taken',
+      assert_equal 'Patient has already been taken',
                    entry.errors.full_messages.first
 
       entry.user = create :user
       assert entry.valid?
-    end
-  end
-
-  describe 'mongoid attachments' do
-    it 'should have timestamps from Mongoid::Timestamps' do
-      [:created_at, :updated_at].each do |field|
-        assert @call_list_entry.respond_to? field
-        assert @call_list_entry[field]
-      end
-    end
-  end
-
-  describe 'methods' do
-    it 'should nuke call list entries that do not have a patient associated' do
-      @call_list_entry.update patient: nil
-      assert_difference 'CallListEntry.count', -1 do
-        CallListEntry.destroy_orphaned_entries
-      end
     end
   end
 end

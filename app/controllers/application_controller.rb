@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :prevent_caching_via_headers
   before_action :set_locale
   before_action :set_raven_context
-  # before_action :set_paper_trail_whodunnit # Turn on when user model is in pg 
+  before_action :set_paper_trail_whodunnit
 
   # whitelists attributes in devise
   def configure_permitted_parameters
