@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_02_050214) do
+ActiveRecord::Schema.define(version: 2021_05_03_043154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -117,6 +117,14 @@ ActiveRecord::Schema.define(version: 2021_05_02_050214) do
     t.index ["audited"], name: "index_fulfillments_on_audited"
     t.index ["can_fulfill_type", "can_fulfill_id"], name: "index_fulfillments_on_can_fulfill_type_and_can_fulfill_id"
     t.index ["fulfilled"], name: "index_fulfillments_on_fulfilled"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.string "full_text", null: false
+    t.bigint "patient_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|

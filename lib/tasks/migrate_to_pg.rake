@@ -90,6 +90,14 @@ namespace :migrate_to_pg do
           attrs
         end
         migrate_submodel(pt, mongo_pt, pg, mongo, 'calls', 'can_call', extra_transform)
+
+        # Then, notes
+        pg = Note
+        mongo = MongoNote
+        extra_transform = Proc.new do |attrs, obj, doc|
+          attrs['patient_id'] = Patient.find_by!(mongo_id: doc['_id'].to_s).id
+          attrs
+        end
       end
 
       # Then, a couple spares that are Patient only
