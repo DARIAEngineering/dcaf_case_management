@@ -114,7 +114,7 @@ namespace :migrate_to_pg do
         puts attrs
         attrs
       end
-      migrate_submodel(pt, mongo_pt, pg, mongo, 'calls', 'notes', extra_transform)
+      migrate_submodel(pt, mongo_pt, pg, mongo, 'notes', 'notes', extra_transform)
     end
   end
 end
