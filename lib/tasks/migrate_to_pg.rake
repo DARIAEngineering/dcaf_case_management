@@ -110,11 +110,10 @@ namespace :migrate_to_pg do
       pg = Note
       mongo = MongoNote
       extra_transform = Proc.new do |attrs, obj, doc|
-        attrs['patient_id'] = Patient.find_by!(mongo_id: doc['_id'].to_s).id
-        puts attrs
+        attrs['patient'] = pt.find_by! mongo_id: doc['_id'].to_s
         attrs
       end
-      migrate_submodel(pt, mongo_pt, pg, mongo, 'notes', 'notes', extra_transform)
+      migrate_submodel(pt, mongo_pt, pg, mongo, 'notes', 'patient', extra_transform)
     end
   end
 end
@@ -178,11 +177,7 @@ def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, 
     end
 
     # Check
-    begin
-      obj_count = pg_model.where(parent_relation.to_sym => pt_model.find_by!(mongo_id: doc['_id'].to_s)).count
-    rescue ActiveRecord::StatementInvalid
-      binding.pry
-    end
+    obj_count = pg_model.where(parent_relation.to_sym => pt_model.find_by!(mongo_id: doc['_id'].to_s)).count
     if obj_count != mongo_objs.count
       raise "PG and mongo counts for #{relation} are in disagreement (#{obj_count} and #{mongo_objs.count}); aborting"
     end
