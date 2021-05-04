@@ -178,7 +178,11 @@ def migrate_submodel(pt_model, mongo_pt_model, pg_model, mongo_model, relation, 
     end
 
     # Check
-    obj_count = pg_model.where(parent_relation.to_sym => pt_model.find_by!(mongo_id: doc['_id'].to_s)).count
+    begin
+      obj_count = pg_model.where(parent_relation.to_sym => pt_model.find_by!(mongo_id: doc['_id'].to_s)).count
+    rescue ActiveRecord::StatementInvalid
+      binding.pry
+    end
     if obj_count != mongo_objs.count
       raise "PG and mongo counts for #{relation} are in disagreement (#{obj_count} and #{mongo_objs.count}); aborting"
     end
