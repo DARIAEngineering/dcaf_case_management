@@ -31,9 +31,12 @@ module PracticalSupportsHelper
   end
 
   def practical_support_guidance_link
-    url = Config.find_or_create_by(config_key: 'practical_support_guidance_url').options.first
+    maybe_url = Config.find_or_create_by(config_key: 'practical_support_guidance_url').options.first
+
+    url = UriService.new(maybe_url).uri
+
     return unless url.present?
-    link_to t('patient.practical_support.guidance_link', fund: FUND), url, target: '_blank'
+    link_to t('patient.practical_support.guidance_link', fund: FUND), url.to_s, target: '_blank'
     # "For guidance on practical support, view the #{link_content}."
   end
 end

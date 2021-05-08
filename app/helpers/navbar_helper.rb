@@ -1,9 +1,12 @@
 module NavbarHelper
   def cm_resources_link
-    url = Config.find_or_create_by(config_key: 'resources_url').options.first
+    maybe_url = Config.find_or_create_by(config_key: 'resources_url').options.first
+
+    # redundant UriService just for fallbackhelp
+    url = UriService.new(maybe_url).uri
 
     content_tag :li do
-      link_to t('navigation.cm_resources.label'), url, target: '_blank', class: 'nav-link'
+      link_to t('navigation.cm_resources.label'), url.to_s, target: '_blank', class: 'nav-link'
     end if url.present?
   end
 

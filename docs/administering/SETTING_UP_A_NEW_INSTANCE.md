@@ -75,7 +75,15 @@ With the instance set up, we want to make sure it's properly configured and work
 
 You should be able to access the rails console via this snippet: `heroku run rails c -a daria-FUND`
 
-* Create yourself an admin account from the rails console. Confirm that this sends an email to you notifying you of account creation. You can use this snippet: `User.create email: 'your@email.org', name: 'Your Name', role: :admin, password: 'random string', password_confirmation: 'same random string as in password'`. Throw out the password after generating it as you won't need it again. This confirms we can save new users to the database and that the mailer is properly configured. If an email doesn't send, check that the Sendgrid Heroku addon is working right and that the sendgrid env vars are properly set.
+* Create yourself an admin account from the rails console. Confirm that this sends an email to you notifying you of account creation. This confirms we can save new users to the database and that the mailer is properly configured. If an email doesn't send, check that the Sendgrid Heroku addon is working right and that the sendgrid env vars are properly set. You can use this snippet:
+```
+scratch_pass = SecureRandom.alphanumeric
+User.create email: 'your@email.org',
+            name: 'Your Name',
+            role: :admin,
+            password: scratch_pass,
+            password_confirmation: scratch_pass
+```
 * Go to the url at `http://daria-FUND.herokuapp.com`. Confirm that this loads, and redirects you to `https://...`
 * Confirm the oauth signin flow works by clicking the `Sign in with Google` button. This confirms that oauth is properly set up. If something is weird here, check that `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` are properly set and configured.
 * Confirm that the lines are properly set and show up right. For most funds, this means after logging in you will go straight to the call list. For funds with more than one line, you'll go to a line selection screen instead. If this is does not behave as expected, check that the `DARIA_LINES` environment variable is properly set.

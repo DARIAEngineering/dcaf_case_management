@@ -160,7 +160,7 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
 
     describe 'updating a config - fax service' do
       it 'should update and be available in the footer' do
-        fill_in 'config_options_fax_service', with: 'https://metallicarules.com'
+        fill_in 'config_options_fax_service', with: 'metallicarules.com'
         click_button 'Update options for Fax service'
 
         assert_equal 'https://metallicarules.com',
