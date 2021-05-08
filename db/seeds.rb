@@ -17,7 +17,6 @@ Config.destroy_all
 lines = %w[DC VA MD]
 note_text = 'This is a note ' * 10
 additional_note_text = 'Additional note ' * 10
->>>>>>> main
 
 # Create test users
 user = User.create! name: 'testuser (admin)', email: 'test@example.com',
