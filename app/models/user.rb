@@ -82,15 +82,18 @@ class User
   # email presence validated through Devise
   validates :name, presence: true
   validates :role, presence: true
-  validate :secure_password
+  validate :secure_password, if: :updating_password?
   # i18n-tasks-use t('errors.messages.password.password_strength')
-  validates :password, password_strength: {use_dictionary: true}
+  validates :password, password_strength: {use_dictionary: true}, if: :updating_password?
 
 
   TIME_BEFORE_DISABLED_BY_FUND = 9.months
 
+  def updating_password?
+    return !password.nil?
+  end
+
   def secure_password
-    return true if password.nil?
     pc = verify_password_complexity
     if pc == false
       errors.add :password, 'Password must include at least one lowercase ' \
