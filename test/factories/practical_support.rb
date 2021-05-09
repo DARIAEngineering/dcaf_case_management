@@ -8,6 +8,5 @@ FactoryBot.define do
       "Support #{n}"
     end
     confirmed { false }
-    created_by { FactoryBot.create(:user) }
   end
 end
