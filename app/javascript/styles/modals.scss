@@ -7,12 +7,15 @@
   }
 }
 
+// These are marked important because of conflicts between
+// sprockets and webpacker. When bootstrap is fully webpackered,
+// we can remove the important declarations.
 .modal-dialog {
-  max-width: 60%;
+  max-width: 60% !important;
 }
 
 .modal-header, .modal-body, .modal-footer {
-  padding: 1.75rem;
+  padding: 1.75rem !important;
 }
 
 // Extra padding for accounting modals
