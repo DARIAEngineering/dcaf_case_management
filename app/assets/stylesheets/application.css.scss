@@ -203,9 +203,7 @@ a:hover, a:active, a:visited, a:focus {
 
 $daria-color-lt : #825fb9;
 
-// Modal partial styling
 .btn-success {
-
   background-color: $daria-color;
   border-color: $daria-color;
 
@@ -277,17 +275,6 @@ $daria-color-lt : #825fb9;
   color: red;
 }
 
-.modal-header, .modal-body, .modal-footer {
-  padding: 30px
-}
-
-.modal-header > h4 {
-  padding-left: 1em;
-  .label {
-    margin-left: -2em;
-  }
-}
-
 #flash {
   position: fixed;
 }
@@ -315,9 +302,4 @@ $daria-color-lt : #825fb9;
 // This is necessary because of a vendored multimodal plugin that we should aim to deprecate
 .hide {
   @extend .d-none;
-}
-
-// widen default modal from bootstrap default
-.modal-dialog {
-  max-width: 60%;
 }
