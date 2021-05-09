@@ -1,0 +1,26 @@
+// Styling for modals, used in a variety of spots.
+
+// widen default modal from bootstrap default
+.modal-dialog {
+  max-width: 60%;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  padding: 30px
+}
+
+.modal-header > h4 {
+  padding-left: 1em;
+  .label {
+    margin-left: -2em;
+  }
+}
+
+// Styling for particular modals
+.partial_fulfillment_modal {
+  padding: 5%;
+}
+
+.pledge_modal_category {
+  margin-left: 1em;
+}
