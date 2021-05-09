@@ -1,11 +1,18 @@
 // Styling for modals, used in a variety of spots.
-// Generally we inherit everything from bootstrap where possible!
 
 .modal-header > h4 {
   padding-left: 1em;
   .label {
     margin-left: -2em;
   }
+}
+
+.modal-dialog {
+  max-width: 60%;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  padding: 1.75rem;
 }
 
 // Extra padding for accounting modals
