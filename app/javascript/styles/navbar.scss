@@ -1,0 +1,29 @@
+// Styling for the navbar.
+
+@import './_variables';
+
+.navbar-inverse{
+  background-color: $light-gray;
+  border: none;
+
+  .navbar-header > a, .navbar-nav > li > a {
+    color: $daria-color;
+
+    &:hover{
+      color: lighten($daria-color, 20%);
+      text-decoration: underline;
+    }
+
+    &:visited{
+      color: $dark-blue;
+    }
+  }
+
+  .navbar-text {
+    color: $daria-color;
+  }
+
+  .navbar-text-alt {
+    color: $grey-color;
+  }
+}
