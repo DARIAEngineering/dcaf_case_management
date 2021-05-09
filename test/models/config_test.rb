@@ -121,6 +121,36 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
+    describe 'archive_patients' do
+      it 'should return proper defaults' do
+        assert_equal 90, Config.archive_fulfilled_patients
+        assert_equal 365, Config.archive_all_patients
+      end
+
+      it 'should validate bounds' do
+        c = Config.find_or_create_by(config_key: 'archive_all_patients')
+        
+        # low out of bounds
+        c.config_value = { options: ["10"] }
+        refute c.valid?
+        
+        # low edge
+        c.config_value = { options: ["60"] }
+        assert c.valid?
+        
+        # in bounds
+        c.config_value = { options: ["120"] }
+        assert c.valid?
+        
+        # high edge
+        c.config_value = { options: ["550"] }
+        assert c.valid?
+        
+        c.config_value = { options: ["1000"] }
+        refute c.valid?
+      end
+    end
+
     describe '#hide_practical_support?' do
       it 'can return true' do
         c = Config.find_or_create_by(config_key: 'hide_practical_support')
