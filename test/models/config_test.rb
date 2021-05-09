@@ -128,7 +128,7 @@ class ConfigTest < ActiveSupport::TestCase
       end
 
       it 'should validate bounds' do
-        c = Config.find_or_create_by(config_key: 'archive_all_patients')
+        c = Config.find_or_create_by(config_key: 'days_to_keep_all_patients')
         
         # low out of bounds
         c.config_value = { options: ["10"] }

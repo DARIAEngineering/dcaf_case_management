@@ -14,8 +14,8 @@ class Config < ApplicationRecord
     start_of_week: "How to render your budget bar. Default is weekly starting on Monday. Enter \"Sunday\" for weekly budget starting on Sunday, or \"Monthly\" for a calendar month based budget.",
     budget_bar_max: "The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.",
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
-    archive_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled. Defaults to 90 days (3 months).",
-    archive_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year)."
+    days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled. Defaults to 90 days (3 months).",
+    days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year)."
   }.freeze
 
   enum config_key: {
@@ -32,8 +32,8 @@ class Config < ApplicationRecord
     start_of_week: 10,
     budget_bar_max: 11,
     voicemail: 12,
-    archive_fulfilled_patients: 13,
-    archive_all_patients: 14
+    days_to_keep_fulfilled_patients: 13,
+    days_to_keep_all_patients: 14
   }
 
   # which fields are URLs (run special validation only on those)
@@ -55,8 +55,8 @@ class Config < ApplicationRecord
     fax_service: :validate_url,
     practical_support_guidance_url: :validate_url,
 
-    archive_fulfilled_patients: :validate_patient_archive,
-    archive_all_patients: :validate_patient_archive,
+    days_to_keep_fulfilled_patients: :validate_patient_archive,
+    days_to_keep_all_patients: :validate_patient_archive,
   }.freeze
 
   before_validation :clean_config_value
@@ -101,14 +101,14 @@ class Config < ApplicationRecord
   end
 
   def self.archive_fulfilled_patients
-    archive_days = Config.find_or_create_by(config_key: 'archive_fulfilled_patients').options.try :last
+    archive_days = Config.find_or_create_by(config_key: 'days_to_keep_fulfilled_patients').options.try :last
     # default 3 months
     archive_days ||= 90
     archive_days.to_i
   end
 
   def self.archive_all_patients
-    archive_days = Config.find_or_create_by(config_key: 'archive_all_patients').options.try :last
+    archive_days = Config.find_or_create_by(config_key: 'days_to_keep_all_patients').options.try :last
     # default 1 year
     archive_days ||= 365
     archive_days.to_i

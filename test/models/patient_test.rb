@@ -446,11 +446,11 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       it 'should return custom audit config' do
-        c = Config.find_or_create_by(config_key: 'archive_all_patients')
+        c = Config.find_or_create_by(config_key: 'days_to_keep_all_patients')
         c.config_value = { options: ["100"] }
         c.save
 
-        c = Config.find_or_create_by(config_key: 'archive_fulfilled_patients')
+        c = Config.find_or_create_by(config_key: 'days_to_keep_fulfilled_patients')
         c.config_value = { options: ["300"] }
         c.save
 
