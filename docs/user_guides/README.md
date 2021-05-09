@@ -5,7 +5,7 @@ These are guidances and reference manuals on using DARIA, either as a case manag
 Please click on the document you'd like to review:
 
 * [Glossary of terms](GLOSSARY.md)
+* [Configuring your list of clinics](CLINIC_INFORMATION.md)
 * [Using DARIA as a Case Manager](CASE_MANAGERS.md)
 <!-- * [DARIA's data and analytics tools](ANALYTICS.md) -->
 <!-- * [Accounting functionality in DARIA](ACCOUNTANTS.md) -->
-<!-- * [Administering DARIA](ADMINS.md) -->
