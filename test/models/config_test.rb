@@ -53,9 +53,9 @@ class ConfigTest < ActiveSupport::TestCase
     end
 
     it 'should validate URLs' do
-      Config::CLEAN_PRE_VALIDATION
-        .select{ |field, cleaner| cleaner == :clean_url }
-        .each do |url_field, cleaner|
+      Config::VALIDATIONS
+        .select{ |field, validator| validator == :validate_url }
+        .each do |url_field, _validator|
           c = Config.find_or_create_by(config_key: url_field)
           
           # confirm cleanup cleanup
