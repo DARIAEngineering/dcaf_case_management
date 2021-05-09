@@ -4,24 +4,6 @@ class ConfigTest < ActiveSupport::TestCase
   before { @config = create :config }
 
   describe 'callbacks' do
-    it 'should clean URLs before save' do
-      Config::CLEAN_PRE_VALIDATION
-        .select{ |field, cleaner| cleaner == :clean_url }
-        .each do |url_field, cleaner|
-          c = Config.find_or_create_by(config_key: url_field)
-          
-          # confirm that scheme-less URLs are given one
-          c.config_value = { options: ["www.needs-scheme.net"] }
-          c.save
-          assert_equal "https://www.needs-scheme.net", c.options.last
-
-          # doesn't touch empty config
-          c.config_value = { options: [] }
-          c.save
-          assert_nil c.options.last
-      end
-    end
-
     it 'should capitalize words before save' do
       c = Config.find_or_create_by(config_key: :start_of_week)
       c.config_value= { options: ["wednesday"] }
@@ -58,9 +40,11 @@ class ConfigTest < ActiveSupport::TestCase
         .each do |url_field, _validator|
           c = Config.find_or_create_by(config_key: url_field)
           
-          # confirm cleanup cleanup
+          # confirm cleaned URLs still valid
           c.config_value = { options: ["www.efax.com/path"] }
           assert c.valid?
+          # confirm https was added
+          assert_equal "https://www.efax.com/path", c.options.last.to_s
 
           # bad
           c.config_value = { options: ["bad url"] }
@@ -69,6 +53,9 @@ class ConfigTest < ActiveSupport::TestCase
           # allow no URL
           c.config_value = { options: [] }
           assert c.valid?
+
+          # make sure this is left alone
+          assert_nil c.options.last
       end
     end
   end
