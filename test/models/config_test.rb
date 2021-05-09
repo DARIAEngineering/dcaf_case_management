@@ -4,20 +4,16 @@ class ConfigTest < ActiveSupport::TestCase
   before { @config = create :config }
 
   describe 'callbacks' do
-    it 'should clean URLs before save' do
-      Config::CONFIG_URLS.each do |url_field|
-        c = Config.find_or_create_by(config_key: url_field)
-        
-        # confirm that scheme-less URLs are given one
-        c.config_value = { options: ["www.needs-scheme.net"] }
-        c.save
-        assert_equal "https://www.needs-scheme.net", c.options.last
+    it 'should capitalize words before save' do
+      c = Config.find_or_create_by(config_key: :start_of_week)
+      c.config_value= { options: ["wednesday"] }
+      assert c.valid?
+      assert_equal "Wednesday", c.options.last
 
-        # doesn't touch empty config
-        c.config_value = { options: [] }
-        c.save
-        assert_nil c.options.last
-      end
+      c = Config.find_or_create_by(config_key: :hide_practical_support)
+      c.config_value = { options: ["no"] }
+      assert c.valid?
+      assert_equal "No", c.options.last
     end
   end
 
@@ -39,20 +35,27 @@ class ConfigTest < ActiveSupport::TestCase
     end
 
     it 'should validate URLs' do
-      Config::CONFIG_URLS.each do |url_field|
-        c = Config.find_or_create_by(config_key: url_field)
-        
-        # confirm cleanup cleanup
-        c.config_value = { options: ["www.efax.com/path"] }
-        assert c.valid?
+      Config::VALIDATIONS
+        .select{ |field, validator| validator == :validate_url }
+        .each do |url_field, _validator|
+          c = Config.find_or_create_by(config_key: url_field)
+          
+          # confirm cleaned URLs still valid
+          c.config_value = { options: ["www.efax.com/path"] }
+          assert c.valid?
+          # confirm https was added
+          assert_equal "https://www.efax.com/path", c.options.last.to_s
 
-        # bad
-        c.config_value = { options: ["bad url"] }
-        refute c.valid?
+          # bad
+          c.config_value = { options: ["bad url"] }
+          refute c.valid?
 
-        # allow no URL
-        c.config_value = { options: [] }
-        assert c.valid?
+          # allow no URL
+          c.config_value = { options: [] }
+          assert c.valid?
+
+          # make sure this is left alone
+          assert_nil c.options.last
       end
     end
   end
@@ -112,7 +115,7 @@ class ConfigTest < ActiveSupport::TestCase
 
       it 'should return another amount if configured' do
         c = Config.find_or_create_by(config_key: 'budget_bar_max')
-        c.config_value = { options: [2000] }
+        c.config_value = { options: ["2000"] }
         c.save!
         assert_equal 2_000, Config.budget_bar_max
       end
