@@ -145,7 +145,7 @@ es:
   errors:
     messages:
       password:
-        password_strength: Las contraseñas deben ser más seguras. Pruebe con una contraseña más larga o más complicada
+        password_strength: Las contraseñas deben ser más seguras. Por favor ingresa una contraseña más larga o más compleja.
   events:
     add_to_call_list: Añadir a la lista de llamadas
     couldnt_reach_patient: llamó, paciente no contestó
