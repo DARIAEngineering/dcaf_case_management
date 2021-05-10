@@ -169,6 +169,31 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
           assert has_content? 'https://metallicarules.com'
         end
       end
+
+      it 'should reject invalid values' do
+        # first, put in a good value
+        fill_in 'config_options_fax_service', with: 'catfax.net'
+        click_button 'Update options for Fax service'
+
+        assert_equal 'https://catfax.net',
+                     find('#config_options_fax_service').value
+        within :css, '#app_footer' do
+          assert has_content? 'https://catfax.net'
+        end
+
+        # attempt to fill in a bad one
+        fill_in 'config_options_fax_service', with: 'invalid fax service.com'
+        click_button 'Update options for Fax service'
+
+        within :css, '#flash_alert' do
+          assert has_content? 'Config failed to update - Invalid value for fax service'
+        end
+
+        # confirm no change
+        within :css, '#app_footer' do
+          assert has_content? 'https://catfax.net'
+        end
+      end
     end
   end
 end

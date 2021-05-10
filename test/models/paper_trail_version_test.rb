@@ -80,7 +80,7 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
       assert_equal 1, @config.versions.count
       assert_difference '@config.versions.count', 1 do
         with_versioning do
-          @config.update config_value: ['Metallica']
+          @config.update config_value: { options: 'Metallica' }
         end
       end
     end

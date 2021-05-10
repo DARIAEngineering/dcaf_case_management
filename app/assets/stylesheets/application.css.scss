@@ -117,23 +117,6 @@ a:hover, a:active, a:visited, a:focus {
   padding-bottom: 10px;
 }
 
-// Styling for #app_footer
-#app_footer .glyphicon-earphone {
-  color: inherit;
-  background-color: inherit;
-  vertical-align: top;
-}
-.hr_gradient {
-  border: 0;
-  height: 1px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
-}
-.logo {
-  display: inline-block;
-  padding: 0 10px;
-  height: 45px;
-}
-
 // empty add - char
 .blush:empty:before {
   content: '\2013';
@@ -220,9 +203,7 @@ a:hover, a:active, a:visited, a:focus {
 
 $daria-color-lt : #825fb9;
 
-// Modal partial styling
 .btn-success {
-
   background-color: $daria-color;
   border-color: $daria-color;
 
@@ -294,17 +275,6 @@ $daria-color-lt : #825fb9;
   color: red;
 }
 
-.modal-header, .modal-body, .modal-footer {
-  padding: 30px
-}
-
-.modal-header > h4 {
-  padding-left: 1em;
-  .label {
-    margin-left: -2em;
-  }
-}
-
 #flash {
   position: fixed;
 }
@@ -332,9 +302,4 @@ $daria-color-lt : #825fb9;
 // This is necessary because of a vendored multimodal plugin that we should aim to deprecate
 .hide {
   @extend .d-none;
-}
-
-// widen default modal from bootstrap default
-.modal-dialog {
-  max-width: 60%;
 }
