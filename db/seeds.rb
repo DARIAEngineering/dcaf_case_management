@@ -8,11 +8,6 @@ Clinic.destroy_all
 Event.destroy_all
 Config.destroy_all
 
-# Create google SSO user
-# puts "Creating user with email #{ARGV[1]}..."
-# sso_user = User.create! email: ARGV[1], name: 'Development user',
-#                         password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1'
-
 # Set a few config constants
 lines = %w[DC VA MD]
 note_text = 'This is a note ' * 10
