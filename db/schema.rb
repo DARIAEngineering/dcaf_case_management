@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_043154) do
+ActiveRecord::Schema.define(version: 2021_05_09_191049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -187,6 +187,17 @@ ActiveRecord::Schema.define(version: 2021_05_03_043154) do
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
     t.index ["primary_phone"], name: "index_patients_on_primary_phone", unique: true
     t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
+  end
+
+  create_table "practical_supports", force: :cascade do |t|
+    t.string "support_type", null: false
+    t.boolean "confirmed"
+    t.string "source", null: false
+    t.string "can_support_type"
+    t.bigint "can_support_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
   end
 
   create_table "users", force: :cascade do |t|
