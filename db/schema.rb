@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_09_191049) do
+ActiveRecord::Schema.define(version: 2021_05_11_010317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -100,6 +100,17 @@ ActiveRecord::Schema.define(version: 2021_05_09_191049) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["line"], name: "index_events_on_line"
+  end
+
+  create_table "external_pledges", force: :cascade do |t|
+    t.string "source", null: false
+    t.integer "amount"
+    t.boolean "active"
+    t.string "can_pledge_type", null: false
+    t.bigint "can_pledge_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["can_pledge_type", "can_pledge_id"], name: "index_external_pledges_on_can_pledge_type_and_can_pledge_id"
   end
 
   create_table "fulfillments", force: :cascade do |t|
