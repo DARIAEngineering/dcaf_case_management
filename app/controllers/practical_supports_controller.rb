@@ -2,15 +2,14 @@
 class PracticalSupportsController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_support, only: [:update, :destroy]
-  rescue_from Mongoid::Errors::DocumentNotFound,
+  rescue_from ActiveRecord::RecordNotFound,
               with: -> { head :not_found }
 
   def create
     @support = @patient.practical_supports.new practical_support_params
-    @support.created_by = current_user
     if @support.save
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
-      @support = @patient.reload.practical_supports.order_by 'created_at desc'
+      @support = @patient.reload.practical_supports.order(created_at: :desc)
       respond_to { |format| format.js }
     else
       flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
