@@ -34,7 +34,7 @@ class UserTest < ActiveSupport::TestCase
       @user.password_confirmation = 'Hello#2020'
       assert_not @user.valid?
       assert_equal 'Passwords need to be stronger than that. ' \
-                   'Try a longer or more complicated password please',
+                   'Try a longer or more complicated password please.',
                    @user.errors.messages[:password].first
     end
 
