@@ -90,6 +90,15 @@ namespace :migrate_to_pg do
           attrs
         end
         migrate_submodel(pt, mongo_pt, pg, mongo, 'calls', 'can_call', extra_transform)
+
+        # Practical supports
+        pg = PracticalSupport
+        mongo = MongoPracticalSupport
+        extra_transform = Proc.new do |attrs, obj, doc|
+          attrs['can_support'] = pt.find_by! mongo_id: doc['_id'].to_s
+          attrs
+        end
+        migrate_submodel(pt, mongo_pt, pg, mongo, 'practical_supports', 'can_support', extra_transform)
       end
 
       # Then, a couple spares that are Patient only
