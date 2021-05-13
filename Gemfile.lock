@@ -454,7 +454,7 @@ DEPENDENCIES
   codecov
   coffee-rails (~> 5.0.0)
   database_cleaner
-  devise (~> 4.8.0)
+  devise (~> 4.8)
   dotenv-rails
   enumerize
   factory_bot_rails
