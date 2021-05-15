@@ -1,0 +1,21 @@
+// Styling related to the lines form.
+
+@import './bootstrap';
+@import './_variables';
+
+.lines-form {
+  input[type="radio"] {
+    -ms-transform: scale(2); /* IE 9 */
+    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+    transform: scale(2);
+    margin: 10px;
+  }
+
+  label {
+    font-size: $font-size-medium;
+  }
+
+  .form-check-label {
+    @extend .ml-8;
+  }
+}

@@ -2,8 +2,10 @@
 // <%= stylesheet_pack_tag 'styles' %> in the main layout.
 // This file should be all imports!
 
-@import '~bootstrap';
+// This includes customization/extensions/etc.
+@import '../styles/bootstrap';
 
+// Custom SCSS
 @import '../styles/globals';
 @import '../styles/call_list';
 @import '../styles/devise';
@@ -20,3 +22,4 @@
 @import '../styles/modals';
 @import '../styles/navbar';
 @import '../styles/tooltips';
+@import '../styles/lines';
