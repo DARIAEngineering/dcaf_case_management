@@ -5,6 +5,5 @@ FactoryBot.define do
       "Fund #{n}"
     end
     amount { 100 }
-    created_by { FactoryBot.create(:user) }
   end
 end
