@@ -53,7 +53,7 @@ class PaperTrailVersion < PaperTrail::Version
                      '(empty)'
                    elsif DATE_FIELDS.include? key
                      year, month, day = value.split('-')
-                     "#{month.rjust(2, 0)}/#{day.rjust(2, 0)}/#{year}"
+                     "#{month.rjust(2, '0')}/#{day.rjust(2, '0')}/#{year}"
                    elsif value.is_a? Array # special circumstances, for example
                      value.reject(&:blank?).join(', ')
                    elsif key == 'clinic_id'
