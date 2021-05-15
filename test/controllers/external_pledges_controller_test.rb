@@ -9,13 +9,17 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     before do
-      @pledge = attributes_for :external_pledge
-      post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
+      with_versioning do
+        PaperTrail.request(whodunnit: @user) do
+          @pledge = attributes_for :external_pledge
+          post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
+        end
+      end
     end
 
     it 'should create and save a new pledge' do
       @pledge[:source] = 'diff'
-      assert_difference 'Patient.find(@patient).external_pledges.count', 1 do
+      assert_difference 'Patient.find(@patient.id).external_pledges.count', 1 do
         post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
       end
     end
@@ -31,21 +35,25 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should log the creating user' do
-      assert_equal Patient.find(@patient).external_pledges.last.created_by, @user
+      assert_equal Patient.find(@patient).external_pledges.last.created_by,
+                   @user
     end
   end
 
   describe 'update method' do
     before do
-      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                       amount: 100,
-                                       created_by: @user
-      @pledge = @patient.external_pledges.first
-      @pledge_edits = { source: 'Edited Pledge' }
-      patch patient_external_pledge_path(@patient, @pledge),
-            params: { external_pledge: @pledge_edits },
-            xhr: true
-      @pledge.reload
+      with_versioning do
+        PaperTrail.request(whodunnit: @user) do
+          @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                           amount: 100
+          @pledge = @patient.external_pledges.first
+          @pledge_edits = { source: 'Edited Pledge' }
+          patch patient_external_pledge_path(@patient, @pledge),
+                params: { external_pledge: @pledge_edits },
+                xhr: true
+          @pledge.reload
+        end
+      end
     end
 
     it 'should respond with success' do
@@ -57,15 +65,15 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should produce an audit trail' do
-      assert_equal @pledge.history_tracks.count, 2
-      last_changes = @pledge.history_tracks.last
-      assert_equal last_changes.updated_by_id, @user.id
-      assert_equal last_changes.modified[:source], 'Edited Pledge'
+      assert_equal @pledge.versions.count, 2
+      last_changes = @pledge.versions.first
+      assert_equal last_changes.user, @user
+      assert_equal last_changes.object_changes['source'][1], 'Edited Pledge'
     end
 
     it 'should refuse to save pledge type to blank' do
       [nil, ''].each do |bad_text|
-        assert_no_difference 'Patient.find(@patient)
+        assert_no_difference 'Patient.find(@patient.id)
                                      .external_pledges.find(@pledge)
                                      .history_tracks.count' do
           @pledge_edits[:source] = bad_text
@@ -81,8 +89,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
   describe 'destroy' do
     before do
       @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                       amount: 100,
-                                       created_by: @user
+                                       amount: 100
       @pledge = @patient.external_pledges.first
     end
 

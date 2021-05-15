@@ -26,8 +26,7 @@ class ExternalPledgesHelperTest < ActionView::TestCase
       @patient = create :patient
 
       @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                       amount: 100,
-                                       created_by: @user
+                                       amount: 100
       #create :external_pledge, source: 'Baltimore Abortion Fund',
       #                         amount: 100,
       #                         patient: @patient
