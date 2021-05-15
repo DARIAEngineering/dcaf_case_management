@@ -131,7 +131,7 @@ class ConfigTest < ActiveSupport::TestCase
         c = Config.find_or_create_by(config_key: 'days_to_keep_all_patients')
         
         # low out of bounds
-        c.config_value = { options: ["10"] }
+        c.config_value = { options: ["59"] }
         refute c.valid?
         
         # low edge
@@ -146,7 +146,7 @@ class ConfigTest < ActiveSupport::TestCase
         c.config_value = { options: ["550"] }
         assert c.valid?
         
-        c.config_value = { options: ["1000"] }
+        c.config_value = { options: ["551"] }
         refute c.valid?
       end
     end
