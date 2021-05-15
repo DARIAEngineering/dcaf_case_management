@@ -99,6 +99,15 @@ namespace :migrate_to_pg do
           attrs
         end
         migrate_submodel(pt, mongo_pt, pg, mongo, 'practical_supports', 'can_support', extra_transform)
+
+        # Ext pledges
+        pg = ExternalPledge
+        mongo = MongoExternalPledge
+        extra_transform = Proc.new do |attrs, obj, doc|
+          attrs['can_pledge'] = pt.find_by! mongo_id: doc['_id'].to_s
+          attrs
+        end
+        migrate_submodel(pt, mongo_pt, pg, mongo, 'external_pledges', 'can_pledge', extra_transform)
       end
 
       # Then, a couple spares that are Patient only
