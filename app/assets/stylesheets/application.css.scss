@@ -94,12 +94,6 @@ a:hover, a:active, a:visited, a:focus {
   padding-bottom: 10px;
 }
 
-// empty add - char
-.blush:empty:before {
-  content: '\2013';
-  padding-left: 2px;
-  padding-right: 2px;
-}
 
 // increase size of text in form fields
 .form-control {
@@ -111,10 +105,6 @@ a:hover, a:active, a:visited, a:focus {
   padding: 15px 30px;
 }
 
-// override for the 'Home' navigation link
-.navbar-brand {
-  font-size: inherit;
-}
 
 .column {
   @extend .col-md-6;
@@ -225,9 +215,6 @@ $daria-color-lt : #825fb9;
   @include disabled-button;
 }
 
-.label-success {
-  background-color: $daria-color;
-}
 
 .btn[data-orientation='cancel'] {
   color: red;
@@ -242,18 +229,4 @@ $daria-color-lt : #825fb9;
 
 .form-check-label{
   display: inline;
-}
-
-#event-list{
-  list-style: none;
-}
-
-// TOOLTIPS
-.tooltip-inner {
-  font-size: 12px;
-}
-
-// This is necessary because of a vendored multimodal plugin that we should aim to deprecate
-.hide {
-  @extend .d-none;
 }

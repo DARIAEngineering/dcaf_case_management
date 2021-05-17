@@ -12,7 +12,7 @@
   padding-left: 9.5%;
 }
 
-// This is necessary because of a vendored multimodal plugin that we should aim to deprecate
+// Overrides/styling related to multistep modal
 .js-title-step {
   .label {
     display: inline;
@@ -27,3 +27,12 @@
     border-radius: .25em;
   }
 }
+
+.label-success {
+  background-color: $daria-color;
+}
+
+.hide {
+  @extend .d-none;
+}
+// End overrides related to multistep modal
