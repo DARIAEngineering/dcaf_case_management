@@ -339,6 +339,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "ccedacero",
+      "name": "ccedacero(Cristian Cedacero)",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44513825?v=4",
+      "profile": "http://ccedacero.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
