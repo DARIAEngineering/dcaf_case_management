@@ -26,7 +26,7 @@ to go, it should say something like:
     web_1  | [1] * Listening on tcp://0.0.0.0:3000
 
 This runs the app on `http://localhost:3000` and you can hit it like a regular rails server. The first time you view a page will
-take a minute or two for resources to compile and load, but it should eventually load. You can log in with the user `test@example.com` and the password `P4ssword`.
+take a minute or two for resources to compile and load, but it should eventually load. You can log in with the user `test@example.com` and the password `AbortionsAreAHumanRight1`.
 
 Any errors will show up in your terminal in the window you are running the `up` command in.
 
@@ -90,10 +90,12 @@ We use Postgres around these parts. Installation will differ based on your OS.
   * Run the command `rails db:create && rails db:migrate` to set up the tables
 
 ### Then, showtime
+
 After that:
+
 * run `rake db:seed` to populate your database with test data
 * Run the command `rails server` to start the rails server
-* You are officially ready to go! Navigate your browser to `http://localhost:3000`. You can log in with the user `test@example.com` and the password `P4ssword`.
+* You are officially ready to go! Navigate your browser to `http://localhost:3000`. You can log in with the user `test@example.com` and the password `AbortionsAreAHumanRight1`.
 
 ## Security
 

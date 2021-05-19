@@ -15,13 +15,13 @@ additional_note_text = 'Additional note ' * 10
 
 # Create test users
 user = User.create! name: 'testuser (admin)', email: 'test@example.com',
-                    password: 'P4ssword', password_confirmation: 'P4ssword',
+                    password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
                     role: :admin
 user2 = User.create! name: 'testuser2', email: 'test2@example.com',
-                     password: 'P4ssword', password_confirmation: 'P4ssword',
+                     password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
                      role: :cm
 User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
-             password: 'P4ssword', password_confirmation: 'P4ssword',
+             password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
              role: :cm
 
 # Create a few clinics
@@ -412,4 +412,4 @@ puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
      "Inserted #{Config.count} config objects. \n" \
      "Inserted #{Event.count} event objects. \n" \
      'User credentials are as follows: ' \
-     "EMAIL: #{user.email} PASSWORD: P4ssword"
+     "EMAIL: #{user.email} PASSWORD: AbortionsAreAHumanRight1"

@@ -38,6 +38,9 @@ gem 'devise', '~> 4.8'
 gem 'omniauth-google-oauth2', '~> 0.8.1'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
+# Strong Password for user password validation for folks not on oauth
+gem 'strong_password', '~> 0.0.9'
+
 # We report errors with sentry
 gem 'sentry-raven'
 

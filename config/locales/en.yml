@@ -142,6 +142,10 @@ en:
         sign_in: Sign in
       user:
         signed_in: ''
+  errors:
+    messages:
+      password:
+        password_strength: Passwords need to be stronger than that. Try a longer or more complicated password please.
   events:
     add_to_call_list: Add to call list
     couldnt_reach_patient: called, but couldn't reach
