@@ -286,6 +286,7 @@ en:
     abortion_information:
       clinic_section:
         clinic: Clinic
+        clinic_display: "%{clinic_name} (%{city}, ${state})"
         inactive_clinics: Inactive clinics
         medicaid_only_toggle: Enable only Medicaid clinics
         naf_only_toggle: Enable only NAF clinics

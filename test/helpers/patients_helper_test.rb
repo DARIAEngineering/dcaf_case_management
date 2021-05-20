@@ -74,7 +74,7 @@ class PatientsHelperTest < ActionView::TestCase
       @inactive = create :clinic, name: 'closed clinic', active: false
       expected_clinic_array = [
         nil,
-        [@active.name, @active.id, { data: { naf: false, medicaid: false }}],
+        ["#{@active.name} (#{@active.city}, #{@active.state})", @active.id, { data: { naf: false, medicaid: false }}],
         ['--- INACTIVE CLINICS ---', nil, { disabled: true }],
         ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
       ]
@@ -85,7 +85,7 @@ class PatientsHelperTest < ActionView::TestCase
     it 'should skip inactive clinics section if there are not any' do
       expected_clinic_array = [
         nil,
-        [@active.name, @active.id, { data: { naf: false, medicaid: false }}]
+        ["#{@active.name} (#{@active.city}, #{@active.state})", @active.id, { data: { naf: false, medicaid: false }}]
       ]
 
       assert_same_elements clinic_options, expected_clinic_array

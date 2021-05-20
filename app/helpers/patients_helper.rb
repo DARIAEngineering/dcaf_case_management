@@ -61,7 +61,7 @@ module PatientsHelper
       [ t('patient.helper.referred_by.sexual_assault_crisis_org'),    'Sexual assault crisis org' ],
       [ t('patient.helper.referred_by.youth'),                        'Youth outreach' ], ]
     full_set = standard_options + Config.find_or_create_by(config_key: 'referred_by').options
-    
+
     options_plus_current(full_set, current_value)
   end
 
@@ -112,7 +112,7 @@ module PatientsHelper
     clinics = Clinic.all.sort_by(&:name)
     active_clinics = clinics.select(&:active)
                             .map { |clinic| [
-                              clinic.name,
+                              t('patient.abortion_information.clinic_section.clinic_display', clinic_name: clinic.name, city: clinic.city, state: clinic.state),
                               clinic.id,
                               { data: { naf: !!clinic.accepts_naf, medicaid: !!clinic.accepts_medicaid } }
                             ]}

@@ -15,8 +15,8 @@ class FilterMedicaidClinicsTest < ApplicationSystemTestCase
 
   describe 'filtering to just Medicaid clinics' do
     it 'should filter to only Medicaid clinics when box is checked' do
-      assert has_select? 'patient_clinic_id', with_options: [@medicaid_clinic.name,
-                                                             @non_medicaid_clinic.name]
+      assert has_select? 'patient_clinic_id', with_options: ["#{@medicaid_clinic.name} (#{@medicaid_clinic.city}, #{@medicaid_clinic.state})",
+                                                             "#{@non_medicaid_clinic.name} (#{@non_medicaid_clinic.city}, #{@non_medicaid_clinic.state})"]
 
       check 'Enable only Medicaid clinics'
       wait_for_ajax
