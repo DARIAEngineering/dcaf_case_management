@@ -286,7 +286,7 @@ es:
     abortion_information:
       clinic_section:
         clinic: Clínica
-        clinic_display: "%{clinic_name} (%{city}, ${state})"
+        clinic_display: "%{clinic_name} (%{city}, %{state})"
         inactive_clinics: Clinícas inactivas
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
         naf_only_toggle: Enseñar solo clínicas de la NAF
