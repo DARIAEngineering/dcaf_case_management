@@ -27,3 +27,8 @@
     color: $grey-color;
   }
 }
+
+// override for the 'Home' navigation link
+.navbar-brand {
+  font-size: inherit;
+}

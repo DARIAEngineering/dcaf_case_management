@@ -1,0 +1,16 @@
+// Styling around flash messages.
+
+@import './bootstrap';
+@import './_variables';
+
+#flash {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  transition-duration: .5s;
+}
+
+#error_explanation {
+  @extend .alert;
+  @extend .alert-danger;
+}
