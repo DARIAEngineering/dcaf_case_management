@@ -1,0 +1,26 @@
+// Styling around forms.
+
+// Override rails_bootstrap_forms checkbox styling
+.form-check label {
+  min-height: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  line-height: 1.5;
+}
+.form-check-label {
+  display: inline;
+}
+
+// Override rails bootstrap form-text for accessible color contrast
+.form-text {
+  color: $grey-color !important;
+}
+
+// On date inputs, don't do the annoying
+// 'click to increment up/down' thing.
+.form-group input {
+  &[type="date"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+  }
+}

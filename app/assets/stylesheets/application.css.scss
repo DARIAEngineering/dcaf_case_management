@@ -55,19 +55,9 @@ a:hover, a:active, a:visited, a:focus {
 }
 // End duplicated styles
 
-//override the bootstrap form-text and btn-danger defaults for accessible color contrast
-.form-text {
-  color: #595959 !important;
-}
 .btn-danger {
   background-color: #A42823 !important;
   border-color: #A42823 !important;
-}
-
-
-.form-error {
-  color: red;
-  font-size: 14px;
 }
 
 .btn-primary {
@@ -89,43 +79,13 @@ a:hover, a:active, a:visited, a:focus {
   text-decoration: none;
 }
 
-.border-bottom {
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
-}
 
 
-// increase size of text in form fields
-.form-control {
-  font-size: $font-size;
-}
 
 .btn-lg {
   margin: 15px 0;
   padding: 15px 30px;
 }
-
-
-.column {
-  @extend .col-md-6;
-  @extend .text-center;
-  }
-.form {
-  @extend .col-md-6;
-  }
-.form-centered {
-  @extend .col-md-6;
-  @extend .text-center;
-  }
-.submit {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-lg;
-  }
-
-// apply styles to HTML elements
-// to make views framework-neutral
-
 
 
 .button-xs {
@@ -135,19 +95,6 @@ a:hover, a:active, a:visited, a:focus {
   @extend .btn-sm;
 }
 
-.info-form .checkbox label {
-  font-weight: bold;
-}
-
-// Search result
-// shell styling
-.form-group input {
-  &[type="date"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    display: none;
-  }
-
-}
 
 $daria-color-lt : #825fb9;
 
@@ -219,14 +166,8 @@ $daria-color-lt : #825fb9;
 .btn[data-orientation='cancel'] {
   color: red;
 }
-
-.form-check label {
-  min-height: 20px;
-  font-weight: 400;
-  cursor: pointer;
-  line-height: 1.5;
-}
-
-.form-check-label{
-  display: inline;
-}
+.submit {
+  @extend .btn;
+  @extend .btn-primary;
+  @extend .btn-lg;
+  }
