@@ -72,3 +72,8 @@ a:hover, a:active, a:visited, a:focus {
   color: $dark-blue;
   text-decoration: underline;
 }
+
+.border-bottom {
+  border-bottom: 1px solid $black;
+  padding-bottom: 10px;
+}
