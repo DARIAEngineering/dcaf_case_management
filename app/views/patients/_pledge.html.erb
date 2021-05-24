@@ -3,7 +3,7 @@
     <div class="hide" data-step="1" data-title="<%= t('patient.pledge.step_one.title')%>">
       <% if patient.pledge_info_present? %>
         <% patient.pledge_info_errors.each do |error| %>
-          <div class="form-error row"><%= t('patient.pledge.errors.data_required') %> <%= error %></div>
+          <div class="pledge-error row"><%= t('patient.pledge.errors.data_required') %> <%= error %></div>
         <% end %>
       <% end %>
       <div class="row"><%= t('patient.pledge.step_one.patient_name') %> <%= patient.name %></div>
