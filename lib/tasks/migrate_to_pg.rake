@@ -53,7 +53,7 @@ namespace :migrate_to_pg do
       migrate_model pg, mongo, extra_transform
 
       # Then patients
-      pt_model_pair = [[Patient, MongoPatient]]
+      pt_model_pair = [[Patient, MongoPatient], [ArchivedPatient, MongoArchivedPatient]]
       pt_model_pair.each do |pair|
         pg, mongo = pair
         extra_transform = Proc.new do |attrs, obj|
