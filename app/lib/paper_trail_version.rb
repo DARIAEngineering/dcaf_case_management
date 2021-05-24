@@ -11,14 +11,18 @@ class PaperTrailVersion < PaperTrail::Version
     last_edited_by_id
     identifier
     updated_at
+    mongo_id
+    created_at
   ].freeze
   DATE_FIELDS = %w[
     appointment_date
     initial_call_date
+  ].freeze
+  TIME_FIELDS = %w[
     pledge_generated_at
     pledge_sent_at
     fund_pledged_at
-  ].freeze
+  ]
 
   # convenience methods for clean view display
   def date_of_change
@@ -53,7 +57,10 @@ class PaperTrailVersion < PaperTrail::Version
                      '(empty)'
                    elsif DATE_FIELDS.include? key
                      year, month, day = value.split('-')
-                     "#{month.rjust(2, 0)}/#{day.rjust(2, 0)}/#{year}"
+                     "#{month.rjust(2, '0')}/#{day.rjust(2, '0')}/#{year}"
+                   elsif TIME_FIELDS.include? key
+                     year, month, day = value.gsub(/T.*/, '').split('-')
+                     "#{month.rjust(2, '0')}/#{day.rjust(2, '0')}/#{year}"
                    elsif value.is_a? Array # special circumstances, for example
                      value.reject(&:blank?).join(', ')
                    elsif key == 'clinic_id'

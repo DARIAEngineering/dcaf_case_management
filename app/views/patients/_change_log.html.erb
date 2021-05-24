@@ -11,7 +11,7 @@
     </thead>
 
     <tbody>
-      <% patient.assemble_audit_trails.each do |revision| %>
+      <% patient.versions.each do |revision| %>
         <%= render 'patients/change_log_entry', revision: revision %>
       <% end %>
     </tbody>

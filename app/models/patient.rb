@@ -9,7 +9,6 @@ class Patient < ApplicationRecord
   include AttributeDisplayable
   include LastMenstrualPeriodMeasureable
   include Pledgeable
-  include HistoryTrackable
   include Statusable
   include Exportable
   include EventLoggable
@@ -197,6 +196,10 @@ class Patient < ApplicationRecord
       # initial call date
       initial_call_date + Config.archive_all_patients.days
     end
+  end
+
+  def recent_history_tracks
+    versions.where(updated_at: 6.days.ago..)
   end
 
   private

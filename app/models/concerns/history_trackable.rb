@@ -1,4 +1,5 @@
 # Methods pertaining to parsing history_tracks
+# Deleteable once we're on postgres
 module HistoryTrackable
   extend ActiveSupport::Concern
 
