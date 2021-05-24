@@ -12,7 +12,7 @@ class AccountantsController < ApplicationController
   def search
     @results = if params[:search].present?
                  Patient.where(pledge_sent: true)
-                        .order_by(pledge_sent_at: :desc)
+                        .order(pledge_sent_at: :desc)
                         .search(params[:search])
                else
                  pledged_patients
@@ -37,8 +37,8 @@ class AccountantsController < ApplicationController
 
   def pledged_patients
     Patient.where(pledge_sent: true,
-                  :initial_call_date.gte => 6.months.ago)
-           .order('pledge_sent_at desc')
+                  initial_call_date: 6.months.ago..)
+           .order(pledge_sent_at: :desc)
   end
 
   def find_patient
