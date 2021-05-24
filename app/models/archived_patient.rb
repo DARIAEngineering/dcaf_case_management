@@ -15,7 +15,8 @@ class ArchivedPatient < ApplicationRecord
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
 
   # Enums
-  enum line: LINES.map { |x| x.to_sym => x.to_s }.inject(&:merge)
+  # turns the LINES env array into the DB friendly structure: { :line1 => "line1", :line2 => "line2", ... }
+  enum line: LINES.map { |x| {x.to_sym => x.to_s} }.inject(&:merge)
   enum age_range: {
     not_specified: :not_specified,
     under_18: :under_18,
