@@ -1,87 +1,49 @@
-class ArchivedPatient
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Userstamp
-  extend Enumerize
-
+# A PII stripped patient for reporting.
+class ArchivedPatient < ApplicationRecord
   # Concerns
+  include PaperTrailable
   include Exportable
   include LastMenstrualPeriodMeasureable
 
   # Relationships
-  belongs_to :clinic
-  embeds_one :fulfillment
-  embeds_many :calls
-  embeds_many :external_pledges
-  embeds_many :practical_supports, as: :can_support
-  belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil
-  belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil
+  belongs_to :clinic, optional: true
+  has_one :fulfillment, as: :can_fulfill
+  has_many :calls, as: :can_call
+  has_many :external_pledges, as: :can_pledge
+  has_many :practical_supports, as: :can_support
+  belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil, optional: true
+  belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
 
-  # Fields new on archive
-  field :identifier, type: String # UUID, not phone number based!
-
-  # Fields generated from initial patient info
-  field :has_alt_contact, type: Mongoid::Boolean
-  field :age_range
-  enumerize :age_range, in: [:not_specified, :under_18, :age18_24, :age25_34, :age35_44, :age45_54, :age55plus, :bad_value], default: :not_specified
-
-  # Fields pulled from initial Patient
-  field :voicemail_preference
-  enumerize :voicemail_preference, in: [:not_specified, :no, :yes], default: :not_specified
-  field :line
-  enumerize :line, in: LINES, default: LINES[0] # See config/initializers/env_vars.rb
-  field :language, type: String
-  field :initial_call_date, type: Date
-  field :urgent_flag, type: Boolean
-  field :last_menstrual_period_weeks, type: Integer
-  field :last_menstrual_period_days, type: Integer
-  field :city, type: String
-  field :state, type: String
-  field :county, type: String
-  field :race_ethnicity, type: String
-  field :employment_status, type: String
-  field :insurance, type: String
-  field :income, type: String
-  field :notes_count, type: Integer
-  field :has_special_circumstances, type: Boolean
-  field :referred_by, type: String
-  field :referred_to_clinic, type: Boolean
-  field :appointment_date, type: Date
-  field :procedure_cost, type: Integer
-  field :patient_contribution, type: Integer
-  field :naf_pledge, type: Integer
-  field :fund_pledge, type: Integer
-  field :fund_pledged_at, type: Time
-  field :pledge_sent, type: Boolean
-  field :resolved_without_fund, type: Boolean
-  field :pledge_generated_at, type: Time
-  field :pledge_sent_at, type: Time
-  field :textable, type: Boolean
-
-  # Indices
-  index(line: 1)
-  index(identifier: 1)
+  # Enums
+  enum line: LINES.map { |x| x.to_sym => x.to_s }.inject(&:merge)
+  enum age_range: {
+    not_specified: :not_specified,
+    under_18: :under_18,
+    age18_24: :age18_24,
+    age25_34: :age25_34,
+    age35_44: :age35_44,
+    age45_54: :age45_54,
+    age55plus: :age55plus,
+    bad_value: :bad_value
+  }
 
   # Validations
   validates :initial_call_date,
-            :created_by_id,
             :line,
             presence: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
-
   validates_associated :fulfillment
-
-
-  mongoid_userstamp user_model: 'User'
 
   # Archive & delete audited patients who called a several months ago, or any
   # from a year plus ago
   def self.archive_eligible_patients!
     Patient.all.each do |patient|
       if ( patient.archive_date < Date.today )
-        ArchivedPatient.convert_patient(patient)
-        patient.destroy!
+        ActiveRecord::Base.transaction do
+          ArchivedPatient.convert_patient(patient)
+          patient.destroy!
+        end
       end
     end
   end
@@ -123,7 +85,6 @@ class ArchivedPatient
 
       pledge_generated_by: patient.pledge_generated_by,
       pledge_sent_by: patient.pledge_sent_by,
-      created_by_id: patient.created_by_id,
 
       age_range: patient.age_range,
       has_alt_contact: patient.has_alt_contact,
@@ -132,13 +93,21 @@ class ArchivedPatient
 
     )
 
-    archived_patient.fulfillment = patient.fulfillment.clone
+    archived_patient.build_fulfillment(dup_with_context(patient.fulfillment)).save
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
+
+    PaperTrail.request(whodunnit: patient.created_by_id) do
+      archived_patient.save!
+    end
+
     patient.calls.each do |call|
-      archived_patient.calls.new(call.clone.attributes)
+      calls.update can_call: archived_patient
     end
     patient.external_pledges.each do |ext_pledge|
-      archived_patient.external_pledges.new(ext_pledge.clone.attributes)
+      ext_pledge.update can_pledge: archived_patient
+    end
+    patient.practical_supports.each do |support|
+      support.update can_support: archived_patient
     end
 
     archived_patient.save!
