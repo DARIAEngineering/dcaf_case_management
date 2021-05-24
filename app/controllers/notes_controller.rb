@@ -4,9 +4,8 @@ class NotesController < ApplicationController
 
   def create
     @note = @patient.notes.new note_params
-    @note.created_by = current_user
     if @note.save
-      @notes = @patient.reload.notes.order_by 'created_at desc'
+      @notes = @patient.reload.notes.order(created_at: :desc)
       respond_to do |format|
         format.js
       end
