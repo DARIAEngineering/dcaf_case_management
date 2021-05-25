@@ -112,6 +112,11 @@ namespace :migrate_to_pg do
         migrate_submodel(pt, mongo_pt, pg, mongo, 'external_pledges', 'can_pledge', extra_transform)
       end
 
+      # Separate verification for the has_one relation
+      if Fulfillment.count != (Patient.count + ArchivedPatient.count)
+        raise 'Every patient not associated with only one fulfillment'
+      end
+
       # Then, a couple spares that are Patient only
       pt = Patient
       mongo_pt = MongoPatient
@@ -172,12 +177,6 @@ def migrate_fulfillment(pt_model, mongo_pt_model, pg_model, mongo_model, relatio
       pg_obj.versions.first.update whodunnit: User.find_by(mongo_id: mongo_obj['created_by_id'].to_s)&.id
     end
   end
-
-  # Check
-  if pg_model.count != Patient.count
-    raise 'Every patient not associated with only one fulfillment'
-  end
-
   puts "#{pg_model.count} Fulfillment migrated to pg"
 end
 
