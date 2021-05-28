@@ -66,7 +66,7 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
                      'special_circumstances' => { original: '(empty)', modified: 'A, C' },
                      'city' => { original: '(empty)', modified: 'Canada' },
                      'clinic_id' => { original: '(empty)', modified: @clinic.name },
-                     'pledge_generated_at' => { original: '(empty)', modified: '05/20/2021' }
+                     'pledge_generated_at' => { original: '(empty)', modified: (Time.zone.now + 5.days).strftime('%m/%d/%Y') }
                    }
     end
   end

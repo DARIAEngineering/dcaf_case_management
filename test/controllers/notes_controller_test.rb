@@ -10,7 +10,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   describe 'create method' do
     before do
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           @note = attributes_for :note, full_text: 'This is a note'
           post patient_notes_path(@patient), params: { note: @note }, xhr: true
         end

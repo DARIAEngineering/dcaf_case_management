@@ -31,7 +31,6 @@ gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 # ...but hopefully soon it will be postgres
 gem 'pg', '~> 1.2'
 gem 'paper_trail', '~> 10.3'
-gem 'paper_trail-globalid'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.8'

@@ -4,7 +4,7 @@ class NoteTest < ActiveSupport::TestCase
   before do
     with_versioning do
       @user = create :user
-      PaperTrail.request(whodunnit: @user) do
+      PaperTrail.request(whodunnit: @user.id) do
         @patient = create :patient
         @patient.notes.create attributes_for(:note)
         @note = @patient.notes.first

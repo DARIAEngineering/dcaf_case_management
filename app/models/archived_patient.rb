@@ -94,7 +94,7 @@ class ArchivedPatient < ApplicationRecord
 
     )
 
-    archived_patient.build_fulfillment(dup_with_context(patient.fulfillment)).save
+    archived_patient.build_fulfillment(patient.fulfillment.attributes.except('id')).save
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
 
     PaperTrail.request(whodunnit: patient.created_by_id) do
@@ -102,7 +102,7 @@ class ArchivedPatient < ApplicationRecord
     end
 
     patient.calls.each do |call|
-      calls.update can_call: archived_patient
+      call.update can_call: archived_patient
     end
     patient.external_pledges.each do |ext_pledge|
       ext_pledge.update can_pledge: archived_patient

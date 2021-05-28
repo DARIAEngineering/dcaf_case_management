@@ -10,7 +10,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
   describe 'create' do
     before do
       with_versioning do
-        PaperTrail.request(whodunnit: @user) do
+        PaperTrail.request(whodunnit: @user.id) do
           @support = attributes_for :practical_support
           post patient_practical_supports_path(@patient),
                params: { practical_support: @support },

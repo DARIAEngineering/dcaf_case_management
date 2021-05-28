@@ -15,7 +15,7 @@ class PracticalSupportTest < ActiveSupport::TestCase
 
   describe 'concerns' do
     it 'should respond to history methods' do
-      assert @psupport1.respond_to? :history_tracks
+      assert @psupport1.respond_to? :versions
       assert @psupport1.respond_to? :created_by
       assert @psupport1.respond_to? :created_by_id
     end

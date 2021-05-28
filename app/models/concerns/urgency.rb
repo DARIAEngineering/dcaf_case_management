@@ -4,11 +4,9 @@ module Urgency
 
   def still_urgent?
     # Verify that a pregnancy has not been marked urgent in the past six days
-    return false if recent_history_tracks.count.zero?
     return false if pledge_sent || resolved_without_fund
-    recent_history_tracks.sort.reverse.each do |history|
-      return true if history.marked_urgent?
-    end
+    recent = versions.where('created_at > ?', 6.days.ago)
+    return true if recent.any?(&:marked_urgent?)
     false
   end
 
@@ -28,11 +26,5 @@ module Urgency
       Patient.where(urgent_flag: true)
              .each(&:confirm_still_urgent)
     end
-  end
-
-  private
-
-  def recent_history_tracks
-    history_tracks.select { |ht| ht.updated_at > 6.days.ago }
   end
 end

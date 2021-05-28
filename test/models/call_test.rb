@@ -6,7 +6,7 @@ class CallTest < ActiveSupport::TestCase
       @user = create :user
       PaperTrail.request(whodunnit: @user.id) do
         @patient = create :patient
-        @patient.calls.create attributes_for(:call, created_by: @user)
+        @patient.calls.create attributes_for(:call)
         @call = @patient.calls.first
       end
     end
