@@ -10,11 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_010317) do
+ActiveRecord::Schema.define(version: 2021_05_24_020019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "archived_patients", force: :cascade do |t|
+    t.string "identifier"
+    t.string "age_range", default: "not_specified"
+    t.boolean "has_alt_contact"
+    t.string "voicemail_preference", default: "not_specified"
+    t.string "line", null: false
+    t.string "language"
+    t.date "initial_call_date"
+    t.boolean "urgent_flag"
+    t.integer "last_menstrual_period_weeks"
+    t.integer "last_menstrual_period_days"
+    t.string "city"
+    t.string "state"
+    t.string "county"
+    t.string "race_ethnicity"
+    t.string "employment_status"
+    t.string "insurance"
+    t.string "income"
+    t.integer "notes_count"
+    t.boolean "has_special_circumstances"
+    t.string "referred_by"
+    t.boolean "referred_to_clinic"
+    t.date "appointment_date"
+    t.integer "procedure_cost"
+    t.integer "patient_contribution"
+    t.integer "naf_pledge"
+    t.integer "fund_pledge"
+    t.datetime "fund_pledged_at"
+    t.boolean "pledge_sent"
+    t.boolean "resolved_without_fund"
+    t.datetime "pledge_generated_at"
+    t.datetime "pledge_sent_at"
+    t.boolean "textable"
+    t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
+    t.string "mongo_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
+    t.index ["line"], name: "index_archived_patients_on_line"
+    t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
+    t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
+  end
 
   create_table "call_list_entries", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -246,6 +291,9 @@ ActiveRecord::Schema.define(version: 2021_05_11_010317) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "archived_patients", "clinics"
+  add_foreign_key "archived_patients", "users", column: "pledge_generated_by_id"
+  add_foreign_key "archived_patients", "users", column: "pledge_sent_by_id"
   add_foreign_key "call_list_entries", "patients"
   add_foreign_key "call_list_entries", "users"
   add_foreign_key "patients", "clinics"
