@@ -2,13 +2,11 @@ require 'test_helper'
 
 class NoteTest < ActiveSupport::TestCase
   before do
-    with_versioning do
-      @user = create :user
-      PaperTrail.request(whodunnit: @user.id) do
-        @patient = create :patient
-        @patient.notes.create attributes_for(:note)
-        @note = @patient.notes.first
-      end
+    @user = create :user
+    with_versioning(@user) do
+      @patient = create :patient
+      @patient.notes.create attributes_for(:note)
+      @note = @patient.notes.first
     end
   end
 

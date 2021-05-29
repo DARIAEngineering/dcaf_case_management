@@ -47,8 +47,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   Mongo::Logger.logger.level = ::Logger::FATAL
-  config.after_initialize do
-    PaperTrail.enabled = false
-    PaperTrail.request.enabled = false
-  end
 end

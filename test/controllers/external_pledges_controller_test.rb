@@ -9,11 +9,9 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     before do
-      with_versioning do
-        PaperTrail.request(whodunnit: @user.id) do
-          @pledge = attributes_for :external_pledge
-          post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
-        end
+      with_versioning(@user) do
+        @pledge = attributes_for :external_pledge
+        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
       end
     end
 
@@ -42,17 +40,15 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
   describe 'update method' do
     before do
-      with_versioning do
-        PaperTrail.request(whodunnit: @user.id) do
-          @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                           amount: 100
-          @pledge = @patient.external_pledges.first
-          @pledge_edits = { source: 'Edited Pledge' }
-          patch patient_external_pledge_path(@patient, @pledge),
-                params: { external_pledge: @pledge_edits },
-                xhr: true
-          @pledge.reload
-        end
+      with_versioning(@user) do
+        @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                         amount: 100
+        @pledge = @patient.external_pledges.first
+        @pledge_edits = { source: 'Edited Pledge' }
+        patch patient_external_pledge_path(@patient, @pledge),
+              params: { external_pledge: @pledge_edits },
+              xhr: true
+        @pledge.reload
       end
     end
 

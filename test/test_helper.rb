@@ -81,13 +81,19 @@ class ActiveSupport::TestCase
                     config_value: { options: ['http://www.yolofax.com'] }
   end
 
-  def with_versioning
+  def with_versioning(user = nil)
     was_enabled = PaperTrail.enabled?
     was_enabled_for_request = PaperTrail.request.enabled?
     PaperTrail.enabled = true
     PaperTrail.request.enabled = true
     begin
-      yield
+      if user
+        PaperTrail.request(whodunnit: user.id) do
+          yield
+        end
+      else
+        yield
+      end
     ensure
       PaperTrail.enabled = was_enabled
       PaperTrail.request.enabled = was_enabled_for_request

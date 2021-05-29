@@ -23,15 +23,13 @@ class NotesHelperTest < ActionView::TestCase
     end
 
     it 'should return note name, timestamp, and full text if it has text' do
-      with_versioning do
-        PaperTrail.request(whodunnit: create(:user).id) do
-          note = create :note
-          displayed_note_text = display_note_text_for note
+      with_versioning(create(:user)) do
+        note = create :note
+        displayed_note_text = display_note_text_for note
 
-          assert_match note.created_at.display_timestamp, displayed_note_text
-          assert_match note.full_text, displayed_note_text
-          assert_match note.created_by.name, displayed_note_text
-        end
+        assert_match note.created_at.display_timestamp, displayed_note_text
+        assert_match note.full_text, displayed_note_text
+        assert_match note.created_by.name, displayed_note_text
       end
     end
   end
