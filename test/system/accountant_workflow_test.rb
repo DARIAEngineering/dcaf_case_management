@@ -4,6 +4,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
   before do
     @user = create :user, role: :admin
     @clinic = create :clinic, name: 'a real clinic'
+    @another_clinic = create :clinic, name: 'alternative clinic'
 
     @nonpledged_patient = create :patient, name: 'Eileene Zarha',
                                            initial_call_date: 5.weeks.ago
@@ -21,6 +22,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                                                      fund_payout: 350,
                                                      check_number: 'A103',
                                                      date_of_check: 1.day.ago
+
     @fulfilled_patient = create :patient, name: 'Thorny Zarha',
                                           fund_pledge: 200,
                                           clinic: @clinic,
@@ -28,6 +30,13 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                                           appointment_date: 2.weeks.ago,
                                           fulfillment: @fulfillment_data,
                                           initial_call_date: 5.weeks.ago
+
+    @other_clinic_patient = create :patient, name: 'Marina Zarha',
+                                             initial_call_date: 4.weeks.ago,
+                                             clinic: @another_clinic,
+                                             pledge_sent = true,
+                                             appointment_date: 2.weeks.ago,
+                                             initial_call_date: 5.weeks.ago
 
     log_in_as @user
     visit accountants_path
@@ -77,6 +86,32 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
 
       assert has_content? @fulfilled_patient.initials
       assert has_content? @pledged_patient.initials
+      assert has_content? @other_clinic_patient.initials
+      refute has_content? @nonpledged_patient.initials
+    end
+
+    it 'should search by clinic' do
+      fill_in 'Search', with: ''
+      select 'alternative clinic', :from => "clinic_id"
+      click_button 'Search'
+      wait_for_ajax
+
+      assert has_content? @other_clinic_patient.initials
+
+      refute has_content? @fulfilled_patient.initials
+      refute has_content? @pledged_patient.initials
+      refute has_content? @nonpledged_patient.initials
+    end
+
+    it 'should display everyone on search for all clinics' do
+      fill_in 'Search', with: ''
+      select '[All Clinics]', :from => "clinic_id"
+      click_button 'Search'
+      wait_for_ajax
+
+      assert has_content? @fulfilled_patient.initials
+      assert has_content? @pledged_patient.initials
+      assert has_content? @other_clinic_patient.initials
       refute has_content? @nonpledged_patient.initials
     end
   end
