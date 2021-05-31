@@ -34,7 +34,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
     @other_clinic_patient = create :patient, name: 'Marina Zarha',
                                              initial_call_date: 4.weeks.ago,
                                              clinic: @another_clinic,
-                                             pledge_sent = true,
+                                             pledge_sent: true,
                                              appointment_date: 2.weeks.ago,
                                              initial_call_date: 5.weeks.ago
 
