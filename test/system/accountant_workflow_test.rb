@@ -35,6 +35,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                                              initial_call_date: 4.weeks.ago,
                                              clinic: @another_clinic,
                                              pledge_sent: true,
+                                             fund_pledge: 123,
                                              appointment_date: 2.weeks.ago,
                                              initial_call_date: 5.weeks.ago
 
