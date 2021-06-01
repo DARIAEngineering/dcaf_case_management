@@ -1,9 +1,9 @@
 ---
 es:
   accountants:
+    search_all_clinics: "[Todas Clínicas]"
     search_cases: Buscar casos
     search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
-    search_all_clinics: '[Todas Clínicas]'
     table_content:
       check_number: "# de cheque"
       clinic: Clínica
