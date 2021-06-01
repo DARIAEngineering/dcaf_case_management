@@ -9,13 +9,13 @@ table.border-side {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     background: $light-gray;
-    padding-left: 0px !important;
+    padding: 0.8rem 0.5rem !important;
   }
 
   tr {
     td {
       font-size: 17px;
-      padding: 10px 0 !important;
+      padding: 0.5rem 0.5rem !important;
     }
   }
 }

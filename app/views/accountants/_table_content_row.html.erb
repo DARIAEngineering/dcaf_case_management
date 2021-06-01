@@ -1,9 +1,11 @@
 <td><!-- spacer --></td>
+<td><%= patient.line %></td>
 <td><%= patient.clinic&.name %></td>
-<td><%= link_to patient.initials, edit_patient_path(patient) %></td>
+<td><%= link_to patient.name, edit_patient_path(patient) %></td>
 <td><%= number_to_currency patient.fulfillment&.fund_payout, precision: 0, unit: '$', format: '%u%n' %></td>
 <td><%= patient.fulfillment&.gestation_at_procedure_display %></td>
 <td><%= patient.pledge_sent_at&.display_date %></td>
+<td><%= number_to_currency patient.fund_pledge, precision: 0, unit: '$', format: '%u%n' %></td>
 <td><%= patient.fulfillment&.check_number%></td>
 <td><%= patient.fulfillment&.date_of_check %></td>
 <td>
