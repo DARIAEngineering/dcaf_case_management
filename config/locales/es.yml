@@ -8,12 +8,12 @@ es:
       clinic: Clínica
       date_of_check: Fecha del cheque
       fund_payout: Pago de %{fund}
+      line: Línea
+      pledge_amount: Cantidad de promesa
       pledge_sent: Promesa enviada
       pt_initials: Iniciales PT
       weeks_at_procedure: Semanas en el procedimiento
       weeks_at_procedure_display: "%{gestation} semanas"
-      line: Línea
-      pledge_amount: Cantidad de promesa
     title: Tablero de contador
   call:
     new:
