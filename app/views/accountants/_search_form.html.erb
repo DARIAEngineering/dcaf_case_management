@@ -8,7 +8,7 @@
 
     <%= f.select :clinic_id,
                  options_for_select(clinic_options.reject{|x| x.blank?}),
-                 prompt: "[All Clinics]",
+                 prompt: t('accountants.search_all_clinics'),
                  hide_label: true,
                  include_blank: false,
                  class: 'search_form_input accountant' %>

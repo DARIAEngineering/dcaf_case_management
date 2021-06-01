@@ -3,6 +3,7 @@ en:
   accountants:
     search_cases: Search cases
     search_placeholder: Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)
+    search_all_clinics: '[All Clinics]'
     table_content:
       check_number: 'Check #'
       clinic: Clinic
