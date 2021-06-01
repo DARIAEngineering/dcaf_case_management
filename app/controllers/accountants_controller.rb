@@ -13,17 +13,17 @@ class AccountantsController < ApplicationController
     have_search = params[:search].present?
     have_clinic = params[:clinic_id].present?
 
-    @results = if have_search || have_clinic
-                  result = Patient.where(pledge_sent: true)
-                                  .order_by(pledge_sent_at: :desc)
+    if have_search || have_clinic
+      partial = Patient.where(pledge_sent: true)
+                       .order_by(pledge_sent_at: :desc)
 
-                  result = result.where(clinic_id: params[:clinic_id]) if have_clinic
-                  result = result.search(params[:search]) if have_search
-                  
-                  result
-               else
-                 pledged_patients
-               end
+      partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
+      partial = partial.search(params[:search]) if have_search
+
+      @results = partial
+    else
+      @results = pledged_patients
+    end
 
     respond_to { |format| format.js }
   end

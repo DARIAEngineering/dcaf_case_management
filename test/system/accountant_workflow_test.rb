@@ -32,7 +32,6 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                                           initial_call_date: 5.weeks.ago
 
     @other_clinic_patient = create :patient, name: 'Marina Zarha',
-                                             initial_call_date: 4.weeks.ago,
                                              clinic: @another_clinic,
                                              pledge_sent: true,
                                              fund_pledge: 123,
@@ -93,7 +92,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
 
     it 'should search by clinic' do
       fill_in 'Search', with: ''
-      select 'alternative clinic', :from => "clinic_id"
+      select 'alternative clinic', from: 'clinic_id'
       click_button 'Search'
       wait_for_ajax
 
@@ -106,7 +105,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
 
     it 'should display everyone on search for all clinics' do
       fill_in 'Search', with: ''
-      select '[All Clinics]', :from => "clinic_id"
+      select '[All Clinics]', from: 'clinic_id'
       click_button 'Search'
       wait_for_ajax
 

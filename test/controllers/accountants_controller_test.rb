@@ -10,7 +10,7 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
   describe 'permissioning' do
     describe 'index' do
       [:admin, :data_volunteer].each do |permission|
-        it "should allow data vol or above - #{permission.to_s}" do
+        it "should allow data vol or above - #{permission}" do
           user = create :user, role: permission
           sign_in user
           get accountants_path
@@ -30,7 +30,7 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
 
     describe 'edit' do
       [:admin, :data_volunteer].each do |permission|
-        it "should allow data vol or above - #{permission.to_s}" do
+        it "should allow data vol or above - #{permission}" do
           user = create :user, role: permission
           sign_in user
           get edit_accountant_path(@patient), xhr: true
@@ -50,7 +50,7 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
 
     describe 'search' do
       [:admin, :data_volunteer].each do |permission|
-        it "should allow data vol or above - #{permission.to_s}" do
+        it "should allow data vol or above - #{permission}" do
           user = create :user, role: permission
           sign_in user
           post accountant_search_path, params: { search: '' }, xhr: true
@@ -140,13 +140,13 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
 
         it 'can filter by clinic' do
           [@clinic1, @clinic2].each do |clinic_search|
-            post accountant_search_path, params: {clinic_id: clinic_search}, xhr: true
+            post accountant_search_path, params: { clinic_id: clinic_search }, xhr: true
             assert_response :success
           end
         end
 
-        it 'can filter by both clinic and name' do 
-          post accountant_search_path, params: {search: 'sally', clinic_id: @clinic1}, xhr: true
+        it 'can filter by both clinic and name' do
+          post accountant_search_path, params: { search: 'sally', clinic_id: @clinic1 }, xhr: true
           assert_response :success
         end
       end
