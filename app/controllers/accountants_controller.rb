@@ -18,6 +18,8 @@ class AccountantsController < ApplicationController
                  pledged_patients
                end
 
+    @results = paginate_results @results
+
     respond_to { |format| format.js }
   end
 
