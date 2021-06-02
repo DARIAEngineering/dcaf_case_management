@@ -77,7 +77,6 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
 
       assert has_content? @fulfilled_patient.name
       assert has_content? @pledged_patient.name
-      assert has_content? @other_clinic_patient.name
       refute has_content? @nonpledged_patient.name
     end
   end
