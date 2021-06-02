@@ -11,7 +11,6 @@ en:
       line: Line
       pledge_amount: Pledge amount
       pledge_sent: Pledge sent
-      pt_initials: PT initials
       weeks_at_procedure: Weeks at procedure
       weeks_at_procedure_display: "%{gestation} weeks"
     title: Accountant dashboard

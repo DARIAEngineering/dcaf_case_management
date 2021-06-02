@@ -11,7 +11,6 @@ es:
       line: Línea
       pledge_amount: Cantidad de promesa
       pledge_sent: Promesa enviada
-      pt_initials: Iniciales PT
       weeks_at_procedure: Semanas en el procedimiento
       weeks_at_procedure_display: "%{gestation} semanas"
     title: Tablero de contador
