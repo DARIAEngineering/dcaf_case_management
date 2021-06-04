@@ -4,7 +4,7 @@ require 'application_system_test_case'
 class ChangeLogTest < ApplicationSystemTestCase
   before do
     @user = create :user, email: 'first_user@email.com'
-    PaperTrail.request(whodunnit: @user.id) do
+    with_versioning(@user) do
       @patient = create :patient, name: 'tester',
                                   primary_phone: '1231231234',
                                   city: 'Washington'

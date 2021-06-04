@@ -28,7 +28,7 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
         @clinic = create :clinic
         @patient.update name: 'Yolo',
                         primary_phone: '123-456-9999',
-                        appointment_date: Date.today + 10.days,
+                        appointment_date: Time.zone.now.to_date + 10.days,
                         city: 'Canada',
                         clinic: @clinic,
                         special_circumstances: ['A', '', 'C', ''],
