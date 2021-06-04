@@ -35,7 +35,7 @@ class User < ApplicationRecord
   # email presence validated through Devise
   validates :name, :role, presence: true
   validates_format_of :email, with: Devise::email_regexp
-  validate :secure_password
+  validate :secure_password, if: :updating_password?
   # i18n-tasks-use t('errors.messages.password.password_strength')
   validates :password, password_strength: {use_dictionary: true}, if: :updating_password?
 

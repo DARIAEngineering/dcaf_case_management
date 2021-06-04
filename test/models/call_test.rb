@@ -2,13 +2,11 @@ require 'test_helper'
 
 class CallTest < ActiveSupport::TestCase
   before do
-    with_versioning do
-      @user = create :user
-      PaperTrail.request(whodunnit: @user.id) do
-        @patient = create :patient
-        @patient.calls.create attributes_for(:call, created_by: @user)
-        @call = @patient.calls.first
-      end
+    @user = create :user
+    with_versioning(@user) do
+      @patient = create :patient
+      @patient.calls.create attributes_for(:call)
+      @call = @patient.calls.first
     end
   end
 

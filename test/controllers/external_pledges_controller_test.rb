@@ -9,11 +9,9 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     before do
-      with_versioning do
-        PaperTrail.request(whodunnit: @user) do
-          @pledge = attributes_for :external_pledge
-          post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
-        end
+      with_versioning(@user) do
+        @pledge = attributes_for :external_pledge
+        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
       end
     end
 
@@ -35,24 +33,22 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should log the creating user' do
-      assert_equal Patient.find(@patient).external_pledges.last.created_by,
+      assert_equal Patient.find(@patient.id).external_pledges.last.created_by,
                    @user
     end
   end
 
   describe 'update method' do
     before do
-      with_versioning do
-        PaperTrail.request(whodunnit: @user) do
-          @patient.external_pledges.create source: 'Baltimore Abortion Fund',
-                                           amount: 100
-          @pledge = @patient.external_pledges.first
-          @pledge_edits = { source: 'Edited Pledge' }
-          patch patient_external_pledge_path(@patient, @pledge),
-                params: { external_pledge: @pledge_edits },
-                xhr: true
-          @pledge.reload
-        end
+      with_versioning(@user) do
+        @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+                                         amount: 100
+        @pledge = @patient.external_pledges.first
+        @pledge_edits = { source: 'Edited Pledge' }
+        patch patient_external_pledge_path(@patient, @pledge),
+              params: { external_pledge: @pledge_edits },
+              xhr: true
+        @pledge.reload
       end
     end
 
@@ -74,8 +70,8 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     it 'should refuse to save pledge type to blank' do
       [nil, ''].each do |bad_text|
         assert_no_difference 'Patient.find(@patient.id)
-                                     .external_pledges.find(@pledge)
-                                     .history_tracks.count' do
+                                     .external_pledges.find(@pledge.id)
+                                     .versions.count' do
           @pledge_edits[:source] = bad_text
           patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
           assert_response :bad_request

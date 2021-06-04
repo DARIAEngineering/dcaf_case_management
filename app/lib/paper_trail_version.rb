@@ -46,11 +46,11 @@ class PaperTrailVersion < PaperTrail::Version
              end
   end
 
-  private
-
   def marked_urgent?
-    object_changes['marked_urgent']&.last == true
+    object_changes['urgent_flag']&.last == true
   end
+
+  private
 
   def format_fieldchange(key, value)
     shaped_value = if value.blank?

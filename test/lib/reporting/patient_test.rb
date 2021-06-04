@@ -98,7 +98,6 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
       Timecop.freeze(Time.zone.now - 2.days) do
         update_hash = {
-          created_by: @user,
           pledge_sent: true,
           fund_pledge: 1000
         }
@@ -117,7 +116,6 @@ class ReportingPatientTest < ActiveSupport::TestCase
 
       Timecop.freeze(Time.zone.now - 2.months) do
         update_hash = {
-          created_by: @user,
           pledge_sent: true,
           fund_pledge: 1000
         }
