@@ -3,13 +3,11 @@ require 'test_helper'
 class PaperTrailVersionTest < ActiveSupport::TestCase
   before do
     @user = create :user
-    with_versioning do
-      PaperTrail.request(whodunnit: @user.id) do
-        @patient = create :patient, name: 'Susie Everyteen',
-                                    primary_phone: '111-222-3333',
-                                    appointment_date: Time.zone.now + 5.days,
-                                    initial_call_date: Time.zone.now + 3.days
-      end
+    with_versioning(@user) do
+      @patient = create :patient, name: 'Susie Everyteen',
+                                  primary_phone: '111-222-3333',
+                                  appointment_date: Time.zone.now + 5.days,
+                                  initial_call_date: Time.zone.now + 3.days
     end
   end
 
@@ -66,7 +64,7 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
                      'special_circumstances' => { original: '(empty)', modified: 'A, C' },
                      'city' => { original: '(empty)', modified: 'Canada' },
                      'clinic_id' => { original: '(empty)', modified: @clinic.name },
-                     'pledge_generated_at' => { original: '(empty)', modified: '05/20/2021' }
+                     'pledge_generated_at' => { original: '(empty)', modified: (Time.zone.now + 5.days).strftime('%m/%d/%Y') }
                    }
     end
   end

@@ -11,14 +11,14 @@ class ExternalPledgeTest < ActiveSupport::TestCase
 
   describe 'concerns' do
     it 'should respond to history methods' do
-      assert @pledge.respond_to? :history_tracks
+      assert @pledge.respond_to? :versions
       assert @pledge.respond_to? :created_by
       assert @pledge.respond_to? :created_by_id
     end
   end
 
   describe 'validations' do
-    [:created_by, :source, :amount].each do |field|
+    [:source, :amount].each do |field|
       it "should enforce presence of #{field}" do
         @pledge[field.to_sym] = nil
         refute @pledge.valid?

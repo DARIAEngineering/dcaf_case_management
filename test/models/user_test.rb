@@ -69,9 +69,12 @@ class UserTest < ActiveSupport::TestCase
     it 'should return recently_called_patients accurately' do
       assert_equal 0, @user.recently_called_patients('DC').count
 
-      @patient.calls.create attributes_for(:call, created_by: @user)
-      @patient_2.calls.create attributes_for(:call, created_by: @user)
-      @md_patient.calls.create attributes_for(:call, created_by: @user)
+      with_versioning(@user) do
+        @patient.calls.create attributes_for(:call)
+        @patient_2.calls.create attributes_for(:call)
+        @md_patient.calls.create attributes_for(:call)
+      end
+
       assert_equal 2, @user.recently_called_patients('DC').count
       assert_equal 1, @user.recently_called_patients('MD').count
     end
@@ -80,30 +83,36 @@ class UserTest < ActiveSupport::TestCase
       assert_equal 2, @user.call_list_patients('DC').count
       assert_equal 1, @user.call_list_patients('MD').count
 
-      @patient.calls.create attributes_for(:call, created_by: @user)
+      with_versioning(@user) do
+        @patient.calls.create attributes_for(:call)
+      end
       assert_equal 1, @user.call_list_patients('DC').count
 
-      @patient_2.calls.create attributes_for(:call, created_by: @user_2)
-      assert_equal 1, @user.call_list_patients('DC').count
-    end
-
-    it 'should not fail if a patient gets unattached from the call list' do
-      @user.call_list_entries.where(line: 'DC').first.update patient: nil
+      with_versioning(create(:user)) do
+        @patient_2.calls.create attributes_for(:call)
+      end
       assert_equal 1, @user.call_list_patients('DC').count
     end
 
     it 'should clean calls when patient has been reached' do
       assert_equal 0, @user.recently_called_patients('DC').count
-      @patient.calls.create attributes_for(:call, created_by: @user, status: :reached_patient)
+
+      with_versioning(@user) do
+        @patient.calls.create attributes_for(:call, status: :reached_patient)
+      end
       @call = @patient.calls.first
       assert_equal 1, @user.recently_called_patients('DC').count
-      @user.clean_call_list_between_shifts
-      assert_equal 0, @user.recently_called_patients('DC').count
+      assert_difference '@user.recently_called_patients("DC").count', -1 do
+        @user.clean_call_list_between_shifts
+      end
     end
 
     it 'should not clear calls when patient has not been reached' do
       assert_equal 0, @user.recently_called_patients('DC').count
-      @patient.calls.create attributes_for(:call, created_by: @user, status: :left_voicemail)
+
+      with_versioning(@user) do
+        @patient.calls.create attributes_for(:call, status: :left_voicemail)
+      end
       @call = @patient.calls.first
       assert_equal 1, @user.recently_called_patients('DC').count
       @user.clean_call_list_between_shifts
@@ -210,7 +219,7 @@ class UserTest < ActiveSupport::TestCase
 
     it 'should error on no user' do
       @user.destroy
-      assert_raises Mongoid::Errors::DocumentNotFound do
+      assert_raises ActiveRecord::RecordNotFound do
         User.from_omniauth(@token)
       end
     end

@@ -58,10 +58,8 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'destroy method' do
     it 'should destroy a call' do
-      with_versioning do
-        PaperTrail.request(whodunnit: @user.id) do
-          @patient.calls.create attributes_for(:call)
-        end
+      with_versioning(@user) do
+        @patient.calls.create attributes_for(:call)
       end
 
       call = @patient.calls.first
@@ -72,10 +70,8 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should not allow user to destroy calls created by others' do
-      with_versioning do
-        PaperTrail.request(whodunnit: create(:user)) do
-          @patient.calls.create attributes_for(:call)
-        end
+      with_versioning(create(:user)) do
+        @patient.calls.create attributes_for(:call)
       end
 
       call = @patient.calls.first
@@ -87,10 +83,8 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should not allow user to destroy old calls' do
-      with_versioning do
-        PaperTrail.request(whodunnit: @user.id) do
-          @patient.calls.create attributes_for(:call, updated_at: Time.zone.now - 1.day)
-        end
+      with_versioning(@user) do
+        @patient.calls.create attributes_for(:call, updated_at: Time.zone.now - 1.day)
       end
 
       @patient.calls.create attributes_for(:call, updated_at: Time.zone.now - 1.day)

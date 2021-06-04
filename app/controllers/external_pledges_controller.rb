@@ -2,7 +2,7 @@
 class ExternalPledgesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_pledge, only: [:update, :destroy]
-  rescue_from ActiveRecord::NotFound,
+  rescue_from ActiveRecord::RecordNotFound,
               with: -> { head :not_found }
 
   def create
