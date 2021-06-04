@@ -49,10 +49,10 @@ class Patient < ApplicationRecord
             :initial_call_date,
             :line,
             presence: true
-  validates :primary_phone, format: /\d{10}/,
+  validates :primary_phone, format: /\A\d{10}\z/,
                             length: { is: 10 }
   validate :confirm_unique_phone_number
-  validates :other_phone, format: /\d{10}/,
+  validates :other_phone, format: /\A\d{10}\z/,
                           length: { is: 10 },
                           allow_blank: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
