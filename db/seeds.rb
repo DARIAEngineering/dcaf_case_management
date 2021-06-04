@@ -34,7 +34,7 @@ User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
              role: :cm
 
 # Default to user2 as the actor
-PaperTrail.request.whodunnit = user2
+PaperTrail.request.whodunnit = user2.id
 
 # Create a few clinics
 Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '1600 Pennsylvania Ave',
@@ -84,7 +84,7 @@ Config.create config_key: :start_of_week,
                             created_at: 3.days.ago
     end
   when 1
-    PaperTrail.request(whodunnit: user) do
+    PaperTrail.request(whodunnit: user.id) do
       patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
                       other_phone: '234-456-6789', other_contact_relationship: 'Sister'
       patient.calls.create! status: :reached_patient,
@@ -110,7 +110,7 @@ Config.create config_key: :start_of_week,
                     pronouns: 'ze/zir',
                     name: 'Pledge submitted - 3'
   when 4
-    PaperTrail.request(whodunnit: user) do
+    PaperTrail.request(whodunnit: user.id) do
       # With special circumstances
       patient.update! name: 'Special Circumstances - 4',
                       special_circumstances: ['Prison', 'Fetal anomaly']
@@ -146,7 +146,7 @@ Config.create config_key: :start_of_week,
 end
 
 # Add patients for reporting purposes - CSV exports, fulfillments, etc.
-PaperTrail.request.whodunnit = user
+PaperTrail.request.whodunnit = user.id
 10.times do |i|
   patient = Patient.create!(
     name: "Reporting Patient #{i}",
@@ -314,7 +314,7 @@ end
   )
 
   # notes tab
-  PaperTrail.request(whodunnit: user2) do
+  PaperTrail.request(whodunnit: user2.id) do
     patient.notes.create!(
       full_text: 'Two note, maybe with iffy PII! From the second call.',
       created_at: 133.days.ago
