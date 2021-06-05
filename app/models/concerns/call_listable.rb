@@ -68,6 +68,7 @@ module CallListable
   private
 
   def ordered_patients(line)
+    # n+1 join here
     call_list_entries.includes(:patient)
                      .where(line: line)
                      .order(order_key: :asc)
