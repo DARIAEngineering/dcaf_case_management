@@ -438,11 +438,27 @@ class PatientTest < ActiveSupport::TestCase
     describe 'archive_date method' do
       it 'should return a year if unaudited' do
         @patient.fulfillment.update audited: false
-        assert_equal @patient.initial_call_date + 1.year, @patient.archive_date
+        assert_equal @patient.initial_call_date + 365.days, @patient.archive_date
       end
       it 'should return three months if audited' do
         @patient.fulfillment.update audited: true
-        assert_equal @patient.initial_call_date + 3.months, @patient.archive_date
+        assert_equal @patient.initial_call_date + 90.days, @patient.archive_date
+      end
+
+      it 'should return custom audit config' do
+        c = Config.find_or_create_by(config_key: 'days_to_keep_all_patients')
+        c.config_value = { options: ["100"] }
+        c.save
+
+        c = Config.find_or_create_by(config_key: 'days_to_keep_fulfilled_patients')
+        c.config_value = { options: ["300"] }
+        c.save
+
+        @patient.fulfillment.update audited: false
+        assert_equal @patient.initial_call_date + 100.days, @patient.archive_date
+
+        @patient.fulfillment.update audited: true
+        assert_equal @patient.initial_call_date + 300.days, @patient.archive_date
       end
     end
 

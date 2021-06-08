@@ -268,11 +268,11 @@ class Patient
       # If a patient fulfillment is ticked off as audited, archive 3 months
       # after initial call date. If we're already past 3 months later when
       # the audit happens, it will archive that night
-      initial_call_date + 3.months
+      initial_call_date + Config.archive_fulfilled_patients.days
     else
       # If a patient is waiting for audit they archive a year after their
       # initial call date
-      initial_call_date + 1.year
+      initial_call_date + Config.archive_all_patients.days
     end
   end
 
