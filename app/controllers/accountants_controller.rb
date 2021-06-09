@@ -12,6 +12,8 @@ class AccountantsController < ApplicationController
   def search
     @results = if params[:search].present?
                  Patient.where(pledge_sent: true)
+                        .includes(:clinic)
+                        .includes(:fulfillment)
                         .order(pledge_sent_at: :desc)
                         .search(params[:search])
                else
@@ -38,6 +40,8 @@ class AccountantsController < ApplicationController
   def pledged_patients
     Patient.where(pledge_sent: true,
                   initial_call_date: 6.months.ago..)
+           .includes(:clinic)
+           .includes(:fulfillment)
            .order(pledge_sent_at: :desc)
   end
 

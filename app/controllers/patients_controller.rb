@@ -7,6 +7,7 @@ class PatientsController < ApplicationController
               with: -> { redirect_to root_path }
 
   def index
+    # n+1 join here
     respond_to do |format|
       format.csv do
         render_csv
@@ -102,6 +103,7 @@ class PatientsController < ApplicationController
   private
 
   def find_patient
+    # n+1 join here
     @patient = Patient.find params[:id]
   end
 

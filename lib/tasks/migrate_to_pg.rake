@@ -139,6 +139,16 @@ namespace :migrate_to_pg do
         attrs
       end
       migrate_submodel(pt, mongo_pt, pg, mongo, 'notes', 'patient', extra_transform)
+
+      # Finally, clean up events - creating new objects fires events callbacks;
+      # we want to just change IDs on the old ones
+      # Start by nuking old events
+      Event.where('length(patient_id) != 24').destroy_all # anything with a letter is a BSON ID
+      # Then change ids of what's left
+      puts "Updating patient ids on #{Event.count} events"
+      Event.all.each do |event|
+        event.update patient_id: Patient.find_by(mongo_id: event.patient_id).id
+      end
     end
   end
 end

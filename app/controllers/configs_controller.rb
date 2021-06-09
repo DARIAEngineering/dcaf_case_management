@@ -2,6 +2,7 @@ class ConfigsController < ApplicationController
   before_action :confirm_admin_user
 
   def index
+    # n+1 join here
     Config.autosetup
     @configs = Config.all.sort_by(&:config_key)
   end
