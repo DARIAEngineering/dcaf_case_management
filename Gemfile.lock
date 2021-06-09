@@ -357,6 +357,10 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-ast (0.3.0)
       parser (>= 2.7.1.4)
+    rubocop-rails (2.8.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 0.87.0)
     ruby-progressbar (1.10.1)
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.4)
@@ -498,6 +502,7 @@ DEPENDENCIES
   rails-i18n (~> 6.0)
   render_async (~> 2.1)
   rubocop
+  rubocop-rails
   ruby_audit
   sass-rails (>= 6)
   sdoc (~> 1.0.0)
