@@ -12,8 +12,12 @@ class DashboardsController < ApplicationController
 
   def search
     # n+1 join here
-    @results = Patient.search params[:search],
-                              [current_line.try(:to_sym) || lines]
+    if params[:search].present?
+      @results = Patient.search params[:search],
+                                [current_line.try(:to_sym) || lines]
+    else
+      @results = []
+    end
 
     @patient = Patient.new
     @today = Time.zone.today.to_date
