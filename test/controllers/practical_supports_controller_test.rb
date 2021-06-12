@@ -9,15 +9,17 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create' do
     before do
-      @support = attributes_for :practical_support
-      post patient_practical_supports_path(@patient),
-           params: { practical_support: @support },
-           xhr: true
+      with_versioning(@user) do
+        @support = attributes_for :practical_support
+        post patient_practical_supports_path(@patient),
+             params: { practical_support: @support },
+             xhr: true
+      end
     end
 
     it 'should create and save a new support record' do
       @support[:support_type] = 'different'
-      assert_difference 'Patient.find(@patient).practical_supports.count', 1 do
+      assert_difference 'Patient.find(@patient.id).practical_supports.count', 1 do
         post patient_practical_supports_path(@patient), params: { practical_support: @support }, xhr: true
       end
     end
@@ -33,7 +35,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should log the creating user' do
-      assert_equal Patient.find(@patient).practical_supports.last.created_by,
+      assert_equal Patient.find(@patient.id).practical_supports.last.created_by,
                    @user
     end
   end
@@ -42,8 +44,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     before do
       @patient.practical_supports.create support_type: 'Transit',
                                          confirmed: false,
-                                         source: 'Transit',
-                                         created_by: @user
+                                         source: 'Transit'
       @support = @patient.practical_supports.first
       @support_edits = { support_type: 'Lodging' }
       patch patient_practical_support_path(@patient, @support),
@@ -63,9 +64,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     [:source, :support_type].each do |field|
       it "should refuse to save #{field} to blank" do
         [nil, ''].each do |bad_text|
-          assert_no_difference 'Patient.find(@patient)
-                                       .practical_supports.find(@support)
-                                       .history_tracks.count' do
+          assert_no_difference '@support.versions.count' do
             @support_edits[:source] = bad_text
             patch patient_practical_support_path(@patient, @support),
                   params: { practical_support: @support_edits },
@@ -81,13 +80,12 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     before do
       @patient.practical_supports.create support_type: 'Transit',
                                          confirmed: false,
-                                         source: 'Transit',
-                                         created_by: @user
+                                         source: 'Transit'
       @support = @patient.practical_supports.first
     end
 
     it 'should destroy a support record' do
-      assert_difference 'Patient.find(@patient).practical_supports.count', -1 do
+      assert_difference 'Patient.find(@patient.id).practical_supports.count', -1 do
         delete patient_practical_support_path(@patient, @support), xhr: true
       end
     end

@@ -48,8 +48,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'updating practical support entries' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other (see notes)',
-                                         created_by: @user
+                                         source: 'Other (see notes)'
       go_to_practical_support_tab
     end
 
@@ -87,8 +86,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'destroying a practical support entry' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other (see notes)',
-                                         created_by: @user
+                                         source: 'Other (see notes)'
       go_to_practical_support_tab
     end
 
@@ -107,8 +105,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'hiding practical support' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other (see notes)',
-                                         created_by: @user
+                                         source: 'Other (see notes)'
     end
 
     it 'can hide the practical support tab' do

@@ -5,7 +5,7 @@ module EventLoggable
   included do
     after_create -> { log_event(event_params) }, if: :call?
 
-    after_save -> { log_event(event_params) }, if: :pledge_was_sent?
+    after_update -> { log_event(event_params) }, if: :pledge_was_sent?
   end
 
   def log_event(params = {})
@@ -19,6 +19,6 @@ module EventLoggable
   end
 
   def pledge_was_sent?
-    is_a?(Patient) && pledge_sent_changed? && pledge_sent?
+    is_a?(Patient) && previous_changes.include?('pledge_sent') && pledge_sent?
   end
 end

@@ -49,7 +49,7 @@ namespace :db do
           end
 
           # create calls, where every patient will have at least one call made
-          call_status = ["Left voicemail", "Reached patient", "Couldn't reach patient"]
+          call_status = [:left_voicemail, :reached_patient, :couldnt_reach_patient]
 
           gen.rand(1..7).times do
             patient.calls.create status: call_status[gen.rand(3)], created_by: users.sample

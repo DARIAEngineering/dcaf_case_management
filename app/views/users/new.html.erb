@@ -7,7 +7,7 @@
     <% end %>
     <br>
     <p><%= I18n.t('user.new.edit_role_after_creating') %></p>
-    <% User.role.values.each do |r| %>
+    <% User.roles.keys.each do |r| %>
       <p><%= t("user.roles.#{r}") %></p>
     <% end %>
     <%= link_to t('common.back'), :back %>
