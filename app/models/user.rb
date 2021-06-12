@@ -25,8 +25,8 @@ class User < ApplicationRecord
   }
 
   # Callbacks
-  after_update :send_password_change_email, if: :needs_password_change_email?
-  after_create :send_account_created_email, if: :persisted?
+  # after_update :send_password_change_email, if: :needs_password_change_email?
+  # after_create :send_account_created_email, if: :persisted?
 
   # Relationships
   has_many :call_list_entries
