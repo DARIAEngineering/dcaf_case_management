@@ -2,14 +2,13 @@
 class ExternalPledgesController < ApplicationController
   before_action :find_patient, only: [:create]
   before_action :find_pledge, only: [:update, :destroy]
-  rescue_from Mongoid::Errors::DocumentNotFound,
+  rescue_from ActiveRecord::RecordNotFound,
               with: -> { head :not_found }
 
   def create
     @pledge = @patient.external_pledges.new external_pledge_params
-    @pledge.created_by = current_user
     if @pledge.save
-      @pledge = @patient.reload.external_pledges.order_by 'created_at desc'
+      @pledge = @patient.reload.external_pledges.order(created_at: :desc)
       respond_to { |format| format.js }
     else
       head :bad_request

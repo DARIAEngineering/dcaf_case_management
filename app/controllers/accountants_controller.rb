@@ -48,7 +48,9 @@ class AccountantsController < ApplicationController
 
   def pledged_patients
     Patient.where(pledge_sent: true,
-                  :initial_call_date.gte => 6.months.ago)
+                  initial_call_date: 6.months.ago..)
+           .includes(:clinic)
+           .includes(:fulfillment)
            .order(pledge_sent_at: :desc)
   end
 

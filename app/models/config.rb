@@ -13,7 +13,9 @@ class Config < ApplicationRecord
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
     start_of_week: "How to render your budget bar. Default is weekly starting on Monday. Enter \"Sunday\" for weekly budget starting on Sunday, or \"Monthly\" for a calendar month based budget.",
     budget_bar_max: "The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.",
-    hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.'
+    hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
+    days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
+    days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year)."
   }.freeze
 
   enum config_key: {
@@ -30,6 +32,8 @@ class Config < ApplicationRecord
     start_of_week: 10,
     budget_bar_max: 11,
     voicemail: 12,
+    days_to_keep_fulfilled_patients: 13,
+    days_to_keep_all_patients: 14
   }
 
   # which fields are URLs (run special validation only on those)
@@ -49,7 +53,10 @@ class Config < ApplicationRecord
     
     resources_url: :validate_url,
     fax_service: :validate_url,
-    practical_support_guidance_url: :validate_url
+    practical_support_guidance_url: :validate_url,
+
+    days_to_keep_fulfilled_patients: :validate_patient_archive,
+    days_to_keep_all_patients: :validate_patient_archive,
   }.freeze
 
   before_validation :clean_config_value
@@ -91,6 +98,20 @@ class Config < ApplicationRecord
     start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
     start ||= "monday"
     start.downcase.to_sym
+  end
+
+  def self.archive_fulfilled_patients
+    archive_days = Config.find_or_create_by(config_key: 'days_to_keep_fulfilled_patients').options.try :last
+    # default 3 months
+    archive_days ||= 90
+    archive_days.to_i
+  end
+
+  def self.archive_all_patients
+    archive_days = Config.find_or_create_by(config_key: 'days_to_keep_all_patients').options.try :last
+    # default 1 year
+    archive_days ||= 365
+    archive_days.to_i
   end
 
   private
@@ -136,7 +157,7 @@ class Config < ApplicationRecord
 
     # generic validator for numerics
     def validate_number
-      return options.last =~ /\A\d+\z/
+      options.last =~ /\A\d+\z/
     end
 
 
@@ -169,13 +190,21 @@ class Config < ApplicationRecord
     ].freeze
 
     def validate_start_of_week
-      return START_OF_WEEK.include?(options.last.capitalize)
+      START_OF_WEEK.include?(options.last.capitalize)
     end
 
     ### Practical support
 
     def validate_hide_practical_support
       # allow yes or no, to be nice (technically only yes is considered)
-      return options.last =~ /\A(yes|no)\z/i
+      options.last =~ /\A(yes|no)\z/i
+    end
+
+    ### Patient archive
+    ARCHIVE_MIN_DAYS = 60   # 2 months
+    ARCHIVE_MAX_DAYS = 550  # 1.5 years
+
+    def validate_patient_archive
+      validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
     end
 end

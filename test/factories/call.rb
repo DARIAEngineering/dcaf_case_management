@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :call do
     association :patient
-    status { 'Reached patient' }
-    created_by { FactoryBot.create(:user) }
+    status { :reached_patient }
   end
 end

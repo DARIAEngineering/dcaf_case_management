@@ -15,20 +15,18 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                                         appointment_date: 2.weeks.ago,
                                         initial_call_date: 5.weeks.ago
 
-    @fulfillment_data = attributes_for :fulfillment, fulfilled: true,
-                                                     procedure_date: 1.week.ago,
-                                                     gestation_at_procedure: '3 weeks',
-                                                     fund_payout: 350,
-                                                     check_number: 'A103',
-                                                     date_of_check: 1.day.ago
-
     @fulfilled_patient = create :patient, name: 'Thorny Zarha',
                                           fund_pledge: 200,
                                           clinic: @clinic,
                                           pledge_sent: true,
                                           appointment_date: 2.weeks.ago,
-                                          fulfillment: @fulfillment_data,
                                           initial_call_date: 5.weeks.ago
+    @fulfilled_patient.fulfillment.update fulfilled: true,
+                                          procedure_date: 1.week.ago,
+                                          gestation_at_procedure: '3 weeks',
+                                          fund_payout: 350,
+                                          check_number: 'A103',
+                                          date_of_check: 1.day.ago
 
     log_in_as @user
     visit accountants_path

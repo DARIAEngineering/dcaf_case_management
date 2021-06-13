@@ -34,9 +34,8 @@ module CallListable
   end
 
   def remove_patient(patient)
-    call_list_entries.find_by(patient_id: patient.id).destroy
+    call_list_entries.find_by!(patient_id: patient.id).destroy
     reload
-  rescue Mongoid::Errors::DocumentNotFound
   end
 
   def reorder_call_list(order, line)
@@ -57,28 +56,29 @@ module CallListable
       clear_call_list(LINES)
     else
       ids_for_destroy = recently_reached_patients(LINES).map { |x| x.id.to_s }
-      call_list_entries.in(patient_id: ids_for_destroy).destroy_all
+      call_list_entries.where(patient_id: ids_for_destroy).destroy_all
     end
     reload
   end
 
   def clear_call_list(line)
-    call_list_entries.in(line: line).destroy_all
+    call_list_entries.where(line: line).destroy_all
   end
 
   private
 
   def ordered_patients(line)
+    # n+1 join here
     call_list_entries.includes(:patient)
-                     .in(line: line)
-                     .order_by(order_key: :asc)
+                     .where(line: line)
+                     .order(order_key: :asc)
                      .map(&:patient)
                      .reject(&:nil?)
   end
 
   def recently_reached_by_user?(patient)
     patient.calls.any? do |call|
-      call.created_by_id == id && call.recent? && call.reached?
+      call.created_by_id == id && call.recent? && call.reached_patient?
     end
   end
 

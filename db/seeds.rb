@@ -2,11 +2,20 @@
 raise 'No running seeds in prod' unless [nil, 'Sandbox'].include? ENV['DARIA_FUND']
 
 # Clear out existing DB
+Config.destroy_all
+Event.destroy_all
+Call.destroy_all
+CallListEntry.destroy_all
+ExternalPledge.destroy_all
+Fulfillment.destroy_all
+Note.destroy_all
 Patient.destroy_all
+ArchivedPatient.destroy_all
 User.destroy_all
 Clinic.destroy_all
-Event.destroy_all
-Config.destroy_all
+
+# Do versioning
+PaperTrail.enabled = true
 
 # Set a few config constants
 lines = %w[DC VA MD]
@@ -23,6 +32,9 @@ user2 = User.create! name: 'testuser2', email: 'test2@example.com',
 User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
              password: 'AbortionsAreAHumanRight1', password_confirmation: 'AbortionsAreAHumanRight1',
              role: :cm
+
+# Default to user2 as the actor
+PaperTrail.request.whodunnit = user2.id
 
 # Create a few clinics
 Clinic.create! name: 'Sample Clinic 1 - DC', street_address: '1600 Pennsylvania Ave',
@@ -62,22 +74,22 @@ Config.create config_key: :start_of_week,
                             urgent_flag: i.even?,
                             last_menstrual_period_weeks: (i + 1 * 2),
                             last_menstrual_period_days: 3,
-                            created_by: user2
+                            line: 'DC'
 
   # Create associated objects
   case i
   when 0
     10.times do
-      patient.calls.create! status: 'Reached patient',
-                            created_at: 3.days.ago,
-                            created_by: user2
+      patient.calls.create! status: :reached_patient,
+                            created_at: 3.days.ago
     end
   when 1
-    patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
-                    other_phone: '234-456-6789', other_contact_relationship: 'Sister'
-    patient.calls.create! status: 'Reached patient',
-                          created_at: 14.hours.ago,
-                          created_by: user
+    PaperTrail.request(whodunnit: user.id) do
+      patient.update! name: 'Other Contact info - 1', other_contact: 'Jane Doe',
+                      other_phone: '234-456-6789', other_contact_relationship: 'Sister'
+      patient.calls.create! status: :reached_patient,
+                            created_at: 14.hours.ago
+    end
   when 2
     # appointment one week from today && clinic selected
     patient.update! name: 'Clinic and Appt - 2',
@@ -98,12 +110,13 @@ Config.create config_key: :start_of_week,
                     pronouns: 'ze/zir',
                     name: 'Pledge submitted - 3'
   when 4
-    # With special circumstances
-    patient.update! name: 'Special Circumstances - 4',
-                    special_circumstances: ['Prison', 'Fetal anomaly']
-    # And a recent call on file
-    patient.calls.create! status: 'Left voicemail',
-                          created_by: user
+    PaperTrail.request(whodunnit: user.id) do
+      # With special circumstances
+      patient.update! name: 'Special Circumstances - 4',
+                      special_circumstances: ['Prison', 'Fetal anomaly']
+      # And a recent call on file
+      patient.calls.create! status: :left_voicemail
+    end
   when 5
     # Resolved without DCAF
     patient.update! name: 'Resolved without DCAF - 5',
@@ -112,21 +125,18 @@ Config.create config_key: :start_of_week,
 
   if i != 9
     5.times do
-      patient.calls.create! status: 'Left voicemail',
-                            created_at: 3.days.ago,
-                            created_by: user2
+      patient.calls.create! status: :left_voicemail,
+                            created_at: 3.days.ago
     end
   end
 
   # Add notes for most patients
   unless [0, 1].include? i
-    patient.notes.create! full_text: note_text,
-                          created_by: user2
+    patient.notes.create! full_text: note_text
   end
 
   if i.even?
-    patient.notes.create! full_text: additional_note_text,
-                          created_by: user2
+    patient.notes.create! full_text: additional_note_text
   end
 
   # Add select patients to call list for user
@@ -136,6 +146,7 @@ Config.create config_key: :start_of_week,
 end
 
 # Add patients for reporting purposes - CSV exports, fulfillments, etc.
+PaperTrail.request.whodunnit = user.id
 10.times do |i|
   patient = Patient.create!(
     name: "Reporting Patient #{i}",
@@ -143,7 +154,6 @@ end
     initial_call_date: 3.days.ago,
     urgent_flag: i.even?,
     line: i.even? ? 'DC' : 'MD',
-    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now,
     last_menstrual_period_weeks: 7,
@@ -157,12 +167,9 @@ end
 
   next unless i.even?
 
-  patient.build_fulfillment(
-    created_by_id: user.id,
-    fulfilled: true,
-    fund_payout: 4000,
-    procedure_date: 10.days.from_now
-  ).save
+  patient.fulfillment.update fulfilled: true,
+                             fund_payout: 4000,
+                             procedure_date: 10.days.from_now
 end
 
 (1..5).each do |patient_number|
@@ -172,18 +179,15 @@ end
     initial_call_date: 3.days.ago,
     urgent_flag: patient_number.even?,
     line: lines[patient_number % 3],
-    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now
   )
 
   # reached within the past 30 days
   5.times do
-    patient.calls.create! status: 'Reached patient',
-                          created_by: user,
+    patient.calls.create! status: :reached_patient,
                           created_at: (Time.now - rand(10).days)
-    patient.calls.create! status: 'Reached patient',
-                          created_by: user,
+    patient.calls.create! status: :reached_patient,
                           created_at: (Time.now - rand(10).days - 10.days)
   end
 end
@@ -195,14 +199,12 @@ end
     initial_call_date: 3.days.ago,
     urgent_flag: patient_number.even?,
     line: lines[patient_number % 3],
-    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now
   )
 
   5.times do
-    patient.calls.create! status: 'Reached patient',
-                          created_by: user,
+    patient.calls.create! status: :reached_patient,
                           created_at: (Time.now - rand(10).days - 6.months)
   end
 end
@@ -214,7 +216,6 @@ end
     initial_call_date: 3.days.ago,
     urgent_flag: patient_number.even?,
     line: lines[patient_number % 3],
-    created_by: user,
     clinic: Clinic.all.sample,
     appointment_date: 10.days.from_now,
     pledge_sent: true,
@@ -234,15 +235,14 @@ end
     initial_call_date: 140.days.ago,
     last_menstrual_period_weeks: 6,
     last_menstrual_period_days: 5,
-    created_by: user,
     created_at: 140.days.ago
   )
 
   # Call, but no answer. leave a VM.
-  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 139.days.ago
+  patient.calls.create status: :left_voicemail, created_at: 139.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
+  patient.calls.create status: :reached_patient, created_at: 138.days.ago
 
   patient.update!(
     # header info - hand filled in
@@ -282,7 +282,6 @@ end
   # generate notes
   patient.notes.create!(
     full_text: 'One note, with iffy PII! This one was from the first call!',
-    created_by: user,
     created_at: 137.days.ago
   )
 
@@ -290,7 +289,7 @@ end
   next if patient.resolved_without_fund?
 
   # another call. get abortion information, create pledges, a note.
-  patient.calls.create! status: 'Reached patient', created_by: user, created_at: 136.days.ago
+  patient.calls.create! status: :reached_patient, created_at: 136.days.ago
 
   # abortion info - pledges - hand filled in
   patient.update!(
@@ -300,29 +299,27 @@ end
     fund_pledge: 115,
     pledge_sent: true,
     pledge_generated_at: 133.days.ago,
-    pledge_generated_by: user,
     updated_at: 133.days.ago
   )
   # generate external pledges
   patient.external_pledges.create!(
     source: 'Metallica Abortion Fund',
     amount: 100,
-    created_by: user,
     created_at: 133.days.ago
   )
   patient.external_pledges.create!(
     source: 'Baltimore Abortion Fund',
     amount: 100,
-    created_by: user,
     created_at: 133.days.ago
   )
 
   # notes tab
-  patient.notes.create!(
-    full_text: 'Two note, maybe with iffy PII! From the second call.',
-    created_by: user2,
-    created_at: 133.days.ago
-  )
+  PaperTrail.request(whodunnit: user2.id) do
+    patient.notes.create!(
+      full_text: 'Two note, maybe with iffy PII! From the second call.',
+      created_at: 133.days.ago
+    )
+  end
 
   # fulfillment
   patient.fulfillment.update!(
@@ -347,15 +344,14 @@ end
     initial_call_date: 640.days.ago,
     last_menstrual_period_weeks: 6,
     last_menstrual_period_days: 5,
-    created_by: user,
     created_at: 640.days.ago
   )
 
   # Call, but no answer. leave a VM.
-  patient.calls.create status: 'Left voicemail', created_by: user, created_at: 639.days.ago
+  patient.calls.create status: :left_voicemail, created_at: 639.days.ago
 
   # Call, which updates patient info, maybe flags urgent, make a note.
-  patient.calls.create status: 'Reached patient', created_by: user, created_at: 138.days.ago
+  patient.calls.create status: :reached_patient, created_at: 138.days.ago
 
   # Patient 1 drops off immediately
   next if patient_number.odd?
@@ -400,16 +396,22 @@ end
   # generate notes
   patient.notes.create!(
     full_text: 'One note, with iffy PII! This one was from the first call!',
-    created_by: user,
     created_at: 637.days.ago
   )
 end
 
 # Log results
-puts "Seed completed! Inserted #{Patient.count} patient objects. \n" \
-     "Inserted #{Clinic.count} clinic objects. \n" \
-     "Inserted #{User.count} user objects. \n" \
-     "Inserted #{Config.count} config objects. \n" \
-     "Inserted #{Event.count} event objects. \n" \
+puts "Seed completed! \n" \
+     "Inserted #{Config.count} Config objects. \n" \
+     "Inserted #{Event.count} Event objects. \n" \
+     "Inserted #{Call.count} Call objects. \n" \
+     "Inserted #{CallListEntry.count} CallListEntry objects. \n" \
+     "Inserted #{ExternalPledge.count} ExternalPledge objects. \n" \
+     "Inserted #{Fulfillment.count} Fulfillment objects. \n" \
+     "Inserted #{Note.count} Note objects. \n" \
+     "Inserted #{Patient.count} Patient objects. \n" \
+     "Inserted #{ArchivedPatient.count} ArchivedPatient objects. \n" \
+     "Inserted #{User.count} User objects. \n" \
+     "Inserted #{Clinic.count} Clinic objects. \n" \
      'User credentials are as follows: ' \
      "EMAIL: #{user.email} PASSWORD: AbortionsAreAHumanRight1"

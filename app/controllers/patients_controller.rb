@@ -3,10 +3,11 @@ class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update, :download, :destroy]
-  rescue_from Mongoid::Errors::DocumentNotFound,
+  rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
   def index
+    # n+1 join here
     respond_to do |format|
       format.csv do
         render_csv
@@ -17,7 +18,6 @@ class PatientsController < ApplicationController
   def create
     patient = Patient.new patient_params
 
-    patient.created_by = current_user
     if patient.save
       flash[:notice] = t('flash.new_patient_save')
       current_user.add_patient patient
@@ -54,9 +54,9 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    # i18n-tasks-use t('mongoid.attributes.practical_support.confirmed')
-    # i18n-tasks-use t('mongoid.attributes.practical_support.source')
-    # i18n-tasks-use t('mongoid.attributes.practical_support.support_type')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.confirmed')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.source')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.support_type')
     @note = @patient.notes.new
     @external_pledge = @patient.external_pledges.new
   end
@@ -80,7 +80,6 @@ class PatientsController < ApplicationController
 
   def data_entry_create
     @patient = Patient.new patient_params
-    @patient.created_by = current_user
 
     if @patient.save
       flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)
@@ -104,6 +103,7 @@ class PatientsController < ApplicationController
   private
 
   def find_patient
+    # n+1 join here
     @patient = Patient.find params[:id]
   end
 
@@ -127,8 +127,8 @@ class PatientsController < ApplicationController
   ].freeze
 
   FULFILLMENT_PARAMS = [
-    fulfillment: [:fulfilled, :procedure_date, :gestation_at_procedure,
-                  :fund_payout, :check_number, :date_of_check, :audited]
+    fulfillment_attributes: [:id, :fulfilled, :procedure_date, :gestation_at_procedure,
+                             :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
   OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze

@@ -94,7 +94,7 @@
       <div class="col">
         <%= render partial: 'external_pledges/external_pledges_table',
                    locals: { patient: patient,
-                             external_pledges: patient.external_pledges.order_by('created_at desc') } %>
+                             external_pledges: patient.external_pledges.order(created_at: :desc) } %>
 
         <div id="new-external-pledge">
           <%= render partial: 'external_pledges/new',
