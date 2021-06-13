@@ -24,7 +24,7 @@ class AccountantsController < ApplicationController
 
     if @results.length != @patients.length
       extra_display = t('accountants.extra_count', count: @patients.length,
-                                                   entry: 'patient'.pluralize(@patients.length))
+                                                   entry: t('common.patient').pluralize(@patients.length))
       @result_count_extra = " (#{extra_display})"
       @entry_name = t 'accountants.results'
     end
