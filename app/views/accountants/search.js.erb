@@ -2,8 +2,8 @@ $('#accounting-list').empty();
 $('#accounting-pagination-entries').empty();
 
 // adjust results counter
-$("#accounting-pagination-entries").append("<%= escape_javascript( page_entries_info @results, entry_name: 'result' ) %>");
-
+$("#accounting-pagination-entries").append("<%= escape_javascript( page_entries_info @results, entry_name: @entry_name ) %>");
+$("#accounting-pagination-entries").append("<%= escape_javascript @result_count_extra %>")
 <% if @results.any? %>
   // Nuke pagination div on search for simplicity's sake
   $('nav.pagination').empty();

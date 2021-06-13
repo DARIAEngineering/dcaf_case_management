@@ -1,4 +1,8 @@
-<td><!-- spacer --></td>
+<td>
+  <%= link_to edit_accountant_path(patient), id: "edit-#{patient.id}", remote: true do %>
+    <i class="fas fa-pencil-alt"></i>
+  <% end %>
+</td>
 <td><%= patient.line %></td>
 <td><%= patient.clinic&.name %></td>
 <td><%= link_to patient.name, edit_patient_path(patient) %></td>
@@ -8,8 +12,3 @@
 <td><%= number_to_currency patient.fund_pledge, precision: 0, unit: '$', format: '%u%n' %></td>
 <td><%= patient.fulfillment&.check_number%></td>
 <td><%= patient.fulfillment&.date_of_check %></td>
-<td>
-  <%= link_to edit_accountant_path(patient), id: "edit-#{patient.id}", remote: true do %>
-    <i class="fas fa-pencil-alt"></i>
-  <% end %>
-</td>

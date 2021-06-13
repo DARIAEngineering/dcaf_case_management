@@ -1,6 +1,8 @@
 ---
 en:
   accountants:
+    extra_count: out of %{count} %{entry} total
+    results: results
     search_cases: Search cases
     search_placeholder: Name (Susan Smith) or Phone (555-555-5555) or Patient ID (M5-5555)
     table_content:
