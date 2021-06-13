@@ -226,9 +226,6 @@ GEM
     minitest-stub-const (0.6)
     mongo (2.13.0)
       bson (>= 4.8.2, < 5.0.0)
-    mongo_session_store (3.2.1)
-      actionpack (>= 4.0)
-      mongo (~> 2.0)
     mongoid (7.0.8)
       activemodel (>= 5.1, < 6.1)
       mongo (>= 2.7.0, < 3.0.0)
@@ -485,7 +482,6 @@ DEPENDENCIES
   minitest-optional_retry
   minitest-spec-rails
   minitest-stub-const
-  mongo_session_store (>= 3.1.0)
   mongoid (~> 7.0.0, < 8)
   mongoid-history (< 1.0)
   mongoid_userstamp!
