@@ -47,7 +47,6 @@ gem 'sentry-raven'
 gem 'rack-attack', '~> 5.4.1'
 
 # For pagination
-gem 'kaminari-mongoid', '~> 1.0'
 gem 'kaminari', '~> 1.2'
 
 # Specific useful stuff
