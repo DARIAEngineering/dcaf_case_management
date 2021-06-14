@@ -70,7 +70,7 @@ We've tried to structure the project in such a way that minimal specialized know
 Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) include ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-34-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -119,6 +119,7 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
     <td align="center"><a href="https://github.com/arjunrawal07"><img src="https://avatars.githubusercontent.com/u/46463756?v=4?s=100" width="100px;" alt=""/><br /><sub><b>arjunrawal07</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=arjunrawal07" title="Code">💻</a></td>
     <td align="center"><a href="https://allcontributors.org"><img src="https://avatars.githubusercontent.com/u/46410174?v=4?s=100" width="100px;" alt=""/><br /><sub><b>All Contributors</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=all-contributors" title="Documentation">📖</a></td>
     <td align="center"><a href="http://ccedacero.com/"><img src="https://avatars.githubusercontent.com/u/44513825?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ccedacero(Cristian Cedacero)</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=ccedacero" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/nsiwnf"><img src="https://avatars.githubusercontent.com/u/34173394?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sree P</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=nsiwnf" title="Code">💻</a></td>
   </tr>
 </table>
 
