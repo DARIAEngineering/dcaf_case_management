@@ -3,7 +3,7 @@
   "description": "A Rails-based case management system for abortion funds",
   "repository": "https://github.com/DCAFEngineering/dcaf_case_management",
   "scripts": {
-    "postdeploy": "bundle exec rake db:mongoid:create_indexes"
+    "postdeploy": "bundle exec rails db:migrate"
   },
   "env": {
     "CSP_VIOLATION_URI": {
@@ -52,10 +52,6 @@
     "DARIA_PLEDGE_GENERATOR_DISABLED": {
       "description": "The PDF Pledge generator only works for DCAF for now",
       "value": "true"
-    },
-    "MONGODB_URI": {
-      "description": "Connection string for the MongoDB cluster",
-      "value": ""
     },
     "RAILS_LOG_TO_STDOUT": {
       "description": "set to true",
