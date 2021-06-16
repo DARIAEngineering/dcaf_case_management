@@ -34,6 +34,7 @@
   color: $black;
   border-color: $daria-color;
   background-color: $white;
+
   &:hover {
     background-color: $daria-color-lt;
     border-color: $daria-color;
@@ -44,7 +45,27 @@
   &:focus {
     background-color: $daria-color;
     &:hover {
+      background-color: $daria-color-lt;
+    }
+  }
+}
+
+// btn-success
+.btn-success {
+  background-color: $daria-color;
+  border-color: $daria-color;
+
+  &:hover {
     background-color: $daria-color-lt;
+    border-color: $daria-color;
+  }
+  &:active {
+    background-color: $soft-blue !important;
+  }
+  &:focus {
+    background-color: $daria-color;
+    &:hover {
+      background-color: $daria-color-lt;
     }
   }
 }

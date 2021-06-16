@@ -54,30 +54,3 @@ a:hover, a:active, a:visited, a:focus {
   text-decoration: underline;
 }
 // End duplicated styles
-
-
-
-
-$daria-color-lt : #825fb9;
-
-.btn-success {
-  background-color: $daria-color;
-  border-color: $daria-color;
-
-  &:hover {
-    background-color: $daria-color-lt;
-    border-color: $daria-color;
-  }
-  &:active {
-    background-color: #286090 !important;
-  }
-  &:focus {
-    background-color: $daria-color;
-    &:hover {
-    background-color: $daria-color-lt;
-    }
-  }
-}
-
-
-
