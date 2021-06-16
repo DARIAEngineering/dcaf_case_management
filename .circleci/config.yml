@@ -16,7 +16,6 @@ jobs:
           PGUSER: circleci
           PGHOST: localhost
           PGDATABASE: dcaf_case_management_test
-      - image: circleci/mongo:latest
       - image: circleci/postgres:latest
         environment:
           POSTGRES_USER: circleci

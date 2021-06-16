@@ -12,6 +12,6 @@ All told, we've found that contributing to DARIA is a great way to leverage engi
 
 * The DARIA codebase (and its README, and Issues list): https://github.com/DCAFEngineering/dcaf_case_management
 * Join the code for DC slack here: https://codefordc.org/slack (we're in the channel #dcaf_case_management, and tend to be pretty responsive)
-* Stack-wise: It's a Rails application that mostly hews to rails defaults (though we use mongodb instead of postgres). We have a docker build if you'd rather not deal with installing stuff. There's relatively little fancy stuff in it. More particular directions are in the README.
+* Stack-wise: It's a Rails application that mostly hews to rails defaults wherever possible. We have a docker build if you'd rather not deal with installing stuff. There's relatively little fancy stuff in it. More particular directions are in the README.
 
 We look forward to having you!

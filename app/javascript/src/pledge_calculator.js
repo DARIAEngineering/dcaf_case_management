@@ -38,7 +38,7 @@ $(document).on('turbolinks:load', () => {
   // Listen for changes on balancefields and update balance.
   $(balanceFields).on('change', updateBalance);
 
-  // Set a timeout on adding new ext pledge to handle mongo updating and rails appending new field.
+  // Set a timeout on adding new ext pledge to handle db updating and rails appending new field.
   $('#create-external-pledge').on('click', () => setTimeout(updateBalance, 500));
 
   // Show the balance on load if patient has a procedure cost.
