@@ -1,0 +1,51 @@
+// Button styling.
+
+@import './bootstrap';
+@import './_variables';
+
+// btn-primary
+.btn-primary {
+  @extend .btn-primary;
+  background-color: $daria-color;
+  border: none;
+  color: $white;
+  margin-bottom: 2px;
+  font-size: $font-size;
+}
+
+.btn-primary:hover {
+  background-color: lighten($daria-color,15%);
+}
+
+.btn-primary:focus {
+  background-color: lighten($daria-color,15%);
+  color: $white;
+  text-decoration: none;
+}
+
+// Disabled button styling
+@mixin disabled-button {
+  color: $white;
+  background-color: gray;
+  border-color: $daria-color;
+  &:hover {
+    background-color: gray;
+    border-color: $daria-color;
+  }
+  &:focus {
+    background-color: gray;
+    border-color: $daria-color;
+    &:hover {
+      background-color: gray;
+      border-color: $daria-color;
+    }
+  }
+}
+
+.btn-success[disabled] {
+  @include disabled-button;
+}
+
+.btn-warning[disabled] {
+  @include disabled-button;
+}

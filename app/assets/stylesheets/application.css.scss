@@ -24,7 +24,7 @@ $spacers: map-merge(
   $spacers
 );
 
-@import "bootstrap";
+// @import "bootstrap";
 
 
 $daria-color: #5D3E8D;
@@ -61,24 +61,6 @@ a:hover, a:active, a:visited, a:focus {
   border-color: #A42823 !important;
 }
 
-.btn-primary {
-  @extend .btn-primary;
-  background-color: $daria-color;
-  border: none;
-  color: white;
-  margin-bottom: 2px;
-  font-size: $font-size;
-}
-
-.btn-primary:hover {
-  background-color: lighten($daria-color,15%);
-}
-
-.btn-primary:focus {
-  background-color: lighten($daria-color,15%);
-  color: white;
-  text-decoration: none;
-}
 
 
 
@@ -86,14 +68,6 @@ a:hover, a:active, a:visited, a:focus {
 .btn-lg {
   margin: 15px 0;
   padding: 15px 30px;
-}
-
-
-.button-xs {
-// maybe deleteable?
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-sm;
 }
 
 
@@ -137,38 +111,8 @@ $daria-color-lt : #825fb9;
   }
 }
 
-@mixin disabled-button {
-  color: white;
-  background-color: gray;
-  border-color: $daria-color;
-  &:hover {
-    background-color: gray;
-    border-color: $daria-color;
-  }
-  &:focus {
-    background-color: gray;
-    border-color: $daria-color;
-    &:hover {
-      background-color: gray;
-      border-color: $daria-color;
-    }
-  }
-}
-
-.btn-success[disabled] {
-  @include disabled-button;
-}
-
-.btn-warning[disabled] {
-  @include disabled-button;
-}
 
 
 .btn[data-orientation='cancel'] {
   color: red;
 }
-.submit {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-lg;
-  }
