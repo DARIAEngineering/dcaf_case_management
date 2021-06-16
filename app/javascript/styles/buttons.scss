@@ -29,6 +29,26 @@
   border-color: $dark-red !important;
 }
 
+// btn-warning
+.btn-warning {
+  color: $black;
+  border-color: $daria-color;
+  background-color: $white;
+  &:hover {
+    background-color: $daria-color-lt;
+    border-color: $daria-color;
+  }
+  &:active {
+    background-color: $soft-blue !important;
+  }
+  &:focus {
+    background-color: $daria-color;
+    &:hover {
+    background-color: $daria-color-lt;
+    }
+  }
+}
+
 // btn sizes
 .btn-lg {
   margin: .75em 0;

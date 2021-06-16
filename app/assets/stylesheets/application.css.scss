@@ -55,10 +55,7 @@ a:hover, a:active, a:visited, a:focus {
 }
 // End duplicated styles
 
-.btn-lg {
-  margin: .75em 0;
-  padding: .75em 1.5em;
-}
+
 
 
 $daria-color-lt : #825fb9;
@@ -82,23 +79,5 @@ $daria-color-lt : #825fb9;
   }
 }
 
-.btn-warning {
-  color: black;
-  border-color: $daria-color;
-  background-color: white;
-  &:hover {
-    background-color: $daria-color-lt;
-    border-color: $daria-color;
-  }
-  &:active {
-    background-color: #286090 !important;
-  }
-  &:focus {
-    background-color: $daria-color;
-    &:hover {
-    background-color: $daria-color-lt;
-    }
-  }
-}
 
 
