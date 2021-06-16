@@ -55,19 +55,9 @@ a:hover, a:active, a:visited, a:focus {
 }
 // End duplicated styles
 
-// accessible color contrast
-.btn-danger {
-  background-color: #A42823 !important;
-  border-color: #A42823 !important;
-}
-
-
-
-
-
 .btn-lg {
-  margin: 15px 0;
-  padding: 15px 30px;
+  margin: .75em 0;
+  padding: .75em 1.5em;
 }
 
 
@@ -112,7 +102,3 @@ $daria-color-lt : #825fb9;
 }
 
 
-
-.btn[data-orientation='cancel'] {
-  color: red;
-}

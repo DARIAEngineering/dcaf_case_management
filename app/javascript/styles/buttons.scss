@@ -23,6 +23,18 @@
   text-decoration: none;
 }
 
+// btn-danger
+.btn-danger {
+  background-color: $dark-red !important;
+  border-color: $dark-red !important;
+}
+
+// btn sizes
+.btn-lg {
+  margin: .75em 0;
+  padding: .75em 1.5em;
+}
+
 // Disabled button styling
 @mixin disabled-button {
   color: $white;
@@ -48,4 +60,9 @@
 
 .btn-warning[disabled] {
   @include disabled-button;
+}
+
+// Styling for the cancel button on pledge modal
+.btn[data-orientation='cancel'] {
+  color: $red;
 }
