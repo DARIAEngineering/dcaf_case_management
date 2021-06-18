@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_13_035820) do
+ActiveRecord::Schema.define(version: 2021_06_18_205056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.bigint "clinic_id"
     t.bigint "pledge_generated_by_id"
     t.bigint "pledge_sent_by_id"
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
@@ -121,7 +120,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.integer "costs_28wks"
     t.integer "costs_29wks"
     t.integer "costs_30wks"
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -228,7 +226,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.bigint "pledge_generated_by_id"
     t.bigint "pledge_sent_by_id"
     t.bigint "last_edited_by_id"
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
@@ -270,7 +267,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.string "line"
     t.integer "role", default: 0, null: false
     t.boolean "disabled_by_fund", default: false
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false
