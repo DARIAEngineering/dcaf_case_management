@@ -54,6 +54,12 @@ GEM
     activerecord (6.0.3.7)
       activemodel (= 6.0.3.7)
       activesupport (= 6.0.3.7)
+    activerecord-session_store (2.0.0)
+      actionpack (>= 5.2.4.1)
+      activerecord (>= 5.2.4.1)
+      multi_json (~> 1.11, >= 1.11.2)
+      rack (>= 2.0.8, < 3)
+      railties (>= 5.2.4.1)
     activestorage (6.0.3.7)
       actionpack (= 6.0.3.7)
       activejob (= 6.0.3.7)
@@ -220,9 +226,6 @@ GEM
     minitest-stub-const (0.6)
     mongo (2.13.0)
       bson (>= 4.8.2, < 5.0.0)
-    mongo_session_store (3.2.1)
-      actionpack (>= 4.0)
-      mongo (~> 2.0)
     mongoid (7.0.8)
       activemodel (>= 5.1, < 6.1)
       mongo (>= 2.7.0, < 3.0.0)
@@ -267,9 +270,6 @@ GEM
     paper_trail (10.3.1)
       activerecord (>= 4.2)
       request_store (~> 1.1)
-    paper_trail-globalid (0.2.0)
-      globalid
-      paper_trail (>= 3.0.0)
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
@@ -357,6 +357,10 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-ast (0.3.0)
       parser (>= 2.7.1.4)
+    rubocop-rails (2.8.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 0.87.0)
     ruby-progressbar (1.10.1)
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.4)
@@ -444,6 +448,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-session_store
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.5.0)
   bootstrap_form (~> 4.5.0)
@@ -477,7 +482,6 @@ DEPENDENCIES
   minitest-optional_retry
   minitest-spec-rails
   minitest-stub-const
-  mongo_session_store (>= 3.1.0)
   mongoid (~> 7.0.0, < 8)
   mongoid-history (< 1.0)
   mongoid_userstamp!
@@ -485,7 +489,6 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.8.1)
   omniauth-rails_csrf_protection (~> 1.0)
   paper_trail (~> 10.3)
-  paper_trail-globalid
   pdf-inspector
   pg (~> 1.2)
   prawn
@@ -498,6 +501,7 @@ DEPENDENCIES
   rails-i18n (~> 6.0)
   render_async (~> 2.1)
   rubocop
+  rubocop-rails
   ruby_audit
   sass-rails (>= 6)
   sdoc (~> 1.0.0)

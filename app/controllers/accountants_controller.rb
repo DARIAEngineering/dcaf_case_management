@@ -15,6 +15,8 @@ class AccountantsController < ApplicationController
 
     if have_search || have_clinic
       partial = Patient.where(pledge_sent: true)
+                       .includes(:clinic)
+                       .includes(:fulfillment)
                        .order_by(pledge_sent_at: :desc)
 
       partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
@@ -44,8 +46,10 @@ class AccountantsController < ApplicationController
 
   def pledged_patients
     Patient.where(pledge_sent: true,
-                  :initial_call_date.gte => 6.months.ago)
-           .order('pledge_sent_at desc')
+                  initial_call_date: 6.months.ago..)
+           .includes(:clinic)
+           .includes(:fulfillment)
+           .order(pledge_sent_at: :desc)
   end
 
   def find_patient

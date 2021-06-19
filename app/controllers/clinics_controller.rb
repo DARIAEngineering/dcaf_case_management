@@ -2,7 +2,7 @@
 class ClinicsController < ApplicationController
   before_action :confirm_admin_user
   before_action :find_clinic, only: [:update, :edit]
-  rescue_from Mongoid::Errors::DocumentNotFound, with: -> { head :bad_request }
+  rescue_from ActiveRecord::RecordNotFound, with: -> { head :bad_request }
 
   def index
     @clinics = Clinic.all.sort_by { |c| [c.name] }
@@ -23,9 +23,9 @@ class ClinicsController < ApplicationController
   end
 
   def new
-    # i18n-tasks-use t('mongoid.attributes.clinic.phone')
-    # i18n-tasks-use t('mongoid.attributes.clinic.fax')
-    # i18n-tasks-use t('mongoid.attributes.clinic.active')
+    # i18n-tasks-use t('activerecord.attributes.clinic.phone')
+    # i18n-tasks-use t('activerecord.attributes.clinic.fax')
+    # i18n-tasks-use t('activerecord.attributes.clinic.active')
     @clinic = Clinic.new
   end
 

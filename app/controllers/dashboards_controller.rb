@@ -6,12 +6,18 @@ class DashboardsController < ApplicationController
   before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
+    # n+1 join here
     @urgent_patients = Patient.urgent_patients(current_line)
   end
 
   def search
-    @results = Patient.search params[:search],
-                              [current_line.try(:to_sym) || lines]
+    # n+1 join here
+    if params[:search].present?
+      @results = Patient.search params[:search],
+                                [current_line.try(:to_sym) || lines]
+    else
+      @results = []
+    end
 
     @patient = Patient.new
     @today = Time.zone.today.to_date

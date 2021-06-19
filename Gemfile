@@ -24,14 +24,14 @@ gem 'bson_ext'
 gem 'mongoid-history', '< 1.0' # gives us object history
 gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git',
                          branch: 'master' # adds created_by and updated_by timestamps
-gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
+# gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
 gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
 # gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
 
 # ...but hopefully soon it will be postgres
 gem 'pg', '~> 1.2'
 gem 'paper_trail', '~> 10.3'
-gem 'paper_trail-globalid'
+gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.8'
@@ -71,6 +71,7 @@ group :development do
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5', '< 3.2' # used by systemtests, hardset rails 6 compat
   gem 'rubocop', require: false # our code style / linting system
+  gem 'rubocop-rails', require: false
 
   # Security scanners that also run in CI. They run with bundle exec.
   gem 'ruby_audit', require: false #

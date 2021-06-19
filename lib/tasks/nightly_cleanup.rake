@@ -16,11 +16,8 @@ task nightly_cleanup: :environment do
   ArchivedPatient.archive_eligible_patients!
   puts "#{Time.now} -- archived patients for today"
 
-  MongoidStore::Session.where(:updated_at.lte => 30.days.ago).delete_all  
-  puts "#{Time.now} - removed old sessions"
-
-  CallListEntry.destroy_orphaned_entries
-  puts "#{Time.now} - removed orphaned call list entries"
+  Rake::Task['db:sessions:trim'].invoke
+  puts "#{Time.now} -- removed old sessions"
 
   if Time.zone.now.monday?
     # Run these events weekly
