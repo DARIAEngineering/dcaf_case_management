@@ -17,7 +17,7 @@ class AccountantsController < ApplicationController
       partial = Patient.where(pledge_sent: true)
                        .includes(:clinic)
                        .includes(:fulfillment)
-                       .order_by(pledge_sent_at: :desc)
+                       .order(pledge_sent_at: :desc)
 
       partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
       partial = partial.search(params[:search]) if have_search
