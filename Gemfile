@@ -18,17 +18,7 @@ gem 'coffee-rails', '~> 5.0.0'
 gem 'jquery-rails', '~> 4.3.4'
 gem 'jquery-ui-rails'
 
-# Our database is MongoDB
-gem 'mongoid', '~> 7.0.0', '< 8'
-gem 'bson_ext'
-gem 'mongoid-history', '< 1.0' # gives us object history
-gem 'mongoid_userstamp', git: 'https://github.com/DCAFEngineering/mongoid_userstamp.git',
-                         branch: 'master' # adds created_by and updated_by timestamps
-# gem 'mongo_session_store', '>= 3.1.0' # stores sessions in database for security
-gem 'enumerize' # Mongoid doesn't have enum out of the box, so we get it here
-# gem 'mongoid_rails_migrations' # Mongoid also does not have migrations out of the box, so we get that here
-
-# ...but hopefully soon it will be postgres
+# Our database is postgres
 gem 'pg', '~> 1.2'
 gem 'paper_trail', '~> 10.3'
 gem 'activerecord-session_store'
@@ -48,7 +38,6 @@ gem 'sentry-raven'
 gem 'rack-attack', '~> 5.4.1'
 
 # For pagination
-gem 'kaminari-mongoid', '~> 1.0'
 gem 'kaminari', '~> 1.2'
 
 # Specific useful stuff

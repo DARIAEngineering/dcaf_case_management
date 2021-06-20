@@ -57,11 +57,6 @@ If you prefer a local environment, totally cool! We recommend the following:
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).
 * Install our version of Ruby! You can see our current version of ruby in the `Gemfile`. Install it with `rbenv install VERSION` or `rvm install VERSION`, depending on what you're using.
 
-### Then, MongoDB dependencies
-You'll also need to set up MongoDB. This will differ based on your OS.
-* Install MongoDB locally (here's the [MacOS instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) and [linux instructions](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/))
-* Set the daemon to run automatically, if needed
-
 ### Then, JS dependencies
 We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
 * Install Yarn locally (`brew install yarn`, or the [setup instructions](https://yarnpkg.com/en/docs/install)).

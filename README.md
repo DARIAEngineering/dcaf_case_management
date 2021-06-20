@@ -61,7 +61,7 @@ Feel free to hit any of us up with questions about the project, we're nice!
 ### We <3 new people and beginners!
 We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
 
-We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception of MongoDB and a couple gems.
+We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception a couple gems.
 
 **We prioritize inclusivity of all skill levels on this project** -- in general, if you are willing to put in the time to learn, a team member will be willing to work with you to make it happen!
 
@@ -70,7 +70,7 @@ We've tried to structure the project in such a way that minimal specialized know
 Like all volunteer projects, we'd be dead in the water if it weren't for the hard work of our valuable team. Championship contributors to this project (so far!) include ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-34-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -119,6 +119,7 @@ Like all volunteer projects, we'd be dead in the water if it weren't for the har
     <td align="center"><a href="https://github.com/arjunrawal07"><img src="https://avatars.githubusercontent.com/u/46463756?v=4?s=100" width="100px;" alt=""/><br /><sub><b>arjunrawal07</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=arjunrawal07" title="Code">💻</a></td>
     <td align="center"><a href="https://allcontributors.org"><img src="https://avatars.githubusercontent.com/u/46410174?v=4?s=100" width="100px;" alt=""/><br /><sub><b>All Contributors</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=all-contributors" title="Documentation">📖</a></td>
     <td align="center"><a href="http://ccedacero.com/"><img src="https://avatars.githubusercontent.com/u/44513825?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ccedacero(Cristian Cedacero)</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=ccedacero" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/nsiwnf"><img src="https://avatars.githubusercontent.com/u/34173394?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sree P</b></sub></a><br /><a href="https://github.com/DCAFEngineering/dcaf_case_management/commits?author=nsiwnf" title="Code">💻</a></td>
   </tr>
 </table>
 

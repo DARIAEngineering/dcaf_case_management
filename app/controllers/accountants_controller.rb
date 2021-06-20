@@ -13,14 +13,19 @@ class AccountantsController < ApplicationController
 
   def search
     index
+      
+    have_search = params[:search].present?
+    have_clinic = params[:clinic_id].present?
 
-    @results =  if params[:search].present?
-                  pledged_patients.search(params[:search])
-                else
-                  # if no search, only show last 6 months
-                  pledged_patients.where(initial_call_date: 6.months.ago..)
-                end
+    if have_search || have_clinic
+      partial = pledged_patients.where(clinic_id: params[:clinic_id]) if have_clinic
+      partial = partial.search(params[:search]) if have_search
 
+      @results = partial
+    else
+      @results = pledged_patients.where(initial_call_date: 6.months.ago..)
+    end
+  
     @results = paginate_results @results
 
     if @results.length != @patients.length

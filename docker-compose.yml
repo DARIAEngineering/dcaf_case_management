@@ -19,18 +19,12 @@ services:
       - "3000:3000"
     links:
       - db
-      - pg
       - webpacker
     environment:
-      mongohost: db
-      pg_url: postgres://postgres:postgres@pg
+      pg_url: postgres://postgres:postgres@db
     env_file:
       - .docker/web-variables.env
   db:
-    image: mongo
-    ports:
-      - "27017:27017"
-  pg:
     image: postgres
     ports:
       - "5432:5432"

@@ -57,5 +57,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  Mongo::Logger.logger.level = ::Logger::FATAL
+  config.log_level = :debug
 end

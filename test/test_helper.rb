@@ -29,7 +29,6 @@ if ENV['CIRCLECI']
 end
 
 DatabaseCleaner.clean_with :truncation
- DatabaseCleaner[:mongoid].clean_with :truncation
 
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
