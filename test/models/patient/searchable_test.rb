@@ -66,7 +66,7 @@ class PatientTest::PatientSearchable < PatientTest
 
     it 'should be able to narrow on line' do
       assert_equal 2, Patient.search('Susan A').count
-      assert_equal 1, Patient.search('Susan A', 'MD').count
+      assert_equal 1, Patient.search('Susan A', lines: 'MD').count
     end
 
     it 'should not choke if it does not find anything' do
