@@ -18,8 +18,10 @@ class AccountantsController < ApplicationController
     have_clinic = params[:clinic_id].present?
 
     if have_search || have_clinic
-      partial = pledged_patients.where(clinic_id: params[:clinic_id]) if have_clinic
-      partial = partial.search(params[:search]) if have_search
+      partial = pledged_patients
+
+      partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
+      partial = partial.search(params[:search], search_limit=nil) if have_search
 
       @results = partial
     else

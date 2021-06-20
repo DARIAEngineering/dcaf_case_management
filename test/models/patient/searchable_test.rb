@@ -46,6 +46,13 @@ class PatientTest::PatientSearchable < PatientTest
       it 'should return patients in order of last modified' do
         assert_equal [@pt_3, @pt_4], Patient.search('Laila')
       end
+
+      it 'should limit the number of patients returned' do
+        16.times do |num|
+          create :patient, primary_phone: "124-567-78#{num+10}"
+        end
+        assert_equal 15, Patient.search('124').count
+      end
     end
 
     it 'should be able to find based on secondary phones too' do
