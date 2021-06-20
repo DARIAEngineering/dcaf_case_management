@@ -2,8 +2,6 @@
 module PatientSearchable
   extend ActiveSupport::Concern
 
-  SEARCH_LIMIT = 15
-
   class_methods do
     # Case insensitive and phone number format agnostic!
     def search(name_or_phone_str, lines = LINES)
@@ -20,7 +18,7 @@ module PatientSearchable
                          .or(base.where('other_phone like ?', clean_phone))
       end
 
-      matches.order(updated_at: :desc).limit(SEARCH_LIMIT)
+      matches.order(updated_at: :desc)
     end
   end
 end

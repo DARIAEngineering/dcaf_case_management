@@ -5,6 +5,8 @@ class DashboardsController < ApplicationController
 
   before_action :pick_line_if_not_set, only: [:index, :search]
 
+  SEARCH_LIMIT = 15
+
   def index
     # n+1 join here
     @urgent_patients = Patient.urgent_patients(current_line)
@@ -13,8 +15,9 @@ class DashboardsController < ApplicationController
   def search
     # n+1 join here
     if params[:search].present?
-      @results = Patient.search params[:search],
-                                [current_line.try(:to_sym) || lines]
+      @results = Patient.search(params[:search],
+                                [current_line.try(:to_sym) || lines])
+                        .limit(SEARCH_LIMIT)
     else
       @results = []
     end

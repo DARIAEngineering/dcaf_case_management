@@ -8,17 +8,18 @@ class AccountantsController < ApplicationController
     patients = pledged_patients.includes(:clinic)
     @patients = paginate_results(patients)
 
-    @entry_name = t 'common.patient'
+    @entry_name = t('common.patient')
   end
 
   def search
     index
 
-    @results = if params[:search].present?
-                 pledged_patients.search(params[:search])
-               else
-                 pledged_patients
-               end
+    @results =  if params[:search].present?
+                  pledged_patients.search(params[:search])
+                else
+                  # if no search, only show last 6 months
+                  pledged_patients.where(initial_call_date: 6.months.ago..)
+                end
 
     @results = paginate_results @results
 
@@ -26,7 +27,7 @@ class AccountantsController < ApplicationController
       extra_display = t('accountants.extra_count', count: @patients.length,
                                                    entry: t('common.patient').pluralize(@patients.length))
       @result_count_extra = " (#{extra_display})"
-      @entry_name = t 'accountants.results'
+      @entry_name = t('accountants.results')
     end
 
     respond_to { |format| format.js }
@@ -47,8 +48,7 @@ class AccountantsController < ApplicationController
   end
 
   def pledged_patients
-    Patient.where(pledge_sent: true,
-                  initial_call_date: 6.months.ago..)
+    Patient.where(pledge_sent: true,)
            .includes(:clinic)
            .includes(:fulfillment)
            .order(pledge_sent_at: :desc)
