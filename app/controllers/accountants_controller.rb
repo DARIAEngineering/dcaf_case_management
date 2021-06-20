@@ -21,7 +21,7 @@ class AccountantsController < ApplicationController
       partial = pledged_patients
 
       partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
-      partial = partial.search(params[:search], search_limit=nil) if have_search
+      partial = partial.search(params[:search], search_limit: nil) if have_search
 
       @results = partial
     else
