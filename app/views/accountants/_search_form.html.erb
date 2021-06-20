@@ -1,12 +1,21 @@
 <div id="search_form" class="margin-bottom">
-  <!-- TODO change submit tag to a search glyphicon -->
   <%= bootstrap_form_with url: 'accountant/search', remote: true, layout: :inline do |f| %>
     <%= f.hidden_field :locale, value: params[:locale] %>
     <%= f.text_field :search,
                      placeholder: t('accountants.search_placeholder'),
                      hide_label: true,
-                     class: 'search_form_input accountant' %>
-    <%= f.submit t('common.search'), class: 'btn btn-primary ml-2' %>
+                     class: 'search_form_input accountant mr-4' %>
+
+    <%= f.select :clinic_id,
+                 options_for_select(clinic_options.reject{|x| x.blank?}),
+                 prompt: t('accountants.search_all_clinics'),
+                 hide_label: true,
+                 include_blank: false,
+                 class: 'search_form_input accountant' %>
+
+    <%= f.button title: t('common.search'), class: 'btn btn-primary ml-4' do %>
+      <i class="fas fa-search"></i>
+    <% end %>
   <% end %>
 
   <div id="search_results_shell"></div>
