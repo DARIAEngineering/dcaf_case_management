@@ -81,7 +81,7 @@ class RecordLookupTest < ApplicationSystemTestCase
       fill_in 'search', with: '124'
       click_button 'Search'
 
-      page.all('table#search_results_table tr').count.should == 15
+      assert_equal 15, page.all('tbody#search_results_content tr').count
     end
 
     # We haven't reached a UX agreement on this yet, but test is ready to go
