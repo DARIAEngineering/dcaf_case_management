@@ -14,7 +14,7 @@ class DashboardsController < ApplicationController
     # n+1 join here
     if params[:search].present?
       @results = Patient.search params[:search],
-                                [current_line.try(:to_sym) || lines]
+                                lines: [current_line.try(:to_sym) || lines]
     else
       @results = []
     end
