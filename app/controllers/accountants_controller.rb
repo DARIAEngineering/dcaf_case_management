@@ -5,14 +5,11 @@ class AccountantsController < ApplicationController
   before_action :find_patient, only: [:edit]
 
   def index
-    patients = pledged_patients.includes(:clinic)
-    @patients = paginate_results(patients)
-
-    @entry_name = t('common.patient')
+    generate_base_patients
   end
 
   def search
-    index
+    generate_base_patients
       
     have_search = params[:search].present?
     have_clinic = params[:clinic_id].present?
@@ -48,6 +45,13 @@ class AccountantsController < ApplicationController
 
   private
 
+  def generate_base_patients
+    patients = pledged_patients.includes(:clinic)
+    @patients = paginate_results(patients)
+
+    @entry_name = t('common.patient')
+  end
+
   def paginate_results(results)
     Kaminari.paginate_array(results)
             .page(params[:page])
@@ -55,7 +59,7 @@ class AccountantsController < ApplicationController
   end
 
   def pledged_patients
-    Patient.where(pledge_sent: true,)
+    Patient.where(pledge_sent: true)
            .includes(:clinic)
            .includes(:fulfillment)
            .order(pledge_sent_at: :desc)
