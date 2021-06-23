@@ -1,0 +1,109 @@
+// Button styling.
+
+@import './bootstrap';
+@import './_variables';
+
+// btn-primary
+.btn-primary {
+  @extend .btn-primary;
+  background-color: $daria-color;
+  border: none;
+  color: $white;
+  margin-bottom: 2px;
+  font-size: $font-size;
+}
+
+.btn-primary:hover {
+  background-color: lighten($daria-color,15%);
+}
+
+.btn-primary:focus {
+  background-color: lighten($daria-color,15%);
+  color: $white;
+  text-decoration: none;
+}
+
+// btn-danger
+.btn-danger {
+  background-color: $dark-red !important;
+  border-color: $dark-red !important;
+}
+
+// btn-warning
+.btn-warning {
+  color: $black;
+  border-color: $daria-color;
+  background-color: $white;
+
+  &:hover {
+    background-color: $daria-color-lt;
+    border-color: $daria-color;
+  }
+  &:active {
+    background-color: $soft-blue !important;
+  }
+  &:focus {
+    background-color: $daria-color;
+    &:hover {
+      background-color: $daria-color-lt;
+    }
+  }
+}
+
+// btn-success
+.btn-success {
+  background-color: $daria-color;
+  border-color: $daria-color;
+
+  &:hover {
+    background-color: $daria-color-lt;
+    border-color: $daria-color;
+  }
+  &:active {
+    background-color: $soft-blue !important;
+  }
+  &:focus {
+    background-color: $daria-color;
+    &:hover {
+      background-color: $daria-color-lt;
+    }
+  }
+}
+
+// btn sizes
+.btn-lg {
+  margin: .75em 0;
+  padding: .75em 1.5em;
+}
+
+// Disabled button styling
+@mixin disabled-button {
+  color: $white;
+  background-color: gray;
+  border-color: $daria-color;
+  &:hover {
+    background-color: gray;
+    border-color: $daria-color;
+  }
+  &:focus {
+    background-color: gray;
+    border-color: $daria-color;
+    &:hover {
+      background-color: gray;
+      border-color: $daria-color;
+    }
+  }
+}
+
+.btn-success[disabled] {
+  @include disabled-button;
+}
+
+.btn-warning[disabled] {
+  @include disabled-button;
+}
+
+// Styling for the cancel button on pledge modal
+.btn[data-orientation='cancel'] {
+  color: $red;
+}
