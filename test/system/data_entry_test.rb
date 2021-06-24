@@ -160,13 +160,13 @@ class DataEntryTest < ApplicationSystemTestCase
       has_text? 'Patient information' # wait for redirect
     end
 
-    it 'should not show backdated new patient in the budget bar' do
+    it 'should show backdated new patient in the budget bar' do
       visit root_path
 
       within :css, '#budget_bar' do
-        assert has_text? "$0 sent (0 patients)"
+        assert has_text? "$99 sent (1 patients)"
         assert has_text? "$0 pledged (0 patients)"
-        refute has_text? "$99 sent"
+        refute has_text? "$0 sent"
       end
     end
   end
