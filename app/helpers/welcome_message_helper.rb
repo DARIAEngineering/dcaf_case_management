@@ -63,7 +63,8 @@ module WelcomeMessageHelper
       "You are appreciated, you are loved, your work makes a differnces! Thank you for all you do! 👏👏👏",
       "Thank you for the critical, wonderful work you do. You're awesome!",
       "Keep on crushing it! You are awesome.",
-      "Thank you! You ARE APPRECIATED! :)"
+      "Thank you! You ARE APPRECIATED! :)",
+      "Thank you for your incredible work!"
     ]
   end
 end
