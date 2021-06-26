@@ -20,7 +20,7 @@ class Patient < ApplicationRecord
   # Callbacks
   before_validation :clean_fields
   before_save :save_identifier
-  before_update :update_pledge_sent_by_sent_at
+  before_save :update_pledge_sent_by_sent_at
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
