@@ -64,13 +64,24 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       assert has_content? 'Displaying all 3 patients'
     end
 
-    # it 'should properly display large numbers of patients' do
-    #   # create 30 patients
-    #   # check number of rows
+    it 'should properly display large numbers of patients' do
+      30.times do |i|
+        patient = Patient.create! name: "Patient #{i}",
+          primary_phone: "999-888-#{1000 + i}",
+          clinic: @clinic,
+          pledge_sent: true,
+          initial_call_date: 3.days.ago,
+          appointment_date: 3.days.from_now,
+          line: 'DC',
+          fund_pledge: 100
 
-    #   assert has_content? 'Displaying patients 1 - 25 of 47 in total'
-    #   assert has_selector?('tbody#accountants-table-content tr', count: 25)
-    # end
+      end
+
+      assert has_content? 'Displaying patients 1 - 25 of 47 in total'
+
+      # the table should have 25 rows
+      assert has_selector?('tbody#accountants-table-content tr', count: 25)
+    end
   end
 
   describe 'searching for pledged patients' do
