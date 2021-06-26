@@ -79,6 +79,9 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                         procedure_cost: 400
       end
 
+      # gotta reload!
+      visit accountants_path
+
       assert has_content? 'Displaying patients 1 - 25 of 47 in total'
 
       # the table should have 25 rows
