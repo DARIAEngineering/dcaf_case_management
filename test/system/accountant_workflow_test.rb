@@ -82,7 +82,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       # gotta reload!
       visit accountants_path
 
-      assert has_content? 'Displaying patients 1 - 25 of 47 in total'
+      assert has_content? 'Displaying patients 1 - 25 of 33 in total'
 
       # the table should have 25 rows
       assert has_selector?('tbody#accountants-table-content tr', count: 25)
