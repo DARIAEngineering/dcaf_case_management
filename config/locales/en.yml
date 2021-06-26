@@ -1,7 +1,6 @@
 ---
 en:
   accountants:
-    extra_count: out of %{count} %{entry} total
     results: result
     search_all_clinics: "[All Clinics]"
     search_cases: Search cases

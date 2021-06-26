@@ -63,6 +63,14 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
     it 'should properly display counts' do
       assert has_content? 'Displaying all 3 patients'
     end
+
+    # it 'should properly display large numbers of patients' do
+    #   # create 30 patients
+    #   # check number of rows
+
+    #   assert has_content? 'Displaying patients 1 - 25 of 47 in total'
+    #   assert has_selector?('tbody#accountants-table-content tr', count: 25)
+    # end
   end
 
   describe 'searching for pledged patients' do

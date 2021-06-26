@@ -5,35 +5,28 @@ class AccountantsController < ApplicationController
   before_action :find_patient, only: [:edit]
 
   def index
-    generate_base_patients
+    @patients = paginate_results(pledged_patients)
+    @entry_name = t('common.patient').downcase
   end
 
   def search
-    generate_base_patients
-      
     have_search = params[:search].present?
     have_clinic = params[:clinic_id].present?
 
-    if have_search || have_clinic
+    @results = if have_search || have_clinic
       partial = pledged_patients
 
       partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
       partial = partial.search(params[:search], search_limit: nil) if have_search
 
-      @results = partial
+      partial
     else
-      @results = pledged_patients
+      pledged_patients
     end
-  
-    @results = paginate_results @results
 
-    # maybe remove?
-    if @results.total_count != @patients.total_count
-      extra_display = t('accountants.extra_count', count: @patients.total_count,
-                                                   entry: t('common.patient').downcase.pluralize(@patients.total_count))
-      @result_count_extra = " (#{extra_display})"
-      @entry_name = t('accountants.results')
-    end
+    # when we search, counter says 'results' instead of 'patients'
+    @entry_name = t('accountants.results')
+    @results = paginate_results @results
 
     respond_to { |format| format.js }
   end
@@ -45,12 +38,6 @@ class AccountantsController < ApplicationController
   end
 
   private
-
-  def generate_base_patients
-    @patients = paginate_results(pledged_patients)
-
-    @entry_name = t('common.patient').downcase
-  end
 
   def paginate_results(results)
     Kaminari.paginate_array(results)
