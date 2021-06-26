@@ -59,6 +59,10 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       assert has_content? @pledged_patient.name
       refute has_content? @nonpledged_patient.name
     end
+
+    it 'should properly display counts' do
+      assert has_content? 'Displaying all 3 patients'
+    end
   end
 
   describe 'searching for pledged patients' do
@@ -71,6 +75,8 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       refute has_content? @pledged_patient.name
       refute has_content? @other_clinic_patient.name
       refute has_content? @nonpledged_patient.name
+
+      assert has_content? 'Displaying 1 result'
     end
 
     it 'should display everyone on a search for an empty string' do
@@ -86,6 +92,8 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       assert has_content? @pledged_patient.name
       assert has_content? @other_clinic_patient.name
       refute has_content? @nonpledged_patient.name
+
+      assert has_content? 'Displaying all 3 patients'
     end
 
     it 'should search by clinic' do
@@ -98,6 +106,8 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       refute has_content? @fulfilled_patient.name
       refute has_content? @pledged_patient.name
       refute has_content? @nonpledged_patient.name
+
+      assert has_content? 'Displaying 1 result'
     end
 
     it 'should display everyone on search for all clinics' do
@@ -110,6 +120,8 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       assert has_content? @pledged_patient.name
       assert has_content? @other_clinic_patient.name
       refute has_content? @nonpledged_patient.name
+
+      assert has_content? 'Displaying all 3 patients'
     end
   end
 
