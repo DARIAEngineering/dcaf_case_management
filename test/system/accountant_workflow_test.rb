@@ -77,7 +77,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
           pledge_sent: true,
           pledge_sent: true,
           primary_phone: "999-888-#{1000 + i}",
-          procedure_cost: 400,
+          procedure_cost: 400
       end
 
       assert has_content? 'Displaying patients 1 - 25 of 47 in total'
