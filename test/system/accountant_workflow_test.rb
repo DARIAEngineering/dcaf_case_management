@@ -66,18 +66,17 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
 
     it 'should properly display large numbers of patients' do
       30.times do |i|
-        patient = Patient.create! name: "Patient #{i}",
-          appointment_date: 3.days.from_now,
-          clinic: @clinic,
-          fund_pledge: 100
-          initial_call_date: 3.days.ago,
-          line: 'DC',
-          naf_pledge: 200,
-          patient_contribution: 100,
-          pledge_sent: true,
-          pledge_sent: true,
-          primary_phone: "999-888-#{1000 + i}",
-          procedure_cost: 400
+        Patient.create! name: "Patient #{i}",
+                        appointment_date: 3.days.from_now,
+                        clinic: @clinic,
+                        fund_pledge: 100,
+                        initial_call_date: 3.days.ago,
+                        line: 'DC',
+                        naf_pledge: 200,
+                        patient_contribution: 100,
+                        pledge_sent: true,
+                        primary_phone: "999-888-#{1000 + i}",
+                        procedure_cost: 400
       end
 
       assert has_content? 'Displaying patients 1 - 25 of 47 in total'
