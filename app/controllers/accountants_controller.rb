@@ -22,14 +22,15 @@ class AccountantsController < ApplicationController
 
       @results = partial
     else
-      @results = pledged_patients.where(initial_call_date: 6.months.ago..)
+      @results = pledged_patients
     end
   
     @results = paginate_results @results
 
-    if @results.length != @patients.length
-      extra_display = t('accountants.extra_count', count: @patients.length,
-                                                   entry: t('common.patient').pluralize(@patients.length))
+    # maybe remove?
+    if @results.total_count != @patients.total_count
+      extra_display = t('accountants.extra_count', count: @patients.total_count,
+                                                   entry: t('common.patient').downcase.pluralize(@patients.total_count))
       @result_count_extra = " (#{extra_display})"
       @entry_name = t('accountants.results')
     end
@@ -46,10 +47,9 @@ class AccountantsController < ApplicationController
   private
 
   def generate_base_patients
-    patients = pledged_patients.includes(:clinic)
-    @patients = paginate_results(patients)
+    @patients = paginate_results(pledged_patients)
 
-    @entry_name = t('common.patient')
+    @entry_name = t('common.patient').downcase
   end
 
   def paginate_results(results)

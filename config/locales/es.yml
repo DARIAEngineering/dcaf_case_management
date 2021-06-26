@@ -2,7 +2,7 @@
 es:
   accountants:
     extra_count: de %{count} %{entry} en total
-    results: resultados
+    results: resultado
     search_all_clinics: "[Todas Clínicas]"
     search_cases: Buscar casos
     search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
