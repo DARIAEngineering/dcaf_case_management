@@ -13,20 +13,20 @@ class AccountantsController < ApplicationController
     have_search = params[:search].present?
     have_clinic = params[:clinic_id].present?
 
-    @results = if have_search || have_clinic
+    if have_search || have_clinic
       partial = pledged_patients
 
       partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
       partial = partial.search(params[:search], search_limit: nil) if have_search
 
-      partial
+      results = partial
     else
-      pledged_patients
+      results = pledged_patients
     end
 
     # when we search, counter says 'results' instead of 'patients'
     @entry_name = t('accountants.results')
-    @results = paginate_results @results
+    @results = paginate_results results
 
     respond_to { |format| format.js }
   end
