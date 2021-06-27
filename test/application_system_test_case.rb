@@ -19,5 +19,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   # if in CI, run system tests headlessly.
   browser = ENV['GITHUB_WORKFLOW'] ? :headless_chrome : :chrome
+
+  # if in docker, run headless firefox
+  browser = ENV['DOCKER'] ? :headless_firefox : browser
+
   driven_by :selenium, using: browser
 end
