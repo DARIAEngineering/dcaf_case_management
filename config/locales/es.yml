@@ -1,6 +1,7 @@
 ---
 es:
   accountants:
+    results: resultado
     search_all_clinics: "[Todas Clínicas]"
     search_cases: Buscar casos
     search_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555) o identificación del paciente (M5-5555)
@@ -9,8 +10,9 @@ es:
       clinic: Clínica
       date_of_check: Fecha del cheque
       fund_payout: Pago de %{fund}
+      line: Línea
+      pledge_amount: Cantidad de promesa
       pledge_sent: Promesa enviada
-      pt_initials: Iniciales PT
       weeks_at_procedure: Semanas en el procedimiento
       weeks_at_procedure_display: "%{gestation} semanas"
     title: Tablero de contador

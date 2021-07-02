@@ -1,12 +1,14 @@
-<table class="table border-side">
+<table class="table border-side table-responsive text-nowrap acct-table">
   <thead>
     <tr class="accountants-table-header">
       <th><!-- spacer --></th>
+      <th><%= t 'accountants.table_content.line' %></th>
       <th><%= t 'accountants.table_content.clinic' %></th>
-      <th><%= t 'accountants.table_content.pt_initials' %></th>
+      <th><%= t 'common.patient' %></th>
       <th><%= t 'accountants.table_content.fund_payout', fund: FUND %></th>
       <th><%= t 'accountants.table_content.weeks_at_procedure' %></th>
       <th><%= t 'accountants.table_content.pledge_sent' %></th>
+      <th><%= t 'accountants.table_content.pledge_amount' %></th>
       <th><%= t 'accountants.table_content.check_number' %></th>
       <th><%= t 'accountants.table_content.date_of_check' %></th>
       <th></th>

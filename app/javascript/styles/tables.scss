@@ -12,10 +12,20 @@ table.border-side {
     padding-left: 0px !important;
   }
 
+  &.acct-table {
+    th {
+      padding: 0.8rem 0.5rem !important;
+    }
+
+    td {
+      padding: 0.5rem 0.5rem !important;
+    }
+  }
+
   tr {
     td {
       font-size: 17px;
-      padding: 10px 0 !important;
+      padding: 10px 0px !important;
     }
   }
 }

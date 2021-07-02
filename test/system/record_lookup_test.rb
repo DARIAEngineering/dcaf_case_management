@@ -74,6 +74,16 @@ class RecordLookupTest < ApplicationSystemTestCase
       end
     end
 
+    it 'should limit the number of patients returned' do
+      16.times do |num|
+        create :patient, primary_phone: "124-567-78#{num + 10}"
+      end
+      fill_in 'search', with: '124'
+      click_button 'Search'
+
+      assert_equal 15, page.all('tbody#search_results_content tr').count
+    end
+
     # We haven't reached a UX agreement on this yet, but test is ready to go
     # it 'should display new patient partial even for the search results' do
     #   fill_in 'search', with: 'susan everyteen'

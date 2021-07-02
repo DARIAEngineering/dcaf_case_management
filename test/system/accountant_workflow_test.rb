@@ -21,7 +21,6 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                                           clinic: @clinic,
                                           pledge_sent: true,
                                           appointment_date: 2.weeks.ago,
-                                          fulfillment: @fulfillment_data,
                                           initial_call_date: 5.weeks.ago
     @fulfilled_patient.fulfillment.update fulfilled: true,
                                           procedure_date: 1.week.ago,
@@ -56,10 +55,37 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
 
   describe 'viewing pledged patients' do
     it 'should show only pledged patients on page load' do
-      # Or initials, as the case may be
-      assert has_content? @fulfilled_patient.initials
-      assert has_content? @pledged_patient.initials
-      refute has_content? @nonpledged_patient.initials
+      assert has_content? @fulfilled_patient.name
+      assert has_content? @pledged_patient.name
+      refute has_content? @nonpledged_patient.name
+    end
+
+    it 'should properly display counts' do
+      assert has_content? 'Displaying all 3 patients'
+    end
+
+    it 'should properly display large numbers of patients' do
+      30.times do |i|
+        Patient.create! name: "Patient #{i}",
+                        appointment_date: 3.days.from_now,
+                        clinic: @clinic,
+                        fund_pledge: 100,
+                        initial_call_date: 3.days.ago,
+                        line: 'DC',
+                        naf_pledge: 200,
+                        patient_contribution: 100,
+                        pledge_sent: true,
+                        primary_phone: "999-888-#{1000 + i}",
+                        procedure_cost: 400
+      end
+
+      # gotta reload!
+      visit accountants_path
+
+      assert has_content? 'Displaying patients 1 - 25 of 33 in total'
+
+      # the table should have 25 rows
+      assert has_selector?('#accountants-table-content tr', count: 25)
     end
   end
 
@@ -69,9 +95,12 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       click_button 'Search'
       wait_for_ajax
 
-      assert has_content? @fulfilled_patient.initials
-      refute has_content? @pledged_patient.initials
-      refute has_content? @nonpledged_patient.initials
+      assert has_content? @fulfilled_patient.name
+      refute has_content? @pledged_patient.name
+      refute has_content? @other_clinic_patient.name
+      refute has_content? @nonpledged_patient.name
+
+      assert has_content? 'Displaying 1 result'
     end
 
     it 'should display everyone on a search for an empty string' do
@@ -83,10 +112,12 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       click_button 'Search'
       wait_for_ajax
 
-      assert has_content? @fulfilled_patient.initials
-      assert has_content? @pledged_patient.initials
-      assert has_content? @other_clinic_patient.initials
-      refute has_content? @nonpledged_patient.initials
+      assert has_content? @fulfilled_patient.name
+      assert has_content? @pledged_patient.name
+      assert has_content? @other_clinic_patient.name
+      refute has_content? @nonpledged_patient.name
+
+      assert has_content? 'Displaying all 3 results'
     end
 
     it 'should search by clinic' do
@@ -95,11 +126,12 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       click_button 'Search'
       wait_for_ajax
 
-      assert has_content? @other_clinic_patient.initials
+      assert has_content? @other_clinic_patient.name
+      refute has_content? @fulfilled_patient.name
+      refute has_content? @pledged_patient.name
+      refute has_content? @nonpledged_patient.name
 
-      refute has_content? @fulfilled_patient.initials
-      refute has_content? @pledged_patient.initials
-      refute has_content? @nonpledged_patient.initials
+      assert has_content? 'Displaying 1 result'
     end
 
     it 'should display everyone on search for all clinics' do
@@ -108,10 +140,12 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
       click_button 'Search'
       wait_for_ajax
 
-      assert has_content? @fulfilled_patient.initials
-      assert has_content? @pledged_patient.initials
-      assert has_content? @other_clinic_patient.initials
-      refute has_content? @nonpledged_patient.initials
+      assert has_content? @fulfilled_patient.name
+      assert has_content? @pledged_patient.name
+      assert has_content? @other_clinic_patient.name
+      refute has_content? @nonpledged_patient.name
+
+      assert has_content? 'Displaying all 3 results'
     end
   end
 
