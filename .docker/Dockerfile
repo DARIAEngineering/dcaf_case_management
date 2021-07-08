@@ -45,6 +45,9 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - && \
 # remove unnecessary build dependencies
 RUN apt-get purge -y ${BUILD_DEPENDENCIES} && apt-get autoremove -y 
 
+# Install firefox for system tests
+RUN apt-get install -y firefox-esr
+
 # Check docker base image for vulnerable packages, ignore non zero exit code (just informative)
 RUN mkdir /tmp/ahab && \
     cd /tmp/ahab && \
