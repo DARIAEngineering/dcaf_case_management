@@ -20,7 +20,7 @@ gem 'jquery-ui-rails'
 
 # Our database is postgres
 gem 'pg', '~> 1.2'
-gem 'paper_trail', '~> 10.3'
+gem 'paper_trail', '~> 12.0'
 gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
