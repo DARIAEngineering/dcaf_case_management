@@ -6,7 +6,6 @@ class AccountantsController < ApplicationController
 
   def index
     @patients = paginate_results(pledged_patients)
-    @entry_name = t('common.patient').downcase
   end
 
   def search
@@ -24,9 +23,7 @@ class AccountantsController < ApplicationController
       results = pledged_patients
     end
 
-    # when we search, counter says 'results' instead of 'patients'
-    @entry_name = t('accountants.results')
-    @results = paginate_results results
+    @patients = paginate_results results
 
     respond_to { |format| format.js }
   end
