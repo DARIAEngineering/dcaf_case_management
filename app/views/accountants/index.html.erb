@@ -6,8 +6,14 @@
   <%= t 'accountants.title' %>
 
   <div id="accountants-pagination" class="float-right">
-    <%= render partial: 'accountants/pagination',
-               patients: @patients %>
+    <small>
+      <span class='pagination-entries'>
+        <%= page_entries_info @patients, entry_name: t('common.patient').downcase %>
+      </span>
+
+      <%= paginate @patients %>   
+    </small>
+
   </div>
 </h1>
 
