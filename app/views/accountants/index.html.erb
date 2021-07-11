@@ -4,12 +4,11 @@
 
 <h1 class='border-bottom title'>
   <%= t 'accountants.title' %>
-  <small class='float-right accountants-pagination'>
-    <span id="accounting-pagination-entries" class='pagination-entries'>
-      <%= page_entries_info @patients, entry_name: 'patient' %>
-    </span>
-    <%= paginate @patients %> 
-  </small>
+
+  <div id="accountants-pagination" class="float-right">
+    <%= render partial: 'accountants/pagination',
+               patients: @patients %>
+  </div>
 </h1>
 
 <div id="accounting-list">
