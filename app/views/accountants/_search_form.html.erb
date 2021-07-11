@@ -11,11 +11,10 @@
                      class: 'search_form_input accountant mr-4' %>
 
     <%= f.select :clinic_id,
-                 options_for_select(clinic_options.reject{|x| x.blank?}),
-                 prompt: t('accountants.search_all_clinics'),
+                 options_for_select(clinic_options.reject { |x| x.blank? }
+                                                  .unshift([t('accountants.search_all_clinics'), nil]),
+                                    params[:clinic_id]),
                  hide_label: true,
-                 include_blank: false,
-                 value: params[:clinic_id], # doesn't work right yet
                  class: 'search_form_input accountant' %>
 
     <%= f.button title: t('common.search'), class: 'btn btn-primary ml-4' do %>

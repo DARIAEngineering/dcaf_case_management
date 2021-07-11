@@ -53,7 +53,6 @@ Rails.application.routes.draw do
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
 
     resources :accountants, only: [:index, :edit]
-    # get 'accountants/search', to: 'accountants#search', defaults: { format: :js }
 
     resources :lines, only: [:new, :create]
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js }, as: 'clinicfinder_search'
