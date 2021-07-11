@@ -1,12 +1,12 @@
-$('#accounting-list').empty();
-$('#accounting-pagination-entries').empty();
+// $('#accounting-list').empty();
+// $('#accounting-pagination-entries').empty();
 
-// adjust results counter
-$('#accountants-pagination').html(
-  "<%= escape_javascript(render partial: 'accountants/pagination', patients: @patients) %>"
-);
+// // adjust results counter
+// $('#accountants-pagination').html(
+//   "<%= escape_javascript(render partial: 'accountants/pagination', patients: @patients) %>"
+// );
 
-<% if @patients.any? %>
-  // refresh the table content
-  $("#accounting-list").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @patients, autosortable: true } ) %>");
-<% end %>
+// <% if @patients.any? %>
+//   // refresh the table content
+//   $("#accounting-list").append("<%= escape_javascript(render partial: 'accountants/table_content', locals: { patients: @patients, autosortable: true } ) %>");
+// <% end %>
