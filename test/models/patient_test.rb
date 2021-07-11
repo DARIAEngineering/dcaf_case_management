@@ -253,7 +253,7 @@ class PatientTest < ActiveSupport::TestCase
                                     fund_pledge: 300
       end
 
-      it "should unmark urgent after update if #{attrib}" do
+      it "should unmark urgent after update if resolved_without_fund" do
         @patient.update resolved_without_fund: true
         refute @patient.urgent_flag
       end
