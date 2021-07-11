@@ -5,28 +5,19 @@ class AccountantsController < ApplicationController
   before_action :find_patient, only: [:edit]
 
   def index
-    @patients = paginate_results(pledged_patients)
+    @patients = pledged_base.page(params[:page] || 1)
+    @patients = @patients.where(clinic_id: params[:clinic_id]) if params[:clinic_id].present?
+    @patients = @patients.search(params[:search]) if params[:search].present?
+    @patients = @patients.page(params[:page] || 1)
   end
 
-  def search
-    have_search = params[:search].present?
-    have_clinic = params[:clinic_id].present?
+  # def search
+  #   @patients = pledged_base
 
-    if have_search || have_clinic
-      partial = pledged_patients
+  #   # @patients = paginate_results results
 
-      partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
-      partial = partial.search(params[:search], search_limit: nil) if have_search
-
-      results = partial
-    else
-      results = pledged_patients
-    end
-
-    @patients = paginate_results results
-
-    respond_to { |format| format.js }
-  end
+  #   respond_to { |format| format.js }
+  # end
 
   def edit
     # This is a cheater method that populates the fulfillment partial into a
@@ -36,13 +27,7 @@ class AccountantsController < ApplicationController
 
   private
 
-  def paginate_results(results)
-    Kaminari.paginate_array(results)
-            .page(params[:page])
-            .per(25)
-  end
-
-  def pledged_patients
+  def pledged_base
     Patient.where(pledge_sent: true)
            .includes(:clinic)
            .includes(:fulfillment)
