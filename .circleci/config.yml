@@ -23,6 +23,7 @@ jobs:
           POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - checkout
+      - run: sudo apt-get update
       - run: sudo apt-get install libfontconfig postgresql-client
       - run: gem install bundler # Update bundler
       - run: sudo gem update --system # Update rubygems
