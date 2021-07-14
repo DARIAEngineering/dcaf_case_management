@@ -2,7 +2,7 @@
 
 @import './_variables';
 
-span.page, span.next, span.last {
+span.page, span.first, span.prev, span.next, span.last {
   font-size: $font-size;
   margin-right: .5rem;
 }
