@@ -21,7 +21,9 @@ module PatientSearchable
                          .or(base.where('other_phone like ?', clean_phone))
       end
 
-      matches.order(updated_at: :desc).limit(search_limit)
+      matches.order(updated_at: :desc)
+      matches.limit(search_limit) if search_limit
+      matches
     end
   end
 end
