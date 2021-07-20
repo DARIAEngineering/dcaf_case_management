@@ -22,7 +22,7 @@ module PatientSearchable
       end
 
       matches.order(updated_at: :desc)
-      matches.limit(search_limit) if search_limit
+      matches.limit(search_limit) if search_limit.present?
       matches
     end
   end
