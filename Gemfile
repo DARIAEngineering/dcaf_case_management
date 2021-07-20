@@ -15,7 +15,7 @@ gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.5.0'
 gem 'bootstrap_form', '~> 4.5.0'
 gem 'coffee-rails', '~> 5.0.0'
-gem 'jquery-rails', '~> 4.3.4'
+gem 'jquery-rails', '~> 4.4.0'
 gem 'jquery-ui-rails'
 
 # Our database is postgres
