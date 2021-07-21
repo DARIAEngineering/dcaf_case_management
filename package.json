@@ -3,7 +3,7 @@
     "@fortawesome/fontawesome-free": "^5.10.2",
     "@rails/webpacker": "5.2.1",
     "bootstrap": "4.4.1",
-    "jquery": "^3.5.0",
+    "jquery": "^3.6.0",
     "jquery-ui": "^1.12.1",
     "set-value": "^3.0.1",
     "stupid-table-plugin": "^1.1.3",
