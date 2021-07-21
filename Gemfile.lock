@@ -261,7 +261,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
-    puma (4.3.8)
+    puma (5.3.2)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -456,7 +456,7 @@ DEPENDENCIES
   pg (~> 1.2)
   prawn
   pry
-  puma (~> 4.3)
+  puma (~> 5.3)
   rack-attack (~> 5.4.1)
   rack-test (>= 0.6.3)
   rails (~> 6.0.3.6)
