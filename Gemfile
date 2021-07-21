@@ -25,7 +25,7 @@ gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.8'
-gem 'omniauth-google-oauth2', '~> 0.8.1'
+gem 'omniauth-google-oauth2', '~> 1.0.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Strong Password for user password validation for folks not on oauth
