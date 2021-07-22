@@ -29,7 +29,7 @@ gem 'omniauth-google-oauth2', '~> 1.0.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Strong Password for user password validation for folks not on oauth
-gem 'strong_password', '~> 0.0.9'
+gem 'strong_password', '~> 0.0.10'
 
 # We report errors with sentry
 gem 'sentry-raven'
