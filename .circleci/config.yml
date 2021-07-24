@@ -6,7 +6,7 @@ jobs:
     parallelism: 4
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.7.2-node-browsers
+      - image: circleci/ruby:2.7.4-node-browsers
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_RETRY: 3
@@ -56,14 +56,14 @@ jobs:
   predeploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.7.2-node-browsers
+      - image: circleci/ruby:2.7.4-node-browsers
     steps:
       - checkout
       - run: "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow" # necessary due to moving to an organization
   deploy:
     working_directory: ~/abortioneering
     docker:
-      - image: circleci/ruby:2.7.2-node-browsers
+      - image: circleci/ruby:2.7.4-node-browsers
     steps:
       - checkout
       - setup_remote_docker:
