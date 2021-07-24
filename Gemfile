@@ -2,20 +2,20 @@ source 'https://rubygems.org'
 ruby '2.7.2'
 
 # Standard rails
-gem 'rails', '~> 6.0.3.6'
-gem 'puma', '~> 4.3' # roar
-gem 'sdoc', '~> 1.0.0', group: :doc
+gem 'rails', '~> 6.1.0'
+gem 'puma', '~> 5.3' # roar
+gem 'sdoc', '~> 2.2.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Asset pipeline
-gem 'webpacker', '~> 5.2'
+gem 'webpacker', '~> 5.4'
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.5.0'
 gem 'bootstrap_form', '~> 4.5.0'
 gem 'coffee-rails', '~> 5.0.0'
-gem 'jquery-rails', '~> 4.3.4'
+gem 'jquery-rails', '~> 4.4.0'
 gem 'jquery-ui-rails'
 
 # Our database is postgres
@@ -25,11 +25,11 @@ gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.8'
-gem 'omniauth-google-oauth2', '~> 0.8.1'
+gem 'omniauth-google-oauth2', '~> 1.0.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Strong Password for user password validation for folks not on oauth
-gem 'strong_password', '~> 0.0.9'
+gem 'strong_password', '~> 0.0.10'
 
 # We report errors with sentry
 gem 'sentry-raven'
@@ -58,7 +58,7 @@ group :development do
   gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys
   gem 'rails-i18n', '~> 6.0' # dependency of i18n-tasks, hardset to a rails-6-compat version
   gem 'shog' # makes rails s output color!
-  gem 'listen', '>= 3.0.5', '< 3.2' # used by systemtests, hardset rails 6 compat
+  gem 'listen', '>= 3.0.5', '< 3.7' # used by systemtests, hardset rails 6 compat
   gem 'rubocop', require: false # our code style / linting system
   gem 'rubocop-rails', require: false
 
