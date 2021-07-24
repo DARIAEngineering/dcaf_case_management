@@ -54,7 +54,9 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.bigint "pledge_sent_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fund_id"
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
+    t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line"], name: "index_archived_patients_on_line"
     t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
@@ -67,6 +69,8 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.integer "order_key", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fund_id"
+    t.index ["fund_id"], name: "index_call_list_entries_on_fund_id"
     t.index ["line"], name: "index_call_list_entries_on_line"
     t.index ["patient_id"], name: "index_call_list_entries_on_patient_id"
     t.index ["user_id"], name: "index_call_list_entries_on_user_id"
@@ -122,6 +126,8 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.integer "costs_30wks"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fund_id"
+    t.index ["fund_id"], name: "index_clinics_on_fund_id"
   end
 
   create_table "configs", force: :cascade do |t|
@@ -129,7 +135,9 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.jsonb "config_value", default: {"options"=>[]}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["config_key"], name: "index_configs_on_config_key", unique: true
+    t.bigint "fund_id"
+    t.index ["config_key"], name: "index_configs_on_config_key"
+    t.index ["fund_id"], name: "index_configs_on_fund_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -141,7 +149,9 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.integer "pledge_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fund_id"
     t.index ["created_at"], name: "index_events_on_created_at"
+    t.index ["fund_id"], name: "index_events_on_fund_id"
     t.index ["line"], name: "index_events_on_line"
   end
 
@@ -171,6 +181,14 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.index ["audited"], name: "index_fulfillments_on_audited"
     t.index ["can_fulfill_type", "can_fulfill_id"], name: "index_fulfillments_on_can_fulfill_type_and_can_fulfill_id"
     t.index ["fulfilled"], name: "index_fulfillments_on_fulfilled"
+  end
+
+  create_table "funds", force: :cascade do |t|
+    t.string "name"
+    t.string "subdomain"
+    t.string "domain"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notes", force: :cascade do |t|
@@ -228,7 +246,9 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.bigint "last_edited_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fund_id"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
+    t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
     t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
     t.index ["line"], name: "index_patients_on_line"
@@ -238,7 +258,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.index ["pledge_generated_by_id"], name: "index_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
-    t.index ["primary_phone"], name: "index_patients_on_primary_phone", unique: true
+    t.index ["primary_phone", "fund_id"], name: "index_patients_on_primary_phone_and_fund_id", unique: true
     t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
   end
 
@@ -281,7 +301,9 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.inet "last_sign_in_ip"
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.bigint "fund_id"
+    t.index ["email", "fund_id"], name: "index_users_on_email_and_fund_id", unique: true
+    t.index ["fund_id"], name: "index_users_on_fund_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -297,12 +319,19 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
   end
 
   add_foreign_key "archived_patients", "clinics"
+  add_foreign_key "archived_patients", "funds"
   add_foreign_key "archived_patients", "users", column: "pledge_generated_by_id"
   add_foreign_key "archived_patients", "users", column: "pledge_sent_by_id"
+  add_foreign_key "call_list_entries", "funds"
   add_foreign_key "call_list_entries", "patients"
   add_foreign_key "call_list_entries", "users"
+  add_foreign_key "clinics", "funds"
+  add_foreign_key "configs", "funds"
+  add_foreign_key "events", "funds"
   add_foreign_key "patients", "clinics"
+  add_foreign_key "patients", "funds"
   add_foreign_key "patients", "users", column: "last_edited_by_id"
   add_foreign_key "patients", "users", column: "pledge_generated_by_id"
   add_foreign_key "patients", "users", column: "pledge_sent_by_id"
+  add_foreign_key "users", "funds"
 end

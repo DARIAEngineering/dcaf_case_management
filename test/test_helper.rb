@@ -37,11 +37,24 @@ class ActiveSupport::TestCase
   before do
     Bullet.start_request
     DatabaseCleaner.start
+    setup_tenant
   end
   after do
     Bullet.perform_out_of_channel_notifications if Bullet.notification?
     Bullet.end_request
+    teardown_tenant
     DatabaseCleaner.clean
+  end
+
+  def setup_tenant
+    tenant = create :fund
+    ActsAsTenant.current_tenant = tenant
+    ActsAsTenant.test_tenant = tenant
+  end
+
+  def teardown_tenant
+    ActsAsTenant.current_tenant = nil
+    ActsAsTenant.test_tenant = nil
   end
 
   def create_insurance_config
@@ -116,6 +129,4 @@ class ActionDispatch::IntegrationTest
   OmniAuth.config.test_mode = true
 
   before { Capybara.reset_sessions! }
-
-  # for controllers
 end

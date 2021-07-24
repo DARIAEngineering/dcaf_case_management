@@ -56,5 +56,8 @@ module DcafCaseManagement
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Allow lvh.me for subdomain garbage
+    config.hosts = nil
   end
 end

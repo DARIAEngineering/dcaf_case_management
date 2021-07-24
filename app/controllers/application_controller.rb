@@ -1,5 +1,8 @@
 # Sets a few devise configs and security measures
 class ApplicationController < ActionController::Base
+  # Scope everything to a particular fund at request time.
+  set_current_tenant_by_subdomain(:fund, :subdomain)
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery prepend: true, with: :exception
