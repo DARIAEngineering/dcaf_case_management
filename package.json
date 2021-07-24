@@ -16,6 +16,10 @@
     "eslint-plugin-import": "^2.23",
     "webpack-dev-server": "^3.11.2"
   },
+  "engines": {
+    "node": ">=14.16.0",
+    "npm": ">=6.14.13"
+  },
   "resolutions": {
     "dot-prop": "^5.1.1",
     "eslint-utils": "^1.4.1",
