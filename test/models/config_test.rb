@@ -28,6 +28,13 @@ class ConfigTest < ActiveSupport::TestCase
       assert @dupe_config.errors.messages[:config_key].include? 'has already been taken'
     end
 
+    it 'should enforce config_key uniqueness at the DB level' do
+      @dupe_config = build :config
+      assert_raises ActiveRecord::RecordNotUnique do
+        @dupe_config.save!(validate: false)
+      end
+    end
+
     it 'should require a config_key' do
       @bad_config = build :config, config_key: nil
       refute @bad_config.valid?
