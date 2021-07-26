@@ -70,7 +70,7 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  gem 'knapsack', '~> 1.18'  # lets us split up our tets so they run faster in CI
+  gem 'knapsack', '~> 1.18.0'  # lets us split up our tets so they run faster in CI
   gem 'dotenv-rails' #used to set up our db ENV values
 end
 
@@ -84,7 +84,7 @@ group :test do
   gem 'timecop'
 
   # Systemtest related tools
-  gem 'capybara', '~> 3.33'
+  gem 'capybara', '~> 3.33.0'
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
