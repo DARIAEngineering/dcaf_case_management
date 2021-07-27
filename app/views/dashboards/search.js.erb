@@ -6,5 +6,6 @@ $('#search_results_shell').empty();
     $('[data-toggle="popover"]').popover()
   })
 <% else %>
-  $("#search_results_shell").append("<%= escape_javascript(render partial: 'patients/new_patient', locals: { patient: @patient, name: @name, phone: @phone, today: @today }) %>");
+  $("#search_results_shell").append("<h3 class='mt-5 mb-5'><small><%= t('dashboard.search.no_results') %></small></h3>");
 <% end %>
+$("#search_results_shell").append("<%= escape_javascript(render partial: 'patients/new_patient', locals: { patient: @patient, name: @name, phone: @phone, today: @today }) %>");

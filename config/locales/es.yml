@@ -185,6 +185,7 @@ es:
     search:
       header: Construye tu lista de llamadas
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
+      no_results: Your search produced no results
     table_content:
       clear_call_list: Borrar su lista de llamadas
       clear_call_list_confirm: "¿Está seguro/a de que desea borrar su lista de llamadas actual? Esto también borrará las llamadas completadas."
