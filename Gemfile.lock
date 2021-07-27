@@ -439,7 +439,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   bootsnap (>= 1.4.2)
-  bootstrap (~> 4.5.0)
+  bootstrap (~> 4.5.0, < 5)
   bootstrap_form (~> 4.5.0)
   bundler-audit
   byebug
