@@ -58,10 +58,9 @@ If you prefer a local environment, totally cool! We recommend the following:
 * Install our version of Ruby! `rbenv install` or `rvm install $(cat .ruby-version)` should do the trick, depending on what you're using.
 
 ### Then, JS dependencies
-* Set up a node ver
-We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
+* Set up a node verion manager; we recommend [nvm](https://github.com/nvm-sh/nvm#install--update-script).
+* Install our version of node with `nvm install`.
 * Install Yarn locally (`brew install yarn`, or the [setup instructions](https://yarnpkg.com/en/docs/install)).
-* Install JS packages: `yarn install`
 
 ### Then, Postgres dependencies
 We use Postgres around these parts. Installation will differ based on your OS.
@@ -82,14 +81,14 @@ We use Postgres around these parts. Installation will differ based on your OS.
     echo "POSTGRES_USER=`whoami`" >>.env
     echo "POSTGRES_PASSWORD=postgres" >>.env
     ```
-  * Run the command `gem install bundler && bundle install` to install dependencies, including `rails`.
-  * Run the command `rails db:create && rails db:migrate` to set up the tables
+
+### Then, final app setup
+* Run the command `gem install bundler && bundle install` to install dependencies, including `rails`.
+* Install JS packages: `yarn install`
+* Run the command `rails db:create db:migrate db:seed` to set up the database and populate it with some test data.
 
 ### Then, showtime
 
-After that:
-
-* run `rake db:seed` to populate your database with test data
 * Run the command `rails server` to start the rails server
 * You are officially ready to go! Navigate your browser to `http://localhost:3000`. You can log in with the user `test@example.com` and the password `AbortionsAreAHumanRight1`.
 
