@@ -55,9 +55,10 @@ If you prefer a local environment, totally cool! We recommend the following:
 
 ### First, ruby dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).
-* Install our version of Ruby! You can see our current version of ruby in the `Gemfile`. Install it with `rbenv install VERSION` or `rvm install VERSION`, depending on what you're using.
+* Install our version of Ruby! `rbenv install` or `rvm install $(cat .ruby-version)` should do the trick, depending on what you're using.
 
 ### Then, JS dependencies
+* Set up a node ver
 We're on Webpacker, which requires an additional setup step, but which lets us write ES6.
 * Install Yarn locally (`brew install yarn`, or the [setup instructions](https://yarnpkg.com/en/docs/install)).
 * Install JS packages: `yarn install`
