@@ -71,12 +71,12 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
     ast (2.4.2)
-    autoprefixer-rails (10.0.1.0)
-      execjs
+    autoprefixer-rails (10.2.5.1)
+      execjs (> 0)
     bcrypt (3.1.16)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
-    bootstrap (4.5.2)
+    bootstrap (4.6.0)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
@@ -131,7 +131,7 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
-    execjs (2.7.0)
+    execjs (2.8.1)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -439,7 +439,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   bootsnap (>= 1.4.2)
-  bootstrap (~> 4.5.0, < 5)
+  bootstrap (~> 4.6.0)
   bootstrap_form (~> 4.5.0)
   bundler-audit
   byebug
