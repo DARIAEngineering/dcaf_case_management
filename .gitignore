@@ -97,6 +97,7 @@ config/initializers/secret_token.rb
 .sass-cache
 .jekyll-metadata
 .byebug_history
+.ruby-version
 /test/reports/
 /public/packs
 /public/packs-test
