@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.4'
+ruby '2.7.2'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
@@ -48,7 +48,7 @@ gem 'state_geo_tools' # state list
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
-gem 'js-routes', '1.4.9' # Not sure if this is used anymore
+gem 'js-routes' # Not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
@@ -70,7 +70,7 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  gem 'knapsack', '~> 1.18.0'  # lets us split up our tets so they run faster in CI
+  gem 'knapsack' # lets us split up our tets so they run faster in CI
   gem 'dotenv-rails' #used to set up our db ENV values
 end
 
@@ -84,7 +84,7 @@ group :test do
   gem 'timecop'
 
   # Systemtest related tools
-  gem 'capybara', '~> 3.33.0'
+  gem 'capybara'
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
