@@ -199,7 +199,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
-    knapsack (1.18.0)
+    knapsack (3.1.0)
       rake
     launchy (2.5.0)
       addressable (~> 2.7)
