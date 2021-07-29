@@ -2,6 +2,9 @@
 // <%= stylesheet_pack_tag 'styles' %> in the main layout.
 // This file should be all imports!
 
+// Import font styling.
+@import '../styles/vendor/googleapis_source_sans_pro';
+
 // This includes customization/extensions/etc.
 @import '../styles/bootstrap';
 
