@@ -2,7 +2,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@rails/webpacker": "5.4.0",
-    "bootstrap": "4.4.1",
+    "bootstrap": "4.6.0",
     "jquery": "^3.6.0",
     "jquery-ui": "^1.12.1",
     "set-value": "^4.0.0",
