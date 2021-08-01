@@ -32,7 +32,8 @@ gem "omniauth-rails_csrf_protection", '~> 1.0'
 gem 'strong_password', '~> 0.0.10'
 
 # We report errors with sentry
-gem 'sentry-raven'
+gem "sentry-ruby"
+gem "sentry-rails"
 
 # Security libraries
 gem 'rack-attack', '~> 5.4.1'
