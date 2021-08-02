@@ -55,6 +55,22 @@ class PatientTest::PatientSearchable < PatientTest
       end
     end
 
+    describe 'limit' do
+      before do
+        16.times do |num|
+          create :patient, primary_phone: "124-567-78#{num+10}"
+        end
+      end
+
+      it 'should default to 15' do
+        assert_equal 15, Patient.search('124').count
+      end
+
+      it 'should allow a kwarg to set limit' do
+        assert_equal 7, Patient.search('124', search_limit: 7).count
+      end
+    end
+
     it 'should be able to find based on secondary phones too' do
       assert_equal 1, Patient.search('999-999-9999').count
     end

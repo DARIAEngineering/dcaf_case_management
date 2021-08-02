@@ -47,45 +47,6 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
         end
       end
     end
-
-    describe 'search' do
-      [:admin, :data_volunteer].each do |permission|
-        it "should allow data vol or above - #{permission}" do
-          user = create :user, role: permission
-          sign_in user
-          post accountant_search_path, params: { search: '' }, xhr: true
-          assert_response :success
-        end
-      end
-
-      [:cm].each do |permission|
-        it "should deny CM or below data access - #{permission}" do
-          user = create :user, role: permission
-          sign_in user
-          post accountant_search_path, params: { search: '' }, xhr: true
-          assert_response :unauthorized
-        end
-      end
-
-      it 'should account for edge cases around empty times' do
-        create :patient, name: 'susan everyteen',
-                         appointment_date: 4.days.from_now,
-                         fund_pledge: 500,
-                         pledge_sent: true,
-                         pledge_sent_at: nil,
-                         clinic: create(:clinic)
-        create :patient, name: 'susan everyteen 2',
-                         appointment_date: 4.days.from_now,
-                         fund_pledge: 500,
-                         pledge_sent: true,
-                         pledge_sent_at: 4.days.from_now,
-                         clinic: create(:clinic)
-        user = create :user, role: :data_volunteer
-        sign_in user
-        post accountant_search_path, params: { search: 'susan' }, xhr: true
-        assert_response :success
-      end
-    end
   end
 
   describe 'endpoint behavior' do
@@ -96,26 +57,28 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
     end
 
     describe 'index method' do
-      before do
-        get accountants_path
-      end
+      describe 'no search' do
+        before do
+          get accountants_path
+        end
 
-      it 'should return success' do
-        assert_response :success
-      end
-    end
-
-    describe 'search method' do
-      it 'should return on name, primary phone, and other phone' do
-        ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
-          post accountant_search_path, params: { search: searcher }, xhr: true
+        it 'should return success' do
           assert_response :success
         end
       end
 
-      it 'should still work on an empty string' do
-        post accountant_search_path, params: { search: '' }, xhr: true
-        assert_response :success
+      describe 'searching by name' do
+        it 'should return on name, primary phone, and other phone' do
+          ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
+            get accountants_path, params: { search: searcher }
+            assert_response :success
+          end
+        end
+
+        it 'should still work on an empty string' do
+          get accountants_path, params: { search: '' }
+          assert_response :success
+        end
       end
 
       describe 'clinic filtering' do
@@ -140,15 +103,34 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
 
         it 'can filter by clinic' do
           [@clinic1, @clinic2].each do |clinic_search|
-            post accountant_search_path, params: { clinic_id: clinic_search }, xhr: true
+            get accountants_path, params: { clinic_id: clinic_search }
             assert_response :success
           end
         end
 
         it 'can filter by both clinic and name' do
-          post accountant_search_path, params: { search: 'sally', clinic_id: @clinic1 }, xhr: true
+          get accountants_path, params: { search: 'sally', clinic_id: @clinic1 }
           assert_response :success
         end
+      end
+
+      it 'should account for edge cases around empty times' do
+        create :patient, name: 'susan everyteen',
+                         appointment_date: 4.days.from_now,
+                         fund_pledge: 500,
+                         pledge_sent: true,
+                         pledge_sent_at: nil,
+                         clinic: create(:clinic)
+        create :patient, name: 'susan everyteen 2',
+                         appointment_date: 4.days.from_now,
+                         fund_pledge: 500,
+                         pledge_sent: true,
+                         pledge_sent_at: 4.days.from_now,
+                         clinic: create(:clinic)
+        user = create :user, role: :data_volunteer
+        sign_in user
+        get accountants_path, params: { search: 'susan' }
+        assert_response :success
       end
     end
 

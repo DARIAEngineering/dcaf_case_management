@@ -5,30 +5,15 @@ class AccountantsController < ApplicationController
   before_action :find_patient, only: [:edit]
 
   def index
-    @patients = paginate_results(pledged_patients)
-    @entry_name = t('common.patient').downcase
-  end
+    @patients = Patient.where(pledge_sent: true)
+                       .includes(:clinic)
+                       .includes(:fulfillment)
+                       .order(pledge_sent_at: :desc)
+                       .page(params[:page] || 1)
 
-  def search
-    have_search = params[:search].present?
-    have_clinic = params[:clinic_id].present?
-
-    if have_search || have_clinic
-      partial = pledged_patients
-
-      partial = partial.where(clinic_id: params[:clinic_id]) if have_clinic
-      partial = partial.search(params[:search], search_limit: nil) if have_search
-
-      results = partial
-    else
-      results = pledged_patients
-    end
-
-    # when we search, counter says 'results' instead of 'patients'
-    @entry_name = t('accountants.results')
-    @results = paginate_results results
-
-    respond_to { |format| format.js }
+    @patients = @patients.where(clinic_id: params[:clinic_id]) if params[:clinic_id].present?
+    @patients = @patients.search(params[:search], search_limit: nil) if params[:search].present?
+    @patients
   end
 
   def edit
@@ -38,19 +23,6 @@ class AccountantsController < ApplicationController
   end
 
   private
-
-  def paginate_results(results)
-    Kaminari.paginate_array(results)
-            .page(params[:page])
-            .per(25)
-  end
-
-  def pledged_patients
-    Patient.where(pledge_sent: true)
-           .includes(:clinic)
-           .includes(:fulfillment)
-           .order(pledge_sent_at: :desc)
-  end
 
   def find_patient
     @patient = Patient.find params[:id]
