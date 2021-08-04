@@ -35,7 +35,7 @@ gem 'strong_password', '~> 0.0.10'
 gem 'sentry-raven'
 
 # Security libraries
-gem 'rack-attack', '~> 5.4.1'
+gem 'rack-attack', '~> 6.5.0'
 
 # For pagination
 gem 'kaminari', '~> 1.2'
