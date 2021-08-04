@@ -218,7 +218,7 @@ GEM
       minitest (> 1.2.0)
       rails (>= 2.3.3)
     mini_mime (1.1.0)
-    mini_portile2 (2.5.3)
+    mini_portile2 (2.6.1)
     minitest (5.14.4)
     minitest-ci (3.4.0)
       minitest (>= 5.0.6)
@@ -233,8 +233,8 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nio4r (2.5.7)
-    nokogiri (1.11.7)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.12.1)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     oauth2 (1.4.7)
       faraday (>= 0.8, < 2.0)
@@ -286,7 +286,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-attack (5.4.2)
+    rack-attack (6.5.0)
       rack (>= 1.0, < 3)
     rack-protection (2.1.0)
       rack
@@ -477,7 +477,7 @@ DEPENDENCIES
   prawn
   pry
   puma (~> 5.3)
-  rack-attack (~> 5.4.1)
+  rack-attack (~> 6.5.0)
   rack-test (>= 0.6.3)
   rails (~> 6.1.4)
   rails-html-sanitizer (>= 1.0.4)
