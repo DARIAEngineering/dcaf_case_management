@@ -3,7 +3,7 @@ ruby '2.7.2'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
-gem 'puma', '~> 5.3' # roar
+gem 'puma', '~> 5.4' # roar
 gem 'sdoc', '~> 2.2.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false

@@ -232,7 +232,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    nio4r (2.5.7)
+    nio4r (2.5.8)
     nokogiri (1.12.1)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
@@ -282,7 +282,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
-    puma (5.3.2)
+    puma (5.4.0)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -476,7 +476,7 @@ DEPENDENCIES
   pg (~> 1.2)
   prawn
   pry
-  puma (~> 5.3)
+  puma (~> 5.4)
   rack-attack (~> 6.5.0)
   rack-test (>= 0.6.3)
   rails (~> 6.1.4)
