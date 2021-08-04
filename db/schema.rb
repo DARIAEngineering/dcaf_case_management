@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_26_161444) do
+ActiveRecord::Schema.define(version: 2021_07_25_025609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 2021_06_26_161444) do
     t.jsonb "config_value", default: {"options"=>[]}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["config_key"], name: "index_configs_on_config_key"
+    t.index ["config_key"], name: "index_configs_on_config_key", unique: true
   end
 
   create_table "events", force: :cascade do |t|
