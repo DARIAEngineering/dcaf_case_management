@@ -71,12 +71,12 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
     ast (2.4.2)
-    autoprefixer-rails (10.2.5.1)
-      execjs (> 0)
+    autoprefixer-rails (10.3.1.0)
+      execjs (~> 2)
     bcrypt (3.1.16)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
-    bootstrap (4.5.3)
+    bootstrap (4.6.0)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
@@ -233,7 +233,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nio4r (2.5.8)
-    nokogiri (1.12.1)
+    nokogiri (1.12.3)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     oauth2 (1.4.7)
@@ -439,7 +439,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   bootsnap (>= 1.4.2)
-  bootstrap (~> 4.5.0, < 5)
+  bootstrap (~> 4.5, < 5)
   bootstrap_form (~> 4.5.0)
   bundler-audit
   byebug

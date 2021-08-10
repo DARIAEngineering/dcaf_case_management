@@ -12,7 +12,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
 gem 'sass-rails', '>= 6'
-gem 'bootstrap', '~> 4.5.0', '< 5' # we're on bs4 for now
+gem 'bootstrap', '~> 4.5', '< 5' # we're on bs4 for now
 gem 'bootstrap_form', '~> 4.5.0'
 gem 'coffee-rails', '~> 5.0.0'
 gem 'jquery-rails', '~> 4.4.0'
