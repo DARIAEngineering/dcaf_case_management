@@ -199,7 +199,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
-    knapsack (1.18.0)
+    knapsack (4.0.0)
       rake
     launchy (2.5.0)
       addressable (~> 2.7)
@@ -459,7 +459,7 @@ DEPENDENCIES
   jquery-ui-rails
   js-routes (= 1.4.9)
   kaminari (~> 1.2)
-  knapsack (~> 1.18.0)
+  knapsack
   launchy
   listen (>= 3.0.5, < 3.7)
   loofah (>= 2.3.1)
