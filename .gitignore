@@ -101,6 +101,15 @@ config/initializers/secret_token.rb
 /public/packs
 /public/packs-test
 /node_modules
+
+# yarn
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 yarn-debug.log*
 .yarn-integrity
 yarn-error.log
