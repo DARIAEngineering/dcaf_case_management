@@ -64,7 +64,8 @@ module WelcomeMessageHelper
       "Thank you for the critical, wonderful work you do. You're awesome!",
       "Keep on crushing it! You are awesome.",
       "Thank you! You ARE APPRECIATED! :)",
-      "Thank you for your incredible work!"
+      "Thank you for your incredible work!",
+      "My body, my choice. Thanks for fighting for reproductive justice!"
     ]
   end
 end
