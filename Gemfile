@@ -84,7 +84,7 @@ group :test do
   gem 'timecop'
 
   # Systemtest related tools
-  gem 'capybara', '~> 3.33.0'
+  gem 'capybara'
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
