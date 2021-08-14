@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.2'
+ruby '2.7.4'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
@@ -12,7 +12,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
 gem 'sass-rails', '>= 6'
-gem 'bootstrap', '~> 4.5.0', '< 5' # we're on bs4 for now
+gem 'bootstrap', '~> 4.5', '< 5' # we're on bs4 for now
 gem 'bootstrap_form', '~> 4.5.0'
 gem 'coffee-rails', '~> 5.0.0'
 gem 'jquery-rails', '~> 4.4.0'
@@ -48,7 +48,7 @@ gem 'state_geo_tools' # state list
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
-gem 'js-routes' # Not sure if this is used anymore
+gem 'js-routes', '1.4.9' # Not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
