@@ -74,7 +74,7 @@ GEM
     autoprefixer-rails (10.3.1.0)
       execjs (~> 2)
     bcrypt (3.1.16)
-    bootsnap (1.7.5)
+    bootsnap (1.7.7)
       msgpack (~> 1.0)
     bootstrap (4.6.0)
       autoprefixer-rails (>= 9.1.0)
