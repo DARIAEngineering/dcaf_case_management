@@ -178,7 +178,7 @@ class Patient < ApplicationRecord
   end
 
   def notes_count
-    notes.count
+    notes.size
   end
 
   def has_special_circumstances
