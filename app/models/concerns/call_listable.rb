@@ -69,7 +69,7 @@ module CallListable
 
   def ordered_patients(line)
     # n+1 join here
-    call_list_entries.includes(patient: [:calls])
+    call_list_entries.includes(patient: [:calls, :fulfillment])
                      .where(line: line)
                      .order(order_key: :asc)
                      .map(&:patient)
