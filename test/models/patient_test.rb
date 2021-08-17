@@ -383,6 +383,28 @@ class PatientTest < ActiveSupport::TestCase
 
         assert_not @patient.still_urgent?
       end
+
+      describe 'respect custom urgent reset config' do
+        c = Config.find_or_create_by(config_key: 'urgent_reset')
+        c.config_value = { options: ["14"] }
+        c.save
+
+        it 'should return true if marked urgent in the last configured days' do
+          Timecop.freeze(Time.zone.now - 15.days) do
+            @patient.update urgent_flag: true
+          end
+
+          assert_not @patient.still_urgent?
+        end
+
+        it 'should return false if not updated in the last configured days' do
+          Timecop.freeze(Time.zone.now - 7.days) do
+            @patient.update urgent_flag: true
+          end
+
+          assert @patient.still_urgent?
+        end
+      end
     end
 
     describe 'destroy_associated_events method' do
