@@ -6,8 +6,8 @@ class DashboardsController < ApplicationController
   before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
-    # n+1 join here
-    @urgent_patients = Patient.urgent_patients(current_line)
+    @urgent_patients = Patient.includes(:calls)
+                              .urgent_patients(current_line)
   end
 
   def search

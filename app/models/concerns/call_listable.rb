@@ -39,7 +39,7 @@ module CallListable
   end
 
   def reorder_call_list(order, line)
-    current_entries = call_list_entries.where(line: line).to_a
+    current_entries = call_list_entries.includes(:patient).where(line: line).to_a
     order.each_with_index do |pt, i|
       current = current_entries.find { |x| x.patient_id.to_s == pt }
       current.update order_key: i
@@ -69,7 +69,7 @@ module CallListable
 
   def ordered_patients(line)
     # n+1 join here
-    call_list_entries.includes(:patient)
+    call_list_entries.includes(patient: [:calls])
                      .where(line: line)
                      .order(order_key: :asc)
                      .map(&:patient)
