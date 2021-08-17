@@ -34,8 +34,15 @@ DatabaseCleaner.clean_with :truncation
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
-  before { DatabaseCleaner.start }
-  after  { DatabaseCleaner.clean }
+  before do
+    Bullet.start_request
+    DatabaseCleaner.start
+  end
+  after do
+    Bullet.perform_out_of_channel_notifications if Bullet.notification?
+    Bullet.end_request
+    DatabaseCleaner.clean
+  end
 
   def create_insurance_config
     insurance_options = ['DC Medicaid', 'Other state Medicaid']

@@ -72,6 +72,7 @@ group :development, :test do
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
   gem 'knapsack' # lets us split up our tets so they run faster in CI
   gem 'dotenv-rails' #used to set up our db ENV values
+  gem 'bullet' # yell if n+1 queries
 end
 
 group :test do
