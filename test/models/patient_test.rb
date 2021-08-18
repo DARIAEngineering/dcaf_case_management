@@ -362,47 +362,65 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     describe 'still urgent method' do
-      it 'should return true if marked urgent in last 6 days' do
-        with_versioning do
-          @patient.update urgent_flag: true
-          @patient.reload
-        end
-        assert @patient.still_urgent?
-      end
-
       it 'should return false if resolved without fund' do
         @patient.update urgent_flag: true
         @patient.update resolved_without_fund: true
         assert_not @patient.still_urgent?
       end
 
-      it 'should return false if not updated for more than 6 days' do
-        Timecop.freeze(Time.zone.now - 7.days) do
-          @patient.update urgent_flag: true
+      describe 'without a custom urgent_reset config' do
+        it 'should return true if marked urgent in last 6 days' do
+          with_versioning do
+            @patient.update urgent_flag: true
+            @patient.reload
+          end
+          assert @patient.still_urgent?
         end
 
-        assert_not @patient.still_urgent?
-      end
 
-      describe 'respect custom urgent reset config' do
-        c = Config.find_or_create_by(config_key: 'urgent_reset')
-        c.config_value = { options: ["14"] }
-        c.save
-
-        it 'should return true if marked urgent in the last configured days' do
-          Timecop.freeze(Time.zone.now - 15.days) do
-            @patient.update urgent_flag: true
+        it 'should return false if not updated for more than 6 days' do
+          Timecop.freeze(Time.zone.now - 7.days) do
+            with_versioning do
+              @patient.update urgent_flag: true
+              @patient.reload
+            end
           end
 
           assert_not @patient.still_urgent?
         end
+      end
 
-        it 'should return false if not updated in the last configured days' do
+      describe 'with a custom urgent reset config' do
+        before do
+          c = Config.find_or_create_by(config_key: 'urgent_reset')
+          c.config_value = { options: ["14"] }
+          c.save
+        end
+
+        after do
+          Config.find_or_create_by(config_key: 'urgent_reset').delete
+        end
+
+        it 'should return true if marked urgent in the last configured days' do
           Timecop.freeze(Time.zone.now - 7.days) do
-            @patient.update urgent_flag: true
+            with_versioning do
+              @patient.update urgent_flag: true
+              @patient.reload
+            end
           end
 
           assert @patient.still_urgent?
+        end
+
+        it 'should return false if not updated in the last configured days' do
+          Timecop.freeze(Time.zone.now - 15.days) do
+            with_versioning do
+              @patient.update urgent_flag: true
+              @patient.reload
+            end
+          end
+
+          assert_not @patient.still_urgent?
         end
       end
     end
