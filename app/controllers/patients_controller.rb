@@ -2,7 +2,8 @@
 class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
-  before_action :find_patient, only: [:edit, :update, :download, :destroy]
+  before_action :find_patient, only: [:edit, :update]
+  before_action :find_patient_minimal, only: [:download, :destroy]
   rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
@@ -64,7 +65,8 @@ class PatientsController < ApplicationController
   def update
     @patient.last_edited_by = current_user
     if @patient.update patient_params
-      @patient.reload
+      @patient = Patient.includes(versions: [:item, :user])
+                        .find(@patient.id) # reload
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
     else
       error = @patient.errors.full_messages.to_sentence
@@ -103,7 +105,11 @@ class PatientsController < ApplicationController
   private
 
   def find_patient
-    # n+1 join here
+    @patient = Patient.includes(versions: [:item, :user])
+                      .find params[:id]
+  end
+
+  def find_patient_minimal
     @patient = Patient.find params[:id]
   end
 

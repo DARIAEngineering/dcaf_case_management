@@ -6,15 +6,13 @@ class DashboardsController < ApplicationController
   before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
-    # n+1 join here
-    @urgent_patients = Patient.urgent_patients(current_line)
+    @urgent_patients = eager_loaded_patients.urgent_patients(current_line)
   end
 
   def search
-    # n+1 join here
     if params[:search].present?
-      @results = Patient.search params[:search],
-                                lines: [current_line.try(:to_sym) || lines]
+      @results = eager_loaded_patients.search params[:search],
+                                              lines: [current_line.try(:to_sym) || lines]
     else
       @results = []
     end
@@ -38,6 +36,10 @@ class DashboardsController < ApplicationController
   end
 
   private
+
+  def eager_loaded_patients
+    Patient.includes([:calls, :fulfillment])
+  end
 
   def searched_for_phone?(query)
     !/[a-z]/i.match query
