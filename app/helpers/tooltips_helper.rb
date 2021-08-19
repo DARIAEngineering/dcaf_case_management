@@ -31,7 +31,7 @@ module TooltipsHelper
   end
 
   def urgent_cases_help_text
-    t('tooltips.urgent_cases').strip
+    t('tooltips.urgent_cases', urgent_reset: Config.urgent_reset).strip
   end
 
   def status_help_text(patient)
