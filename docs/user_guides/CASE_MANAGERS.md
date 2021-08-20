@@ -43,7 +43,7 @@ There is a way to flag patients so that they are easier for others to find. This
 
 To mark a patient urgent, look in the `Patient Record page` under `Notes`.
 
-Patients automatically filter out of this section after a period of not being updated, or if they're marked resolved, or if a pledge is sent for them to a clinic.
+Patients automatically filter out of this section after a period of not being updated, or if they're marked resolved without assistance.
 
 The period of inactivity before a patient will be removed from the Urgent cases list is configurable per fund. See the Urgent tooltip for your fund's setting.
 

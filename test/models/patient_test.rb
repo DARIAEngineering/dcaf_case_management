@@ -338,7 +338,7 @@ class PatientTest < ActiveSupport::TestCase
       end
 
       describe 'trim_urgent_patients method' do
-        it 'should trim pregnancies after they have been urgent for five days' do
+        it 'should trim patients from urgent after they have been inactive or resolved' do
           skip "test not implemented for patient#trim_urgent_patients"
         end
       end
