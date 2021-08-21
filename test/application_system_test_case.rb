@@ -9,9 +9,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # Parallelization config
   if ENV['CIRCLECI']
     Capybara.server_port = 9887 + ENV["CIRCLE_NODE_INDEX"].to_i
-    Capybara.register_driver :chrome do |app|
-      browser_options.args << '--disable-dev-shm-usage'
-    end
+    # Capybara.register_driver :chrome do |app|
+    #   browser_options.args << '--disable-dev-shm-usage'
+    # end
   end
 
   before do
