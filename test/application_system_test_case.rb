@@ -6,6 +6,14 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include IntegrationHelper
   include OmniauthMocker
 
+  # Parallelization config
+  if ENV['CIRCLECI']
+    Capybara.server_port = 9887 + ENV["CIRCLE_NODE_INDEX"].to_i
+    Capybara.register_driver :headless_chrome do |app|
+      browser_options.args << '--disable-dev-shm-usage'
+    end
+  end
+
   before do
     Capybara.reset_sessions!
     PaperTrail.enabled = true
