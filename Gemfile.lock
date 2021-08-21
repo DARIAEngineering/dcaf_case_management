@@ -71,6 +71,8 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
     ast (2.4.2)
+    authy (3.0.0)
+      httpclient (>= 2.5.3.3)
     autoprefixer-rails (10.3.1.0)
       execjs (~> 2)
     bcrypt (3.1.16)
@@ -128,6 +130,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-authy (2.3.0)
+      authy (~> 3.0)
+      devise (>= 4.0.0)
     docile (1.4.0)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
@@ -168,6 +173,7 @@ GEM
     hashery (2.1.2)
     hashie (4.1.0)
     highline (2.0.3)
+    httpclient (2.8.3)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.34)
@@ -454,6 +460,7 @@ DEPENDENCIES
   coffee-rails (~> 5.0.0)
   database_cleaner
   devise (~> 4.8)
+  devise-authy
   dotenv-rails
   factory_bot_rails
   faker
