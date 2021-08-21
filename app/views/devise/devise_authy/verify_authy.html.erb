@@ -1,0 +1,38 @@
+<h2>
+  <%= I18n.t('submit_token_title', scope: 'devise') %>
+</h2>
+
+<%= verify_authy_form do %>
+  <legend><%= I18n.t('submit_token_title', scope: 'devise') %></legend>
+  <%= label_tag 'authy-token' %>
+  <%= text_field_tag :token, "", :autocomplete => "one-time-code", :inputmode => "numeric", :pattern => "[0-9]*", :id => 'authy-token' %>
+  <label>
+    <%= check_box_tag :remember_device %>
+    <span><%= I18n.t('remember_device', scope: 'devise') %></span>
+  </label>
+
+  <!-- Help tooltip -->
+  <!-- You need to configure a help message. -->
+  <!-- See documentation: https://github.com/authy/authy-form-helpers#help-tooltip -->
+  <!-- <%= link_to '?', '#', :id => 'authy-help' %> -->
+
+  <%= authy_request_sms_link %>
+  <%= submit_tag I18n.t('submit_token', scope: 'devise'), :class => 'btn' %>
+<% end %>
+
+<% if @onetouch_uuid %>
+    <script>
+      (function(){
+        var onetouchInterval = setInterval(function(){
+          var onetouchRequest = new XMLHttpRequest();
+          var rememberDevice = document.getElementById("remember_device").checked ? '1' : '0';
+          onetouchRequest.addEventListener("load", function(){
+            if(this.status != 202) clearInterval(onetouchInterval);
+            if(this.status == 200) window.location = JSON.parse(this.responseText).redirect;
+          });
+          onetouchRequest.open("GET", "<%= polymorphic_path [resource_name, :authy_onetouch_status] %>?remember_device="+rememberDevice+"&onetouch_uuid=<%= @onetouch_uuid %>");
+          onetouchRequest.send();
+        }, 3000);
+      })();
+    </script>
+<% end %>
