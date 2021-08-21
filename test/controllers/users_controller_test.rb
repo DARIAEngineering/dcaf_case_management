@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user, role: 'admin'
     @user_2 = create :user, role: 'cm', name: 'Billy Everyteen'
