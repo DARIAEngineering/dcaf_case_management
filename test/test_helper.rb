@@ -44,6 +44,8 @@ class ActiveSupport::TestCase
     DatabaseCleaner.clean
   end
 
+  parallelize(workers: :number_of_processors)
+
   def create_insurance_config
     insurance_options = ['DC Medicaid', 'Other state Medicaid']
     create :config, config_key: 'insurance',
