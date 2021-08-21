@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
-                     skip: [:registrations]
+                     skip: [:registrations],
+                     path_names: {
+                       verify_authy: '/verify-token',
+                       enable_authy: '/enable-two-factor',
+                       verify_authy_installation: '/verify-installation',
+                       authy_onetouch_status: '/onetouch-status'
+                     }
+
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
