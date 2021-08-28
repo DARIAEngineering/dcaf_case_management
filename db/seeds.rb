@@ -27,8 +27,21 @@ additional_note_text = 'Additional note ' * 10
 password = 'AbortionsAreAHumanRight1'
 
 # Create a few test funds
-fund1 = Fund.create! name: 'Cat Fund', domain: 'catfund.org', subdomain: 'catapp'
-fund2 = Fund.create! name: 'Bigger Cat Fund', domain: 'catfund.org', subdomain: 'bigcatapp'
+fund1 = Fund.create! name: 'DCAF',
+                     domain: 'catfund.org',
+                     subdomain: 'sandbox',
+                     full_name: 'DC Abortion Fund',
+                     site_domain: 'dcabortionfund.org',
+                     phone: '202-452-7464',
+                     fax_service_url: 'www.efax.com'
+
+fund2 = Fund.create! name: 'BCAF',
+                     domain: 'catfund.org',
+                     subdomain: 'catbox',
+                     full_name: 'Big Cat Abortion Fund',
+                     site_domain: 'petfinder.com/cats',
+                     phone: '603-413-4124',
+                     fax_service_url: 'www.petfinder.com/dogs'
 
 [fund1, fund2].each do |fund|
   ActsAsTenant.with_tenant(fund) do
@@ -188,7 +201,7 @@ fund2 = Fund.create! name: 'Bigger Cat Fund', domain: 'catfund.org', subdomain: 
         primary_phone: "321-0#{patient_number}0-002#{rand(10)}",
         initial_call_date: 3.days.ago,
         urgent_flag: patient_number.even?,
-        line: lines[patient_number % 3],
+        line: lines[patient_number % 3 || 0],
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now
       )

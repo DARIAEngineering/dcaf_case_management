@@ -10,11 +10,20 @@ class ApplicationController < ActionController::Base
   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
+  before_action :confirm_tenant_set
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
   before_action :set_locale
   before_action :set_raven_context
   before_action :set_paper_trail_whodunnit
+
+  def confirm_tenant_set
+    # We use this rather than the acts_as_tenant config method
+    # because we need to control when it runs.
+    if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
+      raise ActsAsTenant::Errors::NoTenantSet
+    end
+  end
 
   # whitelists attributes in devise
   def configure_permitted_parameters

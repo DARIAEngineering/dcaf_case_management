@@ -28,7 +28,7 @@
       <div class="col info-form-right">
         <%= f.form_group :abortion_info_checkboxes do %>
           <%= f.check_box :resolved_without_fund, 
-                          label: t('patient.abortion_information.clinic_section.resolved_without_fund', fund: "#{FUND}"),
+                          label: t('patient.abortion_information.clinic_section.resolved_without_fund', fund: current_tenant.name),
                           label_class: 'tooltip-header-checkbox',
                           data: { 'tooltip-text': resolved_without_fund_help_text } %>
           <%= f.check_box :referred_to_clinic,
@@ -77,7 +77,7 @@
                              autocomplete: 'off',
                              prepend: '$' %>
           <%= f.number_field :fund_pledge,
-                             label: t('patient.abortion_information.cost_section.fund_pledge', fund: "#{FUND}"),
+                             label: t('patient.abortion_information.cost_section.fund_pledge', fund: current_tenant.name),
                              autocomplete: 'off',
                              prepend: '$',
                              label_class: 'tooltip-header-input',

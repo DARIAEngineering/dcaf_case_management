@@ -11,11 +11,12 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
                                 fund_pledge: 300, naf_pledge: 200
                                 
     @case_manager_name = 'Angela Davis'
+    ActsAsTenant.current_tenant = create :fund, name: 'DCAF'
   end
 
   describe 'user data' do
     before do
-      @pledge_form_generator = PledgeFormGenerator.new(@user, @patient, @case_manager_name)
+      @pledge_form_generator = PledgeFormGenerator.new(@user, @patient, @case_manager_name, ActsAsTenant.current_tenant)
       @pdf_text = PDF::Inspector::Text.analyze(@pledge_form_generator.generate_pledge_pdf.render).strings
     end
 

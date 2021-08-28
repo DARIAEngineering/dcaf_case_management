@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_025609) do
+ActiveRecord::Schema.define(version: 2021_08_28_031635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
-    t.index ["config_key"], name: "index_configs_on_config_key"
+    t.index ["config_key", "fund_id"], name: "index_configs_on_config_key_and_fund_id", unique: true
     t.index ["fund_id"], name: "index_configs_on_fund_id"
   end
 
@@ -189,6 +189,11 @@ ActiveRecord::Schema.define(version: 2021_07_25_025609) do
     t.string "domain"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "full_name"
+    t.string "site_domain"
+    t.string "phone"
+    t.string "fax_service_url"
+    t.string "lines", array: true
   end
 
   create_table "notes", force: :cascade do |t|

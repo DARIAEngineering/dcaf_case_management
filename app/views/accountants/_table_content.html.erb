@@ -5,7 +5,7 @@
       <th><%= t 'accountants.table_content.line' %></th>
       <th><%= t 'accountants.table_content.clinic' %></th>
       <th><%= t 'common.patient' %></th>
-      <th><%= t 'accountants.table_content.fund_payout', fund: FUND %></th>
+      <th><%= t 'accountants.table_content.fund_payout', fund: current_tenant.name %></th>
       <th><%= t 'accountants.table_content.weeks_at_procedure' %></th>
       <th><%= t 'accountants.table_content.pledge_sent' %></th>
       <th><%= t 'accountants.table_content.pledge_amount' %></th>

@@ -23,7 +23,7 @@ module TooltipsHelper
   end
 
   def budget_bar_help_text
-    t('tooltips.budget_bar', fund: FUND).strip
+    t('tooltips.budget_bar', fund: ActsAsTenant.current_tenant.name).strip
   end
 
   def completed_calls_help_text

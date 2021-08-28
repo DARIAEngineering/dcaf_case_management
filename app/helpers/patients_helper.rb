@@ -46,7 +46,7 @@ module PatientsHelper
       nil,
       [ t('patient.helper.referred_by.clinic'),                       'Clinic' ],
       [ t('patient.helper.referred_by.crime_victim_advocacy_center'), 'Crime victim advocacy center' ],
-      [ t('patient.helper.referred_by.fund', fund: "#{FUND}"),        "#{FUND} website or social media" ],
+      [ t('patient.helper.referred_by.fund', fund: "#{ActsAsTenant.current_tenant.name}"),        "#{ActsAsTenant.current_tenant.name} website or social media" ],
       [ t('patient.helper.referred_by.domestic_violence_org'),        'Domestic violence crisis/intervention org' ],
       [ t('patient.helper.referred_by.family'),                       'Family member' ],
       [ t('patient.helper.referred_by.friend'),                       'Friend' ],
@@ -121,7 +121,7 @@ module PatientsHelper
     # Map inactives; if there are any, put in a breaker
     inactive_clinics = clinics.reject(&:active)
                               .map { |clinic| [
-                                t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: FUND, clinic_name: clinic.name),
+                                t('patient.abortion_information.clinic_section.not_currently_working_with_fund', fund: ActsAsTenant.current_tenant.name, clinic_name: clinic.name),
                                 clinic.id,
                                 { data: { naf: !!clinic.accepts_naf, medicaid: !!clinic.accepts_medicaid } }
                               ]}

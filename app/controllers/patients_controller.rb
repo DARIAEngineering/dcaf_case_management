@@ -46,7 +46,8 @@ class PatientsController < ApplicationController
       pdf_filename = "#{@patient.name}_pledge_form_#{now}.pdf"
       pdf = PledgeFormGenerator.new(current_user,
                                     @patient,
-                                    params[:case_manager_name].to_s)
+                                    params[:case_manager_name].to_s,
+                                    current_tenant)
                                .generate_pledge_pdf
       @patient.update pledge_generated_at: Time.zone.now,
                       pledge_generated_by: current_user
@@ -84,7 +85,7 @@ class PatientsController < ApplicationController
     @patient = Patient.new patient_params
 
     if @patient.save
-      flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)
+      flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: current_tenant.name)
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = t('flash.patient_save_error', error: @patient.errors.full_messages.to_sentence)

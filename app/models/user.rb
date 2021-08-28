@@ -69,7 +69,7 @@ class User < ApplicationRecord
     if pc == false
       errors.add :password, 'Password must include at least one lowercase ' \
                             'letter, one uppercase letter, and one digit. ' \
-                            "Forbidden words include #{FUND} and password."
+                            "Forbidden words include #{ActsAsTenant.current_tenant.name} and password."
     end
   end
 
@@ -120,7 +120,7 @@ class User < ApplicationRecord
     return false if (password =~ /[A-Z]/).nil? # at least one uppercase
     return false if (password =~ /[0-9]/).nil? # at least one digit
     # Make sure no bad words are in there
-    fund = FUND.downcase
+    fund = ActsAsTenant.current_tenant.name.downcase
     return false unless password.downcase[/(password|#{fund})/].nil?
     true
   end

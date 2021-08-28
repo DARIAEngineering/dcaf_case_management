@@ -19,7 +19,7 @@ module Statusable
                  help_text: I18n.t('patient.status.help.fulfilled')},
     dropoff: { key: I18n.t('patient.status.key.dropoff'),
                help_text: I18n.t('patient.status.help.dropoff')},
-    resolved: { key: I18n.t('patient.status.key.resolved', fund: FUND),
+    resolved: { key: I18n.t('patient.status.key.resolved', fund: ActsAsTenant.current_tenant.name),
                 help_text: I18n.t('patient.status.help.resolved')}
   }.freeze
 

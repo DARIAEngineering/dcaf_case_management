@@ -62,7 +62,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       it 'should include the option set' do
         expected = [
           nil,
-          'DC Abortion Fund',
+          ActsAsTenant.current_tenant.full_name,
           'Baltimore Abortion Fund',
           'Tiller Fund (NNAF)',
           'NYAAF (New York)',
@@ -83,7 +83,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
 
         expected = [
           nil,
-          'DC Abortion Fund',
+          ActsAsTenant.current_tenant.full_name,
           ['Patient', 'Patient'],
           ['Clinic', 'Clinic'],
           ['Other (see notes)', 'Other (see notes)'],
@@ -98,7 +98,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       it 'should push orphaned value onto the end' do
         expected = [
           nil,
-          'DC Abortion Fund',
+          ActsAsTenant.current_tenant.full_name,
           ['Patient', 'Patient'],
           ['Clinic', 'Clinic'],
           ['Other (see notes)', 'Other (see notes)'],
@@ -122,7 +122,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       end
 
     it 'should return a link if config set' do
-      expected_link = '<a target="_blank" href="https://www.yahoo.com">DCAF practical support guidance</a>'
+      expected_link = '<a target="_blank" href="https://www.yahoo.com">' + "#{ActsAsTenant.current_tenant.name} practical support guidance</a>"
       assert_equal expected_link, practical_support_guidance_link
     end
   end
