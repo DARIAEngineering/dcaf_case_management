@@ -17,7 +17,7 @@ class Patient < ApplicationRecord
 
   # Enums
   # turns the LINES env array into the DB friendly structure: { :line1 => "line1", :line2 => "line2", ... }
-  enum line: LINES.map { |x| {x.to_sym => x.to_s} }.inject(&:merge)
+  # enum line: LINES.map { |x| {x.to_sym => x.to_s} }.inject(&:merge)
 
   # Callbacks
   before_validation :clean_fields
@@ -34,6 +34,7 @@ class Patient < ApplicationRecord
   has_many :users, through: :call_list_entries
   belongs_to :clinic, optional: true
   has_one :fulfillment, as: :can_fulfill
+  has_one :line
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
   has_many :practical_supports, as: :can_support

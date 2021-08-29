@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_28_031635) do
+ActiveRecord::Schema.define(version: 2021_08_29_050150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -196,6 +196,12 @@ ActiveRecord::Schema.define(version: 2021_08_28_031635) do
     t.string "lines", array: true
   end
 
+  create_table "lines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
     t.bigint "patient_id"
@@ -212,7 +218,6 @@ ActiveRecord::Schema.define(version: 2021_08_28_031635) do
     t.string "other_contact_relationship"
     t.string "identifier"
     t.string "voicemail_preference", default: "not_specified"
-    t.string "line", null: false
     t.string "language"
     t.string "pronouns"
     t.date "initial_call_date", null: false
@@ -252,11 +257,12 @@ ActiveRecord::Schema.define(version: 2021_08_28_031635) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
+    t.bigint "line_id"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
     t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
-    t.index ["line"], name: "index_patients_on_line"
+    t.index ["line_id"], name: "index_patients_on_line_id"
     t.index ["name"], name: "index_patients_on_name"
     t.index ["other_contact"], name: "index_patients_on_other_contact"
     t.index ["other_phone"], name: "index_patients_on_other_phone"
@@ -335,6 +341,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_031635) do
   add_foreign_key "events", "funds"
   add_foreign_key "patients", "clinics"
   add_foreign_key "patients", "funds"
+  add_foreign_key "patients", "lines"
   add_foreign_key "patients", "users", column: "last_edited_by_id"
   add_foreign_key "patients", "users", column: "pledge_generated_by_id"
   add_foreign_key "patients", "users", column: "pledge_sent_by_id"
