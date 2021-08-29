@@ -34,7 +34,7 @@ class Patient < ApplicationRecord
   has_many :users, through: :call_list_entries
   belongs_to :clinic, optional: true
   has_one :fulfillment, as: :can_fulfill
-  has_one :line
+  belongs_to :line
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
   has_many :practical_supports, as: :can_support

@@ -4,6 +4,6 @@ FactoryBot.define do
     cm_name { 'Yolorita' }
     patient_name { 'Susan Everyteen' }
     patient_id { 'sdfghjk' }
-    line { 'DC' }
+    line
   end
 end

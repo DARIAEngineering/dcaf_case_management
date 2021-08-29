@@ -11,7 +11,10 @@ class Event < ApplicationRecord
     unknown_action: 4
   }
   # See config/initializers/_env_var_contants.rb
-  enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
+  # enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
+
+  # Relations
+  belongs_to :line
 
   # Validations
   validates :event_type, :cm_name, :patient_name, :patient_id, :line, presence: true

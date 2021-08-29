@@ -11,7 +11,6 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @patient.calls.create attributes_for(:call, status: :reached_patient)
       create_language_config
       @archived_patient = create :archived_patient,
-                                 line: 'DC',
                                  initial_call_date: 200.days.ago
     end
   end
@@ -38,7 +37,6 @@ class ArchivedPatientTest < ActiveSupport::TestCase
         @clinic = create :clinic
         @patient = create :patient, primary_phone: '222-222-3336',
                                     other_phone: '222-222-4441',
-                                    line: 'DC',
                                     clinic: @clinic,
                                     city: 'Washington',
                                     race_ethnicity: 'Asian',
