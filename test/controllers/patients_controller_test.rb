@@ -13,7 +13,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555'
     @archived_patient = create :archived_patient,
-                               line: 'DC',
+                               # line: 'DC',
                                initial_call_date: 400.days.ago
   end
 

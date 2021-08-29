@@ -26,7 +26,7 @@ class Patient < ApplicationRecord
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
-  after_update :update_call_list_lines, if: :saved_change_to_line?
+  after_update :update_call_list_lines, if: :saved_change_to_line_id?
   after_destroy :destroy_associated_events
 
   # Relationships

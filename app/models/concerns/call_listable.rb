@@ -7,16 +7,16 @@ module CallListable
   # that is less than 8 hours old,
   # AND they would otherwise be in the call list
   # (e.g. assigned to current line and in user.patients)
-  def call_list_patients(line)
-    ordered_patients(line).reject { |x| recently_called_by_user? x }
+  def call_list_patients(line_id)
+    ordered_patients(line_id).reject { |x| recently_called_by_user? x }
   end
 
-  def recently_called_patients(line)
-    ordered_patients(line).select { |x| recently_called_by_user? x }
+  def recently_called_patients(line_id)
+    ordered_patients(line_id).select { |x| recently_called_by_user? x }
   end
 
-  def recently_reached_patients(line)
-    ordered_patients(line).select { |x| recently_reached_by_user? x }
+  def recently_reached_patients(line_id)
+    ordered_patients(line_id).select { |x| recently_reached_by_user? x }
   end
 
   def add_patient(patient)
@@ -38,8 +38,8 @@ module CallListable
     reload
   end
 
-  def reorder_call_list(order, line)
-    current_entries = call_list_entries.includes(:patient, :fund).where(line: line).to_a
+  def reorder_call_list(order, line_id)
+    current_entries = call_list_entries.includes(:patient, :fund).where(line_id: line_id).to_a
     order.each_with_index do |pt, i|
       current = current_entries.find { |x| x.patient_id.to_s == pt }
       current.update order_key: i
@@ -61,16 +61,16 @@ module CallListable
     reload
   end
 
-  def clear_call_list(line)
-    call_list_entries.where(line: line).destroy_all
+  def clear_call_list(line_id)
+    call_list_entries.where(line_id: line_id).destroy_all
   end
 
   private
 
-  def ordered_patients(line)
+  def ordered_patients(line_id)
     # n+1 join here
     call_list_entries.includes(patient: [:calls, :fulfillment])
-                     .where(line: line)
+                     .where(line_id: line_id)
                      .order(order_key: :asc)
                      .map(&:patient)
                      .reject(&:nil?)
