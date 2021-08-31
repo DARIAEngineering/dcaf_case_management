@@ -12,6 +12,7 @@ ActsAsTenant.without_tenant do
   Note.destroy_all
   Patient.destroy_all
   ArchivedPatient.destroy_all
+  Line.destroy_all
   User.destroy_all
   Clinic.destroy_all
   Fund.destroy_all
@@ -45,6 +46,14 @@ fund2 = Fund.create! name: 'BCAF',
 
 [fund1, fund2].each do |fund|
   ActsAsTenant.with_tenant(fund) do
+    # Create test lines
+    lines = if fund.name == 'DCAF'
+              ['DC', 'MD', 'VA']
+            elsif fund.name == 'BCAF'
+              ['Main', 'Spanish']
+            end
+    lines.map! { |l| Line.create! name: l }
+
     # Create test users
     user = User.create! name: 'testuser (admin)', email: 'test@example.com',
                         password: password, password_confirmation: password,
@@ -97,7 +106,7 @@ fund2 = Fund.create! name: 'BCAF',
                                 urgent_flag: i.even?,
                                 last_menstrual_period_weeks: (i + 1 * 2),
                                 last_menstrual_period_days: 3,
-                                line: 'DC'
+                                line: lines.first
 
       # Create associated objects
       case i
@@ -176,7 +185,7 @@ fund2 = Fund.create! name: 'BCAF',
         primary_phone: "321-0#{i}0-001#{rand(10)}",
         initial_call_date: 3.days.ago,
         urgent_flag: i.even?,
-        line: i.even? ? 'DC' : 'MD',
+        line: i.even? ? lines.first : lines.second,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now,
         last_menstrual_period_weeks: 7,
@@ -201,7 +210,7 @@ fund2 = Fund.create! name: 'BCAF',
         primary_phone: "321-0#{patient_number}0-002#{rand(10)}",
         initial_call_date: 3.days.ago,
         urgent_flag: patient_number.even?,
-        line: lines[patient_number % 3 || 0],
+        line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now
       )
@@ -221,7 +230,7 @@ fund2 = Fund.create! name: 'BCAF',
         primary_phone: "321-0#{patient_number}0-003#{rand(10)}",
         initial_call_date: 3.days.ago,
         urgent_flag: patient_number.even?,
-        line: lines[patient_number % 3],
+        line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now
       )
@@ -238,7 +247,7 @@ fund2 = Fund.create! name: 'BCAF',
         primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
         initial_call_date: 3.days.ago,
         urgent_flag: patient_number.even?,
-        line: lines[patient_number % 3],
+        line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now,
         pledge_sent: true,
@@ -253,7 +262,7 @@ fund2 = Fund.create! name: 'BCAF',
         name: "Archive Dataful Patient #{patient_number}",
         primary_phone: "321-0#{patient_number}0-005#{rand(10)}",
         voicemail_preference: 'yes',
-        line: 'DC',
+        line: lines.first,
         language: 'Spanish',
         initial_call_date: 140.days.ago,
         last_menstrual_period_weeks: 6,
@@ -362,7 +371,7 @@ fund2 = Fund.create! name: 'BCAF',
         name: "Archive Dropoff Patient #{patient_number}",
         primary_phone: "867-9#{patient_number}0-004#{rand(10)}",
         voicemail_preference: 'yes',
-        line: 'DC',
+        line: lines.first,
         language: 'Spanish',
         initial_call_date: 640.days.ago,
         last_menstrual_period_weeks: 6,

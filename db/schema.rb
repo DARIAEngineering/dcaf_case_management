@@ -193,13 +193,14 @@ ActiveRecord::Schema.define(version: 2021_08_29_050150) do
     t.string "site_domain"
     t.string "phone"
     t.string "fax_service_url"
-    t.string "lines", array: true
   end
 
   create_table "lines", force: :cascade do |t|
     t.string "name"
+    t.bigint "fund_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["fund_id"], name: "index_lines_on_fund_id"
   end
 
   create_table "notes", force: :cascade do |t|

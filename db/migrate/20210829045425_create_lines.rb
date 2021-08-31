@@ -3,6 +3,8 @@ class CreateLines < ActiveRecord::Migration[6.1]
     create_table :lines do |t|
       t.string :name
 
+      t.references :fund
+
       t.timestamps
     end
   end
