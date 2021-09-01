@@ -3,8 +3,8 @@ require 'test_helper'
 class DashboardsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
+    @line = create :line, name: 'DC'
     sign_in @user
-    choose_line 'dc'
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',

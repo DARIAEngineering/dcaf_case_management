@@ -15,7 +15,7 @@ module LinesHelper
   end
 
   def current_line
-    session[:line_id]
+    Line.find(session[:line_id])
   end
 
   def current_line_name

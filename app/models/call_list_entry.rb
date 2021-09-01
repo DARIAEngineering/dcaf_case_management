@@ -8,6 +8,6 @@ class CallListEntry < ApplicationRecord
   belongs_to :line
 
   # Validations
-  validates :order_key, :line, presence: true
+  validates :order_key, presence: true
   validates_uniqueness_to_tenant :patient, scope: :user
 end

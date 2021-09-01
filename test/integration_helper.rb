@@ -11,7 +11,10 @@ module IntegrationHelper
   end
 
   def choose_line(line)
-    post lines_path, params: { line: line.to_s }
+    if session[:line_id].blank?
+      line = Line.find_or_create_by name: line
+      post lines_path, params: { id: line.id }
+    end
   end
 
   def log_in_as(user, line = 'DC')

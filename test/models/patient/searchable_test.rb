@@ -4,18 +4,23 @@ require_relative '../patient_test'
 class PatientTest::PatientSearchable < PatientTest
   describe 'search method' do
     before do
+      dc = create :line, name: 'DC'
+      md = create :line, name: 'MD'
       @pt_1 = create :patient, name: 'Susan Sher',
-                               primary_phone: '124-456-6789'
+                               primary_phone: '124-456-6789',
+                               line: dc
       @pt_2 = create :patient, name: 'Susan E',
                                primary_phone: '124-567-7890',
-                               other_contact: 'Friend Ship'
+                               other_contact: 'Friend Ship',
+                               line: dc
       @pt_3 = create :patient, name: 'Susan A',
                                primary_phone: '555-555-5555',
-                               other_phone: '999-999-9999'
+                               other_phone: '999-999-9999',
+                               line: dc
       @pt_4 = create :patient, name: 'Susan A in MD',
                                primary_phone: '777-777-7777',
                                other_phone: '999-111-9888',
-                               line: 'MD'
+                               line: md
     end
 
     it 'should find a patient on name or other name' do
