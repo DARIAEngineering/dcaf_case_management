@@ -19,5 +19,5 @@ jobs:
           sleep 30
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
       - name: Run test suite
-        run: rails test:all
+        run: docker-compose run --rm web rails test:all
 
