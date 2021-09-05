@@ -35,9 +35,9 @@ jobs:
       - run: yarn install
       - run: NODE_ENV=test bundle exec rails webpacker:compile
       - run: NODE_ENV=test bundle exec rails webpacker:compile
-      - run: RAILS_ENV=test rails db:create db:migrate
+      - run: RAILS_ENV=test bundle exec rails db:create db:migrate
       - run: gem install --no-document brakeman ruby_audit bundler-audit
-      - run: rails assets:precompile
+      - run: bundle exec rails assets:precompile
       - save_cache:
           key: daria-gemfile-v1-{{ checksum "Gemfile.lock" }}
           paths:
@@ -74,7 +74,7 @@ jobs:
           docker_layer_caching: false
       - restore_cache:
           keys:
-            - dcaf_case_management-{{ epoch }}
+            - daria-gemfile-v1-{{ epoch }}
       - run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/dcaf-cmapp-staging.git main
 
 workflows:
