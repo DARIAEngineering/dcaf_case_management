@@ -22,6 +22,9 @@ jobs:
   build:
     name: Verify build
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: daria
+      POSTGRES_PASSWORD: ""
     services:
       postgres:
         image: postgres
@@ -33,6 +36,7 @@ jobs:
           - 5432:5432
         # Add a health check
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -65,5 +69,5 @@ jobs:
       # App setup
       - name: Asset compilation
         run: NODE_ENV=test bin/rails assets:precompile
-      - name: Databaset setup
+      - name: Database setup setup
         run: RAILS_ENV=test bin/rails db:create db:migrate
