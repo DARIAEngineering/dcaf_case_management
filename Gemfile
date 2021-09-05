@@ -78,9 +78,9 @@ end
 group :test do
   # Useful minitest tools
   gem 'minitest-spec-rails'
-  # gem 'minitest-ci'
+  gem 'minitest-ci'
   gem 'factory_bot_rails'
-  # gem 'database_cleaner'
+  gem 'database_cleaner'
   gem 'faker'
   gem 'timecop'
 
