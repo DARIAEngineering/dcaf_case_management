@@ -23,36 +23,7 @@ jobs:
           POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - checkout
-      - run: sudo apt-get update
-      - run: sudo apt-get install libfontconfig postgresql-client
-      - run: gem install bundler # Update bundler
-      - run: sudo gem update --system # Update rubygems
-      - restore_cache:
-          keys:
-            - dcaf_case_management-{{ checksum "Gemfile.lock" }}
-            - dcaf_case_management-{{ checksum ".circleci/config.yml" }}
-      - run: bundle check || bundle install
-      - run: yarn install
-      - run: NODE_ENV=test bundle exec rails webpacker:compile
-      - run: RAILS_ENV=test bundle exec rails db:create db:migrate
-      - run: gem install --no-document brakeman
-      - run: gem install --no-document ruby_audit
-      - run: gem install --no-document bundler-audit
-      - save_cache:
-          key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - run: bundle exec rake knapsack:minitest
-      - run: brakeman --exit-on-warn .
-      - run: bundle exec ruby-audit check
-      - run: bundle-audit update; bundle-audit check
-      - run: bundle exec rails zeitwerk:check
-      - store_artifacts:
-          path: /home/circleci/abortioneering/tmp/capybara/
-      - store_artifacts:
-          path: coverage
-      - store_test_results:
-          path: test-results/
+      - run: echo "Tests now handled by github, but deploy happens here"
   predeploy:
     working_directory: ~/abortioneering
     docker:
