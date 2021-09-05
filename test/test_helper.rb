@@ -4,12 +4,12 @@ SimpleCov.start 'rails'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'minitest/autorun'
+# require 'minitest/autorun'
 require 'capybara/rails'
 require 'capybara-screenshot/minitest'
 require 'omniauth_helper'
 require 'integration_helper'
-require 'rack/test'
+# require 'rack/test'
 
 # CI only
 if ENV['CIRCLECI']
