@@ -64,6 +64,6 @@ jobs:
 
       # App setup
       - name: Asset compilation
-        run: NODE_ENV=test rails assets:precompile
+        run: NODE_ENV=test bin/rails assets:precompile
       - name: Databaset setup
-        run: RAILS_ENV=test rails db:create db:migrate
+        run: RAILS_ENV=test bin/rails db:create db:migrate
