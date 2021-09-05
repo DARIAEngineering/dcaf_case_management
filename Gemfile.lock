@@ -116,12 +116,6 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
-    database_cleaner (2.0.1)
-      database_cleaner-active_record (~> 2.0.0)
-    database_cleaner-active_record (2.0.1)
-      activerecord (>= 5.a)
-      database_cleaner-core (~> 2.0.0)
-    database_cleaner-core (2.0.1)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -221,8 +215,6 @@ GEM
     mini_mime (1.1.0)
     mini_portile2 (2.6.1)
     minitest (5.14.4)
-    minitest-ci (3.4.0)
-      minitest (>= 5.0.6)
     minitest-optional_retry (0.0.2)
       minitest (~> 5.0)
     minitest-spec-rails (6.0.4)
@@ -450,7 +442,6 @@ DEPENDENCIES
   capybara-screenshot
   codecov
   coffee-rails (~> 5.0.0)
-  database_cleaner
   devise (~> 4.8)
   dotenv-rails
   factory_bot_rails
@@ -466,7 +457,6 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.7)
   loofah (>= 2.3.1)
   mini_backtrace
-  minitest-ci
   minitest-optional_retry
   minitest-spec-rails
   minitest-stub-const

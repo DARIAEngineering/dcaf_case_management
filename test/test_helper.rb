@@ -28,20 +28,16 @@ if ENV['CIRCLECI']
   Capybara.save_path = Rails.root.join('tmp', 'capybara')
 end
 
-DatabaseCleaner.clean_with :truncation
-
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   before do
     Bullet.start_request
-    DatabaseCleaner.start
   end
   after do
     Bullet.perform_out_of_channel_notifications if Bullet.notification?
     Bullet.end_request
-    DatabaseCleaner.clean
   end
 
   parallelize(workers: :number_of_processors)

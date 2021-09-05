@@ -70,7 +70,6 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  # gem 'knapsack' # lets us split up our tets so they run faster in CI
   gem 'dotenv-rails' #used to set up our db ENV values
   gem 'bullet' # yell if n+1 queries
 end
@@ -78,9 +77,7 @@ end
 group :test do
   # Useful minitest tools
   gem 'minitest-spec-rails'
-  gem 'minitest-ci'
   gem 'factory_bot_rails'
-  gem 'database_cleaner'
   gem 'faker'
   gem 'timecop'
 
