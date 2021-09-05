@@ -71,3 +71,29 @@ jobs:
         run: NODE_ENV=test bin/rails assets:precompile
       - name: Database setup setup
         run: RAILS_ENV=test bin/rails db:create db:migrate
+
+      # Run tests
+      - name: Run test suite
+        run: /bin/rails test:all
+
+  scan:
+    name: Run static scanners
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Ruby setup
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1 # automagically reads from .ruby-version
+        with:
+          bundler-cache: true
+      - name: Install scanners
+        run: |
+          gem install --no-document brakeman ruby_audit bundler-audit
+
+      # Run scanners
+      - run: brakeman --exit-on-warn .
+      - run: ruby-audit check
+      - run: bundle-audit update; bundle-audit check
+      - run: bin/rails zeitwerk:check
