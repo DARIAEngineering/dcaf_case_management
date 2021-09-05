@@ -34,10 +34,10 @@ jobs:
       - run: bundle check || bundle install
       - run: yarn install
       - run: NODE_ENV=test bundle exec rails webpacker:compile
-      - run: RAILS_ENV=test bundle exec rails db:create db:migrate
-      - run: gem install --no-document brakeman
-      - run: gem install --no-document ruby_audit
-      - run: gem install --no-document bundler-audit
+      - run: NODE_ENV=test bundle exec rails webpacker:compile
+      - run: RAILS_ENV=test rails db:create db:migrate
+      - run: gem install --no-document brakeman ruby_audit bundler-audit
+      - run: rails assets:precompile
       - save_cache:
           key: dcaf_case_management-{{ checksum "Gemfile.lock" }}
           paths:
