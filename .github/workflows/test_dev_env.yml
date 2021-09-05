@@ -66,6 +66,10 @@ jobs:
         run: |
           yarn install
 
+      # System setup
+      - name: Install 
+        run: sudo apt-get -yqq install libpq-dev google-chrome-stable
+
       # App setup
       - name: Asset compilation
         run: NODE_ENV=test bin/rails assets:precompile
@@ -74,7 +78,7 @@ jobs:
 
       # Run tests
       - name: Run test suite
-        run: /bin/rails test:all
+        run: bin/rails test:all
 
   scan:
     name: Run static scanners
