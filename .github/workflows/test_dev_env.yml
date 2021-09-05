@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-  docker-check:
+  dockercheck:
+    name: Verify docker build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,7 +19,8 @@ jobs:
           docker-compose up -d
           sleep 30
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
-  docker-check-2:
+  build:
+    name: Verify build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
