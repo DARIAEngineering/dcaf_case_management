@@ -1,5 +1,9 @@
 name: Build development enviroment
 
+# We have this rigged up such that heroku monitors
+# for changes on master, and deploys to staging if
+# the build passes.
+
 on:
   pull_request:
     branches:
@@ -19,6 +23,7 @@ jobs:
           docker-compose up -d
           sleep 30
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
+
   build:
     name: Verify build
     runs-on: ubuntu-latest
@@ -91,7 +96,11 @@ jobs:
           gem install --no-document brakeman ruby_audit bundler-audit
 
       # Run scanners
-      - run: brakeman --exit-on-warn .
-      - run: ruby-audit check
-      - run: bundle-audit update; bundle-audit check
-      - run: bin/rails zeitwerk:check
+      - name: Brakeman
+        run: brakeman --exit-on-warn .
+      - name: ruby-audit
+        run: ruby-audit check
+      - name: bundle-audit
+        run: bundle-audit update; bundle-audit check
+      - name: Zeitwerk
+        run: bin/rails zeitwerk:check
