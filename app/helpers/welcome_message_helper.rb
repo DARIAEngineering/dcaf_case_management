@@ -65,7 +65,8 @@ module WelcomeMessageHelper
       "Keep on crushing it! You are awesome.",
       "Thank you! You ARE APPRECIATED! :)",
       "Thank you for your incredible work!",
-      "My body, my choice. Thanks for fighting for reproductive justice!"
+      "My body, my choice. Thanks for fighting for reproductive justice!",
+      "Whoever saves a single life is considered by scripture to have saved the whole world. Thank you for your work!"
     ]
   end
 end
