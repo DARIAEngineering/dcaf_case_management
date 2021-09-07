@@ -5,6 +5,9 @@ name: Build development enviroment
 # the build passes.
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
