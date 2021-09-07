@@ -12,14 +12,7 @@ require 'integration_helper'
 require 'rack/test'
 
 # CI only
-if ENV['CIRCLECI']
-  # Use knapsack to split up tests on CI nodes
-  # To rerack the test divider, run:
-  # KNAPSACK_GENERATE_REPORT=true bundle exec rake test test:system
-  # require 'knapsack'
-  # knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
-  # knapsack_adapter.set_test_helper_path(__FILE__)
-
+if ENV['CI']
   # Activate codecov reporter for test coverage reports
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
