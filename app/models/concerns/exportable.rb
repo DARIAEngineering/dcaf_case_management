@@ -127,11 +127,11 @@ module Exportable
   end
 
   def call_count
-    calls.count
+    calls.size
   end
 
   def reached_patient_call_count
-    calls.select { |call| call.reached_patient? }.count
+    calls.select { |call| call.reached_patient? }.size
   end
 
   def export_clinic_name
@@ -158,17 +158,11 @@ module Exportable
   end
 
   def external_pledge_count
-    external_pledges.count
+    external_pledges.size
   end
 
   def external_pledge_sum
-    sum = 0
-    all_pledges = external_pledges.all
-
-    all_pledges.each do |pledge|
-      sum += pledge.try :amount
-    end
-    sum
+    external_pledges.inject { |x, acc = 0| acc = x.try(:amount) || 0}
   end
 
   def all_external_pledges
@@ -179,6 +173,9 @@ module Exportable
     practical_supports.map { |ps| "#{ps.source} - #{ps.support_type} - #{ps.confirmed? ? 'Confirmed' : 'Unconfirmed'}" }.join('; ')
   end
 
+  PATIENT_RELATIONS = [:clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]
+  ARCHIVED_PATIENT_RELATIONS = [:clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
+
   class_methods do
     def csv_header
       Enumerator.new do |y|
@@ -187,8 +184,16 @@ module Exportable
     end
 
     def to_csv
+      relations = if self.name == "Patient"
+                    PATIENT_RELATIONS
+                  elsif self.name == "ArchivedPatient"
+                    ARCHIVED_PATIENT_RELATIONS
+                  else
+                    raise "Trying to export something other than a Patient or ArchivedPatient"
+                  end
+
       Enumerator.new do |y|
-        includes(:clinic).each do |export|
+        includes(relations).each do |export|
           row = CSV_EXPORT_FIELDS.values.map{ |field| export.get_field_value_for_serialization(field) }
           y << CSV.generate_line(row, encoding: 'utf-8')
         end

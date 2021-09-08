@@ -61,6 +61,7 @@ class RecordLookupTest < ApplicationSystemTestCase
 
       assert has_text? 'Search results'
       assert has_text? 'Susan Everyteen DC'
+      assert has_text? 'Add a new patient'
     end
 
     it 'should not pick up patients on other lines' do
@@ -69,7 +70,8 @@ class RecordLookupTest < ApplicationSystemTestCase
 
       refute has_text? 'Susan Everyteen MD'
       within :css, '#search_results_shell' do
-        assert has_text? 'Your search produced no results, so add a new patient'
+        assert has_text? 'Your search produced no results'
+        assert has_text? 'Add a new patient'
         assert has_no_text? 'Search results'
       end
     end
@@ -82,6 +84,10 @@ class RecordLookupTest < ApplicationSystemTestCase
       click_button 'Search'
 
       assert_equal 15, page.all('tbody#search_results_content tr').count
+
+      within :css, '#search_results_shell' do
+        assert has_text? 'Add a new patient'
+      end
     end
 
     # We haven't reached a UX agreement on this yet, but test is ready to go
@@ -101,7 +107,8 @@ class RecordLookupTest < ApplicationSystemTestCase
       click_button 'Search'
 
       within :css, '#search_results_shell' do
-        assert has_text? 'Your search produced no results, so add a new patient'
+        assert has_text? 'Your search produced no results'
+        assert has_text? 'Add a new patient'
         assert_equal 'Nobody Real Here', find_field('Name').value
         assert has_no_text? 'Search results'
       end
@@ -112,7 +119,8 @@ class RecordLookupTest < ApplicationSystemTestCase
       click_button 'Search'
 
       within :css, '#search_results_shell' do
-        assert has_text? 'Your search produced no results, so add a new patient'
+        assert has_text? 'Your search produced no results'
+        assert has_text? 'Add a new patient'
         assert_equal '111-111-1112', find_field('Phone').value
       end
     end

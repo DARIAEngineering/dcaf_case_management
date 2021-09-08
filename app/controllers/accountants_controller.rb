@@ -12,7 +12,7 @@ class AccountantsController < ApplicationController
                        .page(params[:page] || 1)
 
     @patients = @patients.where(clinic_id: params[:clinic_id]) if params[:clinic_id].present?
-    @patients = @patients.search(params[:search]) if params[:search].present?
+    @patients = @patients.search(params[:search], search_limit: nil) if params[:search].present?
     @patients
   end
 

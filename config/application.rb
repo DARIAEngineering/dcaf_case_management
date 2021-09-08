@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative "boot"
 
 # We require individual items instead of rails/all because 
 # we don't need ActiveRecord, and ActiveRecord freaks out
@@ -48,5 +48,13 @@ module DcafCaseManagement
 
     # Throttling protection
     config.middleware.use Rack::Attack
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
   end
 end

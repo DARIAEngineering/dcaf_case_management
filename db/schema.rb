@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_13_035820) do
+ActiveRecord::Schema.define(version: 2021_07_25_025609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.bigint "clinic_id"
     t.bigint "pledge_generated_by_id"
     t.bigint "pledge_sent_by_id"
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
@@ -121,7 +120,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.integer "costs_28wks"
     t.integer "costs_29wks"
     t.integer "costs_30wks"
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -131,7 +129,7 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.jsonb "config_value", default: {"options"=>[]}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["config_key"], name: "index_configs_on_config_key"
+    t.index ["config_key"], name: "index_configs_on_config_key", unique: true
   end
 
   create_table "events", force: :cascade do |t|
@@ -164,7 +162,7 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.integer "gestation_at_procedure"
     t.integer "fund_payout"
     t.string "check_number"
-    t.string "date_of_check"
+    t.date "date_of_check"
     t.boolean "audited"
     t.string "can_fulfill_type", null: false
     t.bigint "can_fulfill_id", null: false
@@ -228,7 +226,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.bigint "pledge_generated_by_id"
     t.bigint "pledge_sent_by_id"
     t.bigint "last_edited_by_id"
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
@@ -270,7 +267,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_035820) do
     t.string "line"
     t.integer "role", default: 0, null: false
     t.boolean "disabled_by_fund", default: false
-    t.string "mongo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", default: "", null: false

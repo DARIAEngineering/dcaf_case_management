@@ -11,7 +11,6 @@ class PaperTrailVersion < PaperTrail::Version
     last_edited_by_id
     identifier
     updated_at
-    mongo_id
     created_at
   ].freeze
   DATE_FIELDS = %w[

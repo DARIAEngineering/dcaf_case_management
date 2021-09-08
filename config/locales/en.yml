@@ -184,6 +184,7 @@ en:
     search:
       header: Build your call list
       input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
+      no_results: Your search produced no results
     table_content:
       clear_call_list: Clear your call list
       clear_call_list_confirm: Are you sure you want to clear your current call list? This will also clear completed calls.
@@ -434,7 +435,7 @@ en:
     new:
       add_button: Add new patient
       initial_call_date: Initial Call Date
-      title: 'Your search produced no results, so add a new patient:'
+      title: 'Add a new patient:'
     notes:
       placeholder: Enter notes here
       submit: Create Note
