@@ -76,14 +76,6 @@ class Config < ApplicationRecord
     'Please separate with commas.'
   end
 
-  def self.autosetup
-    config_keys.keys.each do |field|
-      if Config.where(config_key: field).count != 1
-        Config.create config_key: field
-      end
-    end
-  end
-
   def self.budget_bar_max
     budget_max = Config.find_or_create_by(config_key: 'budget_bar_max').options.try :last
     budget_max ||= 1_000

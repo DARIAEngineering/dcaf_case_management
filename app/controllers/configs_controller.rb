@@ -2,9 +2,9 @@ class ConfigsController < ApplicationController
   before_action :confirm_admin_user
 
   def index
-    # n+1 join here
-    Config.autosetup
-    @configs = Config.all.sort_by(&:config_key)
+    @configs = Config.config_keys.keys.map do |field|
+      Config.find_or_create_by(config_key: field)
+    end
   end
 
   def update

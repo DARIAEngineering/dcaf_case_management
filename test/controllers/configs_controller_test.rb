@@ -44,6 +44,20 @@ class ConfigsControllerTest < ActionDispatch::IntegrationTest
           assert Config.find_by(config_key: field.to_s)
         end
       end
+
+      it 'should only create necessary missing config objects' do
+        Config.destroy_all
+        create_insurance_config
+
+        assert_difference 'Config.count', (Config.config_keys.keys.count - 1) do
+          get configs_path
+        end
+
+        Config.config_keys.keys.each do |field|
+          assert Config.find_by(config_key: field.to_s)
+        end
+      end
+
     end
 
     it 'should let you update configs' do
