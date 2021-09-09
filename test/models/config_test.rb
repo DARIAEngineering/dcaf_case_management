@@ -88,32 +88,6 @@ class ConfigTest < ActiveSupport::TestCase
       assert_includes @config.help_text,
                       'A link to a Google Drive'
     end
-    
-    # describe 'autosetup' do
-    #   before { Config.destroy_all }
-
-    #   it 'should create any missing config objects' do
-    #     assert_difference 'Config.count', Config.config_keys.keys.count do
-    #       Config.autosetup
-    #     end
-
-    #     Config.config_keys.keys.each do |field|
-    #       assert Config.find_by(config_key: field.to_s)
-    #     end
-    #   end
-
-    #   it 'should only create necessary missing config objects' do
-    #     create_insurance_config
-
-    #     assert_difference 'Config.count', (Config.config_keys.keys.count - 1) do
-    #       Config.autosetup
-    #     end
-
-    #     Config.config_keys.keys.each do |field|
-    #       assert Config.find_by(config_key: field.to_s)
-    #     end
-    #   end
-    # end
 
     describe '#budget_bar_max' do
       it 'should return an integer of 1_000 if unconfigured' do
