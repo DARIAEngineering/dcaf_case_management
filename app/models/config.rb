@@ -76,6 +76,16 @@ class Config < ApplicationRecord
     'Please separate with commas.'
   end
 
+  def self.all_configs
+    @configs
+  end
+
+  def self.autosetup
+    @configs = config_keys.keys.map do |field|
+      Config.find_or_create_by(config_key: field)
+    end
+  end
+
   def self.budget_bar_max
     budget_max = Config.find_or_create_by(config_key: 'budget_bar_max').options.try :last
     budget_max ||= 1_000

@@ -1,11 +1,11 @@
 class ConfigsController < ApplicationController
   before_action :confirm_admin_user
 
-  def index
-    @configs = Config.config_keys.keys.map do |field|
-      Config.find_or_create_by(config_key: field)
-    end
-  end
+  # def index
+  #   @configs = Config.config_keys.keys.map do |field|
+  #     Config.find_or_create_by(config_key: field)
+  #   end
+  # end
 
   def update
     @config = Config.find params[:id]
