@@ -190,5 +190,35 @@ class ConfigTest < ActiveSupport::TestCase
         assert_equal :tuesday, Config.start_day
       end
     end
+
+    describe 'urgent_reset' do
+      it 'should return proper default' do
+        assert_equal 6, Config.urgent_reset
+      end
+
+      it 'should validate bounds' do
+        c = Config.find_or_create_by(config_key: 'urgent_reset')
+
+        # low out of bounds
+        c.config_value = { options: ["1"] }
+        refute c.valid?
+
+        # low edge
+        c.config_value = { options: ["2"] }
+        assert c.valid?
+
+        # in bounds
+        c.config_value = { options: ["14"] }
+        assert c.valid?
+
+        # high edge
+        c.config_value = { options: ["28"] }
+        assert c.valid?
+
+        c.config_value = { options: ["29"] }
+        refute c.valid?
+      end
+    end
+
   end
 end
