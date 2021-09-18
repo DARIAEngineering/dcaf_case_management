@@ -15,7 +15,8 @@ class Config < ApplicationRecord
     budget_bar_max: "The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.",
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
-    days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year)."
+    days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
+    urgent_reset: "Number of idle days until a patient is removed from the urgent list. Defaults to 6 days.",
   }.freeze
 
   enum config_key: {
@@ -33,7 +34,8 @@ class Config < ApplicationRecord
     budget_bar_max: 11,
     voicemail: 12,
     days_to_keep_fulfilled_patients: 13,
-    days_to_keep_all_patients: 14
+    days_to_keep_all_patients: 14,
+    urgent_reset: 15,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -57,6 +59,7 @@ class Config < ApplicationRecord
 
     days_to_keep_fulfilled_patients: :validate_patient_archive,
     days_to_keep_all_patients: :validate_patient_archive,
+    urgent_reset: :validate_urgent_reset,
   }.freeze
 
   before_validation :clean_config_value
@@ -112,6 +115,13 @@ class Config < ApplicationRecord
     # default 1 year
     archive_days ||= 365
     archive_days.to_i
+  end
+
+  def self.urgent_reset
+    urgent_reset_days = Config.find_or_create_by(config_key: 'urgent_reset').options.try :last
+    # default 6 days
+    urgent_reset_days ||= 6
+    urgent_reset_days.to_i
   end
 
   private
@@ -206,5 +216,13 @@ class Config < ApplicationRecord
 
     def validate_patient_archive
       validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+    end
+
+    ### urgent reset
+    URGENT_MIN_DAYS = 2   # 2 days
+    URGENT_MAX_DAYS = 28  # 4 weeks
+
+    def validate_urgent_reset
+      validate_number && options.last.to_i.between?(URGENT_MIN_DAYS, URGENT_MAX_DAYS)
     end
 end
