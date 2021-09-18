@@ -13,8 +13,7 @@ require 'rack/test'
 
 # CI only
 if ENV['CI']
-  # Activate codecov reporter for test coverage reports
-  require 'codecov'
+  # Activate codecov format for test coverage reports
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
   # Save screenshots if system tests fail
