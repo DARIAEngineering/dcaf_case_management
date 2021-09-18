@@ -13,10 +13,6 @@ require 'rack/test'
 
 # CI only
 if ENV['CI']
-  # Activate codecov reporter for test coverage reports
-  require 'codecov'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-
   # Save screenshots if system tests fail
   Capybara.save_path = Rails.root.join('tmp', 'capybara')
 end
