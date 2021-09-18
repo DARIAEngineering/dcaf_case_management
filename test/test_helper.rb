@@ -12,14 +12,7 @@ require 'integration_helper'
 require 'rack/test'
 
 # CI only
-if ENV['CIRCLECI']
-  # Use knapsack to split up tests on CI nodes
-  # To rerack the test divider, run:
-  # KNAPSACK_GENERATE_REPORT=true bundle exec rake test test:system
-  require 'knapsack'
-  knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
-  knapsack_adapter.set_test_helper_path(__FILE__)
-
+if ENV['CI']
   # Activate codecov reporter for test coverage reports
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
@@ -28,21 +21,19 @@ if ENV['CIRCLECI']
   Capybara.save_path = Rails.root.join('tmp', 'capybara')
 end
 
-DatabaseCleaner.clean_with :truncation
-
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   before do
     Bullet.start_request
-    DatabaseCleaner.start
   end
   after do
     Bullet.perform_out_of_channel_notifications if Bullet.notification?
     Bullet.end_request
-    DatabaseCleaner.clean
   end
+
+  parallelize(workers: :number_of_processors)
 
   def create_insurance_config
     insurance_options = ['DC Medicaid', 'Other state Medicaid']
