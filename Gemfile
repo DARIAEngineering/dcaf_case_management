@@ -91,7 +91,6 @@ group :test do
 
   # Test coverage related libraries
   gem 'simplecov', require: false
-  gem 'codecov', require: false
 
   # Specifics
   gem 'shoulda-context'
