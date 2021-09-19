@@ -1,6 +1,6 @@
 # DARIA (DCAF Case Manager)
 ![GithubActions Workflow](https://github.com/DARIAEngineering/dcaf_case_management/actions/workflows/test_dev_env.yml/badge.svg)
-[![codecov](https://codecov.io/gh/DARIAEngineering/dcaf_case_management/branch/main/graph/badge.svg?token=vnoVK0meeZ)](https://codecov.io/gh/DCAFEngineering/dcaf_case_management)
+[![codecov](https://codecov.io/gh/DARIAEngineering/dcaf_case_management/branch/main/graph/badge.svg?token=vnoVK0meeZ)](https://codecov.io/gh/DARIAEngineering/dcaf_case_management)
 
 
 [A deployed demo version of what's in the main branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/)  
@@ -59,7 +59,7 @@ Feel free to hit any of us up with questions about the project, we're nice!
 * We <3 new people and beginners
 
 ### We <3 new people and beginners!
-We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/DCAFEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
+We recognize that not everyone comes to this project intimately familiar with rails. **If you've got the time and energy to contribute, we've got the time to help guide you in the right direction and make sure your time is well spent.** We've also got a set of issues that [are good starting points](https://github.com/DARIAEngineering/dcaf_case_management/issues?q=is%3Aissue+is%3Aopen+label%3A%22beginner+friendly%22) if you're fresh to this project.
 
 We've tried to structure the project in such a way that minimal specialized knowledge is required to contribute; we use the default Rails stack wherever possible, with the exception a couple gems.
 
