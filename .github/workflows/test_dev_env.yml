@@ -108,3 +108,7 @@ jobs:
         run: bundle-audit update; bundle-audit check
       - name: Zeitwerk
         run: bin/rails zeitwerk:check
+      - name: Danger
+        uses: "danger/danger"
+        env:
+          danger_github_api_token: ${{ test_dev_env.DANGER_GITHUB_API_TOKEN }}

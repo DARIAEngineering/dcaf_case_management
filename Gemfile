@@ -92,6 +92,9 @@ group :test do
   # Test coverage related libraries
   gem 'simplecov', require: false
 
+  #Automated Code Review libraries
+  gem 'danger'
+
   # Specifics
   gem 'shoulda-context'
   gem 'minitest-optional_retry' # retry flaky tests 3 times

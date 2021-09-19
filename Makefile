@@ -83,6 +83,9 @@ lint-audit: ## Run ruby security checks
 	bundle exec ruby-audit check
 	bundle-audit update; bundle-audit check
 
+danger: ## Run danger against a PR locally
+	bundle exec danger pr $(RUN_ARGS)
+
 ###: ## .
 ###Dependency-Commands: ## .
 ruby-install: ## Gets ruby dependencies up to date
