@@ -111,4 +111,4 @@ jobs:
       - name: Danger
         uses: "danger/danger"
         env:
-          danger_github_api_token: ${{ test_dev_env.DANGER_GITHUB_API_TOKEN }}
+          danger_github_api_token: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
