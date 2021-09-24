@@ -8,6 +8,7 @@ gem 'sdoc', '~> 2.2.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
