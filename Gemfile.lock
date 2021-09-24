@@ -480,6 +480,7 @@ DEPENDENCIES
   rails-html-sanitizer (>= 1.0.4)
   rails-i18n (~> 6.0)
   render_async (~> 2.1)
+  rexml
   rubocop
   rubocop-rails
   ruby_audit
