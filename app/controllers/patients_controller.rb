@@ -46,7 +46,8 @@ class PatientsController < ApplicationController
       pdf_filename = "#{@patient.name}_pledge_form_#{now}.pdf"
       pdf = PledgeFormGenerator.new(current_user,
                                     @patient,
-                                    params[:case_manager_name].to_s)
+                                    params[:case_manager_name].to_s,
+                                    current_tenant)
                                .generate_pledge_pdf
       @patient.update pledge_generated_at: Time.zone.now,
                       pledge_generated_by: current_user

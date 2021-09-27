@@ -1,12 +1,13 @@
 class PledgeFormGenerator
   include ActionView::Helpers::NumberHelper # for currency formatting
 
-  attr_reader :patient, :user, :case_manager_name
+  attr_reader :patient, :user, :case_manager_name, :fund
 
-  def initialize(user, patient, case_manager_name)
+  def initialize(user, patient, case_manager_name, fund)
     @patient = patient
     @user = user
     @case_manager_name = case_manager_name
+    @fund = fund
   end
 
   def patient_amount
@@ -92,26 +93,26 @@ class PledgeFormGenerator
   def build_header(pdf)
     y_position = pdf.cursor
     pdf.bounding_box([0, y_position], width: 200, height: 100) do
-      pdf.image "#{Rails.root.join("public", "#{FUND.downcase}_logo.png")}",
+      pdf.image "#{Rails.root.join("public", "#{@fund.name.downcase}_logo.png")}",
                 position: :left,
-                width: CONFIG_DATA[FUND][:width],
-                height: CONFIG_DATA[FUND][:height]
+                width: CONFIG_DATA[@fund.name][:width],
+                height: CONFIG_DATA[@fund.name][:height]
     end
 
     pdf.bounding_box([250, y_position], width: 400, height: 100) do
       pdf.text case_manager_name
-      CONFIG_DATA[FUND][:addr].each do |i|
+      CONFIG_DATA[@fund.name][:addr].each do |i|
         pdf.text i
       end
-      pdf.text "Tel: #{FUND_PHONE}"
-      pdf.text "E-mail: info@#{FUND_DOMAIN}"
-      pdf.text "Web: #{FUND_DOMAIN}"
+      pdf.text "Tel: #{@fund.phone}"
+      pdf.text "E-mail: info@#{@fund.site_domain}"
+      pdf.text "Web: #{@fund.site_domain}"
     end
   end
 
   def build_patient_info_block(pdf)
     patient_info_block = <<-TEXT
-      We are writing to confirm that the #{FUND_FULL} (#{FUND}) is pledging assistance in the amount of <b>#{patient_amount}</b> toward the cost of abortion care for <b>#{patient_name} (#{patient_identifier})</b> on <b>#{appointment_date}</b>. This payment will be remitted to the abortion provider, <b>#{patient_provider_name}</b> located in <b>#{provider_address}</b>.
+      We are writing to confirm that the #{@fund.full_name} (#{@fund.name}) is pledging assistance in the amount of <b>#{patient_amount}</b> toward the cost of abortion care for <b>#{patient_name} (#{patient_identifier})</b> on <b>#{appointment_date}</b>. This payment will be remitted to the abortion provider, <b>#{patient_provider_name}</b> located in <b>#{provider_address}</b>.
 
       In order to receive payment, the abortion provider must mail a copy of this pledge form to:
     TEXT
@@ -119,7 +120,7 @@ class PledgeFormGenerator
   end
 
   def build_fund_info_block(pdf)
-    info_block = "<b>#{CONFIG_DATA[FUND][:addr].join("\n")}</b>"
+    info_block = "<b>#{CONFIG_DATA[@fund.name][:addr].join("\n")}</b>"
     pdf.text info_block, align: :center, inline_format: true
   end
 
@@ -138,7 +139,7 @@ class PledgeFormGenerator
     pdf.bounding_box([0, next_y_position], width: 200, height: 50) do
       pdf.draw_text case_manager_name, at: [10, 35]
       pdf.line [0, 25], [225, 25]
-      pdf.draw_text "Case Manager, #{FUND_FULL}", at: [10, 10]
+      pdf.draw_text "Case Manager, #{@fund.full_name}", at: [10, 10]
     end
     pdf.bounding_box([250, next_y_position], width: 200, height: 50) do
       pdf.draw_text now_as_date, at: [10, 35]
@@ -151,7 +152,7 @@ class PledgeFormGenerator
     pdf.bounding_box([25, pdf.cursor], width: 475, height: 130) do
       pdf.transparent(0.5) { pdf.stroke_bounds }
       pdf.move_down 10
-      pdf.text "<b><i>This section to be filled out by clinic only (#{FUND} will only be liable for pledges billed within two months of procedure date).</i></b>", align: :left, indent_paragraphs: 5, size: 8, inline_format: true
+      pdf.text "<b><i>This section to be filled out by clinic only (#{@fund.name} will only be liable for pledges billed within two months of procedure date).</i></b>", align: :left, indent_paragraphs: 5, size: 8, inline_format: true
       pdf.move_down 10
       pdf.text "Patient's weeks of pregnancy at date of procedure: _________________", align: :left, style: :bold, indent_paragraphs: 5
       pdf.move_down 10
@@ -159,7 +160,7 @@ class PledgeFormGenerator
       pdf.move_down 10
       pdf.text 'Signature of Clinic Administrator: ________________________________', align: :left, style: :bold, indent_paragraphs: 5
       pdf.move_down 10
-      pdf.text "For billing questions only, please contact billing@#{FUND_DOMAIN}", align: :left, style: :italic, indent_paragraphs: 5
+      pdf.text "For billing questions only, please contact billing@#{@fund.site_domain}", align: :left, style: :italic, indent_paragraphs: 5
     end
   end
 
