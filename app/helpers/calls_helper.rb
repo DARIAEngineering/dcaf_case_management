@@ -68,13 +68,13 @@ module CallsHelper
 
   def voicemail_ok_notifier
     content_tag :p, class: 'text-success' do
-      content_tag :strong, t('call.new.voicemail_instructions.voicemail_identify', fund: "#{FUND}")
+      content_tag :strong, t('call.new.voicemail_instructions.voicemail_identify', fund: ActsAsTenant.current_tenant.name)
     end
   end
 
   def voicemail_not_specified_notifier
     content_tag :p, class: 'text-warning' do
-      content_tag :strong, t('call.new.voicemail_instructions.voicemail_no_identify', fund: "#{FUND}")
+      content_tag :strong, t('call.new.voicemail_instructions.voicemail_no_identify', fund: ActsAsTenant.current_tenant.name)
     end
   end
 
