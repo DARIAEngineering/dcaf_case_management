@@ -1,6 +1,6 @@
 <nav class="navbar navbar-inverse fixed-top navbar-expand-lg">
   <div class="navbar-header">
-    <%= link_to "DARIA - " + (ENV['DARIA_FUND_FULL'] || Rails.env), root_path, class: 'navbar-brand' %>
+    <%= link_to "DARIA - #{current_tenant.full_name}#{Rails.env.production? ? '' : ' - Development'}", root_path, class: 'navbar-brand' %>
 
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" aria-controls="navbar-collapse" aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
