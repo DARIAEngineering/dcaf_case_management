@@ -11622,10 +11622,10 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"y18n@npm:^4.0.1":
-  version: 4.0.3
-  resolution: "y18n@npm:4.0.3"
-  checksum: e6d08e9d148e71d620acbca1c10f4db86a3a960527a47e8fbe732ea8246076d0a54e1f6adf0f8f8fdeacb87c23dea52382f4243bf736d36c83bb7f2ee0ea7fcd
+"y18n@npm:^5.0.0":
+  version: 5.0.8
+  resolution: "y18n@npm:5.0.8"
+  checksum: 56275bfa72a8a585c4d2905b086862fb881dfe7871adcefe4ecf4c1a6a78c6389b459b427c0a8672ccdb09731a78143acc71f0bcc8dc8d8427869fafe7f18b95
   languageName: node
   linkType: hard
 
