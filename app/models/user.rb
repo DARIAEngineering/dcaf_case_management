@@ -1,6 +1,8 @@
 # Object representing a case manager.
 # Fields are all devise settings; most of the methods relate to call list mgmt.
 class User < ApplicationRecord
+  acts_as_tenant :fund
+  
   # Concerns
   include PaperTrailable
   include CallListable
@@ -32,6 +34,7 @@ class User < ApplicationRecord
   has_many :call_list_entries
 
   # Validations
+  validates_uniqueness_to_tenant :email, allow_blank: true, if: :email_changed?
   # email presence validated through Devise
   validates :name, :role, presence: true
   validates_format_of :email, with: Devise::email_regexp

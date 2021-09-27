@@ -1,5 +1,7 @@
 # Object representing a clinic that a patient is going to.
 class Clinic < ApplicationRecord
+  acts_as_tenant :fund
+  
   # Concerns
   include PaperTrailable
 

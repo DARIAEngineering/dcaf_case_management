@@ -1,5 +1,7 @@
 # Class so that funds can set their own dropdown lists of things
 class Config < ApplicationRecord
+  acts_as_tenant :fund
+  
   # Concerns
   include PaperTrailable
 
