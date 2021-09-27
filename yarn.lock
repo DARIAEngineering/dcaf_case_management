@@ -4284,12 +4284,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dot-prop@npm:^5.1.1":
-  version: 5.2.0
-  resolution: "dot-prop@npm:5.2.0"
+"dot-prop@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "dot-prop@npm:6.0.1"
   dependencies:
     is-obj: ^2.0.0
-  checksum: d2f62e0b5ec467edb8e278ab6070955f0a4aec973ec1fa837ff6152f3cdd96cd2a04c7e2626cb3eac4f639b8f6786b5b87d3c01df7ba729693c636cb78b7ae93
+  checksum: 06793b868079d70bffce4f0ac7e32055778723cc90b6e0bb12a2dff157298e693fb9ac7733556e4bb2d54de9d670a0b6a67610295cb1119a204fb7e340fafe54
   languageName: node
   linkType: hard
 

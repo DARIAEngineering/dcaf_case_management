@@ -23,7 +23,7 @@
     "npm": ">=6.14.13"
   },
   "resolutions": {
-    "dot-prop": "^5.1.1",
+    "dot-prop": "^6.0.0",
     "eslint-utils": "^1.4.1",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.12",
