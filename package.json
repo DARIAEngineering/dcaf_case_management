@@ -29,7 +29,7 @@
     "lodash": "^4.17.12",
     "node-forge": "^0.10.0",
     "serialize-javascript": "^3.1.0",
-    "yargs-parser": "^13.1.2",
+    "yargs-parser": "^20.0.0",
     "popper.js": "^1.16.0",
     "webpack": "^4.0.0",
     "y18n": "^4.0.1",
