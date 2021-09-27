@@ -6339,6 +6339,13 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"is-primitive@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "is-primitive@npm:3.0.1"
+  checksum: 401b9a0e2fb758e6a481efa0bec944c3a7f9a3e722be7f6859d8e0303f9680415e7410bd498e71216fd2e453a8e0f30d592c2cc7518aa4158d4682fb79f93ac0
+  languageName: node
+  linkType: hard
+
 "is-promise@npm:^2.1.0":
   version: 2.1.0
   resolution: "is-promise@npm:2.1.0"
@@ -9727,7 +9734,7 @@ fsevents@~2.3.2:
     jquery: ^3.6.0
     jquery-ui: ^1.12.1
     popper.js: ^1.16.1
-    set-value: ^4.0.0
+    set-value: 4.1.0
     stupid-table-plugin: ^1.1.3
     turbolinks: ^5.2.0
     webpack: ^5.50.0
@@ -9996,6 +10003,16 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"set-value@npm:4.1.0":
+  version: 4.1.0
+  resolution: "set-value@npm:4.1.0"
+  dependencies:
+    is-plain-object: ^2.0.4
+    is-primitive: ^3.0.1
+  checksum: bdbc3a2e3dd30a02a11f30a29895d10595fa8ff8e0429255801d5e4e768acd2c7006b95ddbbf0310c4731b5ceadbe360dc0fd48a999ad7c055089ededa8b1651
+  languageName: node
+  linkType: hard
+
 "set-value@npm:^0.4.3":
   version: 0.4.3
   resolution: "set-value@npm:0.4.3"
@@ -10017,15 +10034,6 @@ fsevents@~2.3.2:
     is-plain-object: ^2.0.3
     split-string: ^3.0.1
   checksum: 61de47f7a54945659d290f388492fea4759472ee6bd0b76dbfd4b0702b1faf78d87b019c2451f43b26a304fe6f9561f3a233447d024cbb2acce6b4cb93911803
-  languageName: node
-  linkType: hard
-
-"set-value@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "set-value@npm:4.0.0"
-  dependencies:
-    is-plain-object: ^2.0.4
-  checksum: b8802f7ab3f0bb10ecc6c054df52dadf110adaabf26415fc8af07300174f7aaf3aa08a36529431bb5c328b0accfbd185dedd6547a21c94339b0ade95f9a22061
   languageName: node
   linkType: hard
 
