@@ -76,7 +76,7 @@ class PatientsHelperTest < ActionView::TestCase
         nil,
         ["#{@active.name} (#{@active.city}, #{@active.state})", @active.id, { data: { naf: false, medicaid: false }}],
         ['--- INACTIVE CLINICS ---', nil, { disabled: true }],
-        ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
+        ["(Not currently working with #{ActsAsTenant.current_tenant.name}) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
       ]
 
       assert_same_elements clinic_options, expected_clinic_array
@@ -219,40 +219,40 @@ class PatientsHelperTest < ActionView::TestCase
   end
 
   describe 'referred_by_options' do
-    before { create_referred_by_config }
+    before do
+      create_referred_by_config
 
-    # base options come from patients_helper
-    # Metal band is added by create_referred_by_config
-    expected_referrals_base = [
-      nil,
-      ["Clinic", "Clinic"],
-      ["Crime victim advocacy center", "Crime victim advocacy center"],
-      ["DCAF website or social media", "DCAF website or social media"],
-      ["Domestic violence crisis/intervention org", "Domestic violence crisis/intervention org"],
-      ["Family member", "Family member"],
-      ["Friend", "Friend"],
-      ["Google/Web search", "Google/Web search"],
-      ["Homeless shelter", "Homeless shelter"],
-      ["Legal clinic", "Legal clinic"],
-      ["NAF", "NAF"],
-      ["NNAF", "NNAF"],
-      ["Other abortion fund", "Other abortion fund"],
-      ["Previous patient", "Previous patient"],
-      ["School", "School"],
-      ["Sexual assault crisis org", "Sexual assault crisis org"],
-      ["Youth outreach", "Youth outreach"],
-      "Metal band"
-    ]
+      # base options come from patients_helper
+      # Metal band is added by create_referred_by_config
+      @expected_referrals_base = [
+        nil,
+        ["Clinic", "Clinic"],
+        ["Crime victim advocacy center", "Crime victim advocacy center"],
+        ["#{ActsAsTenant.current_tenant.name} website or social media", "#{ActsAsTenant.current_tenant.name} website or social media"],
+        ["Domestic violence crisis/intervention org", "Domestic violence crisis/intervention org"],
+        ["Family member", "Family member"],
+        ["Friend", "Friend"],
+        ["Google/Web search", "Google/Web search"],
+        ["Homeless shelter", "Homeless shelter"],
+        ["Legal clinic", "Legal clinic"],
+        ["NAF", "NAF"],
+        ["NNAF", "NNAF"],
+        ["Other abortion fund", "Other abortion fund"],
+        ["Previous patient", "Previous patient"],
+        ["School", "School"],
+        ["Sexual assault crisis org", "Sexual assault crisis org"],
+        ["Youth outreach", "Youth outreach"],
+        "Metal band"
+      ]
+    end
 
     it 'should return default referral options' do
-      assert_same_elements expected_referrals_base, referred_by_options()
+      assert_same_elements @expected_referrals_base, referred_by_options
     end
 
     it 'should append extra options' do
-      expected_referrals = expected_referrals_base + ['Social Worker']
-
-      assert_same_elements expected_referrals, referred_by_options('Social Worker')
+      assert_same_elements @expected_referrals_base + ['Social Worker'],
+                           referred_by_options('Social Worker')
     end
   end
-
 end
