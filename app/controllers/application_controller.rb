@@ -1,5 +1,7 @@
 # Sets a few devise configs and security measures
 class ApplicationController < ActionController::Base
+  set_current_tenant_by_subdomain(:fund, :subdomain)
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery prepend: true, with: :exception
@@ -7,13 +9,23 @@ class ApplicationController < ActionController::Base
   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
+  before_action :confirm_tenant_set
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
   before_action :set_locale
   before_action :set_sentry_context
   before_action :set_paper_trail_whodunnit
 
-  # whitelists attributes in devise
+  # Don't let any requests through without confirming a tenant is set.
+  def confirm_tenant_set
+    # There's an ActsAsTenant config method that does this too,
+    # but we do it here so we can control when it runs.
+    if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
+      raise ActsAsTenant::Errors::NoTenantSet
+    end
+  end
+
+  # allowlist attributes in devise
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update) do |user|

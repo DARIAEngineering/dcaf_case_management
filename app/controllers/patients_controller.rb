@@ -84,7 +84,9 @@ class PatientsController < ApplicationController
     @patient = Patient.new patient_params
 
     if @patient.save
-      flash[:notice] = t('flash.patient_save_success', patient: @patient.name, fund: FUND)
+      flash[:notice] = t('flash.patient_save_success',
+                         patient: @patient.name,
+                         fund: current_tenant.name)
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = t('flash.patient_save_error', error: @patient.errors.full_messages.to_sentence)
