@@ -5,7 +5,7 @@ module Urgency
   def still_urgent?
     # Verify that a pregnancy has not been marked urgent in the past six days
     return false if resolved_without_fund
-    recent = versions.where('created_at > ?', 6.days.ago)
+    recent = versions.where('created_at > ?', Config.urgent_reset.days.ago)
     return true if recent.any?(&:marked_urgent?)
     false
   end

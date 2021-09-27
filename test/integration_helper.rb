@@ -1,7 +1,7 @@
 # Helpers for browser junk
 module IntegrationHelper
-  def t(string, options={})
-    I18n.t(string, options={})
+  def t(string)
+    I18n.t(string)
   end
   
   def sign_in(user)

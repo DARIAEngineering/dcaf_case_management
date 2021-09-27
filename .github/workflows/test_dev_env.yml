@@ -1,12 +1,20 @@
 name: Build development enviroment
 
+# We have this rigged up such that heroku monitors
+# for changes on master, and deploys to staging if
+# the build passes.
+
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  test:
+  dockercheck:
+    name: Verify docker build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,3 +27,84 @@ jobs:
           sleep 30
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
+  build:
+    name: Verify build
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: daria
+      POSTGRES_PASSWORD: ""
+      CI: true
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: daria
+          POSTGRES_DB: dcaf_case_management_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        # Add a health check
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Ruby setup
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1 # automagically reads from .ruby-version
+        with:
+          bundler-cache: true
+
+      # npm/yarn setup
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.2
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: yarn packages
+        run: yarn install
+
+      # System setup
+      - name: Install 
+        run: sudo apt-get -yqq install libpq-dev google-chrome-stable
+
+      # App setup
+      - name: Asset compilation
+        run: NODE_ENV=test bin/rails assets:precompile
+      - name: Database setup setup
+        run: RAILS_ENV=test bin/rails db:create db:migrate
+
+      # Run tests
+      - name: Run test suite
+        run: bin/rails test:all
+
+  scan:
+    name: Run static scanners
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Ruby setup
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1 # automagically reads from .ruby-version
+        with:
+          bundler-cache: true
+      - name: Install scanners
+        run: |
+          gem install --no-document brakeman ruby_audit bundler-audit
+
+      # Run scanners
+      - name: Brakeman
+        run: brakeman --exit-on-warn .
+      - name: ruby-audit
+        run: ruby-audit check
+      - name: bundle-audit
+        run: bundle-audit update; bundle-audit check
+      - name: Zeitwerk
+        run: bin/rails zeitwerk:check

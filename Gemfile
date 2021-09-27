@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.4'
+ruby '3.0.2'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
@@ -8,6 +8,7 @@ gem 'sdoc', '~> 2.2.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
@@ -35,7 +36,8 @@ gem "acts_as_tenant", "~> 0.5.0"
 gem 'strong_password', '~> 0.0.10'
 
 # We report errors with sentry
-gem 'sentry-raven'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 
 # Security libraries
 gem 'rack-attack', '~> 6.5.0'
@@ -73,7 +75,6 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  gem 'knapsack' # lets us split up our tets so they run faster in CI
   gem 'dotenv-rails' #used to set up our db ENV values
   gem 'bullet' # yell if n+1 queries
 end
@@ -81,9 +82,7 @@ end
 group :test do
   # Useful minitest tools
   gem 'minitest-spec-rails'
-  gem 'minitest-ci'
   gem 'factory_bot_rails'
-  gem 'database_cleaner'
   gem 'faker'
   gem 'timecop'
 
@@ -96,7 +95,6 @@ group :test do
 
   # Test coverage related libraries
   gem 'simplecov', require: false
-  gem 'codecov', require: false
 
   # Specifics
   gem 'shoulda-context'
