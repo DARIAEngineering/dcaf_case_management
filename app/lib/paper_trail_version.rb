@@ -1,5 +1,7 @@
 # Extensions to base class of PaperTrail.
 class PaperTrailVersion < PaperTrail::Version
+  acts_as_tenant :fund
+
   # Relations
   belongs_to :user, foreign_key: :whodunnit, optional: true
 

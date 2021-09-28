@@ -13,6 +13,7 @@ class AddFundToModels < ActiveRecord::Migration[6.1]
       patients
       practical_supports
       users
+      versions
     ).each do |model|
       add_reference model, :fund, foreign_key: true
     end

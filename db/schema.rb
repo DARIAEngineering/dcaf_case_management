@@ -321,14 +321,15 @@ ActiveRecord::Schema.define(version: 2021_09_27_014219) do
   end
 
   create_table "versions", force: :cascade do |t|
-    t.string "item_type"
-    t.string "{:null=>false}"
+    t.string "item_type", null: false
     t.bigint "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
     t.json "object"
     t.json "object_changes"
     t.datetime "created_at"
+    t.bigint "fund_id"
+    t.index ["fund_id"], name: "index_versions_on_fund_id"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
@@ -353,4 +354,5 @@ ActiveRecord::Schema.define(version: 2021_09_27_014219) do
   add_foreign_key "patients", "users", column: "pledge_sent_by_id"
   add_foreign_key "practical_supports", "funds"
   add_foreign_key "users", "funds"
+  add_foreign_key "versions", "funds"
 end
