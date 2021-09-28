@@ -27,14 +27,14 @@ additional_note_text = 'Additional note ' * 10
 password = 'AbortionsAreAHumanRight1'
 
 # Create a few test funds
-fund1 = Fund.create! name: 'DCAF',
+fund1 = Fund.create! name: 'CatFund',
                      domain: 'catfund.org',
                      subdomain: 'sandbox',
-                     full_name: 'DC Abortion Fund',
+                     full_name: 'Cat Abortion Fund',
                      site_domain: 'dcabortionfund.org',
                      phone: '202-452-7464'
 
-fund2 = Fund.create! name: 'BCAF',
+fund2 = Fund.create! name: 'BigCatFund',
                      domain: 'catfund.org',
                      subdomain: 'catbox',
                      full_name: 'Big Cat Abortion Fund',

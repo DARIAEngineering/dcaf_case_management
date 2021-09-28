@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
+  if Rails.env.development?
+    before_action :confirm_tenant_set_development
+  end
   before_action :confirm_tenant_set
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
@@ -22,6 +25,15 @@ class ApplicationController < ActionController::Base
     # but we do it here so we can control when it runs.
     if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
       raise ActsAsTenant::Errors::NoTenantSet
+    end
+  end
+
+  # In development only, set first fund as tenant by default.
+  def confirm_tenant_set_development
+    # If you need to access the other fund in dev, hit catbox.lvh.me:3000
+    # to tunnel in.
+    if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
+      ActsAsTenant.current_tenant = Fund.find_by! name: 'CatFund'
     end
   end
 
