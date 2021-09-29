@@ -38,11 +38,11 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       find('#pledge-next').click
       wait_for_no_element 'Review this preview of your pledge'
 
-      assert has_text? 'Awesome, you generated a DCAF'
+      assert has_text? "Awesome, you generated a #{ActsAsTenant.current_tenant.name}"
       check 'I sent the pledge'
       wait_for_ajax
       find('#pledge-next').click
-      wait_for_no_element 'Awesome, you generated a DCAF'
+      wait_for_no_element "Awesome, you generated a #{ActsAsTenant.current_tenant.name}"
 
       wait_for_ajax
       wait_for_element 'Patient information'

@@ -55,7 +55,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     it 'should save if valid and changed' do
       within :css, '#practical-support-entries' do
         select 'Companion', from: 'practical_support_support_type'
-        select 'DC Abortion Fund', from: 'practical_support_source'
+        select ActsAsTenant.current_tenant.full_name, from: 'practical_support_source'
         check 'Confirmed'
       end
 
@@ -64,7 +64,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       reload_page_and_click_link 'Practical Support'
       within :css, '#practical-support-entries' do
         assert_equal 'Companion', find('#practical_support_support_type').value
-        assert_equal 'DC Abortion Fund', find('#practical_support_source').value
+        assert_equal ActsAsTenant.current_tenant.full_name, find('#practical_support_source').value
         assert has_checked_field? 'Confirmed'
       end
     end

@@ -82,7 +82,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
 
       visit edit_patient_path @patient
       click_link 'Abortion Information'
-      select "(Not currently working with DCAF) - #{@clinic.name}", from: 'patient_clinic_id'
+      select "(Not currently working with #{ActsAsTenant.current_tenant.name}) - #{@clinic.name}", from: 'patient_clinic_id'
       assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
     end
   end
@@ -90,7 +90,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
   private
 
   def fill_in_all_clinic_fields
-    new_clinic_name = 'Games Done Quick Throw a Benefit for DCAF'
+    new_clinic_name = "Games Done Quick Throw a Benefit for #{ActsAsTenant.current_tenant.name}"
     fill_in 'Name', with: new_clinic_name
     fill_in 'Street address', with: '123 Fake Street'
     fill_in 'City', with: 'Yolo'
@@ -108,7 +108,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
   end
 
   def assert_fields_have_proper_content
-    assert has_field? 'Name', with: 'Games Done Quick Throw a Benefit for DCAF'
+    assert has_field? 'Name', with: "Games Done Quick Throw a Benefit for #{ActsAsTenant.current_tenant.name}"
     assert has_field? 'Street address', with: '123 Fake Street'
     assert has_field? 'City', with: 'Yolo'
     assert_equal 'TX', find('#clinic_state').value

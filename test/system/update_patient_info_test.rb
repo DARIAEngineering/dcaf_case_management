@@ -136,14 +136,14 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     before do
       click_link 'Abortion Information'
       select @clinic.name, from: 'patient_clinic_id'
-      check 'Resolved without assistance from DCAF'
+      check "Resolved without assistance from #{ActsAsTenant.current_tenant.name}"
       check 'Referred to clinic'
       check 'Ultrasound completed?'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
-      fill_in 'DCAF pledge', with: '25'
+      fill_in "#{ActsAsTenant.current_tenant.name} pledge", with: '25'
       fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
       fill_in 'Abortion cost', with: '300'
       click_away_from_field
@@ -162,21 +162,21 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       find('#outstanding-balance').has_text?('$19950')
       fill_in 'Baltimore Abortion Fund pledge', with: '0', match: :prefer_exact
       find('#outstanding-balance').has_text?('$19975')
-      fill_in 'DCAF pledge', with: '0'
+      fill_in "#{ActsAsTenant.current_tenant.name} pledge", with: '0'
       find('#outstanding-balance').has_text?('$20000')
     end
 
     it 'should alter the abortion information' do
       within :css, '#abortion_information' do
         assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
-        assert has_checked_field?('Resolved without assistance from DCAF')
+        assert has_checked_field?("Resolved without assistance from #{ActsAsTenant.current_tenant.name}")
         assert has_checked_field?('Referred to clinic')
         assert has_checked_field?('Ultrasound completed?')
 
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
-        assert has_field? 'DCAF pledge', with: '25'
+        assert has_field? "#{ActsAsTenant.current_tenant.name} pledge", with: '25'
         assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
       end
     end
@@ -304,7 +304,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       wait_for_ajax
 
       select '12 weeks', from: 'Weeks along at procedure'
-      fill_in 'DCAF payout', with: '100'
+      fill_in "#{ActsAsTenant.current_tenant.name} payout", with: '100'
       wait_for_ajax
 
       fill_in 'Check #', with: '444-22'
@@ -327,7 +327,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
                           with: 2.days.from_now.strftime('%Y-%m-%d')
         assert_equal '12',
                      find('#patient_fulfillment_attributes_gestation_at_procedure').value
-        assert has_field? 'DCAF payout', with: 100
+        assert has_field? "#{ActsAsTenant.current_tenant.name} payout", with: 100
         assert has_field? 'Check #', with: '444-22'
         assert has_checked_field? 'Fulfillment audited?'
 

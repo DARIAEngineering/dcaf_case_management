@@ -29,7 +29,7 @@ class DataEntryTest < ApplicationSystemTestCase
       select 'DC', from: 'patient_state'
       fill_in 'County', with: 'Wash'
       fill_in 'Zipcode', with: '20009'
-      fill_in 'DCAF pledge', with: '100'
+      fill_in "#{ActsAsTenant.current_tenant.name} pledge", with: '100'
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'
       select @clinic.name, from: 'patient_clinic_id'
@@ -101,7 +101,7 @@ class DataEntryTest < ApplicationSystemTestCase
         assert has_field? 'Abortion cost', with: '200'
         assert has_field? 'Patient contribution', with: '150'
         assert has_field? 'National Abortion Federation pledge', with: '50'
-        assert has_field? 'DCAF pledge', with: '100'
+        assert has_field? "#{ActsAsTenant.current_tenant.name} pledge", with: '100'
         assert has_checked_field? 'Referred to clinic'
         assert has_checked_field? 'Ultrasound completed?'
       end
@@ -133,7 +133,7 @@ class DataEntryTest < ApplicationSystemTestCase
       fill_in 'City', with: 'Washington'
       select 'DC', from: 'patient_state'
       fill_in 'County', with: 'Wash'
-      fill_in 'DCAF pledge', with: '99'
+      fill_in "#{ActsAsTenant.current_tenant.name} pledge", with: '99'
       fill_in 'Fund pledged at', with: 80.days.ago.strftime('%m/%d/%Y')
       fill_in 'Age', with: '30'
       select 'Other', from: 'patient_race_ethnicity'

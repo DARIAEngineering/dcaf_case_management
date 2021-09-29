@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
     # If you need to access the other fund in dev, hit catbox.lvh.me:3000
     # to tunnel in.
     if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
+      # If this errors, make sure you've run rails db:seed to populate db!
       ActsAsTenant.current_tenant = Fund.find_by! name: 'CatFund'
     end
   end

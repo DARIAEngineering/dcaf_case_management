@@ -31,7 +31,7 @@ class VoicemailPreferenceInCallModalTest < ApplicationSystemTestCase
       end
 
       it 'should have warning text and a link' do
-        assert has_text? 'Voicemail OK; Do not identify as DCAF'
+        assert has_text? "Voicemail OK; Do not identify as #{ActsAsTenant.current_tenant.name}"
         assert has_link? 'I left a voicemail for the patient'
       end
     end
@@ -44,7 +44,7 @@ class VoicemailPreferenceInCallModalTest < ApplicationSystemTestCase
       end
 
       it 'should have goahead text and a link' do
-        assert has_text? 'Voicemail OK; Okay to identify as DCAF'
+        assert has_text? "Voicemail OK; Okay to identify as #{ActsAsTenant.current_tenant.name}"
         assert has_link? 'I left a voicemail for the patient'
       end
     end

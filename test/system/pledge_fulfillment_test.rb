@@ -47,7 +47,7 @@ class PledgeFulfillmentTest < ApplicationSystemTestCase
       assert has_link? 'Pledge Fulfillment'
       click_link 'Pledge Fulfillment'
       assert has_text? "Clinic: #{@clinic.name}"
-      assert has_text? 'DCAF Pledge Amount: $500'
+      assert has_text? "#{ActsAsTenant.current_tenant.name} Pledge Amount: $500"
       assert has_text? 'Procedure date'
       assert has_text? 'Check #'
     end

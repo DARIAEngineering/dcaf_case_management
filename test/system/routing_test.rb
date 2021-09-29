@@ -16,10 +16,9 @@ class RoutingTest < ApplicationSystemTestCase
 
   it 'should not display navigation partial on sign in' do
     @user = create :user
-    refute has_text? 'DARIA - ' + Rails.env
-    visit root_path
+    refute has_text? "DARIA - #{ActsAsTenant.current_tenant.full_name} - Development"
     log_in_as @user
     visit authenticated_root_path
-    assert has_text? 'DARIA - ' + Rails.env
+    assert has_text? "DARIA - #{ActsAsTenant.current_tenant.full_name} - Development"
   end
 end
