@@ -1,5 +1,7 @@
 # Object representing relevant actions taken by a case manager.
 class Event < ApplicationRecord
+  acts_as_tenant :fund
+
   # Enums
   enum event_type: {
     reached_patient: 0,

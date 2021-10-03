@@ -27,13 +27,27 @@ class ActiveSupport::TestCase
 
   before do
     Bullet.start_request
+    setup_tenant
   end
+
   after do
     Bullet.perform_out_of_channel_notifications if Bullet.notification?
     Bullet.end_request
+    teardown_tenant
   end
 
   parallelize(workers: :number_of_processors)
+
+  def setup_tenant
+    tenant = create :fund, name: 'DCAF'
+    ActsAsTenant.current_tenant = tenant
+    ActsAsTenant.test_tenant = tenant
+  end
+
+  def teardown_tenant
+    ActsAsTenant.current_tenant = nil
+    ActsAsTenant.test_tenant = nil
+  end
 
   def create_insurance_config
     insurance_options = ['DC Medicaid', 'Other state Medicaid']

@@ -1,5 +1,7 @@
 # Class so that funds can set their own dropdown lists of things
 class Config < ApplicationRecord
+  acts_as_tenant :fund
+
   # Concerns
   include PaperTrailable
 
@@ -64,7 +66,8 @@ class Config < ApplicationRecord
 
   before_validation :clean_config_value
 
-  validates :config_key, uniqueness: true, presence: true
+  validates :config_key, presence: true
+  validates_uniqueness_to_tenant :config_key
   validate :validate_config
 
   # Methods
