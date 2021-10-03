@@ -5,6 +5,6 @@ class Fund < ApplicationRecord
   validates :name,
             :subdomain,
             :domain,
-            presence: true,
-            uniqueness: true
+            presence: true
+  validates :name, :subdomain, uniqueness: true
 end

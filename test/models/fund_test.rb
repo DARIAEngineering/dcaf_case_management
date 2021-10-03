@@ -15,7 +15,9 @@ class FundTest < ActiveSupport::TestCase
         @fund[attrib] = nil
         refute @fund.valid?
       end
+    end
 
+    [:name, :subdomain].each do |attrib|
       it "should be unique on #{attrib}" do
         nonunique_fund = create :fund
         nonunique_fund[attrib] = @fund[attrib]

@@ -6,13 +6,6 @@ FactoryBot.define do
     sequence :subdomain do |n|
       "fund#{n}"
     end
-    domain { 'google' }
-    sequence :full_name do |n|
-      "Fund #{n} of Cat Town"
-    end
-    sequence :site_domain do |n|
-      "www.fund#{n}.pizza"
-    end
-    phone { '(939)-555-0113' }
+    domain { 'example.com' }
   end
 end
