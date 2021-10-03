@@ -27,13 +27,19 @@ additional_note_text = 'Additional note ' * 10
 password = 'AbortionsAreAHumanRight1'
 
 # Create a few test funds
-fund1 = Fund.create! name: 'CatFund',
-                     domain: 'catfund.org',
-                     subdomain: 'sandbox'
+fund1 = Fund.create! name: 'DCAF',
+                     domain: 'dcabortionfund.org',
+                     subdomain: 'sandbox',
+                     full_name: 'DC Abortion Fund',
+                     site_domain: '.dcabortionfund.org',
+                     phone: '202-452-7464'
 
-fund2 = Fund.create! name: 'BigCatFund',
+fund2 = Fund.create! name: 'CatFund',
                      domain: 'catfund.org',
-                     subdomain: 'catbox'
+                     subdomain: 'catbox',
+                     full_name: 'Cat Fund',
+                     site_domain: 'www.catfund.org',
+                     phone: '(281) 330-8004'
 
 [fund1, fund2].each do |fund|
   ActsAsTenant.with_tenant(fund) do
