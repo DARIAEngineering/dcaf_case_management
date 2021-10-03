@@ -4,9 +4,11 @@ class CallListInteractionTest < ApplicationSystemTestCase
   include ActiveSupport::Testing::TimeHelpers
 
   before do
-    @patient = create :patient, name: 'Susan Everyteen'
-    @patient_2 = create :patient, name: 'Thorny'
-    @va_patient = create :patient, name: 'James Hetfield', line: 'VA'
+    @line = create :line
+    @line2 = create :line
+    @patient = create :patient, name: 'Susan Everyteen', line: @line
+    @patient_2 = create :patient, name: 'Thorny', line: @line
+    @va_patient = create :patient, name: 'James Hetfield', line: @line2
     @user = create :user
     @user.add_patient @va_patient
     log_in_as @user
@@ -122,7 +124,7 @@ class CallListInteractionTest < ApplicationSystemTestCase
 
     it 'should move patients on call lists when switching lines' do
       visit edit_patient_path @patient
-      select 'VA', from: 'patient_line'
+      select @line2.name, from: 'patient_line_id'
       wait_for_ajax
 
       visit authenticated_root_path
@@ -131,7 +133,7 @@ class CallListInteractionTest < ApplicationSystemTestCase
       end
       log_out
 
-      log_in_as @user, 'VA'
+      log_in_as @user, @line2
       within :css, '#call_list_content' do
         assert has_text? @patient.name
       end

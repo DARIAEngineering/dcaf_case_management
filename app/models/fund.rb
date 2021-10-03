@@ -1,6 +1,9 @@
 class Fund < ApplicationRecord
   # TODO make papertrailable
 
+  # Relations
+  has_many :lines
+
   # Validations
   validates :name,
             :subdomain,

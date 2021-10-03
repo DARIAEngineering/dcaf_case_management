@@ -37,6 +37,7 @@ class User < ApplicationRecord
 
   # Relationships
   has_many :call_list_entries
+  belongs_to :line, optional: true
 
   # Validations
   # email presence validated through Devise

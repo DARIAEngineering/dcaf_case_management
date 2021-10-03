@@ -4,15 +4,15 @@ require 'test_helper'
 class LinesControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
+    @line = create :line
     sign_in @user
-    @patient = create :patient,
-                      name: 'Susie Everyteen',
-                      primary_phone: '123-456-7890',
-                      other_phone: '333-444-5555'
   end
 
   describe 'new' do
     describe 'instance with multiple lines' do
+      # Stub a second line
+      before { create :line }
+
       it 'should return success' do
         get new_line_path
         assert_response :success
@@ -21,22 +21,22 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
 
     describe 'instance with one line' do
       it 'should redirect to patient dashboard' do
-        Object.stub_const(:LINES, ['DC']) do
-          get new_line_path
-          assert_equal 'DC', session[:line]
-          assert_redirected_to authenticated_root_path
-        end
+        get new_line_path
+        assert_redirected_to authenticated_root_path
+        assert_equal @line.id, session[:line_id]
+        assert_equal @line.name, session[:line_name]
       end
     end
   end
 
   describe 'create' do
     before do
-      post lines_path, params: { line: 'MD' }
+      post lines_path, params: { line_id: @line.id }
     end
 
     it 'should set a session variable' do
-      assert_equal 'MD', session[:line]
+      assert_equal @line.id, session[:line_id]
+      assert_equal @line.name, session[:line_name]
     end
 
     # TODO: Enforce line values

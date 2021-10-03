@@ -11,12 +11,14 @@ module IntegrationHelper
   end
 
   def choose_line(line)
-    post lines_path, params: { line: line.to_s }
+    post lines_path, params: { line_id: line.id }
   end
 
-  def log_in_as(user, line = 'DC')
+  def log_in_as(user, line = nil)
     log_in user
-    select_line line
+    if Line.count > 1
+      select_line line || Line.first
+    end
   end
 
   def log_in(user)
@@ -26,9 +28,9 @@ module IntegrationHelper
     click_on 'Sign in with password'
   end
 
-  def select_line(line = 'DC')
-    wait_for_element line
-    choose line
+  def select_line(line = create(:line))
+    wait_for_element line.name
+    choose line.name
     click_on 'Get started'
   end
 

@@ -10,7 +10,7 @@ class CallListEntryTest < ActiveSupport::TestCase
       assert @call_list_entry.valid?
     end
 
-    %i(order_key line).each do |field|
+    %i(order_key).each do |field|
       it "should enforce presence of #{field}" do
         @call_list_entry[field] = nil
         refute @call_list_entry.valid?

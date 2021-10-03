@@ -5,6 +5,7 @@ class CallListEntry < ApplicationRecord
   # Relationships
   belongs_to :user
   belongs_to :patient
+  belongs_to :line
 
   # Validations
   validates :order_key, :line, presence: true

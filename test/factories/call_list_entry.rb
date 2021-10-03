@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :call_list_entry do
     user
     patient
-    line { 'DC' }
+    line
     sequence :order_key
   end
 end
