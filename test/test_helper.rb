@@ -35,7 +35,7 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
 
   def setup_tenant
-    tenant = create :fund, name: 'DCAF'
+    tenant = create :fund, name: 'DCAF', full_name: 'DC Abortion Fund'
     ActsAsTenant.current_tenant = tenant
     ActsAsTenant.test_tenant = tenant
   end
