@@ -71,7 +71,7 @@ module IntegrationHelper
   end
 
   def go_to_dashboard
-    click_on "DARIA - #{ActsAsTenant.current_tenant.name}"
+    click_on "DARIA - #{ActsAsTenant.current_tenant.full_name}"
   end
 
   def click_away_from_field
