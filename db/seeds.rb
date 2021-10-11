@@ -31,7 +31,7 @@ fund1 = Fund.create! name: 'DCAF',
                      domain: 'dcabortionfund.org',
                      subdomain: 'sandbox',
                      full_name: 'DC Abortion Fund',
-                     site_domain: '.dcabortionfund.org',
+                     site_domain: 'www.dcabortionfund.org',
                      phone: '202-452-7464'
 
 fund2 = Fund.create! name: 'CatFund',
