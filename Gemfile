@@ -53,7 +53,7 @@ gem 'state_geo_tools' # state list
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
-gem 'js-routes', '1.4.9' # Not sure if this is used anymore
+gem 'js-routes', '1.4.14' # Not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
