@@ -67,6 +67,9 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    acts_as_tenant (0.5.1)
+      rails (>= 5.2)
+      request_store (>= 1.0.5)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
@@ -438,6 +441,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  acts_as_tenant (~> 0.5.0)
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.5, < 5)
   bootstrap_form (~> 4.5.0)
