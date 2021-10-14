@@ -6475,14 +6475,16 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"jquery-ui@npm:^1.12.1":
-  version: 1.12.1
-  resolution: "jquery-ui@npm:1.12.1"
-  checksum: bdb5a4d78693e0d093337ee7eb1db5062626fed6f6f34459e0f0328cecb462586b5c351acb7a71003118ff91369ccd23c449e314ec2cb84b206748bf89e4cac5
+"jquery-ui@npm:1.13.0":
+  version: 1.13.0
+  resolution: "jquery-ui@npm:1.13.0"
+  dependencies:
+    jquery: ">=1.8.0 <4.0.0"
+  checksum: dae9d6f06852b324bfb367e6d531ff89b03baecdd0aaefcde1106c14480ac6f0b0d39bf8a82abe86e0099bf5f8a04ab61603f6b8a9a74679159a6f414ea08fe1
   languageName: node
   linkType: hard
 
-"jquery@npm:^3.6.0":
+"jquery@npm:>=1.8.0 <4.0.0, jquery@npm:^3.6.0":
   version: 3.6.0
   resolution: "jquery@npm:3.6.0"
   checksum: a0a819022a1bdff5efa79bbd9d4d7352de5bd32dabe42108e6ec0797238dba36c09c108e0eea2724f5d03acc1b30ee87d76bec80e15b9510106532292ebe6ba4
@@ -9725,7 +9727,7 @@ fsevents@~2.3.2:
     eslint-config-airbnb-base: ^14.2.1
     eslint-plugin-import: ^2.24
     jquery: ^3.6.0
-    jquery-ui: ^1.12.1
+    jquery-ui: 1.13.0
     popper.js: ^1.16.1
     set-value: 4.1.0
     stupid-table-plugin: ^1.1.3
