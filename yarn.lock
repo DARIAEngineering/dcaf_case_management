@@ -1747,7 +1747,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-free@npm:^5.15.4":
+"@fortawesome/fontawesome-free@npm:5.15.4":
   version: 5.15.4
   resolution: "@fortawesome/fontawesome-free@npm:5.15.4"
   checksum: fbf0dc2198b81f9ee005163d455461965108d77ed27a07345945cf06a1eb82cd75e13642df93691ac894702bcbf81bb7c455a3f3a1cf6935ff51e8dde0af20e9
@@ -9706,7 +9706,7 @@ fsevents@~2.3.2:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@fortawesome/fontawesome-free": ^5.15.4
+    "@fortawesome/fontawesome-free": 5.15.4
     "@rails/webpacker": 5.4.3
     all-contributors-cli: ^6.20.0
     bootstrap: 4.6.0
