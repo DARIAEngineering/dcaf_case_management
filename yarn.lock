@@ -1791,9 +1791,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/webpacker@npm:5.4.2":
-  version: 5.4.2
-  resolution: "@rails/webpacker@npm:5.4.2"
+"@rails/webpacker@npm:5.4.3":
+  version: 5.4.3
+  resolution: "@rails/webpacker@npm:5.4.3"
   dependencies:
     "@babel/core": ^7.15.0
     "@babel/plugin-proposal-class-properties": ^7.14.5
@@ -1833,7 +1833,7 @@ __metadata:
     webpack-assets-manifest: ^3.1.1
     webpack-cli: ^3.3.12
     webpack-sources: ^1.4.3
-  checksum: d4b8afef1751749585a86a2ace89fb565564865db8eb45f227269170a595f1906f523df6bad568e3bc15659659c321a7bd1804fbfc00ffc025c2dfd75f6ad580
+  checksum: 826e1aa77169ec4db7f48ef4ae87f6d5cf75d89f9c20405cdb9eaeb9702e326e082f3fe0da6f2a2a7d88562f660809ad88494c4bf8b0597cf687b7454fa6a2ca
   languageName: node
   linkType: hard
 
@@ -9720,7 +9720,7 @@ fsevents@~2.3.2:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@fortawesome/fontawesome-free": ^5.15.4
-    "@rails/webpacker": 5.4.2
+    "@rails/webpacker": 5.4.3
     all-contributors-cli: ^6.20.0
     bootstrap: 4.6.0
     eslint: ^7.32.0
