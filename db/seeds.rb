@@ -14,6 +14,8 @@ ActsAsTenant.without_tenant do
   ArchivedPatient.destroy_all
   User.destroy_all
   Clinic.destroy_all
+  PaperTrailVersion.destroy_all
+  ActiveRecord::SessionStore::Session.destroy_all
   Fund.destroy_all
 end
 
@@ -39,7 +41,8 @@ fund2 = Fund.create! name: 'CatFund',
                      subdomain: 'catbox',
                      full_name: 'Cat Fund',
                      site_domain: 'www.catfund.org',
-                     phone: '(281) 330-8004'
+                     phone: '(281) 330-8004',
+                     pledge_generation_config: 'DCAF'
 
 [fund1, fund2].each do |fund|
   ActsAsTenant.with_tenant(fund) do

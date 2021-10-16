@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(version: 2021_10_03_052040) do
     t.string "full_name", comment: "Full name of the fund. e.g. DC Abortion Fund"
     t.string "site_domain", comment: "URL of the fund's public-facing website. e.g. www.dcabortionfund.org"
     t.string "phone", comment: "Contact number for the abortion fund, usually the hotline"
+    t.string "pledge_generation_config", comment: "Optional config of which pledge generation configset to use. If null, pledge generation is shut off"
   end
 
   create_table "notes", force: :cascade do |t|

@@ -67,6 +67,7 @@ class PledgeFormGenerator
   end
 
   # Hacking some config into constants for convenience sake
+  # Let a fund use one of these config sets via Fund.pledge_generation_config
   CONFIG_DATA = {
     'DCAF' => {
       addr: [
@@ -75,7 +76,10 @@ class PledgeFormGenerator
         'Washington, D.C. 20035-5061'
       ],
       width: 200,
-      height: nil
+      height: nil,
+      contact_email: 'info@dcabortionfund.org',
+      billing_email: 'billing@dcabortionfund.org',
+      img: 'dcaf_logo.png'
     },
     'YHF' => {
       addr: [
@@ -84,7 +88,10 @@ class PledgeFormGenerator
         'Tuscaloosa, AL 35403'
       ],
       width: nil,
-      height: 100
+      height: 100,
+      contact_email: 'info@yellowhammerfund.org',
+      billing_email: 'billing@yellowhammer.org',
+      img: 'yhf_logo.png'
     }
   }
 
@@ -93,19 +100,19 @@ class PledgeFormGenerator
   def build_header(pdf)
     y_position = pdf.cursor
     pdf.bounding_box([0, y_position], width: 200, height: 100) do
-      pdf.image "#{Rails.root.join("public", "#{@fund.name.downcase}_logo.png")}",
+      pdf.image Rails.root.join("public", CONFIG_DATA[@fund.pledge_generation_config][:img]),
                 position: :left,
-                width: CONFIG_DATA[@fund.name][:width],
-                height: CONFIG_DATA[@fund.name][:height]
+                width: CONFIG_DATA[@fund.pledge_generation_config][:width],
+                height: CONFIG_DATA[@fund.pledge_generation_config][:height]
     end
 
     pdf.bounding_box([250, y_position], width: 400, height: 100) do
       pdf.text case_manager_name
-      CONFIG_DATA[@fund.name][:addr].each do |i|
+      CONFIG_DATA[@fund.pledge_generation_config][:addr].each do |i|
         pdf.text i
       end
       pdf.text "Tel: #{@fund.phone}"
-      pdf.text "E-mail: info@#{@fund.site_domain}"
+      pdf.text "E-mail: #{CONFIG_DATA[@fund.pledge_generation_config][:contact_email]}"
       pdf.text "Web: #{@fund.site_domain}"
     end
   end
@@ -120,7 +127,7 @@ class PledgeFormGenerator
   end
 
   def build_fund_info_block(pdf)
-    info_block = "<b>#{CONFIG_DATA[@fund.name][:addr].join("\n")}</b>"
+    info_block = "<b>#{CONFIG_DATA[@fund.pledge_generation_config][:addr].join("\n")}</b>"
     pdf.text info_block, align: :center, inline_format: true
   end
 
@@ -160,7 +167,7 @@ class PledgeFormGenerator
       pdf.move_down 10
       pdf.text 'Signature of Clinic Administrator: ________________________________', align: :left, style: :bold, indent_paragraphs: 5
       pdf.move_down 10
-      pdf.text "For billing questions only, please contact billing@#{@fund.site_domain}", align: :left, style: :italic, indent_paragraphs: 5
+      pdf.text "For billing questions only, please contact #{CONFIG_DATA[@fund.pledge_generation_config][:billing_email]}", align: :left, style: :italic, indent_paragraphs: 5
     end
   end
 

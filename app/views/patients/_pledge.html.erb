@@ -14,7 +14,7 @@
     </div>
 
     <div class="hide" data-step="2" data-title="<%= t('patient.pledge.step_two.title') %>" id="generate-pledge-form">
-      <% if ENV['DARIA_PLEDGE_GENERATOR_DISABLED'] %>
+      <% if current_tenant.pledge_generation_config.blank? %>
         <p><%= t('patient.pledge.step_two.form_disabled') %></p>
       <% else %>
         <div class="alert alert-danger" style="display:none;"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
