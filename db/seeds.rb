@@ -41,8 +41,7 @@ fund2 = Fund.create! name: 'CatFund',
                      subdomain: 'catbox',
                      full_name: 'Cat Fund',
                      site_domain: 'www.catfund.org',
-                     phone: '(281) 330-8004',
-                     pledge_generation_config: 'DCAF'
+                     phone: '(281) 330-8004'
 
 [fund1, fund2].each do |fund|
   ActsAsTenant.with_tenant(fund) do
