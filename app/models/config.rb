@@ -152,7 +152,7 @@ class Config < ApplicationRecord
       # we need to use `method` because `cleaner` is a symbol... this converts
       # the symbol into a Method object, which we can then `call`...
       # See https://ruby-doc.org/core/Object.html#method-i-method
-      cleaners.map { |cleaner| method(cleaner).call }
+      cleaners.each { |cleaner| method(cleaner).call }
     end
 
     # parent function. will handle errors; child validators should return true
