@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "all-contributors-cli": "^6.20.0",
-    "eslint": "8.0.1",
+    "eslint": "8.1.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24",
     "webpack-dev-server": "^3.11.2"
@@ -35,5 +35,5 @@
     "y18n": "^5.0.0",
     "is-svg": "^4.2.2"
   },
-  "packageManager": "yarn@2.4.2"
+  "packageManager": "yarn@2.4.3"
 }
