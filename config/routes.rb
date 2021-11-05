@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
-    get 'reports', to: 'reports#index', as: 'reports'
     get 'budget_bar', to: 'dashboards#budget_bar', defaults: { format: :js }, as: 'budget_bar'
     post 'search', to: 'dashboards#search', defaults: { format: :js }
 
@@ -44,8 +43,6 @@ Rails.application.routes.draw do
       resources :practical_supports,
                 only: [ :create, :update, :destroy ]
     end
-
-    get 'reports/:timeframe', to: 'reports#report', as: 'patients_report'
 
     get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
 
