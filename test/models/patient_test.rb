@@ -511,7 +511,7 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.valid?
     end
 
-    it "should not validate pledge_sent if the #{FUND} pledge field is blank" do
+    it "should not validate pledge_sent if the fund pledge field is blank" do
       @patient.fund_pledge = nil
       @patient.pledge_sent = true
       refute @patient.valid?

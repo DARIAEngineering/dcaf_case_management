@@ -10,7 +10,7 @@ class FundTest < ActiveSupport::TestCase
       assert create(:fund).valid?
     end
 
-    [:name, :subdomain, :domain].each do |attrib|
+    [:name, :subdomain, :domain, :full_name].each do |attrib|
       it "should require #{attrib}" do
         @fund[attrib] = nil
         refute @fund.valid?

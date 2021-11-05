@@ -2,6 +2,7 @@ require 'test_helper'
 
 class PledgeFormGeneratorTest < ActiveSupport::TestCase
   before do
+    ActsAsTenant.current_tenant.update pledge_generation_config: 'DCAF'
     @user = create :user, name: 'Da User'
     clinic = create :clinic, name: 'Da Clinic', city: 'Morgantown', state: 'WV'
     @patient = create :patient, name: 'Sarah', other_phone: '111-222-3333',
@@ -15,7 +16,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
 
   describe 'user data' do
     before do
-      @pledge_form_generator = PledgeFormGenerator.new(@user, @patient, @case_manager_name)
+      @pledge_form_generator = PledgeFormGenerator.new(@user, @patient, @case_manager_name, ActsAsTenant.current_tenant)
       @pdf_text = PDF::Inspector::Text.analyze(@pledge_form_generator.generate_pledge_pdf.render).strings
     end
 

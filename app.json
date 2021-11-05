@@ -10,18 +10,6 @@
       "description": "from your CSP report endpoint",
       "value": "26d24d139baa52b71da9637b14c7d17b.report-uri.io/r/default"
     },
-    "DARIA_FUND": {
-      "description": "fund abbreviation. e.g. DCAF",
-      "value": ""
-    },
-    "DARIA_FUND_FULL": {
-      "description": "full fund name. e.g. DC Abortion Fund",
-      "value": ""
-    },
-    "DARIA_FUND_PHONE": {
-      "description": "Your fund's hotline number, for display in the footer. e.g. 202-452-7464",
-      "value": ""
-    },
     "DARIA_GOOGLE_KEY": {
       "description": "from google cloud account for oauth/sign on",
       "value": "",
@@ -40,10 +28,6 @@
     "FUND_MAILER_DOMAIN": {
       "description": "domain you want emails to come from. Should be the domain configured with sendgrid. Usually dariaservices.com.",
       "value": "dariaservices.com"
-    },
-    "FUND_DOMAIN": {
-      "description": "Abortion fund's public site domain, no https or www. e.g. dcabortionfund.org for DCAF",
-      "value": ""
     },
     "DARIA_LINES": {
       "description": "Lines to divide calls into, separated by commas. If one line, just put Main",
