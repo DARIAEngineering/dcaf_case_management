@@ -28,7 +28,7 @@ module IntegrationHelper
     click_on 'Sign in with password'
   end
 
-  def select_line(line = create(:line))
+  def select_line(line)
     wait_for_element line.name
     choose line.name
     click_on 'Get started'

@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Confirm user management functionality
 class UserManagementTest < ApplicationSystemTestCase
   before do
+    create :line
     @user = create :user,
                    name: 'john',
                    email: 'user@dcaf.com',

@@ -6,6 +6,7 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
     [:data_volunteer, :cm].each do |role|
       it "should deny access as a #{role.to_s}" do
         user = create :user, role: role
+        create :line
         log_in_as user
         visit configs_path
         assert_equal current_path, authenticated_root_path

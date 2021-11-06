@@ -27,6 +27,15 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
         assert_equal @line.name, session[:line_name]
       end
     end
+
+    describe 'instance with no lines' do
+      it 'should raise an error' do
+        @line.destroy
+        assert_raises Exceptions::NoLinesForFundError do
+          get new_line_path
+        end
+      end
+    end
   end
 
   describe 'create' do

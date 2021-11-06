@@ -3,6 +3,8 @@ require 'application_system_test_case'
 # Confirm functional search and record lookup
 class RecordLookupTest < ApplicationSystemTestCase
   before do
+    @line = create :line
+    @line2 = create :line
     @user = create :user
     log_in_as @user
   end
@@ -12,13 +14,14 @@ class RecordLookupTest < ApplicationSystemTestCase
       @patient = create :patient, name: 'Susan Everyteen DC',
                                   primary_phone: '111-222-3333',
                                   other_contact: 'Yolo Goat',
-                                  other_phone: '222-333-4455'
+                                  other_phone: '222-333-4455',
+                                  line: @line
 
       @patient_2 = create :patient, name: 'Susan Everyteen MD',
                                     primary_phone: '111-222-4444',
                                     other_contact: 'Yolo Goat',
                                     other_phone: '222-333-4455',
-                                    line: 'MD'
+                                    line: @line2
     end
 
     it 'should have a functional search form' do
@@ -78,7 +81,7 @@ class RecordLookupTest < ApplicationSystemTestCase
 
     it 'should limit the number of patients returned' do
       16.times do |num|
-        create :patient, primary_phone: "124-567-78#{num + 10}"
+        create :patient, primary_phone: "124-567-78#{num + 10}", line: @line
       end
       fill_in 'search', with: '124'
       click_button 'Search'

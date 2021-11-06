@@ -2,6 +2,10 @@
 class LinesController < ApplicationController
   def new
     @lines = ActsAsTenant.current_tenant.lines
+    if @lines.count == 0
+      raise Exceptions::NoLinesForFundError
+    end
+
     if @lines.count == 1
       set_line_session @lines.first
       redirect_to authenticated_root_path

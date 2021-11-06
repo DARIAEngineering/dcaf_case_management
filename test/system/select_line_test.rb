@@ -4,6 +4,9 @@ require 'application_system_test_case'
 class SelectLineTest < ApplicationSystemTestCase
   before do
     @user = create :user
+    create :line, name: 'DC'
+    create :line, name: 'MD'
+    create :line, name: 'VA'
     log_in @user
   end
 
@@ -23,16 +26,6 @@ class SelectLineTest < ApplicationSystemTestCase
       assert has_content? 'Your current line: DC'
     end
   end
-
-  # This is handled in `lines_controller_test` rather than here,
-  # because setting env vars in integration tests suuuuucks. -CF
-  # describe 'line redirect on single line' do
-  #   Object.stub_const(:LINES, ['DC']) do
-  #     it 'should redirect to the dashboard' do
-  #       assert_equal current_path, authenticated_root_path
-  #     end
-  #   end
-  # end
 
   describe 'redirection conditions' do
     before { @patient = create :patient }
