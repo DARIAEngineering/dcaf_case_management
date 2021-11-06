@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Confirm that notes on a patient can be created
 class NoteCreationTest < ApplicationSystemTestCase
   before do
+    create :line
     @user = create :user
     log_in_as @user
     @patient = create :patient

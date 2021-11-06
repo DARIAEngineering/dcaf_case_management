@@ -2,6 +2,7 @@ require 'application_system_test_case'
 
 class UpdateUserInfoTest < ApplicationSystemTestCase
   before do
+    create :line
     @user = create :user
     log_in_as @user
     visit edit_user_registration_path

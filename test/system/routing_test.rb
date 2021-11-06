@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Confirm that logging in sends you to the sign in path
 class RoutingTest < ApplicationSystemTestCase
   before do
+      create :line
     visit root_path
   end
 
