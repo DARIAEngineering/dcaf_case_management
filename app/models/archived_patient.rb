@@ -97,6 +97,7 @@ class ArchivedPatient < ApplicationRecord
 
     archived_patient.build_fulfillment(patient.fulfillment.attributes.except('id')).save
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
+    archived_patient.line_id = patient.line_id
 
     PaperTrail.request(whodunnit: patient.created_by_id) do
       archived_patient.save!
