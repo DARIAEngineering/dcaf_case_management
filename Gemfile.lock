@@ -83,7 +83,7 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
-    bootstrap_form (4.5.0)
+    bootstrap_form (5.0.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
     builder (3.2.4)
@@ -163,7 +163,7 @@ GEM
     hashery (2.1.2)
     hashie (4.1.0)
     highline (2.0.3)
-    i18n (1.8.10)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.34)
       activesupport (>= 4.0.2)
@@ -278,7 +278,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.5.2)
       nio4r (~> 2.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-attack (6.5.0)
       rack (>= 1.0, < 3)
@@ -434,7 +434,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.4.2)
+    zeitwerk (2.5.1)
 
 PLATFORMS
   ruby
@@ -444,7 +444,7 @@ DEPENDENCIES
   acts_as_tenant (~> 0.5.0)
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.5, < 5)
-  bootstrap_form (~> 4.5.0)
+  bootstrap_form (~> 5.0.0)
   bullet
   bundler-audit
   byebug
