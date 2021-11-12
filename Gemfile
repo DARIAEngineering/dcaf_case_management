@@ -13,7 +13,7 @@ gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
 gem 'sass-rails', '>= 6'
-gem 'bootstrap', '~> 4.5', '< 5' # we're on bs4 for now
+gem 'bootstrap', '~> 5.1', '< 6' # we're on bs4 for now
 gem 'bootstrap_form', '~> 4.5.0'
 gem 'coffee-rails', '~> 5.0.0'
 gem 'jquery-rails', '~> 4.4.0'
