@@ -95,6 +95,7 @@ class Patient < ApplicationRecord
   end
 
   def save_identifier
+    #[Line first initial][Phone 6th digit]-[Phone last four]
     self.identifier = "#{line.name[0].upcase}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
