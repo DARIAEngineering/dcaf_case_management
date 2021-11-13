@@ -41,6 +41,25 @@ class ConfigTest < ActiveSupport::TestCase
       assert @bad_config.errors.messages[:config_key].include? "can't be blank"
     end
 
+    it 'should reject lists for singleton values' do
+      c = Config.find_or_create_by(config_key: :start_of_week)
+
+      c.config_value = { options: ["monday", "friday"] }
+      refute c.valid?
+
+      c = Config.find_or_create_by(config_key: :budget_bar_max)
+
+      c.config_value = { options: ["1000", "2000"] }
+      refute c.valid?
+    end
+
+    it 'should allow lists for non-singleton values' do
+      c = Config.find_or_create_by(config_key: :practical_support)
+
+      c.config_value = { options: ["car", "train"] }
+      assert c.valid?
+    end
+
     it 'should validate URLs' do
       Config::VALIDATIONS
         .select{ |field, validator| validator == :validate_url }

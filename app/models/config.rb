@@ -44,24 +44,34 @@ class Config < ApplicationRecord
 
   # symbols are required here because functions are not objects in rails :)
   CLEAN_PRE_VALIDATION = {
-    start_of_week: :fix_capitalization,
-    hide_practical_support: :fix_capitalization,
+    start_of_week: [:fix_capitalization],
+    hide_practical_support: [:fix_capitalization],
+    language: [:fix_capitalization]
   }.freeze
 
   VALIDATIONS = {
-    start_of_week: :validate_start_of_week,
+    start_of_week:
+      [:validate_singleton, :validate_start_of_week],
 
-    hide_practical_support: :validate_hide_practical_support,
+    hide_practical_support:
+      [:validate_singleton, :validate_hide_practical_support],
 
-    budget_bar_max: :validate_number,
+    budget_bar_max:
+      [:validate_singleton, :validate_number],
     
-    resources_url: :validate_url,
-    fax_service: :validate_url,
-    practical_support_guidance_url: :validate_url,
+    resources_url:
+      [:validate_singleton, :validate_url],
+    fax_service:
+      [:validate_singleton, :validate_url],
+    practical_support_guidance_url:
+      [:validate_singleton, :validate_url],
 
-    days_to_keep_fulfilled_patients: :validate_patient_archive,
-    days_to_keep_all_patients: :validate_patient_archive,
-    urgent_reset: :validate_urgent_reset,
+    days_to_keep_fulfilled_patients:
+      [:validate_singleton, :validate_patient_archive],
+    days_to_keep_all_patients:
+      [:validate_singleton, :validate_patient_archive],
+    urgent_reset:
+      [:validate_singleton, :validate_urgent_reset],
   }.freeze
 
   before_validation :clean_config_value
@@ -134,15 +144,15 @@ class Config < ApplicationRecord
       # do nothing if empty
       return if config_key.nil? || options.last.nil?
 
-      cleaner = CLEAN_PRE_VALIDATION[config_key.to_sym]
+      cleaners = CLEAN_PRE_VALIDATION[config_key.to_sym]
 
       # no clean function, return
-      return if cleaner.nil?
+      return if cleaners.blank?
 
       # we need to use `method` because `cleaner` is a symbol... this converts
       # the symbol into a Method object, which we can then `call`...
       # See https://ruby-doc.org/core/Object.html#method-i-method
-      method(cleaner).call
+      cleaners.each { |cleaner| method(cleaner).call }
     end
 
     # parent function. will handle errors; child validators should return true
@@ -151,21 +161,22 @@ class Config < ApplicationRecord
       # don't try to validate if no key or no value
       return if config_key.nil? || options.last.nil?
 
-      validator = VALIDATIONS[config_key.to_sym]
+      validators = VALIDATIONS[config_key.to_sym]
 
       # no validation for this field, ignore
-      return if validator.nil?
+      return if validators.blank?
 
-      # run the validator and get a boolean, exit if true
+      # run the validators and get a boolean, exit if all are true
       # (see comment above in `clean_config_value` for an explainer)
-      return if method(validator).call
+      return if validators.all? { |validator| method(validator).call }
 
-      errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
+      errors.add(:invalid_value_for,
+        "#{config_key.humanize(capitalize: false)}: #{options.join(', ')}")
     end
 
-    # generic validator for words (so we have standardized capitalization)
+    # generic cleaner for words (so we have standardized capitalization)
     def fix_capitalization
-      config_value['options'] = [options.last.capitalize]
+      config_value['options'] = options.map(&:capitalize)
     end
 
     # generic validator for numerics
@@ -173,6 +184,10 @@ class Config < ApplicationRecord
       options.last =~ /\A\d+\z/
     end
 
+    # validator for singletons (no lists allowed)
+    def validate_singleton
+      options.length == 1
+    end
 
     ### URL fields
 
