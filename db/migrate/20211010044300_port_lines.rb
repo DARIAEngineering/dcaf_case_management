@@ -22,8 +22,6 @@ class PortLines < ActiveRecord::Migration[6.1]
 
   def down
     [:archived_patients, :call_list_entries, :events, :patients].each do |tbl|
-      add_column tbl, :line_legacy, :string
-
       model = tbl.to_s.classify.constantize
 
       Line.all.each do |line|
