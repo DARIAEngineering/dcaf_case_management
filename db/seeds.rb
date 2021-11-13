@@ -36,6 +36,8 @@ fund1 = Fund.create! name: 'DCAF',
                      site_domain: 'www.dcabortionfund.org',
                      phone: '202-452-7464'
 
+
+
 fund2 = Fund.create! name: 'CatFund',
                      domain: 'catfund.org',
                      subdomain: 'catbox',
@@ -45,9 +47,11 @@ fund2 = Fund.create! name: 'CatFund',
 
 [fund1, fund2].each do |fund|
   ActsAsTenant.with_tenant(fund) do
-    lines = ['Main', 'Spanish'].map do |line|
-      Line.create! name: line
-    end
+    lines = if fund == fund1
+              ['Main', 'Spanish'].map { |line| Line.create! name: line }
+            else
+              ['Maru', 'Guremike'].map { |line| Line.create! name: line }
+            end
 
     # Create test users
     user = User.create! name: 'testuser (admin)', email: 'test@example.com',
