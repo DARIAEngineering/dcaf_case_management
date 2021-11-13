@@ -24,7 +24,6 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
         get new_line_path
         assert_redirected_to authenticated_root_path
         assert_equal @line.id, session[:line_id]
-        assert_equal @line.name, session[:line_name]
       end
     end
 
@@ -45,7 +44,6 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
 
     it 'should set a session variable' do
       assert_equal @line.id, session[:line_id]
-      assert_equal @line.name, session[:line_name]
     end
 
     # TODO: Enforce line values

@@ -16,7 +16,6 @@ class LinesController < ApplicationController
   def create
     line = Line.find params[:line_id]
     session[:line_id] = line.id
-    session[:line_name] = line.name
     redirect_to authenticated_root_path
   end
 
@@ -24,6 +23,5 @@ class LinesController < ApplicationController
 
   def set_line_session(line)
     session[:line_id] = line.id
-    session[:line_name] = line.name
   end
 end

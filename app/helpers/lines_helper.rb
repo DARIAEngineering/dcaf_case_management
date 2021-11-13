@@ -2,9 +2,9 @@
 module LinesHelper
   def current_line_display
     content_tag :li do
-      content_tag :span, t('navigation.current_line.helper') + ": #{session[:line_name]}",
+      content_tag :span, t('navigation.current_line.helper') + ": #{current_line.name}",
                          class: 'nav-link navbar-text-alt'
-    end if session[:line_name]
+    end if session[:line_id]
   end
 
   def current_line
