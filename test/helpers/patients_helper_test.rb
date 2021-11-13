@@ -255,4 +255,16 @@ class PatientsHelperTest < ActionView::TestCase
     end
   end
 
+  describe 'line_options' do
+    before do
+      @line1 = create :line, name: 'JJ'
+      @line2 = create :line, name: 'Sage'
+      @line3 = create :line, name: 'Lomky Jr'
+    end
+
+    it 'should return line names and ids' do
+      expected = [['JJ', @line1.id], ['Sage', @line2.id], ['Lomky Jr', @line3.id]]
+      assert_equal expected, line_options
+    end
+  end
 end

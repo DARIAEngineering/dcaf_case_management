@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col info-form-left">
         <% if current_user.admin? %>
-          <%= f.select :line_id, options_for_select(Line.all.map { |x| [x.name, x.id] }, patient.line.id) %>
+          <%= f.select :line_id, options_for_select(line_options, patient.line.id) %>
         <% end %>
 
         <%= f.number_field :age, autocomplete: 'off' %>

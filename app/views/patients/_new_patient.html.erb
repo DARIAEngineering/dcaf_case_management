@@ -52,7 +52,7 @@
     </div>
 
     <div class="col">
-      <%= f.select :line_id, options_for_select(Line.all.map { |x| [x.name, x.id] }, current_line.id) %>
+      <%= f.select :line_id, options_for_select(line_options, current_line.id) %>
     </div>
 
     <div class="col align-self-end">
