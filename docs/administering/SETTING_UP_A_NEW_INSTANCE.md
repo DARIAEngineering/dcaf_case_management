@@ -56,7 +56,7 @@ Fill in the form as follows (stuff in caps are variables you should have on hand
 * App name should be `daria-FUND`
 * App owner should be the `casemanager` team
 * Click `Add this app to a pipeline` and select `casemanager-pipeline`, then `production`
-* In the config vars section, fill in config variables based on what you have. Use defaults where applicable for fields like `CSP_VIOLATION_URI` and `DARIA_LINES`; the DARIA team member leading the onboarding will tell you if you need to change a default value. You should have the resour
+* In the config vars section, fill in config variables based on what you have. Use defaults where applicable for fields like `CSP_VIOLATION_URI`; the DARIA team member leading the onboarding will tell you if you need to change a default value. You should have the resour
 
 Clicking Deploy App will launch the new DARIA instance! We should now have an instance running, but there are still some followup tasks to handle.
 
@@ -84,7 +84,7 @@ User.create email: 'your@email.org',
 ```
 * Go to the url at `http://daria-FUND.herokuapp.com`. Confirm that this loads, and redirects you to `https://...`
 * Confirm the oauth signin flow works by clicking the `Sign in with Google` button. This confirms that oauth is properly set up. If something is weird here, check that `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` are properly set and configured.
-* Confirm that the lines are properly set and show up right. For most funds, this means after logging in you will go straight to the call list. For funds with more than one line, you'll go to a line selection screen instead. If this is does not behave as expected, check that the `DARIA_LINES` environment variable is properly set.
+* Confirm that the lines are properly set and show up right. For most funds, this means after logging in you will go straight to the call list. For funds with more than one line, you'll go to a line selection screen instead. If this is does not behave as expected, hop into the console and check that `Line.all` has objects associated with the new values.
 * Confirm that the top left badge name (`DARIA - full fund name`) is showing properly. If this is weird, check that  `Fund.first.full_name` attribute is set right.
 * Confirm that you can create and update a patient in the UI. Click the Magnifying Glass icon below `Build Your Call List` and fill in the new patient partial that appears below as follows: Phone: 000-000-0000, Name: DB Test. Click the `Add new patient` button to create the patient. Delete the patient you made in the rails console with this snippet: `Patient.find_by(name: 'DB Test').destroy`. If this acts weird, notify the slack channel and start looking at the logs/stack trace to investigate.
 
