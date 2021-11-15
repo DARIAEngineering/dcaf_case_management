@@ -1,5 +1,7 @@
 # Object representing a case manager dialing a patient.
 class Call < ApplicationRecord
+  acts_as_tenant :fund
+
   # Concerns
   include EventLoggable
   include PaperTrailable

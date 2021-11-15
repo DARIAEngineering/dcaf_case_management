@@ -90,7 +90,7 @@
         <%= f.select :referred_by,
                      options_for_select(referred_by_options(patient.referred_by),
                                         patient.referred_by),
-                     label: t('patient.information.referred_by', fund: "#{FUND}"),
+                     label: t('patient.information.referred_by', fund: current_tenant.name),
                      autocomplete: 'off' %>
 
         <fieldset>

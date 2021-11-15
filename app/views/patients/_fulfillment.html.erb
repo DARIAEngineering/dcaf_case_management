@@ -4,7 +4,7 @@
   <h5 class="mt-4"><%= t('patient.pledge_fulfillment.confirmation.confirm_info') %></h5>
   <ul class="fulfillment-list">
     <li><%= t('patient.pledge_fulfillment.confirmation.clinic') %> <%= @patient.clinic.try(:name) %></li>
-    <li><%= t('patient.pledge_fulfillment.confirmation.fund_pledge_amount', fund: "#{FUND}") %> $<%= @patient.fund_pledge %></li>
+    <li><%= t('patient.pledge_fulfillment.confirmation.fund_pledge_amount', fund: current_tenant.name) %> $<%= @patient.fund_pledge %></li>
     <li><%= t('patient.pledge_fulfillment.confirmation.pledge_generated_by') %> <%= @patient.pledge_generated_by.try(:name) || 'N/A' %></li>
     <li><%= t('patient.pledge_fulfillment.confirmation.pledge_generated_at') %> <%= @patient.pledge_generated_at.try(:display_date) || 'N/A' %></li>
     <li><%= t('patient.pledge_fulfillment.confirmation.pledge_sent_by') %> <%= @patient.pledge_sent_by.try(:name) ||  'N/A' %></li>
@@ -28,7 +28,7 @@
       <div class="info-form-left col-6">
         <%= f.fields_for :fulfillment do |pt| %>
           <%= pt.number_field :fund_payout,
-                              label: t('patient.pledge_fulfillment.form.fund_payout', fund: "#{FUND}"),
+                              label: t('patient.pledge_fulfillment.form.fund_payout', fund: current_tenant.name),
                               autocomplete: 'off',
                               prepend: '$'%>
           <%= pt.select :gestation_at_procedure,

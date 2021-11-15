@@ -18,7 +18,7 @@ module PracticalSupportsHelper
   end
 
   def practical_support_source_options(current_value = nil)
-    options = [nil, FUND_FULL] +
+    options = [nil, ActsAsTenant.current_tenant.full_name] +
       Config.find_or_create_by(config_key: 'external_pledge_source').options +
       [
         [ t('common.patient'), 'Patient' ],
@@ -36,7 +36,7 @@ module PracticalSupportsHelper
     url = UriService.new(maybe_url).uri
 
     return unless url.present?
-    link_to t('patient.practical_support.guidance_link', fund: FUND), url.to_s, target: '_blank'
+    link_to t('patient.practical_support.guidance_link', fund: ActsAsTenant.current_tenant.name), url.to_s, target: '_blank'
     # "For guidance on practical support, view the #{link_content}."
   end
 end

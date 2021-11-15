@@ -65,7 +65,7 @@
     <div class="col">
       <%= f.number_field :fund_pledge,
                          label: t('patient.abortion_information.cost_section.fund_pledge',
-                         fund: "#{FUND}"),
+                         fund: current_tenant.name),
                          autocomplete: 'off' %>
     </div>
     <div class="col">
@@ -139,7 +139,7 @@
 
   <%= f.check_box :referred_to_clinic, label: t('patient.abortion_information.clinic_section.referred_to_clinic') %>
   <%= f.check_box :completed_ultrasound, label: t('patient.abortion_information.clinic_section.ultrasound_completed') %>
-  <%= f.check_box :resolved_without_fund, label: t('patient.status.key.resolved', fund: "#{FUND}") %>
+  <%= f.check_box :resolved_without_fund, label: t('patient.status.key.resolved', fund: current_tenant.name) %>
 
   <fieldset class="mt-5">
     <legend class="font-weight-bold" id="special_circumstances_label">
