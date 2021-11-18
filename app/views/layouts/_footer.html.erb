@@ -8,7 +8,7 @@
 
 <div class="row mb-6">
 	<div id="app_footer" class="col text-center">
-	  <a href="http://<%= FUND_DOMAIN %>/"><%= FUND_FULL %></a> -- <a href="tel:<%= FUND_PHONE %>"><i class="fas fa-phone-alt fa-sm" aria-hidden="true"></i> <%= FUND_PHONE %></a><br>
+	  <a href="http://<%= current_tenant.site_domain %>/"><%= current_tenant.full_name %></a> -- <a href="tel:<%= current_tenant.phone %>"><i class="fas fa-phone-alt fa-sm" aria-hidden="true"></i> <%= current_tenant.phone %></a><br>
 
 	  <%= link_to t('navigation.footer.national_abortion_federation'), 'https://prochoice.org' %> -- <a href="tel:800-772-9100"><i class="fas fa-phone-alt fa-sm" aria-hidden="true"></i> 800-772-9100</a><br>
 

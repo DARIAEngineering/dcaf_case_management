@@ -85,4 +85,8 @@ Rails.application.configure do
   config.after_initialize do
     Config.autosetup
   end
+
+  # To allow usage of lvh.me, a tunnelling service, in development for multitenancy.
+  config.hosts = nil
+
 end

@@ -33,6 +33,7 @@ jobs:
     env:
       POSTGRES_USER: daria
       POSTGRES_PASSWORD: ""
+      CI: true
     services:
       postgres:
         image: postgres
@@ -57,9 +58,9 @@ jobs:
 
       # npm/yarn setup
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 14.2
+          node-version: 16.13.0
       - name: Cache node_modules
         uses: actions/cache@v2
         with:

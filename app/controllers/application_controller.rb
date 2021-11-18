@@ -1,5 +1,7 @@
 # Sets a few devise configs and security measures
 class ApplicationController < ActionController::Base
+  set_current_tenant_by_subdomain(:fund, :subdomain)
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery prepend: true, with: :exception
@@ -7,13 +9,36 @@ class ApplicationController < ActionController::Base
   prepend_before_action :authenticate_user!
   prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
 
+  if Rails.env.development?
+    before_action :confirm_tenant_set_development
+  end
+  before_action :confirm_tenant_set
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
   before_action :set_locale
-  before_action :set_raven_context
+  before_action :set_sentry_context
   before_action :set_paper_trail_whodunnit
 
-  # whitelists attributes in devise
+  # Don't let any requests through without confirming a tenant is set.
+  def confirm_tenant_set
+    # There's an ActsAsTenant config method that does this too,
+    # but we do it here so we can control when it runs.
+    if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
+      raise ActsAsTenant::Errors::NoTenantSet
+    end
+  end
+
+  # In development only, set first fund as tenant by default.
+  def confirm_tenant_set_development
+    # If you need to access the other fund in dev, hit catbox.lvh.me:3000
+    # to tunnel in.
+    if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
+      # If this errors, make sure you've run rails db:seed to populate db!
+      ActsAsTenant.current_tenant = Fund.find_by! name: 'CatFund'
+    end
+  end
+
+  # allowlist attributes in devise
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update) do |user|
@@ -66,8 +91,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_raven_context
-    Raven.user_context(id: current_user&.id)
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  def set_sentry_context
+    Sentry.set_user(id: current_user&.id)
+    Sentry.set_extras(params: params.to_unsafe_h, url: request.url)
   end
 end

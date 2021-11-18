@@ -62,6 +62,7 @@ Clicking Deploy App will launch the new DARIA instance! We should now have an in
 
 ### Complete service setup
 
+* Make a new fund thru the rails console: `heroku run rails c -a daria-FUND`, then `Fund.create name: 'FUND', subdomain: 'daria-FUND', domain: 'herokuapp.com', site_domain: 'FUND_DOMAIN', full_name: 'FUND_FULL_NAME', phone: 'FUND_PHONE'`
 * Set up an uptime monitor for the new domain. (We generally use StatusCake for right now but will switch to a team monitor soon; use an existing monitor as a guide to configure.)
 * Go to the new app in Heroku, click on `Scheduler`, and add the nightly cleanup job: `$ rake nightly_cleanup`, dyno size hobby, frequency daily, 08:00 UTC
 
@@ -78,12 +79,13 @@ User.create email: 'your@email.org',
             name: 'Your Name',
             role: :admin,
             password: scratch_pass,
-            password_confirmation: scratch_pass
+            password_confirmation: scratch_pass,
+            fund: Fund.first
 ```
 * Go to the url at `http://daria-FUND.herokuapp.com`. Confirm that this loads, and redirects you to `https://...`
 * Confirm the oauth signin flow works by clicking the `Sign in with Google` button. This confirms that oauth is properly set up. If something is weird here, check that `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` are properly set and configured.
 * Confirm that the lines are properly set and show up right. For most funds, this means after logging in you will go straight to the call list. For funds with more than one line, you'll go to a line selection screen instead. If this is does not behave as expected, check that the `DARIA_LINES` environment variable is properly set.
-* Confirm that the top left badge name (`DARIA - full fund name`) is showing properly. If this is weird, check that the `DARIA_FUND_FULL` environment variable is set right.
+* Confirm that the top left badge name (`DARIA - full fund name`) is showing properly. If this is weird, check that  `Fund.first.full_name` attribute is set right.
 * Confirm that you can create and update a patient in the UI. Click the Magnifying Glass icon below `Build Your Call List` and fill in the new patient partial that appears below as follows: Phone: 000-000-0000, Name: DB Test. Click the `Add new patient` button to create the patient. Delete the patient you made in the rails console with this snippet: `Patient.find_by(name: 'DB Test').destroy`. If this acts weird, notify the slack channel and start looking at the logs/stack trace to investigate.
 
 ### Clean up our mess

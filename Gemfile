@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.4'
+ruby '3.0.2'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
@@ -8,6 +8,7 @@ gem 'sdoc', '~> 2.2.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
@@ -28,11 +29,15 @@ gem 'devise', '~> 4.8'
 gem 'omniauth-google-oauth2', '~> 1.0.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
+# Run multiple funds on one server
+gem 'acts_as_tenant', '~> 0.5.0'
+
 # Strong Password for user password validation for folks not on oauth
 gem 'strong_password', '~> 0.0.10'
 
 # We report errors with sentry
-gem 'sentry-raven'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 
 # Security libraries
 gem 'rack-attack', '~> 6.5.0'
@@ -58,7 +63,7 @@ group :development do
   gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys
   gem 'rails-i18n', '~> 6.0' # dependency of i18n-tasks, hardset to a rails-6-compat version
   gem 'shog' # makes rails s output color!
-  gem 'listen', '>= 3.0.5', '< 3.7' # used by systemtests, hardset rails 6 compat
+  gem 'listen', '>= 3.0.5', '< 3.8' # used by systemtests, hardset rails 6 compat
   gem 'rubocop', require: false # our code style / linting system
   gem 'rubocop-rails', require: false
 
@@ -70,7 +75,6 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  gem 'knapsack' # lets us split up our tets so they run faster in CI
   gem 'dotenv-rails' #used to set up our db ENV values
   gem 'bullet' # yell if n+1 queries
 end
@@ -78,9 +82,7 @@ end
 group :test do
   # Useful minitest tools
   gem 'minitest-spec-rails'
-  gem 'minitest-ci'
   gem 'factory_bot_rails'
-  gem 'database_cleaner'
   gem 'faker'
   gem 'timecop'
 
@@ -93,7 +95,6 @@ group :test do
 
   # Test coverage related libraries
   gem 'simplecov', require: false
-  gem 'codecov', require: false
 
   # Specifics
   gem 'shoulda-context'

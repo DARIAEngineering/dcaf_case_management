@@ -1,5 +1,7 @@
 # Class so that funds can set their own dropdown lists of things
 class Config < ApplicationRecord
+  acts_as_tenant :fund
+
   # Concerns
   include PaperTrailable
 
@@ -15,7 +17,8 @@ class Config < ApplicationRecord
     budget_bar_max: "The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.",
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
-    days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year)."
+    days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
+    urgent_reset: "Number of idle days until a patient is removed from the urgent list. Defaults to 6 days.",
   }.freeze
 
   enum config_key: {
@@ -33,35 +36,48 @@ class Config < ApplicationRecord
     budget_bar_max: 11,
     voicemail: 12,
     days_to_keep_fulfilled_patients: 13,
-    days_to_keep_all_patients: 14
+    days_to_keep_all_patients: 14,
+    urgent_reset: 15,
   }
 
   # which fields are URLs (run special validation only on those)
 
   # symbols are required here because functions are not objects in rails :)
   CLEAN_PRE_VALIDATION = {
-    start_of_week: :fix_capitalization,
-    hide_practical_support: :fix_capitalization,
+    start_of_week: [:fix_capitalization],
+    hide_practical_support: [:fix_capitalization],
+    language: [:fix_capitalization]
   }.freeze
 
   VALIDATIONS = {
-    start_of_week: :validate_start_of_week,
+    start_of_week:
+      [:validate_singleton, :validate_start_of_week],
 
-    hide_practical_support: :validate_hide_practical_support,
+    hide_practical_support:
+      [:validate_singleton, :validate_hide_practical_support],
 
-    budget_bar_max: :validate_number,
+    budget_bar_max:
+      [:validate_singleton, :validate_number],
     
-    resources_url: :validate_url,
-    fax_service: :validate_url,
-    practical_support_guidance_url: :validate_url,
+    resources_url:
+      [:validate_singleton, :validate_url],
+    fax_service:
+      [:validate_singleton, :validate_url],
+    practical_support_guidance_url:
+      [:validate_singleton, :validate_url],
 
-    days_to_keep_fulfilled_patients: :validate_patient_archive,
-    days_to_keep_all_patients: :validate_patient_archive,
+    days_to_keep_fulfilled_patients:
+      [:validate_singleton, :validate_patient_archive],
+    days_to_keep_all_patients:
+      [:validate_singleton, :validate_patient_archive],
+    urgent_reset:
+      [:validate_singleton, :validate_urgent_reset],
   }.freeze
 
   before_validation :clean_config_value
 
-  validates :config_key, uniqueness: true, presence: true
+  validates :config_key, presence: true
+  validates_uniqueness_to_tenant :config_key
   validate :validate_config
 
   # Methods
@@ -116,6 +132,13 @@ class Config < ApplicationRecord
     archive_days.to_i
   end
 
+  def self.urgent_reset
+    urgent_reset_days = Config.find_or_create_by(config_key: 'urgent_reset').options.try :last
+    # default 6 days
+    urgent_reset_days ||= 6
+    urgent_reset_days.to_i
+  end
+
   private
     ### Generic Functions
 
@@ -123,15 +146,15 @@ class Config < ApplicationRecord
       # do nothing if empty
       return if config_key.nil? || options.last.nil?
 
-      cleaner = CLEAN_PRE_VALIDATION[config_key.to_sym]
+      cleaners = CLEAN_PRE_VALIDATION[config_key.to_sym]
 
       # no clean function, return
-      return if cleaner.nil?
+      return if cleaners.blank?
 
       # we need to use `method` because `cleaner` is a symbol... this converts
       # the symbol into a Method object, which we can then `call`...
       # See https://ruby-doc.org/core/Object.html#method-i-method
-      method(cleaner).call
+      cleaners.each { |cleaner| method(cleaner).call }
     end
 
     # parent function. will handle errors; child validators should return true
@@ -140,21 +163,22 @@ class Config < ApplicationRecord
       # don't try to validate if no key or no value
       return if config_key.nil? || options.last.nil?
 
-      validator = VALIDATIONS[config_key.to_sym]
+      validators = VALIDATIONS[config_key.to_sym]
 
       # no validation for this field, ignore
-      return if validator.nil?
+      return if validators.blank?
 
-      # run the validator and get a boolean, exit if true
+      # run the validators and get a boolean, exit if all are true
       # (see comment above in `clean_config_value` for an explainer)
-      return if method(validator).call
+      return if validators.all? { |validator| method(validator).call }
 
-      errors.add(:invalid_value_for, "#{config_key.humanize(capitalize: false)}: '#{options.last}'")
+      errors.add(:invalid_value_for,
+        "#{config_key.humanize(capitalize: false)}: #{options.join(', ')}")
     end
 
-    # generic validator for words (so we have standardized capitalization)
+    # generic cleaner for words (so we have standardized capitalization)
     def fix_capitalization
-      config_value['options'] = [options.last.capitalize]
+      config_value['options'] = options.map(&:capitalize)
     end
 
     # generic validator for numerics
@@ -162,6 +186,10 @@ class Config < ApplicationRecord
       options.last =~ /\A\d+\z/
     end
 
+    # validator for singletons (no lists allowed)
+    def validate_singleton
+      options.length == 1
+    end
 
     ### URL fields
 
@@ -208,5 +236,13 @@ class Config < ApplicationRecord
 
     def validate_patient_archive
       validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+    end
+
+    ### urgent reset
+    URGENT_MIN_DAYS = 2   # 2 days
+    URGENT_MAX_DAYS = 28  # 4 weeks
+
+    def validate_urgent_reset
+      validate_number && options.last.to_i.between?(URGENT_MIN_DAYS, URGENT_MAX_DAYS)
     end
 end

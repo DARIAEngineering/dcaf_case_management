@@ -1,5 +1,7 @@
 # A PII stripped patient for reporting.
 class ArchivedPatient < ApplicationRecord
+  acts_as_tenant :fund
+
   # Concerns
   include PaperTrailable
   include Exportable

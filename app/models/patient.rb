@@ -1,5 +1,7 @@
 # Object representing core patient information and demographic data.
 class Patient < ApplicationRecord
+  acts_as_tenant :fund
+
   # Concerns
   include PaperTrailable
   include Urgency
@@ -44,6 +46,8 @@ class Patient < ApplicationRecord
   accepts_nested_attributes_for :fulfillment
 
   # Validations
+  # Worry about uniqueness to tenant after porting line info.
+  # validates_uniqueness_to_tenant :primary_phone 
   validates :name,
             :primary_phone,
             :initial_call_date,
