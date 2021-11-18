@@ -44,7 +44,8 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     before do
       @patient.practical_supports.create support_type: 'Transit',
                                          confirmed: false,
-                                         source: 'Transit'
+                                         source: 'Transit',
+                                         amount: 10
       @support = @patient.practical_supports.first
       @support_edits = { support_type: 'Lodging' }
       patch patient_practical_support_path(@patient, @support),
@@ -73,6 +74,22 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
           end
         end
       end
+    end
+
+    it 'should allow blank amount' do
+      @support_edits[:amount] = nil
+      patch patient_practical_support_path(@patient, @support),
+            params: { practical_support: @support_edits },
+            xhr: true
+      assert_response :success
+    end
+
+    it 'should not allow negative amounts' do
+      @support_edits[:amount] = -3
+      patch patient_practical_support_path(@patient, @support),
+            params: { practical_support: @support_edits },
+            xhr: true
+      assert_response :bad_request
     end
   end
 
