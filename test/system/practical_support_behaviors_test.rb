@@ -20,13 +20,15 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       within :css, '#practical-support-new-form' do
         select 'Companion', from: 'practical_support_support_type'
         select 'Other (see notes)', from: 'practical_support_source'
+        fill_in 'Amount', with: 500
         check 'Confirmed'
         click_button 'Create new practical support'
       end
 
       within :css, '#practical-support-entries' do
-        assert_equal 'Companion', find('#practical_support_support_type').value
+        assert_equal 'Companion', find('#practical_support_support_type').text
         assert_equal 'Other (see notes)', find('#practical_support_source').value
+        assert_equal 500, find('#practical_support_amount').value
         assert has_checked_field? 'Confirmed'
       end
     end
@@ -48,13 +50,13 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   describe 'updating practical support entries' do
     before do
       @patient.practical_supports.create support_type: 'lodging',
-                                         source: 'Other (see notes)'
+                                         source: 'Other (see notes)',
+                                         amount: 100
       go_to_practical_support_tab
     end
 
     it 'should save if valid and changed' do
       within :css, '#practical-support-entries' do
-        select 'Companion', from: 'practical_support_support_type'
         select 'DC Abortion Fund', from: 'practical_support_source'
         check 'Confirmed'
       end
@@ -63,8 +65,9 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#practical-support-entries' do
-        assert_equal 'Companion', find('#practical_support_support_type').value
+        assert_equal 'Other (see notes)', find('#practical_support_support_type').text
         assert_equal 'DC Abortion Fund', find('#practical_support_source').value
+        assert_equal 100, find('#practical_support_amount').value
         assert has_checked_field? 'Confirmed'
       end
     end
