@@ -81,7 +81,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#practical-support-entries' do
-        assert_equal 'DC Abortion Fund', find('#practical_support_source').value
+        assert_equal 'Other (see notes)', find('#practical_support_source').value
       end
     end
   end
