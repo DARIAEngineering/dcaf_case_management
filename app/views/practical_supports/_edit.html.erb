@@ -4,21 +4,25 @@
                          html: { class: 'edit_practical_support col-10' },
                          remote: true do |f| %>
     <div class="row">
-      <div class="col-5">
-        <%= f.select :support_type,
-                     options_for_select(practical_support_options(practical_support.support_type),
-                                        practical_support.support_type),
-                     hide_label: true %>
+      <div class="col-3">
+        <%= practical_support.support_type %>
       </div>
 
-      <div class="col-4">
+      <div class="col-5">
         <%= f.select :source,
                      options_for_select(practical_support_source_options(practical_support.source),
                                         practical_support.source),
                      hide_label: true %>
       </div>
 
-      <div class="col">
+      <div class="col-4">
+        <%= f.number_field :amount,
+                           hide_label: true,
+                           autocomplete: 'off',
+                           prepend: '$' %>
+      </div>
+
+      <div class="col-2">
         <%= f.form_group :confirmed do %>
           <%= f.check_box :confirmed,
                           id: "practical_support_confirmed_#{practical_support.id}" %>

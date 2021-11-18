@@ -11,4 +11,5 @@ class PracticalSupport < ApplicationRecord
   # Validations
   validates :source, :support_type, presence: true
   validates :support_type, uniqueness: { scope: :can_support }
+  # validates :amount, numericality: { only_integer: true, greater_than: 0 }
 end
