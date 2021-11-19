@@ -278,20 +278,20 @@ class PatientTest < ActiveSupport::TestCase
     describe 'update lines for call list entries on patient change' do
       it 'should update call list entries to push them to the very end' do
         @user = create :user
-        @line = create :line
         @line2 = create :line
-        create :call_list_entry, patient: @patient, user: @user, line: @line
-        create :call_list_entry, patient: create(:patient, line: @line2),
+        @line3 = create :line
+        create :call_list_entry, patient: @patient, user: @user, line: @line2
+        create :call_list_entry, patient: create(:patient, line: @line3),
                                  user: @user,
-                                 line: @line2
+                                 line: @line3
 
         assert_difference "@user.call_list_entries.where(line: @line).count", -1 do
           assert_difference "@user.call_list_entries.where(line: @line2).count", 1 do
-            @patient.update line: @line2
+            @patient.update line: @line3
             @user.reload
           end
         end
-        entry = @user.call_list_entries.where(patient: @patient, line: @line2).first
+        entry = @user.call_list_entries.where(patient: @patient, line: @line3).first
         assert_equal entry.order_key, 999
       end
     end
