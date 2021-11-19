@@ -25,7 +25,7 @@ Note that this requires an engineer or someone with heroku access to complete.
 
 A fund has many (and at least one) `Line` object, and we can set up a new one via `Fund.first.lines.new` in a rails console.
 
-We bubble up `Lines` associated with a fund and and make make them accessible in the app via the [LinesHelper](../app/helpers/lines_helper.rb).
+We bubble up `Lines` associated with a fund and and make them accessible in the app via the [LinesHelper](../app/helpers/lines_helper.rb).
 We also have a convenience method, `current_line`, which aliases to a case manager's active line.
 
 Case managers have their lines set as a session variable, and they have to log out to
