@@ -31,7 +31,7 @@
     "serialize-javascript": "^6.0.0",
     "yargs-parser": "^21.0.0",
     "popper.js": "^1.16.0",
-    "webpack": "^4.0.0",
+    "webpack": "^5.0.0",
     "y18n": "^5.0.0",
     "is-svg": "^4.2.2"
   },
