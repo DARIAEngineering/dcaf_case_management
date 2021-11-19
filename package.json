@@ -13,13 +13,13 @@
   },
   "devDependencies": {
     "all-contributors-cli": "^6.20.0",
-    "eslint": "8.1.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24",
-    "webpack-dev-server": "^3.11.2"
+    "eslint": "8.2.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-import": "2.25.3",
+    "webpack-dev-server": "4.5.0"
   },
   "engines": {
-    "node": ">=14.16.0",
+    "node": ">=16.13.0",
     "npm": ">=6.14.13"
   },
   "resolutions": {
@@ -29,11 +29,11 @@
     "lodash": "^4.17.12",
     "node-forge": "^0.10.0",
     "serialize-javascript": "^6.0.0",
-    "yargs-parser": "^20.0.0",
+    "yargs-parser": "^21.0.0",
     "popper.js": "^1.16.0",
     "webpack": "^4.0.0",
     "y18n": "^5.0.0",
     "is-svg": "^4.2.2"
   },
-  "packageManager": "yarn@2.4.3"
+  "packageManager": "yarn@3.1.0"
 }
