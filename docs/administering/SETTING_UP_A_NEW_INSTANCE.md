@@ -56,7 +56,7 @@ Fill in the form as follows (stuff in caps are variables you should have on hand
 * App name should be `daria-FUND`
 * App owner should be the `casemanager` team
 * Click `Add this app to a pipeline` and select `casemanager-pipeline`, then `production`
-* In the config vars section, fill in config variables based on what you have. Use defaults where applicable for fields like `CSP_VIOLATION_URI`; the DARIA team member leading the onboarding will tell you if you need to change a default value. You should have the resour
+* In the config vars section, fill in config variables based on what you have. Use defaults where applicable for fields like `CSP_VIOLATION_URI`; the DARIA team member leading the onboarding will tell you if you need to change a default value.
 
 Clicking Deploy App will launch the new DARIA instance! We should now have an instance running, but there are still some followup tasks to handle.
 
