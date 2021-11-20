@@ -285,8 +285,8 @@ class PatientTest < ActiveSupport::TestCase
                                  user: @user,
                                  line: @line3
 
-        assert_difference "@user.call_list_entries.where(line: @line).count", -1 do
-          assert_difference "@user.call_list_entries.where(line: @line2).count", 1 do
+        assert_difference "@user.call_list_entries.where(line: @line2).count", -1 do
+          assert_difference "@user.call_list_entries.where(line: @line3).count", 1 do
             @patient.update line: @line3
             @user.reload
           end
