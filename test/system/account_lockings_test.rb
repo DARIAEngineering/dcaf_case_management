@@ -2,6 +2,7 @@ require 'application_system_test_case'
 
 class AccountLockingsTest < ApplicationSystemTestCase
   before do
+    create :line
     @admin = create :user, role: :admin
     @locked_user = create :user, role: :cm, disabled_by_fund: true
     @unlocked_user = create :user, role: :cm

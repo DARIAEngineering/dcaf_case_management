@@ -4,24 +4,28 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
   before do
     @user = create :user, role: :admin
     @clinic = create :clinic, name: 'a real clinic'
+    @line = create :line
     @another_clinic = create :clinic, name: 'alternative clinic'
 
     @nonpledged_patient = create :patient, name: 'Eileene Zarha',
-                                           initial_call_date: 5.weeks.ago
+                                           initial_call_date: 5.weeks.ago,
+                                           line: @line
 
     @pledged_patient = create :patient, name: 'Olga Zarha',
                                         fund_pledge: 100,
                                         clinic: @clinic,
                                         pledge_sent: true,
                                         appointment_date: 2.weeks.ago,
-                                        initial_call_date: 5.weeks.ago
+                                        initial_call_date: 5.weeks.ago,
+                                        line: @line
 
     @fulfilled_patient = create :patient, name: 'Thorny Zarha',
                                           fund_pledge: 200,
                                           clinic: @clinic,
                                           pledge_sent: true,
                                           appointment_date: 2.weeks.ago,
-                                          initial_call_date: 5.weeks.ago
+                                          initial_call_date: 5.weeks.ago,
+                                          line: @line
     @fulfilled_patient.fulfillment.update fulfilled: true,
                                           procedure_date: 1.week.ago,
                                           gestation_at_procedure: '3 weeks',
@@ -34,9 +38,11 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                                              pledge_sent: true,
                                              fund_pledge: 123,
                                              appointment_date: 2.weeks.ago,
-                                             initial_call_date: 5.weeks.ago
+                                             initial_call_date: 5.weeks.ago,
+                                             line: @line
 
-    log_in_as @user
+
+    log_in_as @user, @line
     visit accountants_path
   end
 
@@ -71,7 +77,7 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
                         clinic: @clinic,
                         fund_pledge: 100,
                         initial_call_date: 3.days.ago,
-                        line: 'DC',
+                        line: @line,
                         naf_pledge: 200,
                         patient_contribution: 100,
                         pledge_sent: true,

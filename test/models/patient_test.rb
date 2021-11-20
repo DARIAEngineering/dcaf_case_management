@@ -5,11 +5,14 @@ class PatientTest < ActiveSupport::TestCase
 
   before do
     @user = create :user
+    @line = create :line
     @patient = create :patient, other_phone: '111-222-3333',
-                                other_contact: 'Yolo'
+                                other_contact: 'Yolo',
+                                line: @line
 
     @patient2 = create :patient, other_phone: '333-222-3333',
-                                other_contact: 'Foobar'
+                                other_contact: 'Foobar',
+                                line: @line
     @patient.calls.create attributes_for(:call, status: :reached_patient)
     @call = @patient.calls.first
     create_language_config
@@ -93,7 +96,7 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should save the identifer' do
-      assert_equal @patient.identifier, "#{@patient.line[0]}#{@patient.primary_phone[-5]}-#{@patient.primary_phone[-4..-1]}"
+      assert_equal @patient.identifier, "#{@patient.line.name[0]}#{@patient.primary_phone[-5]}-#{@patient.primary_phone[-4..-1]}"
     end
 
     it 'should enforce unique phone numbers' do
@@ -106,13 +109,15 @@ class PatientTest < ActiveSupport::TestCase
     end
 
     it 'should throw two different error messages for duplicates found on same line versus different line' do
+      line2 = create :line
+      line3 = create :line
       marylandPatient = create :patient, name: 'Susan A in MD',
                                          primary_phone: '777-777-7777',
-                                         line: 'MD'
+                                         line: line2
       sameLineDuplicate = create :patient, name: 'Susan B in MD',
-                                           line: 'MD'
+                                           line: line2
       diffLineDuplicate = create :patient, name: 'Susan B in VA',
-                                           line: 'VA'
+                                           line: line3
 
       sameLineDuplicate.primary_phone = '777-777-7777'
       diffLineDuplicate.primary_phone = '777-777-7777'
@@ -172,7 +177,7 @@ class PatientTest < ActiveSupport::TestCase
       shaped_patient2 = patient_to_hash @patient2
 
       # Testing dates is hard, so we use name as a proxy here
-      summary = Patient.pledged_status_summary(:DC)
+      summary = Patient.pledged_status_summary(@line)
       assert_equal shaped_patient[:name],
                    summary[:pledged][0][:name]
       assert_equal shaped_patient2[:name],
@@ -189,7 +194,7 @@ class PatientTest < ActiveSupport::TestCase
                     config_value: {options: ['Wednesday']}
       Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 300  }
       Timecop.freeze("January 22, 1973") do
-        summary = Patient.pledged_status_summary(:DC)
+        summary = Patient.pledged_status_summary(@line)
         assert_equal 1, summary[:pledged].count
       end
     end
@@ -201,7 +206,7 @@ class PatientTest < ActiveSupport::TestCase
                     config_value: {options: ['Wednesday']}
       Timecop.freeze("January 20, 1973") { @patient.update! fund_pledge: 300  }
       Timecop.freeze("January 24, 1973") do
-        summary = Patient.pledged_status_summary(:DC)
+        summary = Patient.pledged_status_summary(@line)
         assert_equal 0,summary[:pledged].count
       end
     end
@@ -217,7 +222,7 @@ class PatientTest < ActiveSupport::TestCase
                                                             clinic: create(:clinic) }
 
       Timecop.freeze("January 25, 1973") do
-        summary = Patient.pledged_status_summary(:DC)
+        summary = Patient.pledged_status_summary(@line)
         assert_equal 1, summary[:sent].count
       end 
 
@@ -273,18 +278,20 @@ class PatientTest < ActiveSupport::TestCase
     describe 'update lines for call list entries on patient change' do
       it 'should update call list entries to push them to the very end' do
         @user = create :user
-        create :call_list_entry, patient: @patient, user: @user
-        create :call_list_entry, patient: create(:patient, line: 'MD'),
+        @line2 = create :line
+        @line3 = create :line
+        create :call_list_entry, patient: @patient, user: @user, line: @line2
+        create :call_list_entry, patient: create(:patient, line: @line3),
                                  user: @user,
-                                 line: 'MD'
+                                 line: @line3
 
-        assert_difference "@user.call_list_entries.where(line: 'DC').count", -1 do
-          assert_difference "@user.call_list_entries.where(line: 'MD').count", 1 do
-            @patient.update line: 'MD'
+        assert_difference "@user.call_list_entries.where(line: @line2).count", -1 do
+          assert_difference "@user.call_list_entries.where(line: @line3).count", 1 do
+            @patient.update line: @line3
             @user.reload
           end
         end
-        entry = @user.call_list_entries.where(patient: @patient, line: 'MD').first
+        entry = @user.call_list_entries.where(patient: @patient, line: @line3).first
         assert_equal entry.order_key, 999
       end
     end
@@ -324,16 +331,18 @@ class PatientTest < ActiveSupport::TestCase
     describe 'urgency concern methods' do
       describe 'urgent_patients class method' do
         before do
+          @line = create :line
+          @line2 = create :line
           with_versioning do
             create :patient
-            2.times { create :patient, urgent_flag: true }
-            create :patient, urgent_flag: true, line: 'MD'
+            2.times { create :patient, urgent_flag: true, line: @line }
+            create :patient, urgent_flag: true, line: @line2
           end
         end
 
         it 'should return urgent patients by line' do
-          assert_equal 2, Patient.urgent_patients('DC').count
-          assert_equal 1, Patient.urgent_patients('MD').count
+          assert_equal 2, Patient.urgent_patients(@line).count
+          assert_equal 1, Patient.urgent_patients(@line2).count
         end
       end
 
@@ -411,7 +420,7 @@ class PatientTest < ActiveSupport::TestCase
     describe 'saving identifier method' do
       it 'should return a identifier' do
         @patient.update primary_phone: '111-333-5555'
-        assert_equal 'D3-5555', @patient.save_identifier
+        assert_equal 'L3-5555', @patient.save_identifier
       end
     end
 

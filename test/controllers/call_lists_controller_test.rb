@@ -4,11 +4,12 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user, role: 'admin'
     @user_2 = create :user, role: 'cm', name: 'Billy Everyteen'
-    @patient_1 = create :patient, name: 'Susan Everyteen'
-    @patient_2 = create :patient, name: 'Yolo Goat'
+    @line = create :line
+    @patient_1 = create :patient, name: 'Susan Everyteen', line: @line
+    @patient_2 = create :patient, name: 'Yolo Goat', line: @line
 
     sign_in @user
-    choose_line 'DC'
+    choose_line @line
   end
 
   describe 'add_patient method' do
@@ -104,7 +105,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
     before do
       @ids = []
       4.times do
-        pt = create :patient
+        pt = create :patient, line: @line
         @ids << pt.id.to_s
         @user.add_patient pt
       end
@@ -121,7 +122,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should rerack order keys' do
       assert_not_nil @user.call_list_entries
-      assert_equal @user.call_list_patients('DC').map { |x| x.id.to_s }, @ids
+      assert_equal @user.call_list_patients(@line).map { |x| x.id.to_s }, @ids
     end
   end
 end

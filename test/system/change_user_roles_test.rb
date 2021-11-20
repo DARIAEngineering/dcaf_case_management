@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Test that the buttons to change user roles work
 class ChangeUserRolesTest < ApplicationSystemTestCase
   before do
+    create :line
     @user = create :user, role: 'admin', name: 'Billy'
     @user2 = create :user, role: 'cm', name: 'Susie'
     log_in_as @user

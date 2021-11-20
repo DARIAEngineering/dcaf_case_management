@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Confirm that user search works like we think it does
 class UserSearchesTest < ApplicationSystemTestCase
   before do
+    create :line
     @user = create :user, role: 'admin', email: 'admin_user@dcabortionfund.org'
     @user2 = create :user, role: 'cm',
                            email: 'metallica@example.com',

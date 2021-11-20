@@ -49,7 +49,7 @@ es:
         language: Idioma
         last_menstrual_period_days: Últimos días del período menstrual
         last_menstrual_period_weeks: Últimas semanas del período menstrual
-        line: Línea
+        line_id: ID de la línea
         naf_pledge: Promesa de la NAF
         name: Nombre
         other_contact: Otro contacto

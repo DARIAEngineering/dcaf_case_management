@@ -4,19 +4,24 @@ class LinesHelperTest < ActionView::TestCase
   include ERB::Util
 
   describe 'convenience methods' do
-    it 'should spit out an array of available lines' do
-      assert_equal lines, %w(DC MD VA).map(&:to_sym)
+    before do
+      @lines = [
+        create(:line, name: 'DC'),
+        create(:line, name: 'MD'),
+        create(:line, name: 'VA')
+      ]
     end
 
     it 'should return current line' do
       assert_nil current_line
       assert_nil current_line_display
 
-      %w(DC MD VA).each do |state|
-        session[:line] = state
+      @lines.each do |line|
+        session[:line_id] = line.id
+        session[:line_name] = line.name
         assert_equal current_line_display,
-                     "<li><span class=\"nav-link navbar-text-alt\">Your current line: #{state}</span></li>"
-        assert_equal current_line, state.to_s
+                     "<li><span class=\"nav-link navbar-text-alt\">Your current line: #{session[:line_name]}</span></li>"
+        assert_equal current_line, line
       end
     end
   end

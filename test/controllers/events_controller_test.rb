@@ -3,8 +3,9 @@ require 'test_helper'
 class EventsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
+    line = create :line
     sign_in @user
-    choose_line 'dc'
+    choose_line line
   end
 
   describe 'index method' do

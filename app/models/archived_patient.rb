@@ -9,6 +9,7 @@ class ArchivedPatient < ApplicationRecord
 
   # Relationships
   belongs_to :clinic, optional: true
+  belongs_to :line
   has_one :fulfillment, as: :can_fulfill
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
@@ -17,8 +18,6 @@ class ArchivedPatient < ApplicationRecord
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
 
   # Enums
-  # turns the LINES env array into the DB friendly structure: { :line1 => "line1", :line2 => "line2", ... }
-  enum line: LINES.map { |x| {x.to_sym => x.to_s} }.inject(&:merge)
   enum age_range: {
     not_specified: :not_specified,
     under_18: :under_18,
@@ -98,6 +97,7 @@ class ArchivedPatient < ApplicationRecord
 
     archived_patient.build_fulfillment(patient.fulfillment.attributes.except('id')).save
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
+    archived_patient.line_id = patient.line_id
 
     PaperTrail.request(whodunnit: patient.created_by_id) do
       archived_patient.save!

@@ -3,7 +3,7 @@
     <i class="fas fa-pencil-alt"></i>
   <% end %>
 </td>
-<td><%= patient.line %></td>
+<td><%= patient.line.name %></td>
 <td><%= patient.clinic&.name %></td>
 <td><%= link_to patient.name, edit_patient_path(patient) %></td>
 <td><%= number_to_currency patient.fulfillment&.fund_payout, precision: 0, unit: '$', format: '%u%n' %></td>

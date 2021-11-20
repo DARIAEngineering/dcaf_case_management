@@ -39,7 +39,7 @@ module CallListable
   end
 
   def reorder_call_list(order, line)
-    current_entries = call_list_entries.includes(:patient, :fund).where(line: line).to_a
+    current_entries = call_list_entries.includes(:patient, :fund, :line).where(line: line).to_a
     order.each_with_index do |pt, i|
       current = current_entries.find { |x| x.patient_id.to_s == pt }
       current.update order_key: i
@@ -53,9 +53,9 @@ module CallListable
     # current_sign_in_at is a devise field set to the user's last login
     if current_sign_in_at.present? &&
        current_sign_in_at < Time.zone.now - TIME_BEFORE_INACTIVE
-      clear_call_list(LINES)
+       clear_call_list(Line.all)
     else
-      ids_for_destroy = recently_reached_patients(LINES).map { |x| x.id.to_s }
+      ids_for_destroy = recently_reached_patients(Line.all).map { |x| x.id.to_s }
       call_list_entries.where(patient_id: ids_for_destroy).destroy_all
     end
     reload

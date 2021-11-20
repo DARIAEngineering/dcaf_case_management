@@ -8,6 +8,7 @@ class AccountantsController < ApplicationController
     @patients = Patient.where(pledge_sent: true)
                        .includes(:clinic)
                        .includes(:fulfillment)
+                       .includes(:line)
                        .order(pledge_sent_at: :desc)
                        .page(params[:page] || 1)
 

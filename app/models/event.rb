@@ -2,6 +2,9 @@
 class Event < ApplicationRecord
   acts_as_tenant :fund
 
+  # Relations
+  belongs_to :line
+
   # Enums
   enum event_type: {
     reached_patient: 0,
@@ -10,8 +13,6 @@ class Event < ApplicationRecord
     pledged: 3,
     unknown_action: 4
   }
-  # See config/initializers/_env_var_contants.rb
-  enum line: LINES.map { |x| { x.to_sym => x.to_s } }.inject(&:merge)
 
   # Validations
   validates :event_type, :cm_name, :patient_name, :patient_id, :line, presence: true
