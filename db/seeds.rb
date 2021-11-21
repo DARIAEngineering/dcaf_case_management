@@ -16,6 +16,7 @@ ActsAsTenant.without_tenant do
   Clinic.destroy_all
   PaperTrailVersion.destroy_all
   ActiveRecord::SessionStore::Session.destroy_all
+  Line.destroy_all
   Fund.destroy_all
 end
 
@@ -23,7 +24,6 @@ end
 PaperTrail.enabled = true
 
 # Set a few config constants
-lines = %w[DC VA MD]
 note_text = 'This is a note ' * 10
 additional_note_text = 'Additional note ' * 10
 password = 'AbortionsAreAHumanRight1'
@@ -36,6 +36,8 @@ fund1 = Fund.create! name: 'DCAF',
                      site_domain: 'www.dcabortionfund.org',
                      phone: '202-452-7464'
 
+
+
 fund2 = Fund.create! name: 'CatFund',
                      domain: 'catfund.org',
                      subdomain: 'catbox',
@@ -45,6 +47,12 @@ fund2 = Fund.create! name: 'CatFund',
 
 [fund1, fund2].each do |fund|
   ActsAsTenant.with_tenant(fund) do
+    lines = if fund == fund1
+              ['Main', 'Spanish'].map { |line| Line.create! name: line }
+            else
+              ['Maru', 'Guremike'].map { |line| Line.create! name: line }
+            end
+
     # Create test users
     user = User.create! name: 'testuser (admin)', email: 'test@example.com',
                         password: password, password_confirmation: password,

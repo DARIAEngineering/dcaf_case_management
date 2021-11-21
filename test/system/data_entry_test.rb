@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Test data entry mode input
 class DataEntryTest < ApplicationSystemTestCase
   before do
+    @line = create :line
     @user = create :user
     @clinic = create :clinic
     create_insurance_config
@@ -15,7 +16,7 @@ class DataEntryTest < ApplicationSystemTestCase
   describe 'entering a new patient' do
     before do
       # fill out the form
-      select 'DC', from: 'patient_line'
+      select @line.name, from: 'patient_line_id'
       fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
       fill_in 'Name', with: 'Susie Everyteen'
       fill_in 'Phone', with: '111-222-3344'
@@ -121,7 +122,7 @@ class DataEntryTest < ApplicationSystemTestCase
   describe 'entering a new backdated patient' do
     before do
       # fill out the form
-      select 'DC', from: 'patient_line'
+      select @line.name, from: 'patient_line_id'
       fill_in 'Initial Call Date', with: 90.days.ago.strftime('%m/%d/%Y')
       fill_in 'Name', with: 'Susie Backdated'
       fill_in 'Phone', with: '111-222-3345'
@@ -176,7 +177,7 @@ class DataEntryTest < ApplicationSystemTestCase
       before do
         create :patient, primary_phone: '111-111-1111'
 
-        select 'DC', from: 'patient_line'
+        select @line.name, from: 'patient_line_id'
         fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Phone', with: '111-111-1111'
@@ -191,7 +192,7 @@ class DataEntryTest < ApplicationSystemTestCase
 
     describe 'pledge with insufficient other info' do
       before do
-        select 'DC', from: 'patient_line'
+        select @line.name, from: 'patient_line_id'
         fill_in 'Initial Call Date', with: 2.days.ago.strftime('%m/%d/%Y')
         fill_in 'Name', with: 'Susie Everyteen'
         fill_in 'Phone', with: '111-222-3344'

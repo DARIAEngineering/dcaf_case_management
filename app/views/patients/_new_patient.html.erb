@@ -52,7 +52,7 @@
     </div>
 
     <div class="col">
-      <%= f.select :line, options_for_select(lines, current_line) %>
+      <%= f.select :line_id, options_for_select(line_options, current_line.id) %>
     </div>
 
     <div class="col align-self-end">

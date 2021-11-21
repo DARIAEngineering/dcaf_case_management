@@ -3,7 +3,7 @@ namespace :db do
     desc 'Generate fake patient entries for data wranglers'
     task :create_fake_data => :environment do
 
-
+        ActsAsTenant.current_tenant = Fund.first
         users = User.all
         clinics = Clinic.all
 
@@ -19,7 +19,7 @@ namespace :db do
 
           has_pledge = gen.rand < 0.5
 
-          lines = ['DC', 'VA', 'MD'] # need to add Spanish maybe? 
+          lines = Line.all # need to add Spanish maybe? 
 
           patient = Patient.create!(
             name: 'Randomized Patient',

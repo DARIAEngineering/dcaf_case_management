@@ -17,19 +17,16 @@ well with this use case. However, an instance does need at least one line declar
 ## What this means for abortion funds
 
 For abortion funds, this means that adding a new division to how they field calls
-is as straightforward as changing the `DARIA_LINES` environment variable. If a
+is as straightforward as adding a new `Line` object to the database. If a
 fund decides to split their phone intake into two, just alter the environment variable.
 Note that this requires an engineer or someone with heroku access to complete.
 
 ## What this means for engineers
 
-In [config/initializers/_env_var_constants.rb](../config/initializers/_env_var_constants.rb),
-we set an array of the lines `LINES`. (We default it to the DCAF use case, which operates
-lines for DC, MD, and VA.) It reads from the environment variable `DARIA_LINES` -- this
-value defines the lines for an instance.
+A fund has many (and at least one) `Line` object, and we can set up a new one via `Fund.first.lines.new` in a rails console.
 
-We bubble that up and make it accessible in the app via the [LinesHelper](../app/helpers/lines_helper.rb).
-We also have a convenience method, `current_line`, which aliases to the session variable.
+We bubble up `Lines` associated with a fund and and make them accessible in the app via the [LinesHelper](../app/helpers/lines_helper.rb).
+We also have a convenience method, `current_line`, which aliases to a case manager's active line.
 
 Case managers have their lines set as a session variable, and they have to log out to
 change it.

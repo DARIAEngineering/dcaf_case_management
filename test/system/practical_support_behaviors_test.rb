@@ -2,8 +2,9 @@ require "application_system_test_case"
 
 class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
   before do
+    @line = create :line
     @user = create :user
-    @patient = create :patient, line: 'DC'
+    @patient = create :patient, line: @line
   end
 
   describe 'creating a new practical support entry' do

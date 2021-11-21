@@ -15,10 +15,6 @@ class Patient < ApplicationRecord
   include Exportable
   include EventLoggable
 
-  # Enums
-  # turns the LINES env array into the DB friendly structure: { :line1 => "line1", :line2 => "line2", ... }
-  enum line: LINES.map { |x| {x.to_sym => x.to_s} }.inject(&:merge)
-
   # Callbacks
   before_validation :clean_fields
   before_save :save_identifier
@@ -26,10 +22,11 @@ class Patient < ApplicationRecord
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
   after_update :confirm_still_urgent, if: :urgent_flag?
-  after_update :update_call_list_lines, if: :saved_change_to_line?
+  after_update :update_call_list_lines, if: :saved_change_to_line_id?
   after_destroy :destroy_associated_events
 
   # Relationships
+  belongs_to :line
   has_many :call_list_entries, dependent: :destroy
   has_many :users, through: :call_list_entries
   belongs_to :clinic, optional: true
@@ -98,7 +95,8 @@ class Patient < ApplicationRecord
   end
 
   def save_identifier
-    self.identifier = "#{line[0]}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
+    #[Line first initial][Phone 6th digit]-[Phone last four]
+    self.identifier = "#{line.name[0].upcase}#{primary_phone[-5]}-#{primary_phone[-4..-1]}"
   end
 
   def initials
@@ -146,7 +144,7 @@ class Patient < ApplicationRecord
         return
       end
 
-      patients_line = phone_match[:line]
+      patients_line = phone_match.line
       volunteers_line = line
       if volunteers_line == patients_line
         errors.add(:this_phone_number_is_already_taken, "on this line.")

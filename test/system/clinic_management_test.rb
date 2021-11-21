@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Test workflows around administering lists of clinics a fund works with
 class ClinicManagementTest < ApplicationSystemTestCase
   before do
+    create :line
     @clinic = create :clinic, accepts_naf: true,
                               accepts_medicaid: true
 

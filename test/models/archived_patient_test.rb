@@ -4,14 +4,16 @@ class ArchivedPatientTest < ActiveSupport::TestCase
   before do
     @user = create :user
     @user2 = create :user
+    @line = create :line
     with_versioning(@user) do
       @patient = create :patient, other_phone: '111-222-3333',
-                                  other_contact: 'Yolo'
+                                  other_contact: 'Yolo',
+                                  line: @line
 
       @patient.calls.create attributes_for(:call, status: :reached_patient)
       create_language_config
       @archived_patient = create :archived_patient,
-                                 line: 'DC',
+                                 line: @line,
                                  initial_call_date: 200.days.ago
     end
   end
@@ -38,7 +40,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
         @clinic = create :clinic
         @patient = create :patient, primary_phone: '222-222-3336',
                                     other_phone: '222-222-4441',
-                                    line: 'DC',
+                                    line: @line,
                                     clinic: @clinic,
                                     city: 'Washington',
                                     race_ethnicity: 'Asian',
@@ -110,12 +112,14 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     before do
       @patient_audited = create :patient, primary_phone: '222-222-3333',
                                       other_phone: '222-222-4444',
-                                      initial_call_date: 30.days.ago
+                                      initial_call_date: 30.days.ago,
+                                      line: @line
       @patient_audited.fulfillment.update audited: true
 
       @patient_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
-                                      initial_call_date: 120.days.ago
+                                      initial_call_date: 120.days.ago,
+                                      line: @line
     end
 
     it 'should not convert thirty day old, audited patient to archived patient' do
@@ -140,7 +144,8 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     before do
       @patient_old_unaudited = create :patient, primary_phone: '564-222-3333',
                                       other_phone: '222-222-9074',
-                                      initial_call_date: 370.days.ago
+                                      initial_call_date: 370.days.ago,
+                                      line: @line
       @patient_old_unaudited.fulfillment.update audited: false
       @patient_old_unaudited.save!
     end

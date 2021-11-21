@@ -160,4 +160,8 @@ module PatientsHelper
 
     options.uniq
   end
+
+  def line_options
+    Line.all.map { |x| [x.name, x.id] }
+  end
 end

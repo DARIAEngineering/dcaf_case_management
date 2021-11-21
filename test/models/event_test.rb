@@ -25,13 +25,6 @@ class EventTest < ActiveSupport::TestCase
       assert @event.valid?
     end
 
-    it 'should only allow certain lines' do
-      assert_raises ArgumentError do
-        @event.line = :notaline
-        @event.valid?
-      end
-    end
-
     [:patient_name, :patient_id, :cm_name, :event_type].each do |req_field|
       it "requires #{req_field}" do
         @event[req_field] = nil

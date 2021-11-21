@@ -12,7 +12,7 @@ class DashboardsController < ApplicationController
   def search
     if params[:search].present?
       @results = eager_loaded_patients.search params[:search],
-                                              lines: [current_line.try(:to_sym) || lines]
+                                              lines: [current_line || Line.all]
     else
       @results = []
     end
@@ -50,6 +50,6 @@ class DashboardsController < ApplicationController
   end
 
   def pick_line_if_not_set
-    redirect_to new_line_path if session[:line].blank?
+    redirect_to new_line_path if session[:line_id].blank?
   end
 end

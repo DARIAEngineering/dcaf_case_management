@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_11_18_014015) do
-
+  
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
     t.string "age_range", default: "not_specified"
     t.boolean "has_alt_contact"
     t.string "voicemail_preference", default: "not_specified"
-    t.string "line", null: false
+    t.string "line_legacy"
     t.string "language"
     t.date "initial_call_date"
     t.boolean "urgent_flag"
@@ -55,9 +55,11 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
+    t.bigint "line_id", null: false
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
-    t.index ["line"], name: "index_archived_patients_on_line"
+    t.index ["line_id"], name: "index_archived_patients_on_line_id"
+    t.index ["line_legacy"], name: "index_archived_patients_on_line_legacy"
     t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
   end
@@ -65,13 +67,15 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
   create_table "call_list_entries", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "patient_id", null: false
-    t.string "line", null: false
+    t.string "line_legacy"
     t.integer "order_key", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
+    t.bigint "line_id", null: false
     t.index ["fund_id"], name: "index_call_list_entries_on_fund_id"
-    t.index ["line"], name: "index_call_list_entries_on_line"
+    t.index ["line_id"], name: "index_call_list_entries_on_line_id"
+    t.index ["line_legacy"], name: "index_call_list_entries_on_line_legacy"
     t.index ["patient_id"], name: "index_call_list_entries_on_patient_id"
     t.index ["user_id"], name: "index_call_list_entries_on_user_id"
   end
@@ -145,16 +149,18 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
   create_table "events", force: :cascade do |t|
     t.string "cm_name"
     t.integer "event_type"
-    t.string "line"
+    t.string "line_legacy"
     t.string "patient_name"
     t.string "patient_id"
     t.integer "pledge_amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
+    t.bigint "line_id", null: false
     t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["fund_id"], name: "index_events_on_fund_id"
-    t.index ["line"], name: "index_events_on_line"
+    t.index ["line_id"], name: "index_events_on_line_id"
+    t.index ["line_legacy"], name: "index_events_on_line_legacy"
   end
 
   create_table "external_pledges", force: :cascade do |t|
@@ -201,6 +207,14 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
     t.string "pledge_generation_config", comment: "Optional config of which pledge generation configset to use. If null, pledge generation is shut off"
   end
 
+  create_table "lines", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "fund_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fund_id"], name: "index_lines_on_fund_id"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
     t.bigint "patient_id"
@@ -219,7 +233,7 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
     t.string "other_contact_relationship"
     t.string "identifier"
     t.string "voicemail_preference", default: "not_specified"
-    t.string "line", null: false
+    t.string "line_legacy"
     t.string "language"
     t.string "pronouns"
     t.date "initial_call_date", null: false
@@ -259,11 +273,13 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
+    t.bigint "line_id", null: false
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
     t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
-    t.index ["line"], name: "index_patients_on_line"
+    t.index ["line_id"], name: "index_patients_on_line_id"
+    t.index ["line_legacy"], name: "index_patients_on_line_legacy"
     t.index ["name"], name: "index_patients_on_name"
     t.index ["other_contact"], name: "index_patients_on_other_contact"
     t.index ["other_phone"], name: "index_patients_on_other_phone"
@@ -337,20 +353,25 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
 
   add_foreign_key "archived_patients", "clinics"
   add_foreign_key "archived_patients", "funds"
+  add_foreign_key "archived_patients", "lines"
   add_foreign_key "archived_patients", "users", column: "pledge_generated_by_id"
   add_foreign_key "archived_patients", "users", column: "pledge_sent_by_id"
   add_foreign_key "call_list_entries", "funds"
+  add_foreign_key "call_list_entries", "lines"
   add_foreign_key "call_list_entries", "patients"
   add_foreign_key "call_list_entries", "users"
   add_foreign_key "calls", "funds"
   add_foreign_key "clinics", "funds"
   add_foreign_key "configs", "funds"
   add_foreign_key "events", "funds"
+  add_foreign_key "events", "lines"
   add_foreign_key "external_pledges", "funds"
   add_foreign_key "fulfillments", "funds"
+  add_foreign_key "lines", "funds"
   add_foreign_key "notes", "funds"
   add_foreign_key "patients", "clinics"
   add_foreign_key "patients", "funds"
+  add_foreign_key "patients", "lines"
   add_foreign_key "patients", "users", column: "last_edited_by_id"
   add_foreign_key "patients", "users", column: "pledge_generated_by_id"
   add_foreign_key "patients", "users", column: "pledge_sent_by_id"

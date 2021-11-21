@@ -2,10 +2,12 @@ require 'application_system_test_case'
 
 class UpdatePatientInfoTest < ApplicationSystemTestCase
   before do
+    @line = create :line
+    @line2 = create :line
     @user = create :user
     @admin = create :user, role: :admin
     @clinic = create :clinic
-    @patient = create :patient, line: :DC
+    @patient = create :patient, line: @line
     @patient.external_pledges.create source: 'Baltimore Abortion Fund',
                                      amount: 100
     @ext_pledge = @patient.external_pledges.first
@@ -260,14 +262,14 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         visit edit_patient_path @patient
         wait_for_element 'Patient Information'
 
-        select 'MD', from: 'patient_line'
+        select @line2.name, from: 'patient_line_id'
         click_away_from_field
         reload_page_and_click_link 'Patient Information'
       end
 
       it 'should alter the information' do
         within :css, '#patient_information' do
-          assert_equal 'MD', find('#patient_line').value
+          assert_equal @line2.id.to_s, find('#patient_line_id').value
         end
       end
     end

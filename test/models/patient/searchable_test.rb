@@ -4,18 +4,23 @@ require_relative '../patient_test'
 class PatientTest::PatientSearchable < PatientTest
   describe 'search method' do
     before do
+      @line = create :line, name: 'DC'
+      @line2 = create :line, name: 'MD'
       @pt_1 = create :patient, name: 'Susan Sher',
-                               primary_phone: '124-456-6789'
+                               primary_phone: '124-456-6789',
+                               line: @line
       @pt_2 = create :patient, name: 'Susan E',
                                primary_phone: '124-567-7890',
-                               other_contact: 'Friend Ship'
+                               other_contact: 'Friend Ship',
+                               line: @line
       @pt_3 = create :patient, name: 'Susan A',
                                primary_phone: '555-555-5555',
-                               other_phone: '999-999-9999'
+                               other_phone: '999-999-9999',
+                               line: @line
       @pt_4 = create :patient, name: 'Susan A in MD',
                                primary_phone: '777-777-7777',
                                other_phone: '999-111-9888',
-                               line: 'MD'
+                               line: @line2
     end
 
     it 'should find a patient on name or other name' do
@@ -49,7 +54,7 @@ class PatientTest::PatientSearchable < PatientTest
 
       it 'should limit the number of patients returned' do
         16.times do |num|
-          create :patient, primary_phone: "124-567-78#{num+10}"
+          create :patient, primary_phone: "124-567-78#{num+10}", line: @line
         end
         assert_equal 15, Patient.search('124').count
       end
@@ -58,7 +63,7 @@ class PatientTest::PatientSearchable < PatientTest
     describe 'limit' do
       before do
         16.times do |num|
-          create :patient, primary_phone: "124-567-78#{num+10}"
+          create :patient, primary_phone: "124-567-78#{num+10}", line: @line
         end
       end
 
@@ -82,7 +87,7 @@ class PatientTest::PatientSearchable < PatientTest
 
     it 'should be able to narrow on line' do
       assert_equal 2, Patient.search('Susan A').count
-      assert_equal 1, Patient.search('Susan A', lines: 'MD').count
+      assert_equal 1, Patient.search('Susan A', lines: @line2).count
     end
 
     it 'should not choke if it does not find anything' do

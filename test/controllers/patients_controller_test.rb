@@ -4,16 +4,19 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user
     @admin = create :user, role: :admin
+    @line = create :line
     @data_volunteer = create :user, role: :data_volunteer
 
     sign_in @user
+    choose_line @line
     @clinic = create :clinic
     @patient = create :patient,
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
-                      other_phone: '333-444-5555'
+                      other_phone: '333-444-5555',
+                      line: @line
     @archived_patient = create :archived_patient,
-                               line: 'DC',
+                               line: @line,
                                initial_call_date: 400.days.ago
   end
 
@@ -79,7 +82,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'create method' do
     before do
-      @new_patient = attributes_for :patient, name: 'Test Patient'
+      @new_patient = attributes_for :patient, name: 'Test Patient', line_id: @line.id
     end
 
     it 'should create and save a new patient' do
@@ -221,7 +224,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
   # confirm sending a 'post' with a payload results in a new patient
   describe 'data_entry_create method' do
     before do
-      @test_patient = attributes_for :patient, name: 'Test Patient'
+      @test_patient = attributes_for :patient, name: 'Test Patient', line_id: create(:line).id
     end
 
     it 'should create and save a new patient' do
