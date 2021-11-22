@@ -83,6 +83,19 @@ jobs:
       - name: Run test suite
         run: bin/rails test:all
 
+      # Save artifacts
+      - name: Store coverage artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: coverage
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: capybara-screenshots
+          path: tmp/capybara/
+
   scan:
     name: Run static scanners
     runs-on: ubuntu-latest
