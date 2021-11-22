@@ -32,7 +32,7 @@ class ActiveSupport::TestCase
     teardown_tenant
   end
 
-  parallelize(workers: :number_of_processors)
+  parallelize(workers: :number_of_processors) unless ENV['DOCKER']
 
   def setup_tenant
     tenant = create :fund, name: 'DCAF', full_name: 'DC Abortion Fund'
