@@ -104,4 +104,24 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       refute has_link? 'Fulfillment'
     end
   end
+
+  describe 'displaying pledge generator input' do
+    it 'should obey the model setting' do
+      find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
+      assert has_text? 'Confirm the following information is correct'
+      find('#pledge-next').click
+      wait_for_ajax
+      assert has_content? 'Please generate your pledge form and click next.'
+
+      ActsAsTenant.current_tenant.update pledge_generation_config: 'default'
+      visit edit_patient_path @patient
+      find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
+      assert has_text? 'Confirm the following information is correct'
+      find('#pledge-next').click
+      wait_for_ajax
+      assert has_content? 'Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.'
+    end
+  end
 end
