@@ -192,18 +192,37 @@ puts "porting versions"
   'Patient' => @patient_mappings,
   'User' => @user_mappings
 }
-def transform_obj(obj)
-  # Zoom thru keys and properly set the new stuff
+
+def transform_obj(obj, item_type, value_will_be_array)
+  obj.each_pair do |k, v|
+    obj['id'] = @item_type_mappings[item_type][v] if k == 'id'
+    if @fkey_mappings.keys.include? k
+      obj[key] = value_will_be_array ? v.map { |x| @fkey_mappings[k][x] } : @fkey_mappings[k][v]
+    end
+  end
+  obj
 end
-ActiveRecord::Base.connection.execute('select * from versions_transfer').each do |v|
-  PaperTrailVersion.create! v.exclude('id', 'item_id', 'fund_id', 'object', 'object_changes', 'whodunnit')
-                             .merge({
-                               'fund_id' => @fund_id,
-                               'item_id' => @item_type_mappings[v['item_type'][v['item_id']]],
-                               'whodunnit' => @user_mappings[v['whodunnit'].to_i],
-                               'object_changes' => transform_obj(v['object_changes']),
-                               'object' => transform_obj(v['object'])
-                             })
+
+
+# Transfer versions, porting keys along the way
+offset = 0
+versions = ActiveRecord::Base.connection.execute('select * from versions_transfer')
+while versions.length > 0
+  versions.each do |v|
+    PaperTrailVersion.create! v.exclude('id', 'item_id', 'fund_id', 'object', 'object_changes', 'whodunnit')
+                               .merge({
+                                 'fund_id' => @fund_id,
+                                 'item_id' => @item_type_mappings[v['item_type'][v['item_id']]],
+                                 'whodunnit' => @user_mappings[v['whodunnit'].to_i],
+                                 'object_changes' => transform_obj(v['object_changes'], v['item_type'], true),
+                                 'object' => transform_obj(v['object'], v['item_type'], false)
+                               })
+  end
+
+  # Do another batch
+  offset = offset + 500
+  puts "#{Time.now} Another batch of 500 pts"
+  versions = ActiveRecord::Base.connection.execute('select * from versions_transfer')
 end
 
 puts "#{Time.zone.now} Completed"
