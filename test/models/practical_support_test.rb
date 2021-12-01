@@ -9,8 +9,12 @@ class PracticalSupportTest < ActiveSupport::TestCase
     @patient.practical_supports.create support_type: 'Swag',
                                        source: 'YOLO AF',
                                        confirmed: true
+    @patient.practical_supports.create support_type: 'Companion',
+                                       source: 'Cat',
+                                       amount: 32
     @psupport1 = @patient.practical_supports.first
-    @psupport2 = @patient.practical_supports.last
+    @psupport2 = @patient.practical_supports.second
+    @psupport3 = @patient.practical_supports.last
   end
 
   describe 'concerns' do
@@ -22,6 +26,7 @@ class PracticalSupportTest < ActiveSupport::TestCase
   end
 
   describe 'validations' do
+    # note: amount is not required
     [:source, :support_type].each do |field|
       it "should enforce presence of #{field}" do
         @psupport1[field.to_sym] = nil
