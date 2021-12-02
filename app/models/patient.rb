@@ -249,4 +249,8 @@ class Patient < ApplicationRecord
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
   end
+
+  def self.unconfirmed_practical_support(line)
+    Patient.where(line: line, 'practical_supports.confirmed' => false)
+  end
 end

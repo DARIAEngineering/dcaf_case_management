@@ -7,6 +7,7 @@ class DashboardsController < ApplicationController
 
   def index
     @urgent_patients = eager_loaded_patients.urgent_patients(current_line)
+    @unconfirmed_support_patients = eager_loaded_patients.unconfirmed_practical_support(current_line)
   end
 
   def search
@@ -38,7 +39,7 @@ class DashboardsController < ApplicationController
   private
 
   def eager_loaded_patients
-    Patient.includes([:calls, :fulfillment])
+    Patient.includes([:calls, :fulfillment, :practical_supports])
   end
 
   def searched_for_phone?(query)

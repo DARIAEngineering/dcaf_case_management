@@ -34,6 +34,10 @@ module TooltipsHelper
     t('tooltips.urgent_cases', urgent_reset: Config.urgent_reset).strip
   end
 
+  def unconfirmed_support_help_text
+    t('tooltips.unconfirmed_support').strip
+  end
+
   def status_help_text(patient)
     status = Statusable::STATUSES.find { |x, hsh| hsh[:key] == patient.status }
                                  .second
