@@ -33,7 +33,7 @@ module WelcomeMessageHelper
       "¡Trabajo destacado! ¡Mantener el trabajo duro!",
       "Keep up the Good Work",
       "Mantener el Trabajo Duro",
-      "You're a 🌟! You're awesome! Muchas Gracias!", 
+      "You're a 🌟! You're awesome! Muchas Gracias!",
       "Another case, another human being helped. Keep it up!",
       "Merci beaucoup!",
       "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
@@ -66,7 +66,8 @@ module WelcomeMessageHelper
       "Thank you! You ARE APPRECIATED! :)",
       "Thank you for your incredible work!",
       "My body, my choice. Thanks for fighting for reproductive justice!",
-      "Whoever saves a single life is considered by scripture to have saved the whole world. Thank you for your work!"
+      "Whoever saves a single life is considered by scripture to have saved the whole world. Thank you for your work!",
+      "You're doing amazing, sweetie."
     ]
   end
 end
