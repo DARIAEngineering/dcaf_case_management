@@ -251,6 +251,9 @@ class Patient < ApplicationRecord
   end
 
   def self.unconfirmed_practical_support(line)
-    Patient.where(line: line, 'practical_supports.confirmed' => false)
+    Patient.where(line: line)
+           .joins(:practical_supports)
+           .where({ practical_supports: { confirmed: false } })
+           .uniq
   end
 end

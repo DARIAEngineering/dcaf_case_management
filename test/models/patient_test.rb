@@ -505,6 +505,58 @@ class PatientTest < ActiveSupport::TestCase
         assert_equal @patient.has_special_circumstances, true
       end
     end
+
+    describe 'unconfirmed_practical_support' do
+      it 'should return unconfirmed patients only' do
+        # should show up
+        @patient.practical_supports.create support_type: 'Companion',
+                                           source: 'Cat',
+                                           amount: 32,
+                                           confirmed: false
+
+        # should not show up
+        @patient2.practical_supports.create support_type: 'Lodging',
+                                            source: 'Fund',
+                                            amount: 100,
+                                            confirmed: true
+
+        assert_includes Patient.unconfirmed_practical_support(@line), @patient
+        assert_not_includes Patient.unconfirmed_practical_support(@line), @patient2
+
+        @patient.practical_supports.first.update confirmed: true
+        assert_empty Patient.unconfirmed_practical_support(@line)
+      end
+
+      it 'should work with multiple unconfirmed supports' do
+        @patient.practical_supports.create support_type: 'Companion',
+                                           source: 'Cat',
+                                           amount: 32,
+                                           confirmed: false
+
+        # add more unconfirmed supports - shouldn't return duplicates
+        assert_no_difference 'Patient.unconfirmed_practical_support(@line).count' do
+          @patient.practical_supports.create support_type: 'Lodging',
+                                            source: 'Fund',
+                                            amount: 200,
+                                            confirmed: false
+
+          @patient.practical_supports.create support_type: 'Travel to the region',
+                                            source: 'Catbus',
+                                            amount: 50,
+                                            confirmed: false
+        end
+
+        # set just one to be completed - shouldn't be marked confirmed
+        assert_no_difference 'Patient.unconfirmed_practical_support(@line).count' do
+          @patient.practical_supports.first.update confirmed: true
+        end
+
+        # make em all true
+        assert_difference 'Patient.unconfirmed_practical_support(@line).count', -1 do
+          @patient.practical_supports.each { |support| support.update confirmed: true }
+        end
+      end
+    end
   end
 
   describe 'pledge_sent validation' do

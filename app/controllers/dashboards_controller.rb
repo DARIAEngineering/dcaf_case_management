@@ -39,7 +39,7 @@ class DashboardsController < ApplicationController
   private
 
   def eager_loaded_patients
-    Patient.includes([:calls, :fulfillment, :practical_supports])
+    Patient.includes([:calls, :fulfillment])
   end
 
   def searched_for_phone?(query)

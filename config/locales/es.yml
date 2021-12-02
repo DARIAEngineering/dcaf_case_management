@@ -180,8 +180,8 @@ es:
       call_list: Tu lista de llamadas
       completed_calls: Tus llamadas completadas
       search_results: Resultados de la búsqueda
-      urgent_cases: Casos urgentes
       unconfirmed_support: Apoyo no confirmado
+      urgent_cases: Casos urgentes
     search:
       header: Construye tu lista de llamadas
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
@@ -536,8 +536,8 @@ es:
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
-    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{urgent_reset} días de inactividad.
     unconfirmed_support: Estos son pacientes que tienen apoyos prácticos no confirmados.
+    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{urgent_reset} días de inactividad.
   user:
     common:
       last_login: Último Acceso
