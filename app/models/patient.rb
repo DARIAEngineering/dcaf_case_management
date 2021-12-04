@@ -251,9 +251,9 @@ class Patient < ApplicationRecord
   end
 
   def self.unconfirmed_practical_support(line)
-    Patient.where(line: line)
+    Patient.distinct
+           .where(line: line)
            .joins(:practical_supports)
            .where({ practical_supports: { confirmed: false } })
-           .group('patients.id') # this gives us uniq
   end
 end
