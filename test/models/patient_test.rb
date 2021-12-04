@@ -534,7 +534,7 @@ class PatientTest < ActiveSupport::TestCase
                                            confirmed: false
 
         # add more unconfirmed supports - shouldn't return duplicates
-        assert_no_difference 'Patient.unconfirmed_practical_support(@line).count' do
+        assert_no_difference 'Patient.unconfirmed_practical_support(@line).length' do
           @patient.practical_supports.create support_type: 'Lodging',
                                             source: 'Fund',
                                             amount: 200,
@@ -547,12 +547,12 @@ class PatientTest < ActiveSupport::TestCase
         end
 
         # set just one to be completed - shouldn't be marked confirmed
-        assert_no_difference 'Patient.unconfirmed_practical_support(@line).count' do
+        assert_no_difference 'Patient.unconfirmed_practical_support(@line).length' do
           @patient.practical_supports.first.update confirmed: true
         end
 
         # make em all true
-        assert_difference 'Patient.unconfirmed_practical_support(@line).count', -1 do
+        assert_difference 'Patient.unconfirmed_practical_support(@line).length', -1 do
           @patient.practical_supports.each { |support| support.update confirmed: true }
         end
       end

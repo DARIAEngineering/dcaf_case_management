@@ -254,6 +254,6 @@ class Patient < ApplicationRecord
     Patient.where(line: line)
            .joins(:practical_supports)
            .where({ practical_supports: { confirmed: false } })
-           .uniq
+           .group('patients.id') # this gives us uniq
   end
 end
