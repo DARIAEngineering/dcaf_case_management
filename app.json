@@ -29,10 +29,6 @@
       "description": "domain you want emails to come from. Should be the domain configured with sendgrid. Usually dariaservices.com.",
       "value": "dariaservices.com"
     },
-    "DARIA_PLEDGE_GENERATOR_DISABLED": {
-      "description": "The PDF Pledge generator only works for DCAF for now",
-      "value": "true"
-    },
     "RAILS_LOG_TO_STDOUT": {
       "description": "set to true",
       "value": "true"
