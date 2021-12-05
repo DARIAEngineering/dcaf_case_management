@@ -11,8 +11,8 @@ Rails.application.config.content_security_policy do |policy|
   policy.object_src  :none
   policy.font_src    :self, 'fonts.gstatic.com'
   policy.connect_src :self
-  policy.script_src  :self, :unsafe_eval
-  policy.style_src   :self, :unsafe_inline
+  policy.script_src  :self, "https://#{ENV['ASSET_SITE_URL'] || ENV['SITE_URL']}", :unsafe_eval
+  policy.style_src   :self, "https://#{ENV['ASSET_SITE_URL'] || ENV['SITE_URL']}", :unsafe_inline
 
   # Specify URI for violation reports
   policy.report_uri  "https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
