@@ -14,5 +14,4 @@ class PracticalSupport < ApplicationRecord
   validates :amount, 
               allow_nil: true,
               numericality: { only_integer: true, greater_than: 0 }
-
 end
