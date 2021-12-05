@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
                      skip: [:registrations]
-  authenticate :user do
+  authenticated :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get 'budget_bar', to: 'dashboards#budget_bar', defaults: { format: :js }, as: 'budget_bar'
