@@ -16,16 +16,16 @@ task nightly_cleanup: :environment do
   Fund.all.each do |fund|
     ActsAsTenant.with_tenant(fund) do
       User.all.each { |user| user.clean_call_list_between_shifts }
-      puts "#{Time.now} -- cleared all recently reached patients from call lists for fund #{fund}"
+      puts "#{Time.now} -- cleared all recently reached patients from call lists for fund #{fund.name}"
 
       User.disable_inactive_users
-      puts "#{Time.now} -- locked accounts of users who have not logged in since #{User::TIME_BEFORE_DISABLED_BY_FUND.ago} for fund #{fund}"
+      puts "#{Time.now} -- locked accounts of users who have not logged in since #{User::TIME_BEFORE_DISABLED_BY_FUND.ago} for fund #{fund.name}"
 
       Patient.trim_urgent_patients
-      puts "#{Time.now} -- trimmed urgent patients for fund #{fund}"
+      puts "#{Time.now} -- trimmed urgent patients for fund #{fund.name}"
 
       ArchivedPatient.archive_eligible_patients!
-      puts "#{Time.now} -- archived patients for today for fund #{fund}"
+      puts "#{Time.now} -- archived patients for today for fund #{fund.name}"
     end
   end
 end
