@@ -168,6 +168,11 @@ fund2 = Fund.create! name: 'CatFund',
 
       if i.even?
         patient.notes.create! full_text: additional_note_text
+        patient.practical_supports.create! support_type: 'Advice', source: 'Counselor'
+      end
+
+      if i % 3 == 0
+        patient.practical_supports.create! support_type: 'Car rides', source: 'Neighbor'
       end
 
       # Add select patients to call list for user
