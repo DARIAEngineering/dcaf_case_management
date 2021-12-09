@@ -42,7 +42,11 @@
       <p class="row"><strong><%= t('patient.pledge.step_three.completed') %></strong></p>
 
       <div class="row">
-        <%= bootstrap_form_with model: patient, html: {class: 'edit_patient', id: 'pledge-create-modal-form'}, remote: true do |f| %>
+        <%= bootstrap_form_with model: patient,
+                                html: {class: 'edit_patient',
+                                id: 'pledge-create-modal-form'},
+                                method: 'patch',
+                                remote: true do |f| %>
           <%= f.check_box :pledge_sent, label: t('patient.pledge.step_three.sent_checkbox') %>
         <% end %>
       </div>
@@ -68,6 +72,7 @@
       <%= bootstrap_form_with model: @patient,
                               html: { id: 'cancel-pledge-form' },
                               remote: true,
+                              method: 'patch',
                               class: 'edit_patient' do |f| %>
         <%= f.hidden_field :pledge_sent, value: false %>
         <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step float-right", id: 'cancel-pledge-submit'%>

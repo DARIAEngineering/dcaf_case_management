@@ -12,12 +12,20 @@ class ApplicationController < ActionController::Base
   if Rails.env.development?
     before_action :confirm_tenant_set_development
   end
+  before_action :redirect_if_legacy
   before_action :confirm_tenant_set
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :prevent_caching_via_headers
   before_action :set_locale
   before_action :set_sentry_context
   before_action :set_paper_trail_whodunnit
+
+  # redirect to new system if config is set
+  def redirect_if_legacy
+    if ENV['REDIRECT_DESTINATION'].present?
+      redirect_to ENV['REDIRECT_DESTINATION']
+    end
+  end
 
   # Don't let any requests through without confirming a tenant is set.
   def confirm_tenant_set
