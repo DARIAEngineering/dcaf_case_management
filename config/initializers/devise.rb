@@ -9,12 +9,11 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 
-# class CustomFailure < Devise::FailureApp
-#   def route(scope)
-#     #return super unless [:worker, :employer, :user].include?(scope) #make it specific to a scope
-#      new_user_session_url
-#   end
-# end
+class CustomFailure < Devise::FailureApp
+  def route(scope)
+    :new_user_session_path
+  end
+end
 
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
@@ -290,9 +289,9 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
-  # config.warden do |manager|
-  #   manager.failure_app = CustomFailure
-  # end
+  config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
