@@ -2,13 +2,12 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
                      skip: [:registrations]
 
-  as :user do
-    get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
-    put '/users' => 'devise/registrations#update', as: 'registration'
-  end
-
   unauthenticated do
     root :to => redirect('/users/sign_in')
+    as :user do
+      get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+      put '/users' => 'devise/registrations#update', as: 'registration'
+    end
   end
 
   authenticate :user do

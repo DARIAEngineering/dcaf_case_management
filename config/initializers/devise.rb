@@ -10,26 +10,13 @@
 # Many of these configuration options can be set straight in your model.
 
 class CustomFailure < Devise::FailureApp
-    def route(scope)
-      #return super unless [:worker, :employer, :user].include?(scope) #make it specific to a scope
-       new_user_session_url
-    end
-
-    # You need to override respond to eliminate recall
-    # def respond
-    #   if http_auth?
-    #     http_auth
-    #   else
-    #     redirect
-    #   end
-    # end
+  def route(scope)
+    #return super unless [:worker, :employer, :user].include?(scope) #make it specific to a scope
+     new_user_session_url
   end
+end
 
 Devise.setup do |config|
-
-config.warden do |manager|
-    manager.failure_app = CustomFailure
-  end
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -303,6 +290,9 @@ config.warden do |manager|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+  config.warden do |manager|
+    manager.failure_app = CustomFailure
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
