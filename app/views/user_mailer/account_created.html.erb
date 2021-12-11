@@ -1,5 +1,5 @@
 <p>Hi <%= @user.name %> --</p>
-<p>A DARIA account has been created for you! You can head <%= link_to 'here', root_url %> to log in.</p>
+<p>A DARIA account has been created for you! You can head to https://<%= current_tenant.domain %>.<%= ENV.fetch('SITE_URL', 'lvh.me:3000') %> to log in.</p>
 <p>We recommend logging in with Google. If you don't log in with Google, you will need to reset your password.</p>
 <p>If you experience any difficulties, please reach out to your case management director or volunteer contact.</p>
 <p>Thanks for your service!</p>

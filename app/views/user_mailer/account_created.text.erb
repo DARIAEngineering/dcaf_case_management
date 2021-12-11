@@ -1,6 +1,6 @@
 Hi <%= @user.name %> --
 
-A DARIA account has been created for you! You can head here to log in: <%= root_url %>
+A DARIA account has been created for you! You can head here to log in: https://<%= current_tenant.domain %>.<%= ENV.fetch('SITE_URL', 'lvh.me:3000') %>
 
 We recommend logging in with Google. If you don't log in with Google, you will need to reset your password.
 
