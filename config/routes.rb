@@ -4,10 +4,10 @@ Rails.application.routes.draw do
 
   unauthenticated do
     root :to => redirect('/users/sign_in')
-    as :user do
-      get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
-      put '/users' => 'devise/registrations#update', as: 'registration'
-    end
+  end
+  as :user do
+    get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+    put '/users' => 'devise/registrations#update', as: 'registration'
   end
 
   authenticate :user do
