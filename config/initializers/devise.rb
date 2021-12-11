@@ -9,6 +9,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 
+# Ripped off and adapted from https://github.com/heartcombo/devise/wiki/Redirect-to-new-registration-(sign-up)-path-if-unauthenticated
 class CustomFailure < Devise::FailureApp
   def route(scope)
     :new_user_session_path
