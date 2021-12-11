@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     root :to => redirect('/users/sign_in')
   end
 
-  authenticated :user do
+  authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get 'budget_bar', to: 'dashboards#budget_bar', defaults: { format: :js }, as: 'budget_bar'
