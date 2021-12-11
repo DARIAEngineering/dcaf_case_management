@@ -2,11 +2,16 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
                      skip: [:registrations]
 
+  as :user do
+    get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+    put '/users' => 'devise/registrations#update', as: 'registration'
+  end
+
   unauthenticated do
     root :to => redirect('/users/sign_in')
   end
 
-  authenticated :user do
+  authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
     get 'budget_bar', to: 'dashboards#budget_bar', defaults: { format: :js }, as: 'budget_bar'
@@ -61,12 +66,5 @@ Rails.application.routes.draw do
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
-  end
-
-  # Auth routes
-  # root :to => redirect('/users/sign_in')
-  as :user do
-    get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
-    put '/users' => 'devise/registrations#update', as: 'registration'
   end
 end
