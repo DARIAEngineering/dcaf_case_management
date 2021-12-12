@@ -50,7 +50,8 @@ task multitenant_db_merge: :environment do
   configs_for_migrate = ActiveRecord::Base.connection.execute('select * from configs')
   connect_to_target_db
   configs_for_migrate.each do |x|
-    ported = Config.create! x.except('id', 'fund_id', 'config_value').merge('config_value': JSON.parse(x['config_value']))
+    ported = Config.new x.except('id', 'fund_id', 'config_value').merge('config_value': JSON.parse(x['config_value']))
+    ported.save validate: false # We skip validations here because it's pretty possible for some of these to be in invalid states due to rules changing
     @config_mappings[x['id'].to_i] = ported.id
   end
   puts "#{Time.now} Ported #{Config.count} configs and #{configs_for_migrate.ntuples} were in original db"
@@ -62,35 +63,37 @@ task multitenant_db_merge: :environment do
   clinics_for_migrate = ActiveRecord::Base.connection.execute('select * from clinics')
   connect_to_target_db
   clinics_for_migrate.each do |x|
-    puts x
     ported = Clinic.create! x.except('id', 'fund_id')
     @clinic_mappings[x['id'].to_i] = ported.id
   end
-  puts "#{Time.now} Ported #{Clinic.count} configs and #{clinics_for_migrate.ntuples} were in original db"
+  puts "#{Time.now} Ported #{Clinic.count} clinics and #{clinics_for_migrate.ntuples} were in original db"
   raise "COUNT MISMATCH ERROR" unless Clinic.count == clinics_for_migrate.ntuples
 
+  # Port lines, and store the mappings between old and new
+  puts "#{Time.now} Porting lines"
+  connect_to_migration_db
+  lines_for_migrate = ActiveRecord::Base.connection.execute('select * from lines')
+  connect_to_target_db
+  lines_for_migrate.each do |x|
+    ported = Line.create! x.except('id', 'fund_id')
+    @line_mappings[x['id'].to_i] = ported.id
+  end
+  puts "#{Time.now} Ported #{Line.count} lines and #{lines_for_migrate.ntuples} were in original db"
+  raise "COUNT MISMATCH ERROR" unless Line.count == lines_for_migrate.ntuples
 
-  # # Port lines, and store the mappings between old and new
-  # puts 'Porting lines'
-  # connect_to_migration_db
-  # lines_for_migrate = ActiveRecord::Base.connection.execute('select * from lines')
-  # connect_to_target_db
-  # lines_for_migrate.each do |x|
-  #   ported = Line.create! x.except('id', 'fund_id')
-  #   @line_mappings[x['id'].to_i] = ported.id
-  # end
-
-  # # Port users, and store the mappings between old and new
-  # puts 'Porting users'
-  # ActionMailer::Base.perform_deliveries = false # Don't email
-  # connect_to_migration_db
-  # users_for_migrate = ActiveRecord::Base.connection.execute('select * from users')
-  # connect_to_target_db
-  # users_for_migrate.each do |x|
-  #   ported = User.create! x.except('id', 'fund_id', 'line', 'encrypted_password')
-  #                          .merge({'password' => x['encrypted_password'].to_s, 'password_confirmation' => x['encrypted_password'].to_s})
-  #   @user_mappings[x['id'].to_i] = ported.id
-  # end
+  # Port users, and store the mappings between old and new
+  puts "#{Time.now} Porting users"
+  ActionMailer::Base.perform_deliveries = false # Don't email
+  connect_to_migration_db
+  users_for_migrate = ActiveRecord::Base.connection.execute('select * from users')
+  connect_to_target_db
+  users_for_migrate.each do |x|
+    ported = User.create! x.except('id', 'fund_id', 'line', 'encrypted_password')
+                           .merge({'password' => x['encrypted_password'].to_s, 'password_confirmation' => x['encrypted_password'].to_s})
+    @user_mappings[x['id'].to_i] = ported.id
+  end
+  puts "#{Time.now} Ported #{User.count} users and #{users_for_migrate.ntuples} were in original db"
+  raise "COUNT MISMATCH ERROR" unless User.count == users_for_migrate.ntuples
 
   # Def a helper function to correct FKs
   def port_patient_subobjs(type, old_id, new_id)
