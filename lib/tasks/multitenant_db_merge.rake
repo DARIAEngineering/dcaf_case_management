@@ -132,7 +132,7 @@ task multitenant_db_merge: :environment do
                          elsif x['can_call_type'] == 'ArchivedPatient'
                            @archived_patient_mappings[x['can_call_id']]
                          else
-                           raise "unexpected type - row #{x}" 
+                           raise "unexpected type - row #{x}"
                          end
       })
     res['can_call_id'].nil? ? nil : res
@@ -149,7 +149,7 @@ task multitenant_db_merge: :environment do
                          elsif x['can_pledge_type'] == 'ArchivedPatient'
                            @archived_patient_mappings[x['can_pledge_id']]
                          else
-                           raise "unexpected type - row #{x}" 
+                           raise "unexpected type - row #{x}"
                          end
       })
     res['can_pledge_id'].nil? ? nil : res
@@ -161,140 +161,110 @@ task multitenant_db_merge: :environment do
     res = x.except('id', 'can_fulfill_id', 'fund_id')
       .merge({
         'fund_id' => @fund_id,
-        'can_pledge_id' => if x['can_fulfill_type'] == 'Patient'
-                           @patient_mappings[x['can_fulfill_id']]
-                         elsif x['can_fulfill_type'] == 'ArchivedPatient'
-                           @archived_patient_mappings[x['can_fulfill_id']]
-                         else
-                           raise "unexpected type - row #{x}" 
-                         end
+        'can_fulfill_id' => if x['can_fulfill_type'] == 'Patient'
+                              @patient_mappings[x['can_fulfill_id']]
+                            elsif x['can_fulfill_type'] == 'ArchivedPatient'
+                              @archived_patient_mappings[x['can_fulfill_id']]
+                            else
+                              raise "unexpected type - row #{x}"
+                            end
       })
     res['can_fulfill_id'].nil? ? nil : res
   }
   @fulfillment_mappings = easy_mass_insert Fulfillment, 'fulfillments', fulfillment_map, false
 
-  #   # Practical Support
-  #   connect_to_migration_db
-  #   obj_for_migrate = ActiveRecord::Base.connection.execute("select * from practical_supports where can_support_type = '#{type}' and can_support_id = #{old_id}")
-  #   connect_to_target_db
-  #   obj_for_migrate.each do |o|
-  #     ported = PracticalSupport.create! o.except('id', 'fund_id', 'can_support_id').merge({'can_support_id' => new_id})
-  #     @practical_support_mappings[o['id'].to_i] = ported.id
-  #   end
+  # Port practical supports
+  psup_map = -> (x) {
+    res = x.except('id', 'can_support_id', 'fund_id')
+      .merge({
+        'fund_id' => @fund_id,
+        'can_support_id' => if x['can_support_type'] == 'Patient'
+                           @patient_mappings[x['can_support_id']]
+                         elsif x['can_support_type'] == 'ArchivedPatient'
+                           @archived_patient_mappings[x['can_support_id']]
+                         else
+                           raise "unexpected type - row #{x}"
+                         end
+      })
+    res['can_support_id'].nil? ? nil : res
+  }
+  @practical_support_mappings = easy_mass_insert PracticalSupport, 'practical_supports', psup_map, false
 
-  #   # Note if patient
-  #   if type == 'Patient'
-  #     connect_to_migration_db
-  #     obj_for_migrate = ActiveRecord::Base.connection.execute("select * from notes where patient_id = #{old_id}")
-  #     connect_to_target_db
-  #     obj_for_migrate.each do |o|
-  #       ported = Note.create! o.except('id', 'fund_id', 'patient_id').merge({'patient_id' => new_id})
-  #       @note_mappings[o['id'].to_i] = ported.id
-  #     end
-  #   else
-  #     puts "#{Time.now} skipping note because archived patient"
-  #   end
-  # end
+  # Port notes
+  note_map = -> (x) {
+    res = x.except('id', 'fund_id', 'patient_id')
+           .merge({
+             'fund_id' => @fund_id,
+             'patient_id' => @patient_mappings[x['patient_id']]
+           })
+    res['patient_id'].nil? ? nil : res
+  }
+  @note_mappings = easy_mass_insert Note, 'notes', note_map, false
 
+  # Port call list entries
+  cle_map = -> (x) {
+    res = x.except('id', 'fund_id', 'line_id', 'patient_id', 'user_id')
+           .merge({
+             'fund_id' => @fund_id,
+             'line_id' => @line_mappings[x['line_id']],
+             'patient_id' => @patient_mappings[x['patient_id']],
+             'user_id' => @user_mappings[x['user_id']]
+           })
+    res['patient_id'].nil? ? nil : res
+  }
+  @call_list_entry_mappings = easy_mass_insert CallListEntry, 'call_list_entries', cle_map, false
 
-  # # Subobject QA
-  # connect_to_target_db
-  # cnt = {}
-  # cnt['Call'] = Call.count
-  # cnt['ExternalPledge'] = ExternalPledge.count
-  # cnt['Fulfillment'] = Fulfillment.count
-  # cnt['PracticalSupport'] = PracticalSupport.count
-  # cnt['Note'] = Note.count
+  # Port events
+  event_map = -> (x) {
+    res = x.except('id', 'fund_id', 'line_id', 'patient_id')
+           .merge({
+             'fund_id' => @fund_id,
+             'line_id' => @line_mappings[x['line_id']],
+             'patient_id' => @patient_mappings[x['patient_id']],
+           })
+    res['patient_id'].nil? ? nil : res
+  }
+  @event_mappings = easy_mass_insert Event, 'events', event_map, false
 
-  # connect_to_migration_db
-  # new_cnt = {}
-  # new_cnt['Call'] = ActiveRecord::Base.connection.execute('select count(*) as cnt from calls').first['cnt']
-  # new_cnt['ExternalPledge'] = ActiveRecord::Base.connection.execute('select count(*) as cnt from external_pledges').first['cnt']
-  # new_cnt['Fulfillment'] = ActiveRecord::Base.connection.execute('select count(*) as cnt from fulfillments').first['cnt']
-  # new_cnt['PracticalSupport'] = ActiveRecord::Base.connection.execute('select count(*) as cnt from practical_supports').first['cnt']
-  # new_cnt['Note'] = ActiveRecord::Base.connection.execute('select count(*) as cnt from notes').first['cnt']
+  # Versions, maybe a little more complicated...
+  @fkey_mappings = {
+    'fund_id' => {@fund_id => @fund_id},
+    'clinic_id' => @clinic_mappings,
+    'pledge_generated_by_id' => @user_mappings,
+    'pledge_sent_by_id' => @user_mappings,
+    'last_edited_by_id' => @user_mappings,
+    'user_id' => @user_mappings,
+    'line_id' => @line_mappings,
+    'patient_id' => @patient_mappings,
+    'can_call_id' => @patient_mappings,
+    'can_pledge_id' => @patient_mappings,
+    'can_fulfill_id' => @patient_mappings,
+    'can_support_id' => @patient_mappings
+  }
+  @item_type_mappings = {
+    'ArchivedPatient' => @archived_patient_mappings,
+    'Call' => @call_mappings,
+    'CallListEntry' => @call_list_entry_mappings,
+    'Clinic' => @clinic_mappings,
+    'Config' => @config_mappings,
+    'ExternalPledge' => @external_pledge_mappings,
+    'Event' => @event_mappings,
+    'Fulfillment' => @fulfillment_mappings,
+    'Line' => @line_mappings,
+    'Note' => @note_mappings,
+    'Patient' => @patient_mappings,
+    'User' => @user_mappings
+  }
 
-  # ['Call', 'ExternalPledge', 'Fulfillment', 'PracticalSupport', 'Note'].each do |m|
-  #   puts "#{Time.now} Ported #{cnt[m]} #{m} and #{new_cnt[m]} were in original db"
-  #   raise "COUNT MISMATCH ERROR" unless cnt[m] == new_cnt[m]
-  # end
-
-  # # Call List
-  # puts "Porting call list entries"
-  # connect_to_migration_db
-  # obj_for_migrate = ActiveRecord::Base.connection.execute('select * from call_list_entries')
-  # connect_to_target_db
-  # obj_for_migrate.each do |cle|
-  #   ported = CallListEntry.create! cle.except('id', 'fund_id', 'line_id', 'patient_id', 'user_id')
-  #                            .merge({
-  #                              'line_id' => @line_mappings[x['line_id']],
-  #                              'patient_id' => @patient_mappings[x['patient_id']],
-  #                              'user_id' => @user_mappings[x['user_id']]
-  #                            })
-  #   @call_list_entry_mappings[cle['id'].to_i] = ported.id
-  # end
-  # puts "#{Time.now} Ported #{CallListEntry.count} call list entries and #{obj_for_migrate.ntuples} were in original db"
-  # raise "COUNT MISMATCH ERROR" unless CallListEntry.count == obj_for_migrate.ntuples
-
-  # # Event
-  # puts "Porting events"
-  # connect_to_migration_db
-  # obj_for_migrate = ActiveRecord::Base.connection.execute('select * from events')
-  # connect_to_target_db
-  # obj_for_migrate.each do |e|
-  #   Event.create! e.except('id', 'fund_id', 'line_id', 'patient_id')
-  #                  .merge({
-  #                    'line_id' => @line_mappings[x['line_id']],
-  #                    'patient_id' => @patient_mappings[x['patient_id']],
-  #                  })
-  #   @event_mappings[e['id'].to_i] = ported.id
-  # end
-  # puts "#{Time.now} Ported #{Event.count} call list entries and #{obj_for_migrate.ntuples} were in original db"
-  # raise "COUNT MISMATCH ERROR" unless Event.count == obj_for_migrate.ntuples
-
-  # # We don't care about sessions, since they're meant to be ephemeral anyway.
-  # puts "not porting sessions because we don't care"
-
-  # # Versions, on the other hand...
-  # puts "porting versions"
-  # @fkey_mappings = {
-  #   'fund_id' => {@fund_id => @fund_id},
-  #   'clinic_id' => @clinic_mappings,
-  #   'pledge_generated_by_id' => @user_mappings,
-  #   'pledge_sent_by_id' => @user_mappings,
-  #   'last_edited_by_id' => @user_mappings,
-  #   'user_id' => @user_mappings,
-  #   'line_id' => @line_mappings,
-  #   'patient_id' => @patient_mappings,
-  #   'can_call_id' => @patient_mappings,
-  #   'can_pledge_id' => @patient_mappings,
-  #   'can_fulfill_id' => @patient_mappings,
-  #   'can_support_id' => @patient_mappings
-  # }
-  # @item_type_mappings = {
-  #   'ArchivedPatient' => @archived_patient_mappings,
-  #   'Call' => @call_mappings,
-  #   'CallListEntry' => @call_list_entry_mappings,
-  #   'Clinic' => @clinic_mappings,
-  #   'Config' => @config_mappings,
-  #   'ExternalPledge' => @external_pledge_mappings,
-  #   'Event' => @event_mappings,
-  #   'Fulfillment' => @fulfillment_mappings,
-  #   'Line' => @line_mappings,
-  #   'Note' => @note_mappings,
-  #   'Patient' => @patient_mappings,
-  #   'User' => @user_mappings
-  # }
-
-  # def transform_obj(obj, item_type, value_will_be_array)
-  #   obj.each_pair do |k, v|
-  #     obj['id'] = @item_type_mappings[item_type][v] if k == 'id'
-  #     if @fkey_mappings.keys.include? k
-  #       obj[key] = value_will_be_array ? v.map { |x| @fkey_mappings[k][x] } : @fkey_mappings[k][v]
-  #     end
-  #   end
-  #   obj
-  # end
+  def transform_obj(obj, item_type, value_will_be_array)
+    obj.each_pair do |k, v|
+      obj['id'] = @item_type_mappings[item_type][v] if k == 'id'
+      if @fkey_mappings.keys.include? k
+        obj[key] = value_will_be_array ? v.map { |x| @fkey_mappings[k][x] } : @fkey_mappings[k][v]
+      end
+    end
+    obj
+  end
 
   # # Transfer versions, porting keys along the way
   # puts "#{Time.now} porting versions"
