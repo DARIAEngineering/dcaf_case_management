@@ -260,13 +260,27 @@ task multitenant_db_merge: :environment do
     obj.each_pair do |k, v|
       obj['id'] = @item_type_mappings[item_type][v] if k == 'id'
       if @fkey_mappings.keys.include? k
-        obj[key] = value_will_be_array ? v.map { |x| @fkey_mappings[k][x] } : @fkey_mappings[k][v]
+        if k.start_with? 'can'
+          raise 'something about properly picking can ype here'
+          raise 'may want to just query for these directly tbh'
+        else
+          obj[key] = value_will_be_array ? v.map { |x| @fkey_mappings[k][x] } : @fkey_mappings[k][v]
+        end
       end
     end
     obj
   end
 
-  # # Transfer versions, porting keys along the way
+  # Transfer versions, porting keys along the way
+  version_map = -> (x) {
+    x.exclude('id', 'item_id', 'fund_id', 'object', 'object_changes', 'whodunnit')
+     .merge({
+       'item_id' => @item_type_mappings[v['item_type'][v['item_id']]],
+       'whodunnit' => @user_mappings[v['whodunnit'].to_i],
+       'object_changes' => transform_obj(JSON.parse(v['object_changes']), v['item_type'], true),
+       'object' => transform_obj(JSON.parse(v['object']), v['item_type'], false)
+     })
+  }
   # puts "#{Time.now} porting versions"
   # offset = 0
   # total = 0
