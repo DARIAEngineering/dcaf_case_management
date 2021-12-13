@@ -50,23 +50,30 @@ task multitenant_db_merge: :environment do
   @call_list_entry_mappings = {}
   @event_mappings = {}
 
-  def easy_mass_insert(model, tbl, map_func)
+  def easy_mass_insert(model, tbl, map_func, check_counts = true)
     puts "#{Time.now} Porting #{model.to_s}"
     connect_to_migration_db
-    obj_for_migrate = ActiveRecord::Base.connection.execute("select * from #{tbl}")
+    obj_for_migrate = ActiveRecord::Base.connection.execute("select * from #{tbl} order by id asc")
     connect_to_target_db
     clean_rows = obj_for_migrate.map { |x| map_func.call x }
-    result = model.insert_all clean_rows
+    result = model.insert_all clean_rows.reject(&:nil?)
 
     # QA
-    puts "#{Time.now} Ported #{model.count} configs and #{obj_for_migrate.ntuples} were in original db"
-    raise "COUNT MISMATCH ERROR" unless model.count == obj_for_migrate.ntuples
+    puts "#{Time.now} Ported #{model.count} #{model} and #{obj_for_migrate.ntuples} were in original db"
+    raise "COUNT MISMATCH ERROR" unless model.count == obj_for_migrate.ntuples if check_counts
 
     # Map results to new ids
     id_mapping = {}
     result.rows.each_with_index do |x, i|
-      id_mapping[obj_for_migrate[i]['id'].to_i] = x
+      id_mapping[obj_for_migrate[i]['id'].to_i] = x[0]
     end
+
+    # Spot check
+    puts "Spot check:"
+    puts "Raw row: #{obj_for_migrate.first}"
+    puts "Clean row: #{clean_rows[0]}"
+    puts "Inserted record: #{model.find(id_mapping[obj_for_migrate.first['id']]).attributes}\n\n"
+
     id_mapping
   end
 
@@ -86,36 +93,85 @@ task multitenant_db_merge: :environment do
   user_map = -> (x) { x.except('id', 'fund_id', 'line').merge('fund_id' => @fund_id) }
   @user_mappings = easy_mass_insert User, 'users', user_map
 
-  binding.pry
+  # Port patients
+  patient_map = -> (x) {
+    x.except('id', 'fund_id', 'line_id', 'clinic_id', 'pledge_generated_by_id', 'pledge_sent_by_id', 'last_edited_by_id')
+     .merge({
+       'fund_id' => @fund_id,
+       'clinic_id' => @clinic_mappings[x['clinic_id']],
+       'line_id' => @line_mappings[x['line_id']],
+       'pledge_generated_by_id' => @user_mappings[x['pledge_generated_by_id']],
+       'pledge_sent_by_id' => @user_mappings[x['pledge_sent_by_id']],
+       'last_edited_by_id' => @user_mappings[x['last_edited_by_id']]
+     })
+  }
+  @patient_mappings = easy_mass_insert Patient, 'patients', patient_map
 
-  # # Def a helper function to correct FKs
-  # def port_patient_subobjs(type, old_id, new_id)
-  #   # Calls
-  #   connect_to_migration_db
-  #   obj_for_migrate = ActiveRecord::Base.connection.execute("select * from calls where can_call_type = '#{type}' and can_call_id = #{old_id}")
-  #   connect_to_target_db
-  #   obj_for_migrate.each do |o|
-  #     ported = Call.create! o.except('id', 'can_call_id', 'fund_id').merge({'can_call_id' => new_id})
-  #     @call_mappings[o['id'].to_i] = ported.id
-  #   end
+  # Port archived patients
+  archived_patient_map = -> (x) {
+    x.except('id', 'fund_id', 'line_id', 'clinic_id', 'pledge_generated_by_id', 'pledge_sent_by_id', 'last_edited_by_id')
+     .merge({
+       'fund_id' => @fund_id,
+       'clinic_id' => @clinic_mappings[x['clinic_id']],
+       'line_id' => @line_mappings[x['line_id']],
+       'pledge_generated_by_id' => @user_mappings[x['pledge_generated_by_id']],
+       'pledge_sent_by_id' => @user_mappings[x['pledge_sent_by_id']],
+     })
+  }
+  @archived_patient_mappings = easy_mass_insert ArchivedPatient, 'archived_patients', archived_patient_map
 
-  #   # External Pledge
-  #   connect_to_migration_db
-  #   obj_for_migrate = ActiveRecord::Base.connection.execute("select * from external_pledges where can_pledge_type = '#{type}' and can_pledge_id = #{old_id}")
-  #   connect_to_target_db
-  #   obj_for_migrate.each do |o|
-  #     ported = ExternalPledge.create! o.except('id', 'can_pledge_id', 'fund_id').merge({'can_pledge_id' => new_id})
-  #     @external_pledge_mappings[o['id'].to_i] = ported.id
-  #   end
+  # Note about subobjects: there are some abandoned records (e.g. from patients who were deleted)
+  # so we don't count check on these
+  # Port calls
+  call_map = -> (x) {
+    res = x.except('id', 'can_call_id', 'fund_id')
+      .merge({
+        'fund_id' => @fund_id,
+        'can_call_id' => if x['can_call_type'] == 'Patient'
+                           @patient_mappings[x['can_call_id']]
+                         elsif x['can_call_type'] == 'ArchivedPatient'
+                           @archived_patient_mappings[x['can_call_id']]
+                         else
+                           raise "unexpected type - row #{x}" 
+                         end
+      })
+    res['can_call_id'].nil? ? nil : res
+  }
+  @call_mappings = easy_mass_insert Call, 'calls', call_map, false
 
-  #   # Fulfillment
-  #   connect_to_migration_db
-  #   obj_for_migrate = ActiveRecord::Base.connection.execute("select * from fulfillments where can_fulfill_type = '#{type}' and can_fulfill_id = #{old_id}")
-  #   connect_to_target_db
-  #   obj_for_migrate.each do |o|
-  #     ported = Fulfillment.create! o.except('id', 'can_fulfill_id', 'fund_id').merge({'can_fulfill_id' => new_id})
-  #     @fulfillment_mappings[o['id'].to_i] = ported.id
-  #   end
+  # Port ext pledges
+  ext_pledge_map = -> (x) {
+    res = x.except('id', 'can_pledge_id', 'fund_id')
+      .merge({
+        'fund_id' => @fund_id,
+        'can_pledge_id' => if x['can_pledge_type'] == 'Patient'
+                           @patient_mappings[x['can_pledge_id']]
+                         elsif x['can_pledge_type'] == 'ArchivedPatient'
+                           @archived_patient_mappings[x['can_pledge_id']]
+                         else
+                           raise "unexpected type - row #{x}" 
+                         end
+      })
+    res['can_pledge_id'].nil? ? nil : res
+  }
+  @external_pledge_mappings = easy_mass_insert ExternalPledge, 'external_pledges', ext_pledge_map, false
+
+  # Port fulfillments
+  fulfillment_map = -> (x) {
+    res = x.except('id', 'can_fulfill_id', 'fund_id')
+      .merge({
+        'fund_id' => @fund_id,
+        'can_pledge_id' => if x['can_fulfill_type'] == 'Patient'
+                           @patient_mappings[x['can_fulfill_id']]
+                         elsif x['can_fulfill_type'] == 'ArchivedPatient'
+                           @archived_patient_mappings[x['can_fulfill_id']]
+                         else
+                           raise "unexpected type - row #{x}" 
+                         end
+      })
+    res['can_fulfill_id'].nil? ? nil : res
+  }
+  @fulfillment_mappings = easy_mass_insert Fulfillment, 'fulfillments', fulfillment_map, false
 
   #   # Practical Support
   #   connect_to_migration_db
@@ -140,67 +196,6 @@ task multitenant_db_merge: :environment do
   #   end
   # end
 
-  # # Here we go. Port patients and their subobjects in increments of 500
-  # puts "#{Time.now} Porting patients and subobjects"
-  # offset = 0
-  # total = 0
-  # connect_to_migration_db
-  # patients = ActiveRecord::Base.connection.execute("select * from patients limit 250 offset #{offset}")
-  # while patients.ntuples.to_i > 0
-  #   connect_to_target_db
-  #   patients.each do |x|
-  #     ported_patient = Patient.create! x.except('id', 'fund_id', 'line_id', 'clinic_id', 'pledge_generated_by_id', 'pledge_sent_by_id', 'last_edited_by_id')
-  #                                       .merge({
-  #                                         'clinic_id' => @clinic_mappings[x['clinic_id']],
-  #                                         'line_id' => @line_mappings[x['line_id']],
-  #                                         'pledge_generated_by_id' => @user_mappings[x['pledge_generated_by_id']],
-  #                                         'pledge_sent_by_id' => @user_mappings[x['pledge_sent_by_id']],
-  #                                         'last_edited_by_id' => @user_mappings[x['last_edited_by_id']]
-  #                                       })
-  #     @patient_mappings[x['id'].to_i] = ported_patient.id
-
-  #     port_patient_subobjs('Patient', x['id'], ported_patient.id)
-  #   end
-
-  #   # Do another batch
-  #   offset = offset + 250
-  #   puts "#{Time.now} Another batch of 250 pts"
-  #   connect_to_migration_db
-  #   patients = ActiveRecord::Base.connection.execute("select * from patients limit 250 offset #{offset}")
-  # end
-  # puts "#{Time.now} Ported #{Patient.count} patients and #{total} were in original db"
-  # raise "COUNT MISMATCH ERROR" unless Patient.count == total
-
-  # # Here we go part 2. Port archived and their subobjects in increments of 250
-  # puts "Porting archivedpatients and subobjects"
-  # offset = 0
-  # total = 0
-  # connect_to_migration_db
-  # archived_patients = ActiveRecord::Base.connection.execute("select * from archived_patients limit 250 offset #{offset}")
-  # while archived_patients.ntuples.to_i > 0
-  #   connect_to_target_db
-  #   archived_patients.each do |x|
-  #     ported_patient = ArchivedPatient.create! x.except('id', 'fund_id', 'line_id', 'clinic_id', 'pledge_generated_by_id', 'pledge_sent_by_id', 'last_edited_by_id')
-  #                                               .merge({
-  #                                                 'clinic_id' => @clinic_mappings[x['clinic_id']],
-  #                                                 'line_id' => @line_mappings[x['line_id']],
-  #                                                 'pledge_generated_by_id' => @user_mappings[x['pledge_generated_by_id']],
-  #                                                 'pledge_sent_by_id' => @user_mappings[x['pledge_sent_by_id']],
-  #                                                 'last_edited_by_id' => @user_mappings[x['last_edited_by_id']]
-  #                                               })
-  #     @archived_patient_mappings[x['id'].to_i] = ported_patient.id
-
-  #     port_patient_subobjs('ArchivedPatient', x['id'], ported_patient.id)
-  #   end
-
-  #   # Do another batch
-  #   offset = offset + 250
-  #   puts "#{Time.now} Another batch of 250 pts"
-  #   connect_to_migration_db
-  #   archived_patients = ActiveRecord::Base.connection.execute("select * from archived_patients limit 250 offset #{offset}")
-  # end
-  # puts "#{Time.now} Ported #{ArchivedPatient.count} patients and #{total} were in original db"
-  # raise "COUNT MISMATCH ERROR" unless ArchivedPatient.count == total
 
   # # Subobject QA
   # connect_to_target_db
