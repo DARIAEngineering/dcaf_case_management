@@ -220,7 +220,7 @@ task multitenant_db_merge: :environment do
            .merge({
              'fund_id' => @fund_id,
              'line_id' => @line_mappings[x['line_id']],
-             'patient_id' => @patient_mappings[x['patient_id']],
+             'patient_id' => @patient_mappings[x['patient_id'].to_i],
            })
     res['patient_id'].nil? ? nil : res
   }
@@ -253,19 +253,27 @@ task multitenant_db_merge: :environment do
     'Line' => @line_mappings,
     'Note' => @note_mappings,
     'Patient' => @patient_mappings,
-    'User' => @user_mappings
+    'User' => @user_mappings,
+    'PracticalSupport' => @practical_support_mappings,
   }
 
   def transform_obj(obj, item_type, value_will_be_array)
     obj.each_pair do |k, v|
       obj['id'] = @item_type_mappings[item_type][v] if k == 'id'
-      if @fkey_mappings.keys.include? k
-        if k.start_with? 'can'
-          raise 'something about properly picking can ype here'
-          raise 'may want to just query for these directly tbh'
-        else
-          obj[key] = value_will_be_array ? v.map { |x| @fkey_mappings[k][x] } : @fkey_mappings[k][v]
-        end
+      if @fkey_mappings.keys.include? k || (k.start_with?('can_') && k.end_with?('_id'))
+        keyset = if k == 'can_call_id'
+                   obj['can_call_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                 elsif k == 'can_pledge_id'
+                   obj[k] = obj['can_pledge_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                 elsif k == 'can_fulfill_id'
+                   obj[k] = obj['can_fulfill_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                 elsif k == 'can_support_id'
+                   obj[k] = obj['can_support_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                 else
+                   @fkey_mappings[k]
+                 end
+
+        obj[k] = value_will_be_array ? v.map { |x| keyset[v] } : keyset[v]
       end
     end
     obj
@@ -273,39 +281,16 @@ task multitenant_db_merge: :environment do
 
   # Transfer versions, porting keys along the way
   version_map = -> (x) {
-    x.exclude('id', 'item_id', 'fund_id', 'object', 'object_changes', 'whodunnit')
-     .merge({
-       'item_id' => @item_type_mappings[v['item_type'][v['item_id']]],
-       'whodunnit' => @user_mappings[v['whodunnit'].to_i],
-       'object_changes' => transform_obj(JSON.parse(v['object_changes']), v['item_type'], true),
-       'object' => transform_obj(JSON.parse(v['object']), v['item_type'], false)
-     })
+    res = x.except('id', 'item_id', 'fund_id', 'object', 'object_changes', 'whodunnit')
+           .merge({
+             'item_id' => @item_type_mappings[x['item_type']][x['item_id']],
+             'whodunnit' => x['whodunnit'].nil? ? nil : @user_mappings[x['whodunnit'].to_i],
+             'object_changes' => x['object_changes'].nil? ? nil : transform_obj(JSON.parse(x['object_changes']), x['item_type'], true),
+             'object' => x['object'].nil? ? nil : transform_obj(JSON.parse(x['object']), x['item_type'], false)
+           })
+    res['item_id'].nil? ? nil : res
   }
-  # puts "#{Time.now} porting versions"
-  # offset = 0
-  # total = 0
-  # connect_to_migration_db
-  # versions = ActiveRecord::Base.connection.execute('select * from versions limit 250')
-  # while versions.ntuples.to_i > 0
-  #   connect_to_target_db
-  #   versions.each do |v|
-  #     PaperTrailVersion.create! v.exclude('id', 'item_id', 'fund_id', 'object', 'object_changes', 'whodunnit')
-  #                                .merge({
-  #                                  'item_id' => @item_type_mappings[v['item_type'][v['item_id']]],
-  #                                  'whodunnit' => @user_mappings[v['whodunnit'].to_i],
-  #                                  'object_changes' => transform_obj(JSON.parse(v['object_changes']), v['item_type'], true),
-  #                                  'object' => transform_obj(JSON.parse(v['object']), v['item_type'], false)
-  #                                })
-  #   end
-
-  #   # Do another batch
-  #   offset = offset + 250
-  #   puts "#{Time.now} Another batch of 250 versions"
-  #   connect_to_migration_db
-  #   versions = ActiveRecord::Base.connection.execute("select * from versions limit 250 offset #{offset}")
-  # end
-  # puts "#{Time.now} Ported #{PaperTrailVersion.count} patients and #{total} were in original db"
-  # raise "COUNT MISMATCH ERROR" unless PaperTrailVersion.count == total
+  @version_mappings = easy_mass_insert PaperTrailVersion, 'versions', version_map, false
 
   puts "#{Time.zone.now} Completed"
 end
