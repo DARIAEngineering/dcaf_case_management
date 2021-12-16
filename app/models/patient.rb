@@ -254,6 +254,6 @@ class Patient < ApplicationRecord
     Patient.distinct
            .where(line: line)
            .joins(:practical_supports)
-           .where({ practical_supports: { confirmed: false } })
+           .where({ practical_supports: { confirmed: false }, created_at: 3.months.ago.. })
   end
 end
