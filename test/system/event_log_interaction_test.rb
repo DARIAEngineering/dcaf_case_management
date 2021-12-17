@@ -62,11 +62,11 @@ class EventLogInteractionTest < ApplicationSystemTestCase
       find('#pledge-next').click
       wait_for_no_element 'Review this preview of your pledge'
 
-      assert has_text? 'Awesome, you generated a DCAF'
+      assert has_text? 'Submit and send your pledge'
       check 'I sent the pledge'
       wait_for_ajax
       find('#pledge-next').click
-      wait_for_no_element 'Awesome, you generated a DCAF'
+      wait_for_no_element 'Submit and send your pledge'
 
       visit authenticated_root_path
       within :css, '#activity_log_content' do
