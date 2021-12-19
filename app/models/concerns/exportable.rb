@@ -177,8 +177,8 @@ module Exportable
     practical_supports.map { |ps| "#{ps.source} - #{ps.support_type} - #{ps.confirmed? ? 'Confirmed' : 'Unconfirmed'}" }.join('; ')
   end
 
-  PATIENT_RELATIONS = [:clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]
-  ARCHIVED_PATIENT_RELATIONS = [:clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
+  PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]
+  ARCHIVED_PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
 
   class_methods do
     def csv_header
