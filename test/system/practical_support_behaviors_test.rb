@@ -29,7 +29,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       within :css, '#practical-support-entries' do
         assert_equal 'Companion', find('#practical_support_support_type').text
         assert_equal 'Other (see notes)', find('#practical_support_source').value
-        assert_equal '500.10', find('#practical_support_amount').value
+        assert_equal '500.1', find('#practical_support_amount').value
         assert has_checked_field? 'Confirmed'
       end
     end
@@ -52,7 +52,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     before do
       @patient.practical_supports.create support_type: 'lodging',
                                          source: 'Other (see notes)',
-                                         amount: 100.40
+                                         amount: 100.45
       go_to_practical_support_tab
     end
 
@@ -68,7 +68,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       within :css, '#practical-support-entries' do
         assert_equal 'lodging', find('#practical_support_support_type').text
         assert_equal 'DC Abortion Fund', find('#practical_support_source').value
-        assert_equal '100.40', find('#practical_support_amount').value
+        assert_equal '100.45', find('#practical_support_amount').value
         assert has_checked_field? 'Confirmed'
       end
     end
