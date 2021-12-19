@@ -10,7 +10,7 @@ module Exportable
     "Archived?" => :archived?,
     "Has Alt Contact?" => :has_alt_contact,
     "Voicemail Preference" => :voicemail_preference,
-    "Line" => :line,
+    "Line" => :get_line,
     "Language" => :preferred_language,
     "Age" => :age_range,
     "State" => :state,
@@ -69,6 +69,10 @@ module Exportable
 
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
+
+  def get_line
+    line.try :name
+  end
 
   def fulfilled
     fulfillment.try :fulfilled
