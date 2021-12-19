@@ -249,4 +249,11 @@ class Patient < ApplicationRecord
     Patient.where('fulfillment.fulfilled' => true,
                   updated_at: { '$lte' => datetime })
   end
+
+  def self.unconfirmed_practical_support(line)
+    Patient.distinct
+           .where(line: line)
+           .joins(:practical_supports)
+           .where({ practical_supports: { confirmed: false }, created_at: 3.months.ago.. })
+  end
 end

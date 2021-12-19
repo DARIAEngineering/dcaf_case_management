@@ -123,6 +123,38 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       assert has_text? /Practical Support/i
     end
   end
+
+  describe 'unconfirmed dashboard behavior' do
+    before do
+      @patient.practical_supports.create support_type: 'lodging',
+                                         source: 'Other (see notes)',
+                                         confirmed: false
+                                         
+    end
+
+    it 'shows unconfirmed patients' do
+      log_in_as @user
+      visit dashboard_path
+      within :css, '#unconfirmed_support' do
+        assert has_text? @patient.name
+      end
+    end
+
+    it 'does not show confirmed patients' do
+      # set confirmed
+      go_to_practical_support_tab
+      
+      within :css, '#practical-support-entries' do
+        check 'Confirmed'
+      end
+
+      visit dashboard_path
+      within :css, '#unconfirmed_support' do
+        refute has_text? @patient.name
+      end
+    end
+  end
+
 end
 
 def go_to_practical_support_tab

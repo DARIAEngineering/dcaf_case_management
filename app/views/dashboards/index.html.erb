@@ -24,6 +24,11 @@
                          table_type: 'urgent_cases',
                          patients: @urgent_patients,
                          autosortable: true } %>
+    <%= render partial: 'dashboards/table_content',
+               locals: { title: t('dashboard.partial_titles.unconfirmed_support'),
+                         table_type: 'unconfirmed_support',
+                         patients: @unconfirmed_support_patients,
+                         autosortable: true } %>
     <%= render partial: 'dashboards/modal' %>
     <%= render partial: 'dashboards/activity_log' %>
   </div>
