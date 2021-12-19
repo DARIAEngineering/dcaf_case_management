@@ -21,7 +21,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       within :css, '#practical-support-new-form' do
         select 'Companion', from: 'practical_support_support_type'
         select 'Other (see notes)', from: 'practical_support_source'
-        fill_in 'Amount', with: 500
+        fill_in 'Amount', with: 500.10
         check 'Confirmed'
         click_button 'Create new practical support'
       end
@@ -52,7 +52,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     before do
       @patient.practical_supports.create support_type: 'lodging',
                                          source: 'Other (see notes)',
-                                         amount: 100
+                                         amount: 100.40
       go_to_practical_support_tab
     end
 

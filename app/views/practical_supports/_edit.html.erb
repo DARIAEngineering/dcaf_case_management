@@ -21,7 +21,8 @@
         <%= f.number_field :amount,
                            hide_label: true,
                            autocomplete: 'off',
-                           prepend: '$' %>
+                           prepend: '$',
+                           step: '0.01' %>
       </div>
 
       <div class="col-2">
