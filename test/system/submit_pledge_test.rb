@@ -3,6 +3,7 @@ require 'application_system_test_case'
 # Tests around plege submission behavior
 class SubmitPledgeTest < ApplicationSystemTestCase
   before do
+    ActsAsTenant.current_tenant.update pledge_generation_config: 'default'
     @user = create :user, role: :data_volunteer
     @clinic = create :clinic
     @patient = create :patient, clinic: @clinic,
@@ -102,6 +103,26 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_link? 'Submit pledge'
       assert has_content? Patient::STATUSES[:no_contact][:key]
       refute has_link? 'Fulfillment'
+    end
+  end
+
+  describe 'displaying pledge generator input' do
+    it 'should obey the model setting' do
+      find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
+      assert has_text? 'Confirm the following information is correct'
+      find('#pledge-next').click
+      wait_for_ajax
+      assert has_content? 'Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.'
+
+      ActsAsTenant.current_tenant.update pledge_generation_config: nil
+      visit edit_patient_path @patient
+      find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
+      assert has_text? 'Confirm the following information is correct'
+      find('#pledge-next').click
+      wait_for_ajax
+      assert has_content? 'Please generate your pledge form and click next.'
     end
   end
 end

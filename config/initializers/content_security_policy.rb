@@ -19,6 +19,10 @@ Rails.application.config.content_security_policy do |policy|
 
   # If you are using webpack-dev-server then specify webpack-dev-server host
   policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+
+  # If ASSET_SITE_URL is set, allow that too
+  policy.script_src  :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_eval    if ENV['ASSET_SITE_URL'].present?
+  policy.style_src   :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_inline  if ENV['ASSET_SITE_URL'].present?
 end
 
 # If you are using UJS then enable automatic nonce generation
