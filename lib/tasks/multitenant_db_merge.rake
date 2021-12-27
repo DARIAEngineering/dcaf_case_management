@@ -142,7 +142,7 @@ task multitenant_db_merge: :environment do
 
   # Port archived patients
   archived_patient_map = -> (x) {
-    x.except('id', 'fund_id', 'created_at', 'updated_at', 'line_id', 'clinic_id', 'pledge_generated_by_id', 'pledge_sent_by_id', 'last_edited_by_id')
+    x.except('id', 'fund_id', 'created_at', 'updated_at', 'line_id', 'clinic_id', 'pledge_generated_by_id', 'pledge_sent_by_id')
      .merge({
        'fund_id' => @fund_id,
        'created_at' => x['created_at'].asctime.in_time_zone("America/New_York"),
@@ -276,6 +276,10 @@ task multitenant_db_merge: :environment do
   @event_mappings = easy_mass_insert Event, 'events', event_map, false
 
   # Versions, maybe a little more complicated...
+  # Essentially, versions have a lot of fields we have to kick over, both at the top level (item_id, whodunnit)
+  # and nested (object, object_changes).
+  # This is essentially a more complicated version of the lambdas above, except it changes anything that's known to be an id
+  # to the new value that's just been inserted into db. End effect is that all the ids stowed in versions change to the new appropriate value.
   @fkey_mappings = {
     'fund_id' => {@fund_id => @fund_id},
     'clinic_id' => @clinic_mappings,
@@ -334,7 +338,7 @@ task multitenant_db_merge: :environment do
            .merge({
              'item_id' => @item_type_mappings[x['item_type']][x['item_id']],
              'created_at' => x['created_at'].asctime.in_time_zone("America/New_York"),
-             'object' => x['object'].nil? ? nil : transform_obj(JSON.parse(x['object']), x['item_type'], false)
+             'object' => x['object'].nil? ? nil : transform_obj(JSON.parse(x['object']), x['item_type'], false),
              'object_changes' => x['object_changes'].nil? ? nil : transform_obj(JSON.parse(x['object_changes']), x['item_type'], true),
              'whodunnit' => x['whodunnit'].nil? ? nil : @user_mappings[x['whodunnit'].to_i],
            })
