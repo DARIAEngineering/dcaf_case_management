@@ -25,7 +25,7 @@ task multitenant_db_merge: :environment do
       url: ENV['MIGRATION_DB_URL']
     )
     ActiveRecord::Base.connection.execute(
-      "set session characteristics as transaction read only;"
+      "SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY;"
     )
   end
 
@@ -50,6 +50,7 @@ task multitenant_db_merge: :environment do
   @call_list_entry_mappings = {}
   @event_mappings = {}
 
+  # object agnostic function for handling each insert 
   def easy_mass_insert(model, tbl, map_func, check_counts = true)
     puts "#{Time.now} Porting #{model.to_s}"
     connect_to_migration_db
@@ -77,6 +78,7 @@ task multitenant_db_merge: :environment do
     id_mapping
   end
 
+  # Create each object's lamba function for copying the object, including handling for the new fund_id, cleaned timestamps, and any fields each model may need
   # Port configs
   config_map = -> (x) {
     x.except('id', 'fund_id', 'config_value', 'created_at', 'updated_at')
@@ -129,8 +131,8 @@ task multitenant_db_merge: :environment do
        'fund_id' => @fund_id,
        'created_at' => x['created_at'].asctime.in_time_zone("America/New_York"),
        'updated_at' => x['updated_at'].asctime.in_time_zone("America/New_York"),
-       'clinic_id' => @clinic_mappings[x['clinic_id']],
        'line_id' => @line_mappings[x['line_id']],
+       'clinic_id' => @clinic_mappings[x['clinic_id']],
        'pledge_generated_by_id' => @user_mappings[x['pledge_generated_by_id']],
        'pledge_sent_by_id' => @user_mappings[x['pledge_sent_by_id']],
        'last_edited_by_id' => @user_mappings[x['last_edited_by_id']]
@@ -145,8 +147,8 @@ task multitenant_db_merge: :environment do
        'fund_id' => @fund_id,
        'created_at' => x['created_at'].asctime.in_time_zone("America/New_York"),
        'updated_at' => x['updated_at'].asctime.in_time_zone("America/New_York"),
-       'clinic_id' => @clinic_mappings[x['clinic_id']],
        'line_id' => @line_mappings[x['line_id']],
+       'clinic_id' => @clinic_mappings[x['clinic_id']],
        'pledge_generated_by_id' => @user_mappings[x['pledge_generated_by_id']],
        'pledge_sent_by_id' => @user_mappings[x['pledge_sent_by_id']],
      })
@@ -332,13 +334,13 @@ task multitenant_db_merge: :environment do
            .merge({
              'item_id' => @item_type_mappings[x['item_type']][x['item_id']],
              'created_at' => x['created_at'].asctime.in_time_zone("America/New_York"),
-             'whodunnit' => x['whodunnit'].nil? ? nil : @user_mappings[x['whodunnit'].to_i],
-             'object_changes' => x['object_changes'].nil? ? nil : transform_obj(JSON.parse(x['object_changes']), x['item_type'], true),
              'object' => x['object'].nil? ? nil : transform_obj(JSON.parse(x['object']), x['item_type'], false)
+             'object_changes' => x['object_changes'].nil? ? nil : transform_obj(JSON.parse(x['object_changes']), x['item_type'], true),
+             'whodunnit' => x['whodunnit'].nil? ? nil : @user_mappings[x['whodunnit'].to_i],
            })
     res['item_id'].nil? ? nil : res
   }
   @version_mappings = easy_mass_insert PaperTrailVersion, 'versions', version_map, false
 
-  puts "#{Time.zone.now} Completed"
+  puts "Fund id #{@fund_id} completed #{Time.zone.now}"
 end
