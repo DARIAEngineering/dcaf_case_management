@@ -102,16 +102,16 @@ class ArchivedPatient < ApplicationRecord
       archived_patient.save!
     end
 
-    patient.fulfillment.update can_fulfill: archived_patient
+    patient.fulfillment.update! can_fulfill: archived_patient
 
     patient.calls.each do |call|
-      call.update can_call: archived_patient
+      call.update! can_call: archived_patient
     end
     patient.external_pledges.each do |ext_pledge|
-      ext_pledge.update can_pledge: archived_patient
+      ext_pledge.update! can_pledge: archived_patient
     end
     patient.practical_supports.each do |support|
-      support.update can_support: archived_patient
+      support.update! can_support: archived_patient
     end
 
     archived_patient.save!
