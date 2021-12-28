@@ -319,7 +319,7 @@ task multitenant_db_merge: :environment do
   }
 
   def _is_an_obj_key?(key)
-    @fkey_mappings.keys.include? k || (k.start_with?('can_') && k.end_with?('_id'))
+    @fkey_mappings.keys.include? key || (key.start_with?('can_') && key.end_with?('_id'))
   end
 
   def transform_obj(obj, item_type, value_will_be_array)
@@ -329,17 +329,17 @@ task multitenant_db_merge: :environment do
 
       # Process the object mappings to handle polymorphic properly
       if _is_an_obj_key? k
-        if k == 'can_call_id'
-          obj['can_call_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
-        elsif k == 'can_pledge_id'
-          obj[k] = obj['can_pledge_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
-        elsif k == 'can_fulfill_id'
-          obj[k] = obj['can_fulfill_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
-        elsif k == 'can_support_id'
-          obj[k] = obj['can_support_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
-        else
-          @fkey_mappings[k]
-        end
+        polymorphic_aware_mappings = if k == 'can_call_id'
+                                       obj['can_call_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                                     elsif k == 'can_pledge_id'
+                                       obj[k] = obj['can_pledge_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                                     elsif k == 'can_fulfill_id'
+                                       obj[k] = obj['can_fulfill_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                                     elsif k == 'can_support_id'
+                                       obj[k] = obj['can_support_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
+                                     else
+                                       @fkey_mappings[k]
+                                     end
 
         # handle non-`id` fields with polymorphic-aware mappings
         obj[k] = value_will_be_array ? v.map { |x| polymorphic_aware_mappings[v] } : polymorphic_aware_mappings[v]
