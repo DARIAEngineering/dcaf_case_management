@@ -31,7 +31,7 @@ task multitenant_db_merge: :environment do
 
   puts "Migrating into fund_id #{@fund_id}..."
 
-  if Patient.count() > 0
+  if Patient.count() > 0 || Config.count() > 0
     raise 'Possibly already ported? patients belonging to that fund_id are found'
   end
 
@@ -312,7 +312,10 @@ task multitenant_db_merge: :environment do
 
   def transform_obj(obj, item_type, value_will_be_array)
     obj.each_pair do |k, v|
+      # Handle `id` fields
       obj['id'] = @item_type_mappings[item_type][v] if k == 'id'
+
+      # Process the object mappings to handle polymorphic properly
       if @fkey_mappings.keys.include? k || (k.start_with?('can_') && k.end_with?('_id'))
         keyset = if k == 'can_call_id'
                    obj['can_call_type'] == 'Patient' ? @patient_mappings : @archived_patient_mappings
@@ -326,7 +329,8 @@ task multitenant_db_merge: :environment do
                    @fkey_mappings[k]
                  end
 
-        obj[k] = value_will_be_array ? v.map { |x| keyset[v] } : keyset[v]
+        # handle non-`id` fields with polymorphic-aware mappings
+        obj[k] = value_will_be_array ? v.map { |x| polymorphic_aware_mappings[v] } : polymorphic_aware_mappings[v]
       end
     end
     obj
