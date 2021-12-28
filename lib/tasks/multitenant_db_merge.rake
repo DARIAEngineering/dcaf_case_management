@@ -55,8 +55,16 @@ task multitenant_db_merge: :environment do
     puts "#{Time.now} Porting #{model.to_s}"
     connect_to_migration_db
     obj_for_migrate = ActiveRecord::Base.connection.execute("select * from #{tbl} order by id asc")
+
+    # This might happen in the case of ArchivedPatient
+    if obj_for_migrate.ntuples.zero?
+      puts "#{Time.now} No #{model} to port - zero found via query"
+      return {}
+    end
+
     connect_to_target_db
     clean_rows = obj_for_migrate.map { |x| map_func.call x }
+
     result = model.insert_all clean_rows.reject(&:nil?)
 
     # QA
