@@ -435,6 +435,44 @@ fund2 = Fund.create! name: 'CatFund',
         created_at: 637.days.ago
       )
     end
+
+    # A few specific named cases that reflect common scenarios
+    regina = Patient.create! name: 'Regina',
+                             line: lines.first,
+                             primary_phone: "000-000-0001",
+                             last_menstrual_period_weeks: 6,
+                             initial_call_date: 30.days.ago
+    regina.calls.create! created_at: 30.days.ago,
+                         status: 'reached_patient'
+    regina.update appointment_date: 18.days.ago,
+                  clinic: Clinic.first,
+                  fund_pledge: 100,                             
+                  fund_pledged_at: 22.days.ago,
+                  pledge_sent: true,
+                  pledge_sent_at: 22.days.ago
+    regina.calls.create! created_at: 22.days.ago,
+                         status: 'reached_patient'
+    regina.fulfillment.update fulfilled: true,
+                              fund_payout: 100,
+                              procedure_date: 18.days.ago,
+                              date_of_check: 1.day.ago,
+                              check_number: '500',
+                              gestation_at_procedure: 8
+    regina.notes.create! full_text: "SCENARIO: Regina calls us at 6 weeks LMP on 3-12. We call her back and reach the patient. We explain the fund's policies of only funding after 7 weeks LMP. Regina’s options are to either schedule her appointment a week from the day she calls or fund her procedure on her own. We offer her references to clinics who will be able to see her and the number to other funders who may be able to help her. We emphasize although we cannot fund her now financially, we can in the future and she should call us back if that is the case. She says she will make an appointment for two weeks out. Regina calls us back on 3-20. Her funding is completed. We send the pledge to the clinic on Regina's behalf. Regina goes to her appointment on 3-24 and has her abortion. The clinic mails us back the completed pledge form on 4-15. Fund checks the pledge against our system, completes an entry in our ledger, notes the completed pledge on Regina's file in DARIA (which then anon’s her data eventually), writes a check to the clinic and mails the check it to the clinic."
+
+    janis = Patient.create! name: 'Janis',
+                            line: lines.first,
+                            primary_phone: "000-000-0002",
+                            initial_call_date: 40.days.ago
+    janis.calls.create! created_at: 40.days.ago,
+                        status: 'left_voicemail'
+    janis.calls.create! created_at: 40.days.ago,
+                        status: 'left_voicemail'
+    janis.calls.create! created_at: 39.days.ago,
+                        status: 'left_voicemail'
+    janis.calls.create! created_at: 40.days.ago,
+                        status: 'couldnt_reach_patient'
+    janis.notes.create full_text: "SCENARIO: Janis calls us on 6-17. We call her back and leave a voicemail. We try again at the end of the night, but do not reach her. Janis calls us back on 6-18. We return her call and leave a voicemail. Janis calls us back on 6-24. We return her call, but her voicemail is turned off. We do not hear from Janis again."
   end
 end
 
