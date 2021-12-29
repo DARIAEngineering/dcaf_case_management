@@ -19,6 +19,7 @@
 
       <div class="col-4">
         <%= f.number_field :amount,
+                           value: number_to_currency(f.object.amount.to_f, unit: '', delimiter: ''),
                            hide_label: true,
                            autocomplete: 'off',
                            prepend: '$',
