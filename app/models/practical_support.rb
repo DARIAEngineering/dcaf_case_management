@@ -13,5 +13,5 @@ class PracticalSupport < ApplicationRecord
   validates :support_type, uniqueness: { scope: :can_support }
   validates :amount, 
               allow_nil: true,
-              numericality: { greater_than: 0 }
+              numericality: { greater_than_or_equal_to: 0 }
 end

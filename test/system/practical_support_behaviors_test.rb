@@ -147,6 +147,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       within :css, '#practical-support-entries' do
         check 'Confirmed'
       end
+      wait_for_ajax
 
       visit dashboard_path
       within :css, '#unconfirmed_support' do
