@@ -29,20 +29,20 @@ additional_note_text = 'Additional note ' * 10
 password = 'AbortionsAreAHumanRight1'
 
 # Create a few test funds
-fund1 = Fund.create! name: 'DCAF',
-                     domain: 'dcabortionfund.org',
+fund1 = Fund.create! name: 'SBF',
+                     domain: 'petfinder.com',
                      subdomain: 'sandbox',
-                     full_name: 'DC Abortion Fund',
-                     site_domain: 'www.dcabortionfund.org',
+                     full_name: 'Sand Box Fund',
+                     site_domain: 'www.petfinder.com',
                      phone: '202-452-7464'
 
 
 
 fund2 = Fund.create! name: 'CatFund',
-                     domain: 'catfund.org',
+                     domain: 'petfinder.com',
                      subdomain: 'catbox',
                      full_name: 'Cat Fund',
-                     site_domain: 'www.catfund.org',
+                     site_domain: 'www.petfinder.com',
                      phone: '(281) 330-8004'
 
 [fund1, fund2].each do |fund|
@@ -60,7 +60,7 @@ fund2 = Fund.create! name: 'CatFund',
     user2 = User.create! name: 'testuser2', email: 'test2@example.com',
                          password: password, password_confirmation: password,
                          role: :cm
-    User.create! name: 'testuser3', email: 'dcaf.testing@gmail.com',
+    User.create! name: 'testuser3', email: 'test3@example.com',
                  password: password, password_confirmation: password,
                  role: :cm
 
@@ -149,8 +149,8 @@ fund2 = Fund.create! name: 'CatFund',
           patient.calls.create! status: :left_voicemail
         end
       when 5
-        # Resolved without DCAF
-        patient.update! name: 'Resolved without DCAF - 5',
+        # Resolved without Fund
+        patient.update! name: 'Resolved without assistance - 5',
                         resolved_without_fund: true
       end
 
