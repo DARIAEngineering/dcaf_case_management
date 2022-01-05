@@ -28,7 +28,7 @@
     "eslint-utils": "^3.0.0",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.12",
-    "node-forge": "^0.10.0",
+    "node-forge": "^1.0.0",
     "serialize-javascript": "^6.0.0",
     "yargs-parser": "^21.0.0",
     "popper.js": "^1.16.0",
