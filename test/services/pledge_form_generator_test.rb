@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PledgeFormGeneratorTest < ActiveSupport::TestCase
   before do
-    ActsAsTenant.current_tenant.update pledge_generation_config: 'DCAF'
+    ActsAsTenant.current_tenant.update pledge_generation_config: 'generic'
     @user = create :user, name: 'Da User'
     clinic = create :clinic, name: 'Da Clinic', city: 'Morgantown', state: 'WV'
     @patient = create :patient, name: 'Sarah', other_phone: '111-222-3333',
@@ -29,7 +29,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
     end
 
     it 'should get the clinic date formatted' do
-      assert_equal(@pledge_form_generator.appointment_date, 'January 1, 2016')
+      assert_equal(@pledge_form_generator.appointment_date, 'January  1, 2016')
     end
 
     it 'should get the patient provider name' do

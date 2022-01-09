@@ -23,7 +23,7 @@ class PledgeFormGenerator
   end
 
   def appointment_date
-    patient.appointment_date.strftime "%B%e, %Y"
+    patient.appointment_date.strftime "%B %e, %Y"
   end
 
   def patient_name
@@ -35,6 +35,15 @@ class PledgeFormGenerator
   end
 
   def generate_pledge_pdf
+    if CONFIG_DATA.keys.include? @fund.pledge_generation_config
+      pdf = generate_custom_pledge_pdf
+    elsif @fund.pledge_generation_config == 'generic'
+      pdf = generate_generic_pledge_pdf
+    end
+    pdf
+  end
+
+  def generate_custom_pledge_pdf
     pdf = Prawn::Document.new
 
     build_header pdf
@@ -63,6 +72,16 @@ class PledgeFormGenerator
     build_footer pdf
 
     # slam dunk
+    pdf
+  end
+
+  def generate_generic_pledge_pdf
+    pdf = Prawn::Document.new
+    build_generic_header pdf
+    build_generic_body pdf
+    build_generic_signature pdf
+    build_generic_remit pdf
+    build_generic_footer pdf
     pdf
   end
 
@@ -96,6 +115,97 @@ class PledgeFormGenerator
   }
 
   private
+
+  def build_generic_header(pdf)
+    y_position = pdf.cursor
+    pdf.bounding_box([0, y_position], width: 200, height: 150) do
+      pdf.image Rails.root.join("public", "daria_logo.png"),
+                position: :left,
+                width: 150,
+                height: 150
+    end
+
+    pdf.bounding_box([250, y_position], width: 400, height: 150) do
+      if Rails.env.development?
+        pdf.text "SAMPLE - DO NOT USE", style: :bold
+        pdf.move_down 10
+      end
+
+      pdf.text case_manager_name
+      pdf.text @fund.full_name
+      pdf.text "123 Fake Street" # TK Fund address L1
+      pdf.text "Springfield, Ohiyamaude" # TK Fund address L2
+      pdf.text "Tel: #{@fund.phone}"
+      pdf.text "fund@example.com" # TK fund contact email
+      pdf.text "Web: #{@fund.site_domain}"
+    end
+
+    pdf.stroke_horizontal_rule
+    pdf.move_down 25
+  end
+
+  def build_generic_body(pdf)
+    preamble_txt = <<-TEXT
+      We are writing to confirm that the #{@fund.full_name} (#{@fund.name}) is pledging assistance in the amount of <b>#{patient_amount}</b> toward the cost of abortion care for <b>#{@patient.name} (#{@patient.identifier})</b> on <b>#{appointment_date}</b>. This payment will be remitted to the abortion provider, <b>#{@patient.clinic.name}</b> located in <b>#{@patient.clinic.display_location}</b>.
+
+      In order to receive payment, the abortion provider must mail a copy of this pledge form to:
+
+      #{@fund.full_name}
+      ADDRESS1
+      ADDRESS2
+
+      Please know how much we appreciate the time and commitment it takes for clinics to coordinate funding for those in low-income situations. If there is anything we can do to smooth the process, please let us know.
+    TEXT
+    pdf.text preamble_txt, align: :left, inline_format: true
+    pdf.move_down 10
+  end
+
+  def build_generic_signature(pdf)
+    now_as_date = Time.zone.now.strftime('%b %d, %Y')
+    next_y_position = pdf.cursor
+    pdf.move_down 10
+    pdf.bounding_box([0, next_y_position], width: 200, height: 50) do
+      pdf.draw_text case_manager_name, at: [10, 35]
+      pdf.line [0, 25], [225, 25]
+      pdf.draw_text "Case Manager, #{@fund.full_name}", at: [10, 10]
+    end
+    pdf.bounding_box([250, next_y_position], width: 200, height: 50) do
+      pdf.draw_text now_as_date, at: [10, 35]
+      pdf.line [0, 25], [225, 25]
+      pdf.draw_text 'Date', at: [10, 10]
+    end
+    pdf.move_down 25
+    pdf.stroke_horizontal_rule
+    pdf.move_down 25
+  end
+
+  def build_generic_remit(pdf)
+    pdf.text "<b><i>This section to be filled out by clinic only.</b></i>", align: :left, indent_paragraphs: 5, size: 8, inline_format: true
+    pdf.move_down 10
+
+    remit_txt = <<-TEXT
+      Patient's weeks of pregnancy at date of procedure: _________________
+
+      Date on which procedure was completed: _________________________
+
+      Signature of Clinic Administrator: ________________________________
+    TEXT
+    pdf.bounding_box([25, pdf.cursor], width: 475, height: 100) do
+      pdf.move_down 20
+      pdf.transparent(0.5) { pdf.stroke_bounds }
+      pdf.text remit_txt, align: :left, style: :bold, indent_paragraphs: 7
+    end
+    pdf.move_down 10
+    pdf
+  end
+
+  def build_generic_footer(pdf)
+    footer_txt = <<-TEXT
+      The information in this transmission is confidential. If thereader of this message is not the intended recipient, you are hereby notified that any dissemination, distribution, or duplication of this communication is strictly prohibited. If you have received this transmission in error, please contact the sender at the information provided above, and destroy all copies.
+    TEXT
+    pdf.text footer_txt, align: :left, inline_format: true
+    pdf
+  end
 
   def build_header(pdf)
     y_position = pdf.cursor
