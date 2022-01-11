@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_18_014015) do
+ActiveRecord::Schema.define(version: 2021_12_19_044530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -299,7 +299,7 @@ ActiveRecord::Schema.define(version: 2021_11_18_014015) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
-    t.integer "amount"
+    t.decimal "amount", precision: 8, scale: 2
     t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
     t.index ["fund_id"], name: "index_practical_supports_on_fund_id"
   end
