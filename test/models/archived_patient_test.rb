@@ -82,29 +82,36 @@ class ArchivedPatientTest < ActiveSupport::TestCase
     end
 
     it 'should have matching subobject data Patient and Archive Patient' do
+      # and that includes ids
+      call_ids = @patient.calls.pluck('id')
+      ext_pledge_ids = @patient.external_pledges.pluck('id')
+      psup_ids = @patient.practical_supports.pluck('id')
+      fulfillment_id = @patient.fulfillment.id
+      @archived_patient.reload
+      @patient.reload
+
       assert_equal 2, @archived_patient.calls.count
+      assert_equal call_ids, @archived_patient.calls.pluck('id')
+      assert_equal 0, @patient.calls.count
       assert_equal @user, @archived_patient.calls.first.created_by
       assert_equal @user2, @archived_patient.calls.last.created_by
 
+      assert_equal fulfillment_id, @archived_patient.fulfillment.id
       assert_equal @archived_patient.fulfillment.date_of_check,
-                   @patient.fulfillment.date_of_check
+                   3.days.ago.to_date
+      assert_nil @patient.fulfillment
 
       assert_equal 2, @archived_patient.external_pledges.count
+      assert_equal ext_pledge_ids, @archived_patient.external_pledges.pluck('id')
+      assert_equal 0, @patient.external_pledges.count
       assert_equal @user, @archived_patient.external_pledges.first.created_by
       assert_equal @user2, @archived_patient.external_pledges.last.created_by
 
       assert_equal 2, @archived_patient.practical_supports.count
+      assert_equal psup_ids, @archived_patient.practical_supports.pluck('id')
+      assert_equal 0, @patient.practical_supports.count
       assert_equal @user, @archived_patient.practical_supports.first.created_by
       assert_equal @user2, @archived_patient.practical_supports.last.created_by
-    end
-
-    it 'should have distinct subobjects for Patient and Archive Patient' do
-      assert_equal 0, @patient.calls.count
-      assert_equal 0, @patient.external_pledges.count
-      assert_equal 0, @patient.practical_supports.count
-
-      assert_not_equal @archived_patient.fulfillment.id,
-                       @patient.fulfillment.id
     end
   end
 
