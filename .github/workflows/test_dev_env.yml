@@ -120,8 +120,6 @@ jobs:
       # Run scanners
       - name: Brakeman
         run: brakeman --exit-on-warn .
-      - name: ruby-audit
-        run: ruby-audit check
       - name: bundle-audit
         run: bundle-audit update; bundle-audit check
       - name: Zeitwerk

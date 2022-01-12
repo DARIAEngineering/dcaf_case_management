@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.0.2'
+ruby '3.1.0'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
@@ -68,7 +68,6 @@ group :development do
   gem 'rubocop-rails', require: false
 
   # Security scanners that also run in CI. They run with bundle exec.
-  gem 'ruby_audit', require: false #
   gem 'bundler-audit', require: false
 end
 
@@ -103,8 +102,4 @@ group :test do
   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
   gem 'minitest-stub-const'
   gem 'rack-test', '>= 0.6.3', require: 'rack/test' # needed to test rack-attack
-end
-
-group :production do
-  gem 'sqreen' # an active security monitoring platform
 end
