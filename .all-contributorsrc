@@ -1,6 +1,6 @@
 {
   "projectName": "dcaf_case_management",
-  "projectOwner": "DCAFEngineering",
+  "projectOwner": "DARIAEngineering",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -356,6 +356,15 @@
       "profile": "https://github.com/nsiwnf",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "emtot22",
+      "name": "emtot22",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90362047?v=4",
+      "profile": "https://www.emiliaportfolio.com/",
+      "contributions": [
+        "design"
       ]
     }
   ],
