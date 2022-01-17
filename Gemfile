@@ -4,7 +4,7 @@ ruby '3.0.2'
 # Standard rails
 gem 'rails', '~> 6.1.4'
 gem 'puma', '~> 5.4' # roar
-gem 'sdoc', '~> 2.2.0', group: :doc
+gem 'sdoc', '~> 2.3.0', group: :doc
 gem 'nokogiri', '>= 1.11.1'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false

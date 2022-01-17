@@ -322,7 +322,7 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.3.2)
+    rdoc (6.3.3)
     regexp_parser (2.1.1)
     render_async (2.1.10)
     request_store (1.5.0)
@@ -362,8 +362,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sdoc (2.2.0)
-      rdoc (>= 5.0)
+    sdoc (2.3.0)
+      rdoc (>= 5.0, < 6.4.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -489,7 +489,7 @@ DEPENDENCIES
   rubocop-rails
   ruby_audit
   sass-rails (>= 6)
-  sdoc (~> 2.2.0)
+  sdoc (~> 2.3.0)
   selenium-webdriver
   sentry-rails
   sentry-ruby
