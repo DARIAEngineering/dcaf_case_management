@@ -36,5 +36,5 @@
     "y18n": "^5.0.0",
     "is-svg": "^4.2.2"
   },
-  "packageManager": "yarn@3.1.0"
+  "packageManager": "yarn@3.1.1"
 }
