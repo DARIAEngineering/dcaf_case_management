@@ -37,7 +37,7 @@ Rails.application.config.active_job.skip_after_callbacks_if_terminated = true
 
 # Change the default HTTP status code to `308` when redirecting non-GET/HEAD
 # requests to HTTPS in `ActionDispatch::SSL` middleware.
-Rails.application.config.action_dispatch.ssl_default_redirect_status = 308
+# Rails.application.config.action_dispatch.ssl_default_redirect_status = 308
 
 # Use new connection handling API. For most applications this won't have any
 # effect. For applications using multiple databases, this new API provides
@@ -45,7 +45,7 @@ Rails.application.config.action_dispatch.ssl_default_redirect_status = 308
 Rails.application.config.active_record.legacy_connection_handling = false
 
 # Make `form_with` generate non-remote forms by default.
-Rails.application.config.action_view.form_with_generates_remote_forms = false
+# Rails.application.config.action_view.form_with_generates_remote_forms = false
 
 # Set the default queue name for the analysis job to the queue adapter default.
 # Rails.application.config.active_storage.queues.analysis = nil
