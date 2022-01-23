@@ -32,33 +32,36 @@ en:
         street_address: Street address
         zip: ZIP
       external_pledge:
-        source: Source
-        amount: Amount
         active: Active
+        amount: Amount
+        source: Source
       fulfillment:
         audited: Audited
-        procedure_date: Procedure date
-        date_of_check: Date of check
         check_number: Check number
-        fund_payout: Fund payout
+        date_of_check: Date of check
         fulfilled: Fufilled
+        fund_payout: Fund payout
         gestation_at_procedure: Gestation at procedure
-
-      practical_support:
-        confirmed: Confirmed
-        amount: Amount
-        source: Source
-        support_type: Support type
+        procedure_date: Procedure date
       patient:
+        active: Active
         age: Age
+        amount: Amount
         appointment_date: Appointment date
+        audited: Audited
+        check_number: Check number
         city: City
         clinic_id: Clinic_Id
         completed_ultrasound: Completed ultrasound?
+        confirmed: Confirmed
         county: County
+        date_of_check: Date of check
         employment_status: Employment status
+        fulfilled: Fufilled
+        fund_payout: Fund payout
         fund_pledge: Fund pledge
         fund_pledged_at: Fund pledged at
+        gestation_at_procedure: Gestation at procedure
         household_size_adults: Adults in household
         household_size_children: Minors in household
         income: Income
@@ -79,32 +82,20 @@ en:
         pledge_sent_at: Pledge sent at
         primary_phone: Primary phone
         procedure_cost: Procedure cost
+        procedure_date: Procedure date
         pronouns: Pronouns
         race_ethnicity: Race / Ethnicity
         referred_by: Referred by
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without fund
+        source: Source
         special_circumstances: Special circumstances
         state: State
+        support_type: Support type
         textable: Textable
         urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
-
-        source: Source
-        amount: Amount
-        active: Active
-        audited: Audited
-        procedure_date: Procedure date
-        date_of_check: Date of check
-        check_number: Check number
-        fund_payout: Fund payout
-        fulfilled: Fufilled
-        gestation_at_procedure: Gestation at procedure
-
-        confirmed: Confirmed
-        support_type: Support type
-
       practical_support:
         confirmed: Confirmed
         source: Source

@@ -32,32 +32,36 @@ es:
         street_address: Dirección
         zip: Código postal
       external_pledge:
-        source: Fuente
-        amount: Monto
         active: Activa
+        amount: Monto
+        source: Fuente
       fulfillment:
         audited: Auditada
-        procedure_date: Fecha de procedimiento
-        date_of_check: Fecha del cheque
         check_number: 'Cheque #'
-        fund_payout: Pago de fund
+        date_of_check: Fecha del cheque
         fulfilled: Promesa cumplida
+        fund_payout: Pago de fund
         gestation_at_procedure: Semanas a lo largo del pocedimiento
-      practical_support:
-        confirmed: Confirmada
-        amount: Monto
-        source: Fuente
-        support_type: Tipo de soporte
+        procedure_date: Fecha de procedimiento
       patient:
+        active: Active
         age: Edad
+        amount: Amount
         appointment_date: Día de la cita
+        audited: Audited
+        check_number: Check number
         city: Ciudad
         clinic_id: ID de la clínica
         completed_ultrasound: Ultrasonido completado
+        confirmed: Confirmada
         county: Condado
+        date_of_check: Date of check
         employment_status: Estatus de empleo
+        fulfilled: Fufilled
+        fund_payout: Fund payout
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
+        gestation_at_procedure: Gestation at procedure
         household_size_adults: Adultos en el Hogar
         household_size_children: Menores en el Hogar
         income: Ingresos
@@ -78,31 +82,20 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
+        procedure_date: Procedure date
         pronouns: Pronombres
         race_ethnicity: Raza / Etnicidad
         referred_by: Referido por
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
+        source: Source
         special_circumstances: Circunstancias Especiales
         state: Estado
+        support_type: Tipo de soporte
         textable: Textable
         urgent_flag: Bandera urgente
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
-
-        source: Source
-        amount: Amount
-        active: Active
-        audited: Audited
-        procedure_date: Procedure date
-        date_of_check: Date of check
-        check_number: Check number
-        fund_payout: Fund payout
-        fulfilled: Fufilled
-        gestation_at_procedure: Gestation at procedure
-        confirmed: Confirmada
-        support_type: Tipo de soporte
-
       practical_support:
         confirmed: Confirmado
         source: Fuente
