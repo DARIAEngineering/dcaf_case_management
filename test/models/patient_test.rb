@@ -646,6 +646,28 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'all_versions' do
+    before do
+      @patient.external_pledges.create amount: 100, source: 'Catfund'
+      @patient.fulfillment.update check_number: 'Cat1'
+
+    end
+
+    it 'should show fulfillment if include_fulfillment' do
+      version_types = @patient.all_versions(false).map(&:item_type).uniq
+      assert_includes version_types, 'ExternalPledge'
+      assert_includes version_types, 'Patient'
+      assert_not_includes version_types, 'Fulfillment'
+    end
+
+    it 'should not show fulfillment if not include_fulfillment' do
+      version_types = @patient.all_versions(true).map(&:item_type).uniq
+      assert_includes version_types, 'ExternalPledge'
+      assert_includes version_types, 'Patient'
+      assert_includes version_types, 'Fulfillment'
+    end
+  end
+
   def patient_to_hash(patient)
     {
       fund_pledge: patient.fund_pledge,
