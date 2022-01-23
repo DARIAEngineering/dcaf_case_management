@@ -31,6 +31,18 @@ es:
         state: Estado
         street_address: Dirección
         zip: Código postal
+      external_pledge:
+        source: Fuente
+        amount: Monto
+        active: Activa
+      fulfillment:
+        audited: Auditada
+        procedure_date: Fecha de procedimiento
+        date_of_check: Fecha del cheque
+        check_number: 'Cheque #'
+        fund_payout: Pago de fund
+        fulfilled: Promesa cumplida
+        gestation_at_procedure: Semanas a lo largo del pocedimiento
       patient:
         age: Edad
         appointment_date: Día de la cita
@@ -72,6 +84,18 @@ es:
         urgent_flag: Bandera urgente
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
+
+        source: Source
+        amount: Amount
+        active: Active
+        audited: Audited
+        procedure_date: Procedure date
+        date_of_check: Date of check
+        check_number: Check number
+        fund_payout: Fund payout
+        fulfilled: Fufilled
+        gestation_at_procedure: Gestation at procedure
+
       practical_support:
         confirmed: Confirmado
         source: Fuente

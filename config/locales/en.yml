@@ -31,6 +31,18 @@ en:
         state: State
         street_address: Street address
         zip: ZIP
+      external_pledge:
+        source: Source
+        amount: Amount
+        active: Active
+      fulfillment:
+        audited: Audited
+        procedure_date: Procedure date
+        date_of_check: Date of check
+        check_number: Check number
+        fund_payout: Fund payout
+        fulfilled: Fufilled
+        gestation_at_procedure: Gestation at procedure
       patient:
         age: Age
         appointment_date: Appointment date
@@ -72,6 +84,18 @@ en:
         urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
+
+        source: Source
+        amount: Amount
+        active: Active
+        audited: Audited
+        procedure_date: Procedure date
+        date_of_check: Date of check
+        check_number: Check number
+        fund_payout: Fund payout
+        fulfilled: Fufilled
+        gestation_at_procedure: Gestation at procedure
+
       practical_support:
         confirmed: Confirmed
         source: Source
