@@ -126,3 +126,5 @@ jobs:
         run: bundle-audit update; bundle-audit check
       - name: Zeitwerk
         run: bin/rails zeitwerk:check
+      - name: yarn npm audit
+        run: yarn npm audit
