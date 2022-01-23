@@ -39,7 +39,7 @@ en:
         audited: Audited
         check_number: Check number
         date_of_check: Date of check
-        fulfilled: Fufilled
+        fulfilled: Fulfilled
         fund_payout: Fund payout
         gestation_at_procedure: Gestation at procedure
         procedure_date: Procedure date
@@ -57,7 +57,7 @@ en:
         county: County
         date_of_check: Date of check
         employment_status: Employment status
-        fulfilled: Fufilled
+        fulfilled: Fulfilled
         fund_payout: Fund payout
         fund_pledge: Fund pledge
         fund_pledged_at: Fund pledged at

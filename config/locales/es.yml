@@ -44,24 +44,24 @@ es:
         gestation_at_procedure: Semanas a lo largo del pocedimiento
         procedure_date: Fecha de procedimiento
       patient:
-        active: Active
+        active: Activa
         age: Edad
-        amount: Amount
+        amount: Monto
         appointment_date: Día de la cita
-        audited: Audited
-        check_number: Check number
+        audited: Auditada
+        check_number: 'Cheque #'
         city: Ciudad
         clinic_id: ID de la clínica
         completed_ultrasound: Ultrasonido completado
         confirmed: Confirmada
         county: Condado
-        date_of_check: Date of check
+        date_of_check: Fecha del cheque
         employment_status: Estatus de empleo
-        fulfilled: Fufilled
-        fund_payout: Fund payout
+        fulfilled: Cumplida
+        fund_payout: Pago de fondos
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
-        gestation_at_procedure: Gestation at procedure
+        gestation_at_procedure: Semanas a lo largo del pocedimiento
         household_size_adults: Adultos en el Hogar
         household_size_children: Menores en el Hogar
         income: Ingresos
@@ -82,13 +82,13 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
-        procedure_date: Procedure date
+        procedure_date: Fecha de procedimiento
         pronouns: Pronombres
         race_ethnicity: Raza / Etnicidad
         referred_by: Referido por
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
-        source: Source
+        source: Fuente
         special_circumstances: Circunstancias Especiales
         state: Estado
         support_type: Tipo de soporte
