@@ -19,6 +19,8 @@ class PaperTrailVersion < PaperTrail::Version
     fund_id
     can_fulfill_type
     can_fulfill_id
+    can_support_type
+    can_support_id
   ].freeze
   DATE_FIELDS = %w[
     appointment_date

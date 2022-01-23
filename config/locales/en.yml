@@ -43,6 +43,12 @@ en:
         fund_payout: Fund payout
         fulfilled: Fufilled
         gestation_at_procedure: Gestation at procedure
+
+      practical_support:
+        confirmed: Confirmed
+        amount: Amount
+        source: Source
+        support_type: Support type
       patient:
         age: Age
         appointment_date: Appointment date
@@ -95,6 +101,9 @@ en:
         fund_payout: Fund payout
         fulfilled: Fufilled
         gestation_at_procedure: Gestation at procedure
+
+        confirmed: Confirmed
+        support_type: Support type
 
       practical_support:
         confirmed: Confirmed

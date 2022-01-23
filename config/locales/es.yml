@@ -43,6 +43,11 @@ es:
         fund_payout: Pago de fund
         fulfilled: Promesa cumplida
         gestation_at_procedure: Semanas a lo largo del pocedimiento
+      practical_support:
+        confirmed: Confirmada
+        amount: Monto
+        source: Fuente
+        support_type: Tipo de soporte
       patient:
         age: Edad
         appointment_date: Día de la cita
@@ -95,6 +100,8 @@ es:
         fund_payout: Fund payout
         fulfilled: Fufilled
         gestation_at_procedure: Gestation at procedure
+        confirmed: Confirmada
+        support_type: Tipo de soporte
 
       practical_support:
         confirmed: Confirmado
