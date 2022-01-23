@@ -208,7 +208,7 @@ class Patient < ApplicationRecord
     all_versions = versions
     all_versions += external_pledges.map(&:versions).reduce(&:+) if external_pledges.present?
     all_versions += fulfillment.versions if include_fulfillment
-    all_versions.sort_by(&:created_at)
+    all_versions.sort_by(&:created_at).reverse
   end
 
   private
