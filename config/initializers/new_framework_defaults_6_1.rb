@@ -45,7 +45,7 @@ ActiveSupport.utc_to_local_returns_utc_offset_times = true
 Rails.application.config.active_record.legacy_connection_handling = false
 
 # Make `form_with` generate non-remote forms by default.
-# Rails.application.config.action_view.form_with_generates_remote_forms = false  # HARD ONE
+Rails.application.config.action_view.form_with_generates_remote_forms = false  # HARD ONE
 
 # Set the default queue name for the analysis job to the queue adapter default.
 # Rails.application.config.active_storage.queues.analysis = nil# we don't use this module
