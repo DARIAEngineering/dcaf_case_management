@@ -206,9 +206,9 @@ class Patient < ApplicationRecord
 
   def all_versions(include_fulfillment)
     all_versions = versions || []
-    all_versions += external_pledges.includes(versions: [:item, :user]).map(&:versions).reduce(&:+) if external_pledges.present?
-    all_versions += practical_supports.includes(versions: [:item, :user]).map(&:versions).reduce(&:+) if practical_supports.present?
-    all_versions += fulfillment.versions.includes(:item, :user) if include_fulfillment && fulfillment.present?
+    all_versions += external_pledges.includes(versions: [:item, :user]).map(&:versions).reduce(&:+) || []
+    all_versions += practical_supports.includes(versions: [:item, :user]).map(&:versions).reduce(&:+) || []
+    all_versions += fulfillment.versions || [] if include_fulfillment
     all_versions.sort_by(&:created_at).reverse
   end
 
