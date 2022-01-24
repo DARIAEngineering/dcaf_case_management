@@ -65,7 +65,7 @@ class PatientsController < ApplicationController
     # i18n-tasks-use t('activerecord.attributes.fulfillment.audited')
     # i18n-tasks-use t('activerecord.attributes.fulfillment.check_number')
     # i18n-tasks-use t('activerecord.attributes.fulfillment.date_of_check')
-    # i18n-tasks-use t('activerecord.attributes.fulfillment.fulfiled')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.fulfilled')
     # i18n-tasks-use t('activerecord.attributes.fulfillment.fund_payout')
     # i18n-tasks-use t('activerecord.attributes.fulfillment.gestation_at_procedure')
     # i18n-tasks-use t('activerecord.attributes.fulfillment.procedure_date')
