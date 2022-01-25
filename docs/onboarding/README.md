@@ -4,7 +4,7 @@ These are the steps to onboard your fund to the DCAF-managed DARIA pipeline.
 
 * Reach out to the DARIA team by email, slack, etc.
 
-* The DARIA team will share this documentation on how DARIA works. You should use [our training environment](https://sandbox.dcabortionfund.org) for this. Please note that the sandbox is public, and that you shouldn't enter sensitive information into it!
+* The DARIA team will share this documentation on how DARIA works. You should use [our training environment](https://sandbox.dariaservices.com) for this. Please note that the sandbox is public, and that you shouldn't enter sensitive information into it!
   * To try out the case manager workflow, follow the directions in the [DARIA workflow tryout](DARIA_WORKFLOW_TRYOUT.md).
   * To see the more general case manager guide, covering some additional things you can do as a case manager, see: TK CASE MANAGER DOCS
   * To see the administrative tools such as data analysis and accounting, see: TK ADMIN DOCS
