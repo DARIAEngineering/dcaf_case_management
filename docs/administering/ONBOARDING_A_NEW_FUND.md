@@ -17,6 +17,7 @@ To provision an app, we'll need the following information. The DARIA team member
 * Phone number of the abortion fund (e.g. 202-000-1111) - referred to as `FUND_PHONE`
 * Website of the fund (e.g. dcabortionfund.org) - referred to as `FUND_DOMAIN`
 * Name and email of the fund admins (e.g. Susan Everyteen - susan@example.com) - we create initial admin accounts for these people
+* Possibly, the different lines they want.
 
 ### Gathering API tokens and secrets
 
@@ -40,15 +41,28 @@ We also need to have some API tokens and such that we generate or dig up when we
   * Open up a rails console `heroku run rails c -a (multitenant_app_name)`. You're gonna be in here for a few steps, so don't exit out right away.
   * Insert the fund record as follows: `Fund.create! name: NAME, subdomain: NAME_LOWERCASED, domain: FUND_DOMAIN, full_name: FULL_NAME, phone: FUND_PHONE`. (For example: `Fund.create! name: 'CAT', subdomain: 'cat', domain: 'www.catfund.org', full_name: 'Cat Fund', phone: '281-330-8004')`
 
-* Set that fund as Active:
-  * TK
+* Set that fund as Active for scoping purposes:
+  * `ActsAsTenant.current_tenant = Fund.find_by(name: NAME)`
 
 * Set up the Lines:
-  * TK
+  * If you didn't get explicit instructions on which lines, that means they just need one, `Main`. Run `Line.create name: 'Main'`.
+  * If you DID get a set of lines to create, for every line they want, run `Line.create name: LINE_NAME`. ex: `Line.create name: 'Cats'`.
 
-* Set up the first users:
-  * TK
+* Set up the first users, and also do a little smoke testing while you're at it:
+  * Set yourself up first, using this snippet:
+```
+scratch_pass = SecureRandom.alphanumeric
+User.create email: 'your@email.org',
+            name: 'Your Name',
+            role: :admin,
+            password: scratch_pass,
+            password_confirmation: scratch_pass
+```
+  * We're done with the rails console, so you can exit.
+  * Log in at the domain you set up, using Google. (This will confirm that logging in with google works.)
+  * Head to Admin > User Management and create their first fund users.
 
+* 
 
 
 
