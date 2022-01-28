@@ -50,6 +50,7 @@ We also need to have some API tokens and such that we generate or dig up when we
 
 * Set up the first users, and also do a little smoke testing while you're at it:
   * Set yourself up first, using this snippet:
+
 ```
 scratch_pass = SecureRandom.alphanumeric
 User.create email: 'your@email.org',
@@ -58,57 +59,39 @@ User.create email: 'your@email.org',
             password: scratch_pass,
             password_confirmation: scratch_pass
 ```
-  * We're done with the rails console, so you can exit.
+
+  * Create the support contractor monitor user, using this snippet:
+
+```
+scratch_pass = SecureRandom.alphanumeric
+User.create email: 'daria-user@opentechstrategies.com',
+            name: 'OpenTechStrategies Monitor',
+            role: :admin,
+            password: scratch_pass,
+            password_confirmation: scratch_pass
+```
+
+  * Repeat with the other admin users requested by the fund.
+
+* Smoke test to confirm things are working properly.
+  * Head to the domain you set up and try logging in with google, to affirm that OAuth is properly set up. If that doesn't work, check that OAuth is configured properly in the Google Cloud console.
+  * Confirm that the lines are properly set and show up right. For most funds, this means after logging in you will go straight to the call list. For funds with more than one line, you'll go to a line selection screen instead. If this is does not behave as expected, hop into the console and check that `Line.all` has objects associated with the new values.
+  * Confirm that the top left badge name (`DARIA - full fund name`) is showing properly. If this is weird, check that the fund's `full_name` attribute is set right in the rails console.
+
   * Log in at the domain you set up, using Google. (This will confirm that logging in with google works.)
   * Head to Admin > User Management and create their first fund users.
 
-* 
+* Clean up our mess.
+  * Destroy the user you made to log in and smoke test: `User.find_by(email: 'your@email.org').destroy`
 
-
-
-
-
-
-tkkkkk
-
-### Smoke test to confirm everything is working right 
-
-With the instance set up, we want to make sure it's properly configured and working before we let users in.
-
-You should be able to access the rails console via this snippet: `heroku run rails c -a daria-FUND`
-
-* Create yourself an admin account from the rails console. Confirm that this sends an email to you notifying you of account creation. This confirms we can save new users to the database and that the mailer is properly configured. If an email doesn't send, check that the Sendgrid Heroku addon is working right and that the sendgrid env vars are properly set. You can use this snippet:
-```
-scratch_pass = SecureRandom.alphanumeric
-User.create email: 'your@email.org',
-            name: 'Your Name',
-            role: :admin,
-            password: scratch_pass,
-            password_confirmation: scratch_pass,
-            fund: Fund.first
-```
-* Go to the url at `http://daria-FUND.herokuapp.com`. Confirm that this loads, and redirects you to `https://...`
-* Confirm the oauth signin flow works by clicking the `Sign in with Google` button. This confirms that oauth is properly set up. If something is weird here, check that `DARIA_GOOGLE_KEY` and `DARIA_GOOGLE_SECRET` are properly set and configured.
-* Confirm that the lines are properly set and show up right. For most funds, this means after logging in you will go straight to the call list. For funds with more than one line, you'll go to a line selection screen instead. If this is does not behave as expected, hop into the console and check that `Line.all` has objects associated with the new values.
-* Confirm that the top left badge name (`DARIA - full fund name`) is showing properly. If this is weird, check that  `Fund.first.full_name` attribute is set right.
-* Confirm that you can create and update a patient in the UI. Click the Magnifying Glass icon below `Build Your Call List` and fill in the new patient partial that appears below as follows: Phone: 000-000-0000, Name: DB Test. Click the `Add new patient` button to create the patient. Delete the patient you made in the rails console with this snippet: `Patient.find_by(name: 'DB Test').destroy`. If this acts weird, notify the slack channel and start looking at the logs/stack trace to investigate.
-
-### Clean up our mess
-
-We've confirmed everything is working as expected, so we'll want to make accounts for handoff and clean up some of our mess.
-
-* Create new users for the fund's admins. You can do this via the UI or in the rails console with this snippet: `User.create email: 'your@email.org', name: 'Your Name', role: :admin, password: 'random string', password_confirmation: 'same random string as in password'`. Throw away the password after generating it.
-* Destroy the user you made to log in and smoke test: `User.find_by(email: 'your@email.org').destroy`
-* Create an email for the support contractor test account: `User.create email: 'daria-user@opentechstrategies.com', name: 'OpenTechStrategies Monitor', role: :admin, password: 'random string', password_confirmation: 'same random string as in password'`
-
-### Let people know things are ready
+### Notify the fund and the team that everything is set
 
 Send this email to the DARIA team member that requested provisioning, subbing the all caps variables:
 
 ```
-Hi, we've provisioned the requested instance. Please let them know they can log in at SITE_URL when they're ready.
+Hi, we've provisioned the requested instance. You can log in at (NEW_URL) when you're ready.
 
-When they do so, they should do the following to start:
+When you do so, you should configure your DARIA instance by doing the following to start:
 * Log in with Google (or reset their passwords and log in)
 * Go to Admin > Clinic Management and enter info about clinics they work with
 * Go to Admin > Config Management and enter info about other funds they work with, insurance options they track, etc
