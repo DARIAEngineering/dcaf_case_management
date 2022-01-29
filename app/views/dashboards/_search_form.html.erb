@@ -3,7 +3,7 @@
     <%= t 'dashboard.search.header' %>
   </h1>
 
-  <%= bootstrap_form_with url: '/search', layout: :inline do |p| %>
+  <%= bootstrap_form_with url: '/search', layout: :inline, local: true do |p| %>
     <%= p.hidden_field :locale, value: params[:locale] %>
 
     <%= p.text_field :search,

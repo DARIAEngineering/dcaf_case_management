@@ -56,7 +56,7 @@
                                     name: patient.name) },
                             aria: { label: t('dashboard.table_content.remove_from_call_list_confirm',
                                     name: patient.name)},
-                            remote: true do %>
+                            local: false do %>
                   <i class="fas fa-times fa-fw text-danger" aria-hidden="true"></i>
                   <span class="sr-only">Remove call</span>
                 <% end %>
@@ -66,7 +66,7 @@
                 <%= link_to t('common.add'),
                             add_patient_path(patient),
                             method: :patch,
-                            remote: true %>
+                            local: false %>
               </td>
             <% end %>
           <% end %>
@@ -75,7 +75,7 @@
             <%= link_to new_patient_call_path(patient),
                         class: "call_button call-#{patient.primary_phone_display}",
                         aria: { label: "Call #{patient.primary_phone_display}" },
-                        remote: true do %>
+                        local: false do %>
               <i class="fas fa-phone-alt fa-lg fa-fw call-icon"></i>
               <span class="sr-only">Call</span>
             <% end %>
@@ -91,6 +91,6 @@
                 class: "float-right text-danger",
                 data: { confirm: t('dashboard.table_content.clear_call_list_confirm') },
                 method: :patch,
-                remote: true %>
+                local: false %>
   <% end %>
 </div>

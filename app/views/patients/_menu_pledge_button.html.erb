@@ -3,11 +3,11 @@
               submit_pledge_path(patient),
               class: 'submit-pledge-button',
               aria: { label: t('patient.menu.submit_pledge') },
-              remote: true %>
+              local: false %>
 <% else %>
   <%= link_to cancel_pledge_button,
               submit_pledge_path(patient),
               class: 'submit-pledge-button',
               aria: { label: t('patient.menu.cancel_pledge') },
-              remote: true %>
+              local: false %>
 <% end %>

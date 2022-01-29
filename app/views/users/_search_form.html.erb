@@ -1,5 +1,5 @@
 <%= bootstrap_form_with url: users_search_path,
-                        remote: true,
+                        local: false,
                         layout: :inline,
                         html: { class: 'float-right' } do |p| %>
   <%= p.text_field :search,

@@ -2,7 +2,7 @@
   <%= bootstrap_form_with model: practical_support,
                          url: patient_practical_support_path(patient, practical_support),
                          html: { class: 'edit_practical_support col-10' },
-                         remote: true do |f| %>
+                         local: false do |f| %>
     <div class="row">
       <div class="col-3">
         <span id="practical_support_support_type">
@@ -38,7 +38,7 @@
   <div class="col">
     <%= button_to t('patient.practical_support.remove'),
                   patient_practical_support_path(patient, practical_support),
-                  remote: true,
+                  local: false,
                   method: :delete,
                   data: { confirm: t('patient.practical_support.delete_confirm') },
                   class: "btn btn-danger" %>

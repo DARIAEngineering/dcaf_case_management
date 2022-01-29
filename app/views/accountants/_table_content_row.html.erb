@@ -1,5 +1,5 @@
 <td>
-  <%= link_to edit_accountant_path(patient), id: "edit-#{patient.id}", remote: true do %>
+  <%= link_to edit_accountant_path(patient), id: "edit-#{patient.id}", local: false do %>
     <i class="fas fa-pencil-alt"></i>
   <% end %>
 </td>

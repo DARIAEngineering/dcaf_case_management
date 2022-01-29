@@ -5,7 +5,7 @@
       <%= link_to t('patient.call_log.record_new_call'),
                   new_patient_call_path(@patient),
                   class: "call_button call-#{@patient.primary_phone_display}",
-                  remote: true %>
+                  local: false %>
     </small>
   </h2>
 
@@ -29,7 +29,7 @@
             <% if call.created_by == current_user && call.recent? %>
               <%= button_to t('patient.call_log.table.remove_button'),
                             patient_call_path(@patient, call), 
-                            remote: true,
+                            local: false,
                             method: :delete,
                             data: { confirm: t('patient.call_log.delete_confirm') },
                             class: "btn btn-danger" %>

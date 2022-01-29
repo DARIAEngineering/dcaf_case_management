@@ -38,7 +38,7 @@ module CallsHelper
       link_to t('call.new.result.did_not_reach_patient'),
               patient_calls_path(patient,
                                  call: { status: :couldnt_reach_patient }),
-              method: :post, remote: true,
+              method: :post, local: false,
               class: 'calls-response'
     end
   end
@@ -56,7 +56,7 @@ module CallsHelper
             patient_calls_path(patient,
                                call: { status: :left_voicemail }),
             method: :post,
-            remote: true,
+            local: false,
             class: 'calls-response'
   end
 
