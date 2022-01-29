@@ -81,7 +81,7 @@ module CallsHelper
 
   def voicemail_custom_notifier(patient)
       content_tag :p, class: 'text-warning' do
-          content_tag :strong, patient.voicemail_preference
+        content_tag :strong, patient.voicemail_preference
       end
   end
 
