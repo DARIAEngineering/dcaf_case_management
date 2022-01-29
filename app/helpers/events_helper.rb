@@ -20,7 +20,7 @@ module EventsHelper
     call_list_link = link_to "(#{t('events.add_to_call_list')})",
                              add_patient_path(event.patient_id),
                              method: :patch,
-                             local: false
+                             remote: true
 
     safe_join [time, '--', cm, event_text, pt_link, call_list_link], ' '
   end

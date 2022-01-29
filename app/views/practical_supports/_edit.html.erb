@@ -38,7 +38,7 @@
   <div class="col">
     <%= button_to t('patient.practical_support.remove'),
                   patient_practical_support_path(patient, practical_support),
-                  local: false,
+                  remote: true,
                   method: :delete,
                   data: { confirm: t('patient.practical_support.delete_confirm') },
                   class: "btn btn-danger" %>
