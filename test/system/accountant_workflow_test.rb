@@ -173,6 +173,8 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
         wait_for_ajax
       end
       find('body').click
+      send_keys :escape
+      sleep 1
 
       # Now, should be updated!
       within :css, "#row-#{@pledged_patient.id}" do
