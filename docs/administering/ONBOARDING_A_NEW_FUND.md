@@ -1,10 +1,10 @@
 # Onboarding a new fund to our managed pipeine
 
-These are detailed instructions to onboarding a new fund into our managed pipeline. It assumes that you already have access set up and permissions on the resources we use.
+These are detailed instructions to onboarding a new fund into our managed `daria-services-pipeline`. It assumes that you already have access set up and permissions on the resources we use.
 
 ## By the way
 
-If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, the DARIA team manage the infrastructure for several abortion funds (what's referred to in this document as the `pipeline`). For your share of server costs ($25/month) our team will manage your instance, apply security patches, etc. Please reach out to us in slack if you're interested in skipping a lot of the tedious technical setup here. If you are trying to use this, you'll likely need to make some on-the-fly adjustments as this guide assumes you have access to all the resources in here.
+If you're an abortion fund and NOT interested in worrying about servers, maintenance, and patching, the DARIA team manage the infrastructure for several abortion funds (what's referred to in this document as the `daria-services-pipeline`). For your share of server costs ($25/month) our team will manage your instance, apply security patches, etc. Please reach out to us in [Slack](https://app.slack.com/client/T02GC3VEL/C0E6APB36) if you're interested in skipping a lot of the tedious technical setup here. If you are trying to use this, you'll likely need to make some on-the-fly adjustments as this guide assumes you have access to all the resources in here.
 
 ## Main steps
 
