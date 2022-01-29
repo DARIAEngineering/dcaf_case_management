@@ -1,5 +1,7 @@
 # NOTE: These instructions are out of date under current infrastructure and are kept here for reference. Generally you'll want to use the steps in the Onboarding document!
 
+[Use the onboarding doc instead.](ONBOARDING_A_NEW_FUND.md)
+
 # Setting up a new instance of DARIA
 
 These are detailed instructions in spinning up an instance in heroku on the DCAF pipeline. It assumes that you already have access set up and permissions on the resources we use.
