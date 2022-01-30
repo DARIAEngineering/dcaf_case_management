@@ -652,11 +652,11 @@ class PatientTest < ActiveSupport::TestCase
       # but does with the system tests. Given the choice I prefer the system
       # tests, so we assume this is a false negative and turn off bullet for these.
       Bullet.enable = false
-      @patient.external_pledges.create amount: 100, source: 'Catfund'
-      @patient.external_pledges.update amount: 200
-      @patient.practical_supports.create amount: 100, support_type: 'Cat petting', source: 'Catfund'
-      @patient.practical_supports.update amount: 200
-      @patient.fulfillment.update check_number: 'Cat1'
+      with_versioning do
+        @patient.external_pledges.create amount: 100, source: 'Catfund'
+        @patient.practical_supports.create amount: 100, support_type: 'Cat petting', source: 'Catfund'
+        @patient.fulfillment.update check_number: 'Cat1'
+      end
     end
 
     after do
