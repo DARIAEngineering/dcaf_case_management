@@ -4,7 +4,7 @@
     "@rails/webpacker": "5.4.3",
     "bootstrap": "4.6.1",
     "jquery": "^3.6.0",
-    "jquery-ui": "1.13.0",
+    "jquery-ui": "1.13.1",
     "popper.js": "^1.16.1",
     "set-value": "4.1.0",
     "stupid-table-plugin": "^1.1.3",
