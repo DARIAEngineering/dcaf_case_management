@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/DARIAEngineering/dcaf_case_management/branch/main/graph/badge.svg?token=vnoVK0meeZ)](https://codecov.io/gh/DARIAEngineering/dcaf_case_management)
 
 
-[A deployed demo version of what's in the main branch is at: https://sandbox.dcabortionfund.org/](https://sandbox.dcabortionfund.org/)  
+[A deployed demo version of what's in the main branch is at: https://sandbox.dariaservices.com/](https://sandbox.dariaservices.com/)  
 User: test@example.com, Password: AbortionsAreAHumanRight1
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?

@@ -6,7 +6,7 @@ DARIA is designed around a warm-line process, where case managers are checking v
 
 ## Logging in
 
-* Go to [sandbox.dcabortionfund.org](https://sandbox.dcabortionfund.org).
+* Go to [sandbox.dariaservices.com](https://sandbox.dariaservices.com).
 * Use the username `test@example.com` and the password `AbortionsAreAHumanRight1`.
 * Click the `Sign in with Password` button.
 * Select the `DC` line and click `Get Started`.

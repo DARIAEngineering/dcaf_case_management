@@ -20,7 +20,7 @@ We suggest breaking this down as follows:
 
 Mechanically, data migration is a manual process using a custom data entry form within DARIA. This helps the process go faster by letting volunteers copy-paste data into form fields for patients.
 
-See it in the sandbox at: [sandbox.dcabortionfund.org/data_entry](https://sandbox.dcabortionfund.org/data_entry).
+See it in the sandbox at: [sandbox.dariaservices.com/data_entry](https://sandbox.dariaservices.com/data_entry).
 
 Instructions for using the data migration form tool:
 
