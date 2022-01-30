@@ -653,6 +653,7 @@ class PatientTest < ActiveSupport::TestCase
       # tests, so we assume this is a false negative and turn off bullet for these.
       Bullet.enable = false
       with_versioning do
+        @patient.update name: 'Cat Patient'
         @patient.external_pledges.create amount: 100, source: 'Catfund'
         @patient.practical_supports.create amount: 100, support_type: 'Cat petting', source: 'Catfund'
         @patient.fulfillment.update check_number: 'Cat1'
