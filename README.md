@@ -1,7 +1,5 @@
 # DARIA (DCAF Case Manager)
 ![GithubActions Workflow](https://github.com/DARIAEngineering/dcaf_case_management/actions/workflows/test_dev_env.yml/badge.svg)
-[![codecov](https://codecov.io/gh/DARIAEngineering/dcaf_case_management/branch/main/graph/badge.svg?token=vnoVK0meeZ)](https://codecov.io/gh/DARIAEngineering/dcaf_case_management)
-
 
 [A deployed demo version of what's in the main branch is at: https://sandbox.dariaservices.com/](https://sandbox.dariaservices.com/)  
 User: test@example.com, Password: AbortionsAreAHumanRight1
