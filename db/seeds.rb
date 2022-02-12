@@ -17,6 +17,7 @@ ActsAsTenant.without_tenant do
   PaperTrailVersion.destroy_all
   ActiveRecord::SessionStore::Session.destroy_all
   Line.destroy_all
+  PracticalSupport.destroy_all
   Fund.destroy_all
 end
 
