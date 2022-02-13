@@ -6,7 +6,7 @@ DARIA admins can access the user management panel by clicking the `Admin` dropdo
 
 ## A reminder about the public DARIA sandbox
 
-An FYI: we don't recommend you train new case managers on your instance, unless they're going to be in your case rotation with everyone. If you need to conduct a training before someone takes a shift, please feel free to use the [public DARIA sandbox](https://sandbox.dcabortionfund.org) instead. (Don't save any real patient data there; it's public!)
+An FYI: we don't recommend you train new case managers on your instance, unless they're going to be in your case rotation with everyone. If you need to conduct a training before someone takes a shift, please feel free to use the [public DARIA sandbox](https://sandbox.dariaservices.com) instead. (Don't save any real patient data there; it's public!)
 
 ## Creating an account
 

@@ -29,7 +29,7 @@ Rails.application.config.active_job.skip_after_callbacks_if_terminated = true
 #
 # This change is not backwards compatible with earlier Rails versions.
 # It's best enabled when your entire app is migrated and stable on 6.1.
-# Rails.application.config.action_controller.urlsafe_csrf_tokens = true
+Rails.application.config.action_controller.urlsafe_csrf_tokens = true
 
 # Specify whether `ActiveSupport::TimeZone.utc_to_local` returns a time with an
 # UTC offset or a UTC time.
@@ -37,7 +37,7 @@ ActiveSupport.utc_to_local_returns_utc_offset_times = true
 
 # Change the default HTTP status code to `308` when redirecting non-GET/HEAD
 # requests to HTTPS in `ActionDispatch::SSL` middleware.
-# Rails.application.config.action_dispatch.ssl_default_redirect_status = 308
+Rails.application.config.action_dispatch.ssl_default_redirect_status = 308
 
 # Use new connection handling API. For most applications this won't have any
 # effect. For applications using multiple databases, this new API provides
