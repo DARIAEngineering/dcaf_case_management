@@ -39,7 +39,7 @@ We also need to have some API tokens and such that we generate or dig up when we
 
 * Insert the new fund record:
   * Open up a rails console `heroku run rails c -a (multitenant_app_name)`. You're gonna be in here for a few steps, so don't exit out right away.
-  * Insert the fund record as follows: `Fund.create! name: NAME, subdomain: NAME_LOWERCASED, domain: FUND_DOMAIN, full_name: FULL_NAME, phone: FUND_PHONE`. (For example: `Fund.create! name: 'CAT', subdomain: 'cat', domain: 'www.catfund.org', full_name: 'Cat Fund', phone: '281-330-8004')`
+  * Insert the fund record as follows: `Fund.create! name: NAME, subdomain: NAME_LOWERCASED, site_domain: FUND_DOMAIN, domain: 'dariaservices.com', full_name: FULL_NAME, phone: FUND_PHONE`. (For example: `Fund.create! name: 'CAT', subdomain: 'cat', site_domain: 'www.catfund.org', domain: 'dariaservices.com', full_name: 'Cat Fund', phone: '281-330-8004')`
 
 * Set that fund as Active for scoping purposes:
   * `ActsAsTenant.current_tenant = Fund.find_by(name: NAME)`
