@@ -10,7 +10,7 @@ module Exportable
     "Archived?" => :archived?,
     "Has Alt Contact?" => :has_alt_contact,
     "Voicemail Preference" => :voicemail_preference,
-    "Line" => :line,
+    "Line" => :get_line,
     "Language" => :preferred_language,
     "Age" => :age_range,
     "State" => :state,
@@ -69,6 +69,10 @@ module Exportable
 
     # TODO test to confirm that specific blacklisted fields aren't being exported
   }.freeze
+
+  def get_line
+    line.try :name
+  end
 
   def fulfilled
     fulfillment.try :fulfilled
@@ -173,8 +177,8 @@ module Exportable
     practical_supports.map { |ps| "#{ps.source} - #{ps.support_type} - #{ps.confirmed? ? 'Confirmed' : 'Unconfirmed'}" }.join('; ')
   end
 
-  PATIENT_RELATIONS = [:clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]
-  ARCHIVED_PATIENT_RELATIONS = [:clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
+  PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]
+  ARCHIVED_PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
 
   class_methods do
     def csv_header

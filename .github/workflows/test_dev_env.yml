@@ -91,9 +91,6 @@ jobs:
           name: code-coverage-report
           path: coverage
 
-      - name: Upload result to CodeCov
-        uses: codecov/codecov-action@v2
-
       - name: Store test artifacts
         uses: actions/upload-artifact@v2
         if: failure()
@@ -121,8 +118,10 @@ jobs:
       - name: Brakeman
         run: brakeman --exit-on-warn .
       - name: ruby-audit
-        run: ruby-audit check
+        run: bundle exec ruby-audit check
       - name: bundle-audit
         run: bundle-audit update; bundle-audit check
       - name: Zeitwerk
         run: bin/rails zeitwerk:check
+      - name: yarn npm audit
+        run: yarn npm audit
