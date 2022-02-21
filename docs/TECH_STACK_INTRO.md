@@ -10,7 +10,7 @@ If you're new to programming or Rails, RailsBridge is a non-profit that has writ
 ### PostgreSQL
 PostgreSQL is a relational database we use to store patient information. Data is stored in tables.
 
-You'll primarily interact with the database via [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html). Most 
+You'll primarily interact with the database via [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html). No need to write raw sql -- ActiveRecord handles the grimy stuff for us.
 
 ---
 
@@ -26,6 +26,14 @@ We love tests! All the tests can be found in the test directory, and it's a grea
 * [Capybara](http://teamcapybara.github.io/capybara/) is a Ruby integration testing library that can uses browser to fill in forms, click buttons, and generally interact with the app, and then verifies that things worked as we expected!
 * Here are [the Capybara docs](http://www.rubydoc.info/github/teamcapybara/capybara/master)
 * Generally we have CircleCI run these for us, so you don't need to worry about setting up Capybara unless you need to write system tests.
+
+---
+
+### Continuous Integration and Deployment
+
+Our continuous integration system is Github Actions. This runs tests and security scanners to make sure everything is in good shape (called a 'build'), and reports the results to a pull request, so we can see if it passes muster or not.
+
+When a build succeeds on the `main` branch, it deploys to the staging environment so we can try it out. We have this configured in Heroku so that it watches Github for changes, and deploys automatically. (Administrators handle deployment to production.)
 
 ---
 
