@@ -43,4 +43,4 @@ We love our case managers and the UX team that figures out how we can help them 
 * [DCAF 101](DCAF_101.md), and explanation of how case managers use the app
 * Join and read through the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/)
 * Read this [blog post about how we're using agile-ish](https://codefordc.github.io/blog/2016/09/12/code-for-dcaf.html).
-* Read [the README](https://github.com/DCAFEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:
+* Read [the README](https://github.com/DARIAEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:
