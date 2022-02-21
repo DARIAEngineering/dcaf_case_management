@@ -1,0 +1,2 @@
+class PledgeConfig < ApplicationRecord
+end
