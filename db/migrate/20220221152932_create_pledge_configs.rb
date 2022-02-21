@@ -9,7 +9,6 @@ class CreatePledgeConfigs < ActiveRecord::Migration[6.1]
       t.integer :logo_width
       t.string :address1
       t.string :address2
-      t.string :generator
 
       t.references :fund
 
