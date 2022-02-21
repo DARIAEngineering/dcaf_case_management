@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_19_044530) do
+ActiveRecord::Schema.define(version: 2022_02_21_152932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -288,6 +288,19 @@ ActiveRecord::Schema.define(version: 2021_12_19_044530) do
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
     t.index ["primary_phone", "fund_id"], name: "index_patients_on_primary_phone_and_fund_id", unique: true
     t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
+  end
+
+  create_table "pledge_configs", force: :cascade do |t|
+    t.string "contact_email"
+    t.string "billing_email"
+    t.string "phone"
+    t.string "logo_url"
+    t.integer "logo_height"
+    t.integer "logo_width"
+    t.string "address1"
+    t.string "address2"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "practical_supports", force: :cascade do |t|
