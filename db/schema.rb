@@ -299,8 +299,11 @@ ActiveRecord::Schema.define(version: 2022_02_21_152932) do
     t.integer "logo_width"
     t.string "address1"
     t.string "address2"
+    t.string "generator"
+    t.bigint "fund_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["fund_id"], name: "index_pledge_configs_on_fund_id"
   end
 
   create_table "practical_supports", force: :cascade do |t|
