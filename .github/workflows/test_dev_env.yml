@@ -1,4 +1,4 @@
-name: Build development enviroment
+name: Build and test
 
 # We have this rigged up such that heroku monitors
 # for changes on master, and deploys to staging if
@@ -28,7 +28,7 @@ jobs:
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
   build:
-    name: Verify build
+    name: Run tests
     runs-on: ubuntu-latest
     env:
       POSTGRES_USER: daria
