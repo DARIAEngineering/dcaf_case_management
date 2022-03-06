@@ -9,7 +9,7 @@ We have a google group set up to let funds know about DARIA updates and other im
 ### And then we get the bullets of specific updates
 
 * Go to the Heroku dashboard to figure out when the last deploy to production was
-* Go to [the list of merged PRs](https://github.com/DCAFEngineering/dcaf_case_management/pulls?q=is%3Apr+is%3Aclosed+sort%3Aupdated-desc) to see what PRs have been merged since then. We'll include them as follows:
+* Go to [the list of merged PRs](https://github.com/DARIAEngineering/dcaf_case_management/pulls?q=is%3Apr+is%3Aclosed+sort%3Aupdated-desc) to see what PRs have been merged since then. We'll include them as follows:
   * For PRs tagged `feature`, include the title of the PR as a bullet
   * If there are any PRs tagged `dependencies`, include one bullet as follows: 'Routine maintenance, library patches, etc.'
   * You do not need to include PRs that are not tagged

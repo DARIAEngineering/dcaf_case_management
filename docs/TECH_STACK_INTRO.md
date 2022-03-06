@@ -10,7 +10,7 @@ If you're new to programming or Rails, RailsBridge is a non-profit that has writ
 ### PostgreSQL
 PostgreSQL is a relational database we use to store patient information. Data is stored in tables.
 
-You'll primarily interact with the database via [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html). Most 
+You'll primarily interact with the database via [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html). No need to write raw sql -- ActiveRecord handles the grimy stuff for us.
 
 ---
 
@@ -29,10 +29,18 @@ We love tests! All the tests can be found in the test directory, and it's a grea
 
 ---
 
+### Continuous Integration and Deployment
+
+Our continuous integration system is Github Actions. This runs tests and security scanners to make sure everything is in good shape (called a 'build'), and reports the results to a pull request, so we can see if it passes muster or not.
+
+When a build succeeds on the `main` branch, it deploys to the staging environment so we can try it out. We have this configured in Heroku so that it watches Github for changes, and deploys automatically. (Administrators handle deployment to production.)
+
+---
+
 ## Intro to DCAF!!
 We love our case managers and the UX team that figures out how we can help them be more happy and more efficient. Check out these resources for more context about the hows and whys of this app:
 * [The DCAF website](https://dcabortionfund.org)
 * [DCAF 101](DCAF_101.md), and explanation of how case managers use the app
 * Join and read through the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/)
 * Read this [blog post about how we're using agile-ish](https://codefordc.github.io/blog/2016/09/12/code-for-dcaf.html).
-* Read [the README](https://github.com/DCAFEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:
+* Read [the README](https://github.com/DARIAEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:

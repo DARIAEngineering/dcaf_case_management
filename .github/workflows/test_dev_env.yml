@@ -1,4 +1,4 @@
-name: Build development enviroment
+name: Build and test
 
 # We have this rigged up such that heroku monitors
 # for changes on master, and deploys to staging if
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Bring up containers
         run: |
           docker-compose build
@@ -28,7 +28,7 @@ jobs:
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
   build:
-    name: Verify build
+    name: Run tests
     runs-on: ubuntu-latest
     env:
       POSTGRES_USER: daria
@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Ruby setup
       - name: Setup ruby
@@ -58,7 +58,7 @@ jobs:
 
       # npm/yarn setup
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.13.0
       - name: Cache node_modules
@@ -85,14 +85,14 @@ jobs:
 
       # Save artifacts
       - name: Store coverage artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: code-coverage-report
           path: coverage
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: capybara-screenshots
@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Ruby setup
       - name: Setup ruby

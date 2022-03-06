@@ -6,9 +6,9 @@ The directions below get you to a point where you can run the app with a test-se
 
 If you see a spot in the docs that's confusing or could be improved, please pay it forward by making a pull request!
 
-* **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/DCAFEngineering/dcaf_case_management and hit the `fork` button up in the top right.
+* **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/DARIAEngineering/dcaf_case_management and hit the `fork` button up in the top right.
 * **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system. Use `cd dcaf_case_management` to change directory to where you saved the clone.
-* **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/DCAFEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream main`.
+* **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/DARIAEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream main`.
 
 For the rest of the setup, you have two options: Docker, or installing everything locally. We recommend Docker if you're comfortable with its ecosystem.
 
@@ -94,4 +94,4 @@ We use Postgres around these parts. Installation will differ based on your OS.
 
 ## Security
 
-Check out [this document](https://github.com/DCAFEngineering/dcaf_case_management/blob/main/docs/SECURITY_INTRO.md) on Ruby on Rails security, which contains some guidelines on developing safely. (Note that we review code before merging, so a second human will be checking that things are safe, not just you!)
+Check out [this document](https://github.com/DARIAEngineering/dcaf_case_management/blob/main/docs/SECURITY_INTRO.md) on Ruby on Rails security, which contains some guidelines on developing safely. (Note that we review code before merging, so a second human will be checking that things are safe, not just you!)
