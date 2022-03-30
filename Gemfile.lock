@@ -190,6 +190,7 @@ GEM
     launchy (2.5.0)
       addressable (~> 2.7)
     libsqreen (1.0.4.0.0)
+    libv8-node (16.10.0.0)
     libv8-node (16.10.0.0-x86_64-linux)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -206,6 +207,7 @@ GEM
       minitest (> 1.2.0)
       rails (>= 2.3.3)
     mini_mime (1.1.2)
+    mini_portile2 (2.8.0)
     mini_racer (0.6.2)
       libv8-node (~> 16.10.0.0)
     minitest (5.15.0)
@@ -226,6 +228,9 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.9)
