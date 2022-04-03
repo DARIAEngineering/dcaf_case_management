@@ -5,10 +5,11 @@ ruby '3.0.2'
 gem 'rails', '~> 6.1.4'
 gem 'puma', '~> 5.4' # roar
 gem 'sdoc', '~> 2.3.0', group: :doc
-gem 'nokogiri', '>= 1.11.1'
+gem 'nokogiri', '>= 1.13.2'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
+gem 'net-smtp', require: false # For compat reasons, can remove after rails 7
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
@@ -40,7 +41,7 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 
 # Security libraries
-gem 'rack-attack', '~> 6.5.0'
+gem 'rack-attack', '~> 6.6.0'
 
 # For pagination
 gem 'kaminari', '~> 1.2'

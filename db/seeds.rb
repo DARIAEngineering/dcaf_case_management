@@ -17,6 +17,7 @@ ActsAsTenant.without_tenant do
   PaperTrailVersion.destroy_all
   ActiveRecord::SessionStore::Session.destroy_all
   Line.destroy_all
+  PracticalSupport.destroy_all
   Fund.destroy_all
 end
 
@@ -173,6 +174,10 @@ fund2 = Fund.create! name: 'CatFund',
 
       if i % 3 == 0
         patient.practical_supports.create! support_type: 'Car rides', source: 'Neighbor'
+      end
+
+      if i % 5 == 0
+        patient.practical_supports.create! support_type: 'Hotel', source: 'Donation', amount: 100
       end
 
       # Add select patients to call list for user
