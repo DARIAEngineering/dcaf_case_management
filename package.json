@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "all-contributors-cli": "^6.20.0",
-    "eslint": "8.8.0",
+    "eslint": "8.12.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.25.4",
     "webpack-dev-server": "^3"
@@ -23,6 +23,7 @@
     "node": ">=16.13.0",
     "npm": ">=6.14.13"
   },
+  "license": "MIT",
   "resolutions": {
     "dot-prop": "^6.0.0",
     "eslint-utils": "^3.0.0",
@@ -36,5 +37,5 @@
     "y18n": "^5.0.0",
     "is-svg": "^4.2.2"
   },
-  "packageManager": "yarn@3.1.1"
+  "packageManager": "yarn@3.2.0"
 }

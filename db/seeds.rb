@@ -176,6 +176,10 @@ fund2 = Fund.create! name: 'CatFund',
         patient.practical_supports.create! support_type: 'Car rides', source: 'Neighbor'
       end
 
+      if i % 5 == 0
+        patient.practical_supports.create! support_type: 'Hotel', source: 'Donation', amount: 100
+      end
+
       # Add select patients to call list for user
       user.add_patient patient if [0, 1, 2, 3, 4, 5].include? i
 
