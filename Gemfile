@@ -9,6 +9,7 @@ gem 'nokogiri', '>= 1.13.2'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
+gem 'net-smtp', require: false # For compat reasons, can remove after rails 7
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
