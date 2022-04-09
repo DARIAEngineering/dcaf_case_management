@@ -229,6 +229,14 @@ GEM
     msgpack (1.5.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
     net-protocol (0.1.3)
       timeout
     net-smtp (0.3.1)
@@ -416,6 +424,7 @@ GEM
       sqreen-backport (~> 0.1.0)
     state_geo_tools (1.0.0)
     strong_password (0.0.10)
+    strscan (3.0.1)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     thor (1.2.1)
@@ -482,6 +491,8 @@ DEPENDENCIES
   minitest-optional_retry
   minitest-spec-rails
   minitest-stub-const
+  net-imap
+  net-pop
   net-smtp
   nokogiri (>= 1.13.2)
   omniauth-google-oauth2 (~> 1.0.0)
