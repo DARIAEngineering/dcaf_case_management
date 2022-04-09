@@ -11,6 +11,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 gem 'net-smtp', require: false # For compat reasons, can remove after rails 7
 gem 'matrix' # for compat reasons, required in builds
+gem 'net-pop' # for compat reasons, required in builds
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
