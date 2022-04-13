@@ -244,10 +244,10 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.3)
+    nokogiri (1.13.4)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.13.3-x86_64-linux)
+    nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.9)
       faraday (>= 0.17.3, < 3.0)
@@ -494,7 +494,7 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
-  nokogiri (>= 1.13.2)
+  nokogiri (>= 1.13.4)
   omniauth-google-oauth2 (~> 1.0.0)
   omniauth-rails_csrf_protection (~> 1.0)
   paper_trail (~> 12.0)
