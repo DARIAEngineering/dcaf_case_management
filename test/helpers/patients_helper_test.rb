@@ -263,7 +263,7 @@ class PatientsHelperTest < ActionView::TestCase
     end
 
     it 'should return line names and ids' do
-      expected = [['JJ', @line1.id], ['Sage', @line2.id], ['Lomky Jr', @line3.id]]
+      expected = [['JJ', @line1.id], ['Lomky Jr', @line3.id], ['Sage', @line2.id]]
       assert_equal expected, line_options
     end
   end
