@@ -1727,7 +1727,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"all-contributors-cli@npm:^6.20.0":
+"all-contributors-cli@npm:6.20.0":
   version: 6.20.0
   resolution: "all-contributors-cli@npm:6.20.0"
   dependencies:
@@ -5729,7 +5729,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery@npm:>=1.8.0 <4.0.0, jquery@npm:^3.6.0":
+"jquery@npm:3.6.0, jquery@npm:>=1.8.0 <4.0.0":
   version: 3.6.0
   resolution: "jquery@npm:3.6.0"
   checksum: 8fd5fef4aa48fd374ec716dd1c1df1af407814a228e15c1260ca140de3a697c2a77c30c54ff1d238b6a3ab4ddc445ddeef9adce6c6d28e4869d85eb9d3951c0e
@@ -7287,7 +7287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"popper.js@npm:^1.16.0":
+"popper.js@npm:1.16.1":
   version: 1.16.1
   resolution: "popper.js@npm:1.16.1"
   checksum: c56ae5001ec50a77ee297a8061a0221d99d25c7348d2e6bcd3e45a0d0f32a1fd81bca29d46cb0d4bdf13efb77685bd6a0ce93f9eb3c608311a461f945fffedbe
@@ -8639,20 +8639,20 @@ __metadata:
   dependencies:
     "@fortawesome/fontawesome-free": 5.15.4
     "@rails/webpacker": 5.4.3
-    all-contributors-cli: ^6.20.0
+    all-contributors-cli: 6.20.0
     bootstrap: 4.6.1
     eslint: 8.13.0
     eslint-config-airbnb-base: 15.0.0
     eslint-plugin-import: 2.26.0
-    jquery: ^3.6.0
+    jquery: 3.6.0
     jquery-ui: 1.13.1
-    popper.js: ^1.16.1
-    set-value: ^4.1.0
-    stupid-table-plugin: ^1.1.3
-    turbolinks: ^5.2.0
-    webpack: ^4.46.0
-    webpack-cli: ^3.3.12
-    webpack-dev-server: ^3
+    popper.js: 1.16.1
+    set-value: 4.1.0
+    stupid-table-plugin: 1.1.3
+    turbolinks: 5.2.0
+    webpack: 4.46.0
+    webpack-cli: 3.3.12
+    webpack-dev-server: 3.11.3
   languageName: unknown
   linkType: soft
 
@@ -8907,6 +8907,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"set-value@npm:4.1.0":
+  version: 4.1.0
+  resolution: "set-value@npm:4.1.0"
+  dependencies:
+    is-plain-object: ^2.0.4
+    is-primitive: ^3.0.1
+  checksum: 2b4f0f222538ae4c1f4171a5014c113649631c86ed81d1ac0c2df406d0a974d8006412ce1d7844c531268f1c66eb912f7eae7245ab3114e34357f1ff9d6dc697
+  languageName: node
+  linkType: hard
+
 "set-value@npm:^2.0.0, set-value@npm:^2.0.1":
   version: 2.0.1
   resolution: "set-value@npm:2.0.1"
@@ -8916,16 +8926,6 @@ __metadata:
     is-plain-object: ^2.0.3
     split-string: ^3.0.1
   checksum: 09a4bc72c94641aeae950eb60dc2755943b863780fcc32e441eda964b64df5e3f50603d5ebdd33394ede722528bd55ed43aae26e9df469b4d32e2292b427b601
-  languageName: node
-  linkType: hard
-
-"set-value@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "set-value@npm:4.1.0"
-  dependencies:
-    is-plain-object: ^2.0.4
-    is-primitive: ^3.0.1
-  checksum: 2b4f0f222538ae4c1f4171a5014c113649631c86ed81d1ac0c2df406d0a974d8006412ce1d7844c531268f1c66eb912f7eae7245ab3114e34357f1ff9d6dc697
   languageName: node
   linkType: hard
 
@@ -9424,7 +9424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stupid-table-plugin@npm:^1.1.3":
+"stupid-table-plugin@npm:1.1.3":
   version: 1.1.3
   resolution: "stupid-table-plugin@npm:1.1.3"
   peerDependencies:
@@ -9763,7 +9763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbolinks@npm:^5.2.0":
+"turbolinks@npm:5.2.0":
   version: 5.2.0
   resolution: "turbolinks@npm:5.2.0"
   checksum: df393c321ed19d9761e632ff357d3cb032a9ca32c07f1ef8202e5f5bb9d17fcc93cdec0d9dfcf0fbca56c373a9dffa2c151639383e663a72897ae434a877819b
@@ -10120,7 +10120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-cli@npm:^3.3.12":
+"webpack-cli@npm:3.3.12, webpack-cli@npm:^3.3.12":
   version: 3.3.12
   resolution: "webpack-cli@npm:3.3.12"
   dependencies:
@@ -10158,7 +10158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-server@npm:^3":
+"webpack-dev-server@npm:3.11.3":
   version: 3.11.3
   resolution: "webpack-dev-server@npm:3.11.3"
   dependencies:
@@ -10226,7 +10226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^4.0.0":
+"webpack@npm:4.46.0":
   version: 4.46.0
   resolution: "webpack@npm:4.46.0"
   dependencies:
