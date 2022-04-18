@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class AccountantWorkflowTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user, role: :admin
     @clinic = create :clinic, name: 'a real clinic'
