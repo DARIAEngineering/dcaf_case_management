@@ -118,7 +118,7 @@ jobs:
       - name: Brakeman
         run: brakeman --exit-on-warn .
       - name: ruby-audit
-        run: bundle exec ruby-audit check
+        run: bundle exec ruby-audit check -i CVE-2022-28739 CVE-2022-28738 # remove ignores after ruby 3.1.2
       - name: bundle-audit
         run: bundle-audit update; bundle-audit check
       - name: Zeitwerk
