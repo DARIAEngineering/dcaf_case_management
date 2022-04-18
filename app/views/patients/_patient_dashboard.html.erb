@@ -1,7 +1,7 @@
 <div id="patient_dashboard_content">
   <%= bootstrap_form_with model: patient,
                          html: { id: 'patient_dashboard_form' },
-                         remote: true,
+                         local: false,
                          method: 'patch',
                          class: 'edit_patient' do |f| %>
     <div class="row">

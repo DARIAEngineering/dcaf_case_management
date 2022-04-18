@@ -11,7 +11,7 @@
     <h5><%= t('clinic_locator.description') %></h5>
 
     <%= bootstrap_form_with url: clinicfinder_search_path,
-                            remote: true do |f| %>
+                            local: false do |f| %>
       <%= f.hidden_field :locale, value: params[:locale] %>
       <div class="row">
         <div class="col">
