@@ -47,7 +47,7 @@ class PaperTrailVersion < PaperTrail::Version
 
   def shaped_changes
     changeset.reject { |field| IRRELEVANT_FIELDS.include? field }
-             .reject { |field| field[1][0].blank? && field[1][1].blank? }
+             .reject { |_, values| values[0].blank? && values[1].blank? }
              .reduce({}) do |acc, x|
                key = x[0]
                acc.merge({ key => { original: format_fieldchange(key, x[1][0]),
