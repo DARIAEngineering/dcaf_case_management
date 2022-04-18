@@ -16,5 +16,7 @@ config.resolve.alias = {
   jquery: "jquery/src/jquery",
 }
 
+environment.splitChunks();
+
 // export the updated config
 module.exports = environment;
