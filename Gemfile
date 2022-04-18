@@ -1,15 +1,20 @@
 source 'https://rubygems.org'
-ruby '3.0.2'
+ruby '3.1.1'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
 gem 'puma', '~> 5.4' # roar
 gem 'sdoc', '~> 2.3.0', group: :doc
-gem 'nokogiri', '>= 1.13.2'
+gem 'nokogiri', '>= 1.13.4'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
-gem 'net-smtp', require: false # For compat reasons, can remove after rails 7
+gem 'matrix' # for compat reasons, required in builds
+
+# Temporary compat gems until a new mail gem is released/rails 7 rolls out - see https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
+gem 'net-pop', require: false # for compat reasons, required in builds
+gem 'net-imap', require: false # for compat reasons, required in builds
+gem 'net-smtp', require: false # for compat reasons, required in builds
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'

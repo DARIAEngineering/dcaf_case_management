@@ -4,7 +4,7 @@
   <%# this has a confusing doc structure; the urgent checkbox needs to be same row as submit btn. %>
   <%= bootstrap_form_with model: [patient, note],
                           html: { id: 'notes-form' },
-                          remote: true do |f| %>
+                          local: false do |f| %>
     <%= f.text_area :full_text,
                     size: '20x5',
                     placeholder: t('patient.notes.placeholder'),
@@ -18,7 +18,9 @@
     
   <% end %>
 
-      <%= bootstrap_form_with model: patient, html: { id: 'urgents-form', class: 'text-right text-danger edit_patient' }, remote: true do |f| %>
+      <%= bootstrap_form_with model: patient,
+                              html: { id: 'urgents-form', class: 'text-right text-danger edit_patient' },
+                              local: false do |f| %>
         <div class="col">
           <%= f.form_group :urgent_flag do %>
             <%= f.check_box :urgent_flag, label: t('patient.notes.urgent_flag') %>
