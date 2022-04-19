@@ -669,7 +669,7 @@ class PatientTest < ActiveSupport::TestCase
       assert_includes version_types, 'ExternalPledge'
       assert_includes version_types, 'PracticalSupport'
       assert_includes version_types, 'Patient'
-      # assert_not_includes version_types, 'Fulfillment'
+      assert_not_includes version_types, 'Fulfillment'
     end
 
     it 'should not show fulfillment if not include_fulfillment' do
@@ -677,7 +677,7 @@ class PatientTest < ActiveSupport::TestCase
       assert_includes version_types, 'ExternalPledge'
       assert_includes version_types, 'PracticalSupport'
       assert_includes version_types, 'Patient'
-      # assert_includes version_types, 'Fulfillment'
+      assert_includes version_types, 'Fulfillment'
     end
   end
 
