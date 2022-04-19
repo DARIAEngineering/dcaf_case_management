@@ -180,9 +180,6 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    js-routes (1.4.9)
-      railties (>= 4)
-      sprockets-rails
     jwt (2.3.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -481,7 +478,6 @@ DEPENDENCIES
   i18n-tasks (~> 1.0.0)
   jquery-rails (~> 4.4.0)
   jquery-ui-rails
-  js-routes (= 1.4.9)
   kaminari (~> 1.2)
   launchy
   listen (>= 3.0.5, < 3.8)
