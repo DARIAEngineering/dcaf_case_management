@@ -1,9 +1,5 @@
 name: Build and test
 
-# We have this rigged up such that heroku monitors
-# for changes on master, and deploys to staging if
-# the build passes.
-
 on:
   push:
     branches:

@@ -1,0 +1,21 @@
+name: Deploy staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Deploy sandbox environment
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.XMUNOZ_HEROKU_API_KEY}}
+          heroku_app_name: "daria-services-staging"
+          heroku_email: "xmunoz+heroku@opentechstrategies.com"
+          healthcheck: "https://sandbox.dariaservices.com/users/sign_in"
+          rollbackonhealthcheckfailed: true
