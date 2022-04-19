@@ -208,7 +208,9 @@ class Patient < ApplicationRecord
     all_versions = versions || []
     all_versions += (external_pledges.includes(versions: [:item, :user]).map(&:versions).reduce(&:+) || [])
     all_versions += (practical_supports.includes(versions: [:item, :user]).map(&:versions).reduce(&:+) || [])
-    all_versions += (fulfillment.versions || []) if include_fulfillment
+    if include_fulfillment
+      all_versions += (fulfillment.versions.includes(fulfillment.versions.count > 1 ? [:item, :user] : []) || [])
+    end
     all_versions.sort_by(&:created_at).reverse
   end
 
