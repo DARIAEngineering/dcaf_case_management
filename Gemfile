@@ -1,14 +1,20 @@
 source 'https://rubygems.org'
-ruby '3.0.2'
+ruby '3.1.2'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
 gem 'puma', '~> 5.4' # roar
 gem 'sdoc', '~> 2.3.0', group: :doc
-gem 'nokogiri', '>= 1.11.1'
+gem 'nokogiri', '>= 1.13.4'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
+gem 'matrix' # for compat reasons, required in builds
+
+# Temporary compat gems until a new mail gem is released/rails 7 rolls out - see https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
+gem 'net-pop', require: false # for compat reasons, required in builds
+gem 'net-imap', require: false # for compat reasons, required in builds
+gem 'net-smtp', require: false # for compat reasons, required in builds
 
 # Asset pipeline
 gem 'webpacker', '~> 5.4'
@@ -60,7 +66,7 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.0.4'
 
 group :development do
-  gem 'i18n-tasks', '~> 0.9.29' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 1.0.0' # check and clean i18n keys
   gem 'rails-i18n', '~> 6.0' # dependency of i18n-tasks, hardset to a rails-6-compat version
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5', '< 3.8' # used by systemtests, hardset rails 6 compat

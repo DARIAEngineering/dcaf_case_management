@@ -46,7 +46,7 @@
                                 html: {class: 'edit_patient',
                                 id: 'pledge-create-modal-form'},
                                 method: 'patch',
-                                remote: true do |f| %>
+                                local: false do |f| %>
           <%= f.check_box :pledge_sent, label: t('patient.pledge.step_three.sent_checkbox') %>
         <% end %>
       </div>
@@ -71,7 +71,7 @@
     <div class="col">
       <%= bootstrap_form_with model: @patient,
                               html: { id: 'cancel-pledge-form' },
-                              remote: true,
+                              local: false,
                               method: 'patch',
                               class: 'edit_patient' do |f| %>
         <%= f.hidden_field :pledge_sent, value: false %>

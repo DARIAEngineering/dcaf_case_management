@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class AccountantWorkflowTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user, role: :admin
     @clinic = create :clinic, name: 'a real clinic'
@@ -173,6 +175,8 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
         wait_for_ajax
       end
       find('body').click
+      send_keys :escape
+      sleep 1
 
       # Now, should be updated!
       within :css, "#row-#{@pledged_patient.id}" do

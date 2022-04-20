@@ -1,9 +1,9 @@
-FROM ruby:3.0.2-slim-buster
+FROM ruby:3.1.2-slim-bullseye
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
-ENV DCAF_DIR=/usr/src/app \
+ENV DARIA_DIR=/usr/src/app \
     BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev" \
     APP_DEPENDENCIES="git sudo sassc" \
     AHAB_DEPENDENCIES="ca-certificates curl" \
@@ -12,12 +12,12 @@ ENV DCAF_DIR=/usr/src/app \
     DOCKER=true
 
 # get our gem house in order
-RUN mkdir -p ${DCAF_DIR} && cd ${DCAF_DIR}
-WORKDIR ${DCAF_DIR}
-COPY Gemfile ${DCAF_DIR}/Gemfile
-COPY Gemfile.lock ${DCAF_DIR}/Gemfile.lock
-COPY package.json ${DCAF_DIR}/package.json
-COPY yarn.lock ${DCAF_DIR}/yarn.lock
+RUN mkdir -p ${DARIA_DIR} && cd ${DCAF_DIR}
+WORKDIR ${DARIA_DIR}
+COPY Gemfile ${DARIA_DIR}/Gemfile
+COPY Gemfile.lock ${DARIA_DIR}/Gemfile.lock
+COPY package.json ${DARIA_DIR}/package.json
+COPY yarn.lock ${DARIA_DIR}/yarn.lock
 
 # install packages
 RUN apt-get update && apt-get upgrade -y && \
@@ -61,6 +61,6 @@ RUN ahab_dep=${AHAB_DEPENDENCIES} && \
     apt-get purge -y ${ahab_updated} && apt-get autoremove -y
 
 # Move the rest of the app over
-COPY . ${DCAF_DIR}
+COPY . ${DARIA_DIR}
 
 EXPOSE 3000

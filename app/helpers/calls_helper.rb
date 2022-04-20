@@ -38,7 +38,8 @@ module CallsHelper
       link_to t('call.new.result.did_not_reach_patient'),
               patient_calls_path(patient,
                                  call: { status: :couldnt_reach_patient }),
-              method: :post, remote: true,
+              method: :post,
+              remote: true,
               class: 'calls-response'
     end
   end
@@ -80,7 +81,7 @@ module CallsHelper
 
   def voicemail_custom_notifier(patient)
       content_tag :p, class: 'text-warning' do
-          content_tag :strong, patient.voicemail_preference
+        content_tag :strong, patient.voicemail_preference
       end
   end
 
