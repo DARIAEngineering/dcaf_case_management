@@ -10,7 +10,7 @@ if (URL.indexOf(substring) !== 1) {
     });
 }
 
-if (location.pathname == Routes.authenticated_root_path) {
+if (location.pathname === '/') {
   $('#call_list').html(
     '<%= escape_javascript(render partial: "dashboards/table_content",
                                   locals: { title: t("dashboard.partial_titles.call_list"),
