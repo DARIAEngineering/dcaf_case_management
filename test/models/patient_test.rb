@@ -664,7 +664,7 @@ class PatientTest < ActiveSupport::TestCase
       Bullet.enable = true
     end
 
-    it 'should show fulfillment if include_fulfillment' do
+    it 'should not show fulfillment if not include_fulfillment' do
       version_types = @patient.all_versions(false).map(&:item_type).uniq
       assert_includes version_types, 'ExternalPledge'
       assert_includes version_types, 'PracticalSupport'
@@ -672,7 +672,7 @@ class PatientTest < ActiveSupport::TestCase
       assert_not_includes version_types, 'Fulfillment'
     end
 
-    it 'should not show fulfillment if not include_fulfillment' do
+    it 'should show fulfillment if include_fulfillment' do
       version_types = @patient.all_versions(true).map(&:item_type).uniq
       assert_includes version_types, 'ExternalPledge'
       assert_includes version_types, 'PracticalSupport'
