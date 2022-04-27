@@ -64,4 +64,8 @@ Rails.application.routes.draw do
     get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
     put '/users' => 'devise/registrations#update', as: 'registration'
   end
+
+  match '/404' => 'errors#error_404', via: [:get, :post, :put, :patch]
+  match '/422' => 'errors#error_422', via: [:get, :post, :put, :patch]
+  match '/500' => 'errors#error_500', via: [:get, :post, :put, :patch]
 end
