@@ -145,6 +145,7 @@ es:
     notes: Notas
     patient: Patiente
     phone: Teléfono
+    prefer_not_to_answer: Prefiere no contestar
     save: Guardar
     search: Buscar
     status: Estatus
@@ -152,7 +153,6 @@ es:
     weeks_days: "%{weeks} semanas, %{days} días"
     weeks_days_short: "%{weeks}s %{days}d"
     'yes': Sí
-    prefer_not_to_answer: Prefiere no contestar
   configs:
     config:
       current_options: 'Las opciones actuales son:'

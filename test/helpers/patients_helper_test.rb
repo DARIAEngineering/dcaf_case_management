@@ -34,6 +34,7 @@ class PatientsHelperTest < ActionView::TestCase
         expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Prefer not to answer', 'Prefer not to answer'],
                                     [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements insurance_options, expected_insurance_options_array
       end
@@ -42,6 +43,7 @@ class PatientsHelperTest < ActionView::TestCase
         expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Prefer not to answer', 'Prefer not to answer'],
                                     [ 'Other (add to notes)', 'Other (add to notes)'],
                                     'Friendship' ]
         assert_same_elements expected_insurance_options_array,
@@ -58,6 +60,7 @@ class PatientsHelperTest < ActionView::TestCase
         expected_insurance_array = [nil,
                                    [ 'No insurance', 'No insurance' ],
                                    [ 'Don\'t know', 'Don\'t know' ],
+                                   [ 'Prefer not to answer', 'Prefer not to answer'],
                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements @options, expected_insurance_array
         assert Config.find_by(config_key: 'insurance')
@@ -241,6 +244,7 @@ class PatientsHelperTest < ActionView::TestCase
       ["School", "School"],
       ["Sexual assault crisis org", "Sexual assault crisis org"],
       ["Youth outreach", "Youth outreach"],
+      [ 'Prefer not to answer', 'Prefer not to answer'],
       "Metal band"
     ]
 

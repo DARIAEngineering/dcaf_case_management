@@ -84,7 +84,7 @@ module PatientsHelper
     standard_options = [
       [ t('patient.helper.insurance.none'), 'No insurance' ],
       [ t('patient.helper.insurance.unknown'), 'Don\'t know' ],
-      [ t('common.prefer_not_to_answer'), 'Prefer not to answer']
+      [ t('common.prefer_not_to_answer'), 'Prefer not to answer'],
       [ t('patient.helper.insurance.other'), 'Other (add to notes)' ],
     ]
     full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
