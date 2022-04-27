@@ -88,7 +88,7 @@ module Exportable
 
   def get_household_size_children
     if is_a?(Patient)
-      household_size_children
+      household_size_children == -1 ? 'Prefer not to answer' : household_size_children
     else
       nil
     end
@@ -96,7 +96,7 @@ module Exportable
 
   def get_household_size_adults
     if is_a?(Patient)
-      household_size_adults
+      household_size_adults == -1 ? 'Prefer not to answer' : household_size_adults
     else
       nil
     end

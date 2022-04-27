@@ -244,7 +244,7 @@ class PatientsHelperTest < ActionView::TestCase
       ["School", "School"],
       ["Sexual assault crisis org", "Sexual assault crisis org"],
       ["Youth outreach", "Youth outreach"],
-      [ 'Prefer not to answer', 'Prefer not to answer'],
+      ['Prefer not to answer', 'Prefer not to answer'],
       "Metal band"
     ]
 
