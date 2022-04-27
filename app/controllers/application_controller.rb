@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery prepend: true, with: :exception
 
-  prepend_before_action :authenticate_user!
-  prepend_before_action :confirm_user_not_disabled!, unless: :devise_controller?
+  prepend_before_action :authenticate_user!, unless: -> { try(:errors_controller?) }
+  prepend_before_action :confirm_user_not_disabled!, unless: -> { devise_controller? || try(:errors_controller?) }
 
   if Rails.env.development?
     before_action :confirm_tenant_set_development
