@@ -111,7 +111,7 @@ module PatientsHelper
   end
 
   def household_size_options
-    (1..10).map { |i| i }
+    (0..10).map { |i| i }
            .unshift([t('common.prefer_not_to_answer'), -1])
            .unshift([nil, nil])
   end
