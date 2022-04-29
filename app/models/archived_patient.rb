@@ -102,6 +102,8 @@ class ArchivedPatient < ApplicationRecord
       archived_patient.save!
     end
 
+    patient.versions.destroy_all
+
     patient.fulfillment.update! can_fulfill: archived_patient
 
     patient.calls.each do |call|

@@ -67,6 +67,18 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
                      'pledge_generated_at' => { original: '(empty)', modified: (Time.zone.now + 5.days).strftime('%m/%d/%Y') }
                    }
     end
+
+    it 'should delete old objects' do
+      # count of audit objects should decrease by 1
+      assert_difference 'PaperTrailVersion.count', -1 do
+        with_versioning do
+          # make one of the audits really old
+          @track.created_at = 2.years.ago
+          
+          PaperTrailVersion.destroy_old
+        end
+      end
+    end
   end
 
   # ensure that paper trail is versioning properly

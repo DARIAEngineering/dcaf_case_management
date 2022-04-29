@@ -81,6 +81,10 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       assert_equal @archived_patient.clinic_id, @patient.clinic_id
     end
 
+    it 'should delete papertrail objects' do
+      assert_empty @patient.versions
+    end
+
     it 'should have matching subobject data Patient and Archive Patient' do
       # and that includes ids
       call_ids = @patient.calls.pluck('id')
