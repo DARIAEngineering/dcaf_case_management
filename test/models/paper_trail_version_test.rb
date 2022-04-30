@@ -70,7 +70,7 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
 
     it 'should delete old objects' do
       with_versioning do
-        # create a patient in the past... shoudl create a papertrail version
+        # create a patient in the past... will create a papertrail version
         Timecop.freeze(2.years.ago) do
           create :patient, name: 'Patient from long ago',
                             primary_phone: '444-555-6666'
