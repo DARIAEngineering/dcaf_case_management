@@ -69,12 +69,17 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
     end
 
     it 'should delete old objects' do
-      # count of audit objects should decrease by 1
-      assert_difference 'PaperTrailVersion.count', -1 do
-        with_versioning do
-          # make one of the audits really old
-          @track.created_at = 2.years.ago
-          
+      with_versioning do
+        # create a patient in the past... shoudl create a papertrail version
+        Timecop.freeze(2.years.ago) do
+          create :patient, name: 'Patient from long ago',
+                            primary_phone: '444-555-6666'
+        end
+
+        # come back to the present and remove old records
+        # we exepct two records to be deleted: the patient creation, and the
+        # corresponding fulfillment
+        assert_difference 'PaperTrailVersion.count', -2 do
           PaperTrailVersion.destroy_old
         end
       end
