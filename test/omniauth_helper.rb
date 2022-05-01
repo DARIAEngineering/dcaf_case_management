@@ -6,7 +6,7 @@ module OmniauthMocker
       'uid' => '111696567596812172783',
       'info' => {
         'email' => email,
-        'first_name' => 'DCAF',
+        'first_name' => 'DARIA',
         'last_name' => 'Testing',
         'image' => 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'
       },

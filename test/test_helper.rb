@@ -35,7 +35,7 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors) unless ENV['DOCKER']
 
   def setup_tenant
-    tenant = create :fund, name: 'DCAF', full_name: 'DC Abortion Fund'
+    tenant = create :fund, name: 'CATF', full_name: 'Cat Fund'
     ActsAsTenant.current_tenant = tenant
     ActsAsTenant.test_tenant = tenant
   end
@@ -58,9 +58,9 @@ class ActiveSupport::TestCase
   end
 
   def create_external_pledge_source_config
-    ext_pledge_options = ['Baltimore Abortion Fund',
-                          'Tiller Fund (NNAF)',
-                          'NYAAF (New York)']
+    ext_pledge_options = ['Metallica Abortion Fund',
+                          'Texas Amalgamated Abortion Services (TAAS)',
+                          'Cat Town Abortion Fund (CTAF)']
     create :config, config_key: 'external_pledge_source',
                     config_value: { options: ext_pledge_options }
   end

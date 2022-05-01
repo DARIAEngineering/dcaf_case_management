@@ -82,7 +82,7 @@ fund2 = Fund.create! name: 'CatFund',
     Config.create config_key: :insurance,
                   config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance'] }
     Config.create config_key: :external_pledge_source,
-                  config_value: { options: ['Baltimore Abortion Fund', 'Metallica Abortion Fund'] }
+                  config_value: { options: ['Texas Amalgamated Abortion Services (TAAS)', 'Metallica Abortion Fund'] }
     Config.create config_key: :pledge_limit_help_text,
                   config_value: { options: ['Pledge Limit Guidelines:', '1st trimester (7-12 weeks): $100', '2nd trimester (12-24 weeks): $300', 'Later care (25+ weeks): $600'] }
     Config.create config_key: :language,
@@ -349,7 +349,7 @@ fund2 = Fund.create! name: 'CatFund',
         created_at: 133.days.ago
       )
       patient.external_pledges.create!(
-        source: 'Baltimore Abortion Fund',
+        source: 'Texas Amalgamated Abortion Services (TAAS)',
         amount: 100,
         created_at: 133.days.ago
       )
