@@ -74,5 +74,5 @@ Rails.application.configure do
   config.webpacker.check_yarn_integrity = false
 
   # Set mailer default url to localhost in tests.
-  # config.action_mailer.default_url_options = { :host => 'localhost' }
+  config.action_mailer.default_url_options = { :host => 'localhost' }
 end
