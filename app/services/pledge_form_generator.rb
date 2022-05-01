@@ -81,9 +81,9 @@ class PledgeFormGenerator
 
     pdf.bounding_box([250, y_position], width: 400, height: 100) do
       pdf.text case_manager_name
-      @fund.full_name
-      @config.address1
-      @config.address2
+      pdf.text @fund.full_name
+      pdf.text @config.address1
+      pdf.text @config.address2
       pdf.text "Tel: #{@config.phone || @fund.phone}"
       pdf.text "E-mail: #{@config.contact_email}"
       pdf.text "Web: #{@fund.site_domain}"
