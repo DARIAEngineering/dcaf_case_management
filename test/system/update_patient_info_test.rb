@@ -8,7 +8,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     @admin = create :user, role: :admin
     @clinic = create :clinic
     @patient = create :patient, line: @line
-    @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+    @patient.external_pledges.create source: 'Metallica Abortion Fund',
                                      amount: 100
     @ext_pledge = @patient.external_pledges.first
     create_external_pledge_source_config
@@ -146,7 +146,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
       fill_in 'CATF pledge', with: '25'
-      fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
+      fill_in 'Metallica Abortion Fund pledge', with: '25', match: :prefer_exact
       fill_in 'Abortion cost', with: '300'
       click_away_from_field
       reload_page_and_click_link 'Abortion Information'
@@ -162,7 +162,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       find('#outstanding-balance').has_text?('$19900')
       fill_in 'National Abortion Federation pledge', with: '0'
       find('#outstanding-balance').has_text?('$19950')
-      fill_in 'Baltimore Abortion Fund pledge', with: '0', match: :prefer_exact
+      fill_in 'Metallica Abortion Fund pledge', with: '0', match: :prefer_exact
       find('#outstanding-balance').has_text?('$19975')
       fill_in 'CATF pledge', with: '0'
       find('#outstanding-balance').has_text?('$20000')
@@ -179,7 +179,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
         assert has_field? 'CATF pledge', with: '25'
-        assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
+        assert has_field? 'Metallica Abortion Fund pledge', with: '25'
       end
     end
   end

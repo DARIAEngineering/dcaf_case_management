@@ -60,7 +60,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
 
       with_versioning(@user2) do
         @patient.calls.create status: :reached_patient
-        @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+        @patient.external_pledges.create source: 'Metallica Abortion Fund',
                                          amount: 100
         @patient.practical_supports.create support_type: 'Louder Metallica tickets',
                     source: 'Metallica'
