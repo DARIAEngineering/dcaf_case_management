@@ -32,7 +32,7 @@
     </div>
 
     <div class="hide" data-step="3" data-title="<%= t('patient.pledge.step_three.title') %>">
-      <% if current_tenant.pledge_generation_config.present? %>
+      <% if current_tenant.pledge_config.present? %>
         <p class="row"><%= t('patient.pledge.step_three.generated', fund: current_tenant.name) %></p>
         <p class="row">
           <%= t('patient.pledge.step_three.downloads') %> <%= fax_service %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_21_152932) do
+ActiveRecord::Schema.define(version: 2022_05_01_053519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -204,7 +204,6 @@ ActiveRecord::Schema.define(version: 2022_02_21_152932) do
     t.string "full_name", comment: "Full name of the fund. e.g. DC Abortion Fund"
     t.string "site_domain", comment: "URL of the fund's public-facing website. e.g. www.dcabortionfund.org"
     t.string "phone", comment: "Contact number for the abortion fund, usually the hotline"
-    t.string "pledge_generation_config", comment: "Optional config of which pledge generation configset to use. If null, pledge generation is shut off"
   end
 
   create_table "lines", force: :cascade do |t|
