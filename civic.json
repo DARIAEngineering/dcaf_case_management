@@ -1,10 +1,10 @@
 {
-    "name": "DCAF Case Manager", 
+    "name": "DARIA Case Manager", 
     "description": "A Rails-based case management system for abortion funds",
     "license": "MIT", 
     "status": "Production", 
     "homepage": "https://sandbox.dcabortionfnd.org", 
-    "repository": "https://github.com/DCAFEngineering/dcaf_case_management", 
+    "repository": "https://github.com/DARIAEngineering/dcaf_case_management",
     "type": "Web App", 
     "thumbnail": "", 
     "geography": [
@@ -15,7 +15,6 @@
     "contact": {
         "name": "Colin Fleming", 
         "email": "c3flemin@gmail.com",
-        "url": "http://twitter.com/ridethecatbus"
     }, 
     "partners": [
         {
