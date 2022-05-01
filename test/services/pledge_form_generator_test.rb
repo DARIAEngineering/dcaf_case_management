@@ -30,7 +30,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
     end
 
     it 'should get the clinic date formatted' do
-      assert_equal(@pledge_form_generator.appointment_date, 'January 1, 2016')
+      assert_equal(@pledge_form_generator.appointment_date, 'January  1, 2016')
     end
 
     it 'should get the patient provider name' do
