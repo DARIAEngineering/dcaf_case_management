@@ -12,7 +12,6 @@ ENV DARIA_DIR=/usr/src/app \
     DOCKER=true
 
 # get our gem house in order
-RUN mkdir -p ${DARIA_DIR} && cd ${DCAF_DIR}
 WORKDIR ${DARIA_DIR}
 COPY Gemfile ${DARIA_DIR}/Gemfile
 COPY Gemfile.lock ${DARIA_DIR}/Gemfile.lock
