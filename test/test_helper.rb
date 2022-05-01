@@ -22,13 +22,10 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   before do
-    Bullet.start_request
     setup_tenant
   end
 
   after do
-    Bullet.perform_out_of_channel_notifications if Bullet.notification?
-    Bullet.end_request
     teardown_tenant
   end
 
