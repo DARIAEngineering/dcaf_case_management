@@ -100,7 +100,7 @@ class PledgeFormGenerator
   end
 
   def build_fund_info_block(pdf)
-    info_block = "<b>#{@config.address1}\n#{@config.address2}</b>"
+    info_block = "<b>#{@fund.full_name}\n#{@config.address1}\n#{@config.address2}</b>"
     pdf.text info_block, align: :center, inline_format: true
   end
 
