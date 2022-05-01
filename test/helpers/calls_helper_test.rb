@@ -17,7 +17,7 @@ class CallsHelperTest < ActionView::TestCase
 
     it 'returns voicemail ok notifier text if vm pref is set to no' do
       @patient.voicemail_preference = 'yes'
-      assert_match(/Okay to identify as DCAF/,
+      assert_match(/Okay to identify as CATF/,
                    display_voicemail_link_with_warning(@patient))
       assert_match(/I left a voicemail for the patient/,
                    display_voicemail_link_with_warning(@patient))
@@ -25,7 +25,7 @@ class CallsHelperTest < ActionView::TestCase
 
     it 'returns voicemail not specified text if vm pref is set not spec' do
       @patient.voicemail_preference = 'not_specified'
-      assert_match(/Do not identify as DCAF/,
+      assert_match(/Do not identify as CATF/,
                    display_voicemail_link_with_warning(@patient))
       assert_match(/I left a voicemail for the patient/,
                    display_voicemail_link_with_warning(@patient))
