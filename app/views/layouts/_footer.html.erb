@@ -5,7 +5,8 @@
 		<small>
 			<%= t 'navigation.footer.please_send_feedback' %>
 			<%= link_to 'DARIA Services',
-									'https://www.dariaservices.org/contact-us' %>
+									'https://www.dariaservices.org/contact-us',
+									target: :_blank %>
 		</small>
 	</div>
 </div>
@@ -22,8 +23,14 @@
 
 <div class="row">
 	<div class="col text-center">
-		<%= image_tag('daria_services_logo.png', class: 'logo', alt: 'DARIA Services Logo') %>
-		<%= image_tag('c4dc-logo-master.svg', class: 'logo', alt: 'Code for DC Logo') %>
+		<%= link_to 'https://dariaservices.org', target: :_blank do %>
+			<%= image_tag('daria_services_logo.png', class: 'logo', alt: 'DARIA Services Logo') %>
+		<% end %>
+
+		<%= link_to 'https://www.codefordc.org', target: :_blank do %>
+			<%= image_tag('c4dc-logo-master.svg', class: 'logo', alt: 'Code for DC Logo') %>
+		<% end %>
+
 		<a title="Realtime application protection" href="https://sqreen.io/?utm_source=badge"><%= image_tag 'sqreen-badgeDark2x.png', alt: 'Sqreen | Runtime Application Protection', style: 'width:109px;height:36px', class: 'logo' %></a>		
 	</div>
 </div>
