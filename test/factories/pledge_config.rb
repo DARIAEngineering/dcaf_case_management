@@ -6,9 +6,9 @@ FactoryBot.define do
     sequence :billing_email do |n|
       "billing#{n}@everyteen.com"
     end
-    logo_url { 'whatever.png' }
     address1 { '123 Fake Street' }
     address2 { 'Fakeytown, WA 98765' }
+    phone { '281-330-8004' }
     fund
   end
 end

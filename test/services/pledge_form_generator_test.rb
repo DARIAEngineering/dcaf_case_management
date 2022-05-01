@@ -16,6 +16,7 @@ class PledgeFormGeneratorTest < ActiveSupport::TestCase
 
   describe 'user data' do
     before do
+      create :pledge_config, fund: ActsAsTenant.current_tenant
       @pledge_form_generator = PledgeFormGenerator.new(@user, @patient, @case_manager_name, ActsAsTenant.current_tenant)
       @pdf_text = PDF::Inspector::Text.analyze(@pledge_form_generator.generate_pledge_pdf.render).strings
     end

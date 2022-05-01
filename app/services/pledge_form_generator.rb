@@ -72,11 +72,20 @@ class PledgeFormGenerator
   def build_header(pdf)
     y_position = pdf.cursor
     pdf.bounding_box([0, y_position], width: 200, height: 100) do
+      # Use a logo if provided
+      if @config.logo_url
+        pdf.image Rails.root.join("public", @config.logo_url),
+                  position: :left,
+                  width: @config.logo_width,
+                  height: @config.logo_height
+      # Otherwise, use stock DARIA services logo
+      else
+        pdf.image Rails.root.join("public", "daria-logo.png"),
+                  position: :left,
+                  width: 75,
+                  height: 75
 
-      pdf.image Rails.root.join("public", @config.logo_url),
-                position: :left,
-                width: @config.logo_width,
-                height: @config.logo_height
+      end
     end
 
     pdf.bounding_box([250, y_position], width: 400, height: 100) do
