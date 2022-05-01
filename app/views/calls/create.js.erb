@@ -1,7 +1,7 @@
-var URL = location.pathname,
-    substring = "edit";
+var isOnEditPage = location.pathname.indexOf('edit') !== 1;
+var isOnDashboard = location.pathname === '/';
 
-if (URL.indexOf(substring) !== 1) {
+if (isOnEditPage) {
   $("#call_log").html("<%= escape_javascript(render partial: 'patients/call_log') %>")
     .promise().done(function() {
       $(".new-call").modal('hide')
@@ -10,7 +10,7 @@ if (URL.indexOf(substring) !== 1) {
     });
 }
 
-if (location.pathname == Routes.authenticated_root_path) {
+if (isOnDashboard) {
   $('#call_list').html(
     '<%= escape_javascript(render partial: "dashboards/table_content",
                                   locals: { title: t("dashboard.partial_titles.call_list"),
