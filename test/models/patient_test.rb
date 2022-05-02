@@ -424,18 +424,6 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'most_recent_note_display_text method' do
-      before do
-        @note = create :note, patient: @patient,
-                              full_text: (1..100).map(&:to_s).join('')
-      end
-
-      it 'returns 34 characters of the notes text' do
-        assert_equal 34, @patient.most_recent_note_display_text.length
-        assert_match /^1234/, @patient.most_recent_note_display_text
-      end
-    end
-
     describe 'destroy_associated_events method' do
       it 'should nuke associated events on patient destroy' do
         assert_difference 'Event.count', -1 do
