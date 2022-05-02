@@ -7,6 +7,9 @@ task nightly_cleanup: :environment do
   Event.destroy_old_events
   puts "#{Time.now} -- destroyed old events"
 
+  PaperTrailVersion.destroy_old
+  puts "#{Time.now} -- destroyed old audit objects"
+
   if Time.zone.now.monday?
     # Run these events weekly
     Clinic.update_all_coordinates
