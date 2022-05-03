@@ -162,6 +162,6 @@ module PatientsHelper
   end
 
   def line_options
-    Line.all.map { |x| [x.name, x.id] }
+    Line.all.sort_by(&:name).map { |x| [x.name, x.id] }
   end
 end
