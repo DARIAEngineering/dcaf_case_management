@@ -67,6 +67,23 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
                      'pledge_generated_at' => { original: '(empty)', modified: (Time.zone.now + 5.days).strftime('%m/%d/%Y') }
                    }
     end
+
+    it 'should delete old objects' do
+      with_versioning do
+        # create a patient in the past... will create a papertrail version
+        Timecop.freeze(2.years.ago) do
+          create :patient, name: 'Patient from long ago',
+                            primary_phone: '444-555-6666'
+        end
+
+        # come back to the present and remove old records
+        # we exepct two records to be deleted: the patient creation, and the
+        # corresponding fulfillment
+        assert_difference 'PaperTrailVersion.count', -2 do
+          PaperTrailVersion.destroy_old
+        end
+      end
+    end
   end
 
   # ensure that paper trail is versioning properly

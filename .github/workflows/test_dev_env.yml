@@ -1,9 +1,5 @@
 name: Build and test
 
-# We have this rigged up such that heroku monitors
-# for changes on master, and deploys to staging if
-# the build passes.
-
 on:
   push:
     branches:
@@ -60,7 +56,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.0
+          node-version: 16.15.0
       - name: Cache node_modules
         uses: actions/cache@v3
         with:

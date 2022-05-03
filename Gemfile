@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
-ruby '3.1.1'
+ruby '3.1.2'
 
 # Standard rails
 gem 'rails', '~> 6.1.4'
 gem 'puma', '~> 5.4' # roar
 gem 'sdoc', '~> 2.3.0', group: :doc
-gem 'nokogiri', '>= 1.13.2'
+gem 'nokogiri', '>= 1.13.4'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
@@ -59,7 +59,6 @@ gem 'state_geo_tools' # state list
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
-gem 'js-routes', '1.4.9' # Not sure if this is used anymore
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'

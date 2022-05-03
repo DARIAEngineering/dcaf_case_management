@@ -51,6 +51,10 @@ class PaperTrailVersion < PaperTrail::Version
     object_changes['urgent_flag']&.last == true
   end
 
+  def self.destroy_old
+    PaperTrailVersion.where("created_at < ?", 1.year.ago).destroy_all
+  end
+
   private
 
   def format_fieldchange(key, value)

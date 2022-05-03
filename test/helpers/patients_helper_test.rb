@@ -76,7 +76,7 @@ class PatientsHelperTest < ActionView::TestCase
         nil,
         ["#{@active.name} (#{@active.city}, #{@active.state})", @active.id, { data: { naf: false, medicaid: false }}],
         ['--- INACTIVE CLINICS ---', nil, { disabled: true }],
-        ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
+        ["(Not currently working with CATF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
       ]
 
       assert_same_elements clinic_options, expected_clinic_array
@@ -227,7 +227,7 @@ class PatientsHelperTest < ActionView::TestCase
       nil,
       ["Clinic", "Clinic"],
       ["Crime victim advocacy center", "Crime victim advocacy center"],
-      ["DCAF website or social media", "DCAF website or social media"],
+      ["CATF website or social media", "CATF website or social media"],
       ["Domestic violence crisis/intervention org", "Domestic violence crisis/intervention org"],
       ["Family member", "Family member"],
       ["Friend", "Friend"],

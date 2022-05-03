@@ -41,7 +41,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
   describe 'update method' do
     before do
       with_versioning(@user) do
-        @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+        @patient.external_pledges.create source: 'Metallica Abortion Fund',
                                          amount: 100
         @pledge = @patient.external_pledges.first
         @pledge_edits = { source: 'Edited Pledge' }
@@ -84,7 +84,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
 
   describe 'destroy' do
     before do
-      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+      @patient.external_pledges.create source: 'Metallica Abortion Fund',
                                        amount: 100
       @pledge = @patient.external_pledges.first
     end

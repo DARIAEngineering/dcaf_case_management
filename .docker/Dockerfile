@@ -1,4 +1,4 @@
-FROM ruby:3.1.1-slim-buster
+FROM ruby:3.1.2-slim-bullseye
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
@@ -12,7 +12,6 @@ ENV DARIA_DIR=/usr/src/app \
     DOCKER=true
 
 # get our gem house in order
-RUN mkdir -p ${DARIA_DIR} && cd ${DCAF_DIR}
 WORKDIR ${DARIA_DIR}
 COPY Gemfile ${DARIA_DIR}/Gemfile
 COPY Gemfile.lock ${DARIA_DIR}/Gemfile.lock
@@ -27,13 +26,13 @@ RUN apt-get update && apt-get upgrade -y && \
     ${AHAB_DEPENDENCIES} && \
     gem install bundler --no-document
 
-# get version 14 of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - && \
+# get version 16 of nodejs
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && \
     apt-get install nodejs -y
 
 RUN npm install -g yarn
 RUN yarn set version berry
-RUN yarn set version 2.x
+RUN yarn set version 3.2.0
 
 # install gemfile and package
 RUN bundle install

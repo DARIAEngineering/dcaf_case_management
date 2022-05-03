@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class AccountantWorkflowTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user, role: :admin
     @clinic = create :clinic, name: 'a real clinic'
@@ -167,12 +169,14 @@ class AccountantWorkflowTest < ApplicationSystemTestCase
         assert has_content? "Clinic: #{@clinic.name}"
 
         # And should let you update it
-        fill_in 'DCAF payout', with: '999'
+        fill_in 'CATF payout', with: '999'
         fill_in 'Check #', with: 'BB8'
         find('h2').click # Click the header to get the field to save
         wait_for_ajax
       end
       find('body').click
+      send_keys :escape
+      sleep 1
 
       # Now, should be updated!
       within :css, "#row-#{@pledged_patient.id}" do

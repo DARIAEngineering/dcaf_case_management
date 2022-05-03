@@ -3,20 +3,20 @@ require 'test_helper'
 class ExternalPledgesHelperTest < ActionView::TestCase
   describe 'options generators' do
     before do
-      create :config, config_key: 'external_pledge_source',
-                      config_value: { options: ['Baltimore Abortion Fund', 'Tiller Fund (NNAF)', 'NYAAF (New York)'] }
+      create_external_pledge_source_config
       @options = external_pledge_source_options
     end
 
     it 'should spit out an array of available other funds' do
-      assert_includes @options, 'Baltimore Abortion Fund'
+      assert_includes @options, 'Metallica Abortion Fund'
       assert @options.class == Array
     end
 
     it 'should include the whole list of options' do
-      expected_external_pledges_array = ["Baltimore Abortion Fund",
-        "Tiller Fund (NNAF)",
-        "NYAAF (New York)",
+      expected_external_pledges_array = [
+        'Metallica Abortion Fund',
+        'Texas Amalgamated Abortion Services (TAAS)',
+        'Cat Town Abortion Fund (CTAF)',
         ["Clinic discount", "Clinic discount"],
         ["Other funds (see notes)","Other funds (see notes)"]]
       assert_same_elements @options, expected_external_pledges_array
@@ -25,16 +25,13 @@ class ExternalPledgesHelperTest < ActionView::TestCase
     it 'should remove preselected options' do
       @patient = create :patient
 
-      @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+      @patient.external_pledges.create source: 'Metallica Abortion Fund',
                                        amount: 100
-      #create :external_pledge, source: 'Baltimore Abortion Fund',
-      #                         amount: 100,
-      #                         patient: @patient
 
       refute_includes available_pledge_source_options_for(@patient),
-                      'Baltimore Abortion Fund'
+                      'Metallica Abortion Fund'
       assert_includes available_pledge_source_options_for(@patient),
-                      'NYAAF (New York)'
+                      'Cat Town Abortion Fund (CTAF)'
     end
   end
 

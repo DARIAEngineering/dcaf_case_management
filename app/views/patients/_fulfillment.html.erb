@@ -14,7 +14,7 @@
   <%= bootstrap_form_with model: patient,
                           html: { id: 'pledge_fulfillment_form' },
                           method: 'patch',
-                          remote: true do |f| %>
+                          local: false do |f| %>
     <div class="row">
       <div class="col">
         <%= f.fields_for :fulfillment do |pt| %>
