@@ -6,9 +6,9 @@ User: test@example.com, Password: AbortionsAreAHumanRight1
 
 ## Are you from an abortion fund and are interested in seeing this will work for you?
 
-Join the Code for DC slack, go to the channel `#dcaf_case_management`, and let us know!
+Join the Code for DC slack, go to the channel `#daria`, and let us know!
 
-## [Come hang out with us on slack!](https://codefordc.slack.com/messages/dcaf_case_management)
+## [Come hang out with us on slack!](https://codefordc.slack.com/)
 
 [Join via the Code for DC website](https://codefordc.org/resources/slack.html).
 
@@ -30,7 +30,7 @@ This project is a case management system for abortion funds. [Abortion funds](ht
 
 This originated with the [DC Abortion Fund](http://www.dcabortionfund.org) (DCAF). Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. Since adopting this system, DCAF and several other funds have been able to operate at a much faster pace, and lowered the stress levels of their volunteers.
 
-Get started with the how-and-why of the project by [checking out[Abortion funds](http://www.fundabortionnow.org), checking out [case manager Lisa's explanation of DCAF's business logic](docs/DCAF_101.md), reading the [Code of Conduct](CODE_OF_CONDUCT.md), and reading the `#dcaf_case_management` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files). You can also check out [some of the other buzz](docs/PRESS.md) or [read about how it's impacted DCAF](docs/IMPACT_ON_DCAF.md).
+Get started with the how-and-why of the project by [checking out[Abortion funds](http://www.fundabortionnow.org), checking out [case manager Lisa's explanation of DCAF's business logic](docs/DCAF_101.md), reading the [Code of Conduct](CODE_OF_CONDUCT.md), and reading the `#daria` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files). You can also check out [some of the other buzz](docs/PRESS.md) or [read about how it's impacted DCAF](docs/IMPACT_ON_DCAF.md).
 
 There's still work to do, but generally we're pretty stable these days. Our general administration/maintenance plan is [here](docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md).
 
