@@ -6,7 +6,7 @@ If after reading below, you feel that DARIA's a good fit for your organization, 
 
 ## The case management workflow
 
-DARIA's case management workflow was designed to mirror existing practices used in case management. Volunteer case managers answer patient calls coming in through a hotline phone number and voicemail. DCAF case management software helps the case managers keep track of patient status and needs.
+DARIA's case management workflow was designed to mirror existing practices used in abortion fund case management. Volunteer case managers answer patient calls coming in through a hotline phone number and voicemail. This software helps case managers keep track of patient status and needs.
 
 The workflow is similar to many Customer Relationship Manager (CRM) systems. After patients leave a voicemail, the case managers return their calls and assist patients in navigating the process of scheduling an appointment and raising funds. If the patient is short on money, after a series of phone calls we issue a pledge to support their visit to a clinic. If a patient takes advantage of the pledge and complete their abortion, our accounting team logs that as a fulfillment.
 
@@ -19,7 +19,7 @@ DARIA provides a number of workflows to administer and report on your funds acti
 
 ## Your DARIA instance and its data is yours
 
-Every fund's DARIA instance is separate from others. Your DARIA instance and its data is completely yours to use. DCAF and other DARIA funds do not have access to your data.
+Every fund's DARIA instance is separate from others. Your DARIA instance and its data is completely yours to use. Other DARIA funds do not have access to your data.
 
 ## Security
 
@@ -38,7 +38,7 @@ We have a more comprehensive guide located at: https://github.com/DARIAEngineeri
 
 ## Costs
 
-DARIA costs start at $84 a year ($7 a month for 12 months), paid to DCAF once a year. This covers your share of server fees, and gets your fund its own URL and managed database. Funds which see a heavy amount of patient traffic (2,000+ new patients per year) may need to invest in a database upgrade at an additional $216 a year after the first year.
+Costs are a flat $300 a year ($25 a month for 12 months), paid to DARIA Services once a year (or monthly, your preference). This covers your share of server fees, and gets your fund its own URL.
 
 ## Support and Maintenance
 
