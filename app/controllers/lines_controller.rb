@@ -1,7 +1,7 @@
 # Single-serving controller for setting current line for a user.
 class LinesController < ApplicationController
   def new
-    @lines = ActsAsTenant.current_tenant.lines
+    @lines = ActsAsTenant.current_tenant.lines.sort_by(&:name)
     if @lines.count == 0
       raise Exceptions::NoLinesForFundError
     end
