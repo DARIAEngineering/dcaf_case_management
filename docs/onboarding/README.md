@@ -9,7 +9,7 @@ These are the steps to onboard your fund to DARIA, and have them set up and mana
   * To see the more general case manager guide, covering some additional things you can do as a case manager, see: TK CASE MANAGER DOCS
   * To see the administrative tools such as data analysis and accounting, see: TK ADMIN DOCS
 
-* Someone from the DARIA team (probably @nerdygirl537 or @sofijaj) will hop on a call with your team to demonstrate DARIA's features and workflow, and to talk through your process to see if this is a good fit for you.
+* Someone from the DARIA team (probably @colinxfleming, @lomky, or @lwaldsc) will hop on a call with your team to demonstrate DARIA's features and workflow, and to talk through your process to see if this is a good fit for you.
   * The person from the DARIA team reports back to talk about about engineering changes we might need, if applicable. The engineering team will work to ticket these changes or suggest workarounds.
 
 * If you are still interested, a rep from DARIA Services will begin the paperwork process outlined [here](../administering/CONTRACT_AGREEMENT.md). This is an agreement signed by both sides agreeing to cost, and affirming that your data is yours and that we can't access it without specific permission.
