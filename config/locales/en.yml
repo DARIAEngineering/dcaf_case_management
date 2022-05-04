@@ -145,6 +145,7 @@ en:
     notes: Notes
     patient: Patient
     phone: Phone
+    prefer_not_to_answer: Prefer not to answer
     save: Save
     search: Search
     status: Status
