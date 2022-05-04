@@ -2,7 +2,7 @@
 
 If you are a fund considering adopting DARIA as your case management system of record, this may answer common questions about how things work. We also have a sandbox/training app where no actual patient data lives for experimenting. You can check out the sandbox [here](https://sandbox.dariaservices.com) with username `test@example.com`, password `AbortionsAreAHumanRight1`. Be sure to check out the 'Admin Tools' section to understand how DARIA can be customized to your organization.
 
-If after reading below, you feel that DARIA's a good fit for your organization, just reach out to us on the Code4DC Slack -- [sign up here](https://codefordc.org/resources/slack.html) -- in the #dcaf_case_management channel.
+If after reading below, you feel that DARIA's a good fit for your organization, just reach out to us on the Code4DC Slack -- [sign up here](https://codefordc.org/slack) -- in the #daria channel.
 
 ## The case management workflow
 
