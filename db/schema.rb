@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_19_044530) do
+ActiveRecord::Schema.define(version: 2022_05_06_220133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -275,6 +275,7 @@ ActiveRecord::Schema.define(version: 2021_12_19_044530) do
     t.bigint "fund_id"
     t.bigint "line_id", null: false
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
+    t.index ["flagged"], name: "index_patients_on_flagged"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
     t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
@@ -287,7 +288,6 @@ ActiveRecord::Schema.define(version: 2021_12_19_044530) do
     t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
     t.index ["primary_phone", "fund_id"], name: "index_patients_on_primary_phone_and_fund_id", unique: true
-    t.index ["flagged"], name: "index_patients_on_flagged"
   end
 
   create_table "practical_supports", force: :cascade do |t|
