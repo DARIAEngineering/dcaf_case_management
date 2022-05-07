@@ -30,8 +30,8 @@ module TooltipsHelper
     t('tooltips.completed_calls').strip
   end
 
-  def urgent_cases_help_text
-    t('tooltips.urgent_cases', urgent_reset: Config.urgent_reset).strip
+  def flagged_cases_help_text
+    t('tooltips.flagged_cases', flagged_reset: Config.flagged_reset).strip
   end
 
   def unconfirmed_support_help_text

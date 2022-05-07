@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_12_19_044530) do
     t.string "line_legacy"
     t.string "language"
     t.date "initial_call_date"
-    t.boolean "urgent_flag"
+    t.boolean "flagged"
     t.integer "last_menstrual_period_weeks"
     t.integer "last_menstrual_period_days"
     t.string "city"
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(version: 2021_12_19_044530) do
     t.string "language"
     t.string "pronouns"
     t.date "initial_call_date", null: false
-    t.boolean "urgent_flag"
+    t.boolean "flagged"
     t.integer "last_menstrual_period_weeks"
     t.integer "last_menstrual_period_days"
     t.integer "age"
@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 2021_12_19_044530) do
     t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
     t.index ["primary_phone", "fund_id"], name: "index_patients_on_primary_phone_and_fund_id", unique: true
-    t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
+    t.index ["flagged"], name: "index_patients_on_flagged"
   end
 
   create_table "practical_supports", force: :cascade do |t|

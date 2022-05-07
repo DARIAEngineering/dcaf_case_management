@@ -140,7 +140,7 @@ class PatientsController < ApplicationController
                              :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
-  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
+  OTHER_PARAMS = [:flagged, :initial_call_date, :pledge_sent].freeze
 
   def patient_params
     params.require(:patient).permit(

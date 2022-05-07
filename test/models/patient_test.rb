@@ -249,18 +249,18 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'confirm still urgent' do
+    describe 'confirm still flagged' do
       before do
         create :clinic
-        @patient = create :patient, urgent_flag: true,
+        @patient = create :patient, flagged: true,
                                     clinic: Clinic.first,
                                     appointment_date: 2.days.from_now,
                                     fund_pledge: 300
       end
 
-      it "should unmark urgent after update if resolved_without_fund" do
+      it "should unflag after update if resolved_without_fund" do
         @patient.update resolved_without_fund: true
-        refute @patient.urgent_flag
+        refute @patient.flagged
       end
     end
 
@@ -328,90 +328,90 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'methods' do
-    describe 'urgency concern methods' do
-      describe 'urgent_patients class method' do
+    describe 'flaggable concern methods' do
+      describe 'flagged_patients class method' do
         before do
           @line = create :line
           @line2 = create :line
           with_versioning do
             create :patient
-            2.times { create :patient, urgent_flag: true, line: @line }
-            create :patient, urgent_flag: true, line: @line2
+            2.times { create :patient, flagged: true, line: @line }
+            create :patient, flagged: true, line: @line2
           end
         end
 
-        it 'should return urgent patients by line' do
-          assert_equal 2, Patient.urgent_patients(@line).count
-          assert_equal 1, Patient.urgent_patients(@line2).count
+        it 'should return flagged patients by line' do
+          assert_equal 2, Patient.flagged_patients(@line).count
+          assert_equal 1, Patient.flagged_patients(@line2).count
         end
       end
 
-      describe 'trim_urgent_patients method' do
-        it 'should trim patients from urgent after they have been inactive or resolved' do
-          skip "test not implemented for patient#trim_urgent_patients"
+      describe 'trim_flagged_patients method' do
+        it 'should trim flagged patients after they have been inactive or resolved' do
+          skip "test not implemented for patient#trim_flagged_patients"
         end
       end
 
-      describe 'still_urgent? method' do
+      describe 'still_flagged? method' do
         it 'should return false if resolved without fund' do
-          @patient.update urgent_flag: true
+          @patient.update flagged: true
           @patient.update resolved_without_fund: true
-          assert_not @patient.still_urgent?
+          assert_not @patient.still_flagged?
         end
 
-        describe 'without a custom urgent_reset config' do
-          it 'should return true if marked urgent in last 6 days' do
+        describe 'without a custom flagged_reset config' do
+          it 'should return true if flagged in last 6 days' do
             with_versioning do
-              @patient.update urgent_flag: true
+              @patient.update flagged: true
               @patient.reload
             end
-            assert @patient.still_urgent?
+            assert @patient.still_flagged?
           end
 
 
           it 'should return false if not updated for more than 6 days' do
             Timecop.freeze(Time.zone.now - 7.days) do
               with_versioning do
-                @patient.update urgent_flag: true
+                @patient.update flagged: true
                 @patient.reload
               end
             end
 
-            assert_not @patient.still_urgent?
+            assert_not @patient.still_flagged?
           end
         end
 
-        describe 'with a custom urgent reset config' do
+        describe 'with a custom flagged reset config' do
           before do
-            c = Config.find_or_create_by(config_key: 'urgent_reset')
+            c = Config.find_or_create_by(config_key: 'flagged_reset')
             c.config_value = { options: ["14"] }
             c.save
           end
 
           after do
-            Config.find_or_create_by(config_key: 'urgent_reset').delete
+            Config.find_or_create_by(config_key: 'flagged_reset').delete
           end
 
-          it 'should return true if marked urgent in the last configured days' do
+          it 'should return true if flagged in the last configured days' do
             Timecop.freeze(Time.zone.now - 7.days) do
               with_versioning do
-                @patient.update urgent_flag: true
+                @patient.update flagged: true
                 @patient.reload
               end
             end
 
-            assert @patient.still_urgent?
+            assert @patient.still_flagged?
           end
 
           it 'should return false if not updated in the last configured days' do
             Timecop.freeze(Time.zone.now - 15.days) do
               with_versioning do
-                @patient.update urgent_flag: true
+                @patient.update flagged: true
                 @patient.reload
               end
             end
 
-            assert_not @patient.still_urgent?
+            assert_not @patient.still_flagged?
           end
         end
       end

@@ -9,7 +9,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14,
                                 fund_pledge: 500,
-                                urgent_flag: true
+                                flagged: true
 
     log_in_as @user
     visit edit_patient_path @patient

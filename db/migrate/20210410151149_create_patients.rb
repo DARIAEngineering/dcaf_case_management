@@ -14,7 +14,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.string :language
       t.string :pronouns
       t.date :initial_call_date, null: false
-      t.boolean :urgent_flag
+      t.boolean :flagged
       t.integer :last_menstrual_period_weeks
       t.integer :last_menstrual_period_days
 
@@ -62,7 +62,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
     add_index :patients, :other_contact
     add_index :patients, :name
     add_index :patients, :line
-    add_index :patients, :urgent_flag
+    add_index :patients, :flagged
     add_index :patients, :identifier
     add_index :patients, :pledge_sent 
   end

@@ -12,7 +12,7 @@ class CreateArchivedPatients < ActiveRecord::Migration[6.0]
       t.string :line, null: false
       t.string :language
       t.date :initial_call_date
-      t.boolean :urgent_flag
+      t.boolean :flagged
       t.integer :last_menstrual_period_weeks
       t.integer :last_menstrual_period_days
       t.string :city

@@ -26,7 +26,7 @@ module Exportable
     "Referred to clinic by fund" => :referred_to_clinic,
     "Appointment Date" => :appointment_date,
     "Initial Call Date" => :initial_call_date,
-    "Urgent?" => :urgent_flag,
+    "Flagged?" => :flagged,
     "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,

@@ -1,4 +1,4 @@
-$('#call_list, #completed_calls, #urgent_patients').empty();
+$('#call_list, #completed_calls, #flagged_patients').empty();
 
 $('#call_list').append(
   '<%= escape_javascript(render partial: "dashboards/table_content",
@@ -17,10 +17,10 @@ $('#completed_calls').append(
                                           autosortable: true }) %>'
 );
 
-$("#urgent_patients").append(
+$("#flagged_patients").append(
   '<%= escape_javascript( render partial: "dashboards/table_content",
-                                locals: { title: t('dashboard.partial_titles.urgent_cases'),
-                                          table_type: 'urgent_cases',
-                                          patients: Patient.urgent_patients(current_line),
+                                locals: { title: t('dashboard.partial_titles.flagged_cases'),
+                                          table_type: 'flagged_cases',
+                                          patients: Patient.flagged_patients(current_line),
                                           autosortable: true }) %>'
 );

@@ -59,7 +59,7 @@ class ArchivedPatient < ApplicationRecord
       initial_call_date: patient.initial_call_date,
       appointment_date: patient.appointment_date,
 
-      urgent_flag: patient.urgent_flag,
+      flagged: patient.flagged,
       referred_by: patient.referred_by,
       referred_to_clinic: patient.referred_to_clinic,
 
