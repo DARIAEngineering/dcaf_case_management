@@ -39,6 +39,7 @@ es:
         completed_ultrasound: Ultrasonido completado
         county: Condado
         employment_status: Estatus de empleo
+        flagged: Marcado
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
         household_size_adults: Adultos en el Hogar
@@ -69,7 +70,6 @@ es:
         special_circumstances: Circunstancias Especiales
         state: Estado
         textable: Textable
-        flagged: Marcado
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
       practical_support:
@@ -180,9 +180,9 @@ es:
     partial_titles:
       call_list: Tu lista de llamadas
       completed_calls: Tus llamadas completadas
+      flagged_cases: Casos marcados
       search_results: Resultados de la búsqueda
       unconfirmed_support: Apoyo no confirmado
-      flagged_cases: Casos marcados
     search:
       header: Construye tu lista de llamadas
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
@@ -439,10 +439,10 @@ es:
       initial_call_date: Fecha de llamada inicial
       title: 'Su búsqueda no produjo resultados, así que agregue un nuevo paciente:'
     notes:
+      flagged: Marcar a este paciente
       placeholder: Ingresa notas aquí
       submit: Crear Nota
       title: Notas
-      flagged: Marcar a este paciente
     pledge:
       cancel:
         confirm: "¿Seguro/a que quieres cancelar esta promesa?"
@@ -532,13 +532,13 @@ es:
     budget_bar: La barra de presupuesto indica el dinero provisionalmente reservado para un paciente (cuando ingresa la cantidad de promesa %{fund}) y el dinero enviado a una clínica para un paciente (cuando marca la casilla de verificación "envié la promesa") durante un período determinado.
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
     completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
+    flagged_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{flagged_reset} días de inactividad.
     mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
     record_new_external_pledge: '"Promesas externas" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     status_definition: Definición de estado
     unconfirmed_support: Estos son pacientes que tienen apoyos prácticos no confirmados.
-    flagged_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{flagged_reset} días de inactividad.
   user:
     common:
       last_login: Último Acceso
