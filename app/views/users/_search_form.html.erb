@@ -1,7 +1,7 @@
 <%= bootstrap_form_with url: users_search_path,
                         local: false,
                         layout: :inline,
-                        html: { class: 'float-right' } do |p| %>
+                        html: { class: 'float-end' } do |p| %>
   <%= p.text_field :search,
                    placeholder: t('user.search.text_field'),
                    skip_label: true,
@@ -9,5 +9,5 @@
                    class: 'search_form_input' %>
   <%= p.submit t('user.search.button'),
                id: 'search_button',
-               class: 'btn btn-primary ml-2' %>
+               class: 'btn btn-primary ms-2' %>
 <% end %>

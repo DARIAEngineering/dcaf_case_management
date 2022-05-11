@@ -1,7 +1,7 @@
 <div id="call_log_content">
   <h2 class="mt-5">
     <%= t('patient.call_log.title') %>
-    <small class="float-right"> 
+    <small class="float-end">
       <%= link_to t('patient.call_log.record_new_call'),
                   new_patient_call_path(@patient),
                   class: "call_button call-#{@patient.primary_phone_display}",
