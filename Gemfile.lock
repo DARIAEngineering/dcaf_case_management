@@ -381,7 +381,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sdoc (2.3.2)
+    sdoc (2.4.0)
       rdoc (>= 5.0)
     selenium-webdriver (4.1.0)
       childprocess (>= 0.5, < 5.0)
@@ -423,7 +423,7 @@ GEM
     sqreen-kit (0.2.4)
       sqreen-backport (~> 0.1.0)
     state_geo_tools (1.0.0)
-    stringio (3.0.1)
+    stringio (3.0.2)
     strong_password (0.0.10)
     strscan (3.0.1)
     terminal-table (3.0.2)
@@ -514,7 +514,7 @@ DEPENDENCIES
   rubocop-rails
   ruby_audit
   sass-rails (>= 6)
-  sdoc (~> 2.3.0)
+  sdoc (~> 2.4.0)
   selenium-webdriver
   sentry-rails
   sentry-ruby
