@@ -77,8 +77,12 @@ module IntegrationHelper
   end
 
   def click_away_from_field
-    # close the flash
-    find('#flash button.close')&.click
+    # close the flash if it's in the way
+    begin
+      find('#flash button.close')&.click
+    rescue Capybara::ElementNotFound
+    end
+
     find('nav').click
     wait_for_ajax
   end
