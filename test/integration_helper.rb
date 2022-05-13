@@ -77,6 +77,8 @@ module IntegrationHelper
   end
 
   def click_away_from_field
+    # close the flash
+    find('#flash button.close')&.click
     find('nav').click
     wait_for_ajax
   end
