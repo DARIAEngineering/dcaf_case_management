@@ -348,7 +348,10 @@ class PatientTest < ActiveSupport::TestCase
 
       describe 'trim_flagged_patients method' do
         it 'should trim flagged patients after they have been inactive or resolved' do
-          skip "test not implemented for patient#trim_flagged_patients"
+          @patient.update flagged: true
+          @patient.update resolved_without_fund: true
+          Patient.trim_flagged_patients
+          assert_not @patient.flagged
         end
       end
 
