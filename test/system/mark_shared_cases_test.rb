@@ -11,11 +11,11 @@ class MarkSharedCasesTest < ApplicationSystemTestCase
   end
 
   it 'should initially show an empty checkbox' do
-    refute page.has_checked_field?('patient_shared')
+    refute page.has_checked_field?('patient_shared_flag')
   end
 
   it 'should mark the case shared after checking the checkbox' do
-    check 'patient_shared'
+    check 'patient_shared_flag'
     wait_for_ajax
 
     visit dashboard_path
