@@ -14,7 +14,7 @@ class MarkSharedCasesTest < ApplicationSystemTestCase
     refute page.has_checked_field?('patient_shared_flag')
   end
 
-  it 'should mark the case shared after checking the checkbox' do
+  it 'should move the case to shared after checking the checkbox' do
     check 'patient_shared_flag'
     wait_for_ajax
 

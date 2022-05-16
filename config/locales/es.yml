@@ -66,7 +66,7 @@ es:
         referred_by: Referido por
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
-        shared: Compartido
+        shared_flag: Bandera compartida
         special_circumstances: Circunstancias Especiales
         state: Estado
         textable: Textable
@@ -440,7 +440,7 @@ es:
       title: 'Su búsqueda no produjo resultados, así que agregue un nuevo paciente:'
     notes:
       placeholder: Ingresa notas aquí
-      shared: Compartir a este paciente
+      shared_flag: Compartir a este paciente
       submit: Crear Nota
       title: Notas
     pledge:

@@ -131,10 +131,10 @@ class Config < ApplicationRecord
   end
 
   def self.shared_reset
-    shared_reset_day = Config.find_or_create_by(config_key: 'shared_reset').options.try :last
+    shared_reset_days = Config.find_or_create_by(config_key: 'shared_reset').options.try :last
     # default 6 days
-    shared_reset_day ||= 6
-    shared_reset_day.to_i
+    shared_reset_days ||= 6
+    shared_reset_days.to_i
   end
 
   private

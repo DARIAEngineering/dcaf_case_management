@@ -8,7 +8,7 @@ Some funds divide their operations into multiple funnels, which we call lines. D
 
 ## Shared cases
 
-Case managers can flag particular patients, which will pull them into their own section on the call list page. Generally, this is to facilitate easier case manager handoff, though your fund may use it in a slightly different way.
+Case managers can flag particular patients as `shared`, which will pull them into their own section on the call list page. Generally, this is to facilitate easier case manager handoff, though your fund may use it in a slightly different way.
 
 Patients are automatically removed from this section if six days goes by without their information being changed, or if they're marked as resolved without fund assistance, or if they're marked as pledge sent.
 

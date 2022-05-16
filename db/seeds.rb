@@ -282,7 +282,7 @@ fund2 = Fund.create! name: 'CatFund',
       # Call, but no answer. leave a VM.
       patient.calls.create status: :left_voicemail, created_at: 139.days.ago
 
-      # Call, which updates patient info, maybe flags, make a note.
+      # Call, which updates patient info, maybe flags shared, make a note.
       patient.calls.create status: :reached_patient, created_at: 138.days.ago
 
       patient.update!(
@@ -314,7 +314,7 @@ fund2 = Fund.create! name: 'CatFund',
         updated_at: 138.days.ago # not sure if this even works?
       )
 
-      # toggle flag, maybe
+      # toggle shared flag, maybe
       patient.update!(
         shared_flag: patient_number.odd?,
         updated_at: 137.days.ago

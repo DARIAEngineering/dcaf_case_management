@@ -26,7 +26,7 @@ namespace :db do
             primary_phone: "#{idx}".rjust(10, "0"),
             initial_call_date: initial_call,
             created_by: users.sample,
-            flagged: flag,
+            shared_flag: flag,
             line: lines[gen.rand(3)], # thank you seeds.rb! 
             clinic: has_appt ? clinics.sample : nil,
             appointment_date: has_appt ? initial_call + gen.rand(15) : nil,

@@ -66,7 +66,7 @@ en:
         referred_by: Referred by
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without fund
-        shared: Shared
+        shared_flag: Shared Flag
         special_circumstances: Special circumstances
         state: State
         textable: Textable
@@ -440,7 +440,7 @@ en:
       title: 'Add a new patient:'
     notes:
       placeholder: Enter notes here
-      shared: Share this patient for other case managers
+      shared_flag: Share this patient for other case managers
       submit: Create Note
       title: Notes
     pledge:

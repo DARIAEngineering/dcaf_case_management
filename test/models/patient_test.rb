@@ -360,7 +360,7 @@ class PatientTest < ActiveSupport::TestCase
         end
 
         describe 'without a custom shared_reset config' do
-          it 'should return true if shared in last 6 days' do
+          it 'should return true if marked shared in last 6 days' do
             with_versioning do
               @patient.update shared_flag: true
               @patient.reload
