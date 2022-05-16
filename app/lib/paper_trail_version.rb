@@ -48,7 +48,7 @@ class PaperTrailVersion < PaperTrail::Version
   end
 
   def marked_flagged?
-    object_changes['flagged']&.last == true
+    (object_changes['flagged']&.last == true) || (object_changes['urgent_flag']&.last == true)
   end
 
   def self.destroy_old
