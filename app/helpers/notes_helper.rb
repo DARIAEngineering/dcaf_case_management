@@ -1,15 +1,5 @@
 # Functions related to displaying notes
 module NotesHelper
-  def plus_sign_icon(note)
-    return nil unless note && note.try(:full_text).length > 31
-    note = tag(:i, class: 'fas fa-plus-circle',
-                   title: t('note.most_recent_no_user'),
-                   aria: { hidden: true },
-                   data: { toggle: 'popover', placement: 'bottom', content: note.full_text })
-    sr = tag(:span, class: 'sr-only', text: 'Full note')
-    safe_join([note, sr], '')
-  end
-
   def display_note_text_for(note)
     return nil if note.try(:full_text).blank?
     info = content_tag :p do
