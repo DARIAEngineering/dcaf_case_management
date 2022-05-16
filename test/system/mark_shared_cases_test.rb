@@ -1,7 +1,7 @@
 require 'application_system_test_case'
 
-# Mark patients flagged and confirm that they show up on the dash after
-class MarkFlaggedCasesTest < ApplicationSystemTestCase
+# Mark patients shared and confirm that they show up on the dash after
+class MarkSharedCasesTest < ApplicationSystemTestCase
   before do
     @user = create :user
     @patient = create :patient
@@ -11,15 +11,15 @@ class MarkFlaggedCasesTest < ApplicationSystemTestCase
   end
 
   it 'should initially show an empty checkbox' do
-    refute page.has_checked_field?('patient_flagged')
+    refute page.has_checked_field?('patient_shared')
   end
 
-  it 'should mark the case flagged after checking the checkbox' do
-    check 'patient_flagged'
+  it 'should mark the case shared after checking the checkbox' do
+    check 'patient_shared'
     wait_for_ajax
 
     visit dashboard_path
-    within :css, '#flagged_cases' do
+    within :css, '#shared_cases' do
       assert has_text? @patient.name
     end
   end

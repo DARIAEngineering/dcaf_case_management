@@ -81,8 +81,8 @@ namespace :db do
             ).save
           end 
 
-          # removing flag if pledge sent, as I think this is what CMs typically do 
-          patient.update(flagged: false) unless !patient.pledge_sent
+          # removing shared flag if pledge sent, as I think this is what CMs typically do 
+          patient.update(shared_flag: false) unless !patient.pledge_sent
         
         end
 

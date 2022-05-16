@@ -249,10 +249,10 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'confirm still flagged' do
+    describe 'confirm still shared' do
       before do
         create :clinic
-        @patient = create :patient, flagged: true,
+        @patient = create :patient, shared_flag: true,
                                     clinic: Clinic.first,
                                     appointment_date: 2.days.from_now,
                                     fund_pledge: 300
@@ -260,7 +260,7 @@ class PatientTest < ActiveSupport::TestCase
 
       it "should unflag after update if resolved_without_fund" do
         @patient.update resolved_without_fund: true
-        refute @patient.flagged
+        refute @patient.shared_flag
       end
     end
 
@@ -328,90 +328,90 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'methods' do
-    describe 'flaggable concern methods' do
-      describe 'flagged_patients class method' do
+    describe 'shareable concern methods' do
+      describe 'shared_patients class method' do
         before do
           @line = create :line
           @line2 = create :line
           with_versioning do
             create :patient
-            2.times { create :patient, flagged: true, line: @line }
-            create :patient, flagged: true, line: @line2
+            2.times { create :patient, shared_flag: true, line: @line }
+            create :patient, shared_flag: true, line: @line2
           end
         end
 
-        it 'should return flagged patients by line' do
-          assert_equal 2, Patient.flagged_patients(@line).count
-          assert_equal 1, Patient.flagged_patients(@line2).count
+        it 'should return shared patients by line' do
+          assert_equal 2, Patient.shared_patients(@line).count
+          assert_equal 1, Patient.shared_patients(@line2).count
         end
       end
 
-      describe 'trim_flagged_patients method' do
-        it 'should trim flagged patients after they have been inactive or resolved' do
-          skip "test not implemented for patient#trim_flagged_patients"
+      describe 'trim_shared_patients method' do
+        it 'should trim shared patients after they have been inactive or resolved' do
+          skip "test not implemented for patient#trim_shared_patients"
         end
       end
 
-      describe 'still_flagged? method' do
+      describe 'still_shared? method' do
         it 'should return false if resolved without fund' do
-          @patient.update flagged: true
+          @patient.update shared_flag: true
           @patient.update resolved_without_fund: true
-          assert_not @patient.still_flagged?
+          assert_not @patient.still_shared?
         end
 
-        describe 'without a custom flagged_reset config' do
-          it 'should return true if flagged in last 6 days' do
+        describe 'without a custom shared_reset config' do
+          it 'should return true if shared in last 6 days' do
             with_versioning do
-              @patient.update flagged: true
+              @patient.update shared_flag: true
               @patient.reload
             end
-            assert @patient.still_flagged?
+            assert @patient.still_shared?
           end
 
 
           it 'should return false if not updated for more than 6 days' do
             Timecop.freeze(Time.zone.now - 7.days) do
               with_versioning do
-                @patient.update flagged: true
+                @patient.update shared_flag: true
                 @patient.reload
               end
             end
 
-            assert_not @patient.still_flagged?
+            assert_not @patient.still_shared?
           end
         end
 
-        describe 'with a custom flagged reset config' do
+        describe 'with a custom shared reset config' do
           before do
-            c = Config.find_or_create_by(config_key: 'flagged_reset')
+            c = Config.find_or_create_by(config_key: 'shared_reset')
             c.config_value = { options: ["14"] }
             c.save
           end
 
           after do
-            Config.find_or_create_by(config_key: 'flagged_reset').delete
+            Config.find_or_create_by(config_key: 'shared_reset').delete
           end
 
-          it 'should return true if flagged in the last configured days' do
+          it 'should return true if shared in the last configured days' do
             Timecop.freeze(Time.zone.now - 7.days) do
               with_versioning do
-                @patient.update flagged: true
+                @patient.update shared_flag: true
                 @patient.reload
               end
             end
 
-            assert @patient.still_flagged?
+            assert @patient.still_shared?
           end
 
           it 'should return false if not updated in the last configured days' do
             Timecop.freeze(Time.zone.now - 15.days) do
               with_versioning do
-                @patient.update flagged: true
+                @patient.update shared_flag: true
                 @patient.reload
               end
             end
 
-            assert_not @patient.still_flagged?
+            assert_not @patient.still_shared?
           end
         end
       end

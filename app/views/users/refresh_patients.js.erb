@@ -1,4 +1,4 @@
-$('#call_list, #completed_calls, #flagged_patients').empty();
+$('#call_list, #completed_calls, #shared_patients').empty();
 
 $('#call_list').append(
   '<%= escape_javascript(render partial: "dashboards/table_content",
@@ -17,10 +17,10 @@ $('#completed_calls').append(
                                           autosortable: true }) %>'
 );
 
-$("#flagged_patients").append(
+$("#shared_patients").append(
   '<%= escape_javascript( render partial: "dashboards/table_content",
-                                locals: { title: t('dashboard.partial_titles.flagged_cases'),
-                                          table_type: 'flagged_cases',
-                                          patients: Patient.flagged_patients(current_line),
+                                locals: { title: t('dashboard.partial_titles.shared_cases'),
+                                          table_type: 'shared_cases',
+                                          patients: Patient.shared_patients(current_line),
                                           autosortable: true }) %>'
 );

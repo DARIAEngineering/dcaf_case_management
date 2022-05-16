@@ -210,13 +210,13 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'flagged_reset' do
+    describe 'shared_reset' do
       it 'should return proper default' do
-        assert_equal 6, Config.flagged_reset
+        assert_equal 6, Config.shared_reset
       end
 
       it 'should validate bounds' do
-        c = Config.find_or_create_by(config_key: 'flagged_reset')
+        c = Config.find_or_create_by(config_key: 'shared_reset')
 
         # low out of bounds
         c.config_value = { options: ["1"] }

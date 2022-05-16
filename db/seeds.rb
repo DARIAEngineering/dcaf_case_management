@@ -103,7 +103,7 @@ fund2 = Fund.create! name: 'CatFund',
       patient = Patient.create! name: "Patient #{i}",
                                 primary_phone: "123-123-123#{i}",
                                 initial_call_date: 3.days.ago,
-                                flagged: i.even?,
+                                shared_flag: i.even?,
                                 last_menstrual_period_weeks: (i + 1 * 2),
                                 last_menstrual_period_days: 3,
                                 line: lines.first
@@ -193,7 +193,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Reporting Patient #{i}",
         primary_phone: "321-0#{i}0-001#{rand(10)}",
         initial_call_date: 3.days.ago,
-        flagged: i.even?,
+        shared_flag: i.even?,
         line: i.even? ? lines.first : lines.second,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now,
@@ -218,7 +218,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Reporting Patient #{patient_number}",
         primary_phone: "321-0#{patient_number}0-002#{rand(10)}",
         initial_call_date: 3.days.ago,
-        flagged: patient_number.even?,
+        shared_flag: patient_number.even?,
         line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now
@@ -238,7 +238,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Old Reporting Patient #{patient_number}",
         primary_phone: "321-0#{patient_number}0-003#{rand(10)}",
         initial_call_date: 3.days.ago,
-        flagged: patient_number.even?,
+        shared_flag: patient_number.even?,
         line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now
@@ -255,7 +255,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Pledge Reporting Patient #{patient_number}",
         primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
         initial_call_date: 3.days.ago,
-        flagged: patient_number.even?,
+        shared_flag: patient_number.even?,
         line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now,
@@ -316,7 +316,7 @@ fund2 = Fund.create! name: 'CatFund',
 
       # toggle flag, maybe
       patient.update!(
-        flagged: patient_number.odd?,
+        shared_flag: patient_number.odd?,
         updated_at: 137.days.ago
       )
 
@@ -430,7 +430,7 @@ fund2 = Fund.create! name: 'CatFund',
 
       # toggle flag, maybe
       patient.update!(
-        flagged: patient_number.odd?,
+        shared_flag: patient_number.odd?,
         updated_at: 637.days.ago
       )
 

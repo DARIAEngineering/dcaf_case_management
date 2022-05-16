@@ -28,11 +28,11 @@ if (isOnDashboard) {
                                             utosortable: true }) %>'
   );
 
-  $("#flagged_patients").html(
+  $("#shared_patients").html(
     '<%= escape_javascript( render partial: "dashboards/table_content",
-                                  locals: { title: t('dashboard.partial_titles.flagged_cases'),
-                                            table_type: 'flagged_cases',
-                                            patients: Patient.flagged_patients(current_line),
+                                  locals: { title: t('dashboard.partial_titles.shared_cases'),
+                                            table_type: 'shared_cases',
+                                            patients: Patient.shared_patients(current_line),
                                             autosortable: true }) %>'
   );
   $(".new-call").modal('hide')

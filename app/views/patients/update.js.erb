@@ -25,8 +25,8 @@ $('#change_log').html(
   '<%= escape_javascript(render partial: "patients/change_log", locals: { patient: @patient })%>'
 );
 
-// Rerack flagged status
-$('#patient_flagged').prop('checked', <%= @patient.flagged? %>);
+// Rerack shared flag status
+$('#patient_shared_flag').prop('checked', <%= @patient.shared_flag? %>);
 
 // if pledge is sent, re-rack fulfillment info
 <% if current_user.allowed_data_access? && @patient.pledge_sent? %>

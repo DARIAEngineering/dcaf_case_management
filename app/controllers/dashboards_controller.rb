@@ -6,7 +6,7 @@ class DashboardsController < ApplicationController
   before_action :pick_line_if_not_set, only: [:index, :search]
 
   def index
-    @flagged_patients = eager_loaded_patients.flagged_patients(current_line)
+    @shared_patients = eager_loaded_patients.shared_patients(current_line)
     @unconfirmed_support_patients = eager_loaded_patients.unconfirmed_practical_support(current_line)
   end
 

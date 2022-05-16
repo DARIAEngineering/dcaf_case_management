@@ -4,7 +4,7 @@ class Patient < ApplicationRecord
 
   # Concerns
   include PaperTrailable
-  include Flaggable
+  include Shareable
   include Callable
   include Notetakeable
   include PatientSearchable
@@ -21,7 +21,7 @@ class Patient < ApplicationRecord
   before_save :update_pledge_sent_by_sent_at
   before_save :update_fund_pledged_at
   after_create :initialize_fulfillment
-  after_update :confirm_still_flagged, if: :flagged?
+  after_update :confirm_still_shared, if: :shared_flag?
   after_update :update_call_list_lines, if: :saved_change_to_line_id?
   after_destroy :destroy_associated_events
 

@@ -20,9 +20,9 @@
                          patients: current_user.recently_called_patients(current_line),
                          autosortable: true } %>
     <%= render partial: 'dashboards/table_content',
-               locals: { title: t('dashboard.partial_titles.flagged_cases'),
-                         table_type: 'flagged_cases',
-                         patients: @flagged_patients,
+               locals: { title: t('dashboard.partial_titles.shared_cases'),
+                         table_type: 'shared_cases',
+                         patients: @shared_patients,
                          autosortable: true } %>
     <%= render partial: 'dashboards/table_content',
                locals: { title: t('dashboard.partial_titles.unconfirmed_support'),

@@ -18,7 +18,7 @@ class Config < ApplicationRecord
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
-    flagged_reset: "Number of idle days until a patient is removed from the flagged list. Defaults to 6 days.",
+    shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days.",
   }.freeze
 
   enum config_key: {
@@ -37,7 +37,7 @@ class Config < ApplicationRecord
     voicemail: 12,
     days_to_keep_fulfilled_patients: 13,
     days_to_keep_all_patients: 14,
-    flagged_reset: 15,
+    shared_reset: 15,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -70,8 +70,8 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_patient_archive],
     days_to_keep_all_patients:
       [:validate_singleton, :validate_patient_archive],
-    flagged_reset:
-      [:validate_singleton, :validate_flagged_reset],
+    shared_reset:
+      [:validate_singleton, :validate_shared_reset],
   }.freeze
 
   before_validation :clean_config_value
@@ -130,11 +130,11 @@ class Config < ApplicationRecord
     archive_days.to_i
   end
 
-  def self.flagged_reset
-    flagged_reset_day = Config.find_or_create_by(config_key: 'flagged_reset').options.try :last
+  def self.shared_reset
+    shared_reset_day = Config.find_or_create_by(config_key: 'shared_reset').options.try :last
     # default 6 days
-    flagged_reset_day ||= 6
-    flagged_reset_day.to_i
+    shared_reset_day ||= 6
+    shared_reset_day.to_i
   end
 
   private
@@ -236,11 +236,11 @@ class Config < ApplicationRecord
       validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
     end
 
-    ### flagged reset
-    FLAGGED_MIN_DAYS = 2   # 2 days
-    FLAGGED_MAX_DAYS = 28  # 4 weeks
+    ### shared reset
+    SHARED_MIN_DAYS = 2   # 2 days
+    SHARED_MAX_DAYS = 28  # 4 weeks
 
-    def validate_flagged_reset
-      validate_number && options.last.to_i.between?(FLAGGED_MIN_DAYS, FLAGGED_MAX_DAYS)
+    def validate_shared_reset
+      validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
     end
 end

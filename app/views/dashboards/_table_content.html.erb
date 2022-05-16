@@ -46,7 +46,7 @@
           <td><%= patient.status %></td>
           <td><%= patient.appointment_date_display %></td>
 
-          <% if table_type == 'completed_calls' || table_type == 'flagged_cases' %>
+          <% if table_type == 'completed_calls' || table_type == 'shared_cases' %>
             <td class="blank-td"></td>
           <% else %>
             <% if current_user.call_list_entries.map(&:patient_id).include?(patient.id) %>
