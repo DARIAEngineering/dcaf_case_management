@@ -18,7 +18,8 @@ module PatientsHelper
       [ t('patient.helper.race.native_hawaiian_pacific_islander'), 'Native Hawaiian or Pacific Islander'],
       [ t('patient.helper.race.native_american'),                  'Native American'],
       [ t('patient.helper.race.mixed_race_ethnicity'),             'Mixed Race/Ethnicity'],
-      [ t('patient.helper.race.other'),                            'Other' ]
+      [ t('patient.helper.race.other'),                            'Other' ],
+      [ t('common.prefer_not_to_answer'),                          'Prefer not to answer']
     ]
   end
 
@@ -59,7 +60,9 @@ module PatientsHelper
       [ t('patient.helper.referred_by.prev_patient'),                 'Previous patient' ],
       [ t('patient.helper.referred_by.school'),                       'School' ],
       [ t('patient.helper.referred_by.sexual_assault_crisis_org'),    'Sexual assault crisis org' ],
-      [ t('patient.helper.referred_by.youth'),                        'Youth outreach' ], ]
+      [ t('patient.helper.referred_by.youth'),                        'Youth outreach' ],
+      [ t('common.prefer_not_to_answer'),                             'Prefer not to answer']
+    ]
     full_set = standard_options + Config.find_or_create_by(config_key: 'referred_by').options
 
     options_plus_current(full_set, current_value)
@@ -73,6 +76,7 @@ module PatientsHelper
       [ t('patient.helper.employment.unemployed'), 'Unemployed'],
       [ t('patient.helper.employment.odd_jobs'), 'Odd jobs'],
       [ t('patient.helper.employment.student'), 'Student'],
+      [ t('common.prefer_not_to_answer'), 'Prefer not to answer']
     ]
   end
 
@@ -80,6 +84,7 @@ module PatientsHelper
     standard_options = [
       [ t('patient.helper.insurance.none'), 'No insurance' ],
       [ t('patient.helper.insurance.unknown'), 'Don\'t know' ],
+      [ t('common.prefer_not_to_answer'), 'Prefer not to answer'],
       [ t('patient.helper.insurance.other'), 'Other (add to notes)' ],
     ]
     full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
@@ -100,12 +105,15 @@ module PatientsHelper
      [ t('patient.helper.income.45_to_50'), '$45,000-49,999'],
      [ t('patient.helper.income.50_to_60'), '$50,000-59,999'],
      [ t('patient.helper.income.60_to_75'), '$60,000-74,999'],
-     [ t('patient.helper.income.75_plus'), '$75,000 or more']
+     [ t('patient.helper.income.75_plus'), '$75,000 or more'],
+     [ t('common.prefer_not_to_answer'), 'Prefer not to answer']
     ]
   end
 
   def household_size_options
-    (1..10).map { |i| i }.unshift [nil, nil]
+    (0..10).map { |i| i }
+           .unshift([t('common.prefer_not_to_answer'), -1])
+           .unshift([nil, nil])
   end
 
   def clinic_options
@@ -162,6 +170,6 @@ module PatientsHelper
   end
 
   def line_options
-    Line.all.map { |x| [x.name, x.id] }
+    Line.all.sort_by(&:name).map { |x| [x.name, x.id] }
   end
 end

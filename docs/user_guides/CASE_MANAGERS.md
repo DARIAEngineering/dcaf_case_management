@@ -37,15 +37,15 @@ You can remove patients from your call list by clicking the red X icon. Your cal
 
 You can click the patient's name to go straight to their `Patient Record page`.
 
-### Urgent cases
+### Shared cases
 
 There is a way to flag patients so that they are easier for others to find. This section is where they show up. This is shared across everyone who logs in on the line.
 
-To mark a patient urgent, look in the `Patient Record page` under `Notes`.
+To mark a patient as shared, look in the `Patient Record page` under `Notes`.
 
 Patients automatically filter out of this section after a period of not being updated, or if they're marked resolved without assistance.
 
-The period of inactivity before a patient will be removed from the Urgent cases list is configurable per fund. See the Urgent tooltip for your fund's setting.
+The period of inactivity before a patient will be removed from the shared cases list is configurable per fund. See the `Flagged` tooltip for your fund's setting.
 
 ### Line Activity Log
 

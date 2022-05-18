@@ -249,18 +249,18 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'confirm still urgent' do
+    describe 'confirm still shared' do
       before do
         create :clinic
-        @patient = create :patient, urgent_flag: true,
+        @patient = create :patient, shared_flag: true,
                                     clinic: Clinic.first,
                                     appointment_date: 2.days.from_now,
                                     fund_pledge: 300
       end
 
-      it "should unmark urgent after update if resolved_without_fund" do
+      it "should unflag after update if resolved_without_fund" do
         @patient.update resolved_without_fund: true
-        refute @patient.urgent_flag
+        refute @patient.shared_flag
       end
     end
 
@@ -328,90 +328,90 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   describe 'methods' do
-    describe 'urgency concern methods' do
-      describe 'urgent_patients class method' do
+    describe 'shareable concern methods' do
+      describe 'shared_patients class method' do
         before do
           @line = create :line
           @line2 = create :line
           with_versioning do
             create :patient
-            2.times { create :patient, urgent_flag: true, line: @line }
-            create :patient, urgent_flag: true, line: @line2
+            2.times { create :patient, shared_flag: true, line: @line }
+            create :patient, shared_flag: true, line: @line2
           end
         end
 
-        it 'should return urgent patients by line' do
-          assert_equal 2, Patient.urgent_patients(@line).count
-          assert_equal 1, Patient.urgent_patients(@line2).count
+        it 'should return shared patients by line' do
+          assert_equal 2, Patient.shared_patients(@line).count
+          assert_equal 1, Patient.shared_patients(@line2).count
         end
       end
 
-      describe 'trim_urgent_patients method' do
-        it 'should trim patients from urgent after they have been inactive or resolved' do
-          skip "test not implemented for patient#trim_urgent_patients"
+      describe 'trim_shared_patients method' do
+        it 'should trim shared patients after they have been inactive or resolved' do
+          skip "test not implemented for patient#trim_shared_patients"
         end
       end
 
-      describe 'still_urgent? method' do
+      describe 'still_shared? method' do
         it 'should return false if resolved without fund' do
-          @patient.update urgent_flag: true
+          @patient.update shared_flag: true
           @patient.update resolved_without_fund: true
-          assert_not @patient.still_urgent?
+          assert_not @patient.still_shared?
         end
 
-        describe 'without a custom urgent_reset config' do
-          it 'should return true if marked urgent in last 6 days' do
+        describe 'without a custom shared_reset config' do
+          it 'should return true if marked shared in last 6 days' do
             with_versioning do
-              @patient.update urgent_flag: true
+              @patient.update shared_flag: true
               @patient.reload
             end
-            assert @patient.still_urgent?
+            assert @patient.still_shared?
           end
 
 
           it 'should return false if not updated for more than 6 days' do
             Timecop.freeze(Time.zone.now - 7.days) do
               with_versioning do
-                @patient.update urgent_flag: true
+                @patient.update shared_flag: true
                 @patient.reload
               end
             end
 
-            assert_not @patient.still_urgent?
+            assert_not @patient.still_shared?
           end
         end
 
-        describe 'with a custom urgent reset config' do
+        describe 'with a custom shared reset config' do
           before do
-            c = Config.find_or_create_by(config_key: 'urgent_reset')
+            c = Config.find_or_create_by(config_key: 'shared_reset')
             c.config_value = { options: ["14"] }
             c.save
           end
 
           after do
-            Config.find_or_create_by(config_key: 'urgent_reset').delete
+            Config.find_or_create_by(config_key: 'shared_reset').delete
           end
 
-          it 'should return true if marked urgent in the last configured days' do
+          it 'should return true if shared in the last configured days' do
             Timecop.freeze(Time.zone.now - 7.days) do
               with_versioning do
-                @patient.update urgent_flag: true
+                @patient.update shared_flag: true
                 @patient.reload
               end
             end
 
-            assert @patient.still_urgent?
+            assert @patient.still_shared?
           end
 
           it 'should return false if not updated in the last configured days' do
             Timecop.freeze(Time.zone.now - 15.days) do
               with_versioning do
-                @patient.update urgent_flag: true
+                @patient.update shared_flag: true
                 @patient.reload
               end
             end
 
-            assert_not @patient.still_urgent?
+            assert_not @patient.still_shared?
           end
         end
       end
@@ -424,17 +424,20 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
+
     describe 'most_recent_note_display_text method' do
       before do
         @note = create :note, patient: @patient,
-                              full_text: (1..100).map(&:to_s).join('')
+          full_text: (1..100).map(&:to_s).join('')
       end
 
-      it 'returns 34 characters of the notes text' do
-        assert_equal 34, @patient.most_recent_note_display_text.length
+      it 'returns 22 characters of the notes text' do
+        assert_equal 22, @patient.most_recent_note_display_text.length
         assert_match /^1234/, @patient.most_recent_note_display_text
       end
     end
+
+
 
     describe 'destroy_associated_events method' do
       it 'should nuke associated events on patient destroy' do

@@ -47,8 +47,8 @@ class PaperTrailVersion < PaperTrail::Version
              end
   end
 
-  def marked_urgent?
-    object_changes['urgent_flag']&.last == true
+  def marked_shared?
+    (object_changes['shared_flag']&.last == true) || (object_changes['urgent_flag']&.last == true)
   end
 
   def self.destroy_old

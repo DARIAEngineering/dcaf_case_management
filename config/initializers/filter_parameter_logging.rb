@@ -20,7 +20,7 @@ Rails.application.config.filter_parameters += [
   :insurance,
   :street_address_1,
   :street_address_2,
-  :urgent_flag,
+  :shared_flag,
   :income,
   :special_circumstances,
   :procedure_cost,

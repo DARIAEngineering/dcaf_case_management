@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
+ActiveRecord::Schema.define(version: 2022_05_08_184141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -24,7 +24,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.string "line_legacy"
     t.string "language"
     t.date "initial_call_date"
-    t.boolean "urgent_flag"
+    t.boolean "shared_flag"
     t.integer "last_menstrual_period_weeks"
     t.integer "last_menstrual_period_days"
     t.string "city"
@@ -49,9 +49,9 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.datetime "pledge_generated_at"
     t.datetime "pledge_sent_at"
     t.boolean "textable"
-    t.bigint "clinic_id"
-    t.bigint "pledge_generated_by_id"
-    t.bigint "pledge_sent_by_id"
+    t.integer "clinic_id"
+    t.integer "pledge_generated_by_id"
+    t.integer "pledge_sent_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
@@ -65,8 +65,8 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
   end
 
   create_table "call_list_entries", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "patient_id", null: false
+    t.integer "user_id", null: false
+    t.integer "patient_id", null: false
     t.string "line_legacy"
     t.integer "order_key", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -83,7 +83,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
   create_table "calls", force: :cascade do |t|
     t.integer "status", null: false
     t.string "can_call_type", null: false
-    t.bigint "can_call_id", null: false
+    t.integer "can_call_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
@@ -168,7 +168,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.integer "amount"
     t.boolean "active"
     t.string "can_pledge_type", null: false
-    t.bigint "can_pledge_id", null: false
+    t.integer "can_pledge_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
@@ -185,7 +185,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.date "date_of_check"
     t.boolean "audited"
     t.string "can_fulfill_type", null: false
-    t.bigint "can_fulfill_id", null: false
+    t.integer "can_fulfill_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
@@ -217,7 +217,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
 
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
-    t.bigint "patient_id"
+    t.integer "patient_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
@@ -237,7 +237,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.string "language"
     t.string "pronouns"
     t.date "initial_call_date", null: false
-    t.boolean "urgent_flag"
+    t.boolean "shared_flag"
     t.integer "last_menstrual_period_weeks"
     t.integer "last_menstrual_period_days"
     t.integer "age"
@@ -266,10 +266,10 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.datetime "pledge_generated_at"
     t.datetime "pledge_sent_at"
     t.boolean "textable"
-    t.bigint "clinic_id"
-    t.bigint "pledge_generated_by_id"
-    t.bigint "pledge_sent_by_id"
-    t.bigint "last_edited_by_id"
+    t.integer "clinic_id"
+    t.integer "pledge_generated_by_id"
+    t.integer "pledge_sent_by_id"
+    t.integer "last_edited_by_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
@@ -287,7 +287,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
     t.index ["primary_phone", "fund_id"], name: "index_patients_on_primary_phone_and_fund_id", unique: true
-    t.index ["urgent_flag"], name: "index_patients_on_urgent_flag"
+    t.index ["shared_flag"], name: "index_patients_on_shared_flag"
   end
 
   create_table "practical_supports", force: :cascade do |t|
@@ -295,7 +295,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_12_19_044530) do
     t.boolean "confirmed"
     t.string "source", null: false
     t.string "can_support_type"
-    t.bigint "can_support_id"
+    t.integer "can_support_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fund_id"
