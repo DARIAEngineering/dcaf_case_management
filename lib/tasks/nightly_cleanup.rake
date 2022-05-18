@@ -24,8 +24,8 @@ task nightly_cleanup: :environment do
       User.disable_inactive_users
       puts "#{Time.now} -- locked accounts of users who have not logged in since #{User::TIME_BEFORE_DISABLED_BY_FUND.ago} for fund #{fund.name}"
 
-      Patient.trim_urgent_patients
-      puts "#{Time.now} -- trimmed urgent patients for fund #{fund.name}"
+      Patient.trim_shared_patients
+      puts "#{Time.now} -- trimmed shared patients for fund #{fund.name}"
 
       ArchivedPatient.archive_eligible_patients!
       puts "#{Time.now} -- archived patients for today for fund #{fund.name}"
