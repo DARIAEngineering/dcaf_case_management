@@ -348,7 +348,10 @@ class PatientTest < ActiveSupport::TestCase
 
       describe 'trim_shared_patients method' do
         it 'should trim shared patients after they have been inactive or resolved' do
-          skip "test not implemented for patient#trim_shared_patients"
+          @patient.update shared_flag: true
+          @patient.update resolved_without_fund: true
+          Patient.trim_shared_patients
+          assert_not @patient.shared_flag
         end
       end
 
