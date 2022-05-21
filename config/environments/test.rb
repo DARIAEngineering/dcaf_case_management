@@ -18,21 +18,20 @@ Rails.application.configure do
 
   config.cache_classes = true
 
-  # Do not eager load code on boot. This avoids loading your whole application
-  # just for the purpose of running a single test. If you are using a tool that
-  # preloads Rails for running tests, you may have to set it to true.
-  config.eager_load = false
+  # Eager loading loads your whole application. When running a single test locally,
+  # this probably isn't necessary. It's a good idea to do in a continuous integration
+  # system, or in some way before deploying your code.
+  config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
+    "Cache-Control" => "public, max-age=#{1.hour.to_i}"
   }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
-  config.action_mailer.default_url_options = { :host => 'localhost' }
   config.cache_store = :null_store
 
   # Raise exceptions instead of rendering exception templates.
@@ -60,8 +59,20 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
-  config.log_level = :info
-
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # CUSTOM STUFF STARTS HERE
+  # Yell about n+1 queries.
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.bullet_logger = true
+    Bullet.raise         = true # raise an error if n+1 query occurs
+  end
+
+  # Skip checking versions and hashed value of package.json contents in dev.
+  config.webpacker.check_yarn_integrity = false
+
+  # Set mailer default url to localhost in tests.
+  config.action_mailer.default_url_options = { :host => 'localhost' }
 end
