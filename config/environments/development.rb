@@ -69,9 +69,6 @@ Rails.application.configure do
   # To allow usage of lvh.me, a tunnelling service, in development for multitenancy.
   config.hosts = nil
 
-  # Skip checking versions and hashed value of package.json contents in dev.
-  config.webpacker.check_yarn_integrity = false
-
   # Warn if there are n+1 queries.
   config.after_initialize do
     Bullet.enable        = true

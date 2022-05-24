@@ -17,7 +17,9 @@ gem 'net-imap', require: false # for compat reasons, required in builds
 gem 'net-smtp', require: false # for compat reasons, required in builds
 
 # Asset pipeline
-gem 'webpacker', '~> 5.4'
+# gem 'webpacker', '~> 5.4'
+gem "jsbundling-rails", "~> 1.0"
+gem "cssbundling-rails", "~> 1.1"
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.5', '< 5' # we're on bs4 for now
 gem 'bootstrap_form', '~> 4.5.0'

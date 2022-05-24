@@ -1,3 +1,5 @@
+import 'jquery';
+
 // Coerce values into numbers, or zero if not set.
 const valueToNumber = val => +val || 0;
 

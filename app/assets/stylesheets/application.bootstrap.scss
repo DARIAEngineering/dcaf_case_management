@@ -1,0 +1,82 @@
+
+// This includes customization/extensions/etc.
+@import './modules/bootstrap';
+
+// // Custom SCSS
+@import './modules/globals';
+@import './modules/call_list';
+@import './modules/devise';
+@import './modules/users';
+@import './modules/budget_bar';
+@import './modules/clinic_finder';
+@import './modules/calls';
+@import './modules/pagination';
+@import './modules/events';
+@import './modules/patient_menu';
+@import './modules/patient_edit';
+@import './modules/tables';
+@import './modules/footer';
+@import './modules/modals';
+@import './modules/navbar';
+@import './modules/tooltips';
+@import './modules/lines';
+@import './modules/flash';
+@import './modules/forms';
+@import './modules/buttons';
+
+/*
+ *= require rails_bootstrap_forms
+ *= require_tree ../../../vendor/assets/stylesheets/.
+ *= require_self
+ *= require_tree .
+*/
+
+// $spacer: .5rem !default;
+
+// $spacers: () !default;
+// // stylelint-disable-next-line scss/dollar-variable-default
+// $spacers: map-merge(
+//   (
+//     0: 0,
+//     1: ($spacer * .25), //.125 rem
+//     2: ($spacer * .5), //.25 rem
+//     3: $spacer, //.5 rem
+//     4: ($spacer * 1.5), //.75rem
+//     5: ($spacer * 2), //1rem
+//     6: ($spacer * 3), //1.5rem
+//     7: ($spacer * 4), // 2rem;
+//     8: ($spacer * 5) // 2.5rem;
+//   ),
+//   $spacers
+// );
+
+// // @import "bootstrap";
+
+
+// $daria-color: #5D3E8D;
+// $grey-color: #525252;
+// $font-size: 17px;
+// $soft-blue: #23527c;
+// $dark-blue: #142B43;
+ 
+// // Have to duplicate these globals until we take bootstrap out of sprockets
+// // because of some styling clash
+// html {
+//   font-size: $font-size;
+// }
+
+// body {
+//   font-family: 'Source Sans Pro', sans-serif;
+//   font-size: $font-size;
+// }
+
+// a {
+//   color: $soft-blue;
+//   text-decoration: none;
+// }
+
+// a:hover, a:active, a:visited, a:focus {
+//   color: $dark-blue;
+//   text-decoration: underline;
+// }
+// // End duplicated styles
