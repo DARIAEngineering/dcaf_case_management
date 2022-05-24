@@ -1,3 +1,9 @@
+
+require ('jquery');
+window.jQuery = jquery;
+window.$ = jquery;
+const $ = jquery;
+
 import 'stupid-table-plugin';
 
 const sortTable = (table) => {

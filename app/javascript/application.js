@@ -1,4 +1,13 @@
 // Entry point for the build script in your package.json
+
+
+require ('jquery');
+// jQuery = jQuery2;
+window.jQuery = jquery;
+window.$ = jquery;
+const $ = jquery;
+
+
 import * as bootstrap from "bootstrap"
 
 
