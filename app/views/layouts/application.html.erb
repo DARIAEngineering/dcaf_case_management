@@ -18,6 +18,7 @@
     <%= javascript_include_tag :application %>
 
     <%= content_for :render_async %>
+    <%= javascript_pack_tag "application" %>
   </head>
   <body>
     <% if current_user.present? %>

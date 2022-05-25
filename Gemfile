@@ -17,7 +17,7 @@ gem 'net-imap', require: false # for compat reasons, required in builds
 gem 'net-smtp', require: false # for compat reasons, required in builds
 
 # Asset pipeline
-gem 'webpacker', '~> 5.4'
+gem 'webpacker', '6.0.0.rc.6' # Target for deprecation
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '~> 4.5', '< 5' # we're on bs4 for now
 gem 'bootstrap_form', '~> 4.5.0'
