@@ -68,7 +68,8 @@ module WelcomeMessageHelper
       "My body, my choice. Thanks for fighting for reproductive justice!",
       "Whoever saves a single life is considered by scripture to have saved the whole world. Thank you for your work!",
       "You're doing amazing, sweetie.",
-      "Thanks for being the gem that you are!"
+      "Thanks for being the gem that you are!",
+      "Thank you * 1000, y'all are champions!"
     ]
   end
 end
