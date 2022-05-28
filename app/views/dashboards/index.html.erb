@@ -1,8 +1,4 @@
-<%= javascript_tag nonce: true do %>
-  $(function () {
-    $('[data-toggle="popover"]').popover()
-  })
-<% end %>
+<%= javascript_include_tag "popover", "data-turbo-track": "reload", defer: true %>
 
 <div class="row">
   <div class="col-sm-12">
