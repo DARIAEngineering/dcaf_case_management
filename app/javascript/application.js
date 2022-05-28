@@ -1,5 +1,7 @@
 // Entry point for the build script in your package.json
+import './src/jquery';
 import './src/turbolinks';
+
 import './src/call_list_drag_and_drop';
 import './src/clinic_finder';
 import './src/clinics';
