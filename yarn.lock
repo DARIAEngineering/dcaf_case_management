@@ -6079,16 +6079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery-ui@npm:1.13.1":
-  version: 1.13.1
-  resolution: "jquery-ui@npm:1.13.1"
-  dependencies:
-    jquery: ">=1.8.0 <4.0.0"
-  checksum: 5eba4be23cad9a173b222a1a28c5126416209b3923ec5f0f83d85aaab385d567a23f3a399889b0f83dedfe13fafa55d32dc4deb9a13aa138cbca9a1b863fe4a1
-  languageName: node
-  linkType: hard
-
-"jquery@npm:3.6.0, jquery@npm:>=1.8.0 <4.0.0":
+"jquery@npm:3.6.0":
   version: 3.6.0
   resolution: "jquery@npm:3.6.0"
   checksum: 8fd5fef4aa48fd374ec716dd1c1df1af407814a228e15c1260ca140de3a697c2a77c30c54ff1d238b6a3ab4ddc445ddeef9adce6c6d28e4869d85eb9d3951c0e
@@ -8999,7 +8990,6 @@ __metadata:
     eslint-config-airbnb-base: 15.0.0
     eslint-plugin-import: 2.26.0
     jquery: 3.6.0
-    jquery-ui: 1.13.1
     popper.js: 1.16.1
     set-value: 4.1.0
     stupid-table-plugin: 1.1.3

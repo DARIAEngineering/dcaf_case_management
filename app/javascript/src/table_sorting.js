@@ -1,4 +1,4 @@
-require('stupid-table-plugin');
+import 'stupid-table-plugin';
 
 const sortTable = (table) => {
   const stupidtable = $(table).stupidtable();
