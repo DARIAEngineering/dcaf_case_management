@@ -2,7 +2,6 @@
 const activateTooltips = () => {
   // Regular spans
   $('.daria-tooltip').tooltip();
-  console.log($('.daria-tooltip').tooltip());
 
   // Some evil magic for things attached to labels with rails-bootstrap-form
   $('.tooltip-header-input').append(' <span class="tooltip-header-help">(?)</span>');
