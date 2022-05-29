@@ -1,7 +1,7 @@
 // Require a pledge signature when generating a pledge.
 
 const requirePledgeSignature = () => {
-  $(document).on('submit', '$generate-pledge-form', function() {
+  $(document).on('submit', '#generate-pledge-form', function() {
     if ($('#case_manager_name').val()) {
       return true;
     } else {
