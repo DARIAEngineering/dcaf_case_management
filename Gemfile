@@ -25,6 +25,7 @@ gem 'coffee-rails', '~> 5.0.0'
 gem 'jquery-rails', '~> 4.5.0'
 gem 'jquery-ui-rails'
 gem 'jsbundling-rails'
+gem 'cssbundling-rails'
 
 # Our database is postgres
 gem 'pg', '~> 1.2'

@@ -132,6 +132,8 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    cssbundling-rails (1.1.0)
+      railties (>= 6.0.0)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -481,6 +483,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   coffee-rails (~> 5.0.0)
+  cssbundling-rails
   devise (~> 4.8)
   dotenv-rails
   factory_bot_rails
