@@ -1384,6 +1384,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:^2.11.5":
+  version: 2.11.5
+  resolution: "@popperjs/core@npm:2.11.5"
+  checksum: fd7f9dca3fb716d7426332b6ee283f88d2724c0ab342fb678865a640bad403dfb9eeebd8204a406986162f7e2b33394f104320008b74d0e9066d7322f70ea35d
+  languageName: node
+  linkType: hard
+
 "@rails/webpacker@npm:5.4.3":
   version: 5.4.3
   resolution: "@rails/webpacker@npm:5.4.3"
@@ -8982,6 +8989,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@fortawesome/fontawesome-free": 6.1.1
+    "@popperjs/core": ^2.11.5
     "@rails/webpacker": 5.4.3
     all-contributors-cli: 6.20.0
     bootstrap: 4.6.1
@@ -8991,6 +8999,7 @@ __metadata:
     eslint-plugin-import: 2.26.0
     jquery: 3.6.0
     popper.js: 1.16.1
+    sass: ^1.52.1
     set-value: 4.1.0
     stupid-table-plugin: 1.1.3
     turbolinks: 5.2.0
@@ -9090,6 +9099,19 @@ __metadata:
   bin:
     sass: sass.js
   checksum: d674fd87be863961d5e5233a148e381a72b06ca1749ffd95a08be2c3f4aa8fc77e3e21840347a84d7d4542cbf97cd6f9bfae19ecb1f5eefa6c207a3d8f923dbc
+  languageName: node
+  linkType: hard
+
+"sass@npm:^1.52.1":
+  version: 1.52.1
+  resolution: "sass@npm:1.52.1"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: a0508c88b149641202e8fb589f731e0cb09a15650128dfee6d0d1ee4a868cb57f1e71575535ccd72f54c5313b684a8beb208d293402ca8d32084ee1709d9f26d
   languageName: node
   linkType: hard
 

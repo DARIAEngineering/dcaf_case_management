@@ -1,7 +1,8 @@
-// Entry point for the build script in your package.json
+// Entry point for the build script in package.json.
 import './src/jquery';
 import './src/jquery-ui';
 import './src/turbolinks';
+import * as bootstrap from "bootstrap";
 
 import './src/autosave';
 import './src/call_list_drag_and_drop';
