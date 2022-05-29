@@ -1,4 +1,5 @@
-// needs work - there's some specific thing you gotta import
+// Attach popovers where necessary
+import * as bootstrap from "bootstrap";
 
 $(function () {
   $('[data-toggle="popover"]').popover()
