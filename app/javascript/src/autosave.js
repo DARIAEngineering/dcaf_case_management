@@ -9,13 +9,14 @@ const fulfillmentFields = [
 
 const _markFulfilledWhenFieldsChecked = () => {
   const fulfillmentCheckbox = $('#patient_fulfillment_attributes_fulfilled');
-  fulfillmentFields.each((x) => {
-    const isChecked = $(x).val().length > 0;
+  for (x in fulfillmentFields) {
+    let field = fulfillmentFields[x];
+    const isChecked = $(field).val().length > 0;
     if (isChecked) {
       fulfillmentCheckbox.prop('checked', true);
       break;
     }
-  });
+  };
 };
 
 const activateAutosave = () => {
@@ -27,12 +28,12 @@ const activateAutosave = () => {
   // Practical support form
   $(document).on("change", ".edit_practical_support", function() {
     $(this).submit();
-  })
+  });
 
   // Ext pledge form
   $(document).on("change", ".edit_external_pledge", function() {
     $(this).submit();
-  };
+  });
 
   // Fulfillment form
   // If any of the fields are chekced, mark the Fulfilled checkbox too

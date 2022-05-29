@@ -25,5 +25,4 @@ const activateTooltips = () => {
   });
 };
 
-
 $(document).on('turbolinks:load', activateTooltips);

@@ -1,3 +1,4 @@
+// Make table elements sortable.
 import 'stupid-table-plugin';
 
 const sortTable = (table) => {
