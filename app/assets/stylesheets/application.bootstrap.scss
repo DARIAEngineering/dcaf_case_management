@@ -1,1 +1,25 @@
-@import 'bootstrap/scss/bootstrap';
+// Major library config
+@import '../../javascript/styles/bootstrap';
+@import '../../javascript/styles/vendor/googleapis_source_sans_pro';
+
+// Custom styling
+@import '../../javascript/styles/globals';
+@import '../../javascript/styles/call_list';
+@import '../../javascript/styles/devise';
+@import '../../javascript/styles/users';
+@import '../../javascript/styles/budget_bar';
+@import '../../javascript/styles/clinic_finder';
+@import '../../javascript/styles/calls';
+@import '../../javascript/styles/pagination';
+@import '../../javascript/styles/events';
+@import '../../javascript/styles/patient_menu';
+@import '../../javascript/styles/patient_edit';
+@import '../../javascript/styles/tables';
+@import '../../javascript/styles/footer';
+@import '../../javascript/styles/modals';
+@import '../../javascript/styles/navbar';
+@import '../../javascript/styles/tooltips';
+@import '../../javascript/styles/lines';
+@import '../../javascript/styles/flash';
+@import '../../javascript/styles/forms';
+@import '../../javascript/styles/buttons';
