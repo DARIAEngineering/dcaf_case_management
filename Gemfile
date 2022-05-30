@@ -17,6 +17,7 @@ gem 'net-imap', require: false # for compat reasons, required in builds
 gem 'net-smtp', require: false # for compat reasons, required in builds
 
 # Asset pipeline
+gem 'sprockets-rails'
 gem 'jsbundling-rails'
 gem 'cssbundling-rails'
 gem 'bootstrap_form', '~> 4.5.0'
