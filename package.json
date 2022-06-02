@@ -2,7 +2,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "6.1.1",
     "@popperjs/core": "^2.11.5",
-    "@rails/webpacker": "5.4.3",
     "bootstrap": "4.6.1",
     "esbuild": "^0.14.41",
     "jquery": "3.6.0",

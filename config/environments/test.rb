@@ -68,9 +68,6 @@ Rails.application.configure do
     Bullet.raise         = true # raise an error if n+1 query occurs
   end
 
-  # Skip checking versions and hashed value of package.json contents in dev.
-  config.webpacker.check_yarn_integrity = false
-
   # Set mailer default url to localhost in tests.
   config.action_mailer.default_url_options = { :host => 'localhost' }
 end
