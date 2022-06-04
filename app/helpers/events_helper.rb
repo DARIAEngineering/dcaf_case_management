@@ -1,15 +1,9 @@
 # Functions to display events for activity feed
 module EventsHelper
-  def display_event(event)
-    fontawesome_kit = event.icon == 'thumbs-up' ? 'far' : 'fas'
-    safe_join [
-      tag(:span,
-          class: [fontawesome_kit, "fa-#{event.icon}", 'event-item']),
-      entry_text(event)
-    ], ' '
+  def fontawesome_classes(event)
+    kit = event.icon == 'thumbs-up' ? 'far' : 'fas'
+    return "#{kit} fa-#{event.icon}"
   end
-
-  private
 
   def entry_text(event)
     time = event.created_at.display_time.to_s
@@ -24,6 +18,8 @@ module EventsHelper
 
     safe_join [time, '--', cm, event_text, pt_link, call_list_link], ' '
   end
+
+  private
 
   def event_string(event)
     return t('events.pledged', pledge_amount: event.pledge_amount) if event.event_type == 'pledged'
