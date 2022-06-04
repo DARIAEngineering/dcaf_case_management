@@ -1,11 +1,25 @@
 version: '3.1'
 services:
+  jsbuild:
+    image: dariaengineering/dcaf_case_management
+    command: ["npm", "run", "build"]
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '3035:3035'
+  cssbuild:
+    image: dariaengineering/dcaf_case_management
+    command: ["npm", "run", "build:css"]
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '3035:3035'
   web:
     build:
       context: .
       dockerfile: .docker/Dockerfile
     image: dariaengineering/dcaf_case_management
-    command: ["bin/dev"]
+    command: ["./scripts/start_rails.sh"]
     volumes:
       - .:/usr/src/app
     ports:
