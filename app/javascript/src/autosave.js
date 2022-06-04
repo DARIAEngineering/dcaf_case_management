@@ -9,14 +9,14 @@ const fulfillmentFields = [
 
 const _markFulfilledWhenFieldsChecked = () => {
   const fulfillmentCheckbox = $('#patient_fulfillment_attributes_fulfilled');
-  for (x in fulfillmentFields) {
-    let field = fulfillmentFields[x];
-    const isChecked = $(field).val().length > 0;
-    if (isChecked) {
-      fulfillmentCheckbox.prop('checked', true);
-      break;
+  let check = false
+  fulfillmentFields.forEach((field) => {
+    const hasData = $(field).val().length > 0;
+    if (hasData) {
+      check = true;
     }
-  };
+  });
+  fulfillmentCheckbox.prop('checked', check);
 };
 
 const activateAutosave = () => {
