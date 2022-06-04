@@ -9,19 +9,20 @@ on:
       - main
 
 jobs:
-  dockercheck:
-    name: Verify docker build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Bring up containers
-        run: |
-          docker-compose build
-          docker-compose run --rm web rails db:create db:migrate db:seed
-          docker-compose up -d
-          sleep 30
-          docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
+  # temporarily shutting off
+  # dockercheck:
+  #   name: Verify docker build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Bring up containers
+  #       run: |
+  #         docker-compose build
+  #         docker-compose run --rm web rails db:create db:migrate db:seed
+  #         docker-compose up -d
+  #         sleep 30
+  #         docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
   build:
     name: Run tests
