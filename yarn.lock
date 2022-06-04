@@ -3911,6 +3911,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jquery-ujs@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "jquery-ujs@npm:1.2.3"
+  peerDependencies:
+    jquery: ">=1.8.0"
+  checksum: 6174edc30bd814b2ef0cbb5c5503b06f20b25a66836398fbec27d4bc6ac0152f25117f1bd444245bd00a44e40dff94ea15ef1fc32aa3da75cb77b6f1196da8b3
+  languageName: node
+  linkType: hard
+
 "jquery@npm:3.6.0":
   version: 3.6.0
   resolution: "jquery@npm:3.6.0"
@@ -5609,6 +5618,7 @@ __metadata:
     eslint-config-airbnb-base: 15.0.0
     eslint-plugin-import: 2.26.0
     jquery: 3.6.0
+    jquery-ujs: ^1.2.3
     popper.js: 1.16.1
     sass: ^1.52.1
     set-value: 4.1.0
