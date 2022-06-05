@@ -11,15 +11,15 @@ Rails.application.config.content_security_policy do |policy|
   policy.object_src  :none
   policy.font_src    :self, 'fonts.gstatic.com'
   policy.connect_src :self
-  # policy.script_src  :self, :unsafe_eval, :unsafe_inline
-  # policy.style_src   :self, :unsafe_inline
+  policy.script_src  :self, :unsafe_eval, :unsafe_inline
+  policy.style_src   :self, :unsafe_inline
 
-  # # Specify URI for violation reports
+  # Specify URI for violation reports
   policy.report_uri  "https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
 
-  # # If ASSET_SITE_URL is set, allow that too
-  # policy.script_src  :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_eval    if ENV['ASSET_SITE_URL'].present?
-  # policy.style_src   :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_inline  if ENV['ASSET_SITE_URL'].present?
+  # If ASSET_SITE_URL is set, allow that too
+  policy.script_src  :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_eval    if ENV['ASSET_SITE_URL'].present?
+  policy.style_src   :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_inline  if ENV['ASSET_SITE_URL'].present?
 end
 
 # # If you are using UJS then enable automatic nonce generation
