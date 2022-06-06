@@ -27,11 +27,11 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     it 'should respond bad_request if the support record does not save' do
       # submitting a duplicate support
       post patient_practical_supports_path(@patient), params: { practical_support: @support }, xhr: true
-      assert_response :bad_request
+      assert response.body.include? 'failed to save'
     end
 
     it 'should respond success if the support record saves' do
-      assert_response :success
+      assert response.body.include? 'saved'
     end
 
     it 'should log the creating user' do
@@ -55,7 +55,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond success' do
-      assert_response :success
+      assert response.body.include? 'saved'
     end
 
     it 'should update the support_type field' do
@@ -70,7 +70,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
             patch patient_practical_support_path(@patient, @support),
                   params: { practical_support: @support_edits },
                   xhr: true
-            assert_response :bad_request
+            assert response.body.include? 'failed to save'
           end
         end
       end
@@ -81,7 +81,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
             xhr: true
-      assert_response :success
+      assert response.body.include? 'saved'
     end
 
     it 'should not allow negative amounts' do
@@ -89,7 +89,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
             xhr: true
-      assert_response :bad_request
+      assert response.body.include? 'failed to save'
     end
   end
 

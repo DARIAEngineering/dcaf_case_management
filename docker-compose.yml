@@ -1,12 +1,15 @@
 version: '3.1'
 services:
-  webpacker:
+  jsbuild:
     image: dariaengineering/dcaf_case_management
-    command: ["./scripts/start_webpack_dev.sh"]
+    command: ["yarn", "build", "--watch"]
     volumes:
       - .:/usr/src/app
-    ports:
-      - '3035:3035'
+  cssbuild:
+    image: dariaengineering/dcaf_case_management
+    command: ["yarn", "build:css", "--watch"]
+    volumes:
+      - .:/usr/src/app
   web:
     build:
       context: .
@@ -19,7 +22,6 @@ services:
       - "3000:3000"
     links:
       - db
-      - webpacker
     environment:
       pg_url: postgres://postgres:postgres@db
     env_file:

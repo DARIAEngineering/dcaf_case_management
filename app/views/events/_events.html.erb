@@ -4,8 +4,12 @@
       <% @events.map { |event| event.created_at.display_date }.uniq.each do |date| %>
         <li>
           <h3 class="mb-3"><%= date %></h3>
+
           <% @events.select { |event| event.created_at.display_date == date }.each do |event| %>
-            <%= content_tag :p, display_event(event), class: 'event-item' %>
+            <p class="event-item">
+              <span class="<%= fontawesome_classes(event)  %>"></span>
+              <%= entry_text(event) %>       
+            </p>
           <% end %>
         </li>
       <% end %>
