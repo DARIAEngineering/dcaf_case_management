@@ -32,14 +32,14 @@ Rails.application.config.action_view.apply_stylesheet_media_default = false
 
 # Don't override ActiveSupport::TimeWithZone.name and use the default Ruby
 # implementation.
-# Rails.application.config.active_support.remove_deprecated_time_with_zone_name = true
+Rails.application.config.active_support.remove_deprecated_time_with_zone_name = true
 
 # Change the format of the cache entry.
 # Changing this default means that all new cache entries added to the cache
 # will have a different format that is not supported by Rails 6.1 applications.
 # Only change this value after your application is fully deployed to Rails 7.0
 # and you have no plans to rollback.
-# Rails.application.config.active_support.cache_format_version = 7.0
+Rails.application.config.active_support.cache_format_version = 7.0
 
 # Calls `Rails.application.executor.wrap` around test cases.
 # This makes test cases behave closer to an actual request or job.
@@ -50,16 +50,16 @@ Rails.application.config.action_view.apply_stylesheet_media_default = false
 # Define the isolation level of most of Rails internal state.
 # If you use a fiber based server or job processor, you should set it to `:fiber`.
 # Otherwise the default of `:thread` if preferable.
-# Rails.application.config.active_support.isolation_level = :thread
+Rails.application.config.active_support.isolation_level = :thread
 
 # Set both the `:open_timeout` and `:read_timeout` values for `:smtp` delivery method.
-# Rails.application.config.action_mailer.smtp_timeout = 5
+Rails.application.config.action_mailer.smtp_timeout = 5
 
 # The ActiveStorage video previewer will now use scene change detection to generate
 # better preview images (rather than the previous default of using the first frame
 # of the video).
-# Rails.application.config.active_storage.video_preview_arguments =
-#   "-vf 'select=eq(n\\,0)+eq(key\\,1)+gt(scene\\,0.015),loop=loop=-1:size=2,trim=start_frame=1' -frames:v 1 -f image2"
+Rails.application.config.active_storage.video_preview_arguments =
+  "-vf 'select=eq(n\\,0)+eq(key\\,1)+gt(scene\\,0.015),loop=loop=-1:size=2,trim=start_frame=1' -frames:v 1 -f image2"
 
 # Automatically infer `inverse_of` for associations with a scope.
 # Rails.application.config.active_record.automatic_scope_inversing = true
