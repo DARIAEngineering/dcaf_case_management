@@ -72,6 +72,9 @@ group :development do
   # Security scanners that also run in CI. They run with bundle exec.
   gem 'ruby_audit', require: false #
   gem 'bundler-audit', require: false
+
+  # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
+  gem 'foreman'
 end
 
 group :development, :test do
