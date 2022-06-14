@@ -1,16 +1,5 @@
 version: '3.1'
 services:
-  jsbuild:
-    tty: true
-    image: dariaengineering/dcaf_case_management
-    command: ["yarn", "run", "build", "--watch"]
-    volumes:
-      - .:/usr/src/app
-  cssbuild:
-    image: dariaengineering/dcaf_case_management
-    command: ["yarn", "run", "build:css", "--watch"]
-    volumes:
-      - .:/usr/src/app
   web:
     build:
       context: .

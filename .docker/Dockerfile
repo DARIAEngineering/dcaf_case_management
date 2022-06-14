@@ -63,4 +63,8 @@ RUN ahab_dep=${AHAB_DEPENDENCIES} && \
 # Move the rest of the app over
 COPY . ${DARIA_DIR}
 
+# Build the js and css
+RUN yarn build
+RUN yarn build:css
+
 EXPOSE 3000
