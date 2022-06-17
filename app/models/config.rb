@@ -18,7 +18,7 @@ class Config < ApplicationRecord
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
-    shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days.",
+    shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
   }.freeze
 
   enum config_key: {
@@ -237,8 +237,8 @@ class Config < ApplicationRecord
     end
 
     ### shared reset
-    SHARED_MIN_DAYS = 2   # 2 days
-    SHARED_MAX_DAYS = 28  # 4 weeks
+    SHARED_MIN_DAYS = 2      # 2 days
+    SHARED_MAX_DAYS = 7 * 6  # 6 weeks
 
     def validate_shared_reset
       validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
