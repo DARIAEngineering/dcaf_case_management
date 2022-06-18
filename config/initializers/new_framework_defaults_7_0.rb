@@ -50,7 +50,7 @@ Rails.application.config.active_support.cache_format_version = 7.0
 # Define the isolation level of most of Rails internal state.
 # If you use a fiber based server or job processor, you should set it to `:fiber`.
 # Otherwise the default of `:thread` if preferable.
-# Rails.application.config.active_support.isolation_level = :thread
+Rails.application.config.active_support.isolation_level = :thread
 
 # Set both the `:open_timeout` and `:read_timeout` values for `:smtp` delivery method.
 # Rails.application.config.action_mailer.smtp_timeout = 5
