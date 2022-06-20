@@ -1,6 +1,7 @@
-1. Log into Daria
-2. Do not select a line. Instead, open drop down menu under Admin. 
-3. Select Accounting from the drop down menu. This will allow you to search all lines. 
-4. The Accountant Dashboard shows fulfillment information for patients that have been marked by case managers as "Pledge Sent." 
-5. To log that a patient's pledge was cashed, use the pen icon on the right end of the relevant line.
-6. To audit the patient's fulfillment information, confirm the information that has been entered and check the "Fulfillment audited?" box. 
+# Accounting tools
+
+DARIA offers an accounting workflow for easier reconciliation. This resource is limited to Data Volunteer and Admin users, and is located under Admin > Accounting.
+
+This workflow shows patients on all lines who have been marked as Pledge Sent. You can mark them as Fulfilled (e.g. mark that the clinic cashed the pledge for that patient) by searching for the patient, clicking the pen icon, and then entering the Fulfillment information for that patient.
+
+We offer the Audited? checkbox to note that a second set of eyes has verified things. (Audited records are destroyed in DARIA in our nightly cleanup process.)
