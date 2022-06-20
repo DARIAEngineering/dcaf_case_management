@@ -48,7 +48,7 @@ Feel free to hit any of us up with questions about the project, we're nice!
 ### tl;dr
 * We are best reached via the [Code for DC slack](https://codefordc.org/resources/slack.html)
 * We run on forks and pull requests
-* Our [list of issues in Github](https://github.com/colinxfleming/dcaf_case_management/issues) is our project's remaining TODO list
+* Our [list of issues in Github](https://github.com/DARIAEngineering/dcaf_case_management/issues) is our project's remaining TODO list
 * Post in an issue when you're starting work on something, so @colinxfleming can keep track of it and so we don't duplicate work
 * We <3 new people and beginners
 
