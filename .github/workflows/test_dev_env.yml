@@ -9,19 +9,20 @@ on:
       - main
 
 jobs:
-  dockercheck:
-    name: Verify docker build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Bring up containers
-        run: |
-          docker-compose build
-          docker-compose run --rm web rails db:create db:migrate db:seed
-          docker-compose up -d
-          sleep 30
-          docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
+  # dockercheck:
+  #   name: Verify docker build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Bring up containers
+  #       run: |
+  #         docker-compose build
+  #         docker-compose run --rm web rails db:create db:migrate db:seed
+  #         docker-compose up -d
+  #         sleep 30
+  #         docker-compose logs -t
+  #         docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
   build:
     name: Run tests
@@ -56,7 +57,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.0
+          node-version: 16.15.0
       - name: Cache node_modules
         uses: actions/cache@v3
         with:

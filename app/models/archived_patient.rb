@@ -59,7 +59,7 @@ class ArchivedPatient < ApplicationRecord
       initial_call_date: patient.initial_call_date,
       appointment_date: patient.appointment_date,
 
-      urgent_flag: patient.urgent_flag,
+      shared_flag: patient.shared_flag,
       referred_by: patient.referred_by,
       referred_to_clinic: patient.referred_to_clinic,
 
@@ -101,6 +101,8 @@ class ArchivedPatient < ApplicationRecord
     PaperTrail.request(whodunnit: patient.created_by_id) do
       archived_patient.save!
     end
+
+    patient.versions.destroy_all
 
     patient.fulfillment.update! can_fulfill: archived_patient
 

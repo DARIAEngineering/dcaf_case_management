@@ -2,9 +2,6 @@ $('#search_results_shell').empty();
 
 <% if @results.any? %>
   $("#search_results_shell").append("<%= escape_javascript(render partial: 'dashboards/table_content', locals: { title: t('dashboard.partial_titles.search_results'), table_type: 'search_results', patients: @results } ) %>");
-    $(function () {
-    $('[data-toggle="popover"]').popover()
-  })
 <% else %>
   $("#search_results_shell").append("<h3 class='mt-5 mb-5'><small><%= t('dashboard.search.no_results') %></small></h3>");
 <% end %>

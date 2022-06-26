@@ -26,7 +26,7 @@ namespace :db do
             primary_phone: "#{idx}".rjust(10, "0"),
             initial_call_date: initial_call,
             created_by: users.sample,
-            urgent_flag: flag,
+            shared_flag: flag,
             line: lines[gen.rand(3)], # thank you seeds.rb! 
             clinic: has_appt ? clinics.sample : nil,
             appointment_date: has_appt ? initial_call + gen.rand(15) : nil,
@@ -81,8 +81,8 @@ namespace :db do
             ).save
           end 
 
-          # removing urgent flag if pledge sent, as I think this is what CMs typically do 
-          patient.update(urgent_flag: false) unless !patient.pledge_sent
+          # removing shared flag if pledge sent, as I think this is what CMs typically do 
+          patient.update(shared_flag: false) unless !patient.pledge_sent
         
         end
 

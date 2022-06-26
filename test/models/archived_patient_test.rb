@@ -60,7 +60,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
 
       with_versioning(@user2) do
         @patient.calls.create status: :reached_patient
-        @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+        @patient.external_pledges.create source: 'Metallica Abortion Fund',
                                          amount: 100
         @patient.practical_supports.create support_type: 'Louder Metallica tickets',
                     source: 'Metallica'
@@ -79,6 +79,10 @@ class ArchivedPatientTest < ActiveSupport::TestCase
 
     it 'should have a shared clinic for Patient and Archive Patient' do
       assert_equal @archived_patient.clinic_id, @patient.clinic_id
+    end
+
+    it 'should delete papertrail objects' do
+      assert_empty @patient.versions
     end
 
     it 'should have matching subobject data Patient and Archive Patient' do

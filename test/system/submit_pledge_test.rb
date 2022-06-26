@@ -9,7 +9,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14,
                                 fund_pledge: 500,
-                                urgent_flag: true
+                                shared_flag: true
 
     log_in_as @user
     visit edit_patient_path @patient
@@ -39,11 +39,11 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       find('#pledge-next').click
       wait_for_no_element 'Review this preview of your pledge'
 
-      assert has_text? 'Awesome, you generated a DCAF'
+      assert has_text? 'Awesome, you generated a CATF'
       check 'I sent the pledge'
       wait_for_ajax
       find('#pledge-next').click
-      wait_for_no_element 'Awesome, you generated a DCAF'
+      wait_for_no_element 'Awesome, you generated a CATF'
 
       wait_for_ajax
       wait_for_element 'Patient information'

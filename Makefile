@@ -37,7 +37,7 @@ run-generate:
 g: run-generate ## Runs the rails generator
 
 run-rails:
-	bundle exec rails server
+	bundle exec bin/dev
 s: run-rails ## Starts the rails server
 
 run-tests:

@@ -1,9 +1,3 @@
-<%= javascript_tag nonce: true do %>
-  $(function () {
-    $('[data-toggle="popover"]').popover()
-  })
-<% end %>
-
 <div class="row">
   <div class="col-sm-12">
     <%= render partial: 'dashboards/overview' %>
@@ -20,9 +14,9 @@
                          patients: current_user.recently_called_patients(current_line),
                          autosortable: true } %>
     <%= render partial: 'dashboards/table_content',
-               locals: { title: t('dashboard.partial_titles.urgent_cases'),
-                         table_type: 'urgent_cases',
-                         patients: @urgent_patients,
+               locals: { title: t('dashboard.partial_titles.shared_cases'),
+                         table_type: 'shared_cases',
+                         patients: @shared_patients,
                          autosortable: true } %>
     <%= render partial: 'dashboards/table_content',
                locals: { title: t('dashboard.partial_titles.unconfirmed_support'),

@@ -22,7 +22,7 @@
 // For autosortable columns, make the cursor a pointer
 #call_list th[data-sort],
 #completed_calls th[data-sort],
-#urgent_patients th[data-sort] {
+#shared_patients th[data-sort] {
   cursor: pointer;
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "DARIA Case Manager",
   "description": "A Rails-based case management system for abortion funds",
-  "repository": "https://github.com/DCAFEngineering/dcaf_case_management",
+  "repository": "https://github.com/DARIAEngineering/dcaf_case_management",
   "scripts": {
     "postdeploy": "bundle exec rails db:migrate"
   },

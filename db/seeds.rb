@@ -82,7 +82,7 @@ fund2 = Fund.create! name: 'CatFund',
     Config.create config_key: :insurance,
                   config_value: { options: ['DC Medicaid', 'MD Medicaid', 'VA Medicaid', 'Other Insurance'] }
     Config.create config_key: :external_pledge_source,
-                  config_value: { options: ['Baltimore Abortion Fund', 'Metallica Abortion Fund'] }
+                  config_value: { options: ['Texas Amalgamated Abortion Services (TAAS)', 'Metallica Abortion Fund'] }
     Config.create config_key: :pledge_limit_help_text,
                   config_value: { options: ['Pledge Limit Guidelines:', '1st trimester (7-12 weeks): $100', '2nd trimester (12-24 weeks): $300', 'Later care (25+ weeks): $600'] }
     Config.create config_key: :language,
@@ -103,7 +103,7 @@ fund2 = Fund.create! name: 'CatFund',
       patient = Patient.create! name: "Patient #{i}",
                                 primary_phone: "123-123-123#{i}",
                                 initial_call_date: 3.days.ago,
-                                urgent_flag: i.even?,
+                                shared_flag: i.even?,
                                 last_menstrual_period_weeks: (i + 1 * 2),
                                 last_menstrual_period_days: 3,
                                 line: lines.first
@@ -193,7 +193,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Reporting Patient #{i}",
         primary_phone: "321-0#{i}0-001#{rand(10)}",
         initial_call_date: 3.days.ago,
-        urgent_flag: i.even?,
+        shared_flag: i.even?,
         line: i.even? ? lines.first : lines.second,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now,
@@ -218,7 +218,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Reporting Patient #{patient_number}",
         primary_phone: "321-0#{patient_number}0-002#{rand(10)}",
         initial_call_date: 3.days.ago,
-        urgent_flag: patient_number.even?,
+        shared_flag: patient_number.even?,
         line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now
@@ -238,7 +238,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Old Reporting Patient #{patient_number}",
         primary_phone: "321-0#{patient_number}0-003#{rand(10)}",
         initial_call_date: 3.days.ago,
-        urgent_flag: patient_number.even?,
+        shared_flag: patient_number.even?,
         line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now
@@ -255,7 +255,7 @@ fund2 = Fund.create! name: 'CatFund',
         name: "Pledge Reporting Patient #{patient_number}",
         primary_phone: "321-0#{patient_number}0-004#{rand(10)}",
         initial_call_date: 3.days.ago,
-        urgent_flag: patient_number.even?,
+        shared_flag: patient_number.even?,
         line: lines[patient_number % 3] || lines.first,
         clinic: Clinic.all.sample,
         appointment_date: 10.days.from_now,
@@ -282,7 +282,7 @@ fund2 = Fund.create! name: 'CatFund',
       # Call, but no answer. leave a VM.
       patient.calls.create status: :left_voicemail, created_at: 139.days.ago
 
-      # Call, which updates patient info, maybe flags urgent, make a note.
+      # Call, which updates patient info, maybe flags shared, make a note.
       patient.calls.create status: :reached_patient, created_at: 138.days.ago
 
       patient.update!(
@@ -314,9 +314,9 @@ fund2 = Fund.create! name: 'CatFund',
         updated_at: 138.days.ago # not sure if this even works?
       )
 
-      # toggle urgent, maybe
+      # toggle shared flag, maybe
       patient.update!(
-        urgent_flag: patient_number.odd?,
+        shared_flag: patient_number.odd?,
         updated_at: 137.days.ago
       )
 
@@ -349,7 +349,7 @@ fund2 = Fund.create! name: 'CatFund',
         created_at: 133.days.ago
       )
       patient.external_pledges.create!(
-        source: 'Baltimore Abortion Fund',
+        source: 'Texas Amalgamated Abortion Services (TAAS)',
         amount: 100,
         created_at: 133.days.ago
       )
@@ -391,7 +391,7 @@ fund2 = Fund.create! name: 'CatFund',
       # Call, but no answer. leave a VM.
       patient.calls.create status: :left_voicemail, created_at: 639.days.ago
 
-      # Call, which updates patient info, maybe flags urgent, make a note.
+      # Call, which updates patient info, maybe flags, make a note.
       patient.calls.create status: :reached_patient, created_at: 138.days.ago
 
       # Patient 1 drops off immediately
@@ -428,9 +428,9 @@ fund2 = Fund.create! name: 'CatFund',
         resolved_without_fund: patient_number.even?
       )
 
-      # toggle urgent, maybe
+      # toggle flag, maybe
       patient.update!(
-        urgent_flag: patient_number.odd?,
+        shared_flag: patient_number.odd?,
         updated_at: 637.days.ago
       )
 

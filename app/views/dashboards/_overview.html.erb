@@ -5,6 +5,12 @@
   </h1>
 
   <div id="budget_bar">
-    <%= render_async budget_bar_path, html_options: { nonce: true, 'data-turbolinks-track': 'reload' }  %>
+    <%= render_async budget_bar_path, html_options: { nonce: true, 'data-turbolinks-track': 'reload' }, event_name: 'render_async_loaded'  %>
   </div>
 </div>
+
+<%= javascript_tag nonce: true do %>
+  document.addEventListener("render_async_loaded", function (event) {
+    $('.expenditure-item').popover();
+  });
+<% end %>

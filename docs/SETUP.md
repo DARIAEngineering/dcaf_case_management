@@ -89,7 +89,7 @@ We use Postgres around these parts. Installation will differ based on your OS.
 
 ### Then, showtime
 
-* Run the command `rails server` to start the rails server
+* Run the command `bin/dev` to start the rails server
 * You are officially ready to go! Navigate your browser to `http://localhost:3000`. You can log in with the user `test@example.com` and the password `AbortionsAreAHumanRight1`.
 
 ## Security
