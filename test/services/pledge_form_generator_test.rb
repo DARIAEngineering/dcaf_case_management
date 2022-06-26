@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PledgeFormGeneratorTest < ActiveSupport::TestCase
   before do
-    ActsAsTenant.current_tenant.update pledge_generation_config: 'DCAF'
+    create :pledge_config, fund: ActsAsTenant.current_tenant
+    # ActsAsTenant.current_tenant.update pledge_generation_config: 'DCAF'
     @user = create :user, name: 'Da User'
     clinic = create :clinic, name: 'Da Clinic', city: 'Morgantown', state: 'WV'
     @patient = create :patient, name: 'Sarah', other_phone: '111-222-3333',
