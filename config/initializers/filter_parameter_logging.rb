@@ -2,6 +2,10 @@
 
 # Configure sensitive parameters which will be filtered from the log file.
 Rails.application.config.filter_parameters += [
+  # Defaults
+  :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn,
+
+  # Custom
   :password,
   :email,
   :name,
@@ -16,7 +20,7 @@ Rails.application.config.filter_parameters += [
   :insurance,
   :street_address_1,
   :street_address_2,
-  :urgent_flag,
+  :shared_flag,
   :income,
   :special_circumstances,
   :procedure_cost,

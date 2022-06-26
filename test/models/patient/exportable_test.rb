@@ -58,5 +58,25 @@ class PatientTest::Exportable < PatientTest
         assert_equal @patient.preferred_language, 'Spanish'
       end
     end
+
+    describe 'household size tests' do
+      it 'should return prefer not to answer with -1' do
+        @patient.update household_size_children: -1, household_size_adults: -1
+        assert_equal 'Prefer not to answer', @patient.get_household_size_children
+        assert_equal 'Prefer not to answer', @patient.get_household_size_adults
+      end
+
+      it 'should return number otherwise' do
+        @patient.update household_size_children: 4, household_size_adults: 3
+        assert_equal 4, @patient.get_household_size_children
+        assert_equal 3, @patient.get_household_size_adults
+      end
+
+      it 'should null out for archived patients' do
+        archived = create :archived_patient
+        assert_nil archived.get_household_size_children
+        assert_nil archived.get_household_size_adults
+      end
+    end
   end
 end

@@ -82,7 +82,6 @@ class PatientsController < ApplicationController
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error
-      response.status = :not_acceptable
     end
     respond_to { |format| format.js }
   end
@@ -150,7 +149,7 @@ class PatientsController < ApplicationController
                              :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
-  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
+  OTHER_PARAMS = [:shared_flag, :initial_call_date, :pledge_sent].freeze
 
   def patient_params
     params.require(:patient).permit(

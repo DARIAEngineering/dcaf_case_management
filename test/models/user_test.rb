@@ -25,7 +25,7 @@ class UserTest < ActiveSupport::TestCase
       assert_not @user.valid?
       assert_equal 'Password must include at least one lowercase letter, ' \
                    'one uppercase letter, and one digit. Forbidden words ' \
-                   'include DCAF and password.',
+                   'include CATF and password.',
                    @user.errors.messages[:password].first
     end
 
@@ -39,12 +39,12 @@ class UserTest < ActiveSupport::TestCase
     end
 
     it 'should not allow the name of the fund' do
-      @user.password = 'AbortionsAreAHumanRight1DCAF'
-      @user.password_confirmation = 'AbortionsAreAHumanRight1DCAF'
+      @user.password = 'AbortionsAreAHumanRight1CATF'
+      @user.password_confirmation = 'AbortionsAreAHumanRight1CATF'
       assert_not @user.valid?
       assert_equal 'Password must include at least one lowercase letter, ' \
                    'one uppercase letter, and one digit. Forbidden words ' \
-                   'include DCAF and password.',
+                   'include CATF and password.',
                    @user.errors.messages[:password].first
     end
 

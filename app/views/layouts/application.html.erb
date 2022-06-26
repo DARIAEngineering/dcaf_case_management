@@ -11,13 +11,11 @@
     <%= csp_meta_tag %>
     <%= favicon_link_tag %>
 
-    <%= stylesheet_pack_tag 'application', 'data-search-pseudo-elements': true, 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag :application, media: 'all' %>
-
-    <%= javascript_pack_tag 'application', 'data-search-pseudo-elements': true, 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag :application %>
-
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= content_for :render_async %>
+
   </head>
   <body>
     <% if current_user.present? %>

@@ -41,6 +41,7 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         visit edit_patient_path(@patient)
         assert has_select? 'Patient insurance', options: ['', 'Yolo', 'Goat', 'Something',
                                                           'No insurance', "Don't know",
+                                                          'Prefer not to answer',
                                                           'Other (add to notes)']
       end
     end

@@ -34,6 +34,7 @@ class PatientsHelperTest < ActionView::TestCase
         expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Prefer not to answer', 'Prefer not to answer'],
                                     [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements insurance_options, expected_insurance_options_array
       end
@@ -42,6 +43,7 @@ class PatientsHelperTest < ActionView::TestCase
         expected_insurance_options_array = [nil, 'DC Medicaid', 'Other state Medicaid',
                                     [ 'No insurance', 'No insurance' ],
                                     [ 'Don\'t know', 'Don\'t know' ],
+                                    [ 'Prefer not to answer', 'Prefer not to answer'],
                                     [ 'Other (add to notes)', 'Other (add to notes)'],
                                     'Friendship' ]
         assert_same_elements expected_insurance_options_array,
@@ -58,6 +60,7 @@ class PatientsHelperTest < ActionView::TestCase
         expected_insurance_array = [nil,
                                    [ 'No insurance', 'No insurance' ],
                                    [ 'Don\'t know', 'Don\'t know' ],
+                                   [ 'Prefer not to answer', 'Prefer not to answer'],
                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
         assert_same_elements @options, expected_insurance_array
         assert Config.find_by(config_key: 'insurance')
@@ -76,7 +79,7 @@ class PatientsHelperTest < ActionView::TestCase
         nil,
         ["#{@active.name} (#{@active.city}, #{@active.state})", @active.id, { data: { naf: false, medicaid: false }}],
         ['--- INACTIVE CLINICS ---', nil, { disabled: true }],
-        ["(Not currently working with DCAF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
+        ["(Not currently working with CATF) - #{@inactive.name}", @inactive.id, { data: { naf: false, medicaid: false }}]
       ]
 
       assert_same_elements clinic_options, expected_clinic_array
@@ -227,7 +230,7 @@ class PatientsHelperTest < ActionView::TestCase
       nil,
       ["Clinic", "Clinic"],
       ["Crime victim advocacy center", "Crime victim advocacy center"],
-      ["DCAF website or social media", "DCAF website or social media"],
+      ["CATF website or social media", "CATF website or social media"],
       ["Domestic violence crisis/intervention org", "Domestic violence crisis/intervention org"],
       ["Family member", "Family member"],
       ["Friend", "Friend"],
@@ -241,6 +244,7 @@ class PatientsHelperTest < ActionView::TestCase
       ["School", "School"],
       ["Sexual assault crisis org", "Sexual assault crisis org"],
       ["Youth outreach", "Youth outreach"],
+      ['Prefer not to answer', 'Prefer not to answer'],
       "Metal band"
     ]
 
@@ -263,7 +267,7 @@ class PatientsHelperTest < ActionView::TestCase
     end
 
     it 'should return line names and ids' do
-      expected = [['JJ', @line1.id], ['Sage', @line2.id], ['Lomky Jr', @line3.id]]
+      expected = [['JJ', @line1.id], ['Lomky Jr', @line3.id], ['Sage', @line2.id]]
       assert_equal expected, line_options
     end
   end

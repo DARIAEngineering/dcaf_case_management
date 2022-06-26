@@ -14,7 +14,7 @@ class PracticalSupportsController < ApplicationController
     else
       flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
       respond_to do |format|
-        format.js { render partial: 'layouts/flash_messages', status: :bad_request }
+        format.js { render partial: 'layouts/flash_messages' }
       end
     end
   end
@@ -26,7 +26,7 @@ class PracticalSupportsController < ApplicationController
     else
       flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
       respond_to do |format|
-        format.js { render partial: 'layouts/flash_messages', status: :bad_request }
+        format.js { render partial: 'layouts/flash_messages' }
       end
     end
   end

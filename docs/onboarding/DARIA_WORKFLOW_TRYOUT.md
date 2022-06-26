@@ -19,7 +19,7 @@ This takes you to the main case manager view. You will see:
 * A prompt to build your call list by searching for patients
 * Patients on your call list, tied to your user account
 * Patients you've called from your call list, in a section called `Completed Calls`
-* Patients flagged as urgent (these are visible to all case managers)
+* Shared patients (these are visible to all case managers)
 * Call line activity log
 
 ### Finding and creating new patients

@@ -26,7 +26,7 @@ module Exportable
     "Referred to clinic by fund" => :referred_to_clinic,
     "Appointment Date" => :appointment_date,
     "Initial Call Date" => :initial_call_date,
-    "Urgent?" => :urgent_flag,
+    "Shared?" => :shared_flag,
     "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
@@ -88,7 +88,7 @@ module Exportable
 
   def get_household_size_children
     if is_a?(Patient)
-      household_size_children
+      household_size_children == -1 ? 'Prefer not to answer' : household_size_children
     else
       nil
     end
@@ -96,7 +96,7 @@ module Exportable
 
   def get_household_size_adults
     if is_a?(Patient)
-      household_size_adults
+      household_size_adults == -1 ? 'Prefer not to answer' : household_size_adults
     else
       nil
     end

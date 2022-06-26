@@ -1,7 +1,7 @@
 <div id="notes_content">
   <h2 class="mt-5"><%= t('patient.notes.title') %></h2>
 
-  <%# this has a confusing doc structure; the urgent checkbox needs to be same row as submit btn. %>
+  <%# this has a confusing doc structure; the shared flag checkbox needs to be same row as submit btn. %>
   <%= bootstrap_form_with model: [patient, note],
                           html: { id: 'notes-form' },
                           local: false do |f| %>
@@ -19,11 +19,11 @@
   <% end %>
 
       <%= bootstrap_form_with model: patient,
-                              html: { id: 'urgents-form', class: 'text-right text-danger edit_patient' },
+                              html: { id: 'shared-flag-form', class: 'text-right text-danger edit_patient' },
                               local: false do |f| %>
         <div class="col">
-          <%= f.form_group :urgent_flag do %>
-            <%= f.check_box :urgent_flag, label: t('patient.notes.urgent_flag') %>
+          <%= f.form_group :shared_flag do %>
+            <%= f.check_box :shared_flag, label: t('patient.notes.shared_flag') %>
           <% end %>
         </div>
       <% end %>

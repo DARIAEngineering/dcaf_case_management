@@ -88,12 +88,12 @@ en:
         referred_by: Referred by
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without fund
+        shared_flag: Shared Flag
         source: Source
         special_circumstances: Special circumstances
         state: State
         support_type: Support type
         textable: Textable
-        urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
       practical_support:
@@ -169,6 +169,7 @@ en:
     notes: Notes
     patient: Patient
     phone: Phone
+    prefer_not_to_answer: Prefer not to answer
     save: Save
     search: Search
     status: Status
@@ -204,8 +205,8 @@ en:
       call_list: Your call list
       completed_calls: Your completed calls
       search_results: Search results
+      shared_cases: Shared cases
       unconfirmed_support: Unconfirmed Practical Support
-      urgent_cases: Urgent cases
     search:
       header: Build your call list
       input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
@@ -309,7 +310,6 @@ en:
       sign_out: Sign Out
   note:
     most_recent: 'Most recent note from %{by} at %{at}:'
-    most_recent_no_user: Most recent note
   patient:
     abortion_information:
       clinic_section:
@@ -463,9 +463,9 @@ en:
       title: 'Add a new patient:'
     notes:
       placeholder: Enter notes here
+      shared_flag: Share this patient for other case managers
       submit: Create Note
       title: Notes
-      urgent_flag: Flag this patient as urgent
     pledge:
       cancel:
         confirm: Are you sure you want to cancel this pledge?
@@ -559,9 +559,9 @@ en:
     record_new_external_pledge: External pledges is our term for pledges by other abortion funds also working with a patient.
     referred_to_clinic: Check this box if you as a case manager referred the patient to a particular clinic.
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
+    shared_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as resolved without assistance, or after %{shared_reset} days of inactivity.
     status_definition: Status definition
     unconfirmed_support: These are patients who have unconfirmed practical supports.
-    urgent_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as resolved without assistance, or after %{urgent_reset} days of inactivity.
   user:
     common:
       last_login: Last Login

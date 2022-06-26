@@ -88,12 +88,12 @@ es:
         referred_by: Referido por
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
+        shared_flag: Bandera compartida
         source: Fuente
         special_circumstances: Circunstancias Especiales
         state: Estado
         support_type: Tipo de soporte
         textable: Textable
-        urgent_flag: Bandera urgente
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
       practical_support:
@@ -169,6 +169,7 @@ es:
     notes: Notas
     patient: Patiente
     phone: Teléfono
+    prefer_not_to_answer: Prefiere no contestar
     save: Guardar
     search: Buscar
     status: Estatus
@@ -204,8 +205,8 @@ es:
       call_list: Tu lista de llamadas
       completed_calls: Tus llamadas completadas
       search_results: Resultados de la búsqueda
+      shared_cases: Casos compartidos
       unconfirmed_support: Apoyo no confirmado
-      urgent_cases: Casos urgentes
     search:
       header: Construye tu lista de llamadas
       input_placeholder: Nombre (Susan Smith) o teléfono (555-555-5555)
@@ -309,7 +310,6 @@ es:
       sign_out: Desconectar
   note:
     most_recent: 'La nota más reciente de %{by} en %{at}:'
-    most_recent_no_user: La nota más reciente
   patient:
     abortion_information:
       clinic_section:
@@ -463,9 +463,9 @@ es:
       title: 'Su búsqueda no produjo resultados, así que agregue un nuevo paciente:'
     notes:
       placeholder: Ingresa notas aquí
+      shared_flag: Compartir a este paciente
       submit: Crear Nota
       title: Notas
-      urgent_flag: Marcar a este paciente como urgente
     pledge:
       cancel:
         confirm: "¿Seguro/a que quieres cancelar esta promesa?"
@@ -559,9 +559,9 @@ es:
     record_new_external_pledge: '"Promesas externas" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
+    shared_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{shared_reset} días de inactividad.
     status_definition: Definición de estado
     unconfirmed_support: Estos son pacientes que tienen apoyos prácticos no confirmados.
-    urgent_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{urgent_reset} días de inactividad.
   user:
     common:
       last_login: Último Acceso

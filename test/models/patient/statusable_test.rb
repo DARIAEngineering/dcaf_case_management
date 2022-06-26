@@ -63,7 +63,7 @@ class PatientTest::Statusable < PatientTest
         assert_equal Patient::STATUSES[:needs_appt][:key], @patient.status
       end
 
-      it 'should update to "Resolved Without DCAF" if patient is resolved' do
+      it 'should update to "Resolved Without CATF" if patient is resolved' do
         @patient.resolved_without_fund = true
         assert_equal Patient::STATUSES[:resolved][:key], @patient.status
       end
