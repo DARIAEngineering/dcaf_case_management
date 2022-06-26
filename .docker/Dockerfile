@@ -27,12 +27,13 @@ RUN apt-get update && apt-get upgrade -y && \
     gem install bundler --no-document
 
 # get version 16 of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - && \
-    apt-get install nodejs -y
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+RUN apt-get install nodejs -y
 
-RUN npm install -g yarn
-RUN yarn set version berry
-RUN yarn set version 3.2.0
+# set up yarn
+RUN corepack enable
+RUN yarn set version 3.2.1
+RUN yarn config set nodeLinker node-modules
 
 # install gemfile and package
 RUN bundle install
@@ -61,5 +62,11 @@ RUN ahab_dep=${AHAB_DEPENDENCIES} && \
 
 # Move the rest of the app over
 COPY . ${DARIA_DIR}
+
+RUN yarn install
+
+# Build the js and css
+RUN yarn build
+RUN yarn build:css
 
 EXPOSE 3000

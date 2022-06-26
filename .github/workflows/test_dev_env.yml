@@ -9,7 +9,6 @@ on:
       - main
 
 jobs:
-  # temporarily shutting off
   # dockercheck:
   #   name: Verify docker build
   #   runs-on: ubuntu-latest
@@ -22,6 +21,7 @@ jobs:
   #         docker-compose run --rm web rails db:create db:migrate db:seed
   #         docker-compose up -d
   #         sleep 30
+  #         docker-compose logs -t
   #         docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
   build:
