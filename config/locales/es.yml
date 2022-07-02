@@ -23,6 +23,7 @@ es:
         active: Activo
         city: Ciudad
         distance: Distancia
+        email_for_pledges: Email para promesas
         fax: Fax
         gestational_limit: Límite gestacional (en días)
         location: Ubicación
@@ -125,6 +126,7 @@ es:
       active_help: "¿Estamos trabajando activamente con esta clínica?"
       add_clinic: Añadir clinica
       costs_weeks: Costos en %{week} semanas
+      email_help: Email que esta clínica usa para recibir promesas. Si prefiere fax, deje este campo en blanco.
       save_changes: Guardar cambios
       zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
     index:

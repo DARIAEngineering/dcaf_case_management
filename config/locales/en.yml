@@ -23,6 +23,7 @@ en:
         active: Active
         city: City
         distance: Distance
+        email_for_pledges: Email for Pledges
         fax: Fax
         gestational_limit: Gestational limit (in days)
         location: Location
@@ -125,6 +126,7 @@ en:
       active_help: Are we actively working with this clinic?
       add_clinic: Add clinic
       costs_weeks: Costs at %{week} weeks
+      email_help: Email this clinic uses to receive pledges. If fax preferred, leave this field blank.
       save_changes: Save changes
       zip_help: To exclude this clinic from Clinic Finder searches, give it the ZIP code 99999.
     index:
