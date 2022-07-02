@@ -36,12 +36,22 @@
         <p class="row"><%= t('patient.pledge.step_three.generated', fund: current_tenant.name) %></p>
         <p class="row">
           <%= t('patient.pledge.step_three.downloads') %>
-          <% if patient.clinic&.email_for_pledges.present? %>
-              <%= clinic_pledge_email(patient) %>
-          <% elsif fax_service.present? %>
-              <%= fax_service %>
-          <% end %>
         </p>
+
+        <% if patient.clinic&.email_for_pledges.present? %>
+          <p class="row">
+            <%= clinic_pledge_email(patient) %>
+          </p>
+        <% else %>
+          <% if patient.clinic&.fax.present? %>
+            <p class="row">
+              Clinic fax:&nbsp;<strong><%= clinic_pledge_fax(patient) %></strong>
+            </p>
+          <% end %>
+          <p class="row">
+            Fax service:&nbsp;<%= fax_service %>
+          </p>
+        <% end %>
       <% end %>
 
       <p class="row"><strong><%= t('patient.pledge.step_three.completed') %></strong></p>

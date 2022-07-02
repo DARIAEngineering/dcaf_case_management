@@ -40,6 +40,8 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       wait_for_no_element 'Review this preview of your pledge'
 
       assert has_text? 'Awesome, you generated a CATF'
+      # default - no email; show fax
+      assert has_text? fax_service
       check 'I sent the pledge'
       wait_for_ajax
       find('#pledge-next').click
@@ -51,6 +53,25 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_text? Patient::STATUSES[:pledge_sent][:key]
       assert has_link? 'Fulfillment'
       assert has_link? 'Cancel pledge'
+    end
+
+    it 'should show clinic email if exists' do
+      @clinic.email_for_pledges = "pledges@catfund.biz"
+
+      find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
+      assert has_text? 'Confirm the following information is correct'
+      find('#pledge-next').click
+      wait_for_ajax
+
+      wait_for_no_element 'Confirm the following information is correct'
+      assert has_text? 'Generate your pledge form'
+      find('#pledge-next').click
+      wait_for_no_element 'Review this preview of your pledge'
+
+      assert has_text? 'Awesome, you generated a CATF'
+      # now we should see the email
+      assert has_text? "pledges@catfund.biz"
     end
 
     it 'should render after opening call modal' do
