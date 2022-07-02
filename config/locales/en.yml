@@ -462,14 +462,14 @@ en:
         title: 'Confirm the following information is correct:'
       step_three:
         completed: Once you've completed the pledging process, please use the check box below to indicate your pledge has been sent.
-        downloads: 'Your pledge should appear in your computer''s downloads. Find the document and  submit the pledge for your client here:'
+        downloads: 'Your pledge should appear in your computer''s downloads. Find the document and submit the pledge for your client here:'
         generated: Awesome, you generated a %{fund} Pledge! Thanks!
         sent_checkbox: I sent the pledge
         title: 'Submit and send your pledge:'
       step_two:
         blank_name_error: You need to enter your name in the box to sign and download the pledge
         form_disabled: Please generate your pledge form and click next.
-        generate_note: Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.
+        generate_note: Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the pledge to the clinic.
         generate_pledge_button: Generate your pledge
         sign_pledge: 'Enter your name in this box to sign your pledge:'
         title: 'Generate your pledge form:'

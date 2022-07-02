@@ -469,7 +469,7 @@ es:
       step_two:
         blank_name_error: Debe ingresar su nombre en el cuadro para firmar y descargar la promesa
         form_disabled: Por favor genere el documento de promesa y haga clic en siguiente.
-        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado el fax a la clínica.
+        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado la promesa a la clínica.
         generate_pledge_button: Genera la promesa
         sign_pledge: 'Ingrese su nombre en este cuadro para firmar su promesa:'
         title: 'Genere el documento de promesa:'

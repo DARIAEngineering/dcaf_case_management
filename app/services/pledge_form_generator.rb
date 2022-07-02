@@ -92,6 +92,18 @@ class PledgeFormGenerator
       contact_email: 'info@yellowhammerfund.org',
       billing_email: 'billing@yellowhammer.org',
       img: 'yhf_logo.png'
+    },
+    'Test Fund' => {
+      addr: [
+        'Test Fund',
+        '42 Wallaby Way',
+        'Sydney Australia NSW'
+      ],
+      width: 200,
+      height: nil,
+      img: 'dcaf_logo.png',
+      contact_email: 'info@testfund.net',
+      billing_email: 'billing@testfund.net'
     }
   }
 
