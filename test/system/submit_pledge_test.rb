@@ -27,6 +27,10 @@ class SubmitPledgeTest < ApplicationSystemTestCase
   end
 
   describe 'submitting a pledge' do
+    before do
+      @clinic.fax = "202-867-5309"
+    end
+
     it 'should let you mark a pledge submitted' do
       find('#submit-pledge-button').click
       wait_for_element 'Patient name'
@@ -41,7 +45,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
 
       assert has_text? 'Awesome, you generated a CATF'
       # default - no email; show fax
-      assert has_text? fax_service
+      assert has_text? "Fax: 202-867-5309"
       check 'I sent the pledge'
       wait_for_ajax
       find('#pledge-next').click
