@@ -45,11 +45,11 @@
         <% else %>
           <% if patient.clinic&.fax.present? %>
             <p class="row">
-              Clinic fax:&nbsp;<strong><%= clinic_pledge_fax(patient) %></strong>
+              <%= t('patient.pledge.step_three.clinic_fax') %>:&nbsp;<b><%= clinic_pledge_fax(patient) %></b>
             </p>
           <% end %>
           <p class="row">
-            Fax service:&nbsp;<%= fax_service %>
+            <%= t('patient.pledge.step_three.fax_service') %>:&nbsp;<%= fax_service %>
           </p>
         <% end %>
       <% end %>

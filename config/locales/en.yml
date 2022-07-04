@@ -461,8 +461,10 @@ en:
         pledge_amount: 'Pledge amount:'
         title: 'Confirm the following information is correct:'
       step_three:
+        clinic_fax: Clinic fax
         completed: Once you've completed the pledging process, please use the check box below to indicate your pledge has been sent.
         downloads: 'Your pledge should appear in your computer''s downloads. Find the document and submit the pledge for your client here:'
+        fax_service: Fax service
         generated: Awesome, you generated a %{fund} Pledge! Thanks!
         sent_checkbox: I sent the pledge
         title: 'Submit and send your pledge:'

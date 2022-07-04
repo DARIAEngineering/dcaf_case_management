@@ -461,8 +461,10 @@ es:
         pledge_amount: 'Cantidad de la promesa:'
         title: 'Confirme que la siguiente información es correcta:'
       step_three:
+        clinic_fax: Fax de la clínica
         completed: Una vez que haya completado el proceso de envio, indique aquí que se ha enviado la promesa.
         downloads: 'Su documento de promesa aparecerá en las descargas de su computadora. Encuentre el documento y envíe la promesa para su cliente aquí:'
+        fax_service: Servicio de fax
         generated: Impresionante, ¡generaste una promesa de %{fund}! ¡Gracias!
         sent_checkbox: Yo envié la promesa
         title: 'Descarga y envíe su promesa:'
