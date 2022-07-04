@@ -311,7 +311,7 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.2)
+    rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
     rails-i18n (7.0.3)
       i18n (>= 0.7, < 2)
@@ -476,7 +476,7 @@ DEPENDENCIES
   rack-attack (~> 6.6.0)
   rack-test (>= 0.6.3)
   rails (~> 7.0.0)
-  rails-html-sanitizer (>= 1.0.4)
+  rails-html-sanitizer (>= 1.4.3)
   rails-i18n (~> 7.0)
   render_async (~> 2.1)
   rexml
