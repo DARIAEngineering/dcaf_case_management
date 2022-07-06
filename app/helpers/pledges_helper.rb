@@ -18,6 +18,7 @@ module PledgesHelper
 
   def clinic_pledge_email(patient)
     email = patient.clinic&.email_for_pledges
+    return unless email
     link_to email, 'mailto:' + email, target: '_blank'
   end
 
