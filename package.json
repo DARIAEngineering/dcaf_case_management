@@ -22,8 +22,8 @@
     "webpack-dev-server": "3.11.3"
   },
   "engines": {
-    "node": ">=16.15.0",
-    "npm": ">=8.0.0"
+    "node": ">=16.16.0",
+    "npm": ">=8.11.0"
   },
   "license": "MIT",
   "resolutions": {
