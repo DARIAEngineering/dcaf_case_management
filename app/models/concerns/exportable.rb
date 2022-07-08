@@ -166,7 +166,7 @@ module Exportable
   end
 
   def external_pledge_sum
-    external_pledges.inject { |x, acc = 0| acc = x.try(:amount) || 0}
+    external_pledges.sum(:amount)
   end
 
   def all_external_pledges

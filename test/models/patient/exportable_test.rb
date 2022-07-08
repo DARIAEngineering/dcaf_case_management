@@ -5,6 +5,18 @@ class PatientTest::Exportable < PatientTest
   describe 'export concern methods' do
     before { @patient = create :patient }
 
+    describe "exportable pledges sum" do
+      it "returns 0 if no pledges" do
+        assert_equal @patient.external_pledge_sum, 0
+      end
+
+      it "returns sum of pledges when they exist" do
+        @patient.external_pledges.create attributes_for(:external_pledge, amount: 100)
+        @patient.external_pledges.create attributes_for(:external_pledge, amount: 200)
+        assert_equal @patient.external_pledge_sum, 300
+      end
+    end
+
     describe 'age range tests' do
       it 'should return the right age for numbers' do
         @patient.age = nil
