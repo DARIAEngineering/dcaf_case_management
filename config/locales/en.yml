@@ -463,10 +463,11 @@ en:
       step_three:
         clinic_fax: Clinic fax
         completed: Once you've completed the pledging process, please use the check box below to indicate your pledge has been sent.
-        downloads: 'Your pledge should appear in your computer''s downloads. Find the document and submit the pledge for your client here:'
+        downloads: Your pledge should appear in your computer's downloads.
         fax_service: Fax service
         generated: Awesome, you generated a %{fund} Pledge! Thanks!
         sent_checkbox: I sent the pledge
+        submit: 'Submit the pledge for your client here:'
         title: 'Submit and send your pledge:'
       step_two:
         blank_name_error: You need to enter your name in the box to sign and download the pledge
