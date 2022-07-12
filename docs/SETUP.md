@@ -12,7 +12,9 @@ If you see a spot in the docs that's confusing or could be improved, please pay 
 
 For the rest of the setup, you have two options: Docker, or installing everything locally. We recommend Docker if you're comfortable with its ecosystem.
 
-## Docker
+## Docker (currently broken)
+
+WARNING: Docker builds are [not currently supported](https://github.com/DARIAEngineering/dcaf_case_management/issues/2606). See the instructions for `Local Environment` setup below.
 
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
