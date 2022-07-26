@@ -23,6 +23,7 @@ es:
         active: Activo
         city: Ciudad
         distance: Distancia
+        email_for_pledges: Email para promesas
         fax: Fax
         gestational_limit: Límite gestacional (en días)
         location: Ubicación
@@ -125,6 +126,7 @@ es:
       active_help: "¿Estamos trabajando activamente con esta clínica?"
       add_clinic: Añadir clinica
       costs_weeks: Costos en %{week} semanas
+      email_help: Email que esta clínica usa para recibir promesas. Si prefiere fax, deje este campo en blanco.
       save_changes: Guardar cambios
       zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
     index:
@@ -459,15 +461,18 @@ es:
         pledge_amount: 'Cantidad de la promesa:'
         title: 'Confirme que la siguiente información es correcta:'
       step_three:
+        clinic_fax: Fax de la clínica
         completed: Una vez que haya completado el proceso de envio, indique aquí que se ha enviado la promesa.
-        downloads: 'Su documento de promesa aparecerá en las descargas de su computadora. Encuentre el documento y envíe la promesa para su cliente aquí:'
+        downloads: Su documento de promesa aparecerá en las descargas de su computadora.
+        fax_service: Servicio de fax
         generated: Impresionante, ¡generaste una promesa de %{fund}! ¡Gracias!
         sent_checkbox: Yo envié la promesa
+        submit: 'Envíe la promesa para su cliente aquí:'
         title: 'Descarga y envíe su promesa:'
       step_two:
         blank_name_error: Debe ingresar su nombre en el cuadro para firmar y descargar la promesa
         form_disabled: Por favor genere el documento de promesa y haga clic en siguiente.
-        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado el fax a la clínica.
+        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado la promesa a la clínica.
         generate_pledge_button: Genera la promesa
         sign_pledge: 'Ingrese su nombre en este cuadro para firmar su promesa:'
         title: 'Genere el documento de promesa:'

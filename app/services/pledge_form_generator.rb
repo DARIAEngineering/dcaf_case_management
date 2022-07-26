@@ -92,7 +92,7 @@ class PledgeFormGenerator
       contact_email: 'info@yellowhammerfund.org',
       billing_email: 'billing@yellowhammer.org',
       img: 'yhf_logo.png'
-    }
+    },
   }
 
   private

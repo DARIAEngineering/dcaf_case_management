@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_08_184141) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_02_015900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_184141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
+    t.string "email_for_pledges"
     t.index ["fund_id"], name: "index_clinics_on_fund_id"
   end
 

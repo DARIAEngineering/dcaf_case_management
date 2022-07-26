@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class UpdatePatientInfoTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @line = create :line
     @line2 = create :line

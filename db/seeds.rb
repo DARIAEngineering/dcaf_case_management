@@ -37,8 +37,6 @@ fund1 = Fund.create! name: 'SBF',
                      site_domain: 'www.petfinder.com',
                      phone: '202-452-7464'
 
-
-
 fund2 = Fund.create! name: 'CatFund',
                      domain: 'petfinder.com',
                      subdomain: 'catbox',

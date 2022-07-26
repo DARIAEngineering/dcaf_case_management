@@ -105,6 +105,7 @@ class ClinicManagementTest < ApplicationSystemTestCase
     (5..30).each do |i|
       fill_in "Costs at #{i} weeks", with: i
     end
+    fill_in 'Email for Pledges', with: 'pledges@gdqtabaf.net'
     new_clinic_name
   end
 
@@ -122,5 +123,6 @@ class ClinicManagementTest < ApplicationSystemTestCase
     (5..30).each do |i|
       assert has_field? "Costs at #{i} weeks", with: i
     end
+    assert has_field? 'Email for Pledges', with: 'pledges@gdqtabaf.net'
   end
 end

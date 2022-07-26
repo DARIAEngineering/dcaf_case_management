@@ -12,6 +12,9 @@
       <%= f.text_field :fax,
                        autocomplete: 'off',
                        pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
+      <%= f.email_field :email_for_pledges,
+                       autocomplete: 'off',
+                       help: t('clinics.form.email_help') %>
       <%= f.check_box :accepts_naf,
                        autocomplete: 'off',
                        label: t('activerecord.attributes.clinic.accepts_naf') %>
