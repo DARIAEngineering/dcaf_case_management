@@ -31,7 +31,7 @@ class TooltipsHelperTest < ActionView::TestCase
     %i[call_list_help_text completed_calls_help_text
        shared_cases_help_text record_new_external_pledge_help_text
        resolved_without_fund_help_text referred_to_clinic_help_text
-        budget_bar_help_text].each do |func|
+        budget_bar_help_text solidarity_help_text].each do |func|
       it "should return a string - #{func}" do
         assert_operator send(func).length, :>, 10
       end
