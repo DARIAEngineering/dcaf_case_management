@@ -40,6 +40,10 @@
                           label: t('patient.abortion_information.clinic_section.ultrasound_completed'),
                           label_class: 'tooltip-header-checkbox',
                           data: { 'tooltip-text': mandatory_ultrasound_help_text } %>
+          <%= f.check_box :solidarity,
+                          label: t('patient.abortion_information.clinic_section.solidarity'),
+                          label_class: 'tooltip-header-checkbox',
+                          data: { 'tooltip-text': solidarity_help_text } %>
         <% end %>
       </div>
     </div>
