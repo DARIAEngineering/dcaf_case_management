@@ -40,6 +40,7 @@ es:
         completed_ultrasound: Ultrasonido completado
         county: Condado
         employment_status: Estatus de empleo
+        fund_id: ID del fondo
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
         household_size_adults: Adultos en el Hogar
@@ -68,6 +69,7 @@ es:
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
         shared_flag: Bandera compartida
+        solidarity: Compromiso solidario
         special_circumstances: Circunstancias Especiales
         state: Estado
         textable: Textable
