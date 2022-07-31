@@ -143,6 +143,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       check 'Resolved without assistance from CATF'
       check 'Referred to clinic'
       check 'Ultrasound completed?'
+      check 'Solidarity Pledge'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
@@ -176,6 +177,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_checked_field?('Resolved without assistance from CATF')
         assert has_checked_field?('Referred to clinic')
         assert has_checked_field?('Ultrasound completed?')
+        assert has_checked_field?('Solidarity Pledge')
 
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'

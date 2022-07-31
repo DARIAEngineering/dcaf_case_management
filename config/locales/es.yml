@@ -40,6 +40,7 @@ es:
         completed_ultrasound: Ultrasonido completado
         county: Condado
         employment_status: Estatus de empleo
+        fund_id: ID del fondo
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
         household_size_adults: Adultos en el Hogar
@@ -68,6 +69,7 @@ es:
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
         shared_flag: Bandera compartida
+        solidarity: Compromiso solidario
         special_circumstances: Circunstancias Especiales
         state: Estado
         textable: Textable
@@ -299,6 +301,7 @@ es:
         not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
+        solidarity: Compromiso solidario
         title: Detalles de la clínica
         ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:
@@ -541,6 +544,7 @@ es:
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     shared_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{shared_reset} días de inactividad.
+    solidarity: Indica un caso al que este fondo está brindando apoyo, pero no manejando.
     status_definition: Definición de estado
     unconfirmed_support: Estos son pacientes que tienen apoyos prácticos no confirmados.
   user:
