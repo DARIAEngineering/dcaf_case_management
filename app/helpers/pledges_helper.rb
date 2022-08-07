@@ -15,4 +15,15 @@ module PledgesHelper
       t('patient.menu.cancel_pledge')
     end
   end
+
+  def clinic_pledge_email(patient)
+    email = patient.clinic&.email_for_pledges
+    return unless email
+    link_to email, 'mailto:' + email, target: '_blank'
+  end
+
+  def clinic_pledge_fax(patient)
+    fax = patient.clinic&.fax
+    fax
+  end
 end

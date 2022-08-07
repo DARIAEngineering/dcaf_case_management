@@ -231,10 +231,10 @@ class ConfigTest < ActiveSupport::TestCase
         assert c.valid?
 
         # high edge
-        c.config_value = { options: ["28"] }
+        c.config_value = { options: ["42"] }
         assert c.valid?
 
-        c.config_value = { options: ["29"] }
+        c.config_value = { options: ["43"] }
         refute c.valid?
       end
     end

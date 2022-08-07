@@ -40,6 +40,7 @@ module Exportable
     "Pledge generated time" => :pledge_generated_at,
     "Pledge sent at" => :pledge_sent_at, 
     "Fund pledged at" => :fund_pledged_at,
+    "Solidarity pledge" => :solidarity,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,
@@ -166,7 +167,7 @@ module Exportable
   end
 
   def external_pledge_sum
-    external_pledges.inject { |x, acc = 0| acc = x.try(:amount) || 0}
+    external_pledges.sum(:amount)
   end
 
   def all_external_pledges

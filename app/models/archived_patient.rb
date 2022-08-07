@@ -78,6 +78,7 @@ class ArchivedPatient < ApplicationRecord
       naf_pledge: patient.naf_pledge,
       fund_pledge: patient.fund_pledge,
       fund_pledged_at: patient.fund_pledged_at,
+      solidarity: patient.solidarity,
 
       pledge_sent: patient.pledge_sent,
       resolved_without_fund: patient.resolved_without_fund,

@@ -59,7 +59,7 @@ gem 'figaro' # we handle secrets differently now
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
-gem 'rails-html-sanitizer', '>= 1.0.4'
+gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
   gem 'i18n-tasks', '~> 1.0.0' # check and clean i18n keys

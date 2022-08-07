@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_08_184141) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_27_013523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_184141) do
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
     t.bigint "line_id", null: false
+    t.boolean "solidarity"
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line_id"], name: "index_archived_patients_on_line_id"
@@ -132,6 +133,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_184141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
+    t.string "email_for_pledges"
     t.index ["fund_id"], name: "index_clinics_on_fund_id"
   end
 
@@ -272,6 +274,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_08_184141) do
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
     t.bigint "line_id", null: false
+    t.boolean "solidarity"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
