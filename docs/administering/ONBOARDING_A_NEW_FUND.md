@@ -19,6 +19,8 @@ To provision an app, we'll need the following information. The DARIA team member
 * Name and email of the fund admins (e.g. Susan Everyteen - susan@example.com) - we create initial admin accounts for these people
 * Whether one line is okay, or whether they'd like additional lines.
 * Whether they'd like DARIA to generate pledge PDFs, or whether they want to keep doing it as is. (This is not for initial setup, and if so, follow up separately.)
+* Who should be added to the updates listserv/google group.
+* Who their primary point of contact is and their signal #.
 
 ### Gathering API tokens and secrets
 
