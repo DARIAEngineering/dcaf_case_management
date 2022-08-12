@@ -41,6 +41,7 @@ module Exportable
     "Pledge sent at" => :pledge_sent_at, 
     "Fund pledged at" => :fund_pledged_at,
     "Solidarity pledge" => :solidarity,
+    "Handling fund" => :handling_fund,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,

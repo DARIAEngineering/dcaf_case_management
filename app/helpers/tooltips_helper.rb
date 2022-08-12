@@ -66,5 +66,4 @@ module TooltipsHelper
   def solidarity_help_text
     t('tooltips.solidarity').strip
   end
-  
 end
