@@ -144,6 +144,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       check 'Referred to clinic'
       check 'Ultrasound completed?'
       check 'Solidarity Pledge'
+      select 'Metallica Abortion Fund', from: 'patient_handling_fund'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
