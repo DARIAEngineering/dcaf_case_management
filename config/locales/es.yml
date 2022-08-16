@@ -545,7 +545,8 @@ es:
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     shared_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{shared_reset} días de inactividad.
-    solidarity: Indica un caso al que este fondo está brindando apoyo, pero no manejando. Si se selecciona este fondo como manejo, se deseleccionará promesa solidaria.
+    solidarity: Indica un caso al que este fondo está brindando apoyo, pero no manejando.
+    solidarity_lead: Este es el fondo que sirve como punto de contacto o coordinación de fondos para este paciente.
     status_definition: Definición de estado
     unconfirmed_support: Estos son pacientes que tienen apoyos prácticos no confirmados.
   user:
