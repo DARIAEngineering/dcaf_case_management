@@ -47,7 +47,11 @@
         <% end %>
         <%= f.select :solidarity_lead,
             solidarity_leads,
-            label: t('patient.abortion_information.clinic_section.solidarity_lead') %>
+            {
+              label: t('patient.abortion_information.clinic_section.solidarity_lead'),
+              label_class: 'tooltip-header-input',
+            },
+            data: {'tooltip-text': 'dogs' } %>
       </div>
     </div>
   <% end %>

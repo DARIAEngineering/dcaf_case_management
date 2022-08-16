@@ -179,7 +179,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_checked_field?('Referred to clinic')
         assert has_checked_field?('Ultrasound completed?')
         assert has_checked_field?('Solidarity Pledge')
-        assert has_field 'Solidarity Lead', with: 'Metallica Abortion Fund'
+        assert has_field? 'Solidarity Lead', with: 'Metallica Abortion Fund'
 
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
