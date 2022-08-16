@@ -295,7 +295,6 @@ en:
       clinic_section:
         clinic: Clinic
         clinic_display: "%{clinic_name} (%{city}, %{state})"
-        handling_fund: Handling Fund
         inactive_clinics: Inactive clinics
         medicaid_only_toggle: Enable only Medicaid clinics
         naf_only_toggle: Enable only NAF clinics
@@ -303,6 +302,7 @@ en:
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without assistance from %{fund}
         solidarity: Solidarity Pledge
+        solidarity_lead: Solidarity Lead
         title: Clinic details
         ultrasound_completed: Ultrasound completed?
       cost_section:

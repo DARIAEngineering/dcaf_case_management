@@ -17,7 +17,6 @@ class Patient < ApplicationRecord
 
   # Callbacks
   before_validation :clean_fields
-  before_save :update_handling_fund
   before_save :save_identifier
   before_save :update_pledge_sent_by_sent_at
   before_save :update_fund_pledged_at
@@ -226,10 +225,6 @@ class Patient < ApplicationRecord
 
   def initialize_fulfillment
     build_fulfillment.save
-  end
-
-  def update_handling_fund
-    self.solidarity = false if self.handling_fund.blank?
   end
 
   def update_pledge_sent_by_sent_at

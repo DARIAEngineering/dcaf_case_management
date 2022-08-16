@@ -295,7 +295,6 @@ es:
       clinic_section:
         clinic: Clínica
         clinic_display: "%{clinic_name} (%{city}, %{state})"
-        handling_fund: Fondo de manejo
         inactive_clinics: Clinícas inactivas
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
         naf_only_toggle: Enseñar solo clínicas de la NAF
@@ -303,6 +302,7 @@ es:
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         solidarity: Promesa solidaria
+        solidarity_lead: Plomo de solidaridad
         title: Detalles de la clínica
         ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:

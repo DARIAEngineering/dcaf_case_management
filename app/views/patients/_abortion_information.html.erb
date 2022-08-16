@@ -45,9 +45,9 @@
                           label_class: 'tooltip-header-checkbox',
                           data: { 'tooltip-text': solidarity_help_text } %>            
         <% end %>
-        <%= f.select :handling_fund,
-            handling_funds,
-            label: t('patient.abortion_information.clinic_section.handling_fund') %>
+        <%= f.select :solidarity_lead,
+            solidarity_leads,
+            label: t('patient.abortion_information.clinic_section.solidarity_lead') %>
       </div>
     </div>
   <% end %>

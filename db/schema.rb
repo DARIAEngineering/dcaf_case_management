@@ -56,7 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_191635) do
     t.bigint "fund_id"
     t.bigint "line_id", null: false
     t.boolean "solidarity"
-    t.string "handling_fund"
+    t.string "solidarity_lead"
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line_id"], name: "index_archived_patients_on_line_id"
@@ -276,7 +276,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_191635) do
     t.bigint "fund_id"
     t.bigint "line_id", null: false
     t.boolean "solidarity"
-    t.string "handling_fund"
+    t.string "solidarity_lead"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"

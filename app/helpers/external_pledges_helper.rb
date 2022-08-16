@@ -4,7 +4,7 @@ module ExternalPledgesHelper
     Config.find_or_create_by(config_key: 'external_pledge_source').options
   end
 
-  def handling_funds
+  def solidarity_leads
     current_fund = [
       [current_tenant.name, nil]
     ]

@@ -249,25 +249,6 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'update_handling_fund' do
-      before do
-        @patient.solidarity = true
-        @patient.handling_fund = "Other Fund"
-        @patient.save
-      end
-
-
-      it 'should unset solidarity if handling fund changes to self' do
-        assert @patient.solidarity
-
-        # nil if current fund is handling
-        @patient.handling_fund = nil
-        @patient.save
-
-        assert_not @patient.solidarity
-      end
-    end
-
     describe 'confirm still shared' do
       before do
         create :clinic
