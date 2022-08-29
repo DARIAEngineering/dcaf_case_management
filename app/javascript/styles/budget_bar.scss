@@ -9,3 +9,7 @@ $budget-bar-font-size: 14px;
   color: $black !important;
   font-size: $budget-bar-font-size;
 }
+
+#budget_bar {
+  display: none;
+}

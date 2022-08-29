@@ -12,6 +12,7 @@
           <%= f.select :line_id, options_for_select(line_options, patient.line.id) %>
         <% end %>
 
+        <%= f.text_field :email, autocomplete: 'off' %>
         <%= f.number_field :age, autocomplete: 'off' %>
         <%= f.select :race_ethnicity,
                      options_for_select(race_ethnicity_options,
