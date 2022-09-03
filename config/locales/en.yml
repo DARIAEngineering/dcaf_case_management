@@ -302,6 +302,7 @@ en:
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without assistance from %{fund}
         solidarity: Solidarity Pledge
+        solidarity_lead: Solidarity Lead
         title: Clinic details
         ultrasound_completed: Ultrasound completed?
       cost_section:
@@ -545,6 +546,7 @@ en:
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
     shared_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as resolved without assistance, or after %{shared_reset} days of inactivity.
     solidarity: Indicates a case to which this fund is providing support, but not handling.
+    solidarity_lead: This is the fund serving as point-of-contact or coordinating funding for this patient.
     status_definition: Status definition
     unconfirmed_support: These are patients who have unconfirmed practical supports.
   user:
