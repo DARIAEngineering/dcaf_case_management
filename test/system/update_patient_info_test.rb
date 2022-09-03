@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class UpdatePatientInfoTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @line = create :line
     @line2 = create :line
@@ -141,6 +143,8 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       check 'Resolved without assistance from CATF'
       check 'Referred to clinic'
       check 'Ultrasound completed?'
+      check 'Solidarity Pledge'
+      select 'Metallica Abortion Fund', from: 'patient_solidarity_lead'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
@@ -174,6 +178,8 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_checked_field?('Resolved without assistance from CATF')
         assert has_checked_field?('Referred to clinic')
         assert has_checked_field?('Ultrasound completed?')
+        assert has_checked_field?('Solidarity Pledge')
+        assert has_field? 'Solidarity Lead', with: 'Metallica Abortion Fund'
 
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'

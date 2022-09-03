@@ -17,7 +17,7 @@ For the rest of the setup, you have two options: Docker, or installing everythin
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
 * `docker-compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
-* `docker-compose run --rm web rails db:create db:migrate db:seed # to populate the database`
+* `docker-compose run --rm web rails db:drop db:create db:migrate db:seed # to populate the database`
 * `docker-compose up`
 
 The last command will take a moment and should print a number of things. When it's ready

@@ -37,8 +37,6 @@ fund1 = Fund.create! name: 'SBF',
                      site_domain: 'www.petfinder.com',
                      phone: '202-452-7464'
 
-
-
 fund2 = Fund.create! name: 'CatFund',
                      domain: 'petfinder.com',
                      subdomain: 'catbox',
@@ -106,7 +104,8 @@ fund2 = Fund.create! name: 'CatFund',
                                 shared_flag: i.even?,
                                 last_menstrual_period_weeks: (i + 1 * 2),
                                 last_menstrual_period_days: 3,
-                                line: lines.first
+                                line: lines.first,
+                                solidarity: i % 4 == 0
 
       # Create associated objects
       case i

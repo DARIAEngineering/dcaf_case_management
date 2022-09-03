@@ -3,6 +3,7 @@ class Fund < ApplicationRecord
 
   # Relations
   has_many :lines
+  has_one :pledge_config
 
   # Validations
   validates :name,
