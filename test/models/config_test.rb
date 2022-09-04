@@ -210,13 +210,13 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'urgent_reset' do
+    describe 'shared_reset' do
       it 'should return proper default' do
-        assert_equal 6, Config.urgent_reset
+        assert_equal 6, Config.shared_reset
       end
 
       it 'should validate bounds' do
-        c = Config.find_or_create_by(config_key: 'urgent_reset')
+        c = Config.find_or_create_by(config_key: 'shared_reset')
 
         # low out of bounds
         c.config_value = { options: ["1"] }
@@ -231,10 +231,10 @@ class ConfigTest < ActiveSupport::TestCase
         assert c.valid?
 
         # high edge
-        c.config_value = { options: ["28"] }
+        c.config_value = { options: ["42"] }
         assert c.valid?
 
-        c.config_value = { options: ["29"] }
+        c.config_value = { options: ["43"] }
         refute c.valid?
       end
     end

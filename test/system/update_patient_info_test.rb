@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class UpdatePatientInfoTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @line = create :line
     @line2 = create :line
@@ -8,7 +10,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     @admin = create :user, role: :admin
     @clinic = create :clinic
     @patient = create :patient, line: @line
-    @patient.external_pledges.create source: 'Baltimore Abortion Fund',
+    @patient.external_pledges.create source: 'Metallica Abortion Fund',
                                      amount: 100
     @ext_pledge = @patient.external_pledges.first
     create_external_pledge_source_config
@@ -138,15 +140,17 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     before do
       click_link 'Abortion Information'
       select @clinic.name, from: 'patient_clinic_id'
-      check 'Resolved without assistance from DCAF'
+      check 'Resolved without assistance from CATF'
       check 'Referred to clinic'
       check 'Ultrasound completed?'
+      check 'Solidarity Pledge'
+      select 'Metallica Abortion Fund', from: 'patient_solidarity_lead'
 
       fill_in 'Abortion cost', with: '300'
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
-      fill_in 'DCAF pledge', with: '25'
-      fill_in 'Baltimore Abortion Fund pledge', with: '25', match: :prefer_exact
+      fill_in 'CATF pledge', with: '25'
+      fill_in 'Metallica Abortion Fund pledge', with: '25', match: :prefer_exact
       fill_in 'Abortion cost', with: '300'
       click_away_from_field
       reload_page_and_click_link 'Abortion Information'
@@ -162,24 +166,26 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       find('#outstanding-balance').has_text?('$19900')
       fill_in 'National Abortion Federation pledge', with: '0'
       find('#outstanding-balance').has_text?('$19950')
-      fill_in 'Baltimore Abortion Fund pledge', with: '0', match: :prefer_exact
+      fill_in 'Metallica Abortion Fund pledge', with: '0', match: :prefer_exact
       find('#outstanding-balance').has_text?('$19975')
-      fill_in 'DCAF pledge', with: '0'
+      fill_in 'CATF pledge', with: '0'
       find('#outstanding-balance').has_text?('$20000')
     end
 
     it 'should alter the abortion information' do
       within :css, '#abortion_information' do
         assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
-        assert has_checked_field?('Resolved without assistance from DCAF')
+        assert has_checked_field?('Resolved without assistance from CATF')
         assert has_checked_field?('Referred to clinic')
         assert has_checked_field?('Ultrasound completed?')
+        assert has_checked_field?('Solidarity Pledge')
+        assert has_field? 'Solidarity Lead', with: 'Metallica Abortion Fund'
 
         assert has_field? 'Abortion cost', with: '300'
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
-        assert has_field? 'DCAF pledge', with: '25'
-        assert has_field? 'Baltimore Abortion Fund pledge', with: '25'
+        assert has_field? 'CATF pledge', with: '25'
+        assert has_field? 'Metallica Abortion Fund pledge', with: '25'
       end
     end
   end
@@ -306,7 +312,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       wait_for_ajax
 
       select '12 weeks', from: 'Weeks along at procedure'
-      fill_in 'DCAF payout', with: '100'
+      fill_in 'CATF payout', with: '100'
       wait_for_ajax
 
       fill_in 'Check #', with: '444-22'
@@ -329,7 +335,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
                           with: 2.days.from_now.strftime('%Y-%m-%d')
         assert_equal '12',
                      find('#patient_fulfillment_attributes_gestation_at_procedure').value
-        assert has_field? 'DCAF payout', with: 100
+        assert has_field? 'CATF payout', with: 100
         assert has_field? 'Check #', with: '444-22'
         assert has_checked_field? 'Fulfillment audited?'
 

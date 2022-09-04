@@ -1,13 +1,20 @@
 // Styling around flash messages.
-
-@import './bootstrap';
 @import './_variables';
 
 #flash {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  padding-top: 0.5em;
+  left: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 1100;
   transition-duration: .5s;
+  pointer-events: none;
+}
+
+div.flash-message {
+  margin: auto;
+  pointer-events: auto;
 }
 
 #error_explanation {

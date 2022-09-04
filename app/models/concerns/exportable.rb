@@ -26,7 +26,7 @@ module Exportable
     "Referred to clinic by fund" => :referred_to_clinic,
     "Appointment Date" => :appointment_date,
     "Initial Call Date" => :initial_call_date,
-    "Urgent?" => :urgent_flag,
+    "Shared?" => :shared_flag,
     "Has Special Circumstances" => :has_special_circumstances,
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
@@ -40,6 +40,8 @@ module Exportable
     "Pledge generated time" => :pledge_generated_at,
     "Pledge sent at" => :pledge_sent_at, 
     "Fund pledged at" => :fund_pledged_at,
+    "Solidarity pledge" => :solidarity,
+    "Solidarity lead" => :solidarity_lead,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,
@@ -88,7 +90,7 @@ module Exportable
 
   def get_household_size_children
     if is_a?(Patient)
-      household_size_children
+      household_size_children == -1 ? 'Prefer not to answer' : household_size_children
     else
       nil
     end
@@ -96,7 +98,7 @@ module Exportable
 
   def get_household_size_adults
     if is_a?(Patient)
-      household_size_adults
+      household_size_adults == -1 ? 'Prefer not to answer' : household_size_adults
     else
       nil
     end
@@ -166,7 +168,7 @@ module Exportable
   end
 
   def external_pledge_sum
-    external_pledges.inject { |x, acc = 0| acc = x.try(:amount) || 0}
+    external_pledges.sum(:amount)
   end
 
   def all_external_pledges

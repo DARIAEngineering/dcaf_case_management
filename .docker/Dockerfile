@@ -12,7 +12,6 @@ ENV DARIA_DIR=/usr/src/app \
     DOCKER=true
 
 # get our gem house in order
-RUN mkdir -p ${DARIA_DIR} && cd ${DCAF_DIR}
 WORKDIR ${DARIA_DIR}
 COPY Gemfile ${DARIA_DIR}/Gemfile
 COPY Gemfile.lock ${DARIA_DIR}/Gemfile.lock
@@ -27,13 +26,14 @@ RUN apt-get update && apt-get upgrade -y && \
     ${AHAB_DEPENDENCIES} && \
     gem install bundler --no-document
 
-# get version 14 of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - && \
-    apt-get install nodejs -y
+# get version 16 of nodejs
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+RUN apt-get install nodejs -y
 
-RUN npm install -g yarn
-RUN yarn set version berry
-RUN yarn set version 2.x
+# set up yarn
+RUN corepack enable
+RUN yarn set version 3.2.2
+RUN yarn config set nodeLinker node-modules
 
 # install gemfile and package
 RUN bundle install
@@ -62,5 +62,11 @@ RUN ahab_dep=${AHAB_DEPENDENCIES} && \
 
 # Move the rest of the app over
 COPY . ${DARIA_DIR}
+
+RUN yarn install
+
+# Build the js and css
+RUN yarn build
+RUN yarn build:css
 
 EXPOSE 3000

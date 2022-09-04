@@ -21,6 +21,7 @@ jobs:
           docker-compose run --rm web rails db:create db:migrate db:seed
           docker-compose up -d
           sleep 30
+          docker-compose logs -t
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
   build:
@@ -56,7 +57,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.0
+          node-version: 16.16.0
       - name: Cache node_modules
         uses: actions/cache@v3
         with:

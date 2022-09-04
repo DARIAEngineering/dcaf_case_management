@@ -166,13 +166,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should respond success on completion' do
       patch patient_path(@patient), params: { patient: @payload }, xhr: true
-      assert_response :success
+      assert response.body.include? 'saved'
     end
 
     it 'should respond not acceptable error on failure' do
       @payload[:primary_phone] = nil
       patch patient_path(@patient), params: { patient: @payload }, xhr: true
-      assert_response :not_acceptable
+      assert response.body.include? 'alert alert-danger'
     end
 
     it 'should update patient fields' do

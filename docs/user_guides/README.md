@@ -9,5 +9,5 @@ Please click on the document you'd like to review:
 * [Configuring your list of clinics](CLINIC_INFORMATION.md)
 * [Using DARIA as a Case Manager](CASE_MANAGERS.md)
 * [Configuring your DARIA instance](CONFIGURING_DARIA.md)
-<!-- * [DARIA's data and analytics tools](ANALYTICS.md) -->
-<!-- * [Accounting functionality in DARIA](ACCOUNTANTS.md) -->
+* [DARIA's data and analytics tools](ANALYZING_YOUR_DATA.md)
+* [Accounting functionality in DARIA](ACCOUNTING.md)

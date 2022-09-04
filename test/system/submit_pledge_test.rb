@@ -3,13 +3,13 @@ require 'application_system_test_case'
 # Tests around plege submission behavior
 class SubmitPledgeTest < ApplicationSystemTestCase
   before do
-    ActsAsTenant.current_tenant.update pledge_generation_config: 'default'
+    @config = create :pledge_config, fund: ActsAsTenant.current_tenant
     @user = create :user, role: :data_volunteer
-    @clinic = create :clinic
+    @clinic = create :clinic, fax: "202-867-5309"
     @patient = create :patient, clinic: @clinic,
                                 appointment_date: Time.zone.now + 14,
                                 fund_pledge: 500,
-                                urgent_flag: true
+                                shared_flag: true
 
     log_in_as @user
     visit edit_patient_path @patient
@@ -39,11 +39,14 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       find('#pledge-next').click
       wait_for_no_element 'Review this preview of your pledge'
 
-      assert has_text? 'Awesome, you generated a DCAF'
+      assert has_text? 'Awesome, you generated a CATF'
+      # default - no email; show fax
+      assert has_text? "202-867-5309"
+      assert has_text? "Fax service:"
       check 'I sent the pledge'
       wait_for_ajax
       find('#pledge-next').click
-      wait_for_no_element 'Awesome, you generated a DCAF'
+      wait_for_no_element 'Awesome, you generated a CATF'
 
       wait_for_ajax
       wait_for_element 'Patient information'
@@ -51,6 +54,28 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       assert has_text? Patient::STATUSES[:pledge_sent][:key]
       assert has_link? 'Fulfillment'
       assert has_link? 'Cancel pledge'
+    end
+
+    it 'should show clinic email instead of fax' do
+      @clinic.email_for_pledges = "pledges@catfund.biz"
+      @clinic.save!
+
+      find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
+      assert has_text? 'Confirm the following information is correct'
+      find('#pledge-next').click
+      wait_for_ajax
+
+      wait_for_no_element 'Confirm the following information is correct'
+      assert has_text? 'Generate your pledge form'
+      find('#pledge-next').click
+      wait_for_no_element 'Review this preview of your pledge'
+
+      assert has_text? 'Awesome, you generated a CATF'
+      # now we should see the email
+      
+      assert has_text? "pledges@catfund.biz"
+      refute has_text? "Fax service"
     end
 
     it 'should render after opening call modal' do
@@ -107,15 +132,16 @@ class SubmitPledgeTest < ApplicationSystemTestCase
   end
 
   describe 'displaying pledge generator input' do
-    it 'should obey the model setting' do
+    it 'should display when config set' do
       find('#submit-pledge-button').click
       wait_for_element 'Patient name'
       assert has_text? 'Confirm the following information is correct'
       find('#pledge-next').click
       wait_for_ajax
-      assert has_content? 'Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.'
+      assert has_content? 'Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the pledge to the clinic.'
 
-      ActsAsTenant.current_tenant.update pledge_generation_config: nil
+      @config.destroy
+      ActsAsTenant.current_tenant.reload
       visit edit_patient_path @patient
       find('#submit-pledge-button').click
       wait_for_element 'Patient name'

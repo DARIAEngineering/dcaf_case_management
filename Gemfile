@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 # Standard rails
-gem 'rails', '~> 6.1.4'
+gem 'rails', '~> 7.0.0'
 gem 'puma', '~> 5.4' # roar
-gem 'sdoc', '~> 2.3.0', group: :doc
+gem 'sdoc', '~> 2.4.0', group: :doc
 gem 'nokogiri', '>= 1.13.4'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -17,22 +17,19 @@ gem 'net-imap', require: false # for compat reasons, required in builds
 gem 'net-smtp', require: false # for compat reasons, required in builds
 
 # Asset pipeline
-gem 'webpacker', '~> 5.4'
-gem 'sass-rails', '>= 6'
-gem 'bootstrap', '~> 4.5', '< 5' # we're on bs4 for now
+gem 'sprockets-rails'
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'
 gem 'bootstrap_form', '~> 4.5.0'
-gem 'coffee-rails', '~> 5.0.0'
-gem 'jquery-rails', '~> 4.4.0'
-gem 'jquery-ui-rails'
 
 # Our database is postgres
 gem 'pg', '~> 1.2'
-gem 'paper_trail', '~> 12.0'
+gem 'paper_trail', '~> 13.0'
 gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.8'
-gem 'omniauth-google-oauth2', '~> 1.0.0'
+gem 'omniauth-google-oauth2', '~> 1.1.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Run multiple funds on one server
@@ -62,19 +59,22 @@ gem 'figaro' # we handle secrets differently now
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
-gem 'rails-html-sanitizer', '>= 1.0.4'
+gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
   gem 'i18n-tasks', '~> 1.0.0' # check and clean i18n keys
-  gem 'rails-i18n', '~> 6.0' # dependency of i18n-tasks, hardset to a rails-6-compat version
+  gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
   gem 'shog' # makes rails s output color!
-  gem 'listen', '>= 3.0.5', '< 3.8' # used by systemtests, hardset rails 6 compat
+  gem 'listen', '>= 3.0.5'
   gem 'rubocop', require: false # our code style / linting system
   gem 'rubocop-rails', require: false
 
   # Security scanners that also run in CI. They run with bundle exec.
   gem 'ruby_audit', require: false #
   gem 'bundler-audit', require: false
+
+  # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
+  gem 'foreman'
 end
 
 group :development, :test do

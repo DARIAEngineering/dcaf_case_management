@@ -23,6 +23,7 @@ en:
         active: Active
         city: City
         distance: Distance
+        email_for_pledges: Email for Pledges
         fax: Fax
         gestational_limit: Gestational limit (in days)
         location: Location
@@ -39,6 +40,7 @@ en:
         completed_ultrasound: Completed ultrasound?
         county: County
         employment_status: Employment status
+        fund_id: Fund ID
         fund_pledge: Fund pledge
         fund_pledged_at: Fund pledged at
         household_size_adults: Adults in household
@@ -66,10 +68,11 @@ en:
         referred_by: Referred by
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without fund
+        shared_flag: Shared Flag
+        solidarity: Solidarity Pledge
         special_circumstances: Special circumstances
         state: State
         textable: Textable
-        urgent_flag: Urgent flag
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
       practical_support:
@@ -125,6 +128,7 @@ en:
       active_help: Are we actively working with this clinic?
       add_clinic: Add clinic
       costs_weeks: Costs at %{week} weeks
+      email_help: Email this clinic uses to receive pledges. If fax preferred, leave this field blank.
       save_changes: Save changes
       zip_help: To exclude this clinic from Clinic Finder searches, give it the ZIP code 99999.
     index:
@@ -145,6 +149,7 @@ en:
     notes: Notes
     patient: Patient
     phone: Phone
+    prefer_not_to_answer: Prefer not to answer
     save: Save
     search: Search
     status: Status
@@ -180,8 +185,8 @@ en:
       call_list: Your call list
       completed_calls: Your completed calls
       search_results: Search results
+      shared_cases: Shared cases
       unconfirmed_support: Unconfirmed Practical Support
-      urgent_cases: Urgent cases
     search:
       header: Build your call list
       input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
@@ -285,7 +290,6 @@ en:
       sign_out: Sign Out
   note:
     most_recent: 'Most recent note from %{by} at %{at}:'
-    most_recent_no_user: Most recent note
   patient:
     abortion_information:
       clinic_section:
@@ -297,6 +301,8 @@ en:
         not_currently_working_with_fund: "(Not currently working with %{fund}) - %{clinic_name}"
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without assistance from %{fund}
+        solidarity: Solidarity Pledge
+        solidarity_lead: Solidarity Lead
         title: Clinic details
         ultrasound_completed: Ultrasound completed?
       cost_section:
@@ -439,9 +445,9 @@ en:
       title: 'Add a new patient:'
     notes:
       placeholder: Enter notes here
+      shared_flag: Share this patient for other case managers
       submit: Create Note
       title: Notes
-      urgent_flag: Flag this patient as urgent
     pledge:
       cancel:
         confirm: Are you sure you want to cancel this pledge?
@@ -459,15 +465,18 @@ en:
         pledge_amount: 'Pledge amount:'
         title: 'Confirm the following information is correct:'
       step_three:
+        clinic_fax: Clinic fax
         completed: Once you've completed the pledging process, please use the check box below to indicate your pledge has been sent.
-        downloads: 'Your pledge should appear in your computer''s downloads. Find the document and  submit the pledge for your client here:'
+        downloads: Your pledge should appear in your computer's downloads.
+        fax_service: Fax service
         generated: Awesome, you generated a %{fund} Pledge! Thanks!
         sent_checkbox: I sent the pledge
+        submit: 'Submit the pledge for your client here:'
         title: 'Submit and send your pledge:'
       step_two:
         blank_name_error: You need to enter your name in the box to sign and download the pledge
         form_disabled: Please generate your pledge form and click next.
-        generate_note: Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the fax to the clinic.
+        generate_note: Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the pledge to the clinic.
         generate_pledge_button: Generate your pledge
         sign_pledge: 'Enter your name in this box to sign your pledge:'
         title: 'Generate your pledge form:'
@@ -535,9 +544,11 @@ en:
     record_new_external_pledge: External pledges is our term for pledges by other abortion funds also working with a patient.
     referred_to_clinic: Check this box if you as a case manager referred the patient to a particular clinic.
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
+    shared_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as resolved without assistance, or after %{shared_reset} days of inactivity.
+    solidarity: Indicates a case to which this fund is providing support, but not handling.
+    solidarity_lead: This is the fund serving as point-of-contact or coordinating funding for this patient.
     status_definition: Status definition
     unconfirmed_support: These are patients who have unconfirmed practical supports.
-    urgent_cases: These are patients who require a little more attention. This list is shared across all case managers working on a single line. Patients are removed from this list automatically after they are marked as resolved without assistance, or after %{urgent_reset} days of inactivity.
   user:
     common:
       last_login: Last Login

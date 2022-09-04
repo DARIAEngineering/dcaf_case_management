@@ -72,7 +72,6 @@ class PatientsController < ApplicationController
     else
       error = @patient.errors.full_messages.to_sentence
       flash.now[:alert] = error
-      response.status = :not_acceptable
     end
     respond_to { |format| format.js }
   end
@@ -132,7 +131,7 @@ class PatientsController < ApplicationController
   ABORTION_INFORMATION_PARAMS = [
     :clinic_id, :resolved_without_fund, :referred_to_clinic, :completed_ultrasound,
     :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge,
-    :fund_pledged_at, :pledge_sent_at
+    :fund_pledged_at, :pledge_sent_at, :solidarity, :solidarity_lead
   ].freeze
 
   FULFILLMENT_PARAMS = [
@@ -140,7 +139,7 @@ class PatientsController < ApplicationController
                              :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
-  OTHER_PARAMS = [:urgent_flag, :initial_call_date, :pledge_sent].freeze
+  OTHER_PARAMS = [:shared_flag, :initial_call_date, :pledge_sent].freeze
 
   def patient_params
     params.require(:patient).permit(

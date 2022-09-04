@@ -1,4 +1,5 @@
-// For making bootstrap utilities available.
+@import 'bootstrap/scss/bootstrap';
+// @import "rails_bootstrap_forms";
 
 $spacer: .5rem !default;
 
@@ -18,5 +19,3 @@ $spacers: map-merge(
   ),
   $spacers
 );
-
-@import '~bootstrap';

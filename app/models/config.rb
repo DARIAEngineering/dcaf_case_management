@@ -18,7 +18,7 @@ class Config < ApplicationRecord
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
-    urgent_reset: "Number of idle days until a patient is removed from the urgent list. Defaults to 6 days.",
+    shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
   }.freeze
 
   enum config_key: {
@@ -37,7 +37,7 @@ class Config < ApplicationRecord
     voicemail: 12,
     days_to_keep_fulfilled_patients: 13,
     days_to_keep_all_patients: 14,
-    urgent_reset: 15,
+    shared_reset: 15,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -70,8 +70,8 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_patient_archive],
     days_to_keep_all_patients:
       [:validate_singleton, :validate_patient_archive],
-    urgent_reset:
-      [:validate_singleton, :validate_urgent_reset],
+    shared_reset:
+      [:validate_singleton, :validate_shared_reset],
   }.freeze
 
   before_validation :clean_config_value
@@ -130,11 +130,11 @@ class Config < ApplicationRecord
     archive_days.to_i
   end
 
-  def self.urgent_reset
-    urgent_reset_days = Config.find_or_create_by(config_key: 'urgent_reset').options.try :last
+  def self.shared_reset
+    shared_reset_days = Config.find_or_create_by(config_key: 'shared_reset').options.try :last
     # default 6 days
-    urgent_reset_days ||= 6
-    urgent_reset_days.to_i
+    shared_reset_days ||= 6
+    shared_reset_days.to_i
   end
 
   private
@@ -236,11 +236,11 @@ class Config < ApplicationRecord
       validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
     end
 
-    ### urgent reset
-    URGENT_MIN_DAYS = 2   # 2 days
-    URGENT_MAX_DAYS = 28  # 4 weeks
+    ### shared reset
+    SHARED_MIN_DAYS = 2      # 2 days
+    SHARED_MAX_DAYS = 7 * 6  # 6 weeks
 
-    def validate_urgent_reset
-      validate_number && options.last.to_i.between?(URGENT_MIN_DAYS, URGENT_MAX_DAYS)
+    def validate_shared_reset
+      validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
     end
 end
