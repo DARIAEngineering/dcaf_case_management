@@ -259,6 +259,10 @@ class UserTest < ActiveSupport::TestCase
       assert_nil @user.current_sign_in_at
       @user.toggle_disabled_by_fund
       @user.reload
+      assert_nil @user.current_sign_in_at
+
+      @user.toggle_disabled_by_fund
+      @user.reload
       assert_not_nil @user.current_sign_in_at
     end
 
