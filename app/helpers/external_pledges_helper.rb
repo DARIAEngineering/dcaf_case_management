@@ -1,13 +1,23 @@
 # Functions to populate dropdowns related to external pledges.
 module ExternalPledgesHelper
+  def external_funds
+    Config.find_or_create_by(config_key: 'external_pledge_source').options
+  end
+
+  def solidarity_leads
+    current_fund = [
+      [current_tenant.name, nil]
+    ]
+    external_funds.push(*current_fund)
+  end
+
   def external_pledge_source_options
     standard_options = [
       [ t('external_pledge.sources.clinic_discount'), 'Clinic discount'],
       [ t('external_pledge.sources.other_funds'), 'Other funds (see notes)']
     ]
-    Config.find_or_create_by(config_key: 'external_pledge_source').options
-          .push(*standard_options)
-          .uniq
+    external_funds.push(*standard_options)
+                  .uniq
   end
 
   def available_pledge_source_options_for(patient)

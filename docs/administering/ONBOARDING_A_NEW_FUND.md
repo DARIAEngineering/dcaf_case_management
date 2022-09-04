@@ -17,7 +17,10 @@ To provision an app, we'll need the following information. The DARIA team member
 * Phone number of the abortion fund (e.g. 202-000-1111) - referred to as `FUND_PHONE`
 * Website of the fund (e.g. dcabortionfund.org) - referred to as `FUND_DOMAIN`
 * Name and email of the fund admins (e.g. Susan Everyteen - susan@example.com) - we create initial admin accounts for these people
-* Possibly, the different lines they want.
+* Whether one line is okay, or whether they'd like additional lines.
+* Whether they'd like DARIA to generate pledge PDFs, or whether they want to keep doing it as is. (This is not for initial setup, and if so, follow up separately.)
+* Who should be added to the updates listserv/google group.
+* Who their primary point of contact is and their signal #.
 
 ### Gathering API tokens and secrets
 
@@ -92,7 +95,7 @@ Send this email to the DARIA team member that requested provisioning, subbing th
 Hi, we've provisioned the requested instance. You can log in at (NEW_URL) when you're ready.
 
 When you do so, you should configure your DARIA instance by doing the following to start:
-* Log in with Google (or reset their passwords and log in)
+* Log in with Google (or reset your password and log in, but we recommend Google)
 * Go to Admin > Clinic Management and enter info about clinics they work with
 * Go to Admin > Config Management and enter info about other funds they work with, insurance options they track, etc
 * Go to Admin > User Management and create other accounts.

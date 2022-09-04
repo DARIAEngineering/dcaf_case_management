@@ -24,12 +24,12 @@ gem 'bootstrap_form', '~> 4.5.0'
 
 # Our database is postgres
 gem 'pg', '~> 1.2'
-gem 'paper_trail', '~> 12.0'
+gem 'paper_trail', '~> 13.0'
 gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.8'
-gem 'omniauth-google-oauth2', '~> 1.0.0'
+gem 'omniauth-google-oauth2', '~> 1.1.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Run multiple funds on one server
@@ -59,7 +59,7 @@ gem 'figaro' # we handle secrets differently now
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
-gem 'rails-html-sanitizer', '>= 1.0.4'
+gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
   gem 'i18n-tasks', '~> 1.0.0' # check and clean i18n keys
