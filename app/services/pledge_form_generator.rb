@@ -8,6 +8,7 @@ class PledgeFormGenerator
     @user = user
     @case_manager_name = case_manager_name
     @fund = fund
+    @config = fund.pledge_config
   end
 
   def patient_amount
@@ -23,7 +24,7 @@ class PledgeFormGenerator
   end
 
   def appointment_date
-    patient.appointment_date.strftime "%B%e, %Y"
+    patient.appointment_date.strftime "%B %e, %Y"
   end
 
   def patient_name
@@ -66,53 +67,34 @@ class PledgeFormGenerator
     pdf
   end
 
-  # Hacking some config into constants for convenience sake
-  # Let a fund use one of these config sets via Fund.pledge_generation_config
-  CONFIG_DATA = {
-    'DCAF' => {
-      addr: [
-        'DC Abortion Fund',
-        'P.O. Box 65061',
-        'Washington, D.C. 20035-5061'
-      ],
-      width: 200,
-      height: nil,
-      contact_email: 'info@dcabortionfund.org',
-      billing_email: 'billing@dcabortionfund.org',
-      img: 'dcaf_logo.png'
-    },
-    'YHF' => {
-      addr: [
-        'The Yellowhammer Fund',
-        'P.O. Box 1565',
-        'Tuscaloosa, AL 35403'
-      ],
-      width: nil,
-      height: 100,
-      contact_email: 'info@yellowhammerfund.org',
-      billing_email: 'billing@yellowhammer.org',
-      img: 'yhf_logo.png'
-    },
-  }
-
   private
 
   def build_header(pdf)
     y_position = pdf.cursor
     pdf.bounding_box([0, y_position], width: 200, height: 100) do
-      pdf.image Rails.root.join("public", CONFIG_DATA[@fund.pledge_generation_config][:img]),
-                position: :left,
-                width: CONFIG_DATA[@fund.pledge_generation_config][:width],
-                height: CONFIG_DATA[@fund.pledge_generation_config][:height]
+      # Use a logo if provided
+      if @config.logo_url
+        pdf.image Rails.root.join("public", @config.logo_url),
+                  position: :left,
+                  width: @config.logo_width,
+                  height: @config.logo_height
+      # Otherwise, use stock DARIA services logo
+      else
+        pdf.image Rails.root.join("public", "daria-logo.png"),
+                  position: :left,
+                  width: 75,
+                  height: 75
+
+      end
     end
 
     pdf.bounding_box([250, y_position], width: 400, height: 100) do
       pdf.text case_manager_name
-      CONFIG_DATA[@fund.pledge_generation_config][:addr].each do |i|
-        pdf.text i
-      end
-      pdf.text "Tel: #{@fund.phone}"
-      pdf.text "E-mail: #{CONFIG_DATA[@fund.pledge_generation_config][:contact_email]}"
+      pdf.text @fund.full_name
+      pdf.text @config.address1
+      pdf.text @config.address2
+      pdf.text "Tel: #{@config.phone || @fund.phone}"
+      pdf.text "E-mail: #{@config.contact_email}"
       pdf.text "Web: #{@fund.site_domain}"
     end
   end
@@ -127,7 +109,7 @@ class PledgeFormGenerator
   end
 
   def build_fund_info_block(pdf)
-    info_block = "<b>#{CONFIG_DATA[@fund.pledge_generation_config][:addr].join("\n")}</b>"
+    info_block = "<b>#{@fund.full_name}\n#{@config.address1}\n#{@config.address2}</b>"
     pdf.text info_block, align: :center, inline_format: true
   end
 
@@ -167,7 +149,7 @@ class PledgeFormGenerator
       pdf.move_down 10
       pdf.text 'Signature of Clinic Administrator: ________________________________', align: :left, style: :bold, indent_paragraphs: 5
       pdf.move_down 10
-      pdf.text "For billing questions only, please contact #{CONFIG_DATA[@fund.pledge_generation_config][:billing_email]}", align: :left, style: :italic, indent_paragraphs: 5
+      pdf.text "For billing questions only, please contact #{@config.billing_email}", align: :left, style: :italic, indent_paragraphs: 5
     end
   end
 

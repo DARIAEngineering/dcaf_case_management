@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_27_013523) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_12_191635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_013523) do
     t.bigint "fund_id"
     t.bigint "line_id", null: false
     t.boolean "solidarity"
+    t.string "solidarity_lead"
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line_id"], name: "index_archived_patients_on_line_id"
@@ -205,7 +206,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_013523) do
     t.string "full_name", comment: "Full name of the fund. e.g. DC Abortion Fund"
     t.string "site_domain", comment: "URL of the fund's public-facing website. e.g. www.dcabortionfund.org"
     t.string "phone", comment: "Contact number for the abortion fund, usually the hotline"
-    t.string "pledge_generation_config", comment: "Optional config of which pledge generation configset to use. If null, pledge generation is shut off"
   end
 
   create_table "lines", force: :cascade do |t|
@@ -276,6 +276,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_013523) do
     t.bigint "fund_id"
     t.bigint "line_id", null: false
     t.boolean "solidarity"
+    t.string "solidarity_lead"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
@@ -290,6 +291,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_013523) do
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"
     t.index ["primary_phone", "fund_id"], name: "index_patients_on_primary_phone_and_fund_id", unique: true
     t.index ["shared_flag"], name: "index_patients_on_shared_flag"
+  end
+
+  create_table "pledge_configs", force: :cascade do |t|
+    t.string "contact_email"
+    t.string "billing_email"
+    t.string "phone"
+    t.string "logo_url"
+    t.integer "logo_height"
+    t.integer "logo_width"
+    t.string "address1"
+    t.string "address2"
+    t.bigint "fund_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fund_id"], name: "index_pledge_configs_on_fund_id"
   end
 
   create_table "practical_supports", force: :cascade do |t|
