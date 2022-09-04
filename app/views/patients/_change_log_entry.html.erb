@@ -3,7 +3,7 @@
     <td><%= revision.date_of_change %></td>
     <td>
       <div>
-        <%= revision.item_type.underscore.humanize %> (<%= revision.item_id %>):
+        <%= t("patient.change_log.objects.#{revision.item_type.underscore}") %> (<%= revision.item_id %>):
       </div>
 
       <div>

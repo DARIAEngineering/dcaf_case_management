@@ -91,8 +91,8 @@ en:
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without fund
         shared_flag: Shared Flag
-        source: Source
         solidarity: Solidarity Pledge
+        source: Source
         special_circumstances: Special circumstances
         state: State
         support_type: Support type
@@ -349,6 +349,11 @@ en:
         time: TIME
       title: Call Log
     change_log:
+      objects:
+        external_pledge: External pledge
+        fulfillment: Fulfillment
+        patient: Patient
+        practical_support: Practical support
       table:
         case_manager: CM
         change: Change (from -> to)

@@ -91,8 +91,8 @@ es:
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
         shared_flag: Bandera compartida
-        source: Fuente
         solidarity: Promesa solidaria
+        source: Fuente
         special_circumstances: Circunstancias Especiales
         state: Estado
         support_type: Tipo de soporte
@@ -349,6 +349,11 @@ es:
         time: HORA
       title: Registro de Llamadas
     change_log:
+      objects:
+        external_pledge: Promesa Externo
+        fulfillment: Cumplimiento
+        patient: Paciente
+        practical_support: Apoyo Practico
       table:
         case_manager: CM
         change: Cambiar (de -> a)
