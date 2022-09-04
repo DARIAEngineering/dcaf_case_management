@@ -7,9 +7,7 @@
     <meta name='ROBOTS' content='NOINDEX, NOFOLLOW'>
     <meta name="google-site-verification" content="<%= ENV['GOOGLE_SITE_VERIFICATION'] %>" />
 
-    <% if !content_for? :error_page %>
-      <%= csrf_meta_tags %>
-    <% end %>
+    <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= favicon_link_tag %>
 
