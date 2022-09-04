@@ -1,8 +1,15 @@
 <% if revision.has_changed_fields? %>
   <tr class="patient-change-log-entry">
     <td><%= revision.date_of_change %></td>
-    <td><%= revision.item_type %> (ID <%= revision.item_id %>)</td>
-    <td><%= safe_join_fields revision.shaped_changes %></td>
+    <td>
+      <div>
+        <%= revision.item_type.underscore.humanize %> (<%= revision.item_id %>):
+      </div>
+
+      <div>
+        <%= safe_join_fields revision.shaped_changes %>
+      </div>
+    </td>
     <td><%= revision.changed_by_user %></td>
   </tr>
 <% end %>
