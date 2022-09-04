@@ -47,6 +47,9 @@ module DARIA
     # Throttling protection
     config.middleware.use Rack::Attack
 
+    # Force JSON cookies for security reasons
+    config.action_dispatch.cookies_serializer = :json
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
