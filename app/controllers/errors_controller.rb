@@ -3,8 +3,6 @@ class ErrorsController < ApplicationController
     true
   end
 
-  layout 'errors'
-
   def error_404
     respond_to do |format|
       format.html { render status: 404 }

@@ -3,31 +3,45 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><%= content_for?(:title) ? yield(:title) : "DARIA" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DCAF" %>">
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "DARIA" %>">
     <meta name='ROBOTS' content='NOINDEX, NOFOLLOW'>
     <meta name="google-site-verification" content="<%= ENV['GOOGLE_SITE_VERIFICATION'] %>" />
 
-    <%= csrf_meta_tags %>
+    <% if !content_for? :error_page %>
+      <%= csrf_meta_tags %>
+    <% end %>
     <%= csp_meta_tag %>
     <%= favicon_link_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <%= content_for :render_async %>
 
+    <% if !content_for? :error_page %>
+      <%= content_for :render_async %>
+    <% end %>
   </head>
+
   <body>
     <% if current_user.present? %>
       <header>
         <%= render 'layouts/navigation' %>
       </header>
     <% end %>
+
     <main class="container" role="main">
-      <%= render 'layouts/messages' %>
+      <% if !content_for? :error_page %>
+        <%= render 'layouts/messages' %>
+      <% end %>
 
       <br>
       <%= yield %>
+
+      <% if content_for? :error_page %>
+        <p>
+          <%= link_to 'Back to homepage', root_path, class: 'btn btn-primary btn-lg text-white' %>
+        </p>
+      <% end %>
 
       <% if current_user.present? %>
         <footer>
