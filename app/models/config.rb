@@ -19,6 +19,7 @@ class Config < ApplicationRecord
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
     shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
+    hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
   }.freeze
 
   enum config_key: {
@@ -38,6 +39,7 @@ class Config < ApplicationRecord
     days_to_keep_fulfilled_patients: 13,
     days_to_keep_all_patients: 14,
     shared_reset: 15,
+    hide_budget_bar: 16,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -54,7 +56,7 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_start_of_week],
 
     hide_practical_support:
-      [:validate_singleton, :validate_hide_practical_support],
+      [:validate_singleton, :validate_yes_or_no],
 
     budget_bar_max:
       [:validate_singleton, :validate_number],
@@ -72,6 +74,9 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_patient_archive],
     shared_reset:
       [:validate_singleton, :validate_shared_reset],
+      
+    hide_budget_bar:
+      [:validate_singleton, :validate_yes_or_no],
   }.freeze
 
   before_validation :clean_config_value
@@ -135,6 +140,10 @@ class Config < ApplicationRecord
     # default 6 days
     shared_reset_days ||= 6
     shared_reset_days.to_i
+  end
+
+  def self.hide_budget_bar?
+    Config.find_or_create_by(config_key: 'hide_budget_bar').options.try(:last).to_s =~ /yes/i ? true : false
   end
 
   private
@@ -223,7 +232,7 @@ class Config < ApplicationRecord
 
     ### Practical support
 
-    def validate_hide_practical_support
+    def validate_yes_or_no
       # allow yes or no, to be nice (technically only yes is considered)
       options.last =~ /\A(yes|no)\z/i
     end
