@@ -249,7 +249,7 @@ GEM
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
-    omniauth-google-oauth2 (1.1.0)
+    omniauth-google-oauth2 (1.1.1)
       jwt (>= 2.0)
       oauth2 (~> 2.0.6)
       omniauth (~> 2.0)
@@ -474,7 +474,7 @@ DEPENDENCIES
   net-pop
   net-smtp
   nokogiri (>= 1.13.4)
-  omniauth-google-oauth2 (~> 1.1.0)
+  omniauth-google-oauth2 (~> 1.1.1)
   omniauth-rails_csrf_protection (~> 1.0)
   paper_trail (~> 13.0)
   pdf-inspector
