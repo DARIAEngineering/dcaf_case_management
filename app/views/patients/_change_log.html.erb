@@ -11,7 +11,7 @@
     </thead>
 
     <tbody>
-      <% patient.versions.each do |revision| %>
+      <% patient.all_versions(current_user.allowed_data_access?).each do |revision| %>
         <%= render 'patients/change_log_entry', revision: revision %>
       <% end %>
     </tbody>
