@@ -83,7 +83,7 @@ class User < ApplicationRecord
   def toggle_disabled_by_fund
     # Since toggle skips callbacks...
     attrs = { disabled_by_fund: !disabled_by_fund }
-    # also, if unlocking, count that as a sign in for locking purposes
+    # if we're currently locked, count this unlocking as a sign-in to avoid rapid relocking
     if disabled_by_fund?
       attrs.merge!({ current_sign_in_at: Time.zone.now })
     end
