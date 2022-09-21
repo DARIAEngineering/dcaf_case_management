@@ -1,7 +1,15 @@
 <% if revision.has_changed_fields? %>
   <tr class="patient-change-log-entry">
     <td><%= revision.date_of_change %></td>
-    <td><%= safe_join_fields revision.shaped_changes %></td>
+    <td>
+      <div>
+        <%= t("patient.change_log.objects.#{revision.item_type.underscore}") %> (<%= revision.item_id %>):
+      </div>
+
+      <div>
+        <%= safe_join_fields revision.shaped_changes %>
+      </div>
+    </td>
     <td><%= revision.changed_by_user %></td>
   </tr>
 <% end %>

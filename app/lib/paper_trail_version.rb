@@ -14,6 +14,13 @@ class PaperTrailVersion < PaperTrail::Version
     identifier
     updated_at
     created_at
+    can_pledge_type
+    can_pledge_id
+    fund_id
+    can_fulfill_type
+    can_fulfill_id
+    can_support_type
+    can_support_id
   ].freeze
   DATE_FIELDS = %w[
     appointment_date
@@ -40,6 +47,7 @@ class PaperTrailVersion < PaperTrail::Version
 
   def shaped_changes
     changeset.reject { |field| IRRELEVANT_FIELDS.include? field }
+             .reject { |_, values| values[0].blank? && values[1].blank? }
              .reduce({}) do |acc, x|
                key = x[0]
                acc.merge({ key => { original: format_fieldchange(key, x[1][0]),

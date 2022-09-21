@@ -32,17 +32,38 @@ en:
         state: State
         street_address: Street address
         zip: ZIP
+      external_pledge:
+        active: Active
+        amount: Amount
+        source: Source
+      fulfillment:
+        audited: Audited
+        check_number: Check number
+        date_of_check: Date of check
+        fulfilled: Fulfilled
+        fund_payout: Fund payout
+        gestation_at_procedure: Gestation at procedure
+        procedure_date: Procedure date
       patient:
+        active: Active
         age: Age
+        amount: Amount
         appointment_date: Appointment date
+        audited: Audited
+        check_number: Check number
         city: City
         clinic_id: Clinic_Id
         completed_ultrasound: Completed ultrasound?
+        confirmed: Confirmed
         county: County
+        date_of_check: Date of check
         employment_status: Employment status
+        fulfilled: Fulfilled
         fund_id: Fund ID
+        fund_payout: Fund payout
         fund_pledge: Fund pledge
         fund_pledged_at: Fund pledged at
+        gestation_at_procedure: Gestation at procedure
         household_size_adults: Adults in household
         household_size_children: Minors in household
         income: Income
@@ -63,6 +84,7 @@ en:
         pledge_sent_at: Pledge sent at
         primary_phone: Primary phone
         procedure_cost: Procedure cost
+        procedure_date: Procedure date
         pronouns: Pronouns
         race_ethnicity: Race / Ethnicity
         referred_by: Referred by
@@ -70,8 +92,10 @@ en:
         resolved_without_fund: Resolved without fund
         shared_flag: Shared Flag
         solidarity: Solidarity Pledge
+        source: Source
         special_circumstances: Special circumstances
         state: State
+        support_type: Support type
         textable: Textable
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
@@ -325,6 +349,11 @@ en:
         time: TIME
       title: Call Log
     change_log:
+      objects:
+        external_pledge: External pledge
+        fulfillment: Fulfillment
+        patient: Patient
+        practical_support: Practical support
       table:
         case_manager: CM
         change: Change (from -> to)

@@ -32,17 +32,38 @@ es:
         state: Estado
         street_address: Dirección
         zip: Código postal
+      external_pledge:
+        active: Activa
+        amount: Monto
+        source: Fuente
+      fulfillment:
+        audited: Auditada
+        check_number: 'Cheque #'
+        date_of_check: Fecha del cheque
+        fulfilled: Promesa cumplida
+        fund_payout: Pago de fund
+        gestation_at_procedure: Semanas a lo largo del pocedimiento
+        procedure_date: Fecha de procedimiento
       patient:
+        active: Activa
         age: Edad
+        amount: Monto
         appointment_date: Día de la cita
+        audited: Auditada
+        check_number: 'Cheque #'
         city: Ciudad
         clinic_id: ID de la clínica
         completed_ultrasound: Ultrasonido completado
+        confirmed: Confirmada
         county: Condado
+        date_of_check: Fecha del cheque
         employment_status: Estatus de empleo
+        fulfilled: Cumplida
         fund_id: ID del fondo
+        fund_payout: Pago de fondos
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
+        gestation_at_procedure: Semanas a lo largo del pocedimiento
         household_size_adults: Adultos en el Hogar
         household_size_children: Menores en el Hogar
         income: Ingresos
@@ -63,6 +84,7 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
+        procedure_date: Fecha de procedimiento
         pronouns: Pronombres
         race_ethnicity: Raza / Etnicidad
         referred_by: Referido por
@@ -70,8 +92,10 @@ es:
         resolved_without_fund: Resuelto sin ayuda de fondo
         shared_flag: Bandera compartida
         solidarity: Promesa solidaria
+        source: Fuente
         special_circumstances: Circunstancias Especiales
         state: Estado
+        support_type: Tipo de soporte
         textable: Textable
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
@@ -325,6 +349,11 @@ es:
         time: HORA
       title: Registro de Llamadas
     change_log:
+      objects:
+        external_pledge: Promesa Externo
+        fulfillment: Cumplimiento
+        patient: Paciente
+        practical_support: Apoyo Practico
       table:
         case_manager: CM
         change: Cambiar (de -> a)

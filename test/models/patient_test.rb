@@ -652,6 +652,41 @@ class PatientTest < ActiveSupport::TestCase
     end
   end
 
+  describe 'all_versions' do
+    before do
+      # For some reason bullet doesn't play nicely with these unit tests,
+      # but does with the system tests. Given the choice I prefer the system
+      # tests, so we assume this is a false negative and turn off bullet for these.
+      Bullet.enable = false
+      with_versioning do
+        @patient.update name: 'Cat Patient'
+        @patient.external_pledges.create amount: 100, source: 'Catfund'
+        @patient.practical_supports.create amount: 100, support_type: 'Cat petting', source: 'Catfund'
+        @patient.fulfillment.update check_number: 'Cat1'
+      end
+    end
+
+    after do
+      Bullet.enable = true
+    end
+
+    it 'should not show fulfillment if not include_fulfillment' do
+      version_types = @patient.all_versions(false).map(&:item_type).uniq
+      assert_includes version_types, 'ExternalPledge'
+      assert_includes version_types, 'PracticalSupport'
+      assert_includes version_types, 'Patient'
+      assert_not_includes version_types, 'Fulfillment'
+    end
+
+    it 'should show fulfillment if include_fulfillment' do
+      version_types = @patient.all_versions(true).map(&:item_type).uniq
+      assert_includes version_types, 'ExternalPledge'
+      assert_includes version_types, 'PracticalSupport'
+      assert_includes version_types, 'Patient'
+      assert_includes version_types, 'Fulfillment'
+    end
+  end
+
   def patient_to_hash(patient)
     {
       fund_pledge: patient.fund_pledge,
