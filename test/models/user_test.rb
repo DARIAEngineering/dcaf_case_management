@@ -255,7 +255,7 @@ class UserTest < ActiveSupport::TestCase
       assert @user.disabled_by_fund
     end
 
-    it 'resets the current sign in token' do
+    it 'resets the current sign in token only on reenable' do
       assert_nil @user.current_sign_in_at
       @user.toggle_disabled_by_fund
       @user.reload
