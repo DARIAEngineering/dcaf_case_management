@@ -82,7 +82,12 @@ class User < ApplicationRecord
 
   def toggle_disabled_by_fund
     # Since toggle skips callbacks...
-    update disabled_by_fund: !disabled_by_fund
+    attrs = { disabled_by_fund: !disabled_by_fund }
+    # if we're currently locked, count this unlocking as a sign-in to avoid rapid relocking
+    if disabled_by_fund?
+      attrs.merge!({ current_sign_in_at: Time.zone.now })
+    end
+    update attrs
   end
 
   def self.disable_inactive_users

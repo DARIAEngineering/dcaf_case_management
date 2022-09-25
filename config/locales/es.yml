@@ -23,6 +23,7 @@ es:
         active: Activo
         city: Ciudad
         distance: Distancia
+        email_for_pledges: Email para promesas
         fax: Fax
         gestational_limit: Límite gestacional (en días)
         location: Ubicación
@@ -31,16 +32,38 @@ es:
         state: Estado
         street_address: Dirección
         zip: Código postal
+      external_pledge:
+        active: Activa
+        amount: Monto
+        source: Fuente
+      fulfillment:
+        audited: Auditada
+        check_number: 'Cheque #'
+        date_of_check: Fecha del cheque
+        fulfilled: Promesa cumplida
+        fund_payout: Pago de fund
+        gestation_at_procedure: Semanas a lo largo del pocedimiento
+        procedure_date: Fecha de procedimiento
       patient:
+        active: Activa
         age: Edad
+        amount: Monto
         appointment_date: Día de la cita
+        audited: Auditada
+        check_number: 'Cheque #'
         city: Ciudad
         clinic_id: ID de la clínica
         completed_ultrasound: Ultrasonido completado
+        confirmed: Confirmada
         county: Condado
+        date_of_check: Fecha del cheque
         employment_status: Estatus de empleo
+        fulfilled: Cumplida
+        fund_id: ID del fondo
+        fund_payout: Pago de fondos
         fund_pledge: Promesa de fondos
         fund_pledged_at: Fondo prometido en
+        gestation_at_procedure: Semanas a lo largo del pocedimiento
         household_size_adults: Adultos en el Hogar
         household_size_children: Menores en el Hogar
         income: Ingresos
@@ -61,14 +84,18 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
+        procedure_date: Fecha de procedimiento
         pronouns: Pronombres
         race_ethnicity: Raza / Etnicidad
         referred_by: Referido por
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de fondo
         shared_flag: Bandera compartida
+        solidarity: Promesa solidaria
+        source: Fuente
         special_circumstances: Circunstancias Especiales
         state: Estado
+        support_type: Tipo de soporte
         textable: Textable
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
@@ -125,6 +152,7 @@ es:
       active_help: "¿Estamos trabajando activamente con esta clínica?"
       add_clinic: Añadir clinica
       costs_weeks: Costos en %{week} semanas
+      email_help: Email que esta clínica usa para recibir promesas. Si prefiere fax, deje este campo en blanco.
       save_changes: Guardar cambios
       zip_help: Para excluir esta clínica de las búsquedas de Clinic Finder, dale el código postal 99999.
     index:
@@ -297,6 +325,8 @@ es:
         not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
+        solidarity: Promesa solidaria
+        solidarity_lead: Plomo de solidaridad
         title: Detalles de la clínica
         ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:
@@ -319,6 +349,11 @@ es:
         time: HORA
       title: Registro de Llamadas
     change_log:
+      objects:
+        external_pledge: Promesa Externo
+        fulfillment: Cumplimiento
+        patient: Paciente
+        practical_support: Apoyo Practico
       table:
         case_manager: CM
         change: Cambiar (de -> a)
@@ -459,15 +494,18 @@ es:
         pledge_amount: 'Cantidad de la promesa:'
         title: 'Confirme que la siguiente información es correcta:'
       step_three:
+        clinic_fax: Fax de la clínica
         completed: Una vez que haya completado el proceso de envio, indique aquí que se ha enviado la promesa.
-        downloads: 'Su documento de promesa aparecerá en las descargas de su computadora. Encuentre el documento y envíe la promesa para su cliente aquí:'
+        downloads: Su documento de promesa aparecerá en las descargas de su computadora.
+        fax_service: Servicio de fax
         generated: Impresionante, ¡generaste una promesa de %{fund}! ¡Gracias!
         sent_checkbox: Yo envié la promesa
+        submit: 'Envíe la promesa para su cliente aquí:'
         title: 'Descarga y envíe su promesa:'
       step_two:
         blank_name_error: Debe ingresar su nombre en el cuadro para firmar y descargar la promesa
         form_disabled: Por favor genere el documento de promesa y haga clic en siguiente.
-        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado el fax a la clínica.
+        generate_note: Tenga en cuenta que esto NO envía su promesa a la clínica! Haga clic en la página siguiente después de generar el documento para indicar que ha enviado la promesa a la clínica.
         generate_pledge_button: Genera la promesa
         sign_pledge: 'Ingrese su nombre en este cuadro para firmar su promesa:'
         title: 'Genere el documento de promesa:'
@@ -536,6 +574,8 @@ es:
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.
     shared_cases: Estos son pacientes que requieren un poco más de atención. Esta lista es compartido entre todos los administradores de casos que trabajan en una sola línea. Los pacientes son eliminados de esta lista automáticamente después de que estén marcado como "resuelto sin ayuda", o después de %{shared_reset} días de inactividad.
+    solidarity: Indica un caso al que este fondo está brindando apoyo, pero no manejando.
+    solidarity_lead: Este es el fondo que sirve como punto de contacto o coordinación de fondos para este paciente.
     status_definition: Definición de estado
     unconfirmed_support: Estos son pacientes que tienen apoyos prácticos no confirmados.
   user:

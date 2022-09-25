@@ -12,14 +12,12 @@ If you see a spot in the docs that's confusing or could be improved, please pay 
 
 For the rest of the setup, you have two options: Docker, or installing everything locally. We recommend Docker if you're comfortable with its ecosystem.
 
-## Docker (currently broken)
-
-WARNING: Docker builds are [not currently supported](https://github.com/DARIAEngineering/dcaf_case_management/issues/2606). See the instructions for `Local Environment` setup below.
+## Docker
 
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
 * `docker-compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
-* `docker-compose run --rm web rails db:create db:migrate db:seed # to populate the database`
+* `docker-compose run --rm web rails db:drop db:create db:migrate db:seed # to populate the database`
 * `docker-compose up`
 
 The last command will take a moment and should print a number of things. When it's ready

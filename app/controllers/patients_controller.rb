@@ -59,6 +59,16 @@ class PatientsController < ApplicationController
     # i18n-tasks-use t('activerecord.attributes.practical_support.confirmed')
     # i18n-tasks-use t('activerecord.attributes.practical_support.source')
     # i18n-tasks-use t('activerecord.attributes.practical_support.support_type')
+    # i18n-tasks-use t('activerecord.attributes.external_pledge.active')
+    # i18n-tasks-use t('activerecord.attributes.external_pledge.amount')
+    # i18n-tasks-use t('activerecord.attributes.external_pledge.source')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.audited')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.check_number')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.date_of_check')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.fulfilled')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.fund_payout')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.gestation_at_procedure')
+    # i18n-tasks-use t('activerecord.attributes.fulfillment.procedure_date')
     @note = @patient.notes.new
     @external_pledge = @patient.external_pledges.new
   end
@@ -131,7 +141,7 @@ class PatientsController < ApplicationController
   ABORTION_INFORMATION_PARAMS = [
     :clinic_id, :resolved_without_fund, :referred_to_clinic, :completed_ultrasound,
     :procedure_cost, :patient_contribution, :naf_pledge, :fund_pledge,
-    :fund_pledged_at, :pledge_sent_at
+    :fund_pledged_at, :pledge_sent_at, :solidarity, :solidarity_lead
   ].freeze
 
   FULFILLMENT_PARAMS = [
