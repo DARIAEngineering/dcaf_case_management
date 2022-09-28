@@ -114,6 +114,12 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       post patients_path, params: { patient: @new_patient }
       assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
     end
+
+    it 'should ignore pledge fulfillment attributes' do
+      @new_patient[:fulfillment_attributes] = attributes_for :fulfillment, fulfilled: true, fund_payout: 1_000
+      post patients_path, params: { patient: @new_patient }
+      assert_nil Patient.find_by(name: 'Test Patient').fulfillment.fund_payout
+    end
   end
 
   describe 'edit method' do
@@ -182,6 +188,31 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     it 'should redirect if record does not exist' do
       patch patient_path('notanactualid'), params: { patient: @payload }
       assert_redirected_to root_path
+    end
+
+    it 'should ignore pledge fulfillment attributes' do
+      assert_nil @patient.fulfillment.fund_payout
+      @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
+      @payload[:fulfillment_attributes][:fund_payout] = 1_000
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      assert response.body.include? 'saved'
+      @patient.fulfillment.reload
+      assert_nil @patient.fulfillment.fund_payout
+    end
+
+    it 'should allow admins to change pledge fulfillment attributes' do
+      delete destroy_user_session_path
+      sign_in @admin
+
+      assert_nil @patient.fulfillment.fund_payout
+      bullet_enabled, Bullet.enable = Bullet.enable?, false
+      @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
+      @payload[:fulfillment_attributes][:fund_payout] = 1_000
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      assert response.body.include? 'saved'
+      @patient.fulfillment.reload
+      assert_equal 1_000, @patient.fulfillment.fund_payout
+      Bullet.enable = bullet_enabled
     end
   end
 

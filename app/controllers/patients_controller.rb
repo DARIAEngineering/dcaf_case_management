@@ -152,10 +152,12 @@ class PatientsController < ApplicationController
   OTHER_PARAMS = [:shared_flag, :initial_call_date, :pledge_sent].freeze
 
   def patient_params
-    params.require(:patient).permit(
-      [].concat(PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
-                ABORTION_INFORMATION_PARAMS, OTHER_PARAMS, FULFILLMENT_PARAMS)
+    permitted_params = [].concat(
+      PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
+      ABORTION_INFORMATION_PARAMS, OTHER_PARAMS
     )
+    permitted_params.concat(FULFILLMENT_PARAMS) if current_user.admin?
+    params.require(:patient).permit(permitted_params)
   end
 
   def render_csv
