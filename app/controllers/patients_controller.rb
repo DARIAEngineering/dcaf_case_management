@@ -156,7 +156,7 @@ class PatientsController < ApplicationController
       PATIENT_DASHBOARD_PARAMS, PATIENT_INFORMATION_PARAMS,
       ABORTION_INFORMATION_PARAMS, OTHER_PARAMS
     )
-    permitted_params.concat(FULFILLMENT_PARAMS) if current_user.admin?
+    permitted_params.concat(FULFILLMENT_PARAMS) if current_user.allowed_data_access?
     params.require(:patient).permit(permitted_params)
   end
 
