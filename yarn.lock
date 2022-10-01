@@ -502,9 +502,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"all-contributors-cli@npm:6.20.4":
-  version: 6.20.4
-  resolution: "all-contributors-cli@npm:6.20.4"
+"all-contributors-cli@npm:6.22.0":
+  version: 6.22.0
+  resolution: "all-contributors-cli@npm:6.22.0"
   dependencies:
     "@babel/runtime": ^7.7.6
     async: ^3.1.0
@@ -518,7 +518,7 @@ __metadata:
     yargs: ^15.0.1
   bin:
     all-contributors: dist/cli.js
-  checksum: d5a2fd096e739c683fc73f3e710530b25898226803fab3b8e5724f340f91429da3f26aa4e2c4439c8938238ca6c03f9b26fb3a3c6c3a137e38753e7b222df592
+  checksum: 0efa4ee3b3aae6880866147b3de7e73ebff4af330e61beb7b8b55a3e5b97f38e55b4e95cd1c9a8d8031fc5a9490ef32e263f4027e9dacb7a6c0d42346ea52582
   languageName: node
   linkType: hard
 
@@ -5841,7 +5841,7 @@ __metadata:
   dependencies:
     "@fortawesome/fontawesome-free": 6.2.0
     "@popperjs/core": 2.11.6
-    all-contributors-cli: 6.20.4
+    all-contributors-cli: 6.22.0
     bootstrap: 4.6.2
     esbuild: 0.15.8
     eslint: 8.24.0
