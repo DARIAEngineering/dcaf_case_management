@@ -11,11 +11,11 @@
     margin: 10px;
   }
 
-  label {
-    font-size: $font-size-medium;
+  .form-check-label {
+    margin-left: 2em;
   }
 
-  .form-check-label {
-    @extend .ml-8;
+  label {
+    font-size: $font-size-medium;
   }
 }

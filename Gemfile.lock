@@ -91,7 +91,7 @@ GEM
       smart_properties
     bootsnap (1.12.0)
       msgpack (~> 1.2)
-    bootstrap_form (4.5.0)
+    bootstrap_form (5.0.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
     builder (3.2.4)
@@ -445,7 +445,7 @@ DEPENDENCIES
   activerecord-session_store
   acts_as_tenant (~> 0.5.0)
   bootsnap (>= 1.4.2)
-  bootstrap_form (~> 4.5.0)
+  bootstrap_form (~> 5.0.0)
   bullet
   bundler-audit
   byebug

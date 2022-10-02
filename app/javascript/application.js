@@ -4,6 +4,7 @@ import './src/jquery';
 import {} from 'jquery-ujs'
 import './src/jquery-ui';
 import './src/turbolinks';
+import Popper from 'popper.js';
 import * as bootstrap from "bootstrap";
 
 // Vendor

@@ -81,7 +81,7 @@
 
   <div class="modal-footer">
     <div class="col">
-      <button type="button" class="btn btn-outline-secondary js-btn-step float-left" style="color:red;" data-dismiss="modal"><%= t('common.no') %></button>
+      <button type="button" class="btn btn-outline-secondary js-btn-step float-start" style="color:red;" data-dismiss="modal"><%= t('common.no') %></button>
     </div>
 
     <div class="col">
@@ -91,7 +91,7 @@
                               method: 'patch',
                               class: 'edit_patient' do |f| %>
         <%= f.hidden_field :pledge_sent, value: false %>
-        <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step float-right", id: 'cancel-pledge-submit'%>
+        <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step float-end", id: 'cancel-pledge-submit'%>
       <% end %>
     </div>
   </div>

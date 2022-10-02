@@ -69,13 +69,13 @@ __metadata:
   linkType: hard
 
 "@humanwhocodes/config-array@npm:^0.10.5":
-  version: 0.10.5
-  resolution: "@humanwhocodes/config-array@npm:0.10.5"
+  version: 0.10.7
+  resolution: "@humanwhocodes/config-array@npm:0.10.7"
   dependencies:
     "@humanwhocodes/object-schema": ^1.2.1
     debug: ^4.1.1
     minimatch: ^3.0.4
-  checksum: af4fa2633c57414be22ddba0a072cc611ef9a07104542fa24bde918a0153b89b6e08ca6a20ccc9079de6079e219e2406e38414d1b662db8bb59a3ba9d6eee6e3
+  checksum: 009d64be8d5bd098ff04e10af79e34f5633245250581fca032fac12a8667b2df8e7d169e69c05bff4d83ea3dd3c7d2d0e05ea9b94d89a7d092e26530caf6f8a3
   languageName: node
   linkType: hard
 
@@ -147,10 +147,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@popperjs/core@npm:2.11.6":
-  version: 2.11.6
-  resolution: "@popperjs/core@npm:2.11.6"
-  checksum: 47fb328cec1924559d759b48235c78574f2d71a8a6c4c03edb6de5d7074078371633b91e39bbf3f901b32aa8af9b9d8f82834856d2f5737a23475036b16817f0
+"@popperjs/core@npm:^2.11.5":
+  version: 2.11.5
+  resolution: "@popperjs/core@npm:2.11.5"
+  checksum: fd7f9dca3fb716d7426332b6ee283f88d2724c0ab342fb678865a640bad403dfb9eeebd8204a406986162f7e2b33394f104320008b74d0e9066d7322f70ea35d
   languageName: node
   linkType: hard
 
@@ -914,13 +914,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:4.6.2":
-  version: 4.6.2
-  resolution: "bootstrap@npm:4.6.2"
+"bootstrap@npm:5.0.1":
+  version: 5.0.1
+  resolution: "bootstrap@npm:5.0.1"
   peerDependencies:
-    jquery: 1.9.1 - 3
-    popper.js: ^1.16.1
-  checksum: 3f4e7768ff7d618c49d4bf4f02aa54a9bfb679d4eecb0f3854fa4af1a17b9114b147009c435946432cdd1572efffc71d88ec385c55943a12fa66253cde0876b0
+    "@popperjs/core": ^2.9.2
+  checksum: 1889c64f71d935ff98632b959dc7f411c7d7b5ea59f9cc91063403c3ec5a880af3275348495f6cc5b04acf87bf6284cbc992f6b41df249d5b5e16a42b81fae2b
   languageName: node
   linkType: hard
 
@@ -2674,15 +2673,15 @@ __metadata:
   linkType: hard
 
 "fast-glob@npm:^3.2.9":
-  version: 3.2.11
-  resolution: "fast-glob@npm:3.2.11"
+  version: 3.2.12
+  resolution: "fast-glob@npm:3.2.12"
   dependencies:
     "@nodelib/fs.stat": ^2.0.2
     "@nodelib/fs.walk": ^1.2.3
     glob-parent: ^5.1.2
     merge2: ^1.3.0
     micromatch: ^4.0.4
-  checksum: f473105324a7780a20c06de842e15ddbb41d3cb7e71d1e4fe6e8373204f22245d54f5ab9e2061e6a1c613047345954d29b022e0e76f5c28b1df9858179a0e6d7
+  checksum: 0b1990f6ce831c7e28c4d505edcdaad8e27e88ab9fa65eedadb730438cfc7cde4910d6c975d6b7b8dc8a73da4773702ebcfcd6e3518e73938bb1383badfe01c2
   languageName: node
   linkType: hard
 
@@ -4056,7 +4055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery-ujs@npm:1.2.3":
+"jquery-ujs@npm:^1.2.3":
   version: 1.2.3
   resolution: "jquery-ujs@npm:1.2.3"
   peerDependencies:
@@ -5827,15 +5826,15 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@fortawesome/fontawesome-free": 6.2.0
-    "@popperjs/core": 2.11.6
+    "@popperjs/core": ^2.11.5
     all-contributors-cli: 6.22.0
-    bootstrap: 4.6.2
+    bootstrap: 5.0.1
     esbuild: 0.15.10
     eslint: 8.24.0
     eslint-config-airbnb-base: 15.0.0
     eslint-plugin-import: 2.26.0
     jquery: 3.6.1
-    jquery-ujs: 1.2.3
+    jquery-ujs: ^1.2.3
     popper.js: 1.16.1
     sass: 1.55.0
     set-value: 4.1.0
