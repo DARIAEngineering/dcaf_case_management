@@ -30,7 +30,7 @@ class Rack::Attack
   # Throttle all requests by IP (60rpm)
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-  throttle('req/ip', :limit => 300, :period => 5.minutes) do |req|
+  throttle('req/ip', :limit => 60, :period => 60.seconds) do |req|
     req.ip # unless req.path.start_with?('/assets')
   end
 
@@ -64,6 +64,27 @@ class Rack::Attack
     if req.path == '/users/sign_in' && req.post?
       # return the email if present, nil otherwise
       req.params['user_email'].presence
+    end
+  end
+
+  # Throttle requests to password routes by ip
+  throttle('password/ip', :limit => 5, :period => 20.seconds) do |req|
+    if req.path.start_with?('/users/password')
+      req.ip
+    end
+  end
+
+  # Throttle requests to password routes by email
+  throttle('password/email', :limit => 5, :period => 20.seconds) do |req|
+    if req.path.start_with?('/users/password')
+      req.params['user_email'].presence
+    end
+  end
+
+  # Throttle requests to auth routes by ip
+  throttle('auth/ip', :limit => 5, :period => 20.seconds) do |req|
+    if req.path.start_with?('/users/auth')
+      req.ip
     end
   end
 
