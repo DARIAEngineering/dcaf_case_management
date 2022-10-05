@@ -39,7 +39,7 @@
     "y18n": "^5.0.0",
     "is-svg": "^4.2.2"
   },
-  "packageManager": "yarn@3.2.3",
+  "packageManager": "yarn@3.2.4",
   "scripts": {
     "build": "./node_modules/esbuild/bin/esbuild ./app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
