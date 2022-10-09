@@ -24,8 +24,9 @@ db/*.sqlite3
 !/tmp/screenshots/.keep
 !/tmp/sockets/.keep
 
-# cert file
+# cert files
 cacert.pem
+*.pem
 
 # various artifacts
 **.war
