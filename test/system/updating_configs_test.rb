@@ -197,5 +197,23 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         end
       end
     end
+
+    describe 'updating a config - hide budget bar' do
+      it 'should toggle the budget bar on the dashboard' do
+        fill_in 'config_options_hide_budget_bar', with: 'yes'
+        click_button 'Update options for Hide budget bar'
+        visit authenticated_root_path
+        refute has_content? 'Budget for'
+
+        visit configs_path
+        fill_in 'config_options_hide_budget_bar', with: ''
+        click_button 'Update options for Hide budget bar'        
+        visit authenticated_root_path
+        within :css, '#overview' do
+          assert has_content? 'Budget for'
+        end
+      end
+
+    end
   end
 end

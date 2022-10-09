@@ -197,6 +197,26 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
+    describe '#hide_budget_bar?' do
+      it 'can return true' do
+        c = Config.find_or_create_by(config_key: 'hide_budget_bar')
+        c.config_value = { options: ["Yes"] }
+        c.save!
+        assert(Config.hide_budget_bar? == true)
+      end
+
+      it 'can return false' do
+        c = Config.find_or_create_by(config_key: 'hide_budget_bar')
+        c.config_value = { options: ["No"] }
+        c.save!
+        assert(Config.hide_budget_bar? == false)
+      end
+
+      it "returns false by default" do
+        assert(Config.hide_budget_bar? == false)
+      end
+    end
+
     describe '#start_day' do
       it 'should return the day of week as a symbol' do
         assert_equal :monday, Config.start_day
