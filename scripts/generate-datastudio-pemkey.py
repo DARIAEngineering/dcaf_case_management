@@ -3,8 +3,9 @@
 # This is to let us connect datastudio to postgres in heroku, by generating a certificate.
 
 # RUN AS:
-# python postgres_get_server_cert.py {aws-database-server}:5432 > aws-cert.pem
-# where aws-database-server is the host of the heroku postgres instance.
+# AWS_DATABASE_SERVER="hostname of postgres instance"
+# python scripts/generate-datastudio-pemkey.py AWS_DATABASE_SERVER:5432 > aws-cert.pem
+
 # you'll then plug conn creds into datastudio and upload the pem file
 # the above command generates.
 
