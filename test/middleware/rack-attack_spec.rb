@@ -7,8 +7,13 @@ class AttackTest < ActionDispatch::IntegrationTest
     Rails.application
   end
 
+  before do
+    # Prevents ips and emails from conflicting across tests.
+    Rails.cache.clear
+  end
+
   describe "throttle excessive requests by IP address" do
-    limit = 300
+    limit = 60
 
     describe "number of requests is lower than the limit" do
       it "does not change the request status" do
@@ -23,7 +28,7 @@ class AttackTest < ActionDispatch::IntegrationTest
       it "changes the request status to 503" do
         (limit + 2).times do |i|
 
-          get "/", {}, "REMOTE_ADDR" => "1.2.3.5"
+          get "/", {}, "REMOTE_ADDR" => "1.2.3.4"
           assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
         end
       end
@@ -36,7 +41,7 @@ class AttackTest < ActionDispatch::IntegrationTest
     describe "number of requests is lower than the limit" do
       it "does not change the request status" do
         limit.times do |i|
-          post "/users/sign_in", { email: "example3#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.7"
+          post "/users/sign_in", { email: "example#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.4"
           assert_not_equal 503, last_response.status, "Should not hit throttle limit"
         end
       end
@@ -45,7 +50,7 @@ class AttackTest < ActionDispatch::IntegrationTest
     describe "number of user requests is higher than the limit" do
       it "changes the request status to 503" do
         (limit * 2).times do |i|
-          post "/users/sign_in", { email: "example4#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.9"
+          post "/users/sign_in", { email: "example#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.4"
           assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
         end
       end
@@ -58,7 +63,7 @@ class AttackTest < ActionDispatch::IntegrationTest
     describe "number of requests is lower than the limit" do
       it "does not change the request status" do
         limit.times do |i|
-          post "/users/sign_in", { user_email: "example7@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.6.9"
+          post "/users/sign_in", { user_email: "example@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.3.4"
           assert_not_equal 503, last_response.status, "Should not hit throttle limit"
         end
       end
@@ -67,7 +72,73 @@ class AttackTest < ActionDispatch::IntegrationTest
     describe "number of requests is higher than the limit" do
       it "changes the request status to 503" do
         (limit * 2).times do |i|
-          post "/users/sign_in", { user_email: "example8@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.7.9"
+          post "/users/sign_in", { user_email: "example@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.3.4"
+          assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
+        end
+      end
+    end
+  end
+
+  describe "throttle excessive requests to password routes by IP address" do
+    limit = 5
+
+    describe "number of requests is lower than the limit" do
+      it "does not change the request status" do
+        limit.times do |i|
+          post "/users/password", { email: "example#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.4"
+          assert_not_equal 503, last_response.status, "Should not hit throttle limit"
+        end
+      end
+    end
+
+    describe "number of user requests is higher than the limit" do
+      it "changes the request status to 503" do
+        (limit * 2).times do |i|
+          post "/users/password", { email: "example#{i}@gmail.com" }, "REMOTE_ADDR" => "1.2.3.4"
+          assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
+        end
+      end
+    end
+  end
+
+  describe "throttle excessive requests to password routes by email address" do
+    limit = 5
+
+    describe "number of requests is lower than the limit" do
+      it "does not change the request status" do
+        limit.times do |i|
+          post "/users/password", { user_email: "example@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.3.4"
+          assert_not_equal 503, last_response.status, "Should not hit throttle limit"
+        end
+      end
+    end
+
+    describe "number of user requests is higher than the limit" do
+      it "changes the request status to 503" do
+        (limit * 2).times do |i|
+          post "/users/password", { user_email: "example@gmail.com" }, "REMOTE_ADDR" => "#{i}.2.3.4"
+          assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
+        end
+      end
+    end
+  end
+
+  describe "throttle excessive requests to auth routes by IP address" do
+    limit = 5
+
+    describe "number of requests is lower than the limit" do
+      it "does not change the request status" do
+        limit.times do |i|
+          post "/users/auth/google_oauth2", {}, "REMOTE_ADDR" => "1.2.3.4"
+          assert_not_equal 503, last_response.status, "Should not hit throttle limit"
+        end
+      end
+    end
+
+    describe "number of user requests is higher than the limit" do
+      it "changes the request status to 503" do
+        (limit * 2).times do |i|
+          post "/users/auth/google_oauth2", {}, "REMOTE_ADDR" => "1.2.3.4"
           assert_equal(503, last_response.status, "Should hit throttle limit") if i > limit
         end
       end
