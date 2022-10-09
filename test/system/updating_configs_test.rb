@@ -203,9 +203,7 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         fill_in 'config_options_hide_budget_bar', with: 'yes'
         click_button 'Update options for Hide budget bar'
         visit authenticated_root_path
-        within :css, '#overview' do
-          refute has_content? 'Budget for'
-        end
+        refute has_content? 'Budget for'
 
         visit configs_path
         fill_in 'config_options_hide_budget_bar', with: ''
