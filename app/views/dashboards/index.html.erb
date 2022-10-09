@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-sm-12">
-    <%= render partial: 'dashboards/overview' %>
+    <% unless Config.hide_budget_bar? %>
+      <%= render partial: 'dashboards/overview' %>
+    <% end %>
     <%= render partial: 'dashboards/search_form' %>
     <%= render partial: 'dashboards/table_content',
                locals: { title: t('dashboard.partial_titles.call_list'),
