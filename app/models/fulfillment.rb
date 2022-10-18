@@ -9,6 +9,9 @@ class Fulfillment < ApplicationRecord
   # Relationships
   belongs_to :can_fulfill, polymorphic: true
 
+  # Validations
+  validates :fund_payout, numericality: { only_integer: true, allow_nil: true, greater_than: 0 }
+
   # Methods
   def gestation_at_procedure_display
     I18n.t('accountants.table_content.weeks_at_procedure_display', gestation: gestation_at_procedure) if gestation_at_procedure.present?

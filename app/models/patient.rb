@@ -60,6 +60,11 @@ class Patient < ApplicationRecord
                                allow_blank: true
   validate :confirm_appointment_after_initial_call
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
+  validates :procedure_cost, numericality: { only_integer: true, allow_nil: true, greater_than: 0 }
+  validates :fund_pledge,
+            :naf_pledge,
+            :patient_contribution,
+            numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
   validates_associated :fulfillment
 
   # validation for standard US zipcodes
