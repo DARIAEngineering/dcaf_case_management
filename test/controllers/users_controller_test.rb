@@ -120,6 +120,28 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
       assert_includes response.body, 'can&#39;t be blank'
     end
+
+    it 'should succeed for valid name' do
+      ["Mary-Jane O'Reilly", 'John Smith Jones', 'Renée Dupont'].each do |name|
+        attributes = attributes_for(:user)
+        attributes[:name] = name
+        assert_difference 'User.count', 1 do
+          post users_path, params: { user: attributes }
+        end
+        assert_equal name, User.last.name
+      end
+    end
+
+    it 'should fail with error message for invalid name' do
+      ['wikipedia.org', '*****', 'asdf@email.com'].each do |name|
+        attributes = attributes_for(:user)
+        attributes[:name] = name
+        assert_no_difference 'User.count' do
+          post users_path, params: { user: attributes }
+        end
+        assert_includes response.body, 'may not include numbers or the following symbols'
+      end
+    end
   end
 
   describe 'update method' do
