@@ -72,6 +72,7 @@ exit
 
 
 Check everything looks right before destroying the PaperTrail versions
+
 Run `rails c`
 ```ruby
 # Check the new overall state
@@ -109,6 +110,7 @@ diff those files!
 `diff -y initial_count.out post_deletion.out`
 
 IF AND ONLY IF everything looks good, let's continue.
+
 Remove the PaperTrails associated with the fund, and finally the Fund row itself.
 
 run `rails c` again
@@ -156,6 +158,7 @@ Sentry errors for the fund, containing no PII, may be retained for up to 90 days
 
 #### Database backups
 Automatic database backups are retained for four days.
+
 In the event that we need to rollback the database we will repeat the removal of all fund information.
 
 ### Removing the fund from our contact systems
