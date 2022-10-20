@@ -1,6 +1,6 @@
 # Offboarding a fund from our managed pipeine
 
-These are detailed instructions to offboarding a fund from our managed `daria-services-pipeline`. It assumes that you already have access set up and permissions on the resources we use.
+These are detailed instructions to offboarding a fund from our managed `daria-services-pipeline`. It assumes that you already have access set up and permissions on the resources we use. It assumes you have the Heroku CLI configured.
 
 Fund data ultimately belongs to the Fund. These are the steps and timeline we follow to ensuring we do not retain any information after a Fund no longer needs DARIA.
 
@@ -14,7 +14,11 @@ At a high level, we are:
 
 ### Removing Production Data for the Fund
 
-Connect to the production console and run this process
+I suggest doing this via the Heroku CLI, as I have found the GUI console can close unexpectedly. Heroku run instances are ephemeral and will not retain a saved file from one run to the next.
+
+run `bash`. You should stay in this instance throughout or the reference files won't be retained.
+
+Once connected, run `rails c`
 
 Collect all the model types and setup data checks
 ```ruby
@@ -66,7 +70,9 @@ User.destroy_all
 exit
 ```
 
+
 Check everything looks right before destroying the PaperTrail versions
+Run `rails c`
 ```ruby
 # Check the new overall state
 models_fund_dependent = [ PledgeConfig, PracticalSupport, Patient, Note, Line, Fulfillment, ExternalPledge, Event, Config, Clinic, CallListEntry, Call, ArchivedPatient, User]
@@ -92,13 +98,20 @@ $stdout.sync = true
 post_deletion_counts                                                   
 $stdout = STDOUT
 
-# diff those files!
-# the other fund objects should not have changed significantly
-# There should be a jump in PaperTrails corresponding to the total object count we've deleted
-# IF AND ONLY IF everything looks good, let's continue.
+exit
 ```
 
-Once you are satisfied, remove the PaperTrails associated with the fund, and finally the Fund row itself.
+diff those files!
+
+  - The other fund objects should not have changed significantly
+  - There should be a jump in PaperTrails corresponding to the total object count we've deleted
+
+`diff -y initial_count.out post_deletion.out`
+
+IF AND ONLY IF everything looks good, let's continue.
+Remove the PaperTrails associated with the fund, and finally the Fund row itself.
+
+run `rails c` again
 
 ```ruby
 # delete the PaperTrails
@@ -116,6 +129,8 @@ fund.destroy
 
 exit
 ```
+
+Copy any exerpts from the output files you want for later reference and `exit` the bash
 
 ### Removing the Subdomain Configuration
 
