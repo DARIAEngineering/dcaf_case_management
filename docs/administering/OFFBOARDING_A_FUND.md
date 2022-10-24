@@ -14,6 +14,10 @@ At a high level, we are:
 
 ### Removing Production Data for the Fund
 
+Start by taking a snapshot of the database in heroku:
+  - Open up the pipeline in Heroku and go to the production instance, then open up Resources, then click on Heroku Postgres, then open Durability
+  - Create a manual snapshot
+  
 I suggest doing this via the Heroku CLI, as I have found the GUI console can close unexpectedly. Heroku run instances are ephemeral and will not retain a saved file from one run to the next.
 
 run `bash`. You should stay in this instance throughout or the reference files won't be retained.
@@ -24,7 +28,7 @@ Collect all the model types and setup data checks
 ```ruby
 Rails.application.eager_load!
 all_models = ActiveRecord::Base.descendants
-models_fund_agnostic = [ Fund ActiveRecord::SessionStore::Session, PaperTrail::Version, PaperTrailVersion]
+models_fund_agnostic = [ Fund, ActiveRecord::SessionStore::Session, PaperTrail::Version, PaperTrailVersion]
 models_fund_dependent = [ PledgeConfig,    PracticalSupport, Patient, Note, Line, Fulfillment,   ExternalPledge, Event, Config, Clinic, CallListEntry, Call, ArchivedPatient, User]
 
 # Prove to yourself all models are accounted for
@@ -47,7 +51,7 @@ end
 starting_counts['fund_agnostic'] = fund_counts
 
 #save starting counts to file
-$stdout = File.new('initail_state.out', 'w')
+$stdout = File.new('initial_state.out', 'w')
 $stdout.sync = true
 starting_counts
 $stdout = STDOUT
@@ -119,7 +123,7 @@ run `rails c` again
 # delete the PaperTrails
 #  🚨 ⚠️ 🚨 ⚠️ 🚨 This is the point of no return.
 # Once these are deleted, we cannot restore the funds information from this database
-defunct_fund_versions = PaperTrail::Version.where_object(fund_id: id)
+defunct_fund_versions = PaperTrail::Version.where_object(fund_id: defunct_fund_id)
 defunct_fund_versions.destroy_all
 defunct_fund_changes = PaperTrailVersion.where_object_changes(fund_id: id)
 defunct_fund_changes.destroy_all
