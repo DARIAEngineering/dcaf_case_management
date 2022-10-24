@@ -10,7 +10,9 @@ class Fulfillment < ApplicationRecord
   belongs_to :can_fulfill, polymorphic: true
 
   # Validations
-  validates :fund_payout, numericality: { only_integer: true, allow_nil: true, greater_than: 0 }
+  validates :fund_payout, :gestation_at_procedure, numericality: { only_integer: true,
+                                                                   allow_nil: true,
+                                                                   greater_than_or_equal_to: 0 }
 
   # Methods
   def gestation_at_procedure_display

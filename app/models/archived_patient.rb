@@ -35,8 +35,10 @@ class ArchivedPatient < ApplicationRecord
             presence: true
   validates :appointment_date, format: /\A\d{4}-\d{1,2}-\d{1,2}\z/,
                                allow_blank: true
-  validates :procedure_cost, numericality: { only_integer: true, allow_nil: true, greater_than: 0 }
-  validates :fund_pledge,
+  validates :last_menstrual_period_weeks,
+            :last_menstrual_period_days,
+            :procedure_cost,
+            :fund_pledge,
             :naf_pledge,
             :patient_contribution,
             numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }

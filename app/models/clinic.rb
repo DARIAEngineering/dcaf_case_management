@@ -15,6 +15,20 @@ class Clinic < ApplicationRecord
     where(gestational_limit: nil).or(where(gestational_limit: gestation..))
   }
 
+  # Validations
+  COSTS = [
+    :costs_5wks, :costs_6wks, :costs_7wks, :costs_8wks, :costs_9wks,
+    :costs_10wks, :costs_11wks, :costs_12wks, :costs_13wks, :costs_14wks,
+    :costs_15wks, :costs_16wks, :costs_17wks, :costs_18wks, :costs_19wks,
+    :costs_20wks, :costs_21wks, :costs_22wks, :costs_23wks, :costs_24wks,
+    :costs_25wks, :costs_26wks, :costs_27wks, :costs_28wks, :costs_29wks,
+    :costs_30wks
+  ].freeze
+
+  validates :gestational_limit, *COSTS, numericality: { only_integer: true,
+                                                        allow_nil: true,
+                                                        greater_than_or_equal_to: 0 }
+
   # Callbacks
   before_save :update_coordinates, if: :address_changed?
 
