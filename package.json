@@ -3,7 +3,7 @@
     "@fortawesome/fontawesome-free": "6.2.0",
     "@popperjs/core": "2.11.6",
     "bootstrap": "4.6.2",
-    "esbuild": "0.15.11",
+    "esbuild": "0.15.12",
     "jquery": "3.6.1",
     "jquery-ujs": "1.2.3",
     "popper.js": "1.16.1",
@@ -15,14 +15,14 @@
     "webpack-cli": "3.3.12"
   },
   "devDependencies": {
-    "eslint": "8.25.0",
+    "eslint": "8.26.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.26.0",
     "webpack-dev-server": "3.11.3"
   },
   "engines": {
-    "node": ">=16.16.0",
-    "npm": ">=8.11.0"
+    "node": ">=16.18.0",
+    "npm": ">=8.19.0"
   },
   "license": "MIT",
   "resolutions": {
