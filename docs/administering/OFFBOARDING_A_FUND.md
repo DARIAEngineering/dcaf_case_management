@@ -17,10 +17,10 @@ At a high level, we are:
 Start by taking a snapshot of the database in heroku:
   - Open up the pipeline in Heroku and go to the production instance, then open up Resources, then click on Heroku Postgres, then open Durability
   - Create a manual snapshot
-  
-I suggest doing this via the Heroku CLI, as I have found the GUI console can close unexpectedly. Heroku run instances are ephemeral and will not retain a saved file from one run to the next.
 
-run `bash`. You should stay in this instance throughout or the reference files won't be retained.
+I suggest doing these console commands by connecting to the console via the Heroku CLI, as I have found the GUI console can close unexpectedly. Heroku run instances are ephemeral and will not retain a saved file from one run to the next.
+
+run `heroku run bash`. You should stay in this instance throughout or the reference files won't be retained.
 
 Once connected, run `rails c`
 
@@ -44,11 +44,11 @@ Fund.all.sort.each do |fund|
   end
   starting_counts[fund.name] = fund_counts
 end
-fund_counts = {}
+counts = {}
 models_fund_agnostic.each do |model|
-  fund_counts[model.to_s] = model.all.size
+  counts[model.to_s] = model.all.size
 end
-starting_counts['fund_agnostic'] = fund_counts
+starting_counts['fund_agnostic'] = counts
 
 #save starting counts to file
 $stdout = File.new('initial_state.out', 'w')
@@ -70,37 +70,27 @@ ArchivedPatient.destroy_all
 [Clinic, Line, Config].each { |model| model.destroy_all }
 User.destroy_all
 
-# exit and restart to console to drop the ActsAsTenant.current_tenant
-exit
-```
+ActsAsTenant.current_tenant = nil
 
-
-Check everything looks right before destroying the PaperTrail versions
-
-Run `rails c`
-```ruby
 # Check the new overall state
-models_fund_dependent = [ PledgeConfig, PracticalSupport, Patient, Note, Line, Fulfillment, ExternalPledge, Event, Config, Clinic, CallListEntry, Call, ArchivedPatient, User]
-models_fund_agnostic = [ Fund, ActiveRecord::SessionStore::Session, PaperTrail::Version, PaperTrailVersion] 
-
-post_deletion_counts = {}             
-Fund.all.sort.each do |fund|          
-  fund_counts = {}                    
+post_deletion_counts = {}
+Fund.all.sort.each do |fund|
+  fund_counts = {}
   models_fund_dependent.each do |model|
     fund_counts[model.to_s.to_sym] = model.where(fund_id: fund.id).size
-  end                                                                  
-  post_deletion_counts[fund.name] = fund_counts                        
-end                                                                    
-fund_counts = {}                                                       
-models_fund_agnostic.each do |model|                                   
-  fund_counts[model.to_s.to_sym] = model.all.size                      
-end                                                                    
-post_deletion_counts['fund_agnostic'] = fund_counts                    
-                                                                       
-#save starting counts to file                                          
-$stdout = File.new('post_deletion.out', 'w')                           
-$stdout.sync = true                                                    
-post_deletion_counts                                                   
+  end
+  post_deletion_counts[fund.name] = fund_counts
+end
+counts = {}
+models_fund_agnostic.each do |model|
+  counts[model.to_s.to_sym] = model.all.size
+end
+post_deletion_counts['fund_agnostic'] = counts
+
+#save final counts to file
+$stdout = File.new('post_deletion.out', 'w')
+$stdout.sync = true
+post_deletion_counts
 $stdout = STDOUT
 
 exit
@@ -123,13 +113,14 @@ run `rails c` again
 # delete the PaperTrails
 #  🚨 ⚠️ 🚨 ⚠️ 🚨 This is the point of no return.
 # Once these are deleted, we cannot restore the funds information from this database
+Fund.all.pluck(:name,:id)
+defunct_fund_id = #the fund you are removing
 defunct_fund_versions = PaperTrail::Version.where_object(fund_id: defunct_fund_id)
 defunct_fund_versions.destroy_all
-defunct_fund_changes = PaperTrailVersion.where_object_changes(fund_id: id)
+defunct_fund_changes = PaperTrailVersion.where_object_changes(fund_id: defunct_fund_id)
 defunct_fund_changes.destroy_all
 
 # Finally, destroy the fund row
-defunct_fund_id = #the fund you're removing!
 fund = Fund.find(defunct_fund_id)
 fund.destroy
 
@@ -141,19 +132,19 @@ Copy any exerpts from the output files you want for later reference and `exit` t
 ### Removing the Subdomain Configuration
 
 #### Remove Google OAuth
-  -  Go to our [GCP project](https://console.cloud.google.com/apis/credentials?project=daria-services-multitenant)
-  -  Open up DARIA Services Production from the list of Client IDs to edit
-  -  Remove the Authorized redirect URI for the fund's subdomain
+  - Go to our [GCP project](https://console.cloud.google.com/apis/credentials?project=daria-services-multitenant)
+  - Open up DARIA Services Production from the list of Client IDs to edit
+  - Remove the Authorized redirect URI for the fund's subdomain
 #### Remove the DNS in Namecheap
-  -  Open up the Namecheap control panel and head to Advanced DNS.
-  -  Remove the CNAME Record for the host 
+  - Open up the Namecheap control panel and head to Advanced DNS.
+  - Remove the CNAME Record for the host
 #### Remove the subdomain in heroku
-  -  Open up the pipeline in Heroku and go to the production instance, then open up Settings, then go to Domains.
-  -  Click the edit icon for the fund's domain and select Remove Domain
+  - Open up the pipeline in Heroku and go to the production instance, then open up Settings, then go to Domains.
+  - Click the edit icon for the fund's domain and select Remove Domain
   - Remove the domain's certs, if not done automatically
 #### Remove defunct manual database backups in heroku
-  -  Open up the pipeline in Heroku and go to the production instance, then open up Resources, then click on Heroku Postgres, then open Durability
-  - Remove any Manual Backups & Data Exports
+  - Open up the pipeline in Heroku and go to the production instance, then open up Resources, then click on Heroku Postgres, then open Durability
+  - Remove all Manual Backups & Data Exports
 
 ### Remaining Fund Information
 
