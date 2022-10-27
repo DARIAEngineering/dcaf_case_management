@@ -27,12 +27,12 @@ RUN apt-get update && apt-get upgrade -y && \
     gem install bundler --no-document
 
 # get version 16 of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+RUN curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
 RUN apt-get install nodejs -y
 
 # set up yarn
 RUN corepack enable
-RUN yarn set version 3.2.2
+RUN yarn set version 3.2.4
 RUN yarn config set nodeLinker node-modules
 
 # install gemfile and package
