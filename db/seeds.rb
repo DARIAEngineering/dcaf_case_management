@@ -56,10 +56,10 @@ fund2 = Fund.create! name: 'CatFund',
     user = User.create! name: 'testuser (admin)', email: 'test@example.com',
                         password: password, password_confirmation: password,
                         role: :admin
-    user2 = User.create! name: 'testuser2', email: 'test2@example.com',
+    user2 = User.create! name: 'testuser two', email: 'test2@example.com',
                          password: password, password_confirmation: password,
                          role: :cm
-    User.create! name: 'testuser3', email: 'test3@example.com',
+    User.create! name: 'testuser three', email: 'test3@example.com',
                  password: password, password_confirmation: password,
                  role: :cm
 

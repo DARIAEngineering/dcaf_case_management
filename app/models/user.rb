@@ -43,6 +43,12 @@ class User < ApplicationRecord
   # email presence validated through Devise
   validates_uniqueness_to_tenant :email, allow_blank: true, if: :email_changed?
   validates :name, :role, :email, presence: true
+  validates :name,
+            format: {
+              with: /\A[^0-9`!@#\$%\^&*+_=.\/]*\z/,
+              message: "may not include numbers or the following symbols: `!@#$%^&*+_=./"
+            },
+            if: :name_changed?
   validates_format_of :email, with: Devise::email_regexp
   validate :secure_password, if: :updating_password?
   # i18n-tasks-use t('errors.messages.password.password_strength')
