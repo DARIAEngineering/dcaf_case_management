@@ -60,6 +60,16 @@ class Patient < ApplicationRecord
                                allow_blank: true
   validate :confirm_appointment_after_initial_call
   validate :pledge_sent, :pledge_info_presence, if: :updating_pledge_sent?
+  validates :last_menstrual_period_weeks,
+            :last_menstrual_period_days,
+            :age,
+            :household_size_children,
+            :household_size_adults,
+            :procedure_cost,
+            :fund_pledge,
+            :naf_pledge,
+            :patient_contribution,
+            numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
   validates_associated :fulfillment
 
   # validation for standard US zipcodes
