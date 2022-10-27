@@ -157,7 +157,16 @@ module Exportable
     value = public_send(field)
     if value.is_a?(Array)
       # Use simpler serialization for Array values than the default (`to_s`)
-      value.reject(&:blank?).join(', ')
+      sanitize(value.reject(&:blank?).join(', '))
+    else
+      sanitize(value)
+    end
+  end
+
+  def sanitize(value)
+    if value.is_a?(String) && value.start_with?(/\s*[=@+\-\t\r]/)
+      # Escape certain special characters to prevent formula injection.
+      "'#{value}"
     else
       value
     end

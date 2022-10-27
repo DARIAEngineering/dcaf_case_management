@@ -14,7 +14,8 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
                       name: 'Susie Everyteen',
                       primary_phone: '123-456-7890',
                       other_phone: '333-444-5555',
-                      line: @line
+                      line: @line,
+                      city: '=injected_formula'
     @archived_patient = create :archived_patient,
                                line: @line,
                                initial_call_date: 400.days.ago
@@ -77,6 +78,14 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       refute_match @patient.name.to_s, response.body
       refute_match @patient.primary_phone.to_s, response.body
       refute_match @patient.other_phone.to_s, response.body
+    end
+
+    it 'should escape fields with attempted formula injection' do
+      sign_in @data_volunteer
+      get patients_path(format: :csv)
+      lines = response.body.split("\n").reject(&:blank?)
+      # A single quote at the beginning indicates it's escaped.
+      assert_match "'=injected_formula", lines[1]
     end
   end
 
