@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_29_163051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.string "age_range", default: "not_specified"
     t.boolean "has_alt_contact"
     t.string "voicemail_preference", default: "not_specified"
-    t.string "line_legacy"
     t.string "language"
     t.date "initial_call_date"
     t.boolean "shared_flag"
@@ -48,9 +47,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.bigint "clinic_id"
-    t.bigint "pledge_generated_by_id"
-    t.bigint "pledge_sent_by_id"
+    t.integer "clinic_id"
+    t.integer "pledge_generated_by_id"
+    t.integer "pledge_sent_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -60,15 +59,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line_id"], name: "index_archived_patients_on_line_id"
-    t.index ["line_legacy"], name: "index_archived_patients_on_line_legacy"
     t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
   end
 
   create_table "call_list_entries", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "patient_id", null: false
-    t.string "line_legacy"
+    t.integer "user_id", null: false
+    t.integer "patient_id", null: false
     t.integer "order_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -76,7 +73,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.bigint "line_id", null: false
     t.index ["fund_id"], name: "index_call_list_entries_on_fund_id"
     t.index ["line_id"], name: "index_call_list_entries_on_line_id"
-    t.index ["line_legacy"], name: "index_call_list_entries_on_line_legacy"
     t.index ["patient_id", "user_id", "fund_id"], name: "index_call_list_entries_on_patient_id_and_user_id_and_fund_id", unique: true
     t.index ["patient_id"], name: "index_call_list_entries_on_patient_id"
     t.index ["user_id"], name: "index_call_list_entries_on_user_id"
@@ -85,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
   create_table "calls", force: :cascade do |t|
     t.integer "status", null: false
     t.string "can_call_type", null: false
-    t.bigint "can_call_id", null: false
+    t.integer "can_call_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -153,7 +149,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
   create_table "events", force: :cascade do |t|
     t.string "cm_name"
     t.integer "event_type"
-    t.string "line_legacy"
     t.string "patient_name"
     t.string "patient_id"
     t.integer "pledge_amount"
@@ -164,7 +159,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["fund_id"], name: "index_events_on_fund_id"
     t.index ["line_id"], name: "index_events_on_line_id"
-    t.index ["line_legacy"], name: "index_events_on_line_legacy"
   end
 
   create_table "external_pledges", force: :cascade do |t|
@@ -172,7 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.integer "amount"
     t.boolean "active"
     t.string "can_pledge_type", null: false
-    t.bigint "can_pledge_id", null: false
+    t.integer "can_pledge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -189,7 +183,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.date "date_of_check"
     t.boolean "audited"
     t.string "can_fulfill_type", null: false
-    t.bigint "can_fulfill_id", null: false
+    t.integer "can_fulfill_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -221,7 +215,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
 
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
-    t.bigint "patient_id"
+    t.integer "patient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -237,7 +231,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.string "other_contact_relationship"
     t.string "identifier"
     t.string "voicemail_preference", default: "not_specified"
-    t.string "line_legacy"
     t.string "language"
     t.string "pronouns"
     t.date "initial_call_date", null: false
@@ -270,10 +263,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.bigint "clinic_id"
-    t.bigint "pledge_generated_by_id"
-    t.bigint "pledge_sent_by_id"
-    t.bigint "last_edited_by_id"
+    t.integer "clinic_id"
+    t.integer "pledge_generated_by_id"
+    t.integer "pledge_sent_by_id"
+    t.integer "last_edited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -285,7 +278,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.index ["identifier"], name: "index_patients_on_identifier"
     t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
     t.index ["line_id"], name: "index_patients_on_line_id"
-    t.index ["line_legacy"], name: "index_patients_on_line_legacy"
     t.index ["name"], name: "index_patients_on_name"
     t.index ["other_contact"], name: "index_patients_on_other_contact"
     t.index ["other_phone"], name: "index_patients_on_other_phone"
@@ -316,7 +308,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.boolean "confirmed"
     t.string "source", null: false
     t.string "can_support_type"
-    t.bigint "can_support_id"
+    t.integer "can_support_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
