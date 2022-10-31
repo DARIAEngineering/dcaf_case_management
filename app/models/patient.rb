@@ -44,7 +44,7 @@ class Patient < ApplicationRecord
 
   # Validations
   # Worry about uniqueness to tenant after porting line info.
-  # validates_uniqueness_to_tenant :primary_phone 
+  # validates_uniqueness_to_tenant :primary_phone
   validates :name,
             :primary_phone,
             :initial_call_date,
@@ -70,6 +70,10 @@ class Patient < ApplicationRecord
             :naf_pledge,
             :patient_contribution,
             numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
+  validates :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship,
+            :voicemail_preference, :language, :pronouns, :city, :state, :county, :zipcode,
+            :race_ethnicity, :employment_status, :insurance, :income, :referred_by, :solidarity_lead,
+            length: { maximum: 150 }
   validates_associated :fulfillment
 
   # validation for standard US zipcodes

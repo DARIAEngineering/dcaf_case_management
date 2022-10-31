@@ -53,6 +53,7 @@ class User < ApplicationRecord
   validate :secure_password, if: :updating_password?
   # i18n-tasks-use t('errors.messages.password.password_strength')
   validates :password, password_strength: {use_dictionary: true}, if: :updating_password?
+  validates :name, :line, :email, length: { maximum: 150 }
 
   # To accommodate tenancy, we use our own devise validations
   # See https://github.com/heartcombo/devise/blob/master/lib/devise/models/validatable.rb

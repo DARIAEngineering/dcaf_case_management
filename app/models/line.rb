@@ -3,5 +3,5 @@ class Line < ApplicationRecord
 
   # Validations
   validates_uniqueness_to_tenant :name
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 150 }
 end
