@@ -92,7 +92,7 @@ fund2 = Fund.create! name: 'CatFund',
     Config.create config_key: :referred_by,
                   config_value: { options: ['Metal band'] }
     Config.create config_key: :fax_service,
-                  config_value: { options: ['www.yolofax.com'] }
+                  config_value: { options: ['https://www.efax.com'] }
     Config.create config_key: :start_of_week,
                   config_value: { options: ['Monday'] }
 
