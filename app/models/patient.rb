@@ -82,6 +82,8 @@ class Patient < ApplicationRecord
             length: {minimum: 5, maximum: 10},
             allow_blank: true
 
+  validate :special_circumstances_length
+
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
@@ -279,5 +281,18 @@ class Patient < ApplicationRecord
            .where(line: line)
            .joins(:practical_supports)
            .where({ practical_supports: { confirmed: false }, created_at: 3.months.ago.. })
+  end
+
+  # This is intended to protect against saving maliscious data sent via an edited request. It should
+  # not be possible to trigger errors here via the UI.
+  def special_circumstances_length
+    # The max length is (2 x n) where n is the number of special circumstances checkboxes. With no
+    # boxes checked, there are n elements (all blank), and there is an additional element present
+    # for every checked box.
+    errors.add(:special_circumstances, 'is invalid') unless special_circumstances.length <= 14
+
+    special_circumstances.each do |value|
+      errors.add(:special_circumstances, 'is invalid') if value && value.length > 50
+    end
   end
 end
