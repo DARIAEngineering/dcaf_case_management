@@ -123,6 +123,10 @@ class User < ApplicationRecord
         .limit(SEARCH_LIMIT)
   end
 
+  def force_logout
+    update_attribute(:session_validity_token, nil)
+  end
+
   private
 
   def verify_password_complexity

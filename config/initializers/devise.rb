@@ -294,6 +294,17 @@ Devise.setup do |config|
     manager.failure_app = CustomFailure
   end
 
+  Warden::Manager.after_set_user except: :fetch do |user, warden, opts|
+    user.update_attribute(:session_validity_token, Devise.friendly_token) if user.session_validity_token.nil?
+    warden.raw_session["validity_token"] = user.session_validity_token
+  end
+
+  Warden::Manager.after_fetch do |user, warden, opts|
+    unless user.session_validity_token == warden.raw_session["validity_token"]
+      warden.logout
+    end
+  end
+
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.
