@@ -82,7 +82,7 @@ class ActiveSupport::TestCase
 
   def create_fax_service_config
     create :config, config_key: 'fax_service',
-                    config_value: { options: ['http://www.yolofax.com'] }
+                    config_value: { options: ['http://www.efax.com'] }
   end
 
   def with_versioning(user = nil)
