@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_02_172033) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -354,6 +354,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_27_160232) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at", precision: nil
     t.bigint "fund_id"
+    t.string "session_validity_token"
     t.index ["email", "fund_id"], name: "index_users_on_email_and_fund_id", unique: true
     t.index ["fund_id"], name: "index_users_on_fund_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

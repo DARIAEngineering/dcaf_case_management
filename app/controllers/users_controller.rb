@@ -41,6 +41,7 @@ class UsersController < ApplicationController
     # i18n-tasks-use t('activerecord.attributes.user.role')
     if @user.update user_params
       flash[:notice] = t('flash.user_update_success')
+      @user.force_logout if @user.email_previously_changed?
       redirect_to users_path
     else
       error_content = @user.errors.full_messages.to_sentence
