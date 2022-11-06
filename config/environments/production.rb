@@ -87,6 +87,7 @@ Rails.application.configure do
   # CUSTOM STUFF STARTS HERE
   # Prevent host header injection
   config.action_controller.default_url_options = { host: ENV['SITE_URL'] }
+  config.hosts << ".#{ENV['SITE_URL']}"
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.action_controller.asset_host = ENV['ASSET_SITE_URL'] || ENV['SITE_URL']
