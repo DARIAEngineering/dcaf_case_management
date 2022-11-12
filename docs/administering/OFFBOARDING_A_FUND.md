@@ -135,8 +135,8 @@ Copy any exerpts from the output files you want for later reference and `exit` t
   - Go to our [GCP project](https://console.cloud.google.com/apis/credentials?project=daria-services-multitenant)
   - Open up DARIA Services Production from the list of Client IDs to edit
   - Remove the Authorized redirect URI for the fund's subdomain
-#### Remove the DNS in Namecheap
-  - Open up the Namecheap control panel and head to Advanced DNS.
+#### Remove the DNS in Cloudflare
+  - Open up the Cloudflare control panel and head to [DNS](https://dash.cloudflare.com/04a3c6a398793e6f59a1dbcadcd9ddc9/dariaservices.com/dns).
   - Remove the CNAME Record for the host
 #### Remove the subdomain in heroku
   - Open up the pipeline in Heroku and go to the production instance, then open up Settings, then go to Domains.
