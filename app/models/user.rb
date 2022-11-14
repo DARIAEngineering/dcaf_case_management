@@ -14,6 +14,8 @@ class User < ApplicationRecord
           :trackable,
           :lockable,
           :timeoutable,
+          :password_archivable,
+          :session_limitable,
           :omniauthable, omniauth_providers: [:google_oauth2]
   # :validatable, # We override this to accommodate tenancy
   # :rememberable
