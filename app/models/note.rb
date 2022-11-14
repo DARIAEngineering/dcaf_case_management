@@ -9,5 +9,5 @@ class Note < ApplicationRecord
   belongs_to :patient
 
   # Validations
-  validates :full_text, presence: true
+  validates :full_text, presence: true, length: { maximum: 4000 }
 end

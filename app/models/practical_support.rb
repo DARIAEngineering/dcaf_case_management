@@ -9,7 +9,7 @@ class PracticalSupport < ApplicationRecord
   belongs_to :can_support, polymorphic: true
 
   # Validations
-  validates :source, :support_type, presence: true
+  validates :source, :support_type, presence: true, length: { maximum: 150 }
   validates :support_type, uniqueness: { scope: :can_support }
   validates :amount, 
               allow_nil: true,

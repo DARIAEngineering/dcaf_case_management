@@ -14,6 +14,6 @@ class ExternalPledge < ApplicationRecord
 
   # Validations
   validates :source, :amount, presence: true
-  validates :source, uniqueness: { scope: [:active, :can_pledge] }
+  validates :source, uniqueness: { scope: [:active, :can_pledge] }, length: { maximum: 150 }
   validates :amount, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 end

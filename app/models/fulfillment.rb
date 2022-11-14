@@ -13,6 +13,7 @@ class Fulfillment < ApplicationRecord
   validates :fund_payout, :gestation_at_procedure, numericality: { only_integer: true,
                                                                    allow_nil: true,
                                                                    greater_than_or_equal_to: 0 }
+  validates :check_number, length: { maximum: 150 }
 
   # Methods
   def gestation_at_procedure_display

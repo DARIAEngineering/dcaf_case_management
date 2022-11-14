@@ -44,7 +44,7 @@ class Patient < ApplicationRecord
 
   # Validations
   # Worry about uniqueness to tenant after porting line info.
-  # validates_uniqueness_to_tenant :primary_phone 
+  # validates_uniqueness_to_tenant :primary_phone
   validates :name,
             :primary_phone,
             :initial_call_date,
@@ -70,6 +70,10 @@ class Patient < ApplicationRecord
             :naf_pledge,
             :patient_contribution,
             numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
+  validates :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship,
+            :voicemail_preference, :language, :pronouns, :city, :state, :county, :zipcode,
+            :race_ethnicity, :employment_status, :insurance, :income, :referred_by, :solidarity_lead,
+            length: { maximum: 150 }
   validates_associated :fulfillment
 
   # validation for standard US zipcodes
@@ -77,6 +81,8 @@ class Patient < ApplicationRecord
   validates :zipcode, format: /\A\d{5}(-\d{4})?\z/,
             length: {minimum: 5, maximum: 10},
             allow_blank: true
+
+  validate :special_circumstances_length
 
   # Methods
   def self.pledged_status_summary(line)
@@ -275,5 +281,18 @@ class Patient < ApplicationRecord
            .where(line: line)
            .joins(:practical_supports)
            .where({ practical_supports: { confirmed: false }, created_at: 3.months.ago.. })
+  end
+
+  # This is intended to protect against saving maliscious data sent via an edited request. It should
+  # not be possible to trigger errors here via the UI.
+  def special_circumstances_length
+    # The max length is (2 x n) where n is the number of special circumstances checkboxes. With no
+    # boxes checked, there are n elements (all blank), and there is an additional element present
+    # for every checked box.
+    errors.add(:special_circumstances, 'is invalid') unless special_circumstances.length <= 14
+
+    special_circumstances.each do |value|
+      errors.add(:special_circumstances, 'is invalid') if value && value.length > 50
+    end
   end
 end
