@@ -63,13 +63,12 @@ class Patient < ApplicationRecord
   validates :last_menstrual_period_weeks,
             :last_menstrual_period_days,
             :age,
-            :household_size_children,
-            :household_size_adults,
             :procedure_cost,
             :fund_pledge,
             :naf_pledge,
             :patient_contribution,
             numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
+  validates :household_size_adults, :household_size_children, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: -1 }
   validates :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship,
             :voicemail_preference, :language, :pronouns, :city, :state, :county, :zipcode,
             :race_ethnicity, :employment_status, :insurance, :income, :referred_by, :solidarity_lead,
