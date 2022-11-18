@@ -61,8 +61,8 @@ Rails.application.routes.draw do
   # Auth routes
   root :to => redirect('/users/sign_in')
   as :user do
-    get '/users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
-    put '/users' => 'devise/registrations#update', as: 'registration'
+    get '/users/edit' => 'users/registrations#edit', as: 'edit_user_registration'
+    put '/users' => 'users/registrations#update', as: 'registration'
   end
 
   match '/404' => 'errors#error_404', via: [:get, :post, :put, :patch]
