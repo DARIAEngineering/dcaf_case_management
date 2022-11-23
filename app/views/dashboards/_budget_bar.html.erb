@@ -16,13 +16,19 @@
 
 <div class="row" id='budget-report'>
   <% expenditures.each_pair do |type, patient_hashes| %>
-    <div class="col-sm-4">
-      <%= t("dashboard.budget_bar.#{type}_report",
-            amount: number_to_currency(expenditures[type].map { |h| h[:fund_pledge] }.inject(:+) || 0,
-                                       precision: 0,
-                                       unit: '$',
-                                       format: '%u%n'),
-            count: expenditures[type].count) %>
+    <div class="col-sm-3">
+      <%= budget_bar_statistic(t("dashboard.budget_bar.#{type}"), expenditures[type], limit) %>
     </div>
   <% end %>
+
+  <div class="col-sm-3">
+    <%= budget_bar_statistic(t('dashboard.budget_bar.spent'), expenditures.values.flatten, limit) %>
+  </div>
+
+  <div class="col-sm-3">
+    <%= budget_bar_statistic_builder(t('dashboard.budget_bar.remaining'),
+                                     budget_bar_remaining(expenditures, limit),
+                                     nil,
+                                     limit) %>
+  </div>
 </div>

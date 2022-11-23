@@ -192,12 +192,15 @@ en:
     activity_log:
       label: "%{current_line} Line Activity Log"
     budget_bar:
+      pledged: pledged
       pledged_item: "%{amount} pledged"
       pledged_report: "%{amount} pledged (%{count} patients)"
       pop_content_appt_date: appt on %{date}
       pop_content_no_appt_date: no appt date
+      remaining: remaining
+      sent: sent
       sent_item: "%{amount} sent"
-      sent_report: "%{amount} sent (%{count} patients)"
+      spent: spent
     helpers:
       voicemail_options:
         'no': Do not leave a voicemail

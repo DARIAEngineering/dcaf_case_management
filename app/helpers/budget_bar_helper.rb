@@ -19,11 +19,42 @@ module BudgetBarHelper
     safe_join([link, appt_text], ' - ')
   end
 
+  def sum_fund_pledges(pledges)
+    total = pledges.map{ |h| h[:fund_pledge] }.inject(:+) || 0
+    total
+  end
+
   def budget_bar_remaining(expenditures, limit)
-    pledged_cash = expenditures[:pledged].map { |h| h[:fund_pledge] }.inject(:+) || 0
-    sent_cash = expenditures[:sent].map { |h| h[:fund_pledge] }.inject(:+) || 0
+    pledged_cash = sum_fund_pledges expenditures[:pledged]
+    sent_cash = sum_fund_pledges expenditures[:sent]
     limit - pledged_cash - sent_cash
   end
+
+  # we can call the builder directly for `remaining` but use the main function,
+  # below, otherwise.
+  def budget_bar_statistic_builder(name, amount, count, limit)
+    formatted_amount = number_to_currency(amount,
+                                          precision: 0,
+                                          unit: '$',
+                                          format: '%u%n')
+
+    # if count is nil, don't mention the patients                               
+    if count.present?
+      patient_string = pluralize(count, t('common.patient').downcase) + ", "
+    end
+
+    # looks like: "$10 spent (4 patients, 10%)"
+    statistic = "#{formatted_amount} #{name} (#{patient_string}#{to_pct(amount)}%)"
+    statistic
+  end
+
+  def budget_bar_statistic(name, expenditure, limit)
+    budget_bar_statistic_builder name,
+                                 sum_fund_pledges(expenditure),
+                                 expenditure.count,
+                                 limit
+  end
+
 
   private
 
