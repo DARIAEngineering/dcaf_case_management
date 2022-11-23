@@ -200,7 +200,6 @@ es:
       remaining: sobrante
       sent: enviado
       sent_item: "%{amount} enviado"
-      sent_report: "%{amount} enviado (%{count} pacientes)"
       spent: gastado
     helpers:
       voicemail_options:
