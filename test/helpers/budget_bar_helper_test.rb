@@ -40,12 +40,36 @@ class BudgetBarHelperTest < ActionView::TestCase
     end
   end
 
-  describe 'budget bar remaining' do
-    before { @expenditures = Patient.pledged_status_summary(:DC) }
+  describe 'budget bar statistics' do
+    before do
+      @expenditures = {
+        :sent =>
+          [{fund_pledge: 10},
+           {fund_pledge: 20}],
+        :pledged =>
+          [{fund_pledge: 40}]
+      }
 
-    it 'should return an int' do
-      assert_equal 1000,
-                   budget_bar_remaining(@expenditures, 1000)
+      @limit = 1000
+    end
+
+    it 'should return an int & calculate remainder' do
+      assert_equal 930,
+                   budget_bar_remaining(@expenditures, @limit)
+    end
+
+    it 'should calculate statistics' do
+      assert_equal "$70 spent (3 patients, 7%)",
+          budget_bar_statistic('spent', @expenditures.values.flatten, 1000)
+    end
+
+    it 'should calculate remainder string' do
+      assert_equal "$930 remaining (93%)",
+          budget_bar_statistic_builder(
+            'remaining',
+            budget_bar_remaining(@expenditures, @limit),
+            nil,
+            @limit)
     end
   end
 end
