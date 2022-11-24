@@ -20,7 +20,7 @@ module BudgetBarHelper
   end
 
   def sum_fund_pledges(pledges)
-    total = pledges.map{ |h| h[:fund_pledge] }.inject(:+) || 0
+    total = pledges.map{ |h| h[:fund_pledge] }.sum
     total
   end
 
