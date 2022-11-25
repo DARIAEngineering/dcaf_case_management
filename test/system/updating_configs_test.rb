@@ -213,7 +213,28 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
           assert has_content? 'Budget for'
         end
       end
-
     end
+
+    describe 'updating a config - aggregate statistics' do
+      it 'should toggle aggregate statistics on budget bar' do
+        fill_in 'config_options_aggregate_statistics', with: 'yes'
+        click_button 'Update options for Aggregate statistics'
+        visit authenticated_root_path
+        within :css, "#overview" do
+          assert has_content? "$0 spent (0 patients, 0%)"
+          assert has_content? "$1,000 remaining (100%)"
+        end
+
+        visit configs_path
+        fill_in 'config_options_aggregate_statistics', with: 'no'
+        click_button 'Update options for Aggregate statistics'
+        visit authenticated_root_path
+        within :css, "#overview" do
+          refute has_content? "spent"
+          refute has_content? "remaining"
+        end
+      end
+    end
+
   end
 end
