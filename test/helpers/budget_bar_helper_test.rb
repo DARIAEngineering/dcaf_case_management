@@ -71,5 +71,22 @@ class BudgetBarHelperTest < ActionView::TestCase
             nil,
             @limit)
     end
+
+    it 'should properly sum fund pledges' do
+      # flattened should sum all
+      assert_equal 70, sum_fund_pledges(@expenditures.values.flatten)
+
+      # just one type should only sum that type
+      assert_equal 30, sum_fund_pledges(@expenditures[:sent])
+      assert_equal 40, sum_fund_pledges(@expenditures[:pledged])
+
+      # check nil case - should return 0
+      @expenditures[:sent] = []
+      assert_equal 0, sum_fund_pledges(@expenditures[:sent])
+      assert_equal 40, sum_fund_pledges(@expenditures.values.flatten)
+
+      @expenditures[:pledged] = []
+      assert_equal 0, sum_fund_pledges(@expenditures.values.flatten)
+    end
   end
 end
