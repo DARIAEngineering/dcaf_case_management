@@ -17,20 +17,27 @@
 <div class="row" id='budget-report'>
   <% expenditures.each_pair do |type, patient_hashes| %>
     <div class="col-sm-3">
-      <%= budget_bar_statistic(t("dashboard.budget_bar.#{type}"), expenditures[type], limit) %>
+      <%= budget_bar_statistic(t("dashboard.budget_bar.#{type}"),
+                               expenditures[type],
+                               limit: limit,
+                               show_aggregate_statistics: Config.show_aggregate_statistics?) %>
     </div>
   <% end %>
 
   <% if Config.show_aggregate_statistics? %>
     <div class="col-sm-3">
-      <%= budget_bar_statistic(t('dashboard.budget_bar.spent'), expenditures.values.flatten, limit) %>
+      <%= budget_bar_statistic(t('dashboard.budget_bar.spent'),
+                               expenditures.values.flatten,
+                               limit: limit,
+                               show_aggregate_statistics: true) %>
     </div>
 
     <div class="col-sm-3">
-      <%= budget_bar_statistic_builder(t('dashboard.budget_bar.remaining'),
-                                      budget_bar_remaining(expenditures, limit),
-                                      nil,
-                                      limit) %>
+      <%= budget_bar_statistic_builder(name: t('dashboard.budget_bar.remaining'),
+                                       amount: budget_bar_remaining(expenditures, limit),
+                                       count: nil,
+                                       limit: limit,
+                                       show_aggregate_statistics: true) %>
     </div>
   <% end %>
 </div>

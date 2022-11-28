@@ -60,16 +60,19 @@ class BudgetBarHelperTest < ActionView::TestCase
 
     it 'should calculate statistics' do
       assert_equal "$70 spent (3 patients, 7%)",
-          budget_bar_statistic('spent', @expenditures.values.flatten, 1000)
+          budget_bar_statistic('spent', @expenditures.values.flatten,
+                               limit: 1000,
+                               show_aggregate_statistics: true)
     end
 
     it 'should calculate remainder string' do
       assert_equal "$930 remaining (93%)",
           budget_bar_statistic_builder(
-            'remaining',
-            budget_bar_remaining(@expenditures, @limit),
-            nil,
-            @limit)
+            name: 'remaining',
+            amount: budget_bar_remaining(@expenditures, @limit),
+            count: nil,
+            limit: @limit,
+            show_aggregate_statistics: true)
     end
 
     it 'should properly sum fund pledges' do
