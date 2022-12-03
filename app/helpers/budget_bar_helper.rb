@@ -32,37 +32,37 @@ module BudgetBarHelper
 
   # we can call the builder directly for `remaining` but use the main function,
   # below, otherwise.
-  def budget_bar_statistic_builder(options)
-    formatted_amount = number_to_currency(options[:amount],
+  def budget_bar_statistic_builder(name:, amount:, count: nil, limit:, show_aggregate_statistics: true)
+    formatted_amount = number_to_currency(amount,
                                           precision: 0,
                                           unit: '$',
                                           format: '%u%n')
 
     # if count is nil, don't mention the patients                               
-    if options[:count].present?
-      patient_string = pluralize(options[:count], t('common.patient').downcase)
+    if count.present?
+      patient_string = pluralize(count, t('common.patient').downcase)
     end
 
-    if options[:show_aggregate_statistics]
+    if show_aggregate_statistics
       # if displaying both, need a comma!
       if patient_string.present?
         patient_string += ", "
       end
 
-      percent_string = "#{to_pct(options[:amount])}%"
+      percent_string = "#{to_pct(amount)}%"
     end
 
     # looks like: "$10 spent (4 patients, 10%)"
-    statistic = "#{formatted_amount} #{options[:name]} (#{patient_string}#{percent_string})"
+    statistic = "#{formatted_amount} #{name} (#{patient_string}#{percent_string})"
     statistic
   end
 
-  def budget_bar_statistic(name, expenditures, options)
+  def budget_bar_statistic(name, expenditures, limit:, show_aggregate_statistics: true)
     budget_bar_statistic_builder name: name,
                                  amount: sum_fund_pledges(expenditures),
                                  count: expenditures.count,
-                                 limit: options[:limit],
-                                 show_aggregate_statistics: options[:show_aggregate_statistics]
+                                 limit: limit,
+                                 show_aggregate_statistics: show_aggregate_statistics
   end
 
 

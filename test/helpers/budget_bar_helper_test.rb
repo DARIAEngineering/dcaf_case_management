@@ -70,9 +70,7 @@ class BudgetBarHelperTest < ActionView::TestCase
           budget_bar_statistic_builder(
             name: 'remaining',
             amount: budget_bar_remaining(@expenditures, @limit),
-            count: nil,
-            limit: @limit,
-            show_aggregate_statistics: true)
+            limit: @limit)
     end
 
     it 'should properly sum fund pledges' do
