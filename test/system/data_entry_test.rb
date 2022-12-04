@@ -112,7 +112,7 @@ class DataEntryTest < ApplicationSystemTestCase
       visit root_path
 
       within :css, '#budget_bar' do
-        assert has_text? "$100 sent (1 patients)"
+        assert has_text? "$100 sent (1 patient)"
         assert has_text? "$0 pledged (0 patients)"
         refute has_text? "Susie Everyteen - appt on "
       end
@@ -165,7 +165,7 @@ class DataEntryTest < ApplicationSystemTestCase
       visit root_path
 
       within :css, '#budget_bar' do
-        assert has_text? "$99 sent (1 patients)"
+        assert has_text? "$99 sent (1 patient)"
         assert has_text? "$0 pledged (0 patients)"
         refute has_text? "$0 sent"
       end

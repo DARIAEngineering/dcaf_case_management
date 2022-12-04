@@ -20,6 +20,7 @@ class Config < ApplicationRecord
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
     shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
+    aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.'
   }.freeze
 
   enum config_key: {
@@ -40,6 +41,7 @@ class Config < ApplicationRecord
     days_to_keep_all_patients: 14,
     shared_reset: 15,
     hide_budget_bar: 16,
+    aggregate_statistics: 17,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -90,6 +92,8 @@ class Config < ApplicationRecord
 
     hide_budget_bar:
       [:validate_singleton, :validate_yes_or_no],
+    aggregate_statistics:
+      [:validate_singleton, :validate_yes_or_no]
   }.freeze
 
   before_validation :clean_config_value
@@ -157,6 +161,10 @@ class Config < ApplicationRecord
 
   def self.hide_budget_bar?
     Config.find_or_create_by(config_key: 'hide_budget_bar').options.try(:last).to_s =~ /yes/i ? true : false
+  end
+
+  def self.show_aggregate_statistics?
+    Config.find_or_create_by(config_key: 'aggregate_statistics').options.try(:last).to_s =~ /yes/i ? true : false
   end
 
   private

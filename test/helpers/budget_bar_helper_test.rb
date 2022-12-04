@@ -40,12 +40,54 @@ class BudgetBarHelperTest < ActionView::TestCase
     end
   end
 
-  describe 'budget bar remaining' do
-    before { @expenditures = Patient.pledged_status_summary(:DC) }
+  describe 'budget bar statistics' do
+    before do
+      @expenditures = {
+        :sent =>
+          [{fund_pledge: 10},
+           {fund_pledge: 20}],
+        :pledged =>
+          [{fund_pledge: 40}]
+      }
 
-    it 'should return an int' do
-      assert_equal 1000,
-                   budget_bar_remaining(@expenditures, 1000)
+      @limit = 1000
+    end
+
+    it 'should return an int & calculate remainder' do
+      assert_equal 930,
+                   budget_bar_remaining(@expenditures, @limit)
+    end
+
+    it 'should calculate statistics' do
+      assert_equal "$70 spent (3 patients, 7%)",
+          budget_bar_statistic('spent', @expenditures.values.flatten,
+                               limit: 1000,
+                               show_aggregate_statistics: true)
+    end
+
+    it 'should calculate remainder string' do
+      assert_equal "$930 remaining (93%)",
+          budget_bar_statistic_builder(
+            name: 'remaining',
+            amount: budget_bar_remaining(@expenditures, @limit),
+            limit: @limit)
+    end
+
+    it 'should properly sum fund pledges' do
+      # flattened should sum all
+      assert_equal 70, sum_fund_pledges(@expenditures.values.flatten)
+
+      # just one type should only sum that type
+      assert_equal 30, sum_fund_pledges(@expenditures[:sent])
+      assert_equal 40, sum_fund_pledges(@expenditures[:pledged])
+
+      # check nil case - should return 0
+      @expenditures[:sent] = []
+      assert_equal 0, sum_fund_pledges(@expenditures[:sent])
+      assert_equal 40, sum_fund_pledges(@expenditures.values.flatten)
+
+      @expenditures[:pledged] = []
+      assert_equal 0, sum_fund_pledges(@expenditures.values.flatten)
     end
   end
 end
