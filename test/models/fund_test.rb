@@ -53,5 +53,75 @@ class FundTest < ActiveSupport::TestCase
       ActsAsTenant.test_tenant = nil
       assert_equal 2, Patient.count 
     end
+
+    it 'should be able to delete its patient-related data without affecting other funds' do
+      [@fund, @fund2].each do |fund|
+        ActsAsTenant.with_tenant(fund) do
+          @patient = create :patient
+          @patient.notes.create attributes_for(:note)
+          @patient.calls.create attributes_for(:call)
+          @patient.external_pledges.create attributes_for(:external_pledge)
+          @patient.practical_supports.create attributes_for(:practical_support)
+          @archived_patient = create :archived_patient
+          @archived_patient.calls.create attributes_for(:call)
+          @archived_patient.external_pledges.create attributes_for(:external_pledge)
+          @archived_patient.practical_supports.create attributes_for(:practical_support)
+        end
+      end
+
+      @fund.delete_patient_related_data
+
+      ActsAsTenant.with_tenant(@fund) do
+        [ Patient,
+          ArchivedPatient,
+          Note,
+          Fulfillment,
+          ExternalPledge,
+          PracticalSupport,
+          Call ].each do |model|
+            assert_equal 0, model.count
+          end
+      end
+
+      ActsAsTenant.with_tenant(@fund2) do
+        [ Patient,
+          ArchivedPatient,
+          Note,
+          Fulfillment ].each do |model|
+            assert_equal 1, model.count
+          end
+        [ ExternalPledge,
+          PracticalSupport,
+          Call ].each do |model|
+            assert_equal 2, model.count
+          end
+      end
+    end
+
+    it 'should be able to delete its administrative-related data without affecting other funds' do
+      [@fund, @fund2].each do |fund|
+        ActsAsTenant.with_tenant(fund) do
+          create :user
+          create :config
+          create :line
+          create :clinic
+        end
+      end
+
+      @fund.delete_administrative_data
+
+      ActsAsTenant.with_tenant(@fund) do
+        [ Clinic, Config, Line, User ].each do |model|
+          assert_equal 0, model.count
+        end
+      end
+
+      ActsAsTenant.with_tenant(@fund2) do
+        [ Clinic, Config, Line, User ].each do |model|
+          assert_equal 1, model.count
+        end
+      end
+
+    end
   end
 end

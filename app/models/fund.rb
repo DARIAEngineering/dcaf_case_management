@@ -14,4 +14,22 @@ class Fund < ApplicationRecord
             :phone,
             presence: true
   validates :name, :subdomain, uniqueness: true
+
+  def delete_patient_related_data
+    [ Patient,
+      ArchivedPatient,
+      Note,
+      Fulfillment,
+      ExternalPledge,
+      PracticalSupport,
+      Call ].each do |model|
+        model.destroy_all
+      end
+  end
+
+  def delete_administrative_data
+    [ Clinic, Config, Line, User ].each do |model|
+      model.destroy_all
+    end
+  end
 end

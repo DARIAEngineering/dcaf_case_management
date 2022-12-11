@@ -20,6 +20,7 @@ class Config < ApplicationRecord
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
     shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
+    aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.'
   }.freeze
 
   enum config_key: {
@@ -40,6 +41,7 @@ class Config < ApplicationRecord
     days_to_keep_all_patients: 14,
     shared_reset: 15,
     hide_budget_bar: 16,
+    aggregate_statistics: 17,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -52,6 +54,19 @@ class Config < ApplicationRecord
   }.freeze
 
   VALIDATIONS = {
+    insurance:
+      [:validate_length],
+    external_pledge_source:
+      [:validate_length],
+    pledge_limit_help_text:
+      [:validate_length],
+    practical_support:
+      [:validate_length],
+    referred_by:
+      [:validate_length],
+    voicemail:
+      [:validate_length],
+
     start_of_week:
       [:validate_singleton, :validate_start_of_week],
 
@@ -60,7 +75,7 @@ class Config < ApplicationRecord
 
     budget_bar_max:
       [:validate_singleton, :validate_number],
-    
+
     resources_url:
       [:validate_singleton, :validate_url],
     fax_service:
@@ -74,9 +89,11 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_patient_archive],
     shared_reset:
       [:validate_singleton, :validate_shared_reset],
-      
+
     hide_budget_bar:
       [:validate_singleton, :validate_yes_or_no],
+    aggregate_statistics:
+      [:validate_singleton, :validate_yes_or_no]
   }.freeze
 
   before_validation :clean_config_value
@@ -146,6 +163,10 @@ class Config < ApplicationRecord
     Config.find_or_create_by(config_key: 'hide_budget_bar').options.try(:last).to_s =~ /yes/i ? true : false
   end
 
+  def self.show_aggregate_statistics?
+    Config.find_or_create_by(config_key: 'aggregate_statistics').options.try(:last).to_s =~ /yes/i ? true : false
+  end
+
   private
     ### Generic Functions
 
@@ -203,11 +224,14 @@ class Config < ApplicationRecord
     def validate_url
       maybe_url = options.last
       return if maybe_url.blank?
-      
+
+      return false unless maybe_url.length <= 300
+
       url = UriService.new(maybe_url).uri
 
       # uriservice returns nil if there's a problem.
       return false if !url
+
 
       config_value['options'] = [url]
       return true
@@ -251,5 +275,14 @@ class Config < ApplicationRecord
 
     def validate_shared_reset
       validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+    end
+
+    def validate_length
+      total_length = 0
+      options.each do |option|
+        total_length += option.length
+        return false if total_length > 4000
+      end
+      true
     end
 end

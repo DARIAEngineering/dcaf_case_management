@@ -29,10 +29,10 @@ We also need to have some API tokens and such that we generate or dig up when we
 * Set up the subdomain in heroku
   * Open up the pipeline in Heroku and go to the production instance, then open up Settings, then go to Domains.
   * Click Add Domain and enter in `NAME_LOWERCASED.dariaservices.com`.
-  * Save the DNS target this generates - you'll need it next in Namecheap.
+  * Save the DNS target this generates - you'll need it next in Cloudflare.
 
-* Set up the DNS in Namecheap
-  * Open up the Namecheap control panel and head to Advanced DNS.
+* Set up the DNS in Cloudflare 
+  * Open up the Cloudflare control panel and head to [DNS](https://dash.cloudflare.com/04a3c6a398793e6f59a1dbcadcd9ddc9/dariaservices.com/dns).
   * Add a new CNAME Record, with the host of `NAME_LOWERCASED`, and the DNS target from the step above.
 
 * Configure Google OAuth (for Login with Google):

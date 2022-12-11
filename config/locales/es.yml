@@ -192,12 +192,15 @@ es:
     activity_log:
       label: Actividad de línea de llamadas %{current_line}
     budget_bar:
+      pledged: prometido
       pledged_item: "%{amount} prometido"
       pledged_report: "%{amount} prometido (%{count} pacientes)"
       pop_content_appt_date: cita en %{date}
       pop_content_no_appt_date: sin cita
+      remaining: sobrante
+      sent: enviado
       sent_item: "%{amount} enviado"
-      sent_report: "%{amount} enviado (%{count} pacientes)"
+      spent: gastado
     helpers:
       voicemail_options:
         'no': No dejen mensajes de voz

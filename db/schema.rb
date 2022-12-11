@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_29_163051) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_02_172033) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -223,6 +223,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_163051) do
     t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
 
+  create_table "old_passwords", force: :cascade do |t|
+    t.string "encrypted_password", null: false
+    t.string "password_archivable_type", null: false
+    t.integer "password_archivable_id", null: false
+    t.string "password_salt"
+    t.datetime "created_at"
+    t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable"
+  end
+
   create_table "patients", force: :cascade do |t|
     t.string "name", null: false
     t.string "primary_phone", null: false
@@ -346,6 +355,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_29_163051) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at", precision: nil
     t.bigint "fund_id"
+    t.string "unique_session_id"
+    t.string "session_validity_token"
     t.index ["email", "fund_id"], name: "index_users_on_email_and_fund_id", unique: true
     t.index ["fund_id"], name: "index_users_on_fund_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

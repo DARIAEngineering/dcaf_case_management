@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.1.2'
+ruby '3.1.3'
 
 # Standard rails
 gem 'rails', '~> 7.0.0'
@@ -29,6 +29,7 @@ gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.8'
+gem 'devise-security'
 gem 'omniauth-google-oauth2', '~> 1.1.1'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 

@@ -236,7 +236,7 @@ Devise.setup do |config|
 
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
-  # config.sign_in_after_reset_password = true
+  config.sign_in_after_reset_password = false
 
   # ==> Configuration for :encryptable
   # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
@@ -292,6 +292,17 @@ Devise.setup do |config|
   # end
   config.warden do |manager|
     manager.failure_app = CustomFailure
+  end
+
+  Warden::Manager.after_set_user except: :fetch do |user, warden, opts|
+    user.update_attribute(:session_validity_token, Devise.friendly_token) if user.session_validity_token.nil?
+    warden.raw_session["validity_token"] = user.session_validity_token
+  end
+
+  Warden::Manager.after_fetch do |user, warden, opts|
+    unless user.session_validity_token == warden.raw_session["validity_token"]
+      warden.logout
+    end
   end
 
   # ==> Mountable engine configurations

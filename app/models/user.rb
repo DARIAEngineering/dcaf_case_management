@@ -14,6 +14,8 @@ class User < ApplicationRecord
           :trackable,
           :lockable,
           :timeoutable,
+          :password_archivable,
+          :session_limitable,
           :omniauthable, omniauth_providers: [:google_oauth2]
   # :validatable, # We override this to accommodate tenancy
   # :rememberable
@@ -53,6 +55,7 @@ class User < ApplicationRecord
   validate :secure_password, if: :updating_password?
   # i18n-tasks-use t('errors.messages.password.password_strength')
   validates :password, password_strength: {use_dictionary: true}, if: :updating_password?
+  validates :name, :line, :email, length: { maximum: 150 }
 
   # To accommodate tenancy, we use our own devise validations
   # See https://github.com/heartcombo/devise/blob/master/lib/devise/models/validatable.rb
@@ -121,6 +124,10 @@ class User < ApplicationRecord
         .or(User.where('email ilike ?', wildcard))
         .order(updated_at: :desc)
         .limit(SEARCH_LIMIT)
+  end
+
+  def force_logout
+    update_attribute(:session_validity_token, nil)
   end
 
   private
