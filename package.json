@@ -4,7 +4,7 @@
     "@popperjs/core": "2.11.6",
     "bootstrap": "4.6.2",
     "esbuild": "0.16.4",
-    "jquery": "3.6.1",
+    "jquery": "3.6.2",
     "jquery-ujs": "1.2.3",
     "popper.js": "1.16.1",
     "sass": "1.56.2",
