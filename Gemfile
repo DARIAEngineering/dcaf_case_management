@@ -110,7 +110,3 @@ group :test do
   gem 'minitest-stub-const'
   gem 'rack-test', '>= 0.6.3', require: 'rack/test' # needed to test rack-attack
 end
-
-group :production do
-  gem 'sqreen' # an active security monitoring platform
-end
