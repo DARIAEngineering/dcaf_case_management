@@ -189,13 +189,10 @@ GEM
     kaminari-core (1.2.2)
     launchy (2.5.0)
       addressable (~> 2.7)
-    libsqreen (1.0.4.0.0)
-    libv8-node (16.10.0.0)
-    libv8-node (16.10.0.0-x86_64-linux)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.18.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -208,8 +205,6 @@ GEM
       rails (>= 2.3.3)
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
-    mini_racer (0.6.2)
-      libv8-node (~> 16.10.0.0)
     minitest (5.16.2)
     minitest-optional_retry (0.0.2)
       minitest (~> 5.0)
@@ -315,8 +310,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.3)
-      loofah (~> 2.3)
+    rails-html-sanitizer (1.4.4)
+      loofah (~> 2.19, >= 2.19.1)
     rails-i18n (7.0.5)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
@@ -400,14 +395,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqreen (1.25.1)
-      libsqreen (~> 1.0)
-      mini_racer (>= 0.4.0)
-      sqreen-backport (~> 0.1.0)
-      sqreen-kit (~> 0.2.4)
-    sqreen-backport (0.1.0)
-    sqreen-kit (0.2.4)
-      sqreen-backport (~> 0.1.0)
     state_geo_tools (1.0.0)
     stringio (3.0.2)
     strong_password (0.0.10)
@@ -503,7 +490,6 @@ DEPENDENCIES
   shoulda-context
   simplecov
   sprockets-rails
-  sqreen
   state_geo_tools
   strong_password (~> 0.0.10)
   timecop
