@@ -18,6 +18,3 @@ jobs:
           heroku_api_key: ${{secrets.XMUNOZ_HEROKU_API_KEY}}
           heroku_app_name: "daria-services-staging"
           heroku_email: "xmunoz+heroku@opentechstrategies.com"
-          healthcheck: "https://sandbox.dariaservices.com/users/sign_in"
-          rollbackonhealthcheckfailed: true
-          delay: 10
