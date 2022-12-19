@@ -20,3 +20,4 @@ jobs:
           heroku_email: "xmunoz+heroku@opentechstrategies.com"
           healthcheck: "https://sandbox.dariaservices.com/users/sign_in"
           rollbackonhealthcheckfailed: true
+          delay: 10
