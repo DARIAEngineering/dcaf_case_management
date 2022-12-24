@@ -52,6 +52,10 @@ class PatientsHelperTest < ActionView::TestCase
     end
 
     describe 'without a config' do
+      before do
+        Config.hide_standard_dropdown?
+      end
+      
       it 'should create a config and return proper options' do
         assert_difference 'Config.count', 1 do
           @options = insurance_options

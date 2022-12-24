@@ -36,6 +36,10 @@ class ExternalPledgesHelperTest < ActionView::TestCase
   end
 
   describe 'creating a config object if one does not exist yet' do
+    before do
+      Config.hide_standard_dropdown?
+    end
+
     it 'should do that, with a properly set key' do
       assert_difference 'Config.count', 1 do
         @options = external_pledge_source_options
