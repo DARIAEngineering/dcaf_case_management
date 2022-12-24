@@ -26,6 +26,8 @@ module PatientsHelper
   # TODO how to i18n the Config?
   def language_options(current_value = nil)
     standard_options = [ [t('patient.helper.language.English'),nil] ]
+    # NOTE: don't check hide_standard_dropdown here because we always want
+    # English to be available.
     full_set = standard_options + Config.find_or_create_by(config_key: 'language').options
 
     options_plus_current(full_set, current_value)
@@ -37,7 +39,11 @@ module PatientsHelper
         [t('dashboard.helpers.voicemail_options.no'), 'no'],
         [t('dashboard.helpers.voicemail_options.yes'), 'yes'],
     ]
-    full_set = standard_options + Config.find_or_create_by(config_key: 'voicemail').options
+    full_set = Config.find_or_create_by(config_key: 'voicemail').options
+
+    unless Config.hide_standard_dropdown?
+      full_set.push(*standard_options)
+    end
 
     options_plus_current(full_set, current_value)
   end
@@ -63,7 +69,11 @@ module PatientsHelper
       [ t('patient.helper.referred_by.youth'),                        'Youth outreach' ],
       [ t('common.prefer_not_to_answer'),                             'Prefer not to answer']
     ]
-    full_set = standard_options + Config.find_or_create_by(config_key: 'referred_by').options
+    full_set = Config.find_or_create_by(config_key: 'referred_by').options
+
+    unless Config.hide_standard_dropdown?
+      full_set.push(*standard_options)
+    end
 
     options_plus_current(full_set, current_value)
   end
@@ -87,7 +97,11 @@ module PatientsHelper
       [ t('common.prefer_not_to_answer'), 'Prefer not to answer'],
       [ t('patient.helper.insurance.other'), 'Other (add to notes)' ],
     ]
-    full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options + standard_options
+    full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options
+    
+    unless Config.hide_standard_dropdown?
+      full_set.push(*standard_options)
+    end
 
     options_plus_current(full_set, current_value)
   end

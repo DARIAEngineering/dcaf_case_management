@@ -20,7 +20,8 @@ class Config < ApplicationRecord
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
     shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
-    aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.'
+    aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
+    hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.'
   }.freeze
 
   enum config_key: {
@@ -42,6 +43,7 @@ class Config < ApplicationRecord
     shared_reset: 15,
     hide_budget_bar: 16,
     aggregate_statistics: 17,
+    hide_standard_dropdown_values: 18,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -93,7 +95,9 @@ class Config < ApplicationRecord
     hide_budget_bar:
       [:validate_singleton, :validate_yes_or_no],
     aggregate_statistics:
-      [:validate_singleton, :validate_yes_or_no]
+      [:validate_singleton, :validate_yes_or_no],
+    hide_standard_dropdown_values:
+      [:validate_singleton, :validate_yes_or_no],
   }.freeze
 
   before_validation :clean_config_value
@@ -122,6 +126,10 @@ class Config < ApplicationRecord
     end
   end
 
+  def self.config_to_bool(key)
+    Config.find_or_create_by(config_key: key).options.try(:last).to_s =~ /yes/i ? true : false
+  end
+
   def self.budget_bar_max
     budget_max = Config.find_or_create_by(config_key: 'budget_bar_max').options.try :last
     budget_max ||= 1_000
@@ -129,7 +137,7 @@ class Config < ApplicationRecord
   end
 
   def self.hide_practical_support?
-    Config.find_or_create_by(config_key: 'hide_practical_support').options.try(:last).to_s =~ /yes/i ? true : false
+    config_to_bool('hide_practical_support')
   end
 
   def self.start_day
@@ -160,11 +168,15 @@ class Config < ApplicationRecord
   end
 
   def self.hide_budget_bar?
-    Config.find_or_create_by(config_key: 'hide_budget_bar').options.try(:last).to_s =~ /yes/i ? true : false
+    config_to_bool('hide_budget_bar')
   end
 
   def self.show_aggregate_statistics?
-    Config.find_or_create_by(config_key: 'aggregate_statistics').options.try(:last).to_s =~ /yes/i ? true : false
+    config_to_bool('aggregate_statistics')
+  end
+
+  def self.hide_standard_dropdown?
+    config_to_bool('hide_standard_dropdown_values')
   end
 
   private
