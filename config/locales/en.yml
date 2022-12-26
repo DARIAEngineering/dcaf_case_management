@@ -288,6 +288,7 @@ en:
     patient_save_error: Errors prevented this patient from being saved - %{error}
     patient_save_success: "%{patient} has been successfully saved! Add notes and external pledges, confirm the hard pledge and the %{fund} pledge amounts are the same, and you're set."
     pledge_download_alert: You need to enter your name in the box to sign and download the pledge
+    fetch_pledge_error: Errors prevented this pledge from generating. Please check that you've filled out any form inputs, and reach out to the DARIA team if the problem persists.
     unlocked: Unlocked
     user_created: User created!
     user_update_error: Error saving user details - %{error}

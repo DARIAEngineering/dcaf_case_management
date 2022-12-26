@@ -3,7 +3,7 @@ class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update]
-  before_action :find_patient_minimal, only: [:download, :destroy]
+  before_action :find_patient_minimal, only: [:fetch_pledge, :download, :destroy]
   rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
@@ -52,6 +52,34 @@ class PatientsController < ApplicationController
       @patient.update pledge_generated_at: Time.zone.now,
                       pledge_generated_by: current_user
       send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
+    end
+  end
+
+  def fetch_pledge
+    if params[:case_manager_name].blank?
+      flash[:alert] = t('flash.pledge_download_alert')
+      redirect_to edit_patient_path @patient
+    else
+      endpoint = ENV.fetch('PLEDGE_GENERATOR_ENDPOINT', 'http://localhost:3001/generate')
+      basic_auth = { username: 'apiuser', password: ENV.fetch('PLEDGE_GENERATOR_TOKEN', 'PLEDGETOKEN') }
+      payload = {
+        fund: Rails.env.development? ? 'test' : current_tenant.name.downcase,
+        base: {
+          patient: @patient.name,
+          clinic: @patient.clinic.name,
+          clinic_location: @patient.clinic.display_location,
+        },
+        extra: {
+          signature: params[:signature],
+        }
+      }
+      result = HTTParty.post(endpoint, body: payload, headers: {}, basic_auth: basic_auth)
+      if result.ok?
+        send_data result.body, type: 'application/pdf'
+      else
+        flash[:alert] = t('flash.fetch_pledge_error')
+        redirect_to edit_patient_path @patient
+      end
     end
   end
 
@@ -158,6 +186,12 @@ class PatientsController < ApplicationController
     )
     permitted_params.concat(FULFILLMENT_PARAMS) if current_user.allowed_data_access?
     params.require(:patient).permit(permitted_params)
+  end
+
+  def fetch_pledge_params
+    params.require(:base).permit(:patient, :clinic)
+          .require(:fund).permit(:fund)
+          .require(:extra).permit(:anything)
   end
 
   def render_csv

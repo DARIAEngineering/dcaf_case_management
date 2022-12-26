@@ -288,6 +288,7 @@ es:
     patient_save_error: Los errores impidieron salvar a este paciente - %{error}
     patient_save_success: "%{patient} ha sido salvado con éxito! Agregue notas y promesas externos, confirme al promesa dura y los montos de la promesa del %{fund} son las mismas, y está listo."
     pledge_download_alert: Debe ingresar su nombre en el cuadro para firmar y descargar la promesa
+    fetch_pledge_error: Los errores impidieron que se generara este compromiso. Verifique que haya completado todas las entradas del formulario y comuníquese con el equipo de DARIA si el problema persiste.
     unlocked: Desbloqueado
     user_created: "¡Usuario creado!"
     user_update_error: Error al guardar los detalles del usuario - %{error}
