@@ -363,12 +363,12 @@ en:
         modified_date: Modified Date
       title: Patient history
     dashboard:
-      delete_label: 'Admin: Delete'
       approx_gestation: 'Approx gestation at appt: %{weeks} weeks %{days} days'
       called_on: 'Called on: %{date}'
       confirm_del: Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)
       currently: 'Currently: %{weeks}w %{days}d'
       delete: Delete duplicate patient record
+      delete_label: 'Admin: Delete'
       phone: Phone number
       weeks_along: Weeks along at intake
     data_entry:
