@@ -1,13 +1,13 @@
 // Styling for the events log on the patient dashboard.
 @use './vendored';
-@import './_variables';
+@use './variables';
 
 svg.event-item {
   border-radius: 50%;
   margin-right: 1em;
   color: white;
   padding: 4px;
-  background-color: $teal;
+  background-color: variables.$teal;
   font-size: 1.25em;
   
   &.fa-thumbs-up {
@@ -15,7 +15,7 @@ svg.event-item {
   }
 
   &.fa-comment {
-    background-color: $light-gray;
+    background-color: variables.$light-gray;
     color: black;
   }
 }  

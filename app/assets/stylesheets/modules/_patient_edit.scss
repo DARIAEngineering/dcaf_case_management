@@ -1,20 +1,20 @@
 // Styling related to the larger patient edit page.
 @use './vendored';
-@import './_variables';
+@use './_variables';
 
 #patient_dashboard {
-  border-bottom: 1px solid $black;
+  border-bottom: 1px solid variables.$black;
   padding: 15px 0;
 }
 
 #sections {
-  border-left: 1px solid $black;
+  border-left: 1px solid variables.$black;
   padding-left: 9.5%;
 }
 
 .pledge-error {
-  color: $red;
-  font-size: $font-size;
+  color: variables.$red;
+  font-size: variables.$font-size;
 }
 
 // Overrides/styling related to multistep modal
@@ -25,7 +25,7 @@
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
-    color: $white;
+    color: variables.$white;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
@@ -34,7 +34,7 @@
 }
 
 .label-success {
-  background-color: $daria-color;
+  background-color: variables.$daria-color;
 }
 
 .hide {

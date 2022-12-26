@@ -1,9 +1,9 @@
 // Styling related to the clinic finder utility.
 
-@import './_variables';
+@use './variables';
 
 .clinic_finder_container {
-  background-color: $grey-color;
+  background-color: variables.$grey-color;
   border-style: solid;
   border-color: black;
   border-width: thin;
