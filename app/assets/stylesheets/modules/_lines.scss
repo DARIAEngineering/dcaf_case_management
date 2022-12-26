@@ -1,6 +1,5 @@
 // Styling related to the lines form.
 @use './vendored';
-// @use './bootstrap_config';
 @use './variables';
 
 .lines-form {
@@ -16,6 +15,6 @@
   }
 
   .form-check-label {
-    // @extend .ml-8;
+    @extend .ml-5;
   }
 }
