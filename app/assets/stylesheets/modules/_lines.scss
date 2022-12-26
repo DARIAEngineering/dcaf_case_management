@@ -1,6 +1,6 @@
 // Styling related to the lines form.
-
-@import 'bootstrap/scss/bootstrap';
+@use './vendored';
+@use './bootstrap_config';
 @import './_variables';
 
 .lines-form {
@@ -15,7 +15,7 @@
     font-size: $font-size-medium;
   }
 
-  .form-check-label {
-    @extend .ml-8;
-  }
+  // .form-check-label {
+  //   @extend .ml-8;
+  // }
 }

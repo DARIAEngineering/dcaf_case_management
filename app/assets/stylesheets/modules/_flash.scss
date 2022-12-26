@@ -1,5 +1,7 @@
 // Styling around flash messages.
+@use './vendored';
 @import './_variables';
+
 
 #flash {
   position: fixed;

@@ -1,7 +1,7 @@
 // Global styling patterns.
-
+@use './vendored';
 @import './_variables';
-@import '../../javascript/styles/vendor/googleapis_source_sans_pro';
+@import '../../../../vendor/assets/stylesheets/googleapis_source_sans_pro';
 
 @charset "utf-8";
 

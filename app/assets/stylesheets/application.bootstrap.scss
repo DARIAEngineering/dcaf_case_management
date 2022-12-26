@@ -1,25 +1,24 @@
 // Major library config
-@import '../../javascript/styles/bootstrap';
-@import '../../javascript/styles/vendor/jquery-ui';
+@use './modules/vendored';
+@use './modules/globals';
+@use './modules/call_list';
+@use './modules/devise';
+@use './modules/users';
+@use './modules/budget_bar';
+@use './modules/clinic_finder';
+@use './modules/calls';
+@use './modules/pagination';
+@use './modules/events';
+@use './modules/patient_menu';
+@use './modules/patient_edit';
+@use './modules/tables';
+@use './modules/footer';
+@use './modules/modals';
+@use './modules/navbar';
+@use './modules/tooltips';
+@use './modules/lines';
+@use './modules/flash';
+@use './modules/forms';
+@use './modules/buttons';
 
 // Custom styling
-@import '../../javascript/styles/globals';
-@import '../../javascript/styles/call_list';
-@import '../../javascript/styles/devise';
-@import '../../javascript/styles/users';
-@import '../../javascript/styles/budget_bar';
-@import '../../javascript/styles/clinic_finder';
-@import '../../javascript/styles/calls';
-@import '../../javascript/styles/pagination';
-@import '../../javascript/styles/events';
-@import '../../javascript/styles/patient_menu';
-@import '../../javascript/styles/patient_edit';
-@import '../../javascript/styles/tables';
-@import '../../javascript/styles/footer';
-@import '../../javascript/styles/modals';
-@import '../../javascript/styles/navbar';
-@import '../../javascript/styles/tooltips';
-@import '../../javascript/styles/lines';
-@import '../../javascript/styles/flash';
-@import '../../javascript/styles/forms';
-@import '../../javascript/styles/buttons';

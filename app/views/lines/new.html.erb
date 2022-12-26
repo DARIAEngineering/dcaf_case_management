@@ -5,7 +5,7 @@
     <%= bootstrap_form_with url: lines_path, local: true, class: 'line-select-form' do |f| %>
       <%= f.form_group :line_id, label: { text: t('lines.new.what_line') } do %>
         <% @lines.each do |line| %>
-          <%= f.radio_button :line_id, line.id, label: line.name %>
+          <%= f.radio_button :line_id, line.id, label: line.name, label_class: 'ml-8' %>
         <% end %>
       <% end %>
       <%= f.submit t('lines.new.start'), class: 'btn-lg btn-primary' %>
