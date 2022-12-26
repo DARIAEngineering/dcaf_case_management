@@ -56,30 +56,25 @@ class PatientsController < ApplicationController
   end
 
   def fetch_pledge
-    if params[:case_manager_name].blank?
-      flash[:alert] = t('flash.pledge_download_alert')
-      redirect_to edit_patient_path @patient
+    endpoint = ENV.fetch('PLEDGE_GENERATOR_ENDPOINT', 'http://localhost:3001/generate')
+    basic_auth = { username: 'apiuser', password: ENV.fetch('PLEDGE_GENERATOR_TOKEN', 'PLEDGETOKEN') }
+    extra_params = params.permit(*current_tenant.pledge_config.remote_pledge_extras.map { |x, y| x.to_sym })
+    payload = {
+      fund: Rails.env.development? ? 'test' : current_tenant.name.downcase,
+      base: {
+        patient: @patient.name,
+        clinic: @patient.clinic.name,
+        clinic_location: @patient.clinic.display_location,
+      },
+      extra: extra_params.to_h
+    }
+    result = HTTParty.post(endpoint, body: payload, headers: {}, basic_auth: basic_auth)
+
+    if result.ok?
+      send_data result.body, type: 'application/pdf'
     else
-      endpoint = ENV.fetch('PLEDGE_GENERATOR_ENDPOINT', 'http://localhost:3001/generate')
-      basic_auth = { username: 'apiuser', password: ENV.fetch('PLEDGE_GENERATOR_TOKEN', 'PLEDGETOKEN') }
-      payload = {
-        fund: Rails.env.development? ? 'test' : current_tenant.name.downcase,
-        base: {
-          patient: @patient.name,
-          clinic: @patient.clinic.name,
-          clinic_location: @patient.clinic.display_location,
-        },
-        extra: {
-          signature: params[:signature],
-        }
-      }
-      result = HTTParty.post(endpoint, body: payload, headers: {}, basic_auth: basic_auth)
-      if result.ok?
-        send_data result.body, type: 'application/pdf'
-      else
-        flash[:alert] = t('flash.fetch_pledge_error')
-        redirect_to edit_patient_path @patient
-      end
+      flash[:alert] = t('flash.fetch_pledge_error')
+      redirect_to edit_patient_path @patient
     end
   end
 
