@@ -49,6 +49,11 @@ class PatientsHelperTest < ActionView::TestCase
         assert_same_elements expected_insurance_options_array,
                              insurance_options('Friendship')
       end
+
+      it 'should not include defaults if configured' do
+        create_hide_defaults_config
+        assert_same_elements [nil, 'DC Medicaid', 'Other state Medicaid'], insurance_options
+      end
     end
 
     describe 'without a config' do
@@ -198,6 +203,12 @@ class PatientsHelperTest < ActionView::TestCase
       assert_same_elements expected_vm_options_array,
                            voicemail_options('ID as coworker')
     end
+
+    it 'should not include defaults if configured' do
+      create_hide_defaults_config
+
+      assert_same_elements ['Use Codename', 'Only During Business Hours', 'Text Message Only'], voicemail_options
+    end
   end
 
   describe 'language_options' do
@@ -260,6 +271,12 @@ class PatientsHelperTest < ActionView::TestCase
       expected_referrals = expected_referrals_base + ['Social Worker']
 
       assert_same_elements expected_referrals, referred_by_options('Social Worker')
+    end
+
+    it 'should not include defaults if configured' do
+      create_hide_defaults_config
+
+      assert_same_elements ['Metal band'], referred_by_options
     end
   end
 

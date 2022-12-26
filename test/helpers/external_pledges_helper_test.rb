@@ -33,6 +33,13 @@ class ExternalPledgesHelperTest < ActionView::TestCase
       assert_includes available_pledge_source_options_for(@patient),
                       'Cat Town Abortion Fund (CTAF)'
     end
+
+    it 'should not include defaults if configured' do
+      create_hide_defaults_config
+      assert_same_elements ['Metallica Abortion Fund',
+                            'Texas Amalgamated Abortion Services (TAAS)',
+                            'Cat Town Abortion Fund (CTAF)'], external_pledge_source_options
+    end
   end
 
   describe 'creating a config object if one does not exist yet' do
