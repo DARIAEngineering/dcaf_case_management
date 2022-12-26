@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_25_211058) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -202,7 +202,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_25_211058) do
     t.string "full_name", comment: "Full name of the fund. e.g. DC Abortion Fund"
     t.string "site_domain", comment: "URL of the fund's public-facing website. e.g. www.dcabortionfund.org"
     t.string "phone", comment: "Contact number for the abortion fund, usually the hotline"
-    t.boolean "remote_pledge_config", comment: "Whether to use the remote pledge generation service"
   end
 
   create_table "lines", force: :cascade do |t|
@@ -310,6 +309,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_25_211058) do
     t.bigint "fund_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "remote_pledge", comment: "Whether to use the remote pledge generation service"
+    t.json "remote_pledge_extras", comment: "Extra fields required for remote pledge generation"
     t.index ["fund_id"], name: "index_pledge_configs_on_fund_id"
   end
 
