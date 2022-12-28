@@ -54,7 +54,7 @@
       <div class="col">
         <div class="form-group">
           <label for="status"><%= t 'patient.shared.status' %> <%= tooltip_shell status_help_text(patient) %></label>
-          <input type="text" value="<%= patient.status %>" class="form-control form-control-plaintext" autocomplete="off">
+          <input type="text" value="<%= patient.status %>" class="form-control form-control-plaintext" id="patient_status_display" autocomplete="off">
         </div>
       </div>
 
