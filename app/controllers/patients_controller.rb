@@ -57,7 +57,7 @@ class PatientsController < ApplicationController
 
   def fetch_pledge
     endpoint = ENV.fetch('PLEDGE_GENERATOR_ENDPOINT', 'http://localhost:3001/generate')
-    basic_auth = { username: 'apiuser', password: ENV.fetch('PLEDGE_GENERATOR_TOKEN', 'PLEDGETOKEN') }
+    basic_auth = { username: ENV.fetch('PLEDGE_GENERATOR_USER', 'apiuser'), password: ENV.fetch('PLEDGE_GENERATOR_TOKEN', 'PLEDGETOKEN') }
     extra_params = params.permit(*current_tenant.pledge_config.remote_pledge_extras.map { |x, y| x.to_sym })
     payload = {
       fund: Rails.env.development? ? 'test' : current_tenant.name.downcase,
