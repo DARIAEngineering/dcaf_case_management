@@ -58,7 +58,7 @@ class PatientsHelperTest < ActionView::TestCase
 
     describe 'without a config' do
       before do
-        Config.hide_standard_dropdown?
+        create_hide_defaults_config should_hide: false
       end
       
       it 'should create a config and return proper options' do
@@ -71,7 +71,7 @@ class PatientsHelperTest < ActionView::TestCase
                                    [ 'Don\'t know', 'Don\'t know' ],
                                    [ 'Prefer not to answer', 'Prefer not to answer'],
                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
-        assert_same_elements @options, expected_insurance_array
+        assert_same_elements expected_insurance_array, @options
         assert Config.find_by(config_key: 'insurance')
       end
     end
@@ -202,12 +202,6 @@ class PatientsHelperTest < ActionView::TestCase
         ]
       assert_same_elements expected_vm_options_array,
                            voicemail_options('ID as coworker')
-    end
-
-    it 'should not include defaults if configured' do
-      create_hide_defaults_config
-
-      assert_same_elements ['Use Codename', 'Only During Business Hours', 'Text Message Only'], voicemail_options
     end
   end
 

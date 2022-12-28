@@ -17,9 +17,7 @@ module PracticalSupportsHelper
           [ t('patient.helper.practical_support.other'), 'Other (see notes)' ]
         ]
 
-    unless Config.hide_standard_dropdown?
-      options.push(*standard_options)
-    end
+    options.push(*standard_options) unless Config.hide_standard_dropdown?
 
     options_plus_current(options, current_value)
   end
@@ -35,9 +33,7 @@ module PracticalSupportsHelper
       [ t('patient.helper.practical_support.not_sure_yet'), 'Not sure yet (see notes)' ]
     ]
 
-    unless Config.hide_standard_dropdown?
-      options.push(*standard_options)
-    end
+    options.push(*standard_options) unless Config.hide_standard_dropdown?
 
     options_plus_current(options, current_value)
   end

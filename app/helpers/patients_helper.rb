@@ -26,7 +26,7 @@ module PatientsHelper
   # TODO how to i18n the Config?
   def language_options(current_value = nil)
     standard_options = [ [t('patient.helper.language.English'),nil] ]
-    # NOTE: don't check hide_standard_dropdown here because we always want
+    # NOTE: don't check hide_standard_dropdown? here because we always want
     # English to be available.
     full_set = standard_options + Config.find_or_create_by(config_key: 'language').options
 
@@ -41,9 +41,8 @@ module PatientsHelper
     ]
     full_set = Config.find_or_create_by(config_key: 'voicemail').options
 
-    unless Config.hide_standard_dropdown?
-      full_set.push(*standard_options)
-    end
+    # voicemail also exempt from hide_standard_dropdown? config
+    full_set.push(*standard_options)
 
     options_plus_current(full_set, current_value)
   end
@@ -70,10 +69,7 @@ module PatientsHelper
       [ t('common.prefer_not_to_answer'),                             'Prefer not to answer']
     ]
     full_set = Config.find_or_create_by(config_key: 'referred_by').options
-
-    unless Config.hide_standard_dropdown?
-      full_set.push(*standard_options)
-    end
+    full_set.push(*standard_options) unless Config.hide_standard_dropdown?
 
     options_plus_current(full_set, current_value)
   end
@@ -98,10 +94,7 @@ module PatientsHelper
       [ t('patient.helper.insurance.other'), 'Other (add to notes)' ],
     ]
     full_set = [nil] + Config.find_or_create_by(config_key: 'insurance').options
-    
-    unless Config.hide_standard_dropdown?
-      full_set.push(*standard_options)
-    end
+    full_set.push(*standard_options) unless Config.hide_standard_dropdown?
 
     options_plus_current(full_set, current_value)
   end

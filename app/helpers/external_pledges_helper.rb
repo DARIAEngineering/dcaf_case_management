@@ -18,10 +18,7 @@ module ExternalPledgesHelper
     ]
 
     funds = external_funds
-    unless Config.hide_standard_dropdown?
-      funds.push(*standard_options)
-    end
-
+    funds.push(*standard_options) unless Config.hide_standard_dropdown?
     funds.uniq
   end
 

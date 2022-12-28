@@ -44,7 +44,7 @@ class ExternalPledgesHelperTest < ActionView::TestCase
 
   describe 'creating a config object if one does not exist yet' do
     before do
-      Config.hide_standard_dropdown?
+      create_hide_defaults_config should_hide: false
     end
 
     it 'should do that, with a properly set key' do
@@ -54,7 +54,7 @@ class ExternalPledgesHelperTest < ActionView::TestCase
 
       expected_external_pledges_array = [["Clinic discount", "Clinic discount"],
                                          ["Other funds (see notes)","Other funds (see notes)"]]
-      assert_same_elements @options, expected_external_pledges_array
+      assert_same_elements expected_external_pledges_array, @options
 
       assert Config.find_by(config_key: 'external_pledge_source')
     end

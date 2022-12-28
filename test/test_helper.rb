@@ -85,9 +85,9 @@ class ActiveSupport::TestCase
                     config_value: { options: ['http://www.efax.com'] }
   end
 
-  def create_hide_defaults_config
+  def create_hide_defaults_config(should_hide: true)
     c = Config.find_or_create_by(config_key: 'hide_standard_dropdown_values')
-    c.config_value = { options: ['yes'] }
+    c.config_value = { options: [should_hide ? 'yes' : 'no']}
     c.save!
   end
 

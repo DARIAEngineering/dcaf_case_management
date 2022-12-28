@@ -30,7 +30,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
 
     describe 'without a config' do
       before do
-        Config.hide_standard_dropdown?
+        create_hide_defaults_config should_hide: false
       end
 
       it 'should create a config and return proper options' do
@@ -96,7 +96,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
 
     describe 'without a config' do
       before do
-        Config.hide_standard_dropdown?
+        create_hide_defaults_config should_hide: false
       end
       
       it 'should create a config and return options' do
