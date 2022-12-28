@@ -51,7 +51,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       wait_for_ajax
       wait_for_element 'Patient information'
 
-      assert has_text? Patient::STATUSES[:pledge_sent][:key]
+      assert_equal find('#patient_status_display').value, Patient::STATUSES[:pledge_sent][:key]
       assert has_link? 'Fulfillment'
       assert has_link? 'Cancel pledge'
     end
@@ -126,7 +126,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       wait_for_ajax
 
       assert has_link? 'Submit pledge'
-      assert has_content? Patient::STATUSES[:no_contact][:key]
+      assert_equal find('#patient_status_display').value, Patient::STATUSES[:no_contact][:key]
       refute has_link? 'Fulfillment'
     end
   end
