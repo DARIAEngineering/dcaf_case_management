@@ -185,12 +185,6 @@ class PatientsController < ApplicationController
     params.require(:patient).permit(permitted_params)
   end
 
-  def fetch_pledge_params
-    params.require(:base).permit(:patient, :clinic)
-          .require(:fund).permit(:fund)
-          .require(:extra).permit(:anything)
-  end
-
   def render_csv
     now = Time.zone.now.strftime('%Y%m%d')
     csv_filename = "patient_data_export_#{now}.csv"
