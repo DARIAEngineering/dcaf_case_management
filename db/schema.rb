@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.string "age_range", default: "not_specified"
     t.boolean "has_alt_contact"
     t.string "voicemail_preference", default: "not_specified"
+    t.string "line_legacy"
     t.string "language"
     t.date "initial_call_date"
     t.boolean "shared_flag"
@@ -59,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line_id"], name: "index_archived_patients_on_line_id"
+    t.index ["line_legacy"], name: "index_archived_patients_on_line_legacy"
     t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
   end
@@ -66,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
   create_table "call_list_entries", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "patient_id", null: false
+    t.string "line_legacy"
     t.integer "order_key", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -73,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.bigint "line_id", null: false
     t.index ["fund_id"], name: "index_call_list_entries_on_fund_id"
     t.index ["line_id"], name: "index_call_list_entries_on_line_id"
+    t.index ["line_legacy"], name: "index_call_list_entries_on_line_legacy"
     t.index ["patient_id", "user_id", "fund_id"], name: "index_call_list_entries_on_patient_id_and_user_id_and_fund_id", unique: true
     t.index ["patient_id"], name: "index_call_list_entries_on_patient_id"
     t.index ["user_id"], name: "index_call_list_entries_on_user_id"
@@ -149,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
   create_table "events", force: :cascade do |t|
     t.string "cm_name"
     t.integer "event_type"
+    t.string "line_legacy"
     t.string "patient_name"
     t.string "patient_id"
     t.integer "pledge_amount"
@@ -159,6 +164,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["fund_id"], name: "index_events_on_fund_id"
     t.index ["line_id"], name: "index_events_on_line_id"
+    t.index ["line_legacy"], name: "index_events_on_line_legacy"
   end
 
   create_table "external_pledges", force: :cascade do |t|
@@ -240,6 +246,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.string "other_contact_relationship"
     t.string "identifier"
     t.string "voicemail_preference", default: "not_specified"
+    t.string "line_legacy"
     t.string "language"
     t.string "pronouns"
     t.date "initial_call_date", null: false
@@ -287,6 +294,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.index ["identifier"], name: "index_patients_on_identifier"
     t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
     t.index ["line_id"], name: "index_patients_on_line_id"
+    t.index ["line_legacy"], name: "index_patients_on_line_legacy"
     t.index ["name"], name: "index_patients_on_name"
     t.index ["other_contact"], name: "index_patients_on_other_contact"
     t.index ["other_phone"], name: "index_patients_on_other_phone"
