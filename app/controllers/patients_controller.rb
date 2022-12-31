@@ -71,6 +71,8 @@ class PatientsController < ApplicationController
     result = HTTParty.post(endpoint, body: payload, headers: {}, basic_auth: basic_auth)
 
     if result.ok?
+      @patient.update pledge_generated_at: Time.zone.now,
+                      pledge_generated_by: current_user
       send_data result.body, type: 'application/pdf'
     else
       flash[:alert] = t('flash.fetch_pledge_error')
