@@ -64,7 +64,7 @@ class PatientsController < ApplicationController
       base: {
         patient: {
           name: @patient.name,
-          phone: @patient.primary_phone,
+          phone: @patient.primary_phone_display,
           appointment_date: @patient.appointment_date.display_date,
           fund_pledge: @patient.fund_pledge,
           procedure_cost: @patient.procedure_cost,
@@ -82,9 +82,10 @@ class PatientsController < ApplicationController
     result = HTTParty.post(endpoint, body: payload, headers: {}, basic_auth: basic_auth)
 
     if result.ok?
+      now = Time.zone.now.strftime('%Y%m%d')
       @patient.update pledge_generated_at: Time.zone.now,
                       pledge_generated_by: current_user
-      send_data result.body, type: 'application/pdf'
+      send_data result.body, filename: "#{@patient.name}_pledge_form_#{now}.pdf", type: 'application/pdf'
     else
       flash[:alert] = t('flash.fetch_pledge_error')
       redirect_to edit_patient_path @patient

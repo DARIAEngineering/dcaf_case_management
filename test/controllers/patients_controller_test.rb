@@ -264,7 +264,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
   describe 'fetch_pledge' do
     before do
       ActsAsTenant.current_tenant.build_pledge_config(remote_pledge_extras: {}).save
-      @patient.update clinic: @clinic
+      @patient.update clinic: @clinic, appointment_date: Time.zone.now.strftime('%Y-%m-%d')
     end
 
     it 'should request a pdf from a service' do
