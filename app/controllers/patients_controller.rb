@@ -62,15 +62,20 @@ class PatientsController < ApplicationController
     payload = {
       fund: Rails.env.development? ? 'test' : current_tenant.name.downcase,
       base: {
-        patient_name: @patient.name,
-        patient_phone: @patient.primary_phone,
-        patient_appointment_date: @patient.appointment_date.display_date,
-        patient_fund_pledge: @patient.fund_pledge,
-        patient_procedure_cost: @patient.procedure_cost,
-        patient_external_pledges: @patient.external_pledges.where(active: true).map { |x| { source: x.source, amount: x.amount }},
-        patient_patient_contribution: @patient.patient_contribution,
-        clinic_name: @patient.clinic.name,
-        clinic_location: @patient.clinic.display_location,
+        patient: {
+          name: @patient.name,
+          phone: @patient.primary_phone,
+          appointment_date: @patient.appointment_date.display_date,
+          fund_pledge: @patient.fund_pledge,
+          procedure_cost: @patient.procedure_cost,
+          patient_contribution: @patient.patient_contribution,
+          naf_pledge: @patient.naf_pledge,
+        },
+        clinic: {
+          name: @patient.clinic.name,
+          location: @patient.clinic.display_location,
+        },
+        external_pledges: @patient.external_pledges.where(active: true).map { |x| { source: x.source, amount: x.amount.to_i }} || [],
       },
       extra: extra_params.to_h
     }
