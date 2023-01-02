@@ -18,9 +18,21 @@ class PracticalSupportsHelperTest < ActionView::TestCase
         ]
         assert_same_elements expected, practical_support_options
       end
+
+      it 'should not include defaults if configured' do
+        create_hide_defaults_config
+
+        expected_custom_options = ['Metallica Tickets', 'Clothing',
+                                    ['Other (see notes)', 'Other (see notes)']]
+        assert_same_elements expected_custom_options, practical_support_options
+      end
     end
 
     describe 'without a config' do
+      before do
+        create_hide_defaults_config should_hide: false
+      end
+
       it 'should create a config and return proper options' do
         assert_difference 'Config.count', 1 do
           @options = practical_support_options
@@ -73,9 +85,20 @@ class PracticalSupportsHelperTest < ActionView::TestCase
         ]
         assert_same_elements expected, practical_support_source_options
       end
+
+      it 'should not include defaults if configured' do
+        create_hide_defaults_config
+        assert_same_elements [nil, 'Cat Fund', 'Metallica Abortion Fund',
+                              'Texas Amalgamated Abortion Services (TAAS)',
+                              'Cat Town Abortion Fund (CTAF)'], practical_support_source_options
+      end
     end
 
     describe 'without a config' do
+      before do
+        create_hide_defaults_config should_hide: false
+      end
+      
       it 'should create a config and return options' do
         assert_difference 'Config.count', 1 do
           @options = practical_support_source_options
