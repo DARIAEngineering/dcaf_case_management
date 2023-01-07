@@ -318,7 +318,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "remote_pledge", comment: "Whether to use the remote pledge generation service"
-    t.json "remote_pledge_extras", comment: "Extra fields required for remote pledge generation"
+    t.json "remote_pledge_extras", default: {}, comment: "Extra fields required for remote pledge generation. Key should be the field, and value should be whether or not it is required."
     t.index ["fund_id"], name: "index_pledge_configs_on_fund_id"
   end
 
