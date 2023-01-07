@@ -3,7 +3,7 @@ class PatientsController < ApplicationController
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update]
-  before_action :find_patient_minimal, only: [:download, :destroy]
+  before_action :find_patient_minimal, only: [:fetch_pledge, :download, :destroy]
   rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
@@ -52,6 +52,44 @@ class PatientsController < ApplicationController
       @patient.update pledge_generated_at: Time.zone.now,
                       pledge_generated_by: current_user
       send_data pdf.render, filename: pdf_filename, type: 'application/pdf'
+    end
+  end
+
+  def fetch_pledge
+    endpoint = ENV.fetch('PLEDGE_GENERATOR_ENDPOINT', 'http://localhost:3001/generate')
+    basic_auth = { username: ENV.fetch('PLEDGE_GENERATOR_USER', 'apiuser'), password: ENV.fetch('PLEDGE_GENERATOR_TOKEN', 'PLEDGETOKEN') }
+    extra_params = params.permit(:case_manager_name, *current_tenant.pledge_config.remote_pledge_extras.map { |x, y| x.to_sym })
+    payload = {
+      fund: Rails.env.development? ? 'test' : current_tenant.name.downcase,
+      base: {
+        patient: {
+          name: @patient.name,
+          phone: @patient.primary_phone_display,
+          appointment_date: @patient.appointment_date.display_date,
+          fund_pledge: @patient.fund_pledge,
+          procedure_cost: @patient.procedure_cost,
+          patient_contribution: @patient.patient_contribution,
+          naf_pledge: @patient.naf_pledge,
+        },
+        clinic: {
+          name: @patient.clinic.name,
+          location: @patient.clinic.display_location,
+        },
+        external_pledges: @patient.external_pledges.where(active: true).map { |x| { source: x.source, amount: x.amount.to_i }} || [],
+      },
+      extra: extra_params.to_h
+    }
+    encrypted_payload = { encrypted: encrypt_payload(payload.to_json) }
+    result = HTTParty.post(endpoint, body: encrypted_payload, headers: {}, basic_auth: basic_auth)
+
+    if result.ok?
+      now = Time.zone.now.strftime('%Y%m%d')
+      @patient.update pledge_generated_at: Time.zone.now,
+                      pledge_generated_by: current_user
+      send_data result.body, filename: "#{@patient.name}_pledge_form_#{now}.pdf", type: 'application/pdf'
+    else
+      flash[:alert] = t('flash.fetch_pledge_error')
+      redirect_to edit_patient_path @patient
     end
   end
 
@@ -158,6 +196,12 @@ class PatientsController < ApplicationController
     )
     permitted_params.concat(FULFILLMENT_PARAMS) if current_user.allowed_data_access?
     params.require(:patient).permit(permitted_params)
+  end
+
+  def encrypt_payload(payload)
+    encryptor = ActiveSupport::MessageEncryptor.new(ENV.fetch('PLEDGE_GENERATOR_ENCRYPTOR', '0' * 32))
+    encrypted = encryptor.encrypt_and_sign(payload)
+    encrypted
   end
 
   def render_csv
