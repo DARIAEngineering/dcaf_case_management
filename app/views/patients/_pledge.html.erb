@@ -16,6 +16,21 @@
     <div class="hide" data-step="2" data-title="<%= t('patient.pledge.step_two.title') %>" id="generate-pledge-form">
       <% if current_tenant.pledge_config.blank? %>
         <p><%= t('patient.pledge.step_two.form_disabled') %></p>
+      <% elsif current_tenant.pledge_config.remote_pledge? %>
+        <div class="alert alert-danger" style="display:none;"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
+        <p class="row"><strong><%= t('patient.pledge.step_two.generate_note') %></strong></p>
+
+        <div class="row">
+          <%= bootstrap_form_with url: fetch_pledge_patient_path(patient),
+                                  method: 'post',
+                                  local: true do |f| %>
+            <% current_tenant.pledge_config.remote_pledge_extras.each_pair do |field, required| %>
+              <%= f.text_field field.to_sym, label: field.humanize, required: required %>
+            <% end %>
+            <%= f.text_field :case_manager_name, label: t('patient.pledge.step_two.sign_pledge'), required: true %>
+            <%= f.submit t('patient.pledge.step_two.generate_pledge_button'), class: 'btn btn-large btn-primary' %>
+          <% end %>
+        </div>        
       <% else %>
         <div class="alert alert-danger" style="display:none;"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
         <p class="row"><strong><%= t('patient.pledge.step_two.generate_note') %></strong></p>

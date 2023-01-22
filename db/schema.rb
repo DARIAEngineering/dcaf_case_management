@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_02_172033) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -317,6 +317,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_172033) do
     t.bigint "fund_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "remote_pledge", comment: "Whether to use the remote pledge generation service"
+    t.json "remote_pledge_extras", default: {}, comment: "Extra fields required for remote pledge generation. Key should be the field, and value should be whether or not it is required."
     t.index ["fund_id"], name: "index_pledge_configs_on_fund_id"
   end
 

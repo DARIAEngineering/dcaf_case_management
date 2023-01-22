@@ -33,9 +33,20 @@ class ExternalPledgesHelperTest < ActionView::TestCase
       assert_includes available_pledge_source_options_for(@patient),
                       'Cat Town Abortion Fund (CTAF)'
     end
+
+    it 'should not include defaults if configured' do
+      create_hide_defaults_config
+      assert_same_elements ['Metallica Abortion Fund',
+                            'Texas Amalgamated Abortion Services (TAAS)',
+                            'Cat Town Abortion Fund (CTAF)'], external_pledge_source_options
+    end
   end
 
   describe 'creating a config object if one does not exist yet' do
+    before do
+      create_hide_defaults_config should_hide: false
+    end
+
     it 'should do that, with a properly set key' do
       assert_difference 'Config.count', 1 do
         @options = external_pledge_source_options
@@ -43,7 +54,7 @@ class ExternalPledgesHelperTest < ActionView::TestCase
 
       expected_external_pledges_array = [["Clinic discount", "Clinic discount"],
                                          ["Other funds (see notes)","Other funds (see notes)"]]
-      assert_same_elements @options, expected_external_pledges_array
+      assert_same_elements expected_external_pledges_array, @options
 
       assert Config.find_by(config_key: 'external_pledge_source')
     end

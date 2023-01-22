@@ -261,6 +261,36 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'fetch_pledge' do
+    before do
+      ActsAsTenant.current_tenant.build_pledge_config(remote_pledge_extras: {}).save
+      @patient.update clinic: @clinic, appointment_date: Time.zone.now.strftime('%Y-%m-%d')
+    end
+
+    it 'should request a pdf from a service' do
+      fake_result = Minitest::Mock.new
+      fake_result.expect :ok?, true
+      fake_result.expect :body, ''
+      HTTParty.stub(:post, fake_result) do
+        post fetch_pledge_patient_path(@patient), params: {}
+      end
+      refute_nil @patient.reload.pledge_generated_at
+      refute_nil @patient.reload.pledge_generated_by
+      assert_response :success
+    end
+
+    it 'should error cleanly' do
+      fake_result = Minitest::Mock.new
+      fake_result.expect :ok?, false
+      HTTParty.stub(:post, fake_result) do
+        post fetch_pledge_patient_path(@patient), params: {}
+      end
+      assert_nil @patient.reload.pledge_generated_at
+      assert_nil @patient.reload.pledge_generated_by
+      assert_response :redirect
+    end
+  end
+
   # confirm sending a 'post' with a payload results in a new patient
   describe 'data_entry_create method' do
     before do

@@ -49,9 +49,18 @@ class PatientsHelperTest < ActionView::TestCase
         assert_same_elements expected_insurance_options_array,
                              insurance_options('Friendship')
       end
+
+      it 'should not include defaults if configured' do
+        create_hide_defaults_config
+        assert_same_elements [nil, 'DC Medicaid', 'Other state Medicaid'], insurance_options
+      end
     end
 
     describe 'without a config' do
+      before do
+        create_hide_defaults_config should_hide: false
+      end
+      
       it 'should create a config and return proper options' do
         assert_difference 'Config.count', 1 do
           @options = insurance_options
@@ -62,7 +71,7 @@ class PatientsHelperTest < ActionView::TestCase
                                    [ 'Don\'t know', 'Don\'t know' ],
                                    [ 'Prefer not to answer', 'Prefer not to answer'],
                                    [ 'Other (add to notes)', 'Other (add to notes)'] ]
-        assert_same_elements @options, expected_insurance_array
+        assert_same_elements expected_insurance_array, @options
         assert Config.find_by(config_key: 'insurance')
       end
     end
@@ -256,6 +265,12 @@ class PatientsHelperTest < ActionView::TestCase
       expected_referrals = expected_referrals_base + ['Social Worker']
 
       assert_same_elements expected_referrals, referred_by_options('Social Worker')
+    end
+
+    it 'should not include defaults if configured' do
+      create_hide_defaults_config
+
+      assert_same_elements ['Metal band'], referred_by_options
     end
   end
 

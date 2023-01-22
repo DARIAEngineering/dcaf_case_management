@@ -4,7 +4,7 @@ ruby '3.1.3'
 # Standard rails
 gem 'rails', '~> 7.0.0'
 gem 'puma', '~> 5.4' # roar
-gem 'sdoc', '~> 2.5.0', group: :doc
+gem 'sdoc', '~> 2.6.0', group: :doc
 gem 'nokogiri', '>= 1.13.4'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -54,6 +54,7 @@ gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
 gem 'state_geo_tools' # state list 
+gem 'httparty' # easier http calls
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
