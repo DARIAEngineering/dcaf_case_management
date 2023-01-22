@@ -76,8 +76,8 @@ GEM
     acts_as_tenant (0.5.1)
       rails (>= 5.2)
       request_store (>= 1.0.5)
-    addressable (2.8.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     afm (0.2.2)
     ast (2.4.2)
     bcrypt (3.1.18)
@@ -102,7 +102,7 @@ GEM
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
     byebug (11.1.3)
-    capybara (3.37.1)
+    capybara (3.38.0)
       addressable
       matrix
       mini_mime (>= 0.1.3)
@@ -283,7 +283,7 @@ GEM
       method_source (~> 1.0)
     psych (5.0.1)
       stringio
-    public_suffix (4.0.7)
+    public_suffix (5.0.1)
     puma (6.0.2)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -330,7 +330,7 @@ GEM
       ffi (~> 1.0)
     rdoc (6.5.0)
       psych (>= 4.0.0)
-    regexp_parser (2.5.0)
+    regexp_parser (2.6.2)
     render_async (2.1.11)
     request_store (1.5.1)
       rack (>= 1.4)
