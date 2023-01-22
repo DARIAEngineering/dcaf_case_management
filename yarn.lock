@@ -183,10 +183,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-free@npm:6.2.0":
-  version: 6.2.0
-  resolution: "@fortawesome/fontawesome-free@npm:6.2.0"
-  checksum: fd3fcc0a963b907110922b5ac0ca67633aea20b5034102a1f5d285830f7f7a27f9c9de0c4a30228ccd2579bd8f95581a1bbef9519c7b74632e7012d60dd57bb7
+"@fortawesome/fontawesome-free@npm:6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/fontawesome-free@npm:6.2.1"
+  checksum: c77b7c8b0965e5c17f4ca45667885b6273e26af97a9e83db343fc756c159b5acd35cf420e73e1b916af1d275179290ccfb1900af48631749e30f36464f339bd3
   languageName: node
   linkType: hard
 
@@ -5635,7 +5635,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@fortawesome/fontawesome-free": 6.2.0
+    "@fortawesome/fontawesome-free": 6.2.1
     "@popperjs/core": 2.11.6
     bootstrap: 4.6.2
     esbuild: 0.17.3
