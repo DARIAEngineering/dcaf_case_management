@@ -2,6 +2,12 @@ require 'test_helper'
 require_relative '../patient_test'
 
 class PatientTest::Exportable < PatientTest
+  before do
+    # Perils of subclassing - this restores db to clean
+    Patient.destroy_all
+    ArchivedPatient.destroy_all
+  end
+
   describe 'export concern methods' do
     before do
       @patient = create :patient
@@ -48,75 +54,49 @@ class PatientTest::Exportable < PatientTest
 
     describe 'fulfillments related' do
       before do
-        @fulfilled_patient = create :patient
-        create :fulfillment, patient: @fulfilled_patient,
-                             fulfilled: true,
-                             procedure_date: 2.days.ago,
-                             gestation_at_procedure: 50,
-                             fund_payout: 30,
-                             check_number: 'A10',
-                             date_of_check: 3.days.ago
+        @patient.fulfillment.update fulfilled: true,
+                                    procedure_date: 2.days.ago,
+                                    gestation_at_procedure: 50,
+                                    fund_payout: 30,
+                                    check_number: 'A10',
+                                    date_of_check: 3.days.ago
       end
 
       describe 'fulfilled' do
-        it 'should return nil if no fulfillment' do
-          assert_nil @patient.fulfilled
-        end
-
         it 'should return fulfillment status' do
-          assert @fulfilled_patient.fulfilled
-          @fulfilled_patient.fulfillment.update fulfilled: false
-          refute @fulfilled_patient.fulfilled
+          assert @patient.fulfilled
+          @patient.fulfillment.update fulfilled: false
+          refute @patient.fulfilled
         end
       end
 
       describe 'procedure_date' do
-        it 'should return nil if no fulfillment' do
-          assert_nil @patient.procedure_date
-        end
-
         it 'should show procedure_date when fulfillment is set' do
-          assert_equal 2.days.ago.to_date, @fulfilled_patient.procedure_date
+          assert_equal 2.days.ago.to_date, @patient.procedure_date
         end
       end
 
       describe 'gestation_at_procedure' do
-        it 'should return nil if no fulfillment' do
-          assert_nil @patient.gestation_at_procedure
-        end
-
         it 'should show gestation_at_procedure when fulfillment is set' do
-          assert_equal 50, @fulfilled_patient.gestation_at_procedure
+          assert_equal 50, @patient.gestation_at_procedure
         end
       end
 
       describe 'fund_payout' do
-        it 'should return nil if no fulfillment' do
-          assert_nil @patient.fund_payout
-        end
-
         it 'should show fund_payout when fulfillment is set' do
-          assert_equal 50, @fulfilled_patient.fund_payout
+          assert_equal 30, @patient.fund_payout
         end
       end
 
       describe 'check_number' do
-        it 'should return nil if no fulfillment' do
-          assert_nil @patient.check_number
-        end
-
         it 'should show fund_payout when fulfillment is set' do
-          assert_equal 'A20', @fulfilled_patient.check_number
+          assert_equal 'A10', @patient.check_number
         end
       end
 
       describe 'date_of_check' do
-        it 'should return nil if no fulfillment' do
-          assert_nil @patient.date_of_check
-        end
-
         it 'should show date_of_check when fulfillment is set' do
-          assert_equal 3.days.ago.to_date, @fulfilled_patient.date_of_check
+          assert_equal 3.days.ago.to_date, @patient.date_of_check
         end
       end
     end
@@ -125,9 +105,9 @@ class PatientTest::Exportable < PatientTest
       before do
         @first_call = 5.days.ago
         @last_call = 1.days.ago
-        create :call, patient: @patient, created_at: @first_call, status: :reached_patient
-        create :call, patient: @patient, created_at: 3.days.ago, status: :left_message
-        create :call, patient: @patient, created_at: @last_call, status: :left_message
+        @patient.calls.create attributes_for(:call, created_at: @first_call, status: :reached_patient)
+        @patient.calls.create attributes_for(:call, created_at: 3.days.ago, status: :left_voicemail)
+        @patient.calls.create attributes_for(:call, created_at: @last_call, status: :left_voicemail)
       end
 
       describe 'first_call_timestamp' do
@@ -154,13 +134,13 @@ class PatientTest::Exportable < PatientTest
 
       describe 'call_count' do
         it 'should return count of calls' do
-          raise
+          assert_equal 3, @patient.call_count
         end
       end
   
       describe 'reached_patient_call_count' do
         it 'should return count of reached calls' do
-          raise
+          assert_equal 1, @patient.reached_patient_call_count
         end
       end  
     end
@@ -190,47 +170,58 @@ class PatientTest::Exportable < PatientTest
     end
     
     describe 'external pledge related' do
+      before do
+        @patient.external_pledges.create attributes_for(:external_pledge, amount: 100, source: 'Cat Town')
+        @patient.external_pledges.create attributes_for(:external_pledge, amount: 200, source: 'Dog Town')
+      end
+
       describe 'external_pledge_count' do
         it 'should return 0 if no pledges' do
-
-          raise
+          @patient.external_pledges.destroy_all
+          assert_equal 0, @patient.external_pledge_count
         end
 
         it 'should return count of pledges when they exist' do
-          raise
+          assert_equal 2, @patient.external_pledge_count
         end
       end
 
       describe "external_pledge_sum" do
         it "returns 0 if no pledges" do
+          @patient.external_pledges.destroy_all
           assert_equal @patient.external_pledge_sum, 0
         end
 
         it "returns sum of pledges when they exist" do
-          @patient.external_pledges.create attributes_for(:external_pledge, amount: 100)
-          @patient.external_pledges.create attributes_for(:external_pledge, amount: 200)
           assert_equal @patient.external_pledge_sum, 300
         end
       end
 
       describe 'all_external_pledges' do
         it 'should return nil if no external pledges' do
-          raise
+          @patient.external_pledges.destroy_all
+          assert_equal '', @patient.all_external_pledges
         end
 
         it 'should return a joined list of practical supports' do
-          raise
+          assert_equal 'Cat Town - 100; Dog Town - 200', @patient.all_external_pledges
         end
       end
     end
 
     describe 'all_practical_supports' do
+      before do
+        @patient.practical_supports.create attributes_for(:practical_support, confirmed: true, source: 'Friendship', support_type: 'Driving', amount: 50)
+        @patient.practical_supports.create attributes_for(:practical_support, confirmed: true, source: 'Friendship', support_type: 'Coffee', amount: 50)
+      end
+
       it 'should return nil if no practical supports' do
-        raise
+        @patient.practical_supports.destroy_all
+        assert_equal '', @patient.all_practical_supports
       end
 
       it 'should return a joined list of practical supports' do
-        raise
+        assert_equal 'Friendship - Driving - Confirmed - $50.00; Friendship - Coffee - Confirmed - $50.00', @patient.all_practical_supports
       end
     end
 
@@ -277,12 +268,34 @@ class PatientTest::Exportable < PatientTest
     end
 
     describe 'get_field_value_for_serialization' do
-      it 'should clean and handle regular values' do
-        raise
+      it 'should clean and return values' do
+        @patient.update city: '=Cat Town'
+        assert_equal "'=Cat Town", @patient.get_field_value_for_serialization(:city)
+      end
+    end
+  end
+
+  describe 'class methods' do
+    describe 'csv_header' do
+      it 'should something' do
+        assert_equal ::Patient::CSV_EXPORT_FIELDS.keys.join(',') + "\n", Patient.csv_header.to_a[0]
+      end
+    end
+
+    describe 'to_csv' do
+      it 'should export patients' do
+        create :patient
+        create :patient
+        data = Patient.to_csv.to_a
+        # Not testing contents since that's very implementation-y
+        assert_equal 2, data.to_a.length
       end
 
-      it 'should clean and join arrays' do
-        raise
+      it 'should export archived patients' do
+        create :archived_patient
+        data = ArchivedPatient.to_csv.to_a
+        # Not testing contents since that's very implementation-y
+        assert_equal 1, data.to_a.length
       end
     end
   end
