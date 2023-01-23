@@ -103,14 +103,9 @@ class PatientTest::Exportable < PatientTest
 
     describe 'call related' do
       before do
-        first = @patient.calls.create attributes_for(:call, status: :reached_patient)
+        @patient.calls.create attributes_for(:call, created_at: 5.days.ago, status: :reached_patient)
         @patient.calls.create attributes_for(:call, created_at: 3.days.ago, status: :left_voicemail)
-        last = @patient.calls.create attributes_for(:call, status: :left_voicemail)
-        @first_call = 5.days.ago
-        @last_call = 1.days.ago
-        first.update created_at: @first_call
-        last.update created_at: @last_call
-
+        @patient.calls.create attributes_for(:call, created_at: 1.days.ago, status: :left_voicemail)
       end
 
       describe 'first_call_timestamp' do
@@ -120,7 +115,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should return datetime of first call' do
-          assert_equal @first_call, @patient.first_call_timestamp
+          assert_equal 5.days.ago.to_date, @patient.first_call_timestamp.to_date
         end
       end
   
@@ -131,7 +126,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should return datetime of last call' do
-          assert_equal @first_call, @patient.first_call_timestamp
+          assert_equal 1.days.ago.to_date, @patient.last_call_timestamp.to_date
         end
       end  
 
