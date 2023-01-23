@@ -49,13 +49,13 @@ class PatientTest::Exportable < PatientTest
     describe 'fulfillments related' do
       before do
         @fulfilled_patient = create :patient
-        create :fulfillment patient: @fulfilled_patient,
-                            fulfilled: true,
-                            procedure_date: 2.days.ago,
-                            gestation_at_procedure: 50,
-                            fund_payout: 30,
-                            check_number: 'A10',
-                            date_of_check: 3.days.ago
+        create :fulfillment, patient: @fulfilled_patient,
+                             fulfilled: true,
+                             procedure_date: 2.days.ago,
+                             gestation_at_procedure: 50,
+                             fund_payout: 30,
+                             check_number: 'A10',
+                             date_of_check: 3.days.ago
       end
 
       describe 'fulfilled' do
@@ -64,10 +64,9 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should return fulfillment status' do
-          @patient.build_fulfillment(fulfilled: false).save
-          assert_nil @patient.fulfilled
-          @patient.fulfillment.update fulfilled: true
-          assert @patient.fulfilled
+          assert @fulfilled_patient.fulfilled
+          @fulfilled_patient.fulfillment.update fulfilled: false
+          refute @fulfilled_patient.fulfilled
         end
       end
 
@@ -77,8 +76,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should show procedure_date when fulfillment is set' do
-          create :fulfillment patient: patient, procedure_date: 2.days.ago
-          assert_equal 2.days.ago.to_date, @patient.procedure_date
+          assert_equal 2.days.ago.to_date, @fulfilled_patient.procedure_date
         end
       end
 
@@ -88,8 +86,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should show gestation_at_procedure when fulfillment is set' do
-          create :fulfillment patient: patient, gestation_at_procedure: 50
-          assert_equal 50, @patient.gestation_at_procedure
+          assert_equal 50, @fulfilled_patient.gestation_at_procedure
         end
       end
 
@@ -99,8 +96,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should show fund_payout when fulfillment is set' do
-          create :fulfillment patient: patient, fund_payout: 50
-          assert_equal 50, @patient.fund_payout
+          assert_equal 50, @fulfilled_patient.fund_payout
         end
       end
 
@@ -110,8 +106,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should show fund_payout when fulfillment is set' do
-          create :fulfillment patient: patient, check_number: 'A20'
-          assert_equal 'A20', @patient.check_number
+          assert_equal 'A20', @fulfilled_patient.check_number
         end
       end
 
@@ -121,8 +116,7 @@ class PatientTest::Exportable < PatientTest
         end
 
         it 'should show date_of_check when fulfillment is set' do
-          create :fulfillment patient: patient, date_of_check: 2.days.ago
-          assert_equal 2.days.ago.to_date, @patient.date_of_check
+          assert_equal 3.days.ago.to_date, @fulfilled_patient.date_of_check
         end
       end
     end
@@ -134,7 +128,6 @@ class PatientTest::Exportable < PatientTest
         create :call, patient: @patient, created_at: @first_call, status: :reached_patient
         create :call, patient: @patient, created_at: 3.days.ago, status: :left_message
         create :call, patient: @patient, created_at: @last_call, status: :left_message
-
       end
 
       describe 'first_call_timestamp' do
@@ -142,6 +135,7 @@ class PatientTest::Exportable < PatientTest
           @patient.calls.destroy_all
           assert_nil @patient.first_call_timestamp
         end
+
         it 'should return datetime of first call' do
           assert_equal @first_call, @patient.first_call_timestamp
         end
@@ -152,16 +146,15 @@ class PatientTest::Exportable < PatientTest
           @patient.calls.destroy_all
           assert_nil @patient.last_call_timestamp
         end
+
         it 'should return datetime of last call' do
           assert_equal @first_call, @patient.first_call_timestamp
-
         end
       end  
 
       describe 'call_count' do
         it 'should return count of calls' do
           raise
-
         end
       end
   
@@ -198,7 +191,14 @@ class PatientTest::Exportable < PatientTest
     
     describe 'external pledge related' do
       describe 'external_pledge_count' do
-        raise
+        it 'should return 0 if no pledges' do
+
+          raise
+        end
+
+        it 'should return count of pledges when they exist' do
+          raise
+        end
       end
 
       describe "external_pledge_sum" do
@@ -214,11 +214,24 @@ class PatientTest::Exportable < PatientTest
       end
 
       describe 'all_external_pledges' do
+        it 'should return nil if no external pledges' do
+          raise
+        end
+
+        it 'should return a joined list of practical supports' do
+          raise
+        end
+      end
+    end
+
+    describe 'all_practical_supports' do
+      it 'should return nil if no practical supports' do
         raise
       end
 
-    describe 'all_practical_supports' do
-      raise
+      it 'should return a joined list of practical supports' do
+        raise
+      end
     end
 
     describe 'age range tests' do
