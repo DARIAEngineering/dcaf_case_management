@@ -1,0 +1,9 @@
+<div class='authform'>
+  <h3>Register SMS Authentication Factor</h3>
+  <p>Enter a name for this authentication factor and your phone number to register.</p>
+  <%= bootstrap_form_with model: @auth_factor, url: wizard_path do |f| %>
+    <%= f.text_field :name, label: "Nickname", placeholder: "e.g. 'my cell phone'" %>
+    <%= f.text_field :phone, label: "Phone" %>
+    <%= f.submit "Next", class: 'btn btn-primary' %>
+  <% end %>
+</div>

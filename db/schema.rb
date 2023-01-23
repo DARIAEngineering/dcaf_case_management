@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -63,6 +63,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.index ["line_legacy"], name: "index_archived_patients_on_line_legacy"
     t.index ["pledge_generated_by_id"], name: "index_archived_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
+  end
+
+  create_table "auth_factors", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.string "channel"
+    t.boolean "enabled", default: false
+    t.boolean "registration_complete", default: false
+    t.string "external_id"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "user_id"], name: "index_auth_factors_on_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_auth_factors_on_user_id"
   end
 
   create_table "call_list_entries", force: :cascade do |t|
@@ -391,6 +406,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
   add_foreign_key "archived_patients", "lines"
   add_foreign_key "archived_patients", "users", column: "pledge_generated_by_id"
   add_foreign_key "archived_patients", "users", column: "pledge_sent_by_id"
+  add_foreign_key "auth_factors", "users"
   add_foreign_key "call_list_entries", "funds"
   add_foreign_key "call_list_entries", "lines"
   add_foreign_key "call_list_entries", "patients"

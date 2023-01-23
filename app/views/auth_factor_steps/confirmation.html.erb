@@ -1,0 +1,5 @@
+<div class='authform'>
+  <h3>New SMS Authentication Factor Registered: <%= @auth_factor.name %></h3>
+  <p>New authentication factor successfully registered!</p>
+  <%= button_to('Next', next_wizard_path, method: :get, class: 'btn btn-primary') %>
+</div>
