@@ -103,11 +103,14 @@ class PatientTest::Exportable < PatientTest
 
     describe 'call related' do
       before do
+        first = @patient.calls.create attributes_for(:call, status: :reached_patient)
+        @patient.calls.create attributes_for(:call, created_at: 3.days.ago, status: :left_voicemail)
+        last = @patient.calls.create attributes_for(:call, status: :left_voicemail)
         @first_call = 5.days.ago
         @last_call = 1.days.ago
-        @patient.calls.create attributes_for(:call, created_at: @first_call, status: :reached_patient)
-        @patient.calls.create attributes_for(:call, created_at: 3.days.ago, status: :left_voicemail)
-        @patient.calls.create attributes_for(:call, created_at: @last_call, status: :left_voicemail)
+        first.update created_at: @first_call
+        last.update created_at: @last_call
+
       end
 
       describe 'first_call_timestamp' do
