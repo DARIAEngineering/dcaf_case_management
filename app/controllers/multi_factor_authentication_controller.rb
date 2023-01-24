@@ -1,5 +1,3 @@
-require_relative '../lib/api_clients/twilio_verify_client'
-
 # Controls steps for logging in a user with two factor authentication.
 class MultiFactorAuthenticationController < ApplicationController
   include Wicked::Wizard

@@ -1,5 +1,3 @@
-require_relative '../lib/api_clients/twilio_verify_client'
-
 # Controls steps for registering a new authentication factor.
 class AuthFactorStepsController < ApplicationController
   include Wicked::Wizard

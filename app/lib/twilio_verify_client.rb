@@ -5,6 +5,7 @@ require 'twilio-ruby'
 
 # Help: https://www.twilio.com/docs/verify/quickstarts/totp
 class TwilioVerifyClient
+  # For development these values can be found in the Twilio Console at https://console.twilio.com.
   TWILIO_ACCOUNT_SID = ENV['TWILIO_ACCOUNT_SID']
   TWILIO_AUTH_TOKEN = ENV['TWILIO_AUTH_TOKEN']
   TWILIO_SMS_SERVICE = ENV['TWILIO_SMS_SERVICE']
