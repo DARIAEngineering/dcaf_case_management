@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Funds</h1>
+
+<div id="funds">
+  <% @funds.each do |fund| %>
+    <%= render fund %>
+    <p>
+      <%= link_to "Show this fund", fund %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New fund", new_fund_path %>

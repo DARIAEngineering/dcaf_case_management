@@ -61,6 +61,8 @@ Rails.application.routes.draw do
 
     resources :auth_factors, only: [:new, :destroy]
     resources :build_auth_factor, only: [:show, :update], controller: 'auth_factor_steps'
+
+    resources :funds, only: [:show, :update]
   end
 
   resources :multi_factor_authentication, only: [:show, :update]
