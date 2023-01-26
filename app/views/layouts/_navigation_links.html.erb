@@ -10,7 +10,7 @@
 <% if current_user.admin? || current_user.data_volunteer? %>
   <div class="dropdown">
     <button href="#" data-toggle="dropdown" class="btn dropdown-toggle navbar-text" id="admin-dropdown" aria-haspopup="true" aria-expanded="false">
-      <%= t('navigation.admin_tools.label') %> 
+      <%= t('navigation.admin_tools.label') %>
     </button>
 
     <div class="dropdown-menu" aria-labelledby="admin-dropdown">
@@ -18,6 +18,7 @@
         <%= link_to t('navigation.admin_tools.user_management'), users_path, class: 'dropdown-item' %>
         <%= link_to t('navigation.admin_tools.clinic_management'), clinics_path, class: 'dropdown-item' %>
         <%= link_to t('navigation.admin_tools.config_management'), configs_path, class: 'dropdown-item' %>
+        <%= link_to t('navigation.admin_tools.fund_management'), configs_path, class: 'dropdown-item' %>
       <% end %>
       <%= link_to t('navigation.admin_tools.accounting'), accountants_path, class: 'dropdown-item' %>
       <%= link_to t('navigation.admin_tools.export'), patients_path(format: :csv), class: 'dropdown-item' %>

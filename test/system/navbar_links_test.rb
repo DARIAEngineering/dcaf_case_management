@@ -30,6 +30,10 @@ class NavbarLinksTest < ApplicationSystemTestCase
         assert has_link? t('navigation.admin_tools.config_management'), href: configs_path
       end
 
+      it 'should display the Fund Management link' do
+        assert has_link? t('navigation.admin_tools.fund_management'), href: funds_path
+      end
+
       it 'should display the Accounting link' do
         assert has_link? t('navigation.admin_tools.accounting'), href: accountants_path
       end
@@ -58,6 +62,10 @@ class NavbarLinksTest < ApplicationSystemTestCase
 
       it 'should not display the Config Management link' do
         refute has_link? t('navigation.admin_tools.config_management')
+      end
+
+      it 'should not display the Fund Management link' do
+        refute has_link? t('navigation.admin_tools.fund_management')
       end
 
       it 'should display the Accounting link' do
