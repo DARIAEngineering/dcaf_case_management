@@ -117,6 +117,14 @@ module PatientsHelper
     ]
   end
 
+  def county_options(current_value = nil)
+    county_options = Config.find_or_create_by(config_key: 'county').options
+
+    return [] if county_options.blank?
+
+    options_plus_current([nil] + county_options, current_value)
+  end
+
   def household_size_options
     (0..10).map { |i| i }
            .unshift([t('common.prefer_not_to_answer'), -1])
@@ -146,6 +154,8 @@ module PatientsHelper
 
     active_clinics | inactive_clinics
   end
+
+  
 
   def disable_continue?(patient)
     patient.pledge_info_present? ? 'disabled="disabled"' : ''

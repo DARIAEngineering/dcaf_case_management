@@ -21,7 +21,7 @@ class Config < ApplicationRecord
     shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
-    hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.'
+    hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
   }.freeze
 
   enum config_key: {
@@ -44,6 +44,7 @@ class Config < ApplicationRecord
     hide_budget_bar: 16,
     aggregate_statistics: 17,
     hide_standard_dropdown_values: 18,
+    county: 19,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -52,7 +53,8 @@ class Config < ApplicationRecord
   CLEAN_PRE_VALIDATION = {
     start_of_week: [:fix_capitalization],
     hide_practical_support: [:fix_capitalization],
-    language: [:fix_capitalization]
+    language: [:fix_capitalization],
+    county: [:fix_capitalization]
   }.freeze
 
   VALIDATIONS = {
@@ -67,6 +69,8 @@ class Config < ApplicationRecord
     referred_by:
       [:validate_length],
     voicemail:
+      [:validate_length],
+    county:
       [:validate_length],
 
     start_of_week:
