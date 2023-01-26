@@ -1,14 +1,31 @@
-<p style="color: green"><%= notice %></p>
+<h1><%= t 'funds.index.title' %></h1>
 
-<h1>Funds</h1>
+<div class="fund-list">
+  <table class="table border-side table-hover top-spacer" id="funds_table">
+    <thead>
+      <tr class="funds-table-header">
+        <th><!-- spacer --></th>
+        <th><%= t 'activerecord.attributes.fund.name' %></th>
+        <th><%= t 'activerecord.attributes.fund.subdomain' %></th>
+        <th><%= t 'activerecord.attributes.fund.domain' %></th>
+        <th><%= t 'activerecord.attributes.fund.full_name' %></th>
+        <th><%= t 'activerecord.attributes.fund.site_domain' %></th>
+        <th><%= t 'activerecord.attributes.fund.phone' %></th>
+      </tr>
+    </thead>
 
-<div id="funds">
-  <% @funds.each do |fund| %>
-    <%= render fund %>
-    <p>
-      <%= link_to "Show this fund", fund %>
-    </p>
-  <% end %>
+    <tbody>
+      <% @funds.each do |fund| %>
+        <tr class="funds-table-row">
+          <td><!-- spacer --></td>
+          <td><%= link_to fund.name, edit_fund_path(fund) %></td>
+          <td><%= fund.subdomain %></td>
+          <td><%= fund.domain %></td>
+          <td><%= fund.full_name %></td>
+          <td><%= fund.site_domain %></td>
+          <td><%= fund.phone %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-
-<%= link_to "New fund", new_fund_path %>

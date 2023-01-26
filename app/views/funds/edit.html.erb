@@ -1,8 +1,10 @@
-<h1>Editing fund</h1>
+<h1>
+  <%= t 'funds.edit.title' %>
+</h1>
 
-<%= render "form", fund: @fund %>
-
-<br>
+<%= render 'funds/fund_form',
+           fund: @fund,
+           label: t('funds.form.save_changes') %>
 
 <div>
   <%= link_to "Show this fund", @fund %> |

@@ -1,49 +1,30 @@
 class FundsController < ApplicationController
-  before_action :set_fund, only: %i[ show edit update destroy ]
+  before_action :confirm_admin_user
+  before_action :set_fund, only: %i[show edit update destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: -> { head :bad_request }
 
   # GET /funds
   def index
-    @funds = Fund.all
+    @funds = Fund.all.sort_by { |f| [f.name] }
   end
 
   # GET /funds/1
   def show
+    @fund
   end
 
-  # GET /funds/new
-  def new
-    @fund = Fund.new
-  end
-
-  # GET /funds/1/edit
-  def edit
-  end
-
-  # POST /funds
-  def create
-    @fund = Fund.new(fund_params)
-
-    if @fund.save
-      redirect_to @fund, notice: "Fund was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+  def edit; end
 
   # PATCH/PUT /funds/1
   def update
     if @fund.update(fund_params)
-      redirect_to @fund, notice: "Fund was successfully updated."
+      redirect_to @fund, notice: 'Fund was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /funds/1
-  def destroy
-    @fund.destroy
-    redirect_to funds_url, notice: "Fund was successfully destroyed."
-  end
+  def destroy; end
 
   private
     # Use callbacks to share common setup or constraints between actions.
