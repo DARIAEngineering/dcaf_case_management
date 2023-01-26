@@ -164,7 +164,7 @@ class Patient < ApplicationRecord
       if volunteers_line == patients_line
         errors.add(:this_phone_number_is_already_taken, "on this line.")
       else
-        errors.add(:this_phone_number_is_already_taken, "on the #{patients_line} line. If you need the patient's line changed, please contact the CM directors.")
+        errors.add(:this_phone_number_is_already_taken, "on the #{patients_line.name} line. If you need the patient's line changed, please contact the CM directors.")
       end
     end
   end
