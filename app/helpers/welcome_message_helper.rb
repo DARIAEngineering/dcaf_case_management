@@ -70,6 +70,7 @@ module WelcomeMessageHelper
       "You're doing amazing, sweetie.",
       "Thanks for being the gem that you are!",
       "Thank you * 1000, y'all are champions!",
+      "You're doing an amazing thing - keep at it! 💖",
       "Thank you for all the work you do! You're appreciated and you're making a difference!"
     ]
   end
