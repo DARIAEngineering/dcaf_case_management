@@ -369,6 +369,7 @@ en:
       confirm_del: Are you sure you want to delete %{name}? Only do this if you're sure this is a duplicate patient for the same pregnancy. (Seriously, no takebacks!)
       currently: 'Currently: %{weeks}w %{days}d'
       delete: Delete duplicate patient record
+      delete_label: 'Admin: Delete'
       phone: Phone number
       weeks_along: Weeks along at intake
     data_entry:
@@ -547,7 +548,7 @@ en:
     shared:
       appt_date: Appointment date
       name: First and last name
-      status: 'Status:'
+      status: Status
     status:
       help:
         dropoff: Patient has not been heard from in 120+ days.

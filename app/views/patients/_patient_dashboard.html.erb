@@ -51,17 +51,25 @@
                          autocomplete: 'off' %>
       </div>
 
-      <div class="col mt-6">
-        <p><strong><%= t 'patient.shared.status' %></strong> <span id='patient_status'><%= patient.status %></span> <%= tooltip_shell status_help_text(patient) %></p>
+      <div class="col">
+        <div class="form-group">
+          <label for="status"><%= t 'patient.shared.status' %> <%= tooltip_shell status_help_text(patient) %></label>
+          <input type="text" value="<%= patient.status %>" class="form-control form-control-plaintext" id="patient_status_display" autocomplete="off">
+        </div>
       </div>
 
       <div class="col-3">
         <% if current_user.admin? %>
-          <%= link_to t('patient.dashboard.delete'),
-                      patient_path(patient),
-                      class: 'btn btn-danger',
-                      method: :delete,
-                      data: { confirm: t('patient.dashboard.confirm_del', name: patient.name) } %>
+          <div class="form-group">
+            <label for="admin-delete"><%= t 'patient.dashboard.delete_label' %></label>
+            <div>
+              <%= link_to t('patient.dashboard.delete'),
+                          patient_path(patient),
+                          class: 'btn btn-danger',
+                          method: :delete,
+                          data: { confirm: t('patient.dashboard.confirm_del', name: patient.name) } %>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
