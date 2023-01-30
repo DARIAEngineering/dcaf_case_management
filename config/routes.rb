@@ -33,6 +33,7 @@ Rails.application.routes.draw do
               only: [ :create, :edit, :update, :index, :destroy ] do
       member do
         get :download, as: 'generate_pledge'
+        post :fetch_pledge, as: 'fetch_pledge'
       end
       resources :calls,
                 only: [ :create, :destroy, :new ]

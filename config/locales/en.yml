@@ -152,7 +152,7 @@ en:
       active_help: Are we actively working with this clinic?
       add_clinic: Add clinic
       costs_weeks: Costs at %{week} weeks
-      email_help: Email this clinic uses to receive pledges. If fax preferred, leave this field blank.
+      email_help: Email(s) this clinic uses to receive pledges. If fax preferred, leave this field blank.
       save_changes: Save changes
       zip_help: To exclude this clinic from Clinic Finder searches, give it the ZIP code 99999.
     index:
@@ -279,6 +279,7 @@ en:
     demote_own_account_warn: For safety reasons, you are not allowed to change your role from an admin to a not-admin. Ask another admin to demote you.
     error_saving_clinic: Errors prevented this clinic from being saved - %{error}
     error_saving_clinic_details: Error saving clinic details - %{error}
+    fetch_pledge_error: Errors prevented this pledge from generating. Please check that you've filled out any form inputs, and reach out to the DARIA team if the problem persists.
     locked: Locked
     new_patient_error: Errors prevented this patient from being saved - %{error}
     new_patient_save: A new patient has been successfully saved

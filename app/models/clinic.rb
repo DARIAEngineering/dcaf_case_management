@@ -34,8 +34,9 @@ class Clinic < ApplicationRecord
 
   # Validations
   validates :name, :street_address, :city, :state, :zip, presence: true
-  validates :name, :street_address, :city, :state, :zip, :phone, :fax, :email_for_pledges,
+  validates :name, :street_address, :city, :state, :zip, :phone, :fax,
             length: { maximum: 150 }
+  validates :email_for_pledges, length: { maximum: 500 }
   validates_uniqueness_to_tenant :name
 
   # Methods

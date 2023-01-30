@@ -16,8 +16,10 @@ module ExternalPledgesHelper
       [ t('external_pledge.sources.clinic_discount'), 'Clinic discount'],
       [ t('external_pledge.sources.other_funds'), 'Other funds (see notes)']
     ]
-    external_funds.push(*standard_options)
-                  .uniq
+
+    funds = external_funds
+    funds.push(*standard_options) unless Config.hide_standard_dropdown?
+    funds.uniq
   end
 
   def available_pledge_source_options_for(patient)

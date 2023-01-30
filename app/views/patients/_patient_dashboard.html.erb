@@ -67,8 +67,7 @@
                           patient_path(patient),
                           class: 'btn btn-danger',
                           method: :delete,
-                          data: { confirm: t('patient.dashboard.confirm_del', name: patient.name) },
-                          remote: true %>
+                          data: { confirm: t('patient.dashboard.confirm_del', name: patient.name) } %>
             </div>
           </div>
         <% end %>

@@ -2,11 +2,11 @@
   <thead>
     <tr class="user-table-header">
       <th><!-- spacer --></th>
-      <th><%= t('user.user_table.full_name') %></th>
-      <th><%= t('user.common.role') %></th>
-      <th><%= t('user.common.last_login') %></th>
+      <%= th_autosortable t('user.user_table.full_name'), 'string', local_assigns %>
+      <%= th_autosortable t('user.common.role'), 'string', local_assigns %>
+      <%= th_autosortable t('user.common.last_login'), 'string', local_assigns %>
       <%= th_autosortable t('user.user_table.date_created'), 'string', local_assigns %>
-      <th><%= t('common.status') %></th>
+      <%= th_autosortable t('common.status'), 'string', local_assigns %>
       <th><!-- disable user btn --></th>
     </tr>
   </thead>

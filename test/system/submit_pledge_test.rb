@@ -140,6 +140,17 @@ class SubmitPledgeTest < ApplicationSystemTestCase
       wait_for_ajax
       assert has_content? 'Note that this does NOT send your pledge to the clinic! Please click to the next page after generating your form to record that you have sent the pledge to the clinic.'
 
+      @config.update remote_pledge: true, remote_pledge_extras: {cat_town: true}
+      ActsAsTenant.current_tenant.reload
+      visit edit_patient_path @patient
+      find('#submit-pledge-button').click
+      wait_for_element 'Patient name'
+      assert has_text? 'Confirm the following information is correct'
+      find('#pledge-next').click
+      wait_for_ajax
+      assert has_text? 'Cat town'
+      assert has_text? 'Enter your name in this box to sign your pledge'
+
       @config.destroy
       ActsAsTenant.current_tenant.reload
       visit edit_patient_path @patient
