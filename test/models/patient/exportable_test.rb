@@ -275,7 +275,7 @@ class PatientTest::Exportable < PatientTest
 
   describe 'class methods' do
     describe 'csv_header' do
-      it 'should something' do
+      it 'should generate correctly' do
         assert_equal ::Patient::CSV_EXPORT_FIELDS.keys.join(',') + "\n", Patient.csv_header.to_a[0]
       end
     end
