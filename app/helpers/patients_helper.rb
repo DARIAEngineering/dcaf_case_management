@@ -155,8 +155,6 @@ module PatientsHelper
     active_clinics | inactive_clinics
   end
 
-  
-
   def disable_continue?(patient)
     patient.pledge_info_present? ? 'disabled="disabled"' : ''
   end
