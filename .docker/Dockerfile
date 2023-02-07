@@ -32,7 +32,7 @@ RUN apt-get install nodejs -y
 
 # set up yarn
 RUN corepack enable
-RUN yarn set version 3.3.0
+RUN yarn set version 3.4.1
 RUN yarn config set nodeLinker node-modules
 
 # install gemfile and package
