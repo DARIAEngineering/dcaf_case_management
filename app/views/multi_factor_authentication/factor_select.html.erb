@@ -1,10 +1,10 @@
 <div class="card">
-  <div class="card-header">Select Authentication Factor</div>
+  <div class="card-header"><%= t 'multi_factor.factor_select.heading' %></div>
   <div class="card-body">
     <%= bootstrap_form_with url: wizard_path, method: :put do |f| %>
       <div class="actions">
         <%= f.select :auth_factor_id, @auth_factors.collect { |af| [ af.name, af.id ] } %>
-        <%= f.submit 'Next', class: 'btn btn-primary mt-2' %>
+        <%= f.submit t('multi_factor.next'), class: 'btn btn-primary mt-2' %>
       </div>
     <% end %>
   </div>

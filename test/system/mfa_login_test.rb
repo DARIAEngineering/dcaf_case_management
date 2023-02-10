@@ -16,14 +16,14 @@ class MfaLoginTest < ApplicationSystemTestCase
     it 'should successfully login user with no enabled auth factors' do
       @user.auth_factors.create attributes_for(:auth_factor, :not_enabled)
       log_in_as @user
-      assert_text 'Build your call list'
+      assert_text t('dashboard.search.header')
     end
 
     it 'should redirect user with an enabled auth factor MFA login' do
       @user.auth_factors.create attributes_for(:auth_factor, :registration_complete)
       log_in_as @user
 
-      assert_text 'Select Authentication Factor'
+      assert_text t('multi_factor.factor_select.heading')
     end
   end
 
@@ -45,7 +45,7 @@ class MfaLoginTest < ApplicationSystemTestCase
       select @auth_factor_enabled.name, from: 'Auth factor'
 
       TwilioVerifyClient.stub(:new, @twilio_verify_mock) do
-        click_button 'Next'
+        click_button t('multi_factor.next')
       end
 
       assert_text 'Verify SMS Authentication Factor'
@@ -58,11 +58,11 @@ class MfaLoginTest < ApplicationSystemTestCase
       select @auth_factor_enabled.name, from: 'Auth factor'
 
       TwilioVerifyClient.stub(:new, @twilio_verify_mock) do
-        click_button 'Next'
+        click_button t('multi_factor.next')
       end
 
       assert_text 'There was a problem sending the verification code'
-      assert_text 'Select Authentication Factor'
+      assert_text t('multi_factor.factor_select.heading')
     end
   end
 
@@ -74,25 +74,25 @@ class MfaLoginTest < ApplicationSystemTestCase
     it 'should log user in when code is correct' do
       @twilio_verify_mock.expect(:check_sms_verification_code, 'approved', [PHONE, CORRECT_CODE])
 
-      fill_in 'Verification Code', with: CORRECT_CODE
+      fill_in t('multi_factor.verification.code_label'), with: CORRECT_CODE
 
       TwilioVerifyClient.stub(:new, @twilio_verify_mock) do
-        click_button 'Authenticate'
+        click_button t('multi_factor.authenticate')
       end
 
-      assert_text 'Login with MFA successful'
+      assert_text t('multi_factor.login_successful')
     end
 
     it 'should not proceed if verification code is invalid' do
       @twilio_verify_mock.expect(:check_sms_verification_code, 'pending', [PHONE, INCORRECT_CODE])
 
-      fill_in 'Verification Code', with: INCORRECT_CODE
+      fill_in t('multi_factor.verification.code_label'), with: INCORRECT_CODE
 
       TwilioVerifyClient.stub(:new, @twilio_verify_mock) do
-        click_button 'Authenticate'
+        click_button t('multi_factor.authenticate')
       end
 
-      assert_text 'invalid code'
+      assert_text t('multi_factor.code_invalid')
       assert_text 'Verify SMS Authentication Factor'
     end
 
@@ -100,10 +100,10 @@ class MfaLoginTest < ApplicationSystemTestCase
       raises_exception = -> { raise StandardError }
       @twilio_verify_mock.expect(:check_sms_verification_code, raises_exception)
 
-      fill_in 'Verification Code', with: INCORRECT_CODE
+      fill_in t('multi_factor.verification.code_label'), with: INCORRECT_CODE
 
       TwilioVerifyClient.stub(:new, @twilio_verify_mock) do
-        click_button 'Authenticate'
+        click_button t('multi_factor.authenticate')
       end
 
       assert_text 'There was a problem checking the verification code'
@@ -122,7 +122,7 @@ class MfaLoginTest < ApplicationSystemTestCase
     select auth_factor.name, from: 'Auth factor'
 
     TwilioVerifyClient.stub(:new, @twilio_verify_mock) do
-      click_button 'Next'
+      click_button t('multi_factor.next')
     end
   end
 end

@@ -19,7 +19,7 @@ class Users::SessionsController < Devise::SessionsController
       # restore the stored location
       store_location_for(resource, stored_location)
 
-      session[:mfa] = { user_id: resource.id, remember_me: params[:user][:remember_me] == '1' }
+      session[:mfa] = { user_id: resource.id }
 
       redirect_to multi_factor_authentication_path(:factor_select)
     else

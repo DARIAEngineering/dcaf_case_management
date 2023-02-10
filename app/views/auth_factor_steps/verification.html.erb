@@ -1,12 +1,12 @@
 <div class='authform'>
-  <h3>Verify New SMS Authentication Factor: <%= @auth_factor.name %></h3>
-  <p>You should receive a verification code at the phone number entered in the previous step. Enter the code here to complete registration.</p>
+  <h3><%= t 'multi_factor.verification.heading', name: @auth_factor.name %></h3>
+  <p><%= t 'multi_factor.verification.message' %></p>
   <%= bootstrap_form_with model: @auth_factor, url: wizard_path do |f| %>
     <%= f.text_field :code,
-                     label: "Verification Code",
+                     label: t('multi_factor.verification.code_label'),
                      autocomplete: 'off',
                      size: 6,
                      maxlength: 6 %>
-    <%= f.submit "Next", class: 'btn btn-primary' %>
+    <%= f.submit t('multi_factor.next'), class: 'btn btn-primary' %>
   <% end %>
 </div>

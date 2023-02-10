@@ -298,6 +298,39 @@ es:
       start: Empezar
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
+  multi_factor:
+    authenticate: Authenticate
+    authentication_error: Authentication error
+    checking_sms_code_failed: There was a problem checking the verification code - %{error}
+    code_invalid: invalid code
+    confirmation:
+      heading: 'New SMS Authentication Factor Registered: %{name}'
+      message: New authentication factor successfully registered!
+    factor_list:
+      add_button: Add New Authentication Factor
+      channel: Channel
+      delete_button: Delete
+      disabled: Disabled
+      enable_button: Enable Multi Factor Authentication
+      enabled: Enabled
+      heading: Multi Factor Authentication
+      name: Name
+      status: Status
+    factor_select:
+      heading: Select Authentication Factor
+    login_successful: Login with MFA successful!
+    next: Next
+    registration:
+      heading: Register SMS Authentication Factor
+      message: Enter a name for this authentication factor and your phone number to register.
+      name_label: Nickname
+      phone_label: Phone
+      phone_placeholder: e.g. 'my cell phone'
+    sending_sms_code_failed: There was a problem sending the verification code - %{error}
+    verification:
+      code_label: Verification Code
+      heading: 'Verify SMS Authentication Factor: %{name}'
+      message: You should receive a verification code at the phone number entered in the previous step. Enter the code here to complete registration.
   navigation:
     admin_tools:
       accounting: Contabilidad

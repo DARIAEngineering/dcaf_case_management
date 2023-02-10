@@ -35,7 +35,7 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
     end
   end
 
-  describe 'Two Factor Authentication' do
+  describe 'Multi Factor Authentication' do
     before do
       @user.auth_factors.create attributes_for(:auth_factor, :not_enabled)
       @disabled_factor = @user.auth_factors.first
@@ -46,13 +46,13 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
         visit edit_user_registration_path
       end
 
-      it 'should display Enable Two Factor Authentication' do
-        assert_text 'Enable Two Factor Authentication'
+      it 'should display Enable Multi Factor Authentication' do
+        assert_text t('multi_factor.factor_list.enable_button')
       end
 
       it 'should go to registration when Enable 2FA pressed' do
-        click_button 'Enable Two Factor Authentication'
-        assert_text 'Register SMS Authentication Factor'
+        click_button t('multi_factor.factor_list.enable_button')
+        assert_text t('multi_factor.registration.heading')
       end
     end
 
@@ -64,7 +64,7 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
       end
 
       it 'should display Add New Authentication Factor' do
-        assert_text 'Add New Authentication Factor'
+        assert_text t('multi_factor.factor_list.add_button')
       end
 
       it 'should display enabled factors' do
@@ -73,7 +73,7 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
       end
 
       it 'should delete factor when delete button pressed' do
-        click_button 'Delete'
+        click_button t('multi_factor.factor_list.delete_button')
         assert_no_text @enabled_factor.name
       end
     end

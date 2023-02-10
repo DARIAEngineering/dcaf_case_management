@@ -1,4 +1,4 @@
-# Controls steps for logging in a user with two factor authentication.
+# Controls steps for logging in a user with multi factor authentication.
 class MultiFactorAuthenticationController < ApplicationController
   include Wicked::Wizard
 
@@ -10,7 +10,7 @@ class MultiFactorAuthenticationController < ApplicationController
     case step
     when :factor_select
       user = User.find_by(id: session.dig(:mfa, :user_id))
-      return redirect_to new_user_session_path, error: 'Authentication error' unless user
+      return redirect_to new_user_session_path, error: t('multi_factor.authentication_error') unless user
 
       @auth_factors = user.auth_factors.select(&:enabled?)
     when :verification
@@ -51,7 +51,7 @@ class MultiFactorAuthenticationController < ApplicationController
       # we call render_wizard below instead of staying at the current step.
       skip_step
     rescue StandardError => e
-      flash.now[:alert] = "There was a problem sending the verification code: #{e.message}"
+      flash.now[:alert] = t('multi_factor.sending_sms_code_failed', error: e.message)
     end
     render_wizard
   end
@@ -61,12 +61,12 @@ class MultiFactorAuthenticationController < ApplicationController
     begin
       status = @client.check_sms_verification_code(@auth_factor.phone, mfa_params[:code])
     rescue StandardError => e
-      flash.now[:alert] = "There was a problem checking the verification code: #{e.message}"
+      flash.now[:alert] = t('multi_factor.checking_sms_code_failed', error: e.message)
       return render_wizard
     end
 
     unless status == 'approved'
-      flash.now[:alert] = 'invalid code'
+      flash.now[:alert] = t('multi_factor.code_invalid')
       return render_wizard
     end
 
@@ -88,9 +88,7 @@ class MultiFactorAuthenticationController < ApplicationController
 
     sign_in(:user, user)
 
-    user.remember_me! if session[:mfa][:remember_me]
-
-    flash[:notice] = 'Login with MFA successful!'
+    flash[:notice] = t('multi_factor.login_successful')
     session.delete(:auth_factor_id)
     session.delete(:mfa)
 

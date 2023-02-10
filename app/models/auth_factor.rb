@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# An authentication factor used for two factor authentication.
+# An authentication factor used for multi factor authentication.
 class AuthFactor < ApplicationRecord
   include PaperTrailable
 
   cattr_accessor :form_steps do
     [:registration, :verification, :confirmation]
   end
-  attr_accessor :form_step
+  attr_accessor :current_form_step
 
   before_validation :clean_fields
 
@@ -23,7 +23,7 @@ class AuthFactor < ApplicationRecord
 
   validates :channel, presence: true, inclusion: { in: CHANNELS }
 
-  with_options if: -> { required_for_step?(:registration) } do
+  with_options if: -> { past_step?(:registration) } do
     validates :name, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 30 }
     validates :phone, presence: true, format: /\A\d{10}\z/, length: { is: 10 }
   end
@@ -35,12 +35,11 @@ class AuthFactor < ApplicationRecord
     name&.strip!
   end
 
-  def required_for_step?(step)
-    # All fields are required if no form step is present
-    return true if form_step.nil?
+  # Returns true if the current step is on or past the input step.
+  def past_step?(step)
+    # If the form is complete, there will be no current step.
+    return true if current_form_step.nil?
 
-    # All fields from previous steps are required if the
-    # step parameter appears before or we are on the current step
-    return true if form_steps.index(step) <= form_steps.index(form_step)
+    return true if form_steps.index(current_form_step) >= form_steps.index(step)
   end
 end

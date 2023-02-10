@@ -35,7 +35,7 @@ class AuthFactorStepsController < ApplicationController
       @client.send_sms_verification_code(auth_factor_params[:phone])
       return render_wizard @auth_factor
     rescue StandardError => e
-      flash.now[:alert] = "There was a problem sending the verification code: #{e.message}"
+      flash.now[:alert] = t('multi_factor.sending_sms_code_failed', error: e.message)
     end
     render_wizard
   end
@@ -44,12 +44,12 @@ class AuthFactorStepsController < ApplicationController
     begin
       status = @client.check_sms_verification_code(@auth_factor.phone, auth_factor_params[:code])
     rescue StandardError => e
-      flash.now[:alert] = "There was a problem checking the verification code: #{e.message}"
+      flash.now[:alert] = t('multi_factor.checking_sms_code_failed', error: e.message)
       return render_wizard
     end
 
     unless status == 'approved'
-      flash.now[:alert] = 'invalid code'
+      flash.now[:alert] = t('multi_factor.code_invalid')
       return render_wizard
     end
 
@@ -65,6 +65,6 @@ class AuthFactorStepsController < ApplicationController
                            when :verification
                              [:code]
                            end
-    params.require(:auth_factor).permit(permitted_attributes).merge(form_step: step.to_sym)
+    params.require(:auth_factor).permit(permitted_attributes).merge(current_form_step: step.to_sym)
   end
 end
