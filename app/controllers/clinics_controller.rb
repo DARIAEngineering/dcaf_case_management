@@ -18,7 +18,7 @@ class ClinicsController < ApplicationController
       redirect_to clinics_path
     else
       flash[:alert] = t('flash.error_saving_clinic', error: @clinic.errors.full_messages.to_sentence)
-      render 'new'
+      render 'new', status: 422
     end
   end
 
@@ -37,7 +37,7 @@ class ClinicsController < ApplicationController
       redirect_to clinics_path
     else
       flash[:alert] = t('flash.error_saving_clinic_details', error: @clinic.errors.full_messages.to_sentence)
-      render 'edit'
+      render 'edit', status: 422
     end
   end
 

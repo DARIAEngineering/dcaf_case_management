@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     else
       error_content = @user.errors.full_messages.to_sentence
       flash[:alert] = t('flash.user_update_error', error: error_content) unless flash[:alert]
-      render 'edit'
+      render 'edit', status: 422
     end
   end
 
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
       flash[:notice] = t('flash.user_created')
       redirect_to users_path
     else
-      render 'new'
+      render 'new', status: 422
     end
   end
 

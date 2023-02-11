@@ -138,7 +138,7 @@ class PatientsController < ApplicationController
       redirect_to edit_patient_path @patient
     else
       flash[:alert] = t('flash.patient_save_error', error: @patient.errors.full_messages.to_sentence)
-      render 'data_entry'
+      render 'data_entry', status: 422
     end
   end
 
