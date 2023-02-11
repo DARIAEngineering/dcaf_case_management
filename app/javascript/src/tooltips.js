@@ -26,4 +26,4 @@ const activateTooltips = () => {
 
 };
 
-$(document).on('DOMContentLoaded', activateTooltips);
+$(document).on('turbo:load', activateTooltips);

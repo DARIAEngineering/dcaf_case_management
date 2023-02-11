@@ -1,7 +1,7 @@
 // http://stackoverflow.com/questions/1307705/jquery-ui-sortable-with-table-and-tr-width/1372954#1372954
 // http://benw.me/posts/sortable-bootstrap-tables/
 
-$(document).on('DOMContentLoaded', () => {
+$(document).on('turbo:load', () => {
   $('#call_list td').each((index, element) => $(element).css('width', $(element).width()));
 
   $('#call_list').sortable({

@@ -20,4 +20,4 @@ const sortTable = (table) => {
 };
 
 const sortTables = () => $('table').each((_index, table) => sortTable(table));
-$(document).on('DOMContentLoaded', sortTables);
+$(document).on('turbo:load', sortTables);

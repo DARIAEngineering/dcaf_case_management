@@ -29,4 +29,4 @@ const ready = () => {
   });
 };
 
-$(document).on('DOMContentLoaded', ready);
+$(document).on('turbo:load', ready);
