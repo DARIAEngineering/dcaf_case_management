@@ -197,6 +197,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hotwired/turbo-rails@npm:^7.2.5":
+  version: 7.2.5
+  resolution: "@hotwired/turbo-rails@npm:7.2.5"
+  dependencies:
+    "@hotwired/turbo": ^7.2.5
+    "@rails/actioncable": ^7.0
+  checksum: 5b0bc4c5379c6577e616c5cf3cb36029dfa4151b0d16518137ac38f054128c5772cd5ea389ce0edb96bd3d99de0d0de1a532a07601bb0159fd088788cfe4f7be
+  languageName: node
+  linkType: hard
+
+"@hotwired/turbo@npm:^7.2.5":
+  version: 7.2.5
+  resolution: "@hotwired/turbo@npm:7.2.5"
+  checksum: 13992a1fa98978f1caea533b68e8514f62bc16291ca4a8eb526d531cfc43560de7bdc0d3c931b46ba364704b72520899975cae1100afc079fcb3447252d88a8e
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.8":
   version: 0.11.8
   resolution: "@humanwhocodes/config-array@npm:0.11.8"
@@ -273,6 +290,13 @@ __metadata:
   version: 2.11.6
   resolution: "@popperjs/core@npm:2.11.6"
   checksum: 47fb328cec1924559d759b48235c78574f2d71a8a6c4c03edb6de5d7074078371633b91e39bbf3f901b32aa8af9b9d8f82834856d2f5737a23475036b16817f0
+  languageName: node
+  linkType: hard
+
+"@rails/actioncable@npm:^7.0":
+  version: 7.0.4
+  resolution: "@rails/actioncable@npm:7.0.4"
+  checksum: b31cae40511a3df4d3048779255219b92f7dd89514f3c9f2da2b219b9b0635261b17b05031c7070756d319bf9165d4d6c021a820b110d53a3e6c441a062accdd
   languageName: node
   linkType: hard
 
@@ -5636,6 +5660,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@fortawesome/fontawesome-free": 6.3.0
+    "@hotwired/turbo-rails": ^7.2.5
     "@popperjs/core": 2.11.6
     bootstrap: 4.6.2
     esbuild: 0.17.7
