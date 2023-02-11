@@ -1,4 +1,4 @@
-FROM ruby:3.2.0-slim-bullseye
+FROM ruby:3.2.1-slim-bullseye
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
