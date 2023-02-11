@@ -23,6 +23,7 @@ const activateTooltips = () => {
       title: text,
     });
   });
+
 };
 
-$(document).on('turbolinks:load', activateTooltips);
+$(document).on('DOMContentLoaded', activateTooltips);

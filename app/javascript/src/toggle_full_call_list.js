@@ -7,4 +7,4 @@ const toggleFullCallList = () => {
   });
 };
 
-$(document).on('turbolinks:load', toggleFullCallList);
+$(document).on('DOMContentLoaded', toggleFullCallList);

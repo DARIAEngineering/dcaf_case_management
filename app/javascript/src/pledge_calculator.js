@@ -34,7 +34,7 @@ const balanceFields = '#abortion-information-form input, '
                       + '#patient_naf_pledge, '
                       + '#patient_fund_pledge';
 
-$(document).on('turbolinks:load', () => {
+$(document).on('DOMContentLoaded', () => {
   // Listen for changes on balancefields and update balance.
   $(balanceFields).on('change', updateBalance);
 
