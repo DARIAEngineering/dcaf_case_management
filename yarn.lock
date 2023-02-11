@@ -5648,7 +5648,6 @@ __metadata:
     sass: 1.58.0
     set-value: 4.1.0
     stupid-table-plugin: 1.1.3
-    turbolinks: 5.2.0
     webpack: 5.75.0
     webpack-cli: 5.0.1
     webpack-dev-server: 3.11.3
@@ -6547,13 +6546,6 @@ __metadata:
   version: 0.0.0
   resolution: "tty-browserify@npm:0.0.0"
   checksum: a06f746acc419cb2527ba19b6f3bd97b4a208c03823bfb37b2982629d2effe30ebd17eaed0d7e2fc741f3c4f2a0c43455bd5fb4194354b378e78cfb7ca687f59
-  languageName: node
-  linkType: hard
-
-"turbolinks@npm:5.2.0":
-  version: 5.2.0
-  resolution: "turbolinks@npm:5.2.0"
-  checksum: df393c321ed19d9761e632ff357d3cb032a9ca32c07f1ef8202e5f5bb9d17fcc93cdec0d9dfcf0fbca56c373a9dffa2c151639383e663a72897ae434a877819b
   languageName: node
   linkType: hard
 
