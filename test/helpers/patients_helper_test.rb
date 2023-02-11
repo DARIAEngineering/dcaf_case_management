@@ -286,4 +286,28 @@ class PatientsHelperTest < ActionView::TestCase
       assert_equal expected, line_options
     end
   end
+
+  describe 'county_options' do
+    describe 'with a config' do
+      before { create_county_config }
+
+      it 'should include custom counties as well as current' do
+        expected_counties = [nil, 'Arlington', 'Fairfax', 'Montgomery',
+                              "Prince George's"]
+        assert_same_elements expected_counties,
+                            county_options("Prince George's")
+      end
+    end
+
+    describe 'without a config' do
+      it 'should create a config and return empty' do
+        assert_difference 'Config.count', 1 do
+          @options = county_options
+        end
+  
+        assert_empty @options
+        assert Config.find_by(config_key: 'county')
+      end
+    end
+  end
 end

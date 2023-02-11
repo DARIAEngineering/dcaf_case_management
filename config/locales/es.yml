@@ -369,6 +369,7 @@ es:
       confirm_del: "¿Estás seguro de que quieres eliminar %{name}? Solo haga esto si está seguro de que este es un paciente duplicado para el mismo embarazo. (En serio, no hay devoluciones!)"
       currently: 'Actualmente: %{weeks}s %{days}d'
       delete: Eliminar registro de paciente duplicado
+      delete_label: 'Admin: Eliminar'
       phone: Número de teléfono
       weeks_along: Semanas de embarazo al inicio
     data_entry:
@@ -547,7 +548,7 @@ es:
     shared:
       appt_date: Día de la cita
       name: Nombre y apellido
-      status: 'Estatus:'
+      status: Estatus
     status:
       help:
         dropoff: Paciente no ha sido escuchado en 120+ días.

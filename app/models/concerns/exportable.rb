@@ -3,6 +3,7 @@ require 'csv'
 # Methods pertaining to patient export
 module Exportable
   extend ActiveSupport::Concern
+  include ActionView::Helpers::NumberHelper
 
   CSV_EXPORT_FIELDS = {
     "BSON ID" => :id,
@@ -185,7 +186,14 @@ module Exportable
   end
 
   def all_practical_supports
-    practical_supports.map { |ps| "#{ps.source} - #{ps.support_type} - #{ps.confirmed? ? 'Confirmed' : 'Unconfirmed'}" }.join('; ')
+    shaped_supports = practical_supports.map do |ps|
+      src = ps.source
+      typ = ps.support_type
+      confirmed = ps.confirmed? ? 'Confirmed' : 'Unconfirmed'
+      amt = ps.amount.present? ? number_to_currency(ps.amount) : '$0'
+      "#{src} - #{typ} - #{confirmed} - #{amt}"
+    end
+    shaped_supports.join('; ')
   end
 
   PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]

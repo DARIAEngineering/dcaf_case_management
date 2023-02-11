@@ -26,6 +26,8 @@ services:
       - db
       - js
       - css
+    stdin_open: true
+    tty: true
     environment:
       pg_url: postgres://postgres:postgres@db
     env_file:

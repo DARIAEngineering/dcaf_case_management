@@ -40,7 +40,13 @@
           </div>
         </div>
 
-        <%= f.text_field :county, autocomplete: 'off' %>
+        <% if county_options.present? %>
+          <%= f.select :county, options_for_select(county_options(patient.county),
+                                        patient.county), autocomplete: 'off' %>
+        <% else %>
+          <%= f.text_field :county, autocomplete: 'off' %>
+        <% end %>
+
         <%= f.text_field :zipcode, autocomplete: 'off',
                           pattern: '\d{5}(-?\d{4})?'%>
 

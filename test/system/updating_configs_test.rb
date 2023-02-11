@@ -236,5 +236,36 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
       end
     end
 
+    describe 'updating a config - county' do
+      it 'should display dropdown if counties specified and retain previous' do
+        @patient.county = 'Bird'
+        @patient.save!
+
+        fill_in 'config_options_county', with: 'Dog, Cat, Turtle'
+        click_button 'Update options for County'
+        
+        visit edit_patient_path @patient
+
+        within :css, "#patient_information_form" do
+          assert has_select? with_options: %w[Dog Cat Turtle Bird],
+                             selected: 'Bird'
+        end
+      end
+
+      it 'should keep current value when config removed' do
+        @patient.county = 'Bear'
+        @patient.save!
+
+        # no config, so we should get a text box
+        fill_in 'config_options_county', with: ''
+        click_button 'Update options for County'
+        
+        visit edit_patient_path @patient
+
+        within :css, "#patient_information_form" do
+          assert has_field? type: 'text', with: 'Bear'
+        end
+      end
+    end
   end
 end
