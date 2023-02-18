@@ -70,4 +70,6 @@ Rails.application.configure do
 
   # Set mailer default url to localhost in tests.
   config.action_mailer.default_url_options = { :host => 'localhost' }
+  #  all the encryptable attributes will be encrypted according to the encryption settings defined in the model
+  config.active_record.encryption.encrypt_fixtures = true
 end
