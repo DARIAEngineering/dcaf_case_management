@@ -22,5 +22,8 @@
     <%= f.submit t('user.profile_edit.update_info_button'), class: 'btn btn-primary' %>
   <% end %>
   <br>
+  <br />
+  <%= render 'devise/registrations/auth_factors_list' %>
+  <br />
   <%= link_to t('common.back'), :back %>
 </div>

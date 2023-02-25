@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" },
-                     skip: [:registrations]
+  devise_for :users,
+             controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'users/sessions' },
+             skip: [:registrations]
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
@@ -57,7 +58,12 @@ Rails.application.routes.draw do
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
+
+    resources :auth_factors, only: [:new, :destroy]
+    resources :build_auth_factor, only: [:show, :update], controller: 'auth_factor_steps'
   end
+
+  resources :multi_factor_authentication, only: [:show, :update]
 
   # Auth routes
   root :to => redirect('/users/sign_in')

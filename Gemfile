@@ -49,6 +49,12 @@ gem 'rack-attack', '~> 6.6.0'
 # For pagination
 gem 'kaminari', '~> 1.2'
 
+# For multi-step forms
+gem 'wicked'
+
+# Twilio Verify
+gem 'twilio-ruby'
+
 # Specific useful stuff
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation

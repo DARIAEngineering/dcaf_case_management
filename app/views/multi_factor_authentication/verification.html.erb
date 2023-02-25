@@ -1,0 +1,12 @@
+<div class='authform'>
+  <h3><%= t 'multi_factor.verification.heading', name: @auth_factor.name %></h3>
+  <p><%= t 'multi_factor.verification.message' %></p>
+  <%= bootstrap_form_with url: wizard_path, method: :put do |f| %>
+    <%= f.text_field :code,
+                     label: t('multi_factor.verification.code_label'),
+                     autocomplete: 'off',
+                     size: 6,
+                     maxlength: 6 %>
+    <%= f.submit t('multi_factor.authenticate'), class: 'btn btn-primary' %>
+  <% end %>
+</div>

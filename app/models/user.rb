@@ -39,6 +39,7 @@ class User < ApplicationRecord
 
   # Relationships
   has_many :call_list_entries
+  has_many :auth_factors, dependent: :destroy
   belongs_to :line, optional: true
 
   # Validations

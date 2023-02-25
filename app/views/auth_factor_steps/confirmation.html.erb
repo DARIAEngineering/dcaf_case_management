@@ -1,0 +1,5 @@
+<div class='authform'>
+  <h3><%= t 'multi_factor.confirmation.heading', name: @auth_factor.name %></h3>
+  <p><%= t 'multi_factor.confirmation.message' %></p>
+  <%= button_to t('multi_factor.next'), next_wizard_path, method: :get, class: 'btn btn-primary' %>
+</div>
