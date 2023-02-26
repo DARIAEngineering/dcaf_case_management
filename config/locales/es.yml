@@ -299,38 +299,38 @@ es:
       welcome_to_daria: "¡Bienvenido a DARIA (edición de %{fund})!"
       what_line: "¿En cuál línea estás trabajando?"
   multi_factor:
-    authenticate: Authenticate
-    authentication_error: Authentication error
-    checking_sms_code_failed: There was a problem checking the verification code - %{error}
-    code_invalid: invalid code
+    authenticate: Autenticar
+    authentication_error: Error de autenticación
+    checking_sms_code_failed: Hubo un problema al verificar su código de verificación - %{error}
+    code_invalid: código inválido
     confirmation:
-      heading: 'New SMS Authentication Factor Registered: %{name}'
-      message: New authentication factor successfully registered!
+      heading: 'Nuevo factor de autenticación de SMS registrado: %{name}'
+      message: "¡Nuevo factor de autenticación registrado con éxito!"
     factor_list:
-      add_button: Add New Authentication Factor
-      channel: Channel
-      delete_button: Delete
-      disabled: Disabled
-      enable_button: Enable Multi Factor Authentication
-      enabled: Enabled
-      heading: Multi Factor Authentication
-      name: Name
-      status: Status
+      add_button: Agregue nuevo factor de autenticación
+      channel: Canal
+      delete_button: Borrar
+      disabled: Desactivado
+      enable_button: Habilitar la Autenticación Multifactor
+      enabled: Activado
+      heading: Autenticación Multifactor
+      name: Nombre
+      status: Estatus
     factor_select:
-      heading: Select Authentication Factor
-    login_successful: Login with MFA successful!
-    next: Next
+      heading: Elija el factor de autenticación
+    login_successful: "¡Inicio de sesión con MFA correcto!"
+    next: siguente
     registration:
-      heading: Register SMS Authentication Factor
-      message: Enter a name for this authentication factor and your phone number to register.
-      name_label: Nickname
-      phone_label: Phone
-      phone_placeholder: e.g. 'my cell phone'
-    sending_sms_code_failed: There was a problem sending the verification code - %{error}
+      heading: Registrar factor de autenticación de SMS
+      message: Ingrese el nombre de este factor de autenticación y el numero de teléfono para registarse.
+      name_label: Apodo
+      phone_label: Teléfono
+      phone_placeholder: e.g. 'mi celular'
+    sending_sms_code_failed: Hubo un problema al enviar el codigo de verificación - %{error}
     verification:
-      code_label: Verification Code
-      heading: 'Verify SMS Authentication Factor: %{name}'
-      message: You should receive a verification code at the phone number entered in the previous step. Enter the code here to complete registration.
+      code_label: Codigo de Verificación
+      heading: 'Verifique su factor de autenticación de SMS: %{name}'
+      message: Debería recibir un código de verificación al número de teléfono ingresado en el paso anterior. Introduzca el código aquí para completar la inscripción.
   navigation:
     admin_tools:
       accounting: Contabilidad
