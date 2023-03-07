@@ -86,8 +86,8 @@ class Patient < ApplicationRecord
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
-    start_of_period = Config.start_day.downcase.to_s == "monthly" ? Time.zone.today.beginning_of_month.in_time_zone
-                                                                  : Time.zone.today.beginning_of_week(Config.start_day).in_time_zone
+    start_of_period = Config.start_day.downcase.to_s == "monthly" ? Time.zone.today.beginning_of_month.in_time_zone(Config.time_zone)
+                                                                  : Time.zone.today.beginning_of_week(Config.start_day).in_time_zone(Config.time_zone)
     # Get patients who have been pledged this week, as a simplified hash
     base = Patient.where(line: line,
                          resolved_without_fund: [false, nil])

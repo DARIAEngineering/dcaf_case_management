@@ -1,0 +1,12 @@
+<div class='authform'>
+  <h3><%= t 'multi_factor.registration.heading' %></h3>
+  <p><%= t 'multi_factor.registration.message' %></p>
+  <%= bootstrap_form_with model: @auth_factor, url: wizard_path do |f| %>
+    <%= f.text_field :name,
+                     label: t('multi_factor.registration.name_label'),
+                     placeholder: t('multi_factor.registration.phone_placeholder')
+    %>
+    <%= f.text_field :phone, label: t('multi_factor.registration.phone_label') %>
+    <%= f.submit t('multi_factor.next'), class: 'btn btn-primary' %>
+  <% end %>
+</div>

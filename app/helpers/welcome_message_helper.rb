@@ -71,7 +71,8 @@ module WelcomeMessageHelper
       "Thanks for being the gem that you are!",
       "Thank you * 1000, y'all are champions!",
       "You're doing an amazing thing - keep at it! 💖",
-      "Thank you for all the work you do! You're appreciated and you're making a difference!"
+      "Thank you for all the work you do! You're appreciated and you're making a difference!",
+      "Thank you for being there for those seeing abortions and for treating everyone with compassion and respect."
     ]
   end
 end

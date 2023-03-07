@@ -21,7 +21,8 @@ class Config < ApplicationRecord
     shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
-    hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.'
+    hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
+    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico."
   }.freeze
 
   enum config_key: {
@@ -44,6 +45,8 @@ class Config < ApplicationRecord
     hide_budget_bar: 16,
     aggregate_statistics: 17,
     hide_standard_dropdown_values: 18,
+    county: 19,
+    time_zone: 20
   }
 
   # which fields are URLs (run special validation only on those)
@@ -52,7 +55,9 @@ class Config < ApplicationRecord
   CLEAN_PRE_VALIDATION = {
     start_of_week: [:fix_capitalization],
     hide_practical_support: [:fix_capitalization],
-    language: [:fix_capitalization]
+    language: [:fix_capitalization],
+    county: [:fix_capitalization],
+    time_zone: [:titleize_capitalization]
   }.freeze
 
   VALIDATIONS = {
@@ -68,9 +73,13 @@ class Config < ApplicationRecord
       [:validate_length],
     voicemail:
       [:validate_length],
+    county:
+      [:validate_length],
 
     start_of_week:
       [:validate_singleton, :validate_start_of_week],
+    time_zone: 
+      [:validate_singleton, :validate_time_zone],
 
     hide_practical_support:
       [:validate_singleton, :validate_yes_or_no],
@@ -144,6 +153,12 @@ class Config < ApplicationRecord
     start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
     start ||= "monday"
     start.downcase.to_sym
+  end
+
+  def self.time_zone
+    tz = Config.find_or_create_by(config_key: 'time_zone').options.try :last
+    tz ||= "Eastern"
+    ActiveSupport::TimeZone.new(TIME_ZONE[tz])
   end
 
   def self.archive_fulfilled_patients
@@ -221,6 +236,11 @@ class Config < ApplicationRecord
       config_value['options'] = options.map(&:capitalize)
     end
 
+    # similar to fix_capitalization but when we need titleized text (e.g. time zones)
+    def titleize_capitalization
+      config_value['options'] = options.map(&:titleize)
+    end
+
     # generic validator for numerics
     def validate_number
       options.last =~ /\A\d+\z/
@@ -264,6 +284,24 @@ class Config < ApplicationRecord
 
     def validate_start_of_week
       START_OF_WEEK.include?(options.last.capitalize)
+    end
+
+    ### Time zone
+
+    TIME_ZONE = {
+      "Eastern": "Eastern Time (US & Canada)",
+      "Central": "Central Time (US & Canada)",
+      "Mountain": "Mountain Time (US & Canada)",
+      "Pacific": "Pacific Time (US & Canada)",
+      "Alaska": "Alaska",
+      "Hawaii": "Hawaii",
+      "Arizona": "Arizona",
+      "Indiana (East)": "Indiana (East)",
+      "Puerto Rico": "Puerto Rico"
+    }.stringify_keys!
+
+    def validate_time_zone
+      TIME_ZONE.keys.include?(options.last.titleize)
     end
 
     ### Practical support

@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header">
+    <%= t 'multi_factor.factor_list.heading' %>
+  </div>
+  <div class="card-body">
+    <% if current_user.auth_factors.none? {|f| f.enabled? } %>
+      <%= button_to t('multi_factor.factor_list.enable_button'),
+                    new_auth_factor_path,
+                    method: :get,
+                    class: 'btn btn-primary' %>
+    <% else %>
+      <%= button_to t('multi_factor.factor_list.add_button'),
+                    new_auth_factor_path,
+                    method: :get,
+                    class: 'btn btn-primary' %>
+      <table class="table border-side">
+        <thead>
+          <tr>
+            <th><!-- spacer --></th>
+            <th><%= t 'multi_factor.factor_list.name' %></th>
+            <th><%= t 'multi_factor.factor_list.channel' %></th>
+            <th><%= t 'multi_factor.factor_list.status' %></th>
+            <th><!-- delete factor btn --></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if current_user.auth_factors.present? %>
+            <% current_user.auth_factors.each do |factor| %>
+              <% if factor.registration_complete? %>
+                <tr id='factor-<%= factor.name %>'>
+                  <td><!-- spacer --></td>
+                  <td><%= factor.name %></td>
+                  <td><%= factor.channel %></td>
+                  <td><%= factor.enabled ?
+                    t('multi_factor.factor_list.enabled') :
+                    t('multi_factor.factor_list.disabled') %>
+                  <td><%= button_to t('multi_factor.factor_list.delete_button'),
+                                    auth_factor_path(factor),
+                                    method: :delete,
+                                    class: 'btn btn-warning' %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

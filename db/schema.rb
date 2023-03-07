@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -48,9 +48,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.bigint "clinic_id"
-    t.bigint "pledge_generated_by_id"
-    t.bigint "pledge_sent_by_id"
+    t.integer "clinic_id"
+    t.integer "pledge_generated_by_id"
+    t.integer "pledge_sent_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -65,9 +65,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.index ["pledge_sent_by_id"], name: "index_archived_patients_on_pledge_sent_by_id"
   end
 
-  create_table "call_list_entries", force: :cascade do |t|
+  create_table "auth_factors", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "patient_id", null: false
+    t.string "name"
+    t.string "channel"
+    t.boolean "enabled", default: false
+    t.boolean "registration_complete", default: false
+    t.string "external_id"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "user_id"], name: "index_auth_factors_on_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_auth_factors_on_user_id"
+  end
+
+  create_table "call_list_entries", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "patient_id", null: false
     t.string "line_legacy"
     t.integer "order_key", null: false
     t.datetime "created_at", null: false
@@ -85,7 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
   create_table "calls", force: :cascade do |t|
     t.integer "status", null: false
     t.string "can_call_type", null: false
-    t.bigint "can_call_id", null: false
+    t.integer "can_call_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -172,7 +187,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.integer "amount"
     t.boolean "active"
     t.string "can_pledge_type", null: false
-    t.bigint "can_pledge_id", null: false
+    t.integer "can_pledge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -189,7 +204,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.date "date_of_check"
     t.boolean "audited"
     t.string "can_fulfill_type", null: false
-    t.bigint "can_fulfill_id", null: false
+    t.integer "can_fulfill_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -221,7 +236,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
 
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
-    t.bigint "patient_id"
+    t.integer "patient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -279,10 +294,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.bigint "clinic_id"
-    t.bigint "pledge_generated_by_id"
-    t.bigint "pledge_sent_by_id"
-    t.bigint "last_edited_by_id"
+    t.integer "clinic_id"
+    t.integer "pledge_generated_by_id"
+    t.integer "pledge_sent_by_id"
+    t.integer "last_edited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -327,7 +342,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
     t.boolean "confirmed"
     t.string "source", null: false
     t.string "can_support_type"
-    t.bigint "can_support_id"
+    t.integer "can_support_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -391,6 +406,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_161204) do
   add_foreign_key "archived_patients", "lines"
   add_foreign_key "archived_patients", "users", column: "pledge_generated_by_id"
   add_foreign_key "archived_patients", "users", column: "pledge_sent_by_id"
+  add_foreign_key "auth_factors", "users"
   add_foreign_key "call_list_entries", "funds"
   add_foreign_key "call_list_entries", "lines"
   add_foreign_key "call_list_entries", "patients"
