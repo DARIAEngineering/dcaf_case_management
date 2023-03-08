@@ -27,6 +27,7 @@ I suggest doing these console commands by connecting to the console via the Hero
    ```bash
    rails "fund_management:delete_fund[CatFund]"
    ```
+   NOTE: This step takes a long time to run, on the order of 10 minutes. Be patient if the script appears to be hanging. It's not hanging.
 4. Review the output of the script to confirm the fund's objects are completely deleted and the other funds look unaffected.
    - If anything appears to have gone wrong with the other funds, restore from the database backup created earlier.
 
