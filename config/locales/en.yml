@@ -293,6 +293,11 @@ en:
     user_created: User created!
     user_update_error: Error saving user details - %{error}
     user_update_success: Successfully updated user details
+  funds:
+    edit:
+      title: Edit %{fund}
+    form:
+      save_changes: Save changes
   lines:
     new:
       start: Get started

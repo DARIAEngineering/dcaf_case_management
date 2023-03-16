@@ -293,6 +293,11 @@ es:
     user_created: "¡Usuario creado!"
     user_update_error: Error al guardar los detalles del usuario - %{error}
     user_update_success: Detalles de usuario actualizados exitosamente
+  funds:
+    edit:
+      title: Editar detalles del fondo
+    form:
+      save_changes: Guardar cambios
   lines:
     new:
       start: Empezar

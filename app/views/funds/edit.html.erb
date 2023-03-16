@@ -1,6 +1,6 @@
-<p style="text-align:right;"><strong><%= link_to "Back", fund_url(current_tenant) %></strong></p>
+<p><strong><%= link_to "Back", fund_url(current_tenant) %></strong></p>
 <h1>
-  <%= t 'funds.edit.title' %>
+  <%= t 'funds.edit.title', fund: current_tenant.name %>
 </h1>
 
 <%= render 'funds/fund_form',
