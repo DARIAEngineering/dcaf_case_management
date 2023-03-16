@@ -18,7 +18,7 @@
         <%= link_to t('navigation.admin_tools.user_management'), users_path, class: 'dropdown-item' %>
         <%= link_to t('navigation.admin_tools.clinic_management'), clinics_path, class: 'dropdown-item' %>
         <%= link_to t('navigation.admin_tools.config_management'), configs_path, class: 'dropdown-item' %>
-        <%= link_to t('navigation.admin_tools.fund_management'), configs_path, class: 'dropdown-item' %>
+        <%= link_to t('navigation.admin_tools.fund_management'), fund_url(current_tenant), class: 'dropdown-item' %>
       <% end %>
       <%= link_to t('navigation.admin_tools.accounting'), accountants_path, class: 'dropdown-item' %>
       <%= link_to t('navigation.admin_tools.export'), patients_path(format: :csv), class: 'dropdown-item' %>

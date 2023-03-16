@@ -10,23 +10,16 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>
 
 <%= bootstrap_form_with model: @fund, local: true do |f| %>
 <div class="row">
     <div class="info-form-left col">
-      <%= f.text_field :name, autocomplete: 'off' %>
-      <%= f.text_field :subdomain, autocomplete: 'off' %>
-      <%= f.text_field :full_name, autocomplete: 'off' %>
-      <%= f.text_field :site_domain, autocomplete: 'off' %>
+      <%= f.text_field :full_name %>
+      <%= f.text_field :site_domain %>
       <%= f.text_field :phone,
-                       autocomplete: 'off',
                        pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
+      <%= f.submit label, class: 'btn btn-primary btn-lg' %>
     </div>
 
-  <%= f.submit label, class: 'btn btn-primary btn-lg' %>
 <% end %>

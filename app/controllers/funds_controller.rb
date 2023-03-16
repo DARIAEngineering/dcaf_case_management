@@ -1,22 +1,19 @@
 class FundsController < ApplicationController
   before_action :confirm_admin_user
+  before_action :confirm_data_access, only: [:edit, :update]
   before_action :set_fund, only: %i[show edit update destroy]
   rescue_from ActiveRecord::RecordNotFound, with: -> { head :bad_request }
 
-  # GET /funds
-  def index
-    @funds = Fund.all.sort_by { |f| [f.name] }
-  end
-
-  # GET /funds/1
+  # GET /funds/id
   def show
-    @fund
+    set_fund
   end
 
+  # GET /funds/edit
   def edit; end
 
-  # PATCH/PUT /funds/1
   def update
+    set_fund
     if @fund.update(fund_params)
       redirect_to @fund, notice: 'Fund was successfully updated.'
     else
@@ -24,16 +21,13 @@ class FundsController < ApplicationController
     end
   end
 
-  def destroy; end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_fund
-      @fund = Fund.find(params[:id])
+      @fund = current_tenant
     end
 
-    # Only allow a list of trusted parameters through.
     def fund_params
-      params.fetch(:fund, {})
+      params.require(:fund)
+        .permit(:full_name, :site_domain, :phone)
     end
 end

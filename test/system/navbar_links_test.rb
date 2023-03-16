@@ -31,7 +31,7 @@ class NavbarLinksTest < ApplicationSystemTestCase
       end
 
       it 'should display the Fund Management link' do
-        assert has_link? t('navigation.admin_tools.fund_management'), href: funds_path
+        assert has_link? t('navigation.admin_tools.fund_management'), href: fund_url(@fund)
       end
 
       it 'should display the Accounting link' do
