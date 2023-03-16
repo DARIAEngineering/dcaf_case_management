@@ -116,4 +116,6 @@ group :test do
   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
   gem 'minitest-stub-const'
   gem 'rack-test', '>= 0.6.3', require: 'rack/test' # needed to test rack-attack
+  gem 'activesupport',  '>= 7.0.4.3'
+  gem 'rack', '>= 2.2.6.4'
 end
