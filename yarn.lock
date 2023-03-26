@@ -5039,7 +5039,6 @@ __metadata:
     sass: 1.59.3
     set-value: 4.1.0
     stupid-table-plugin: 1.1.3
-    turbolinks: 5.2.0
     webpack: 5.76.3
     webpack-cli: 5.0.1
     webpack-dev-server: 3.11.3
@@ -5845,13 +5844,6 @@ __metadata:
     minimist: ^1.2.6
     strip-bom: ^3.0.0
   checksum: 8afa01c673ebb4782ba53d3a12df97fa837ce524f8ad38ee4e2b2fd57f5ac79abc21c574e9e9eb014d93efe7fe8214001b96233b5c6ea75bd1ea82afe17a4c6d
-  languageName: node
-  linkType: hard
-
-"turbolinks@npm:5.2.0":
-  version: 5.2.0
-  resolution: "turbolinks@npm:5.2.0"
-  checksum: df393c321ed19d9761e632ff357d3cb032a9ca32c07f1ef8202e5f5bb9d17fcc93cdec0d9dfcf0fbca56c373a9dffa2c151639383e663a72897ae434a877819b
   languageName: node
   linkType: hard
 
