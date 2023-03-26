@@ -80,7 +80,7 @@ class ArchivedPatient < ApplicationRecord
       language: patient.language,
       voicemail_preference: patient.voicemail_preference,
 
-      procedure_cost: patient.procedure_cost if patient.procedure_cost >= 0 else nil,
+      procedure_cost: patient.procedure_cost >= 0 ? patient.procedure_cost : nil,
       patient_contribution: patient.patient_contribution,
       naf_pledge: patient.naf_pledge,
       fund_pledge: patient.fund_pledge,
