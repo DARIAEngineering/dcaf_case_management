@@ -88,7 +88,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bootsnap (1.15.0)
+    bootsnap (1.16.0)
       msgpack (~> 1.2)
     bootstrap_form (4.5.0)
       actionpack (>= 5.2)
@@ -215,7 +215,7 @@ GEM
       minitest (>= 5.0)
       railties (>= 4.1)
     minitest-stub-const (0.6)
-    msgpack (1.6.0)
+    msgpack (1.6.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     net-imap (0.3.4)
