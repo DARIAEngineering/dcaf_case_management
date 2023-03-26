@@ -24,7 +24,7 @@ gem 'bootstrap_form', '~> 4.5.0'
 
 # Our database is postgres
 gem 'pg', '~> 1.2'
-gem 'paper_trail', '~> 13.0'
+gem 'paper_trail', '~> 14.0'
 gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
@@ -48,6 +48,12 @@ gem 'rack-attack', '~> 6.6.0'
 
 # For pagination
 gem 'kaminari', '~> 1.2'
+
+# For multi-step forms
+gem 'wicked'
+
+# Twilio Verify
+gem 'twilio-ruby'
 
 # Specific useful stuff
 gem 'render_async', '~> 2.1' # load slow partials asynchronously

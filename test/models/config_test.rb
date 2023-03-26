@@ -15,6 +15,13 @@ class ConfigTest < ActiveSupport::TestCase
       assert c.valid?
       assert_equal "No", c.options.last
     end
+
+    it 'should titleize words before save' do
+      c = Config.find_or_create_by(config_key: :time_zone)
+      c.config_value= { options: ["puerto rico"] }
+      assert c.valid?
+      assert_equal "Puerto Rico", c.options.last
+    end
   end
 
   describe 'validations' do
@@ -51,6 +58,11 @@ class ConfigTest < ActiveSupport::TestCase
 
       c.config_value = { options: ["1000", "2000"] }
       refute c.valid?
+
+      c = Config.find_or_create_by(config_key: :time_zone)
+
+      c.config_value = { options: ["Eastern", "Pacific"] }
+      refute c.valid?
     end
 
     it 'should allow lists for non-singleton values' do
@@ -83,6 +95,44 @@ class ConfigTest < ActiveSupport::TestCase
           # make sure this is left alone
           assert_nil c.options.last
       end
+    end
+
+    it 'should validate start of week' do
+      c = Config.find_or_create_by(config_key: :start_of_week)
+
+      c.config_value = { options: ["random value"] }
+      refute c.valid?
+
+      c.config_value = { options: ["weekly"] }
+      refute c.valid?
+
+      c.config_value = { options: ["monday"] }
+      assert c.valid?
+      
+      c.config_value = { options: ["Wednesday"] }
+      assert c.valid?
+      
+      c.config_value = { options: ["monthly"] }
+      assert c.valid?
+    end
+
+    it 'should validate time zone' do
+      c = Config.find_or_create_by(config_key: :time_zone)
+
+      c.config_value = { options: ["random value"] }
+      refute c.valid?
+
+      c.config_value = { options: ["American Samoa"] }
+      refute c.valid?
+
+      c.config_value = { options: ["eastern"] }
+      assert c.valid?
+      
+      c.config_value = { options: ["Pacific"] }
+      assert c.valid?
+      
+      c.config_value = { options: ["indiana (east)"] }
+      assert c.valid?
     end
   end
 
@@ -227,6 +277,19 @@ class ConfigTest < ActiveSupport::TestCase
         c.config_value = { options: ["Tuesday"] }
         c.save!
         assert_equal :tuesday, Config.start_day
+      end
+    end
+
+    describe '#time_zone' do
+      it 'should return the time zone as an ActiveSupport::TimeZone' do
+        assert_equal ActiveSupport::TimeZone.new("Eastern Time (US & Canada)"), Config.time_zone
+      end
+
+      it 'should return another time zone if configured' do
+        c = Config.find_or_create_by(config_key: 'time_zone')
+        c.config_value = { options: ["Mountain"] }
+        c.save!
+        assert_equal ActiveSupport::TimeZone.new("Mountain Time (US & Canada)"), Config.time_zone
       end
     end
 

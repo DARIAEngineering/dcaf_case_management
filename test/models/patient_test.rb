@@ -165,26 +165,30 @@ class PatientTest < ActiveSupport::TestCase
 
   describe 'pledge_summary' do
     it 'should return proper pledge summaries for various timespans' do
-      @patient.update appointment_date: 2.days.from_now, fund_pledge: 300
-      @patient2.update appointment_date: 4.days.from_now, fund_pledge: 500,
-                       pledge_sent: true, clinic: create(:clinic)
-      # Removed because we don't include resolved_without_fund patients in the summary
-      @filtered_pt = create :patient, name: 'Resolved without fund (filtered out)',
-                                      appointment_date: 2.days.from_now,
-                                      fund_pledge: 100, clinic: create(:clinic),
-                                      resolved_without_fund: true
-      shaped_patient = patient_to_hash @patient
-      shaped_patient2 = patient_to_hash @patient2
+      noon = Time.zone.today.beginning_of_day + 12.hours
+      # to ensure this spec isn't flaky if someone runs it between 12am - 4am ET
+      Timecop.freeze(noon) do
+        @patient.update appointment_date: 2.days.from_now, fund_pledge: 300
+        @patient2.update appointment_date: 4.days.from_now, fund_pledge: 500,
+                        pledge_sent: true, clinic: create(:clinic)
+        # Removed because we don't include resolved_without_fund patients in the summary
+        @filtered_pt = create :patient, name: 'Resolved without fund (filtered out)',
+                                        appointment_date: 2.days.from_now,
+                                        fund_pledge: 100, clinic: create(:clinic),
+                                        resolved_without_fund: true
+        shaped_patient = patient_to_hash @patient
+        shaped_patient2 = patient_to_hash @patient2
 
-      # Testing dates is hard, so we use name as a proxy here
-      summary = Patient.pledged_status_summary(@line)
-      assert_equal shaped_patient[:name],
-                   summary[:pledged][0][:name]
-      assert_equal shaped_patient2[:name],
-                   summary[:sent][0][:name]
-      assert_nil summary[:pledged].find { |pt| pt[:name] == @filtered_pt.name }
-      assert_equal summary[:pledged].count, 1
-      assert_equal summary[:sent].count, 1
+        # Testing dates is hard, so we use name as a proxy here
+        summary = Patient.pledged_status_summary(@line)
+        assert_equal shaped_patient[:name],
+                    summary[:pledged][0][:name]
+        assert_equal shaped_patient2[:name],
+                    summary[:sent][0][:name]
+        assert_nil summary[:pledged].find { |pt| pt[:name] == @filtered_pt.name }
+        assert_equal summary[:pledged].count, 1
+        assert_equal summary[:sent].count, 1
+      end
     end
 
     it "should include pledges based off of the configured week start" do
@@ -225,9 +229,36 @@ class PatientTest < ActiveSupport::TestCase
         summary = Patient.pledged_status_summary(@line)
         assert_equal 1, summary[:sent].count
       end 
-
     end
 
+    it "should be time zone aware and only include pledges sent in the current week for the configured time zone" do
+      Config.create config_key: :time_zone,
+                    config_value: {options: ['Pacific']}
+      
+      tuesday_in_pacific = Time.zone.local(2023, 2, 7, 11, 30, 45)
+      early_monday_morning_in_pacific = Time.zone.local(2023, 2, 6, 8, 30, 45)
+      late_sunday_evening_in_pacific = Time.zone.local(2023, 2, 6, 1, 30, 45)
+
+      @patient.update(appointment_date: tuesday_in_pacific, initial_call_date: tuesday_in_pacific - 1.day, fund_pledge: 300)
+      @patient2.update(appointment_date: early_monday_morning_in_pacific, initial_call_date: early_monday_morning_in_pacific - 1.day, fund_pledge: 500, pledge_sent: true, clinic: create(:clinic))
+      # Removed because we don't include patient's with appt's outside of current week (time zone aware)
+      @filtered_pt = create(:patient, name: 'Outside of the time zone week', appointment_date: late_sunday_evening_in_pacific, initial_call_date: late_sunday_evening_in_pacific - 1.day, fund_pledge: 100, clinic: create(:clinic))
+      shaped_patient = patient_to_hash @patient
+      shaped_patient2 = patient_to_hash @patient2
+
+      Timecop.freeze(tuesday_in_pacific) do
+        # Testing dates is hard, so we use name as a proxy here
+        summary = Patient.pledged_status_summary(@line)
+        assert_equal shaped_patient[:name],
+                    summary[:pledged][0][:name]
+        assert_equal shaped_patient2[:name],
+                    summary[:sent][0][:name]
+        assert_nil summary[:pledged].find { |pt| pt[:name] == @filtered_pt.name }
+        assert_nil summary[:sent].find { |pt| pt[:name] == @filtered_pt.name }
+        assert_equal summary[:pledged].count, 1
+        assert_equal summary[:sent].count, 1
+      end 
+    end
   end
 
   describe 'callbacks' do
