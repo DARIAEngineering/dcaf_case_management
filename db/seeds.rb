@@ -172,7 +172,7 @@ fund2 = Fund.create! name: 'CatFund',
       end
 
       if i % 3 == 0
-        patient.practical_supports.create! support_type: 'Car rides', source: 'Neighbor'
+        patient.practical_supports.create! support_type: 'Car rides', source: 'Neighbor', support_date: 3.days.from_now
       end
 
       if i % 5 == 0

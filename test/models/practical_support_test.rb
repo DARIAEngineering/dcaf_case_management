@@ -8,7 +8,8 @@ class PracticalSupportTest < ActiveSupport::TestCase
                                        source: 'Metallica Abortion Fund'
     @patient.practical_supports.create support_type: 'Swag',
                                        source: 'YOLO AF',
-                                       confirmed: true
+                                       confirmed: true,
+                                       support_date: 2.days.from_now
     @patient.practical_supports.create support_type: 'Companion',
                                        source: 'Cat',
                                        amount: 32
