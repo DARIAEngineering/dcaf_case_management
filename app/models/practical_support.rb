@@ -10,8 +10,7 @@ class PracticalSupport < ApplicationRecord
 
   # Validations
   validates :source, :support_type, presence: true, length: { maximum: 150 }
-  validates :support_type, uniqueness: { scope: :can_support }
-  validates :amount, 
-              allow_nil: true,
-              numericality: { greater_than_or_equal_to: 0 }
+  validates :amount,
+            allow_nil: true,
+            numericality: { greater_than_or_equal_to: 0 }
 end

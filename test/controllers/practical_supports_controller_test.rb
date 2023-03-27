@@ -25,8 +25,9 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond bad_request if the support record does not save' do
-      # submitting a duplicate support
-      post patient_practical_supports_path(@patient), params: { practical_support: @support }, xhr: true
+      # submitting a support with an invalid source
+      invalid_support = attributes_for :practical_support, source: Faker::Lorem.characters(number: 151)
+      post patient_practical_supports_path(@patient), params: { practical_support: invalid_support }, xhr: true
       assert response.body.include? 'failed to save'
     end
 
