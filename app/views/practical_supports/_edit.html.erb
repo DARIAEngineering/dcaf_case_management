@@ -10,20 +10,24 @@
         </span>
       </div>
 
-      <div class="col-5">
+      <div class="col-4">
         <%= f.select :source,
                      options_for_select(practical_support_source_options(practical_support.source),
                                         practical_support.source),
                      hide_label: true %>
       </div>
 
-      <div class="col-4">
+      <div class="col-3">
         <%= f.number_field :amount,
                            value: number_to_currency(f.object.amount.to_f, unit: '', delimiter: ''),
                            hide_label: true,
                            autocomplete: 'off',
                            prepend: '$',
                            step: '0.01' %>
+      </div>
+
+      <div class="col-2">
+        <%= f.date_field :support_date, autocomplete: 'off', hide_label: true %>
       </div>
 
       <div class="col-2">

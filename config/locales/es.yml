@@ -102,6 +102,7 @@ es:
       practical_support:
         confirmed: Confirmado
         source: Fuente
+        support_date: Día de el apoyo
         support_type: Tipo de apoyo
       user:
         current_password: Contraseña actual
@@ -576,6 +577,7 @@ es:
       new: 'Grabar nueva información de soporte práctico:'
       point_of_contact: Punto de contacto
       remove: Elimina
+      support_date: Día de el apoyo
       support_needed: Soporte Necesarios
       title: Apoyo practico
     shared:
