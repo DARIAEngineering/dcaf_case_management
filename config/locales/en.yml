@@ -577,7 +577,6 @@ en:
       new: 'Record new practical support info:'
       point_of_contact: Point of contact
       remove: Remove
-      support_date: Support date
       support_needed: Support needed
       title: Practical support
     shared:

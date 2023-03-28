@@ -1,20 +1,20 @@
 <% if patient.practical_supports.present? %>
-<div class="row practical-support-headers">
-  <div class="col-10">
-    <div class="row">
-      <h5 class="col-3"><%= t 'patient.practical_support.support_needed' %></h5>
-      <h5 class="col-4"><%= t 'patient.practical_support.point_of_contact' %></h5>
-      <h5 class="col-3">Amount</h5>
-      <h5 class="col-2"><%= t 'patient.practical_support.support_date' %></h5>
+  <div class="row practical-support-headers">
+    <div class="col-12">
+      <div class="row">
+        <h5 class="col-3"><%= t 'patient.practical_support.support_needed' %></h5>
+        <h5 class="col-5"><%= t 'patient.practical_support.point_of_contact' %></h5>
+        <h5 class="col-4">Amount</h5>
+      </div>
     </div>
+    <div class="col"><!-- Where button would go --></div>
   </div>
-  <div class="col"><!-- Where button would go --></div>
-</div>
-
-<% patient.practical_supports.each do |entry| %>
   <hr/>
-  <%= render 'practical_supports/edit',
-             patient: patient,
-             practical_support: entry %>
+
+  <% patient.practical_supports.each do |entry| %>
+    <%= render 'practical_supports/edit',
+              patient: patient,
+              practical_support: entry %>
+    <hr/>
   <% end %>
 <% end %>
