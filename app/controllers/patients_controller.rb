@@ -64,6 +64,7 @@ class PatientsController < ApplicationController
       base: {
         patient: {
           name: @patient.name,
+          identifier: @patient.identifier,
           phone: @patient.primary_phone_display,
           appointment_date: @patient.appointment_date.display_date,
           fund_pledge: @patient.fund_pledge,
