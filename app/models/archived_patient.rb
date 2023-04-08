@@ -57,6 +57,15 @@ class ArchivedPatient < ApplicationRecord
     end
   end
 
+  # enforce procedure cost must be positive - otherwise nil
+  def self.procedure_cost_positive(c)
+    if c.present? and c >= 0
+      c
+    else
+      nil
+    end
+  end
+
   def self.convert_patient(patient)
     archived_patient = new(
       line: patient.line,
@@ -80,7 +89,6 @@ class ArchivedPatient < ApplicationRecord
       language: patient.language,
       voicemail_preference: patient.voicemail_preference,
 
-      procedure_cost: patient.procedure_cost,
       patient_contribution: patient.patient_contribution,
       naf_pledge: patient.naf_pledge,
       fund_pledge: patient.fund_pledge,
@@ -106,6 +114,8 @@ class ArchivedPatient < ApplicationRecord
 
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
     archived_patient.line_id = patient.line_id
+
+    archived_patient.procedure_cost = procedure_cost_positive patient.procedure_cost
 
     PaperTrail.request(whodunnit: patient.created_by_id) do
       archived_patient.save!
