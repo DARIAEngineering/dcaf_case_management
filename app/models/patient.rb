@@ -14,6 +14,7 @@ class Patient < ApplicationRecord
   include Statusable
   include Exportable
   include EventLoggable
+  include AutoDeletable
 
   # Callbacks
   before_validation :clean_fields

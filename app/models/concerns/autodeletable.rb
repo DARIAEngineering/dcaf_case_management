@@ -3,11 +3,8 @@ module AutoDeletable
     extend ActiveSupport::Concern
 
     def delete_date
-        if Config.days_until_delete.blank?
-            initial_call_date + Config.days_until_delete
-        else
-            nil
-        end
+        # if config is blank, we return nil here
+        initial_call_date + Config.days_until_delete if Config.days_until_delete.blank?
     end
 
     def autodelete!
