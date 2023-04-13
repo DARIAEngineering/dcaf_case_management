@@ -215,11 +215,7 @@ class Patient < ApplicationRecord
       initial_call_date + Config.archive_all_patients.days
     end
   end
-
-  def delete_date
-    initial_call_date + Config.days_until_delete
-  end
-
+  
   def recent_history_tracks
     versions.where(updated_at: 6.days.ago..)
   end
