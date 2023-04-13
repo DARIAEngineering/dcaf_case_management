@@ -36,6 +36,7 @@ module WelcomeMessageHelper
       "You're a 🌟! You're awesome! Muchas Gracias!",
       "Another case, another human being helped. Keep it up!",
       "Merci beaucoup!",
+      "You're doing great!",
       "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
       "Você é demais!",
       "Your work is so valuable and you're doing a wonderful job! <3",
