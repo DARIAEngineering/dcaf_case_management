@@ -18,7 +18,7 @@
       <%= f.text_field :full_name %>
       <%= f.text_field :site_domain %>
       <%= f.text_field :phone,
-                       pattern: "[0-9]{10}|[0-9]{3}\.[0-9]{3}\.[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
+                       pattern: "[0-9]{10}|[0-9]{3}\-[0-9]{3}\-[0-9]{4}|[0-9]{3}[-][0-9]{3}[-][0-9]{4}" %>
       <%= f.submit label, class: 'btn btn-primary btn-lg' %>
     </div>
 

@@ -1,39 +1,26 @@
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class FundsTest < ApplicationSystemTestCase
-  setup do
-    @fund = funds(:one)
+  before do
+    create :line
+    @user = create :user, role: :admin
+    log_in_as @user
+    @fund = Fund.first
   end
 
-  test "visiting the index" do
-    visit funds_url
-    assert_selector "h1", text: "Funds"
-  end
-
-  test "should create fund" do
-    visit funds_url
-    click_on "New fund"
-
-    click_on "Create Fund"
-
-    assert_text "Fund was successfully created"
-    click_on "Back"
-  end
-
-  test "should update Fund" do
+  test 'visiting the fund' do
     visit fund_url(@fund)
-    click_on "Edit this fund", match: :first
-
-    click_on "Update Fund"
-
-    assert_text "Fund was successfully updated"
-    click_on "Back"
+    puts @fund.as_json
+    assert_selector 'h1', text: @fund.name
   end
 
-  test "should destroy Fund" do
+  test 'updating the fund' do
     visit fund_url(@fund)
-    click_on "Destroy this fund", match: :first
-
-    assert_text "Fund was successfully destroyed"
+    click_on 'Edit', match: :first
+    fill_in 'Phone', with: '555-555-5555'
+    click_away_from_field
+    wait_for_ajax
+    click_on 'Save changes'
+    assert_text 'Successfully updated fund details.'
   end
 end
