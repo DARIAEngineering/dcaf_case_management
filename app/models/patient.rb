@@ -215,6 +215,10 @@ class Patient < ApplicationRecord
     end
   end
 
+  def delete_date
+    initial_call_date + Config.days_until_delete
+  end
+
   def recent_history_tracks
     versions.where(updated_at: 6.days.ago..)
   end
@@ -294,4 +298,5 @@ class Patient < ApplicationRecord
       errors.add(:special_circumstances, 'is invalid') if value && value.length > 50
     end
   end
+
 end
