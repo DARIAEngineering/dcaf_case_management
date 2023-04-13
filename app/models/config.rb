@@ -25,6 +25,30 @@ class Config < ApplicationRecord
     time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico."
   }.freeze
 
+  DEFAULTS = {
+    insurance: nil,
+    external_pledge_source: nil,
+    pledge_limit_help_text: nil,
+    language: nil,
+    resources_url: nil,
+    practical_support_guidance_url: nil,
+    fax_service: nil,
+    referred_by: nil,
+    practical_support: nil,
+    hide_practical_support: false,
+    start_of_week: 'monday',
+    budget_bar_max: 1_000,
+    voicemail: 12,
+    days_to_keep_fulfilled_patients: 90,
+    days_to_keep_all_patients: 365,
+    shared_reset_days: 6,
+    hide_budget_bar: false,
+    aggregate_statistics: false,
+    hide_standard_dropdown_values: false,
+    county: nil,
+    time_zone: "Eastern"
+  }.freeze
+
   enum config_key: {
     insurance: 0,
     external_pledge_source: 1,
@@ -141,7 +165,7 @@ class Config < ApplicationRecord
 
   def self.budget_bar_max
     budget_max = Config.find_or_create_by(config_key: 'budget_bar_max').options.try :last
-    budget_max ||= 1_000
+    budget_max ||= DEFAULTS['budget_bar_max']
     budget_max.to_i
   end
 
@@ -151,34 +175,34 @@ class Config < ApplicationRecord
 
   def self.start_day
     start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
-    start ||= "monday"
+    start ||= DEFAULTS['start_of_week']
     start.downcase.to_sym
   end
 
   def self.time_zone
     tz = Config.find_or_create_by(config_key: 'time_zone').options.try :last
-    tz ||= "Eastern"
+    tz ||= DEFAULTS['time_zone']
     ActiveSupport::TimeZone.new(TIME_ZONE[tz])
   end
 
   def self.archive_fulfilled_patients
     archive_days = Config.find_or_create_by(config_key: 'days_to_keep_fulfilled_patients').options.try :last
     # default 3 months
-    archive_days ||= 90
+    archive_days ||= DEFAULTS['days_to_keep_fulfilled_patients']
     archive_days.to_i
   end
 
   def self.archive_all_patients
     archive_days = Config.find_or_create_by(config_key: 'days_to_keep_all_patients').options.try :last
     # default 1 year
-    archive_days ||= 365
+    archive_days ||= DEFAULTS['days_to_keep_call_patients']
     archive_days.to_i
   end
 
-  def self.shared_reset
+  def self.shared_reset_days
     shared_reset_days = Config.find_or_create_by(config_key: 'shared_reset').options.try :last
     # default 6 days
-    shared_reset_days ||= 6
+    shared_reset_days ||= DEFAULTS['shared_reset']
     shared_reset_days.to_i
   end
 
