@@ -279,7 +279,9 @@ es:
     demote_own_account_warn: Por razones de seguridad, no se le permite cambiar su función de administrador a no administrador. Pídale a otro administrador que lo degraden.
     error_saving_clinic: Algúnos errores evitaron que esta clínica se guardara - %{error}
     error_saving_clinic_details: Error al guardar los detalles de la clínica - %{error}
+    error_saving_fund: Algúnos errores evitaron que este fondo se guardara - %{error}
     fetch_pledge_error: Los errores impidieron que se generara este compromiso. Verifique que haya completado todas las entradas del formulario y comuníquese con el equipo de DARIA si el problema persiste.
+    fund_details_updated: Detalles del fondo fueron actualizados exitosamente.
     locked: Bloqueada
     new_patient_error: Algúnos errores impidieron guardar a este paciente - %{error}
     new_patient_save: Un nuevo paciente ha sido guardado con éxito

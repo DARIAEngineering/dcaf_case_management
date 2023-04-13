@@ -1,7 +1,7 @@
 class FundsController < ApplicationController
   before_action :confirm_admin_user
   before_action :confirm_data_access, only: [:edit, :update]
-  before_action :set_fund, only: %i[show edit update destroy]
+  before_action :set_fund, only: %i[show edit update]
   rescue_from ActiveRecord::RecordNotFound, with: -> { head :bad_request }
 
   # GET /funds/id
@@ -15,8 +15,10 @@ class FundsController < ApplicationController
   def update
     set_fund
     if @fund.update(fund_params)
-      redirect_to @fund, notice: 'Fund was successfully updated.'
+      flash[:notice] = t('flash.fund_details_updated')
+      redirect_to @fund
     else
+      flash[:alert] = t('flash.error_saving_fund_details', error: @fund.errors.full_messages.to_sentence)
       render :edit, status: :unprocessable_entity
     end
   end
