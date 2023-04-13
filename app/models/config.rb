@@ -249,10 +249,11 @@ class Config < ApplicationRecord
 
       # run the validators and get a boolean, exit if all are true
       # (see comment above in `clean_config_value` for an explainer)
-      return if validators.all? { |validator| method(validator).call }
+      validation_errors = validators.map { |validator| method(validator).call }
+      return if validation_errors.all? { |validation_error| validation_error.nil? }
 
       errors.add(:invalid_value_for,
-        "#{config_key.humanize(capitalize: false)}: #{options.join(', ')}")
+        "#{config_key.humanize(capitalize: false)}: #{validation_errors.compact.join(', ')}")
     end
 
     # generic cleaner for words (so we have standardized capitalization)
@@ -267,12 +268,16 @@ class Config < ApplicationRecord
 
     # generic validator for numerics
     def validate_number
-      options.last =~ /\A\d+\z/
+      if options.last !=~ /\A\d+\z/
+        'Must be number'
+      end
     end
 
     # validator for singletons (no lists allowed)
     def validate_singleton
-      options.length == 1
+      if options.length != 1
+        'No lists allowed'
+      end
     end
 
     ### URL fields
@@ -286,7 +291,7 @@ class Config < ApplicationRecord
       url = UriService.new(maybe_url).uri
 
       # uriservice returns nil if there's a problem.
-      return false if !url
+      return false unless url
 
 
       config_value['options'] = [url]
@@ -307,7 +312,9 @@ class Config < ApplicationRecord
     ].freeze
 
     def validate_start_of_week
-      START_OF_WEEK.include?(options.last.capitalize)
+      unless START_OF_WEEK.include?(options.last.capitalize)
+        "Must be a day of the week (or the word monthly)"
+      end
     end
 
     ### Time zone
@@ -325,14 +332,18 @@ class Config < ApplicationRecord
     }.stringify_keys!
 
     def validate_time_zone
-      TIME_ZONE.keys.include?(options.last.titleize)
+      unless TIME_ZONE.keys.include?(options.last.titleize)
+        "Timezone provided is not supported"
+      end
     end
 
     ### Practical support
 
     def validate_yes_or_no
       # allow yes or no, to be nice (technically only yes is considered)
-      options.last =~ /\A(yes|no)\z/i
+      if !options.last =~ /\A(yes|no)\z/i
+        "Field must be either 'yes' or 'no'"
+      end
     end
 
     ### Patient archive
@@ -340,7 +351,9 @@ class Config < ApplicationRecord
     ARCHIVE_MAX_DAYS = 550  # 1.5 years
 
     def validate_patient_archive
-      validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+      if !validate_number || !options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+        "Must be between #{ARCHIVE_MIN_DAYS} and #{ARCHIVE_MAX_DAYS} days."
+      end
     end
 
     ### shared reset
@@ -348,15 +361,16 @@ class Config < ApplicationRecord
     SHARED_MAX_DAYS = 7 * 6  # 6 weeks
 
     def validate_shared_reset
-      validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+      if !validate_number || !options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+        "Must be between #{SHARED_MIN_DAYS} and #{SHARED_MAX_DAYS} days."
+      end
     end
 
     def validate_length
       total_length = 0
       options.each do |option|
         total_length += option.length
-        return false if total_length > 4000
       end
-      true
+      "Length of provided values is too long (over 4000 characters)" if total_length > 4000
     end
 end
