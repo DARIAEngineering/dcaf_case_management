@@ -78,7 +78,7 @@ class AutodeletableTest < ActiveSupport::TestCase
                 end
 
                 Timecop.freeze(1.day.after) do
-                    # 2 hours later, now has happened
+                    # later, now has happened
                     Patient.autodelete!
                     assert_equal 0, Patient.count
                 end
