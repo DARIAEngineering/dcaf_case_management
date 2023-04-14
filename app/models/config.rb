@@ -251,6 +251,7 @@ class Config < ApplicationRecord
     end
 
     # generic validator for numerics
+    # note: this does NOT validate negative numbers or decimals
     def validate_number
       options.last =~ /\A\d+\z/
     end

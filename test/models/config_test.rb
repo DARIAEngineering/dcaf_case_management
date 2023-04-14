@@ -322,5 +322,30 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
+    describe 'days_util_default' do
+      it 'should default to nil' do
+        assert_nil Config.days_until_delete
+      end
+
+      it 'should validate bounds' do
+        c = Config.find_or_create_by(config_key: 'days_until_delete')
+
+        # non numeric
+        c.config_value = { options: ["a"] }
+        refute c.valid?
+
+        # negatives don't work
+        c.config_value = { options: ["-48"] }
+        refute c.valid?
+
+        # non-singleton
+        c.config_value = { options: ["1", "2"] }
+        refute c.valid?
+
+        # good
+        c.config_value = { options: ["10"] }
+        assert c.valid?
+      end
+    end
   end
 end
