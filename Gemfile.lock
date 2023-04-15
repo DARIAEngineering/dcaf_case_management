@@ -126,7 +126,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-security (0.17.0)
+    devise-security (0.18.0)
       devise (>= 4.3.0)
     docile (1.4.0)
     dotenv (2.8.1)
