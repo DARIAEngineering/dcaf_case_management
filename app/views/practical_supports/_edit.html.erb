@@ -36,15 +36,14 @@
                           id: "practical_support_confirmed_#{practical_support.id}" %>
         <% end %>
       </div>
-  <% end %>
-
-      <div class="col-4">
-      <%= button_to t('patient.practical_support.remove'),
-                  patient_practical_support_path(patient, practical_support),
-                  remote: true,
-                  method: :delete,
-                  data: { confirm: t('patient.practical_support.delete_confirm') },
-                  class: "btn btn-danger float-right" %>
-                  </div>
     </div>
+  <% end %>
+  <div class="col-12">
+      <%= button_to t('patient.practical_support.remove'),
+                patient_practical_support_path(patient, practical_support),
+                remote: true,
+                method: :delete,
+                data: { confirm: t('patient.practical_support.delete_confirm') },
+                class: "btn btn-danger float-right practical-support-remove" %>
+  </div>
 </div>
