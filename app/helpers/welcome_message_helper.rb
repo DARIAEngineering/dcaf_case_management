@@ -74,7 +74,8 @@ module WelcomeMessageHelper
       "You're doing an amazing thing - keep at it! 💖",
       "Thank you for all the work you do! You're appreciated and you're making a difference!",
       "Thank you for being there for those seeing abortions and for treating everyone with compassion and respect.",
-      "Without you, this work would not be possible. Thank you for making the world a better place."
+      "Without you, this work would not be possible. Thank you for making the world a better place.",
+      "It's a bird! It's a plane! It's a case manager!!! 🦸🏽"
     ]
   end
 end
