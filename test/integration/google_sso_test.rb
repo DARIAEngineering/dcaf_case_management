@@ -25,5 +25,9 @@ class GoogleSSOTest < ActionDispatch::IntegrationTest
 
       assert has_content? 'Forgot your password?'
     end
+    it 'sign in page is accessible' do
+      visit root_path
+      wait_for_element 'Sign in with Google'
+      assert_accessible(page)
   end
 end

@@ -105,6 +105,8 @@ group :test do
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
   gem 'webdrivers'
+  gem 'axe-core-capybara'
+  gem 'axe-core-api'
 
   # Test coverage related libraries
   gem 'simplecov', require: false
