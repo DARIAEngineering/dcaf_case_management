@@ -171,7 +171,7 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
-    jsbundling-rails (1.1.1)
+    jsbundling-rails (1.1.2)
       railties (>= 6.0.0)
     json (2.6.3)
     jwt (2.7.1)
@@ -208,7 +208,7 @@ GEM
       rails (>= 2.3.3)
     mini_mime (1.1.2)
     mini_portile2 (2.8.2)
-    minitest (5.18.0)
+    minitest (5.18.1)
     minitest-optional_retry (0.0.2)
       minitest (~> 5.0)
     minitest-spec-rails (7.0.0)
