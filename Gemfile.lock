@@ -117,7 +117,7 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
-    cssbundling-rails (1.1.2)
+    cssbundling-rails (1.2.0)
       railties (>= 6.0.0)
     date (3.3.3)
     devise (4.9.2)
