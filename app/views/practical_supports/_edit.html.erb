@@ -1,7 +1,7 @@
 <div class="row info-form practical-support-item" id="practical-support-item-<%= practical_support.id %>">
   <%= bootstrap_form_with model: practical_support,
                          url: patient_practical_support_path(patient, practical_support),
-                         html: { class: 'edit_practical_support col-10' },
+                         html: { class: 'edit_practical_support col-12' },
                          local: false do |f| %>
     <div class="row">
       <div class="col-3">
@@ -26,7 +26,11 @@
                            step: '0.01' %>
       </div>
 
-      <div class="col-2">
+      <div class="col-3">
+        <%= f.date_field :support_date, autocomplete: 'off', hide_label: true %>
+      </div>
+
+      <div class="col-5">
         <%= f.form_group :confirmed do %>
           <%= f.check_box :confirmed,
                           id: "practical_support_confirmed_#{practical_support.id}" %>
@@ -34,13 +38,12 @@
       </div>
     </div>
   <% end %>
-
-  <div class="col">
-    <%= button_to t('patient.practical_support.remove'),
-                  patient_practical_support_path(patient, practical_support),
-                  remote: true,
-                  method: :delete,
-                  data: { confirm: t('patient.practical_support.delete_confirm') },
-                  class: "btn btn-danger" %>
+  <div class="col-12">
+      <%= button_to t('patient.practical_support.remove'),
+                patient_practical_support_path(patient, practical_support),
+                remote: true,
+                method: :delete,
+                data: { confirm: t('patient.practical_support.delete_confirm') },
+                class: "btn btn-danger float-right practical-support-remove" %>
   </div>
 </div>

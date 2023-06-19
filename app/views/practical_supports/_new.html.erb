@@ -6,6 +6,7 @@
   <%= f.select :support_type, practical_support_options %>
   <%= f.select :source, practical_support_source_options %>
   <%= f.number_field :amount, autocomplete: 'off', prepend: '$', step: '0.01' %>
+  <%= f.date_field :support_date, autocomplete: 'off' %>
   <%= f.check_box :confirmed %>
   <br />
   <%= f.submit t('patient.practical_support.create'), class: 'btn btn-primary', id: 'create-practical-support' %>

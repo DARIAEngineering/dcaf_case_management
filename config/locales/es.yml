@@ -102,6 +102,7 @@ es:
       practical_support:
         confirmed: Confirmado
         source: Fuente
+        support_date: Día de el apoyo
         support_type: Tipo de apoyo
       user:
         current_password: Contraseña actual
