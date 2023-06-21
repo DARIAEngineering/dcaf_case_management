@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'integration_helper'
+require "axe/matchers/be_axe_clean"
 
 # Set systemtest behavior
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase

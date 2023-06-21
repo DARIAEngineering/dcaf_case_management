@@ -11,7 +11,6 @@ require 'omniauth_helper'
 require 'integration_helper'
 require 'rack/test'
 require 'axe-capybara'
-require 'axe-core'
 
 # CI only
 if ENV['CI']
