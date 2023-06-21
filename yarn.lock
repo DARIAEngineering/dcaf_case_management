@@ -4073,7 +4073,7 @@ __metadata:
     jquery: 3.7.0
     jquery-ujs: 1.2.3
     popper.js: 1.16.1
-    sass: 1.63.2
+    sass: 1.63.5
     set-value: 4.1.0
     stupid-table-plugin: 1.1.3
     webpack: 5.88.0
@@ -4123,16 +4123,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.63.2":
-  version: 1.63.2
-  resolution: "sass@npm:1.63.2"
+"sass@npm:1.63.5":
+  version: 1.63.5
+  resolution: "sass@npm:1.63.5"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 7ffc2b789aeae4637f09195f7d24e149fc590e2c69cb209c64fdf0ed0d7f09da28097c48fda7f36d257aeb7dd8e16a9ff77b50cf78830afe6f996e6dcd957280
+  checksum: eee6a1b5f2bd85c464daa51aca11bd5d8086592099ff3a3a8286f92fafc0ab02edf5aaf781d8e53e446353beff15eff8cdf52052c232ece18efd7945d59172af
   languageName: node
   linkType: hard
 
