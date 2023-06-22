@@ -20,7 +20,7 @@ gem 'net-smtp', require: false # for compat reasons, required in builds
 gem 'sprockets-rails'
 gem 'jsbundling-rails'
 gem 'cssbundling-rails'
-gem 'bootstrap_form', '~> 4.5.0'
+gem 'bootstrap_form', '~> 5.2.3'
 
 # Our database is postgres
 gem 'pg', '~> 1.2'

@@ -100,9 +100,9 @@ GEM
       smart_properties
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    bootstrap_form (4.5.0)
-      actionpack (>= 5.2)
-      activemodel (>= 5.2)
+    bootstrap_form (5.2.3)
+      actionpack (>= 6.0)
+      activemodel (>= 6.0)
     builder (3.2.4)
     bullet (7.0.2)
       activesupport (>= 3.0.0)
@@ -458,7 +458,7 @@ DEPENDENCIES
   axe-core-api
   axe-core-capybara
   bootsnap (>= 1.4.2)
-  bootstrap_form (~> 4.5.0)
+  bootstrap_form (~> 5.2.3)
   bullet
   bundler-audit
   byebug
