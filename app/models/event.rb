@@ -5,6 +5,9 @@ class Event < ApplicationRecord
   # Relations
   belongs_to :line
 
+  encrypts :cm_name
+  encrypts :patient_name
+
   # Enums
   enum event_type: {
     reached_patient: 0,
