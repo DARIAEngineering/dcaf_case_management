@@ -22,5 +22,6 @@ class RoutingTest < ApplicationSystemTestCase
     log_in_as @user
     visit authenticated_root_path
     assert has_text? "DARIA - #{ActsAsTenant.current_tenant.full_name} - Development"
+    assert_accessible page
   end
 end

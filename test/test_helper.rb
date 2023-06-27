@@ -10,6 +10,7 @@ require 'capybara-screenshot/minitest'
 require 'omniauth_helper'
 require 'integration_helper'
 require 'rack/test'
+require 'axe-capybara'
 
 # CI only
 if ENV['CI']
@@ -128,4 +129,9 @@ class ActionDispatch::IntegrationTest
   before { Capybara.reset_sessions! }
 
   # for controllers
+end
+
+def assert_accessible(page, matcher = Axe::Matchers::BeAxeClean.new.according_to(:wcag21aa, 'best-practice'))
+  audit_result = matcher.audit(page)
+  assert(audit_result.passed?, audit_result.failure_message)
 end
