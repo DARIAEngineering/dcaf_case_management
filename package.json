@@ -14,7 +14,7 @@
     "webpack-cli": "5.1.4"
   },
   "devDependencies": {
-    "eslint": "8.43.0",
+    "eslint": "8.45.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-plugin-import": "2.27.5",
     "webpack-dev-server": "4.15.1"
