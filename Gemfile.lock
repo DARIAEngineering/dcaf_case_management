@@ -187,6 +187,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    language_server-protocol (3.17.0.3)
     launchy (2.5.2)
       addressable (~> 2.8)
     listen (3.8.0)
@@ -337,8 +338,9 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.5)
-    rubocop (1.52.1)
+    rubocop (1.54.1)
       json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
       parser (>= 3.2.2.3)
       rainbow (>= 2.2.2, < 4.0)
