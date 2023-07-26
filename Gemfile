@@ -44,7 +44,7 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 
 # Security libraries
-gem 'rack-attack', '~> 6.6.0'
+gem 'rack-attack', '~> 6.7.0'
 
 # For pagination
 gem 'kaminari', '~> 1.2'
