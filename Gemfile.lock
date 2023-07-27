@@ -287,8 +287,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.7)
-    rack-attack (6.6.1)
-      rack (>= 1.0, < 3)
+    rack-attack (6.7.0)
+      rack (>= 1.0, < 4)
     rack-protection (3.0.5)
       rack
     rack-test (2.1.0)
@@ -473,7 +473,7 @@ DEPENDENCIES
   prawn
   pry
   puma (~> 6.0)
-  rack-attack (~> 6.6.0)
+  rack-attack (~> 6.7.0)
   rack-test (>= 0.6.3)
   rails (~> 7.0.0)
   rails-html-sanitizer (>= 1.4.3)
