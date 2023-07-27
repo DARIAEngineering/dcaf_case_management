@@ -104,7 +104,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
-  gem 'webdrivers'
 
   # Test coverage related libraries
   gem 'simplecov', require: false
