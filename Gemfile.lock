@@ -364,7 +364,7 @@ GEM
     rubyzip (2.3.2)
     sdoc (2.6.1)
       rdoc (>= 5.0)
-    selenium-webdriver (4.10.0)
+    selenium-webdriver (4.11.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
