@@ -257,8 +257,8 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
-    paper_trail (14.0.0)
-      activerecord (>= 6.0)
+    paper_trail (15.0.0)
+      activerecord (>= 6.1)
       request_store (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -467,7 +467,7 @@ DEPENDENCIES
   nokogiri (>= 1.13.4)
   omniauth-google-oauth2 (~> 1.1.1)
   omniauth-rails_csrf_protection (~> 1.0)
-  paper_trail (~> 14.0)
+  paper_trail (~> 15.0)
   pdf-inspector
   pg (~> 1.2)
   prawn
