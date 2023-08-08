@@ -3,7 +3,7 @@
     "@fortawesome/fontawesome-free": "6.4.0",
     "@popperjs/core": "2.11.8",
     "bootstrap": "4.6.2",
-    "esbuild": "0.18.17",
+    "esbuild": "0.19.0",
     "jquery": "3.7.0",
     "jquery-ujs": "1.2.3",
     "popper.js": "1.16.1",
