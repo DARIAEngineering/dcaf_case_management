@@ -12,8 +12,10 @@ class FundsController < ApplicationController
   # GET /funds/edit
   def edit; end
 
+  # PATCH /funds/id
   def update
     set_fund
+
     if @fund.update(fund_params)
       flash[:notice] = t('flash.fund_details_updated')
       redirect_to @fund

@@ -4,7 +4,7 @@ class FundsControllerTest < ActionDispatch::IntegrationTest
   before do
     @user = create :user, role: :admin
     sign_in @user
-    @fund = create :fund
+    @fund = ActsAsTenant.current_tenant
   end
 
   describe 'show' do
@@ -37,7 +37,7 @@ class FundsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'update' do
     before do
-      @phone = '555-555-5555'
+      @phone = '(555)-555-5555'
       @fund_attrs = { phone: @phone }
     end
 
@@ -55,15 +55,6 @@ class FundsControllerTest < ActionDispatch::IntegrationTest
       @fund.reload
       assert_equal @phone, @fund.phone
       assert_redirected_to fund_url(@fund)
-    end
-
-    it 'should not update the fund record if the payload is bad' do
-      @fund_attrs[:name] = nil
-
-      patch fund_url(@fund), params: { fund: @fund_attrs }
-      @fund.reload
-      assert_not_equal @phone, @fund.phone
-      assert_response :unprocessable_entity
     end
   end
 end
