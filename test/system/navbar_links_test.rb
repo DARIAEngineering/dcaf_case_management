@@ -5,6 +5,7 @@ class NavbarLinksTest < ApplicationSystemTestCase
     create :line
     @user = create :user, role: :admin
     log_in_as @user
+    @fund = ActsAsTenant.current_tenant
   end
 
   describe 'user dropdown' do
