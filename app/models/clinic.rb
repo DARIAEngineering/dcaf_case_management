@@ -9,7 +9,7 @@ class Clinic < ApplicationRecord
   # e.g. so a fund can have an 'OTHER CLINIC' catchall.
   EXCLUDED_ZIP = '99999'
 
-  encrypts :name
+  encrypts :name, deterministic: true
   encrypts :street_address
   encrypts :city
   encrypts :state
