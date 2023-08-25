@@ -342,4 +342,10 @@ class Config < ApplicationRecord
       end
       true
     end
+
+    def validate_only_one_practical_support
+      # TODO - Should not be able to use both practical support configs at the
+      # same time.
+      true
+    end
 end
