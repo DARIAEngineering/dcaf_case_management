@@ -397,6 +397,12 @@ en:
         change: Change (from -> to)
         modified_date: Modified Date
       title: Patient history
+    complete:
+      body: Is this patient completed?
+      cancel:
+        confirm: Are you sure you want to mark this patient incomplete?
+        title: Mark Incomplete
+      title: Confirm Completion
     dashboard:
       approx_gestation: 'Approx gestation at appt: %{weeks} weeks %{days} days'
       called_on: 'Called on: %{date}'
@@ -502,6 +508,8 @@ en:
       call_log: Call Log
       cancel_pledge: Cancel pledge
       change_log: Change Log
+      mark_complete: Mark Complete
+      mark_incomplete: Mark Incomplete
       notes: Notes
       patient_information: Patient Information
       pledge_fulfillment: Pledge Fulfillment
@@ -585,6 +593,7 @@ en:
       status: Status
     status:
       help:
+        completed: Patient has been marked completed for practical support.
         dropoff: Patient has not been heard from in 120+ days.
         fulfilled: Patient has been marked fulfilled.
         fundraising: The patient has an appointment date, and is working on raising funds.
@@ -595,6 +604,7 @@ en:
         pledge_unfulfilled: Patient had a pledge sent 150+ days ago but has not cashed it.
         resolved: Patient has decided to not involve the fund in their plans.
       key:
+        completed: Support Completed
         dropoff: Probable Dropoff
         fulfilled: Pledge Fulfilled
         fundraising: Fundraising

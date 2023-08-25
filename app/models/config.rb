@@ -22,7 +22,8 @@ class Config < ApplicationRecord
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
     hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
-    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico."
+    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.",
+    practical_support_mode: 'Enter "yes" to enable practical-support-only mode. Pledges will be disabled.'
   }.freeze
 
   enum config_key: {
@@ -46,10 +47,9 @@ class Config < ApplicationRecord
     aggregate_statistics: 17,
     hide_standard_dropdown_values: 18,
     county: 19,
-    time_zone: 20
+    time_zone: 20,
+    practical_support_mode: 21,
   }
-
-  # which fields are URLs (run special validation only on those)
 
   # symbols are required here because functions are not objects in rails :)
   CLEAN_PRE_VALIDATION = {
@@ -57,7 +57,8 @@ class Config < ApplicationRecord
     hide_practical_support: [:fix_capitalization],
     language: [:fix_capitalization],
     county: [:fix_capitalization],
-    time_zone: [:titleize_capitalization]
+    time_zone: [:titleize_capitalization],
+    practical_support_mode: [:fix_capitalization],
   }.freeze
 
   VALIDATIONS = {
@@ -82,7 +83,7 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_time_zone],
 
     hide_practical_support:
-      [:validate_singleton, :validate_yes_or_no],
+      [:validate_yes_or_no, :validate_only_one_practical_support],
 
     budget_bar_max:
       [:validate_singleton, :validate_number],
@@ -102,11 +103,13 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_shared_reset],
 
     hide_budget_bar:
-      [:validate_singleton, :validate_yes_or_no],
+      [:validate_yes_or_no],
     aggregate_statistics:
-      [:validate_singleton, :validate_yes_or_no],
+      [:validate_yes_or_no],
     hide_standard_dropdown_values:
-      [:validate_singleton, :validate_yes_or_no],
+      [:validate_yes_or_no],
+    practical_support_mode:
+      [:validate_yes_or_no, :validate_only_one_practical_support],
   }.freeze
 
   before_validation :clean_config_value
@@ -192,6 +195,10 @@ class Config < ApplicationRecord
 
   def self.hide_standard_dropdown?
     config_to_bool('hide_standard_dropdown_values')
+  end
+
+  def self.practical_support_mode?
+    config_to_bool('practical_support_mode')
   end
 
   private
@@ -308,7 +315,7 @@ class Config < ApplicationRecord
 
     def validate_yes_or_no
       # allow yes or no, to be nice (technically only yes is considered)
-      options.last =~ /\A(yes|no)\z/i
+      validate_singleton and options.last =~ /\A(yes|no)\z/i
     end
 
     ### Patient archive

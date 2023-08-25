@@ -29,7 +29,7 @@ $('#change_log').html(
 $('#patient_shared_flag').prop('checked', <%= @patient.shared_flag? %>);
 
 // if pledge is sent, re-rack fulfillment info
-<% if current_user.allowed_data_access? && @patient.pledge_sent? %>
+<% if current_user.allowed_data_access? && !Config.practical_support_mode && @patient.pledge_sent? %>
   // populate the fulfillment form if it's supposed to be there and not there already
   if ($('#pledge_fulfillment-menu-item').length == 0) {
     $('#pledge_fulfillment').empty()

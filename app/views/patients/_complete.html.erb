@@ -1,0 +1,55 @@
+<% if not patient.marked_complete %>
+  <div class="modal-header">
+    <h4 class="modal-title"><%= t('patient.complete.title') %></h4>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <%= t('patient.complete.body') %>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col">
+      <button type="button" class="btn btn-outline-secondary js-btn-step float-left" style="color:red;" data-dismiss="modal"><%= t('common.no') %></button>
+    </div>
+    
+    <div class="col">
+      <%= bootstrap_form_with model: @patient,
+                              html: { id: 'submit-pledge-form' },
+                              local: false,
+                              method: 'patch',
+                              class: 'edit_patient' do |f| %>
+        <%= f.hidden_field :marked_complete, value: true %>
+        <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step float-right", id: 'submit-pledge-submit'%>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="modal-header">
+    <h4 class="modal-title"><%= t('patient.complete.cancel.title') %></h4>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <p><%= t('patient.complete.cancel.confirm') %></p>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col">
+      <button type="button" class="btn btn-outline-secondary js-btn-step float-left" style="color:red;" data-dismiss="modal"><%= t('common.no') %></button>
+    </div>
+
+    <div class="col">
+      <%= bootstrap_form_with model: @patient,
+                              html: { id: 'cancel-pledge-form' },
+                              local: false,
+                              method: 'patch',
+                              class: 'edit_patient' do |f| %>
+        <%= f.hidden_field :marked_complete, value: false %>
+        <%= f.submit t('common.yes'), class: "btn btn-success js-btn-step float-right", id: 'cancel-pledge-submit'%>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -397,6 +397,12 @@ es:
         change: Cambiar (de -> a)
         modified_date: Fecha modificada
       title: Historia del paciente
+    complete:
+      body: "¿Este paciente está completo?"
+      cancel:
+        confirm: "¿Estás seguro de que deseas marcar a este paciente como incompleto?"
+        title: Marcar incompleto
+      title: Confirmar finalización
     dashboard:
       approx_gestation: 'Aprox la gestación en la cita: %{weeks} semanas %{days} días'
       called_on: 'Llamado en: %{date}'
@@ -502,6 +508,8 @@ es:
       call_log: Registro de Llamadas
       cancel_pledge: Cancelar Promesa
       change_log: Registro de Cambios
+      mark_complete: Marcar completo
+      mark_incomplete: Marcar incompleto
       notes: Notas
       patient_information: Información del Paciente
       pledge_fulfillment: Cumplimiento de la Promesa
@@ -585,6 +593,7 @@ es:
       status: Estatus
     status:
       help:
+        completed: El paciente ha sido marcado como completado para recibir apoyo práctico.
         dropoff: Paciente no ha sido escuchado en 120+ días.
         fulfilled: El paciente ha sido marcado cumplido.
         fundraising: El paciente tiene una cita y está trabajando para recaudar fondos.
@@ -595,6 +604,7 @@ es:
         pledge_unfulfilled: El paciente tenía una promesa enviada hace 150+ días, pero no la ha cobrado.
         resolved: El paciente ha decidido no involucrar al fondo en sus planes.
       key:
+        completed: Apoyo Completado
         dropoff: Probable Abandono
         fulfilled: Promesa Cumplida
         fundraising: Recaudación de fondos

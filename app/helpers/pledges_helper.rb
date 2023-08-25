@@ -16,6 +16,22 @@ module PledgesHelper
     end
   end
 
+  def mark_complete_button
+    content_tag :span, class: 'btn btn-primary btn-lg submit-btn btn-block',
+                       aria: { hidden: true },
+                       id: 'submit-pledge-button' do
+      t('patient.menu.mark_complete')
+    end 
+  end
+
+  def mark_incomplete_button
+    content_tag :span, class: 'btn btn-warning btn-lg cancel-btn btn-block',
+                       aria: { hidden: true },
+                       id: 'submit-pledge-button' do
+      t('patient.menu.mark_incomplete')
+    end 
+  end
+
   def clinic_pledge_email(patient)
     email = patient.clinic&.email_for_pledges
     return unless email
