@@ -8,7 +8,8 @@ class PracticalSupportTest < ActiveSupport::TestCase
                                        source: 'Metallica Abortion Fund'
     @patient.practical_supports.create support_type: 'Swag',
                                        source: 'YOLO AF',
-                                       confirmed: true
+                                       confirmed: true,
+                                       support_date: 2.days.from_now
     @patient.practical_supports.create support_type: 'Companion',
                                        source: 'Cat',
                                        amount: 32
@@ -32,17 +33,6 @@ class PracticalSupportTest < ActiveSupport::TestCase
         @psupport1[field.to_sym] = nil
         refute @psupport1.valid?
       end
-    end
-
-    it 'should enforce uniqueness of support_type' do
-      fields = attributes_for :practical_support, support_type: 'hello'
-      support1 = @patient.practical_supports.create fields
-      assert support1.valid?
-
-      support2 = @patient.practical_supports.new fields
-      refute support2.valid?
-      assert_equal ['has already been taken'],
-                   support2.errors.messages[:support_type]
     end
   end
 end

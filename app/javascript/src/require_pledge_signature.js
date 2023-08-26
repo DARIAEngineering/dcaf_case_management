@@ -11,4 +11,4 @@ const requirePledgeSignature = () => {
   });
 };
 
-$(document).on('turbolinks:load', requirePledgeSignature);
+$(document).on('DOMContentLoaded', requirePledgeSignature);

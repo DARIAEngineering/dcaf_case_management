@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '3.2.1'
+ruby '3.2.2'
 
 # Standard rails
-gem 'rails', '~> 7.0.0'
+gem 'rails', '~> 7.0.7'
 gem 'puma', '~> 6.0' # roar
 gem 'sdoc', '~> 2.6.0', group: :doc
 gem 'nokogiri', '>= 1.13.4'
@@ -24,7 +24,7 @@ gem 'bootstrap_form', '~> 4.5.0'
 
 # Our database is postgres
 gem 'pg', '~> 1.2'
-gem 'paper_trail', '~> 14.0'
+gem 'paper_trail', '~> 15.0'
 gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
@@ -44,7 +44,7 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 
 # Security libraries
-gem 'rack-attack', '~> 6.6.0'
+gem 'rack-attack', '~> 6.7.0'
 
 # For pagination
 gem 'kaminari', '~> 1.2'
@@ -104,7 +104,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
-  gem 'webdrivers'
 
   # Test coverage related libraries
   gem 'simplecov', require: false

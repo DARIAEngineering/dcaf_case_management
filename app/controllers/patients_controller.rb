@@ -64,6 +64,7 @@ class PatientsController < ApplicationController
       base: {
         patient: {
           name: @patient.name,
+          identifier: @patient.identifier,
           phone: @patient.primary_phone_display,
           appointment_date: @patient.appointment_date.display_date,
           fund_pledge: @patient.fund_pledge,
@@ -96,6 +97,7 @@ class PatientsController < ApplicationController
   def edit
     # i18n-tasks-use t('activerecord.attributes.practical_support.confirmed')
     # i18n-tasks-use t('activerecord.attributes.practical_support.source')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.support_date')
     # i18n-tasks-use t('activerecord.attributes.practical_support.support_type')
     # i18n-tasks-use t('activerecord.attributes.external_pledge.active')
     # i18n-tasks-use t('activerecord.attributes.external_pledge.amount')

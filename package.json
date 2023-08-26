@@ -1,24 +1,23 @@
 {
   "dependencies": {
-    "@fortawesome/fontawesome-free": "6.3.0",
-    "@popperjs/core": "2.11.6",
+    "@fortawesome/fontawesome-free": "6.4.0",
+    "@popperjs/core": "2.11.8",
     "bootstrap": "4.6.2",
-    "esbuild": "0.17.11",
-    "jquery": "3.6.4",
+    "esbuild": "0.19.0",
+    "jquery": "3.7.0",
     "jquery-ujs": "1.2.3",
     "popper.js": "1.16.1",
-    "sass": "1.59.2",
+    "sass": "1.65.1",
     "set-value": "4.1.0",
     "stupid-table-plugin": "1.1.3",
-    "turbolinks": "5.2.0",
-    "webpack": "5.75.0",
-    "webpack-cli": "5.0.1"
+    "webpack": "5.88.2",
+    "webpack-cli": "5.1.4"
   },
   "devDependencies": {
-    "eslint": "8.36.0",
+    "eslint": "8.46.0",
     "eslint-config-airbnb-base": "15.0.0",
-    "eslint-plugin-import": "2.27.5",
-    "webpack-dev-server": "3.11.3"
+    "eslint-plugin-import": "2.28.0",
+    "webpack-dev-server": "4.15.1"
   },
   "engines": {
     "node": ">=18.12.0",
@@ -26,7 +25,7 @@
   },
   "license": "MIT",
   "resolutions": {
-    "dot-prop": "^6.0.0",
+    "dot-prop": "^8.0.0",
     "eslint-utils": "^3.0.0",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.12",
@@ -34,11 +33,11 @@
     "serialize-javascript": "^6.0.0",
     "yargs-parser": "^21.0.0",
     "popper.js": "1.16.1",
-    "webpack": "4.46.0",
+    "webpack": "5.88.2",
     "y18n": "^5.0.0",
     "is-svg": "^5.0.0"
   },
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@3.6.1",
   "scripts": {
     "build": "./node_modules/esbuild/bin/esbuild ./app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"

@@ -4,4 +4,4 @@ const activateMultiModal = () => {
 
 };
 
-$(document).on('turbolinks:load', activateMultiModal);
+$(document).on('DOMContentLoaded', activateMultiModal);
