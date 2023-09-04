@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:recommended"],
   "reviewers": ["xmunoz"],
   "packageRules": [
     {
@@ -40,12 +38,8 @@
     },
     {
       "groupName": "sentry",
-      "matchPackagePatterns": [
-        "^devise",
-        "^omniauth-"
-      ],
+      "matchPackagePatterns": ["^devise", "^omniauth-"],
       "matchUpdateTypes": ["patch", "minor"]
     }
-
   ]
 }
