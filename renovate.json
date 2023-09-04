@@ -2,5 +2,50 @@
   "extends": [
     "config:base"
   ],
-  "reviewers": ["xmunoz"]
+  "reviewers": ["xmunoz"],
+  "packageRules": [
+    {
+      "groupName": "devDependencies (non-major)",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "groupName": "asset pipeline",
+      "matchPackagePatterns": [
+        "sprockets-rails",
+        "jsbundling-rails",
+        "cssbundling-rails",
+        "bootstrap_form"
+      ],
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "groupName": "database",
+      "matchPackagePatterns": [
+        "pg",
+        "paper_trail",
+        "activerecord-session_store"
+      ],
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "groupName": "devise and oauth",
+      "matchPackagePatterns": [
+        "devise",
+        "devise-security",
+        "omniauth-google-oauth2",
+        "omniauth-rails_csrf_protection"
+      ],
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "groupName": "sentry",
+      "matchPackagePatterns": [
+        "^devise",
+        "^omniauth-"
+      ],
+      "matchUpdateTypes": ["patch", "minor"]
+    }
+
+  ]
 }
