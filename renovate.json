@@ -3,8 +3,19 @@
   "reviewers": ["xmunoz"],
   "packageRules": [
     {
-      "groupName": "devDependencies (non-major)",
-      "matchDepTypes": ["devDependencies"],
+      "groupName": "Dev and Test",
+      "matchDepTypes": [
+        "devDependencies",
+        "development",
+        "test"
+      ],
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "groupName": "js-dependencies",
+      "matchDepTypes": [
+        "dependencies"
+      ],
       "matchUpdateTypes": ["patch", "minor"]
     },
     {
