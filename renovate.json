@@ -6,5 +6,8 @@
       "groupName": "all minor and patch",
       "matchUpdateTypes": ["patch", "minor"]
     }
+  ],
+  "schedule": [
+    "before 4am on Monday"
   ]
 }
