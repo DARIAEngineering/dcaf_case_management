@@ -9,6 +9,15 @@ class Clinic < ApplicationRecord
   # e.g. so a fund can have an 'OTHER CLINIC' catchall.
   EXCLUDED_ZIP = '99999'
 
+  encrypts :name, deterministic: true
+  encrypts :street_address
+  encrypts :city
+  encrypts :state
+  encrypts :zip
+  encrypts :phone
+  encrypts :fax
+  encrypts :email_for_pledges
+
   # Scopes
   # Is gestational_limit either nil or above x?
   scope :gestational_limit_above, ->(gestation) {
