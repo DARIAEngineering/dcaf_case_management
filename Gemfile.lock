@@ -286,7 +286,7 @@ GEM
     psych (5.0.2)
       stringio
     public_suffix (5.0.1)
-    puma (6.3.1)
+    puma (6.4.0)
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
@@ -476,7 +476,7 @@ DEPENDENCIES
   pg (~> 1.2)
   prawn
   pry
-  puma (~> 6.0)
+  puma (~> 6.4)
   rack-attack (~> 6.7.0)
   rack-test (>= 0.6.3)
   rails (~> 7.0.7)
