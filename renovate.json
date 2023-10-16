@@ -1,13 +1,9 @@
 {
-  "extends": ["config:recommended"],
-  "reviewers": ["xmunoz"],
-  "packageRules": [
-    {
-      "groupName": "all minor and patch",
-      "matchUpdateTypes": ["patch", "minor"]
-    }
+  "extends": [
+    "config:recommended"
   ],
   "schedule": [
     "before 4am on Monday"
-  ]
+  ],
+  "reviewers": ["xmunoz"]
 }
