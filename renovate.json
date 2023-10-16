@@ -2,5 +2,8 @@
   "extends": [
     "config:recommended"
   ],
+  "schedule": [
+    "before 4am on Monday"
+  ],
   "reviewers": ["xmunoz"]
 }
