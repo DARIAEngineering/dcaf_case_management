@@ -101,9 +101,9 @@ GEM
     bigdecimal (3.1.4)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    bootstrap_form (4.5.0)
-      actionpack (>= 5.2)
-      activemodel (>= 5.2)
+    bootstrap_form (5.3.2)
+      actionpack (>= 6.1)
+      activemodel (>= 6.1)
     builder (3.2.4)
     bullet (7.1.1)
       activesupport (>= 3.0.0)
@@ -464,7 +464,7 @@ DEPENDENCIES
   activerecord-session_store
   acts_as_tenant (~> 0.5.0)
   bootsnap (>= 1.4.2)
-  bootstrap_form (~> 4.5.0)
+  bootstrap_form (~> 5.3.2)
   bullet
   bundler-audit
   byebug
