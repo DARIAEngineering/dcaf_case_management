@@ -10,9 +10,9 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      minor-patch:
+      ruby-minor-patch:
         exclude-patterns:
-          - "@acts_as_tenant*" # DARIAEngineering/dcaf_case_management#3078
+          - "acts_as_tenant" # DARIAEngineering/dcaf_case_management#3078
         update-types:
           - "minor"
           - "patch"
@@ -26,7 +26,7 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      minor-patch:
+      js-minor-patch:
         update-types:
           - "minor"
           - "patch"
