@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.2.2'
 
 # Standard rails
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 7.1.1'
 gem 'puma', '~> 6.4' # roar
 gem 'sdoc', '~> 2.6.0', group: :doc
 gem 'nokogiri', '>= 1.13.4'
@@ -28,13 +28,13 @@ gem 'paper_trail', '~> 15.0'
 gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.8'
+gem 'devise', '~> 4.9'
 gem 'devise-security'
 gem 'omniauth-google-oauth2', '~> 1.1.1'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Run multiple funds on one server
-gem 'acts_as_tenant', '~> 0.5.0'
+gem 'acts_as_tenant', '~> 0.6.1'
 
 # Strong Password for user password validation for folks not on oauth
 gem 'strong_password', '~> 0.0.10'
@@ -70,7 +70,7 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
-  gem 'i18n-tasks', '~> 1.0.0' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 1.0.13' # check and clean i18n keys
   gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5'
