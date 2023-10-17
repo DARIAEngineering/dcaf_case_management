@@ -11,8 +11,8 @@ updates:
       interval: "weekly"
     groups:
       minor-patch:
-        patterns:
-          - "*"
+        exclude-patterns:
+          - "@acts_as_tenant*" # DARIAEngineering/dcaf_case_management#3078
         update-types:
           - "minor"
           - "patch"
