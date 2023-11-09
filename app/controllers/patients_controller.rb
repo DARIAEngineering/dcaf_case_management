@@ -1,5 +1,6 @@
 # Create, edit, and update patients. The main patient view is edit.
 class PatientsController < ApplicationController
+  include ActionController::Live
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
   before_action :find_patient, only: [:edit, :update]
@@ -209,20 +210,19 @@ class PatientsController < ApplicationController
   def render_csv
     now = Time.zone.now.strftime('%Y%m%d')
     csv_filename = "patient_data_export_#{now}.csv"
-    set_headers(csv_filename)
+    set_headers()
 
     response.status = 200
 
-    self.response_body = Enumerator.new do |y|
-      Patient.csv_header.each { |e| y << e }
-      Patient.to_csv.each { |e| y << e }
-      ArchivedPatient.to_csv.each { |e| y << e }
+    send_stream(filename: "#{csv_filename}") do |y|
+      Patient.csv_header.each { |e| y.write e }
+      Patient.to_csv.each { |e| y.write e }
+      ArchivedPatient.to_csv.each { |e| y.write e }
     end
   end
 
-  def set_headers(filename)
+  def set_headers()
     headers["Content-Type"] = "text/csv"
-    headers["Content-disposition"] = "attachment; filename=\"#{filename}\""
     headers['X-Accel-Buffering'] = 'no'
     headers["Cache-Control"] = "no-cache"
     headers[Rack::ETAG] = nil # Without this, data doesn't stream

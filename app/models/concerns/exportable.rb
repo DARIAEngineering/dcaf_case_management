@@ -196,7 +196,7 @@ module Exportable
     shaped_supports.join('; ')
   end
 
-  PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]
+  PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
   ARCHIVED_PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
 
   class_methods do
