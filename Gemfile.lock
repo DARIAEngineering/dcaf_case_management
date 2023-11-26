@@ -464,7 +464,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
-  acts_as_tenant (~> 0.5)
+  acts_as_tenant (~> 0.6)
   bootsnap (>= 1.4.2)
   bootstrap_form (~> 4.5.0)
   bullet
