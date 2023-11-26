@@ -12,6 +12,9 @@ class ApplicationController < ActionController::Base
   if Rails.env.development?
     before_action :confirm_tenant_set_development
   end
+  if Rails.env.test?
+    before_action :confirm_tenant_set_test
+  end
   before_action :redirect_if_legacy
   before_action :confirm_tenant_set
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -45,6 +48,17 @@ class ApplicationController < ActionController::Base
       ActsAsTenant.current_tenant = Fund.find_by! name: 'CatFund'
     end
   end
+
+  # In development only, set first fund as tenant by default.
+  def confirm_tenant_set_test
+    # If you need to access the other fund in dev, hit catbox.lvh.me:3000
+    # to tunnel in.
+    if ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
+      # If this errors, make sure you've run rails db:seed to populate db!
+      ActsAsTenant.current_tenant = Fund.find_by! name: 'CATF'
+    end
+  end
+
 
   # allowlist attributes in devise
   def configure_permitted_parameters
