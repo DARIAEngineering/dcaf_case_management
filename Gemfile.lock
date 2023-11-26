@@ -83,7 +83,7 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    acts_as_tenant (0.5.1)
+    acts_as_tenant (0.6.1)
       rails (>= 5.2)
       request_store (>= 1.0.5)
     addressable (2.8.4)
@@ -189,7 +189,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
     io-console (0.6.0)
-    irb (1.9.0)
+    irb (1.9.1)
       rdoc
       reline (>= 0.3.8)
     jsbundling-rails (1.2.1)
@@ -241,7 +241,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     mutex_m (0.2.0)
-    net-imap (0.4.5)
+    net-imap (0.4.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -250,7 +250,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
+    nio4r (2.6.1)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -464,7 +464,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
-  acts_as_tenant (~> 0.5.0)
+  acts_as_tenant (~> 0.5)
   bootsnap (>= 1.4.2)
   bootstrap_form (~> 4.5.0)
   bullet
