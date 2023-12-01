@@ -22,7 +22,8 @@ class Config < ApplicationRecord
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
     hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
-    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico."
+    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.",
+    days_until_delete: "Number of days (after initial entry) until patients are deleted. Leave blank to never delete old patients.",
   }.freeze
 
   enum config_key: {
@@ -46,7 +47,8 @@ class Config < ApplicationRecord
     aggregate_statistics: 17,
     hide_standard_dropdown_values: 18,
     county: 19,
-    time_zone: 20
+    time_zone: 20,
+    days_until_delete: 21,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -100,6 +102,8 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_patient_archive],
     shared_reset:
       [:validate_singleton, :validate_shared_reset],
+    days_until_delete:
+      [:validate_singleton, :validate_number],
 
     hide_budget_bar:
       [:validate_singleton, :validate_yes_or_no],
@@ -159,6 +163,11 @@ class Config < ApplicationRecord
     tz = Config.find_or_create_by(config_key: 'time_zone').options.try :last
     tz ||= "Eastern"
     ActiveSupport::TimeZone.new(TIME_ZONE[tz])
+  end
+
+  def self.days_until_delete
+    delete_days = Config.find_or_create_by(config_key: 'days_until_delete').options.try :last
+    delete_days.blank? ? nil : delete_days.to_i
   end
 
   def self.archive_fulfilled_patients
@@ -242,6 +251,7 @@ class Config < ApplicationRecord
     end
 
     # generic validator for numerics
+    # note: this does NOT validate negative numbers or decimals
     def validate_number
       options.last =~ /\A\d+\z/
     end

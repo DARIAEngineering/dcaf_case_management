@@ -14,6 +14,7 @@ class Patient < ApplicationRecord
   include Statusable
   include Exportable
   include EventLoggable
+  include Autodeletable
 
   # Callbacks
   before_validation :clean_fields
@@ -214,7 +215,7 @@ class Patient < ApplicationRecord
       initial_call_date + Config.archive_all_patients.days
     end
   end
-
+  
   def recent_history_tracks
     versions.where(updated_at: 6.days.ago..)
   end
@@ -294,4 +295,5 @@ class Patient < ApplicationRecord
       errors.add(:special_circumstances, 'is invalid') if value && value.length > 50
     end
   end
+
 end
