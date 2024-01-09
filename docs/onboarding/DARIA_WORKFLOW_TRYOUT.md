@@ -9,7 +9,7 @@ DARIA is designed around a warm-line process, where case managers are checking v
 * Go to [sandbox.dariaservices.com](https://sandbox.dariaservices.com).
 * Use the username `test@example.com` and the password `AbortionsAreAHumanRight1`.
 * Click the `Sign in with Password` button.
-* Select the `DC` line and click `Get Started`.
+* Select the `Main` line and click `Get Started`.
 
 ## Using your call list
 
