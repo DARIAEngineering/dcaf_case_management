@@ -9,7 +9,8 @@ ENV DARIA_DIR=/usr/src/app \
     AHAB_DEPENDENCIES="ca-certificates curl" \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
-    DOCKER=true
+    DOCKER=true \
+    NODE_MAJOR=18
 
 # get our gem house in order
 WORKDIR ${DARIA_DIR}
@@ -26,8 +27,11 @@ RUN apt-get update && apt-get upgrade -y && \
     ${AHAB_DEPENDENCIES} && \
     gem install bundler --no-document
 
-# get version 18 of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
+# nodejs installation
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN apt-get update
 RUN apt-get install nodejs -y
 
 # set up yarn
