@@ -96,6 +96,7 @@ es:
         special_circumstances: Circunstancias Especiales
         state: Estado
         support_type: Tipo de soporte
+        support_date: Fecha del soporte
         textable: Textable
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal

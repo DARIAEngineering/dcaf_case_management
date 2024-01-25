@@ -52,7 +52,7 @@ en:
         audited: Audited
         check_number: Check number
         city: City
-        clinic_id: Clinic_Id
+        clinic_id: Clinic ID
         completed_ultrasound: Completed ultrasound?
         confirmed: Confirmed
         county: County
@@ -96,6 +96,7 @@ en:
         special_circumstances: Special circumstances
         state: State
         support_type: Support type
+        support_date: Support date
         textable: Textable
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
