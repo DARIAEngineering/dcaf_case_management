@@ -95,8 +95,8 @@ en:
         source: Source
         special_circumstances: Special circumstances
         state: State
-        support_type: Support type
         support_date: Support date
+        support_type: Support type
         textable: Textable
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
