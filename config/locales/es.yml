@@ -95,6 +95,7 @@ es:
         source: Fuente
         special_circumstances: Circunstancias Especiales
         state: Estado
+        support_date: Fecha del soporte
         support_type: Tipo de soporte
         textable: Textable
         voicemail_preference: Preferencia de correo de voz
