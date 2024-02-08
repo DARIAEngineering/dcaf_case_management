@@ -10,7 +10,7 @@ ENV DARIA_DIR=/usr/src/app \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
     DOCKER=true \
-    NODE_MAJOR=18
+    NODE_MAJOR=20
 
 # get our gem house in order
 WORKDIR ${DARIA_DIR}
