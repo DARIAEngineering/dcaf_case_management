@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <% unless Config.hide_budget_bar? %>
+    <% unless Config.hide_budget_bar? or Config.practical_support_mode? %>
       <%= render partial: 'dashboards/overview' %>
     <% end %>
     <%= render partial: 'dashboards/search_form' %>

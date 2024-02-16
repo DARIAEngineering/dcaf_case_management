@@ -1,0 +1,17 @@
+$('.modal-content').html('')
+$('.modal').attr('id', 'pledge-modal')
+$('.modal-content').append(
+  '<%= escape_javascript(render partial: "patients/complete", locals: { patient: @patient, disable_next: disable_continue?(@patient) })%>'
+);
+
+$('.modal').modal('toggle');
+
+<% if (!@patient.marked_complete) %>
+
+  $('#pledge-modal').modalSteps();
+  
+<% else %>
+  $('#cancel-pledge-form').on('submit', function() {
+    $('.modal').modal('hide');
+  })
+<% end %>

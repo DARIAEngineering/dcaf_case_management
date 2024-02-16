@@ -20,10 +20,13 @@ module Statusable
     dropoff: { key: I18n.t('patient.status.key.dropoff'),
                help_text: I18n.t('patient.status.help.dropoff')},
     resolved: { key: I18n.t('patient.status.key.resolved', fund: ActsAsTenant.current_tenant&.name),
-                help_text: I18n.t('patient.status.help.resolved')}
+                help_text: I18n.t('patient.status.help.resolved')},
+    completed: { key: I18n.t('patient.status.key.completed'),
+                 help_text: I18n.t('patient.status.help.completed') },
   }.freeze
 
   def status
+    return STATUSES[:completed][:key] if practical_support_completed?
     return STATUSES[:fulfilled][:key] if fulfillment.fulfilled?
     return STATUSES[:resolved][:key] if resolved_without_fund?
     return STATUSES[:pledge_unfulfilled][:key] if days_since_pledge_sent > 150
@@ -35,6 +38,10 @@ module Statusable
   end
 
   private
+
+  def practical_support_completed?
+    Config.practical_support_mode? && marked_complete?
+  end
 
   def contact_made?
     calls.each do |call|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_27_181226) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_194816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -304,6 +304,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_181226) do
     t.bigint "line_id", null: false
     t.boolean "solidarity"
     t.string "solidarity_lead"
+    t.boolean "marked_complete"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"

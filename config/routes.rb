@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     end
 
     get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
+    get 'patients/:patient_id/mark_complete', to: 'patients#complete', as: 'mark_complete'
 
     get 'data_entry', to: 'patients#data_entry', as: 'data_entry' # temporary
     post 'data_entry', to: 'patients#data_entry_create', as: 'data_entry_create' # temporary
