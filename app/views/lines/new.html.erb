@@ -4,8 +4,12 @@
 
     <%= bootstrap_form_with url: lines_path, local: true, class: 'line-select-form' do |f| %>
       <%= f.form_group :line_id, label: { text: t('lines.new.what_line') } do %>
-        <% @lines.each do |line| %>
-          <%= f.radio_button :line_id, line.id, label: line.name %>
+        <% @lines.each_with_index do |line, index| %>
+          <% if index == 0 %>
+            <%= f.radio_button :line_id, line.id, label: line.name, checked: true %>
+          <% else %>
+            <%= f.radio_button :line_id, line.id, label: line.name %>
+          <% end %>
         <% end %>
       <% end %>
       <%= f.submit t('lines.new.start'), class: 'btn-lg btn-primary' %>
