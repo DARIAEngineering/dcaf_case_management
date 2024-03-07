@@ -76,7 +76,8 @@ module WelcomeMessageHelper
       "Thank you for being there for those seeking abortions, and for treating everyone with compassion and respect.",
       "Without you, this work would not be possible. Thank you for making the world a better place.",
       "It's a bird! It's a plane! It's a case manager!!! 🦸🏽",
-      "Your work is more than a service; it's a lifeline. Thank you for being a steadfast advocate for choice and compassion."
+      "Your work is more than a service; it's a lifeline. Thank you for being a steadfast advocate for choice and compassion.",
+      "本当にありがございます。Thank you for everything, you are helping the world and we are behind you all the way!"
     ]
   end
 end
