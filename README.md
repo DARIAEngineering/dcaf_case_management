@@ -1,7 +1,7 @@
 # DARIA Case Manager
 ![GithubActions Workflow](https://github.com/DARIAEngineering/dcaf_case_management/actions/workflows/test_dev_env.yml/badge.svg)
 
-## Are you from an abortion fund and are interested in seeing this will work for you?
+## Are you from an abortion fund and interested in seeing if this will work for you?
 
 You can reach us on the [Code for DC slack](https://civictechdc.org/slack), in the `#daria` channel or contact us via our [website](https://www.dariaservices.org/). Please reach out!
 
