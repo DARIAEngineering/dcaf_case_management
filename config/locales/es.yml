@@ -80,6 +80,7 @@ es:
         other_phone: Otro teléfono
         patient_contribution: Contribución del paciente
         pledge_generated_at: Promesa generada en
+        pledge_generated_by_id: Promesa generada por
         pledge_sent: Promeso enviada
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
