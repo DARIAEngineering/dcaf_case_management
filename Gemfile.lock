@@ -155,7 +155,7 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    faker (3.2.3)
+    faker (3.3.0)
       i18n (>= 1.8.11, < 2)
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
@@ -251,7 +251,7 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-smtp (0.4.0.1)
+    net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.0)
     nokogiri (1.16.3)
@@ -266,15 +266,15 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    omniauth (2.1.1)
+    omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
-    omniauth-google-oauth2 (1.1.1)
+    omniauth-google-oauth2 (1.1.2)
       jwt (>= 2.0)
-      oauth2 (~> 2.0.6)
+      oauth2 (~> 2.0)
       omniauth (~> 2.0)
-      omniauth-oauth2 (~> 1.8.0)
+      omniauth-oauth2 (~> 1.8)
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
@@ -315,8 +315,9 @@ GEM
     rack (3.0.10)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
-    rack-protection (3.0.5)
-      rack
+    rack-protection (4.0.0)
+      base64 (>= 0.1.0)
+      rack (>= 3.0.0, < 4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -398,7 +399,7 @@ GEM
     rubyzip (2.3.2)
     sdoc (2.6.1)
       rdoc (>= 5.0)
-    selenium-webdriver (4.18.1)
+    selenium-webdriver (4.19.0)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -451,7 +452,7 @@ GEM
     unicode-display_width (2.5.0)
     uniform_notifier (1.16.0)
     uri (0.13.0)
-    version_gem (1.1.1)
+    version_gem (1.1.4)
     warden (1.2.9)
       rack (>= 2.0.9)
     webrick (1.8.1)
@@ -504,7 +505,7 @@ DEPENDENCIES
   net-pop
   net-smtp
   nokogiri (>= 1.13.4)
-  omniauth-google-oauth2 (~> 1.1.1)
+  omniauth-google-oauth2 (~> 1.1.2)
   omniauth-rails_csrf_protection (~> 1.0)
   paper_trail (~> 15.1)
   pdf-inspector
