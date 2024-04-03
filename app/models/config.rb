@@ -5,8 +5,7 @@ class Config < ApplicationRecord
   # Concerns
   include PaperTrailable
 
-  # Define overrides for particular config fields.
-  # Useful if there is no `_options` method.
+  # Define overrides for particular config fields help text.
   HELP_TEXT_OVERRIDES = {
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
                    'Ex: https://drive.google.com/drive/my-resource-dir',
@@ -22,8 +21,24 @@ class Config < ApplicationRecord
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
     hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
-    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico."
+    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.",
+    procedure_type: "Any kind of distinction in procedure your fund would like to track. Field hides if no options " \
+                    "are added here. Please separate with commas.",
   }.freeze
+
+  # Whether a config should show a current options dropdown to the right
+  # Must have a `_options` method implemented
+  SHOW_CURRENT_OPTIONS = [
+    :county,
+    :external_pledge_source,
+    :insurance,
+    :language,
+    :pledge_limit_help_text,
+    :practical_support,
+    :procedure_type,
+    :referred_by,
+    :voicemail,
+  ]
 
   enum config_key: {
     insurance: 0,
