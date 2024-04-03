@@ -46,7 +46,8 @@ class Config < ApplicationRecord
     aggregate_statistics: 17,
     hide_standard_dropdown_values: 18,
     county: 19,
-    time_zone: 20
+    time_zone: 20,
+    procedure_type: 21,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -74,6 +75,8 @@ class Config < ApplicationRecord
     voicemail:
       [:validate_length],
     county:
+      [:validate_length],
+    procedure_type:
       [:validate_length],
 
     start_of_week:

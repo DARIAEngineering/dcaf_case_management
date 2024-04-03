@@ -85,6 +85,7 @@ class ArchivedPatient < ApplicationRecord
       race_ethnicity: patient.race_ethnicity,
       employment_status: patient.employment_status,
       insurance: patient.insurance,
+      procedure_type: patient.procedure_type,
       income: patient.income,
       language: patient.language,
       voicemail_preference: patient.voicemail_preference,
