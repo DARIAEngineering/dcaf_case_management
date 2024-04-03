@@ -14,4 +14,4 @@ Once you've done this, Sign In with Google functionality should start working fo
 
 Note that unlike a lot of Google SSO builds, our Sign In With Google functionality doesn't automatically create an account; you'll need to have an account associated with that email address persisted in the database already.
 
-BUT WAIT! What about Docker?! Never fear, these environment variables will get passed through to the docker image if you are using docker-compose up. 
+BUT WAIT! What about Docker?! Never fear, these environment variables will get passed through to the docker image if you are using docker compose up. 

@@ -19,9 +19,9 @@ For the rest of the setup, you have two options: Docker, or installing everythin
 
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
-* `docker-compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
-* `docker-compose run --rm web rails db:drop db:create db:migrate db:seed # to populate the database`
-* `docker-compose up`
+* `docker compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
+* `docker compose run --rm web rails db:drop db:create db:migrate db:seed # to populate the database`
+* `docker compose up`
 
 The last command will take a moment and should print a number of things. When it's ready
 to go, it should say something like:
@@ -33,7 +33,7 @@ take a minute or two for resources to compile and load, but it should eventually
 
 Any errors will show up in your terminal in the window you are running the `up` command in.
 
-If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
+If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker compose up` again.
 
 If you're using a Windows 10 machine to run docker, we strongly suggest downloading and using [Docker-Desktop](https://www.docker.com/products/docker-desktop).
 The Docker-Desktop experience on Windows 10 is mostly very smooth these days, but there are a couple common "gotchas" we've seen while developing this (and other) apps. One of our core maintainers keeps additional info on this [here](https://github.com/mdworken/MKD-Docker-Windows-Rails). If you run into issues that are not covered there, or if you have suggestions to improve the readability of the repo, please let us know! We're happy to help debug, and once we understand the issues you've seen, you'll have helped future users who may encounter the same issue.
