@@ -52,7 +52,7 @@
               label_class: 'tooltip-header-input',
             },
             data: {'tooltip-text': solidarity_lead_help_text } %>
-        <% if show_procedure_type? %>
+        <% if procedure_type_options.present? %>
           <%= f.select :procedure_type,
             options_for_select(procedure_type_options(patient.procedure_type),
                                patient.procedure_type),

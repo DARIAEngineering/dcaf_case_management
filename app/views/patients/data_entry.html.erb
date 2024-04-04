@@ -115,7 +115,7 @@
                label: t('patient.helper.referred_by.title'),
                autocomplete: 'off' %>
 
-  <% if show_procedure_type? %>
+  <% if procedure_type_options.present? %>
     <%= f.select :procedure_type,
       options_for_select(procedure_type_options),
       label: t('patient.information.procedure_type') %>

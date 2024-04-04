@@ -86,6 +86,7 @@ en:
         primary_phone: Primary phone
         procedure_cost: Procedure cost
         procedure_date: Procedure date
+        procedure_type: Procedure type
         pronouns: Pronouns
         race_ethnicity: Race / Ethnicity
         referred_by: Referred by
