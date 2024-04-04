@@ -364,6 +364,7 @@ es:
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
         naf_only_toggle: Enseñar solo clínicas de la NAF
         not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
+        procedure_type: Tipo de procedimiento
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         solidarity: Promesa solidaria

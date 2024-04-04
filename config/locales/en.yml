@@ -364,6 +364,7 @@ en:
         medicaid_only_toggle: Enable only Medicaid clinics
         naf_only_toggle: Enable only NAF clinics
         not_currently_working_with_fund: "(Not currently working with %{fund}) - %{clinic_name}"
+        procedure_type: Procedure type
         referred_to_clinic: Referred to clinic
         resolved_without_fund: Resolved without assistance from %{fund}
         solidarity: Solidarity Pledge
