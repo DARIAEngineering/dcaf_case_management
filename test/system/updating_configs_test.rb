@@ -267,5 +267,36 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         end
       end
     end
+
+    describe 'updating a config - procedure_type' do
+      it 'should display dropdown if procedure types are specified' do
+        fill_in 'config_options_procedure_type', with: 'Dog, Cat, Turtle'
+        click_button 'Update options for Procedure type'
+
+        @patient.procedure_type = 'Dog'
+        @patient.save!
+
+        visit edit_patient_path @patient
+        click_link 'Abortion Information'
+
+        within :css, "#abortion-information-form-1" do
+          assert has_select? with_options: %w[Dog Cat Turtle],
+                             selected: 'Dog'
+        end
+      end
+
+      it 'should hide the dropdown when config removed' do
+        # no config, so we should get a text box
+        fill_in 'config_options_procedure_type', with: ''
+        click_button 'Update options for Procedure type'
+
+        visit edit_patient_path @patient
+        click_link 'Abortion Information'
+
+        within :css, "#abortion-information-form-1" do
+          refute has_content? 'Procedure type'
+        end
+      end
+    end
   end
 end

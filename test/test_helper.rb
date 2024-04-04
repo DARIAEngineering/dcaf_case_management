@@ -48,12 +48,17 @@ class ActiveSupport::TestCase
                     config_value: { options: insurance_options }
   end
 
+  def create_procedure_type_config(procedure_type_options)
+    create :config, config_key: 'procedure_type',
+                    config_value: { options: procedure_type_options }
+  end
+
   def create_county_config
     county_options = ['Arlington', 'Fairfax', 'Montgomery']
       create :config, config_key: 'county',
                       config_value: { options: county_options }
   end
-  
+
   def create_practical_support_config
     practical_support_options = ['Metallica Tickets', 'Clothing']
     create :config, config_key: 'practical_support',
