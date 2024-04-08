@@ -99,6 +99,14 @@ module PatientsHelper
     options_plus_current(full_set, current_value)
   end
 
+  def procedure_type_options(current_value = nil)
+    procedure_type_options = Config.find_or_create_by(config_key: 'procedure_type').options
+
+    return [] if procedure_type_options.blank?
+
+    options_plus_current([nil] + procedure_type_options, current_value)
+  end
+
   def income_options
     [nil,
      [ t('patient.helper.income.under_10'), 'Under $9,999'],

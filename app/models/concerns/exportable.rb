@@ -22,6 +22,7 @@ module Exportable
     "Minors in Household" => :get_household_size_children,
     "Adults in Household" => :get_household_size_adults,
     "Insurance" => :insurance,
+    "Procedure Type" => :procedure_type,
     "Income" => :income,
     "Referred By" => :referred_by,
     "Referred to clinic by fund" => :referred_to_clinic,

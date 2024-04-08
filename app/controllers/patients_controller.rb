@@ -176,7 +176,7 @@ class PatientsController < ApplicationController
     :city, :state, :county, :zipcode, :other_contact, :other_phone,
     :other_contact_relationship, :employment_status, :income,
     :household_size_adults, :household_size_children, :insurance, :referred_by,
-    special_circumstances: []
+    :procedure_type, special_circumstances: []
   ].freeze
 
   ABORTION_INFORMATION_PARAMS = [

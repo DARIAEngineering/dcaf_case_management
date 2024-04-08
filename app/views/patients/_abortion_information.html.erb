@@ -52,6 +52,12 @@
               label_class: 'tooltip-header-input',
             },
             data: {'tooltip-text': solidarity_lead_help_text } %>
+        <% if procedure_type_options.present? %>
+          <%= f.select :procedure_type,
+            options_for_select(procedure_type_options(patient.procedure_type),
+                               patient.procedure_type),
+            label: t('patient.abortion_information.clinic_section.procedure_type') %>
+        <% end %>
       </div>
     </div>
   <% end %>
