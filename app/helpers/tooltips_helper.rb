@@ -70,4 +70,8 @@ module TooltipsHelper
   def solidarity_lead_help_text
     t('tooltips.solidarity_lead').strip
   end
+
+  def patient_identifier_help_text
+    t('tooltips.patient_identifier').strip
+  end
 end

@@ -480,6 +480,7 @@ en:
         other: "%{count} weeks"
     information:
       household_help: "(including patient)"
+      identifier: Identifier
       income_help: Employment, Food Stamps, SS, TANF, etc.
       insurance: Patient insurance
       language: Preferred Language
@@ -613,6 +614,7 @@ en:
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
     completed_calls: This is a list of patients you have called within the last 8 hours.
     mandatory_ultrasound: If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.
+    patient_identifier: Semi-unique internal identifier for this patient, based on their phone number.
     record_new_external_pledge: External pledges is our term for pledges by other abortion funds also working with a patient.
     referred_to_clinic: Check this box if you as a case manager referred the patient to a particular clinic.
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
