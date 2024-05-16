@@ -18,5 +18,7 @@ import './src/multistep_modal';
 import './src/pledge_calculator';
 import './src/require_pledge_signature';
 import './src/table_sorting';
-import './src/toggle_full_call_list';
 import './src/tooltips';
+
+// React
+import './src/components/ViewAllCallsToggle';

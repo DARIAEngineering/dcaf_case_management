@@ -84,3 +84,10 @@ a:hover, a:active, a:visited, a:focus {
     max-width: 85% !important;
   }
 }
+
+.btn.btn-link {
+  outline: none;
+  padding: 0px;
+  border: 0px;
+  background-color: transparent;
+}

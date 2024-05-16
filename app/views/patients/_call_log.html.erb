@@ -50,7 +50,5 @@
     </tbody>
   </table>
 
-  <% if @patient.old_calls.count > 0 %>
-    <div id="toggle-call-log">View all calls</div>
-  <% end %>
+  <%= render ReactComponent.new("ViewAllCallsToggle", raw_props: { oldCallsCount: @patient.old_calls.count }) %>
 </div>
