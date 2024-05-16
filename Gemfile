@@ -61,6 +61,7 @@ gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
 gem 'state_geo_tools' # state list 
 gem 'httparty' # easier http calls
+gem 'view_component', '~> 3.12' # build reusable & encapsulated view components in Ruby
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
