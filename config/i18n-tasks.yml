@@ -98,12 +98,9 @@ search:
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
-# ignore_unused:
-# - 'activerecord.attributes.*'
-# - '{devise,kaminari,will_paginate}.*'
-# - 'simple_form.{yes,no}'
-# - 'simple_form.{placeholders,hints,labels}.*'
-# - 'simple_form.{error_notification,required}.:'
+ignore_unused:
+- 'patient.call_log.table.view_more'
+- 'patient.call_log.table.view_less'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
 # ignore_eq_base:
