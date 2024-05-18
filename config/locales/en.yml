@@ -389,6 +389,8 @@ en:
         remove_button: Remove
         result: RESULT
         time: TIME
+        view_less: Limit list
+        view_more: View all calls
       title: Call Log
     change_log:
       objects:

@@ -389,6 +389,8 @@ es:
         remove_button: Retirar
         result: RESULTADO
         time: HORA
+        view_less: Limitar la lista
+        view_more: Ver todas las llamadas
       title: Registro de Llamadas
     change_log:
       objects:

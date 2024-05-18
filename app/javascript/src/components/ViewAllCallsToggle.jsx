@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import mount from "../mount";
+import { usei18n } from "../hooks";
 
 const ViewAllCallsToggle = ({ oldCallsCount }) => {
-  console.log(`oldCallsCount: ${oldCallsCount}`);
+  const i18n = usei18n();
+
   if (oldCallsCount <= 0) return null;
 
   const [showOldCalls, setShowOldCalls] = useState(false)
@@ -13,10 +15,10 @@ const ViewAllCallsToggle = ({ oldCallsCount }) => {
     oldCallsElements.forEach(el => el.classList.toggle("d-none"));
     setShowOldCalls(!showOldCalls)
   }
-  
+
   return (
     <button className="btn btn-link" onClick={toggleCallLog}>
-      { showOldCalls ? "Limit list" : "View all calls" }
+      {showOldCalls ? i18n.t('patient.call_log.table.view_less') : i18n.t('patient.call_log.table.view_more')}
     </button>
   )
 };
