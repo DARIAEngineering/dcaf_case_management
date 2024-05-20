@@ -98,9 +98,12 @@ search:
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
-ignore_unused:
-- 'patient.call_log.table.view_more'
-- 'patient.call_log.table.view_less'
+# ignore_unused:
+# - 'activerecord.attributes.*'
+# - '{devise,kaminari,will_paginate}.*'
+# - 'simple_form.{yes,no}'
+# - 'simple_form.{placeholders,hints,labels}.*'
+# - 'simple_form.{error_notification,required}.:'
 
 ## Exclude these keys from the `i18n-tasks eq-base' report:
 # ignore_eq_base:
@@ -129,3 +132,8 @@ ignore_unused:
 #
 # <%# I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
 #       patterns: [['\bSpree\.t[( ]\s*%{key}', 'spree.%{key}']] %>
+
+<% I18n::Tasks.add_scanner 'I18n::Tasks::Scanners::PatternMapper',
+      paths: ['app/javascript'],
+      only: %w(*.jsx),
+      patterns: [['\bi18n\.t\(\s*%{key}', '%{key}']] %>
