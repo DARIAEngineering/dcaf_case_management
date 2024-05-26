@@ -1,0 +1,1 @@
+export { default as usei18n } from './usei18n'
