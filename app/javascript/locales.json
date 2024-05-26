@@ -6665,9 +6665,7 @@
           "date": "DATE",
           "remove_button": "Remove",
           "result": "RESULT",
-          "time": "TIME",
-          "view_less": "Limit list",
-          "view_more": "View all calls heyo"
+          "time": "TIME"
         },
         "title": "Call Log"
       },
@@ -10987,9 +10985,7 @@
           "date": "FECHA",
           "remove_button": "Retirar",
           "result": "RESULTADO",
-          "time": "HORA",
-          "view less": "Limitar la lista",
-          "view_more": "Ver todas las llamadas"
+          "time": "HORA"
         },
         "title": "Registro de Llamadas"
       },
