@@ -351,7 +351,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_174820) do
     t.decimal "amount", precision: 8, scale: 2
     t.date "support_date"
     t.string "attachment_url", comment: "A link to a fund's stored receipt for this particular entry"
-    t.string "fulfilled", comment: "An indicator that a particular practical support is fulfilled, completed, or paid out."
+    t.boolean "fulfilled", comment: "An indicator that a particular practical support is fulfilled, completed, or paid out."
     t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
     t.index ["fund_id"], name: "index_practical_supports_on_fund_id"
   end
