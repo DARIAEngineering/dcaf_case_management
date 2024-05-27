@@ -5,6 +5,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     @line = create :line
     @user = create :user
     @patient = create :patient, line: @line
+    create_display_practical_support_attachment_url_config
   end
 
   describe 'creating a new practical support entry' do
