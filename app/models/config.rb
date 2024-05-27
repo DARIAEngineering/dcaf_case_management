@@ -24,6 +24,7 @@ class Config < ApplicationRecord
     time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.",
     procedure_type: "Any kind of distinction in procedure your fund would like to track. Field hides if no options " \
                     "are added here. Please separate with commas.",
+    display_attachment_url: 'CAUTION: Whether or not to allow people to enter attachment URLs for practical support entries; for example, a link to a file in Google Drive. Please ensure that any system storing these is properly secured by your fund!',
   }.freeze
 
   # Whether a config should show a current options dropdown to the right
@@ -63,6 +64,7 @@ class Config < ApplicationRecord
     county: 19,
     time_zone: 20,
     procedure_type: 21,
+    display_attachment_url: 21,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -101,6 +103,8 @@ class Config < ApplicationRecord
 
     hide_practical_support:
       [:validate_singleton, :validate_yes_or_no],
+    display_attachment_url:
+      [:validate_singleton, :validate_yes_or_no]
 
     budget_bar_max:
       [:validate_singleton, :validate_number],
@@ -210,6 +214,10 @@ class Config < ApplicationRecord
 
   def self.hide_standard_dropdown?
     config_to_bool('hide_standard_dropdown_values')
+  end
+
+  def self.display_attachment_url?
+    config_to_bool('display_attachment_url')
   end
 
   private
