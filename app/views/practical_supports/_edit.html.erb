@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-3">
         <span id="practical_support_support_type">
-          <%= practical_support.support_type %>
+          <strong><%= f.static_control :support_type, hide_label: true %></strong>
         </span>
       </div>
 
@@ -30,14 +30,29 @@
         <%= f.date_field :support_date, autocomplete: 'off', hide_label: true %>
       </div>
 
-      <div class="col-5">
+
+      <div class="col-4">
+        <%= f.text_field :attachment_url,
+                         autocomplete: 'off',
+                         hide_label: true,
+                         placeholder: t('activerecord.attributes.practical_support.attachment_url') %>
+      </div>
+
+      <div class="col-3">
         <%= f.form_group :confirmed do %>
           <%= f.check_box :confirmed,
-                          id: "practical_support_confirmed_#{practical_support.id}" %>
+                          id: "practical_support_confirmed_#{practical_support.id}",
+                          label_class: 'tooltip-header-checkbox',
+                          data: { 'tooltip_text': practical_support_confirmed_help_text } %>
+          <%= f.check_box :fulfilled,
+                          id: "practical_support_fulfilled_#{practical_support.id}",
+                          label_class: 'tooltip-header-checkbox',
+                          data: { 'tooltip_text': practical_support_fulfilled_help_text } %>
         <% end %>
       </div>
     </div>
   <% end %>
+
   <div class="col-12">
       <%= button_to t('patient.practical_support.remove'),
                 patient_practical_support_path(patient, practical_support),
@@ -46,4 +61,5 @@
                 data: { confirm: t('patient.practical_support.delete_confirm') },
                 class: "btn btn-danger float-right practical-support-remove" %>
   </div>
+  <hr/>
 </div>

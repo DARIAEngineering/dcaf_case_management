@@ -70,4 +70,12 @@ module TooltipsHelper
   def solidarity_lead_help_text
     t('tooltips.solidarity_lead').strip
   end
+
+  def practical_support_confirmed_help_text
+    t('tooltips.practical_support_confirmed').strip
+  end
+
+  def practical_support_fulfilled_help_text
+    t('tooltips.practical_support_fulfilled').strip
+  end
 end

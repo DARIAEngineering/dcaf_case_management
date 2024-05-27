@@ -107,6 +107,8 @@ es:
         source: Fuente
         support_date: Día de el apoyo
         support_type: Tipo de apoyo
+        attachment_url: URL adjunta
+        fulfilled: Cumplida
       user:
         current_password: Contraseña actual
         email: Correo Electrónico/Email
@@ -621,6 +623,8 @@ es:
     solidarity_lead: Este es el fondo que sirve como punto de contacto o coordinación de fondos para este paciente.
     status_definition: Definición de estado
     unconfirmed_support: Estos son pacientes que tienen apoyos prácticos no confirmados.
+    practical_support_confirmed: Marque esta casilla si este apoyo práctico es confirmado por el punto de contacto.
+    practical_support_fulfilled: Marque esta casilla si este soporte práctico está completo o pagado y no requiere mayor atención.
   user:
     common:
       last_login: Último Acceso

@@ -107,6 +107,8 @@ en:
         source: Source
         support_date: Support date
         support_type: Support type
+        attachment_url: Attachment URL
+        fulfilled: Fulfilled
       user:
         current_password: Current password
         email: Email
@@ -621,6 +623,8 @@ en:
     solidarity_lead: This is the fund serving as point-of-contact or coordinating funding for this patient.
     status_definition: Status definition
     unconfirmed_support: These are patients who have unconfirmed practical supports.
+    practical_support_confirmed: Check this box if this practical support is confirmed by the point of contact.
+    practical_support_fulfilled: Check this box if this practical support is completed or paid out, and requires no further attention.
   user:
     common:
       last_login: Last Login

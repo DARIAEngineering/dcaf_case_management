@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_27_174820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -48,9 +48,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.integer "clinic_id"
-    t.integer "pledge_generated_by_id"
-    t.integer "pledge_sent_by_id"
+    t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -82,8 +82,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
   end
 
   create_table "call_list_entries", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "patient_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "patient_id", null: false
     t.string "line_legacy"
     t.integer "order_key", null: false
     t.datetime "created_at", null: false
@@ -101,7 +101,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
   create_table "calls", force: :cascade do |t|
     t.integer "status", null: false
     t.string "can_call_type", null: false
-    t.integer "can_call_id", null: false
+    t.bigint "can_call_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -188,7 +188,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
     t.integer "amount"
     t.boolean "active"
     t.string "can_pledge_type", null: false
-    t.integer "can_pledge_id", null: false
+    t.bigint "can_pledge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -205,7 +205,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
     t.date "date_of_check"
     t.boolean "audited"
     t.string "can_fulfill_type", null: false
-    t.integer "can_fulfill_id", null: false
+    t.bigint "can_fulfill_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -237,7 +237,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
 
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
-    t.integer "patient_id"
+    t.bigint "patient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -295,10 +295,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.integer "clinic_id"
-    t.integer "pledge_generated_by_id"
-    t.integer "pledge_sent_by_id"
-    t.integer "last_edited_by_id"
+    t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
+    t.bigint "last_edited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -344,12 +344,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_225952) do
     t.boolean "confirmed"
     t.string "source", null: false
     t.string "can_support_type"
-    t.integer "can_support_id"
+    t.bigint "can_support_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
     t.decimal "amount", precision: 8, scale: 2
     t.date "support_date"
+    t.string "attachment_url", comment: "A link to a fund's stored receipt for this particular entry"
+    t.string "fulfilled", comment: "An indicator that a particular practical support is fulfilled, completed, or paid out."
     t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
     t.index ["fund_id"], name: "index_practical_supports_on_fund_id"
   end
