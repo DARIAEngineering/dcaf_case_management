@@ -22,7 +22,9 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         select 'Companion', from: 'practical_support_support_type'
         select 'Other (see notes)', from: 'practical_support_source'
         fill_in 'Amount', with: 500.10
+        fill_in 'Attachment URL', with: 'www.google.com'
         check 'Confirmed'
+        check 'Fulfilled'
         click_button 'Create new practical support'
       end
 
@@ -30,7 +32,9 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         assert_equal 'Companion', find('#practical_support_support_type').text
         assert_equal 'Other (see notes)', find('#practical_support_source').value
         assert_equal '500.10', find('#practical_support_amount').value
+        assert_equal 'www.google.com', find('#practical_support_attachment_url').text
         assert has_checked_field? 'Confirmed'
+        assert has_checked_field? 'Fulfilled'
       end
     end
 
@@ -59,7 +63,9 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     it 'should save if valid and changed' do
       within :css, '#practical-support-entries' do
         select 'Cat Fund', from: 'practical_support_source'
+        fill_in 'Attachment URL', with: 'www.google.com'
         check 'Confirmed'
+        check 'Fulfilled'
       end
 
       assert has_text? "Patient info successfully saved"
@@ -69,7 +75,9 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         assert_equal 'lodging', find('#practical_support_support_type').text
         assert_equal 'Cat Fund', find('#practical_support_source').value
         assert_equal '100.45', find('#practical_support_amount').value
+        assert_equal 'www.google.com', find('#practical_support_attachment_url').text
         assert has_checked_field? 'Confirmed'
+        assert has_checked_field? 'Fulfilled'
       end
     end
 
