@@ -192,7 +192,7 @@ module Exportable
       typ = ps.support_type
       confirmed = ps.confirmed? ? 'Confirmed' : 'Unconfirmed'
       amt = ps.amount.present? ? number_to_currency(ps.amount) : '$0'
-      url = ps.attachment_url
+      url = ps.attachment_url.present? ? ps.attachment_url : 'No attachment'
       fulfilled = ps.fulfilled? ? 'Fulfilled' : 'Not fulfilled'
       "#{src} - #{typ} - #{confirmed} - #{amt} - #{url} - #{fulfilled}"
     end
