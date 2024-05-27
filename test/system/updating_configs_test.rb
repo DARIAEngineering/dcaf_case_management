@@ -218,22 +218,22 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
     describe 'updating a config - display_practical_support_attachment_url' do
       before do
         @patient = create :patient
-        support = create :practical_support, patient: @patient
+        @patient.practical_supports.create attributes_for :practical_support
       end
 
-      it 'should toggle the budget bar on the dashboard' do
-        fill_in 'config_options_hide_budget_bar', with: 'yes'
-        click_button 'Update options for display_practical_support_attachment_url'
+      it 'should toggle the display of attachment_url' do
+        fill_in 'config_options_display_practical_support_attachment_url', with: 'no'
+        click_button 'Update options for Display practical support attachment url'
         visit edit_patient_path @patient
-        go_to_practical_support_tab
+        click_link 'Practical Support'
         refute has_content? 'Attachment URL'
 
         visit configs_path
-        fill_in 'config_options_hide_budget_bar', with: ''
-        click_button 'Update options for display_practical_support_attachment_url'        
+        fill_in 'config_options_display_practical_support_attachment_url', with: 'yes'
+        click_button 'Update options for Display practical support attachment url'
         visit edit_patient_path @patient
-        go_to_practical_support_tab
-        assert has_content? 'URL'
+        click_link 'Practical Support'
+        assert has_content? 'Attachment URL'
       end
     end
 

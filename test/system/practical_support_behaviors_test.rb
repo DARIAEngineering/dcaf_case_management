@@ -30,10 +30,10 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       end
 
       within :css, '#practical-support-entries' do
-        assert_equal 'Companion', find('#practical_support_support_type').text
+        assert_equal 'Companion', find('#practical_support_support_type').value
         assert_equal 'Other (see notes)', find('#practical_support_source').value
         assert_equal '500.10', find('#practical_support_amount').value
-        assert_equal 'www.google.com', find('#practical_support_attachment_url').text
+        assert_equal 'www.google.com', find('#practical_support_attachment_url').value
         assert has_checked_field? 'Confirmed'
         assert has_checked_field? 'Fulfilled'
       end
@@ -73,10 +73,10 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#practical-support-entries' do
-        assert_equal 'lodging', find('#practical_support_support_type').text
+        assert_equal 'lodging', find('#practical_support_support_type').value
         assert_equal 'Cat Fund', find('#practical_support_source').value
         assert_equal '100.45', find('#practical_support_amount').value
-        assert_equal 'www.google.com', find('#practical_support_attachment_url').text
+        assert_equal 'www.google.com', find('#practical_support_attachment_url').value
         assert has_checked_field? 'Confirmed'
         assert has_checked_field? 'Fulfilled'
       end
