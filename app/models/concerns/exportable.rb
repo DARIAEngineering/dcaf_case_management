@@ -192,7 +192,9 @@ module Exportable
       typ = ps.support_type
       confirmed = ps.confirmed? ? 'Confirmed' : 'Unconfirmed'
       amt = ps.amount.present? ? number_to_currency(ps.amount) : '$0'
-      "#{src} - #{typ} - #{confirmed} - #{amt}"
+      url = ps.attachment_url
+      fulfilled = ps.fulfilled? ? 'Fulfilled' : 'Not fulfilled'
+      "#{src} - #{typ} - #{confirmed} - #{amt} - #{url} - #{fulfilled}"
     end
     shaped_supports.join('; ')
   end
