@@ -103,12 +103,12 @@ en:
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
       practical_support:
+        attachment_url: Attachment URL
         confirmed: Confirmed
+        fulfilled: Fulfilled
         source: Source
         support_date: Support date
         support_type: Support type
-        attachment_url: Attachment URL
-        fulfilled: Fulfilled
       user:
         current_password: Current password
         email: Email
@@ -615,6 +615,8 @@ en:
     call_list: This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.
     completed_calls: This is a list of patients you have called within the last 8 hours.
     mandatory_ultrasound: If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.
+    practical_support_confirmed: Check this box if this practical support is confirmed by the point of contact.
+    practical_support_fulfilled: Check this box if this practical support is completed or paid out, and requires no further attention.
     record_new_external_pledge: External pledges is our term for pledges by other abortion funds also working with a patient.
     referred_to_clinic: Check this box if you as a case manager referred the patient to a particular clinic.
     resolved_without_fund: This is used to indicate that a patient does not require or want our services any longer.
@@ -623,8 +625,6 @@ en:
     solidarity_lead: This is the fund serving as point-of-contact or coordinating funding for this patient.
     status_definition: Status definition
     unconfirmed_support: These are patients who have unconfirmed practical supports.
-    practical_support_confirmed: Check this box if this practical support is confirmed by the point of contact.
-    practical_support_fulfilled: Check this box if this practical support is completed or paid out, and requires no further attention.
   user:
     common:
       last_login: Last Login
