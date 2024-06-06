@@ -3,8 +3,14 @@ class PatientsController < ApplicationController
   include ActionController::Live
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
-  before_action :find_patient, only: [:edit, :update]
-  before_action :find_patient_minimal, only: [:fetch_pledge, :download, :destroy]
+  before_action :find_patient, if: lambda { |c|
+    action = c.action_name.to_sym
+    action == :edit || (action == :update && !c.request.format.json?)
+  }
+  before_action :find_patient_minimal, if: lambda { |c|
+    action = c.action_name.to_sym
+    [:fetch_pledge, :download, :destroy].include?(action) || (action == :update && c.request.format.json?)
+  }
   rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
@@ -116,15 +122,32 @@ class PatientsController < ApplicationController
 
   def update
     @patient.last_edited_by = current_user
-    if @patient.update patient_params
-      @patient = Patient.includes(versions: [:item, :user])
-                        .find(@patient.id) # reload
-      flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
-    else
-      error = @patient.errors.full_messages.to_sentence
-      flash.now[:alert] = error
+
+    respond_to do |format|
+      format.js do
+        if @patient.update patient_params
+          @patient = Patient.includes(versions: [:item, :user]).find(@patient.id) # reload
+          flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
+        else
+          error = @patient.errors.full_messages.to_sentence
+          flash.now[:alert] = error
+        end
+      end
+
+      format.json do
+        if @patient.update patient_params
+          @patient.reload
+          render json: {
+            patient: @patient.reload.as_json,
+            flash: {
+              notice: t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
+            }
+          }, status: :ok
+        else
+          render json: { flash: { alert: @patient.errors.full_messages.to_sentence } }, status: :unprocessable_entity
+        end
+      end
     end
-    respond_to { |format| format.js }
   end
 
   def data_entry
