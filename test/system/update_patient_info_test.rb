@@ -82,7 +82,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
       it 'should update appointment date' do
         within :css, '#patient_dashboard' do
-          assert has_field? 'Appointment date', with: 5.days.from_now.strftime('%Y-%m-%d')
+          assert has_field? 'Appointment date', with: 5.days.from_now.strftime('%m/%d/%Y')
         end
       end
     end
@@ -100,6 +100,8 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_content? 'Approx gestation at appt: 6 weeks 2 days'
 
         select '1 day', from: 'patient_last_menstrual_period_days'
+        wait_for_ajax
+        reload_page_and_click_link 'Patient Information'
         assert has_content? 'Currently: 5w 3d'
         assert has_content? 'Approx gestation at appt: 6 weeks 1 day'
       end
@@ -292,7 +294,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     it 'should flash failure on a bad field change' do
       fill_in 'Phone number', with: '111-222-3333445'
       click_away_from_field
-      assert has_text? 'Primary phone is the wrong length'
+      assert has_text? /Primary phone is the wrong length/
     end
   end
 

@@ -91,3 +91,21 @@ a:focus {
 .hidden {
   display: none;
 }
+
+.grid {
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-row-gap: 0.5rem;
+}
+
+.grid-columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-rows-2 {
+  grid-template-rows: repeat(2, 1fr);
+}
