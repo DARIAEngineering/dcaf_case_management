@@ -61,13 +61,17 @@ jobs:
       - name: Cache node_modules
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: yarn packages
         run: yarn install
 
+      # Run JS tests
+      - name: Run Javascript test suite
+        run: yarn test
+
       # System setup
-      - name: Install 
+      - name: Install
         run: sudo apt-get -yqq install libpq-dev google-chrome-stable
 
       # App setup
@@ -76,8 +80,8 @@ jobs:
       - name: Database setup setup
         run: RAILS_ENV=test bin/rails db:create db:migrate
 
-      # Run tests
-      - name: Run test suite
+      # Run Rails tests
+      - name: Run Rails test suite
         run: bin/rails test:all
 
       # Save artifacts
