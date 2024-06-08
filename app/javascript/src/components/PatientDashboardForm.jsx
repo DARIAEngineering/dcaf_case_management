@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Input from './Input'
 import Select from './Select'
 import Tooltip from './Tooltip'
 import mount from "../mount";
-import { usei18n, useFetch, useFlash } from "../hooks";
+import { usei18n, useFetch, useFlash, useDebounce } from "../hooks";
 
 export default PatientDashboardForm = ({
   patient,
@@ -18,8 +18,11 @@ export default PatientDashboardForm = ({
   const i18n = usei18n();
   const { put } = useFetch();
   const flash = useFlash();
+  const { debounce, cleanupDebounce } = useDebounce();
 
   const [patientData, setPatientData] = useState(patient)
+
+  const statusTooltip = statusHelpText ? <Tooltip text={statusHelpText} /> : null
 
   const autosave = async (updatedData) => {
     const updatedPatientData = { ...patientData, ...updatedData }
@@ -32,7 +35,16 @@ export default PatientDashboardForm = ({
     }
   }
 
-  const statusTooltip = statusHelpText ? <Tooltip text={statusHelpText} /> : null
+  const debouncedAutosave = useMemo((params) => {
+    return debounce(autosave, 300)
+  }, []);
+
+  // Stop the invocation of the debounced function after unmounting
+  useEffect(() => {
+    return () => {
+      cleanupDebounce();
+    }
+  }, []);
 
   return (
     <form
@@ -47,7 +59,7 @@ export default PatientDashboardForm = ({
         label={i18n.t('patient.shared.name')}
         value={patientData.name}
         required
-        onChange={e => autosave({ name: e.target.value })}
+        onChange={(e) => debouncedAutosave({ name: e.target.value })}
       />
 
       <div className="grid grid-columns-2">
@@ -85,7 +97,7 @@ export default PatientDashboardForm = ({
           })
         }
         value={patientData.appointment_date}
-        onChange={e => autosave({ appointment_date: e.target.value })}
+        onChange={e => debouncedAutosave({ appointment_date: e.target.value })}
       />
 
       <Input
@@ -93,7 +105,7 @@ export default PatientDashboardForm = ({
         name="patient[primary_phone]"
         label={i18n.t('patient.dashboard.phone')}
         value={patientData.primary_phone_display}
-        onChange={e => autosave({ primary_phone: e.target.value })}
+        onChange={e => debouncedAutosave({ primary_phone: e.target.value })}
       />
 
       <div className="grid grid-columns-2">
@@ -102,7 +114,7 @@ export default PatientDashboardForm = ({
           name="patient[pronouns]"
           label={i18n.t('activerecord.attributes.patient.pronouns')}
           value={patientData.pronouns}
-          onChange={e => autosave({ pronouns: e.target.value })}
+          onChange={e => debouncedAutosave({ pronouns: e.target.value })}
         />
 
         <Input
@@ -111,7 +123,7 @@ export default PatientDashboardForm = ({
           value={patientData.status}
           className="form-control-plaintext"
           tooltip={statusTooltip}
-          onChange={e => autosave({ status: e.target.value })}
+          onChange={e => debouncedAutosave({ status: e.target.value })}
         />
       </div>
 
