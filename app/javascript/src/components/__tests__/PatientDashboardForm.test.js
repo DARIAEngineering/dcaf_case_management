@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, render } from "@testing-library/react";
+import { screen, render, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PatientDashboardForm from "../PatientDashboardForm";
 
@@ -17,6 +17,10 @@ jest.mock("../../hooks/useFlash", () => () => ({
 }));
 
 describe("PatientDashboardForm", () => {
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   it("renders an input for name", () => {
     const patient = {};
     const weeksOptions = [
@@ -217,8 +221,10 @@ describe("PatientDashboardForm", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("autosaves on input change", async () => {
-    const user = userEvent.setup();
+  it("autosaves on input change (debounced every 300 ms)", async () => {
+    jest.useFakeTimers();
+
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     const patient = {};
     const weeksOptions = [
@@ -231,23 +237,27 @@ describe("PatientDashboardForm", () => {
     ];
     const patientPath = "/patients/1";
     const formAuthenticityToken = "token";
-    render(
-      <PatientDashboardForm
-        patient={patient}
-        weeksOptions={weeksOptions}
-        daysOptions={daysOptions}
-        patientPath={patientPath}
-        formAuthenticityToken={formAuthenticityToken}
-      />
+    act(() =>
+      render(
+        <PatientDashboardForm
+          patient={patient}
+          weeksOptions={weeksOptions}
+          daysOptions={daysOptions}
+          patientPath={patientPath}
+          formAuthenticityToken={formAuthenticityToken}
+        />
+      )
     );
 
-    const input = screen.queryByLabelText("First and last name");
-    await user.type(input, "P");
+    const input = screen.getByLabelText("First and last name");
+    await act(async () => await user.type(input, "Prudence"));
+    act(() => jest.advanceTimersByTime(500));
 
     expect(mockPut).toHaveBeenCalledWith(patientPath, {
-      name: "P",
+      name: "Prudence",
       authenticity_token: formAuthenticityToken,
     });
+    jest.runOnlyPendingTimers();
   });
 
   it("autosaves on select change", async () => {
@@ -287,10 +297,12 @@ describe("PatientDashboardForm", () => {
   });
 
   it("renders a flash message after autosave", async () => {
-    const user = userEvent.setup();
+    jest.useFakeTimers();
+
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     mockReturnValue = {
-      patient: { name: "P" },
+      patient: { name: "Prudence" },
       flash: { notice: "Patient data successfully saved" },
     };
 
@@ -305,19 +317,23 @@ describe("PatientDashboardForm", () => {
     ];
     const patientPath = "/patients/1";
     const formAuthenticityToken = "token";
-    render(
-      <PatientDashboardForm
-        patient={patient}
-        weeksOptions={weeksOptions}
-        daysOptions={daysOptions}
-        patientPath={patientPath}
-        formAuthenticityToken={formAuthenticityToken}
-      />
+    act(() =>
+      render(
+        <PatientDashboardForm
+          patient={patient}
+          weeksOptions={weeksOptions}
+          daysOptions={daysOptions}
+          patientPath={patientPath}
+          formAuthenticityToken={formAuthenticityToken}
+        />
+      )
     );
 
-    const input = screen.queryByLabelText("First and last name");
-    await user.type(input, "P");
+    const input = screen.getByLabelText("First and last name");
+    await act(async () => await user.type(input, "Prudence"));
+    await act(async () => jest.advanceTimersByTime(500));
 
     expect(mockFlashRender).toHaveBeenCalledWith(mockReturnValue.flash);
+    jest.runOnlyPendingTimers();
   });
 });
