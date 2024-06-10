@@ -3,14 +3,8 @@ class PatientsController < ApplicationController
   include ActionController::Live
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
-  before_action :find_patient, if: lambda { |c|
-    action = c.action_name.to_sym
-    action == :edit || (action == :update && !c.request.format.json?)
-  }
-  before_action :find_patient_minimal, if: lambda { |c|
-    action = c.action_name.to_sym
-    [:fetch_pledge, :download, :destroy].include?(action) || (action == :update && c.request.format.json?)
-  }
+  before_action :find_patient, if: :should_preload_patient_with_versions?
+  before_action :find_patient_minimal, if: :should_preload_patient_minimally?
   rescue_from ActiveRecord::RecordNotFound,
               with: -> { redirect_to root_path }
 
@@ -125,27 +119,10 @@ class PatientsController < ApplicationController
 
     respond_to do |format|
       format.js do
-        if @patient.update patient_params
-          @patient = Patient.includes(versions: [:item, :user]).find(@patient.id) # reload
-          flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
-        else
-          error = @patient.errors.full_messages.to_sentence
-          flash.now[:alert] = error
-        end
+        respond_to_update_for_js_format
       end
-
       format.json do
-        if @patient.update patient_params
-          @patient.reload
-          render json: {
-            patient: @patient.reload.as_json,
-            flash: {
-              notice: t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
-            }
-          }, status: :ok
-        else
-          render json: { flash: { alert: @patient.errors.full_messages.to_sentence } }, status: :unprocessable_entity
-        end
+        respond_to_update_for_json_format
       end
     end
   end
@@ -180,6 +157,17 @@ class PatientsController < ApplicationController
 
   private
 
+  # preload patient with versions for edit and js format update requests
+  def should_preload_patient_with_versions?
+    action_name.to_sym == :edit || (action_name.to_sym == :update && !request.format.json?)
+  end
+
+  # preload patient minimally for fetch_pledge, download, destroy, and json format update requests
+  def should_preload_patient_minimally?
+    [:fetch_pledge, :download,
+     :destroy].include?(action_name.to_sym) || (action_name.to_sym == :update && request.format.json?)
+  end
+
   def find_patient
     @patient = Patient.includes(versions: [:item, :user])
                       .find params[:id]
@@ -187,6 +175,32 @@ class PatientsController < ApplicationController
 
   def find_patient_minimal
     @patient = Patient.find params[:id]
+  end
+
+  # requests from our autosave using jquery ($(form).submit()) use the js format
+  def respond_to_update_for_js_format
+    if @patient.update patient_params
+      @patient = Patient.includes(versions: [:item, :user]).find(@patient.id) # reload
+      flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
+    else
+      error = @patient.errors.full_messages.to_sentence
+      flash.now[:alert] = error
+    end
+  end
+
+  # requests from our autosave using React (via the useFetch hook) use the json format
+  def respond_to_update_for_json_format
+    if @patient.update patient_params
+      @patient.reload
+      render json: {
+        patient: @patient.reload.as_json,
+        flash: {
+          notice: t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
+        }
+      }, status: :ok
+    else
+      render json: { flash: { alert: @patient.errors.full_messages.to_sentence } }, status: :unprocessable_entity
+    end
   end
 
   PATIENT_DASHBOARD_PARAMS = [

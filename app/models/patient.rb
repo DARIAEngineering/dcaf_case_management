@@ -229,6 +229,10 @@ class Patient < ApplicationRecord
     all_versions.sort_by(&:created_at).reverse
   end
 
+  # when we update the patient async (via React), we return the updated patient as json
+  # as_json will return the AR attributes stored in the db by default
+  # we extend it here to also include some of the additional custom getters we've written
+  # (that aren't stored in the db but are derived from db values)
   def as_json
     super.merge(
       status: status,
