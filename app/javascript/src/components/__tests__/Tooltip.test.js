@@ -6,7 +6,7 @@ jest.mock("../../tooltips", () => ({
   activateTooltips: jest.fn(),
 }));
 
-describe("Select", () => {
+describe("Tooltip", () => {
   it("renders a span with appropriate data attrs", () => {
     render(<Tooltip text="some helper text" />);
     const tooltip = screen.getByText("(?)");
