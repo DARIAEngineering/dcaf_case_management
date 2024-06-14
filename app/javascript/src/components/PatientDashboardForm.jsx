@@ -28,7 +28,16 @@ export default PatientDashboardForm = ({
     const updatedPatientData = { ...patientData, ...updatedData }
     setPatientData(updatedPatientData)
 
-    const data = await put(patientPath, { ...updatedPatientData, authenticity_token: formAuthenticityToken })
+    const putData = {
+      name: updatedPatientData.name,
+      last_menstrual_period_days: updatedPatientData.last_menstrual_period_days,
+      last_menstrual_period_weeks: updatedPatientData.last_menstrual_period_weeks,
+      appointment_date: updatedPatientData.appointment_date,
+      primary_phone: updatedPatientData.primary_phone,
+      pronouns: updatedPatientData.pronouns,
+    }
+
+    const data = await put(patientPath, { ...putData, authenticity_token: formAuthenticityToken })
     flash.render(data.flash)
     if (data.patient) {
       setPatientData(data.patient)
