@@ -24,6 +24,7 @@ class Config < ApplicationRecord
     time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.",
     procedure_type: "Any kind of distinction in procedure your fund would like to track. Field hides if no options " \
                     "are added here. Please separate with commas.",
+    show_patient_identifier: 'Enter "yes" to show the patient\' Daria Identifier on the patient information tab.',
     display_practical_support_attachment_url: 'CAUTION: Whether or not to allow people to enter attachment URLs for practical support entries; for example, a link to a file in Google Drive. Please ensure that any system storing these is properly secured by your fund!',
   }.freeze
 
@@ -64,7 +65,8 @@ class Config < ApplicationRecord
     county: 19,
     time_zone: 20,
     procedure_type: 21,
-    display_practical_support_attachment_url: 22,
+    show_patient_identifier: 22,
+    display_practical_support_attachment_url: 23,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -128,6 +130,8 @@ class Config < ApplicationRecord
     aggregate_statistics:
       [:validate_singleton, :validate_yes_or_no],
     hide_standard_dropdown_values:
+      [:validate_singleton, :validate_yes_or_no],
+    show_patient_id:
       [:validate_singleton, :validate_yes_or_no],
   }.freeze
 
@@ -214,6 +218,10 @@ class Config < ApplicationRecord
 
   def self.hide_standard_dropdown?
     config_to_bool('hide_standard_dropdown_values')
+  end
+
+  def self.show_patient_identifier?
+    config_to_bool('show_patient_identifier')
   end
 
   def self.display_practical_support_attachment_url?
