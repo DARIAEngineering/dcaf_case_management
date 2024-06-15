@@ -5764,7 +5764,9 @@
           "zipcode": "Zipcode"
         },
         "practical_support": {
+          "attachment_url": "Attachment URL",
           "confirmed": "Confirmed",
+          "fulfilled": "Fulfilled",
           "source": "Source",
           "support_date": "Support date",
           "support_type": "Support type"
@@ -6945,6 +6947,8 @@
       "call_list": "This sortable list is used to keep track of patients to call back during your shift. Use the search to populate it.",
       "completed_calls": "This is a list of patients you have called within the last 8 hours.",
       "mandatory_ultrasound": "If you are in a state that requires ultrasounds and the patient has completed one, you can log it here.",
+      "practical_support_confirmed": "Check this box if this practical support is confirmed by the point of contact.",
+      "practical_support_fulfilled": "Check this box if this practical support is completed or paid out, and requires no further attention.",
       "record_new_external_pledge": "External pledges is our term for pledges by other abortion funds also working with a patient.",
       "referred_to_clinic": "Check this box if you as a case manager referred the patient to a particular clinic.",
       "resolved_without_fund": "This is used to indicate that a patient does not require or want our services any longer.",
@@ -10155,7 +10159,9 @@
           "zipcode": "Código postal"
         },
         "practical_support": {
+          "attachment_url": "URL adjunta",
           "confirmed": "Confirmado",
+          "fulfilled": "Cumplida",
           "source": "Fuente",
           "support_date": "Día de el apoyo",
           "support_type": "Tipo de apoyo"
@@ -11265,6 +11271,8 @@
       "call_list": "Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.",
       "completed_calls": "Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.",
       "mandatory_ultrasound": "Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.",
+      "practical_support_confirmed": "Marque esta casilla si este apoyo práctico es confirmado por el punto de contacto.",
+      "practical_support_fulfilled": "Marque esta casilla si este soporte práctico está completo o pagado y no requiere mayor atención.",
       "record_new_external_pledge": "\"Promesas externas\" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.",
       "referred_to_clinic": "Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.",
       "resolved_without_fund": "Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.",

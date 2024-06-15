@@ -2,6 +2,8 @@
 class PracticalSupport < ApplicationRecord
   acts_as_tenant :fund
 
+  encrypts :attachment_url
+
   # Concerns
   include PaperTrailable
 

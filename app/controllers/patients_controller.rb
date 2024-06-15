@@ -110,6 +110,7 @@ class PatientsController < ApplicationController
     # i18n-tasks-use t('activerecord.attributes.fulfillment.fund_payout')
     # i18n-tasks-use t('activerecord.attributes.fulfillment.gestation_at_procedure')
     # i18n-tasks-use t('activerecord.attributes.fulfillment.procedure_date')
+    # i18n-tasks-use t('activerecord.attributes.practical_support.fulfilled')
     @note = @patient.notes.new
     @external_pledge = @patient.external_pledges.new
   end
