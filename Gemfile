@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.2.2'
+ruby '3.2.4'
 
 # Standard rails
 gem 'rails', '~> 7.1.3'
@@ -61,6 +61,8 @@ gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
 gem 'state_geo_tools' # state list 
 gem 'httparty' # easier http calls
+gem 'view_component', '~> 3.12' # build reusable & encapsulated view components in Ruby
+gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
@@ -70,7 +72,7 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
-  gem 'i18n-tasks', '~> 1.0.13' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 1.0.14' # check and clean i18n keys
   gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5'

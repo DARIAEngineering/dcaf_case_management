@@ -103,7 +103,9 @@ es:
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
       practical_support:
+        attachment_url: URL adjunta
         confirmed: Confirmado
+        fulfilled: Cumplida
         source: Fuente
         support_date: Día de el apoyo
         support_type: Tipo de apoyo
@@ -615,6 +617,8 @@ es:
     completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
     mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
     patient_identifier: Identificador interno semiúnico para este paciente, basado en su número de teléfono.
+    practical_support_confirmed: Marque esta casilla si este apoyo práctico es confirmado por el punto de contacto.
+    practical_support_fulfilled: Marque esta casilla si este soporte práctico está completo o pagado y no requiere mayor atención.
     record_new_external_pledge: '"Promesas externas" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.

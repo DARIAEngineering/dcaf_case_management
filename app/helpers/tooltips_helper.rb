@@ -74,4 +74,12 @@ module TooltipsHelper
   def patient_identifier_help_text
     t('tooltips.patient_identifier').strip
   end
+
+  def practical_support_confirmed_help_text
+    t('tooltips.practical_support_confirmed').strip
+  end
+
+  def practical_support_fulfilled_help_text
+    t('tooltips.practical_support_fulfilled').strip
+  end
 end
