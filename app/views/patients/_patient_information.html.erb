@@ -12,6 +12,14 @@
           <%= f.select :line_id, options_for_select(line_options, patient.line.id) %>
         <% end %>
 
+        <% if Config.show_patient_identifier? %>
+          <%= f.text_field :identifier,
+            readonly: true,
+            label: t('patient.information.identifier'),
+            label_class: 'tooltip-header-input',
+            data: { 'tooltip-text': patient_identifier_help_text } %>
+        <% end %>
+
         <%= f.number_field :age, autocomplete: 'off' %>
         <%= f.select :race_ethnicity,
                      options_for_select(race_ethnicity_options,
