@@ -49,6 +49,7 @@ es:
         age: Edad
         amount: Monto
         appointment_date: Día de la cita
+        appointment_time: Hora de la cita
         audited: Auditada
         check_number: 'Cheque #'
         city: Ciudad

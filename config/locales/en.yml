@@ -49,6 +49,7 @@ en:
         age: Age
         amount: Amount
         appointment_date: Appointment date
+        appointment_time: Appointment time
         audited: Audited
         check_number: Check number
         city: City
