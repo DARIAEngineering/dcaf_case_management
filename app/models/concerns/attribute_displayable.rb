@@ -16,7 +16,7 @@ module AttributeDisplayable
     return nil unless appointment_date.present?
     day = appointment_date.strftime("%m/%d/%Y")
     if appointment_time
-      time = appointment_time.strftime("%I:%M %p")
+      time = appointment_time.strftime("%l:%M %p").strip
       return "#{day} @ #{time}"
     end
     return day
