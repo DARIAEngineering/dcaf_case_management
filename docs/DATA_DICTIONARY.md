@@ -32,6 +32,7 @@ Field | Description | Exportable? | Reported by | Input Type
 **Adults in Household** | Number of adults (relatives, roommates, other adults) that live most of the time in the patient's household. | Exportable | Patient Reported | Text field
 **Minors in Household**| Number of children under the age of 18 (patient's children, relatives, other children) that live most of the time in the patient's household. | Exportable | Patient Reported | Text field
 **Clinic name** | Name of the clinic where the patient will have their procedure. | Exportable | Patient Reported | Dropdown
+**Appointment time** | Time of patient's appointment, for funds that need to know for practical support reasons. | Not Exportable | Patient Reported | Text field
 **Resolved Without Fund** | The patient has resolved their case without the aid of the Fund. This could be a patient chooses to continue the pregnancy, has found other sources of funding, or any other circumstances the Fund should not continue contacting the patient. | Exportable | Patient Reported | Checkbox
 **Full Cost of Appointment** | The full cost of the patient's appointment as reported by the patient. | Exportable | Patient Reported | Text field
 **Patient Contribution** | The amount of money contributed by the patient. This amount may change at the actual appointment, but is used during case management to record how much a patient can possibly contribute. | Exportable | Patient Reported | Text field
