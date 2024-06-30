@@ -14,7 +14,12 @@ module AttributeDisplayable
 
   def appointment_date_display
     return nil unless appointment_date.present?
-    "#{appointment_date.strftime("%m/%d/%Y")}"
+    day = appointment_date.strftime("%m/%d/%Y")
+    if appointment_time
+      time = appointment_time.strftime("%I:%M %p")
+      return "#{day} @ #{time}"
+    end
+    return day
   end
 
   def procedure_date_display
