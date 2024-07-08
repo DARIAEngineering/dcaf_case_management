@@ -3,7 +3,7 @@
     "@fortawesome/fontawesome-free": "6.5.2",
     "@popperjs/core": "2.11.8",
     "bootstrap": "4.6.2",
-    "esbuild": "0.22.0",
+    "esbuild": "0.23.0",
     "i18n-js": "^4.4.3",
     "jquery": "3.7.1",
     "jquery-ujs": "1.2.3",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
-    "@testing-library/dom": "^10.2.0",
+    "@testing-library/dom": "^10.3.1",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
