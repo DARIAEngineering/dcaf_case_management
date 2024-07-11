@@ -229,6 +229,21 @@ class Patient < ApplicationRecord
     all_versions.sort_by(&:created_at).reverse
   end
 
+  # when we update the patient async (via React), we return the updated patient as json
+  # as_json will return the AR attributes stored in the db by default
+  # we extend it here to also include some of the additional custom getters we've written
+  # (that aren't stored in the db but are derived from db values)
+  def as_json
+    super.merge(
+      status: status,
+      last_menstrual_period_at_appt_weeks: last_menstrual_period_at_appt_weeks,
+      last_menstrual_period_at_appt_days: last_menstrual_period_at_appt_days,
+      last_menstrual_period_now_weeks: last_menstrual_period_now_weeks,
+      last_menstrual_period_now_days: last_menstrual_period_now_days,
+      primary_phone_display: primary_phone_display
+    )
+  end
+
   private
 
   def confirm_appointment_after_initial_call
