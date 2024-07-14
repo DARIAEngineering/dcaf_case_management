@@ -19,6 +19,7 @@
         <%= f.select :clinic_id,
                      options_for_select(clinic_options, patient.clinic.try(:id)),
                      label: t('patient.abortion_information.clinic_section.clinic') %>
+        <%= f.time_field :appointment_time, include_seconds: false %>
 
         <%= f.form_group :clinic_filters do %>
           <%= f.check_box :naf_filter, label: t('patient.abortion_information.clinic_section.naf_only_toggle') %>

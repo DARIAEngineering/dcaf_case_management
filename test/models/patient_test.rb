@@ -356,6 +356,16 @@ class PatientTest < ActiveSupport::TestCase
       assert @patient.respond_to? :created_by
       assert @patient.respond_to? :created_by_id
     end
+
+    it 'should show appointment date + time' do
+      assert_nil @patient.appointment_date_display
+
+      @patient.appointment_date = Time.new 2022, 10, 31
+      assert_equal '10/31/2022', @patient.appointment_date_display
+
+      @patient.appointment_time = '17:30'
+      assert_equal '10/31/2022 @ 5:30 PM', @patient.appointment_date_display
+    end
   end
 
   describe 'methods' do

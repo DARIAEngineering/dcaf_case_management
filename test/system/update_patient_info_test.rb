@@ -140,6 +140,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     before do
       click_link 'Abortion Information'
       select @clinic.name, from: 'patient_clinic_id'
+      fill_in 'Appointment time', with: '4:30PM'
       check 'Resolved without assistance from CATF'
       check 'Referred to clinic'
       check 'Ultrasound completed?'
@@ -175,6 +176,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     it 'should alter the abortion information' do
       within :css, '#abortion_information' do
         assert_equal @clinic.id.to_s, find('#patient_clinic_id').value
+        assert has_field? 'Appointment time', with: '16:30'
         assert has_checked_field?('Resolved without assistance from CATF')
         assert has_checked_field?('Referred to clinic')
         assert has_checked_field?('Ultrasound completed?')
