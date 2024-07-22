@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@fortawesome/fontawesome-free": "6.5.2",
+    "@fortawesome/fontawesome-free": "6.6.0",
     "@popperjs/core": "2.11.8",
     "bootstrap": "4.6.2",
     "esbuild": "0.23.0",
@@ -20,8 +20,8 @@
     "@babel/core": "^7.24.9",
     "@babel/preset-env": "^7.24.8",
     "@babel/preset-react": "^7.24.7",
-    "@testing-library/dom": "^10.3.2",
-    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.4.7",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "babel-jest": "^29.7.0",
