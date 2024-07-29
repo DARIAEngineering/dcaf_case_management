@@ -1,65 +1,22 @@
 <div class="row info-form practical-support-item" id="practical-support-item-<%= practical_support.id %>">
-  <%= bootstrap_form_with model: practical_support,
-                         url: patient_practical_support_path(patient, practical_support),
-                         html: { class: 'edit_practical_support col-12' },
-                         local: false do |f| %>
-    <div class="row">
-      <div class="col-3">
-        <strong><%= f.static_control :support_type, hide_label: true %></strong>
-      </div>
+  <div class="col-9">
+    <%= practical_support.support_type %>
+    from <%= practical_support.source || 'TBD' %>
+    for $<%= practical_support.amount || 'TBD' %>
+  </div>
+  <div class="col-1">
+    +
+  </div>
+  <div class="col-2">
+    Edit
+  </div>
 
-      <div class="col-5">
-        <%= f.select :source,
-                     options_for_select(practical_support_source_options(practical_support.source),
-                                        practical_support.source),
-                     hide_label: true %>
-      </div>
+  <!-- Modal -->
+  <div class="modal modal-practical-support">
+    <div class="modal-content">
+      <div class="modal-body">
 
-      <div class="col-4">
-        <%= f.number_field :amount,
-                           value: number_to_currency(f.object.amount.to_f, unit: '', delimiter: ''),
-                           hide_label: true,
-                           autocomplete: 'off',
-                           prepend: '$',
-                           step: '0.01' %>
-      </div>
-
-      <div class="col-3">
-        <%= f.date_field :support_date, autocomplete: 'off', hide_label: true %>
-      </div>
-
-
-      <% if Config.display_practical_support_attachment_url? %>
-        <div class="col-4">
-          <%= f.text_field :attachment_url,
-                            autocomplete: 'off',
-                           hide_label: true,
-                           placeholder: t('activerecord.attributes.practical_support.attachment_url') %>
-        </div>
-      <% end %>
-
-      <div class="col-3">
-        <%= f.form_group :confirmed do %>
-          <%= f.check_box :confirmed,
-                          id: "practical_support_confirmed_#{practical_support.id}",
-                          label_class: 'tooltip-header-checkbox',
-                          data: { 'tooltip_text': practical_support_confirmed_help_text } %>
-          <%= f.check_box :fulfilled,
-                          id: "practical_support_fulfilled_#{practical_support.id}",
-                          label_class: 'tooltip-header-checkbox',
-                          data: { 'tooltip_text': practical_support_fulfilled_help_text } %>
-        <% end %>
       </div>
     </div>
-  <% end %>
-
-  <div class="col-12">
-      <%= button_to t('patient.practical_support.remove'),
-                patient_practical_support_path(patient, practical_support),
-                remote: true,
-                method: :delete,
-                data: { confirm: t('patient.practical_support.delete_confirm') },
-                class: "btn btn-danger float-right practical-support-remove" %>
   </div>
-  <hr/>
 </div>
