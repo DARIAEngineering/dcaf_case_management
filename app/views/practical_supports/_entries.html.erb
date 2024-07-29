@@ -2,16 +2,19 @@
   <hr />
   <% patient.practical_supports.each do |entry| %>
     <div class="row info-form practical-support-item" id="practical-support-item-<%= entry.id %>">
-      <div class="col-9">
+      <div class="col-7">
         <%= entry.support_type %>
         from <%= entry.source || 'TBD' %>
         for $<%= entry.amount || 'TBD' %>
+        <%= entry.confirmed? ? '(confirmed)' : '' %>
       </div>
+
       <div class="col-1">
-        +
+        <%= entry.most_recent_note_display_text %>
       </div>
+
       <div class="col-2">
-        <%= link_to 'button!!!',
+        <%= link_to 'Edit',
             edit_patient_practical_support_path(patient, entry),
             class: "edit_practical_support practical-support-#{entry.id}",
             remote: true %>
@@ -28,12 +31,7 @@
                       class: "btn btn-danger float-right practical-support-remove" %>
       </div>
     </div>
-  
 
     <hr />
   <% end %>
 <% end %>
-
-
-
-
