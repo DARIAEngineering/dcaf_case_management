@@ -1,9 +1,31 @@
 <% if patient.practical_supports.present? %>
   <hr />
   <% patient.practical_supports.each do |entry| %>
-    <%= render 'practical_supports/edit',
-              patient: patient,
-              practical_support: entry %>
+    <div class="row info-form practical-support-item" id="practical-support-item-<%= entry.id %>">
+      <div class="col-9">
+        <%= entry.support_type %>
+        from <%= entry.source || 'TBD' %>
+        for $<%= entry.amount || 'TBD' %>
+      </div>
+      <div class="col-1">
+        +
+      </div>
+      <div class="col-2">
+        <%= link_to 'button!!!',
+            edit_patient_practical_support_path(entry),
+            class: "edit_practical_support practical-support-#{entry.id}",
+            method: :get,
+            remote: true %>
+
+        Edit
+      </div>
+    </div>
+  
+
     <hr />
   <% end %>
 <% end %>
+
+
+
+

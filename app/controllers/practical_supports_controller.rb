@@ -1,9 +1,15 @@
 # Create a non-monetary assistance record for a patient.
 class PracticalSupportsController < ApplicationController
   before_action :find_patient, only: [:create]
-  before_action :find_support, only: [:update, :destroy]
+  before_action :find_support, only: [:edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound,
               with: -> { head :not_found }
+
+  def edit
+    respond_to do |format|
+      respond_to { |format| format.js }
+    end
+  end
 
   def create
     @support = @patient.practical_supports.new practical_support_params
