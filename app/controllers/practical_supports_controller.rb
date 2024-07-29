@@ -6,9 +6,7 @@ class PracticalSupportsController < ApplicationController
               with: -> { head :not_found }
 
   def edit
-    respond_to do |format|
-      respond_to { |format| format.js }
-    end
+    respond_to { |format| format.js }
   end
 
   def create

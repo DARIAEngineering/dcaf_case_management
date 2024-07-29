@@ -1,8 +1,5 @@
-modal content!
-
-
-<%= bootstrap_form_with model: practical_support,
-    url: patient_practical_support_path(patient, practical_support),
+<%= bootstrap_form_with model: support,
+    url: patient_practical_support_path(patient, support),
     html: { class: 'edit_practical_support col-12' },
     local: false do |f| %>
   <div class="row">
@@ -12,8 +9,8 @@ modal content!
 
     <div class="col-5">
       <%= f.select :source,
-                   options_for_select(practical_support_source_options(practical_support.source),
-                                      practical_support.source),
+                   options_for_select(practical_support_source_options(support.source),
+                                      support.source),
                    hide_label: true %>
     </div>
 
@@ -43,11 +40,11 @@ modal content!
     <div class="col-3">
       <%= f.form_group :confirmed do %>
         <%= f.check_box :confirmed,
-                        id: "practical_support_confirmed_#{practical_support.id}",
+                        id: "practical_support_confirmed_#{support.id}",
                         label_class: 'tooltip-header-checkbox',
                         data: { 'tooltip_text': practical_support_confirmed_help_text } %>
         <%= f.check_box :fulfilled,
-                        id: "practical_support_fulfilled_#{practical_support.id}",
+                        id: "practical_support_fulfilled_#{support.id}",
                         label_class: 'tooltip-header-checkbox',
                         data: { 'tooltip_text': practical_support_fulfilled_help_text } %>
       <% end %>
@@ -57,11 +54,10 @@ modal content!
 
 <div class="col-12">
   <%= button_to t('patient.practical_support.remove'),
-                patient_practical_support_path(patient, practical_support),
+                patient_practical_support_path(patient, support),
                 remote: true,
                 method: :delete,
                 data: { confirm: t('patient.practical_support.delete_confirm') },
                 class: "btn btn-danger float-right practical-support-remove" %>
 </div>
 <hr/>
-</div>

@@ -12,9 +12,8 @@
       </div>
       <div class="col-2">
         <%= link_to 'button!!!',
-            edit_patient_practical_support_path(entry),
+            edit_patient_practical_support_path(patient, entry),
             class: "edit_practical_support practical-support-#{entry.id}",
-            method: :get,
             remote: true %>
 
         Edit

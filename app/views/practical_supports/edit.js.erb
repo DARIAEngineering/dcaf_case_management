@@ -1,6 +1,6 @@
-alert('meowdy');
+// alert('meowdy');
 
 $('.modal-content').html('');
-$('.modal').attr('id', '<%= @patient.primary_phone_display %>');
-$('.modal-content').append('<%= escape_javascript(render partial: "practical_supports/edit", locals: { patient: @patient, practical_support: @practical_support })%>');
+$('.modal').attr('id', 'practical-support-<%= @support.id %>-edit-modal');
+$('.modal-content').append('<%= escape_javascript(render partial: "practical_supports/edit", locals: { patient: @patient, support: @support })%>');
 $('.modal').modal('toggle');
