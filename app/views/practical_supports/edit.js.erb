@@ -1,5 +1,3 @@
-// alert('meowdy');
-
 $('.modal-content').html('');
 $('.modal').attr('id', 'practical-support-<%= @support.id %>-edit-modal');
 $('.modal-content').append('<%= escape_javascript(render partial: "practical_supports/edit", locals: { patient: @patient, support: @support })%>');
