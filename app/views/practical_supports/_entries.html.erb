@@ -18,6 +18,15 @@
 
         Edit
       </div>
+
+      <div class="col-2">
+        <%= button_to t('patient.practical_support.remove'),
+                      patient_practical_support_path(patient, entry),
+                      remote: true,
+                      method: :delete,
+                      data: { confirm: t('patient.practical_support.delete_confirm') },
+                      class: "btn btn-danger float-right practical-support-remove" %>
+      </div>
     </div>
   
 
