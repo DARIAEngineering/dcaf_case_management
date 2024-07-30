@@ -241,9 +241,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_003050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
-    t.string "can_note_type"
-    t.bigint "can_note_id"
-    t.index ["can_note_type", "can_note_id"], name: "index_notes_on_can_note"
     t.index ["fund_id"], name: "index_notes_on_fund_id"
     t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
@@ -308,6 +305,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_30_003050) do
     t.bigint "line_id", null: false
     t.boolean "solidarity"
     t.string "solidarity_lead"
+    t.string "procedure_type"
     t.time "appointment_time", comment: "A patient's appointment time"
     t.integer "ultrasound_cost"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
