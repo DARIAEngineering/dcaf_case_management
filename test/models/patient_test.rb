@@ -471,8 +471,7 @@ class PatientTest < ActiveSupport::TestCase
 
     describe 'most_recent_note_display_text method' do
       before do
-        @note = create :note, patient: @patient,
-          full_text: (1..100).map(&:to_s).join('')
+        @note = @patient.notes.create full_text: (1..100).map(&:to_s).join('')          
       end
 
       it 'returns 22 characters of the notes text' do
