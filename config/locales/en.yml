@@ -86,7 +86,6 @@ en:
         pledge_sent_at: Pledge sent at
         primary_phone: Primary phone
         procedure_cost: Procedure cost
-        ultrasound_cost: Ultrasound cost
         procedure_date: Procedure date
         procedure_type: Procedure type
         pronouns: Pronouns
@@ -102,6 +101,7 @@ en:
         support_date: Support date
         support_type: Support type
         textable: Textable
+        ultrasound_cost: Ultrasound cost
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
       practical_support:
@@ -377,12 +377,12 @@ en:
         ultrasound_completed: Ultrasound completed?
       cost_section:
         abortion_cost: Abortion cost
-        ultrasound_cost: Ultrasound cost
         fund_pledge: "%{fund} pledge"
         naf_pledge: National Abortion Federation pledge
         outstanding_balance: Outstanding Balance
         patient_contribution: Patient contribution
         title: Cost details
+        ultrasound_cost: Ultrasound cost
       title: Abortion information
     call_log:
       delete_confirm: Are you sure you want to remove this call from the call log?

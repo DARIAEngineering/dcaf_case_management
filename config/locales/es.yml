@@ -86,7 +86,6 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
-        ultrasound_cost: Costo del ultrasonido
         procedure_date: Fecha de procedimiento
         procedure_type: Tipo de procedimiento
         pronouns: Pronombres
@@ -102,6 +101,7 @@ es:
         support_date: Fecha del soporte
         support_type: Tipo de soporte
         textable: Textable
+        ultrasound_cost: Costo del ultrasonido
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
       practical_support:
@@ -377,12 +377,12 @@ es:
         ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:
         abortion_cost: Costo del aborto
-        ultrasound_cost: Costo del ultrasonido
         fund_pledge: Promesa de %{fund}
         naf_pledge: Promesa de la Federación Nacional de Aborto
         outstanding_balance: Cantidad pendiente
         patient_contribution: Contribución del paciente
         title: Detalles del costo
+        ultrasound_cost: Costo del ultrasonido
       title: Información de aborto
     call_log:
       delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
