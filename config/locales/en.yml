@@ -86,6 +86,7 @@ en:
         pledge_sent_at: Pledge sent at
         primary_phone: Primary phone
         procedure_cost: Procedure cost
+        ultrasound_cost: Ultrasound cost
         procedure_date: Procedure date
         procedure_type: Procedure type
         pronouns: Pronouns
@@ -376,6 +377,7 @@ en:
         ultrasound_completed: Ultrasound completed?
       cost_section:
         abortion_cost: Abortion cost
+        ultrasound_cost: Ultrasound cost
         fund_pledge: "%{fund} pledge"
         naf_pledge: National Abortion Federation pledge
         outstanding_balance: Outstanding Balance

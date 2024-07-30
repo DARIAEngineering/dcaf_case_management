@@ -86,6 +86,7 @@ es:
         pledge_sent_at: Promesa enviada en
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
+        ultrasound_cost: Costo del ultrasonido
         procedure_date: Fecha de procedimiento
         procedure_type: Tipo de procedimiento
         pronouns: Pronombres
@@ -376,6 +377,7 @@ es:
         ultrasound_completed: "¿Ultrasonido completado?"
       cost_section:
         abortion_cost: Costo del aborto
+        ultrasound_cost: Costo del ultrasonido
         fund_pledge: Promesa de %{fund}
         naf_pledge: Promesa de la Federación Nacional de Aborto
         outstanding_balance: Cantidad pendiente
