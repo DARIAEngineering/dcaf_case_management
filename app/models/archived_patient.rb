@@ -38,6 +38,7 @@ class ArchivedPatient < ApplicationRecord
   validates :last_menstrual_period_weeks,
             :last_menstrual_period_days,
             :procedure_cost,
+            :ultrasound_cost,
             :fund_pledge,
             :naf_pledge,
             :patient_contribution,
