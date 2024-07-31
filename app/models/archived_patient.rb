@@ -38,6 +38,7 @@ class ArchivedPatient < ApplicationRecord
   validates :last_menstrual_period_weeks,
             :last_menstrual_period_days,
             :procedure_cost,
+            :ultrasound_cost,
             :fund_pledge,
             :naf_pledge,
             :patient_contribution,
@@ -117,6 +118,7 @@ class ArchivedPatient < ApplicationRecord
     archived_patient.line_id = patient.line_id
 
     archived_patient.procedure_cost = procedure_cost_positive patient.procedure_cost
+    archived_patient.ultrasound_cost = procedure_cost_positive patient.ultrasound_cost
 
     PaperTrail.request(whodunnit: patient.created_by_id) do
       archived_patient.save!

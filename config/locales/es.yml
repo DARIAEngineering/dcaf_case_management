@@ -101,6 +101,7 @@ es:
         support_date: Fecha del soporte
         support_type: Tipo de soporte
         textable: Textable
+        ultrasound_cost: Costo del ultrasonido
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
       practical_support:
@@ -381,6 +382,7 @@ es:
         outstanding_balance: Cantidad pendiente
         patient_contribution: Contribución del paciente
         title: Detalles del costo
+        ultrasound_cost: Costo del ultrasonido
       title: Información de aborto
     call_log:
       delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
