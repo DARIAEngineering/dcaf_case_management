@@ -5761,6 +5761,7 @@
           "support_date": "Support date",
           "support_type": "Support type",
           "textable": "Textable",
+          "ultrasound_cost": "Ultrasound cost",
           "voicemail_preference": "Voicemail preference",
           "zipcode": "Zipcode"
         },
@@ -6655,7 +6656,8 @@
           "naf_pledge": "National Abortion Federation pledge",
           "outstanding_balance": "Outstanding Balance",
           "patient_contribution": "Patient contribution",
-          "title": "Cost details"
+          "title": "Cost details",
+          "ultrasound_cost": "Ultrasound cost"
         },
         "title": "Abortion information"
       },
@@ -10159,6 +10161,7 @@
           "support_date": "Fecha del soporte",
           "support_type": "Tipo de soporte",
           "textable": "Textable",
+          "ultrasound_cost": "Costo del ultrasonido",
           "voicemail_preference": "Preferencia de correo de voz",
           "zipcode": "Código postal"
         },
@@ -10982,7 +10985,8 @@
           "naf_pledge": "Promesa de la Federación Nacional de Aborto",
           "outstanding_balance": "Cantidad pendiente",
           "patient_contribution": "Contribución del paciente",
-          "title": "Detalles del costo"
+          "title": "Detalles del costo",
+          "ultrasound_cost": "Costo del ultrasonido"
         },
         "title": "Información de aborto"
       },

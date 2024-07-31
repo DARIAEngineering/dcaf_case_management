@@ -148,11 +148,11 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       select 'Metallica Abortion Fund', from: 'patient_solidarity_lead'
 
       fill_in 'Abortion cost', with: '300'
+      fill_in 'Ultrasound cost', with: '20'
       fill_in 'Patient contribution', with: '200'
       fill_in 'National Abortion Federation pledge', with: '50'
       fill_in 'CATF pledge', with: '25'
       fill_in 'Metallica Abortion Fund pledge', with: '25', match: :prefer_exact
-      fill_in 'Abortion cost', with: '300'
       click_away_from_field
       reload_page_and_click_link 'Abortion Information'
     end
@@ -162,6 +162,8 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       find('#outstanding-balance').has_text?('$0')
 
       fill_in 'Abortion cost', :with => '20000'
+      find('#outstanding-balance').has_text?('$19720')
+      fill_in 'Ultrasound cost', :with => '0'
       find('#outstanding-balance').has_text?('$19700')
       fill_in 'Patient contribution', with: '0'
       find('#outstanding-balance').has_text?('$19900')
@@ -184,6 +186,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'Solidarity Lead', with: 'Metallica Abortion Fund'
 
         assert has_field? 'Abortion cost', with: '300'
+        assert has_field? 'Ultrasound cost', with: '20'
         assert has_field? 'Patient contribution', with: '200'
         assert has_field? 'National Abortion Federation pledge', with: '50'
         assert has_field? 'CATF pledge', with: '25'
