@@ -25,8 +25,8 @@ class NoteTest < ActiveSupport::TestCase
 
   describe 'relationships' do
     it 'should have an associated patient' do
-      assert @note.respond_to? :patient
-      assert @note.patient
+      assert @note.respond_to? :can_note
+      assert_equal @note.can_note, @patient
     end
   end
 

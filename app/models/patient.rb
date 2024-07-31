@@ -34,7 +34,7 @@ class Patient < ApplicationRecord
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
   has_many :practical_supports, as: :can_support
-  has_many :notes
+  has_many :notes, as: :can_note
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil, optional: true
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
   belongs_to :last_edited_by, class_name: 'User', inverse_of: nil, optional: true
