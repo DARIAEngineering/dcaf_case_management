@@ -33,6 +33,7 @@ module Exportable
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
     "Abortion cost" => :procedure_cost,
+    "Ultrasound cost" => :ultrasound_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
     "Fund pledge" => :fund_pledge,
