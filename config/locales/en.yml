@@ -173,22 +173,22 @@ en:
     back: Back
     clinic: Clinic
     days_along: Days along at intake
-    update: Update
-    from: from
-    for: for
-    on: "on"
     email: Email
+    for: for
+    from: from
     medicaid: Medicaid
     naf: NAF
     name: Name
     'no': 'No'
     notes: Notes
+    on_: 'on'
     patient: Patient
     phone: Phone
     prefer_not_to_answer: Prefer not to answer
     save: Save
     search: Search
     status: Status
+    update: Update
     weeks_along_short: Weeks along
     weeks_days: "%{weeks} weeks, %{days} days"
     weeks_days_short: "%{weeks}w %{days}d"

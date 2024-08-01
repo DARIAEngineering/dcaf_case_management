@@ -173,22 +173,22 @@ es:
     back: Atrás
     clinic: Clínica
     days_along: Días de embarazo al inicio
-    update: Actualizar
-    from: de
-    for: por
-    on: en
     email: Email
+    for: por
+    from: de
     medicaid: Medicaid
     naf: NAF
     name: Nombre
     'no': 'No'
     notes: Notas
+    on_: en
     patient: Patiente
     phone: Teléfono
     prefer_not_to_answer: Prefiere no contestar
     save: Guardar
     search: Buscar
     status: Estatus
+    update: Actualizar
     weeks_along_short: Semanas a lo largo
     weeks_days: "%{weeks} semanas, %{days} días"
     weeks_days_short: "%{weeks}s %{days}d"

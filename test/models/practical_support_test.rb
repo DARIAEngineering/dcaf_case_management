@@ -35,12 +35,4 @@ class PracticalSupportTest < ActiveSupport::TestCase
       end
     end
   end
-
-  describe 'display_text' do
-    it 'should display' do
-      assert_equal 'Concert Tickets from Metallica Abortion Fund', @psupport1.display_text
-      assert_equal "Swag from YOLO AF (confirmed) on #{2.days.from_now.display_date}", @psupport2.display_text
-      assert_equal 'Companion from Cat for $32.00', @psupport3.display_text
-    end
-  end
 end
