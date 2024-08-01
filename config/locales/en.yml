@@ -173,6 +173,10 @@ en:
     back: Back
     clinic: Clinic
     days_along: Days along at intake
+    update: Update
+    from: from
+    for: for
+    on: "on"
     email: Email
     medicaid: Medicaid
     naf: NAF

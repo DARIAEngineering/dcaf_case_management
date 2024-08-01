@@ -47,4 +47,13 @@ module PracticalSupportsHelper
     link_to t('patient.practical_support.guidance_link', fund: ActsAsTenant.current_tenant.name), url.to_s, target: '_blank'
     # "For guidance on practical support, view the #{link_content}."
   end
+
+  def practical_support_display_text(practical_support)
+    content = [practical_support.support_type]
+    content.push "#{t('common.from')} #{practical_support.source}"
+    content.push "#{t('common.for')} #{number_to_currency(practical_support.amount)}" if practical_support.amount.present?
+    content.push '(confirmed)' if practical_support.confirmed?
+    content.push "#{t('common.on')} #{practical_support.support_date.display_date}" if practical_support.support_date.present?
+    content.join(' ')
+  end
 end

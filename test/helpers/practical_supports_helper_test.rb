@@ -149,4 +149,28 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       assert_equal expected_link, practical_support_guidance_link
     end
   end
+
+  describe 'practical_support_display_text' do
+    before do
+      @patient.practical_supports.create support_type: 'Concert Tickets',
+                                         source: 'Metallica Abortion Fund'
+      @patient.practical_supports.create support_type: 'Swag',
+                                         source: 'YOLO AF',
+                                         confirmed: true,
+                                         support_date: 2.days.from_now
+      @patient.practical_supports.create support_type: 'Companion',
+                                         source: 'Cat',
+                                         amount: 32
+      @psupport1 = @patient.practical_supports.first
+      @psupport2 = @patient.practical_supports.second
+      @psupport3 = @patient.practical_supports.last
+      end
+    end
+
+    it 'should display' do
+      assert_equal 'Concert Tickets from Metallica Abortion Fund', @psupport1.display_text
+      assert_equal "Swag from YOLO AF (confirmed) on #{2.days.from_now.display_date}", @psupport2.display_text
+      assert_equal 'Companion from Cat for $32.00', @psupport3.display_text
+    end
+  end
 end
