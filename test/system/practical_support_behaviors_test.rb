@@ -13,7 +13,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
     it 'should start empty' do
       within :css, '#practical-support-entries' do
-        assert has_no_text? 'Edit'
+        assert has_no_text? 'Update'
       end
     end
 
@@ -30,7 +30,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
       within :css, '#practical-support-entries' do
         assert_equal 'Companion from Other (see notes) for $500.10 (confirmed)', find('.practical-support-display-text').text
-        click_link 'Edit'
+        click_link 'Update'
       end
 
       within :css, '.modal' do
@@ -68,7 +68,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
     it 'should save if valid and changed' do
       within :css, "#practical-support-item-#{@support.id}" do
-        click_link 'Edit'
+        click_link 'Update'
       end
       within :css, '.modal' do
         select 'Cat Fund', from: 'practical_support_source'
@@ -89,7 +89,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
     it 'should fail if changed to invalid' do
       within :css, "#practical-support-item-#{@support.id}" do
-        click_link 'Edit'
+        click_link 'Update'
       end
       within :css, '.modal' do
         select '', from: 'practical_support_source'
@@ -116,7 +116,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
     it 'destroy practical supports if you click the big red button' do
       within :css, '#practical-support-entries' do
-        click_link 'Edit'
+        click_link 'Update'
       end
       within :css, '.modal' do
         accept_confirm { click_button 'Remove' }
@@ -170,7 +170,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       go_to_practical_support_tab
       
       within :css, '#practical-support-entries' do
-        click_link 'Edit'
+        click_link 'Update'
       end
       within :css, '.modal' do
         check 'Confirmed'
