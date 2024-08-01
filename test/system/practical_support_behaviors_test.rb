@@ -13,8 +13,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
 
     it 'should start empty' do
       within :css, '#practical-support-entries' do
-        assert has_no_text? 'Category of support'
-        assert has_no_selector? '#practical_support_support_type'
+        assert has_no_text? 'Edit'
       end
     end
 
@@ -30,6 +29,9 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       end
 
       within :css, '#practical-support-entries' do
+        # binding.pry
+        assert_equal 'Companion from Other (see notes) for $500.10 (confirmed)', find('.practical-support-display-text').value
+        click_link 'Edit'
         assert_equal 'Companion', find('#practical_support_support_type').value
         assert_equal 'Other (see notes)', find('#practical_support_source').value
         assert_equal '500.10', find('#practical_support_amount').value
