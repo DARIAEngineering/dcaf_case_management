@@ -36,6 +36,7 @@ class PracticalSupportsController < ApplicationController
   end
 
   def destroy
+    flash.now[:alert] = "Removed practical support"
     @support.destroy
     respond_to { |format| format.js }
   end
