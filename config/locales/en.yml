@@ -585,9 +585,7 @@ en:
       delete_confirm: Are you sure you want to delete this practical support entry?
       guidance_link: "%{fund} practical support guidance"
       new: 'Record new practical support info:'
-      point_of_contact: Point of contact
       remove: Remove
-      support_needed: Support needed
       title: Practical support
     shared:
       appt_date: Appointment date

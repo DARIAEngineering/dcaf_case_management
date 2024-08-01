@@ -6895,9 +6895,7 @@
         "delete_confirm": "Are you sure you want to delete this practical support entry?",
         "guidance_link": "%{fund} practical support guidance",
         "new": "Record new practical support info:",
-        "point_of_contact": "Point of contact",
         "remove": "Remove",
-        "support_needed": "Support needed",
         "title": "Practical support"
       },
       "shared": {
@@ -11224,9 +11222,7 @@
         "delete_confirm": "¿Está seguro de que desea eliminar esta entrada de soporte práctico?",
         "guidance_link": "Orientacíon de soporte práctico de %{fund}",
         "new": "Grabar nueva información de soporte práctico:",
-        "point_of_contact": "Punto de contacto",
         "remove": "Elimina",
-        "support_needed": "Soporte Necesarios",
         "title": "Apoyo practico"
       },
       "shared": {
