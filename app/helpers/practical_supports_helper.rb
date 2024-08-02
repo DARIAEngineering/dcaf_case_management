@@ -49,11 +49,13 @@ module PracticalSupportsHelper
   end
 
   def practical_support_display_text(practical_support)
-    content = [practical_support.support_type]
+    content = []
+    content.push "(#{t('activerecord.attributes.practical_support.confirmed')})" if practical_support.confirmed?
+    content.push "(#{t('activerecord.attributes.practical_support.fulfilled')})" if practical_support.confirmed?
+    content.push practical_support.support_type
     content.push "#{t('common.from')} #{practical_support.source}"
-    content.push "#{t('common.for')} #{number_to_currency(practical_support.amount)}" if practical_support.amount.present?
-    content.push '(confirmed)' if practical_support.confirmed?
     content.push "#{t('common.on_')} #{practical_support.support_date.display_date}" if practical_support.support_date.present?
+    content.push "#{t('common.for')} #{number_to_currency(practical_support.amount)}" if practical_support.amount.present?
     content.join(' ')
   end
 end
