@@ -6896,10 +6896,10 @@
       },
       "practical_support": {
         "create": "Create new practical support entry",
+        "delete": "Delete",
         "delete_confirm": "Are you sure you want to delete this practical support entry?",
         "guidance_link": "%{fund} practical support guidance",
         "new": "Record new practical support info:",
-        "remove": "Remove",
         "title": "Practical support"
       },
       "shared": {
@@ -11227,10 +11227,10 @@
       },
       "practical_support": {
         "create": "Crear una nueva entrada de soporte práctico",
+        "delete": "Elimina",
         "delete_confirm": "¿Está seguro de que desea eliminar esta entrada de soporte práctico?",
         "guidance_link": "Orientacíon de soporte práctico de %{fund}",
         "new": "Grabar nueva información de soporte práctico:",
-        "remove": "Elimina",
         "title": "Apoyo practico"
       },
       "shared": {

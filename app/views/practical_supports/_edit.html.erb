@@ -37,7 +37,11 @@
 
 <div class="row">
   <div class="col">
-    <%= button_to t('patient.practical_support.remove'),
+    <%= button_to 'Close',
+                  nil,
+                  data: { dismiss: 'modal' },
+                  class: "btn btn-primary float-left mt-3" %>
+    <%= button_to t('patient.practical_support.delete'),
                   patient_practical_support_path(patient, support),
                   remote: true,
                   method: :delete,

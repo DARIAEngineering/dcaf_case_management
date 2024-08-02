@@ -589,7 +589,7 @@ es:
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       guidance_link: Orientacíon de soporte práctico de %{fund}
       new: 'Grabar nueva información de soporte práctico:'
-      remove: Elimina
+      delete: Elimina
       title: Apoyo practico
     shared:
       appt_date: Día de la cita

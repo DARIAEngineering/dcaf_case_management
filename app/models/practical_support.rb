@@ -1,7 +1,5 @@
 # Representation of non-monetary assistance coordinated for a patient.
 class PracticalSupport < ApplicationRecord
-  include ActionView::Helpers::NumberHelper
-
   acts_as_tenant :fund
 
   encrypts :attachment_url
