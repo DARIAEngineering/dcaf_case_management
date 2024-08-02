@@ -11,7 +11,7 @@ This project is a case management system for abortion funds. [Abortion funds](ht
 
 This originated with the [DC Abortion Fund](http://www.dcabortionfund.org) (DCAF). Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. Since adopting this system, DCAF and several other funds have been able to operate at a much faster pace, and lowered the stress levels of their volunteers. We now support multiple funds across the country.
 
-Get started with the how-and-why of the project by checking out [Abortion funds](http://www.fundabortionnow.org), reading [case manager Lisa's explanation of DCAF's business logic](docs/DCAF_101.md), reading our [Code of Conduct](CODE_OF_CONDUCT.md), and joining the [`#daria` channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files).
+Get started with the how-and-why of the project by checking out [Abortion funds](http://www.fundabortionnow.org), reading [case manager Lisa's explanation of an abortion fund's business logic](docs/ABORTION_FUNDING_101.md), reading our [Code of Conduct](CODE_OF_CONDUCT.md), and joining the [`#daria` channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files).
 
 You can also check out [some of the other buzz](docs/PRESS.md) or [read about how it's impacted DCAF](docs/IMPACT_ON_DCAF.md).
 

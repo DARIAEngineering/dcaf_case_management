@@ -4,9 +4,9 @@ Most abortion funds have many volunteer **case managers** who answer **patient**
 
 The workflow is similar to many Customer Relationship Manager (CRM) systems. After patients leave a voicemail, the case managers (our users) return their calls and assist patients in navigating the process of scheduling an appointment and raising funds. If the patient is short on money, after a series of phone calls we issue a **pledge** to support their visit to a clinic. If a patient takes advantage of the pledge and complete their abortion, our accounting team logs that as a **fulfillment**.
 
-The following details the DC Abortion Fund (DCAF) workflow, which DARIA is built around.
+DARIA was originally built around the DC Abortion Fund (DCAF) workflow, though it's expanded somewhat. Many of the core assumptions and approaches are still based around DCAF's ideas.
 
-[![DCAF High Level User Flow](https://cloud.githubusercontent.com/assets/12372787/11200243/45b1a5de-8ca2-11e5-876c-da0f738041f0.jpg)](https://cloud.githubusercontent.com/assets/12372787/11200243/45b1a5de-8ca2-11e5-876c-da0f738041f0.jpg)
+[![High Level User Flow](https://cloud.githubusercontent.com/assets/12372787/11200243/45b1a5de-8ca2-11e5-876c-da0f738041f0.jpg)](https://cloud.githubusercontent.com/assets/12372787/11200243/45b1a5de-8ca2-11e5-876c-da0f738041f0.jpg)
 
 Our case managers work either a one week or a half week shift where they are in charge of one of three lines (DC, VA, or MD/Nationwide). A patient may be touched by several case managers over a period of several weeks, which is why DCAF needed a case management system that more accurately records these interactions across case managers.
 
