@@ -29,7 +29,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       end
 
       within :css, '#practical-support-entries' do
-        assert_equal 'Companion from Other (see notes) for $500.10 (confirmed)', find('.practical-support-display-text').text
+        assert_equal '(Confirmed) (Fulfilled) Companion from Other (see notes) for $500.10', find('.practical-support-display-text').text
         click_link 'Update'
       end
 
@@ -78,12 +78,11 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       end
       sleep 1
       assert has_text? "Patient info successfully saved"
-      send_keys :escape # close modal
-
+      click_button 'Close'
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#practical-support-entries' do
-        assert_equal 'Other (see notes) from Cat Fund for $100.45 (confirmed)', find('.practical-support-display-text').text
+        assert_equal '(Confirmed) (Fulfilled) Other (see notes) from Cat Fund for $100.45', find('.practical-support-display-text').text
       end
     end
 
@@ -97,7 +96,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       end
       sleep 1
       assert has_text? "Practical support failed to save: Source can't be blank"
-      send_keys :escape # close modal
+      click_button 'Close'
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#practical-support-entries' do
@@ -119,10 +118,10 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         click_link 'Update'
       end
       within :css, '.modal' do
-        accept_confirm { click_button 'Remove' }
+        accept_confirm { click_button 'Delete' }
       end
       sleep 1
-      send_keys :escape
+      click_button 'Close'
 
       reload_page_and_click_link 'Practical Support'
       within :css, '#practical-support-entries' do

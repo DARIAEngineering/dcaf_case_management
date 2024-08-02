@@ -586,10 +586,10 @@ es:
       title: Cumplimiento de la promesa
     practical_support:
       create: Crear una nueva entrada de soporte práctico
+      delete: Elimina
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       guidance_link: Orientacíon de soporte práctico de %{fund}
       new: 'Grabar nueva información de soporte práctico:'
-      delete: Elimina
       title: Apoyo practico
     shared:
       appt_date: Día de la cita
