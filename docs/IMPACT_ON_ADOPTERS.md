@@ -1,4 +1,4 @@
-# How has implementing DARIA worked for DCAF?
+# How has implementing DARIA worked for adopters?
 
 
 ## Feedback from case managers
@@ -9,7 +9,7 @@ These are testimonials on how DARIA has impacted the work done by our case manag
 
 By making patients searchable and displaying data in a case-manager-friendly way, DARIA cuts down on the mental overhead needed to learn or troubleshoot a spreadsheet.
 
-> When I started Case Managing with the DC Abortion Fund (DCAF), my biggest struggle was the learning curve of utilizing CryptoHeaven to record and track patient data. The time it took to troubleshoot, search for missing information, and correct errors took valuable time away from connecting with patients. When DARIA was introduced, those struggles ceased being a barrier.
+> When I started Case Managing with the DC Abortion Fund (DCAF), my biggest struggle was the learning curve of utilizing [Excel] to record and track patient data. The time it took to troubleshoot, search for missing information, and correct errors took valuable time away from connecting with patients. When DARIA was introduced, those struggles ceased being a barrier.
 
 ### DARIA's simplified interface helps case managers focus on conversations.
 
@@ -25,7 +25,7 @@ Using a shared canonical spreadsheet can result in people accidentally overwriti
 
 ### DARIA helps keep track of patients who might get lost in the shuffle
 
-Patients may often need to work with DCAF for an extended period of time. DARIA helps keep these more complex cases organized, which enables more seamless patient care.
+Patients may often need to work with funds for an extended period of time. DARIA helps keep these more complex cases organized, which enables more seamless patient care.
 
 > Before every shift, we get an email from the previous shift manager about calls to look out for and upcoming appointments. Many times it will take several shifts for a patient to get everything they need together in order to make it to an appointment, especially if they are traveling far, so they will work with at least two case managers. They may also not connect with us for multiple shifts, so they won't be in the past case manager's email. Since DARIA, it has been easier to know who these patients are and to reach out to them.
 
