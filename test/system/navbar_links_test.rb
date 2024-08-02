@@ -5,6 +5,7 @@ class NavbarLinksTest < ApplicationSystemTestCase
     create :line
     @user = create :user, role: :admin
     log_in_as @user
+    @fund = ActsAsTenant.current_tenant
   end
 
   describe 'user dropdown' do
@@ -28,6 +29,10 @@ class NavbarLinksTest < ApplicationSystemTestCase
 
       it 'should display the Config Management link' do
         assert has_link? t('navigation.admin_tools.config_management'), href: configs_path
+      end
+
+      it 'should display the Fund Management link' do
+        assert has_link? t('navigation.admin_tools.fund_management'), href: fund_url(@fund)
       end
 
       it 'should display the Accounting link' do
@@ -58,6 +63,10 @@ class NavbarLinksTest < ApplicationSystemTestCase
 
       it 'should not display the Config Management link' do
         refute has_link? t('navigation.admin_tools.config_management')
+      end
+
+      it 'should not display the Fund Management link' do
+        refute has_link? t('navigation.admin_tools.fund_management')
       end
 
       it 'should display the Accounting link' do
