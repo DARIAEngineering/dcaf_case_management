@@ -9,7 +9,7 @@
                     options_for_select(practical_support_source_options(support.source),
                                       support.source) %>
       <%= f.number_field :amount,
-                          value: number_to_currency(f.object.amount.to_f, unit: '', delimiter: ''),
+                          value: f.object.amount.present? ? number_to_currency(f.object.amount.to_f, unit: '', delimiter: '') : nil,
                           autocomplete: 'off',
                           prepend: '$',
                           step: '0.01' %>
