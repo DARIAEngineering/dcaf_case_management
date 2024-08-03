@@ -35,17 +35,21 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col">
-    <%= button_to 'Close',
-                  nil,
-                  data: { dismiss: 'modal' },
-                  class: "btn btn-primary float-left mt-3" %>
-    <%= button_to t('patient.practical_support.delete'),
+<div class="row/">
+<div class="col text-right">
+    <div class="btn-group" role="group" aria-label="delete">
+      <%= link_to t('patient.practical_support.delete'),
                   patient_practical_support_path(patient, support),
                   remote: true,
                   method: :delete,
                   data: { confirm: t('patient.practical_support.delete_confirm') },
-                  class: "btn btn-danger float-right practical-support-remove mt-3" %>
+                  class: "btn btn-danger practical-support-remove" %>
+    </div>
+    <div class="btn-group" role="group" aria-label="close">
+      <%= link_to t('common.close'),
+                    nil,
+                    data: { dismiss: 'modal' },
+                    class: "btn btn-success" %>
+    </div>
   </div>
 </div>
