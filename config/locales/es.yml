@@ -72,9 +72,9 @@ es:
         insurance: Seguro médico
         language: Idioma
         last_menstrual_period_days: Últimos días del período menstrual
-        multiday_appointment: Cita de varios días
         last_menstrual_period_weeks: Últimas semanas del período menstrual
         line_id: ID de la línea
+        multiday_appointment: Cita de varios días
         naf_pledge: Promesa de la NAF
         name: Nombre
         other_contact: Otro contacto
@@ -372,13 +372,13 @@ es:
         clinic_display: "%{clinic_name} (%{city}, %{state})"
         inactive_clinics: Clinícas inactivas
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
+        multi_day: múltiples días
         naf_only_toggle: Enseñar solo clínicas de la NAF
         not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
         procedure_type: Tipo de procedimiento
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         solidarity: Promesa solidaria
-        multi_day: múltiples días
         solidarity_lead: Plomo de solidaridad
         title: Detalles de la clínica
         ultrasound_completed: "¿Ultrasonido completado?"
