@@ -27,3 +27,4 @@ export const activateTooltips = () => {
 };
 
 $(document).on('DOMContentLoaded', activateTooltips);
+$('.modal').on('show.bs.modal', activateTooltips);

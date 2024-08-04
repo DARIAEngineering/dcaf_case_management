@@ -172,19 +172,24 @@ es:
     appointment_date_short: Día de la cita
     back: Atrás
     clinic: Clínica
+    close: Cierre
     days_along: Días de embarazo al inicio
     email: Email
+    for: por
+    from: de
     medicaid: Medicaid
     naf: NAF
     name: Nombre
     'no': 'No'
     notes: Notas
+    on_: en
     patient: Patiente
     phone: Teléfono
     prefer_not_to_answer: Prefiere no contestar
     save: Guardar
     search: Buscar
     status: Estatus
+    update: Actualizar
     weeks_along_short: Semanas a lo largo
     weeks_days: "%{weeks} semanas, %{days} días"
     weeks_days_short: "%{weeks}s %{days}d"
@@ -582,12 +587,10 @@ es:
       title: Cumplimiento de la promesa
     practical_support:
       create: Crear una nueva entrada de soporte práctico
+      delete: Elimina
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       guidance_link: Orientacíon de soporte práctico de %{fund}
       new: 'Grabar nueva información de soporte práctico:'
-      point_of_contact: Punto de contacto
-      remove: Elimina
-      support_needed: Soporte Necesarios
       title: Apoyo practico
     shared:
       appt_date: Día de la cita

@@ -1,3 +1,8 @@
+// rerack the index
+$('#practical-support-entries').empty().html(
+  '<%= escape_javascript(render "practical_supports/entries", patient: @patient) %>'
+);
+
 // flash the result
 $('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
 $('#flash').removeClass().hide().fadeIn('slow');

@@ -1,6 +1,14 @@
-$('#practical-support-item-<%= @support.id %>').empty().remove();
+// rerack the index
+$('#practical-support-entries').empty().html(
+  '<%= escape_javascript(render "practical_supports/entries", patient: @patient) %>'
+);
 
-// If there aren't any practical support entries left, empty out the list
-if ($('.practical-support-item').length == 0) {
-  $('#practical-support-entries').empty();
-}
+// flash the result
+$('#flash').html('<%= escape_javascript(render partial: "layouts/messages") %>');
+$('#flash').removeClass().hide().fadeIn('slow');
+setTimeout(function() {
+  $('#flash').hide();
+}, 5000);
+
+// Close the modal
+$('.modal').modal('hide');
