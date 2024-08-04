@@ -1,37 +1,88 @@
-<div class="row">
-  <div class="col">
-    <%= bootstrap_form_with model: support,
-        url: patient_practical_support_path(patient, support),
-        html: { class: 'edit_practical_support col-12' },
-        local: false do |f| %>
-      <%= f.select :support_type, options_for_select(practical_support_options, support.support_type) %>
-      <%= f.select :source,
-                    options_for_select(practical_support_source_options(support.source),
-                                      support.source) %>
-      <%= f.number_field :amount,
-                          value: f.object.amount.present? ? number_to_currency(f.object.amount.to_f, unit: '', delimiter: '') : nil,
-                          autocomplete: 'off',
-                          prepend: '$',
-                          step: '0.01' %>
-      <%= f.date_field :support_date, autocomplete: 'off' %>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+    <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+    <button class="nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">.a.</div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">.b.</div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">.c.</div>
+</div>
 
-      <% if Config.display_practical_support_attachment_url? %>
-        <%= f.text_field :attachment_url,
-                          autocomplete: 'off',
-                          placeholder: t('activerecord.attributes.practical_support.attachment_url') %>
-      <% end %>
 
-      <%= f.form_group :confirmed do %>
-        <%= f.check_box :confirmed,
-                        id: "practical_support_confirmed_#{support.id}",
-                        label_class: 'tooltip-header-checkbox',
-                        data: { 'tooltip_text': practical_support_confirmed_help_text } %>
-        <%= f.check_box :fulfilled,
-                        id: "practical_support_fulfilled_#{support.id}",
-                        label_class: 'tooltip-header-checkbox',
-                        data: { 'tooltip_text': practical_support_fulfilled_help_text } %>
-      <% end %>
-    <% end %>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-support" data-toggle="tab" data-target="#nav-support" type="button" role="tab" aria-controls="nav-support" aria-selected="true">Home</button>
+    <button class="nav-link" id="nav-notes" data-toggle="tab" data-target="#nav-notes" type="button" role="tab" aria-controls="nav-notes" aria-selected="false">Profile</button>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-support" role="tabpanel" aria-labelledby="nav-support">
+    <div class="row practical-support-form">
+      <div class="col mt-5">
+        <%= bootstrap_form_with model: support,
+            url: patient_practical_support_path(patient, support),
+            html: { class: 'edit_practical_support col-12' },
+            local: false do |f| %>
+          <%= f.select :support_type, options_for_select(practical_support_options, support.support_type) %>
+          <%= f.select :source,
+                        options_for_select(practical_support_source_options(support.source),
+                                          support.source) %>
+          <%= f.number_field :amount,
+                              value: f.object.amount.present? ? number_to_currency(f.object.amount.to_f, unit: '', delimiter: '') : nil,
+                              autocomplete: 'off',
+                              prepend: '$',
+                              step: '0.01' %>
+          <%= f.date_field :support_date, autocomplete: 'off' %>
+
+          <% if Config.display_practical_support_attachment_url? %>
+            <%= f.text_field :attachment_url,
+                              autocomplete: 'off',
+                              placeholder: t('activerecord.attributes.practical_support.attachment_url') %>
+          <% end %>
+
+          <%= f.form_group :confirmed do %>
+            <%= f.check_box :confirmed,
+                            id: "practical_support_confirmed_#{support.id}",
+                            label_class: 'tooltip-header-checkbox',
+                            data: { 'tooltip_text': practical_support_confirmed_help_text } %>
+            <%= f.check_box :fulfilled,
+                            id: "practical_support_fulfilled_#{support.id}",
+                            label_class: 'tooltip-header-checkbox',
+                            data: { 'tooltip_text': practical_support_fulfilled_help_text } %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes">
+    <div class="row notes-form">
+      <div class="col">
+        <h3 class="mt-5"><%= t('patient.notes.title') %></h3>
+        <%= bootstrap_form_with model: [patient, support, note],
+                                html: { id: 'notes-form-practical-support' },
+                                local: false do |f| %>
+          <%= f.text_area :full_text,
+                          size: '20x5',
+                          placeholder: t('patient.notes.placeholder'),
+                          hide_label: true,
+                          class: 'col' %>
+
+          <div class="row">
+            <div class="col info-form-left">
+              <%= f.submit t('patient.notes.submit'), class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+
+        <%= render partial: 'notes/notes_table',
+                  locals: { notes: support.notes.order(created_at: :desc) } %>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -9,6 +9,7 @@ class PracticalSupport < ApplicationRecord
 
   # Relationships
   belongs_to :can_support, polymorphic: true
+  has_many :notes, as: :can_note
 
   # Validations
   validates :source, :support_type, presence: true, length: { maximum: 150 }

@@ -43,7 +43,11 @@ Rails.application.routes.draw do
       resources :external_pledges,
                 only: [ :create, :update, :destroy ]
       resources :practical_supports,
-                only: [ :create, :edit, :update, :destroy ]
+                only: [ :create, :edit, :update, :destroy ] do
+        resources :notes,
+                  only: [ :create, :update ]
+        end
+          
     end
 
     get 'patients/:patient_id/submit_pledge', to: 'patients#pledge', as: 'submit_pledge'
