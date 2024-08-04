@@ -1,7 +1,11 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-support-tab" data-toggle="tab" data-target="#nav-support" type="button" role="tab" aria-controls="nav-support" aria-selected="true">Detail</button>
-    <button class="nav-link" id="nav-notes-tab" data-toggle="tab" data-target="#nav-notes" type="button" role="tab" aria-controls="nav-notes" aria-selected="false">Notes</button>
+    <button class="nav-link active" id="nav-support-tab" data-toggle="tab" data-target="#nav-support" type="button" role="tab" aria-controls="nav-support" aria-selected="true">
+      <%= t('common.detail') %>
+    </button>
+    <button class="nav-link" id="nav-notes-tab" data-toggle="tab" data-target="#nav-notes" type="button" role="tab" aria-controls="nav-notes" aria-selected="false">
+      <%= t('common.notes') %>
+    </button>
   </div>
 </nav>
 
@@ -63,7 +67,7 @@
           </div>
         <% end %>
 
-        <div class="mt-5">
+        <div class="mt-5 support-notes-log">
           <%= render partial: 'notes/notes_table',
                      locals: { notes: support.notes.order(created_at: :desc) } %>
 
