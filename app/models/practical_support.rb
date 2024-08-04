@@ -6,6 +6,7 @@ class PracticalSupport < ApplicationRecord
 
   # Concerns
   include PaperTrailable
+  include Notetakeable
 
   # Relationships
   belongs_to :can_support, polymorphic: true

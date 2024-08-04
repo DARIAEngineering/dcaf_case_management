@@ -21,6 +21,5 @@ class NotesController < ApplicationController
   def find_object
     @object = PracticalSupport.find params[:practical_support_id] if params[:practical_support_id]
     @object = Patient.find params[:patient_id] if params[:patient_id]
-    return
   end
 end
