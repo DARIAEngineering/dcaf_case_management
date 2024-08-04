@@ -75,6 +75,7 @@ class ArchivedPatient < ApplicationRecord
       county: patient.county,
       initial_call_date: patient.initial_call_date,
       appointment_date: patient.appointment_date,
+      multiday_appointment: patient.multiday_appointment,
 
       shared_flag: patient.shared_flag,
       referred_by: patient.referred_by,

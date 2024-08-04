@@ -45,6 +45,7 @@
                           label: t('patient.abortion_information.clinic_section.solidarity'),
                           label_class: 'tooltip-header-checkbox',
                           data: { 'tooltip-text': solidarity_help_text } %>            
+          <%= f.check_box :multiday_appointment %>
         <% end %>
         <%= f.select :solidarity_lead,
             solidarity_leads,

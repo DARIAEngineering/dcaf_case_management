@@ -45,6 +45,7 @@ module Exportable
     "Fund pledged at" => :fund_pledged_at,
     "Solidarity pledge" => :solidarity,
     "Solidarity lead" => :solidarity_lead,
+    "Multi-day appointment" => :multiday_appointment,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,
