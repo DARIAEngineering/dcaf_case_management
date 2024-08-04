@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       end
       resources :calls,
                 only: [ :create, :destroy, :new ]
+      resources :notes,
+                only: [ :create, :update ]
       resources :external_pledges,
                 only: [ :create, :update, :destroy ]
       resources :practical_supports,
