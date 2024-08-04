@@ -10,7 +10,7 @@
 
     <tbody id="practical-support-content">
       <% patient.practical_supports.each do |entry| %>
-        <tr id="practical-support-row-#{entry.id}">
+        <tr id="practical-support-item-<%= entry.id %>">
           <td class="practical-support-display-text">
             <%= practical_support_display_text entry %>
           </td>
