@@ -44,10 +44,10 @@
   </div>
 
   <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
-    <div class="row notes-form">
+    <div class="row notes-form mh-75">
       <div class="col">
         <h3 class="mt-5"><%= t('patient.notes.title') %></h3>
-        <%= bootstrap_form_with model: [patient, support, note],
+        <%= bootstrap_form_with model: [support, note],
                                 html: { id: 'notes-form-practical-support' },
                                 local: false do |f| %>
           <%= f.text_area :full_text,
@@ -63,8 +63,11 @@
           </div>
         <% end %>
 
-        <%= render partial: 'notes/notes_table',
-                  locals: { notes: support.notes.order(created_at: :desc) } %>
+        <div class="mt-5">
+          <%= render partial: 'notes/notes_table',
+                     locals: { notes: support.notes.order(created_at: :desc) } %>
+
+        </div>
       </div>
     </div>
   </div>
