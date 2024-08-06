@@ -145,6 +145,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       check 'Referred to clinic'
       check 'Ultrasound completed?'
       check 'Solidarity Pledge'
+      check 'Multi-day appointment'
       select 'Metallica Abortion Fund', from: 'patient_solidarity_lead'
 
       fill_in 'Abortion cost', with: '300'
@@ -183,6 +184,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_checked_field?('Referred to clinic')
         assert has_checked_field?('Ultrasound completed?')
         assert has_checked_field?('Solidarity Pledge')
+        assert has_checked_field?('Multi-day appointment')
         assert has_field? 'Solidarity Lead', with: 'Metallica Abortion Fund'
 
         assert has_field? 'Abortion cost', with: '300'

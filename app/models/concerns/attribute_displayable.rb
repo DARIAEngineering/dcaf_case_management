@@ -12,16 +12,6 @@ module AttributeDisplayable
     "#{other_phone[0..2]}-#{other_phone[3..5]}-#{other_phone[6..9]}"
   end
 
-  def appointment_date_display
-    return nil unless appointment_date.present?
-    day = appointment_date.strftime("%m/%d/%Y")
-    if appointment_time
-      time = appointment_time.strftime("%l:%M %p").strip
-      return "#{day} @ #{time}"
-    end
-    return day
-  end
-
   def procedure_date_display
     return nil unless fulfillment.procedure_date.present?
     "#{fulfillment.procedure_date}"
