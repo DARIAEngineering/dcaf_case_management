@@ -74,6 +74,7 @@ en:
         last_menstrual_period_days: Last menstrual period days
         last_menstrual_period_weeks: Last menstrual period weeks
         line_id: Line ID
+        multiday_appointment: Multi-day appointment
         naf_pledge: NAF pledge
         name: Name
         other_contact: Other contact
@@ -372,6 +373,7 @@ en:
         clinic_display: "%{clinic_name} (%{city}, %{state})"
         inactive_clinics: Inactive clinics
         medicaid_only_toggle: Enable only Medicaid clinics
+        multi_day: multi-day
         naf_only_toggle: Enable only NAF clinics
         not_currently_working_with_fund: "(Not currently working with %{fund}) - %{clinic_name}"
         procedure_type: Procedure type
