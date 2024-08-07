@@ -103,6 +103,28 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         assert_equal 'lodging from Other (see notes) for $100.45', find('.practical-support-display-text').text
       end
     end
+    
+    it 'should let you take notes' do
+      within :css, "#practical-support-item-#{@support.id}" do
+        click_link 'Update'
+      end
+
+      within :css, '.modal' do
+        click_button 'Notes'
+        fill_in 'note[full_text]', with: 'hello'
+        click_button 'Create Note'
+        sleep 1
+      end
+      within :css, '.notes-form' do
+        assert has_text? 'hello'
+      end
+      click_button 'Close'
+
+      reload_page_and_click_link 'Practical Support'
+      within :css, '.practical-support-note-preview' do
+        assert has_text? 'hello'
+      end
+    end
   end
 
   describe 'destroying a practical support entry' do

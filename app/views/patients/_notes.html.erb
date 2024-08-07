@@ -29,6 +29,8 @@
       <% end %>
     </div>
 
-  <%= render partial: 'notes/notes_table',
-             locals: { notes: patient.notes.order(created_at: :desc) } %>
+  <div id="notes-log-patient">
+    <%= render partial: 'notes/notes_table',
+              locals: { notes: patient.notes.order(created_at: :desc) } %>
+  </div>
 </div>

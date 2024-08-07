@@ -24,6 +24,17 @@ class PracticalSupportTest < ActiveSupport::TestCase
       assert @psupport1.respond_to? :created_by
       assert @psupport1.respond_to? :created_by_id
     end
+
+    describe 'most_recent_note_display_text' do
+      before do
+        @note = @psupport1.notes.create full_text: (1..100).map(&:to_s).join('')          
+      end
+
+      it 'returns 22 characters of the notes text' do
+        assert_equal 22, @psupport1.most_recent_note_display_text.length
+        assert_match /^1234/, @psupport1.most_recent_note_display_text
+      end
+    end
   end
 
   describe 'validations' do

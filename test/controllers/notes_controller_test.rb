@@ -36,5 +36,13 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
       end
       assert_response :bad_request
     end
+
+    it 'should allow practical support' do
+      with_versioning(@user) do
+        support = @patient.practical_supports.create(attributes_for :practical_support)
+        note = attributes_for :note, full_text: 'This is a note'
+        post practical_support_notes_path(support), params: { note: note }, xhr: true
+      end
+    end
   end
 end

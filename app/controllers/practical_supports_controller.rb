@@ -6,6 +6,7 @@ class PracticalSupportsController < ApplicationController
               with: -> { head :not_found }
 
   def edit
+    @note = @support.notes.new
     respond_to { |format| format.js }
   end
 

@@ -1,4 +1,4 @@
 $('.modal-content').html('');
 $('.modal').attr('id', 'practical-support-<%= @support.id %>-edit-modal');
-$('.modal-content').append('<%= escape_javascript(render partial: "practical_supports/edit", locals: { patient: @patient, support: @support })%>');
+$('.modal-content').append('<%= escape_javascript(render partial: "practical_supports/edit", locals: { patient: @patient, support: @support, note: @note })%>');
 $('.modal').modal('toggle');

@@ -23,7 +23,7 @@ class NoteCreationTest < ApplicationSystemTestCase
     it 'should let you add a new case note' do
       fill_in 'note[full_text]', with: 'Sample new note creation body'
       click_button 'Create Note'
-      within('#notes_log') do
+      within('#notes-log-patient') do
         assert has_text? 'Sample new note creation body'
       end
     end
