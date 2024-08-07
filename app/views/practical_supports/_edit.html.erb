@@ -81,7 +81,7 @@
           </div>
         <% end %>
 
-        <div class="mt-5 support-notes-log">
+        <div class="mt-5" id="notes-log-practical-support">
           <%= render partial: 'notes/notes_table',
                      locals: { notes: support.notes.order(created_at: :desc) } %>
 
