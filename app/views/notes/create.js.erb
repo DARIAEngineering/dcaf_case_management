@@ -1,2 +1,8 @@
+<% parent_class = @object.is_a?(PracticalSupport) ? 'practical-support' : 'patient' %>
+
 $('#note_full_text').val('');
-$('#notes_log').empty().append('<%= escape_javascript(render partial: "notes/notes_table", locals: { notes: @notes } ) %>');
+$('#notes-log-<%= parent_class %>').empty().append('<%= escape_javascript(render partial: "notes/notes_table", locals: { notes: @notes } ) %>');
+
+<% if @object.is_a? PracticalSupport %>
+  $('#practical-support-entries').empty().append('<%= escape_javascript(render partial: "practical_supports/entries", locals: { patient: @object.can_support } ) %>');
+<% end %>
