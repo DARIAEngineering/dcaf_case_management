@@ -120,4 +120,18 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  describe 'edit' do
+    before do
+      @patient.practical_supports.create support_type: 'Transit',
+                                         confirmed: false,
+                                         source: 'Transit'
+      @support = @patient.practical_supports.first
+    end
+
+    it 'should load' do
+      get edit_patient_practical_support_path(@patient, @support), xhr: true
+      assert response.status == 200
+    end
+  end
 end

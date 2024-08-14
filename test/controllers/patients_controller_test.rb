@@ -153,7 +153,123 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'update method' do
-    before do
+    describe 'as HTML' do
+      before do
+        @date = 5.days.from_now.to_date
+        @payload = {
+          appointment_date: @date.strftime('%Y-%m-%d'),
+          name: 'Susie Everyteen 2',
+          resolved_without_fund: true,
+          fund_pledge: 100,
+          clinic_id: @clinic.id
+        }
+
+        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        @patient.reload
+      end
+
+      it 'should update pledge fields' do
+        @payload[:pledge_sent] = true
+        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        @patient.reload
+        assert_kind_of Time, @patient.pledge_sent_at
+        assert_kind_of Object, @patient.pledge_sent_by
+      end
+
+      it 'should update last edited by' do
+        assert_equal @user, @patient.last_edited_by
+      end
+
+      it 'should respond success on completion' do
+        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        assert response.body.include? 'saved'
+      end
+
+      it 'should respond not acceptable error on failure' do
+        @payload[:primary_phone] = nil
+        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        assert response.body.include? 'alert alert-danger'
+      end
+
+      it 'should update patient fields' do
+        assert_equal 'Susie Everyteen 2', @patient.name
+      end
+
+      it 'should redirect if record does not exist' do
+        patch patient_path('notanactualid'), params: { patient: @payload }
+        assert_redirected_to root_path
+      end
+
+      it 'should ignore pledge fulfillment attributes' do
+        assert_nil @patient.fulfillment.fund_payout
+        @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
+        @payload[:fulfillment_attributes][:fund_payout] = 1_000
+        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        assert response.body.include? 'saved'
+        @patient.fulfillment.reload
+        assert_nil @patient.fulfillment.fund_payout
+      end
+    end
+
+    describe 'as JSON' do
+      before do
+        @date = 5.days.from_now.to_date
+        @payload = {
+          appointment_date: @date.strftime('%Y-%m-%d'),
+          name: 'Susie Everyteen 2',
+          resolved_without_fund: true,
+          fund_pledge: 100,
+          clinic_id: @clinic.id
+        }
+
+        patch patient_path(@patient), params: { patient: @payload }, as: :json
+        @patient.reload
+      end
+
+      it 'should update pledge fields' do
+        @payload[:pledge_sent] = true
+        patch patient_path(@patient), params: { patient: @payload }, as: :json
+        @patient.reload
+        assert_kind_of Time, @patient.pledge_sent_at
+        assert_kind_of Object, @patient.pledge_sent_by
+      end
+
+      it 'should update last edited by' do
+        assert_equal @user, @patient.last_edited_by
+      end
+
+      it 'should respond success on completion' do
+        patch patient_path(@patient), params: { patient: @payload }, as: :json
+        assert_not_nil JSON.parse(response.body)['patient']
+      end
+
+      it 'should respond not acceptable error on failure' do
+        @payload[:primary_phone] = nil
+        patch patient_path(@patient), params: { patient: @payload }, as: :json
+        assert_not_nil JSON.parse(response.body)['flash']['alert']
+      end
+
+      it 'should update patient fields' do
+        assert_equal 'Susie Everyteen 2', @patient.name
+      end
+
+      it 'should redirect if record does not exist' do
+        patch patient_path('notanactualid'), params: { patient: @payload }
+        assert_redirected_to root_path
+      end
+
+      it 'should ignore pledge fulfillment attributes' do
+        assert_nil @patient.fulfillment.fund_payout
+        @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
+        @payload[:fulfillment_attributes][:fund_payout] = 1_000
+        patch patient_path(@patient), params: { patient: @payload }, as: :json
+        assert response.body.include? 'saved'
+        @patient.fulfillment.reload
+        assert_nil @patient.fulfillment.fund_payout
+      end
+    end
+
+    it 'should allow admins to change pledge fulfillment attributes' do
       @date = 5.days.from_now.to_date
       @payload = {
         appointment_date: @date.strftime('%Y-%m-%d'),
@@ -165,56 +281,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
       patch patient_path(@patient), params: { patient: @payload }, xhr: true
       @patient.reload
-    end
 
-    it 'should update pledge fields' do
-      @payload[:pledge_sent] = true
-      patch patient_path(@patient), params: { patient: @payload }, xhr: true
-      @patient.reload
-      assert_kind_of Time, @patient.pledge_sent_at
-      assert_kind_of Object, @patient.pledge_sent_by
-    end
-
-    it 'should update last edited by' do
-      assert_equal @user, @patient.last_edited_by
-    end
-
-    it 'should respond success on completion' do
-      patch patient_path(@patient), params: { patient: @payload }, xhr: true
-      assert response.body.include? 'saved'
-    end
-
-    it 'should respond not acceptable error on failure' do
-      @payload[:primary_phone] = nil
-      patch patient_path(@patient), params: { patient: @payload }, xhr: true
-      assert response.body.include? 'alert alert-danger'
-    end
-
-    it 'should update patient fields' do
-      assert_equal 'Susie Everyteen 2', @patient.name
-    end
-
-    it 'should redirect if record does not exist' do
-      patch patient_path('notanactualid'), params: { patient: @payload }
-      assert_redirected_to root_path
-    end
-
-    it 'should ignore pledge fulfillment attributes' do
-      assert_nil @patient.fulfillment.fund_payout
-      @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
-      @payload[:fulfillment_attributes][:fund_payout] = 1_000
-      patch patient_path(@patient), params: { patient: @payload }, xhr: true
-      assert response.body.include? 'saved'
-      @patient.fulfillment.reload
-      assert_nil @patient.fulfillment.fund_payout
-    end
-
-    it 'should allow admins to change pledge fulfillment attributes' do
       delete destroy_user_session_path
       sign_in @admin
 
       assert_nil @patient.fulfillment.fund_payout
-      bullet_enabled, Bullet.enable = Bullet.enable?, false
+      bullet_enabled = Bullet.enable?
+      Bullet.enable = false
       @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
       @payload[:fulfillment_attributes][:fund_payout] = 1_000
       patch patient_path(@patient), params: { patient: @payload }, xhr: true

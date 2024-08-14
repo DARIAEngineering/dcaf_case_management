@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_174820) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_04_055320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -58,6 +58,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_174820) do
     t.boolean "solidarity"
     t.string "solidarity_lead"
     t.string "procedure_type"
+    t.integer "ultrasound_cost"
+    t.boolean "multiday_appointment"
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line_id"], name: "index_archived_patients_on_line_id"
@@ -241,6 +243,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_174820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
+    t.string "can_note_type"
+    t.bigint "can_note_id"
+    t.index ["can_note_type", "can_note_id"], name: "index_notes_on_can_note"
     t.index ["fund_id"], name: "index_notes_on_fund_id"
     t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
@@ -306,6 +311,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_174820) do
     t.boolean "solidarity"
     t.string "solidarity_lead"
     t.string "procedure_type"
+    t.time "appointment_time", comment: "A patient's appointment time"
+    t.integer "ultrasound_cost"
+    t.boolean "multiday_appointment"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"

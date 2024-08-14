@@ -49,6 +49,7 @@ es:
         age: Edad
         amount: Monto
         appointment_date: Día de la cita
+        appointment_time: Hora de la cita
         audited: Auditada
         check_number: 'Cheque #'
         city: Ciudad
@@ -73,6 +74,7 @@ es:
         last_menstrual_period_days: Últimos días del período menstrual
         last_menstrual_period_weeks: Últimas semanas del período menstrual
         line_id: ID de la línea
+        multiday_appointment: Cita de varios días
         naf_pledge: Promesa de la NAF
         name: Nombre
         other_contact: Otro contacto
@@ -100,6 +102,7 @@ es:
         support_date: Fecha del soporte
         support_type: Tipo de soporte
         textable: Textable
+        ultrasound_cost: Costo del ultrasonido
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
       practical_support:
@@ -170,19 +173,25 @@ es:
     appointment_date_short: Día de la cita
     back: Atrás
     clinic: Clínica
+    close: Cierre
     days_along: Días de embarazo al inicio
+    detail: Detalle
     email: Email
+    for: por
+    from: de
     medicaid: Medicaid
     naf: NAF
     name: Nombre
     'no': 'No'
     notes: Notas
+    on_: en
     patient: Patiente
     phone: Teléfono
     prefer_not_to_answer: Prefiere no contestar
     save: Guardar
     search: Buscar
     status: Estatus
+    update: Actualizar
     weeks_along_short: Semanas a lo largo
     weeks_days: "%{weeks} semanas, %{days} días"
     weeks_days_short: "%{weeks}s %{days}d"
@@ -364,6 +373,7 @@ es:
         clinic_display: "%{clinic_name} (%{city}, %{state})"
         inactive_clinics: Clinícas inactivas
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
+        multi_day: múltiples días
         naf_only_toggle: Enseñar solo clínicas de la NAF
         not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
         procedure_type: Tipo de procedimiento
@@ -380,6 +390,7 @@ es:
         outstanding_balance: Cantidad pendiente
         patient_contribution: Contribución del paciente
         title: Detalles del costo
+        ultrasound_cost: Costo del ultrasonido
       title: Información de aborto
     call_log:
       delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
@@ -579,12 +590,10 @@ es:
       title: Cumplimiento de la promesa
     practical_support:
       create: Crear una nueva entrada de soporte práctico
+      delete: Elimina
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       guidance_link: Orientacíon de soporte práctico de %{fund}
       new: 'Grabar nueva información de soporte práctico:'
-      point_of_contact: Punto de contacto
-      remove: Elimina
-      support_needed: Soporte Necesarios
       title: Apoyo practico
     shared:
       appt_date: Día de la cita

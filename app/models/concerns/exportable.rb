@@ -33,6 +33,7 @@ module Exportable
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
     "Abortion cost" => :procedure_cost,
+    "Ultrasound cost" => :ultrasound_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
     "Fund pledge" => :fund_pledge,
@@ -44,6 +45,7 @@ module Exportable
     "Fund pledged at" => :fund_pledged_at,
     "Solidarity pledge" => :solidarity,
     "Solidarity lead" => :solidarity_lead,
+    "Multi-day appointment" => :multiday_appointment,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,

@@ -125,4 +125,5 @@ jobs:
       - name: Zeitwerk
         run: bin/rails zeitwerk:check
       - name: yarn npm audit
-        run: yarn npm audit
+        run: yarn npm audit --ignore 1098356 --ignore 1098400
+

@@ -334,4 +334,20 @@ class PatientsHelperTest < ActionView::TestCase
       end
     end
   end
+
+  describe 'appointment_date_display' do
+    it 'should show appointment date + time' do
+      @patient = create :patient
+      assert_nil appointment_date_display(@patient)
+
+      @patient.appointment_date = Time.new 2022, 10, 31
+      assert_equal '10/31/2022', appointment_date_display(@patient)
+
+      @patient.appointment_time = '17:30'
+      assert_equal '10/31/2022 @ 5:30 PM', appointment_date_display(@patient)
+
+      @patient.multiday_appointment = true
+      assert_equal '10/31/2022 @ 5:30 PM (multi-day)', appointment_date_display(@patient)
+    end
+  end
 end

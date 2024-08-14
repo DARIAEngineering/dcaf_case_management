@@ -1,19 +1,34 @@
 <% if patient.practical_supports.present? %>
-  <div class="row practical-support-headers">
-    <div class="col-12">
-      <div class="row">
-        <h5 class="col-3"><%= t 'patient.practical_support.support_needed' %></h5>
-        <h5 class="col-5"><%= t 'patient.practical_support.point_of_contact' %></h5>
-        <h5 class="col-4">Amount</h5>
-      </div>
-    </div>
-    <div class="col"><!-- Where button would go --></div>
-  </div>
-  <hr/>
+  <table class="table border-side" id="practical-support-table">
+    <thead>
+      <tr>
+        <th scope="col"><%= t('common.detail') %></th>
+        <th scope="col"><%= t('common.notes') %></th>
+        <th scope="col"><!-- update --></th>    
+      </tr>
+    </thead>
 
-  <% patient.practical_supports.each do |entry| %>
-    <%= render 'practical_supports/edit',
-              patient: patient,
-              practical_support: entry %>
-  <% end %>
+    <tbody id="practical-support-content">
+      <% patient.practical_supports.each do |entry| %>
+        <tr id="practical-support-item-<%= entry.id %>">
+          <td class="practical-support-display-text">
+            <%= practical_support_display_text entry %>
+          </td>
+  
+          <td class="practical-support-note-preview">
+            <%= entry.most_recent_note_display_text %>
+          </td class="practical-support-edit">
+
+          <td>
+            <%= link_to t('common.update'),
+                        edit_patient_practical_support_path(patient, entry),
+                        class: "btn btn-info btn-sm edit_practical_support practical-support-#{entry.id} ml-3",
+                        remote: true %>  
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <hr />
+  <br />
 <% end %>
