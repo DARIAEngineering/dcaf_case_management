@@ -56,6 +56,7 @@ module PracticalSupportsHelper
     content.push "#{t('common.from')} #{practical_support.source}"
     content.push "#{t('common.on_')} #{practical_support.support_date.display_date}" if practical_support.support_date.present?
     content.push "#{t('common.for')} #{number_to_currency(practical_support.amount)}" if practical_support.amount.present?
+    content.push "(#{t('common.purchased_on')} #{practical_support.purchase_date})" if practical_support.purchase_date.present?
     content.join(' ')
   end
 end

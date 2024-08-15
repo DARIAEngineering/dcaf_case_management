@@ -159,6 +159,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
                                          source: 'YOLO AF',
                                          confirmed: true,
                                          support_date: 2.days.from_now
+                                         purchase_date: 1.day.ago
       @patient.practical_supports.create support_type: 'Companion',
                                          source: 'Cat',
                                          amount: 32,
@@ -170,7 +171,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
 
     it 'should display' do
       assert_equal 'Concert Tickets from Metallica Abortion Fund', practical_support_display_text(@psupport1)
-      assert_equal "(Confirmed) Swag from YOLO AF on #{2.days.from_now.display_date}", practical_support_display_text(@psupport2)
+      assert_equal "(Confirmed) Swag from YOLO AF on #{2.days.from_now.display_date} (Purchased on #{1.day.ago.display_date})", practical_support_display_text(@psupport2)
       assert_equal '(Fulfilled) Companion from Cat for $32.00', practical_support_display_text(@psupport3)
     end
   end

@@ -109,9 +109,9 @@ en:
         attachment_url: Attachment URL
         confirmed: Confirmed
         fulfilled: Fulfilled
+        purchase_date: Purchase date
         source: Source
         support_date: Support date
-        purchase_date: Purchase date
         support_type: Support type
       user:
         current_password: Current password
@@ -189,6 +189,7 @@ en:
     patient: Patient
     phone: Phone
     prefer_not_to_answer: Prefer not to answer
+    purchased_on: Purchased on
     save: Save
     search: Search
     status: Status

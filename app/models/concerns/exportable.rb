@@ -196,7 +196,8 @@ module Exportable
       amt = ps.amount.present? ? number_to_currency(ps.amount) : '$0'
       url = ps.attachment_url.present? ? ps.attachment_url : 'No attachment'
       fulfilled = ps.fulfilled? ? 'Fulfilled' : 'Not fulfilled'
-      "#{src} - #{typ} - #{confirmed} - #{amt} - #{url} - #{fulfilled}"
+      purchased_on = ps.purchase_date ? "Purchased on #{ps.purchase_date.display_date}" : "No purchase date"
+      "#{src} - #{typ} - #{confirmed} - #{amt} - #{url} - #{fulfilled} - #{purchased_on}"
     end
     shaped_supports.join('; ')
   end

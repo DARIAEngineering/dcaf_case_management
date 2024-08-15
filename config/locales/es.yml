@@ -109,9 +109,9 @@ es:
         attachment_url: URL adjunta
         confirmed: Confirmado
         fulfilled: Cumplida
+        purchase_date: Día de compra
         source: Fuente
         support_date: Día de el apoyo
-        purchase_date: Día de compra
         support_type: Tipo de apoyo
       user:
         current_password: Contraseña actual
@@ -189,6 +189,7 @@ es:
     patient: Patiente
     phone: Teléfono
     prefer_not_to_answer: Prefiere no contestar
+    purchased_on: Comprado en
     save: Guardar
     search: Buscar
     status: Estatus
