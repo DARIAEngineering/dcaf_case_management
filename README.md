@@ -3,7 +3,7 @@
 
 ## Are you from an abortion fund and interested in seeing if this will work for you?
 
-You can reach us on the [Code for DC slack](https://civictechdc.org/slack), in the `#daria` channel or contact us via our [website](https://www.dariaservices.org/). Please reach out!
+You can reach us on the [Civic Tech DC slack](https://civictechdc.org/slack), in the `#daria` channel or contact us via our [website](https://www.dariaservices.org/). Please reach out!
 
 ## Project description
 
@@ -11,7 +11,7 @@ This project is a case management system for abortion funds. [Abortion funds](ht
 
 This originated with the [DC Abortion Fund](http://www.dcabortionfund.org) (DCAF). Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. Since adopting this system, DCAF and several other funds have been able to operate at a much faster pace, and lowered the stress levels of their volunteers. We now support multiple funds across the country.
 
-Get started with the how-and-why of the project by checking out [Abortion funds](http://www.fundabortionnow.org), reading [case manager Lisa's explanation of an abortion fund's business logic](docs/ABORTION_FUNDING_101.md), reading our [Code of Conduct](CODE_OF_CONDUCT.md), and joining the [`#daria` channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files).
+Get started with the how-and-why of the project by checking out [Abortion funds](http://www.fundabortionnow.org), reading [case manager Lisa's explanation of an abortion fund's business logic](docs/ABORTION_FUNDING_101.md), reading our [Code of Conduct](CODE_OF_CONDUCT.md), and joining the [`#daria` channel on Slack](https://civictechdc.slack.com/messages/dcaf_case_management/files).
 
 You can also check out [some of the other buzz](docs/PRESS.md) or [read about how it's impacted DCAF](docs/IMPACT_ON_DCAF.md).
 
@@ -41,7 +41,7 @@ Feel free to hit any of us up with questions about the project, we're nice!
 ## Contributing to this Project
 
 ### tl;dr
-* We are best reached via the [Code for DC slack](https://codefordc.org/resources/slack.html)
+* We are best reached via the [Civic Tech DC slack](https://civictechdc.org/resources/slack.html)
 * We run on forks and pull requests
 * Our [list of issues in Github](https://github.com/DARIAEngineering/dcaf_case_management/issues) is our project's remaining TODO list
 * Post in an issue when you're starting work on something, so @colinxfleming can keep track of it and so we don't duplicate work

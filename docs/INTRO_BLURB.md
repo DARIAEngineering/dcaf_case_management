@@ -11,7 +11,7 @@ It's an open source application deployed to Heroku, where funds can use it as a 
 All told, we've found that contributing to DARIA is a great way to leverage engineering and design skills to help abortion funds work, and by extension assist people seeking abortion care who are in a real tight spot.
 
 * The DARIA codebase (and its README, and Issues list): https://github.com/DARIAEngineering/dcaf_case_management
-* Join the code for DC slack here: https://codefordc.org/slack (we're in the channel #daria and tend to be pretty responsive)
+* Join the code for DC slack here: https://civictechdc.org/slack (we're in the channel #daria and tend to be pretty responsive)
 * Stack-wise: It's a Rails application that mostly hews to rails defaults wherever possible. We have a docker build if you'd rather not deal with installing stuff. There's relatively little fancy stuff in it. More particular directions are in the README.
 
 We look forward to having you!
