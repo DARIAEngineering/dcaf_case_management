@@ -76,6 +76,6 @@ Field | Description | Exportable? | Reported by | Input
 **Confirmation** | An indicator that this patient has confirmed they need this support. | Exportable | CM Reported | Checkbox
 **Amount**| Amount of money expended on this practical support. | Exportable | CM Reported | Text Input
 **Support date**| Date for the actual support being used, if applicable. | Not Exportable | CM Reported | Date Input
-**Purchase date**| Date support was paid for, if applicable. | Not Exportable | CM Reported | Date Input
+**Purchase date**| Date support was paid for, if applicable. | Not Exportable | CM Reported | Date Inputsbdb
 **Attachment URL** | A link to an external resource with the receipt for this support, if exists. | Exportable | CM Reported | Text Input
 **Fulfilled** | Whether a fund paid this expense. | Exportable | CM Reported | Checkbox

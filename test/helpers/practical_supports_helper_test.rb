@@ -158,7 +158,7 @@ class PracticalSupportsHelperTest < ActionView::TestCase
       @patient.practical_supports.create support_type: 'Swag',
                                          source: 'YOLO AF',
                                          confirmed: true,
-                                         support_date: 2.days.from_now
+                                         support_date: 2.days.from_now,
                                          purchase_date: 1.day.ago
       @patient.practical_supports.create support_type: 'Companion',
                                          source: 'Cat',
