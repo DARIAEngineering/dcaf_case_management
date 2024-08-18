@@ -2,6 +2,18 @@
   <h2 class="mt-5"><%= t 'patient.practical_support.title' %></h2>
   <p class="mb-5"><%= practical_support_guidance_link %></p>
 
+  <% if Config.display_practical_support_attachment_url? %>
+    <%= bootstrap_form_with model: patient,
+                            html: { id: 'practical-support-form-1' },
+                            local: false,
+                            method: 'patch',
+                            class: 'edit_patient' do |f| %>
+      <%= f.form_group :practical_support_waiver do %>
+        <%= f.check_box :practical_support_waiver %>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <div id="practical-support-entries">
     <%= render 'practical_supports/entries',
                patient: patient %>    

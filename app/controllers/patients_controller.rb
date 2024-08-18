@@ -230,7 +230,7 @@ class PatientsController < ApplicationController
                              :fund_payout, :check_number, :date_of_check, :audited]
   ].freeze
 
-  OTHER_PARAMS = [:shared_flag, :initial_call_date, :pledge_sent].freeze
+  OTHER_PARAMS = [:shared_flag, :initial_call_date, :pledge_sent, :practical_support_waiver].freeze
 
   def patient_params
     permitted_params = [].concat(

@@ -26,6 +26,7 @@ class Config < ApplicationRecord
                     "are added here. Please separate with commas.",
     show_patient_identifier: 'Enter "yes" to show the patient\' Daria Identifier on the patient information tab.',
     display_practical_support_attachment_url: 'CAUTION: Whether or not to allow people to enter attachment URLs for practical support entries; for example, a link to a file in Google Drive. Please ensure that any system storing these is properly secured by your fund!',
+    display_practical_support_waiver: 'Whether or not to display a checkbox for whether or not a patient has signed a practical support waiver. For funds that use waivers for practical support recipients.'
   }.freeze
 
   # Whether a config should show a current options dropdown to the right
@@ -67,6 +68,7 @@ class Config < ApplicationRecord
     procedure_type: 21,
     show_patient_identifier: 22,
     display_practical_support_attachment_url: 23,
+    display_practical_support_waiver: 24,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -106,6 +108,8 @@ class Config < ApplicationRecord
     hide_practical_support:
       [:validate_singleton, :validate_yes_or_no],
     display_practical_support_attachment_url:
+      [:validate_singleton, :validate_yes_or_no],
+    display_practical_support_waiver:
       [:validate_singleton, :validate_yes_or_no],
 
     budget_bar_max:
@@ -226,6 +230,10 @@ class Config < ApplicationRecord
 
   def self.display_practical_support_attachment_url?
     config_to_bool('display_practical_support_attachment_url')
+  end
+
+  def self.display_practical_support_attachment_url?
+    config_to_bool('display_practical_support_waiver')
   end
 
   private
