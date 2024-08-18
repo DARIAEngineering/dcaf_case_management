@@ -40,6 +40,7 @@
                             prepend: '$',
                             step: '0.01' %>
         <%= f.date_field :support_date, autocomplete: 'off' %>
+        <%= f.date_field :purchase_date, autocomplete: 'off' %>
 
         <% if Config.display_practical_support_attachment_url? %>
           <%= f.text_field :attachment_url,
@@ -47,7 +48,7 @@
                             placeholder: t('activerecord.attributes.practical_support.attachment_url') %>
         <% end %>
 
-        <%= f.form_group :confirmed do %>
+        <%= f.form_group :booleans do %>
           <%= f.check_box :confirmed,
                           id: "practical_support_confirmed_#{support.id}",
                           label_class: 'tooltip-header-checkbox',

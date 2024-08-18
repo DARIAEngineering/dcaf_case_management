@@ -23,13 +23,15 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         select 'Other (see notes)', from: 'practical_support_source'
         fill_in 'Amount', with: 500.10
         fill_in 'Attachment URL', with: 'www.google.com'
+        fill_in 'Support date', with: 5.days.from_now.strftime('%m/%d/%Y')
+        fill_in 'Purchase date', with: 6.days.from_now.strftime('%m/%d/%Y')
         check 'Confirmed'
         check 'Fulfilled'
         click_button 'Create new practical support'
       end
 
       within :css, '#practical-support-entries' do
-        assert_equal '(Confirmed) (Fulfilled) Companion from Other (see notes) for $500.10', find('.practical-support-display-text').text
+        assert_equal "(Confirmed) (Fulfilled) Companion from Other (see notes) on #{5.days.from_now.display_date} for $500.10 (Purchased on #{6.days.from_now.display_date})", find('.practical-support-display-text').text
         click_link 'Update'
       end
 
@@ -38,6 +40,8 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
         assert_equal 'Other (see notes)', find('#practical_support_source').value
         assert_equal '500.10', find('#practical_support_amount').value
         assert_equal 'www.google.com', find('#practical_support_attachment_url').value
+        assert_equal 5.days.from_now.strftime('%Y-%m-%d'), find('#practical_support_support_date').value
+        assert_equal 6.days.from_now.strftime('%Y-%m-%d'), find('#practical_support_purchase_date').value
         assert has_checked_field? 'Confirmed'
         assert has_checked_field? 'Fulfilled'
       end

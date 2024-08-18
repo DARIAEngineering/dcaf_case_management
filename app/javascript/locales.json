@@ -5770,6 +5770,7 @@
           "attachment_url": "Attachment URL",
           "confirmed": "Confirmed",
           "fulfilled": "Fulfilled",
+          "purchase_date": "Purchase date",
           "source": "Source",
           "support_date": "Support date",
           "support_type": "Support type"
@@ -5875,6 +5876,7 @@
       "patient": "Patient",
       "phone": "Phone",
       "prefer_not_to_answer": "Prefer not to answer",
+      "purchased_on": "Purchased on",
       "save": "Save",
       "search": "Search",
       "status": "Status",
@@ -10176,6 +10178,7 @@
           "attachment_url": "URL adjunta",
           "confirmed": "Confirmado",
           "fulfilled": "Cumplida",
+          "purchase_date": "Día de compra",
           "source": "Fuente",
           "support_date": "Día de el apoyo",
           "support_type": "Tipo de apoyo"
@@ -10306,6 +10309,7 @@
       "patient": "Patiente",
       "phone": "Teléfono",
       "prefer_not_to_answer": "Prefiere no contestar",
+      "purchased_on": "Comprado en",
       "save": "Guardar",
       "search": "Buscar",
       "status": "Estatus",

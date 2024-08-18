@@ -209,7 +209,7 @@ class PatientTest::Exportable < PatientTest
 
     describe 'all_practical_supports' do
       before do
-        @patient.practical_supports.create attributes_for(:practical_support, confirmed: true, source: 'Friendship', support_type: 'Driving', amount: 50, fulfilled: true, attachment_url: 'google.com')
+        @patient.practical_supports.create attributes_for(:practical_support, confirmed: true, source: 'Friendship', support_type: 'Driving', amount: 50, fulfilled: true, attachment_url: 'google.com', purchase_date: 2.days.from_now)
         @patient.practical_supports.create attributes_for(:practical_support, confirmed: false, source: 'Friendship', support_type: 'Coffee', amount: 50, fulfilled: false, attachment_url: nil)
       end
 
@@ -219,7 +219,7 @@ class PatientTest::Exportable < PatientTest
       end
 
       it 'should return a joined list of practical supports' do
-        assert_equal 'Friendship - Driving - Confirmed - $50.00 - google.com - Fulfilled; Friendship - Coffee - Unconfirmed - $50.00 - No attachment - Not fulfilled', @patient.all_practical_supports
+        assert_equal "Friendship - Driving - Confirmed - $50.00 - google.com - Fulfilled - Purchased on #{2.days.from_now.display_date}; Friendship - Coffee - Unconfirmed - $50.00 - No attachment - Not fulfilled - No purchase date", @patient.all_practical_supports
       end
     end
 

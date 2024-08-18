@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_04_055320) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_13_034235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -360,6 +360,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_04_055320) do
     t.date "support_date"
     t.string "attachment_url", comment: "A link to a fund's stored receipt for this particular entry"
     t.boolean "fulfilled", comment: "An indicator that a particular practical support is fulfilled, completed, or paid out."
+    t.date "purchase_date", comment: "Date of purchase, if applicable"
     t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
     t.index ["fund_id"], name: "index_practical_supports_on_fund_id"
   end

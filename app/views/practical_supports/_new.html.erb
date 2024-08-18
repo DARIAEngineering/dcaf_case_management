@@ -7,6 +7,7 @@
   <%= f.select :source, practical_support_source_options %>
   <%= f.number_field :amount, autocomplete: 'off', prepend: '$', step: '0.01' %>
   <%= f.date_field :support_date, autocomplete: 'off' %>
+  <%= f.date_field :purchase_date, autocomplete: 'off' %>
 
   <% if Config.display_practical_support_attachment_url? %>
     <%= f.text_field :attachment_url, autocomplete: 'off' %>
