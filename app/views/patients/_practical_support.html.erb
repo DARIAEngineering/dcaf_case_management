@@ -2,7 +2,7 @@
   <h2 class="mt-5"><%= t 'patient.practical_support.title' %></h2>
   <p class="mb-5"><%= practical_support_guidance_link %></p>
 
-  <% if Config.display_practical_support_attachment_url? %>
+  <% if Config.display_practical_support_waiver? %>
     <%= bootstrap_form_with model: patient,
                             html: { id: 'practical-support-form-1' },
                             local: false,

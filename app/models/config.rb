@@ -232,7 +232,7 @@ class Config < ApplicationRecord
     config_to_bool('display_practical_support_attachment_url')
   end
 
-  def self.display_practical_support_attachment_url?
+  def self.display_practical_support_waiver?
     config_to_bool('display_practical_support_waiver')
   end
 
