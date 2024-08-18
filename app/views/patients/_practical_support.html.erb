@@ -9,7 +9,7 @@
                             method: 'patch',
                             class: 'edit_patient' do |f| %>
       <%= f.form_group :practical_support_waiver do %>
-        <%= f.check_box :practical_support_waiver %>
+        <%= f.check_box :practical_support_waiver, label: t('patient.practical_support.practical_support_waiver') %>
       <% end %>
     <% end %>
   <% end %>
