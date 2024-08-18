@@ -76,6 +76,7 @@ class ArchivedPatient < ApplicationRecord
       initial_call_date: patient.initial_call_date,
       appointment_date: patient.appointment_date,
       multiday_appointment: patient.multiday_appointment,
+      practical_support_waiver: patient.practical_support_waiver,
 
       shared_flag: patient.shared_flag,
       referred_by: patient.referred_by,
