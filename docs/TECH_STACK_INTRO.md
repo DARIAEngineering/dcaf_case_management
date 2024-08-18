@@ -42,5 +42,5 @@ We love our case managers and the UX team that figures out how we can help them 
 * [The National Network of Abortion Funds website](https://fundabortionnow.org)
 * [Abortion Funding 101](ABORTION_FUNDING_101.md), an explanation of how case managers use the app
 * Join and read through the `#daria` [channel on Slack](https://codefordc.slack.com/messages/dcaf_case_management/files/)
-* Read this [blog post about how we're using agile-ish](https://codefordc.github.io/blog/2016/09/12/code-for-dcaf.html).
+* Read this [blog post about how we're using agile-ish](https://github.com/civictechdc/codefordc.github.com/blob/master/blog/_posts/2016-09-09-code-for-dcaf.md).
 * Read [the README](https://github.com/DARIAEngineering/dcaf_case_management/) (if you haven't already) :sparkling_heart:

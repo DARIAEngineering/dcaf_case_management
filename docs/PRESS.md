@@ -16,4 +16,4 @@
 
 2017-02-01 [Abortion Access Hackathon to Help Find Tech-Based Solutions for Abortion Advocates](http://www.teenvogue.com/story/abortion-access-hackathon-to-help-find-tech-based-solutions-for-abortion-advocates) in Teen Vogue.
 
-2016-09-12 [How we shipped a community-built project for reproductive justice](https://codefordc.github.io/blog/2016/09/12/code-for-dcaf.html), a post by the team leads on the Code for DC Blog.
+2016-09-12 [How we shipped a community-built project for reproductive justice](https://github.com/civictechdc/codefordc.github.com/blob/master/blog/_posts/2016-09-09-code-for-dcaf.md), a post by the team leads on the Civic Tech DC Blog.
