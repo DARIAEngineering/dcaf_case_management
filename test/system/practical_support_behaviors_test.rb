@@ -8,6 +8,18 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     create_display_practical_support_attachment_url_config
   end
 
+  describe 'marking patient level data' do
+    before { go_to_practical_support_tab }
+
+    it 'should hide if no config' do
+      raise
+    end
+
+    it 'should be there and save if config' do
+      raise
+    end
+  end
+
   describe 'creating a new practical support entry' do
     before { go_to_practical_support_tab }
 
