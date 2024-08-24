@@ -78,7 +78,6 @@ es:
         naf_pledge: Promesa de la NAF
         name: Nombre
         other_contact: Otro contacto
-        practical_support_waiver: Exención de soporte práctico
         other_contact_relationship: Otra relacion de contacto
         other_phone: Otro teléfono
         patient_contribution: Contribución del paciente
@@ -86,6 +85,7 @@ es:
         pledge_generated_by_id: Promesa generada por
         pledge_sent: Promeso enviada
         pledge_sent_at: Promesa enviada en
+        practical_support_waiver: Exención de soporte práctico
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
         procedure_date: Fecha de procedimiento
@@ -597,8 +597,8 @@ es:
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       guidance_link: Orientacíon de soporte práctico de %{fund}
       new: 'Grabar nueva información de soporte práctico:'
-      title: Apoyo practico
       practical_support_waiver: Aa firmado una renuncia de soporte práctico
+      title: Apoyo practico
     shared:
       appt_date: Día de la cita
       name: Nombre y apellido

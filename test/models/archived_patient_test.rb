@@ -45,7 +45,7 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                     city: 'Washington',
                                     race_ethnicity: 'Asian',
                                     initial_call_date: 16.days.ago,
-                                    appointment_date: 6.days.ago
+                                    appointment_date: 6.days.ago,
                                     multiday_appointment: true,
                                     practical_support_waiver: true
         @patient.calls.create status: :couldnt_reach_patient
