@@ -6,17 +6,21 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     @user = create :user
     @patient = create :patient, line: @line
     create_display_practical_support_attachment_url_config
+    create_display_practical_support_waiver_config
   end
 
   describe 'marking patient level data' do
-    before { go_to_practical_support_tab }
-
     it 'should hide if no config' do
-      raise
+      Config.find_by(config_key: 'display_practical_support_waiver').update config_value: { options: ['no'] }
+      go_to_practical_support_tab
+      refute has_text? 'practical support waiver'
     end
 
     it 'should be there and save if config' do
-      raise
+      go_to_practical_support_tab
+      check 'Has signed a practical support waiver'
+      reload_page_and_click_link 'Practical Support'
+      assert has_checked_field? 'Has signed a practical support waiver'
     end
   end
 

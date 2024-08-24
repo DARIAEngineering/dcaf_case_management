@@ -4,7 +4,7 @@
 
   <% if Config.display_practical_support_waiver? %>
     <%= bootstrap_form_with model: patient,
-                            html: { id: 'practical-support-form-1' },
+                            html: { id: 'practical-support-patient-form' },
                             local: false,
                             method: 'patch',
                             class: 'edit_patient' do |f| %>

@@ -108,7 +108,7 @@ class ActiveSupport::TestCase
     c.save!
   end
 
-  def create_display_practical_support_attachment_url_config(on: true)
+  def create_display_practical_support_waiver_config(on: true)
     c = Config.find_or_create_by(config_key: 'display_practical_support_waiver')
     c.config_value = { options: [on ? 'yes' : 'no']}
     c.save!
