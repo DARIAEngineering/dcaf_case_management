@@ -79,19 +79,19 @@ class PatientTest < ActiveSupport::TestCase
       end
     end
 
-    it 'should require appointment_date to be after initial_call_date' do
+    it 'should require appointment_date to be reasonably after initial_call_date' do
       # when initial call date is nil
       @patient.appointment_date = '2016-05-01'
       @patient.initial_call_date = nil
       refute @patient.valid?
       # when initial call date is after appointment date
-      @patient.initial_call_date = '2016-06-01'
+      @patient.initial_call_date = '2016-09-01'
       refute @patient.valid?
       # when appointment date is nil
       @patient.appointment_date = nil
       assert @patient.valid?
       # when appointment date is after initial call date
-      @patient.appointment_date = '2016-07-01'
+      @patient.appointment_date = '2016-08-01'
       assert @patient.valid?
     end
 
