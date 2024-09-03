@@ -30,7 +30,7 @@ gem 'activerecord-session_store'
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.9'
 gem 'devise-security'
-gem 'omniauth-google-oauth2', '~> 1.1.2'
+gem 'omniauth-google-oauth2', '~> 1.1.3'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Run multiple funds on one server
