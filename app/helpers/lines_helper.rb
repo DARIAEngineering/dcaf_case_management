@@ -4,7 +4,7 @@ module LinesHelper
     return if !session[:line_id]
 
     # If multiple lines, link to the switcher
-    if Line.count > 2
+    if Line.count > 1
       return content_tag :li do
         link_to t('navigation.current_line.helper') + ": #{current_line.name}",
                 new_line_path,
