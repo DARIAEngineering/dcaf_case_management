@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.2.4'
 
 # Standard rails
-gem 'rails', '~> 7.1.3'
+gem 'rails', '~> 7.1.4'
 gem 'puma', '~> 6.4' # roar
 gem 'sdoc', '~> 2.6.0', group: :doc
 gem 'nokogiri', '>= 1.13.4'
@@ -30,7 +30,7 @@ gem 'activerecord-session_store'
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.9'
 gem 'devise-security'
-gem 'omniauth-google-oauth2', '~> 1.1.2'
+gem 'omniauth-google-oauth2', '~> 1.1.3'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Run multiple funds on one server
@@ -61,7 +61,7 @@ gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
 gem 'state_geo_tools' # state list 
 gem 'httparty' # easier http calls
-gem 'view_component', '~> 3.13' # build reusable & encapsulated view components in Ruby
+gem 'view_component', '~> 3.14' # build reusable & encapsulated view components in Ruby
 gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 
 # Stuff that we're targeting removal of
