@@ -46,6 +46,7 @@ module Exportable
     "Solidarity pledge" => :solidarity,
     "Solidarity lead" => :solidarity_lead,
     "Multi-day appointment" => :multiday_appointment,
+    "Practical Support Waiver" => :practical_support_waiver,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,
