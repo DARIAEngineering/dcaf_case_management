@@ -26,7 +26,7 @@ class Config < ApplicationRecord
                     "are added here. Please separate with commas.",
     show_patient_identifier: 'Enter "yes" to show the patient\' Daria Identifier on the patient information tab.',
     display_practical_support_attachment_url: 'CAUTION: Whether or not to allow people to enter attachment URLs for practical support entries; for example, a link to a file in Google Drive. Please ensure that any system storing these is properly secured by your fund!',
-    display_practical_support_waiver: 'Whether or not to display a checkbox for whether or not a patient has signed a practical support waiver. For funds that use waivers for practical support recipients.'
+    display_practical_support_waiver: 'For funds that use waivers for practical support recipients. Enables the display of a checkbox for indicating if a patient has signed a practical support waiver. '
   }.freeze
 
   # Whether a config should show a current options dropdown to the right
