@@ -247,7 +247,7 @@ class Patient < ApplicationRecord
   private
 
   def confirm_appointment_after_initial_call
-    if appointment_date.present? && initial_call_date&.send(:>, appointment_date)
+    if appointment_date.present? && initial_call_date.present? && (initial_call_date - 60.days)&.send(:>, appointment_date)
       errors.add(:appointment_date, 'must be after date of initial call')
     end
   end
