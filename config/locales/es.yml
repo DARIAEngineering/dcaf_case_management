@@ -455,6 +455,9 @@ es:
         none: Sin Seguro
         other: Otro (Añadir a las notas)
         unknown: No Se
+      housing_status:
+        secure: Vivienda segura
+        insecure: Vivienda insegura
       language:
         English: Inglés
       practical_support:
@@ -498,6 +501,7 @@ es:
       household_help: "(incluyendo paciente)"
       identifier: Identificador
       income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
+      housing_status: Estado de la vivienda
       insurance: Seguro médico del patiente
       language: Idioma preferido
       other_contact:

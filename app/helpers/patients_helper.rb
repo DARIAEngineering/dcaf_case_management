@@ -99,6 +99,15 @@ module PatientsHelper
     options_plus_current(full_set, current_value)
   end
 
+  def housing_status_options(curent_value = nil)
+    [
+      nil,
+      [ t('patient.helper.housing_status.secure'), 'Housing secure' ],
+      [ t('patient.helper.housing_status.insecure'), 'Housing insecure' ],
+      [ t('common.prefer_not_to_answer'), 'Prefer not to answer']
+    ]
+  end
+
   def procedure_type_options(current_value = nil)
     procedure_type_options = Config.find_or_create_by(config_key: 'procedure_type').options
 

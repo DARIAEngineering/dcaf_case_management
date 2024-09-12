@@ -455,6 +455,9 @@ en:
         none: No insurance
         other: Other (add to notes)
         unknown: Don't know
+      housing_status:
+        secure: Housing secure
+        insecure: Housing insecure
       language:
         English: English
       practical_support:
@@ -498,6 +501,7 @@ en:
       household_help: "(including patient)"
       identifier: Identifier
       income_help: Employment, Food Stamps, SS, TANF, etc.
+      housing_status: Housing status
       insurance: Patient insurance
       language: Preferred Language
       other_contact:
