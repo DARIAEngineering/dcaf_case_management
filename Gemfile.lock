@@ -375,7 +375,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.3.7)
+    rexml (3.3.8)
     rubocop (1.66.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -406,10 +406,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.19.0)
+    sentry-rails (5.20.1)
       railties (>= 5.0)
-      sentry-ruby (~> 5.19.0)
-    sentry-ruby (5.19.0)
+      sentry-ruby (~> 5.20.1)
+    sentry-ruby (5.20.1)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shog (0.2.1)
@@ -442,7 +442,7 @@ GEM
     timeout (0.4.1)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
-    twilio-ruby (7.3.1)
+    twilio-ruby (7.3.2)
       faraday (>= 0.9, < 3.0)
       jwt (>= 1.5, < 3.0)
       nokogiri (>= 1.6, < 2.0)
@@ -454,13 +454,13 @@ GEM
     uniform_notifier (1.16.0)
     uri (0.13.1)
     version_gem (1.1.4)
-    view_component (3.14.0)
+    view_component (3.15.1)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
-    webrick (1.8.1)
+    webrick (1.8.2)
     websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -542,7 +542,7 @@ DEPENDENCIES
   timecop
   twilio-ruby
   tzinfo-data
-  view_component (~> 3.14)
+  view_component (~> 3.15)
   wicked
 
 RUBY VERSION
