@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Install heroku cli
+        run: |
+          brew tap heroku/brew
+          brew install heroku
       - name: Deploy sandbox environment
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
