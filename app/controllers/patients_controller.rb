@@ -84,6 +84,8 @@ class PatientsController < ApplicationController
     encrypted_payload = { encrypted: encrypt_payload(payload.to_json) }
     result = HTTParty.post(endpoint, body: encrypted_payload, headers: {}, basic_auth: basic_auth)
 
+    puts result.content
+
     if result.ok?
       now = Time.zone.now.strftime('%Y%m%d')
       @patient.update pledge_generated_at: Time.zone.now,
