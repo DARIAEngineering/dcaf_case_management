@@ -84,7 +84,7 @@ class PatientsController < ApplicationController
     encrypted_payload = { encrypted: encrypt_payload(payload.to_json) }
     result = HTTParty.post(endpoint, body: encrypted_payload, headers: {}, basic_auth: basic_auth)
 
-    puts result.content
+    puts result.body
 
     if result.ok?
       now = Time.zone.now.strftime('%Y%m%d')
