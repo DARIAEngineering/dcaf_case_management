@@ -246,7 +246,7 @@ GEM
     mutex_m (0.2.0)
     net-http (0.4.1)
       uri
-    net-imap (0.4.16)
+    net-imap (0.4.17)
       date
       net-protocol
     net-pop (0.1.2)
@@ -454,7 +454,7 @@ GEM
     uniform_notifier (1.16.0)
     uri (0.13.1)
     version_gem (1.1.4)
-    view_component (3.16.0)
+    view_component (3.17.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -542,7 +542,7 @@ DEPENDENCIES
   timecop
   twilio-ruby
   tzinfo-data
-  view_component (~> 3.16)
+  view_component (~> 3.17)
   wicked
 
 RUBY VERSION
