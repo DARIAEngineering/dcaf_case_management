@@ -149,7 +149,7 @@ GEM
     factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
-    faker (3.4.2)
+    faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     faraday (2.12.0)
       faraday-net_http (>= 2.0, < 3.4)
@@ -246,7 +246,7 @@ GEM
     mutex_m (0.2.0)
     net-http (0.4.1)
       uri
-    net-imap (0.4.17)
+    net-imap (0.5.0)
       date
       net-protocol
     net-pop (0.1.2)
@@ -376,7 +376,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.3.8)
-    rubocop (1.66.1)
+    rubocop (1.67.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -442,7 +442,7 @@ GEM
     timeout (0.4.1)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
-    twilio-ruby (7.3.3)
+    twilio-ruby (7.3.4)
       faraday (>= 0.9, < 3.0)
       jwt (>= 1.5, < 3.0)
       nokogiri (>= 1.6, < 2.0)
@@ -454,7 +454,7 @@ GEM
     uniform_notifier (1.16.0)
     uri (0.13.1)
     version_gem (1.1.4)
-    view_component (3.17.0)
+    view_component (3.18.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -542,7 +542,7 @@ DEPENDENCIES
   timecop
   twilio-ruby
   tzinfo-data
-  view_component (~> 3.17)
+  view_component (~> 3.18)
   wicked
 
 RUBY VERSION

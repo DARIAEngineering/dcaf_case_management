@@ -61,7 +61,7 @@ gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
 gem 'state_geo_tools' # state list 
 gem 'httparty' # easier http calls
-gem 'view_component', '~> 3.17' # build reusable & encapsulated view components in Ruby
+gem 'view_component', '~> 3.18' # build reusable & encapsulated view components in Ruby
 gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 
 # Stuff that we're targeting removal of
