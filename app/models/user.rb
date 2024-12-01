@@ -27,7 +27,7 @@ class User < ApplicationRecord
   SEARCH_LIMIT = 15
 
   # Enums
-  enum role: {
+  enum :role, {
     cm: 0,
     data_volunteer: 1,
     admin: 2

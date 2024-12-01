@@ -7,7 +7,7 @@ class Call < ApplicationRecord
   include PaperTrailable
 
   # Enums
-  enum status: {
+  enum :status, {
     reached_patient: 0,
     left_voicemail: 1,
     couldnt_reach_patient: 2

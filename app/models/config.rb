@@ -43,7 +43,7 @@ class Config < ApplicationRecord
     :voicemail,
   ]
 
-  enum config_key: {
+  enum :config_key, {
     insurance: 0,
     external_pledge_source: 1,
     pledge_limit_help_text: 2,
