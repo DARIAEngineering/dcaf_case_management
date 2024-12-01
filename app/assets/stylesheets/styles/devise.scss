@@ -1,7 +1,7 @@
 // Styles pertaining to the login form or other devise-related views.
 
 @use 'bootstrap/scss/bootstrap';
-@use '_variables';
+@use './_variables';
 
 .authform {
   @extend .card-header;

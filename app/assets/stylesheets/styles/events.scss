@@ -1,7 +1,7 @@
 // Styling for the events log on the patient dashboard.
 
 @use 'bootstrap/scss/bootstrap';
-@use '_variables';
+@use './_variables';
 
 svg.event-item {
   border-radius: 50%;

@@ -1,6 +1,6 @@
 // Styling specific to users routes.
 
-@use '_variables';
+@use './_variables';
 
 // Make data-sort elements in user list a pointer.
 #user-list th[data-sort] {

@@ -1,6 +1,6 @@
 // Styling for Kaminari pagination
 
-@use '_variables';
+@use './_variables';
 
 span.page, span.first, span.prev, span.next, span.last {
   font-size: variables.$font-size;

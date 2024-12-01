@@ -1,7 +1,7 @@
 // Styling for the navbar.
 
 @use "sass:color";
-@use '_variables';
+@use './_variables';
 
 .navbar-inverse{
   background-color: variables.$light-gray;
