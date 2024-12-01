@@ -1,18 +1,18 @@
 // Styling for the patient nav menu.
 
-@import './_variables';
+@use '_variables';
 
 .abortion-left-menu.nav-pills {
-  font-size: $font-size;
+  font-size: variables.$font-size;
 
   .nav-link {
-    color: $soft-blue;
-    background-color: $white;
+    color: variables.$soft-blue;
+    background-color: variables.$white;
   }
 
   a.nav-link.active {
-    color: $daria-color;
-    background-color: $white;
+    color: variables.$daria-color;
+    background-color: variables.$white;
 
     // This adds the arrow icon to mark selected status
     &:before {
@@ -22,7 +22,7 @@
       content: "\f054";
       margin-left: -1.5em;
       padding-right: .85em;
-      color: $daria-color;
+      color: variables.$daria-color;
     }
 
     .svg-inline--fa {
@@ -36,7 +36,7 @@ a.submit-pledge-button {
   text-decoration: none;
 
   .submit-btn, .cancel-btn {
-    font-size: $font-size;
+    font-size: variables.$font-size;
     font-weight: bold;    
   }
 }

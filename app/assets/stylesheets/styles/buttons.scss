@@ -1,69 +1,70 @@
 // Button styling.
-@import './_variables';
+@use "sass:color";
+@use '_variables';
 
 // btn-primary
 .btn-primary {
   @extend .btn-primary;
-  background-color: $daria-color;
+  background-color: variables.$daria-color;
   border: none;
-  color: $white;
+  color: variables.$white;
   margin-bottom: 2px;
-  font-size: $font-size;
+  font-size: variables.$font-size;
 }
 
 .btn-primary:hover {
-  background-color: lighten($daria-color,15%);
+  background-color: color.adjust(variables.$daria-color,$lightness: 15%);
 }
 
 .btn-primary:focus {
-  background-color: lighten($daria-color,15%);
-  color: $white;
+  background-color: color.adjust(variables.$daria-color,$lightness: 15%);
+  color: variables.$white;
   text-decoration: none;
 }
 
 // btn-danger
 .btn-danger {
-  background-color: $dark-red !important;
-  border-color: $dark-red !important;
+  background-color: variables.$dark-red !important;
+  border-color: variables.$dark-red !important;
 }
 
 // btn-warning
 .btn-warning {
-  color: $black;
-  border-color: $daria-color;
-  background-color: $white;
+  color: variables.$black;
+  border-color: variables.$daria-color;
+  background-color: variables.$white;
 
   &:hover {
-    background-color: $daria-color-lt;
-    border-color: $daria-color;
+    background-color: variables.$daria-color-lt;
+    border-color: variables.$daria-color;
   }
   &:active {
-    background-color: $soft-blue !important;
+    background-color: variables.$soft-blue !important;
   }
   &:focus {
-    background-color: $daria-color;
+    background-color: variables.$daria-color;
     &:hover {
-      background-color: $daria-color-lt;
+      background-color: variables.$daria-color-lt;
     }
   }
 }
 
 // btn-success
 .btn-success {
-  background-color: $daria-color;
-  border-color: $daria-color;
+  background-color: variables.$daria-color;
+  border-color: variables.$daria-color;
 
   &:hover {
-    background-color: $daria-color-lt;
-    border-color: $daria-color;
+    background-color: variables.$daria-color-lt;
+    border-color: variables.$daria-color;
   }
   &:active {
-    background-color: $soft-blue !important;
+    background-color: variables.$soft-blue !important;
   }
   &:focus {
-    background-color: $daria-color;
+    background-color: variables.$daria-color;
     &:hover {
-      background-color: $daria-color-lt;
+      background-color: variables.$daria-color-lt;
     }
   }
 }
@@ -76,19 +77,19 @@
 
 // Disabled button styling
 @mixin disabled-button {
-  color: $white;
+  color: variables.$white;
   background-color: gray;
-  border-color: $daria-color;
+  border-color: variables.$daria-color;
   &:hover {
     background-color: gray;
-    border-color: $daria-color;
+    border-color: variables.$daria-color;
   }
   &:focus {
     background-color: gray;
-    border-color: $daria-color;
+    border-color: variables.$daria-color;
     &:hover {
       background-color: gray;
-      border-color: $daria-color;
+      border-color: variables.$daria-color;
     }
   }
 }
@@ -103,5 +104,5 @@
 
 // Styling for the cancel button on pledge modal
 .btn[data-orientation='cancel'] {
-  color: $red;
+  color: variables.$red;
 }

@@ -1,17 +1,17 @@
 // Global styling patterns.
 
-@import "./_variables";
-@import "./vendor/googleapis_source_sans_pro";
+@use "_variables";
+@use "vendor/googleapis_source_sans_pro";
 
 @charset "utf-8";
 
 html {
-  font-size: $font-size;
+  font-size: variables.$font-size;
 }
 
 body {
   font-family: "Source Sans Pro", sans-serif;
-  font-size: $font-size;
+  font-size: variables.$font-size;
 }
 
 main {
@@ -65,7 +65,7 @@ label {
 
 // Links
 a {
-  color: $link-blue;
+  color: variables.$link-blue;
   text-decoration: none;
 }
 
@@ -73,12 +73,12 @@ a:hover,
 a:active,
 a:visited,
 a:focus {
-  color: $dark-blue;
+  color: variables.$dark-blue;
   text-decoration: underline;
 }
 
 .border-bottom {
-  border-bottom: 1px solid $black;
+  border-bottom: 1px solid variables.$black;
   padding-bottom: 10px;
 }
 

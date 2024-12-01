@@ -1,5 +1,5 @@
 // Styling around flash messages.
-@import './_variables';
+@use '_variables';
 
 #flash {
   position: fixed;

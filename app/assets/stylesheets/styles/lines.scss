@@ -1,7 +1,7 @@
 // Styling related to the lines form.
 
-@import 'bootstrap/scss/bootstrap';
-@import './_variables';
+@use 'bootstrap/scss/bootstrap';
+@use './_variables';
 
 .lines-form {
   input[type="radio"] {
@@ -12,7 +12,7 @@
   }
 
   label {
-    font-size: $font-size-medium;
+    font-size: variables.$font-size-medium;
   }
 
   .form-check-label {
