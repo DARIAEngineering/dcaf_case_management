@@ -25,7 +25,7 @@
 
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-support" role="tabpanel" aria-labelledby="nav-support-tab">
-    <div class="row practical-support-form mt-5">
+    <div class="row practical-support-form mt-3">
       <%= bootstrap_form_with model: support,
           url: patient_practical_support_path(patient, support),
           html: { class: 'edit_practical_support col-12' },
@@ -65,7 +65,7 @@
   <div class="tab-pane fade" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
     <div class="row notes-form">
       <div class="col">
-        <h3 class="mt-5"><%= t('patient.notes.title') %></h3>
+        <h3 class="mt-3"><%= t('patient.notes.title') %></h3>
         <%= bootstrap_form_with model: [support, note],
                                 html: { id: 'notes-form-practical-support' },
                                 local: false do |f| %>
@@ -82,7 +82,7 @@
           </div>
         <% end %>
 
-        <div class="mt-5" id="notes-log-practical-support">
+        <div class="mt-3" id="notes-log-practical-support">
           <%= render partial: 'notes/notes_table',
                      locals: { notes: support.notes.order(created_at: :desc) } %>
 

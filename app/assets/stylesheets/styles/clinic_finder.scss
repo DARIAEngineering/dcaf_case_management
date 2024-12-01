@@ -3,9 +3,9 @@
 @use './_variables';
 
 .clinic_finder_container {
-  background-color: variables.$grey-color;
+  background-color: variables.$light-gray;
   border-style: solid;
-  border-color: black;
+  border-color: variables.$grey-color;
   border-width: thin;
 
   .button-right {
