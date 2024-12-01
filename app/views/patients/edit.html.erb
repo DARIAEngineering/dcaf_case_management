@@ -5,42 +5,46 @@
 </div>
 
 <div id="patient_detail" class="row">
-  <div id="menu" class="col-3">
+  <div id="menu" class="col-3 mt-3">
     <%= render 'patients/menu', patient: @patient %>
   </div>
 
-  <div id="sections" class="col tab-content">
-    <div id="patient_information" class="patient-info tab-pane active">
-      <%= render 'patients/patient_information', patient: @patient %>
-    </div>
-
-    <div id="abortion_information" class="abortion-info tab-pane">
-      <%= render 'patients/abortion_information', patient: @patient, new_external_pledge: @external_pledge %>
-    </div>
-
-    <div id="change_log" class="change-log tab-pane">
-      <%= render 'patients/change_log', patient: @patient %>
-    </div>
-
-    <div id="call_log" class="call-info tab-pane">
-      <%= render 'patients/call_log', patient: @patient %>
-    </div>
-
-    <div id="notes" class="notes tab-pane">
-      <%= render 'patients/notes', patient: @patient, note: @note %>
-    </div>
 
 
-    <% unless Config.hide_practical_support? %>
-    <div id="practical_support" class="practical_support tab-pane">
-      <%= render 'patients/practical_support', patient: @patient, note: @note %>
-    </div>
-    <% end %>
+  <div id="sections" class="col tab-content mt-3">
 
-    <div id="pledge_fulfillment" class="pledge-fulfillment-info tab-pane">
-      <% if current_user.allowed_data_access? && @patient.pledge_sent? %>
-        <%= render 'patients/fulfillment', patient: @patient %>
+      <div id="patient_information" class="patient-info tab-pane active ">
+        <%= render 'patients/patient_information', patient: @patient %>
+      </div>
+
+      <div id="abortion_information" class="abortion-info tab-pane">
+        <%= render 'patients/abortion_information', patient: @patient, new_external_pledge: @external_pledge %>
+      </div>
+
+      <div id="change_log" class="change-log tab-pane">
+        <%= render 'patients/change_log', patient: @patient %>
+      </div>
+
+      <div id="call_log" class="call-info tab-pane">
+        <%= render 'patients/call_log', patient: @patient %>
+      </div>
+
+      <div id="notes" class="notes tab-pane">
+        <%= render 'patients/notes', patient: @patient, note: @note %>
+      </div>
+
+
+      <% unless Config.hide_practical_support? %>
+      <div id="practical_support" class="practical_support tab-pane">
+        <%= render 'patients/practical_support', patient: @patient, note: @note %>
+      </div>
       <% end %>
+
+      <div id="pledge_fulfillment" class="pledge-fulfillment-info tab-pane">
+        <% if current_user.allowed_data_access? && @patient.pledge_sent? %>
+          <%= render 'patients/fulfillment', patient: @patient %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
