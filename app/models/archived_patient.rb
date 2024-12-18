@@ -18,7 +18,7 @@ class ArchivedPatient < ApplicationRecord
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
 
   # Enums
-  enum age_range: {
+  enum :age_range, {
     not_specified: :not_specified,
     under_18: :under_18,
     age18_24: :age18_24,
