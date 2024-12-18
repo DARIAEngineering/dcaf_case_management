@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.2.4'
 
 # Standard rails
-gem 'rails', '~> 7.1.5'
+gem 'rails', '~> 7.1.5.1'
 gem 'puma', '~> 6.5' # roar
 gem 'sdoc', '~> 2.6.0', group: :doc
 gem 'nokogiri', '>= 1.13.4'
@@ -31,7 +31,7 @@ gem 'activerecord-session_store'
 gem 'devise', '~> 4.9'
 gem 'devise-security'
 gem 'omniauth-google-oauth2', '~> 1.2.0'
-gem "omniauth-rails_csrf_protection", '~> 1.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 # Run multiple funds on one server
 gem 'acts_as_tenant', '~> 0.6'
@@ -59,7 +59,7 @@ gem 'twilio-ruby'
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
-gem 'state_geo_tools' # state list 
+gem 'state_geo_tools' # state list
 gem 'httparty' # easier http calls
 gem 'view_component', '~> 3.20' # build reusable & encapsulated view components in Ruby
 gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
@@ -90,7 +90,7 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  gem 'dotenv-rails' #used to set up our db ENV values
+  gem 'dotenv-rails' # used to set up our db ENV values
   gem 'bullet' # yell if n+1 queries
 end
 
