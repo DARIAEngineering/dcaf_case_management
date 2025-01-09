@@ -1,8 +1,9 @@
+@use "sass:map";
 $spacer: .5rem !default;
 
 $spacers: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
-$spacers: map-merge(
+$spacers: map.merge(
   (
     0: 0,
     1: ($spacer * .25), //.125 rem
