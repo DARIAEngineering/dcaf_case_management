@@ -304,10 +304,50 @@ class PatientsHelperTest < ActionView::TestCase
         assert_difference 'Config.count', 1 do
           @options = county_options
         end
-  
+
         assert_empty @options
         assert Config.find_by(config_key: 'county')
       end
+    end
+  end
+
+  describe 'procedure_type_options' do
+    describe 'with configured options' do
+      custom_procedure_types = ['medical', 'evisit', 'in person']
+      current_option = 'phone'
+      before { create_procedure_type_config(custom_procedure_types) }
+      it 'should include custom procedure types as well as current' do
+        expected_procedure_types = [nil, [custom_procedure_types], current_option].flatten
+
+        assert_same_elements expected_procedure_types,
+                            procedure_type_options(current_option)
+      end
+    end
+    describe 'without configured options' do
+      it 'should create a config and return empty' do
+        assert_difference 'Config.count', 1 do
+          @options = procedure_type_options
+        end
+
+        assert_empty @options
+        assert Config.find_by(config_key: 'procedure_type')
+      end
+    end
+  end
+
+  describe 'appointment_date_display' do
+    it 'should show appointment date + time' do
+      @patient = create :patient
+      assert_nil appointment_date_display(@patient)
+
+      @patient.appointment_date = Time.new 2022, 10, 31
+      assert_equal '10/31/2022', appointment_date_display(@patient)
+
+      @patient.appointment_time = '17:30'
+      assert_equal '10/31/2022 @ 5:30 PM', appointment_date_display(@patient)
+
+      @patient.multiday_appointment = true
+      assert_equal '10/31/2022 @ 5:30 PM (multi-day)', appointment_date_display(@patient)
     end
   end
 end

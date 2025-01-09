@@ -45,7 +45,9 @@ class ArchivedPatientTest < ActiveSupport::TestCase
                                     city: 'Washington',
                                     race_ethnicity: 'Asian',
                                     initial_call_date: 16.days.ago,
-                                    appointment_date: 6.days.ago
+                                    appointment_date: 6.days.ago,
+                                    multiday_appointment: true,
+                                    practical_support_waiver: true
         @patient.calls.create status: :couldnt_reach_patient
         @patient.external_pledges.create source: 'Friendship Abortion Fund',
                                          amount: 100
@@ -75,6 +77,10 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       assert_equal @archived_patient.race_ethnicity, @patient.race_ethnicity
       assert_equal @archived_patient.appointment_date,
                    @patient.appointment_date
+      assert_equal @archived_patient.multiday_appointment,
+                   @patient.multiday_appointment
+      assert_equal @archived_patient.practical_support_waiver,
+                   @patient.practical_support_waiver
     end
 
     it 'should have a shared clinic for Patient and Archive Patient' do

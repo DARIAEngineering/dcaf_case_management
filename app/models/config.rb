@@ -5,8 +5,7 @@ class Config < ApplicationRecord
   # Concerns
   include PaperTrailable
 
-  # Define overrides for particular config fields.
-  # Useful if there is no `_options` method.
+  # Define overrides for particular config fields help text.
   HELP_TEXT_OVERRIDES = {
     resources_url: 'A link to a Google Drive folder with CM resources. ' \
                    'Ex: https://drive.google.com/drive/my-resource-dir',
@@ -22,10 +21,29 @@ class Config < ApplicationRecord
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
     hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
-    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico."
+    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.",
+    procedure_type: "Any kind of distinction in procedure your fund would like to track. Field hides if no options " \
+                    "are added here. Please separate with commas.",
+    show_patient_identifier: 'Enter "yes" to show the patient\' Daria Identifier on the patient information tab.',
+    display_practical_support_attachment_url: 'CAUTION: Whether or not to allow people to enter attachment URLs for practical support entries; for example, a link to a file in Google Drive. Please ensure that any system storing these is properly secured by your fund!',
+    display_practical_support_waiver: 'For funds that use waivers for practical support recipients. Enables the display of a checkbox for indicating if a patient has signed a practical support waiver. '
   }.freeze
 
-  enum config_key: {
+  # Whether a config should show a current options dropdown to the right
+  # Must have a `_options` method implemented
+  SHOW_CURRENT_OPTIONS = [
+    :county,
+    :external_pledge_source,
+    :insurance,
+    :language,
+    :pledge_limit_help_text,
+    :practical_support,
+    :procedure_type,
+    :referred_by,
+    :voicemail,
+  ]
+
+  enum :config_key, {
     insurance: 0,
     external_pledge_source: 1,
     pledge_limit_help_text: 2,
@@ -46,7 +64,11 @@ class Config < ApplicationRecord
     aggregate_statistics: 17,
     hide_standard_dropdown_values: 18,
     county: 19,
-    time_zone: 20
+    time_zone: 20,
+    procedure_type: 21,
+    show_patient_identifier: 22,
+    display_practical_support_attachment_url: 23,
+    display_practical_support_waiver: 24,
   }
 
   # which fields are URLs (run special validation only on those)
@@ -75,6 +97,8 @@ class Config < ApplicationRecord
       [:validate_length],
     county:
       [:validate_length],
+    procedure_type:
+      [:validate_length],
 
     start_of_week:
       [:validate_singleton, :validate_start_of_week],
@@ -82,6 +106,10 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_time_zone],
 
     hide_practical_support:
+      [:validate_singleton, :validate_yes_or_no],
+    display_practical_support_attachment_url:
+      [:validate_singleton, :validate_yes_or_no],
+    display_practical_support_waiver:
       [:validate_singleton, :validate_yes_or_no],
 
     budget_bar_max:
@@ -106,6 +134,8 @@ class Config < ApplicationRecord
     aggregate_statistics:
       [:validate_singleton, :validate_yes_or_no],
     hide_standard_dropdown_values:
+      [:validate_singleton, :validate_yes_or_no],
+    show_patient_id:
       [:validate_singleton, :validate_yes_or_no],
   }.freeze
 
@@ -192,6 +222,18 @@ class Config < ApplicationRecord
 
   def self.hide_standard_dropdown?
     config_to_bool('hide_standard_dropdown_values')
+  end
+
+  def self.show_patient_identifier?
+    config_to_bool('show_patient_identifier')
+  end
+
+  def self.display_practical_support_attachment_url?
+    config_to_bool('display_practical_support_attachment_url')
+  end
+
+  def self.display_practical_support_waiver?
+    config_to_bool('display_practical_support_waiver')
   end
 
   private

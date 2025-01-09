@@ -1,10 +1,10 @@
 // Helper tooltips.
-const activateTooltips = () => {
+export const activateTooltips = () => {
   // Regular spans
   $('.daria-tooltip').tooltip();
 
   // Some evil magic for things attached to labels with rails-bootstrap-form
-  $('.tooltip-header-input').append(' <span class="tooltip-header-help">(?)</span>');
+  $(".tooltip-header-input:not(:has(span.tooltip-header-help))").append(' <span class="tooltip-header-help">(?)</span>');
   $('.tooltip-header-input').parent('.form-group' ).find('.form-control').each((_, x) => {
     $(x).parents( '.form-group' ).find( '.tooltip-header-help' ).tooltip({
       html: true,
@@ -14,7 +14,7 @@ const activateTooltips = () => {
   });
 
   // Similarly evil magic for checkboxes
-  $('.tooltip-header-checkbox').append(' <span class="tooltip-header-help">(?)</span>')
+  $(".tooltip-header-checkbox:not(:has(span.tooltip-header-help))").append(' <span class="tooltip-header-help">(?)</span>')
   $('.tooltip-header-checkbox').each((_, x) => {
     let text = $(x).parent().find('input[type=checkbox]').data('tooltip-text');
     $(x).parent().find( 'span.tooltip-header-help' ).tooltip({
@@ -23,6 +23,8 @@ const activateTooltips = () => {
       title: text,
     });
   });
+
 };
 
-$(document).on('turbolinks:load', activateTooltips);
+$(document).on('DOMContentLoaded', activateTooltips);
+$('.modal').on('show.bs.modal', activateTooltips);

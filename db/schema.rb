@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_18_162657) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -48,15 +48,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.integer "clinic_id"
-    t.integer "pledge_generated_by_id"
-    t.integer "pledge_sent_by_id"
+    t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
     t.bigint "line_id", null: false
     t.boolean "solidarity"
     t.string "solidarity_lead"
+    t.string "procedure_type"
+    t.integer "ultrasound_cost"
+    t.boolean "multiday_appointment"
+    t.boolean "practical_support_waiver", comment: "Optional practical support services waiver, for funds that use them"
     t.index ["clinic_id"], name: "index_archived_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_archived_patients_on_fund_id"
     t.index ["line_id"], name: "index_archived_patients_on_line_id"
@@ -81,8 +85,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
   end
 
   create_table "call_list_entries", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "patient_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "patient_id", null: false
     t.string "line_legacy"
     t.integer "order_key", null: false
     t.datetime "created_at", null: false
@@ -100,7 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
   create_table "calls", force: :cascade do |t|
     t.integer "status", null: false
     t.string "can_call_type", null: false
-    t.integer "can_call_id", null: false
+    t.bigint "can_call_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -187,7 +191,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
     t.integer "amount"
     t.boolean "active"
     t.string "can_pledge_type", null: false
-    t.integer "can_pledge_id", null: false
+    t.bigint "can_pledge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -204,7 +208,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
     t.date "date_of_check"
     t.boolean "audited"
     t.string "can_fulfill_type", null: false
-    t.integer "can_fulfill_id", null: false
+    t.bigint "can_fulfill_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
@@ -236,10 +240,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
 
   create_table "notes", force: :cascade do |t|
     t.string "full_text", null: false
-    t.integer "patient_id"
+    t.bigint "patient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
+    t.string "can_note_type"
+    t.bigint "can_note_id"
+    t.index ["can_note_type", "can_note_id"], name: "index_notes_on_can_note"
     t.index ["fund_id"], name: "index_notes_on_fund_id"
     t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
@@ -294,16 +301,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
     t.datetime "pledge_generated_at", precision: nil
     t.datetime "pledge_sent_at", precision: nil
     t.boolean "textable"
-    t.integer "clinic_id"
-    t.integer "pledge_generated_by_id"
-    t.integer "pledge_sent_by_id"
-    t.integer "last_edited_by_id"
+    t.bigint "clinic_id"
+    t.bigint "pledge_generated_by_id"
+    t.bigint "pledge_sent_by_id"
+    t.bigint "last_edited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
     t.bigint "line_id", null: false
     t.boolean "solidarity"
     t.string "solidarity_lead"
+    t.string "procedure_type"
+    t.time "appointment_time", comment: "A patient's appointment time"
+    t.integer "ultrasound_cost"
+    t.boolean "multiday_appointment"
+    t.boolean "practical_support_waiver", comment: "Optional practical support services waiver, for funds that use them"
     t.index ["clinic_id"], name: "index_patients_on_clinic_id"
     t.index ["fund_id"], name: "index_patients_on_fund_id"
     t.index ["identifier"], name: "index_patients_on_identifier"
@@ -342,11 +354,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_192110) do
     t.boolean "confirmed"
     t.string "source", null: false
     t.string "can_support_type"
-    t.integer "can_support_id"
+    t.bigint "can_support_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "fund_id"
     t.decimal "amount", precision: 8, scale: 2
+    t.date "support_date"
+    t.string "attachment_url", comment: "A link to a fund's stored receipt for this particular entry"
+    t.boolean "fulfilled", comment: "An indicator that a particular practical support is fulfilled, completed, or paid out."
+    t.date "purchase_date", comment: "Date of purchase, if applicable"
     t.index ["can_support_type", "can_support_id"], name: "index_practical_supports_on_can_support_type_and_can_support_id"
     t.index ["fund_id"], name: "index_practical_supports_on_fund_id"
   end

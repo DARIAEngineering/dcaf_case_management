@@ -27,6 +27,7 @@ module WelcomeMessageHelper
       "Thank you for fighting the good fight!",
       "¡Gracias por pelear la buena pelea!",
       'You rock!',
+      'Thanks for all you do!',
       "You are invaluable - keep it up!!",
       "Thank you so much for everyone you help!",
       "Outstanding job! Keep up the hard work!",
@@ -36,6 +37,7 @@ module WelcomeMessageHelper
       "You're a 🌟! You're awesome! Muchas Gracias!",
       "Another case, another human being helped. Keep it up!",
       "Merci beaucoup!",
+      "You're doing great!",
       "Thank you for taking the time to be the most thoughtful CM that you can be! <3",
       "Você é demais!",
       "Your work is so valuable and you're doing a wonderful job! <3",
@@ -72,7 +74,11 @@ module WelcomeMessageHelper
       "Thank you * 1000, y'all are champions!",
       "You're doing an amazing thing - keep at it! 💖",
       "Thank you for all the work you do! You're appreciated and you're making a difference!",
-      "Thank you for being there for those seeing abortions and for treating everyone with compassion and respect."
+      "Thank you for being there for those seeking abortions, and for treating everyone with compassion and respect.",
+      "Without you, this work would not be possible. Thank you for making the world a better place.",
+      "It's a bird! It's a plane! It's a case manager!!! 🦸🏽",
+      "Your work is more than a service; it's a lifeline. Thank you for being a steadfast advocate for choice and compassion.",
+      "本当にありがございます。Thank you for everything, you are helping the world and we are behind you all the way!"
     ]
   end
 end

@@ -45,13 +45,13 @@ run-tests:
 t: run-tests ## Runs the provided test(s)
 
 docker-run:
-	docker-compose up
+	docker compose up
 
 ds: docker-run ## Run the docker server
 
 docker-restart: ## stop and start the docker server
-	docker-compose down
-	docker-compose up
+	docker compose down
+	docker compose up
 
 ###: ## .
 ###Database-Commands: ## .
@@ -68,7 +68,7 @@ seed: ## Populate the dev database with fresh data
 	bundle exec rails db:seed
 
 docker-seed: ## Seed or reseed your docker instance
-	docker-compose run --rm web rails db:create db:migrate db:seed
+	docker compose run --rm web rails db:create db:migrate db:seed
 
 add-migration: ## Generate a rails migration
 	bundle exec rails g migration $(RUN_ARGS)
@@ -122,7 +122,7 @@ lint-setup-audits: ## Setup ruby auditors
 	gem install brakeman ruby_audit bundler-audit
 
 docker-build:
-	docker-compose build
+	docker compose build
 
 docker-install: docker-build docker-seed ## Setup the docker instance from scratch
 

@@ -215,6 +215,28 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
       end
     end
 
+    describe 'updating a config - display_practical_support_attachment_url' do
+      before do
+        @patient = create :patient
+        @patient.practical_supports.create attributes_for :practical_support
+      end
+
+      it 'should toggle the display of attachment_url' do
+        fill_in 'config_options_display_practical_support_attachment_url', with: 'no'
+        click_button 'Update options for Display practical support attachment url'
+        visit edit_patient_path @patient
+        click_link 'Practical Support'
+        refute has_content? 'Attachment URL'
+
+        visit configs_path
+        fill_in 'config_options_display_practical_support_attachment_url', with: 'yes'
+        click_button 'Update options for Display practical support attachment url'
+        visit edit_patient_path @patient
+        click_link 'Practical Support'
+        assert has_content? 'Attachment URL'
+      end
+    end
+
     describe 'updating a config - aggregate statistics' do
       it 'should toggle aggregate statistics on budget bar' do
         fill_in 'config_options_aggregate_statistics', with: 'yes'
@@ -264,6 +286,37 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
 
         within :css, "#patient_information_form" do
           assert has_field? type: 'text', with: 'Bear'
+        end
+      end
+    end
+
+    describe 'updating a config - procedure_type' do
+      it 'should display dropdown if procedure types are specified' do
+        fill_in 'config_options_procedure_type', with: 'Dog, Cat, Turtle'
+        click_button 'Update options for Procedure type'
+
+        @patient.procedure_type = 'Dog'
+        @patient.save!
+
+        visit edit_patient_path @patient
+        click_link 'Abortion Information'
+
+        within :css, "#abortion-information-form-1" do
+          assert has_select? with_options: %w[Dog Cat Turtle],
+                             selected: 'Dog'
+        end
+      end
+
+      it 'should hide the dropdown when config removed' do
+        # no config, so we should get a text box
+        fill_in 'config_options_procedure_type', with: ''
+        click_button 'Update options for Procedure type'
+
+        visit edit_patient_path @patient
+        click_link 'Abortion Information'
+
+        within :css, "#abortion-information-form-1" do
+          refute has_content? 'Procedure type'
         end
       end
     end

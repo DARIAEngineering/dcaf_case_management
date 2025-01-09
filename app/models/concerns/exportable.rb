@@ -22,6 +22,7 @@ module Exportable
     "Minors in Household" => :get_household_size_children,
     "Adults in Household" => :get_household_size_adults,
     "Insurance" => :insurance,
+    "Procedure Type" => :procedure_type,
     "Income" => :income,
     "Referred By" => :referred_by,
     "Referred to clinic by fund" => :referred_to_clinic,
@@ -32,6 +33,7 @@ module Exportable
     "LMP at intake (weeks)" => :last_menstrual_period_weeks,
     "LMP at appointment (weeks)" => :last_menstrual_period_at_appt_weeks,
     "Abortion cost" => :procedure_cost,
+    "Ultrasound cost" => :ultrasound_cost,
     "Patient contribution" => :patient_contribution,
     "NAF pledge" => :naf_pledge,
     "Fund pledge" => :fund_pledge,
@@ -43,6 +45,8 @@ module Exportable
     "Fund pledged at" => :fund_pledged_at,
     "Solidarity pledge" => :solidarity,
     "Solidarity lead" => :solidarity_lead,
+    "Multi-day appointment" => :multiday_appointment,
+    "Practical Support Waiver" => :practical_support_waiver,
 
     # Call related
     "Timestamp of first call" => :first_call_timestamp,
@@ -191,12 +195,15 @@ module Exportable
       typ = ps.support_type
       confirmed = ps.confirmed? ? 'Confirmed' : 'Unconfirmed'
       amt = ps.amount.present? ? number_to_currency(ps.amount) : '$0'
-      "#{src} - #{typ} - #{confirmed} - #{amt}"
+      url = ps.attachment_url.present? ? ps.attachment_url : 'No attachment'
+      fulfilled = ps.fulfilled? ? 'Fulfilled' : 'Not fulfilled'
+      purchased_on = ps.purchase_date ? "Purchased on #{ps.purchase_date.display_date}" : "No purchase date"
+      "#{src} - #{typ} - #{confirmed} - #{amt} - #{url} - #{fulfilled} - #{purchased_on}"
     end
     shaped_supports.join('; ')
   end
 
-  PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports, :notes]
+  PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
   ARCHIVED_PATIENT_RELATIONS = [:line, :clinic, :fulfillment, :external_pledges, :calls, :practical_supports]
 
   class_methods do

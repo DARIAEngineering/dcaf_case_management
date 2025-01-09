@@ -4,7 +4,7 @@ const valueToNumber = val => +val || 0;
 // Calculate remaining cash needed based on difference of
 // procedure costs vs pledge fields.
 const calculateRemainder = () => {
-  const total = valueToNumber($('#patient_procedure_cost').val());
+  const total = valueToNumber($('#patient_procedure_cost').val()) + valueToNumber($('#patient_ultrasound_cost').val());
   const contributions = valueToNumber($('#patient_patient_contribution').val())
                         + valueToNumber($('#patient_naf_pledge').val())
                         + valueToNumber($('#patient_fund_pledge').val())
@@ -30,11 +30,12 @@ const updateBalance = () => {
 const balanceFields = '#abortion-information-form input, '
                       + '#external_pledges input, '
                       + '#patient_procedure_cost, '
+                      + '#patient_ultrasound_cost, '
                       + '#patient_patient_contribution, '
                       + '#patient_naf_pledge, '
                       + '#patient_fund_pledge';
 
-$(document).on('turbolinks:load', () => {
+$(document).on('DOMContentLoaded', () => {
   // Listen for changes on balancefields and update balance.
   $(balanceFields).on('change', updateBalance);
 

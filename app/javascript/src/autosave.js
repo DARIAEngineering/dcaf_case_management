@@ -43,4 +43,4 @@ const activateAutosave = () => {
   });
 };
 
-$(document).on('turbolinks:load', activateAutosave);
+$(document).on('DOMContentLoaded', activateAutosave);

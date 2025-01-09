@@ -99,6 +99,14 @@ module PatientsHelper
     options_plus_current(full_set, current_value)
   end
 
+  def procedure_type_options(current_value = nil)
+    procedure_type_options = Config.find_or_create_by(config_key: 'procedure_type').options
+
+    return [] if procedure_type_options.blank?
+
+    options_plus_current([nil] + procedure_type_options, current_value)
+  end
+
   def income_options
     [nil,
      [ t('patient.helper.income.under_10'), 'Under $9,999'],
@@ -186,5 +194,19 @@ module PatientsHelper
 
   def line_options
     Line.all.sort_by(&:name).map { |x| [x.name, x.id] }
+  end
+
+  def appointment_date_display(patient)
+    return nil unless patient.appointment_date.present?
+
+    day = patient.appointment_date.strftime("%m/%d/%Y")
+    if patient.appointment_time
+      time = patient.appointment_time.strftime("%l:%M %p").strip
+      day = "#{day} @ #{time}"
+    end
+    if patient.multiday_appointment?
+      day = "#{day} (#{t('patient.abortion_information.clinic_section.multi_day')})"
+    end
+    return day
   end
 end

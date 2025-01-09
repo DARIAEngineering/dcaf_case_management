@@ -2,23 +2,26 @@
 
 The directions below get you to a point where you can run the app with a test-seeded database.
 
-[If this is your first time, a good way to get oriented is to leave our users a nice note! Check out instructions here.](YOUR_FIRST_CONTRIBUTION.md). If you have any trouble getting things set up, please ping us in Slack!
-
 If you see a spot in the docs that's confusing or could be improved, please pay it forward by making a pull request!
 
-* **First things first**: Make a copy of your own to wrench on by forking! Go to https://github.com/DARIAEngineering/dcaf_case_management and hit the `fork` button up in the top right.
-* **Second things second**: `git clone https://github.com/{YOUR GITHUB USERNAME}/dcaf_case_management` to pull it down to your local system. Use `cd dcaf_case_management` to change directory to where you saved the clone.
-* **Third things third**: Add the source repo as the upstream with the command `git remote add upstream https://github.com/DARIAEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream main`.
+## Repo Setup
+
+1. Fork the Repo: Go to https://github.com/DARIAEngineering/dcaf_case_management and hit the `fork` button up in the top right.
+2. Clone the repo to your machine: Copy the URL for your fork and run: `git clone YOUR_FORK_URL` to pull it down to your local system. Change into the repo directory with `cd dcaf_case_management`.
+3. Add the Daria repo as a remote: `git remote add upstream https://github.com/DARIAEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream main`.
+
+
+## Local Dev Environment
 
 For the rest of the setup, you have two options: Docker, or installing everything locally. We recommend Docker if you're comfortable with its ecosystem.
 
-## Docker
+### Docker
 
 We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
-* `docker-compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
-* `docker-compose run --rm web rails db:drop db:create db:migrate db:seed # to populate the database`
-* `docker-compose up`
+* `docker compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
+* `docker compose run --rm web rails db:drop db:create db:migrate db:seed # to populate the database`
+* `docker compose up`
 
 The last command will take a moment and should print a number of things. When it's ready
 to go, it should say something like:
@@ -30,7 +33,7 @@ take a minute or two for resources to compile and load, but it should eventually
 
 Any errors will show up in your terminal in the window you are running the `up` command in.
 
-If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker-compose up` again.
+If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker compose up` again.
 
 If you're using a Windows 10 machine to run docker, we strongly suggest downloading and using [Docker-Desktop](https://www.docker.com/products/docker-desktop).
 The Docker-Desktop experience on Windows 10 is mostly very smooth these days, but there are a couple common "gotchas" we've seen while developing this (and other) apps. One of our core maintainers keeps additional info on this [here](https://github.com/mdworken/MKD-Docker-Windows-Rails). If you run into issues that are not covered there, or if you have suggestions to improve the readability of the repo, please let us know! We're happy to help debug, and once we understand the issues you've seen, you'll have helped future users who may encounter the same issue.
@@ -43,26 +46,26 @@ To fix this, you need to enable experimental features for Docker:
 5. Hit Apply
 
 
-## Local environment
+### Local Laptop Install
 
-If you prefer a local environment, totally cool! We recommend the following:
+If you prefer a local environment, totally cool! We recommend the following, but you'll need to adapt to your exact machine.
 
-### Zeroth, system dependencies
+#### System Dependencies
 * Install:
   * Git, python2, & openssl-dev
   * Ubuntu: `sudo apt install git python2 openssl libssl-dev`
   * Mac: `brew install git python2 openssl`
 
-### First, ruby dependencies
+#### Ruby Dependencies
 * Make sure you have a ruby version manager installed; we recommend either [rbenv](https://github.com/rbenv/rbenv) or [rvm](https://rvm.io/).
 * Install our version of Ruby! `rbenv install` or `rvm install $(cat .ruby-version)` should do the trick, depending on what you're using.
 
-### Then, JS dependencies
+#### JS Dependencies
 * Set up a node verion manager; we recommend [nvm](https://github.com/nvm-sh/nvm#install--update-script).
 * Install our version of node with `nvm install`.
 * Install Yarn locally (`brew install yarn`, or the [setup instructions](https://yarnpkg.com/en/docs/install)).
 
-### Then, Postgres dependencies
+#### Postgres Dependencies
 We use Postgres around these parts. Installation will differ based on your OS.
 
 * Install Postgres
@@ -82,16 +85,13 @@ We use Postgres around these parts. Installation will differ based on your OS.
     echo "POSTGRES_PASSWORD=postgres" >>.env
     ```
 
-### Then, final app setup
+#### Final App Setup
 * Run the command `gem install bundler && bundle install` to install dependencies, including `rails`.
 * Install JS packages: `yarn install`
 * Run the command `rails db:create db:migrate db:seed` to set up the database and populate it with some test data.
 
-### Then, showtime
+#### Showtime
 
 * Run the command `bin/dev` to start the rails server
 * You are officially ready to go! Navigate your browser to `http://localhost:3000`. You can log in with the user `test@example.com` and the password `AbortionsAreAHumanRight1`.
 
-## Security
-
-Check out [this document](https://github.com/DARIAEngineering/dcaf_case_management/blob/main/docs/SECURITY_INTRO.md) on Ruby on Rails security, which contains some guidelines on developing safely. (Note that we review code before merging, so a second human will be checking that things are safe, not just you!)

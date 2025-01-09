@@ -4,6 +4,11 @@ development:
 test:
   adapter: async
 
+staging:
+  adapter: redis
+  url: redis://localhost:6379/1
+  channel_prefix: dcaf_case_management_production
+
 production:
   adapter: redis
   url: redis://localhost:6379/1

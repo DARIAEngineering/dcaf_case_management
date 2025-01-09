@@ -267,6 +267,46 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
+    describe '#display_practical_support_attachment_url?' do
+      it 'can return true' do
+        c = Config.find_or_create_by(config_key: 'display_practical_support_attachment_url')
+        c.config_value = { options: ["Yes"] }
+        c.save!
+        assert(Config.display_practical_support_attachment_url? == true)
+      end
+
+      it 'can return false' do
+        c = Config.find_or_create_by(config_key: 'display_practical_support_attachment_url')
+        c.config_value = { options: ["No"] }
+        c.save!
+        assert(Config.display_practical_support_attachment_url? == false)
+      end
+
+      it "returns false by default" do
+        assert(Config.display_practical_support_attachment_url? == false)
+      end
+    end
+
+    describe '#display_practical_support_waiver?' do
+      it 'can return true' do
+        c = Config.find_or_create_by(config_key: 'display_practical_support_waiver')
+        c.config_value = { options: ["Yes"] }
+        c.save!
+        assert(Config.display_practical_support_waiver? == true)
+      end
+
+      it 'can return false' do
+        c = Config.find_or_create_by(config_key: 'display_practical_support_waiver')
+        c.config_value = { options: ["No"] }
+        c.save!
+        assert(Config.display_practical_support_waiver? == false)
+      end
+
+      it "returns false by default" do
+        assert(Config.display_practical_support_waiver? == false)
+      end
+    end
+
     describe '#start_day' do
       it 'should return the day of week as a symbol' do
         assert_equal :monday, Config.start_day

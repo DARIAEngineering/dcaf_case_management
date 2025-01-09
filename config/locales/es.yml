@@ -49,6 +49,7 @@ es:
         age: Edad
         amount: Monto
         appointment_date: Día de la cita
+        appointment_time: Hora de la cita
         audited: Auditada
         check_number: "Cheque #"
         city: Ciudad
@@ -73,6 +74,7 @@ es:
         last_menstrual_period_days: Últimos días del período menstrual
         last_menstrual_period_weeks: Últimas semanas del período menstrual
         line_id: ID de la línea
+        multiday_appointment: Cita de varios días
         naf_pledge: Promesa de la NAF
         name: Nombre
         other_contact: Otro contacto
@@ -80,11 +82,14 @@ es:
         other_phone: Otro teléfono
         patient_contribution: Contribución del paciente
         pledge_generated_at: Promesa generada en
+        pledge_generated_by_id: Promesa generada por
         pledge_sent: Promeso enviada
         pledge_sent_at: Promesa enviada en
+        practical_support_waiver: Exención de soporte práctico
         primary_phone: Número de teléfono principal
         procedure_cost: Costo del procedimiento
         procedure_date: Fecha de procedimiento
+        procedure_type: Tipo de procedimiento
         pronouns: Pronombres
         race_ethnicity: Raza / Etnicidad
         referred_by: Referido por
@@ -95,13 +100,19 @@ es:
         source: Fuente
         special_circumstances: Circunstancias Especiales
         state: Estado
+        support_date: Fecha del soporte
         support_type: Tipo de soporte
         textable: Textable
+        ultrasound_cost: Costo del ultrasonido
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal
       practical_support:
+        attachment_url: URL adjunta
         confirmed: Confirmado
+        fulfilled: Cumplida
+        purchase_date: Día de compra
         source: Fuente
+        support_date: Día de el apoyo
         support_type: Tipo de apoyo
       user:
         current_password: Contraseña actual
@@ -164,19 +175,26 @@ es:
     appointment_date_short: Día de la cita
     back: Atrás
     clinic: Clínica
+    close: Cierre
     days_along: Días de embarazo al inicio
+    detail: Detalle
     email: Email
+    for: por
+    from: de
     medicaid: Medicaid
     naf: NAF
     name: Nombre
     "no": "No"
     notes: Notas
+    on_: en
     patient: Patiente
     phone: Teléfono
     prefer_not_to_answer: Prefiere no contestar
+    purchased_on: Comprado en
     save: Guardar
     search: Buscar
     status: Estatus
+    update: Actualizar
     weeks_along_short: Semanas a lo largo
     weeks_days: "%{weeks} semanas, %{days} días"
     weeks_days_short: "%{weeks}s %{days}d"
@@ -365,8 +383,10 @@ es:
         clinic_display: "%{clinic_name} (%{city}, %{state})"
         inactive_clinics: Clinícas inactivas
         medicaid_only_toggle: Enseñar solo las clínicas de Medicaid
+        multi_day: múltiples días
         naf_only_toggle: Enseñar solo clínicas de la NAF
         not_currently_working_with_fund: "(Actualmente no trabaja con %{fund}) - %{clinic_name}"
+        procedure_type: Tipo de procedimiento
         referred_to_clinic: Referido a la clínica
         resolved_without_fund: Resuelto sin ayuda de %{fund}
         solidarity: Promesa solidaria
@@ -380,6 +400,7 @@ es:
         outstanding_balance: Cantidad pendiente
         patient_contribution: Contribución del paciente
         title: Detalles del costo
+        ultrasound_cost: Costo del ultrasonido
       title: Información de aborto
     call_log:
       delete_confirm: "¿Está seguro de que desea eliminar esta llamada del registro de llamadas?"
@@ -482,6 +503,7 @@ es:
         other: "%{count} semanas"
     information:
       household_help: "(incluyendo paciente)"
+      identifier: Identificador
       income_help: Empleo, Cupones de Alimentos, SS, TANF, etc.
       insurance: Seguro médico del patiente
       language: Idioma preferido
@@ -578,10 +600,12 @@ es:
       title: Cumplimiento de la promesa
     practical_support:
       create: Crear una nueva entrada de soporte práctico
+      delete: Elimina
       delete_confirm: "¿Está seguro de que desea eliminar esta entrada de soporte práctico?"
       guidance_link: Orientacíon de soporte práctico de %{fund}
       new: "Grabar nueva información de soporte práctico:"
       point_of_contact: Punto de contacto
+      practical_support_waiver: Aa firmado una renuncia de soporte práctico
       remove: Elimina
       support_needed: Soporte Necesarios
       title: Apoyo practico
@@ -615,6 +639,9 @@ es:
     call_list: Esta lista organiza los pacientes para cuando quiera devolver llamadas durante su turno. Utiliza la búsqueda para rellenar la lista.
     completed_calls: Esta es una lista de pacientes a los que ha llamado en las últimas 8 horas.
     mandatory_ultrasound: Si se encuentra en un estado que requiere ultrasonidos y el paciente ha completado uno, puede indicarlo aquí.
+    patient_identifier: Identificador interno semiúnico para este paciente, basado en su número de teléfono.
+    practical_support_confirmed: Marque esta casilla si este apoyo práctico es confirmado por el punto de contacto.
+    practical_support_fulfilled: Marque esta casilla si este soporte práctico está completo o pagado y no requiere mayor atención.
     record_new_external_pledge: '"Promesas externas" significa las promesas hechas por otros fondos de aborto también trabajando con un paciente.'
     referred_to_clinic: Marque esta casilla si usted, como administrador de casos, refirió al paciente a un clínica particular.
     resolved_without_fund: Esto se utiliza para indicar que un paciente ya no necesita o quiere nuestros servicios.

@@ -11,8 +11,7 @@
   </div>
 
   <div class="col" id="<%= config.config_key.to_s %>_options_list">
-    <% if Config::HELP_TEXT_OVERRIDES[config.config_key.to_sym] %>
-    <% else %>
+    <% if Config::SHOW_CURRENT_OPTIONS.include?(config.config_key.to_sym) %>
       <%= bootstrap_form_with model: config, inline: true, local: true do |f| %>
         <%= f.select :current, 
               public_send("#{config.config_key}_options").compact,

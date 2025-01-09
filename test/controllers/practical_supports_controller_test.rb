@@ -25,8 +25,9 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should respond bad_request if the support record does not save' do
-      # submitting a duplicate support
-      post patient_practical_supports_path(@patient), params: { practical_support: @support }, xhr: true
+      # submitting a support with an invalid source
+      invalid_support = attributes_for :practical_support, source: Faker::Lorem.characters(number: 151)
+      post patient_practical_supports_path(@patient), params: { practical_support: invalid_support }, xhr: true
       assert response.body.include? 'failed to save'
     end
 
@@ -47,7 +48,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
                                          source: 'Transit',
                                          amount: 10
       @support = @patient.practical_supports.first
-      @support_edits = { support_type: 'Lodging' }
+      @support_edits = { support_type: 'Lodging', support_date: 3.days.from_now.to_date }
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
             xhr: true
@@ -60,6 +61,10 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should update the support_type field' do
       assert_equal @support.support_type, 'Lodging'
+    end
+
+    it 'should update the support_date field' do
+      assert_equal @support.support_date, 3.days.from_now.to_date
     end
 
     [:source, :support_type].each do |field|
@@ -78,6 +83,14 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should allow blank amount' do
       @support_edits[:amount] = nil
+      patch patient_practical_support_path(@patient, @support),
+            params: { practical_support: @support_edits },
+            xhr: true
+      assert response.body.include? 'saved'
+    end
+
+    it 'should allow blank support_date' do
+      @support_edits[:support_date] = nil
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
             xhr: true
@@ -105,6 +118,20 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       assert_difference 'Patient.find(@patient.id).practical_supports.count', -1 do
         delete patient_practical_support_path(@patient, @support), xhr: true
       end
+    end
+  end
+
+  describe 'edit' do
+    before do
+      @patient.practical_supports.create support_type: 'Transit',
+                                         confirmed: false,
+                                         source: 'Transit'
+      @support = @patient.practical_supports.first
+    end
+
+    it 'should load' do
+      get edit_patient_practical_support_path(@patient, @support), xhr: true
+      assert response.status == 200
     end
   end
 end

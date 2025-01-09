@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-ruby '3.2.1'
+ruby '3.2.4'
 
 # Standard rails
-gem 'rails', '~> 7.0.0'
-gem 'puma', '~> 6.0' # roar
+gem 'rails', '~> 7.1.5.1'
+gem 'puma', '~> 6.5' # roar
 gem 'sdoc', '~> 2.6.0', group: :doc
 gem 'nokogiri', '>= 1.13.4'
 gem 'tzinfo-data', require: false
@@ -23,18 +23,18 @@ gem 'cssbundling-rails'
 gem 'bootstrap_form', '~> 4.5.0'
 
 # Our database is postgres
-gem 'pg', '~> 1.2'
-gem 'paper_trail', '~> 14.0'
+gem 'pg', '~> 1.5'
+gem 'paper_trail', '~> 16.0'
 gem 'activerecord-session_store'
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.8'
+gem 'devise', '~> 4.9'
 gem 'devise-security'
-gem 'omniauth-google-oauth2', '~> 1.1.1'
-gem "omniauth-rails_csrf_protection", '~> 1.0'
+gem 'omniauth-google-oauth2', '~> 1.2.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 # Run multiple funds on one server
-gem 'acts_as_tenant', '~> 0.5.0'
+gem 'acts_as_tenant', '~> 0.6'
 
 # Strong Password for user password validation for folks not on oauth
 gem 'strong_password', '~> 0.0.10'
@@ -44,7 +44,7 @@ gem 'sentry-ruby'
 gem 'sentry-rails'
 
 # Security libraries
-gem 'rack-attack', '~> 6.6.0'
+gem 'rack-attack', '~> 6.7.0'
 
 # For pagination
 gem 'kaminari', '~> 1.2'
@@ -59,8 +59,10 @@ gem 'twilio-ruby'
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
 gem 'prawn' # pledge pdf generation
 gem 'geokit' # clinic_finder service lat-lng
-gem 'state_geo_tools' # state list 
+gem 'state_geo_tools' # state list
 gem 'httparty' # easier http calls
+gem 'view_component', '~> 3.21' # build reusable & encapsulated view components in Ruby
+gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
@@ -70,7 +72,7 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
-  gem 'i18n-tasks', '~> 1.0.0' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 1.0.14' # check and clean i18n keys
   gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5'
@@ -88,7 +90,7 @@ end
 group :development, :test do
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
-  gem 'dotenv-rails' #used to set up our db ENV values
+  gem 'dotenv-rails' # used to set up our db ENV values
   gem 'bullet' # yell if n+1 queries
 end
 
@@ -104,7 +106,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
-  gem 'webdrivers'
 
   # Test coverage related libraries
   gem 'simplecov', require: false

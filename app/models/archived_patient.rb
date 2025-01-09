@@ -18,7 +18,7 @@ class ArchivedPatient < ApplicationRecord
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
 
   # Enums
-  enum age_range: {
+  enum :age_range, {
     not_specified: :not_specified,
     under_18: :under_18,
     age18_24: :age18_24,
@@ -38,6 +38,7 @@ class ArchivedPatient < ApplicationRecord
   validates :last_menstrual_period_weeks,
             :last_menstrual_period_days,
             :procedure_cost,
+            :ultrasound_cost,
             :fund_pledge,
             :naf_pledge,
             :patient_contribution,
@@ -57,6 +58,15 @@ class ArchivedPatient < ApplicationRecord
     end
   end
 
+  # enforce procedure cost must be positive - otherwise nil
+  def self.procedure_cost_positive(c)
+    if c.present? and c >= 0
+      c
+    else
+      nil
+    end
+  end
+
   def self.convert_patient(patient)
     archived_patient = new(
       line: patient.line,
@@ -65,6 +75,8 @@ class ArchivedPatient < ApplicationRecord
       county: patient.county,
       initial_call_date: patient.initial_call_date,
       appointment_date: patient.appointment_date,
+      multiday_appointment: patient.multiday_appointment,
+      practical_support_waiver: patient.practical_support_waiver,
 
       shared_flag: patient.shared_flag,
       referred_by: patient.referred_by,
@@ -76,11 +88,11 @@ class ArchivedPatient < ApplicationRecord
       race_ethnicity: patient.race_ethnicity,
       employment_status: patient.employment_status,
       insurance: patient.insurance,
+      procedure_type: patient.procedure_type,
       income: patient.income,
       language: patient.language,
       voicemail_preference: patient.voicemail_preference,
 
-      procedure_cost: patient.procedure_cost,
       patient_contribution: patient.patient_contribution,
       naf_pledge: patient.naf_pledge,
       fund_pledge: patient.fund_pledge,
@@ -106,6 +118,9 @@ class ArchivedPatient < ApplicationRecord
 
     archived_patient.clinic_id = patient.clinic_id if patient.clinic_id
     archived_patient.line_id = patient.line_id
+
+    archived_patient.procedure_cost = procedure_cost_positive patient.procedure_cost
+    archived_patient.ultrasound_cost = procedure_cost_positive patient.ultrasound_cost
 
     PaperTrail.request(whodunnit: patient.created_by_id) do
       archived_patient.save!

@@ -4,12 +4,14 @@
 # and recreated between test runs. Don't rely on the data there!
 
 require "active_support/core_ext/integer/time"
+require_dependency 'acts_as_tenant/test_tenant_middleware'
 
 Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true
     Bullet.bullet_logger = true
     Bullet.raise         = true # raise an error if n+1 query occurs
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "CallListEntry", association: :user
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -26,6 +28,9 @@ Rails.application.configure do
   config.public_file_server.headers = {
     "Cache-Control" => "public, max-age=#{1.hour.to_i}"
   }
+
+  # Set test tenant in current thread when running tests
+  config.middleware.use ActsAsTenant::TestTenantMiddleware
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -70,4 +75,6 @@ Rails.application.configure do
 
   # Set mailer default url to localhost in tests.
   config.action_mailer.default_url_options = { :host => 'localhost' }
+  #  all the encryptable attributes will be encrypted according to the encryption settings defined in the model
+  config.active_record.encryption.encrypt_fixtures = true
 end

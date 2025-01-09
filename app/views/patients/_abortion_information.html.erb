@@ -19,6 +19,7 @@
         <%= f.select :clinic_id,
                      options_for_select(clinic_options, patient.clinic.try(:id)),
                      label: t('patient.abortion_information.clinic_section.clinic') %>
+        <%= f.time_field :appointment_time, include_seconds: false %>
 
         <%= f.form_group :clinic_filters do %>
           <%= f.check_box :naf_filter, label: t('patient.abortion_information.clinic_section.naf_only_toggle') %>
@@ -44,6 +45,7 @@
                           label: t('patient.abortion_information.clinic_section.solidarity'),
                           label_class: 'tooltip-header-checkbox',
                           data: { 'tooltip-text': solidarity_help_text } %>            
+          <%= f.check_box :multiday_appointment %>
         <% end %>
         <%= f.select :solidarity_lead,
             solidarity_leads,
@@ -52,6 +54,12 @@
               label_class: 'tooltip-header-input',
             },
             data: {'tooltip-text': solidarity_lead_help_text } %>
+        <% if procedure_type_options.present? %>
+          <%= f.select :procedure_type,
+            options_for_select(procedure_type_options(patient.procedure_type),
+                               patient.procedure_type),
+            label: t('patient.abortion_information.clinic_section.procedure_type') %>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -69,6 +77,11 @@
       <div class="col">
         <%= f.number_field :procedure_cost,
                            label: t('patient.abortion_information.cost_section.abortion_cost'),
+                           autocomplete: 'off',
+                           prepend: '$' %>
+
+        <%= f.number_field :ultrasound_cost,
+                           label: t('patient.abortion_information.cost_section.ultrasound_cost'),
                            autocomplete: 'off',
                            prepend: '$' %>
 

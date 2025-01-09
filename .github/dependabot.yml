@@ -1,0 +1,38 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/githubDARIAEngineering/dcaf_case_management//administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      ruby-minor-patch:
+        exclude-patterns:
+          - "acts_as_tenant" # DARIAEngineering/dcaf_case_management#3078
+        update-types:
+          - "minor"
+          - "patch"
+    reviewers:
+      - "xmunoz"
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      js-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    reviewers:
+      - "xmunoz"
+    labels:
+      - "dependencies"
+
+

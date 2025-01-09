@@ -3,7 +3,6 @@
 import './src/jquery';
 import {} from 'jquery-ujs'
 import './src/jquery-ui';
-import './src/turbolinks';
 import * as bootstrap from "bootstrap";
 
 // Vendor
@@ -21,3 +20,6 @@ import './src/require_pledge_signature';
 import './src/table_sorting';
 import './src/toggle_full_call_list';
 import './src/tooltips';
+
+// React
+import './src/components/PatientDashboardForm';

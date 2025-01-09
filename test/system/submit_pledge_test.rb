@@ -17,6 +17,7 @@ class SubmitPledgeTest < ApplicationSystemTestCase
   end
 
   # this is a test for a persistent turbolinks bug
+  # Mar 2023: we no longer use turbolinks, but leaving test in to be safe.
   it 'should load properly without other page touches' do
     visit dashboard_path
     click_link @patient.name

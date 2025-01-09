@@ -115,6 +115,13 @@
                label: t('patient.helper.referred_by.title'),
                autocomplete: 'off' %>
 
+  <% if procedure_type_options.present? %>
+    <%= f.select :procedure_type,
+      options_for_select(procedure_type_options),
+      label: t('patient.abortion_information.clinic_section.procedure_type') %>
+  <% end %>
+
+
   <%= f.number_field :procedure_cost,
                      label: t('patient.pledge_fulfillment.form.procedure_cost') %>
   <%= f.number_field :patient_contribution,

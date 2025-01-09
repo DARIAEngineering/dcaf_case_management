@@ -5,8 +5,11 @@ class Event < ApplicationRecord
   # Relations
   belongs_to :line
 
+  encrypts :cm_name
+  encrypts :patient_name
+
   # Enums
-  enum event_type: {
+  enum :event_type, {
     reached_patient: 0,
     couldnt_reach_patient: 1,
     left_voicemail: 2,

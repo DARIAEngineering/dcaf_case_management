@@ -34,7 +34,7 @@ class Patient < ApplicationRecord
   has_many :calls, as: :can_call
   has_many :external_pledges, as: :can_pledge
   has_many :practical_supports, as: :can_support
-  has_many :notes
+  has_many :notes, as: :can_note
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil, optional: true
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
   belongs_to :last_edited_by, class_name: 'User', inverse_of: nil, optional: true
@@ -71,7 +71,7 @@ class Patient < ApplicationRecord
   validates :household_size_adults, :household_size_children, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: -1 }
   validates :name, :primary_phone, :other_contact, :other_phone, :other_contact_relationship,
             :voicemail_preference, :language, :pronouns, :city, :state, :county, :zipcode,
-            :race_ethnicity, :employment_status, :insurance, :income, :referred_by, :solidarity_lead,
+            :race_ethnicity, :employment_status, :insurance, :income, :referred_by, :solidarity_lead, :procedure_type,
             length: { maximum: 150 }
   validates_associated :fulfillment
 
@@ -227,6 +227,21 @@ class Patient < ApplicationRecord
       all_versions += (fulfillment.versions.includes(fulfillment.versions.count > 1 ? [:item, :user] : []) || [])
     end
     all_versions.sort_by(&:created_at).reverse
+  end
+
+  # when we update the patient async (via React), we return the updated patient as json
+  # as_json will return the AR attributes stored in the db by default
+  # we extend it here to also include some of the additional custom getters we've written
+  # (that aren't stored in the db but are derived from db values)
+  def as_json
+    super.merge(
+      status: status,
+      last_menstrual_period_at_appt_weeks: last_menstrual_period_at_appt_weeks,
+      last_menstrual_period_at_appt_days: last_menstrual_period_at_appt_days,
+      last_menstrual_period_now_weeks: last_menstrual_period_now_weeks,
+      last_menstrual_period_now_days: last_menstrual_period_now_days,
+      primary_phone_display: primary_phone_display
+    )
   end
 
   private
