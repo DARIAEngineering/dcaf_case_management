@@ -130,6 +130,7 @@ export default PatientDashboardForm = ({
           label={i18n.t('patient.shared.status')}
           value={patientData.status}
           className="form-control-plaintext"
+          disabled="true"
           tooltip={statusTooltip}
           onChange={e => debouncedAutosave({ status: e.target.value })}
         />
