@@ -298,7 +298,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
     it 'should flash failure on a bad field change' do
       fill_in 'Phone number', with: '111-222-3333445'
-      click_away_from_field
       assert has_text? 'Primary phone is the wrong length'
     end
   end
