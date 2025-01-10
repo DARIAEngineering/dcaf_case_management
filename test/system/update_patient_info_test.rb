@@ -75,7 +75,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     describe 'updating appointment date' do
       before do
         fill_in 'Appointment date', with: 5.days.from_now.strftime('%m/%d/%Y')
-        click_away_from_field
         wait_for_ajax
         reload_page_and_click_link 'Patient Information'
       end
@@ -108,7 +107,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     describe 'updating phone number' do
       before do
         fill_in 'Phone number', with: '123-666-8888'
-        click_away_from_field
         wait_for_ajax
         reload_page_and_click_link 'Patient Information'
       end
@@ -123,7 +121,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     describe 'updating pronouns' do
       before do
         fill_in 'Pronouns', with: 'they/them'
-        click_away_from_field
         wait_for_ajax
         reload_page_and_click_link 'Patient Information'
       end
@@ -364,7 +361,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   private
 
   def reload_page_and_click_link(link_text)
-    click_away_from_field
     visit authenticated_root_path
     visit edit_patient_path @patient
     click_link link_text
