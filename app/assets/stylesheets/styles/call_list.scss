@@ -1,10 +1,10 @@
 // Styling related to the call list and patient search.
 
-@import './_variables';
+@use './_variables';
 
 .call-icon {
-  color: $white;
-  background-color: $phone-icon-blue;
+  color: variables.$white;
+  background-color: variables.$phone-icon-blue;
   padding: 5px;
   border-radius: 50%;
 }
@@ -29,7 +29,7 @@
 // Drag and drop functionality/stylings
 // Activated when dragging around
 .ui-state-highlight {
-  background-color: $lavendar !important;
+  background-color: variables.$lavendar !important;
 }
 .active-item-shadow {
   -webkit-box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
@@ -38,5 +38,5 @@
 }
 // Keeps the rows white when dragging around
 #call_list tr {
-  background-color: $white;
+  background-color: variables.$white;
 }

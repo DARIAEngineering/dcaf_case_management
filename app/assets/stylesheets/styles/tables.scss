@@ -1,14 +1,14 @@
 // Additional styling for table elements.
 
-@import './_variables';
+@use './_variables';
 
 table.border-side {
   th {
-    font-size: $font-size-small;
-    color: $dark-grey;
+    font-size: variables.$font-size-small;
+    color: variables.$dark-grey;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    background: $light-gray;
+    background: variables.$light-gray;
     padding-left: 0px !important;
   }
 

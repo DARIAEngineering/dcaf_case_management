@@ -1,6 +1,6 @@
 // Styling specific to users routes.
 
-@import './_variables';
+@use './_variables';
 
 // Make data-sort elements in user list a pointer.
 #user-list th[data-sort] {
@@ -9,6 +9,6 @@
 
 // Highlight user-rows with a light gray.
 .user-row:hover {
-  background-color: $light-gray;
+  background-color: variables.$light-gray;
   border: 2px solid gray;
 }
