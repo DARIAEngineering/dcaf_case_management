@@ -1,13 +1,13 @@
 // Styling around bootstrap tooltips.
 
-@import './_variables';
+@use './_variables';
 
 .tooltip-header-help {
-  color: $grey-color;
-  border-bottom: 1px dotted $grey-color;
+  color: variables.$grey-color;
+  border-bottom: 1px dotted variables.$grey-color;
   cursor: pointer;
 }
 
 .tooltip-inner {
-  font-size: $font-size-small;
+  font-size: variables.$font-size-small;
 }

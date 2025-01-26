@@ -1,5 +1,7 @@
 // Styling around forms.
 
+@use './variables';
+
 // Override rails_bootstrap_forms checkbox styling
 .form-check label {
   min-height: 20px;
@@ -13,7 +15,7 @@
 
 // Override rails bootstrap form-text for accessible color contrast
 .form-text {
-  color: $grey-color !important;
+  color: variables.$grey-color !important;
 }
 
 // On date inputs, don't do the annoying
