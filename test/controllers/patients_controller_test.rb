@@ -40,9 +40,8 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should not serve html' do
       sign_in @data_volunteer
-      assert_raise ActionController::UnknownFormat do
-        get patients_path
-      end
+      get patients_path
+      assert_equal response.status, 406
     end
 
     it 'should get csv when user is admin' do
@@ -75,9 +74,9 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     it 'should not contain personally-identifying information' do
       sign_in @data_volunteer
       get patients_path(format: :csv)
-      refute_match @patient.name.to_s, response.body
-      refute_match @patient.primary_phone.to_s, response.body
-      refute_match @patient.other_phone.to_s, response.body
+      assert_no_match @patient.name.to_s, response.body
+      assert_no_match @patient.primary_phone.to_s, response.body
+      assert_no_match @patient.other_phone.to_s, response.body
     end
 
     it 'should escape fields with attempted formula injection' do
@@ -322,14 +321,14 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       pledge_generator_mock = Minitest::Mock.new
       pdf_mock_result = Minitest::Mock.new
       pledge_generator_mock.expect(:generate_pledge_pdf, pdf_mock_result)
-      pdf_mock_result.expect :render, "mow"
+      pdf_mock_result.expect :render, 'mow'
       assert_nil @patient.pledge_generated_at
       PledgeFormGenerator.stub(:new, pledge_generator_mock) do
         get generate_pledge_patient_path(@patient), params: { case_manager_name: 'somebody' }
       end
 
-      refute_nil @patient.reload.pledge_generated_at
-      refute_nil @patient.reload.pledge_generated_by
+      assert_not_nil @patient.reload.pledge_generated_at
+      assert_not_nil @patient.reload.pledge_generated_by
       assert_response :success
     end
   end
@@ -347,8 +346,8 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       HTTParty.stub(:post, fake_result) do
         post fetch_pledge_patient_path(@patient), params: {}
       end
-      refute_nil @patient.reload.pledge_generated_at
-      refute_nil @patient.reload.pledge_generated_by
+      assert_not_nil @patient.reload.pledge_generated_at
+      assert_not_nil @patient.reload.pledge_generated_by
       assert_response :success
     end
 
@@ -437,7 +436,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
         assert_difference 'Patient.count', -1 do
           delete patient_path(@patient)
         end
-        refute_nil flash[:notice]
+        assert_not_nil flash[:notice]
       end
 
       it 'should prevent a patient from being destroyed under some circumstances' do
@@ -449,7 +448,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
         assert_no_difference 'Patient.count' do
           delete patient_path(@patient)
         end
-        refute_nil flash[:alert]
+        assert_not_nil flash[:alert]
       end
     end
   end

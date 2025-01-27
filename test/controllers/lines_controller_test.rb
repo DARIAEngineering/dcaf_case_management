@@ -30,9 +30,8 @@ class LinesControllerTest < ActionDispatch::IntegrationTest
     describe 'instance with no lines' do
       it 'should raise an error' do
         @line.destroy
-        assert_raises Exceptions::NoLinesForFundError do
-          get new_line_path
-        end
+        get new_line_path
+        assert_equal response.status, 500
       end
     end
   end
