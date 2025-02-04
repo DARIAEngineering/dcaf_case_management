@@ -12,21 +12,22 @@ class Config < ApplicationRecord
     practical_support_guidance_url: 'A link to a Google Drive folder with Practical Support resources. ' \
                    'Ex: https://drive.google.com/drive/my-practical_support',
     fax_service: 'A link to your fax service. ex: https://www.efax.com',
-    start_of_week: "How to render your budget bar. Default is weekly starting on Monday. Enter \"Sunday\" for weekly budget starting on Sunday, or \"Monthly\" for a calendar month based budget.",
-    budget_bar_max: "The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.",
+    start_of_week: 'How to render your budget bar. Default is weekly starting on Monday. Enter "Sunday" for weekly budget starting on Sunday, or "Monthly" for a calendar month based budget.',
+    budget_bar_max: 'The maximum for the budget bar. Defaults to 1000 if not set. Enter as a number with no dollar sign or commas.',
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
-    days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
-    days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
-    shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
+    days_to_keep_fulfilled_patients: 'Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).',
+    days_to_keep_all_patients: 'Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).',
+    shared_reset: 'Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.',
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
     hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
-    time_zone: "Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.",
-    procedure_type: "Any kind of distinction in procedure your fund would like to track. Field hides if no options " \
-                    "are added here. Please separate with commas.",
+    time_zone: 'Time zone to use for displaying dates. Default is Eastern. Valid options are Eastern, Central, Mountain, Pacific, Alaska, Hawaii, Arizona, Indiana (East), or Puerto Rico.',
+    procedure_type: 'Any kind of distinction in procedure your fund would like to track. Field hides if no options ' \
+                    'are added here. Please separate with commas.',
     show_patient_identifier: 'Enter "yes" to show the patient\' Daria Identifier on the patient information tab.',
     display_practical_support_attachment_url: 'CAUTION: Whether or not to allow people to enter attachment URLs for practical support entries; for example, a link to a file in Google Drive. Please ensure that any system storing these is properly secured by your fund!',
-    display_practical_support_waiver: 'For funds that use waivers for practical support recipients. Enables the display of a checkbox for indicating if a patient has signed a practical support waiver. '
+    display_practical_support_waiver: 'For funds that use waivers for practical support recipients. Enables the display of a checkbox for indicating if a patient has signed a practical support waiver.',
+    use_appointment_date_for_budget_bar_hard_pledges: 'Enter "yes" to tie the hard pledges (in green) on the budget bar to an Appointment Date, rather than date a pledge was sent.'
   }.freeze
 
   # Whether a config should show a current options dropdown to the right
@@ -40,7 +41,7 @@ class Config < ApplicationRecord
     :practical_support,
     :procedure_type,
     :referred_by,
-    :voicemail,
+    :voicemail
   ]
 
   enum :config_key, {
@@ -69,6 +70,7 @@ class Config < ApplicationRecord
     show_patient_identifier: 22,
     display_practical_support_attachment_url: 23,
     display_practical_support_waiver: 24,
+    use_appointment_date_for_budget_bar_hard_pledges: 25
   }
 
   # which fields are URLs (run special validation only on those)
@@ -102,7 +104,7 @@ class Config < ApplicationRecord
 
     start_of_week:
       [:validate_singleton, :validate_start_of_week],
-    time_zone: 
+    time_zone:
       [:validate_singleton, :validate_time_zone],
 
     hide_practical_support:
@@ -136,7 +138,7 @@ class Config < ApplicationRecord
     hide_standard_dropdown_values:
       [:validate_singleton, :validate_yes_or_no],
     show_patient_id:
-      [:validate_singleton, :validate_yes_or_no],
+      [:validate_singleton, :validate_yes_or_no]
   }.freeze
 
   before_validation :clean_config_value
@@ -159,9 +161,7 @@ class Config < ApplicationRecord
 
   def self.autosetup
     config_keys.keys.each do |field|
-      if Config.where(config_key: field).count != 1
-        Config.create config_key: field
-      end
+      Config.create config_key: field if Config.where(config_key: field).count != 1
     end
   end
 
@@ -181,13 +181,13 @@ class Config < ApplicationRecord
 
   def self.start_day
     start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
-    start ||= "monday"
+    start ||= 'monday'
     start.downcase.to_sym
   end
 
   def self.time_zone
     tz = Config.find_or_create_by(config_key: 'time_zone').options.try :last
-    tz ||= "Eastern"
+    tz ||= 'Eastern'
     ActiveSupport::TimeZone.new(TIME_ZONE[tz])
   end
 
@@ -236,145 +236,149 @@ class Config < ApplicationRecord
     config_to_bool('display_practical_support_waiver')
   end
 
+  def self.use_appointment_date_for_budget_bar_hard_pledges?
+    config_to_bool('use_appointment_date_for_budget_bar_hard_pledges')
+  end
+
   private
-    ### Generic Functions
 
-    def clean_config_value
-      # do nothing if empty
-      return if config_key.nil? || options.last.nil?
+  ### Generic Functions
 
-      cleaners = CLEAN_PRE_VALIDATION[config_key.to_sym]
+  def clean_config_value
+    # do nothing if empty
+    return if config_key.nil? || options.last.nil?
 
-      # no clean function, return
-      return if cleaners.blank?
+    cleaners = CLEAN_PRE_VALIDATION[config_key.to_sym]
 
-      # we need to use `method` because `cleaner` is a symbol... this converts
-      # the symbol into a Method object, which we can then `call`...
-      # See https://ruby-doc.org/core/Object.html#method-i-method
-      cleaners.each { |cleaner| method(cleaner).call }
+    # no clean function, return
+    return if cleaners.blank?
+
+    # we need to use `method` because `cleaner` is a symbol... this converts
+    # the symbol into a Method object, which we can then `call`...
+    # See https://ruby-doc.org/core/Object.html#method-i-method
+    cleaners.each { |cleaner| method(cleaner).call }
+  end
+
+  # parent function. will handle errors; child validators should return true
+  # if value is valid for key, and false otherwise.
+  def validate_config
+    # don't try to validate if no key or no value
+    return if config_key.nil? || options.last.nil?
+
+    validators = VALIDATIONS[config_key.to_sym]
+
+    # no validation for this field, ignore
+    return if validators.blank?
+
+    # run the validators and get a boolean, exit if all are true
+    # (see comment above in `clean_config_value` for an explainer)
+    return if validators.all? { |validator| method(validator).call }
+
+    errors.add(:invalid_value_for,
+               "#{config_key.humanize(capitalize: false)}: #{options.join(', ')}")
+  end
+
+  # generic cleaner for words (so we have standardized capitalization)
+  def fix_capitalization
+    config_value['options'] = options.map(&:capitalize)
+  end
+
+  # similar to fix_capitalization but when we need titleized text (e.g. time zones)
+  def titleize_capitalization
+    config_value['options'] = options.map(&:titleize)
+  end
+
+  # generic validator for numerics
+  def validate_number
+    options.last =~ /\A\d+\z/
+  end
+
+  # validator for singletons (no lists allowed)
+  def validate_singleton
+    options.length == 1
+  end
+
+  ### URL fields
+
+  def validate_url
+    maybe_url = options.last
+    return if maybe_url.blank?
+
+    return false unless maybe_url.length <= 300
+
+    url = UriService.new(maybe_url).uri
+
+    # uriservice returns nil if there's a problem.
+    return false unless url
+
+    config_value['options'] = [url]
+    true
+  end
+
+  ### Start of Week
+
+  START_OF_WEEK = %w[
+    Monday
+    Tuesday
+    Wednesday
+    Thursday
+    Friday
+    Saturday
+    Sunday
+    Monthly
+  ].freeze
+
+  def validate_start_of_week
+    START_OF_WEEK.include?(options.last.capitalize)
+  end
+
+  ### Time zone
+
+  TIME_ZONE = {
+    "Eastern": 'Eastern Time (US & Canada)',
+    "Central": 'Central Time (US & Canada)',
+    "Mountain": 'Mountain Time (US & Canada)',
+    "Pacific": 'Pacific Time (US & Canada)',
+    "Alaska": 'Alaska',
+    "Hawaii": 'Hawaii',
+    "Arizona": 'Arizona',
+    "Indiana (East)": 'Indiana (East)',
+    "Puerto Rico": 'Puerto Rico'
+  }.stringify_keys!
+
+  def validate_time_zone
+    TIME_ZONE.keys.include?(options.last.titleize)
+  end
+
+  ### Practical support
+
+  def validate_yes_or_no
+    # allow yes or no, to be nice (technically only yes is considered)
+    options.last =~ /\A(yes|no)\z/i
+  end
+
+  ### Patient archive
+  ARCHIVE_MIN_DAYS = 60   # 2 months
+  ARCHIVE_MAX_DAYS = 550  # 1.5 years
+
+  def validate_patient_archive
+    validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+  end
+
+  ### shared reset
+  SHARED_MIN_DAYS = 2      # 2 days
+  SHARED_MAX_DAYS = 7 * 6  # 6 weeks
+
+  def validate_shared_reset
+    validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+  end
+
+  def validate_length
+    total_length = 0
+    options.each do |option|
+      total_length += option.length
+      return false if total_length > 4000
     end
-
-    # parent function. will handle errors; child validators should return true
-    # if value is valid for key, and false otherwise.
-    def validate_config
-      # don't try to validate if no key or no value
-      return if config_key.nil? || options.last.nil?
-
-      validators = VALIDATIONS[config_key.to_sym]
-
-      # no validation for this field, ignore
-      return if validators.blank?
-
-      # run the validators and get a boolean, exit if all are true
-      # (see comment above in `clean_config_value` for an explainer)
-      return if validators.all? { |validator| method(validator).call }
-
-      errors.add(:invalid_value_for,
-        "#{config_key.humanize(capitalize: false)}: #{options.join(', ')}")
-    end
-
-    # generic cleaner for words (so we have standardized capitalization)
-    def fix_capitalization
-      config_value['options'] = options.map(&:capitalize)
-    end
-
-    # similar to fix_capitalization but when we need titleized text (e.g. time zones)
-    def titleize_capitalization
-      config_value['options'] = options.map(&:titleize)
-    end
-
-    # generic validator for numerics
-    def validate_number
-      options.last =~ /\A\d+\z/
-    end
-
-    # validator for singletons (no lists allowed)
-    def validate_singleton
-      options.length == 1
-    end
-
-    ### URL fields
-
-    def validate_url
-      maybe_url = options.last
-      return if maybe_url.blank?
-
-      return false unless maybe_url.length <= 300
-
-      url = UriService.new(maybe_url).uri
-
-      # uriservice returns nil if there's a problem.
-      return false if !url
-
-
-      config_value['options'] = [url]
-      return true
-    end
-
-    ### Start of Week
-
-    START_OF_WEEK = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-      "Monthly"
-    ].freeze
-
-    def validate_start_of_week
-      START_OF_WEEK.include?(options.last.capitalize)
-    end
-
-    ### Time zone
-
-    TIME_ZONE = {
-      "Eastern": "Eastern Time (US & Canada)",
-      "Central": "Central Time (US & Canada)",
-      "Mountain": "Mountain Time (US & Canada)",
-      "Pacific": "Pacific Time (US & Canada)",
-      "Alaska": "Alaska",
-      "Hawaii": "Hawaii",
-      "Arizona": "Arizona",
-      "Indiana (East)": "Indiana (East)",
-      "Puerto Rico": "Puerto Rico"
-    }.stringify_keys!
-
-    def validate_time_zone
-      TIME_ZONE.keys.include?(options.last.titleize)
-    end
-
-    ### Practical support
-
-    def validate_yes_or_no
-      # allow yes or no, to be nice (technically only yes is considered)
-      options.last =~ /\A(yes|no)\z/i
-    end
-
-    ### Patient archive
-    ARCHIVE_MIN_DAYS = 60   # 2 months
-    ARCHIVE_MAX_DAYS = 550  # 1.5 years
-
-    def validate_patient_archive
-      validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
-    end
-
-    ### shared reset
-    SHARED_MIN_DAYS = 2      # 2 days
-    SHARED_MAX_DAYS = 7 * 6  # 6 weeks
-
-    def validate_shared_reset
-      validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
-    end
-
-    def validate_length
-      total_length = 0
-      options.each do |option|
-        total_length += option.length
-        return false if total_length > 4000
-      end
-      true
-    end
+    true
+  end
 end
