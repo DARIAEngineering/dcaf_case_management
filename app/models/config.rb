@@ -138,6 +138,8 @@ class Config < ApplicationRecord
     hide_standard_dropdown_values:
       [:validate_singleton, :validate_yes_or_no],
     show_patient_id:
+      [:validate_singleton, :validate_yes_or_no],
+    use_appointment_date_for_budget_bar_hard_pledges:
       [:validate_singleton, :validate_yes_or_no]
   }.freeze
 
