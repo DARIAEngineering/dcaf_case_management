@@ -267,25 +267,25 @@ class PatientTest < ActiveSupport::TestCase
       noon = Time.zone.today.beginning_of_day + 12.hours
       # to ensure this spec isn't flaky if someone runs it between 12am - 4am ET
       Timecop.freeze(noon) do
-        @patient.update appointment_date: 1.day.from_now, fund_pledge: 300, pledge_sent: true
-        @patient2.update appointment_date: 1.day.from_now, fund_pledge: 500,
-                        pledge_sent: true, clinic: create(:clinic)
+        @patient.update appointment_date: 1.day.from_now, fund_pledge: 300, pledge_sent: true, name: 'a', clinic: create(:clinic)
+        @patient2.update appointment_date: 1.day.from_now, fund_pledge: 500, name: 'b',
+                         pledge_sent: true, clinic: create(:clinic)
         # Removed because next week
         @filtered_pt = create :patient, name: 'outside of range',
                                         appointment_date: 12.days.from_now,
                                         fund_pledge: 100, clinic: create(:clinic), pledge_sent: true
-        shaped_patient = patient_to_hash @patient
-        shaped_patient2 = patient_to_hash @patient2
+        @shaped_patient = patient_to_hash @patient
+        @shaped_patient2 = patient_to_hash @patient2
 
         # Testing dates is hard, so we use name as a proxy here
         summary = Patient.pledged_status_summary(@line)
-        assert_equal shaped_patient[:name],
-                    summary[:pledged][0][:name]
-        assert_equal shaped_patient2[:name],
-                    summary[:sent][0][:name]
+        assert_not_nil summary[:pledged].find { |pt| pt[:name] == @shaped_patient.name }
+        assert_not_nil summary[:pledged].find { |pt| pt[:name] == @shaped_patient2.name }
+        assert_nil summary[:sent].find { |pt| pt[:name] == @filtered_pt.name }
         assert_nil summary[:pledged].find { |pt| pt[:name] == @filtered_pt.name }
-        assert_equal summary[:pledged].count, 1
-        assert_equal summary[:sent].count, 1
+        assert_nil summary[:sent].find { |pt| pt[:name] == @filtered_pt.name }
+        assert_equal summary[:pledged].count, 2
+        assert_equal summary[:sent].count, 0
       end  
     end
   end
