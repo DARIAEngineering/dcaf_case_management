@@ -1,0 +1,9 @@
+<p><strong><%= link_to "Back", fund_url(current_tenant) %></strong></p>
+<h1>
+  <%= t 'funds.edit.title', fund: current_tenant.name %>
+</h1>
+
+<%= render 'funds/fund_form',
+           fund: current_tenant,
+           label: t('funds.form.save_changes') %>
+
