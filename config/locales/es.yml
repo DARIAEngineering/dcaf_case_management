@@ -511,11 +511,11 @@ es:
         fetal_diagnosis: Diagnostico fetal
         homelessness: La falta de vivienda
         incest: Incesto
+        medicaid_eligible: Elegible para medicaid
         other_medical_issue: Otro problema médico
         prison: Prisión
         rape: Violación
         title: Circunstancias Especiales
-        medicaid_eligible: Elegible para medicaid
       textable: Se permite enviar mensajes de texto?
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
