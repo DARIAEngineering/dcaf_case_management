@@ -515,6 +515,7 @@ es:
         prison: Prisión
         rape: Violación
         title: Circunstancias Especiales
+        medicaid_eligible: Elegible para medicaid
       textable: Se permite enviar mensajes de texto?
       title: Información del Paciente
       voicemail_preference: Preferencias de Mensaje de Voz
