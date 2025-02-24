@@ -121,3 +121,5 @@ yarn-error.log
 # Including the keys for dev and test; not including for staging and prod (since they're secret)
 /config/credentials/development.key # e48fb4a3ce541a61a929c5707b78e6d2
 /config/credentials/test.key # 32927c8894d5ead2d1b01615093c6e75
+/config/credentials/staging.key
+/config/credentials/production.key
