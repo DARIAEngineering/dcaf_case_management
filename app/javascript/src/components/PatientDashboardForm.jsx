@@ -26,7 +26,6 @@ export default PatientDashboardForm = ({
 
   const autosave = async (updatedData) => {
     const updatedPatientData = { ...patientData, ...updatedData }
-    setPatientData(updatedPatientData)
 
     const putData = {
       name: updatedPatientData.name,
@@ -44,9 +43,9 @@ export default PatientDashboardForm = ({
     }
   }
 
-  const debouncedAutosave = useMemo((params) => {
-    return debounce(autosave, 300)
-  }, []);
+  const debouncedAutosave = (params) => {
+    return debounce(autosave(params), 300)
+  };
 
   // Stop the invocation of the debounced function after unmounting
   useEffect(() => {
@@ -131,6 +130,7 @@ export default PatientDashboardForm = ({
           label={i18n.t('patient.shared.status')}
           value={patientData.status}
           className="form-control-plaintext"
+          disabled="true"
           tooltip={statusTooltip}
           onChange={e => debouncedAutosave({ status: e.target.value })}
         />
