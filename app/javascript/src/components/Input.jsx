@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default Input = ({
   label,
@@ -15,16 +15,17 @@ export default Input = ({
   tooltip,
   ...props
 }) => {
-  const [value, setValue] = useState(initialValue || "")
+  // if we don't have an onChange handler, this component is an uncontrolled component
+  // if we have an onChange handler, we'll manage state like a traditional controlled component
+  let value, setValue;
+  if (!onChange) {
+    value = initialValue
+  } else {
+    ([value, setValue] = useState(initialValue || ""))
+  }
+
   const labelClassNames = `${required ? 'required' : ''} ${labelClassName || ''}`
   const inputClassNames = `form-control ${className || ''} ${labelClassNames.includes('sr-only') ? 'mt-6' : ''}`
-
-  // if we have an onChange handler, we'll manage state like a traditional controlled component (and don't need the useEffect)
-  // if we don't have an onChange handler, this component behaves more like an uncontrolled component
-  // the useEffect lets us always get the value from the prop
-  if (!onChange) {
-    useEffect(() => setValue(initialValue), [initialValue]);
-  }
 
   const handleChange = (e) => {
     setValue(e.target.value)
