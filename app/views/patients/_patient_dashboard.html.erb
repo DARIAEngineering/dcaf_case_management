@@ -1,9 +1,8 @@
 <div id="patient_dashboard_content">
   <%= render ReactComponent.new("PatientDashboardForm", raw_props: { 
-    patient: patient.as_json, 
+    patient: patient.as_json.merge(status_help_text: status_help_text(@patient)), 
     weeksOptions: weeks_options.map { |opt| { label: opt[0], value: opt[1] } },
     daysOptions: days_options.map { |opt| { label: opt[0], value: opt[1] } },
-    statusHelpText: status_help_text(patient),
     isAdmin: current_user.admin?,
     patientPath: patient_path(patient),
     formAuthenticityToken: form_authenticity_token

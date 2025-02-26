@@ -195,7 +195,7 @@ class PatientsController < ApplicationController
     if @patient.update patient_params
       @patient.reload
       render json: {
-        patient: @patient.reload.as_json,
+        patient: @patient.as_json.merge(status_help_text: helpers.status_help_text(@patient)),
         flash: {
           notice: t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
         }

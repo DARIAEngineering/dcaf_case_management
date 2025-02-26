@@ -9,7 +9,6 @@ export default PatientDashboardForm = ({
   patient,
   weeksOptions,
   daysOptions,
-  statusHelpText,
   isAdmin,
   patientPath,
   formAuthenticityToken
@@ -20,8 +19,6 @@ export default PatientDashboardForm = ({
   const { debounce, cleanupDebounce } = useDebounce();
 
   const [patientData, setPatientData] = useState(patient)
-
-  const statusTooltip = statusHelpText ? <Tooltip text={statusHelpText} /> : null
 
   const autosave = async (updatedData) => {
     const updatedPatientData = { ...patientData, ...updatedData }
@@ -129,9 +126,8 @@ export default PatientDashboardForm = ({
           label={i18n.t('patient.shared.status')}
           value={patientData.status}
           className="form-control-plaintext"
-          disabled="true"
-          tooltip={statusTooltip}
-          onChange={e => debouncedAutosave({ status: e.target.value })}
+          disabled={true}
+          tooltip={patientData.status_help_text ? <Tooltip text={patientData.status_help_text} /> : null}
         />
       </div>
 
