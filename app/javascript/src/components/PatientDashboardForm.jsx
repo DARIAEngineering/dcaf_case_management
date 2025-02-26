@@ -9,7 +9,6 @@ export default PatientDashboardForm = ({
   patient,
   weeksOptions,
   daysOptions,
-  initialCallDate,
   statusHelpText,
   isAdmin,
   patientPath,
@@ -88,7 +87,7 @@ export default PatientDashboardForm = ({
           labelClassName="sr-only"
           options={daysOptions}
           value={weeksOptions.find(opt => opt.value === patientData.last_menstrual_period_days)?.value}
-          help={i18n.t('patient.dashboard.called_on', { date: initialCallDate })}
+          help={i18n.t('patient.dashboard.called_on', { date: patientData.initial_call_date_display })}
           onChange={e => autosave({ last_menstrual_period_days: e.target.value })}
         />
       </div>

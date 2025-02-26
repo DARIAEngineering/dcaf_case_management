@@ -3,7 +3,6 @@
     patient: patient.as_json, 
     weeksOptions: weeks_options.map { |opt| { label: opt[0], value: opt[1] } },
     daysOptions: days_options.map { |opt| { label: opt[0], value: opt[1] } },
-    initialCallDate: patient.initial_call_date.strftime("%m/%d/%Y"),
     statusHelpText: status_help_text(patient),
     isAdmin: current_user.admin?,
     patientPath: patient_path(patient),
