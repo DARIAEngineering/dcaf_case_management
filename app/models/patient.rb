@@ -240,7 +240,8 @@ class Patient < ApplicationRecord
       last_menstrual_period_at_appt_days: last_menstrual_period_at_appt_days,
       last_menstrual_period_now_weeks: last_menstrual_period_now_weeks,
       last_menstrual_period_now_days: last_menstrual_period_now_days,
-      primary_phone_display: primary_phone_display
+      primary_phone_display: primary_phone_display,
+      initial_call_date_display: initial_call_date.strftime('%m/%d/%Y')
     )
   end
 
