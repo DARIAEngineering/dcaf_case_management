@@ -83,7 +83,7 @@ export default PatientDashboardForm = ({
           label={i18n.t('common.days_along')}
           labelClassName="sr-only"
           options={daysOptions}
-          value={weeksOptions.find(opt => opt.value === patientData.last_menstrual_period_days)?.value}
+          value={daysOptions.find(opt => opt.value === patientData.last_menstrual_period_days)?.value}
           help={i18n.t('patient.dashboard.called_on', { date: patientData.initial_call_date_display })}
           onChange={e => autosave({ last_menstrual_period_days: e.target.value })}
         />
