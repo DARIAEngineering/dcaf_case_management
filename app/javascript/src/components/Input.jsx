@@ -15,7 +15,15 @@ export default Input = ({
   tooltip,
   ...props
 }) => {
-  const [value, setValue] = useState(initialValue || "")
+  // if we don't have an onChange handler, this component is an uncontrolled component
+  // if we have an onChange handler, we'll manage state like a traditional controlled component
+  let value, setValue;
+  if (!onChange) {
+    value = initialValue
+  } else {
+    ([value, setValue] = useState(initialValue || ""))
+  }
+
   const labelClassNames = `${required ? 'required' : ''} ${labelClassName || ''}`
   const inputClassNames = `form-control ${className || ''} ${labelClassNames.includes('sr-only') ? 'mt-6' : ''}`
 

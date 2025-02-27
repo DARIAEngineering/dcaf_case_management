@@ -16,10 +16,11 @@ export default Select = ({
   const labelClassNames = `${required ? 'required' : ''} ${labelClassName || ''}`
   const selectClassNames = `form-control ${className || ''} ${labelClassNames.includes('sr-only') ? 'mt-6' : ''}`
 
+  const selectedValue = !!value || value === 0 ? value : ""
   if (!!onChange) {
-    props["value"] = value || ""
+    props["value"] = selectedValue
   } else {
-    props["defaultValue"] = value || ""
+    props["defaultValue"] = selectedValue
   }
 
   return (
