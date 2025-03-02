@@ -158,6 +158,12 @@
                                 checked: patient.special_circumstances.include?('Prison'),
                                 id: 'prison_patient_special_circumstances' },
                                 'Prison', '' %>
+                <%= f.check_box :special_circumstances, {
+                                label: t('patient.information.special_circumstances.medicaid_eligible'),
+                                name: 'patient[special_circumstances][]',
+                                checked: patient.special_circumstances.include?('Medicaid eligible'),
+                                id: 'medicaid_eligible_patient_special_circumstances' },
+                                'Medicaid eligible', '' %>
               </div>
             </div>
           <% end %>
