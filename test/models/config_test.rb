@@ -362,5 +362,24 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
+    describe '#use_appointment_date_for_budget_bar_hard_pledges?' do
+      it 'can return true' do
+        c = Config.find_or_create_by(config_key: 'use_appointment_date_for_budget_bar_hard_pledges')
+        c.config_value = { options: ["Yes"] }
+        c.save!
+        assert(Config.use_appointment_date_for_budget_bar_hard_pledges? == true)
+      end
+
+      it 'can return false' do
+        c = Config.find_or_create_by(config_key: 'use_appointment_date_for_budget_bar_hard_pledges')
+        c.config_value = { options: ["No"] }
+        c.save!
+        assert(Config.use_appointment_date_for_budget_bar_hard_pledges? == false)
+      end
+
+      it "returns false by default" do
+        assert(Config.use_appointment_date_for_budget_bar_hard_pledges? == false)
+      end
+    end
   end
 end
