@@ -72,7 +72,7 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
-  gem 'i18n-tasks', '~> 1.0.14' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
   gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5'
