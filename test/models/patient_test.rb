@@ -257,7 +257,35 @@ class PatientTest < ActiveSupport::TestCase
         assert_nil summary[:sent].find { |pt| pt[:name] == @filtered_pt.name }
         assert_equal summary[:pledged].count, 1
         assert_equal summary[:sent].count, 1
-      end 
+      end
+    end
+
+    it "should swap to appointment date as the hinge if the config is on" do
+      Config.create config_key: :use_appointment_date_for_budget_bar_hard_pledges,
+                    config_value: {options: ['Yes']}
+      
+      noon = Time.zone.today.beginning_of_day + 12.hours
+      # to ensure this spec isn't flaky if someone runs it between 12am - 4am ET
+      Timecop.freeze(noon) do
+        @patient.update appointment_date: 2.days.from_now, fund_pledge: 300, name: 'a', clinic: create(:clinic), fund_pledged_at: 1.day.from_now
+        @patient2.update appointment_date: 1.day.from_now, fund_pledge: 500, name: 'b',
+                         pledge_sent: true, clinic: create(:clinic)
+        # Removed because next week
+        @filtered_pt = create :patient, name: 'outside of range',
+                                        appointment_date: 12.days.from_now,
+                                        fund_pledge: 100, clinic: create(:clinic), pledge_sent: true
+        @shaped_patient = patient_to_hash @patient
+        @shaped_patient2 = patient_to_hash @patient2
+
+        # Testing dates is hard, so we use name as a proxy here
+        summary = Patient.pledged_status_summary(@line)
+        assert_not_nil summary[:pledged].find { |pt| pt[:name] == @shaped_patient[:name] }
+        assert_not_nil summary[:sent].find { |pt| pt[:name] == @shaped_patient2[:name] }
+        assert_nil summary[:sent].find { |pt| pt[:name] == @filtered_pt[:name] }
+        assert_nil summary[:pledged].find { |pt| pt[:name] == @filtered_pt[:name] }
+        assert_equal summary[:pledged].count, 1
+        assert_equal summary[:sent].count, 1
+      end  
     end
   end
 
