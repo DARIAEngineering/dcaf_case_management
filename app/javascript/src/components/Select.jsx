@@ -14,7 +14,8 @@ export default Select = ({
   ...props
 }) => {
   const labelClassNames = `${required ? 'required' : ''} ${labelClassName || ''}`
-  const selectClassNames = `form-control ${className || ''} ${labelClassNames.includes('sr-only') ? 'mt-6' : ''}`
+
+  const selectClassNames = `form-control ${className || ''} ${labelClassNames.includes('sr-only') ? 'mt-4' : ''}`
 
   const selectedValue = !!value || value === 0 ? value : ""
   if (!!onChange) {
