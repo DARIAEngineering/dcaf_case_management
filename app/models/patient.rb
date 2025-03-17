@@ -93,10 +93,14 @@ class Patient < ApplicationRecord
                          resolved_without_fund: [false, nil])
                   .where.not(fund_pledge: [0, nil])
 
-    patients = base.where(pledge_sent_at: start_of_period..)
-                   .or(base.where(fund_pledged_at: start_of_period..))
-                   .order(fund_pledged_at: :asc)
-                   .select(*plucked_attrs)
+    if Config.use_appointment_date_for_budget_bar_hard_pledges?
+      patients = base.where(appointment_date: start_of_period..)
+    else
+      patients = base.where(pledge_sent_at: start_of_period..)
+    end
+    patients = patients.or(base.where(fund_pledged_at: start_of_period..))
+                       .order(fund_pledged_at: :asc)
+                       .select(*plucked_attrs)
 
     # Divide people up based on whether pledges have been sent or not
     patients.each_with_object(sent: [], pledged: []) do |patient, summary|
