@@ -31,7 +31,7 @@ module TooltipsHelper
   end
 
   def shared_cases_help_text
-    t('tooltips.shared_cases', shared_reset: Config.shared_reset).strip
+    t('tooltips.shared_cases', shared_reset: Config.shared_reset_days).strip
   end
 
   def unconfirmed_support_help_text
