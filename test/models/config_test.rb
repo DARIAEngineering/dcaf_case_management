@@ -199,8 +199,8 @@ class ConfigTest < ActiveSupport::TestCase
 
     describe 'archive_patients' do
       it 'should return proper defaults' do
-        assert_equal 90, Config.archive_fulfilled_patients
-        assert_equal 365, Config.archive_all_patients
+        assert_equal Config::DEFAULTS['days_to_keep_fulfilled_patients'], Config.archive_fulfilled_patients
+        assert_equal Config::DEFAULTS['days_to_keep_all_patients'], Config.archive_all_patients
       end
 
       it 'should validate bounds' do
@@ -333,9 +333,9 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'shared_reset' do
+    describe 'shared_reset_days' do
       it 'should return proper default' do
-        assert_equal 6, Config.shared_reset
+        assert_equal Config::DEFAULTS['shared_reset_days'], Config.shared_reset_days
       end
 
       it 'should validate bounds' do
