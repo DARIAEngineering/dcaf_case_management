@@ -100,6 +100,10 @@
                      options_for_select(insurance_options(patient.insurance),
                                         patient.insurance),
                      label: t('patient.information.insurance') %>
+        <%= f.select :housing_status,
+                     options_for_select(housing_status_options(patient.housing_status),
+                                        patient.housing_status),
+                     label: t('patient.information.housing_status') %>
         <%= f.select :referred_by,
                      options_for_select(referred_by_options(patient.referred_by),
                                         patient.referred_by),
