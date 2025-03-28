@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'integration_helper'
+require 'capybara/rails'
 require 'capybara/selenium/driver'
 
 # Set systemtest behavior
