@@ -8,16 +8,31 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include IntegrationHelper
   include OmniauthMocker
 
-  # Use Capybara's built-in headless Chrome driver
+  # Explicitly register a selenium chrome headless driver
+  Capybara.register_driver :headless_chrome do |app|
+    chrome_options = Selenium::WebDriver::Chrome::Options.new(
+      args: [
+        '--headless=new',
+        '--disable-gpu',
+        '--no-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-site-isolation-trials',
+        '--disable-background-timer-throttling',
+        '--disable-backgrounding-occluded-windows',
+        '--disable-renderer-backgrounding'
+      ]
+    )
+
+    Capybara::Selenium::Driver.new(
+      app,
+      browser: :chrome,
+      options: chrome_options
+    )
+  end
+
+   # Conditionally select driver based on environment
   if ENV['GITHUB_WORKFLOW'] || ENV['DOCKER']
-    driven_by :selenium, using: :selenium_chrome_headless do |driver|
-      driver.add_argument('--headless=new')
-      driver.add_argument('--disable-gpu')
-      driver.add_argument('--disable-site-isolation-trials')
-      driver.add_argument('--disable-background-timer-throttling')
-      driver.add_argument('--disable-backgrounding-occluded-windows')
-      driver.add_argument('--disable-renderer-backgrounding')
-    end
+    driven_by :selenium, using: :headless_chrome
   else
     driven_by :selenium, using: :chrome
   end
