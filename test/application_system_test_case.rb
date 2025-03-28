@@ -7,6 +7,20 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include IntegrationHelper
   include OmniauthMocker
 
+  # Use Capybara's built-in headless Chrome driver
+  if ENV['GITHUB_WORKFLOW'] || ENV['DOCKER']
+    driven_by :selenium, using: :selenium_chrome_headless do |driver|
+      driver.add_argument('--headless=new')
+      driver.add_argument('--disable-gpu')
+      driver.add_argument('--disable-site-isolation-trials')
+      driver.add_argument('--disable-background-timer-throttling')
+      driver.add_argument('--disable-backgrounding-occluded-windows')
+      driver.add_argument('--disable-renderer-backgrounding')
+    end
+  else
+    driven_by :selenium, using: :chrome
+  end
+
   before do
     Capybara.reset_sessions!
     PaperTrail.enabled = true
@@ -16,21 +30,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   after do
     PaperTrail.enabled = false
     PaperTrail.request.enabled = false
-  end
-   # Use Capybara's built-in headless Chrome driver
-  if ENV['GITHUB_WORKFLOW'] || ENV['DOCKER']
-    driven_by :selenium, using: :selenium_chrome_headless do |driver_options|
-      browser_options = Selenium::WebDriver::Chrome::Options.new
-      browser_options.add_argument('--headless=new')
-      browser_options.add_argument('--disable-gpu')
-      browser_options.add_argument('--disable-site-isolation-trials')
-      browser_options.add_argument('--disable-background-timer-throttling')
-      browser_options.add_argument('--disable-backgrounding-occluded-windows')
-      browser_options.add_argument('--disable-renderer-backgrounding')
-
-      driver_options[:options] = browser_options
-    end
-  else
-    driven_by :selenium, using: :chrome
   end
 end
