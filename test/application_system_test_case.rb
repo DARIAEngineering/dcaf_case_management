@@ -2,11 +2,15 @@ require 'test_helper'
 require 'integration_helper'
 require 'capybara/rails'
 require 'capybara/selenium/driver'
+require 'webdrivers'
 
 # Set systemtest behavior
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include IntegrationHelper
   include OmniauthMocker
+
+  # Configure webdrivers to use the latest compatible version
+  Webdrivers::Chromedriver.update
 
   # Explicitly register a selenium chrome headless driver
   Capybara.register_driver :headless_chrome do |app|
