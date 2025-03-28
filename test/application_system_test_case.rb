@@ -45,12 +45,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   
     Capybara::Selenium::Driver.new(app, **{ :browser => :chrome, options_key => browser_options })
   end
-
-  # if in CI, run system tests headlessly.
-  browser = ENV['GITHUB_WORKFLOW'] ? :local_selenium_chrome_headless : :chrome
-
-  # if in docker, run headless firefox
-  browser = ENV['DOCKER'] ? :local_selenium_chrome_headless : browser
-
-  driven_by :selenium, using: browser
+  driven_by :selenium, using: (ENV['GITHUB_WORKFLOW'] || ENV['DOCKER']) ? :local_selenium_chrome_headless : :chrome
 end
