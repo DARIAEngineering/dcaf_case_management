@@ -43,6 +43,30 @@ class Config < ApplicationRecord
     :voicemail,
   ]
 
+  DEFAULTS = {
+    insurance: nil,
+    external_pledge_source: nil,
+    pledge_limit_help_text: nil,
+    language: nil,
+    resources_url: nil,
+    practical_support_guidance_url: nil,
+    fax_service: nil,
+    referred_by: nil,
+    practical_support: nil,
+    hide_practical_support: false,
+    start_of_week: 'monday',
+    budget_bar_max: 1_000,
+    voicemail: 12,
+    days_to_keep_fulfilled_patients: 90,
+    days_to_keep_all_patients: 365,
+    shared_reset_days: 6,
+    hide_budget_bar: false,
+    aggregate_statistics: false,
+    hide_standard_dropdown_values: false,
+    county: nil,
+    time_zone: "Eastern"
+  }.freeze
+
   enum :config_key, {
     insurance: 0,
     external_pledge_source: 1,
@@ -171,7 +195,7 @@ class Config < ApplicationRecord
 
   def self.budget_bar_max
     budget_max = Config.find_or_create_by(config_key: 'budget_bar_max').options.try :last
-    budget_max ||= 1_000
+    budget_max ||= DEFAULTS[:budget_bar_max]
     budget_max.to_i
   end
 
@@ -181,34 +205,34 @@ class Config < ApplicationRecord
 
   def self.start_day
     start = Config.find_or_create_by(config_key: 'start_of_week').options.try :last
-    start ||= "monday"
+    start ||= DEFAULTS[:start_of_week]
     start.downcase.to_sym
   end
 
   def self.time_zone
     tz = Config.find_or_create_by(config_key: 'time_zone').options.try :last
-    tz ||= "Eastern"
+    tz ||= DEFAULTS[:time_zone]
     ActiveSupport::TimeZone.new(TIME_ZONE[tz])
   end
 
   def self.archive_fulfilled_patients
     archive_days = Config.find_or_create_by(config_key: 'days_to_keep_fulfilled_patients').options.try :last
     # default 3 months
-    archive_days ||= 90
+    archive_days ||= DEFAULTS[:days_to_keep_fulfilled_patients]
     archive_days.to_i
   end
 
   def self.archive_all_patients
     archive_days = Config.find_or_create_by(config_key: 'days_to_keep_all_patients').options.try :last
     # default 1 year
-    archive_days ||= 365
+    archive_days ||= DEFAULTS[:days_to_keep_call_patients]
     archive_days.to_i
   end
 
-  def self.shared_reset
+  def self.shared_reset_days
     shared_reset_days = Config.find_or_create_by(config_key: 'shared_reset').options.try :last
     # default 6 days
-    shared_reset_days ||= 6
+    shared_reset_days ||= DEFAULTS[:shared_reset]
     shared_reset_days.to_i
   end
 
@@ -267,10 +291,11 @@ class Config < ApplicationRecord
 
       # run the validators and get a boolean, exit if all are true
       # (see comment above in `clean_config_value` for an explainer)
-      return if validators.all? { |validator| method(validator).call }
+      validation_errors = validators.map { |validator| method(validator).call }
+      return if validation_errors.all? { |validation_error| validation_error.nil? }
 
       errors.add(:invalid_value_for,
-        "#{config_key.humanize(capitalize: false)}: #{options.join(', ')}")
+        "#{config_key.humanize(capitalize: false)}: #{validation_errors.compact.join(', ')}")
     end
 
     # generic cleaner for words (so we have standardized capitalization)
@@ -285,12 +310,16 @@ class Config < ApplicationRecord
 
     # generic validator for numerics
     def validate_number
-      options.last =~ /\A\d+\z/
+      if options.last !=~ /\A\d+\z/
+        'Must be number'
+      end
     end
 
     # validator for singletons (no lists allowed)
     def validate_singleton
-      options.length == 1
+      if options.length != 1
+        'No lists allowed'
+      end
     end
 
     ### URL fields
@@ -304,7 +333,7 @@ class Config < ApplicationRecord
       url = UriService.new(maybe_url).uri
 
       # uriservice returns nil if there's a problem.
-      return false if !url
+      return false unless url
 
 
       config_value['options'] = [url]
@@ -325,7 +354,9 @@ class Config < ApplicationRecord
     ].freeze
 
     def validate_start_of_week
-      START_OF_WEEK.include?(options.last.capitalize)
+      unless START_OF_WEEK.include?(options.last.capitalize)
+        "Must be a day of the week (or the word monthly)"
+      end
     end
 
     ### Time zone
@@ -343,14 +374,18 @@ class Config < ApplicationRecord
     }.stringify_keys!
 
     def validate_time_zone
-      TIME_ZONE.keys.include?(options.last.titleize)
+      unless TIME_ZONE.keys.include?(options.last.titleize)
+        "Timezone provided is not supported"
+      end
     end
 
     ### Practical support
 
     def validate_yes_or_no
       # allow yes or no, to be nice (technically only yes is considered)
-      options.last =~ /\A(yes|no)\z/i
+      if !(options.last =~ /\A(yes|no)\z/i)
+        "Field must be either 'yes' or 'no'"
+      end
     end
 
     ### Patient archive
@@ -358,7 +393,9 @@ class Config < ApplicationRecord
     ARCHIVE_MAX_DAYS = 550  # 1.5 years
 
     def validate_patient_archive
-      validate_number && options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+      if !validate_number || !options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+        "Must be between #{ARCHIVE_MIN_DAYS} and #{ARCHIVE_MAX_DAYS} days."
+      end
     end
 
     ### shared reset
@@ -366,15 +403,16 @@ class Config < ApplicationRecord
     SHARED_MAX_DAYS = 7 * 6  # 6 weeks
 
     def validate_shared_reset
-      validate_number && options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+      if !validate_number || !options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+        "Must be between #{SHARED_MIN_DAYS} and #{SHARED_MAX_DAYS} days."
+      end
     end
 
     def validate_length
       total_length = 0
       options.each do |option|
         total_length += option.length
-        return false if total_length > 4000
       end
-      true
+      "Length of provided values is too long (over 4000 characters)" if total_length > 4000
     end
 end
