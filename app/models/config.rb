@@ -383,7 +383,7 @@ class Config < ApplicationRecord
 
     def validate_yes_or_no
       # allow yes or no, to be nice (technically only yes is considered)
-      if !options.last =~ /\A(yes|no)\z/i
+      if !(options.last =~ /\A(yes|no)\z/i)
         "Field must be either 'yes' or 'no'"
       end
     end
