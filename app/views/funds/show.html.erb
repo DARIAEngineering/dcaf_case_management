@@ -1,0 +1,27 @@
+<h1><%= current_tenant.name %></h1>
+
+<div class="fund-list">
+  <table class="table border-side table-hover top-spacer" id="funds_table">
+    <thead>
+      <tr class="funds-table-header">
+        <th><%= t 'activerecord.attributes.fund.subdomain' %></th>
+        <th><%= t 'activerecord.attributes.fund.domain' %></th>
+        <th><%= t 'activerecord.attributes.fund.full_name' %></th>
+        <th><%= t 'activerecord.attributes.fund.site_domain' %></th>
+        <th><%= t 'activerecord.attributes.fund.phone' %></th>
+        <th><!-- spacer --></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class="funds-table-row">
+        <td><%= current_tenant.subdomain %></td>
+        <td><%= current_tenant.domain %></td>
+        <td><%= current_tenant.full_name %></td>
+        <td><%= current_tenant.site_domain %></td>
+        <td><%= current_tenant.phone %></td>
+        <td><%= link_to "Edit", edit_fund_path(current_tenant) %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
