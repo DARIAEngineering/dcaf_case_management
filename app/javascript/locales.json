@@ -6380,7 +6380,7 @@
             "out_format": "Output format: %{valid_text}",
             "pattern_router": "Use pattern router: keys moved per config data.write",
             "strict": "Avoid inferring dynamic key usages such as t(\"cats.#{cat}.name\"). Takes precedence over the config setting if set.",
-            "translation_backend": "Translation backend (google or deepl)",
+            "translation_backend": "Translation backend [google, deepl, yandex, openai])",
             "value": "Value. Interpolates: %%{value}, %%{human_key}, %%{key}, %%{default}, %%{value_or_human_key}, %%{value_or_default_or_human_key}"
           }
         },
@@ -6426,6 +6426,7 @@
           "invalid": "%{invalid} is not one of: %{valid}."
         },
         "errors": {
+          "invalid_backend": "Invalid backend: %{invalid}. Must be one of %{valid}.",
           "invalid_format": "invalid format: %{invalid}. valid: %{valid}.",
           "invalid_locale": "invalid locale: %{invalid}",
           "invalid_missing_type": {
@@ -6492,6 +6493,13 @@
       },
       "usages": {
         "none": "No key usages found."
+      },
+      "watsonx_translate": {
+        "errors": {
+          "no_api_key": "Set watsonx API key via WATSONX_API_KEY environment variable or translation.watsonx_api_key in config/i18n-tasks.yml. Get the key at https://www.ibm.com/products/watsonx-ai.",
+          "no_project_id": "Set watsonx Project ID via WATSONX_PROJECT_ID environment variable or translation.watsonx_api_key in config/i18n-tasks.yml. Get the key at https://www.ibm.com/products/watsonx-ai.",
+          "no_results": "watsonx returned no results."
+        }
       },
       "yandex_translate": {
         "errors": {
@@ -29558,7 +29566,7 @@
             "out_format": "Формат вывода: %{valid_text}.",
             "pattern_router": "Использовать pattern_router: ключи распределятся по файлам согласно data.write",
             "strict": "Не угадывать динамические использования ключей, например `t(\"category.#{category.key}\")`",
-            "translation_backend": "Движок перевода (google или deepl)",
+            "translation_backend": "Движок перевода [google, deepl, yandex, openai]",
             "value": "Значение, интерполируется с %%{value}, %%{human_key}, %%{key}, %%{default}, %%{value_or_human_key}, %%{value_or_default_or_human_key}"
           }
         },
@@ -29604,6 +29612,7 @@
           "invalid": "%{invalid} не является одним из: %{valid}."
         },
         "errors": {
+          "invalid_backend": "Недопустимый источник данных: %{invalid}. Должен быть одним из %{valid}.",
           "invalid_format": "Неизвестный формат %{invalid}. Форматы: %{valid}.",
           "invalid_locale": "Неверный язык %{invalid}",
           "invalid_missing_type": {
@@ -29674,6 +29683,13 @@
       },
       "usages": {
         "none": "Не найдено использований."
+      },
+      "watsonx_translate": {
+        "errors": {
+          "no_api_key": "Установите ключ API watsonx через переменную среды WATSONX_API_KEY или translation.watsonx_api_key в config/i18n-tasks.yml. Получите ключ на https://www.ibm.com/products/watsonx-ai.",
+          "no_project_id": "Установите идентификатор проекта watsonx через переменную среды WATSONX_PROJECT_ID или translation.watsonx_api_key в config/i18n-tasks.yml. Получите ключ на https://www.ibm.com/products/watsonx-ai.",
+          "no_results": "watsonx не вернул результатов."
+        }
       },
       "yandex_translate": {
         "errors": {
