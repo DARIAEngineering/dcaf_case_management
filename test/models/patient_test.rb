@@ -393,7 +393,7 @@ class PatientTest < ActiveSupport::TestCase
           assert_not @patient.still_shared?
         end
 
-        describe 'without a custom shared_reset config' do
+        describe 'without a custom shared_reset_days config' do
           it 'should return true if marked shared in last 6 days' do
             with_versioning do
               @patient.update shared_flag: true
@@ -417,13 +417,13 @@ class PatientTest < ActiveSupport::TestCase
 
         describe 'with a custom shared reset config' do
           before do
-            c = Config.find_or_create_by(config_key: 'shared_reset')
+            c = Config.find_or_create_by(config_key: 'shared_reset_days')
             c.config_value = { options: ["14"] }
             c.save
           end
 
           after do
-            Config.find_or_create_by(config_key: 'shared_reset').delete
+            Config.find_or_create_by(config_key: 'shared_reset_days').delete
           end
 
           it 'should return true if shared in the last configured days' do

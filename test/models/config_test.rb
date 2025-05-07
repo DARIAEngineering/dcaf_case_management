@@ -339,7 +339,7 @@ class ConfigTest < ActiveSupport::TestCase
       end
 
       it 'should validate bounds' do
-        c = Config.find_or_create_by(config_key: 'shared_reset')
+        c = Config.find_or_create_by(config_key: 'shared_reset_days')
 
         # low out of bounds
         c.config_value = { options: ["1"] }
