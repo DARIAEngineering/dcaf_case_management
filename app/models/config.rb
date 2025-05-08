@@ -225,7 +225,7 @@ class Config < ApplicationRecord
   def self.archive_all_patients
     archive_days = Config.find_or_create_by(config_key: 'days_to_keep_all_patients').options.try :last
     # default 1 year
-    archive_days ||= DEFAULTS[:days_to_keep_call_patients]
+    archive_days ||= DEFAULTS[:days_to_keep_all_patients]
     archive_days.to_i
   end
 
