@@ -9,7 +9,7 @@
     "jquery-ujs": "1.2.3",
     "popper.js": "1.16.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.1.0",
     "sass": "1.87.0",
     "set-value": "4.1.0",
     "stupid-table-plugin": "1.1.3",
