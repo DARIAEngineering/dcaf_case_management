@@ -104,7 +104,6 @@ group :test do
   # Systemtest related tools
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'capybara-lockstep'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
 
