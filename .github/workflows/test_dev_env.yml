@@ -159,31 +159,31 @@ jobs:
   #         name: capybara-screenshots
   #         path: tmp/capybara/
         
-  # scan:
-  #   name: Run static scanners
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  scan:
+    name: Run static scanners
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     # Ruby setup
-  #     - name: Setup ruby
-  #       uses: ruby/setup-ruby@v1 # automagically reads from .ruby-version
-  #       with:
-  #         bundler-cache: true
-  #     - name: Install scanners
-  #       run: |
-  #         gem install --no-document brakeman ruby_audit bundler-audit
+      # Ruby setup
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1 # automagically reads from .ruby-version
+        with:
+          bundler-cache: true
+      - name: Install scanners
+        run: |
+          gem install --no-document brakeman ruby_audit bundler-audit
 
-  #     # Run scanners
-  #     - name: Brakeman
-  #       run: brakeman --exit-on-warn .
-  #     - name: ruby-audit
-  #       run: bundle exec ruby-audit check
-  #     - name: bundle-audit
-  #       run: bundle-audit update; bundle-audit check
-  #     - name: Zeitwerk
-  #       run: bin/rails zeitwerk:check
-  #     - name: yarn npm audit
-  #       run: yarn npm audit --ignore 1098356 --ignore 1098400 --ignore 1098602 --ignore 1099461
+      # Run scanners
+      - name: Brakeman
+        run: brakeman --exit-on-warn .
+      - name: ruby-audit
+        run: bundle exec ruby-audit check
+      - name: bundle-audit
+        run: bundle-audit update; bundle-audit check
+      - name: Zeitwerk
+        run: bin/rails zeitwerk:check
+      - name: yarn npm audit
+        run: yarn npm audit --ignore 1098356 --ignore 1098400 --ignore 1098602 --ignore 1099461
 
