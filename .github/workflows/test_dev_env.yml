@@ -24,61 +24,61 @@ jobs:
           docker compose logs -t
           docker ps -a | (! grep Exited ) # Return a non-zero exit code if any of the containers are stopped
 
-  # unit_tests:
-  #   name: Run tests
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     POSTGRES_USER: daria
-  #     POSTGRES_PASSWORD: ""
-  #     CI: true
-  #   services:
-  #     postgres:
-  #       image: postgres
-  #       env:
-  #         POSTGRES_USER: daria
-  #         POSTGRES_DB: dcaf_case_management_test
-  #         POSTGRES_HOST_AUTH_METHOD: trust
-  #       ports:
-  #         - 5432:5432
-  #       # Add a health check
-  #       options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+  unit_tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: daria
+      POSTGRES_PASSWORD: ""
+      CI: true
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: daria
+          POSTGRES_DB: dcaf_case_management_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        # Add a health check
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     # Ruby setup
-  #     - name: Setup ruby
-  #       uses: ruby/setup-ruby@v1 # automagically reads from .ruby-version
-  #       with:
-  #         bundler-cache: true
+      # Ruby setup
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1 # automagically reads from .ruby-version
+        with:
+          bundler-cache: true
 
-  #     # npm/yarn setup
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18.19.0
-  #     - name: Cache node_modules
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: "**/node_modules"
-  #         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-  #     - name: yarn packages
-  #       run: yarn install
+      # npm/yarn setup
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.19.0
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: yarn packages
+        run: yarn install
 
-  #     # App setup
-  #     - name: Asset compilation
-  #       run: NODE_ENV=test bin/rails assets:precompile
-  #     - name: Database setup setup
-  #       run: RAILS_ENV=test bin/rails db:create db:migrate
+      # App setup
+      - name: Asset compilation
+        run: NODE_ENV=test bin/rails assets:precompile
+      - name: Database setup setup
+        run: RAILS_ENV=test bin/rails db:create db:migrate
 
-  #     # Run JS tests
-  #     - name: Run Javascript test suite
-  #       run: yarn test
+      # Run JS tests
+      - name: Run Javascript test suite
+        run: yarn test
 
-  #     # Run Rails tests
-  #     - name: Run Rails test suite
-  #       run: bin/rails test
+      # Run Rails tests
+      - name: Run Rails test suite
+        run: bin/rails test
 
   # system_tests:
   #   name: Run system tests
