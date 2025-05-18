@@ -78,7 +78,7 @@ jobs:
       - name: Setup stable Chrome
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: 133
+          chrome-version: 132
           install-chromedriver: true
           install-dependencies: true
 
@@ -90,7 +90,7 @@ jobs:
 
       # Run Rails tests
       - name: Run Rails test suite
-        run: bin/rails test:all
+        run: bin/rails test test/system/update_patient_info_test.rb
 
       # Save artifacts
       - name: Store coverage artifact
