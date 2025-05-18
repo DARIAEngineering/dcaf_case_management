@@ -17,7 +17,7 @@ class Config < ApplicationRecord
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
-    shared_reset: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
+    shared_reset_days: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
     hide_standard_dropdown_values: 'Enter "yes" to hide standard dropdown values. Only custom options (specified on this page) will be used.',
@@ -83,7 +83,7 @@ class Config < ApplicationRecord
     voicemail: 12,
     days_to_keep_fulfilled_patients: 13,
     days_to_keep_all_patients: 14,
-    shared_reset: 15,
+    shared_reset_days: 15,
     hide_budget_bar: 16,
     aggregate_statistics: 17,
     hide_standard_dropdown_values: 18,
@@ -150,8 +150,8 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_patient_archive],
     days_to_keep_all_patients:
       [:validate_singleton, :validate_patient_archive],
-    shared_reset:
-      [:validate_singleton, :validate_shared_reset],
+    shared_reset_days:
+      [:validate_singleton, :validate_shared_reset_days],
 
     hide_budget_bar:
       [:validate_singleton, :validate_yes_or_no],
@@ -225,14 +225,14 @@ class Config < ApplicationRecord
   def self.archive_all_patients
     archive_days = Config.find_or_create_by(config_key: 'days_to_keep_all_patients').options.try :last
     # default 1 year
-    archive_days ||= DEFAULTS[:days_to_keep_call_patients]
+    archive_days ||= DEFAULTS[:days_to_keep_all_patients]
     archive_days.to_i
   end
 
   def self.shared_reset_days
-    shared_reset_days = Config.find_or_create_by(config_key: 'shared_reset').options.try :last
+    shared_reset_days = Config.find_or_create_by(config_key: 'shared_reset_days').options.try :last
     # default 6 days
-    shared_reset_days ||= DEFAULTS[:shared_reset]
+    shared_reset_days ||= DEFAULTS[:shared_reset_days]
     shared_reset_days.to_i
   end
 
@@ -402,7 +402,7 @@ class Config < ApplicationRecord
     SHARED_MIN_DAYS = 2      # 2 days
     SHARED_MAX_DAYS = 7 * 6  # 6 weeks
 
-    def validate_shared_reset
+    def validate_shared_reset_days
       if !validate_number || !options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
         "Must be between #{SHARED_MIN_DAYS} and #{SHARED_MAX_DAYS} days."
       end
