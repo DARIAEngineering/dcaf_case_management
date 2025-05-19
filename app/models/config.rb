@@ -137,7 +137,7 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_yes_or_no],
 
     budget_bar_max:
-      [:validate_singleton, :validate_number],
+      [:validate_singleton, :validate_budget_bar_max],
 
     resources_url:
       [:validate_singleton, :validate_url],
@@ -278,8 +278,8 @@ class Config < ApplicationRecord
       cleaners.each { |cleaner| method(cleaner).call }
     end
 
-    # parent function. will handle errors; child validators should return true
-    # if value is valid for key, and false otherwise.
+    # parent function. will handle errors; child validators should return nil
+    # if value is valid for key, and the error string otherwise.
     def validate_config
       # don't try to validate if no key or no value
       return if config_key.nil? || options.last.nil?
@@ -289,7 +289,7 @@ class Config < ApplicationRecord
       # no validation for this field, ignore
       return if validators.blank?
 
-      # run the validators and get a boolean, exit if all are true
+      # run the validators and get a the results, exit if all are nil
       # (see comment above in `clean_config_value` for an explainer)
       validation_errors = validators.map { |validator| method(validator).call }
       return if validation_errors.all? { |validation_error| validation_error.nil? }
@@ -333,11 +333,11 @@ class Config < ApplicationRecord
       url = UriService.new(maybe_url).uri
 
       # uriservice returns nil if there's a problem.
-      return false unless url
+      return "URL Required" unless url
 
 
       config_value['options'] = [url]
-      return true
+      return
     end
 
     ### Start of Week
@@ -404,6 +404,12 @@ class Config < ApplicationRecord
 
     def validate_shared_reset_days
       if !validate_number || !options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+        "Must be between #{SHARED_MIN_DAYS} and #{SHARED_MAX_DAYS} days."
+      end
+    end
+
+    def validate_budget_bar_max
+      if !validate_number
         "Must be between #{SHARED_MIN_DAYS} and #{SHARED_MAX_DAYS} days."
       end
     end
