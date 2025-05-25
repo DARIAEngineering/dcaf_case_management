@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'ostruct'
 
 # For tooling related to using the clinicfinder gem
 class ClinicfindersControllerTest < ActionDispatch::IntegrationTest
