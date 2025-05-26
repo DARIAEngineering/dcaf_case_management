@@ -326,14 +326,15 @@ class Config < ApplicationRecord
     def validate_url
       maybe_url = options.last
       return if maybe_url.blank?
-
-      return false unless maybe_url.length <= 300
-
-      url = UriService.new(maybe_url).uri
+      return 'URL too long' if maybe_url.length >= 300
 
       # uriservice returns nil if there's a problem.
-      return 'Invalid url' unless url
+      url = UriService.new(maybe_url).uri.to_s
+      return 'Invalid URL' if url.blank?
+
+      # Use clean url
       config_value['options'] = [url]
+      return
     end
 
     ### Start of Week

@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'ostruct'
 
 class ClinicTest < ActiveSupport::TestCase
   before { @clinic = create :clinic }

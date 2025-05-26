@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'ostruct'
 
 class UserTest < ActiveSupport::TestCase
   # Since this is a devise install, devise is handling
