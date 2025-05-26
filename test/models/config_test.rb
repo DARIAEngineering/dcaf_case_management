@@ -191,7 +191,7 @@ class ConfigTest < ActiveSupport::TestCase
 
       it 'should return another amount if configured' do
         c = Config.find_or_create_by(config_key: 'budget_bar_max')
-        c.config_value = { options: [2000] }
+        c.config_value = { options: ["2000"] }
         c.save!
         assert_equal 2_000, Config.budget_bar_max
       end
