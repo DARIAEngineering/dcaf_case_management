@@ -278,8 +278,9 @@ class Config < ApplicationRecord
       cleaners.each { |cleaner| method(cleaner).call }
     end
 
-    # parent function. will handle errors; child validators should return true
-    # if value is valid for key, and false otherwise.
+    # parent function. will handle errors;
+    # child validators should return nil
+    # if value is valid for key, and a string otherwise.
     def validate_config
       # don't try to validate if no key or no value
       return if config_key.nil? || options.last.nil?
@@ -310,9 +311,7 @@ class Config < ApplicationRecord
 
     # generic validator for numerics
     def validate_number
-      if options.last !=~ /\A\d+\z/
-        'Must be number'
-      end
+      'Must be number' if !Integer(options.last, exception: false)
     end
 
     # validator for singletons (no lists allowed)
@@ -333,11 +332,8 @@ class Config < ApplicationRecord
       url = UriService.new(maybe_url).uri
 
       # uriservice returns nil if there's a problem.
-      return false unless url
-
-
+      return 'Invalid url' unless url
       config_value['options'] = [url]
-      return true
     end
 
     ### Start of Week
@@ -393,7 +389,7 @@ class Config < ApplicationRecord
     ARCHIVE_MAX_DAYS = 550  # 1.5 years
 
     def validate_patient_archive
-      if !validate_number || !options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
+      if validate_number || !options.last.to_i.between?(ARCHIVE_MIN_DAYS, ARCHIVE_MAX_DAYS)
         "Must be between #{ARCHIVE_MIN_DAYS} and #{ARCHIVE_MAX_DAYS} days."
       end
     end
@@ -403,7 +399,7 @@ class Config < ApplicationRecord
     SHARED_MAX_DAYS = 7 * 6  # 6 weeks
 
     def validate_shared_reset_days
-      if !validate_number || !options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
+      if validate_number || !options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
         "Must be between #{SHARED_MIN_DAYS} and #{SHARED_MAX_DAYS} days."
       end
     end
