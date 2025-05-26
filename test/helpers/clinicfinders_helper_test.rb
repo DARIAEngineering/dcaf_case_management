@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'ostruct'
 
 # Test the field parser
 class ClinicfindersHelperTest < ActionView::TestCase
