@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Input from './Input'
 import Select from './Select'
 import Tooltip from './Tooltip'
@@ -9,8 +9,6 @@ export default PatientDashboardForm = ({
   patient,
   weeksOptions,
   daysOptions,
-  initialCallDate,
-  statusHelpText,
   isAdmin,
   patientPath,
   formAuthenticityToken
@@ -22,11 +20,8 @@ export default PatientDashboardForm = ({
 
   const [patientData, setPatientData] = useState(patient)
 
-  const statusTooltip = statusHelpText ? <Tooltip text={statusHelpText} /> : null
-
   const autosave = async (updatedData) => {
     const updatedPatientData = { ...patientData, ...updatedData }
-    setPatientData(updatedPatientData)
 
     const putData = {
       name: updatedPatientData.name,
@@ -44,9 +39,7 @@ export default PatientDashboardForm = ({
     }
   }
 
-  const debouncedAutosave = useMemo((params) => {
-    return debounce(autosave, 300)
-  }, []);
+  const debouncedAutosave = debounce(autosave);
 
   // Stop the invocation of the debounced function after unmounting
   useEffect(() => {
@@ -88,8 +81,8 @@ export default PatientDashboardForm = ({
           label={i18n.t('common.days_along')}
           labelClassName="sr-only"
           options={daysOptions}
-          value={weeksOptions.find(opt => opt.value === patientData.last_menstrual_period_days)?.value}
-          help={i18n.t('patient.dashboard.called_on', { date: initialCallDate })}
+          value={daysOptions.find(opt => opt.value === patientData.last_menstrual_period_days)?.value}
+          help={i18n.t('patient.dashboard.called_on', { date: patientData.initial_call_date_display })}
           onChange={e => autosave({ last_menstrual_period_days: e.target.value })}
         />
       </div>
@@ -131,8 +124,8 @@ export default PatientDashboardForm = ({
           label={i18n.t('patient.shared.status')}
           value={patientData.status}
           className="form-control-plaintext"
-          tooltip={statusTooltip}
-          onChange={e => debouncedAutosave({ status: e.target.value })}
+          disabled={true}
+          tooltip={patientData.status_help_text ? <Tooltip text={patientData.status_help_text} /> : null}
         />
       </div>
 
