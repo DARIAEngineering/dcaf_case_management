@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Input from './Input'
 import Select from './Select'
 import Tooltip from './Tooltip'
@@ -39,7 +39,7 @@ export default PatientDashboardForm = ({
     }
   }
 
-  const debouncedAutosave = useCallback(debounce((params) => autosave(params)), []);
+  const debouncedAutosave = debounce(autosave);
 
   // Stop the invocation of the debounced function after unmounting
   useEffect(() => {
