@@ -23,7 +23,7 @@ gem 'cssbundling-rails'
 gem 'bootstrap_form', '~> 4.5.0'
 
 # Our database is postgres
-gem 'pg', '~> 1.5'
+gem 'pg', '~> 1.6'
 gem 'paper_trail', '~> 16.0'
 gem 'activerecord-session_store'
 
