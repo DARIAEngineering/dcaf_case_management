@@ -9,7 +9,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include OmniauthMocker
 
   # Configure webdrivers to use the latest compatible version
-  Webdrivers::Chromedriver.update
+  #Webdrivers::Chromedriver.update
 
   # Explicitly register a selenium chrome headless driver
   Capybara.register_driver :headless_chrome do |app|
