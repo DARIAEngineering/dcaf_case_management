@@ -5,7 +5,7 @@ ruby '3.2.4'
 gem 'rails', '~> 7.2.2.1'
 gem 'puma', '~> 6.6' # roar
 gem 'sdoc', '~> 2.6.0', group: :doc
-gem 'nokogiri', '>= 1.13.4'
+gem 'nokogiri', '>= 1.18.9'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
@@ -104,6 +104,7 @@ group :test do
   # Systemtest related tools
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
 

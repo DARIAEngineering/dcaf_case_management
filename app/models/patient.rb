@@ -2,7 +2,6 @@
 class Patient < ApplicationRecord
   acts_as_tenant :fund
 
-  # NOOP CHANGE
   # Concerns
   include PaperTrailable
   include Shareable
