@@ -19,7 +19,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         '--disable-gpu',
         '--no-sandbox',
         '--disable-dev-shm-usage',
-        '--user-data-dir=/tmp/chrome-user-data',
         '--disable-site-isolation-trials',
         '--disable-background-timer-throttling',
         '--disable-backgrounding-occluded-windows',
