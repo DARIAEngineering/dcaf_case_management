@@ -4,7 +4,7 @@ ruby '3.2.4'
 # Standard rails
 gem 'rails', '~> 7.2.2.1'
 gem 'puma', '~> 6.6' # roar
-gem 'sdoc', '~> 2.6.0', group: :doc
+gem 'sdoc', '~> 2.6.4', group: :doc
 gem 'nokogiri', '>= 1.13.4'
 gem 'tzinfo-data', require: false
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -23,7 +23,7 @@ gem 'cssbundling-rails'
 gem 'bootstrap_form', '~> 4.5.0'
 
 # Our database is postgres
-gem 'pg', '~> 1.5'
+gem 'pg', '~> 1.6'
 gem 'paper_trail', '~> 16.0'
 gem 'activerecord-session_store'
 
