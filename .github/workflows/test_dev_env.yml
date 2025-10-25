@@ -125,14 +125,14 @@ jobs:
       # System setup
       - name: Install
         run: sudo apt-get -yqq install libpq-dev
-      - name: Remove image-bundled Chrome # Install very specific chromedriver for the sake of https://github.com/teamcapybara/capybara/issues/2800
-        run: sudo apt-get purge google-chrome-stable
-      - name: Setup stable Chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 132
-          install-chromedriver: true
-          install-dependencies: true
+      # - name: Remove image-bundled Chrome # Install very specific chromedriver for the sake of https://github.com/teamcapybara/capybara/issues/2800
+      #   run: sudo apt-get purge google-chrome-stable
+      # - name: Setup stable Chrome
+      #   uses: browser-actions/setup-chrome@v1
+      #   with:
+      #     chrome-version: 128
+      #     install-chromedriver: true
+      #     install-dependencies: true
 
       # App setup
       - name: Asset compilation
