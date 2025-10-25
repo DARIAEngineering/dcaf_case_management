@@ -2,6 +2,8 @@ require 'application_system_test_case'
 
 # Confirm behavior around pledge fulfillment
 class PledgeFulfillmentTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user, role: :cm
     @admin = create :user, role: :admin

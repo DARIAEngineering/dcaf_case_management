@@ -2,6 +2,8 @@ require 'application_system_test_case'
 
 # Confirm that the medicaid filter checkbox works
 class FilterMedicaidClinicsTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user, role: :cm
     @medicaid_clinic = create :clinic, name: 'Medicaid Accepted', accepts_medicaid: true
