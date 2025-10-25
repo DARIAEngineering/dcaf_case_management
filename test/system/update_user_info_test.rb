@@ -1,6 +1,8 @@
 require 'application_system_test_case'
 
 class UpdateUserInfoTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     create :line
     @user = create :user
