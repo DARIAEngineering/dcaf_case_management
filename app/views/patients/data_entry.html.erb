@@ -6,7 +6,7 @@
                         url: data_entry_create_path,
                         html: { class: 'mass_entry_form' },
                         local: true do |f| %>
-  <%= f.select :line_id, options_for_select(line_options, current_line.id) %>
+  <%= f.select :line_id, options_for_select(line_options, current_line&.id) %>
 
   <%= f.date_field :initial_call_date,
                    label: t('patient.new.initial_call_date') %>
