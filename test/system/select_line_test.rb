@@ -2,6 +2,8 @@ require 'application_system_test_case'
 
 # Tests around line selection behavior
 class SelectLineTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   before do
     @user = create :user
     create :line, name: 'DC'

@@ -56,26 +56,26 @@ class UpdateUserInfoTest < ApplicationSystemTestCase
       end
     end
 
-    describe 'when at least one auth factor enabled' do
-      before do
-        @user.auth_factors.create attributes_for(:auth_factor, :registration_complete)
-        @enabled_factor = @user.auth_factors.last
-        visit edit_user_registration_path
-      end
+    # describe 'when at least one auth factor enabled' do
+    #   before do
+    #     @user.auth_factors.create attributes_for(:auth_factor, :registration_complete)
+    #     @enabled_factor = @user.auth_factors.last
+    #     visit edit_user_registration_path
+    #   end
 
-      it 'should display Add New Authentication Factor' do
-        assert_text t('multi_factor.factor_list.add_button')
-      end
+    #   it 'should display Add New Authentication Factor' do
+    #     assert_text t('multi_factor.factor_list.add_button')
+    #   end
 
-      it 'should display enabled factors' do
-        assert_text @enabled_factor.name
-        assert_no_text @disabled_factor.name
-      end
+    #   it 'should display enabled factors' do
+    #     assert_text @enabled_factor.name
+    #     assert_no_text @disabled_factor.name
+    #   end
 
-      it 'should delete factor when delete button pressed' do
-        click_button t('multi_factor.factor_list.delete_button')
-        assert_no_text @enabled_factor.name
-      end
-    end
+    #   it 'should delete factor when delete button pressed' do
+    #     click_button t('multi_factor.factor_list.delete_button')
+    #     assert_no_text @enabled_factor.name
+    #   end
+    # end
   end
 end

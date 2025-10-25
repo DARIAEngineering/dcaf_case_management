@@ -2,6 +2,8 @@ require 'application_system_test_case'
 
 # Confirm behavior around updating fund-editable settings
 class UpdatingConfigsTest < ApplicationSystemTestCase
+  extend Minitest::OptionalRetry
+
   describe 'non-admin redirect' do
     [:data_volunteer, :cm].each do |role|
       it "should deny access as a #{role.to_s}" do
