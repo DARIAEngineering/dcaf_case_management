@@ -1,23 +1,23 @@
 require 'test_helper'
 require 'integration_helper'
 
-# # Hack from https://github.com/teamcapybara/capybara/issues/2800#issuecomment-3172247546
-# module Selenium
-#   module WebDriver
-#     module Error
-#       class UnknownError
-#         alias old_initialize initialize
+# Hack from https://github.com/teamcapybara/capybara/issues/2800#issuecomment-3172247546
+module Selenium
+  module WebDriver
+    module Error
+      class UnknownError
+        alias old_initialize initialize
 
-#         def initialize(msg = nil)
-#           if msg&.include?('Node with given id does not belong to the document')
-#             raise StaleElementReferenceError, msg
-#           end
-#           old_initialize(msg)
-#         end
-#       end
-#     end
-#   end
-# end
+        def initialize(msg = nil)
+          if msg&.include?('Node with given id does not belong to the document')
+            raise StaleElementReferenceError, msg
+          end
+          old_initialize(msg)
+        end
+      end
+    end
+  end
+end
 
 # Set systemtest behavior
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
