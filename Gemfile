@@ -31,7 +31,9 @@ gem 'acts_as_tenant', '~> 1.0' # Run multiple funds on one server
 gem 'paper_trail', '~> 17.0' # Changelog
 gem 'csv'
 gem 'geokit' # clinic_finder service lat-lng
-
+gem 'state_geo_tools' # list of states as a handy constant
+gem 'sentry-ruby' # sentry for alerting
+gem 'sentry-rails' # rails knowledge in sentry
 
 # Auth
 gem 'devise', '~> 4.9' # Auth system
@@ -112,8 +114,6 @@ end
 # gem 'strong_password', '~> 0.0.10'
 
 # # We report errors with sentry
-# gem 'sentry-ruby'
-# gem 'sentry-rails'
 
 # # Security libraries
 # gem 'rack-attack', '~> 6.7.0'
@@ -131,7 +131,6 @@ end
 # gem 'render_async', '~> 2.1' # load slow partials asynchronously
 # gem 'prawn' # pledge pdf generation
 # gem 'geokit' # clinic_finder service lat-lng
-# gem 'state_geo_tools' # state list
 # gem 'httparty' # easier http calls
 # gem 'view_component', '~> 3.22' # build reusable & encapsulated view components in Ruby
 # gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
