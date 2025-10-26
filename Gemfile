@@ -34,6 +34,7 @@ gem 'geokit' # clinic_finder service lat-lng
 gem 'state_geo_tools' # list of states as a handy constant
 gem 'sentry-ruby' # sentry for alerting
 gem 'sentry-rails' # rails knowledge in sentry
+gem 'bootstrap_form', '~> 5.4'
 
 # Auth
 gem 'devise', '~> 4.9' # Auth system
@@ -94,7 +95,6 @@ end
 # gem 'sprockets-rails'
 # gem 'jsbundling-rails'
 # gem 'cssbundling-rails'
-# gem 'bootstrap_form', '~> 4.5.0'
 
 # # Our database is postgres
 # gem 'pg', '~> 1.5'

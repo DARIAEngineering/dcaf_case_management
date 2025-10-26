@@ -93,6 +93,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.6)
       msgpack (~> 1.2)
+    bootstrap_form (5.4.0)
+      actionpack (>= 6.1)
+      activemodel (>= 6.1)
     brakeman (7.1.0)
       racc
     builder (3.3.0)
@@ -437,6 +440,7 @@ DEPENDENCIES
   activerecord-session_store
   acts_as_tenant (~> 1.0)
   bootsnap
+  bootstrap_form (~> 5.4)
   brakeman
   bundler-audit
   capybara
