@@ -1,3 +1,3 @@
-RenderAsync.configure do |config|
-  config.jquery = false
-end
+# RenderAsync.configure do |config|
+#   config.jquery = false
+# end
