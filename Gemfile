@@ -34,7 +34,7 @@ gem 'geokit' # clinic_finder service lat-lng
 gem 'state_geo_tools' # list of states as a handy constant
 gem 'sentry-ruby' # sentry for alerting
 gem 'sentry-rails' # rails knowledge in sentry
-gem 'bootstrap_form', '~> 5.4'
+gem "bootstrap_form", "~> 5.4"
 
 # Auth
 gem 'devise', '~> 4.9' # Auth system
@@ -43,6 +43,9 @@ gem 'devise-security'
 # gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'strong_password', '~> 0.0.10' # Strong Password for user password validation for folks not on oauth
 gem 'activerecord-session_store'
+
+# Stuff colin would like to remove
+gem 'render_async', '~> 2.1' # load slow partials asynchronously
 
 group :development, :test do
   # Rails standards
@@ -53,7 +56,6 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
 
   # Custom gems under here
-  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -69,6 +71,10 @@ group :test do
   gem "selenium-webdriver"
 
   # Custom gems under here
+  gem 'minitest-spec-rails'
+  gem 'factory_bot_rails'
+  gem 'minitest-optional_retry' # retry flaky tests 3 times - TARGETING REMOVAL
+
 end
 
 
@@ -167,7 +173,6 @@ end
 
 # group :test do
 #   # Useful minitest tools
-#   gem 'minitest-spec-rails'
 #   gem 'factory_bot_rails'
 #   gem 'faker'
 #   gem 'timecop'
@@ -183,7 +188,6 @@ end
 
 #   # Specifics
 #   gem 'shoulda-context'
-#   gem 'minitest-optional_retry' # retry flaky tests 3 times
 #   gem 'mini_backtrace' # settle down minitest output
 #   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
 #   gem 'minitest-stub-const'

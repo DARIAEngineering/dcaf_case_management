@@ -1,4 +1,4 @@
-<hr class="hr_gradient">
+<hr class="hr-gradient">
 
 <div class="row">
 	<div class="col text-center">
@@ -13,9 +13,9 @@
 
 <div class="row mb-3">
 	<div id="app_footer" class="col text-center">
-	  <a href="http://<%= current_tenant.site_domain %>/"><%= current_tenant.full_name %></a> -- <a href="tel:<%= current_tenant.phone %>"><i class="fas fa-phone-alt fa-sm" aria-hidden="true"></i> <%= current_tenant.phone %></a><br>
+	  <a href="http://<%= current_tenant.site_domain %>/"><%= current_tenant.full_name %></a> -- <a href="tel:<%= current_tenant.phone %>"><i class="bi bi-telephone-fill" aria-hidden="true"></i> <%= current_tenant.phone %></a><br>
 
-	  <%= link_to t('navigation.footer.national_abortion_federation'), 'https://prochoice.org' %> -- <a href="tel:800-772-9100"><i class="fas fa-phone-alt fa-sm" aria-hidden="true"></i> 800-772-9100</a><br>
+	  <%= link_to t('navigation.footer.national_abortion_federation'), 'https://prochoice.org' %> -- <a href="tel:800-772-9100"><i class="bi bi-telephone-fill" aria-hidden="true"></i> 800-772-9100</a><br>
 
 		<%= fax_service %>
 	</div>
@@ -24,11 +24,11 @@
 <div class="row">
 	<div class="col text-center">
 		<%= link_to 'https://dariaservices.org', target: :_blank do %>
-			<%= image_tag('daria_services_logo.png', class: 'logo', alt: 'DARIA Services Logo') %>
+			<%= image_tag('daria_services_logo.png', class: 'logo img', size: 45, alt: 'DARIA Services Logo') %>
 		<% end %>
 
 		<%= link_to 'https://www.civictechdc.org', target: :_blank do %>
-			<%= image_tag('c4dc-logo-master.svg', class: 'logo', alt: 'Civic Tech DC Logo') %>
+			<%= image_tag('c4dc-logo-master.svg', class: 'logo img', height: 45, alt: 'Civic Tech DC Logo') %>
 		<% end %>
 	</div>
 </div>

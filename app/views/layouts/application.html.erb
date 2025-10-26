@@ -25,7 +25,6 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -38,9 +37,7 @@
 
   <body>
     <% if current_user.present? %>
-      <header>
-        <%= render 'layouts/navigation' %>
-      </header>
+      <%= render 'layouts/navigation' %>
     <% end %>
 
     <main class="container" role="main">
@@ -58,9 +55,7 @@
       <% end %>
 
       <% if current_user.present? %>
-        <footer>
-          <%= render 'layouts/footer' %>
-        </footer>
+        <%= render 'layouts/footer' %>
       <% end %>
     </main>
   </body>

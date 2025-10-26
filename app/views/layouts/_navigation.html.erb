@@ -1,13 +1,48 @@
-<nav class="navbar navbar-inverse fixed-top navbar-expand-lg">
-  <div class="navbar-header">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
     <%= link_to "DARIA - #{current_tenant.full_name}#{' - Development' if Rails.env.development?}", root_path, class: 'navbar-brand' %>
 
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" aria-controls="navbar-collapse" aria-expanded="false">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-supported-content" aria-controls="navbar-supported-content" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-  </div>
-  <div class="collapse navbar-collapse">
-    <%= render 'layouts/navigation_links' %>
+    <div class="collapse navbar-collapse" id="navbar-supported-content">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav mr-auto">
+          <% if current_user %>
+            <%= current_line_display %>
+            <%= cm_resources_link %>
+            <%= spanish_or_english_link %>
+          <% end %>
+        </ul>
+      </ul>
+
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown-admin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= t('navigation.admin_tools.label') %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-admin">
+            <% if current_user.admin? %>
+              <%= link_to t('navigation.admin_tools.user_management'), users_path, class: 'dropdown-item' %>
+              <%= link_to t('navigation.admin_tools.clinic_management'), clinics_path, class: 'dropdown-item' %>
+              <%= link_to t('navigation.admin_tools.config_management'), configs_path, class: 'dropdown-item' %>
+            <% end %>
+            <%= link_to t('navigation.admin_tools.accounting'), accountants_path, class: 'dropdown-item' %>
+            <%= link_to t('navigation.admin_tools.export'), patients_path(format: :csv), class: 'dropdown-item' %>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown-user" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= current_user.name %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-user">
+            <%= link_to t('navigation.user_tools.profile'), edit_user_registration_path, class: 'dropdown-item' %>
+            <%= link_to t('navigation.user_tools.sign_out'), destroy_user_session_path, method: 'delete', class: 'dropdown-item' %>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
