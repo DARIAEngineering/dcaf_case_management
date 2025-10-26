@@ -37,9 +37,7 @@
 
   <body>
     <% if current_user.present? %>
-      <header>
-        <%= render 'layouts/navigation' %>
-      </header>
+      <%= render 'layouts/navigation' %>
     <% end %>
 
     <main class="container" role="main">
@@ -57,9 +55,7 @@
       <% end %>
 
       <% if current_user.present? %>
-        <footer>
-          <%= render 'layouts/footer' %>
-        </footer>
+        <%= render 'layouts/footer' %>
       <% end %>
     </main>
   </body>
