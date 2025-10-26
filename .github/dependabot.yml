@@ -5,34 +5,34 @@
 
 version: 2
 updates:
-  - package-ecosystem: "bundler"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: weekly
     groups:
       ruby-minor-patch:
-        exclude-patterns:
-          - "acts_as_tenant" # DARIAEngineering/dcaf_case_management#3078
         update-types:
           - "minor"
           - "patch"
-    reviewers:
-      - "xmunoz"
     labels:
       - "dependencies"
 
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    groups:
-      js-minor-patch:
-        update-types:
-          - "minor"
-          - "patch"
-    reviewers:
-      - "xmunoz"
-    labels:
-      - "dependencies"
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  groups:
+    js-minor-patch:
+      update-types:
+        - "minor"
+        - "patch"
+  labels:
+    - "dependencies"
 
 
