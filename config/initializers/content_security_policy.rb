@@ -1,36 +1,34 @@
 # Be sure to restart your server when you modify this file.
 
-# Define an application-wide content security policy
-# For further information see the following documentation
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+# Define an application-wide content security policy.
+# See the Securing Rails Applications Guide for more information:
+# https://guides.rubyonrails.org/security.html#content-security-policy-header
 
 Rails.application.config.content_security_policy do |policy|
-  # policy.default_src :self
+  policy.default_src :self
   policy.font_src    :self, :https, :data
   policy.img_src     :self, :https, :data
   policy.object_src  :none
-  policy.font_src    :self, 'fonts.gstatic.com'
+  policy.font_src    :self, :https, :data, 'fonts.gstatic.com'
   policy.connect_src :self
-  policy.script_src  :self, :unsafe_eval
-  policy.style_src   :self, :unsafe_inline
-
+  policy.script_src  :self, :https
+  policy.style_src   :self, :https
   # Specify URI for violation reports
   policy.report_uri  "https://#{ENV['CSP_VIOLATION_URI']}/csp/reportOnly"
 
-  # If ASSET_SITE_URL is set, allow that too
-  policy.script_src  :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_eval    if ENV['ASSET_SITE_URL'].present?
-  policy.style_src   :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_inline  if ENV['ASSET_SITE_URL'].present?
+  # Maybe not needed anymore?
+  # # If ASSET_SITE_URL is set, allow that too
+  # policy.script_src  :self, :https, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_eval    if ENV['ASSET_SITE_URL'].present?
+  # policy.style_src   :self, "https://#{ENV['ASSET_SITE_URL']}", :unsafe_inline  if ENV['ASSET_SITE_URL'].present?
+
+  # Generate session nonces for permitted importmap, inline scripts, and inline styles.
+  config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
+  config.content_security_policy_nonce_directives = %w(script-src style-src)
+
+  # Automatically add `nonce` to `javascript_tag`, `javascript_include_tag`, and `stylesheet_link_tag`
+  # if the corresponding directives are specified in `content_security_policy_nonce_directives`.
+  # config.content_security_policy_nonce_auto = true
+
+  # Report violations without enforcing the policy.
+  # config.content_security_policy_report_only = true
 end
-
-# If you are using UJS then enable automatic nonce generation
-Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
-
-# Set the nonce only to specific directives
-Rails.application.config.content_security_policy_nonce_directives = %w(script-src)
-
-# # Report CSP violations to a specified URI
-# # For further information see the following documentation:
-# # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
-# Rails.application.config.content_security_policy_report_only = false
-# TEMPORARILY TRUE WHILE WE GET THE HANG OF JSBUNDLING
-Rails.application.config.content_security_policy_report_only = true
