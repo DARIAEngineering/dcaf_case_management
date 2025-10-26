@@ -15,8 +15,8 @@ module ActiveSupport
     # Custom
     include FactoryBot::Syntax::Methods
 
-    before { setup_tenant }
-    after { teardown_tenant }
+    setup { setup_tenant }
+    teardown { teardown_tenant }
 
     def setup_tenant
       tenant = create :fund, name: 'CATF', full_name: 'Cat Fund'

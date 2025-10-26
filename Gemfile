@@ -53,7 +53,6 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
 
   # Custom gems under here
-  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -69,6 +68,10 @@ group :test do
   gem "selenium-webdriver"
 
   # Custom gems under here
+  gem 'minitest-spec-rails'
+  gem 'factory_bot_rails'
+  gem 'minitest-optional_retry' # retry flaky tests 3 times - TARGETING REMOVAL
+
 end
 
 
@@ -167,7 +170,6 @@ end
 
 # group :test do
 #   # Useful minitest tools
-#   gem 'minitest-spec-rails'
 #   gem 'factory_bot_rails'
 #   gem 'faker'
 #   gem 'timecop'
@@ -183,7 +185,6 @@ end
 
 #   # Specifics
 #   gem 'shoulda-context'
-#   gem 'minitest-optional_retry' # retry flaky tests 3 times
 #   gem 'mini_backtrace' # settle down minitest output
 #   gem 'pdf-inspector', require: 'pdf/inspector' # test pdf contents
 #   gem 'minitest-stub-const'

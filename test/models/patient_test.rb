@@ -562,7 +562,7 @@ class PatientTest < ActiveSupport::TestCase
                             line: @line
       end
 
-      context 'when a patient has unconfirmed supports' do
+      describe 'when a patient has unconfirmed supports' do
         it 'includes only the patient with unconfirmed support' do
           assert_includes Patient.unconfirmed_practical_support(@line), @patient
           assert_not_includes Patient.unconfirmed_practical_support(@line), @patient2
@@ -570,14 +570,14 @@ class PatientTest < ActiveSupport::TestCase
         end
       end
 
-      context 'when supports are confirmed' do
+      describe 'when supports are confirmed' do
         it 'no longer includes the patient' do
           @patient.practical_supports.each {|x| x.update confirmed: true}
           assert_empty Patient.unconfirmed_practical_support(@line)
         end
       end
 
-      context 'when a patient has multiple supports' do
+      describe 'when a patient has multiple supports' do
         before do
           @patient.practical_supports.first.update confirmed: false
 

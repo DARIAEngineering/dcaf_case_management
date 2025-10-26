@@ -55,12 +55,12 @@ Rails.application.configure do
 
   # CUSTOM STUFF STARTS HERE
   # Yell about n+1 queries.
-  config.after_initialize do
-    Bullet.enable        = true
-    Bullet.bullet_logger = true
-    Bullet.raise         = true # raise an error if n+1 query occurs
-    Bullet.add_safelist type: :unused_eager_loading, class_name: "CallListEntry", association: :user
-  end
+  # config.after_initialize do
+  #   Bullet.enable        = true
+  #   Bullet.bullet_logger = true
+  #   Bullet.raise         = true # raise an error if n+1 query occurs
+  #   Bullet.add_safelist type: :unused_eager_loading, class_name: "CallListEntry", association: :user
+  # end
 
   # Set mailer default url to localhost in tests.
   config.action_mailer.default_url_options = { :host => 'localhost' }
