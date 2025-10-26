@@ -1,0 +1,35 @@
+// Styling for the navbar.
+
+@use "sass:color";
+@use './_variables';
+
+.navbar-inverse{
+  background-color: variables.$light-gray;
+  border: none;
+
+  .navbar-header > a, .navbar-nav > li > a {
+    color: variables.$daria-color;
+
+    &:hover{
+      color: color.adjust(variables.$daria-color, $lightness: 20%);
+      text-decoration: underline;
+    }
+
+    &:visited{
+      color: variables.$dark-blue;
+    }
+  }
+
+  .navbar-text {
+    color: variables.$daria-color;
+  }
+
+  .navbar-text-alt {
+    color: variables.$grey-color;
+  }
+}
+
+// override for the 'Home' navigation link
+.navbar-brand {
+  font-size: variables.$font-size-medium;
+}

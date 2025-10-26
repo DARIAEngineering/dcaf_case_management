@@ -1,0 +1,44 @@
+// Styling related to the larger patient edit page.
+
+@use 'bootstrap/scss/bootstrap';
+@use './_variables';
+
+#patient_dashboard {
+  border-bottom: 1px solid variables.$black;
+  padding: 15px 0;
+}
+
+#sections {
+  border-left: 1px solid variables.$black;
+  padding-left: 9.5%;
+}
+
+.pledge-error {
+  color: variables.$red;
+  font-size: variables.$font-size;
+}
+
+// Overrides/styling related to multistep modal
+.js-title-step {
+  .label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: variables.$white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+  }
+}
+
+.label-success {
+  background-color: variables.$daria-color;
+}
+
+.hide {
+  @extend .d-none;
+}
+// End overrides related to multistep modal

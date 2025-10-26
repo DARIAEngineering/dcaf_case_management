@@ -1,0 +1,42 @@
+// Styling related to the call list and patient search.
+
+@use './_variables';
+
+.call-icon {
+  color: variables.$white;
+  background-color: variables.$phone-icon-blue;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+#search_form {
+  .search_form_input {
+    width: 350px;
+  }
+}
+
+.bootstrap_toggle_spacing .checkbox {
+  margin-top: 0px;
+}
+
+// For autosortable columns, make the cursor a pointer
+#call_list th[data-sort],
+#completed_calls th[data-sort],
+#shared_patients th[data-sort] {
+  cursor: pointer;
+}
+
+// Drag and drop functionality/stylings
+// Activated when dragging around
+.ui-state-highlight {
+  background-color: variables.$lavendar !important;
+}
+.active-item-shadow {
+  -webkit-box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
+  -moz-box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
+  box-shadow: rgba(133,133,133,0.1) 0 0 5px 2px,rgba(133,133,133,0.3) 0 0 2px;
+}
+// Keeps the rows white when dragging around
+#call_list tr {
+  background-color: variables.$white;
+}
