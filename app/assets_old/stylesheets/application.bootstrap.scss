@@ -1,0 +1,25 @@
+// Major library config
+@use './styles/bootstrap';
+@use './styles/vendor/jquery-ui';
+
+// Custom styling
+@use './styles/globals';
+@use './styles/call_list';
+@use './styles/devise';
+@use './styles/users';
+@use './styles/budget_bar';
+@use './styles/clinic_finder';
+@use './styles/calls';
+@use './styles/pagination';
+@use './styles/events';
+@use './styles/patient_menu';
+@use './styles/patient_edit';
+@use './styles/tables';
+@use './styles/footer';
+@use './styles/modals';
+@use './styles/navbar';
+@use './styles/tooltips';
+@use './styles/lines';
+@use './styles/flash';
+@use './styles/forms';
+@use './styles/buttons';

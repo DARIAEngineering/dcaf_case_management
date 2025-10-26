@@ -1,0 +1,31 @@
+// Additional styling for table elements.
+
+@use './_variables';
+
+table.border-side {
+  th {
+    font-size: variables.$font-size-small;
+    color: variables.$dark-grey;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: variables.$light-gray;
+    padding-left: 0px !important;
+  }
+
+  &.acct-table {
+    th {
+      padding: 0.8rem 0.5rem !important;
+    }
+
+    td {
+      padding: 0.5rem 0.5rem !important;
+    }
+  }
+
+  tr {
+    td {
+      font-size: 16px;
+      padding: 10px 0px !important;
+    }
+  }
+}

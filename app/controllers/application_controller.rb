@@ -1,20 +1,25 @@
 # Sets a few devise configs and security measures
 class ApplicationController < ActionController::Base
+  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
+  allow_browser versions: :modern
+  # Changes to the importmap will invalidate the etag for HTML responses
+  stale_when_importmap_changes
+
+  # Enforce a single tenant
   set_current_tenant_by_subdomain(:fund, :subdomain)
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery prepend: true, with: :exception
 
+  # Authenticate except for errors
   prepend_before_action :authenticate_user!, unless: -> { try(:errors_controller?) }
+  # Check for a user not being disabled except when doing devise stuff, or errors
   prepend_before_action :confirm_user_not_disabled!, unless: -> { devise_controller? || try(:errors_controller?) }
 
-  if Rails.env.development?
-    before_action :confirm_tenant_set_development
-  end
-  if Rails.env.test?
-    before_action :confirm_tenant_set_test
-  end
+  before_action :confirm_tenant_set_development if Rails.env.development?
+  before_action :confirm_tenant_set_test if Rails.env.test?
+  
   before_action :redirect_if_legacy
   before_action :confirm_tenant_set
   before_action :configure_permitted_parameters, if: :devise_controller?

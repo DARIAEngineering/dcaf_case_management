@@ -1,0 +1,23 @@
+// Styling for Kaminari pagination
+
+@use './_variables';
+
+span.page, span.first, span.prev, span.next, span.last {
+  font-size: variables.$font-size;
+  margin-right: .5rem;
+}
+
+#accountants-pagination {
+  .pagination-entries {
+    font-size: variables.$font-size;
+    display: inline-block;
+  }
+
+  nav.pagination {
+    display: inline-block;
+
+    span {
+      font-size: variables.$font-size;
+    }
+  }
+}

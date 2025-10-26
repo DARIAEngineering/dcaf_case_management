@@ -1,19 +1,20 @@
 # Db
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
-  url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
   database: dcaf_case_management_development
-  pool: 5
+  url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
   username: <%= ENV['POSTGRES_USER'] || `whoami` %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
 
 test:
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
+  <<: *default
   database: dcaf_case_management_test
-  pool: 5
+  url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
   username: <%= ENV['POSTGRES_USER'] || `whoami` %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
 
