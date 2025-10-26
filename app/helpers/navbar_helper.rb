@@ -5,13 +5,13 @@ module NavbarHelper
     # redundant UriService just for fallbackhelp
     url = UriService.new(maybe_url).uri
 
-    content_tag :li do
+    content_tag :li, class: 'nav-item' do
       link_to t('navigation.cm_resources.label'), url.to_s, target: '_blank', class: 'nav-link'
     end if url.present?
   end
 
   def spanish_or_english_link
-    content_tag :li do
+    content_tag :li, class: 'nav-item' do
       if I18n.locale == I18n.default_locale
         link_to "Español", { locale: 'es' }, class: 'nav-link'
       else

@@ -5,7 +5,7 @@ module LinesHelper
 
     # If multiple lines, link to the switcher
     if Line.count > 1
-      return content_tag :li do
+      return content_tag :li, class: 'nav-item' do
         link_to t('navigation.current_line.helper') + ": #{current_line.name}",
                 new_line_path,
                 class: 'nav-link navbar-text-alt'
@@ -13,7 +13,7 @@ module LinesHelper
     end
 
     # Otherwise just display the content
-    content_tag :li do
+    content_tag :li, class: 'nav-item' do
       content_tag :span, t('navigation.current_line.helper') + ": #{current_line.name}",
                          class: 'nav-link navbar-text-alt'
     end
