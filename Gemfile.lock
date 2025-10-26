@@ -332,6 +332,7 @@ GEM
     regexp_parser (2.11.3)
     reline (0.6.2)
       io-console (~> 0.5)
+    render_async (2.1.11)
     request_store (1.7.0)
       rack (>= 1.4)
     responders (3.2.0)
@@ -466,6 +467,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.0)
+  render_async (~> 2.1)
   rubocop-rails-omakase
   selenium-webdriver
   sentry-rails

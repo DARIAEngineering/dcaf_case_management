@@ -44,6 +44,9 @@ gem 'devise-security'
 gem 'strong_password', '~> 0.0.10' # Strong Password for user password validation for folks not on oauth
 gem 'activerecord-session_store'
 
+# Stuff colin would like to remove
+gem 'render_async', '~> 2.1' # load slow partials asynchronously
+
 group :development, :test do
   # Rails standards
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
