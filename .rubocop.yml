@@ -1,33 +1,18 @@
-require: rubocop-rails
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/SymbolArray:
-  Enabled: false
+inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
 Lint/AmbiguousRegexpLiteral:
   Enabled: false # this is a tremendously stupid rule
 
-Rails:
-  Enabled: true
-
-Bundler/OrderedGems:
-  Enabled: false
-
 AllCops:
-  TargetRubyVersion: 3.0.2
-  Exclude: 
-    - db/**/*
+  TargetRubyVersion: 3.4.4
+  Exclude:
+    # Only really want app and test   
     - bin/**/*
-    - script/**/*
+    - config/**/*
+    - db/**/*
     - lib/**/*
     - log/**/*
     - public/**/*
+    - scripts/**/*
     - tmp/**/*
     - vendor/**/*
-    - config/**/*
-    - bin/**/*
