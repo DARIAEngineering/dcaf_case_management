@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.2.4'
 
 # Standard rails
-gem 'rails', '~> 7.2.2.2'
+gem 'rails', '~> 8.0.3'
 gem 'puma', '~> 6.6' # roar
 gem 'sdoc', '~> 2.6.5', group: :doc
 gem 'nokogiri', '>= 1.13.4'
@@ -73,7 +73,7 @@ gem 'rails-html-sanitizer', '>= 1.4.3'
 
 group :development do
   gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
-  gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
+  gem 'rails-i18n', '~> 8.0' # dependency of i18n-tasks
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5'
   gem 'rubocop', require: false # our code style / linting system
