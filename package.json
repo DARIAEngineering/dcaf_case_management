@@ -50,7 +50,7 @@
     "y18n": "^5.0.0",
     "is-svg": "^5.0.0"
   },
-  "packageManager": "yarn@3.6.3",
+  "packageManager": "yarn@4.12.0",
   "scripts": {
     "build": "./node_modules/esbuild/bin/esbuild ./app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules",
