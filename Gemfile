@@ -87,14 +87,10 @@ group :development do
   # Custom
   gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
   gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
-  gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5'
 
-  # Security scanners that also run in CI. They run with bundle exec.
-  gem 'ruby_audit', require: false #
-
-  # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
-  gem 'foreman'
+  gem 'foreman' # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
+  gem 'shog' # makes rails s output color!
 end
 
 group :development, :test do
@@ -109,6 +105,8 @@ group :development, :test do
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
   gem 'dotenv-rails' # used to set up our db ENV values
   gem 'bullet' # yell if n+1 queries
+
+  gem 'ruby_audit', require: false # Check for Ruby language vulnerabilities
 end
 
 group :test do
