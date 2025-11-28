@@ -6,15 +6,10 @@ gem 'rails', '~> 7.2.2.2'
 gem 'puma', '~> 7.1' # roar
 gem 'sdoc', '~> 2.6.5', group: :doc
 gem 'nokogiri', '>= 1.13.4'
-gem 'tzinfo-data', require: false
+gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 gem 'matrix' # for compat reasons, required in builds
-
-# Temporary compat gems until a new mail gem is released/rails 7 rolls out - see https://stackoverflow.com/questions/70500220/rails-7-ruby-3-1-loaderror-cannot-load-such-file-net-smtp
-gem 'net-pop', require: false # for compat reasons, required in builds
-gem 'net-imap', require: false # for compat reasons, required in builds
-gem 'net-smtp', require: false # for compat reasons, required in builds
 
 # Asset pipeline
 gem 'sprockets-rails'
