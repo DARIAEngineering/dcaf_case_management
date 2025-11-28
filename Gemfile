@@ -7,7 +7,7 @@ gem 'puma', '~> 7.1' # roar
 gem 'sdoc', '~> 2.6.5', group: :doc
 gem 'nokogiri', '>= 1.13.4'
 gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 gem 'matrix' # for compat reasons, required in builds
 
@@ -16,6 +16,7 @@ gem 'sprockets-rails'
 gem 'jsbundling-rails'
 gem 'cssbundling-rails'
 gem 'bootstrap_form', '~> 4.5.0'
+
 
 # Our database is postgres
 gem 'pg', '~> 1.6'
@@ -65,6 +66,14 @@ gem 'figaro' # we handle secrets differently now
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.4.3'
+
+# Rails 8 fun zone
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cache"
+gem "solid_queue"
+gem "solid_cable"
+
+
 
 group :development do
   gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
