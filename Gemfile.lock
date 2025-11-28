@@ -88,6 +88,7 @@ GEM
     ast (2.4.3)
     base64 (0.3.0)
     bcrypt (3.1.20)
+    bcrypt_pbkdf (1.1.1)
     benchmark (0.5.0)
     bigdecimal (3.3.1)
     bootsnap (1.19.0)
@@ -141,6 +142,7 @@ GEM
       dotenv (= 3.1.8)
       railties (>= 6.1)
     drb (2.2.3)
+    ed25519 (1.4.0)
     erb (6.0.0)
     erubi (1.13.1)
     et-orbi (1.4.0)
@@ -194,6 +196,9 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.8, >= 1.8.1)
       terminal-table (>= 1.5.1)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
+      ruby-vips (>= 2.0.17, < 3)
     io-console (0.8.1)
     irb (1.15.3)
       pp (>= 0.6.0)
@@ -204,6 +209,17 @@ GEM
     json (2.15.1)
     jwt (3.1.2)
       base64
+    kamal (2.9.0)
+      activesupport (>= 7.0)
+      base64 (~> 0.2)
+      bcrypt_pbkdf (~> 1.0)
+      concurrent-ruby (~> 1.2)
+      dotenv (~> 3.1)
+      ed25519 (~> 1.4)
+      net-ssh (~> 7.3)
+      sshkit (>= 1.23.0, < 2.0)
+      thor (~> 1.3)
+      zeitwerk (>= 2.6.18, < 3.0)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -241,6 +257,8 @@ GEM
     mini_backtrace (0.1.3)
       minitest (> 1.2.0)
       rails (>= 2.3.3)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.26.2)
@@ -262,8 +280,13 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
+    net-scp (4.1.0)
+      net-ssh (>= 2.6.5, < 8.0.0)
+    net-sftp (4.0.0)
+      net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.1)
       net-protocol
+    net-ssh (7.3.0)
     nio4r (2.7.5)
     nokogiri (1.18.10)
       mini_portile2 (~> 2.8.2)
@@ -294,6 +317,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
       request_store (~> 1.4)
@@ -418,6 +442,9 @@ GEM
       rubocop-ast (>= 1.44.0, < 2.0)
     ruby-progressbar (1.13.0)
     ruby-rc4 (0.1.5)
+    ruby-vips (2.2.5)
+      ffi (~> 1.12)
+      logger
     ruby_audit (3.0.0)
       bundler-audit (~> 0.9.0)
     rubyzip (3.2.1)
@@ -472,12 +499,21 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
+    sshkit (1.24.0)
+      base64
+      logger
+      net-scp (>= 1.1.2)
+      net-sftp (>= 2.1.2)
+      net-ssh (>= 2.8.0)
+      ostruct
     state_geo_tools (1.0.0)
     stringio (3.1.8)
     strong_password (0.0.10)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     thor (1.4.0)
+    thruster (0.1.16)
+    thruster (0.1.16-x86_64-linux)
     timecop (0.9.10)
     timeout (0.4.3)
     tsort (0.2.0)
@@ -539,7 +575,9 @@ DEPENDENCIES
   httparty
   i18n-js (~> 4.2)
   i18n-tasks (~> 1.0.15)
+  image_processing (~> 1.2)
   jsbundling-rails
+  kamal
   kaminari (~> 1.2)
   launchy
   listen (>= 3.0.5)
@@ -581,6 +619,7 @@ DEPENDENCIES
   sprockets-rails
   state_geo_tools
   strong_password (~> 0.0.10)
+  thruster
   timecop
   twilio-ruby
   tzinfo-data

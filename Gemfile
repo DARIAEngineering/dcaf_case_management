@@ -73,6 +73,11 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+gem "kamal", require: false # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem "thruster", require: false # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# End rails 8 fun zone
+
 
 
 group :development do
