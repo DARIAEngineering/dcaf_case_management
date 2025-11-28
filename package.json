@@ -34,7 +34,7 @@
     "webpack-dev-server": "5.2.2"
   },
   "engines": {
-    "node": ">=20.10.0"
+    "node": "^24.11.1"
   },
   "license": "MIT",
   "resolutions": {
