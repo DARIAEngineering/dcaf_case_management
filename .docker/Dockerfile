@@ -1,4 +1,4 @@
-FROM ruby:3.4.4-slim-bullseye
+FROM ruby:3.4.7-slim-bullseye
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
@@ -10,7 +10,7 @@ ENV DARIA_DIR=/usr/src/app \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
     DOCKER=true \
-    NODE_MAJOR=20
+    NODE_MAJOR=24
 
 # get our gem house in order
 WORKDIR ${DARIA_DIR}
