@@ -1,1 +1,0 @@
-`npm bin`/eslint app/javascript/**/*.js app/assets/javascripts/**/*.js

@@ -1,33 +1,8 @@
-require: rubocop-rails
+# Omakase Ruby styling for Rails
+inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/SymbolArray:
-  Enabled: false
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: false # this is a tremendously stupid rule
-
-Rails:
-  Enabled: true
-
-Bundler/OrderedGems:
-  Enabled: false
-
-AllCops:
-  TargetRubyVersion: 3.0.2
-  Exclude: 
-    - db/**/*
-    - bin/**/*
-    - script/**/*
-    - lib/**/*
-    - log/**/*
-    - public/**/*
-    - tmp/**/*
-    - vendor/**/*
-    - config/**/*
-    - bin/**/*
+# Overwrite or add rules to create your own house style
+#
+# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
+# Layout/SpaceInsideArrayLiteralBrackets:
+#   Enabled: false
