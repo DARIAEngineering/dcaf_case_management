@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.2.4'
+ruby '3.4.4'
 
 # Standard rails
 gem 'rails', '~> 7.2.2.2'
