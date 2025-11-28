@@ -3,5 +3,5 @@
 README.md
 tmp/pids/server.pid
 node_modules/
-docs/
+_docs/
 _design/

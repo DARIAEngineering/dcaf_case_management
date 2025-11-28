@@ -11,11 +11,11 @@ This project is a case management system for abortion funds. [Abortion funds](ht
 
 This originated with the [DC Abortion Fund](http://www.dcabortionfund.org) (DCAF). Before this app went into production at DCAF, a team of 75 case managers were inputting around 3,500 calls a year into shared Excel sheets. Since adopting this system, DCAF and several other funds have been able to operate at a much faster pace, and lowered the stress levels of their volunteers. We now support multiple funds across the country.
 
-Get started with the how-and-why of the project by checking out [Abortion funds](http://www.fundabortionnow.org), reading [case manager Lisa's explanation of an abortion fund's business logic](docs/ABORTION_FUNDING_101.md), reading our [Code of Conduct](CODE_OF_CONDUCT.md), and joining the [`#daria` channel on Slack](https://civictechdc.slack.com/messages/dcaf_case_management/files).
+Get started with the how-and-why of the project by checking out [Abortion funds](http://www.fundabortionnow.org), reading [case manager Lisa's explanation of an abortion fund's business logic](_docs/ABORTION_FUNDING_101.md), reading our [Code of Conduct](CODE_OF_CONDUCT.md), and joining the [`#daria` channel on Slack](https://civictechdc.slack.com/messages/dcaf_case_management/files).
 
-You can also check out [some of the other buzz](docs/PRESS.md) or [read about how it's impacted DCAF](docs/IMPACT_ON_DCAF.md).
+You can also check out [some of the other buzz](_docs/PRESS.md) or [read about how it's impacted DCAF](_docs/IMPACT_ON_DCAF.md).
 
-There's still work to do, but generally we're pretty stable these days. Our general administration/maintenance plan is [here](docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md).
+There's still work to do, but generally we're pretty stable these days. Our general administration/maintenance plan is [here](_docs/ADMINISTRATION_AND_MAINTENANCE_PLAN.md).
 
 ## Sandbox Staging Environment
 
@@ -27,7 +27,7 @@ Password: AbortionsAreAHumanRight1
 
 ## Project Setup
 
-[We have detailed instructions on how to get started here!](docs/SETUP.md)
+[We have detailed instructions on how to get started here!](_docs/SETUP.md)
 
 ## Who's in charge here?
 The team leads are:
@@ -68,4 +68,3 @@ The following are people who have been uniquely generous with their time, resour
 ## License
 
 Made available under an MIT license. See `LICENSE.txt` for more info.
-
