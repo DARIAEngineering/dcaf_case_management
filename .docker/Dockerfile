@@ -4,7 +4,7 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DARIA_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev" \
+    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev" \
     APP_DEPENDENCIES="git sudo sassc" \
     AHAB_DEPENDENCIES="ca-certificates curl" \
     FONTCONFIG_PATH=/etc/fonts \
