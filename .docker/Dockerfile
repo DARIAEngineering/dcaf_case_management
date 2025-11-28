@@ -1,16 +1,16 @@
-FROM ruby:3.2.4-slim-bullseye
+FROM ruby:3.4.7-slim-bookworm
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DARIA_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev" \
+    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev" \
     APP_DEPENDENCIES="git sudo sassc" \
     AHAB_DEPENDENCIES="ca-certificates curl" \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
     DOCKER=true \
-    NODE_MAJOR=20
+    NODE_MAJOR=24
 
 # get our gem house in order
 WORKDIR ${DARIA_DIR}

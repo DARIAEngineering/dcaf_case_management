@@ -568,7 +568,7 @@ DEPENDENCIES
   wicked
 
 RUBY VERSION
-   ruby 3.2.4p170
+   ruby 3.4.7p58
 
 BUNDLED WITH
-   2.4.19
+   2.7.2
