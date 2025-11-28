@@ -81,22 +81,30 @@ gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.r
 
 
 group :development do
+  # Rails stock
+  gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
+
+  # Custom
   gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
   gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
   gem 'shog' # makes rails s output color!
   gem 'listen', '>= 3.0.5'
-  gem 'rubocop', require: false # our code style / linting system
-  gem 'rubocop-rails', require: false
 
   # Security scanners that also run in CI. They run with bundle exec.
   gem 'ruby_audit', require: false #
-  gem 'bundler-audit', require: false
 
   # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
   gem 'foreman'
 end
 
 group :development, :test do
+  # Rails stock
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude" # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "bundler-audit", require: false # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
+  gem "brakeman", require: false # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "rubocop-rails-omakase", require: false # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+
+  # Custom
   gem 'pry' # pop `pry` in controller code to open up an IRB terminal
   gem 'byebug' # pop `byebug` in view code for open up an IRB terminal
   gem 'dotenv-rails' # used to set up our db ENV values
@@ -104,6 +112,12 @@ group :development, :test do
 end
 
 group :test do
+  # Rails stock
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+
+  # Custom
   # Useful minitest tools
   gem 'minitest-spec-rails'
   gem 'factory_bot_rails'
@@ -111,8 +125,6 @@ group :test do
   gem 'timecop'
 
   # Systemtest related tools
-  gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
 
