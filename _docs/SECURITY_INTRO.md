@@ -43,7 +43,7 @@ If you need to generate a random token, for a reset password email for example, 
 
 #### More reading:
 
-Checkout [this document]( https://github.com/DARIAEngineering/dcaf_case_management/blob/main/docs/SECURITY.md) on basic Ruby on Rails security.
+Checkout [this document]( https://github.com/DARIAEngineering/dcaf_case_management/blob/main/_docs/SECURITY.md) on basic Ruby on Rails security.
 
 [Ruby on Rails Security Guide](http://guides.rubyonrails.org/security.html)
 
