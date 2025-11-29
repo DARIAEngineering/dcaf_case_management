@@ -56,6 +56,9 @@
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules",
     "test": "jest"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "jest": {
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
