@@ -24,7 +24,14 @@ staging:
   pool: 10
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV['DATABASE_URL'] %>
-  pool: 10
+  primary:
+    adapter: postgresql
+    encoding: unicode
+    url: <%= ENV['DATABASE_URL'] %>
+    pool: 10
+  cable:
+    adapter: postgresql
+    encoding: unicode
+    url: <%= ENV['CABLE_DATABASE_URL'] || ENV['DATABASE_URL'] %>
+    pool: 5
+    schema_dump: cable_schema.rb
