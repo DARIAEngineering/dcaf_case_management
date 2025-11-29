@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: .docker/Dockerfile
     image: dariaengineering/dcaf_case_management
-    command: ["./scripts/start_rails.sh"]
+    command: ["./script/start_rails.sh"]
     volumes:
       - .:/usr/src/app
     ports:
