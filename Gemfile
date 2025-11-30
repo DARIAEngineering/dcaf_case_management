@@ -9,7 +9,7 @@ gem "puma", '~> 7.1' # roar # Use the Puma web server [https://github.com/puma/p
 # gem "importmap-rails" # Temp off # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 # gem "turbo-rails" # Temp off # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 # gem "stimulus-rails" # Temp off # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-# gem "cssbundling-rails" # Temp off # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+gem "cssbundling-rails" # Temp off # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 # gem "jbuilder" # Stays off, we don't need it # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "bcrypt", "~> 3.1.7" # Stays off, we don't need it # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -22,72 +22,59 @@ gem "thruster", require: false # Add HTTP asset caching/compression and X-Sendfi
 gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 
 # Custom
+# General utilities
+gem 'acts_as_tenant', '~> 0.6' # Run multiple funds on one server
+gem 'strong_password', '~> 0.0.10' # Strong Password for user password validation for folks not on oauth
+
+gem 'state_geo_tools' # state list
+gem 'kaminari', '~> 1.2' # For pagination
+gem 'render_async', '~> 2.1' # load slow partials asynchronously
+gem 'view_component', '~> 3.22' # build reusable & encapsulated view components in Ruby
+gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
+
+# Asset pipeline
+gem 'sprockets-rails'
+gem 'jsbundling-rails'
+gem 'bootstrap_form', '~> 4.5.0'
+
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.9'
 gem 'devise-security'
 gem 'omniauth-google-oauth2', '~> 1.2.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
+# Stuff we're hardsetting because of security concerns
+gem 'loofah', '>= 2.3.1'
+gem 'rails-html-sanitizer', '>= 1.4.3'
+gem 'nokogiri', '>= 1.13.4'
 
 # Standard rails
-gem 'sdoc', '~> 2.6.5', group: :doc
-gem 'nokogiri', '>= 1.13.4'
-gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
-gem 'matrix' # for compat reasons, required in builds
+# gem 'sdoc', '~> 2.6.5', group: :doc
+# gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
+# gem 'matrix' # for compat reasons, required in buil
 
-# Asset pipeline
-gem 'sprockets-rails'
-gem 'jsbundling-rails'
-gem 'cssbundling-rails'
-gem 'bootstrap_form', '~> 4.5.0'
-
-
-# Our database is postgres
+# Postgres extensions
 gem 'paper_trail', '~> 17.0'
 gem 'activerecord-session_store'
-
-
-# Run multiple funds on one server
-gem 'acts_as_tenant', '~> 0.6'
-
-# Strong Password for user password validation for folks not on oauth
-gem 'strong_password', '~> 0.0.10'
 
 # We report errors with sentry
 gem 'sentry-ruby'
 gem 'sentry-rails'
 
 # Security libraries
-gem 'rack-attack', '~> 6.8.0'
+gem 'rack-attack', '~> 6.8.0' # Prevent spammy stuff
 
-# For pagination
-gem 'kaminari', '~> 1.2'
-
-# For multi-step forms
-gem 'wicked'
-
-# Twilio Verify
-gem 'twilio-ruby'
-
-# Specific useful stuff
-gem 'render_async', '~> 2.1' # load slow partials asynchronously
-gem 'prawn' # pledge pdf generation
+# Clinic finder deps
 gem 'geokit' # clinic_finder service lat-lng
-gem 'state_geo_tools' # state list
 gem 'httparty' # easier http calls
-gem 'view_component', '~> 3.22' # build reusable & encapsulated view components in Ruby
-gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
+
+# MFA
+gem 'wicked' # For multi-step forms
+gem 'twilio-ruby' # For Twilio Verify
 
 # Stuff that we're targeting removal of
 gem 'figaro' # we handle secrets differently now
-
-# Stuff we're hardsetting because of security concerns
-gem 'loofah', '>= 2.3.1'
-gem 'rails-html-sanitizer', '>= 1.4.3'
-
-# Rails 8 fun zone
-# End rails 8 fun zone
-
+gem 'prawn' # pledge pdf generation
 
 
 group :development, :test do
