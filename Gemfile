@@ -3,7 +3,7 @@ ruby '3.4.7'
 
 # Rails stock
 gem 'rails', '~> 7.2.2.2' # temp 72 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "propshaft", require: false # temp off # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+# gem "propshaft", require: false # temp off # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "pg", "~> 1.6" # Use postgresql as the database for Active Record
 gem "puma", '~> 7.1' # roar # Use the Puma web server [https://github.com/puma/puma]
 # gem "importmap-rails" # Temp off # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
