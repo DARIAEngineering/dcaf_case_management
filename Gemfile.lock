@@ -462,8 +462,6 @@ GEM
     ruby_audit (3.0.0)
       bundler-audit (~> 0.9.0)
     rubyzip (3.2.2)
-    sdoc (2.6.5)
-      rdoc (>= 5.0)
     securerandom (0.4.1)
     selenium-webdriver (4.38.0)
       base64 (~> 0.2)
@@ -603,7 +601,6 @@ DEPENDENCIES
   launchy
   listen (>= 3.0.5)
   loofah (>= 2.3.1)
-  matrix
   mini_backtrace
   minitest-optional_retry
   minitest-spec-rails
@@ -623,10 +620,8 @@ DEPENDENCIES
   rails-html-sanitizer (>= 1.4.3)
   rails-i18n (~> 7.0)
   render_async (~> 2.1)
-  rexml
   rubocop-rails-omakase
   ruby_audit
-  sdoc (~> 2.6.5)
   selenium-webdriver
   sentry-rails
   sentry-ruby
