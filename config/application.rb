@@ -6,32 +6,15 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Daria
+module Daria2
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    config.load_defaults 8.1
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Eastern Time (US & Canada)' # this is bad. Should hardset to UTC and find some way to programmatically determine timezone based on user.
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-
-    config.generators do |g|
-      g.orm :active_record
-    end
-
-    # Throttling protection
-    config.middleware.use Rack::Attack
-
-    # Force JSON cookies for security reasons
-    config.action_dispatch.cookies_serializer = :json
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -41,9 +24,13 @@ module Daria
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Custom exceptions pages
-    config.exceptions_app = self.routes
+    # Custom/overrides
+    config.time_zone = 'Eastern Time (US & Canada)' # this is bad. Should hardset to UTC and find some way to programmatically determine timezone based on user.
+    config.middleware.use Rack::Attack # Throttling protection
+    config.action_dispatch.cookies_serializer = :json # Force JSON cookies for security reasons
+    config.exceptions_app = self.routes # Custom exceptions pages
 
+    # Encrypted data config
     # temporary, can be removed in separate release once data migration for encrypted data is complete
     config.active_record.encryption.support_unencrypted_data = true
     # the first key in the list is the active key to perform encryptions, the rest of the list is decryption keys (to support key rotation)
