@@ -16,7 +16,7 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
 
 # Db
 development:
@@ -37,7 +37,6 @@ production:
   primary: &primary_production
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
-    pool: 10
   cache:
     <<: *primary_production
     database: daria_production_cache
@@ -56,7 +55,6 @@ staging:
   primary: &primary_staging
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
-    pool: 10
   cache:
     <<: *primary_staging
     database: daria_staging_cache
