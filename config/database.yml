@@ -1,30 +1,71 @@
-# Db
-development:
+#
+# Install the pg driver:
+#   gem install pg
+# On macOS with Homebrew:
+#   gem install pg -- --with-pg-config=/opt/homebrew/bin/pg_config
+# On Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem "pg"
+#
+default: &default
   adapter: postgresql
   encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# Db
+development:
+  <<: *default
   url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
   database: dcaf_case_management_development
-  pool: 5
   username: <%= ENV['POSTGRES_USER'] || `whoami` %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   url: <%= ENV.fetch('pg_url', 'postgres://localhost') %>
   database: dcaf_case_management_test
-  pool: 5
   username: <%= ENV['POSTGRES_USER'] || `whoami` %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
 
-staging:
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV['DATABASE_URL'] %>
-  pool: 10
-
 production:
-  adapter: postgresql
-  encoding: unicode
-  url: <%= ENV['DATABASE_URL'] %>
-  pool: 10
+  primary: &primary_production
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    pool: 10
+  cache:
+    <<: *primary_production
+    database: daria_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    database: daria_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    database: daria_production_cable
+    migrations_paths: db/cable_migrate
+
+# Custom
+staging:
+  primary: &primary_staging
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    pool: 10
+  cache:
+    <<: *primary_staging
+    database: daria_staging_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_staging
+    database: daria_staging_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_staging
+    database: daria_staging_cable
+    migrations_paths: db/cable_migrate
