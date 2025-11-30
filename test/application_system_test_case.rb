@@ -41,5 +41,5 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   # if in docker, run headless firefox
   browser = ENV['DOCKER'] ? :headless_firefox : browser
 
-  driven_by :selenium, using: browser
+  driven_by :selenium, using: browser, screen_size: [ 1400, 1400 ]
 end

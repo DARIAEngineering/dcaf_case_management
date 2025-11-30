@@ -1,26 +1,21 @@
-require 'simplecov'
-SimpleCov.start 'rails'
-
+# Rails stock
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require_relative "../config/environment"
 require 'rails/test_help'
-require 'minitest/autorun'
-require 'capybara/rails'
-require 'capybara-screenshot/minitest'
+
+# Custom
 require 'omniauth_helper'
 require 'integration_helper'
-require 'rack/test'
-
-# CI only
-if ENV['CI']
-  # Save screenshots if system tests fail
-  Capybara.save_path = Rails.root.join('tmp', 'capybara')
-end
 
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
-  include FactoryBot::Syntax::Methods
+  include FactoryBot::Syntax::Methods # instead of fixtures
 
+  # Rails stock
+  parallelize(workers: :number_of_processors) unless ENV['DOCKER']
+  fixtures :all # Turned off in favor of factories # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+
+  # Custom
   before do
     setup_tenant
   end
@@ -28,8 +23,6 @@ class ActiveSupport::TestCase
   after do
     teardown_tenant
   end
-
-  parallelize(workers: :number_of_processors) unless ENV['DOCKER']
 
   def setup_tenant
     tenant = create :fund, name: 'CATF', full_name: 'Cat Fund'
@@ -136,13 +129,7 @@ end
 
 # Used by controller tests
 class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Screenshot::MiniTestPlugin
   include IntegrationHelper
   include OmniauthMocker
   OmniAuth.config.test_mode = true
-
-  before { Capybara.reset_sessions! }
-
-  # for controllers
 end
