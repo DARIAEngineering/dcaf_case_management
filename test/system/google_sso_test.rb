@@ -1,7 +1,7 @@
-require 'test_helper'
+require 'application_system_test_case'
 
 # Test oauth sign in behavior
-class GoogleSSOTest < ActionDispatch::IntegrationTest
+class GoogleSSOTest < ApplicationSystemTestCase
   describe 'access top page' do
     before do
       create :line
