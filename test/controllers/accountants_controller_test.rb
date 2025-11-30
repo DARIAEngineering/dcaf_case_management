@@ -68,7 +68,7 @@ class AccountantsControllerTest < ActionDispatch::IntegrationTest
       #   it 'should return success' do
       #     assert_response :success
       #   end
-      end
+      # end
 
       describe 'searching by name' do
         it 'should return on name, primary phone, and other phone' do
