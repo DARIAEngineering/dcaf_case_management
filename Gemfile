@@ -48,11 +48,6 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.4.3'
 gem 'nokogiri', '>= 1.13.4'
 
-# Standard rails
-# gem 'sdoc', '~> 2.6.5', group: :doc
-# gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
-# gem 'matrix' # for compat reasons, required in buil
-
 # Postgres extensions
 gem 'paper_trail', '~> 17.0'
 gem 'activerecord-session_store'
