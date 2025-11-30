@@ -7,18 +7,6 @@ require 'rails/test_help'
 require 'omniauth_helper'
 require 'integration_helper'
 
-# module ActiveSupport
-#   class TestCase
-#     # Run tests in parallel with specified workers
-#     parallelize(workers: :number_of_processors)
-
-    
-
-#     # Add more helper methods to be used by all tests here...
-#   end
-# end
-
-
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods # instead of fixtures
@@ -35,7 +23,6 @@ class ActiveSupport::TestCase
   after do
     teardown_tenant
   end
-
 
   def setup_tenant
     tenant = create :fund, name: 'CATF', full_name: 'Cat Fund'
