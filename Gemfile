@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.4.7'
 
 # Rails stock
-gem 'rails', '~> 7.2.2.2' # temp 72 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem 'rails', '~> 8.1' # temp 72 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 # gem "propshaft", require: false # temp off # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "pg", "~> 1.6" # Use postgresql as the database for Active Record
 gem "puma", '~> 7.1' # roar # Use the Puma web server [https://github.com/puma/puma]
@@ -95,7 +95,7 @@ group :development do
 
   # Custom
   gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
-  gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
+  gem 'rails-i18n', '~> 8.0' # dependency of i18n-tasks
   gem 'listen', '>= 3.0.5'
 
   gem 'foreman' # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
