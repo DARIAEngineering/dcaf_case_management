@@ -55,7 +55,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Custom/overrides
-  config.middleware.use ActsAsTenant::TestTenantMiddleware 
+  config.middleware.use ActsAsTenant::TestTenantMiddleware
 
   # Bullet config
   config.after_initialize do
@@ -71,4 +71,7 @@ Rails.application.configure do
 
   # Set mailer default url to localhost in tests.
   config.action_mailer.default_url_options = { :host => 'localhost' }
+
+  # Bubble up errors like in prod
+  config.action_dispatch.show_exceptions = true
 end
