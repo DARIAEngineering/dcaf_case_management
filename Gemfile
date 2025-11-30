@@ -1,13 +1,37 @@
 source 'https://rubygems.org'
 ruby '3.4.7'
 
+# Rails stock
+gem 'rails', '~> 7.2.2.2' # temp 72 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "propshaft", require: false # temp off # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "pg", "~> 1.6" # Use postgresql as the database for Active Record
+gem "puma", '~> 7.1' # roar # Use the Puma web server [https://github.com/puma/puma]
+# gem "importmap-rails" # Temp off # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+# gem "turbo-rails" # Temp off # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+# gem "stimulus-rails" # Temp off # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+# gem "cssbundling-rails" # Temp off # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+# gem "jbuilder" # Stays off, we don't need it # Build JSON APIs with ease [https://github.com/rails/jbuilder]
+# gem "bcrypt", "~> 3.1.7" # Stays off, we don't need it # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "solid_cache" # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_queue" # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cable" # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
+gem "kamal", require: false # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem "thruster", require: false # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+
+# Custom
+# Our authentication library is devise, with oauth2 for google signin
+gem 'devise', '~> 4.9'
+gem 'devise-security'
+gem 'omniauth-google-oauth2', '~> 1.2.1'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
+
+
 # Standard rails
-gem 'rails', '~> 7.2.2.2'
-gem 'puma', '~> 7.1' # roar
 gem 'sdoc', '~> 2.6.5', group: :doc
 gem 'nokogiri', '>= 1.13.4'
-gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'bootsnap', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'rexml' # not a ruby default in 3, but a requirement of bootsnap
 gem 'matrix' # for compat reasons, required in builds
 
@@ -19,15 +43,9 @@ gem 'bootstrap_form', '~> 4.5.0'
 
 
 # Our database is postgres
-gem 'pg', '~> 1.6'
 gem 'paper_trail', '~> 17.0'
 gem 'activerecord-session_store'
 
-# Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.9'
-gem 'devise-security'
-gem 'omniauth-google-oauth2', '~> 1.2.1'
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 # Run multiple funds on one server
 gem 'acts_as_tenant', '~> 0.6'
@@ -68,30 +86,9 @@ gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '>= 1.4.3'
 
 # Rails 8 fun zone
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
-
-gem "kamal", require: false # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "thruster", require: false # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
-gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # End rails 8 fun zone
 
 
-
-group :development do
-  # Rails stock
-  gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
-
-  # Custom
-  gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
-  gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
-  gem 'listen', '>= 3.0.5'
-
-  gem 'foreman' # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
-  gem 'shog' # makes rails s output color!
-end
 
 group :development, :test do
   # Rails stock
@@ -109,11 +106,25 @@ group :development, :test do
   gem 'ruby_audit', require: false # Check for Ruby language vulnerabilities
 end
 
+
+group :development do
+  # Rails stock
+  gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
+
+  # Custom
+  gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
+  gem 'rails-i18n', '~> 7.0' # dependency of i18n-tasks
+  gem 'listen', '>= 3.0.5'
+
+  gem 'foreman' # Run jsbundling and cssbundling along with rails via bin/dev and Procfile.dev
+  gem 'shog' # makes rails s output color!
+end
+
+
 group :test do
   # Rails stock
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem "capybara" # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "selenium-webdriver" # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
 
   # Custom
   # Useful minitest tools
