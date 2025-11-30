@@ -63,6 +63,7 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.raise         = true # raise an error if n+1 query occurs
     Bullet.add_safelist type: :unused_eager_loading, class_name: "CallListEntry", association: :user
+    Bullet.add_safelist type: :unused_eager_loading, class_name: "CallListEntry", association: :fund # temp
   end
 
   # Encryptable attributes will be encrypted according to the encryption settings defined in the model
