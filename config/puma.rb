@@ -35,9 +35,13 @@ port ENV.fetch("PORT", 3000)
 plugin :tmp_restart
 
 # Run the Solid Queue supervisor inside of Puma for single-server deployments.
-# plugin :solid_queue if ENV["RACK_ENV"] == "production"
-plugin :solid_queue
+plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
+
+
+# Custom
+# We're not running in cluster mode and this resolves some solid_queue startup issues -- see https://github.com/rails/solid_queue/issues/77#issuecomment-2688936168
+preload_app!
