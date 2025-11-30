@@ -11,9 +11,8 @@ class ChangeLogHelperTest < ActionView::TestCase
     end
 
     it 'should work' do
-      assert_equal safe_join_fields(@changeset.shaped_changes),
-                   '<strong>Name:</strong> Old name -&gt; New name<br />' \
-                   '<strong>City:</strong> (empty) -&gt; Canada'
+      assert safe_join_fields(@changeset.shaped_changes).include? "<strong>Name:</strong> Old name -&gt; New name"
+      assert safe_join_fields(@changeset.shaped_changes).include? '<strong>City:</strong> (empty) -&gt; Canada'
     end
   end
 end

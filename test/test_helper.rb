@@ -12,8 +12,8 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods # instead of fixtures
 
   # Rails stock
-  parallelize(workers: :number_of_processors) unless ENV['DOCKER']
-  fixtures :all # Turned off in favor of factories # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+  # parallelize(workers: :number_of_processors) unless ENV['DOCKER'] # Off because it was causing segfaults on colin's machine
+  # fixtures :all # Turned off in favor of factories # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
 
   # Custom
   before do

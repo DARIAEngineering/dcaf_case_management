@@ -2540,6 +2540,310 @@
       "pm": "pm"
     }
   },
+  "cnr": {
+    "activerecord": {
+      "errors": {
+        "messages": {
+          "record_invalid": "Validacija nije uspjela: %{errors}",
+          "restrict_dependent_destroy": {
+            "has_many": "Nije moguće izbrisati zapis jer postoje zavisni %{record}",
+            "has_one": "Nije moguće izbrisati zapis jer postoji zavisan %{record}"
+          }
+        }
+      }
+    },
+    "date": {
+      "abbr_day_names": [
+        "ned",
+        "pon",
+        "uto",
+        "sri",
+        "čet",
+        "pet",
+        "sub"
+      ],
+      "abbr_month_names": [
+        null,
+        "jan",
+        "feb",
+        "mar",
+        "apr",
+        "maj",
+        "jun",
+        "jul",
+        "avg",
+        "sep",
+        "okt",
+        "nov",
+        "dec"
+      ],
+      "day_names": [
+        "nedjelja",
+        "poneđeljak",
+        "utorak",
+        "srijeda",
+        "četvrtak",
+        "petak",
+        "subota"
+      ],
+      "formats": {
+        "default": "%d.%m.%Y.",
+        "long": "%e. %B %Y.",
+        "short": "%e. %b. %Y."
+      },
+      "month_names": [
+        null,
+        "januar",
+        "februar",
+        "mart",
+        "april",
+        "maj",
+        "jun",
+        "jul",
+        "avgust",
+        "septembar",
+        "oktobar",
+        "novembar",
+        "decembar"
+      ],
+      "order": [
+        "day",
+        "month",
+        "year"
+      ]
+    },
+    "datetime": {
+      "distance_in_words": {
+        "about_x_hours": {
+          "few": "oko %{count} sata",
+          "many": "oko %{count} sati",
+          "one": "oko sat",
+          "other": "oko %{count} sati"
+        },
+        "about_x_months": {
+          "few": "oko %{count} mjeseca",
+          "many": "oko %{count} mjeseci",
+          "one": "oko mjesec",
+          "other": "oko %{count} mjeseci"
+        },
+        "about_x_years": {
+          "few": "oko %{count} godine",
+          "many": "oko %{count} godina",
+          "one": "oko godine",
+          "other": "oko %{count} godina"
+        },
+        "almost_x_years": {
+          "few": "skoro %{count} godine",
+          "many": "skoro %{count} godina",
+          "one": "skoro %{count} godina",
+          "other": "skoro %{count} godina"
+        },
+        "half_a_minute": "pola minute",
+        "less_than_x_minutes": {
+          "few": "manje od %{count} minute",
+          "many": "manje od %{count} minuta",
+          "one": "manje od minute",
+          "other": "manje od %{count} minuta"
+        },
+        "less_than_x_seconds": {
+          "few": "manje od %{count} sekunde",
+          "many": "manje od %{count} sekundi",
+          "one": "manje od sekunde",
+          "other": "manje od %{count} sekundi"
+        },
+        "over_x_years": {
+          "few": "preko %{count} godine",
+          "many": "preko %{count} godina",
+          "one": "preko godine",
+          "other": "preko %{count} godina"
+        },
+        "x_days": {
+          "few": "%{count} dana",
+          "many": "%{count} dana",
+          "one": "%{count} dan",
+          "other": "%{count} dana"
+        },
+        "x_minutes": {
+          "few": "%{count} minute",
+          "many": "%{count} minuta",
+          "one": "%{count} minut",
+          "other": "%{count} minuta"
+        },
+        "x_months": {
+          "few": "%{count} mjeseca",
+          "many": "%{count} mjeseci",
+          "one": "%{count} mjesec",
+          "other": "%{count} mjeseci"
+        },
+        "x_seconds": {
+          "few": "%{count} sekunde",
+          "many": "%{count} sekundi",
+          "one": "%{count} sekund",
+          "other": "%{count} sekundi"
+        }
+      },
+      "prompts": {
+        "day": "dan",
+        "hour": "sat",
+        "minute": "minut",
+        "month": "mjesec",
+        "second": "sekundi",
+        "year": "godina"
+      }
+    },
+    "errors": {
+      "format": "%{attribute} %{message}",
+      "messages": {
+        "accepted": "mora biti prihvaćeno",
+        "blank": "ne smije biti prazno",
+        "confirmation": "se ne poklapa sa potvrdom",
+        "empty": "ne smije biti prazno",
+        "equal_to": "mora biti %{count}",
+        "even": "mora biti parno",
+        "exclusion": "je rezervisano",
+        "greater_than": "mora biti veće od %{count}",
+        "greater_than_or_equal_to": "mora biti veće ili jednako %{count}",
+        "inclusion": "nije uključeno u listu",
+        "invalid": "nije validno",
+        "less_than": "mora biti manje od %{count}",
+        "less_than_or_equal_to": "mora biti manje ili jednako %{count}",
+        "not_a_number": "nije broj",
+        "not_an_integer": "mora biti cijeli broj",
+        "odd": "mora biti neparno",
+        "other_than": "mora biti različito od %{count}",
+        "present": "mora biti prazno",
+        "taken": "je već zauzeto",
+        "too_long": "je predugo (maksimalno je dozvoljeno %{count} znakova)",
+        "too_short": "je prekratko (predviđeno je minimalno %{count} znakova)",
+        "wrong_length": "je pogrešne dužine (trebalo bi biti tačno %{count} znakova)"
+      },
+      "template": {
+        "body": "Desili su se problemi sa sljedećim poljima:",
+        "header": {
+          "few": "%{count} greške su spriječile da se ovaj %{model} sačuva",
+          "many": "%{count} grešaka je spriječilo da se ovaj %{model} sačuva",
+          "one": "%{count} greška je spriječila da se ovaj %{model} sačuva",
+          "other": "%{count} grešaka je spriječilo da se ovaj %{model} sačuva"
+        }
+      }
+    },
+    "helpers": {
+      "select": {
+        "prompt": "Molimo odaberite"
+      },
+      "submit": {
+        "create": "Kreiraj %{model}",
+        "submit": "Sačuvaj %{model}",
+        "update": "Ažuriraj %{model}"
+      }
+    },
+    "number": {
+      "currency": {
+        "format": {
+          "delimiter": ".",
+          "format": "%n %u",
+          "precision": 2,
+          "separator": ",",
+          "significant": false,
+          "strip_insignificant_zeros": true,
+          "unit": "€"
+        }
+      },
+      "format": {
+        "delimiter": ".",
+        "precision": 3,
+        "separator": ",",
+        "significant": false,
+        "strip_insignificant_zeros": true
+      },
+      "human": {
+        "decimal_units": {
+          "format": "%n %u",
+          "units": {
+            "billion": {
+              "few": "milijarde",
+              "many": "milijardi",
+              "one": "milijarda",
+              "other": "milijardi"
+            },
+            "million": {
+              "few": "miliona",
+              "many": "miliona",
+              "one": "milion",
+              "other": "miliona"
+            },
+            "quadrillion": {
+              "few": "bilijarde",
+              "many": "bilijardi",
+              "one": "bilijarda",
+              "other": "bilijardi"
+            },
+            "thousand": {
+              "few": "hiljade",
+              "many": "hiljada",
+              "one": "hiljada",
+              "other": "hiljada"
+            },
+            "trillion": {
+              "few": "biliona",
+              "many": "biliona",
+              "one": "bilion",
+              "other": "biliona"
+            },
+            "unit": ""
+          }
+        },
+        "format": {
+          "delimiter": ",",
+          "precision": 0,
+          "significant": true,
+          "strip_insignificant_zeros": true
+        },
+        "storage_units": {
+          "format": "%n %u",
+          "units": {
+            "byte": {
+              "few": "bajta",
+              "many": "bajtova",
+              "one": "bajt",
+              "other": "bajtova"
+            },
+            "gb": "GB",
+            "kb": "KB",
+            "mb": "MB",
+            "tb": "TB"
+          }
+        }
+      },
+      "percentage": {
+        "format": {
+          "delimiter": ",",
+          "format": "%n%"
+        }
+      },
+      "precision": {
+        "format": {
+          "delimiter": ""
+        }
+      }
+    },
+    "support": {
+      "array": {
+        "last_word_connector": " i ",
+        "two_words_connector": " i ",
+        "words_connector": ", "
+      }
+    },
+    "time": {
+      "am": "am",
+      "formats": {
+        "default": "%d.%m.%Y. %H:%M:%S",
+        "long": "%d. %B %Y. - %H:%M:%S",
+        "short": "%d. %b %Y. %H:%M"
+      },
+      "pm": "pm"
+    }
+  },
   "cs": {
     "activerecord": {
       "errors": {
@@ -3672,6 +3976,7 @@
         "exclusion": "ist nicht verfügbar",
         "greater_than": "muss größer als %{count} sein",
         "greater_than_or_equal_to": "muss größer oder gleich %{count} sein",
+        "in": "muss in %{count} enthalten sein",
         "inclusion": "ist kein gültiger Wert",
         "invalid": "ist nicht gültig",
         "less_than": "muss kleiner als %{count} sein",
@@ -3699,6 +4004,7 @@
             "other": "muss mindestens %{count} Großbuchstaben enthalten"
           }
         },
+        "password_too_long": "ist zu lang",
         "present": "darf nicht ausgefüllt werden",
         "required": "muss ausgefüllt werden",
         "taken": "ist bereits vergeben",
@@ -4004,6 +4310,7 @@
         "not_an_integer": "muss ganzzahlig sein",
         "odd": "muss ungerade sein",
         "other_than": "darf nicht gleich %{count} sein",
+        "password_too_long": "ist zu lang",
         "present": "darf nicht ausgefüllt werden",
         "required": "muss ausgefüllt werden",
         "taken": "ist bereits vergeben",
@@ -4295,6 +4602,7 @@
         "not_an_integer": "muss ganzzahlig sein",
         "odd": "muss ungerade sein",
         "other_than": "darf nicht gleich %{count} sein",
+        "password_too_long": "ist zu lang",
         "present": "darf nicht ausgefüllt werden",
         "required": "muss ausgefüllt werden",
         "taken": "ist bereits vergeben",
@@ -4586,6 +4894,7 @@
         "not_an_integer": "muss ganzzahlig sein",
         "odd": "muss ungerade sein",
         "other_than": "darf nicht gleich %{count} sein",
+        "password_too_long": "ist zu lang",
         "present": "darf nicht ausgefüllt werden",
         "required": "muss ausgefüllt werden",
         "taken": "ist bereits vergeben",
@@ -6061,6 +6370,10 @@
         "month": "Month",
         "second": "Seconds",
         "year": "Year"
+      },
+      "relative": {
+        "future": "in %{time}",
+        "past": "%{time} ago"
       }
     },
     "devise": {
@@ -15369,13 +15682,13 @@
     },
     "date": {
       "abbr_day_names": [
-        "Igan",
-        "Astel",
-        "Astear",
-        "Asteaz",
-        "Oste",
-        "Osti",
-        "Lar"
+        "Ig",
+        "Al",
+        "Ar",
+        "Az",
+        "Og",
+        "Or",
+        "Lr"
       ],
       "abbr_month_names": [
         null,
@@ -15601,7 +15914,7 @@
       "percentage": {
         "format": {
           "delimiter": "",
-          "format": "%n %"
+          "format": "% %n"
         }
       },
       "precision": {
@@ -19375,11 +19688,36 @@
         "decimal_units": {
           "format": "%n %u",
           "units": {
-            "billion": "milijarda",
-            "million": "milijun",
-            "quadrillion": "bilijarda",
-            "thousand": "tisuća",
-            "trillion": "bilijun",
+            "billion": {
+              "few": "milijarde",
+              "many": "milijardi",
+              "one": "milijarda",
+              "other": "milijardi"
+            },
+            "million": {
+              "few": "milijuna",
+              "many": "milijuna",
+              "one": "milijun",
+              "other": "milijuna"
+            },
+            "quadrillion": {
+              "few": "bilijarde",
+              "many": "bilijardi",
+              "one": "bilijarda",
+              "other": "bilijardi"
+            },
+            "thousand": {
+              "few": "tisuće",
+              "many": "tisuća",
+              "one": "tisuća",
+              "other": "tisuća"
+            },
+            "trillion": {
+              "few": "bilijuna",
+              "many": "bilijuna",
+              "one": "bilijun",
+              "other": "bilijuna"
+            },
             "unit": ""
           }
         },
@@ -19730,6 +20068,281 @@
         "short": "%b %e., %H:%M"
       },
       "pm": "du."
+    }
+  },
+  "hy": {
+    "activerecord": {
+      "errors": {
+        "messages": {
+          "record_invalid": "Ստուգումը ձախողվեց. %{errors}",
+          "restrict_dependent_destroy": {
+            "has_many": "Հնարավոր չէ ջնջել գրառումը, քանի որ կան կախյալ %{record}-ներ",
+            "has_one": "Հնարավոր չէ ջնջել գրառումը, քանի որ կա կախյալ %{record}"
+          }
+        }
+      }
+    },
+    "date": {
+      "abbr_day_names": [
+        "Կիր",
+        "Երկ",
+        "Երք",
+        "Չոր",
+        "Հնգ",
+        "Ուրբ",
+        "Շաբ"
+      ],
+      "abbr_month_names": [
+        null,
+        "Հուն",
+        "Փետ",
+        "Մար",
+        "Ապր",
+        "Մայ",
+        "Հուն",
+        "Հուլ",
+        "Օգս",
+        "Սեպ",
+        "Հոկ",
+        "Նոյ",
+        "Դեկ"
+      ],
+      "day_names": [
+        "Կիրակի",
+        "Երկուշաբթի",
+        "Երեքշաբթի",
+        "Չորեքշաբթի",
+        "Հինգշաբթի",
+        "Ուրբաթ",
+        "Շաբաթ"
+      ],
+      "formats": {
+        "default": "%Y-%m-%d",
+        "long": "%B %e, %Y",
+        "short": "%b %e"
+      },
+      "month_names": [
+        null,
+        "Հունվար",
+        "Փետրվար",
+        "Մարտ",
+        "Ապրիլ",
+        "Մայիս",
+        "Հունիս",
+        "Հուլիս",
+        "Օգոստոս",
+        "Սեպտեմբեր",
+        "Հոկտեմբեր",
+        "Նոյեմբեր",
+        "Դեկտեմբեր"
+      ],
+      "order": [
+        "year",
+        "month",
+        "day"
+      ]
+    },
+    "datetime": {
+      "distance_in_words": {
+        "about_x_hours": {
+          "one": "մոտ %{count} ժամ",
+          "other": "մոտ %{count} ժամ"
+        },
+        "about_x_months": {
+          "one": "մոտ %{count} ամիս",
+          "other": "մոտ %{count} ամիս"
+        },
+        "about_x_years": {
+          "one": "մոտ %{count} տարի",
+          "other": "մոտ %{count} տարի"
+        },
+        "almost_x_years": {
+          "one": "գրեթե %{count} տարի",
+          "other": "գրեթե %{count} տարի"
+        },
+        "half_a_minute": "կես րոպե",
+        "less_than_x_minutes": {
+          "one": "քիչ քան մեկ րոպե",
+          "other": "քիչ քան %{count} րոպե"
+        },
+        "less_than_x_seconds": {
+          "one": "քիչ քան %{count} վայրկյան",
+          "other": "քիչ քան %{count} վայրկյան"
+        },
+        "over_x_years": {
+          "one": "ավելի քան %{count} տարի",
+          "other": "ավելի քան %{count} տարի"
+        },
+        "x_days": {
+          "one": "%{count} օր",
+          "other": "%{count} օր"
+        },
+        "x_minutes": {
+          "one": "%{count} րոպե",
+          "other": "%{count} րոպե"
+        },
+        "x_months": {
+          "one": "%{count} ամիս",
+          "other": "%{count} ամիս"
+        },
+        "x_seconds": {
+          "one": "%{count} վայրկյան",
+          "other": "%{count} վայրկյան"
+        },
+        "x_years": {
+          "one": "%{count} տարի",
+          "other": "%{count} տարի"
+        }
+      },
+      "prompts": {
+        "day": "Օր",
+        "hour": "Ժամ",
+        "minute": "Րոպե",
+        "month": "Ամիս",
+        "second": "Վայրկյաններ",
+        "year": "Տարի"
+      }
+    },
+    "errors": {
+      "format": "%{attribute} %{message}",
+      "messages": {
+        "accepted": "պետք է ընդունված լինի",
+        "blank": "չի կարող դատարկ լինել",
+        "confirmation": "չի համընկնում %{attribute}-ի հետ",
+        "empty": "չի կարող դատարկ լինել",
+        "equal_to": "պետք է հավասար լինի %{count}-ին",
+        "even": "պետք է զույգ լինի",
+        "exclusion": "արգելված է",
+        "greater_than": "պետք է մեծ լինի %{count}-ից",
+        "greater_than_or_equal_to": "պետք է մեծ կամ հավասար լինի %{count}-ին",
+        "in": "պետք է լինի հետևյալներից. %{count}",
+        "inclusion": "ներառված չէ ցանկում",
+        "invalid": "անվավեր է",
+        "less_than": "պետք է փոքր լինի %{count}-ից",
+        "less_than_or_equal_to": "պետք է փոքր կամ հավասար լինի %{count}-ին",
+        "model_invalid": "Ստուգումը ձախողվեց. %{errors}",
+        "not_a_number": "թիվ չէ",
+        "not_an_integer": "պետք է ամբողջ թիվ լինի",
+        "odd": "պետք է կենտ լինի",
+        "other_than": "պետք է տարբեր լինի %{count}-ից",
+        "password_too_long": "չափազանց երկար է",
+        "present": "պետք է դատարկ լինի",
+        "required": "պարտադիր է",
+        "taken": "արդեն գոյություն ունի",
+        "too_long": {
+          "one": "չափազանց երկար է (առավելագույնը %{count} նիշ)",
+          "other": "չափազանց երկար է (առավելագույնը %{count} նիշ)"
+        },
+        "too_short": {
+          "one": "չափազանց կարճ է (նվազագույնը %{count} նիշ)",
+          "other": "չափազանց կարճ է (նվազագույնը %{count} նիշ)"
+        },
+        "wrong_length": {
+          "one": "սխալ երկարություն է (պետք է լինի %{count} նիշ)",
+          "other": "սխալ երկարություն է (պետք է լինի %{count} նիշ)"
+        }
+      },
+      "template": {
+        "body": "Հետևյալ դաշտերում խնդիրներ կան.",
+        "header": {
+          "one": "%{count} սխալ արգելեց այս %{model}-ի պահպանումը",
+          "other": "%{count} սխալներ արգելեցին այս %{model}-ի պահպանումը"
+        }
+      }
+    },
+    "helpers": {
+      "select": {
+        "prompt": "Խնդրում ենք ընտրել"
+      },
+      "submit": {
+        "create": "Ստեղծել %{model}",
+        "submit": "Պահպանել %{model}",
+        "update": "Թարմացնել %{model}"
+      }
+    },
+    "number": {
+      "currency": {
+        "format": {
+          "delimiter": ",",
+          "format": "%u%n",
+          "negative_format": "-%u%n",
+          "precision": 2,
+          "separator": ".",
+          "significant": false,
+          "strip_insignificant_zeros": false,
+          "unit": "$"
+        }
+      },
+      "format": {
+        "delimiter": ",",
+        "precision": 3,
+        "round_mode": "default",
+        "separator": ".",
+        "significant": false,
+        "strip_insignificant_zeros": false
+      },
+      "human": {
+        "decimal_units": {
+          "format": "%n %u",
+          "units": {
+            "billion": "Միլիարդ",
+            "million": "Միլիոն",
+            "quadrillion": "Քառյակ",
+            "thousand": "Հազար",
+            "trillion": "Տրիլիոն",
+            "unit": ""
+          }
+        },
+        "format": {
+          "delimiter": "",
+          "precision": 3,
+          "significant": true,
+          "strip_insignificant_zeros": true
+        },
+        "storage_units": {
+          "format": "%n %u",
+          "units": {
+            "byte": {
+              "one": "Բայթ",
+              "other": "Բայթ"
+            },
+            "eb": "ԷԲ",
+            "gb": "ԳԲ",
+            "kb": "ԿԲ",
+            "mb": "ՄԲ",
+            "pb": "ՊԲ",
+            "tb": "ՏԲ",
+            "zb": "ԶԲ"
+          }
+        }
+      },
+      "percentage": {
+        "format": {
+          "delimiter": "",
+          "format": "%n%"
+        }
+      },
+      "precision": {
+        "format": {
+          "delimiter": ""
+        }
+      }
+    },
+    "support": {
+      "array": {
+        "last_word_connector": ", և ",
+        "two_words_connector": " և ",
+        "words_connector": ", "
+      }
+    },
+    "time": {
+      "am": "կեսօրից առաջ",
+      "formats": {
+        "default": "%a, %e %b %Y %H:%M:%S %z",
+        "long": "%B %e, %Y %H:%M",
+        "short": "%e %b %H:%M"
+      },
+      "pm": "կեսօրից հետո"
     }
   },
   "id": {
@@ -20468,6 +21081,7 @@
         "exclusion": "è riservato",
         "greater_than": "deve essere maggiore di %{count}",
         "greater_than_or_equal_to": "deve essere maggiore o uguale a %{count}",
+        "in": "deve essere uno tra %{count}",
         "inclusion": "non è compreso tra le opzioni disponibili",
         "invalid": "non è valido",
         "less_than": "deve essere minore di %{count}",
@@ -20495,6 +21109,7 @@
             "other": "deve contenere almeno %{count} lettere maiuscole"
           }
         },
+        "password_too_long": "è troppo lunga",
         "present": "deve essere lasciato in bianco",
         "required": "deve esistere",
         "taken": "è già presente",
@@ -20543,6 +21158,7 @@
         "format": {
           "delimiter": ".",
           "format": "%n %u",
+          "negative_format": "-%n %u",
           "precision": 2,
           "separator": ",",
           "significant": false,
@@ -20553,6 +21169,7 @@
       "format": {
         "delimiter": ".",
         "precision": 2,
+        "round_mode": "default",
         "separator": ",",
         "significant": false,
         "strip_insignificant_zeros": false
@@ -20587,7 +21204,8 @@
             "kb": "KB",
             "mb": "MB",
             "pb": "PB",
-            "tb": "TB"
+            "tb": "TB",
+            "zb": "ZB"
           }
         }
       },
@@ -21067,6 +21685,7 @@
             "other": "は最低%{count}つの大文字英字を含む必要があります。"
           }
         },
+        "password_too_long": "が長すぎます",
         "present": "は入力しないでください",
         "required": "を入力してください",
         "taken": "はすでに存在します",
@@ -21102,6 +21721,7 @@
         "format": {
           "delimiter": ",",
           "format": "%n%u",
+          "negative_format": "-%u%n",
           "precision": 0,
           "separator": ".",
           "significant": false,
@@ -21144,7 +21764,8 @@
             "kb": "KB",
             "mb": "MB",
             "pb": "PB",
-            "tb": "TB"
+            "tb": "TB",
+            "zb": "ZB"
           }
         }
       },
@@ -22346,31 +22967,31 @@
     "errors": {
       "format": "%{message}",
       "messages": {
-        "accepted": "%{attribute}을(를) 반드시 확인해야 합니다",
-        "blank": "%{attribute}에 내용을 입력해 주세요",
-        "confirmation": "%{attribute}은(는) 서로 일치해야 합니다",
-        "empty": "%{attribute}에 내용을 입력해 주세요",
-        "equal_to": "%{attribute}은(는) %{count}와(과) 같아야 합니다",
-        "even": "%{attribute}에 짝수를 입력해 주세요",
-        "exclusion": "%{attribute}은(는) 이미 예약되어 있는 값입니다",
-        "greater_than": "%{attribute}은(는) %{count}보다 커야 합니다",
-        "greater_than_or_equal_to": "%{attribute}은(는) %{count}보다 크거나 같아야 합니다",
-        "in": "%{attribute}은(는) %{count}범위 안에 있어야 합니다",
-        "inclusion": "%{attribute}은(는) 목록에 포함되어 있는 값이 아닙니다",
-        "invalid": "%{attribute}은(는) 올바르지 않은 값입니다",
-        "less_than": "%{attribute}은(는) %{count}보다 작아야 합니다",
-        "less_than_or_equal_to": "%{attribute}은(는) %{count}와(과) 작거나 같아야 합니다",
-        "model_invalid": "%{attribute}에 대한 데이터 검증에 실패하였습니다: %{errors}",
-        "not_a_number": "%{attribute}에 숫자를 입력해 주세요",
-        "not_an_integer": "%{attribute}에 정수를 입력해 주세요",
-        "odd": "%{attribute}에 홀수를 입력해 주세요",
-        "other_than": "%{attribute}은(는) %{count}와(과) 달라야 합니다",
-        "present": "%{attribute}은(는) 비어있어야 합니다",
-        "required": "%{attribute}은(는) 반드시 있어야 합니다",
-        "taken": "%{attribute}은(는) 이미 존재합니다",
-        "too_long": "%{attribute}은(는) %{count}자를 넘을 수 없습니다",
-        "too_short": "%{attribute}은(는) 적어도 %{count}자를 넘어야 합니다",
-        "wrong_length": "%{attribute}은(는) %{count}자여야 합니다"
+        "accepted": "이 항목을 반드시 확인해 주세요",
+        "blank": "내용을 입력해 주세요",
+        "confirmation": "값이 서로 일치해야 합니다",
+        "empty": "값을 입력해 주세요",
+        "equal_to": "값은 %{count}와(과) 같아야 합니다",
+        "even": "짝수를 입력해 주세요",
+        "exclusion": "이미 예약된 값입니다",
+        "greater_than": "값은 %{count}보다 커야 합니다",
+        "greater_than_or_equal_to": "값은 %{count}보다 크거나 같아야 합니다",
+        "in": "값은 %{count} 범위 안에 있어야 합니다",
+        "inclusion": "목록에 포함된 값이 아닙니다",
+        "invalid": "올바르지 않은 값입니다",
+        "less_than": "값은 %{count}보다 작아야 합니다",
+        "less_than_or_equal_to": "값은 %{count}보다 작거나 같아야 합니다",
+        "model_invalid": "데이터 검증에 실패하였습니다: %{errors}",
+        "not_a_number": "숫자를 입력해 주세요",
+        "not_an_integer": "정수를 입력해 주세요",
+        "odd": "홀수를 입력해 주세요",
+        "other_than": "값은 %{count}와(과) 달라야 합니다",
+        "present": "값은 비어 있어야 합니다",
+        "required": "값이 반드시 필요합니다",
+        "taken": "이미 존재하는 값입니다",
+        "too_long": "값은 %{count}자를 넘을 수 없습니다",
+        "too_short": "값은 최소 %{count}자여야 합니다",
+        "wrong_length": "값은 %{count}자여야 합니다"
       },
       "template": {
         "body": "아래 문제를 확인해 주세요.",
@@ -24116,7 +24737,7 @@
     "activerecord": {
       "errors": {
         "messages": {
-          "record_invalid": "Validation failed: %{errors}",
+          "record_invalid": "സാധൂകരണം പരാജയപ്പെട്ടു: %{errors}",
           "restrict_dependent_destroy": {
             "has_many": "%{record} ആയി ബന്ദം ഉള്ളതിനാൽ നീക്കം ചെയ്യാൻ പറ്റില്ല",
             "has_one": "%{record} ആയി ബന്ദം ഉള്ളതിനാൽ നീക്കം ചെയ്യാൻ പറ്റില്ല"
@@ -24230,6 +24851,10 @@
         "x_seconds": {
           "one": "%{count} നിമിഷം",
           "other": "%{count} നിമിഷം"
+        },
+        "x_years": {
+          "one": "%{count} വർഷം",
+          "other": "%{count} വർഷങ്ങൾ"
         }
       },
       "prompts": {
@@ -24253,6 +24878,7 @@
         "exclusion": "കരുതിവെച്ചിരികുന്നതാണ്",
         "greater_than": "%{count} നേകാൾ വലുതായിരിക്കണം",
         "greater_than_or_equal_to": "%{count} നു തുല്യമോ അല്ലെങ്കിൽ വലുതോ ആയിരിക്കണം",
+        "in": "%{count}ൽ ഉൾപ്പെടുത്തണം",
         "inclusion": "ഇതിൽ ഉള്ട്പെട്ടിട്ടില്ല",
         "invalid": "അസാധുവാണ്",
         "less_than": "%{count} നേകാൾ ചെറുതായിരിക്കണം",
@@ -24261,7 +24887,8 @@
         "not_a_number": "ഒരു അക്കം അല്ല",
         "not_an_integer": "ഒരു അക്കം ആയിരിക്കണം",
         "odd": "ഒട്ടസന്ഘ്യ ആയിരിക്കണം",
-        "other_than": "must be other than %{count}",
+        "other_than": "%{count} അല്ലാതെ മറ്റൊന്നായിരിക്കണം",
+        "password_too_long": "ദൈർഘ്യമേറിയതാണ്",
         "present": "ഒഴിവായി ഇരിക്കണം",
         "required": "എന്തായാലും ഉണ്ടായിരിക്കണം",
         "taken": "ഇതിനു മുൻപേ ഉപയോഗിച്ചിരിക്കുന്നു",
@@ -24309,16 +24936,18 @@
         "format": {
           "delimiter": ",",
           "format": "%u%n",
+          "negative_format": "-%u%n",
           "precision": 2,
           "separator": ".",
           "significant": false,
           "strip_insignificant_zeros": false,
-          "unit": "$"
+          "unit": "₹"
         }
       },
       "format": {
         "delimiter": ",",
         "precision": 3,
+        "round_mode": "default",
         "separator": ".",
         "significant": false,
         "strip_insignificant_zeros": false
@@ -24348,10 +24977,13 @@
               "one": "ബൈറ്റ്",
               "other": "ബൈറ്റുകൾ"
             },
+            "eb": "ഇ.ബി",
             "gb": "ജി.ബി",
             "kb": "കെ.ബി.",
             "mb": "എം.ബി.",
-            "tb": "ടി.ബി"
+            "pb": "പി.ബി",
+            "tb": "ടി.ബി",
+            "zb": "സി.ബി"
           }
         }
       },
@@ -28258,6 +28890,7 @@
             "other": "deve conter ao menos %{count} letras maiúsculas"
           }
         },
+        "password_too_long": "é muita longa",
         "present": "não pode estar em branco",
         "required": "é obrigatório",
         "taken": "não está disponível",
@@ -28325,6 +28958,7 @@
         "format": {
           "delimiter": ".",
           "format": "%n %u",
+          "negative_format": "-%u%n",
           "precision": 2,
           "separator": ",",
           "significant": false,
@@ -28382,7 +29016,8 @@
             "kb": "KB",
             "mb": "MB",
             "pb": "PB",
-            "tb": "TB"
+            "tb": "TB",
+            "zb": "ZB"
           }
         }
       },
@@ -30960,14 +31595,14 @@
         "Субота"
       ],
       "formats": {
-        "default": "%d/%m/%Y",
-        "long": "%B %e, %Y",
-        "short": "%e %b"
+        "default": "%d. %m. %Y",
+        "long": "%-d. %B %Y",
+        "short": "%-d. %b"
       },
       "month_names": [
         null,
         "Јануар",
-        "Фабруар",
+        "Фебруар",
         "Март",
         "Април",
         "Мај",
@@ -31145,7 +31780,7 @@
           "separator": ".",
           "significant": false,
           "strip_insignificant_zeros": false,
-          "unit": "ДИН"
+          "unit": "РСД"
         }
       },
       "format": {
@@ -31159,11 +31794,36 @@
         "decimal_units": {
           "format": "%n %u",
           "units": {
-            "billion": "Милијарда",
-            "million": "Милион",
-            "quadrillion": "Квадрилион",
-            "thousand": "Хиљаду",
-            "trillion": "Трилион",
+            "billion": {
+              "few": "милијарде",
+              "many": "милијарди",
+              "one": "милијарда",
+              "other": "милијарди"
+            },
+            "million": {
+              "few": "милиона",
+              "many": "милиона",
+              "one": "милион",
+              "other": "милиона"
+            },
+            "quadrillion": {
+              "few": "квадрилиона",
+              "many": "квадрилиона",
+              "one": "квадрилион",
+              "other": "квадрилиона"
+            },
+            "thousand": {
+              "few": "хиљаде",
+              "many": "хиљада",
+              "one": "хиљада",
+              "other": "хиљада"
+            },
+            "trillion": {
+              "few": "трилиона",
+              "many": "трилиона",
+              "one": "трилион",
+              "other": "трилиона"
+            },
             "unit": ""
           }
         },
@@ -34638,6 +35298,7 @@
         "exclusion": "зарезервовано",
         "greater_than": "має бути більше ніж %{count}",
         "greater_than_or_equal_to": "має бути більше ніж або дорівнювати %{count}",
+        "in": "має входити до %{count}",
         "inclusion": "не включено до переліку",
         "invalid": "недійсний",
         "less_than": "має бути менше ніж %{count}",
