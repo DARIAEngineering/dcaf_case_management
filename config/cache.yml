@@ -12,5 +12,5 @@ test:
   <<: *default
 
 production:
-  database: cache
+  # database: cache # Until we straighten out the migrations
   <<: *default

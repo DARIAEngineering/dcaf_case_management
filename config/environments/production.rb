@@ -99,4 +99,8 @@ Rails.application.configure do
   # Mailer overrides
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: ENV['SITE_URL'] }
+
+  # Shut off cache store the hard way until this table junk gets sorted out
+  config.cache_store = :null_store
+
 end
