@@ -7,19 +7,12 @@ require 'rails/test_help'
 require 'omniauth_helper'
 require 'integration_helper'
 
-# CI only
-if ENV['CI']
-  # Save screenshots if system tests fail
-  Capybara.save_path = Rails.root.join('tmp', 'capybara')
-end
-
 # module ActiveSupport
 #   class TestCase
 #     # Run tests in parallel with specified workers
 #     parallelize(workers: :number_of_processors)
 
-#     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-#     fixtures :all
+    
 
 #     # Add more helper methods to be used by all tests here...
 #   end
@@ -28,8 +21,13 @@ end
 
 # Convenience methods around config creation, and database cleaning
 class ActiveSupport::TestCase
-  include FactoryBot::Syntax::Methods
+  include FactoryBot::Syntax::Methods # instead of fixtures
 
+  # Rails stock
+  parallelize(workers: :number_of_processors) unless ENV['DOCKER']
+  fixtures :all # Turned off in favor of factories # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+
+  # Custom
   before do
     setup_tenant
   end
@@ -38,7 +36,6 @@ class ActiveSupport::TestCase
     teardown_tenant
   end
 
-  parallelize(workers: :number_of_processors) unless ENV['DOCKER']
 
   def setup_tenant
     tenant = create :fund, name: 'CATF', full_name: 'Cat Fund'
@@ -145,13 +142,7 @@ end
 
 # Used by controller tests
 class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Screenshot::MiniTestPlugin
   include IntegrationHelper
   include OmniauthMocker
   OmniAuth.config.test_mode = true
-
-  before { Capybara.reset_sessions! }
-
-  # for controllers
 end
