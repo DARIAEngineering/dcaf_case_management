@@ -99,4 +99,6 @@ Rails.application.configure do
   # Mailer overrides
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: ENV['SITE_URL'] }
+
+  config.cache_store = :null_store # need to set up tables for this  
 end
