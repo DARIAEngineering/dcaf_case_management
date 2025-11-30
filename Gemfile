@@ -115,13 +115,6 @@ group :test do
   gem 'faker'
   gem 'timecop'
 
-  # Systemtest related tools
-  gem 'capybara-screenshot'
-  gem 'launchy' # open up capybara screenshots automatically with `save_and_open_screenshot`
-
-  # Test coverage related libraries
-  gem 'simplecov', require: false
-
   # Specifics
   gem 'shoulda-context'
   gem 'minitest-optional_retry' # retry flaky tests 3 times
