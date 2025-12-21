@@ -37,6 +37,9 @@
         <%= f.check_box :textable,
                         label: t('patient.information.textable'),
                         checked: patient.textable? %>
+        <%= f.check_box :consent_to_survey,
+                        label: t('patient.information.consent_to_survey'),
+                        checked: patient.consent_to_survey? %>
 
         <div class="row mt-4">
           <div class="col-8">
