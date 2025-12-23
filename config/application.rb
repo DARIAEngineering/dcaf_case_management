@@ -38,7 +38,7 @@ module Daria2
     config.active_record.encryption.key_derivation_salt = ENV.fetch("ACTIVE_RECORD_KEY_DERIVATION_SALT", "default_salt")
     config.active_record.encryption.deterministic_key = [ENV.fetch("ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", "default_deterministic_key")]
     # for backwards compatibility's sake
-    config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA256 # New data uses SHA256
+    config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA1 # New data uses SHA256, but old rails had this as a default
     config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true # Allows decryption of old SHA1 data
   end
 end
