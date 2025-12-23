@@ -103,6 +103,7 @@ es:
         support_date: Fecha del soporte
         support_type: Tipo de soporte
         textable: Textable
+        consent_to_survey: Consentimiento para la encuesta
         ultrasound_cost: Costo del ultrasonido
         voicemail_preference: Preferencia de correo de voz
         zipcode: Código postal

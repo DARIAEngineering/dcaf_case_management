@@ -103,6 +103,7 @@ en:
         support_date: Support date
         support_type: Support type
         textable: Textable
+        consent_to_survey: Consent to survey
         ultrasound_cost: Ultrasound cost
         voicemail_preference: Voicemail preference
         zipcode: Zipcode
