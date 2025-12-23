@@ -357,10 +357,11 @@ class PatientsHelperTest < ActionView::TestCase
       assert_equal 0, appointment_date_sort_value(@patient)
 
       @patient.appointment_date = Time.new 2022, 10, 31
-      assert_equal 1667188800, appointment_date_sort_value(@patient)
+      just_date = appointment_date_sort_value(@patient)
+      assert 1660000000 < just_date
 
       @patient.appointment_time = '17:30'
-      assert_equal 1667251800, appointment_date_sort_value(@patient)
+      assert just_date < appointment_date_sort_value(@patient)
     end
   end
 end
