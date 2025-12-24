@@ -350,4 +350,18 @@ class PatientsHelperTest < ActionView::TestCase
       assert_equal '10/31/2022 @ 5:30 PM (multi-day)', appointment_date_display(@patient)
     end
   end
+
+  describe 'appointment_date_sort_value' do
+    it 'should show appointment date and time as an int' do
+      @patient = create :patient
+      assert_equal 0, appointment_date_sort_value(@patient)
+
+      @patient.appointment_date = Time.new 2022, 10, 31
+      just_date = appointment_date_sort_value(@patient)
+      assert 1660000000 < just_date
+
+      @patient.appointment_time = '17:30'
+      assert just_date < appointment_date_sort_value(@patient)
+    end
+  end
 end

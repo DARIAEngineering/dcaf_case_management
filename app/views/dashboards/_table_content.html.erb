@@ -45,7 +45,7 @@
           </td>
 
           <td><%= patient.status %></td>
-          <td><%= appointment_date_display patient %></td>
+          <td data-sort-value="<%= appointment_date_sort_value patient %>"><%= appointment_date_display patient %></td>
           <td><%= patient.most_recent_note_display_text %> </td>
 
           <% if table_type == 'completed_calls' || table_type == 'shared_cases' %>
