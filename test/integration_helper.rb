@@ -86,4 +86,9 @@ module IntegrationHelper
     find('nav').click
     wait_for_ajax
   end
+
+  def fill_in_field_with_autosave(locator, with:)
+    fill_in locator, with: with
+    sleep 0.3 # let frontend debounce do its thing
+  end
 end

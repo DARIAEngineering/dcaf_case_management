@@ -27,9 +27,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   describe 'changing patient dashboard information' do
     describe 'updating name' do
       before do
-        fill_in 'First and last name', with: 'Susie Everyteen 2'
-        click_away_from_field
-        wait_for_ajax
+        fill_in_field_with_autosave 'First and last name', with: 'Susie Everyteen 2'
         reload_page_and_click_link 'Patient Information'
       end
 
@@ -74,9 +72,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
     describe 'updating appointment date' do
       before do
-        fill_in 'Appointment date', with: 5.days.from_now.strftime('%m/%d/%Y')
-        click_away_from_field
-        wait_for_ajax
+        fill_in_field_with_autosave 'Appointment date', with: 5.days.from_now.strftime('%m/%d/%Y')
         reload_page_and_click_link 'Patient Information'
       end
 
@@ -107,9 +103,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
     describe 'updating phone number' do
       before do
-        fill_in 'Phone number', with: '123-666-8888'
-        click_away_from_field
-        wait_for_ajax
+        fill_in_field_with_autosave 'Phone number', with: '123-666-8888'
         reload_page_and_click_link 'Patient Information'
       end
 
@@ -122,9 +116,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
     describe 'updating pronouns' do
       before do
-        fill_in 'Pronouns', with: 'they/them'
-        click_away_from_field
-        wait_for_ajax
+        fill_in_field_with_autosave 'Pronouns', with: 'they/them'
         reload_page_and_click_link 'Patient Information'
       end
 
@@ -298,7 +290,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
 
     it 'should flash failure on a bad field change' do
       fill_in 'Phone number', with: '111-222-3333445'
-      click_away_from_field
       assert has_text? 'Primary phone is the wrong length'
     end
   end
@@ -365,7 +356,6 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
   private
 
   def reload_page_and_click_link(link_text)
-    click_away_from_field
     visit authenticated_root_path
     visit edit_patient_path @patient
     click_link link_text
