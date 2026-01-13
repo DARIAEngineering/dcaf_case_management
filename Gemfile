@@ -94,7 +94,7 @@ group :development do
   gem "web-console" # Use console on exceptions pages [https://github.com/rails/web-console]
 
   # Custom
-  gem 'i18n-tasks', '~> 1.0.15' # check and clean i18n keys
+  gem 'i18n-tasks', '~> 1.1.2' # check and clean i18n keys
   gem 'rails-i18n', '~> 8.0' # dependency of i18n-tasks
   gem 'listen', '>= 3.0.5'
 
