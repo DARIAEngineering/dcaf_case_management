@@ -39,7 +39,6 @@
                         checked: patient.textable? %>
         <% if Config.display_consent_to_survey %>
           <%= f.check_box :consent_to_survey,
-                          label: t('activerecord.attributes.patient.consent_to_survey'),
                           checked: patient.consent_to_survey? %>
         <% end %>
 
