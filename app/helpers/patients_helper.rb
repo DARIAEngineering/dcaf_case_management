@@ -219,4 +219,10 @@ module PatientsHelper
     end
     timestamp.to_i
   end
+
+  def language_badge(patient)
+    return if patient.preferred_language.blank? || patient.preferred_language == 'English'
+    color = ['badge-primary', 'badge-secondary', 'badge-success', 'badge-info', 'badge-warning', 'badge-dark'][patient.preferred_language.bytes.sum % 6]
+    content_tag :span, "#{patient.preferred_language} speaker", class: "badge #{color}"
+  end
 end
