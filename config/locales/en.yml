@@ -182,6 +182,7 @@ en:
     email: Email
     for: for
     from: from
+    language_speaker: "%{language} speaker"
     medicaid: Medicaid
     naf: NAF
     name: Name
