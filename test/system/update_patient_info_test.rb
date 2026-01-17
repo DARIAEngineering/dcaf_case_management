@@ -18,6 +18,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     create_practical_support_config
     create_language_config
     create_referred_by_config
+    create_display_consent_to_survey
 
     log_in_as @user
     visit edit_patient_path @patient
@@ -215,6 +216,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
       fill_in 'Zipcode', with: '200091002'
       select 'Voicemail OK', from: 'patient_voicemail_preference'
       check 'Textable?'
+      check 'Consent to survey'
       wait_for_ajax
 
       select 'Spanish', from: 'patient_language'
@@ -250,6 +252,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
         assert has_field? 'Zipcode', with: '20009-1002'
         assert_equal 'yes', find('#patient_voicemail_preference').value
         assert has_checked_field?('Textable?')
+        assert has_checked_field?('Consent to survey')
         assert_equal 'Spanish', find('#patient_language').value
 
         assert_equal 'Part-time', find('#patient_employment_status').value

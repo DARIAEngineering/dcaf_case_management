@@ -320,5 +320,27 @@ class UpdatingConfigsTest < ApplicationSystemTestCase
         end
       end
     end
+
+    describe 'updating a config - display_consent_to_survey' do
+      it 'should display dropdown if procedure types are specified' do
+        fill_in 'config_options_consent_to_survey', with: 'yes'
+        click_button 'Update options for Consent to survey'
+        visit edit_patient_path @patient
+        click_link 'Patient Information'
+        within :css, "#abortion-information-form-1" do
+          assert has_checkbox with_options: 'Consent to survey'
+        end
+      end
+
+      it 'should hide the dropdown when config removed' do
+        fill_in 'config_options_consent_to_survey', with: 'yes'
+        click_button 'Update options for Consent to survey'
+        visit edit_patient_path @patient
+        click_link 'Patient Information'
+        within :css, "#abortion-information-form-1" do
+          refute has_checkbox with_options: 'Consent to survey'
+        end
+      end
+    end
   end
 end

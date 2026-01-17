@@ -37,6 +37,10 @@
         <%= f.check_box :textable,
                         label: t('patient.information.textable'),
                         checked: patient.textable? %>
+        <% if Config.display_consent_to_survey %>
+          <%= f.check_box :consent_to_survey,
+                          checked: patient.consent_to_survey? %>
+        <% end %>
 
         <div class="row mt-4">
           <div class="col-8">
