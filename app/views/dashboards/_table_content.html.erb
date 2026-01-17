@@ -34,7 +34,7 @@
           <% end %>
 
           <td><%= patient.primary_phone_display %></td>
-          <td><%= link_to patient.name, edit_patient_path(patient) %></td>
+          <td><%= link_to patient.name, edit_patient_path(patient) %> <%= language_badge patient %></span></td>
 
           <td><%= patient.initial_call_date.display_date %></td>
 
@@ -45,7 +45,7 @@
           </td>
 
           <td><%= patient.status %></td>
-          <td><%= appointment_date_display patient %></td>
+          <td data-sort-value="<%= appointment_date_sort_value patient %>"><%= appointment_date_display patient %></td>
           <td><%= patient.most_recent_note_display_text %> </td>
 
           <% if table_type == 'completed_calls' || table_type == 'shared_cases' %>

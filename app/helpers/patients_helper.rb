@@ -209,4 +209,20 @@ module PatientsHelper
     end
     return day
   end
+
+  def appointment_date_sort_value(patient)
+    return 0 unless patient.appointment_date.present?
+
+    timestamp = patient.appointment_date.to_time
+    if patient.appointment_time
+      timestamp = timestamp.change(hour: patient.appointment_time.hour, min: patient.appointment_time.min)
+    end
+    timestamp.to_i
+  end
+
+  def language_badge(patient)
+    return if patient.preferred_language.blank? || patient.preferred_language == 'English'
+    color = ['badge-primary', 'badge-secondary', 'badge-success', 'badge-info', 'badge-warning', 'badge-dark'][patient.preferred_language.bytes.sum % 6]
+    content_tag :span, "#{patient.preferred_language} speaker", class: "badge #{color}"
+  end
 end

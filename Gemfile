@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.4.7'
+ruby '3.4.8'
 
 # Rails stock
 gem 'rails', '~> 8.1' # temp 72 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -41,7 +41,7 @@ gem 'bootstrap_form', '~> 4.5.0'
 gem 'devise', '~> 4.9'
 gem 'devise-security'
 gem 'omniauth-google-oauth2', '~> 1.2.1'
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem 'omniauth-rails_csrf_protection', '~> 2.0'
 
 # Stuff we're hardsetting because of security concerns
 gem 'loofah', '>= 2.3.1'

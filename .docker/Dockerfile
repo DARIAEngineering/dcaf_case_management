@@ -1,4 +1,4 @@
-FROM ruby:3.4.7-slim-bookworm
+FROM ruby:3.4.8-slim-bookworm
 MAINTAINER Colin Fleming <c3flemin@gmail.com>
 
 # configure environment variable
