@@ -182,6 +182,7 @@ en:
     email: Email
     for: for
     from: from
+    language_speaker: "%{language} speaker"
     medicaid: Medicaid
     naf: NAF
     name: Name
@@ -200,7 +201,6 @@ en:
     weeks_days: "%{weeks} weeks, %{days} days"
     weeks_days_short: "%{weeks}w %{days}d"
     'yes': 'Yes'
-    language_speaker: "%{language} speaker"
   configs:
     config:
       current_options: 'Current options are:'
