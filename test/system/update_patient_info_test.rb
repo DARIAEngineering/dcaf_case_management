@@ -18,6 +18,7 @@ class UpdatePatientInfoTest < ApplicationSystemTestCase
     create_practical_support_config
     create_language_config
     create_referred_by_config
+    create_display_consent_to_survey
 
     log_in_as @user
     visit edit_patient_path @patient
