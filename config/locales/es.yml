@@ -200,6 +200,7 @@ es:
     weeks_days: "%{weeks} semanas, %{days} días"
     weeks_days_short: "%{weeks}s %{days}d"
     'yes': Sí
+    language_speaker: "Hablante de %{language}"
   configs:
     config:
       current_options: 'Las opciones actuales son:'

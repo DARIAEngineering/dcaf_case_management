@@ -221,8 +221,8 @@ module PatientsHelper
   end
 
   def language_badge(patient)
-    return if patient.preferred_language.blank? || patient.preferred_language == 'English'
+    return if patient.language.blank? || patient.language == 'English'
     color = ['badge-primary', 'badge-secondary', 'badge-success', 'badge-info', 'badge-warning', 'badge-dark'][patient.preferred_language.bytes.sum % 6]
-    content_tag :span, "#{patient.preferred_language} speaker", class: "badge #{color}"
+    content_tag :span, t('common.language_speaker', language: patient.language), class: "badge #{color}"
   end
 end
