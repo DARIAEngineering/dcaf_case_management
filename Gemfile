@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.4.7'
+ruby '3.4.8'
 
 # Rails stock
 gem 'rails', '~> 8.1' # temp 72 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
