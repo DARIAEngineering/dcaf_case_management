@@ -364,4 +364,20 @@ class PatientsHelperTest < ActionView::TestCase
       assert just_date < appointment_date_sort_value(@patient)
     end
   end
+
+  describe 'language_badge' do
+    before { @patient = create :patient }
+
+    it 'should return nil if blank or english' do
+      @patient.language = 'English'
+      assert_nil language_badge(@patient)
+      @patient.language = nil
+      assert_nil language_badge(@patient)
+    end
+
+    it 'should return a span if a language' do
+      @patient.language = 'Spanish'
+      assert_equal '<span class="badge badge-primary">Spanish speaker</span>', language_badge(@patient)      
+    end
+  end
 end
