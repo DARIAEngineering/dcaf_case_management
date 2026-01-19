@@ -35,7 +35,7 @@ gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 # Asset pipeline
 gem 'sprockets-rails'
 gem 'jsbundling-rails'
-gem 'bootstrap_form', '~> 4.5.0'
+gem 'bootstrap_form', '~> 5.5.0'
 
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.9'
