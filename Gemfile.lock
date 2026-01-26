@@ -154,7 +154,7 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    faker (3.5.3)
+    faker (3.6.0)
       i18n (>= 1.8.11, < 2)
     faraday (2.14.0)
       faraday-net_http (>= 2.0, < 3.5)
@@ -355,7 +355,7 @@ GEM
       date
       stringio
     public_suffix (7.0.0)
-    puma (7.1.0)
+    puma (7.2.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -462,7 +462,7 @@ GEM
       bundler-audit (~> 0.9.0)
     rubyzip (3.2.2)
     securerandom (0.4.1)
-    selenium-webdriver (4.39.0)
+    selenium-webdriver (4.40.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -524,7 +524,7 @@ GEM
     tsort (0.2.0)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
-    twilio-ruby (7.9.1)
+    twilio-ruby (7.10.0)
       faraday (>= 0.9, < 3.0)
       jwt (>= 1.5, < 4.0)
       nokogiri (>= 1.6, < 2.0)
@@ -604,7 +604,7 @@ DEPENDENCIES
   pg (~> 1.6)
   prawn
   pry
-  puma (~> 7.1)
+  puma (~> 7.2)
   rack-attack (~> 6.8.0)
   rack-test (>= 0.6.3)
   rails (~> 8.1)
