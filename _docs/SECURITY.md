@@ -51,6 +51,25 @@ Application-level encryption covers:
 
 For Patient PII, `primary_phone` uses deterministic encryption (allowing exact-match lookups for uniqueness validation), while all other fields use non-deterministic encryption for maximum security. Patient search uses in-memory filtering after decryption, preserving the same fuzzy-search experience for case managers.
 
+#### PaperTrail PII scrubbing
+
+PaperTrail version records created before application-level encryption was enabled may contain plaintext PII in their JSON columns. A nightly scrub task permanently removes PII keys (`name`, `primary_phone`, `other_phone`, `other_contact`, `other_contact_relationship`, `city`, `state`, `county`, `zipcode`) from all Patient version records, preserving the audit trail (who changed what, when) without leaking sensitive data.
+
+To run manually: `rails security:scrub_patient_pii`
+
+The scrub also runs automatically as part of the nightly cleanup task.
+
+#### Encryption key rotation
+
+If encryption keys need to be rotated (e.g., after a suspected compromise), the following procedure re-encrypts all data with new keys:
+
+1. Generate new encryption key values
+2. In `config/application.rb`, change `primary_key` to an array: `[new_key, old_key]` — Rails will encrypt with the first key and decrypt with any key in the list
+3. Do the same for `deterministic_key` and `key_derivation_salt` if rotating those
+4. Deploy the updated configuration
+5. Run `rails encryption:rotate_keys` to re-encrypt all Patient, Note, Event, and Clinic records with the new key
+6. Once all records are re-encrypted, remove the old key from the array
+
 ### Code review
 
 The first line of defense is a regular review of code as it is developed and deployed. We accomplish this through two main means.

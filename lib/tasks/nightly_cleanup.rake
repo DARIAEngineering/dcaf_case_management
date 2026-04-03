@@ -10,6 +10,9 @@ task nightly_cleanup: :environment do
   PaperTrailVersion.destroy_old
   puts "#{Time.now} -- destroyed old audit objects"
 
+  PaperTrailVersion.scrub_patient_pii
+  puts "#{Time.now} -- scrubbed PII from Patient audit objects"
+
   if Time.zone.now.monday?
     # Run these events weekly
     Clinic.update_all_coordinates
