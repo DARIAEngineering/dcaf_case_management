@@ -2,7 +2,20 @@
 class Patient < ApplicationRecord
   acts_as_tenant :fund
 
+  # Encryption
+  encrypts :name
+  encrypts :primary_phone, deterministic: true
+  encrypts :other_phone
+  encrypts :other_contact
+  encrypts :other_contact_relationship
+  encrypts :city
+  encrypts :state
+  encrypts :county
+  encrypts :zipcode
+
   # Concerns
+  PAPER_TRAIL_IGNORE = %i[name primary_phone other_phone other_contact
+                          other_contact_relationship city state county zipcode].freeze
   include PaperTrailable
   include Shareable
   include Callable

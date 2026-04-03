@@ -41,7 +41,15 @@ HIPAA compliance applies to people storing certain protected health information.
 
 We have a few approaches we leverage here. The first is that we use a database service that uses disk encryption (commonly called 'encryption at rest'), meaning that if someone were to pop the drive out it wouldn't be readable by another computer. This works similar to the disk encryption on PCs/Macs, like FileVault. This covers all data in DARIA.
 
-For some particularly sensitive pieces of data (that we don't have to fuzzy-search on), we encrypt that data on the application level. This means that it's sent to the application encrypted and the app knows how to decode it into something readable, providing an additional layer of safety beyond encryption at rest. This is similar to how passwords are stored and used.
+For sensitive pieces of data, we encrypt that data on the application level using Rails Active Record Encryption. This means that it's sent to the application encrypted and the app knows how to decode it into something readable, providing an additional layer of safety beyond encryption at rest. This is similar to how passwords are stored and used.
+
+Application-level encryption covers:
+- **Patient PII**: name, phone numbers, contact information, and geographic fields (city, state, county, zipcode)
+- **Notes**: full text of case manager notes
+- **Events**: case manager name and patient name on logged events
+- **Clinics**: name, address, phone, fax, and email
+
+For Patient PII, `primary_phone` uses deterministic encryption (allowing exact-match lookups for uniqueness validation), while all other fields use non-deterministic encryption for maximum security. Patient search uses in-memory filtering after decryption, preserving the same fuzzy-search experience for case managers.
 
 ### Code review
 

@@ -120,13 +120,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should create an associated fulfillment object' do
       post patients_path, params: { patient: @new_patient }
-      assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
+      assert_not_nil Patient.find_by(primary_phone: @new_patient[:primary_phone].gsub(/\D/, '')).fulfillment
     end
 
     it 'should ignore pledge fulfillment attributes' do
       @new_patient[:fulfillment_attributes] = attributes_for :fulfillment, fulfilled: true, fund_payout: 1_000
       post patients_path, params: { patient: @new_patient }
-      assert_nil Patient.find_by(name: 'Test Patient').fulfillment.fund_payout
+      assert_nil Patient.find_by(primary_phone: @new_patient[:primary_phone].gsub(/\D/, '')).fulfillment.fund_payout
     end
   end
 
@@ -377,7 +377,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should redirect to edit_patient_path afterwards' do
       post data_entry_create_path, params: { patient: @test_patient }
-      @created_patient = Patient.find_by(name: 'Test Patient')
+      @created_patient = Patient.find_by(primary_phone: @test_patient[:primary_phone].gsub(/\D/, ''))
       assert_redirected_to edit_patient_path @created_patient
     end
 
@@ -398,7 +398,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should create an associated fulfillment object' do
       post data_entry_create_path, params: { patient: @test_patient }
-      assert_not_nil Patient.find_by(name: 'Test Patient').fulfillment
+      assert_not_nil Patient.find_by(primary_phone: @test_patient[:primary_phone].gsub(/\D/, '')).fulfillment
     end
 
     it 'should fail to save if initial call date is nil' do

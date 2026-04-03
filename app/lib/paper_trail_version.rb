@@ -21,6 +21,15 @@ class PaperTrailVersion < PaperTrail::Version
     can_fulfill_id
     can_support_type
     can_support_id
+    name
+    primary_phone
+    other_phone
+    other_contact
+    other_contact_relationship
+    city
+    state
+    county
+    zipcode
   ].freeze
   DATE_FIELDS = %w[
     appointment_date

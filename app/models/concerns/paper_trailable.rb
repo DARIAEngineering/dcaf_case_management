@@ -3,8 +3,10 @@ module PaperTrailable
   extend ActiveSupport::Concern
 
   included do
-    has_paper_trail versions: { class_name: 'PaperTrailVersion',
-                                scope: -> { order(id: :desc) } }
+    pt_opts = { versions: { class_name: 'PaperTrailVersion',
+                            scope: -> { order(id: :desc) } } }
+    pt_opts[:ignore] = self::PAPER_TRAIL_IGNORE if const_defined?(:PAPER_TRAIL_IGNORE, false)
+    has_paper_trail(**pt_opts)
   end
 
   def created_by
