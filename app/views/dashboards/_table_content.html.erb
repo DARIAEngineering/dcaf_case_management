@@ -54,12 +54,11 @@
             <% if current_user.call_list_entries.map(&:patient_id).include?(patient.id) %>
               <td>
                 <%= link_to remove_patient_path(patient),
-                            method: :patch,
-                            data: { confirm: t('dashboard.table_content.remove_from_call_list_confirm',
+                            data: { turbo: true, turbo_method: :patch, turbo_stream: true,
+                                    turbo_confirm: t('dashboard.table_content.remove_from_call_list_confirm',
                                     name: patient.name) },
                             aria: { label: t('dashboard.table_content.remove_from_call_list_confirm',
-                                    name: patient.name)},
-                            remote: true do %>
+                                    name: patient.name)} do %>
                   <i class="fas fa-xmark fa-fw text-danger" aria-hidden="true"></i>
                   <span class="sr-only">Remove call</span>
                 <% end %>
@@ -68,8 +67,7 @@
               <td>
                 <%= link_to t('common.add'),
                             add_patient_path(patient),
-                            method: :patch,
-                            remote: true %>
+                            data: { turbo: true, turbo_method: :patch, turbo_stream: true } %>
               </td>
             <% end %>
           <% end %>
@@ -78,7 +76,7 @@
             <%= link_to new_patient_call_path(patient),
                         class: "call_button call-#{patient.primary_phone_display}",
                         aria: { label: "Call #{patient.primary_phone_display}" },
-                        remote: true do %>
+                        data: { turbo: true, turbo_stream: true } do %>
               <i class="fas fa-phone-alt fa-lg fa-fw call-icon"></i>
               <span class="sr-only">Call</span>
             <% end %>
@@ -92,8 +90,7 @@
     <%= link_to t('dashboard.table_content.clear_call_list'),
                 clear_current_user_call_list_path,
                 class: "float-right text-danger",
-                data: { confirm: t('dashboard.table_content.clear_call_list_confirm') },
-                method: :patch,
-                remote: true %>
+                data: { turbo: true, turbo_method: :patch, turbo_stream: true,
+                        turbo_confirm: t('dashboard.table_content.clear_call_list_confirm') } %>
   <% end %>
 </div>

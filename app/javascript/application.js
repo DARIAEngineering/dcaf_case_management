@@ -1,11 +1,10 @@
 // Entry point for the build script in package.json.
 // Core libraries (mostly just initializing)
 import './src/jquery';
-import {} from 'jquery-ujs'
 import './src/jquery-ui';
 import * as bootstrap from "bootstrap";
 
-// Hotwire Turbo — Drive disabled for incremental migration from jquery-ujs.
+// Hotwire Turbo — Drive disabled for incremental migration.
 // Individual forms opt in via data-turbo="true".
 import "@hotwired/turbo-rails"
 document.documentElement.setAttribute("data-turbo", "false")

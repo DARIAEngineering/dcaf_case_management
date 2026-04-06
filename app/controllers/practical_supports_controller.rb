@@ -9,7 +9,6 @@ class PracticalSupportsController < ApplicationController
     @note = @support.notes.new
     respond_to do |format|
       format.turbo_stream
-      format.js
     end
   end
 
@@ -20,13 +19,11 @@ class PracticalSupportsController < ApplicationController
       @support = @patient.reload.practical_supports.order(created_at: :desc)
       respond_to do |format|
         format.turbo_stream
-        format.js
       end
     else
       flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
       respond_to do |format|
         format.turbo_stream { render partial: 'layouts/flash_messages' }
-        format.js { render partial: 'layouts/flash_messages' }
       end
     end
   end
@@ -36,13 +33,11 @@ class PracticalSupportsController < ApplicationController
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
       respond_to do |format|
         format.turbo_stream
-        format.js
       end
     else
       flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
       respond_to do |format|
         format.turbo_stream { render partial: 'layouts/flash_messages' }
-        format.js { render partial: 'layouts/flash_messages' }
       end
     end
   end
@@ -52,7 +47,6 @@ class PracticalSupportsController < ApplicationController
     @support.destroy
     respond_to do |format|
       format.turbo_stream
-      format.js
     end
   end
 

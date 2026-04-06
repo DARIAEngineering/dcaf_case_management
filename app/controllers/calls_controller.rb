@@ -9,7 +9,6 @@ class CallsController < ApplicationController
     elsif @call.save
       respond_to do |format|
         format.turbo_stream
-        format.js
       end
     else
       head :bad_request
@@ -22,7 +21,6 @@ class CallsController < ApplicationController
     @patient = Patient.find params[:patient_id]
     respond_to do |format|
       format.turbo_stream
-      format.js
     end
   end
 
@@ -33,7 +31,6 @@ class CallsController < ApplicationController
     elsif call.destroy
       respond_to do |format|
         format.turbo_stream
-        format.js
       end
     else
       head :bad_request

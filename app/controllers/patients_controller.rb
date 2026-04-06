@@ -34,7 +34,6 @@ class PatientsController < ApplicationController
     @patient = Patient.find params[:patient_id]
     respond_to do |format|
       format.turbo_stream
-      format.js
     end
   end
 
@@ -122,9 +121,6 @@ class PatientsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        respond_to_update_for_js_format
-      end
-      format.js do
         respond_to_update_for_js_format
       end
       format.json do

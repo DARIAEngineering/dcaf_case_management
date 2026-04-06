@@ -25,7 +25,6 @@ class DashboardsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.js
     end  end
 
   def budget_bar

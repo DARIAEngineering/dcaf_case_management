@@ -45,7 +45,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     it 'should respond unauthorized if user is not admin - users_search' do
       User.roles.keys.reject { |role| role == 'admin' }.each do |role|
         @user.update role: role
-        post users_search_path, params: { search: '' }, xhr: true
+        post users_search_path, params: { search: '' }, as: :turbo_stream
         assert_response :unauthorized
       end
     end
@@ -85,12 +85,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   describe 'search method' do
     it 'should work on empty search' do
-      post users_search_path, params: { search: '' }, xhr: true
+      post users_search_path, params: { search: '' }, as: :turbo_stream
       assert_response :success
     end
 
     it 'should work on nonempty search' do
-      post users_search_path, params: { search: 'yolo' }, xhr: true
+      post users_search_path, params: { search: 'yolo' }, as: :turbo_stream
       assert_response :success
     end
   end

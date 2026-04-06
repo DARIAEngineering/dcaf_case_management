@@ -22,7 +22,6 @@ class AccountantsController < ApplicationController
     # modal via ajax.
     respond_to do |format|
       format.turbo_stream
-      format.js
     end
   end
 

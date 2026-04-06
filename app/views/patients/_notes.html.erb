@@ -4,7 +4,7 @@
   <%# this has a confusing doc structure; the shared flag checkbox needs to be same row as submit btn. %>
   <%= bootstrap_form_with model: [patient, note],
                           html: { id: 'notes-form' },
-                          local: false do |f| %>
+                          data: { turbo: true } do |f| %>
     <%= f.text_area :full_text,
                     size: '20x5',
                     placeholder: t('patient.notes.placeholder'),
@@ -20,7 +20,7 @@
 
       <%= bootstrap_form_with model: patient,
                               html: { id: 'shared-flag-form', class: 'text-right text-danger edit_patient' },
-                              local: false do |f| %>
+                              data: { turbo: true } do |f| %>
         <div class="col">
           <%= f.form_group :shared_flag do %>
             <%= f.check_box :shared_flag, label: t('patient.notes.shared_flag') %>

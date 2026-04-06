@@ -7639,15 +7639,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery-ujs@npm:1.2.3":
-  version: 1.2.3
-  resolution: "jquery-ujs@npm:1.2.3"
-  peerDependencies:
-    jquery: ">=1.8.0"
-  checksum: 10/7a6627893d738beb6c59b612904d6a911eea3ff9cb4914aa6f97e44687e35ccef4a8f6e38e5b9adb79d554e24494b7981f08da129b1b7f9993f425bb0e7323a3
-  languageName: node
-  linkType: hard
-
 "jquery@npm:3.7.1":
   version: 3.7.1
   resolution: "jquery@npm:3.7.1"
@@ -9279,7 +9270,6 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
     jquery: "npm:3.7.1"
-    jquery-ujs: "npm:1.2.3"
     popper.js: "npm:1.16.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"

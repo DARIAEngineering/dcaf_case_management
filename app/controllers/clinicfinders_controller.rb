@@ -15,7 +15,6 @@ class ClinicfindersController < ApplicationController
     @cheapest = nil # clinic_finder.locate_cheapest_clinic
     respond_to do |format|
       format.turbo_stream
-      format.js
     end
   end
 

@@ -14,7 +14,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'add_patient method' do
     before do
-      patch add_patient_path(@patient_1), xhr: true
+      patch add_patient_path(@patient_1), as: :turbo_stream
     end
 
     it 'should respond successfully' do
@@ -25,7 +25,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
       @user.reload
       assert_equal @user.call_list_entries.count, 1
       assert_difference '@user.call_list_entries.count', 1 do
-        patch add_patient_path(@patient_2), xhr: true
+        patch add_patient_path(@patient_2), as: :turbo_stream
         @user.reload
       end
       assert_equal @user.call_list_entries.count, 2
@@ -33,21 +33,21 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should not adjust the count if a patient is already in the list' do
       assert_no_difference '@user.call_list_entries.count' do
-        patch add_patient_path(@patient_1), xhr: true
+        patch add_patient_path(@patient_1), as: :turbo_stream
       end
     end
 
     it 'should should return not found on sketch ids' do
-      patch add_patient_path('nopatient'), xhr: true
+      patch add_patient_path('nopatient'), as: :turbo_stream
       assert_response :not_found
     end
   end
 
   describe 'remove_patient method' do
     before do
-      patch add_patient_path(@patient_1), xhr: true
-      patch add_patient_path(@patient_2), xhr: true
-      patch remove_patient_path(@patient_1), xhr: true
+      patch add_patient_path(@patient_1), as: :turbo_stream
+      patch add_patient_path(@patient_2), as: :turbo_stream
+      patch remove_patient_path(@patient_1), as: :turbo_stream
       @user.reload
     end
 
@@ -57,46 +57,46 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should remove a patient' do
       assert_difference '@user.call_list_entries.count', -1 do
-        patch remove_patient_path(@patient_2), xhr: true
+        patch remove_patient_path(@patient_2), as: :turbo_stream
         @user.reload
       end
     end
 
     it 'should do nothing if the patient is not currently in the call list' do
       assert_no_difference '@user.call_list_entries.count' do
-        patch remove_patient_path(@patient_1), xhr: true
+        patch remove_patient_path(@patient_1), as: :turbo_stream
       end
       assert_response :not_found
     end
 
     it 'should should return bad request on sketch ids' do
-      patch remove_patient_path('whatever'), xhr: true
+      patch remove_patient_path('whatever'), as: :turbo_stream
       assert_response :not_found
     end
   end
 
   describe 'clear_current_user_call_list method' do
     before do
-      patch add_patient_path(@patient_1), xhr: true
-      patch add_patient_path(@patient_2), xhr: true
+      patch add_patient_path(@patient_1), as: :turbo_stream
+      patch add_patient_path(@patient_2), as: :turbo_stream
       @user.reload
     end
 
     it 'should respond successfully' do
-      patch clear_current_user_call_list_path, xhr: true
+      patch clear_current_user_call_list_path, as: :turbo_stream
       assert_response :success
     end
 
     it 'should clear all call list patients for a user' do
       assert_difference '@user.call_list_entries.count', -2 do
-        patch clear_current_user_call_list_path, xhr: true
+        patch clear_current_user_call_list_path, as: :turbo_stream
         @user.reload
       end
     end
 
     it 'should not destroy patients' do
       assert_no_difference 'Patient.count' do
-        patch clear_current_user_call_list_path, xhr: true
+        patch clear_current_user_call_list_path, as: :turbo_stream
       end
     end
   end
@@ -112,7 +112,7 @@ class CallListsControllerTest < ActionDispatch::IntegrationTest
       @ids.shuffle!
 
       patch reorder_call_list_path, params: { order: @ids },
-                                    xhr: true
+                                    as: :turbo_stream
       @user.reload
     end
 

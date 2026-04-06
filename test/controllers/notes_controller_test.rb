@@ -11,13 +11,13 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     before do
       with_versioning(@user) do
         @note = attributes_for :note, full_text: 'This is a note'
-        post patient_notes_path(@patient), params: { note: @note }, xhr: true
+        post patient_notes_path(@patient), params: { note: @note }, as: :turbo_stream
       end
     end
 
     it 'should create and save a new note' do
       assert_difference 'Patient.find(@patient.id).notes.count', 1 do
-        post patient_notes_path(@patient), params: { note: @note }, xhr: true
+        post patient_notes_path(@patient), params: { note: @note }, as: :turbo_stream
       end
     end
 
@@ -32,7 +32,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     it 'should alert failure if there is not text or an associated patient' do
       @note[:full_text] = nil
       assert_no_difference 'Patient.find(@patient.id).notes.count' do
-        post patient_notes_path(@patient), params: { note: @note }, xhr: true
+        post patient_notes_path(@patient), params: { note: @note }, as: :turbo_stream
       end
       assert_response :bad_request
     end
@@ -41,7 +41,7 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
       with_versioning(@user) do
         support = @patient.practical_supports.create(attributes_for :practical_support)
         note = attributes_for :note, full_text: 'This is a note'
-        post practical_support_notes_path(support), params: { note: note }, xhr: true
+        post practical_support_notes_path(support), params: { note: note }, as: :turbo_stream
       end
     end
   end

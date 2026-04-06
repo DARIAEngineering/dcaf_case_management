@@ -13,21 +13,21 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
         @support = attributes_for :practical_support
         post patient_practical_supports_path(@patient),
              params: { practical_support: @support },
-             xhr: true
+             as: :turbo_stream
       end
     end
 
     it 'should create and save a new support record' do
       @support[:support_type] = 'different'
       assert_difference 'Patient.find(@patient.id).practical_supports.count', 1 do
-        post patient_practical_supports_path(@patient), params: { practical_support: @support }, xhr: true
+        post patient_practical_supports_path(@patient), params: { practical_support: @support }, as: :turbo_stream
       end
     end
 
     it 'should respond bad_request if the support record does not save' do
       # submitting a support with an invalid source
       invalid_support = attributes_for :practical_support, source: Faker::Lorem.characters(number: 151)
-      post patient_practical_supports_path(@patient), params: { practical_support: invalid_support }, xhr: true
+      post patient_practical_supports_path(@patient), params: { practical_support: invalid_support }, as: :turbo_stream
       assert response.body.include? 'failed to save'
     end
 
@@ -51,7 +51,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       @support_edits = { support_type: 'Lodging', support_date: 3.days.from_now.to_date }
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
-            xhr: true
+            as: :turbo_stream
       @support.reload
     end
 
@@ -74,7 +74,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
             @support_edits[:source] = bad_text
             patch patient_practical_support_path(@patient, @support),
                   params: { practical_support: @support_edits },
-                  xhr: true
+                  as: :turbo_stream
             assert response.body.include? 'failed to save'
           end
         end
@@ -85,7 +85,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       @support_edits[:amount] = nil
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
-            xhr: true
+            as: :turbo_stream
       assert response.body.include? 'saved'
     end
 
@@ -93,7 +93,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       @support_edits[:support_date] = nil
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
-            xhr: true
+            as: :turbo_stream
       assert response.body.include? 'saved'
     end
 
@@ -101,7 +101,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
       @support_edits[:amount] = -3
       patch patient_practical_support_path(@patient, @support),
             params: { practical_support: @support_edits },
-            xhr: true
+            as: :turbo_stream
       assert response.body.include? 'failed to save'
     end
   end
@@ -116,7 +116,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
 
     it 'should destroy a support record' do
       assert_difference 'Patient.find(@patient.id).practical_supports.count', -1 do
-        delete patient_practical_support_path(@patient, @support), xhr: true
+        delete patient_practical_support_path(@patient, @support), as: :turbo_stream
       end
     end
   end
@@ -130,7 +130,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should load' do
-      get edit_patient_practical_support_path(@patient, @support), xhr: true
+      get edit_patient_practical_support_path(@patient, @support), as: :turbo_stream
       assert response.status == 200
     end
   end
