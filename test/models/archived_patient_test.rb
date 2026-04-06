@@ -175,4 +175,58 @@ class ArchivedPatientTest < ActiveSupport::TestCase
        end
     end
   end
+
+  describe 'delete_expired_patients!' do
+    before do
+      @old_archived = create :archived_patient,
+                             line: @line,
+                             initial_call_date: 200.days.ago
+      @recent_archived = create :archived_patient,
+                                line: @line,
+                                initial_call_date: 10.days.ago
+    end
+
+    it 'should not delete anything when config is not set (default: keep forever)' do
+      assert_no_difference 'ArchivedPatient.count' do
+        ArchivedPatient.delete_expired_patients!
+      end
+    end
+
+    it 'should delete archived patients older than configured days' do
+      c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+      c.config_value = { options: ["90"] }
+      c.save!
+
+      # @archived_patient (200d) and @old_archived (200d) are both older than 90 days
+      old_count = ArchivedPatient.where('initial_call_date < ?', 90.days.ago.to_date).count
+      assert_difference 'ArchivedPatient.count', -old_count do
+        ArchivedPatient.delete_expired_patients!
+      end
+      assert_raises(ActiveRecord::RecordNotFound) { @old_archived.reload }
+    end
+
+    it 'should not delete archived patients within the configured window' do
+      c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+      c.config_value = { options: ["90"] }
+      c.save!
+
+      ArchivedPatient.delete_expired_patients!
+      assert_nothing_raised { @recent_archived.reload }
+    end
+
+    it 'should delete associated records when destroying archived patient' do
+      @old_archived.external_pledges.create!(source: 'Test Fund', amount: 100)
+      @old_archived.practical_supports.create!(support_type: 'Bus', source: 'Fund')
+
+      c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+      c.config_value = { options: ["90"] }
+      c.save!
+
+      assert_difference 'ExternalPledge.count', -1 do
+        assert_difference 'PracticalSupport.count', -1 do
+          ArchivedPatient.delete_expired_patients!
+        end
+      end
+    end
+  end
 end

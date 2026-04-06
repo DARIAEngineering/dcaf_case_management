@@ -10,10 +10,10 @@ class ArchivedPatient < ApplicationRecord
   # Relationships
   belongs_to :clinic, optional: true
   belongs_to :line
-  has_one :fulfillment, as: :can_fulfill
-  has_many :calls, as: :can_call
-  has_many :external_pledges, as: :can_pledge
-  has_many :practical_supports, as: :can_support
+  has_one :fulfillment, as: :can_fulfill, dependent: :destroy
+  has_many :calls, as: :can_call, dependent: :destroy
+  has_many :external_pledges, as: :can_pledge, dependent: :destroy
+  has_many :practical_supports, as: :can_support, dependent: :destroy
   belongs_to :pledge_generated_by, class_name: 'User', inverse_of: nil, optional: true
   belongs_to :pledge_sent_by, class_name: 'User', inverse_of: nil, optional: true
 
@@ -56,6 +56,16 @@ class ArchivedPatient < ApplicationRecord
         end
       end
     end
+  end
+
+  # Permanently delete archived patients older than the configured threshold.
+  # Skips if fund has not configured a deletion period (default: keep forever).
+  def self.delete_expired_patients!
+    days = Config.days_to_keep_archived_patients
+    return if days.nil?
+
+    cutoff_date = days.days.ago.to_date
+    ArchivedPatient.where('initial_call_date < ?', cutoff_date).destroy_all
   end
 
   # enforce procedure cost must be positive - otherwise nil
