@@ -1,0 +1,13 @@
+<%= turbo_stream.update "practical-support-entries" do %>
+  <%= render partial: "practical_supports/entries", locals: { patient: @patient } %>
+<% end %>
+
+<%= turbo_stream.update "practical-support-new-form" do %>
+  <%= render partial: "practical_supports/new", locals: { patient: @patient } %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <div data-controller="flash">
+    <%= render partial: "layouts/messages" %>
+  </div>
+<% end %>

@@ -23,8 +23,10 @@ class DashboardsController < ApplicationController
     @phone = searched_for_phone?(params[:search]) ? params[:search] : ''
     @name = searched_for_name?(params[:search]) ? params[:search] : ''
 
-    respond_to { |format| format.js }
-  end
+    respond_to do |format|
+      format.turbo_stream
+      format.js
+    end  end
 
   def budget_bar
     # We call these by interpolation in the view; these comments are to let i18n-health know we're using them

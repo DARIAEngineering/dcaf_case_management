@@ -7,6 +7,7 @@ class NotesController < ApplicationController
     if @note.save
       @notes = @object.reload.notes.order(created_at: :desc)
       respond_to do |format|
+        format.turbo_stream
         format.js
       end
     else
