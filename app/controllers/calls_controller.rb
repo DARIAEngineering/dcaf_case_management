@@ -27,7 +27,10 @@ class CallsController < ApplicationController
     if call.created_by != current_user || !call.recent?
       head :forbidden
     elsif call.destroy
-      respond_to { |format| format.js }
+      respond_to do |format|
+        format.turbo_stream
+        format.js
+      end
     else
       head :bad_request
     end

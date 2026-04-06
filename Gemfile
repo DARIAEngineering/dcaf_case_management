@@ -7,8 +7,8 @@ gem 'rails', '~> 8.1' # temp 72 # Bundle edge Rails instead: gem "rails", github
 gem "pg", "~> 1.6" # Use postgresql as the database for Active Record
 gem "puma", '~> 7.1' # roar # Use the Puma web server [https://github.com/puma/puma]
 # gem "importmap-rails" # Temp off # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-# gem "turbo-rails" # Temp off # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-# gem "stimulus-rails" # Temp off # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "turbo-rails" # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "stimulus-rails" # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "cssbundling-rails" # Temp off # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 # gem "jbuilder" # Stays off, we don't need it # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "bcrypt", "~> 3.1.7" # Stays off, we don't need it # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
