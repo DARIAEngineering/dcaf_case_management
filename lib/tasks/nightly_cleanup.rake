@@ -24,6 +24,11 @@ task nightly_cleanup: :environment do
       User.disable_inactive_users
       puts "#{Time.now} -- locked accounts of users who have not logged in since #{User::TIME_BEFORE_DISABLED_BY_FUND.ago} for fund #{fund.name}"
 
+      AuthFactor.where(registration_complete: false)
+                .where('created_at < ?', 1.hour.ago)
+                .destroy_all
+      puts "#{Time.now} -- cleaned up incomplete MFA registrations for fund #{fund.name}"
+
       Patient.trim_shared_patients
       puts "#{Time.now} -- trimmed shared patients for fund #{fund.name}"
 
