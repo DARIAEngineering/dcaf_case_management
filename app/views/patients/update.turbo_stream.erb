@@ -1,0 +1,34 @@
+<%= turbo_stream.update "patient_appointment_date" do %>
+  <small class="form-text"><%= t('patient.dashboard.approx_gestation', weeks: @patient.last_menstrual_period_at_appt_weeks, days: @patient.last_menstrual_period_at_appt_days) %></small>
+<% end %>
+
+<%= turbo_stream.update "patient_status_display" do %>
+  <%= @patient.status %>
+<% end %>
+
+<%= turbo_stream.update "patient_last_menstrual_period_weeks" do %>
+  <small class="form-text"><%= t('patient.dashboard.currently', weeks: @patient.last_menstrual_period_now_weeks, days: @patient.last_menstrual_period_now_days) %></small>
+<% end %>
+
+<%= turbo_stream.update "change_log" do %>
+  <%= render partial: "patients/change_log", locals: { patient: @patient } %>
+<% end %>
+
+<% if current_user.allowed_data_access? && @patient.pledge_sent? %>
+  <%= turbo_stream.update "pledge_fulfillment" do %>
+    <%= render partial: "patients/fulfillment", locals: { patient: @patient } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "pledge_fulfillment" do %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update "menu-pledge-button" do %>
+  <%= render "patients/menu_pledge_button", patient: @patient %>
+<% end %>
+
+<%= turbo_stream.update "flash" do %>
+  <div data-controller="flash">
+    <%= render partial: "layouts/messages" %>
+  </div>
+<% end %>

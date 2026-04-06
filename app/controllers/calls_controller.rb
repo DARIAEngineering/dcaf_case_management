@@ -7,7 +7,10 @@ class CallsController < ApplicationController
     if call_saved_and_patient_reached @call, params
       redirect_to edit_patient_path @patient
     elsif @call.save
-      respond_to { |format| format.js }
+      respond_to do |format|
+        format.turbo_stream
+        format.js
+      end
     else
       head :bad_request
     end
@@ -18,6 +21,7 @@ class CallsController < ApplicationController
   def new
     @patient = Patient.find params[:patient_id]
     respond_to do |format|
+      format.turbo_stream
       format.js
     end
   end
