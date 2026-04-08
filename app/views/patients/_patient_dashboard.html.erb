@@ -72,6 +72,27 @@
           </div>
         <% end %>
       </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          <label><%= t('patient.dashboard.handoff_label', default: 'Hand Off To') %></label>
+          <%= form_tag handoff_patient_path(patient), method: :post, class: 'd-flex flex-column gap-1' do %>
+            <%= select_tag :target_user_id,
+                           options_from_collection_for_select(
+                             User.where.not(id: current_user.id).where(disabled_by_fund: [false, nil]).order(:name),
+                             :id, :name
+                           ),
+                           prompt: t('patient.dashboard.handoff_select', default: 'Select case manager...'),
+                           class: 'form-select form-select-sm' %>
+            <%= text_field_tag :handoff_note, nil,
+                               placeholder: t('patient.dashboard.handoff_note_placeholder', default: 'Handoff note (optional)'),
+                               class: 'form-control form-control-sm' %>
+            <%= submit_tag t('patient.dashboard.handoff_button', default: 'Hand Off'),
+                           class: 'btn btn-sm btn-outline-primary',
+                           data: { confirm: t('patient.dashboard.confirm_handoff', default: 'Hand off this patient?') } %>
+          <% end %>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
