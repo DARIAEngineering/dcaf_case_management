@@ -65,7 +65,12 @@ class Config < ApplicationRecord
     aggregate_statistics: false,
     hide_standard_dropdown_values: false,
     county: nil,
-    time_zone: "Eastern"
+    time_zone: "Eastern",
+    procedure_type: nil,
+    show_patient_identifier: false,
+    display_practical_support_attachment_url: false,
+    display_practical_support_waiver: false,
+    display_consent_to_survey: false
   }.freeze
 
   enum :config_key, {
@@ -188,7 +193,12 @@ class Config < ApplicationRecord
   def self.autosetup
     config_keys.keys.each do |field|
       if Config.where(config_key: field).count != 1
-        Config.create config_key: field
+        default_value = DEFAULTS[field.to_sym]
+        config = Config.create config_key: field
+        # Set the default value if one is defined
+        if default_value.present?
+          config.update(config_value: { 'options' => [default_value.to_s] })
+        end
       end
     end
   end
