@@ -14,7 +14,7 @@ export default Select = ({
   ...props
 }) => {
   const labelClassNames = `${required ? 'required' : ''} ${labelClassName || ''}`
-  const selectClassNames = `form-control ${className || ''} ${labelClassNames.includes('sr-only') ? 'mt-6' : ''}`
+  const selectClassNames = `form-control ${className || ''} ${labelClassNames.includes('visually-hidden') ? 'mt-6' : ''}`
 
   if (!!onChange) {
     props["value"] = value || ""

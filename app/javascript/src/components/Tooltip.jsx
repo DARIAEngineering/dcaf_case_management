@@ -7,7 +7,7 @@ export default Tooltip = ({text}) => {
   }, [])
 
   return (
-    <span className="daria-tooltip tooltip-header-help" data-toggle="tooltip" data-html={true} data-placement="bottom" data-title={text}>
+    <span className="daria-tooltip tooltip-header-help" data-bs-toggle="tooltip" data-bs-html={true} data-bs-placement="bottom" data-bs-title={text}>
       {' '}(?)
     </span>
   )

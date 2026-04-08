@@ -11,9 +11,9 @@ describe("Tooltip", () => {
     render(<Tooltip text="some helper text" />);
     const tooltip = screen.getByText("(?)");
     expect(tooltip).toBeInTheDocument();
-    expect(tooltip).toHaveAttribute("data-toggle", "tooltip");
-    expect(tooltip).toHaveAttribute("data-html", "true");
-    expect(tooltip).toHaveAttribute("data-placement", "bottom");
-    expect(tooltip).toHaveAttribute("data-title", "some helper text");
+    expect(tooltip).toHaveAttribute("data-bs-toggle", "tooltip");
+    expect(tooltip).toHaveAttribute("data-bs-html", "true");
+    expect(tooltip).toHaveAttribute("data-bs-placement", "bottom");
+    expect(tooltip).toHaveAttribute("data-bs-title", "some helper text");
   });
 });

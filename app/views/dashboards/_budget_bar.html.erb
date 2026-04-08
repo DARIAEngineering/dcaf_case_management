@@ -2,7 +2,7 @@
   <% expenditures.each_pair do |type, patient_hashes| %>
     <% patient_hashes.each do |patient| %>
       <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>
-        <div data-toggle='popover' data-content='<%= budget_bar_expenditure_content(patient) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
+        <div data-bs-toggle='popover' data-bs-content='<%= budget_bar_expenditure_content(patient) %>' data-bs-placement='bottom' data-bs-html='true' class='expenditure-item'>
           <%= t "dashboard.budget_bar.#{type}_item",
                 amount: number_to_currency(patient[:fund_pledge],
                                            precision: 0,

@@ -40,10 +40,10 @@ describe("Input", () => {
 
   it("adds classes to the label when labelClassName is provided", () => {
     render(
-      <Input name="input" id="input" label="Input" labelClassName="sr-only" />
+      <Input name="input" id="input" label="Input" labelClassName="visually-hidden" />
     );
     const label = screen.queryByText("Input");
-    expect(label).toHaveAttribute("class", expect.stringMatching(/sr-only/));
+    expect(label).toHaveAttribute("class", expect.stringMatching(/visually-hidden/));
   });
 
   it("calls the onChange handler", async () => {

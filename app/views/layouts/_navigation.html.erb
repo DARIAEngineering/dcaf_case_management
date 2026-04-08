@@ -1,8 +1,8 @@
-<nav class="navbar navbar-inverse fixed-top navbar-expand-lg">
+<nav class="navbar navbar-dark fixed-top navbar-expand-lg">
   <div class="navbar-header">
     <%= link_to "DARIA - #{current_tenant.full_name}#{' - Development' if Rails.env.development?}", root_path, class: 'navbar-brand' %>
 
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" aria-controls="navbar-collapse" aria-expanded="false">
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-label="Toggle navigation" aria-controls="navbar-collapse" aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
     </button>
 

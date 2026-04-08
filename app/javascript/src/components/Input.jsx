@@ -17,7 +17,7 @@ export default Input = ({
 }) => {
   const [value, setValue] = useState(initialValue || "")
   const labelClassNames = `${required ? 'required' : ''} ${labelClassName || ''}`
-  const inputClassNames = `form-control ${className || ''} ${labelClassNames.includes('sr-only') ? 'mt-6' : ''}`
+  const inputClassNames = `form-control ${className || ''} ${labelClassNames.includes('visually-hidden') ? 'mt-6' : ''}`
 
   const handleChange = (e) => {
     setValue(e.target.value)
