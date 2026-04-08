@@ -42,6 +42,9 @@
         <%= f.date_field :support_date, autocomplete: 'off' %>
         <%= f.date_field :purchase_date, autocomplete: 'off' %>
 
+        <%= f.select :status, PracticalSupport.statuses.keys.map { |s| [s.titleize, s] },
+                     { label: t('activerecord.attributes.practical_support.status', default: 'Status') } %>
+
         <% if Config.display_practical_support_attachment_url? %>
           <%= f.text_field :attachment_url,
                             autocomplete: 'off',
