@@ -2,10 +2,64 @@
 
 @use './_variables';
 
-$budget-bar-font-size: 14px;
+$budget-bar-font-size: 13px;
+$budget-bar-height: 28px;
 
-.expenditure-block {
-  border-right: 1px solid variables.$black;
+// Card wrapper
+#budget-card {
+  border: none;
+  border-radius: 0.75rem;
+
+  .card-title {
+    font-weight: 600;
+    color: variables.$black;
+  }
+}
+
+// Progress bar
+.budget-bar {
+  height: $budget-bar-height;
+  border-radius: 0.5rem;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.budget-bar-segment {
+  font-size: $budget-bar-font-size;
   color: variables.$black !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  transition: width 0.8s ease-in-out;
+
+  &.bg-warning {
+    background: linear-gradient(180deg, #ffc107 0%, #e0a800 100%) !important;
+  }
+
+  &.bg-success {
+    background: linear-gradient(180deg, #28a745 0%, #1e7e34 100%) !important;
+    color: #fff !important;
+  }
+}
+
+.budget-bar-label {
+  display: inline-block;
+  padding: 0 4px;
+  line-height: $budget-bar-height;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+// Legend badges
+.budget-badge-pledged {
+  color: #ffc107;
+  font-size: 0.75rem;
+}
+
+.budget-badge-sent {
+  color: #28a745;
+  font-size: 0.75rem;
+}
+
+// Legend layout
+.budget-legend {
   font-size: $budget-bar-font-size;
 }

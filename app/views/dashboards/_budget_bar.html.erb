@@ -1,44 +1,61 @@
-<div class="progress mb-3" id='budget-progress-bar'>
-  <% expenditures.each_pair do |type, patient_hashes| %>
-    <% patient_hashes.each do |patient| %>
-      <div class="progress-bar <%= progress_bar_color type %> expenditure-block" style='<%= progress_bar_width patient[:fund_pledge], limit %>' role='progressbar'>
-        <div data-toggle='popover' data-content='<%= budget_bar_expenditure_content(patient) %>' data-placement='bottom' data-html='true' class='expenditure-item'>
-          <%= t "dashboard.budget_bar.#{type}_item",
-                amount: number_to_currency(patient[:fund_pledge],
-                                           precision: 0,
-                                           unit: '$',
-                                           format: '%u%n') %>
+<div class="card shadow-sm mb-3" id="budget-card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6 class="card-title mb-0"><%= t('dashboard.budget_bar.title', default: 'Fund Budget') %></h6>
+      <% if Config.show_aggregate_statistics? %>
+        <span class="text-muted small">
+          <%= number_to_currency(limit, precision: 0, unit: '$', format: '%u%n') %> cap
+        </span>
+      <% end %>
+    </div>
+
+    <div class="progress budget-bar mb-3" id="budget-progress-bar">
+      <% expenditures.each_pair do |type, patient_hashes| %>
+        <% patient_hashes.each do |patient| %>
+          <div class="progress-bar budget-bar-segment <%= progress_bar_color type %>"
+               style="<%= progress_bar_width patient[:fund_pledge], limit %>"
+               role="progressbar"
+               data-bs-toggle="popover"
+               data-bs-content="<%= budget_bar_expenditure_content(patient) %>"
+               data-bs-placement="bottom"
+               data-bs-html="true">
+            <span class="budget-bar-label">
+              <%= number_to_currency(patient[:fund_pledge], precision: 0, unit: '$', format: '%u%n') %>
+            </span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row budget-legend">
+      <% expenditures.each_pair do |type, patient_hashes| %>
+        <div class="col-auto mb-1">
+          <span class="badge budget-badge-<%= type %>">●</span>
+          <span class="small">
+            <%= budget_bar_statistic(t("dashboard.budget_bar.#{type}"),
+                                     expenditures[type],
+                                     limit: limit,
+                                     show_aggregate_statistics: Config.show_aggregate_statistics?) %>
+          </span>
         </div>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+      <% end %>
 
-<div class="row" id='budget-report'>
-  <% expenditures.each_pair do |type, patient_hashes| %>
-    <div class="col-sm-3">
-      <%= budget_bar_statistic(t("dashboard.budget_bar.#{type}"),
-                               expenditures[type],
-                               limit: limit,
-                               show_aggregate_statistics: Config.show_aggregate_statistics?) %>
+      <% if Config.show_aggregate_statistics? %>
+        <div class="col-12 mt-2 pt-2 border-top">
+          <div class="d-flex justify-content-between">
+            <strong class="small">
+              <%= budget_bar_statistic(t('dashboard.budget_bar.spent'),
+                                       expenditures.values.flatten,
+                                       limit: limit) %>
+            </strong>
+            <strong class="small text-end">
+              <%= budget_bar_statistic_builder(name: t('dashboard.budget_bar.remaining'),
+                                               amount: budget_bar_remaining(expenditures, limit),
+                                               limit: limit) %>
+            </strong>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <% if Config.show_aggregate_statistics? %>
-    <div class="col-sm-3">
-      <strong>
-        <%= budget_bar_statistic(t('dashboard.budget_bar.spent'),
-                                 expenditures.values.flatten,
-                                 limit: limit) %>
-      </strong>
-    </div>
-
-    <div class="col-sm-3">
-      <strong>
-        <%= budget_bar_statistic_builder(name: t('dashboard.budget_bar.remaining'),
-                                         amount: budget_bar_remaining(expenditures, limit),
-                                         limit: limit) %>
-      </strong>
-    </div>
-  <% end %>
+  </div>
 </div>
