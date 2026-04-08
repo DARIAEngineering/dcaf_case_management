@@ -66,7 +66,11 @@ Rails.application.routes.draw do
 
     resources :lines, only: [:new, :create]
     post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js }, as: 'clinicfinder_search'
-    resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
+    resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit] do
+      member do
+        post :verify_availability
+      end
+    end
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
 
