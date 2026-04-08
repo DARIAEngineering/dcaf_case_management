@@ -83,6 +83,12 @@ class Patient < ApplicationRecord
 
   validate :special_circumstances_length
 
+  scope :stale, ->(days) {
+    where('updated_at < ?', days.days.ago)
+      .where(resolved_without_fund: [false, nil])
+      .where(pledge_sent: [false, nil])
+  }
+
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]

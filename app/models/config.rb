@@ -27,7 +27,8 @@ class Config < ApplicationRecord
     show_patient_identifier: 'Enter "yes" to show the patient\' Daria Identifier on the patient information tab.',
     display_practical_support_attachment_url: 'CAUTION: Whether or not to allow people to enter attachment URLs for practical support entries; for example, a link to a file in Google Drive. Please ensure that any system storing these is properly secured by your fund!',
     display_practical_support_waiver: 'For funds that use waivers for practical support recipients. Enables the display of a checkbox for indicating if a patient has signed a practical support waiver. ',
-    display_consent_to_survey: 'For funds that do followup surveys, this displays a Consent to Survey checkbox under the Patient Information tab.'
+    display_consent_to_survey: 'For funds that do followup surveys, this displays a Consent to Survey checkbox under the Patient Information tab.',
+    stale_patient_days: 'Number of days with no activity before a patient is considered stale. Options: 2, 3, 5 (default), 7, 14, 30.'
   }.freeze
 
   # Whether a config should show a current options dropdown to the right
@@ -65,7 +66,8 @@ class Config < ApplicationRecord
     aggregate_statistics: false,
     hide_standard_dropdown_values: false,
     county: nil,
-    time_zone: "Eastern"
+    time_zone: "Eastern",
+    stale_patient_days: 5
   }.freeze
 
   enum :config_key, {
@@ -94,7 +96,8 @@ class Config < ApplicationRecord
     show_patient_identifier: 22,
     display_practical_support_attachment_url: 23,
     display_practical_support_waiver: 24,
-    display_consent_to_survey: 25
+    display_consent_to_survey: 25,
+    stale_patient_days: 28
   }
 
   # which fields are URLs (run special validation only on those)
@@ -165,6 +168,8 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_yes_or_no],
     display_consent_to_survey:
       [:validate_singleton, :validate_yes_or_no],
+    stale_patient_days:
+      [:validate_singleton, :validate_stale_patient_days],
   }.freeze
 
   before_validation :clean_config_value
@@ -266,6 +271,15 @@ class Config < ApplicationRecord
 
   def self.display_consent_to_survey
     config_to_bool('display_consent_to_survey')
+  end
+
+  STALE_PATIENT_DAY_OPTIONS = [2, 3, 5, 7, 14, 30].freeze
+
+  def self.stale_patient_days
+    days = Config.find_or_create_by(config_key: 'stale_patient_days').options.try :last
+    days = days.to_i if days.present?
+    days = DEFAULTS[:stale_patient_days] unless STALE_PATIENT_DAY_OPTIONS.include?(days)
+    days
   end
 
   private
@@ -419,5 +433,13 @@ class Config < ApplicationRecord
         total_length += option.length
       end
       "Length of provided values is too long (over 4000 characters)" if total_length > 4000
+    end
+
+    ### Stale patient days
+
+    def validate_stale_patient_days
+      unless STALE_PATIENT_DAY_OPTIONS.include?(options.last.to_i)
+        "Must be one of: #{STALE_PATIENT_DAY_OPTIONS.join(', ')} days"
+      end
     end
 end
