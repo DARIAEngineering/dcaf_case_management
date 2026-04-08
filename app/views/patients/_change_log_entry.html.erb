@@ -1,4 +1,5 @@
 <% if revision.has_changed_fields? %>
+  <% cache revision do %>
   <tr class="patient-change-log-entry">
     <td><%= revision.date_of_change %></td>
     <td>
@@ -12,4 +13,5 @@
     </td>
     <td><%= revision.changed_by_user %></td>
   </tr>
+  <% end %>
 <% end %>
