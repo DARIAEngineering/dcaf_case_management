@@ -10,7 +10,8 @@ ENV DARIA_DIR=/usr/src/app \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
     DOCKER=true \
-    NODE_MAJOR=24
+    NODE_MAJOR=24 \
+    OPENSSL_VERSION=3.5.5
 
 # get our gem house in order
 WORKDIR ${DARIA_DIR}
@@ -24,8 +25,23 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
     ${BUILD_DEPENDENCIES} \
     ${APP_DEPENDENCIES} \
-    ${AHAB_DEPENDENCIES} && \
+    ${AHAB_DEPENDENCIES} \
+    perl wget && \
     gem install bundler --no-document
+
+# Build and install OpenSSL 3.5.5 LTS from source (replaces system OpenSSL 3.0.x)
+RUN cd /tmp && \
+    wget -q https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz && \
+    tar xzf openssl-${OPENSSL_VERSION}.tar.gz && \
+    cd openssl-${OPENSSL_VERSION} && \
+    ./Configure --prefix=/usr/local --libdir=lib --openssldir=/usr/local/ssl && \
+    make -j$(nproc) && \
+    make install_sw && \
+    ldconfig && \
+    cd / && rm -rf /tmp/openssl-${OPENSSL_VERSION}*
+
+# Rebuild Ruby's openssl gem against the new OpenSSL 3.5.5
+RUN gem install openssl -- --with-openssl-dir=/usr/local
 
 # nodejs installation
 RUN mkdir -p /etc/apt/keyrings
