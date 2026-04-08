@@ -85,7 +85,7 @@ GEM
     acts_as_tenant (0.6.1)
       rails (>= 5.2)
       request_store (>= 1.0.5)
-    addressable (2.8.8)
+    addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     afm (0.2.2)
     ast (2.4.3)
@@ -354,7 +354,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (7.0.0)
+    public_suffix (7.0.5)
     puma (7.1.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
