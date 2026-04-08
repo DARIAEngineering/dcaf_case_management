@@ -1,0 +1,54 @@
+<div class="dropdown me-2" id="notification-bell">
+  <button class="btn navbar-text position-relative" data-bs-toggle="dropdown"
+          aria-expanded="false" aria-label="<%= t('notifications.title') %>">
+    <span class="fa-solid fa-bell"></span>
+    <% unread_count = current_user.notifications.unread.count %>
+    <% if unread_count > 0 %>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            id="notification-count">
+        <%= unread_count > 99 ? '99+' : unread_count %>
+      </span>
+    <% end %>
+  </button>
+
+  <div class="dropdown-menu dropdown-menu-end notification-dropdown" style="width: 350px; max-height: 400px; overflow-y: auto;">
+    <h6 class="dropdown-header d-flex justify-content-between align-items-center">
+      <%= t('notifications.title') %>
+      <% if unread_count > 0 %>
+        <%= link_to t('notifications.mark_all_read'),
+            mark_all_read_notifications_path,
+            method: :patch,
+            class: 'small' %>
+      <% end %>
+    </h6>
+    <div class="dropdown-divider"></div>
+
+    <% notifications = current_user.notifications.for_dropdown %>
+    <% if notifications.empty? %>
+      <div class="dropdown-item text-center text-muted py-3">
+        <%= t('notifications.empty') %>
+      </div>
+    <% else %>
+      <% notifications.each do |notification| %>
+        <% if notification.link.present? %>
+          <%= link_to notification.link, class: "dropdown-item notification-item #{'fw-bold' unless notification.read?}" do %>
+            <div class="d-flex justify-content-between">
+              <span class="text-truncate"><%= notification.title %></span>
+              <small class="text-muted ms-2"><%= time_ago_in_words(notification.created_at) %></small>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="dropdown-item notification-item <%= 'fw-bold' unless notification.read? %>">
+            <div class="d-flex justify-content-between">
+              <span class="text-truncate"><%= notification.title %></span>
+              <small class="text-muted ms-2"><%= time_ago_in_words(notification.created_at) %></small>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="dropdown-divider"></div>
+    <%= link_to t('notifications.view_all'), notifications_path, class: 'dropdown-item text-center' %>
+  </div>
+</div>

@@ -369,6 +369,20 @@ en:
     user_tools:
       profile: My Profile
       sign_out: Sign Out
+  notifications:
+    title: Notifications
+    empty: No notifications
+    mark_read: Mark read
+    mark_all_read: Mark all read
+    view_all: View all notifications
+    all_marked_read: All notifications marked as read
+    types:
+      info: Info
+      follow_up: Follow Up
+      stale_patient: Stale Patient
+      handoff: Handoff
+      overdue_support: Overdue
+      system: System
   note:
     most_recent: 'Most recent note from %{by} at %{at}:'
   patient:

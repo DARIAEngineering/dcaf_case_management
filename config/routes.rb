@@ -70,6 +70,16 @@ Rails.application.routes.draw do
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]
 
+    # Notifications
+    resources :notifications, only: [:index] do
+      member do
+        patch :mark_read
+      end
+      collection do
+        patch :mark_all_read
+      end
+    end
+
     resources :auth_factors, only: [:new, :destroy]
     resources :build_auth_factor, only: [:show, :update], controller: 'auth_factor_steps'
   end
