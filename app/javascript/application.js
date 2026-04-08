@@ -5,6 +5,13 @@ import {} from 'jquery-ujs'
 import './src/jquery-ui';
 import * as bootstrap from "bootstrap";
 
+// Stimulus
+import { Application } from "@hotwired/stimulus";
+import AutosaveController from "./controllers/autosave_controller";
+
+const application = Application.start();
+application.register("autosave", AutosaveController);
+
 // Vendor
 import './src/vendor/jquery-bootstrap-modal-steps.min';
 
@@ -20,6 +27,3 @@ import './src/require_pledge_signature';
 import './src/table_sorting';
 import './src/toggle_full_call_list';
 import './src/tooltips';
-
-// React
-import './src/components/PatientDashboardForm';
