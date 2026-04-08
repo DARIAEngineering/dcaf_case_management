@@ -14,7 +14,7 @@ class Call < ApplicationRecord
   }
 
   # Relationships
-  belongs_to :can_call, polymorphic: true
+  belongs_to :can_call, polymorphic: true, touch: true
 
   # Validations
   validates :status,  presence: true

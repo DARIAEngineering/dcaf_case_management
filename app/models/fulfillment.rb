@@ -7,7 +7,7 @@ class Fulfillment < ApplicationRecord
   include PaperTrailable
 
   # Relationships
-  belongs_to :can_fulfill, polymorphic: true
+  belongs_to :can_fulfill, polymorphic: true, touch: true
 
   # Validations
   validates :fund_payout, :gestation_at_procedure, numericality: { only_integer: true,
