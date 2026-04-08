@@ -211,6 +211,7 @@ en:
   dashboard:
     activity_log:
       label: "%{current_line} Line Activity Log"
+    call: Call
     budget_bar:
       pledged: pledged
       pledged_item: "%{amount} pledged"
@@ -234,6 +235,7 @@ en:
       search_results: Search results
       shared_cases: Shared cases
       unconfirmed_support: Unconfirmed Practical Support
+      follow_ups: Follow-Ups Due
     search:
       header: Build your call list
       input_placeholder: Name (Susan Smith) or Phone (555-555-5555)
@@ -428,6 +430,9 @@ en:
       delete_label: 'Admin: Delete'
       phone: Phone number
       weeks_along: Weeks along at intake
+      follow_up_date: Follow-up date
+      follow_up_reason: Follow-up reason
+      follow_up_reason_placeholder: e.g. Check on funding status
     data_entry:
       patient_entry: Patient Entry
     helper:
