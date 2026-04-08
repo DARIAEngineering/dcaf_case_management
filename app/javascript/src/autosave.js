@@ -8,39 +8,32 @@ const fulfillmentFields = [
 ]
 
 const _markFulfilledWhenFieldsChecked = () => {
-  const fulfillmentCheckbox = $('#patient_fulfillment_attributes_fulfilled');
-  let check = false
+  const fulfillmentCheckbox = document.getElementById('patient_fulfillment_attributes_fulfilled');
+  let check = false;
   fulfillmentFields.forEach((field) => {
-    const hasData = $(field).val().length > 0;
-    if (hasData) {
+    const el = document.querySelector(field);
+    if (el && el.value.length > 0) {
       check = true;
     }
   });
-  fulfillmentCheckbox.prop('checked', check);
+  if (fulfillmentCheckbox) fulfillmentCheckbox.checked = check;
 };
 
 const activateAutosave = () => {
-  // Main patient form
-  $(document).on("change", ".edit_patient", function() {
-    $(this).submit();
-  });
+  // Delegated change handlers for auto-submitting forms
+  document.addEventListener('change', (e) => {
+    const form = e.target.closest('.edit_patient, .edit_practical_support, .edit_external_pledge');
+    if (form && !form.id.includes('pledge_fulfillment')) {
+      form.requestSubmit();
+      return;
+    }
 
-  // Practical support form
-  $(document).on("change", ".edit_practical_support", function() {
-    $(this).submit();
-  });
-
-  // Ext pledge form
-  $(document).on("change", ".edit_external_pledge", function() {
-    $(this).submit();
-  });
-
-  // Fulfillment form
-  // If any of the fields are chekced, mark the Fulfilled checkbox too
-  $(document).on("change", "#pledge_fulfillment_form", function() {
-    _markFulfilledWhenFieldsChecked();
-    $(this).submit();
+    // Fulfillment form
+    if (e.target.closest('#pledge_fulfillment_form')) {
+      _markFulfilledWhenFieldsChecked();
+      e.target.closest('#pledge_fulfillment_form').requestSubmit();
+    }
   });
 };
 
-$(document).on('DOMContentLoaded', activateAutosave);
+document.addEventListener('DOMContentLoaded', activateAutosave);

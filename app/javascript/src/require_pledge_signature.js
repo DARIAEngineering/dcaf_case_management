@@ -1,14 +1,15 @@
 // Require a pledge signature when generating a pledge.
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('submit', (e) => {
+    const form = e.target.closest('#generate-pledge-form');
+    if (!form) return;
 
-const requirePledgeSignature = () => {
-  $(document).on('submit', '#generate-pledge-form', function() {
-    if ($('#case_manager_name').val()) {
+    if (document.getElementById('case_manager_name')?.value) {
       return true;
     } else {
-      $("#generate-pledge-form .alert").show();
+      form.querySelector('.alert')?.style.setProperty('display', '');
+      e.preventDefault();
       return false;
     }
   });
-};
-
-$(document).on('DOMContentLoaded', requirePledgeSignature);
+});
