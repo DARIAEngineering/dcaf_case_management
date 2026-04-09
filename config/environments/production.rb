@@ -4,6 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Enable YJIT for improved Ruby performance (30-40% faster in typical Rails apps).
+  # Note: Rails 8.1+ enables YJIT by default; this is an explicit opt-in for clarity.
   config.yjit = true
 
   # Code is not reloaded between requests.
