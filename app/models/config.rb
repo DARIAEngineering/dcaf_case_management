@@ -97,7 +97,7 @@ class Config < ApplicationRecord
     display_practical_support_attachment_url: 23,
     display_practical_support_waiver: 24,
     display_consent_to_survey: 25,
-    session_timeout: 27
+    session_timeout: 26
   }
 
   # which fields are URLs (run special validation only on those)
@@ -276,6 +276,8 @@ class Config < ApplicationRecord
   SESSION_TIMEOUT_OPTIONS = [15, 30, 60, 120, 180].freeze
 
   def self.session_timeout
+    return DEFAULTS[:session_timeout].minutes if ActsAsTenant.current_tenant.nil?
+
     timeout = Config.find_or_create_by(config_key: 'session_timeout').options.try :last
     timeout = timeout.to_i if timeout.present?
     timeout = DEFAULTS[:session_timeout] unless SESSION_TIMEOUT_OPTIONS.include?(timeout)

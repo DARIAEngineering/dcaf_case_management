@@ -363,4 +363,59 @@ class ConfigTest < ActiveSupport::TestCase
     end
 
   end
+
+  describe 'session_timeout' do
+    it 'should have enum value 26' do
+      assert_equal 26, Config.config_keys['session_timeout']
+    end
+
+    it 'should return default 30 minutes when no tenant is set' do
+      ActsAsTenant.without_tenant do
+        assert_equal 30.minutes, Config.session_timeout
+      end
+    end
+
+    it 'should return configured timeout value when tenant is set' do
+      c = Config.find_or_create_by(config_key: 'session_timeout')
+      c.config_value = { options: ["60"] }
+      c.save!
+      assert_equal 60.minutes, Config.session_timeout
+    end
+
+    it 'should fall back to default for invalid timeout values' do
+      c = Config.find_or_create_by(config_key: 'session_timeout')
+      c.config_value = { options: ["999"] }
+      c.save!(validate: false)
+      assert_equal 30.minutes, Config.session_timeout
+    end
+
+    it 'should accept all valid timeout options' do
+      [15, 30, 60, 120, 180].each do |minutes|
+        c = Config.find_or_create_by(config_key: 'session_timeout')
+        c.config_value = { options: [minutes.to_s] }
+        c.save!
+        assert_equal minutes.minutes, Config.session_timeout
+      end
+    end
+
+    it 'should validate session_timeout values' do
+      c = Config.find_or_create_by(config_key: 'session_timeout')
+
+      c.config_value = { options: ["30"] }
+      assert c.valid?
+
+      c.config_value = { options: ["60"] }
+      assert c.valid?
+
+      c.config_value = { options: ["45"] }
+      refute c.valid?
+
+      c.config_value = { options: ["0"] }
+      refute c.valid?
+    end
+
+    it 'should have default value of 30' do
+      assert_equal 30, Config::DEFAULTS[:session_timeout]
+    end
+  end
 end
