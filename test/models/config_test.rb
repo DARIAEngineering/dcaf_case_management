@@ -182,6 +182,49 @@ class ConfigTest < ActiveSupport::TestCase
           assert Config.find_by(config_key: field.to_s)
         end
       end
+
+      it 'should handle boolean false defaults correctly (not skip them)' do
+        Config.autosetup
+        %w[show_patient_identifier display_practical_support_attachment_url
+           display_practical_support_waiver display_consent_to_survey].each do |key|
+          config = Config.find_by(config_key: key)
+          assert config, "Config #{key} should exist"
+          assert_equal "No", config.options.last,
+            "Boolean false default for #{key} should be translated to 'No'"
+        end
+      end
+
+      it 'should translate boolean true defaults to Yes' do
+        Config.autosetup
+        # shared_reset defaults to true
+        config = Config.find_by(config_key: 'shared_reset')
+        assert config
+        assert_equal "Yes", config.options.last
+      end
+
+      it 'should be idempotent' do
+        Config.autosetup
+        count_after_first = Config.count
+        Config.autosetup
+        assert_equal count_after_first, Config.count
+      end
+
+      it 'should not override existing config values' do
+        Config.autosetup
+        config = Config.find_by(config_key: 'budget_bar_max')
+        config.update!(config_value: { 'options' => ['5000'] })
+
+        Config.autosetup
+        config.reload
+        assert_equal '5000', config.options.last
+      end
+
+      it 'should set string defaults correctly' do
+        Config.autosetup
+        tz = Config.find_by(config_key: 'time_zone')
+        assert tz
+        assert_equal "Eastern", tz.options.last
+      end
     end
 
     describe '#budget_bar_max' do

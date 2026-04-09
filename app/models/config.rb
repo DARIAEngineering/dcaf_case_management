@@ -191,13 +191,19 @@ class Config < ApplicationRecord
   end
 
   def self.autosetup
+    existing_keys = Config.pluck(:config_key).to_set
     config_keys.keys.each do |field|
-      if Config.where(config_key: field).count != 1
+      unless existing_keys.include?(field)
         default_value = DEFAULTS[field.to_sym]
         config = Config.create config_key: field
-        # Set the default value if one is defined
-        if default_value.present?
-          config.update(config_value: { 'options' => [default_value.to_s] })
+        unless default_value.nil?
+          # Translate booleans to yes/no strings for DARIA's config system
+          string_value = case default_value
+                         when true then "Yes"
+                         when false then "No"
+                         else default_value.to_s
+                         end
+          config.update!(config_value: { 'options' => [string_value] })
         end
       end
     end
