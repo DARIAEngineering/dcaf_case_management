@@ -1,0 +1,66 @@
+require 'test_helper'
+
+class PatientHandoffTest < ActionDispatch::IntegrationTest
+  before do
+    @user = create :user
+    @target_user = create :user
+    @line = create :line
+    @patient = create :patient
+    sign_in @user
+    choose_line @line
+  end
+
+  describe 'handoff action' do
+    it 'should hand off patient to target user' do
+      post handoff_patient_path(@patient), params: {
+        target_user_id: @target_user.id,
+        handoff_note: 'Transferring for follow-up'
+      }
+      assert_redirected_to edit_patient_path(@patient)
+
+      @patient.reload
+      assert_equal @target_user.id, @patient.handed_off_to_id
+      assert_equal @user.id, @patient.handed_off_from_id
+      assert_equal 'Transferring for follow-up', @patient.handoff_note
+      assert_not_nil @patient.handed_off_at
+    end
+
+    it 'should create a note documenting the handoff' do
+      assert_difference '@patient.notes.count', 1 do
+        post handoff_patient_path(@patient), params: {
+          target_user_id: @target_user.id
+        }
+      end
+
+      note = @patient.notes.last
+      assert_match @user.name, note.full_text
+      assert_match @target_user.name, note.full_text
+    end
+
+    it 'should work without a handoff note' do
+      post handoff_patient_path(@patient), params: {
+        target_user_id: @target_user.id
+      }
+      assert_redirected_to edit_patient_path(@patient)
+
+      @patient.reload
+      assert_nil @patient.handoff_note
+    end
+
+    it 'should reject invalid target_user_id' do
+      assert_raises ActiveRecord::RecordNotFound do
+        post handoff_patient_path(@patient), params: {
+          target_user_id: 999999
+        }
+      end
+    end
+
+    it 'should set flash notice on success' do
+      post handoff_patient_path(@patient), params: {
+        target_user_id: @target_user.id
+      }
+      assert_match @patient.name, flash[:notice]
+      assert_match @target_user.name, flash[:notice]
+    end
+  end
+end

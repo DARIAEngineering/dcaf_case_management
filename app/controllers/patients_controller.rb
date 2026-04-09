@@ -159,40 +159,41 @@ class PatientsController < ApplicationController
 
   def handoff
     @patient = Patient.find(params[:id])
-    target_user = User.find(params[:target_user_id])
+    target_user = User.find_by!(id: params[:target_user_id])
 
-    # Remove from current user's call list (if present)
-    begin
-      current_user.remove_patient(@patient)
-    rescue ActiveRecord::RecordNotFound
-      # Patient wasn't on current user's call list — that's fine
+    ActiveRecord::Base.transaction do
+      # Remove from current user's call list (if present)
+      begin
+        current_user.remove_patient(@patient)
+      rescue ActiveRecord::RecordNotFound
+        # Patient wasn't on current user's call list — that's fine
+      end
+
+      # Add to target user's call list
+      target_user.add_patient(@patient)
+
+      # Record handoff metadata
+      @patient.update!(
+        handed_off_at: Time.current,
+        handed_off_from_id: current_user.id,
+        handed_off_to_id: target_user.id,
+        handoff_note: params[:handoff_note]
+      )
+
+      # Create a note documenting the handoff (PaperTrail tracks whodunnit)
+      @patient.notes.create!(
+        full_text: "Handed off from #{current_user.name} to #{target_user.name}#{params[:handoff_note].present? ? ": #{params[:handoff_note]}" : ''}"
+      )
+
+      # Send notification to receiving user
+      Notification.notify!(
+        user: target_user,
+        notification_type: "handoff",
+        title: "Patient handed off to you: #{@patient.name}",
+        body: "#{current_user.name} handed off #{@patient.name}#{params[:handoff_note].present? ? " — #{params[:handoff_note]}" : ''}",
+        link: edit_patient_path(@patient)
+      )
     end
-
-    # Add to target user's call list
-    target_user.add_patient(@patient)
-
-    # Record handoff metadata
-    @patient.update!(
-      handed_off_at: Time.current,
-      handed_off_from_id: current_user.id,
-      handed_off_to_id: target_user.id,
-      handoff_note: params[:handoff_note]
-    )
-
-    # Create a note documenting the handoff
-    @patient.notes.create!(
-      full_text: "Handed off from #{current_user.name} to #{target_user.name}#{params[:handoff_note].present? ? ": #{params[:handoff_note]}" : ''}",
-      created_by: current_user
-    )
-
-    # Send notification to receiving user
-    Notification.notify!(
-      user: target_user,
-      type: :handoff,
-      title: "Patient handed off to you: #{@patient.name}",
-      body: "#{current_user.name} handed off #{@patient.name}#{params[:handoff_note].present? ? " — #{params[:handoff_note]}" : ''}",
-      related: @patient
-    )
 
     flash[:notice] = t('flash.patient_handed_off', patient: @patient.name, user: target_user.name)
     redirect_to edit_patient_path(@patient)
