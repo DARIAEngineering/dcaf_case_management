@@ -31,8 +31,14 @@ class Notification < ApplicationRecord
     where(user: user).unread.update_all(read_at: Time.current)
   end
 
-  # Create and broadcast a notification via Solid Cable
-  def self.notify!(user:, title:, body: nil, notification_type: "info", link: nil)
+  # Create and broadcast a notification via Solid Cable.
+  # Accepts both canonical kwargs (notification_type:, link:) and legacy
+  # aliases (type:, related:) for backward compatibility with other branches.
+  def self.notify!(user:, title:, body: nil, notification_type: nil, link: nil, type: nil, related: nil)
+    # Support legacy keyword aliases
+    notification_type = notification_type || type || "info"
+    link = link || related
+
     notification = create!(
       user: user,
       title: title,

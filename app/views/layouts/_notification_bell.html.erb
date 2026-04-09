@@ -1,17 +1,17 @@
-<div class="dropdown me-2" id="notification-bell">
-  <button class="btn navbar-text position-relative" data-bs-toggle="dropdown"
+<div class="dropdown mr-2" id="notification-bell">
+  <button class="btn navbar-text position-relative" data-toggle="dropdown"
           aria-expanded="false" aria-label="<%= t('notifications.title') %>">
-    <span class="fa-solid fa-bell"></span>
+    <span class="fas fa-bell"></span>
     <% unread_count = current_user.notifications.unread.count %>
     <% if unread_count > 0 %>
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+      <span class="badge badge-pill badge-danger notification-badge"
             id="notification-count">
         <%= unread_count > 99 ? '99+' : unread_count %>
       </span>
     <% end %>
   </button>
 
-  <div class="dropdown-menu dropdown-menu-end notification-dropdown" style="width: 350px; max-height: 400px; overflow-y: auto;">
+  <div class="dropdown-menu dropdown-menu-right notification-dropdown" style="width: 350px; max-height: 400px; overflow-y: auto;">
     <h6 class="dropdown-header d-flex justify-content-between align-items-center">
       <%= t('notifications.title') %>
       <% if unread_count > 0 %>
@@ -31,17 +31,17 @@
     <% else %>
       <% notifications.each do |notification| %>
         <% if notification.link.present? %>
-          <%= link_to notification.link, class: "dropdown-item notification-item #{'fw-bold' unless notification.read?}" do %>
+          <%= link_to notification.link, class: "dropdown-item notification-item #{'font-weight-bold' unless notification.read?}" do %>
             <div class="d-flex justify-content-between">
               <span class="text-truncate"><%= notification.title %></span>
-              <small class="text-muted ms-2"><%= time_ago_in_words(notification.created_at) %></small>
+              <small class="text-muted ml-2"><%= time_ago_in_words(notification.created_at) %></small>
             </div>
           <% end %>
         <% else %>
-          <div class="dropdown-item notification-item <%= 'fw-bold' unless notification.read? %>">
+          <div class="dropdown-item notification-item <%= 'font-weight-bold' unless notification.read? %>">
             <div class="d-flex justify-content-between">
               <span class="text-truncate"><%= notification.title %></span>
-              <small class="text-muted ms-2"><%= time_ago_in_words(notification.created_at) %></small>
+              <small class="text-muted ml-2"><%= time_ago_in_words(notification.created_at) %></small>
             </div>
           </div>
         <% end %>
