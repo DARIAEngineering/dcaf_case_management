@@ -6,7 +6,7 @@
                           html: { id: 'notes-form' },
                           local: false do |f| %>
     <div class="mb-2">
-      <select id="note-template-selector" class="form-control form-control-sm"
+      <select id="note-template-selector" class="form-select form-select-sm"
               data-note-template-target="true">
         <option value=""><%= t('patient.notes.insert_template', default: 'Insert template...') %></option>
         <% NoteTemplate.available_to(current_user).each do |tmpl| %>
