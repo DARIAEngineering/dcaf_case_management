@@ -44,4 +44,20 @@ class CallTest < ActiveSupport::TestCase
       assert @call.respond_to? :created_by_id
     end
   end
+
+  describe 'russian-doll caching (touch: true)' do
+    it 'should update parent updated_at when call is created' do
+      patient = create :patient
+      original_updated_at = patient.updated_at
+
+      # Small sleep to ensure timestamp differs
+      travel 1.second do
+        create :call, can_call: patient
+      end
+
+      patient.reload
+      assert patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when a call is created'
+    end
+  end
 end
