@@ -118,4 +118,21 @@ class ClinicTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'fragment caching support' do
+    it 'should change cache_key_with_version when clinic is updated' do
+      key_before = @clinic.cache_key_with_version
+      @clinic.update!(name: 'Updated Clinic Name')
+      key_after = @clinic.cache_key_with_version
+
+      refute_equal key_before, key_after,
+                   'Cache key should change when clinic attributes change'
+    end
+
+    it 'should have a stable cache_key_with_version when unchanged' do
+      key1 = @clinic.cache_key_with_version
+      key2 = @clinic.cache_key_with_version
+      assert_equal key1, key2
+    end
+  end
 end
