@@ -13,21 +13,22 @@ class StalePatientAlertJob < ApplicationJob
           users = user_ids.any? ? User.where(id: user_ids) : User.where(role: [:admin])
 
           users.each do |user|
+            patient_link = "/patients/#{patient.id}/edit"
+
             # Skip if there's already an unread stale notification for this patient
             next if Notification.where(
               user: user,
-              notification_type: :stale_patient,
-              related_type: 'Patient',
-              related_id: patient.id,
+              notification_type: "stale_patient",
+              link: patient_link,
               read_at: nil
             ).exists?
 
             Notification.notify!(
               user: user,
-              type: :stale_patient,
+              notification_type: "stale_patient",
               title: "Stale patient: #{patient.name}",
               body: "No activity in #{days} days (last updated #{patient.updated_at.strftime('%b %d')})",
-              related: patient
+              link: patient_link
             )
           end
         end
