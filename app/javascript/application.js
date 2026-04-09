@@ -5,12 +5,9 @@ import {} from 'jquery-ujs'
 import './src/jquery-ui';
 import * as bootstrap from "bootstrap";
 
-// Stimulus
+// Stimulus foundation — controllers registered in their own PRs
 import { Application } from "@hotwired/stimulus";
-import AutosaveController from "./controllers/autosave_controller";
-
-const application = Application.start();
-application.register("autosave", AutosaveController);
+window.Stimulus = Application.start();
 
 // Vendor
 import './src/vendor/jquery-bootstrap-modal-steps.min';
