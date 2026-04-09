@@ -28,9 +28,12 @@ export default class extends Controller {
 
   disconnect() {
     this.clearTimers()
-    // Save any pending changes before teardown
+    // Use sendBeacon for reliable delivery during page unload
     if (this.dirty && !this.saving) {
-      this.save()
+      const formData = new FormData(this.element)
+      const url = this.urlValue || this.element.action
+      navigator.sendBeacon(url, formData)
+      this.dirty = false
     }
   }
 
@@ -57,14 +60,15 @@ export default class extends Controller {
 
     try {
       const formData = new FormData(this.element)
-      const token = document.querySelector('meta[name="csrf-token"]')?.content
+      const csrfMeta = document.querySelector('meta[name="csrf-token"]')
+      const token = csrfMeta ? csrfMeta.content : null
+
+      const headers = { "Accept": "application/json" }
+      if (token) headers["X-CSRF-Token"] = token
 
       const response = await fetch(this.urlValue || this.element.action, {
         method: "PATCH",
-        headers: {
-          "X-CSRF-Token": token,
-          "Accept": "application/json"
-        },
+        headers: headers,
         body: formData
       })
 
