@@ -34,7 +34,7 @@ module Daria2
     # temporary, can be removed in separate release once data migration for encrypted data is complete
     config.active_record.encryption.support_unencrypted_data = true
     # the first key in the list is the active key to perform encryptions, the rest of the list is decryption keys (to support key rotation)
-    # PQC dual-read: If PQC env vars are set, unwraps key via ML-KEM-1024 + AES-256-KW.
+    # PQC dual-read: If PQC env vars are set, unwraps key via ML-KEM-1024 + AES-256-GCM.
     # Otherwise falls back to raw ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY env var.
     primary_key = if ENV["PQC_ENABLED"] == "true"
                     require_relative "../app/services/pqc_key_manager"
