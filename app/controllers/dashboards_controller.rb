@@ -26,7 +26,8 @@ class DashboardsController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.js
-    end  end
+    end
+  end
 
   def budget_bar
     # We call these by interpolation in the view; these comments are to let i18n-health know we're using them
