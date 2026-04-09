@@ -1,6 +1,4 @@
 class NoteTemplatesController < ApplicationController
-  before_action :confirm_admin_user, only: [:destroy_fund_template]
-
   def index
     @templates = NoteTemplate.available_to(current_user)
     respond_to do |format|

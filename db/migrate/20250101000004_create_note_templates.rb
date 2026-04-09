@@ -1,4 +1,4 @@
-class CreateNoteTemplates < ActiveRecord::Migration[8.0]
+class CreateNoteTemplates < ActiveRecord::Migration[8.1]
   def change
     create_table :note_templates do |t|
       t.references :fund, null: false, foreign_key: true
@@ -8,6 +8,6 @@ class CreateNoteTemplates < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :note_templates, [:fund_id, :name], unique: true
+    add_index :note_templates, [:fund_id, :user_id, :name], unique: true
   end
 end
