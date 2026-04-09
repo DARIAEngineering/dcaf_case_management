@@ -7608,22 +7608,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery-ujs@npm:1.2.3":
-  version: 1.2.3
-  resolution: "jquery-ujs@npm:1.2.3"
-  peerDependencies:
-    jquery: ">=1.8.0"
-  checksum: 10/7a6627893d738beb6c59b612904d6a911eea3ff9cb4914aa6f97e44687e35ccef4a8f6e38e5b9adb79d554e24494b7981f08da129b1b7f9993f425bb0e7323a3
-  languageName: node
-  linkType: hard
-
-"jquery@npm:3.7.1":
-  version: 3.7.1
-  resolution: "jquery@npm:3.7.1"
-  checksum: 10/17be9929f5fa37697d9848284f0d108c543318ef79ec794e130cd0c49f6c050d60c803a69e8cfa16fa19f5ff7cdb814a6905cceab0831186560c65ed113cd579
-  languageName: node
-  linkType: hard
-
 "js-tokens@npm:^3.0.0 || ^4.0.0, js-tokens@npm:^4.0.0":
   version: 4.0.0
   resolution: "js-tokens@npm:4.0.0"
@@ -8697,13 +8681,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"popper.js@npm:1.16.1":
-  version: 1.16.1
-  resolution: "popper.js@npm:1.16.1"
-  checksum: 10/71338c86faf9b66ce60c3cdd7fb2ed742944e5d2765a188f269239fee2980aa6223b77b41302d1b6eb7d724e611092f9a2576d0048ac2071b605291abc72c0cf
-  languageName: node
-  linkType: hard
-
 "possible-typed-array-names@npm:^1.0.0":
   version: 1.0.0
   resolution: "possible-typed-array-names@npm:1.0.0"
@@ -9245,15 +9222,13 @@ __metadata:
     i18n-js: "npm:^4.5.1"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
-    jquery: "npm:3.7.1"
-    jquery-ujs: "npm:1.2.3"
-    popper.js: "npm:1.16.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-test-renderer: "npm:^19.1.1"
     sass: "npm:1.89.2"
     set-value: "npm:4.1.0"
-    stupid-table-plugin: "npm:1.1.3"
+    sortablejs: "npm:1.15.7"
+    tablesort: "npm:5.2.1"
     webpack: "npm:5.101.0"
     webpack-cli: "npm:6.0.1"
     webpack-dev-server: "npm:5.2.2"
@@ -9795,6 +9770,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sortablejs@npm:1.15.7":
+  version: 1.15.7
+  resolution: "sortablejs@npm:1.15.7"
+  checksum: 10/4ef195ec8512c48ba536c65fc8ab8ecf0bd05a918dc79d64213428edf12c8d5a6c18ff40f822d69d4716b764d860e0fdf8a467cf7ab6386f613aa4ea99ac5d42
+  languageName: node
+  linkType: hard
+
 "source-map-js@npm:>=0.6.2 <2.0.0":
   version: 1.0.2
   resolution: "source-map-js@npm:1.0.2"
@@ -10104,15 +10086,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stupid-table-plugin@npm:1.1.3":
-  version: 1.1.3
-  resolution: "stupid-table-plugin@npm:1.1.3"
-  peerDependencies:
-    jquery: ">= 1.7.0"
-  checksum: 10/2c059e020762c02fbd33026b2097b3f2dc84db5c8be97201e8e651c3f58d2208f48c3d46d1825892a3147607511872793956a5fe13d976469c6b733e889461ad
-  languageName: node
-  linkType: hard
-
 "supports-color@npm:^5.3.0":
   version: 5.5.0
   resolution: "supports-color@npm:5.5.0"
@@ -10151,6 +10124,13 @@ __metadata:
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
   checksum: 10/c09a00aadf279d47d0c5c46ca3b6b2fbaeb45f0a184976d599637d412d3a70bbdc043ff33effe1206dea0e36e0ad226cb957112e7ce9a4bf2daedf7fa4f85c53
+  languageName: node
+  linkType: hard
+
+"tablesort@npm:5.2.1":
+  version: 5.2.1
+  resolution: "tablesort@npm:5.2.1"
+  checksum: 10/dfe3b3eba0cd47f304ca3799f11e529088b5d0f8a74576003fb1fa47f6e75ea765edb7666d568733d0a08dc485a995f7c51188d15fc5c1d953fa8c3b4cf4f184
   languageName: node
   linkType: hard
 
