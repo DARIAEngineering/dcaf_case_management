@@ -4,7 +4,7 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DARIA_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev" \
+    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev perl wget" \
     APP_DEPENDENCIES="git sudo sassc" \
     AHAB_DEPENDENCIES="ca-certificates curl" \
     FONTCONFIG_PATH=/etc/fonts \
@@ -25,8 +25,7 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
     ${BUILD_DEPENDENCIES} \
     ${APP_DEPENDENCIES} \
-    ${AHAB_DEPENDENCIES} \
-    perl wget && \
+    ${AHAB_DEPENDENCIES} && \
     gem install bundler --no-document
 
 # Build and install OpenSSL 3.5.5 LTS from source (replaces system OpenSSL 3.0.x)
