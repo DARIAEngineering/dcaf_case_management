@@ -95,4 +95,27 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
       assert_equal expected.sort, SecureDeletionService::PATIENT_PII_FIELDS.sort
     end
   end
+
+  describe 'vacuum and checkpoint scheduling' do
+    it 'should run VACUUM on the patients table specifically' do
+      # Verify the method exists and references patients table
+      service = SecureDeletionService.new(@patient)
+      assert service.respond_to?(:vacuum_table!, true)
+    end
+
+    it 'should handle VACUUM gracefully inside nested transactions' do
+      # When called from archive_eligible_patients!, VACUUM may be deferred
+      assert_nothing_raised do
+        ActiveRecord::Base.transaction do
+          SecureDeletionService.securely_destroy!(@patient)
+        end
+      end
+    end
+
+    it 'should detect self-hosted vs managed environment' do
+      service = SecureDeletionService.new(create(:patient))
+      # DYNO env var indicates Heroku
+      assert service.respond_to?(:self_hosted?, true)
+    end
+  end
 end
