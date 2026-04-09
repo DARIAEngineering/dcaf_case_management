@@ -1,4 +1,4 @@
-class EncryptPatientPii < ActiveRecord::Migration[7.1]
+class EncryptPatientPii < ActiveRecord::Migration[8.1]
   def change
     # Remove indexes on columns that are now encrypted with non-deterministic
     # encryption. These indexes are meaningless on encrypted data since the
