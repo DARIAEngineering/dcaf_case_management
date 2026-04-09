@@ -1,4 +1,4 @@
-class AddFollowUpFieldsToPatients < ActiveRecord::Migration[8.0]
+class AddFollowUpFieldsToPatients < ActiveRecord::Migration[8.1]
   def change
     add_column :patients, :follow_up_date, :date
     add_column :patients, :follow_up_reason, :string, limit: 200

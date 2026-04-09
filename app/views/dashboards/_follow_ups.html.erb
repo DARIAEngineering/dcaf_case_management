@@ -1,10 +1,10 @@
 <% if patients.present? %>
   <div class="card mt-3" id="follow-ups-due">
-    <div class="card-header bg-warning bg-opacity-25">
+    <div class="card-header bg-warning">
       <h4 class="mb-0">
-        <span class="fa-solid fa-bell me-1"></span>
+        <span class="fas fa-bell mr-1"></span>
         <%= t('dashboard.partial_titles.follow_ups') %>
-        <span class="badge bg-warning text-dark"><%= patients.count %></span>
+        <span class="badge badge-warning"><%= patients.count %></span>
       </h4>
     </div>
     <div class="card-body p-0">
@@ -25,7 +25,7 @@
               <td><%= patient.follow_up_reason %></td>
               <td>
                 <%= link_to edit_patient_path(patient), class: 'btn btn-sm btn-outline-primary' do %>
-                  <span class="fa-solid fa-phone"></span> <%= t('dashboard.call') %>
+                  <span class="fas fa-phone"></span> <%= t('dashboard.call') %>
                 <% end %>
               </td>
             </tr>
