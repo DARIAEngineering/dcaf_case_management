@@ -23,11 +23,11 @@ class PracticalSupport < ApplicationRecord
   }
 
   STATUS_BADGE_COLORS = {
-    'requested' => 'bg-secondary',
-    'in_progress' => 'bg-info',
-    'confirmed' => 'bg-primary',
-    'completed' => 'bg-success',
-    'cancelled' => 'bg-danger'
+    'requested' => 'badge-secondary',
+    'in_progress' => 'badge-info',
+    'confirmed' => 'badge-primary',
+    'completed' => 'badge-success',
+    'cancelled' => 'badge-danger'
   }.freeze
 
   # Scopes
@@ -48,7 +48,7 @@ class PracticalSupport < ApplicationRecord
   before_save :track_status_change, if: :status_changed?
 
   def badge_color
-    STATUS_BADGE_COLORS[status] || 'bg-secondary'
+    STATUS_BADGE_COLORS[status] || 'badge-secondary'
   end
 
   private

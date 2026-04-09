@@ -10,20 +10,21 @@ class OverdueSupportAlertJob < ApplicationJob
 
           # Notify admins about overdue practical support
           User.where(role: :admin).find_each do |admin|
+            support_link = "/patients/#{patient.id}/edit"
+
             next if Notification.where(
               user: admin,
-              notification_type: :overdue_support,
-              related_type: 'PracticalSupport',
-              related_id: support.id,
+              notification_type: "overdue_support",
+              link: support_link,
               read_at: nil
             ).exists?
 
             Notification.notify!(
               user: admin,
-              type: :overdue_support,
+              notification_type: "overdue_support",
               title: "Overdue support: #{support.support_type}",
               body: "#{support.support_type} for #{patient.name} has been #{support.status} for #{((Time.current - support.created_at) / 1.day).round} days",
-              related: support
+              link: support_link
             )
           end
         end
