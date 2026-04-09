@@ -5,7 +5,7 @@ class ClinicsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: -> { head :bad_request }
 
   def index
-    @clinics = Clinic.all.sort_by { |c| [c.name] }
+    @clinics = Clinic.includes(:availability_verified_by).sort_by { |c| [c.name] }
     respond_to do |format|
       format.html
     end
