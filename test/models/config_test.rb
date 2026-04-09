@@ -417,5 +417,19 @@ class ConfigTest < ActiveSupport::TestCase
     it 'should have default value of 30' do
       assert_equal 30, Config::DEFAULTS[:session_timeout]
     end
+
+    it 'should be used by User#timeout_in for dynamic session timeout' do
+      user = create :user
+      c = Config.find_or_create_by(config_key: 'session_timeout')
+      c.config_value = { options: ["120"] }
+      c.save!
+      assert_equal 120.minutes, user.timeout_in
+    end
+
+    it 'should have session store configured with security attributes' do
+      store_config = Rails.application.config.session_options
+      assert_equal true, store_config[:httponly]
+      assert_equal :lax, store_config[:same_site]
+    end
   end
 end
