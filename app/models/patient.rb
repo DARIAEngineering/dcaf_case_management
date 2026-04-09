@@ -294,7 +294,8 @@ class Patient < ApplicationRecord
     Patient.distinct
            .where(line: line)
            .joins(:practical_supports)
-           .where({ practical_supports: { confirmed: false }, created_at: 3.months.ago.. })
+           .where(practical_supports: { status: [:requested, :in_progress] })
+           .where(created_at: 3.months.ago..)
   end
 
   # This is intended to protect against saving maliscious data sent via an edited request. It should

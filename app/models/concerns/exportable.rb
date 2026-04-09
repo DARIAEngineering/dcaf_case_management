@@ -193,12 +193,11 @@ module Exportable
     shaped_supports = practical_supports.map do |ps|
       src = ps.source
       typ = ps.support_type
-      confirmed = ps.confirmed? ? 'Confirmed' : 'Unconfirmed'
+      status_text = ps.status.titleize
       amt = ps.amount.present? ? number_to_currency(ps.amount) : '$0'
       url = ps.attachment_url.present? ? ps.attachment_url : 'No attachment'
-      fulfilled = ps.fulfilled? ? 'Fulfilled' : 'Not fulfilled'
       purchased_on = ps.purchase_date ? "Purchased on #{ps.purchase_date.display_date}" : "No purchase date"
-      "#{src} - #{typ} - #{confirmed} - #{amt} - #{url} - #{fulfilled} - #{purchased_on}"
+      "#{src} - #{typ} - #{status_text} - #{amt} - #{url} - #{purchased_on}"
     end
     shaped_supports.join('; ')
   end

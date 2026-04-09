@@ -13,8 +13,8 @@
     <%= f.text_field :attachment_url, autocomplete: 'off' %>
   <% end %>
 
-  <%= f.check_box :confirmed, label_class: 'tooltip-header-checkbox', data: { 'tooltip_text': practical_support_confirmed_help_text } %>
-  <%= f.check_box :fulfilled, label_class: 'tooltip-header-checkbox', data: { 'tooltip_text': practical_support_fulfilled_help_text } %>
+  <%= f.select :status, PracticalSupport.statuses.keys.map { |s| [s.titleize, s] },
+               { label: t('activerecord.attributes.practical_support.status', default: 'Status') } %>
   <br />
   <%= f.submit t('patient.practical_support.create'), class: 'btn btn-primary', id: 'create-practical-support' %>
 <% end %>

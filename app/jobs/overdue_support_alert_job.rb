@@ -23,7 +23,7 @@ class OverdueSupportAlertJob < ApplicationJob
               user: admin,
               notification_type: "overdue_support",
               title: "Overdue support: #{support.support_type}",
-              body: "#{support.support_type} for #{patient.name} has been #{support.status} for #{((Time.current - support.created_at) / 1.day).round} days",
+              body: "#{support.support_type} for #{patient.name} has been #{support.status} for #{((Time.current - (support.status_updated_at || support.created_at)) / 1.day).round} days",
               link: support_link
             )
           end

@@ -199,7 +199,7 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
     before do
       @patient.practical_supports.create support_type: 'lodging',
                                          source: 'Other (see notes)',
-                                         confirmed: false
+                                         status: :requested
     end
 
     it 'shows unconfirmed patients' do
@@ -210,15 +210,14 @@ class PracticalSupportBehaviorsTest < ApplicationSystemTestCase
       end
     end
 
-    it 'does not show confirmed patients' do
-      # set confirmed
+    it 'does not show approved patients' do
       go_to_practical_support_tab
 
       within :css, '#practical-support-entries' do
         click_link 'Update'
       end
       within :css, '.modal' do
-        check 'Confirmed'
+        select 'Approved', from: 'Status'
       end
       wait_for_ajax
 

@@ -44,7 +44,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
   describe 'update' do
     before do
       @patient.practical_supports.create support_type: 'Transit',
-                                         confirmed: false,
+                                         status: :requested,
                                          source: 'Transit',
                                          amount: 10
       @support = @patient.practical_supports.first
@@ -109,7 +109,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
   describe 'destroy' do
     before do
       @patient.practical_supports.create support_type: 'Transit',
-                                         confirmed: false,
+                                         status: :requested,
                                          source: 'Transit'
       @support = @patient.practical_supports.first
     end
@@ -124,7 +124,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
   describe 'edit' do
     before do
       @patient.practical_supports.create support_type: 'Transit',
-                                         confirmed: false,
+                                         status: :requested,
                                          source: 'Transit'
       @support = @patient.practical_supports.first
     end
