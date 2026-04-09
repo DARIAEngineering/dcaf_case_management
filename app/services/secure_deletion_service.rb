@@ -29,8 +29,19 @@ class SecureDeletionService
       @patient.destroy!
     end
 
-    vacuum_table!
-    checkpoint_wal! if self_hosted?
+    # VACUUM and checkpoint run after all transactions have committed.
+    # We use ActiveRecord::Base.connection.current_transaction.open? to check
+    # if we're still inside an outer transaction (e.g., archive_eligible_patients!).
+    if ActiveRecord::Base.connection.current_transaction.open?
+      # Still inside an outer transaction — schedule cleanup for after commit
+      ActiveRecord::Base.connection.after_transaction_commit do
+        vacuum_table!
+        checkpoint_wal! if self_hosted?
+      end
+    else
+      vacuum_table!
+      checkpoint_wal! if self_hosted?
+    end
   end
 
   private
@@ -53,7 +64,7 @@ class SecureDeletionService
 
   # Reclaim disk space so deleted data isn't recoverable from free pages
   def vacuum_table!
-    ActiveRecord::Base.connection.execute("VACUUM")
+    ActiveRecord::Base.connection.execute("VACUUM patients")
   rescue ActiveRecord::StatementInvalid => e
     # VACUUM may fail inside a transaction or on managed DBs — log and continue
     Rails.logger.warn("[SecureDeletion] VACUUM skipped: #{e.message}")
