@@ -20,7 +20,7 @@
            id="notification-<%= notification.id %>">
         <div class="d-flex w-100 justify-content-between">
           <h6 class="mb-1">
-            <span class="badge badge-<%= notification_badge_class(notification.notification_type) %> mr-1">
+            <span class="badge bg-<%= notification_badge_class(notification.notification_type) %> me-1">
               <%= t("notifications.types.#{notification.notification_type}") %>
             </span>
             <% if notification.link.present? %>
