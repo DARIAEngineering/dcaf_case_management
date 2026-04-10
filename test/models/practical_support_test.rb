@@ -85,6 +85,16 @@ class PracticalSupportTest < ActiveSupport::TestCase
       @psupport1.update_columns(status: 0, status_updated_at: 1.day.ago)
       refute_includes PracticalSupport.overdue, @psupport1
     end
+
+    it 'should fall back to created_at when status_updated_at is NULL' do
+      @psupport1.update_columns(status: 0, status_updated_at: nil, created_at: 10.days.ago)
+      assert_includes PracticalSupport.overdue, @psupport1
+    end
+
+    it 'should not flag as overdue when created recently with NULL status_updated_at' do
+      @psupport1.update_columns(status: 0, status_updated_at: nil, created_at: 1.day.ago)
+      refute_includes PracticalSupport.overdue, @psupport1
+    end
   end
 
   describe 'badge_color' do
@@ -110,6 +120,13 @@ class PracticalSupportTest < ActiveSupport::TestCase
     it 'should update status_updated_at when status changes' do
       @psupport1.update!(status: :in_progress)
       assert_not_nil @psupport1.status_updated_at
+    end
+
+    it 'should set status_updated_at on new records' do
+      support = @patient.practical_supports.create!(
+        support_type: 'Rides', source: 'Volunteer'
+      )
+      assert_not_nil support.status_updated_at
     end
   end
 

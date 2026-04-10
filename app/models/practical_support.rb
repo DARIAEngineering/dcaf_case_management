@@ -35,7 +35,7 @@ class PracticalSupport < ApplicationRecord
   # Scopes
   scope :overdue, -> {
     where(status: [:requested, :in_progress])
-      .where('status_updated_at < ?', 7.days.ago)
+      .where('COALESCE(status_updated_at, created_at) < ?', 7.days.ago)
   }
 
   scope :active, -> { where.not(status: [:completed, :cancelled]) }
@@ -48,6 +48,7 @@ class PracticalSupport < ApplicationRecord
 
   # Callbacks
   before_save :track_status_change, if: :status_changed?
+  after_initialize :set_initial_status_timestamp, if: :new_record?
 
   def badge_color
     STATUS_BADGE_COLORS[status] || 'badge-secondary'
@@ -57,5 +58,9 @@ class PracticalSupport < ApplicationRecord
 
   def track_status_change
     self.status_updated_at = Time.current
+  end
+
+  def set_initial_status_timestamp
+    self.status_updated_at ||= Time.current
   end
 end
