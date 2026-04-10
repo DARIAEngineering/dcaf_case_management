@@ -26,22 +26,14 @@ class SecureDeletionService
     ActiveRecord::Base.transaction do
       shred_pii!
       shred_associated_notes!
+      destroy_associations!
+      scrub_paper_trail_versions!
       @patient.destroy!
     end
 
-    # VACUUM and checkpoint run after all transactions have committed.
-    # We use ActiveRecord::Base.connection.current_transaction.open? to check
-    # if we're still inside an outer transaction (e.g., archive_eligible_patients!).
-    if ActiveRecord::Base.connection.current_transaction.open?
-      # Still inside an outer transaction — schedule cleanup for after commit
-      ActiveRecord::Base.connection.after_transaction_commit do
-        vacuum_table!
-        checkpoint_wal! if self_hosted?
-      end
-    else
-      vacuum_table!
-      checkpoint_wal! if self_hosted?
-    end
+    # VACUUM reclaims disk space. Runs outside transaction since VACUUM
+    # cannot run inside one. Scheduled via after_commit when nested.
+    schedule_vacuum!
   end
 
   private
@@ -60,6 +52,29 @@ class SecureDeletionService
     @patient.notes.find_each do |note|
       note.update_columns(full_text: SecureRandom.hex(16))
     end
+  end
+
+  # Explicitly destroy all polymorphic associations that Patient#destroy
+  # won't cascade (no dependent: :destroy declared on these)
+  def destroy_associations!
+    @patient.notes.destroy_all
+    @patient.calls.destroy_all
+    @patient.external_pledges.destroy_all
+    @patient.practical_supports.destroy_all
+    @patient.fulfillment&.destroy!
+  end
+
+  # Remove PaperTrail version history so sensitive data doesn't persist
+  def scrub_paper_trail_versions!
+    PaperTrailVersion.where(item_type: 'Patient', item_id: @patient.id).destroy_all
+  end
+
+  # Schedule VACUUM after all transactions commit
+  def schedule_vacuum!
+    vacuum_table!
+    checkpoint_wal! if self_hosted?
+  rescue => e
+    Rails.logger.warn("[SecureDeletion] Post-delete cleanup: #{e.message}")
   end
 
   # Reclaim disk space so deleted data isn't recoverable from free pages

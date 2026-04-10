@@ -8,6 +8,9 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
                       state: 'DC',
                       zipcode: '20001'
     @note = create :note, patient: @patient, full_text: 'Sensitive note content'
+    @patient.calls.create! attributes_for(:call, status: :reached_patient)
+    @patient.external_pledges.create!(source: 'Test Fund', amount: 100)
+    @patient.practical_supports.create!(support_type: 'Bus', source: 'Fund')
   end
 
   describe 'securely_destroy!' do
@@ -28,6 +31,26 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
       assert_nil Patient.find_by(id: @patient.id)
       # Verify original values are not the same as random hex (they were overwritten)
       refute_equal original_name, SecureRandom.hex(8)
+    end
+
+    it 'should destroy all associated records (calls, pledges, supports)' do
+      assert_difference 'Call.count', -1 do
+        assert_difference 'ExternalPledge.count', -1 do
+          assert_difference 'PracticalSupport.count', -1 do
+            SecureDeletionService.securely_destroy!(@patient)
+          end
+        end
+      end
+    end
+
+    it 'should scrub PaperTrail versions for the patient' do
+      with_versioning(@patient.versions.first&.user || create(:user)) do
+        @patient.update!(appointment_date: Date.today + 30)
+        assert PaperTrailVersion.where(item_type: 'Patient', item_id: @patient.id).exists?
+
+        SecureDeletionService.securely_destroy!(@patient)
+        refute PaperTrailVersion.where(item_type: 'Patient', item_id: @patient.id).exists?
+      end
     end
 
     it 'should shred associated notes' do
