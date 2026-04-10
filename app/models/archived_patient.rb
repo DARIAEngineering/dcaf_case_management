@@ -59,13 +59,14 @@ class ArchivedPatient < ApplicationRecord
   end
 
   # Permanently delete archived patients older than the configured threshold.
-  # Skips if fund has not configured a deletion period (default: keep forever).
+  # Uses created_at (when the record was archived) not initial_call_date,
+  # so a just-archived patient is retained for the full configured period.
   def self.delete_expired_patients!
     days = Config.days_to_keep_archived_patients
     return if days.nil?
 
-    cutoff_date = days.days.ago.to_date
-    ArchivedPatient.where('initial_call_date < ?', cutoff_date).destroy_all
+    cutoff_date = days.days.ago
+    ArchivedPatient.where('created_at < ?', cutoff_date).destroy_all
   end
 
   # enforce procedure cost must be positive - otherwise nil

@@ -181,6 +181,9 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       @old_archived = create :archived_patient,
                              line: @line,
                              initial_call_date: 200.days.ago
+      # Backdate created_at to simulate an old archive
+      @old_archived.update_column(:created_at, 200.days.ago)
+
       @recent_archived = create :archived_patient,
                                 line: @line,
                                 initial_call_date: 10.days.ago
@@ -192,26 +195,39 @@ class ArchivedPatientTest < ActiveSupport::TestCase
       end
     end
 
-    it 'should delete archived patients older than configured days' do
+    it 'should delete archived patients archived longer than configured days' do
       c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
       c.config_value = { options: ["90"] }
       c.save!
 
-      # @archived_patient (200d) and @old_archived (200d) are both older than 90 days
-      old_count = ArchivedPatient.where('initial_call_date < ?', 90.days.ago.to_date).count
+      # Uses created_at (archive time), not initial_call_date
+      old_count = ArchivedPatient.where('created_at < ?', 90.days.ago).count
       assert_difference 'ArchivedPatient.count', -old_count do
         ArchivedPatient.delete_expired_patients!
       end
       assert_raises(ActiveRecord::RecordNotFound) { @old_archived.reload }
     end
 
-    it 'should not delete archived patients within the configured window' do
+    it 'should not delete recently archived patients even with old call dates' do
       c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
       c.config_value = { options: ["90"] }
       c.save!
 
       ArchivedPatient.delete_expired_patients!
+      # recent_archived was just created (even though initial_call_date is 10d ago)
       assert_nothing_raised { @recent_archived.reload }
+    end
+
+    it 'should retain a just-archived patient with an old call date' do
+      # Patient had initial call 200 days ago but was just archived today
+      just_archived = create :archived_patient, line: @line,
+                             initial_call_date: 200.days.ago
+      c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+      c.config_value = { options: ["90"] }
+      c.save!
+
+      ArchivedPatient.delete_expired_patients!
+      assert_nothing_raised { just_archived.reload }
     end
 
     it 'should delete associated records when destroying archived patient' do
