@@ -34,5 +34,27 @@ class AutoSavePatientTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select '#patient_dashboard_form'
     end
+
+    it 'should update multiple fields in a single PATCH' do
+      patch patient_path(@patient), params: {
+        patient: { name: 'Updated Name', city: 'New City' }
+      }
+      @patient.reload
+      assert_equal 'Updated Name', @patient.name
+      assert_equal 'New City', @patient.city
+    end
+
+    it 'should not update patient from a different tenant' do
+      other_fund = create :fund
+      other_patient = nil
+      ActsAsTenant.with_tenant(other_fund) do
+        other_patient = create :patient, name: 'Other Tenant'
+      end
+      assert_raises(ActiveRecord::RecordNotFound) do
+        patch patient_path(other_patient), params: {
+          patient: { name: 'Cross Tenant' }
+        }
+      end
+    end
   end
 end

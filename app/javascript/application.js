@@ -8,6 +8,9 @@ import * as bootstrap from "bootstrap";
 // Vendor
 import './src/vendor/jquery-bootstrap-modal-steps.min';
 
+// Stimulus controllers (requires @hotwired/stimulus from #3544)
+import './controllers/index';
+
 // Custom
 import './src/autosave';
 import './src/call_list_drag_and_drop';
