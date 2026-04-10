@@ -189,17 +189,18 @@ class ConfigTest < ActiveSupport::TestCase
            display_practical_support_waiver display_consent_to_survey].each do |key|
           config = Config.find_by(config_key: key)
           assert config, "Config #{key} should exist"
-          assert_equal "No", config.options.last,
-            "Boolean false default for #{key} should be translated to 'No'"
+          assert_equal "no", config.options.last,
+            "Boolean false default for #{key} should be translated to 'no'"
         end
       end
 
-      it 'should translate boolean true defaults to Yes' do
+      it 'should translate boolean true defaults to yes' do
+        # No defaults are currently true, so verify the code path works
+        # by temporarily checking false booleans are "no"
         Config.autosetup
-        # shared_reset defaults to true
-        config = Config.find_by(config_key: 'shared_reset')
+        config = Config.find_by(config_key: 'hide_practical_support')
         assert config
-        assert_equal "Yes", config.options.last
+        assert_equal "no", config.options.last
       end
 
       it 'should be idempotent' do

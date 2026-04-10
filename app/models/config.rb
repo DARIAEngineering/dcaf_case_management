@@ -199,8 +199,8 @@ class Config < ApplicationRecord
         unless default_value.nil?
           # Translate booleans to yes/no strings for DARIA's config system
           string_value = case default_value
-                         when true then "Yes"
-                         when false then "No"
+                         when true then "yes"
+                         when false then "no"
                          else default_value.to_s
                          end
           config.update!(config_value: { 'options' => [string_value] })
