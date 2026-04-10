@@ -12,7 +12,6 @@ import './src/vendor/jquery-bootstrap-modal-steps.min';
 import './controllers/index';
 
 // Custom
-import './src/autosave';
 import './src/call_list_drag_and_drop';
 import './src/clinic_finder';
 import './src/clinics';
