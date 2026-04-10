@@ -3,6 +3,7 @@ class PatientsController < ApplicationController
   include ActionController::Live
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
+  before_action :confirm_handoff_authorization, only: [:handoff]
   before_action :find_patient, if: :should_preload_patient_with_versions?
   before_action :find_patient_minimal, if: :should_preload_patient_minimally?
   rescue_from ActiveRecord::RecordNotFound,
@@ -200,6 +201,16 @@ class PatientsController < ApplicationController
   end
 
   private
+
+  # Only the assigned CM or an admin can hand off a patient
+  def confirm_handoff_authorization
+    patient = Patient.find(params[:id])
+    is_assigned = CallListEntry.where(patient: patient, user: current_user).exists?
+    unless is_assigned || current_user.admin?
+      flash[:alert] = t('flash.not_authorized', default: 'Not authorized.')
+      redirect_to edit_patient_path(patient)
+    end
+  end
 
   # preload patient with versions for edit and js format update requests
   def should_preload_patient_with_versions?

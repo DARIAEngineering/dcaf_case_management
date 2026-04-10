@@ -8,6 +8,8 @@ class PatientHandoffTest < ActionDispatch::IntegrationTest
     @patient = create :patient
     sign_in @user
     choose_line @line
+    # Put patient on current user's call list (required for handoff auth)
+    @user.add_patient(@patient)
   end
 
   describe 'handoff action' do
@@ -61,6 +63,42 @@ class PatientHandoffTest < ActionDispatch::IntegrationTest
       }
       assert_match @patient.name, flash[:notice]
       assert_match @target_user.name, flash[:notice]
+    end
+  end
+
+  describe 'handoff authorization' do
+    it 'should allow admin even without patient on call list' do
+      @user.update!(role: :admin)
+      @user.remove_patient(@patient)
+
+      post handoff_patient_path(@patient), params: {
+        target_user_id: @target_user.id
+      }
+      assert_redirected_to edit_patient_path(@patient)
+      @patient.reload
+      assert_equal @target_user.id, @patient.handed_off_to_id
+    end
+
+    it 'should reject CM who does not have patient on call list' do
+      @user.remove_patient(@patient)
+
+      post handoff_patient_path(@patient), params: {
+        target_user_id: @target_user.id
+      }
+      assert_redirected_to edit_patient_path(@patient)
+      assert_equal 'Not authorized.', flash[:alert]
+      @patient.reload
+      assert_nil @patient.handed_off_to_id
+    end
+
+    it 'should reject data volunteer' do
+      @user.update!(role: :data_volunteer)
+
+      post handoff_patient_path(@patient), params: {
+        target_user_id: @target_user.id
+      }
+      assert_redirected_to edit_patient_path(@patient)
+      assert_equal 'Not authorized.', flash[:alert]
     end
   end
 end
