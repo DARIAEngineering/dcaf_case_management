@@ -50,4 +50,32 @@ class StalePatientAlertJobTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'Patient#stale? instance method' do
+    it 'should return true for stale patients' do
+      @patient.update_columns(updated_at: 10.days.ago)
+      assert @patient.stale?
+    end
+
+    it 'should return false for recently updated patients' do
+      @patient.update_columns(updated_at: 1.day.ago)
+      refute @patient.stale?
+    end
+
+    it 'should return false for resolved_without_fund patients' do
+      @patient.update_columns(updated_at: 10.days.ago, resolved_without_fund: true)
+      refute @patient.stale?
+    end
+
+    it 'should return false for pledge_sent patients' do
+      @patient.update_columns(updated_at: 10.days.ago, pledge_sent: true)
+      refute @patient.stale?
+    end
+
+    it 'should match scope results' do
+      @patient.update_columns(updated_at: 10.days.ago)
+      scope_includes = Patient.stale(Config.stale_patient_days).include?(@patient)
+      assert_equal scope_includes, @patient.stale?
+    end
+  end
 end

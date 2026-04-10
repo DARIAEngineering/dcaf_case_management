@@ -89,6 +89,13 @@ class Patient < ApplicationRecord
       .where(pledge_sent: [false, nil])
   }
 
+  # Instance-level check matching the scope logic above
+  def stale?
+    return false if resolved_without_fund? || pledge_sent?
+
+    updated_at < Config.stale_patient_days.days.ago
+  end
+
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]
