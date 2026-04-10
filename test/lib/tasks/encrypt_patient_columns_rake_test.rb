@@ -35,11 +35,26 @@ class EncryptPatientColumnsRakeTest < ActiveSupport::TestCase
       refute scheme.deterministic?
     end
 
-    it 'should have PAPER_TRAIL_IGNORE covering all encrypted columns' do
+    it 'should have PAPER_TRAIL_SKIP covering all encrypted columns' do
       encrypted_attrs = Patient.encrypted_attributes.map(&:to_sym)
       encrypted_attrs.each do |attr|
-        assert_includes Patient::PAPER_TRAIL_IGNORE, attr,
-          "Expected PAPER_TRAIL_IGNORE to include #{attr}"
+        assert_includes Patient::PAPER_TRAIL_SKIP, attr,
+          "Expected PAPER_TRAIL_SKIP to include #{attr}"
+      end
+    end
+
+    it 'should never write PII to PaperTrail versions on mixed updates' do
+      with_versioning(@patient.versions.first&.user || create(:user)) do
+        # Update PII + non-PII together
+        @patient.update!(name: 'Changed Name', appointment_date: Date.today + 30)
+        version = @patient.versions.reorder(id: :desc).first
+        next unless version
+
+        raw = version.object_changes || version.object || ''
+        Patient::PAPER_TRAIL_SKIP.each do |attr|
+          refute raw.include?(attr.to_s),
+            "PaperTrail version should not contain skipped PII field: #{attr}"
+        end
       end
     end
   end
@@ -104,7 +119,8 @@ class EncryptPatientColumnsRakeTest < ActiveSupport::TestCase
       # Verify our patient (in current tenant) is still accessible after task
       Rake::Task['patient:encrypt_sensitive_columns'].reenable
       Rake::Task['patient:encrypt_sensitive_columns'].invoke
-      assert_equal 1, Patient.where(name: 'Test Patient').count
+      # Query by deterministic field (primary_phone) since name is non-deterministic
+      assert_equal 1, Patient.where(primary_phone: '555-111-2222').count
     end
   end
 end

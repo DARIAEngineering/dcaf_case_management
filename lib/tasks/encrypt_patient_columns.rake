@@ -5,6 +5,7 @@ namespace :patient do
       ActsAsTenant.with_tenant(fund) do
         Patient.all.find_each do |patient|
           patient.encrypt
+          patient.save!(validate: false)
         end
       end
     end
