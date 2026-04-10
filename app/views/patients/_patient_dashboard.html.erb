@@ -77,7 +77,7 @@
 
   <%# Handoff form — separate from the patient edit form (no nested forms) %>
   <div class="row mt-2">
-    <div class="col-3 ms-auto">
+    <div class="col-3 ml-auto">
       <div class="mb-3">
         <label><%= t('patient.dashboard.handoff_label', default: 'Hand Off To') %></label>
         <%= form_tag handoff_patient_path(patient), method: :post, class: 'd-flex flex-column' do %>
@@ -87,7 +87,7 @@
                            :id, :name
                          ),
                          prompt: t('patient.dashboard.handoff_select', default: 'Select case manager...'),
-                         class: 'form-select form-select-sm mb-1' %>
+                         class: 'form-control form-control-sm mb-1' %>
           <%= text_field_tag :handoff_note, nil,
                              placeholder: t('patient.dashboard.handoff_note_placeholder', default: 'Handoff note (optional)'),
                              class: 'form-control form-control-sm' %>
