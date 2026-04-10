@@ -38,27 +38,30 @@ class AuthFactorTest < ActiveSupport::TestCase
       @incomplete_recent.update_column(:created_at, 30.minutes.ago)
     end
 
-    it 'should destroy incomplete registrations older than 1 hour' do
+    it 'should destroy incomplete registrations older than 1 hour via user scope' do
       assert_difference 'AuthFactor.count', -1 do
-        AuthFactor.where(registration_complete: false)
-                  .where('created_at < ?', 1.hour.ago)
-                  .destroy_all
+        @user.auth_factors
+             .where(registration_complete: false)
+             .where('created_at < ?', 1.hour.ago)
+             .destroy_all
       end
       assert_raises(ActiveRecord::RecordNotFound) { @incomplete_old.reload }
     end
 
     it 'should not destroy recent incomplete registrations' do
-      AuthFactor.where(registration_complete: false)
-                .where('created_at < ?', 1.hour.ago)
-                .destroy_all
+      @user.auth_factors
+           .where(registration_complete: false)
+           .where('created_at < ?', 1.hour.ago)
+           .destroy_all
       assert_nothing_raised { @incomplete_recent.reload }
     end
 
     it 'should not destroy completed registrations regardless of age' do
       assert_no_difference 'AuthFactor.where(registration_complete: true).count' do
-        AuthFactor.where(registration_complete: false)
-                  .where('created_at < ?', 1.hour.ago)
-                  .destroy_all
+        @user.auth_factors
+             .where(registration_complete: false)
+             .where('created_at < ?', 1.hour.ago)
+             .destroy_all
       end
     end
   end
