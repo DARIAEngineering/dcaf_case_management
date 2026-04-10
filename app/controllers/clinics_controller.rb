@@ -1,6 +1,7 @@
 # Clinic-related functionality.
 class ClinicsController < ApplicationController
   before_action :confirm_admin_user, except: [:verify_availability]
+  before_action :confirm_cm_or_admin, only: [:verify_availability]
   before_action :find_clinic, only: [:update, :edit, :verify_availability]
   rescue_from ActiveRecord::RecordNotFound, with: -> { head :bad_request }
 

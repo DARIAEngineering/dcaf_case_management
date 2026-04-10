@@ -114,4 +114,32 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
   end
+
+  describe 'verify_availability' do
+    before { @clinic = create :clinic }
+
+    it 'should allow admin to verify' do
+      @user.update role: :admin
+      post verify_availability_clinic_path(@clinic), params: { availability_notes: 'Checked' }
+      assert_response :redirect
+      @clinic.reload
+      assert_not_nil @clinic.availability_verified_at
+    end
+
+    it 'should allow case manager to verify' do
+      @user.update role: :cm
+      post verify_availability_clinic_path(@clinic), params: { availability_notes: 'Called' }
+      assert_response :redirect
+      @clinic.reload
+      assert_not_nil @clinic.availability_verified_at
+    end
+
+    it 'should reject data volunteer from verifying' do
+      @user.update role: :data_volunteer
+      post verify_availability_clinic_path(@clinic)
+      assert_redirected_to root_path
+      @clinic.reload
+      assert_nil @clinic.availability_verified_at
+    end
+  end
 end
