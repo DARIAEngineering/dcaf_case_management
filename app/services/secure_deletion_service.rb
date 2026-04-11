@@ -26,8 +26,11 @@ class SecureDeletionService
     ActiveRecord::Base.transaction do
       shred_pii!
       shred_associated_notes!
+      # Capture all associated IDs BEFORE destroying associations,
+      # so we can scrub their PaperTrail versions afterward
+      cached_ids = capture_associated_ids
       destroy_associations!
-      scrub_paper_trail_versions!
+      scrub_paper_trail_versions!(cached_ids)
       @patient.destroy!
     end
 
@@ -48,16 +51,23 @@ class SecureDeletionService
     @patient.update_columns(overwrite_attrs)
   end
 
-  # Overwrite encrypted note text for this patient's notes
+  # Overwrite encrypted note text for this patient's notes AND
+  # notes attached to the patient's practical supports
   def shred_associated_notes!
     @patient.notes.find_each do |note|
       note.update_columns(full_text: SecureRandom.hex(16))
+    end
+    @patient.practical_supports.includes(:notes).find_each do |ps|
+      ps.notes.find_each do |note|
+        note.update_columns(full_text: SecureRandom.hex(16))
+      end
     end
   end
 
   # Explicitly destroy all polymorphic associations that Patient#destroy
   # won't cascade (no dependent: :destroy declared on these)
   def destroy_associations!
+    @patient.practical_supports.each { |ps| ps.notes.destroy_all }
     @patient.notes.destroy_all
     @patient.calls.destroy_all
     @patient.external_pledges.destroy_all
@@ -65,26 +75,30 @@ class SecureDeletionService
     @patient.fulfillment&.destroy!
   end
 
+  # Snapshot all associated record IDs before they are destroyed
+  def capture_associated_ids
+    ps_note_ids = @patient.practical_supports.flat_map { |ps| ps.notes.ids }
+    {
+      'Note' => @patient.notes.ids + ps_note_ids,
+      'Call' => @patient.calls.ids,
+      'ExternalPledge' => @patient.external_pledges.ids,
+      'PracticalSupport' => @patient.practical_supports.ids,
+      'Fulfillment' => @patient.fulfillment ? [@patient.fulfillment.id] : []
+    }
+  end
+
   # Remove PaperTrail version history for patient AND all associated records
-  # so sensitive data doesn't persist in the audit log
-  def scrub_paper_trail_versions!
-    # Scrub versions for associated PaperTrail-tracked records first
-    scrub_versions_for('Note', @patient.notes.ids)
-    scrub_versions_for('Call', @patient.calls.ids)
-    scrub_versions_for('ExternalPledge', @patient.external_pledges.ids)
-    scrub_versions_for('PracticalSupport', @patient.practical_supports.ids)
-    if @patient.fulfillment
-      scrub_versions_for('Fulfillment', [@patient.fulfillment.id])
+  # so sensitive data doesn't persist in the audit log.
+  # Uses cached IDs since associations are already destroyed at this point.
+  def scrub_paper_trail_versions!(cached_ids)
+    cached_ids.each do |item_type, item_ids|
+      next if item_ids.blank?
+
+      PaperTrailVersion.where(item_type: item_type, item_id: item_ids).delete_all
     end
 
     # Scrub patient's own versions last
     PaperTrailVersion.where(item_type: 'Patient', item_id: @patient.id).delete_all
-  end
-
-  def scrub_versions_for(item_type, item_ids)
-    return if item_ids.blank?
-
-    PaperTrailVersion.where(item_type: item_type, item_id: item_ids).delete_all
   end
 
   # Schedule VACUUM after all transactions commit
