@@ -53,6 +53,22 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
       end
     end
 
+    it 'should scrub PaperTrail versions for associated records too' do
+      with_versioning(@patient.versions.first&.user || create(:user)) do
+        @note.update!(full_text: 'Updated sensitive text')
+        note_id = @note.id
+
+        assert PaperTrailVersion.where(item_type: 'Note', item_id: note_id).exists?,
+               'Expected note versions to exist before secure deletion'
+
+        SecureDeletionService.securely_destroy!(@patient)
+
+        refute PaperTrailVersion.where(item_type: 'Patient', item_id: @patient.id).exists?
+        refute PaperTrailVersion.where(item_type: 'Note', item_id: note_id).exists?,
+               'Expected note versions to be scrubbed after secure deletion'
+      end
+    end
+
     it 'should shred associated notes' do
       assert_difference 'Note.count', -1 do
         SecureDeletionService.securely_destroy!(@patient)

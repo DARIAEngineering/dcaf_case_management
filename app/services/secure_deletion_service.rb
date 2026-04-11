@@ -31,8 +31,9 @@ class SecureDeletionService
       @patient.destroy!
     end
 
-    # VACUUM reclaims disk space. Runs outside transaction since VACUUM
-    # cannot run inside one. Scheduled via after_commit when nested.
+    # VACUUM reclaims disk space. Runs outside the transaction since VACUUM
+    # cannot run inside one. If called from a nested transaction (e.g.,
+    # archive_eligible_patients!), VACUUM will be skipped and logged.
     schedule_vacuum!
   end
 
@@ -64,9 +65,26 @@ class SecureDeletionService
     @patient.fulfillment&.destroy!
   end
 
-  # Remove PaperTrail version history so sensitive data doesn't persist
+  # Remove PaperTrail version history for patient AND all associated records
+  # so sensitive data doesn't persist in the audit log
   def scrub_paper_trail_versions!
-    PaperTrailVersion.where(item_type: 'Patient', item_id: @patient.id).destroy_all
+    # Scrub versions for associated PaperTrail-tracked records first
+    scrub_versions_for('Note', @patient.notes.ids)
+    scrub_versions_for('Call', @patient.calls.ids)
+    scrub_versions_for('ExternalPledge', @patient.external_pledges.ids)
+    scrub_versions_for('PracticalSupport', @patient.practical_supports.ids)
+    if @patient.fulfillment
+      scrub_versions_for('Fulfillment', [@patient.fulfillment.id])
+    end
+
+    # Scrub patient's own versions last
+    PaperTrailVersion.where(item_type: 'Patient', item_id: @patient.id).delete_all
+  end
+
+  def scrub_versions_for(item_type, item_ids)
+    return if item_ids.blank?
+
+    PaperTrailVersion.where(item_type: item_type, item_id: item_ids).delete_all
   end
 
   # Schedule VACUUM after all transactions commit
