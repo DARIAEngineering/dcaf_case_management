@@ -55,17 +55,28 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
 
     it 'should scrub PaperTrail versions for ALL associated record types' do
       with_versioning(@patient.versions.first&.user || create(:user)) do
-        # Trigger version creation on associated records
+        # Trigger version creation on associated records by updating them
         @note.update!(full_text: 'Updated sensitive text')
         note_id = @note.id
-        call_id = @patient.calls.first.id
-        pledge_id = @patient.external_pledges.first.id
+        call = @patient.calls.first
+        call.update!(status: :left_voicemail)
+        call_id = call.id
+        pledge = @patient.external_pledges.first
+        pledge.update!(amount: 200)
+        pledge_id = pledge.id
         ps = @patient.practical_supports.first
+        ps.update!(source: 'Updated Fund')
         ps_id = ps.id
+
+        # Create a note on a PracticalSupport (nested polymorphic)
+        ps_note = ps.notes.create!(full_text: 'PS-attached note')
+        ps_note_id = ps_note.id
 
         # Verify versions exist before deletion
         assert PaperTrailVersion.where(item_type: 'Note', item_id: note_id).exists?,
                'Expected note versions to exist before secure deletion'
+        assert PaperTrailVersion.where(item_type: 'Note', item_id: ps_note_id).exists?,
+               'Expected PS note versions to exist before secure deletion'
 
         SecureDeletionService.securely_destroy!(@patient)
 
@@ -74,6 +85,8 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
                'Patient versions should be scrubbed'
         refute PaperTrailVersion.where(item_type: 'Note', item_id: note_id).exists?,
                'Note versions should be scrubbed'
+        refute PaperTrailVersion.where(item_type: 'Note', item_id: ps_note_id).exists?,
+               'PracticalSupport note versions should be scrubbed'
         refute PaperTrailVersion.where(item_type: 'Call', item_id: call_id).exists?,
                'Call versions should be scrubbed'
         refute PaperTrailVersion.where(item_type: 'ExternalPledge', item_id: pledge_id).exists?,
@@ -81,6 +94,17 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
         refute PaperTrailVersion.where(item_type: 'PracticalSupport', item_id: ps_id).exists?,
                'PracticalSupport versions should be scrubbed'
       end
+    end
+
+    it 'should shred and destroy PracticalSupport-owned notes' do
+      ps = @patient.practical_supports.first
+      ps_note = ps.notes.create!(full_text: 'Sensitive PS note')
+
+      # Patient notes + PS note
+      assert_difference 'Note.count', -2 do
+        SecureDeletionService.securely_destroy!(@patient)
+      end
+      assert_nil Note.find_by(id: ps_note.id)
     end
 
     it 'should shred associated notes' do
