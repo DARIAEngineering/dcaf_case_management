@@ -16,8 +16,8 @@
         <%= f.select :last_menstrual_period_weeks,
                      options_for_select(weeks_options, patient.last_menstrual_period_weeks ),
                      label: t('patient.dashboard.weeks_along'),
-                     autocomplete: 'off',
-                     help: t('patient.dashboard.currently', weeks: patient.last_menstrual_period_now_weeks, days: patient.last_menstrual_period_now_days) %>
+                     autocomplete: 'off' %>
+        <small class="form-text text-muted" id="patient_last_menstrual_period_weeks_help"><%= t('patient.dashboard.currently', weeks: patient.last_menstrual_period_now_weeks, days: patient.last_menstrual_period_now_days) %></small>
       </div>
 
       <div class="col mt-4">
@@ -32,8 +32,8 @@
       <div class="col-3">
         <%= f.date_field :appointment_date,
                          label: t('patient.shared.appt_date'),
-                         autocomplete: 'off',
-                         help: t('patient.dashboard.approx_gestation', weeks: patient.last_menstrual_period_at_appt_weeks, days: patient.last_menstrual_period_at_appt_days) %>
+                         autocomplete: 'off' %>
+        <small class="form-text text-muted" id="patient_appointment_date_help"><%= t('patient.dashboard.approx_gestation', weeks: patient.last_menstrual_period_at_appt_weeks, days: patient.last_menstrual_period_at_appt_days) %></small>
       </div>
     </div>
 
@@ -54,7 +54,7 @@
       <div class="col">
         <div class="form-group">
           <label for="status"><%= t 'patient.shared.status' %> <%= tooltip_shell status_help_text(patient) %></label>
-          <input type="text" value="<%= patient.status %>" class="form-control form-control-plaintext" id="patient_status_display" autocomplete="off" disabled>
+          <div id="patient_status_display" class="form-control form-control-plaintext"><%= patient.status %></div>
         </div>
       </div>
 
