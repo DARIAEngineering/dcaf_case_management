@@ -202,11 +202,13 @@ class PatientsController < ApplicationController
 
   private
 
-  # Only the assigned CM or an admin can hand off a patient
+  # Only an assigned case manager or an admin can hand off a patient.
+  # Data volunteers are never permitted to hand off patients.
   def confirm_handoff_authorization
     patient = Patient.find(params[:id])
-    is_assigned = CallListEntry.where(patient: patient, user: current_user).exists?
-    unless is_assigned || current_user.admin?
+    is_assigned_cm = current_user.cm? &&
+                     CallListEntry.where(patient: patient, user: current_user).exists?
+    unless is_assigned_cm || current_user.admin?
       flash[:alert] = t('flash.not_authorized', default: 'Not authorized.')
       redirect_to edit_patient_path(patient)
     end
