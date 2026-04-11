@@ -1,13 +1,13 @@
-<%= turbo_stream.update "patient_appointment_date" do %>
-  <small class="form-text"><%= t('patient.dashboard.approx_gestation', weeks: @patient.last_menstrual_period_at_appt_weeks, days: @patient.last_menstrual_period_at_appt_days) %></small>
+<%= turbo_stream.update "patient_appointment_date_help" do %>
+  <%= t('patient.dashboard.approx_gestation', weeks: @patient.last_menstrual_period_at_appt_weeks, days: @patient.last_menstrual_period_at_appt_days) %>
 <% end %>
 
 <%= turbo_stream.update "patient_status_display" do %>
   <%= @patient.status %>
 <% end %>
 
-<%= turbo_stream.update "patient_last_menstrual_period_weeks" do %>
-  <small class="form-text"><%= t('patient.dashboard.currently', weeks: @patient.last_menstrual_period_now_weeks, days: @patient.last_menstrual_period_now_days) %></small>
+<%= turbo_stream.update "patient_last_menstrual_period_weeks_help" do %>
+  <%= t('patient.dashboard.currently', weeks: @patient.last_menstrual_period_now_weeks, days: @patient.last_menstrual_period_now_days) %>
 <% end %>
 
 <%= turbo_stream.update "change_log" do %>
