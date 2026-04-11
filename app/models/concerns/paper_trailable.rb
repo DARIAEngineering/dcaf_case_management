@@ -5,7 +5,7 @@ module PaperTrailable
   included do
     pt_opts = { versions: { class_name: 'PaperTrailVersion',
                             scope: -> { order(id: :desc) } } }
-    pt_opts[:ignore] = self::PAPER_TRAIL_IGNORE if const_defined?(:PAPER_TRAIL_IGNORE, false)
+    pt_opts[:skip] = self::PAPER_TRAIL_SKIP if const_defined?(:PAPER_TRAIL_SKIP, false)
     has_paper_trail(**pt_opts)
   end
 
