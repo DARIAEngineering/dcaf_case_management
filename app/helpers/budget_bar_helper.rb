@@ -27,6 +27,8 @@ module BudgetBarHelper
   end
 
   def budget_bar_remaining(expenditures, limit)
+    return limit if expenditures.nil?
+
     pledged_cash = sum_fund_pledges expenditures.fetch(:pledged, [])
     sent_cash = sum_fund_pledges expenditures.fetch(:sent, [])
     limit - pledged_cash - sent_cash
