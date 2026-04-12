@@ -41,7 +41,7 @@ class PqcKeyManager
   end
 
   # Returns the primary encryption key, unwrapping via PQC if configured.
-  # Production: raises if keys are missing. Dev/test: generates fallback.
+  # Production/staging: raises if keys are missing. Dev/test only: generates fallback.
   def self.primary_key
     if pqc_enabled?
       unwrap_primary_key
@@ -49,7 +49,7 @@ class PqcKeyManager
       require_env_key("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", "primary encryption key")
     end
   rescue PqcError => e
-    raise if Rails.env.production?
+    raise unless Rails.env.in?(%w[development test])
     warn "[PQC] #{e.message} — using development fallback. DO NOT use in production."
     dev_fallback_key("primary")
   end
@@ -60,8 +60,8 @@ class PqcKeyManager
     value = ENV[env_var]
     return value if value.present?
 
-    if Rails.env.production?
-      raise PqcError, "#{env_var} is required in production. Configure the #{description} environment variable."
+    unless Rails.env.in?(%w[development test])
+      raise PqcError, "#{env_var} is required in #{Rails.env}. Configure the #{description} environment variable."
     end
 
     warn "[PQC] #{env_var} not set — using development fallback for #{description}. DO NOT use in production."
