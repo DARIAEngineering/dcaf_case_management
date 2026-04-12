@@ -46,6 +46,7 @@ class Clinic < ApplicationRecord
   validates :name, :street_address, :city, :state, :zip, :phone, :fax,
             length: { maximum: 150 }
   validates :email_for_pledges, length: { maximum: 500 }
+  validates :availability_notes, length: { maximum: 1000 }, allow_blank: true
   validates_uniqueness_to_tenant :name
 
   # Associations
