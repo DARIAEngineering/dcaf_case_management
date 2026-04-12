@@ -97,7 +97,7 @@ class Config < ApplicationRecord
     display_practical_support_attachment_url: 23,
     display_practical_support_waiver: 24,
     display_consent_to_survey: 25,
-    days_to_keep_archived_patients: 26
+    days_to_keep_archived_patients: 27
   }
 
   # which fields are URLs (run special validation only on those)
