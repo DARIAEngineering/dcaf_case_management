@@ -56,6 +56,8 @@ export default class extends Controller {
     if (!this.dirty || this.saving) return
 
     this.saving = true
+    this.dirty = false
+    const dirtyAtStart = true
     this.clearTimers()
     this.showIndicator("saving")
 
@@ -74,18 +76,20 @@ export default class extends Controller {
       })
 
       if (response.ok) {
-        this.dirty = false
         this.showIndicator("saved")
       } else {
+        // Re-mark dirty so retry picks up the failed save
+        this.dirty = true
         this.showIndicator("error")
       }
     } catch (error) {
+      this.dirty = true
       this.showIndicator("error")
     } finally {
       this.saving = false
     }
 
-    // If more changes came in while saving, schedule another save
+    // If new changes came in during save, or save failed, schedule retry
     if (this.dirty) {
       this.debounceTimer = setTimeout(() => this.save(), this.debounceValue)
     }
