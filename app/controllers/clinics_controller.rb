@@ -43,8 +43,14 @@ class ClinicsController < ApplicationController
   end
 
   def verify_availability
-    @clinic.verify_availability!(current_user, notes: params[:availability_notes])
-    flash[:notice] = t('flash.clinic_availability_verified', default: "Availability verified for #{@clinic.name}.")
+    if @clinic.verify_availability!(current_user, notes: params[:availability_notes])
+      flash[:notice] = t('flash.clinic_availability_verified', default: "Availability verified for #{@clinic.name}.")
+    else
+      flash[:alert] = @clinic.errors.full_messages.to_sentence
+    end
+    redirect_back fallback_location: clinics_path
+  rescue ActiveRecord::RecordInvalid
+    flash[:alert] = @clinic.errors.full_messages.to_sentence
     redirect_back fallback_location: clinics_path
   end
 
