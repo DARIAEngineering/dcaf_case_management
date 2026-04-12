@@ -12,15 +12,16 @@ function initTooltip(el, content, options = {}) {
   let popper = null;
 
   const show = () => {
+    const placement = options.placement || 'top';
     tooltipEl = document.createElement('div');
-    tooltipEl.className = 'tooltip bs-tooltip-bottom show';
+    tooltipEl.className = `tooltip bs-tooltip-${placement} show`;
     tooltipEl.setAttribute('role', 'tooltip');
     tooltipEl.innerHTML =
       '<div class="arrow"></div>' +
       `<div class="tooltip-inner">${options.html ? content : escapeHTML(content)}</div>`;
     document.body.appendChild(tooltipEl);
     popper = createPopper(el, tooltipEl, {
-      placement: options.placement || 'top',
+      placement: placement,
       modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
     });
   };
