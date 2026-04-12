@@ -23,6 +23,35 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'follow-up patients on dashboard' do
+    before do
+      @follow_up_patient = create :patient,
+                                  name: 'Follow Up Needed',
+                                  line: @line,
+                                  follow_up_date: 1.day.ago.to_date,
+                                  follow_up_reason: 'Check insurance status'
+    end
+
+    it 'should include follow-up patients in the dashboard' do
+      get dashboard_path
+      assert_response :success
+      assert_match(/Follow Up Needed/, response.body)
+    end
+
+    it 'should not include patients without a follow-up date' do
+      get dashboard_path
+      assert_response :success
+      assert_no_match(/Susie Everyteen/, response.body.scan(/follow-ups-due.*?<\/div>/m).join)
+    end
+
+    it 'should not include patients with future follow-up dates' do
+      @follow_up_patient.update! follow_up_date: 3.days.from_now.to_date
+      get dashboard_path
+      assert_response :success
+      assert_no_match(/Follow Up Needed/, response.body.scan(/follow-ups-due.*?<\/div>/m).join)
+    end
+  end
+
   describe 'search method' do
     it 'should return on name, primary phone, and other phone' do
       ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
