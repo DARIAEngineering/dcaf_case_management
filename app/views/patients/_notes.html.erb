@@ -17,7 +17,7 @@
       </select>
     </div>
     <script nonce="<%= content_security_policy_nonce %>">
-      document.addEventListener('DOMContentLoaded', function() {
+      (function() {
         var selector = document.getElementById('note-template-selector');
         if (selector) {
           selector.addEventListener('change', function() {
@@ -27,7 +27,7 @@
             }
           });
         }
-      });
+      })();
     </script>
     <%= f.text_area :full_text,
                     size: '20x5',
