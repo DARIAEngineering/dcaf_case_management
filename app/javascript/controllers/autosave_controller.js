@@ -31,6 +31,8 @@ export default class extends Controller {
     // Use sendBeacon for reliable delivery during page unload
     if (this.dirty && !this.saving) {
       const formData = new FormData(this.element)
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content
+      if (csrfToken) formData.append('authenticity_token', csrfToken)
       const url = this.urlValue || this.element.action
       navigator.sendBeacon(url, formData)
       this.dirty = false
@@ -53,7 +55,6 @@ export default class extends Controller {
   async save() {
     if (!this.dirty || this.saving) return
 
-    this.dirty = false
     this.saving = true
     this.clearTimers()
     this.showIndicator("saving")
@@ -73,6 +74,7 @@ export default class extends Controller {
       })
 
       if (response.ok) {
+        this.dirty = false
         this.showIndicator("saved")
       } else {
         this.showIndicator("error")
