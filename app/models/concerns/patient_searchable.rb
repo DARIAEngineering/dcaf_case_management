@@ -20,10 +20,11 @@ module PatientSearchable
       base = Patient
       base = base.where(line: lines) if lines
 
+      # find_each ignores .order() and iterates by primary key, so we
+      # collect all matches and sort in Ruby to preserve the original
+      # "most recently updated first" contract.
       matches = []
-      base.order(updated_at: :desc).find_each(batch_size: 100) do |patient|
-        break if search_limit.present? && matches.size >= search_limit
-
+      base.find_each(batch_size: 100) do |patient|
         name_match = patient.name&.downcase&.include?(search_term) ||
                      patient.other_contact&.downcase&.include?(search_term) ||
                      patient.identifier&.downcase&.include?(search_term)
@@ -36,6 +37,8 @@ module PatientSearchable
         matches << patient if name_match || phone_match
       end
 
+      matches.sort_by { |p| p.updated_at || Time.at(0) }.reverse!
+      matches = matches.first(search_limit) if search_limit.present?
       matches
     end
   end
