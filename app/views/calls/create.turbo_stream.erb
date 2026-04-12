@@ -19,7 +19,7 @@
                       autosortable: true } %>
 <% end %>
 
-<%= turbo_stream.update "shared_patients" do %>
+<%= turbo_stream.update "shared_cases" do %>
   <%= render partial: "dashboards/table_content",
             locals: { title: t('dashboard.partial_titles.shared_cases'),
                       table_type: 'shared_cases',
