@@ -14,10 +14,6 @@ class AddStatusToPracticalSupports < ActiveRecord::Migration[8.1]
       UPDATE practical_supports SET status = 2, status_updated_at = updated_at
         WHERE confirmed = TRUE AND (fulfilled IS NULL OR fulfilled = FALSE);
     SQL
-
-    # Contract: remove old boolean columns that are now replaced by the enum
-    remove_column :practical_supports, :confirmed
-    remove_column :practical_supports, :fulfilled
   end
 
   def down

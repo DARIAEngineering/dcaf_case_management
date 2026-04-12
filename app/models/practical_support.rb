@@ -1,5 +1,9 @@
 # Representation of non-monetary assistance coordinated for a patient.
 class PracticalSupport < ApplicationRecord
+  # Ignore legacy boolean columns replaced by :status enum. Safe to remove
+  # once 20250101000007_remove_old_boolean_columns migration has run.
+  self.ignored_columns += %w[confirmed fulfilled]
+
   acts_as_tenant :fund
 
   encrypts :attachment_url

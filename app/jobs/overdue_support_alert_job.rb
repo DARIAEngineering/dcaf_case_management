@@ -2,6 +2,11 @@ class OverdueSupportAlertJob < ApplicationJob
   queue_as :default
 
   def perform
+    unless defined?(Notification)
+      Rails.logger.info('OverdueSupportAlertJob skipped: Notification model not available')
+      return
+    end
+
     Fund.all.each do |fund|
       ActsAsTenant.with_tenant(fund) do
         PracticalSupport.overdue.includes(:can_support).find_each do |support|
