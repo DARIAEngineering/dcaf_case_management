@@ -39,6 +39,9 @@ RUN cd /tmp && \
     ldconfig && \
     cd / && rm -rf /tmp/openssl-${OPENSSL_VERSION}*
 
+# Ensure all processes use the compiled OpenSSL 3.5.5 instead of system OpenSSL
+ENV LD_LIBRARY_PATH=/usr/local/lib
+
 # Rebuild Ruby's openssl gem against the new OpenSSL 3.5.5
 RUN gem install openssl -- --with-openssl-dir=/usr/local
 
