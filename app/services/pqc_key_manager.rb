@@ -40,13 +40,32 @@ class PqcKeyManager
     @pqc_available = nil
   end
 
-  # Returns the primary encryption key, unwrapping via PQC if configured
+  # Returns the primary encryption key, unwrapping via PQC if configured.
+  # Production: raises if keys are missing. Dev/test: generates fallback.
   def self.primary_key
     if pqc_enabled?
       unwrap_primary_key
     else
-      ENV.fetch("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", "default_primary_key")
+      require_env_key("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", "primary encryption key")
     end
+  rescue PqcError => e
+    raise if Rails.env.production?
+    warn "[PQC] #{e.message} — using development fallback. DO NOT use in production."
+    dev_fallback_key("primary")
+  end
+
+  # Load a required encryption key from ENV with environment-aware guard.
+  # Production: raises if missing. Dev/test: generates deterministic fallback.
+  def self.require_env_key(env_var, description)
+    value = ENV[env_var]
+    return value if value.present?
+
+    if Rails.env.production?
+      raise PqcError, "#{env_var} is required in production. Configure the #{description} environment variable."
+    end
+
+    warn "[PQC] #{env_var} not set — using development fallback for #{description}. DO NOT use in production."
+    dev_fallback_key(env_var)
   end
 
   # Check if PQC key wrapping is enabled and configured
@@ -99,6 +118,13 @@ class PqcKeyManager
   end
 
   private
+
+  # Generate a deterministic dev-only fallback key. NOT cryptographically
+  # meaningful — exists solely to unblock local development without real
+  # key material. Never called in production.
+  def self.dev_fallback_key(scope)
+    OpenSSL::HMAC.hexdigest("SHA256", "daria-dev-only-not-for-production", scope)
+  end
 
   # Unwrap the primary key using ML-KEM decapsulation + AES-256-GCM
   def self.unwrap_primary_key

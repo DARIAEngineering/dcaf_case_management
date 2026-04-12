@@ -72,10 +72,15 @@ class PqcKeyManagerTest < ActiveSupport::TestCase
       assert_equal 'test-primary-key', PqcKeyManager.primary_key
     end
 
-    it 'should return default when no env var and PQC disabled' do
+    it 'should return deterministic dev fallback when no env var and PQC disabled' do
       ENV.delete('PQC_ENABLED')
       ENV.delete('ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY')
-      assert_equal 'default_primary_key', PqcKeyManager.primary_key
+      key = PqcKeyManager.primary_key
+      assert key.present?
+      # Dev fallback is deterministic — same input yields same output
+      assert_equal key, PqcKeyManager.primary_key
+      # Must not be the old hardcoded value
+      refute_equal 'default_primary_key', key
     end
   end
 
@@ -148,15 +153,53 @@ class PqcKeyManagerTest < ActiveSupport::TestCase
   end
 
   describe 'unwrap_primary_key error handling' do
-    it 'should raise KeyUnwrapError when private key file missing' do
+    it 'should fall back gracefully when private key file missing in non-production' do
       PqcKeyManager.stub(:pqc_available?, true) do
         ENV['PQC_ENABLED'] = 'true'
         ENV['PQC_PRIVATE_KEY_PATH'] = '/nonexistent/path/key.pem'
         ENV['PQC_WRAPPED_KEY'] = Base64.strict_encode64('fake')
         ENV['PQC_KEM_CIPHERTEXT'] = Base64.strict_encode64('fake')
 
-        assert_raises(PqcKeyManager::KeyUnwrapError) do
-          PqcKeyManager.primary_key
+        key = PqcKeyManager.primary_key
+        assert key.present?
+        refute_equal 'default_primary_key', key
+      end
+    end
+
+    it 'should raise KeyUnwrapError in production when private key file missing' do
+      PqcKeyManager.stub(:pqc_available?, true) do
+        ENV['PQC_ENABLED'] = 'true'
+        ENV['PQC_PRIVATE_KEY_PATH'] = '/nonexistent/path/key.pem'
+        ENV['PQC_WRAPPED_KEY'] = Base64.strict_encode64('fake')
+        ENV['PQC_KEM_CIPHERTEXT'] = Base64.strict_encode64('fake')
+
+        Rails.stub(:env, ActiveSupport::EnvironmentInquirer.new("production")) do
+          assert_raises(PqcKeyManager::KeyUnwrapError) do
+            PqcKeyManager.primary_key
+          end
+        end
+      end
+    end
+  end
+
+  describe 'require_env_key' do
+    it 'should return env var value when present' do
+      ENV['ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY'] = 'my-real-key'
+      assert_equal 'my-real-key', PqcKeyManager.require_env_key('ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY', 'test')
+    end
+
+    it 'should return dev fallback in non-production when env var missing' do
+      ENV.delete('ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY')
+      key = PqcKeyManager.require_env_key('ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY', 'test')
+      assert key.present?
+      refute_equal 'default_primary_key', key
+    end
+
+    it 'should raise PqcError in production when env var missing' do
+      ENV.delete('ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY')
+      Rails.stub(:env, ActiveSupport::EnvironmentInquirer.new("production")) do
+        assert_raises(PqcKeyManager::PqcError) do
+          PqcKeyManager.require_env_key('ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY', 'test')
         end
       end
     end
