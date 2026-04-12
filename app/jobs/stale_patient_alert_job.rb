@@ -2,6 +2,11 @@ class StalePatientAlertJob < ApplicationJob
   queue_as :default
 
   def perform
+    unless defined?(Notification)
+      Rails.logger.info('StalePatientAlertJob skipped: Notification model not available')
+      return
+    end
+
     Fund.all.each do |fund|
       ActsAsTenant.with_tenant(fund) do
         days = Config.stale_patient_days
