@@ -186,14 +186,19 @@ class PatientsController < ApplicationController
         full_text: "Handed off from #{current_user.name} to #{target_user.name}#{params[:handoff_note].present? ? ": #{params[:handoff_note]}" : ''}"
       )
 
-      # Send notification to receiving user
-      Notification.notify!(
-        user: target_user,
-        notification_type: "handoff",
-        title: "Patient handed off to you: #{@patient.name}",
-        body: "#{current_user.name} handed off #{@patient.name}#{params[:handoff_note].present? ? " — #{params[:handoff_note]}" : ''}",
-        link: edit_patient_path(@patient)
-      )
+      # Send notification to receiving user (guarded: Notification model
+      # lives on feature/notification-center and may not be merged yet)
+      if defined?(Notification)
+        Notification.notify!(
+          user: target_user,
+          notification_type: "handoff",
+          title: "Patient handed off to you: #{@patient.name}",
+          body: "#{current_user.name} handed off #{@patient.name}#{params[:handoff_note].present? ? " — #{params[:handoff_note]}" : ''}",
+          link: edit_patient_path(@patient)
+        )
+      else
+        Rails.logger.info('Notification skipped: Notification model not available')
+      end
     end
 
     flash[:notice] = t('flash.patient_handed_off', patient: @patient.name, user: target_user.name)
