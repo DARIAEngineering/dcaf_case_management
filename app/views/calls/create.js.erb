@@ -4,9 +4,7 @@ var isOnDashboard = location.pathname === '/';
 if (isOnEditPage) {
   $("#call_log").html("<%= escape_javascript(render partial: 'patients/call_log') %>")
     .promise().done(function() {
-      var callModalEl = document.querySelector('.new-call');
-      var callModalInstance = bootstrap.Modal.getInstance(callModalEl);
-      if (callModalInstance) callModalInstance.hide();
+      $(".new-call").modal('hide')
       $('body').removeClass('modal-open')
       $('.modal-backdrop').remove()
     });
@@ -37,9 +35,7 @@ if (isOnDashboard) {
                                             patients: Patient.shared_patients(current_line),
                                             autosortable: true }) %>'
   );
-  var dashCallModalEl = document.querySelector('.new-call');
-  var dashCallModal = bootstrap.Modal.getInstance(dashCallModalEl);
-  if (dashCallModal) dashCallModal.hide();
+  $(".new-call").modal('hide')
   $('body').removeClass('modal-open')
   $('.modal-backdrop').remove()
 }
