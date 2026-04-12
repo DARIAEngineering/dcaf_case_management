@@ -16,7 +16,7 @@ class Notification < ApplicationRecord
   scope :unread, -> { where(read_at: nil) }
   scope :read, -> { where.not(read_at: nil) }
   scope :recent, -> { order(created_at: :desc).limit(50) }
-  scope :for_dropdown, -> { unread.order(created_at: :desc).limit(10) }
+  scope :for_dropdown, -> { unread.includes(:user).order(created_at: :desc).limit(10) }
 
   def read?
     read_at.present?

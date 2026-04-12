@@ -15,10 +15,10 @@
     <h6 class="dropdown-header d-flex justify-content-between align-items-center">
       <%= t('notifications.title') %>
       <% if unread_count > 0 %>
-        <%= link_to t('notifications.mark_all_read'),
+        <%= button_to t('notifications.mark_all_read'),
             mark_all_read_notifications_path,
             method: :patch,
-            class: 'small' %>
+            class: 'btn btn-sm btn-link small p-0' %>
       <% end %>
     </h6>
     <div class="dropdown-divider"></div>
