@@ -20,13 +20,15 @@ module BudgetBarHelper
   end
 
   def sum_fund_pledges(pledges)
+    return 0 if pledges.nil?
+
     total = pledges.map{ |h| h[:fund_pledge] }.sum
     total
   end
 
   def budget_bar_remaining(expenditures, limit)
-    pledged_cash = sum_fund_pledges expenditures[:pledged]
-    sent_cash = sum_fund_pledges expenditures[:sent]
+    pledged_cash = sum_fund_pledges expenditures.fetch(:pledged, [])
+    sent_cash = sum_fund_pledges expenditures.fetch(:sent, [])
     limit - pledged_cash - sent_cash
   end
 
