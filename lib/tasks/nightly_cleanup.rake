@@ -18,14 +18,14 @@ task nightly_cleanup: :environment do
 
   Fund.all.each do |fund|
     ActsAsTenant.with_tenant(fund) do
-      User.all.each { |user| user.clean_call_list_between_shifts }
+      User.find_each { |user| user.clean_call_list_between_shifts }
       puts "#{Time.now} -- cleared all recently reached patients from call lists for fund #{fund.name}"
 
       User.disable_inactive_users
       puts "#{Time.now} -- locked accounts of users who have not logged in since #{User::TIME_BEFORE_DISABLED_BY_FUND.ago} for fund #{fund.name}"
 
       # AuthFactor is not acts_as_tenant scoped, so query through users
-      User.all.each do |user|
+      User.find_each do |user|
         user.auth_factors
             .where(registration_complete: false)
             .where('created_at < ?', 1.hour.ago)
