@@ -18,7 +18,7 @@ namespace :solid do
       begin
         ActiveRecord::Tasks::DatabaseTasks.migrate(config)
         puts "  Migrated #{db_name} database"
-      rescue => e
+      rescue StandardError => e
         # If no migrations exist, load schema directly
         schema_file = Rails.root.join("db", "#{db_name}_schema.rb")
         if schema_file.exist?
