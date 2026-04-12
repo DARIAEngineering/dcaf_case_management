@@ -4,4 +4,4 @@ $('.modal-content').html("<%= escape_javascript(render partial: 'patients/fulfil
 $('#pledge_fulfillment_content').addClass('partial_fulfillment_modal');
 
 // TODO pass params from search to patients fulfillment partial up here
-$('.modal').modal('toggle');
+bootstrap.Modal.getOrCreateInstance(document.querySelector('.modal')).toggle();
