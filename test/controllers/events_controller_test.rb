@@ -17,4 +17,14 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
   end
+
+  describe 'index method via turbo_stream' do
+    before do
+      get events_path, as: :turbo_stream
+    end
+
+    it 'should return success for turbo_stream format' do
+      assert_response :success
+    end
+  end
 end
