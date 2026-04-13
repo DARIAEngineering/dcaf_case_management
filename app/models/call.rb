@@ -14,7 +14,10 @@ class Call < ApplicationRecord
   }
 
   # Relationships
-  belongs_to :can_call, polymorphic: true
+  # touch: true enables russian-doll caching — parent updated_at bumps when
+  # children change, busting the outer cache fragment. Trade-off: PaperTrail
+  # records an extra version on the parent for each child update.
+  belongs_to :can_call, polymorphic: true, touch: true
 
   # Validations
   validates :status,  presence: true

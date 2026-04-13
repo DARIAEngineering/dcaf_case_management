@@ -7,7 +7,7 @@ class Note < ApplicationRecord
   include PaperTrailable
 
   # Relationships
-  belongs_to :can_note, polymorphic: true
+  belongs_to :can_note, polymorphic: true, touch: true
 
   # Validations
   validates :full_text, presence: true, length: { maximum: 4000 }

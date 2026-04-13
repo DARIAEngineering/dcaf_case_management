@@ -46,4 +46,34 @@ class PracticalSupportTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'russian-doll caching (touch: true)' do
+    it 'should touch parent patient when practical support is created' do
+      original_updated_at = @patient.updated_at
+
+      travel 1.second do
+        @patient.practical_supports.create!(
+          support_type: 'Bus Fare',
+          source: 'Test Fund'
+        )
+      end
+
+      @patient.reload
+      assert @patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when practical support is created'
+    end
+
+    it 'should touch parent patient when practical support is updated' do
+      @patient.reload
+      original_updated_at = @patient.updated_at
+
+      travel 1.second do
+        @psupport1.update!(source: 'Updated Source')
+      end
+
+      @patient.reload
+      assert @patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when practical support is updated'
+    end
+  end
 end

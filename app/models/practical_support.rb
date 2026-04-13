@@ -9,7 +9,7 @@ class PracticalSupport < ApplicationRecord
   include Notetakeable
 
   # Relationships
-  belongs_to :can_support, polymorphic: true
+  belongs_to :can_support, polymorphic: true, touch: true
   has_many :notes, as: :can_note
 
   # Validations

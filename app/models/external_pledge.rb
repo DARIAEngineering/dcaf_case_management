@@ -7,7 +7,7 @@ class ExternalPledge < ApplicationRecord
   include PaperTrailable
 
   # Relationships
-  belongs_to :can_pledge, polymorphic: true
+  belongs_to :can_pledge, polymorphic: true, touch: true
 
   default_scope -> { where(active: true) }
   scope :active, -> { where(active: true) }

@@ -51,4 +51,31 @@ class ExternalPledgeTest < ActiveSupport::TestCase
       assert_equal 2, @patient.external_pledges.unscoped.count
     end
   end
+
+  describe 'russian-doll caching (touch: true)' do
+    it 'should touch parent patient when pledge is created' do
+      original_updated_at = @patient.updated_at
+
+      travel 1.second do
+        @patient.external_pledges.create amount: 50, source: 'New Source'
+      end
+
+      @patient.reload
+      assert @patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when a pledge is created'
+    end
+
+    it 'should touch parent patient when pledge is updated' do
+      @patient.reload
+      original_updated_at = @patient.updated_at
+
+      travel 1.second do
+        @pledge.update!(amount: 999)
+      end
+
+      @patient.reload
+      assert @patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when a pledge is updated'
+    end
+  end
 end

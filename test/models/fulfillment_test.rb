@@ -24,4 +24,18 @@ class FulfillmentTest < ActiveSupport::TestCase
       assert_equal '7 weeks', @fulfillment.gestation_at_procedure_display
     end
   end
+
+  describe 'russian-doll caching (touch: true)' do
+    it 'should touch parent patient when fulfillment is updated' do
+      original_updated_at = @pt_1.updated_at
+
+      travel 1.second do
+        @fulfillment.update!(fulfilled: true)
+      end
+
+      @pt_1.reload
+      assert @pt_1.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when fulfillment is updated'
+    end
+  end
 end

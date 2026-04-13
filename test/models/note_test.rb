@@ -37,4 +37,35 @@ class NoteTest < ActiveSupport::TestCase
       assert @note.respond_to? :created_by_id
     end
   end
+
+  describe 'russian-doll caching (touch: true)' do
+    it 'should touch parent patient when note is created' do
+      original_updated_at = @patient.updated_at
+
+      travel 1.second do
+        with_versioning(@user) do
+          @patient.notes.create!(full_text: 'New note for caching test')
+        end
+      end
+
+      @patient.reload
+      assert @patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when a note is created'
+    end
+
+    it 'should touch parent patient when note is updated' do
+      @patient.reload
+      original_updated_at = @patient.updated_at
+
+      travel 1.second do
+        with_versioning(@user) do
+          @note.update!(full_text: 'Updated note text')
+        end
+      end
+
+      @patient.reload
+      assert @patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when a note is updated'
+    end
+  end
 end
