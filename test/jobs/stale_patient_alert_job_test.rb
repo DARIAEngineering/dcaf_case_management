@@ -30,6 +30,17 @@ class StalePatientAlertJobTest < ActiveSupport::TestCase
       stale = Patient.stale(7)
       refute_includes stale, @patient
     end
+
+    it 'should respect different threshold values' do
+      @patient.update_columns(updated_at: 4.days.ago)
+      assert_includes Patient.stale(3), @patient
+      refute_includes Patient.stale(5), @patient
+    end
+
+    it 'should return empty when no patients are stale' do
+      @patient.update_columns(updated_at: Time.current)
+      assert_empty Patient.stale(7)
+    end
   end
 
   describe 'Config.stale_patient_days' do
@@ -41,6 +52,19 @@ class StalePatientAlertJobTest < ActiveSupport::TestCase
       days = Config.stale_patient_days
       assert_equal 5, days
     end
+
+    it 'should return configured value when set' do
+      c = Config.find_or_create_by(config_key: 'stale_patient_days')
+      c.config_value = { options: ["14"] }
+      c.save!
+      assert_equal 14, Config.stale_patient_days
+    end
+
+    it 'should fall back to default for invalid value' do
+      c = Config.find_or_create_by(config_key: 'stale_patient_days')
+      c.update_column(:config_value, { options: ["99"] }.to_json)
+      assert_equal 5, Config.stale_patient_days
+    end
   end
 
   describe 'stale patient day options validation' do
@@ -48,6 +72,18 @@ class StalePatientAlertJobTest < ActiveSupport::TestCase
       [2, 3, 5, 7, 14, 30].each do |days|
         assert_includes Config::STALE_PATIENT_DAY_OPTIONS, days
       end
+    end
+
+    it 'should reject invalid stale day values in config' do
+      c = Config.find_or_create_by(config_key: 'stale_patient_days')
+      c.config_value = { options: ["4"] }
+      refute c.valid?
+    end
+
+    it 'should accept valid stale day values in config' do
+      c = Config.find_or_create_by(config_key: 'stale_patient_days')
+      c.config_value = { options: ["7"] }
+      assert c.valid?
     end
   end
 
