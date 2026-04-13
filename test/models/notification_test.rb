@@ -158,5 +158,54 @@ class NotificationTest < ActiveSupport::TestCase
       notification = create :notification, user: @user
       assert_equal ActsAsTenant.current_tenant, notification.fund
     end
+
+    it 'should not return notifications from another tenant' do
+      create :notification, user: @user, title: 'Current Tenant'
+
+      other_fund = create :fund, name: 'Other Fund', full_name: 'Other Fund Full'
+      other_user = nil
+      ActsAsTenant.with_tenant(other_fund) do
+        other_user = create :user
+        create :notification, user: other_user, title: 'Other Tenant'
+      end
+
+      # Current tenant should only see its own notifications
+      assert_equal 1, Notification.count
+      assert_equal 'Current Tenant', Notification.first.title
+    end
+  end
+
+  describe 'validations - edge cases' do
+    it 'should enforce body max length' do
+      notification = build :notification, user: @user, body: 'a' * 1001
+      refute notification.valid?
+      assert notification.errors[:body].any?
+    end
+
+    it 'should allow nil body' do
+      notification = build :notification, user: @user, body: nil
+      assert notification.valid?
+    end
+  end
+
+  describe 'for_dropdown scope' do
+    it 'should limit results to 10' do
+      12.times { |i| create :notification, user: @user, title: "N#{i}" }
+      assert_equal 10, Notification.for_dropdown.count
+    end
+  end
+
+  describe 'notify! broadcast' do
+    it 'should broadcast to the correct ActionCable channel' do
+      broadcasted = nil
+      ActionCable.server.stub(:broadcast, ->(channel, payload) { broadcasted = { channel: channel, payload: payload } }) do
+        Notification.notify!(user: @user, title: 'Broadcast Test', notification_type: 'info')
+      end
+
+      assert_not_nil broadcasted, 'Expected ActionCable broadcast'
+      assert_equal "notifications_#{@user.id}", broadcasted[:channel]
+      assert_equal 'Broadcast Test', broadcasted[:payload][:title]
+      assert broadcasted[:payload].key?(:unread_count)
+    end
   end
 end
