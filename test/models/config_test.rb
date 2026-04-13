@@ -431,5 +431,60 @@ class ConfigTest < ActiveSupport::TestCase
       assert_equal true, store_config[:httponly]
       assert_equal :lax, store_config[:same_site]
     end
+
+    describe 'cross-fund isolation' do
+      it 'should not leak timeout config from one fund to another' do
+        # Configure timeout for current tenant
+        c = Config.find_or_create_by(config_key: 'session_timeout')
+        c.config_value = { options: ["120"] }
+        c.save!
+        assert_equal 120.minutes, Config.session_timeout
+
+        # Switch to a different tenant
+        other_fund = create :fund, name: 'OtherFund', full_name: 'Other Fund'
+        ActsAsTenant.current_tenant = other_fund
+        ActsAsTenant.test_tenant = other_fund
+
+        # The other fund should get the default, not fund 1's value
+        assert_equal 30.minutes, Config.session_timeout
+      end
+    end
+
+    describe 'missing config record' do
+      it 'should return default timeout when config record does not exist' do
+        Config.where(config_key: 'session_timeout').destroy_all
+        assert_equal 30.minutes, Config.session_timeout
+      end
+
+      it 'should return default timeout when config record has nil options' do
+        c = Config.find_or_create_by(config_key: 'session_timeout')
+        c.update_columns(config_value: { 'options' => [nil] })
+        assert_equal 30.minutes, Config.session_timeout
+      end
+    end
+
+    describe 'User#timeout_in' do
+      it 'should return an ActiveSupport::Duration' do
+        user = create :user
+        result = user.timeout_in
+        assert_kind_of ActiveSupport::Duration, result
+      end
+
+      it 'should reflect the configured session timeout' do
+        c = Config.find_or_create_by(config_key: 'session_timeout')
+        c.config_value = { options: ["60"] }
+        c.save!
+
+        user = create :user
+        assert_equal 60.minutes, user.timeout_in
+        assert_equal 3600, user.timeout_in.to_i
+      end
+
+      it 'should return default 30 minutes when unconfigured' do
+        Config.where(config_key: 'session_timeout').destroy_all
+        user = create :user
+        assert_equal 30.minutes, user.timeout_in
+      end
+    end
   end
 end
