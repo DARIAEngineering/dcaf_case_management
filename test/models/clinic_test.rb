@@ -118,4 +118,72 @@ class ClinicTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'fragment caching support' do
+    it 'should change cache_key_with_version when clinic is updated' do
+      key_before = @clinic.cache_key_with_version
+      @clinic.update!(name: 'Updated Clinic Name')
+      key_after = @clinic.cache_key_with_version
+
+      refute_equal key_before, key_after,
+                   'Cache key should change when clinic attributes change'
+    end
+
+    it 'should have a stable cache_key_with_version when unchanged' do
+      key1 = @clinic.cache_key_with_version
+      key2 = @clinic.cache_key_with_version
+      assert_equal key1, key2
+    end
+
+    it 'should include model name and id in cache_key' do
+      key = @clinic.cache_key
+      assert_match %r{clinics/#{@clinic.id}}, key
+    end
+
+    it 'should invalidate cache on each attribute change' do
+      keys = []
+      keys << @clinic.cache_key_with_version
+
+      @clinic.update!(name: 'Name Change')
+      keys << @clinic.cache_key_with_version
+
+      @clinic.update!(street_address: '123 New St')
+      keys << @clinic.cache_key_with_version
+
+      assert_equal keys.uniq.length, keys.length,
+                   'Each update should produce a unique cache key'
+    end
+
+    it 'should produce different cache keys for different clinics' do
+      other_clinic = create :clinic
+      refute_equal @clinic.cache_key, other_clinic.cache_key
+    end
+  end
+
+  describe 'PaperTrail version cache keys' do
+    it 'should produce stable cache keys for versions' do
+      with_versioning do
+        @clinic.update!(name: 'Versioned Name')
+        version = @clinic.versions.last
+
+        key1 = version.cache_key_with_version
+        key2 = version.cache_key_with_version
+        assert_equal key1, key2,
+                     'Version cache key should be stable for immutable records'
+      end
+    end
+
+    it 'should produce unique cache keys across versions' do
+      with_versioning do
+        @clinic.update!(name: 'First Change')
+        v1 = @clinic.versions.last
+
+        @clinic.update!(name: 'Second Change')
+        v2 = @clinic.versions.last
+
+        refute_equal v1.cache_key_with_version, v2.cache_key_with_version,
+                     'Different versions should have different cache keys'
+      end
+    end
+  end
 end

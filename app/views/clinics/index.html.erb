@@ -20,6 +20,7 @@
 
     <tbody>
       <% @clinics.each do |clinic| %>
+        <% cache clinic do %>
         <tr class="clinics-table-row">
           <td><!-- spacer --></td>
           <td><%= link_to clinic.name, edit_clinic_path(clinic) %></td>
@@ -49,6 +50,7 @@
             </div>
           </td>
         </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
