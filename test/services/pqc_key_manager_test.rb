@@ -219,4 +219,107 @@ class PqcKeyManagerTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'pqc_available? thread safety' do
+    it 'should return consistent results across concurrent threads' do
+      PqcKeyManager.reset_availability_cache!
+
+      results = []
+      threads = 10.times.map do
+        Thread.new { results << PqcKeyManager.pqc_available? }
+      end
+      threads.each(&:join)
+
+      assert_equal 1, results.uniq.size,
+        'All threads should observe the same cached pqc_available? value'
+    end
+  end
+
+  describe 'wrap_key with invalid public key' do
+    it 'should raise when given corrupted PEM data' do
+      PqcKeyManager.stub(:pqc_available?, true) do
+        assert_raises(OpenSSL::PKey::PKeyError) do
+          PqcKeyManager.wrap_key('my-secret-key', 'NOT-A-VALID-PEM')
+        end
+      end
+    end
+
+    it 'should raise when given an empty string as public key' do
+      PqcKeyManager.stub(:pqc_available?, true) do
+        assert_raises(OpenSSL::PKey::PKeyError) do
+          PqcKeyManager.wrap_key('my-secret-key', '')
+        end
+      end
+    end
+  end
+
+  describe 'unwrap_primary_key with tampered ciphertext' do
+    it 'should raise KeyUnwrapError when kem_ciphertext is tampered' do
+      PqcKeyManager.stub(:pqc_available?, true) do
+        # Set up env with tampered ciphertext that will fail decapsulation
+        Dir.mktmpdir do |dir|
+          # Use an RSA key as a stand-in private key file (will fail at decapsulate)
+          rsa_key = OpenSSL::PKey::RSA.generate(2048)
+          priv_path = File.join(dir, 'private.pem')
+          File.write(priv_path, rsa_key.to_pem)
+
+          ENV['PQC_ENABLED'] = 'true'
+          ENV['PQC_PRIVATE_KEY_PATH'] = priv_path
+          ENV['PQC_WRAPPED_KEY'] = Base64.strict_encode64('fake-wrapped')
+          ENV['PQC_KEM_CIPHERTEXT'] = Base64.strict_encode64('tampered-ciphertext')
+
+          Rails.stub(:env, ActiveSupport::EnvironmentInquirer.new("production")) do
+            assert_raises(PqcKeyManager::KeyUnwrapError) do
+              PqcKeyManager.primary_key
+            end
+          end
+        end
+      end
+    end
+  end
+
+  describe 'rake tasks' do
+    it 'should define pqc:generate_keypair task' do
+      Rake::Task.task_defined?('pqc:generate_keypair') ||
+        Rake.application.load_rakefile
+      assert Rake::Task.task_defined?('pqc:generate_keypair'),
+        'pqc:generate_keypair rake task should be defined'
+    end
+
+    it 'should define pqc:wrap_key task' do
+      Rake::Task.task_defined?('pqc:wrap_key') ||
+        Rake.application.load_rakefile
+      assert Rake::Task.task_defined?('pqc:wrap_key'),
+        'pqc:wrap_key rake task should be defined'
+    end
+
+    it 'should have descriptive comments on rake tasks' do
+      task = Rake::Task['pqc:generate_keypair']
+      assert_match(/ML-KEM/, task.comment, 'generate_keypair should mention ML-KEM in description')
+
+      task = Rake::Task['pqc:wrap_key']
+      assert_match(/[Ww]rap/, task.comment, 'wrap_key should mention wrapping in description')
+    end
+  end
+
+  describe 'dev_fallback_key determinism' do
+    it 'should return the same key for the same scope' do
+      key1 = PqcKeyManager.send(:dev_fallback_key, 'primary')
+      key2 = PqcKeyManager.send(:dev_fallback_key, 'primary')
+      assert_equal key1, key2
+    end
+
+    it 'should return different keys for different scopes' do
+      key_primary = PqcKeyManager.send(:dev_fallback_key, 'primary')
+      key_deterministic = PqcKeyManager.send(:dev_fallback_key, 'deterministic')
+      refute_equal key_primary, key_deterministic
+    end
+
+    it 'should return a hex string of expected length' do
+      key = PqcKeyManager.send(:dev_fallback_key, 'test-scope')
+      # SHA256 HMAC hex digest is 64 characters
+      assert_equal 64, key.length
+      assert_match(/\A[0-9a-f]{64}\z/, key)
+    end
+  end
 end
