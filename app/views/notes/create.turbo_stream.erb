@@ -1,0 +1,14 @@
+<% parent_class = @object.is_a?(PracticalSupport) ? 'practical-support' : 'patient' %>
+
+<%= turbo_stream.update "note_full_text" do %>
+<% end %>
+
+<%= turbo_stream.update "notes-log-#{parent_class}" do %>
+  <%= render partial: "notes/notes_table", locals: { notes: @notes } %>
+<% end %>
+
+<% if @object.is_a? PracticalSupport %>
+  <%= turbo_stream.update "practical-support-entries" do %>
+    <%= render partial: "practical_supports/entries", locals: { patient: @object.can_support } %>
+  <% end %>
+<% end %>

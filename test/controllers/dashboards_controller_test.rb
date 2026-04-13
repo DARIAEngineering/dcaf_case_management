@@ -26,7 +26,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   describe 'search method' do
     it 'should return on name, primary phone, and other phone' do
       ['Susie Everyteen', '123-456-7890', '333-444-5555'].each do |searcher|
-        post search_path, params: { search: searcher }, xhr: true
+        post search_path, params: { search: searcher }, as: :turbo_stream
         assert_response :success
       end
     end
@@ -34,7 +34,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'budget bar method' do
     it 'should return success' do
-      get budget_bar_path, xhr: true
+      get budget_bar_path, as: :turbo_stream
       assert_response :success
     end
 

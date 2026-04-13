@@ -7,7 +7,7 @@ class NotesController < ApplicationController
     if @note.save
       @notes = @object.reload.notes.order(created_at: :desc)
       respond_to do |format|
-        format.js
+        format.turbo_stream
       end
     else
       head :bad_request

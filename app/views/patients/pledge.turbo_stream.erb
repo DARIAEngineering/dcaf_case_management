@@ -1,0 +1,3 @@
+<%= turbo_stream.update "pledge-modal-content" do %>
+  <%= render partial: "patients/pledge", locals: { patient: @patient, disable_next: disable_continue?(@patient) } %>
+<% end %>

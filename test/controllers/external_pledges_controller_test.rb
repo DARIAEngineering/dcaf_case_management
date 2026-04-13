@@ -11,20 +11,20 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     before do
       with_versioning(@user) do
         @pledge = attributes_for :external_pledge
-        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
+        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, as: :turbo_stream
       end
     end
 
     it 'should create and save a new pledge' do
       @pledge[:source] = 'diff'
       assert_difference 'Patient.find(@patient.id).external_pledges.count', 1 do
-        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
+        post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, as: :turbo_stream
       end
     end
 
     it 'should respond bad_request if the pledge does not submit' do
       # submitting a duplicate pledge
-      post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, xhr: true
+      post patient_external_pledges_path(@patient), params: { external_pledge: @pledge }, as: :turbo_stream
       assert_response :bad_request
     end
 
@@ -47,7 +47,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
         @pledge_edits = { source: 'Edited Pledge' }
         patch patient_external_pledge_path(@patient, @pledge),
               params: { external_pledge: @pledge_edits },
-              xhr: true
+              as: :turbo_stream
         @pledge.reload
       end
     end
@@ -73,7 +73,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
                                      .external_pledges.find(@pledge.id)
                                      .versions.count' do
           @pledge_edits[:source] = bad_text
-          patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, xhr: true
+          patch patient_external_pledge_path(@patient, @pledge), params: { external_pledge: @pledge_edits }, as: :turbo_stream
           assert_response :bad_request
           @pledge.reload
           assert_equal @pledge.source, 'Edited Pledge'
@@ -90,7 +90,7 @@ class ExternalPledgesControllerTest < ActionDispatch::IntegrationTest
     end
 
     it 'should set a pledge to inactive' do
-      delete patient_external_pledge_path(@patient, @pledge), xhr: true
+      delete patient_external_pledge_path(@patient, @pledge), as: :turbo_stream
       @pledge.reload
       refute @pledge.active?
     end

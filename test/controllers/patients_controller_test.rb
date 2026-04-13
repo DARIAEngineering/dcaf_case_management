@@ -163,13 +163,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
           clinic_id: @clinic.id
         }
 
-        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        patch patient_path(@patient), params: { patient: @payload }, as: :turbo_stream
         @patient.reload
       end
 
       it 'should update pledge fields' do
         @payload[:pledge_sent] = true
-        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        patch patient_path(@patient), params: { patient: @payload }, as: :turbo_stream
         @patient.reload
         assert_kind_of Time, @patient.pledge_sent_at
         assert_kind_of Object, @patient.pledge_sent_by
@@ -180,13 +180,13 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       end
 
       it 'should respond success on completion' do
-        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        patch patient_path(@patient), params: { patient: @payload }, as: :turbo_stream
         assert response.body.include? 'saved'
       end
 
       it 'should respond not acceptable error on failure' do
         @payload[:primary_phone] = nil
-        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        patch patient_path(@patient), params: { patient: @payload }, as: :turbo_stream
         assert response.body.include? 'alert alert-danger'
       end
 
@@ -203,7 +203,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
         assert_nil @patient.fulfillment.fund_payout
         @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
         @payload[:fulfillment_attributes][:fund_payout] = 1_000
-        patch patient_path(@patient), params: { patient: @payload }, xhr: true
+        patch patient_path(@patient), params: { patient: @payload }, as: :turbo_stream
         assert response.body.include? 'saved'
         @patient.fulfillment.reload
         assert_nil @patient.fulfillment.fund_payout
@@ -278,7 +278,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
         clinic_id: @clinic.id
       }
 
-      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      patch patient_path(@patient), params: { patient: @payload }, as: :turbo_stream
       @patient.reload
 
       delete destroy_user_session_path
@@ -289,7 +289,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
       Bullet.enable = false
       @payload[:fulfillment_attributes] = @patient.fulfillment.attributes
       @payload[:fulfillment_attributes][:fund_payout] = 1_000
-      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      patch patient_path(@patient), params: { patient: @payload }, as: :turbo_stream
       assert response.body.include? 'saved'
       @patient.fulfillment.reload
       assert_equal 1_000, @patient.fulfillment.fund_payout
@@ -299,7 +299,7 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'pledge method' do
     it 'should respond success on completion' do
-      get submit_pledge_path(@patient), xhr: true
+      get submit_pledge_path(@patient), as: :turbo_stream
       assert_response :success
     end
   end

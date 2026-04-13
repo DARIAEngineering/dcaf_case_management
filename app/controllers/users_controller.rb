@@ -25,7 +25,9 @@ class UsersController < ApplicationController
                else
                  User.search params[:search]
                end
-    respond_to { |format| format.js }
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   def new

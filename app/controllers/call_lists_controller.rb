@@ -8,21 +8,21 @@ class CallListsController < ApplicationController
   def add_patient
     current_user.add_patient @patient
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
+      format.turbo_stream { render template: 'users/refresh_patients', layout: false }
     end
   end
 
   def remove_patient
     current_user.remove_patient @patient
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
+      format.turbo_stream { render template: 'users/refresh_patients', layout: false }
     end
   end
 
   def clear_current_user_call_list
     current_user.clear_call_list current_line
     respond_to do |format|
-      format.js { render template: 'users/refresh_patients', layout: false }
+      format.turbo_stream { render template: 'users/refresh_patients', layout: false }
     end
   end
 

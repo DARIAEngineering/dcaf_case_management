@@ -13,7 +13,7 @@
           <% end %>
         </li>
       <% end %>
-      <%= paginate @events, remote: true %>
+      <%= paginate @events, params: { turbo_stream: true } %>
     </ul>    
   </div>
 </div>

@@ -9,7 +9,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
 
   describe 'new method' do
     it 'should respond successfully' do
-      get new_patient_call_path(@patient), xhr: true
+      get new_patient_call_path(@patient), as: :turbo_stream
       assert_response :success
     end
   end
@@ -18,20 +18,20 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
     before do
       with_versioning do
         @call = attributes_for :call, status: :reached_patient
-        post patient_calls_path(@patient), params: { call: @call }, xhr: true
+        post patient_calls_path(@patient), params: { call: @call }, as: :turbo_stream
       end
     end
 
     it 'should create and save a new call' do
       assert_difference 'Patient.find(@patient.id).calls.count', 1 do
-        post patient_calls_path(@patient), params: { call: @call }, xhr: true
+        post patient_calls_path(@patient), params: { call: @call }, as: :turbo_stream
       end
     end
 
     it 'should respond success if patient is not reached' do
       [:left_voicemail, :couldnt_reach_patient].each do |status|
         call = attributes_for :call, status: status
-        post patient_calls_path(@patient), params: { call: call }, xhr: true
+        post patient_calls_path(@patient), params: { call: call }, as: :turbo_stream
         assert_response :success
       end
     end
@@ -44,7 +44,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
       [nil, 'not a real status'].each do |bad_status|
         call = attributes_for :call, status: bad_status
         assert_no_difference 'Call.count' do
-          post patient_calls_path(@patient), params: { call: call }, xhr: true
+          post patient_calls_path(@patient), params: { call: call }, as: :turbo_stream
         end
         assert_response :bad_request
       end
@@ -65,7 +65,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
       call = @patient.calls.first
       assert_difference 'Patient.find(@patient.id).calls.count', -1 do
         delete patient_call_path(@patient, call), params: { id: call.id },
-                                                  xhr: true
+                                                  as: :turbo_stream
       end
     end
 
@@ -77,7 +77,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
       call = @patient.calls.first
       assert_no_difference 'Patient.find(@patient.id).calls.count' do
         delete patient_call_path(@patient, call), params: { id: call.id },
-                                                  xhr: true
+                                                  as: :turbo_stream
       end
       assert_response :forbidden
     end
@@ -92,7 +92,7 @@ class CallsControllerTest < ActionDispatch::IntegrationTest
 
       assert_no_difference 'Patient.find(@patient.id).calls.count' do
         delete patient_call_path(@patient, call), params: { id: call.id },
-                                                  xhr: true
+                                                  as: :turbo_stream
       end
       assert_response :forbidden
     end

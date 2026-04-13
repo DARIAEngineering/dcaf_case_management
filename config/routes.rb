@@ -10,17 +10,17 @@ Rails.application.routes.draw do
   authenticate :user do
     root to: 'dashboards#index', as: :authenticated_root
     get 'dashboard', to: 'dashboards#index', as: 'dashboard'
-    get 'budget_bar', to: 'dashboards#budget_bar', defaults: { format: :js }, as: 'budget_bar'
-    post 'search', to: 'dashboards#search', defaults: { format: :js }
+    get 'budget_bar', to: 'dashboards#budget_bar', as: 'budget_bar'
+    post 'search', to: 'dashboards#search'
 
     # For call list management
-    patch 'call_lists/reorder_call_list', to: 'call_lists#reorder_call_list', as: 'reorder_call_list', defaults: { format: :js }
-    patch 'call_lists/clear_current_user_call_list', to: 'call_lists#clear_current_user_call_list', as: 'clear_current_user_call_list', defaults: { format: :js }
-    patch 'call_lists/add_patient/:id', to: 'call_lists#add_patient', as: 'add_patient', defaults: { format: :js }
-    patch 'call_lists/remove_patient/:id', to: 'call_lists#remove_patient', as: 'remove_patient', defaults: { format: :js }
+    patch 'call_lists/reorder_call_list', to: 'call_lists#reorder_call_list', as: 'reorder_call_list'
+    patch 'call_lists/clear_current_user_call_list', to: 'call_lists#clear_current_user_call_list', as: 'clear_current_user_call_list'
+    patch 'call_lists/add_patient/:id', to: 'call_lists#add_patient', as: 'add_patient'
+    patch 'call_lists/remove_patient/:id', to: 'call_lists#remove_patient', as: 'remove_patient'
 
     # User REST routes and searching
-    post 'users/search', to: 'users#search', as: 'users_search', defaults: { format: :js }
+    post 'users/search', to: 'users#search', as: 'users_search'
     resources :users, only: [:new, :create, :index, :edit, :update]
 
     # For user management
@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     resources :accountants, only: [:index, :edit]
 
     resources :lines, only: [:new, :create]
-    post 'clinicfinder', to: 'clinicfinders#search', defaults: { format: :js }, as: 'clinicfinder_search'
+    post 'clinicfinder', to: 'clinicfinders#search', as: 'clinicfinder_search'
     resources :clinics, only: [:index, :create, :update, :new, :destroy, :edit]
     resources :configs, only: [:index, :create, :update]
     resources :events, only: [:index]

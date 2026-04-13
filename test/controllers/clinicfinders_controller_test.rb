@@ -16,14 +16,17 @@ class ClinicfindersControllerTest < ActionDispatch::IntegrationTest
 
     it 'should respond successfully' do
       ClinicFinder::Locator.stub(:new, @clinic_finder_mock) do
-        post clinicfinder_search_path, params: { zip: '12345' }, xhr: true
+        post clinicfinder_search_path,
+             params: { zip: '12345' },
+             as: :turbo_stream
       end
       assert_response :success
     end
 
     it 'should choke if there is not a zip code' do
       ClinicFinder::Locator.stub(:new, @clinic_finder_mock) do
-        post clinicfinder_search_path, xhr: true
+        post clinicfinder_search_path,
+             as: :turbo_stream
       end
       assert_response :bad_request
     end

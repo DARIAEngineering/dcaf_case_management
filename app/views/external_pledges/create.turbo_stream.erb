@@ -1,0 +1,7 @@
+<%= turbo_stream.update "existing-external-pledges" do %>
+  <%= render partial: "external_pledges/external_pledges_table", locals: { patient: @patient, external_pledges: @patient.external_pledges.order(created_at: :desc) } %>
+<% end %>
+
+<%= turbo_stream.update "new-external-pledge" do %>
+  <%= render partial: "external_pledges/new", locals: { patient: @patient, new_external_pledge: @patient.external_pledges.new } %>
+<% end %>
