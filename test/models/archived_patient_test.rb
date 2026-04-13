@@ -244,5 +244,30 @@ class ArchivedPatientTest < ActiveSupport::TestCase
         end
       end
     end
+
+    it 'should handle no archived patients gracefully' do
+      ArchivedPatient.destroy_all
+      c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+      c.config_value = { options: ["30"] }
+      c.save!
+
+      assert_nothing_raised { ArchivedPatient.delete_expired_patients! }
+      assert_equal 0, ArchivedPatient.count
+    end
+
+    it 'should use created_at boundary precisely at cutoff' do
+      c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+      c.config_value = { options: ["90"] }
+      c.save!
+
+      # Patient archived exactly 90 days ago (at boundary)
+      boundary_patient = create :archived_patient, line: @line,
+                                initial_call_date: 100.days.ago
+      boundary_patient.update_column(:created_at, 90.days.ago)
+
+      ArchivedPatient.delete_expired_patients!
+      # Should be deleted since created_at < 90.days.ago (due to time precision)
+      assert_raises(ActiveRecord::RecordNotFound) { boundary_patient.reload }
+    end
   end
 end
