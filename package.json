@@ -2,12 +2,11 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "6.7.2",
     "@popperjs/core": "2.11.8",
-    "bootstrap": "4.6.2",
+    "bootstrap": "5.3.8",
     "esbuild": "0.25.8",
     "i18n-js": "^4.5.1",
     "jquery": "3.7.1",
     "jquery-ujs": "1.2.3",
-    "popper.js": "1.16.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sass": "1.89.2",

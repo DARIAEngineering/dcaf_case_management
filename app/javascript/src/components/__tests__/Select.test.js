@@ -61,11 +61,11 @@ describe("Select", () => {
         id="select"
         label="Select"
         options={options}
-        labelClassName="sr-only"
+        labelClassName="visually-hidden"
       />
     );
     const label = screen.queryByText("Select");
-    expect(label).toHaveAttribute("class", expect.stringMatching(/sr-only/));
+    expect(label).toHaveAttribute("class", expect.stringMatching(/visually-hidden/));
   });
 
   it("renders an uncontrolled select when no onChange handler is provided", async () => {

@@ -11,4 +11,6 @@ setTimeout(function() {
 }, 5000);
 
 // Close the modal
-$('.modal').modal('hide');
+var destroyModalEl = document.querySelector('.modal');
+var destroyModalInstance = bootstrap.Modal.getInstance(destroyModalEl);
+if (destroyModalInstance) destroyModalInstance.hide();

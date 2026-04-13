@@ -8,11 +8,16 @@ $('#patient_appointment_date')
 $('#patient_status_display')
   .val('<%= @patient.status %>');
 
-// rerack tooltip content 
-$('.daria-tooltip.tooltip-header-help')
-                  .attr('title', "<%= status_help_text(@patient)%>")
-                  .attr('data-original-title', "<%= status_help_text(@patient)%>")
-                  .tooltip('update');
+// rerack tooltip content
+(function() {
+  var tooltipEl = document.querySelector('.daria-tooltip.tooltip-header-help');
+  if (tooltipEl) {
+    var oldTip = bootstrap.Tooltip.getInstance(tooltipEl);
+    if (oldTip) oldTip.dispose();
+    tooltipEl.setAttribute('title', "<%= status_help_text(@patient)%>");
+    new bootstrap.Tooltip(tooltipEl);
+  }
+})();
 
 // rerack current LMP
 $('#patient_last_menstrual_period_weeks')

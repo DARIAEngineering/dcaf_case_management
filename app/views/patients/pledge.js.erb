@@ -4,7 +4,7 @@ $('.modal-content').append(
   '<%= escape_javascript(render partial: "patients/pledge", locals: { patient: @patient, disable_next: disable_continue?(@patient) })%>'
 );
 
-$('.modal').modal('toggle');
+bootstrap.Modal.getOrCreateInstance(document.querySelector('.modal')).toggle();
 
 <% if (!@patient.pledge_sent) %>
 
@@ -19,6 +19,7 @@ $('.modal').modal('toggle');
 
 <% else %>
   $('#cancel-pledge-form').on('submit', function() {
-    $('.modal').modal('hide');
+    var pledgeModal = bootstrap.Modal.getInstance(document.querySelector('.modal'));
+    if (pledgeModal) pledgeModal.hide();
   })
 <% end %>

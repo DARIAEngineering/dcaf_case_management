@@ -12,7 +12,7 @@ export default function () {
         const alertClassName = notice ? "alert-success" : "alert-danger";
         const flashHtml = `<div class="col-sm-10 flash-message">
           <div class="alert ${alertClassName}">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true"></button>
             ${text}
           </div>
         </div>`;

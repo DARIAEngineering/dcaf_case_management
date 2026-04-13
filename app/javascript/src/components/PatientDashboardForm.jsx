@@ -86,7 +86,7 @@ export default PatientDashboardForm = ({
           id="patient_last_menstrual_period_days"
           name="patient[last_menstrual_period_days]"
           label={i18n.t('common.days_along')}
-          labelClassName="sr-only"
+          labelClassName="visually-hidden"
           options={daysOptions}
           value={weeksOptions.find(opt => opt.value === patientData.last_menstrual_period_days)?.value}
           help={i18n.t('patient.dashboard.called_on', { date: initialCallDate })}

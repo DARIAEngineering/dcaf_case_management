@@ -4,6 +4,7 @@ import './src/jquery';
 import {} from 'jquery-ujs'
 import './src/jquery-ui';
 import * as bootstrap from "bootstrap";
+window.bootstrap = bootstrap; // Expose for .js.erb inline scripts
 
 // Vendor
 import './src/vendor/jquery-bootstrap-modal-steps.min';

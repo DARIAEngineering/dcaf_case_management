@@ -1,9 +1,9 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-support-tab" data-toggle="tab" data-target="#nav-support" type="button" role="tab" aria-controls="nav-support" aria-selected="true">
+    <button class="nav-link active" id="nav-support-tab" data-bs-toggle="tab" data-bs-target="#nav-support" type="button" role="tab" aria-controls="nav-support" aria-selected="true">
       <%= t('common.detail') %>
     </button>
-    <button class="nav-link mr-auto" id="nav-notes-tab" data-toggle="tab" data-target="#nav-notes" type="button" role="tab" aria-controls="nav-notes" aria-selected="false">
+    <button class="nav-link me-auto" id="nav-notes-tab" data-bs-toggle="tab" data-bs-target="#nav-notes" type="button" role="tab" aria-controls="nav-notes" aria-selected="false">
       <%= t('common.notes') %>
     </button>
 
@@ -12,12 +12,12 @@
       remote: true,
       method: :delete,
       data: { confirm: t('patient.practical_support.delete_confirm') },
-      class: "btn btn-danger practical-support-remove mr-3" %>
+      class: "btn btn-danger practical-support-remove me-3" %>
 
 
       <%= button_to t('common.close'),
                     nil,
-                    data: { dismiss: 'modal' },
+                    data: { 'bs-dismiss': 'modal' },
                     class: "btn btn-success" %>
 
   </div>

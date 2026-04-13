@@ -11,6 +11,6 @@
 
 <%= javascript_tag nonce: true do %>
   document.addEventListener("render_async_loaded", function (event) {
-    $('.expenditure-item').popover();
+    document.querySelectorAll('.expenditure-item').forEach(el => new bootstrap.Popover(el));
   });
 <% end %>

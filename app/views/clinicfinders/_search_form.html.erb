@@ -3,7 +3,7 @@
     <h4 class="clinic-finder-expand patient-section-title">
       <%= t('clinic_locator.title') %>
       <small><%= t('clinic_locator.experimental_note') %></small>
-      <i class='fas fa-plus-circle float-right'></i>
+      <i class='fas fa-plus-circle float-end'></i>
     </h4>
   </div>
 
@@ -34,7 +34,7 @@
                          autocomplete: 'off' %>
             <%= f.label :last_menstrual_period_days,
                         t('common.days_along'),
-                        class: "sr-only" %>
+                        class: "visually-hidden" %>
           </div>
         </div>
       </div>
