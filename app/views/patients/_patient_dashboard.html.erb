@@ -1,6 +1,7 @@
 <div id="patient_dashboard_content">
   <%= bootstrap_form_with model: patient,
-                         html: { id: 'patient_dashboard_form' },
+                         html: { id: 'patient_dashboard_form',
+                                 data: { controller: 'autosave', autosave_delay_value: 300 } },
                          local: false,
                          method: 'patch',
                          class: 'edit_patient' do |f| %>
@@ -9,7 +10,8 @@
       <div class="col-4">
         <%= f.text_field :name,
                          label: t('patient.shared.name'),
-                         autocomplete: 'off' %>
+                         autocomplete: 'off',
+                         data: { action: 'input->autosave#save' } %>
       </div>
       
       <div class="col">
@@ -17,7 +19,8 @@
                      options_for_select(weeks_options, patient.last_menstrual_period_weeks ),
                      label: t('patient.dashboard.weeks_along'),
                      autocomplete: 'off',
-                     help: t('patient.dashboard.currently', weeks: patient.last_menstrual_period_now_weeks, days: patient.last_menstrual_period_now_days) %>
+                     help: t('patient.dashboard.currently', weeks: patient.last_menstrual_period_now_weeks, days: patient.last_menstrual_period_now_days),
+                     data: { action: 'change->autosave#save' } %>
       </div>
 
       <div class="col mt-4">
@@ -25,7 +28,8 @@
                      options_for_select(days_options, patient.last_menstrual_period_days),
                      autocomplete: 'off',
                      skip_label: true,
-                     help: t('patient.dashboard.called_on', date: patient.initial_call_date.strftime("%m/%d/%Y")) %>
+                     help: t('patient.dashboard.called_on', date: patient.initial_call_date.strftime("%m/%d/%Y")),
+                     data: { action: 'change->autosave#save' } %>
         <%= f.label :last_menstrual_period_days, t('common.days_along'), class: "sr-only" %>
       </div>          
 
@@ -33,7 +37,8 @@
         <%= f.date_field :appointment_date,
                          label: t('patient.shared.appt_date'),
                          autocomplete: 'off',
-                         help: t('patient.dashboard.approx_gestation', weeks: patient.last_menstrual_period_at_appt_weeks, days: patient.last_menstrual_period_at_appt_days) %>
+                         help: t('patient.dashboard.approx_gestation', weeks: patient.last_menstrual_period_at_appt_weeks, days: patient.last_menstrual_period_at_appt_days),
+                         data: { action: 'change->autosave#save' } %>
       </div>
     </div>
 
@@ -42,13 +47,15 @@
         <%= f.text_field :primary_phone,
                          value: patient.primary_phone_display,
                          label: t('patient.dashboard.phone'),
-                         autocomplete: 'off' %>
+                         autocomplete: 'off',
+                         data: { action: 'input->autosave#save' } %>
       </div>
 
       <div class="col">
         <%= f.text_field :pronouns,
                          value: patient.pronouns,
-                         autocomplete: 'off' %>
+                         autocomplete: 'off',
+                         data: { action: 'input->autosave#save' } %>
       </div>
 
       <div class="col">
