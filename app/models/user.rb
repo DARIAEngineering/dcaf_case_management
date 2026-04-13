@@ -127,6 +127,11 @@ class User < ApplicationRecord
         .limit(SEARCH_LIMIT)
   end
 
+  # Dynamic session timeout — reads from fund's Config, falls back to Devise default
+  def timeout_in
+    Config.session_timeout
+  end
+
   def force_logout
     update_attribute(:session_validity_token, nil)
   end

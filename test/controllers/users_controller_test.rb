@@ -208,6 +208,32 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         assert_equal 'admin', @user.role
       end
     end
+
+    describe 'force_logout on role change' do
+      it 'should clear session_validity_token when admin changes another user role' do
+        @user_2.update_column(:session_validity_token, 'original-token')
+        patch change_role_to_admin_path(@user_2)
+        @user_2.reload
+        assert_nil @user_2.session_validity_token
+      end
+
+      it 'should not clear own session_validity_token when changing own role' do
+        original_token = @user.session_validity_token
+        # Admin changing self to admin (no-op role wise, but force_logout guarded)
+        patch change_role_to_admin_path(@user)
+        @user.reload
+        assert_equal original_token, @user.session_validity_token
+      end
+
+      it 'should clear session_validity_token on demotion to cm' do
+        @user_2.update role: 'admin'
+        @user_2.update_column(:session_validity_token, 'active-session-token')
+        patch change_role_to_cm_path(@user_2)
+        @user_2.reload
+        assert_equal 'cm', @user_2.role
+        assert_nil @user_2.session_validity_token
+      end
+    end
   end
 
   describe 'toggle_lock method' do

@@ -65,16 +65,19 @@ class UsersController < ApplicationController
 
   def change_role_to_admin
     @user.update role: 'admin'
+    @user.force_logout unless @user == current_user
     render 'edit'
   end
 
   def change_role_to_data_volunteer
     @user.update role: 'data_volunteer' if user_not_demoting_themself?(@user)
+    @user.force_logout unless @user == current_user
     render 'edit'
   end
 
   def change_role_to_cm
     @user.update role: 'cm' if user_not_demoting_themself?(@user)
+    @user.force_logout unless @user == current_user
     render 'edit'
   end
 
