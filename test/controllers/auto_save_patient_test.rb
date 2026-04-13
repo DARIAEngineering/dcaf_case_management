@@ -56,5 +56,31 @@ class AutoSavePatientTest < ActionDispatch::IntegrationTest
         }
       end
     end
+
+    it 'should respond to JSON format requests' do
+      patch patient_path(@patient, format: :json), params: {
+        patient: { name: 'JSON Save' }
+      }
+      assert_response :success
+      @patient.reload
+      assert_equal 'JSON Save', @patient.name
+    end
+
+    it 'should render autosave data attributes on the form' do
+      get edit_patient_path(@patient)
+      assert_response :success
+      assert_select 'form[data-controller="autosave"]'
+      assert_select 'form[data-autosave-url-value]'
+      assert_select '[data-autosave-target="indicator"]'
+    end
+
+    it 'should not change updated_at when no fields actually change' do
+      original_updated_at = @patient.updated_at
+      patch patient_path(@patient), params: {
+        patient: { name: @patient.name }
+      }
+      @patient.reload
+      assert_equal original_updated_at.to_i, @patient.updated_at.to_i
+    end
   end
 end
