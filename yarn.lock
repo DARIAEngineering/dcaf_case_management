@@ -2022,6 +2022,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hotwired/stimulus@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "@hotwired/stimulus@npm:3.2.2"
+  checksum: 10/31b9dc3a36a73b87a30570d6e73d27b387a8f6c3caf934aedc4dc96e5b40dde8fc36d530e16056b3d590b1d31b8a13bc1fca002e83df838f1bf5148b188046de
+  languageName: node
+  linkType: hard
+
+"@hotwired/turbo-rails@npm:^8.0.23":
+  version: 8.0.23
+  resolution: "@hotwired/turbo-rails@npm:8.0.23"
+  dependencies:
+    "@hotwired/turbo": "npm:^8.0.23"
+    "@rails/actioncable": "npm:>=7.0"
+  checksum: 10/df46c983bb4f49fffcd088d71a607314a707093542fff8b47a768e64faf8ca3d604b034d8c2e458678badc050515c591f12cb21def9c7dfd38b9b3a34a0ca44d
+  languageName: node
+  linkType: hard
+
+"@hotwired/turbo@npm:^8.0.23":
+  version: 8.0.23
+  resolution: "@hotwired/turbo@npm:8.0.23"
+  checksum: 10/ea6a07306762a7b85ebabb2bbd339d939bb8329fcf8631e7646e9d890f9a05a2ba19ee4666a40fb51f3789548271357cf8a868d335e3f7d953a7b31a70615605
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -2605,6 +2629,13 @@ __metadata:
   version: 2.11.8
   resolution: "@popperjs/core@npm:2.11.8"
   checksum: 10/ddd16090cde777aaf102940f05d0274602079a95ad9805bd20bc55dcc7c3a2ba1b99dd5c73e5cc2753c3d31250ca52a67d58059459d7d27debb983a9f552936c
+  languageName: node
+  linkType: hard
+
+"@rails/actioncable@npm:>=7.0":
+  version: 8.1.300
+  resolution: "@rails/actioncable@npm:8.1.300"
+  checksum: 10/9a8682b9d311ded0cf3a6fcb581fdcde8e21e16dba375a854cb6adb38167dbe06ccac6ca5a4edcdf55accc9396fcbd5dc0aa8b4605427c9f0ee9c5b4e687bfed
   languageName: node
   linkType: hard
 
@@ -9231,6 +9262,8 @@ __metadata:
     "@babel/preset-env": "npm:^7.28.0"
     "@babel/preset-react": "npm:^7.27.1"
     "@fortawesome/fontawesome-free": "npm:6.7.2"
+    "@hotwired/stimulus": "npm:^3.2.2"
+    "@hotwired/turbo-rails": "npm:^8.0.23"
     "@popperjs/core": "npm:2.11.8"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:^6.6.4"

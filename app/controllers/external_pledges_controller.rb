@@ -17,7 +17,7 @@ class ExternalPledgesController < ApplicationController
 
   def update
     if @pledge.update external_pledge_params
-      respond_to { |format| format.js }
+      head :ok
     else
       head :bad_request
     end
@@ -25,7 +25,7 @@ class ExternalPledgesController < ApplicationController
 
   def destroy
     @pledge.update active: false
-    respond_to { |format| format.js }
+    head :ok
   end
 
   private
