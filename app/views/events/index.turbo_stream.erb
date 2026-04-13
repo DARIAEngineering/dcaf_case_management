@@ -1,0 +1,3 @@
+<%= turbo_stream.update "activity_log_content" do %>
+  <%= render partial: "events/events", locals: { events: @events } %>
+<% end %>

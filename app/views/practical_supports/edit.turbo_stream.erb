@@ -1,0 +1,3 @@
+<%= turbo_stream.update "practical-support-edit-modal-content" do %>
+  <%= render partial: "practical_supports/edit", locals: { patient: @patient, support: @support, note: @note } %>
+<% end %>

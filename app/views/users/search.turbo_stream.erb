@@ -1,0 +1,9 @@
+<% if @results&.any? %>
+  <%= turbo_stream.update "user-list" do %>
+    <%= render partial: 'users/users_table', locals: { users: @results, autosortable: true } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "user-list" do %>
+    <%= render partial: 'users/users_table', locals: { users: nil, autosortable: true } %>
+  <% end %>
+<% end %>

@@ -1,0 +1,3 @@
+<%= turbo_stream.update "new-call-modal-content" do %>
+  <%= render partial: "calls/new_call", locals: { patient: @patient } %>
+<% end %>

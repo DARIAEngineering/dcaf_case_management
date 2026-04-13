@@ -5,6 +5,11 @@ import {} from 'jquery-ujs'
 import './src/jquery-ui';
 import * as bootstrap from "bootstrap";
 
+// Hotwire Turbo — Drive disabled for incremental migration from jquery-ujs.
+// Individual forms opt in via data-turbo="true".
+import "@hotwired/turbo-rails"
+document.documentElement.setAttribute("data-turbo", "false")
+
 // Vendor
 import './src/vendor/jquery-bootstrap-modal-steps.min';
 
@@ -20,6 +25,9 @@ import './src/require_pledge_signature';
 import './src/table_sorting';
 import './src/toggle_full_call_list';
 import './src/tooltips';
+
+// Stimulus controllers
+import './controllers';
 
 // React
 import './src/components/PatientDashboardForm';

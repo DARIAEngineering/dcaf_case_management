@@ -7,7 +7,10 @@ class PracticalSupportsController < ApplicationController
 
   def edit
     @note = @support.notes.new
-    respond_to { |format| format.js }
+    respond_to do |format|
+      format.turbo_stream
+      format.js
+    end
   end
 
   def create
@@ -15,10 +18,14 @@ class PracticalSupportsController < ApplicationController
     if @support.save
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
       @support = @patient.reload.practical_supports.order(created_at: :desc)
-      respond_to { |format| format.js }
+      respond_to do |format|
+        format.turbo_stream
+        format.js
+      end
     else
       flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
       respond_to do |format|
+        format.turbo_stream { render partial: 'layouts/flash_messages' }
         format.js { render partial: 'layouts/flash_messages' }
       end
     end
@@ -27,10 +34,14 @@ class PracticalSupportsController < ApplicationController
   def update
     if @support.update practical_support_params
       flash.now[:notice] = t('flash.patient_info_saved', timestamp: Time.zone.now.display_timestamp)
-      respond_to { |format| format.js }
+      respond_to do |format|
+        format.turbo_stream
+        format.js
+      end
     else
       flash.now[:alert] = "Practical support failed to save: #{@support.errors.full_messages.to_sentence}"
       respond_to do |format|
+        format.turbo_stream { render partial: 'layouts/flash_messages' }
         format.js { render partial: 'layouts/flash_messages' }
       end
     end
@@ -39,7 +50,10 @@ class PracticalSupportsController < ApplicationController
   def destroy
     flash.now[:alert] = "Removed practical support"
     @support.destroy
-    respond_to { |format| format.js }
+    respond_to do |format|
+      format.turbo_stream
+      format.js
+    end
   end
 
   private

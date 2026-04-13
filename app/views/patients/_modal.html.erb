@@ -1,8 +1,22 @@
-<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-modal">
+<div class="modal fade new-call" tabindex="-1" role="dialog" id="pledge-modal" data-controller="modal">
   <div class="modal-dialog">
-    <div class="modal-content modal-body">
+    <div class="modal-content modal-body" id="pledge-modal-content">
+    </div>
+  </div>
+</div>
 
+<%# Separate modal for new calls on the patient page %>
+<div class="modal fade" tabindex="-1" role="dialog" data-controller="modal">
+  <div class="modal-dialog">
+    <div class="modal-content" id="new-call-modal-content">
+    </div>
+  </div>
+</div>
 
+<%# Modal for practical support editing %>
+<div class="modal fade" tabindex="-1" role="dialog" data-controller="modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="practical-support-edit-modal-content">
     </div>
   </div>
 </div>

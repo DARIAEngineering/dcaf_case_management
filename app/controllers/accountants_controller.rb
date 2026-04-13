@@ -20,7 +20,10 @@ class AccountantsController < ApplicationController
   def edit
     # This is a cheater method that populates the fulfillment partial into a
     # modal via ajax.
-    respond_to { |format| format.js }
+    respond_to do |format|
+      format.turbo_stream
+      format.js
+    end
   end
 
   private

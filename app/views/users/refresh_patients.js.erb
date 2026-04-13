@@ -1,4 +1,4 @@
-$('#call_list, #completed_calls, #shared_patients').empty();
+$('#call_list, #completed_calls, #shared_cases').empty();
 
 $('#call_list').append(
   '<%= escape_javascript(render partial: "dashboards/table_content",
@@ -17,7 +17,7 @@ $('#completed_calls').append(
                                           autosortable: true }) %>'
 );
 
-$("#shared_patients").append(
+$("#shared_cases").append(
   '<%= escape_javascript( render partial: "dashboards/table_content",
                                 locals: { title: t('dashboard.partial_titles.shared_cases'),
                                           table_type: 'shared_cases',

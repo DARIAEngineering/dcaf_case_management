@@ -28,7 +28,7 @@ if (isOnDashboard) {
                                             utosortable: true }) %>'
   );
 
-  $("#shared_patients").html(
+  $("#shared_cases").html(
     '<%= escape_javascript( render partial: "dashboards/table_content",
                                   locals: { title: t('dashboard.partial_titles.shared_cases'),
                                             table_type: 'shared_cases',

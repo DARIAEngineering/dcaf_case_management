@@ -23,7 +23,10 @@ class DashboardsController < ApplicationController
     @phone = searched_for_phone?(params[:search]) ? params[:search] : ''
     @name = searched_for_name?(params[:search]) ? params[:search] : ''
 
-    respond_to { |format| format.js }
+    respond_to do |format|
+      format.turbo_stream
+      format.js
+    end
   end
 
   def budget_bar

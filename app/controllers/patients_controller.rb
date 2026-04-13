@@ -33,6 +33,7 @@ class PatientsController < ApplicationController
   def pledge
     @patient = Patient.find params[:patient_id]
     respond_to do |format|
+      format.turbo_stream
       format.js
     end
   end
@@ -120,6 +121,9 @@ class PatientsController < ApplicationController
     @patient.last_edited_by = current_user
 
     respond_to do |format|
+      format.turbo_stream do
+        respond_to_update_for_js_format
+      end
       format.js do
         respond_to_update_for_js_format
       end
@@ -159,7 +163,7 @@ class PatientsController < ApplicationController
 
   private
 
-  # preload patient with versions for edit and js format update requests
+  # preload patient with versions for edit and js/turbo_stream format update requests
   def should_preload_patient_with_versions?
     action_name.to_sym == :edit || (action_name.to_sym == :update && !request.format.json?)
   end

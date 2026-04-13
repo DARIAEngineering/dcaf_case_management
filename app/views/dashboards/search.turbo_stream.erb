@@ -1,0 +1,8 @@
+<%= turbo_stream.update "search_results_shell" do %>
+  <% if @results.any? %>
+    <%= render partial: 'dashboards/table_content', locals: { title: t('dashboard.partial_titles.search_results'), table_type: 'search_results', patients: @results } %>
+  <% else %>
+    <h3 class='mt-5 mb-5'><small><%= t('dashboard.search.no_results') %></small></h3>
+  <% end %>
+  <%= render partial: 'patients/new_patient', locals: { patient: @patient, name: @name, phone: @phone, today: @today } %>
+<% end %>
