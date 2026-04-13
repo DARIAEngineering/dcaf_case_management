@@ -64,5 +64,41 @@ class AuthFactorTest < ActiveSupport::TestCase
              .destroy_all
       end
     end
+
+    it 'should handle no incomplete registrations gracefully' do
+      AuthFactor.where(registration_complete: false).destroy_all
+      assert_nothing_raised do
+        @user.auth_factors
+             .where(registration_complete: false)
+             .where('created_at < ?', 1.hour.ago)
+             .destroy_all
+      end
+    end
+
+    it 'should not affect incomplete registrations of other users' do
+      other_user = create :user
+      other_incomplete = other_user.auth_factors.build(
+        channel: 'sms',
+        registration_complete: false
+      )
+      other_incomplete.save!(validate: false)
+      other_incomplete.update_column(:created_at, 2.hours.ago)
+
+      @user.auth_factors
+           .where(registration_complete: false)
+           .where('created_at < ?', 1.hour.ago)
+           .destroy_all
+
+      assert_nothing_raised { other_incomplete.reload }
+    end
+
+    it 'should preserve completed factor for same user when cleaning incomplete' do
+      completed_count = @user.auth_factors.where(registration_complete: true).count
+      @user.auth_factors
+           .where(registration_complete: false)
+           .where('created_at < ?', 1.hour.ago)
+           .destroy_all
+      assert_equal completed_count, @user.auth_factors.where(registration_complete: true).count
+    end
   end
 end
