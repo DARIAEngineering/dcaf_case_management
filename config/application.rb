@@ -34,9 +34,14 @@ module Daria2
     # temporary, can be removed in separate release once data migration for encrypted data is complete
     config.active_record.encryption.support_unencrypted_data = true
     # the first key in the list is the active key to perform encryptions, the rest of the list is decryption keys (to support key rotation)
-    config.active_record.encryption.primary_key = [ENV.fetch("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", "default_primary_key")]
-    config.active_record.encryption.key_derivation_salt = ENV.fetch("ACTIVE_RECORD_KEY_DERIVATION_SALT", "default_salt")
-    config.active_record.encryption.deterministic_key = [ENV.fetch("ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", "default_deterministic_key")]
+    # PQC dual-read: If PQC env vars are set, unwraps key via ML-KEM-1024 + AES-256-GCM.
+    # Otherwise falls back to raw ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY env var.
+    # All key loading is environment-aware: production raises on missing keys,
+    # dev/test generates deterministic fallbacks.
+    require_relative "../app/services/pqc_key_manager"
+    config.active_record.encryption.primary_key = [PqcKeyManager.primary_key]
+    config.active_record.encryption.key_derivation_salt = PqcKeyManager.require_env_key("ACTIVE_RECORD_KEY_DERIVATION_SALT", "key derivation salt")
+    config.active_record.encryption.deterministic_key = [PqcKeyManager.require_env_key("ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", "deterministic encryption key")]
     # for backwards compatibility's sake
     config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA1 # New data uses SHA256, but old rails had this as a default
     config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true # Allows decryption of old SHA1 data
