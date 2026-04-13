@@ -1,0 +1,15 @@
+<%= turbo_stream.update "clinic-finder-results" do %>
+  <% if @nearest&.any? %>
+    <%= render partial: 'clinicfinders/result_table',
+              locals: { title: t('clinic_locator.result.nearest_title'),
+                        clinic_fields: [:name, :location, :accepts_naf, :distance, :gestational_limit],
+                        clinics: @nearest } %>
+  <% end %>
+
+  <% if @cheapest&.any? %>
+    <%= render partial: 'clinicfinders/result_table',
+              locals: { title: t('clinic_locator.result.affordable_title'),
+                        clinic_fields: [:name, :cost],
+                        clinics: @cheapest } %>
+  <% end %>
+<% end %>

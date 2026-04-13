@@ -9,7 +9,10 @@ class ExternalPledgesController < ApplicationController
     @pledge = @patient.external_pledges.new external_pledge_params
     if @pledge.save
       @pledge = @patient.reload.external_pledges.order(created_at: :desc)
-      respond_to { |format| format.js }
+      respond_to do |format|
+        format.turbo_stream
+        format.js
+      end
     else
       head :bad_request
     end
@@ -17,7 +20,7 @@ class ExternalPledgesController < ApplicationController
 
   def update
     if @pledge.update external_pledge_params
-      respond_to { |format| format.js }
+      head :ok
     else
       head :bad_request
     end
@@ -25,7 +28,7 @@ class ExternalPledgesController < ApplicationController
 
   def destroy
     @pledge.update active: false
-    respond_to { |format| format.js }
+    head :ok
   end
 
   private

@@ -13,7 +13,10 @@ class ClinicfindersController < ApplicationController
     clinic_finder = ClinicFinder::Locator.new filtered_clinics
     @nearest = clinic_finder.locate_nearest_clinics params[:zip]
     @cheapest = nil # clinic_finder.locate_cheapest_clinic
-    respond_to { |format| format.js }
+    respond_to do |format|
+      format.turbo_stream
+      format.js
+    end
   end
 
   private

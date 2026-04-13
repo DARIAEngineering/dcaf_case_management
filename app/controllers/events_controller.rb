@@ -9,6 +9,7 @@ class EventsController < ApplicationController
     @events = paginate_results(events)
     respond_to do |format|
       format.html { render partial: 'events/events' }
+      format.turbo_stream
       format.js { render :layout => false }
     end
   end
