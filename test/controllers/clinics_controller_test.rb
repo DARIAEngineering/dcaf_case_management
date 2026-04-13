@@ -141,5 +141,27 @@ class ClinicsControllerTest < ActionDispatch::IntegrationTest
       @clinic.reload
       assert_nil @clinic.availability_verified_at
     end
+
+    it 'should store availability notes from params' do
+      @user.update role: :admin
+      post verify_availability_clinic_path(@clinic), params: { availability_notes: 'Called clinic' }
+      @clinic.reload
+      assert_equal 'Called clinic', @clinic.availability_notes
+    end
+
+    it 'should record the verifying user' do
+      @user.update role: :cm
+      post verify_availability_clinic_path(@clinic), params: { availability_notes: 'Confirmed' }
+      @clinic.reload
+      assert_equal @user.id, @clinic.availability_verified_by_id
+    end
+
+    it 'should not allow unauthenticated access' do
+      delete destroy_user_session_path
+      post verify_availability_clinic_path(@clinic)
+      assert_response :redirect
+      @clinic.reload
+      assert_nil @clinic.availability_verified_at
+    end
   end
 end

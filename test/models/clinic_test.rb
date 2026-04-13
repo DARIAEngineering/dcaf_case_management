@@ -166,5 +166,16 @@ class ClinicTest < ActiveSupport::TestCase
       assert @clinic.availability_stale?(2)
       refute @clinic.availability_stale?(5)
     end
+
+    it 'should reject availability_notes over 1000 chars' do
+      @clinic.availability_notes = 'a' * 1001
+      refute @clinic.valid?
+      assert @clinic.errors[:availability_notes].any?
+    end
+
+    it 'should allow availability_notes up to 1000 chars' do
+      @clinic.availability_notes = 'a' * 1000
+      assert @clinic.valid?
+    end
   end
 end
