@@ -59,5 +59,20 @@ class CallTest < ActiveSupport::TestCase
       assert patient.updated_at > original_updated_at,
              'Patient updated_at should be bumped when a call is created'
     end
+
+    it 'should update parent updated_at when call is destroyed' do
+      patient = create :patient
+      call = create :call, can_call: patient
+      patient.reload
+      original_updated_at = patient.updated_at
+
+      travel 1.second do
+        call.destroy!
+      end
+
+      patient.reload
+      assert patient.updated_at > original_updated_at,
+             'Patient updated_at should be bumped when a call is destroyed'
+    end
   end
 end
