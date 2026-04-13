@@ -152,6 +152,48 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
         assert_equal original_changes, config_version.object_changes
       end
     end
+
+    it 'should scrub Note full_text from version records' do
+      with_versioning do
+        note_version = PaperTrailVersion.create!(
+          item_type: 'Note',
+          item_id: 1,
+          event: 'create',
+          object: nil,
+          object_changes: { 'full_text' => [nil, 'Sensitive note content'], 'id' => [nil, 1] }
+        )
+
+        PaperTrailVersion.scrub_patient_pii
+
+        note_version.reload
+        refute note_version.object_changes.key?('full_text'),
+               'full_text should be scrubbed from Note versions'
+        assert note_version.object_changes.key?('id'),
+               'Non-PII fields should be preserved in Note versions'
+      end
+    end
+
+    it 'should scrub PracticalSupport attachment_url from version records' do
+      with_versioning do
+        ps_version = PaperTrailVersion.create!(
+          item_type: 'PracticalSupport',
+          item_id: 1,
+          event: 'update',
+          object: { 'attachment_url' => 'https://example.com/receipt.pdf', 'source' => 'Fund' },
+          object_changes: { 'attachment_url' => ['old_url', 'new_url'], 'source' => ['Old', 'New'] }
+        )
+
+        PaperTrailVersion.scrub_patient_pii
+
+        ps_version.reload
+        refute ps_version.object.key?('attachment_url'),
+               'attachment_url should be scrubbed from PracticalSupport object'
+        refute ps_version.object_changes.key?('attachment_url'),
+               'attachment_url should be scrubbed from PracticalSupport object_changes'
+        assert ps_version.object.key?('source'),
+               'Non-PII fields should be preserved in PracticalSupport object'
+      end
+    end
   end
 
   # ensure that paper trail is versioning properly
