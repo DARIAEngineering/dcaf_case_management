@@ -68,5 +68,22 @@ class NoteTemplateTest < ActiveSupport::TestCase
       assert_includes results, personal
       refute_includes results, other
     end
+
+    it 'should order available_to results by name' do
+      create :note_template, user: @user, name: 'Zebra template'
+      create :note_template, user: @user, name: 'Alpha template'
+
+      results = NoteTemplate.available_to(@user)
+      assert_equal results.first.name, 'Alpha template'
+    end
+  end
+
+  describe 'dependent destroy' do
+    it 'should destroy templates when user is destroyed' do
+      template = create :note_template, user: @user, name: 'Will Be Deleted'
+      assert_difference 'NoteTemplate.count', -1 do
+        @user.destroy
+      end
+    end
   end
 end

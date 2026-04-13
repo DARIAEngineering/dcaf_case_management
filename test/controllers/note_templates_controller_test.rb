@@ -55,6 +55,36 @@ class NoteTemplatesControllerTest < ActionDispatch::IntegrationTest
         }
       end
     end
+
+    it 'should reject template without full_text' do
+      assert_no_difference 'NoteTemplate.count' do
+        post note_templates_path, params: {
+          note_template: { name: 'Missing Body', full_text: '' }
+        }
+      end
+    end
+
+    it 'should allow admin to create fund-level template' do
+      sign_in @admin
+      choose_line @line
+
+      assert_difference 'NoteTemplate.count', 1 do
+        post note_templates_path, params: {
+          note_template: { name: 'Fund Wide', full_text: 'Shared text', fund_level: '1' }
+        }
+      end
+
+      template = NoteTemplate.last
+      assert_nil template.user_id
+    end
+
+    it 'should not allow unauthenticated access' do
+      delete destroy_user_session_path
+      post note_templates_path, params: {
+        note_template: { name: 'Sneaky', full_text: 'Nope' }
+      }
+      assert_response :redirect
+    end
   end
 
   describe 'destroy' do
@@ -93,6 +123,18 @@ class NoteTemplatesControllerTest < ActionDispatch::IntegrationTest
       assert_difference 'NoteTemplate.count', -1 do
         delete note_template_path(fund_template)
       end
+    end
+
+    it 'should not allow admin to delete another users personal template' do
+      sign_in @admin
+      choose_line @line
+      other = create :user
+      template = create :note_template, user: other, name: 'Other Personal'
+
+      assert_no_difference 'NoteTemplate.count' do
+        delete note_template_path(template)
+      end
+      assert_match(/not authorized/i, flash[:alert])
     end
   end
 end
