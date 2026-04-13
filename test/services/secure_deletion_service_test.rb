@@ -195,4 +195,119 @@ class SecureDeletionServiceTest < ActiveSupport::TestCase
       assert service.respond_to?(:self_hosted?, true)
     end
   end
+
+  describe 'patient with Fulfillment records' do
+    it 'should destroy the fulfillment association' do
+      # Patient auto-creates a fulfillment via after_create callback
+      fulfillment = @patient.fulfillment
+      assert fulfillment.present?, 'Patient should have a fulfillment record'
+      fulfillment_id = fulfillment.id
+
+      SecureDeletionService.securely_destroy!(@patient)
+
+      assert_nil Fulfillment.find_by(id: fulfillment_id),
+        'Fulfillment should be destroyed along with the patient'
+    end
+
+    it 'should scrub PaperTrail versions for Fulfillment' do
+      with_versioning(create(:user)) do
+        fulfillment = @patient.fulfillment
+        fulfillment.update!(fund_payout: 500)
+        fulfillment_id = fulfillment.id
+
+        assert PaperTrailVersion.where(item_type: 'Fulfillment', item_id: fulfillment_id).exists?,
+               'Expected fulfillment versions to exist before secure deletion'
+
+        SecureDeletionService.securely_destroy!(@patient)
+
+        refute PaperTrailVersion.where(item_type: 'Fulfillment', item_id: fulfillment_id).exists?,
+               'Fulfillment versions should be scrubbed'
+      end
+    end
+  end
+
+  describe 'shredded PII values are random' do
+    it 'should overwrite PII fields with non-empty random hex strings' do
+      original_values = SecureDeletionService::PATIENT_PII_FIELDS.map { |f| @patient.send(f) }
+
+      # Shred PII via the private method
+      service = SecureDeletionService.new(@patient)
+      service.send(:shred_pii!)
+      @patient.reload
+
+      SecureDeletionService::PATIENT_PII_FIELDS.each do |field|
+        value = @patient.send(field)
+        refute value.blank?, "Shredded #{field} should not be blank"
+        assert_match(/\A[0-9a-f]{16}\z/, value,
+          "Shredded #{field} should be a 16-char hex string (SecureRandom.hex(8))")
+      end
+    end
+
+    it 'should produce different shredded values across fields' do
+      service = SecureDeletionService.new(@patient)
+      service.send(:shred_pii!)
+      @patient.reload
+
+      values = SecureDeletionService::PATIENT_PII_FIELDS.map { |f| @patient.send(f) }
+      # With 9 fields, the probability of any two matching random hex(8) is negligible
+      assert_equal values.uniq.size, values.size,
+        'Each shredded PII field should have a unique random value'
+    end
+  end
+
+  describe 'idempotency — deleting an already-deleted patient' do
+    it 'should raise RecordNotFound when called on a destroyed patient' do
+      SecureDeletionService.securely_destroy!(@patient)
+
+      assert_raises(ActiveRecord::RecordNotFound) do
+        reloaded = Patient.find(@patient.id)
+        SecureDeletionService.securely_destroy!(reloaded)
+      end
+    end
+
+    it 'should not raise if patient is already gone and we handle it' do
+      SecureDeletionService.securely_destroy!(@patient)
+      assert_nil Patient.find_by(id: @patient.id)
+    end
+  end
+
+  describe 'operation with PaperTrail disabled' do
+    it 'should complete without error when PaperTrail is disabled' do
+      was_enabled = PaperTrail.enabled?
+      begin
+        PaperTrail.enabled = false
+
+        patient = create :patient, name: 'PaperTrail Off Patient'
+        patient.notes.create!(full_text: 'A note')
+
+        assert_nothing_raised do
+          SecureDeletionService.securely_destroy!(patient)
+        end
+        assert_nil Patient.find_by(id: patient.id)
+      ensure
+        PaperTrail.enabled = was_enabled
+      end
+    end
+
+    it 'should still destroy all records when PaperTrail is disabled' do
+      was_enabled = PaperTrail.enabled?
+      begin
+        PaperTrail.enabled = false
+
+        patient = create :patient, name: 'No Trail Patient'
+        patient.calls.create! attributes_for(:call, status: :reached_patient)
+        note = patient.notes.create!(full_text: 'Sensitive')
+        note_id = note.id
+        call_id = patient.calls.first.id
+
+        SecureDeletionService.securely_destroy!(patient)
+
+        assert_nil Patient.find_by(id: patient.id)
+        assert_nil Note.find_by(id: note_id)
+        assert_nil Call.find_by(id: call_id)
+      ensure
+        PaperTrail.enabled = was_enabled
+      end
+    end
+  end
 end
