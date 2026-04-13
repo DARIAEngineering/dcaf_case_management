@@ -68,6 +68,20 @@ class PracticalSupportTest < ActiveSupport::TestCase
       @psupport1.update!(status: :completed)
       assert @psupport1.completed?
     end
+
+    it 'should allow cancelled from any active state' do
+      %i[requested in_progress approved].each do |state|
+        support = @patient.practical_supports.create!(
+          support_type: "Cancel from #{state}", source: 'Test', status: state
+        )
+        support.update!(status: :cancelled)
+        assert support.cancelled?, "Expected cancelled from #{state}"
+      end
+    end
+
+    it 'should raise ArgumentError for an invalid status value' do
+      assert_raises(ArgumentError) { @psupport1.status = :bogus }
+    end
   end
 
   describe 'overdue scope' do
@@ -93,6 +107,21 @@ class PracticalSupportTest < ActiveSupport::TestCase
 
     it 'should not flag as overdue when created recently with NULL status_updated_at' do
       @psupport1.update_columns(status: 0, status_updated_at: nil, created_at: 1.day.ago)
+      refute_includes PracticalSupport.overdue, @psupport1
+    end
+
+    it 'should include in_progress supports older than 7 days' do
+      @psupport1.update_columns(status: 1, status_updated_at: 10.days.ago)
+      assert_includes PracticalSupport.overdue, @psupport1
+    end
+
+    it 'should exclude supports at exactly the 7-day boundary' do
+      @psupport1.update_columns(status: 0, status_updated_at: 7.days.ago)
+      refute_includes PracticalSupport.overdue, @psupport1
+    end
+
+    it 'should exclude cancelled supports even if old' do
+      @psupport1.update_columns(status: 4, status_updated_at: 10.days.ago)
       refute_includes PracticalSupport.overdue, @psupport1
     end
   end

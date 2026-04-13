@@ -104,6 +104,15 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
             xhr: true
       assert response.body.include? 'failed to save'
     end
+
+    it 'should update status via the status param' do
+      patch patient_practical_support_path(@patient, @support),
+            params: { practical_support: { status: 'approved' } },
+            xhr: true
+      assert response.body.include? 'saved'
+      @support.reload
+      assert @support.approved?
+    end
   end
 
   describe 'destroy' do
