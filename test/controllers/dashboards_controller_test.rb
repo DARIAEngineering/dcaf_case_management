@@ -50,6 +50,19 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_no_match(/Follow Up Needed/, response.body.scan(/follow-ups-due.*?<\/div>/m).join)
     end
+
+    it 'should not include follow-up patients from a different line' do
+      other_line = create :line, name: 'Other Line'
+      create :patient,
+             name: 'Other Line Patient',
+             line: other_line,
+             follow_up_date: 1.day.ago.to_date,
+             follow_up_reason: 'Belongs to other line'
+      get dashboard_path
+      assert_response :success
+      follow_ups_html = response.body.scan(/follow-ups-due.*?<\/table>/m).join
+      assert_no_match(/Other Line Patient/, follow_ups_html)
+    end
   end
 
   describe 'search method' do

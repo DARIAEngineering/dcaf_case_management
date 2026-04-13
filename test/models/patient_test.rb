@@ -771,5 +771,18 @@ class PatientTest < ActiveSupport::TestCase
       patient.follow_up_reason = 'a' * 201
       refute patient.valid?
     end
+
+    it 'should allow blank follow_up_reason' do
+      patient = build :patient
+      patient.follow_up_reason = ''
+      assert patient.valid?
+    end
+
+    it 'should allow follow_up_date without a reason' do
+      patient = build :patient
+      patient.follow_up_date = 2.days.from_now.to_date
+      patient.follow_up_reason = nil
+      assert patient.valid?
+    end
   end
 end
