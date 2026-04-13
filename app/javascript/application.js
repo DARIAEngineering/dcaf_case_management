@@ -1,12 +1,6 @@
 // Entry point for the build script in package.json.
-// Core libraries (mostly just initializing)
-import './src/jquery';
-import {} from 'jquery-ujs'
-import './src/jquery-ui';
+// Core libraries
 import * as bootstrap from "bootstrap";
-
-// Vendor
-import './src/vendor/jquery-bootstrap-modal-steps.min';
 
 // Custom
 import './src/autosave';

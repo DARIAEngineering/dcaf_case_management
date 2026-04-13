@@ -1,40 +1,38 @@
-// http://stackoverflow.com/questions/1307705/jquery-ui-sortable-with-table-and-tr-width/1372954#1372954
-// http://benw.me/posts/sortable-bootstrap-tables/
+// Sortable call list using SortableJS (replaces jQuery UI sortable)
+import Sortable from 'sortablejs';
 
-$(document).on('DOMContentLoaded', () => {
-  $('#call_list td').each((index, element) => $(element).css('width', $(element).width()));
+document.addEventListener('DOMContentLoaded', () => {
+  const callList = document.getElementById('call_list');
+  if (!callList) return;
 
-  $('#call_list').sortable({
-    placeholder: 'ui-state-highlight',
-    axis: 'y',
-    items: '.patient-data',
-    cursor: 'move',
-    sort(e, ui) {
-      return ui.item.addClass('active-item-shadow');
-    },
-    stop(e, ui) {
-      ui.item.removeClass('active-item-shadow');
-      // highlight the row on drop to indicate an update
-      return ui.item.children('td').effect('highlight', { color: '#ece0ff' }, 500);
-    },
-    update(e, ui) {
-      const itemId = ui.item[0].id;
-      const rows = $(`#${itemId}`).parent().children();
-      const order = rows.toArray().map(x => x.id);
+  const tbody = callList.querySelector('tbody') || callList;
 
-      const token = $('meta[name="csrf-token"]').attr('content');
+  Sortable.create(tbody, {
+    animation: 150,
+    handle: '.patient-data',
+    draggable: '.patient-data',
+    ghostClass: 'ui-state-highlight',
+    chosenClass: 'active-item-shadow',
+    onEnd(evt) {
+      // Highlight dropped row
+      const item = evt.item;
+      item.querySelectorAll('td').forEach(td => {
+        td.style.backgroundColor = '#ece0ff';
+        setTimeout(() => { td.style.backgroundColor = ''; }, 500);
+      });
 
-      return $.ajax({
-        type: 'PATCH',
-        url: '/call_lists/reorder_call_list',
-        dataType: 'text',
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader('X-CSRF-Token', token)
+      // Send new order to server
+      const rows = Array.from(tbody.querySelectorAll('.patient-data'));
+      const order = rows.map(r => r.id);
+      const token = document.querySelector('meta[name="csrf-token"]')?.content;
+
+      fetch('/call_lists/reorder_call_list', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRF-Token': token,
         },
-        data: { order },
-        // error: function(req, status, err) {
-        //   console.error(req, status, err);
-        // },
+        body: order.map(id => `order[]=${encodeURIComponent(id)}`).join('&'),
       });
     },
   });
