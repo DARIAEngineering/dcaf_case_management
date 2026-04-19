@@ -29,7 +29,7 @@ gem 'strong_password', '~> 0.0.10' # Strong Password for user password validatio
 gem 'state_geo_tools' # state list
 gem 'kaminari', '~> 1.2' # For pagination
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
-gem 'view_component', '~> 3.22' # build reusable & encapsulated view components in Ruby
+gem 'view_component', '~> 4.2' # build reusable & encapsulated view components in Ruby
 gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 
 # Asset pipeline
