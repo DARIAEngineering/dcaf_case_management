@@ -520,7 +520,7 @@ GEM
     thruster (0.1.17)
     thruster (0.1.17-x86_64-linux)
     timecop (0.9.10)
-    timeout (0.6.0)
+    timeout (0.6.1)
     tsort (0.2.0)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
