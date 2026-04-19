@@ -29,7 +29,7 @@ gem 'strong_password', '~> 0.0.10' # Strong Password for user password validatio
 gem 'state_geo_tools' # state list
 gem 'kaminari', '~> 1.2' # For pagination
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
-gem 'view_component', '~> 4.2' # build reusable & encapsulated view components in Ruby
+gem 'view_component', '~> 4.7' # build reusable & encapsulated view components in Ruby
 gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 
 # Asset pipeline
@@ -40,7 +40,7 @@ gem 'bootstrap_form', '~> 4.5.0'
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.9'
 gem 'devise-security'
-gem 'omniauth-google-oauth2', '~> 1.2.1'
+gem 'omniauth-google-oauth2', '~> 1.2.2'
 gem 'omniauth-rails_csrf_protection', '~> 2.0'
 
 # Stuff we're hardsetting because of security concerns
