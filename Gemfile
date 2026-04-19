@@ -40,7 +40,7 @@ gem 'bootstrap_form', '~> 4.5.0'
 # Our authentication library is devise, with oauth2 for google signin
 gem 'devise', '~> 4.9'
 gem 'devise-security'
-gem 'omniauth-google-oauth2', '~> 1.2.1'
+gem 'omniauth-google-oauth2', '~> 1.2.2'
 gem 'omniauth-rails_csrf_protection', '~> 2.0'
 
 # Stuff we're hardsetting because of security concerns
