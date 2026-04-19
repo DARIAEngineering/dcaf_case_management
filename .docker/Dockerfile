@@ -4,13 +4,14 @@ MAINTAINER Colin Fleming <c3flemin@gmail.com>
 # configure environment variable
 # note: move this to three ARG commands when CircleCI updates their docker
 ENV DARIA_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev" \
+    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev perl wget" \
     APP_DEPENDENCIES="git sudo sassc" \
     AHAB_DEPENDENCIES="ca-certificates curl" \
     FONTCONFIG_PATH=/etc/fonts \
     NODE_ENV=development \
     DOCKER=true \
-    NODE_MAJOR=24
+    NODE_MAJOR=24 \
+    OPENSSL_VERSION=3.5.5
 
 # get our gem house in order
 WORKDIR ${DARIA_DIR}
@@ -26,6 +27,23 @@ RUN apt-get update && apt-get upgrade -y && \
     ${APP_DEPENDENCIES} \
     ${AHAB_DEPENDENCIES} && \
     gem install bundler --no-document
+
+# Build and install OpenSSL 3.5.5 LTS from source (replaces system OpenSSL 3.0.x)
+RUN cd /tmp && \
+    wget -q https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz && \
+    tar xzf openssl-${OPENSSL_VERSION}.tar.gz && \
+    cd openssl-${OPENSSL_VERSION} && \
+    ./Configure --prefix=/usr/local --libdir=lib --openssldir=/usr/local/ssl && \
+    make -j$(nproc) && \
+    make install_sw && \
+    ldconfig && \
+    cd / && rm -rf /tmp/openssl-${OPENSSL_VERSION}*
+
+# Ensure all processes use the compiled OpenSSL 3.5.5 instead of system OpenSSL
+ENV LD_LIBRARY_PATH=/usr/local/lib
+
+# Rebuild Ruby's openssl gem against the new OpenSSL 3.5.5
+RUN gem install openssl -- --with-openssl-dir=/usr/local
 
 # nodejs installation
 RUN mkdir -p /etc/apt/keyrings
