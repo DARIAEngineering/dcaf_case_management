@@ -5,6 +5,30 @@
   <%= bootstrap_form_with model: [patient, note],
                           html: { id: 'notes-form' },
                           local: false do |f| %>
+    <div class="mb-2">
+      <select id="note-template-selector" class="form-control form-control-sm"
+              data-note-template-target="true">
+        <option value=""><%= t('patient.notes.insert_template', default: 'Insert template...') %></option>
+        <% NoteTemplate.available_to(current_user).each do |tmpl| %>
+          <option value="<%= tmpl.full_text %>">
+            <%= tmpl.name %><%= tmpl.user_id.nil? ? ' (Fund)' : ' (Personal)' %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+    <script nonce="<%= content_security_policy_nonce %>">
+      (function() {
+        var selector = document.getElementById('note-template-selector');
+        if (selector) {
+          selector.addEventListener('change', function() {
+            if (this.value) {
+              document.getElementById('note_full_text').value = this.value;
+              this.selectedIndex = 0;
+            }
+          });
+        }
+      })();
+    </script>
     <%= f.text_area :full_text,
                     size: '20x5',
                     placeholder: t('patient.notes.placeholder'),
