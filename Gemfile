@@ -38,7 +38,7 @@ gem 'jsbundling-rails'
 gem 'bootstrap_form', '~> 4.5.0'
 
 # Our authentication library is devise, with oauth2 for google signin
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 gem 'devise-security'
 gem 'omniauth-google-oauth2', '~> 1.2.2'
 gem 'omniauth-rails_csrf_protection', '~> 2.0'
