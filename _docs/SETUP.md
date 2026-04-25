@@ -10,16 +10,14 @@ If you see a spot in the docs that's confusing or could be improved, please pay 
 2. Clone the repo to your machine: Copy the URL for your fork and run: `git clone YOUR_FORK_URL` to pull it down to your local system. Change into the repo directory with `cd dcaf_case_management`.
 3. Add the Daria repo as a remote: `git remote add upstream https://github.com/DARIAEngineering/dcaf_case_management`. This will let you update when the source repo changes by running the command `git pull upstream main`.
 
+## Local Development
 
-## Local Dev Environment
+### Docker-based
 
-For the rest of the setup, you have two options: Docker, or installing everything locally. We recommend Docker if you're comfortable with its ecosystem.
+We've dockerized the app, to manage the dependencies and save us some headache. We recommend this route for beginners or anyone who prefers docker.  
+If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
 
-### Docker
-
-We've dockerized this app, to manage the dependencies and save us some headache. If you've got [Docker installed already](https://docs.docker.com/engine/installation/), you can be up and running with three commands:
-
-* `docker compose build # (this may say 'uses an image, skipping' a few times, that's OK)`
+* `docker compose build`
 * `docker compose run --rm web rails db:drop db:create db:migrate db:seed # to populate the database`
 * `docker compose up`
 
@@ -33,22 +31,10 @@ take a minute or two for resources to compile and load, but it should eventually
 
 Any errors will show up in your terminal in the window you are running the `up` command in.
 
-If the server won't start, it may not have cleanly shut down. Run `rm tmp/pids/server.pid` to remove the leftover server process and run `docker compose up` again.
-
-If you're using a Windows 10 machine to run docker, we strongly suggest downloading and using [Docker-Desktop](https://www.docker.com/products/docker-desktop).
-The Docker-Desktop experience on Windows 10 is mostly very smooth these days, but there are a couple common "gotchas" we've seen while developing this (and other) apps. One of our core maintainers keeps additional info on this [here](https://github.com/mdworken/MKD-Docker-Windows-Rails). If you run into issues that are not covered there, or if you have suggestions to improve the readability of the repo, please let us know! We're happy to help debug, and once we understand the issues you've seen, you'll have helped future users who may encounter the same issue.
-
-To fix this, you need to enable experimental features for Docker:
-1. Right click Docker icon in the Windows System Tray
-2. Go to Settings
-3. Go to Daemon
-4. Check Experimental features
-5. Hit Apply
-
 
 ### Local Laptop Install
 
-If you prefer a local environment, totally cool! We recommend the following, but you'll need to adapt to your exact machine.
+If you prefer to run directly on you machine, here are our general directions. You may need to adapt them to your machine. Beginners may find the docker setup easier.
 
 #### System Dependencies
 * Install:
