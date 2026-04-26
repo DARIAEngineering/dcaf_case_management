@@ -28,6 +28,17 @@ class AuthFactor < ApplicationRecord
     validates :phone, presence: true, format: /\A\d{10}\z/, length: { is: 10 }
   end
 
+  # Destroy auth factor registrations that were started but never completed.
+  # AuthFactor is not acts_as_tenant scoped, so this runs as a single global
+  # query regardless of the current tenant.
+  def self.clean_incomplete(older_than: 48.hours.ago)
+    ActsAsTenant.without_tenant do
+      where(registration_complete: false)
+        .where('created_at < ?', older_than)
+        .destroy_all
+    end
+  end
+
   private
 
   def clean_fields
