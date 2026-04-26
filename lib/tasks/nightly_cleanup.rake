@@ -28,7 +28,7 @@ task nightly_cleanup: :environment do
       User.find_each do |user|
         user.auth_factors
             .where(registration_complete: false)
-            .where('created_at < ?', 1.hour.ago)
+            .where('created_at < ?', 48.hours.ago)
             .destroy_all
       end
       puts "#{Time.now} -- cleaned up incomplete MFA registrations for fund #{fund.name}"
