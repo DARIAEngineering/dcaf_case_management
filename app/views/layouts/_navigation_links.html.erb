@@ -6,6 +6,10 @@
   <% end %>
 </ul>
 
+<% if current_user %>
+  <%= render 'layouts/notification_bell' %>
+<% end %>
+
 
 <% if current_user.admin? || current_user.data_volunteer? %>
   <div class="dropdown">
