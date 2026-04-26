@@ -227,6 +227,43 @@ class ConfigTest < ActiveSupport::TestCase
       end
     end
 
+    describe 'days_to_keep_archived_patients' do
+      it 'should return nil by default (keep forever)' do
+        assert_nil Config.days_to_keep_archived_patients
+      end
+
+      it 'should return configured value when set' do
+        c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+        c.config_value = { options: ["90"] }
+        c.save!
+        assert_equal 90, Config.days_to_keep_archived_patients
+      end
+
+      it 'should validate bounds' do
+        c = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients')
+
+        # below minimum
+        c.config_value = { options: ["29"] }
+        refute c.valid?
+
+        # low edge
+        c.config_value = { options: ["30"] }
+        assert c.valid?
+
+        # in bounds
+        c.config_value = { options: ["365"] }
+        assert c.valid?
+
+        # high edge
+        c.config_value = { options: ["730"] }
+        assert c.valid?
+
+        # above maximum
+        c.config_value = { options: ["731"] }
+        refute c.valid?
+      end
+    end
+
     describe '#hide_practical_support?' do
       it 'can return true' do
         c = Config.find_or_create_by(config_key: 'hide_practical_support')

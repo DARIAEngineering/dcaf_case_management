@@ -29,6 +29,9 @@ task nightly_cleanup: :environment do
 
       ArchivedPatient.archive_eligible_patients!
       puts "#{Time.now} -- archived patients for today for fund #{fund.name}"
+
+      ArchivedPatient.delete_expired_patients!
+      puts "#{Time.now} -- deleted expired archived patients for fund #{fund.name}"
     end
   end
 end

@@ -17,6 +17,7 @@ class Config < ApplicationRecord
     hide_practical_support: 'Enter "yes" to hide the Practical Support panel on patient pages. This will not remove any existing data.',
     days_to_keep_fulfilled_patients: "Number of days (after initial entry) to keep identifying information for a patient whose pledge has been fulfilled and marked audited. Defaults to 90 days (3 months).",
     days_to_keep_all_patients: "Number of days (after initial entry) to keep identifying information for any patient, regardless of pledge fulfillment. Defaults to 365 days (1 year).",
+    days_to_keep_archived_patients: "Number of days to keep archived patient records before permanently deleting them. Enter a number between 30 and 730, or leave empty to keep records indefinitely (default). This is irreversible — deleted data cannot be recovered.",
     shared_reset_days: "Number of idle days until a patient is removed from the shared list. Defaults to 6 days, maximum 6 weeks.",
     hide_budget_bar: 'Enter "yes" to hide the budget bar display.',
     aggregate_statistics: 'Enter "yes" to show aggregate statistics on the budget bar.',
@@ -60,6 +61,7 @@ class Config < ApplicationRecord
     voicemail: 12,
     days_to_keep_fulfilled_patients: 90,
     days_to_keep_all_patients: 365,
+    days_to_keep_archived_patients: nil,
     shared_reset_days: 6,
     hide_budget_bar: false,
     aggregate_statistics: false,
@@ -94,7 +96,8 @@ class Config < ApplicationRecord
     show_patient_identifier: 22,
     display_practical_support_attachment_url: 23,
     display_practical_support_waiver: 24,
-    display_consent_to_survey: 25
+    display_consent_to_survey: 25,
+    days_to_keep_archived_patients: 27
   }
 
   # which fields are URLs (run special validation only on those)
@@ -152,6 +155,8 @@ class Config < ApplicationRecord
       [:validate_singleton, :validate_patient_archive],
     days_to_keep_all_patients:
       [:validate_singleton, :validate_patient_archive],
+    days_to_keep_archived_patients:
+      [:validate_singleton, :validate_archived_patient_deletion],
     shared_reset_days:
       [:validate_singleton, :validate_shared_reset_days],
 
@@ -231,6 +236,12 @@ class Config < ApplicationRecord
     # default 1 year
     archive_days ||= DEFAULTS[:days_to_keep_all_patients]
     archive_days.to_i
+  end
+
+  def self.days_to_keep_archived_patients
+    days = Config.find_or_create_by(config_key: 'days_to_keep_archived_patients').options.try :last
+    return nil if days.blank?
+    days.to_i
   end
 
   def self.shared_reset_days
@@ -410,6 +421,16 @@ class Config < ApplicationRecord
     def validate_shared_reset_days
       if validate_number || !options.last.to_i.between?(SHARED_MIN_DAYS, SHARED_MAX_DAYS)
         "Must be between #{SHARED_MIN_DAYS} and #{SHARED_MAX_DAYS} days."
+      end
+    end
+
+    ### Archived patient deletion
+    ARCHIVED_DELETION_MIN_DAYS = 30    # 1 month
+    ARCHIVED_DELETION_MAX_DAYS = 730   # 2 years
+
+    def validate_archived_patient_deletion
+      if validate_number || !options.last.to_i.between?(ARCHIVED_DELETION_MIN_DAYS, ARCHIVED_DELETION_MAX_DAYS)
+        "Must be between #{ARCHIVED_DELETION_MIN_DAYS} and #{ARCHIVED_DELETION_MAX_DAYS} days."
       end
     end
 
