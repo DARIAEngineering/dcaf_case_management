@@ -3,6 +3,7 @@ class PatientsController < ApplicationController
   include ActionController::Live
   before_action :confirm_admin_user, only: [:destroy]
   before_action :confirm_data_access, only: [:index]
+  before_action :confirm_handoff_authorization, only: [:handoff]
   before_action :find_patient, if: :should_preload_patient_with_versions?
   before_action :find_patient_minimal, if: :should_preload_patient_minimally?
   rescue_from ActiveRecord::RecordNotFound,
@@ -157,7 +158,66 @@ class PatientsController < ApplicationController
     end
   end
 
+  def handoff
+    @patient = Patient.find(params[:id])
+    target_user = User.find_by!(id: params[:target_user_id])
+
+    ActiveRecord::Base.transaction do
+      # Remove from current user's call list (if present)
+      begin
+        current_user.remove_patient(@patient)
+      rescue ActiveRecord::RecordNotFound
+        # Patient wasn't on current user's call list — that's fine
+      end
+
+      # Add to target user's call list
+      target_user.add_patient(@patient)
+
+      # Record handoff metadata
+      @patient.update!(
+        handed_off_at: Time.current,
+        handed_off_from_id: current_user.id,
+        handed_off_to_id: target_user.id,
+        handoff_note: params[:handoff_note]
+      )
+
+      # Create a note documenting the handoff (PaperTrail tracks whodunnit)
+      @patient.notes.create!(
+        full_text: "Handed off from #{current_user.name} to #{target_user.name}#{params[:handoff_note].present? ? ": #{params[:handoff_note]}" : ''}"
+      )
+
+      # Send notification to receiving user (guarded: Notification model
+      # lives on feature/notification-center and may not be merged yet)
+      if defined?(Notification)
+        Notification.notify!(
+          user: target_user,
+          notification_type: "handoff",
+          title: "Patient handed off to you: #{@patient.name}",
+          body: "#{current_user.name} handed off #{@patient.name}#{params[:handoff_note].present? ? " — #{params[:handoff_note]}" : ''}",
+          link: edit_patient_path(@patient)
+        )
+      else
+        Rails.logger.info('Notification skipped: Notification model not available')
+      end
+    end
+
+    flash[:notice] = t('flash.patient_handed_off', patient: @patient.name, user: target_user.name)
+    redirect_to edit_patient_path(@patient)
+  end
+
   private
+
+  # Only an assigned case manager or an admin can hand off a patient.
+  # Data volunteers are never permitted to hand off patients.
+  def confirm_handoff_authorization
+    patient = Patient.find(params[:id])
+    is_assigned_cm = current_user.cm? &&
+                     CallListEntry.where(patient: patient, user: current_user).exists?
+    unless is_assigned_cm || current_user.admin?
+      flash[:alert] = t('flash.not_authorized', default: 'Not authorized.')
+      redirect_to edit_patient_path(patient)
+    end
+  end
 
   # preload patient with versions for edit and js format update requests
   def should_preload_patient_with_versions?

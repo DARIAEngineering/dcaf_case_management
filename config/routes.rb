@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       member do
         get :download, as: 'generate_pledge'
         post :fetch_pledge, as: 'fetch_pledge'
+        post :handoff, as: 'handoff'
       end
       resources :calls,
                 only: [ :create, :destroy, :new ]
