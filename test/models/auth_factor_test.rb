@@ -28,7 +28,7 @@ class AuthFactorTest < ActiveSupport::TestCase
         registration_complete: false
       )
       @incomplete_old.save!(validate: false)
-      @incomplete_old.update_column(:created_at, 2.hours.ago)
+      @incomplete_old.update_column(:created_at, 49.hours.ago)
 
       @incomplete_recent = @user.auth_factors.build(
         channel: 'sms',
@@ -38,66 +38,62 @@ class AuthFactorTest < ActiveSupport::TestCase
       @incomplete_recent.update_column(:created_at, 30.minutes.ago)
     end
 
-    it 'should destroy incomplete registrations older than 1 hour via user scope' do
+    it 'should destroy incomplete registrations older than 48 hours' do
       assert_difference 'AuthFactor.count', -1 do
-        @user.auth_factors
-             .where(registration_complete: false)
-             .where('created_at < ?', 1.hour.ago)
-             .destroy_all
+        AuthFactor.clean_incomplete
       end
       assert_raises(ActiveRecord::RecordNotFound) { @incomplete_old.reload }
     end
 
     it 'should not destroy recent incomplete registrations' do
-      @user.auth_factors
-           .where(registration_complete: false)
-           .where('created_at < ?', 1.hour.ago)
-           .destroy_all
+      AuthFactor.clean_incomplete
       assert_nothing_raised { @incomplete_recent.reload }
     end
 
     it 'should not destroy completed registrations regardless of age' do
       assert_no_difference 'AuthFactor.where(registration_complete: true).count' do
-        @user.auth_factors
-             .where(registration_complete: false)
-             .where('created_at < ?', 1.hour.ago)
-             .destroy_all
+        AuthFactor.clean_incomplete
       end
     end
 
     it 'should handle no incomplete registrations gracefully' do
       AuthFactor.where(registration_complete: false).destroy_all
-      assert_nothing_raised do
-        @user.auth_factors
-             .where(registration_complete: false)
-             .where('created_at < ?', 1.hour.ago)
-             .destroy_all
-      end
+      assert_nothing_raised { AuthFactor.clean_incomplete }
     end
 
-    it 'should not affect incomplete registrations of other users' do
+    it 'should clean across all users without tenant scoping' do
       other_user = create :user
       other_incomplete = other_user.auth_factors.build(
         channel: 'sms',
         registration_complete: false
       )
       other_incomplete.save!(validate: false)
-      other_incomplete.update_column(:created_at, 2.hours.ago)
+      other_incomplete.update_column(:created_at, 49.hours.ago)
 
-      @user.auth_factors
-           .where(registration_complete: false)
-           .where('created_at < ?', 1.hour.ago)
-           .destroy_all
+      assert_difference 'AuthFactor.count', -2 do
+        AuthFactor.clean_incomplete
+      end
+      assert_raises(ActiveRecord::RecordNotFound) { other_incomplete.reload }
+    end
 
-      assert_nothing_raised { other_incomplete.reload }
+    it 'should run as a single global query regardless of tenant context' do
+      fund = create :fund
+      ActsAsTenant.with_tenant(fund) do
+        assert_difference 'AuthFactor.count', -1 do
+          AuthFactor.clean_incomplete
+        end
+      end
+    end
+
+    it 'should accept a custom older_than threshold' do
+      assert_difference 'AuthFactor.count', -2 do
+        AuthFactor.clean_incomplete(older_than: 1.minute.ago)
+      end
     end
 
     it 'should preserve completed factor for same user when cleaning incomplete' do
       completed_count = @user.auth_factors.where(registration_complete: true).count
-      @user.auth_factors
-           .where(registration_complete: false)
-           .where('created_at < ?', 1.hour.ago)
-           .destroy_all
+      AuthFactor.clean_incomplete
       assert_equal completed_count, @user.auth_factors.where(registration_complete: true).count
     end
   end

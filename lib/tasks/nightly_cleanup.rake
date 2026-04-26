@@ -16,6 +16,11 @@ task nightly_cleanup: :environment do
     puts "#{Time.now} -- refreshed coordinates on all clinics"
   end
 
+  # AuthFactor is not acts_as_tenant scoped, so clean it up once globally
+  # rather than redundantly per-fund.
+  AuthFactor.clean_incomplete
+  puts "#{Time.now} -- cleaned up incomplete MFA registrations"
+
   Fund.all.each do |fund|
     ActsAsTenant.with_tenant(fund) do
       User.find_each { |user| user.clean_call_list_between_shifts }
@@ -23,15 +28,6 @@ task nightly_cleanup: :environment do
 
       User.disable_inactive_users
       puts "#{Time.now} -- locked accounts of users who have not logged in since #{User::TIME_BEFORE_DISABLED_BY_FUND.ago} for fund #{fund.name}"
-
-      # AuthFactor is not acts_as_tenant scoped, so query through users
-      User.find_each do |user|
-        user.auth_factors
-            .where(registration_complete: false)
-            .where('created_at < ?', 48.hours.ago)
-            .destroy_all
-      end
-      puts "#{Time.now} -- cleaned up incomplete MFA registrations for fund #{fund.name}"
 
       Patient.trim_shared_patients
       puts "#{Time.now} -- trimmed shared patients for fund #{fund.name}"
