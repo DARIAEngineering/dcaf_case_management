@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_21_192950) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_02_181616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -323,9 +323,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_21_192950) do
     t.index ["last_edited_by_id"], name: "index_patients_on_last_edited_by_id"
     t.index ["line_id"], name: "index_patients_on_line_id"
     t.index ["line_legacy"], name: "index_patients_on_line_legacy"
-    t.index ["name"], name: "index_patients_on_name"
-    t.index ["other_contact"], name: "index_patients_on_other_contact"
-    t.index ["other_phone"], name: "index_patients_on_other_phone"
     t.index ["pledge_generated_by_id"], name: "index_patients_on_pledge_generated_by_id"
     t.index ["pledge_sent"], name: "index_patients_on_pledge_sent"
     t.index ["pledge_sent_by_id"], name: "index_patients_on_pledge_sent_by_id"

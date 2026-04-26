@@ -21,6 +21,15 @@ class PaperTrailVersion < PaperTrail::Version
     can_fulfill_id
     can_support_type
     can_support_id
+    name
+    primary_phone
+    other_phone
+    other_contact
+    other_contact_relationship
+    city
+    state
+    county
+    zipcode
   ].freeze
   DATE_FIELDS = %w[
     appointment_date
@@ -61,6 +70,54 @@ class PaperTrailVersion < PaperTrail::Version
 
   def self.destroy_old
     PaperTrailVersion.where("created_at < ?", 1.year.ago).destroy_all
+  end
+
+  # PII fields that must be scrubbed from version history, keyed by model.
+  PATIENT_PII_FIELDS = %w[
+    name primary_phone other_phone other_contact
+    other_contact_relationship city state county zipcode
+  ].freeze
+
+  SCRUB_TARGETS = {
+    'Patient' => PATIENT_PII_FIELDS,
+    'Note' => %w[full_text],
+    'PracticalSupport' => %w[attachment_url]
+  }.freeze
+
+  # Remove PII from all existing version records for tracked models.
+  # This permanently deletes PII keys from the object and object_changes
+  # JSON columns, preserving the audit trail without leaking sensitive data.
+  def self.scrub_patient_pii
+    scrubbed = 0
+    SCRUB_TARGETS.each do |model_name, pii_fields|
+      PaperTrailVersion.where(item_type: model_name).find_each do |version|
+        changed = false
+
+        if version.object.present?
+          pii_fields.each do |field|
+            if version.object.key?(field)
+              version.object.delete(field)
+              changed = true
+            end
+          end
+        end
+
+        if version.object_changes.present?
+          pii_fields.each do |field|
+            if version.object_changes.key?(field)
+              version.object_changes.delete(field)
+              changed = true
+            end
+          end
+        end
+
+        if changed
+          version.save!
+          scrubbed += 1
+        end
+      end
+    end
+    scrubbed
   end
 
   private

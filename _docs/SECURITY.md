@@ -41,7 +41,34 @@ HIPAA compliance applies to people storing certain protected health information.
 
 We have a few approaches we leverage here. The first is that we use a database service that uses disk encryption (commonly called 'encryption at rest'), meaning that if someone were to pop the drive out it wouldn't be readable by another computer. This works similar to the disk encryption on PCs/Macs, like FileVault. This covers all data in DARIA.
 
-For some particularly sensitive pieces of data (that we don't have to fuzzy-search on), we encrypt that data on the application level. This means that it's sent to the application encrypted and the app knows how to decode it into something readable, providing an additional layer of safety beyond encryption at rest. This is similar to how passwords are stored and used.
+For sensitive pieces of data, we encrypt that data on the application level using Rails Active Record Encryption. This means that it's sent to the application encrypted and the app knows how to decode it into something readable, providing an additional layer of safety beyond encryption at rest. This is similar to how passwords are stored and used.
+
+Application-level encryption covers:
+- **Patient PII**: name, phone numbers, contact information, and geographic fields (city, state, county, zipcode)
+- **Notes**: full text of case manager notes
+- **Events**: case manager name and patient name on logged events
+- **Clinics**: name, address, phone, fax, and email
+
+For Patient PII, `primary_phone` uses deterministic encryption (allowing exact-match lookups for uniqueness validation), while all other fields use non-deterministic encryption for maximum security. Patient search uses in-memory filtering after decryption, preserving the same fuzzy-search experience for case managers.
+
+#### PaperTrail PII scrubbing
+
+PaperTrail version records created before application-level encryption was enabled may contain plaintext PII in their JSON columns. A nightly scrub task permanently removes PII keys (`name`, `primary_phone`, `other_phone`, `other_contact`, `other_contact_relationship`, `city`, `state`, `county`, `zipcode`) from all Patient version records, preserving the audit trail (who changed what, when) without leaking sensitive data.
+
+To run manually: `rails security:scrub_patient_pii`
+
+The scrub also runs automatically as part of the nightly cleanup task.
+
+#### Encryption key rotation
+
+If encryption keys need to be rotated (e.g., after a suspected compromise), the following procedure re-encrypts all data with new keys:
+
+1. Generate new encryption key values
+2. In `config/application.rb`, change `primary_key` to an array: `[new_key, old_key]` — Rails will encrypt with the first key and decrypt with any key in the list
+3. Do the same for `deterministic_key` and `key_derivation_salt` if rotating those
+4. Deploy the updated configuration
+5. Run `rails encryption:rotate_keys` to re-encrypt all Patient, Note, Event, and Clinic records with the new key
+6. Once all records are re-encrypted, remove the old key from the array
 
 ### Code review
 
