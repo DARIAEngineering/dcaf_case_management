@@ -42,22 +42,15 @@
         <%= f.date_field :support_date, autocomplete: 'off' %>
         <%= f.date_field :purchase_date, autocomplete: 'off' %>
 
+        <%= f.select :status, PracticalSupport.statuses.keys.map { |s| [s.titleize, s] },
+                     { label: t('activerecord.attributes.practical_support.status', default: 'Status') } %>
+
         <% if Config.display_practical_support_attachment_url? %>
           <%= f.text_field :attachment_url,
                             autocomplete: 'off',
                             placeholder: t('activerecord.attributes.practical_support.attachment_url') %>
         <% end %>
 
-        <%= f.form_group :booleans do %>
-          <%= f.check_box :confirmed,
-                          id: "practical_support_confirmed_#{support.id}",
-                          label_class: 'tooltip-header-checkbox',
-                          data: { 'tooltip_text': practical_support_confirmed_help_text } %>
-          <%= f.check_box :fulfilled,
-                          id: "practical_support_fulfilled_#{support.id}",
-                          label_class: 'tooltip-header-checkbox',
-                          data: { 'tooltip_text': practical_support_fulfilled_help_text } %>
-        <% end %>
       <% end %>
     </div>
   </div>

@@ -44,7 +44,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
   describe 'update' do
     before do
       @patient.practical_supports.create support_type: 'Transit',
-                                         confirmed: false,
+                                         status: :requested,
                                          source: 'Transit',
                                          amount: 10
       @support = @patient.practical_supports.first
@@ -104,12 +104,21 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
             xhr: true
       assert response.body.include? 'failed to save'
     end
+
+    it 'should update status via the status param' do
+      patch patient_practical_support_path(@patient, @support),
+            params: { practical_support: { status: 'approved' } },
+            xhr: true
+      assert response.body.include? 'saved'
+      @support.reload
+      assert @support.approved?
+    end
   end
 
   describe 'destroy' do
     before do
       @patient.practical_supports.create support_type: 'Transit',
-                                         confirmed: false,
+                                         status: :requested,
                                          source: 'Transit'
       @support = @patient.practical_supports.first
     end
@@ -124,7 +133,7 @@ class PracticalSupportsControllerTest < ActionDispatch::IntegrationTest
   describe 'edit' do
     before do
       @patient.practical_supports.create support_type: 'Transit',
-                                         confirmed: false,
+                                         status: :requested,
                                          source: 'Transit'
       @support = @patient.practical_supports.first
     end

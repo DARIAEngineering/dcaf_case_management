@@ -7,7 +7,7 @@ FactoryBot.define do
     sequence :support_type do |n|
       "Support #{n}"
     end
-    confirmed { false }
+    status { :requested }
     support_date { 2.days.from_now }
   end
 end
