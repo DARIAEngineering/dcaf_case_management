@@ -8,6 +8,7 @@ class DashboardsController < ApplicationController
   def index
     @shared_patients = eager_loaded_patients.shared_patients(current_line)
     @unconfirmed_support_patients = eager_loaded_patients.unconfirmed_practical_support(current_line)
+    @follow_up_patients = eager_loaded_patients.follow_ups_due.where(line: current_line)
   end
 
   def search

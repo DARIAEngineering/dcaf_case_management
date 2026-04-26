@@ -83,6 +83,11 @@ class Patient < ApplicationRecord
 
   validate :special_circumstances_length
 
+  # Follow-up
+  validates :follow_up_reason, length: { maximum: 200 }
+
+  scope :follow_ups_due, -> { where('follow_up_date <= ?', Date.current).where.not(follow_up_date: nil) }
+
   # Methods
   def self.pledged_status_summary(line)
     plucked_attrs = [:fund_pledge, :pledge_sent, :id, :name, :appointment_date, :fund_pledged_at]

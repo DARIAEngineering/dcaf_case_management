@@ -727,4 +727,62 @@ class PatientTest < ActiveSupport::TestCase
       pledge_sent_at: patient.pledge_sent_at
     }
   end
+
+  describe 'follow_ups_due scope' do
+    before do
+      @patient_due = create :patient
+      @patient_due.update_columns(follow_up_date: 1.day.ago)
+
+      @patient_future = create :patient
+      @patient_future.update_columns(follow_up_date: 1.day.from_now)
+
+      @patient_today = create :patient
+      @patient_today.update_columns(follow_up_date: Date.current)
+
+      @patient_nil = create :patient
+    end
+
+    it 'should include patients with past follow_up_date' do
+      assert_includes Patient.follow_ups_due, @patient_due
+    end
+
+    it 'should include patients with follow_up_date of today' do
+      assert_includes Patient.follow_ups_due, @patient_today
+    end
+
+    it 'should exclude patients with future follow_up_date' do
+      refute_includes Patient.follow_ups_due, @patient_future
+    end
+
+    it 'should exclude patients with nil follow_up_date' do
+      refute_includes Patient.follow_ups_due, @patient_nil
+    end
+  end
+
+  describe 'follow_up validations' do
+    it 'should allow follow_up_reason up to 200 chars' do
+      patient = build :patient
+      patient.follow_up_reason = 'a' * 200
+      assert patient.valid?
+    end
+
+    it 'should reject follow_up_reason over 200 chars' do
+      patient = build :patient
+      patient.follow_up_reason = 'a' * 201
+      refute patient.valid?
+    end
+
+    it 'should allow blank follow_up_reason' do
+      patient = build :patient
+      patient.follow_up_reason = ''
+      assert patient.valid?
+    end
+
+    it 'should allow follow_up_date without a reason' do
+      patient = build :patient
+      patient.follow_up_date = 2.days.from_now.to_date
+      patient.follow_up_reason = nil
+      assert patient.valid?
+    end
+  end
 end

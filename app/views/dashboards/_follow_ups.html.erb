@@ -1,0 +1,37 @@
+<% if patients.present? %>
+  <div class="card mt-3" id="follow-ups-due">
+    <div class="card-header bg-warning">
+      <h4 class="mb-0">
+        <span class="fas fa-bell mr-1"></span>
+        <%= t('dashboard.partial_titles.follow_ups') %>
+        <span class="badge badge-warning"><%= patients.count %></span>
+      </h4>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th><%= t('patient.shared.name') %></th>
+            <th><%= t('patient.dashboard.follow_up_date') %></th>
+            <th><%= t('patient.dashboard.follow_up_reason') %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% patients.each do |patient| %>
+            <tr class="<%= 'table-danger' if patient.follow_up_date < Date.current %>">
+              <td><%= link_to patient.name, edit_patient_path(patient) %></td>
+              <td><%= patient.follow_up_date %></td>
+              <td><%= patient.follow_up_reason %></td>
+              <td>
+                <%= link_to edit_patient_path(patient), class: 'btn btn-sm btn-outline-primary' do %>
+                  <span class="fas fa-phone"></span> <%= t('dashboard.call') %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

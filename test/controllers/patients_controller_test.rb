@@ -297,6 +297,46 @@ class PatientsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe 'update follow-up fields' do
+    before do
+      @payload = {
+        follow_up_date: 3.days.from_now.to_date.strftime('%Y-%m-%d'),
+        follow_up_reason: 'Waiting on insurance callback'
+      }
+    end
+
+    it 'should update follow-up fields via XHR' do
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      @patient.reload
+      assert_equal 3.days.from_now.to_date, @patient.follow_up_date
+      assert_equal 'Waiting on insurance callback', @patient.follow_up_reason
+    end
+
+    it 'should update follow-up fields via JSON' do
+      patch patient_path(@patient), params: { patient: @payload }, as: :json
+      @patient.reload
+      assert_equal 3.days.from_now.to_date, @patient.follow_up_date
+      assert_equal 'Waiting on insurance callback', @patient.follow_up_reason
+    end
+
+    it 'should clear follow-up fields' do
+      @patient.update! follow_up_date: 1.day.from_now.to_date,
+                       follow_up_reason: 'Old reason'
+      patch patient_path(@patient),
+            params: { patient: { follow_up_date: '', follow_up_reason: '' } },
+            xhr: true
+      @patient.reload
+      assert_nil @patient.follow_up_date
+      assert_equal '', @patient.follow_up_reason
+    end
+
+    it 'should not allow unauthenticated access' do
+      delete destroy_user_session_path
+      patch patient_path(@patient), params: { patient: @payload }, xhr: true
+      assert_response :redirect
+    end
+  end
+
   describe 'pledge method' do
     it 'should respond success on completion' do
       get submit_pledge_path(@patient), xhr: true

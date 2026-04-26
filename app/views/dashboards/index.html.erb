@@ -25,6 +25,8 @@
                          table_type: 'unconfirmed_support',
                          patients: @unconfirmed_support_patients,
                          autosortable: true } %>
+    <%= render partial: 'dashboards/follow_ups',
+               locals: { patients: @follow_up_patients } %>
     <%= render partial: 'dashboards/modal' %>
     <%= render partial: 'dashboards/activity_log' %>
   </div>
