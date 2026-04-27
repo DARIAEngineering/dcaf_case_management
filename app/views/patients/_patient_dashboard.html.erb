@@ -1,9 +1,17 @@
 <div id="patient_dashboard_content">
   <%= bootstrap_form_with model: patient,
-                         html: { id: 'patient_dashboard_form' },
+                         html: { id: 'patient_dashboard_form',
+                                 'data-controller': 'autosave',
+                                 'data-autosave-url-value': patient_path(patient),
+                                 'data-action': 'input->autosave#changed change->autosave#changed' },
                          local: false,
                          method: 'patch',
                          class: 'edit_patient' do |f| %>
+    <div class="row">
+      <div class="col-12">
+        <span data-autosave-target="indicator" class="autosave-indicator d-none"></span>
+      </div>
+    </div>
     <div class="row">
 
       <div class="col-4">
