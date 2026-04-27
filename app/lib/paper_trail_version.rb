@@ -21,16 +21,22 @@ class PaperTrailVersion < PaperTrail::Version
     can_fulfill_id
     can_support_type
     can_support_id
+  ].freeze
+
+  # Patient PII fields whose VALUES are stripped from version records but
+  # whose KEYS are still recorded so the audit trail shows that the field
+  # changed (just without storing plaintext PII in the versions table).
+  REDACTED_PATIENT_FIELDS = %w[
     name
     primary_phone
     other_phone
     other_contact
     other_contact_relationship
     city
-    state
-    county
-    zipcode
   ].freeze
+  REDACTED_PLACEHOLDER = '[REDACTED]'.freeze
+
+  before_save :redact_patient_pii
   DATE_FIELDS = %w[
     appointment_date
     initial_call_date
@@ -73,6 +79,29 @@ class PaperTrailVersion < PaperTrail::Version
   end
 
   private
+
+  # Replace plaintext PII values with [REDACTED] before persisting the
+  # version. Keeps the audit signal (which field changed, when, by whom)
+  # while keeping ciphertext-equivalent privacy in the versions table.
+  def redact_patient_pii
+    return unless item_type == 'Patient'
+
+    if object.is_a?(Hash)
+      REDACTED_PATIENT_FIELDS.each do |field|
+        object[field] = REDACTED_PLACEHOLDER if object[field].present?
+      end
+    end
+
+    return unless object_changes.is_a?(Hash)
+
+    REDACTED_PATIENT_FIELDS.each do |field|
+      next unless object_changes.key?(field)
+
+      object_changes[field] = Array(object_changes[field]).map do |value|
+        value.present? ? REDACTED_PLACEHOLDER : value
+      end
+    end
+  end
 
   def format_fieldchange(key, value)
     shaped_value = if value.blank?

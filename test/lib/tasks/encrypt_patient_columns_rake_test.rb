@@ -14,12 +14,20 @@ class EncryptPatientColumnsRakeTest < ActiveSupport::TestCase
   end
 
   describe 'encrypts declarations' do
-    it 'should declare all PII columns as encrypted' do
+    it 'should declare direct PII identifier columns as encrypted' do
       encrypted_attrs = Patient.encrypted_attributes
       %i[name primary_phone other_phone other_contact
-         other_contact_relationship city state county zipcode].each do |attr|
+         other_contact_relationship city].each do |attr|
         assert_includes encrypted_attrs, attr,
           "Expected #{attr} to be in encrypted_attributes"
+      end
+    end
+
+    it 'should NOT encrypt geographic-only fields (state/county/zipcode)' do
+      encrypted_attrs = Patient.encrypted_attributes
+      %i[state county zipcode].each do |attr|
+        refute_includes encrypted_attrs, attr,
+          "Expected #{attr} to NOT be encrypted (kept clear for PaperTrail visibility)"
       end
     end
 
@@ -35,26 +43,40 @@ class EncryptPatientColumnsRakeTest < ActiveSupport::TestCase
       refute scheme.deterministic?
     end
 
-    it 'should have PAPER_TRAIL_SKIP covering all encrypted columns' do
-      encrypted_attrs = Patient.encrypted_attributes.map(&:to_sym)
-      encrypted_attrs.each do |attr|
-        assert_includes Patient::PAPER_TRAIL_SKIP, attr,
-          "Expected PAPER_TRAIL_SKIP to include #{attr}"
-      end
-    end
-
-    it 'should never write PII to PaperTrail versions on mixed updates' do
-      with_versioning(@patient.versions.first&.user || create(:user)) do
-        # Update PII + non-PII together
-        @patient.update!(name: 'Changed Name', appointment_date: Date.today + 30)
+    it 'should redact PII values in PaperTrail versions while recording that the field changed' do
+      user = create :user
+      with_versioning(user) do
+        @patient.update!(name: 'Changed Name')
         version = @patient.versions.reorder(id: :desc).first
         next unless version
 
-        raw = version.object_changes || version.object || ''
-        Patient::PAPER_TRAIL_SKIP.each do |attr|
-          refute raw.include?(attr.to_s),
-            "PaperTrail version should not contain skipped PII field: #{attr}"
-        end
+        # The audit trail records that `name` changed
+        assert version.object_changes.key?('name'),
+          'PaperTrail should record that name changed'
+
+        # But the actual values are redacted (no plaintext PII)
+        serialized = version.object_changes.to_json + (version.object || {}).to_json
+        refute_includes serialized, 'Test Patient',
+          'Old PII value should not appear in version'
+        refute_includes serialized, 'Changed Name',
+          'New PII value should not appear in version'
+        assert_includes version.object_changes['name'].to_s,
+          PaperTrailVersion::REDACTED_PLACEHOLDER,
+          'Redacted placeholder should be present in object_changes'
+      end
+    end
+
+    it 'should leave non-PII field changes untouched in PaperTrail versions' do
+      user = create :user
+      with_versioning(user) do
+        @patient.update!(state: 'MD', city: 'Baltimore')
+        version = @patient.versions.reorder(id: :desc).first
+        next unless version
+
+        # state is NOT encrypted/redacted -> plaintext visible in audit
+        assert_includes version.object_changes['state'].to_s, 'MD'
+        # city IS redacted (still in encrypted/redacted set)
+        refute_includes version.object_changes['city'].to_s, 'Baltimore'
       end
     end
   end
@@ -68,6 +90,7 @@ class EncryptPatientColumnsRakeTest < ActiveSupport::TestCase
       assert_equal 'Jane Doe', @patient.other_contact
       assert_equal 'Sister', @patient.other_contact_relationship
       assert_equal 'Washington', @patient.city
+      # state/county/zipcode intentionally remain unencrypted plaintext
       assert_equal 'DC', @patient.state
       assert_equal 'DC', @patient.county
       assert_equal '20001', @patient.zipcode
