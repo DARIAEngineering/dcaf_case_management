@@ -93,5 +93,17 @@ class PatientTest::PatientSearchable < PatientTest
     it 'should not choke if it does not find anything' do
       assert_equal 0, Patient.search('no entries with this').count
     end
+
+    it 'should search case-insensitively on encrypted fields' do
+      assert_equal 1, Patient.search('susan sher').count
+      assert_equal 1, Patient.search('SUSAN SHER').count
+    end
+
+    it 'should handle nil search_limit for unlimited results' do
+      16.times do |num|
+        create :patient, primary_phone: "124-567-78#{num+10}", line: @line
+      end
+      assert_operator Patient.search('124', search_limit: nil).count, :>, 15
+    end
   end
 end

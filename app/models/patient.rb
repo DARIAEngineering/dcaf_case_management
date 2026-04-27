@@ -2,6 +2,24 @@
 class Patient < ApplicationRecord
   acts_as_tenant :fund
 
+  # Encryption
+  # Direct PII identifiers are encrypted at the application level.
+  # Geographic-only fields (state, county, zipcode) are intentionally NOT
+  # encrypted to limit the blast radius of this change and preserve full
+  # PaperTrail visibility of address-region edits.
+  #
+  # primary_phone uses deterministic encryption so the unique index on
+  # [:primary_phone, :fund_id] and the confirm_unique_phone_number
+  # validation continue to function. All other fields use non-deterministic
+  # encryption (cryptographically stronger; we don't query them via SQL
+  # since search runs in-memory).
+  encrypts :name
+  encrypts :primary_phone, deterministic: true
+  encrypts :other_phone
+  encrypts :other_contact
+  encrypts :other_contact_relationship
+  encrypts :city
+
   # Concerns
   include PaperTrailable
   include Shareable

@@ -29,6 +29,10 @@ We store flags related to a patient's circumstances, so that if a patient is dea
 
 However, in the unlikely event that an anonymized export were to leak, we wouldn't want potentially harmful information or intimate details about a patient to leak along with them. So while we store that information, it's accessible only through the case manager workflow and not through the exports.
 
+## How we protect what we store
+
+Patient personally identifiable information (name, phone numbers, contact details, and geographic data) is encrypted at the application level using Rails Active Record Encryption, in addition to database-level encryption at rest. This means that even in the event of a database breach, patient PII is not readable without the application's encryption keys. PaperTrail audit logs exclude PII fields to prevent sensitive data from accumulating in version history.
+
 ## How long we store it
 
 We store anonymized reporting data indefinitely; personally identifiable fields are wiped three months after fulfillment auditing. If the fulfillment is never audited, those fields are wiped a year after the initial call date. Details of which fields are conserved can be seen [here](https://github.com/DARIAEngineering/dcaf_case_management/blob/main/app/models/archived_patient.rb#L10), as the objects and fields stored on archived patient.

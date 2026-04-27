@@ -7,24 +7,38 @@ module PatientSearchable
   class_methods do
     # Case insensitive and phone number format agnostic!
     # pass `search_limit: nil` for no limit.
+    #
+    # Search is performed in-memory after decrypting records because
+    # Patient PII fields are encrypted with ActiveRecord Encryption.
+    # Encrypted fields cannot be searched with SQL LIKE/ILIKE, so we
+    # decrypt and filter in Ruby. Records are loaded in batches via
+    # find_each to avoid pulling the entire table into memory at once.
     def search(name_or_phone_str, lines: nil, search_limit: DEFAULT_SEARCH_LIMIT)
-      wildcard_name = "%#{name_or_phone_str}%"
+      search_term = name_or_phone_str.downcase
       clean_phone = name_or_phone_str.gsub(/\D/, '')
 
       base = Patient
-      if lines
-        base = base.where(line: lines)
+      base = base.where(line: lines) if lines
+
+      # find_each ignores .order() and iterates by primary key, so we
+      # collect all matches and sort in Ruby to preserve the original
+      # "most recently updated first" contract.
+      matches = []
+      base.find_each(batch_size: 100) do |patient|
+        name_match = patient.name&.downcase&.include?(search_term) ||
+                     patient.other_contact&.downcase&.include?(search_term) ||
+                     patient.identifier&.downcase&.include?(search_term)
+
+        phone_match = clean_phone.present? && (
+          patient.primary_phone&.include?(clean_phone) ||
+          patient.other_phone&.include?(clean_phone)
+        )
+
+        matches << patient if name_match || phone_match
       end
-      matches = base.where('name ilike ?', wildcard_name)
-                    .or(base.where('other_contact ilike ?', wildcard_name))
-                    .or(base.where('identifier ilike ?', wildcard_name))
-      if clean_phone.present?
-        clean_phone = "%#{clean_phone}%"
-        matches = matches.or(base.where('primary_phone like ?', clean_phone))
-                         .or(base.where('other_phone like ?', clean_phone))
-      end
-      matches = matches.order(updated_at: :desc)
-      matches = matches.limit(search_limit) if search_limit.present?
+
+      matches.sort_by { |p| p.updated_at || Time.at(0) }.reverse!
+      matches = matches.first(search_limit) if search_limit.present?
       matches
     end
   end

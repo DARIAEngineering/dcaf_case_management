@@ -58,11 +58,8 @@ class PaperTrailVersionTest < ActiveSupport::TestCase
 
     it 'should return shaped changes as a single dict' do
       assert_equal @track.shaped_changes,
-                   { 'name' => { original: 'Susie Everyteen', modified: 'Yolo' },
-                     'primary_phone' => { original: '1112223333', modified: '1234569999' },
-                     'appointment_date' => { original: (Time.zone.now + 5.days).display_date, modified: (Time.zone.now + 10.days).display_date },
+                   { 'appointment_date' => { original: (Time.zone.now + 5.days).display_date, modified: (Time.zone.now + 10.days).display_date },
                      'special_circumstances' => { original: '(empty)', modified: 'A, C' },
-                     'city' => { original: '(empty)', modified: 'Canada' },
                      'clinic_id' => { original: '(empty)', modified: @clinic.name },
                      'pledge_generated_at' => { original: '(empty)', modified: (Time.zone.now + 5.days).strftime('%m/%d/%Y') }
                    }
