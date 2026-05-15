@@ -52,7 +52,7 @@ class ArchivedPatient < ApplicationRecord
       if ( patient.archive_date < Date.today )
         ActiveRecord::Base.transaction do
           ArchivedPatient.convert_patient(patient)
-          patient.destroy!
+          SecureDeletionService.securely_destroy!(patient)
         end
       end
     end
