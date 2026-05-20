@@ -46,9 +46,25 @@ class Clinic < ApplicationRecord
   validates :name, :street_address, :city, :state, :zip, :phone, :fax,
             length: { maximum: 150 }
   validates :email_for_pledges, length: { maximum: 500 }
+  validates :availability_notes, length: { maximum: 1000 }, allow_blank: true
   validates_uniqueness_to_tenant :name
 
+  # Associations
+  belongs_to :availability_verified_by, class_name: 'User', optional: true
+
   # Methods
+  def verify_availability!(user, notes: nil)
+    update!(
+      availability_verified_at: Time.current,
+      availability_verified_by: user,
+      availability_notes: notes
+    )
+  end
+
+  def availability_stale?(days = 7)
+    availability_verified_at.nil? || availability_verified_at < days.days.ago
+  end
+
   def display_location
     return nil if city.blank? || state.blank?
     "#{city}, #{state}"

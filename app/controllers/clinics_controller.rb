@@ -1,11 +1,12 @@
 # Clinic-related functionality.
 class ClinicsController < ApplicationController
-  before_action :confirm_admin_user
-  before_action :find_clinic, only: [:update, :edit]
+  before_action :confirm_admin_user, except: [:verify_availability]
+  before_action :confirm_cm_or_admin, only: [:verify_availability]
+  before_action :find_clinic, only: [:update, :edit, :verify_availability]
   rescue_from ActiveRecord::RecordNotFound, with: -> { head :bad_request }
 
   def index
-    @clinics = Clinic.all.sort_by { |c| [c.name] }
+    @clinics = Clinic.includes(:availability_verified_by).sort_by { |c| [c.name] }
     respond_to do |format|
       format.html
     end
@@ -39,6 +40,18 @@ class ClinicsController < ApplicationController
       flash[:alert] = t('flash.error_saving_clinic_details', error: @clinic.errors.full_messages.to_sentence)
       render 'edit'
     end
+  end
+
+  def verify_availability
+    if @clinic.verify_availability!(current_user, notes: params[:availability_notes])
+      flash[:notice] = t('flash.clinic_availability_verified', default: "Availability verified for #{@clinic.name}.")
+    else
+      flash[:alert] = @clinic.errors.full_messages.to_sentence
+    end
+    redirect_back fallback_location: clinics_path
+  rescue ActiveRecord::RecordInvalid
+    flash[:alert] = @clinic.errors.full_messages.to_sentence
+    redirect_back fallback_location: clinics_path
   end
 
   private

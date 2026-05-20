@@ -90,6 +90,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_url unless current_user.admin?
   end
 
+  def confirm_cm_or_admin
+    redirect_to root_url unless current_user.admin? || current_user.cm?
+  end
+
   def confirm_admin_user_async
     head :unauthorized unless current_user.admin?
   end

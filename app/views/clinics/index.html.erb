@@ -15,6 +15,7 @@
         <th><%= t 'common.naf' %></th>
         <th><%= t 'common.medicaid' %></th>
         <th><%= t 'activerecord.attributes.clinic.gestational_limit' %></th>
+        <th><%= t('clinics.index.availability', default: 'Availability') %></th>
       </tr>
     </thead>
 
@@ -47,6 +48,30 @@
             <div class="gestational-limit clinic-detail-group">
               <p class="blush"><%= clinic.gestational_limit %></p>
             </div>
+          </td>
+          <td>
+            <% if clinic.availability_verified_at.present? %>
+              <small class="<%= clinic.availability_stale? ? 'text-danger' : 'text-success' %>">
+                ✓ <%= clinic.availability_verified_at.strftime('%b %d') %>
+                <% if clinic.availability_verified_by %>
+                  by <%= clinic.availability_verified_by.name %>
+                <% end %>
+              </small>
+              <% if clinic.availability_notes.present? %>
+                <br><small class="text-muted"><%= clinic.availability_notes %></small>
+              <% end %>
+            <% else %>
+              <small class="text-muted"><%= t('clinics.index.not_verified', default: 'Not verified') %></small>
+            <% end %>
+            <br>
+            <%= form_tag verify_availability_clinic_path(clinic), method: :post, class: 'd-inline' do %>
+              <%= text_field_tag :availability_notes, nil,
+                                placeholder: t('clinics.index.notes_placeholder', default: 'Notes (optional)'),
+                                class: 'form-control form-control-sm d-inline-block w-auto',
+                                size: 15 %>
+              <%= submit_tag t('clinics.index.verify', default: '✓ Verify'),
+                             class: 'btn btn-sm btn-outline-success' %>
+            <% end %>
           </td>
         </tr>
       <% end %>

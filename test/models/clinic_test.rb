@@ -118,4 +118,64 @@ class ClinicTest < ActiveSupport::TestCase
       end
     end
   end
+
+  describe 'availability verification' do
+    before do
+      @user = create :user
+    end
+
+    it 'should mark clinic as verified with timestamp and user' do
+      @clinic.verify_availability!(@user, notes: 'Called and confirmed')
+      @clinic.reload
+
+      assert_not_nil @clinic.availability_verified_at
+      assert_equal @user.id, @clinic.availability_verified_by_id
+      assert_equal 'Called and confirmed', @clinic.availability_notes
+    end
+
+    it 'should associate availability_verified_by with the user' do
+      @clinic.verify_availability!(@user)
+      @clinic.reload
+
+      assert_equal @user, @clinic.availability_verified_by
+    end
+
+    it 'should allow nil notes' do
+      @clinic.verify_availability!(@user)
+      @clinic.reload
+
+      assert_nil @clinic.availability_notes
+    end
+
+    it 'should report stale when never verified' do
+      assert @clinic.availability_stale?
+    end
+
+    it 'should report stale when verified more than 7 days ago' do
+      @clinic.update_columns(availability_verified_at: 8.days.ago)
+      assert @clinic.availability_stale?
+    end
+
+    it 'should not report stale when verified recently' do
+      @clinic.update_columns(availability_verified_at: 1.day.ago)
+      refute @clinic.availability_stale?
+    end
+
+    it 'should accept custom staleness threshold' do
+      @clinic.update_columns(availability_verified_at: 3.days.ago)
+      assert @clinic.availability_stale?(2)
+      refute @clinic.availability_stale?(5)
+    end
+
+    it 'should reject availability_notes over 1000 chars' do
+      @clinic.availability_notes = 'a' * 1001
+      refute @clinic.valid?
+      assert @clinic.errors[:availability_notes].any?
+    end
+
+    it 'should allow availability_notes up to 1000 chars' do
+      @clinic.availability_notes = 'a' * 1000
+      assert @clinic.valid?
+    end
+  end
 end
