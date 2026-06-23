@@ -5,18 +5,38 @@
                           method: 'GET' do |f| %>
     <%= f.hidden_field :locale, value: params[:locale] %>
     <%= f.text_field :search,
-                     placeholder: t('accountants.search_placeholder'),
-                     hide_label: true,
-                     value: params[:search],
-                     class: 'search_form_input accountant mr-4' %>
-
-    <%= f.select :clinic_id,
-                 options_for_select(clinic_options.reject{ |x| x.blank? },
-                                    params[:clinic_id]),
+                 placeholder: t("accountants.search_placeholder"),
                  hide_label: true,
-                 include_blank: t('accountants.search_all_clinics'),
-                 class: 'search_form_input accountant' %>
+                 value: params[:search],
+                 class: "search_form_input accountant mr-4" %>
 
+    <div class="dropdown">
+      <button
+        href="#"
+        data-toggle="dropdown"
+        class="btn dropdown-toggle"
+        id="clinic-dropdown"
+        data-bs-auto-close="outside"
+        aria-expanded="false"
+      >
+        Select a Clinic
+      </button>
+
+      <div class="dropdown-menu" aria-labelledby="clinic-dropdown">
+        <% @clinics.each do |clinic| %>
+          <li class="d-flex dropdown-item btn">
+            <%= check_box_tag(
+              :clinic_id,
+              clinic.id,
+              @selected_clinics.include?(clinic.id),
+              name: "clinic_id[]",
+              id: "clinic_id_#{clinic.id}"
+            ) %>
+            <%= label_tag "clinic_id_#{clinic.id}", clinic.name %>
+          </li>
+        <% end %>
+      </div>
+    </div>
     <%= f.button title: t('common.search'), class: 'btn btn-primary ml-4' do %>
       <i class="fas fa-search"></i>
     <% end %>

@@ -3,6 +3,7 @@ class AccountantsController < ApplicationController
   before_action :confirm_data_access, only: [:index]
   before_action :confirm_data_access_async, only: [:search, :edit]
   before_action :find_patient, only: [:edit]
+  before_action :set_clinics, only: [:index]
 
   def index
     @patients = Patient.where(pledge_sent: true)
@@ -24,6 +25,11 @@ class AccountantsController < ApplicationController
   end
 
   private
+
+  def set_clinics
+    @clinics = Clinic.all
+    @selected_clinics = (params[:clinic_id] || []).map(&:to_i)
+  end
 
   def find_patient
     @patient = Patient.find params[:id]
