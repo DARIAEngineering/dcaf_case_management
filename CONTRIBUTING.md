@@ -27,6 +27,7 @@ Check out the [Documentation!](_docs/)!
 
 ### Agent Assisted Coding
 
+* Please start with a conversation in an issue, existing or new, before starting work and submitting a PR.
 * Human commiters are ultimately responsible for the commits in their PR
 * Please review all code changes and do not submit changes without first understanding the implications of a PR.
 * The codebase should remain human readable and beginner friendly, please follow the codebase norms.
