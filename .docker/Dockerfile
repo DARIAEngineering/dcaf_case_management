@@ -60,7 +60,8 @@ RUN apt-get purge -y ${BUILD_DEPENDENCIES} && apt-get autoremove -y
 # Move the rest of the app over
 COPY . ${DARIA_DIR}
 
-# Build the js and css
+# Build the js and css - this second yarn install is necesary
+RUN yarn install
 RUN yarn build
 RUN yarn build:css
 
