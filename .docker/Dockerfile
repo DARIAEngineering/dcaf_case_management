@@ -61,6 +61,7 @@ RUN apt-get purge -y ${BUILD_DEPENDENCIES} && apt-get autoremove -y
 COPY . ${DARIA_DIR}
 
 # Build the js and css
+RUN yarn install
 RUN yarn build
 RUN yarn build:css
 
