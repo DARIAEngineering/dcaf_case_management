@@ -86,4 +86,7 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.rails_logger  = true
   end
+
+  # Turn off typo checking in callbacks to stop false alerts on our search
+  config.action_controller.raise_on_missing_callback_actions = false
 end

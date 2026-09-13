@@ -9,15 +9,22 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "thursday"
+      time: "12:00"
+      timezone: "America/New_York"
+    cooldown:
+      semver-major-days: 60 # slower is preferable for us
+    labels:
+      - "dependencies"
     groups:
-      ruby-minor-patch:
+      ruby-chores:
         exclude-patterns:
-          - "acts_as_tenant" # DARIAEngineering/dcaf_case_management#3078
+          - "acts_as_tenant" # Doesn't use semvar
         update-types:
           - "minor"
           - "patch"
     reviewers:
-      - "xmunoz"
+      - "lomky"
     labels:
       - "dependencies"
 
@@ -25,13 +32,20 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "thursday"
+      time: "12:00"
+      timezone: "America/New_York"
+    cooldown:
+      semver-major-days: 60
+    labels:
+      - "dependencies"
     groups:
-      js-minor-patch:
+      js-chores:
         update-types:
           - "minor"
           - "patch"
     reviewers:
-      - "xmunoz"
+      - "lomky"
     labels:
       - "dependencies"
 
