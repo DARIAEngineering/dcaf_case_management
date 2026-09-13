@@ -1,73 +1,64 @@
 FROM ruby:3.4.10-slim-bookworm
-MAINTAINER Colin Fleming <c3flemin@gmail.com>
+LABEL org.opencontainers.image.authors="c3flemin@gmail.com"
+LABEL org.opencontainers.image.authors="kathryn.tipton@gmail.com"
 
-# configure environment variable
-# note: move this to three ARG commands when CircleCI updates their docker
-ENV DARIA_DIR=/usr/src/app \
-    BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev" \
-    APP_DEPENDENCIES="git sudo sassc" \
-    AHAB_DEPENDENCIES="ca-certificates curl" \
-    FONTCONFIG_PATH=/etc/fonts \
-    NODE_ENV=development \
-    DOCKER=true \
-    NODE_MAJOR=24
+## NB: Docekrfiles can cache! Think carefully about where you place commands
+## so we don't have to rebuild slow steps unless absolutely necesary
 
-# get our gem house in order
+######## SECTION 1: configurations #########
+
+ARG DARIA_DIR=/usr/src/app
+ARG BUILD_DEPENDENCIES="build-essential libxml2-dev gnupg2 libxslt-dev fontconfig postgresql libpq-dev libyaml-dev curl"
+ARG APP_DEPENDENCIES="git sudo sassc"
+ARG FONTCONFIG_PATH=/etc/fonts
+ARG NODE_ENV=development
+ARG DOCKER=true
+ARG NODE_MAJOR=24
+
 WORKDIR ${DARIA_DIR}
-COPY Gemfile ${DARIA_DIR}/Gemfile
-COPY Gemfile.lock ${DARIA_DIR}/Gemfile.lock
-COPY package.json ${DARIA_DIR}/package.json
-COPY yarn.lock ${DARIA_DIR}/yarn.lock
 
-# install packages
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y \
-    ${BUILD_DEPENDENCIES} \
-    ${APP_DEPENDENCIES} \
-    ${AHAB_DEPENDENCIES} && \
-    gem install bundler --no-document
+######## SECTION 2: installtion ############
 
-# nodejs installation
+# Install system packages
+RUN apt-get update && apt-get upgrade -y && apt-get install -y
+
+# Install firefox for system tests, build dependencies, and app dependencies
+RUN apt-get install -y firefox-esr # !!!! EXTREMELY SLOW STEP !!!
+RUN apt-get install -y ${BUILD_DEPENDENCIES}
+RUN apt-get install -y ${APP_DEPENDENCIES}
+
+# Install nodejs
 RUN mkdir -p /etc/apt/keyrings
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
 RUN apt-get update
 RUN apt-get install nodejs -y
 
-# set up yarn
+# Set up yarn
 RUN corepack enable
 RUN yarn set version 3.6.3
 RUN yarn config set nodeLinker node-modules
 
-# install gemfile and package
+########## SECTION 3: App Dependencies ############
+
+# Ruby Gems
+COPY Gemfile ${DARIA_DIR}/Gemfile
+COPY Gemfile.lock ${DARIA_DIR}/Gemfile.lock
+RUN gem install bundler
 RUN bundle install
+
+# Javascript Modules
+COPY package.json ${DARIA_DIR}/package.json
+COPY yarn.lock ${DARIA_DIR}/yarn.lock
 RUN yarn install
 
 # remove unnecessary build dependencies
 RUN apt-get purge -y ${BUILD_DEPENDENCIES} && apt-get autoremove -y 
 
-# Install firefox for system tests
-RUN apt-get install -y firefox-esr
-
-# Check docker base image for vulnerable packages, ignore non zero exit code (just informative)
-RUN mkdir /tmp/ahab && \
-    cd /tmp/ahab && \
-    curl -o ahab -O -L https://github.com/sonatype-nexus-community/ahab/releases/download/v0.2.3/ahab-linux.amd64-v0.2.3 && \ 
-    chmod +x ahab && \
-    update-ca-certificates && \
-    dpkg-query --show --showformat='${Package} ${Version}\n' | ./ahab chase || true && \
-    rm ahab && \
-    cd -
-
-# remove unnecessary ahab dependencies except ca-certificates, which is needed for nodejs
-RUN ahab_dep=${AHAB_DEPENDENCIES} && \
-    ahab_updated=${ahab_dep##ca-certificates} && \
-    apt-get purge -y ${ahab_updated} && apt-get autoremove -y
+########## SECTION 4: Build the JS and CSS
 
 # Move the rest of the app over
 COPY . ${DARIA_DIR}
-
-RUN yarn install
 
 # Build the js and css
 RUN yarn build
