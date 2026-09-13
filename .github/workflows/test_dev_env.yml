@@ -157,7 +157,7 @@ jobs:
         if: failure()
         with:
           name: capybara-screenshots
-          path: tmp/capybara/
+          path: tmp/screenshots/
         
   scan:
     name: Run static scanners
