@@ -103,7 +103,7 @@ GEM
     bootstrap_form (4.5.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    brakeman (7.1.2)
+    brakeman (8.0.5)
       racc
     builder (3.3.0)
     bullet (8.2.0)
