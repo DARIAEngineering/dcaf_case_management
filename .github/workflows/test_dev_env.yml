@@ -142,7 +142,7 @@ jobs:
 
       # Run Rails tests
       - name: Run Rails test suite
-        run: bin/rails test test/system/update_patient_info_test.rb
+        run: bin/rails test test/system
 
       # Save artifacts
       - name: Store coverage artifact
