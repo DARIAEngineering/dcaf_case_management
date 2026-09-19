@@ -19,7 +19,7 @@ gem "solid_cable" # Use the database-backed adapters for Rails.cache, Active Job
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "kamal", require: false # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "thruster", require: false # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
-gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+gem "image_processing", "~> 2.0" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 
 # Custom
 # General utilities
