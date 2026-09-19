@@ -6178,6 +6178,7 @@
       "email": "Email",
       "for": "for",
       "from": "from",
+      "language_speaker": "%{language} speaker",
       "medicaid": "Medicaid",
       "naf": "NAF",
       "name": "Name",
@@ -6705,6 +6706,8 @@
           "add_missing": "add missing keys to locale data, optionally match a pattern",
           "check_consistent_interpolations": "verify that all translations use correct interpolation variables",
           "check_normalized": "verify that all translation data is normalized",
+          "check_prism": "verify that Prism-scanner produces the same (or better) results as the default parser",
+          "check_reserved_interpolations": "verify that all translations avoid reserved interpolation variables",
           "config": "display i18n-tasks configuration",
           "cp": "copy the keys in locale data that match the given pattern",
           "data": "show locale data",
@@ -6801,6 +6804,10 @@
         },
         "noop": "No unused keys to remove",
         "removed": "Removed %{count} keys"
+      },
+      "reserved_interpolations": {
+        "details_title": "Reserved interpolation keys",
+        "none": "No reserved interpolations found."
       },
       "translate_missing": {
         "translated": "Translated %{count} keys"
@@ -10629,6 +10636,7 @@
       "email": "Email",
       "for": "por",
       "from": "de",
+      "language_speaker": "Hablante de %{language}",
       "medicaid": "Medicaid",
       "naf": "NAF",
       "name": "Nombre",
@@ -30214,6 +30222,8 @@
           "add_missing": "добавить недостающие ключи к переводам",
           "check_consistent_interpolations": "убедитесь, что во всех переводах используются правильные интерполяционные переменные",
           "check_normalized": "проверить, что все файлы переводов нормализованы",
+          "check_prism": "убедитесь, что Prism-scanner выдает те же (или лучшие) результаты, что и анализатор по умолчанию",
+          "check_reserved_interpolations": "проверьте, что все переводы обходятся без зарезервированных интерполяционных переменных",
           "config": "показать конфигурацию",
           "cp": "скопируйте ключи в данных локали, соответствующие заданному шаблону",
           "data": "показать данные переводов",
@@ -30314,6 +30324,10 @@
         },
         "noop": "Нет неиспользуемых ключей",
         "removed": "Удалены ключи (%{count})"
+      },
+      "reserved_interpolations": {
+        "details_title": "Зарезервированные ключи интерполяции",
+        "none": "NЗарезервированных интерполяций не обнаружено."
       },
       "translate_missing": {
         "translated": "Переведены ключи (%{count})"
