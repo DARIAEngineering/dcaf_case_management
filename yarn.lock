@@ -9577,12 +9577,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "react@npm:18.3.1"
-  dependencies:
-    loose-envify: "npm:^1.1.0"
-  checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
+"react@npm:^19.2.8":
+  version: 19.2.8
+  resolution: "react@npm:19.2.8"
+  checksum: 10/a3c697798035e295ca9e51591d3a8700824535cb8c070fac1f8abbe69717ceb99108cbc4ba7b31a606806f336b1eba705705f63b9d39ace198fe51e8990ac843
   languageName: node
   linkType: hard
 
@@ -9829,7 +9827,7 @@ __metadata:
     jquery: "npm:3.7.1"
     jquery-ujs: "npm:1.2.3"
     popper.js: "npm:1.16.1"
-    react: "npm:^18.3.1"
+    react: "npm:^19.2.8"
     react-dom: "npm:^18.3.1"
     react-test-renderer: "npm:^19.2.5"
     sass: "npm:1.99.0"
