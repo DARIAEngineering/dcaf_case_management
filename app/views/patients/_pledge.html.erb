@@ -17,7 +17,7 @@
       <% if current_tenant.pledge_config.blank? %>
         <p><%= t('patient.pledge.step_two.form_disabled') %></p>
       <% elsif current_tenant.pledge_config.remote_pledge? %>
-        <div class="alert alert-danger" style="display:none;"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
+        <div class="alert alert-danger d-none"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
         <p class="row"><strong><%= t('patient.pledge.step_two.generate_note') %></strong></p>
 
         <div class="row">
@@ -32,7 +32,7 @@
           <% end %>
         </div>        
       <% else %>
-        <div class="alert alert-danger" style="display:none;"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
+        <div class="alert alert-danger d-none"> <%= t('patient.pledge.step_two.blank_name_error') %></div>
         <p class="row"><strong><%= t('patient.pledge.step_two.generate_note') %></strong></p>
 
         <div class="row">
@@ -96,7 +96,7 @@
 
   <div class="modal-footer">
     <div class="col">
-      <button type="button" class="btn btn-outline-secondary js-btn-step float-left" style="color:red;" data-dismiss="modal"><%= t('common.no') %></button>
+      <button type="button" class="btn btn-outline-secondary js-btn-step float-left text-danger" data-dismiss="modal"><%= t('common.no') %></button>
     </div>
 
     <div class="col">
