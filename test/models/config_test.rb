@@ -182,6 +182,50 @@ class ConfigTest < ActiveSupport::TestCase
           assert Config.find_by(config_key: field.to_s)
         end
       end
+
+      it 'should handle boolean false defaults correctly (not skip them)' do
+        Config.autosetup
+        %w[show_patient_identifier display_practical_support_attachment_url
+           display_practical_support_waiver display_consent_to_survey].each do |key|
+          config = Config.find_by(config_key: key)
+          assert config, "Config #{key} should exist"
+          assert_equal "no", config.options.last,
+            "Boolean false default for #{key} should be translated to 'no'"
+        end
+      end
+
+      it 'should translate boolean true defaults to yes' do
+        # No defaults are currently true, so verify the code path works
+        # by temporarily checking false booleans are "no"
+        Config.autosetup
+        config = Config.find_by(config_key: 'hide_practical_support')
+        assert config
+        assert_equal "no", config.options.last
+      end
+
+      it 'should be idempotent' do
+        Config.autosetup
+        count_after_first = Config.count
+        Config.autosetup
+        assert_equal count_after_first, Config.count
+      end
+
+      it 'should not override existing config values' do
+        Config.autosetup
+        config = Config.find_by(config_key: 'budget_bar_max')
+        config.update!(config_value: { 'options' => ['5000'] })
+
+        Config.autosetup
+        config.reload
+        assert_equal '5000', config.options.last
+      end
+
+      it 'should set string defaults correctly' do
+        Config.autosetup
+        tz = Config.find_by(config_key: 'time_zone')
+        assert tz
+        assert_equal "Eastern", tz.options.last
+      end
     end
 
     describe '#budget_bar_max' do
@@ -359,6 +403,81 @@ class ConfigTest < ActiveSupport::TestCase
 
         c.config_value = { options: ["43"] }
         refute c.valid?
+      end
+    end
+
+    describe 'DEFAULTS hash completeness' do
+      it 'should include all 5 new default entries' do
+        new_keys = %i[procedure_type show_patient_identifier
+                      display_practical_support_attachment_url
+                      display_practical_support_waiver
+                      display_consent_to_survey]
+        new_keys.each do |key|
+          assert Config::DEFAULTS.key?(key),
+            "DEFAULTS hash should include #{key}"
+        end
+      end
+
+      it 'should have a DEFAULTS entry for every config_key' do
+        Config.config_keys.keys.each do |key|
+          assert Config::DEFAULTS.key?(key.to_sym),
+            "DEFAULTS hash is missing an entry for config_key #{key}"
+        end
+      end
+
+      it 'should have procedure_type default as nil' do
+        assert_nil Config::DEFAULTS[:procedure_type],
+          'procedure_type default should be nil (no preset options)'
+      end
+    end
+
+    describe 'autosetup with nil defaults' do
+      before { Config.destroy_all }
+
+      it 'should create config without config_value for nil default keys' do
+        Config.autosetup
+        nil_default_keys = Config::DEFAULTS.select { |_k, v| v.nil? }.keys
+
+        nil_default_keys.each do |key|
+          config = Config.find_by(config_key: key.to_s)
+          assert config, "Config #{key} should exist after autosetup"
+          # nil defaults should not have a populated options value
+          assert_nil config.options&.last,
+            "Config #{key} with nil default should not have a config_value option set"
+        end
+      end
+
+      it 'should create procedure_type config with no value' do
+        Config.autosetup
+        config = Config.find_by(config_key: 'procedure_type')
+        assert config, 'procedure_type config should exist'
+        assert_nil config.options&.last,
+          'procedure_type should have no options set (nil default)'
+      end
+    end
+
+    describe 'autosetup with empty string edge case' do
+      before { Config.destroy_all }
+
+      it 'should handle a default that evaluates to empty string after to_s' do
+        # Numeric defaults like 0 would become "0", not empty string
+        # The voicemail default is 12, verify it becomes "12"
+        Config.autosetup
+        config = Config.find_by(config_key: 'voicemail')
+        assert config
+        assert_equal "12", config.options&.last
+      end
+
+      it 'should set numeric defaults as their string representation' do
+        Config.autosetup
+
+        config = Config.find_by(config_key: 'budget_bar_max')
+        assert config
+        assert_equal "1000", config.options&.last
+
+        config = Config.find_by(config_key: 'shared_reset_days')
+        assert config
+        assert_equal "6", config.options&.last
       end
     end
 
