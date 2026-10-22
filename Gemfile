@@ -27,9 +27,9 @@ gem 'acts_as_tenant', '~> 0.6' # Run multiple funds on one server
 gem 'strong_password', '~> 0.0.10' # Strong Password for user password validation for folks not on oauth
 
 gem 'state_geo_tools' # state list
-gem 'kaminari', '~> 1.2' # For pagination
+gem 'kaminari', '~> 1.3' # For pagination
 gem 'render_async', '~> 2.1' # load slow partials asynchronously
-gem 'view_component', '~> 4.7' # build reusable & encapsulated view components in Ruby
+gem 'view_component', '~> 4.18' # build reusable & encapsulated view components in Ruby
 gem 'i18n-js', '~> 4.2' # Export i18n translations to JSON
 
 # Asset pipeline
